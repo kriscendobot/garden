@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T18:50:32Z_
+_As of 2026-07-22T18:53:45Z_
 
 ## Latest
 
@@ -387,6 +387,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > comment the outcome (link the PR) on [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59).
 >
 > <!-- garden-deadline-overrun: 1 -->
+
+- `poison-endojs-endo-but-for-bots-pr806-conduct-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr806-conduct-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr806-conduct; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr806-conduct) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr806-conduct
+>
+> --- original job body ---
+> Role: conductor
+>
+> For endojs/endo-but-for-bots PR #806, mark the PR ready for review if it is still draft, then carry the merge to completion. This review-feedback job has resolved every ask in kriskowal review 4752810208. Head 7f95f89b7400a28aa3f093e44055a3da4f03bba1 has all required checks green. kriskowal has been re-requested for a current approval after the fix. Wait for a current maintainer approval, rebase if needed, and merge via the conductor lifecycle. This is bot-repo work and authorizes the undraft and merge actions.
 
 - `poison-endojs-pr160-ci-fix-finalize-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-pr160-ci-fix-finalize-deadline-overrun.md)
 
@@ -793,20 +806,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 693.9M _(+553.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 693.8M _(+551.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (14)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-master-ci-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-master-ci-fix.md) — Propose a fix for red CI on endojs/endo-but-for-bots master
 - [`endojs-endo-but-for-bots-pr703-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr703-restack-pr737-line.md) — Restack PR #703 (SturdyRef bridge cut 5, foreign-SturdyRef internalization) o...
-- [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
 - [`endojs-endo-but-for-bots-pr807-5e6eb4e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-5e6eb4e5.md) — attention directive on endojs/endo-but-for-bots PR #807
 - [`endojs-endo-but-for-bots-pr809-review-e892a99c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-e892a99c.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`endojs-endo-but-for-bots-pr824-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-merge.md) — Merge (conductor) endojs/endo-but-for-bots PR #824
@@ -842,6 +854,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr704-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #704
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
+- [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #809
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
