@@ -46,3 +46,10 @@ each — do not force a "yes."
   to add) and a recommendation (worth harnessing vs not, vs which task-classes).
 - Cite primary sources; flag anything UNVERIFIED. An honest "not worth harnessing
   because …" is a good outcome.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-22T07:11:13Z
