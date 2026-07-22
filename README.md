@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:04:40Z_
+_As of 2026-07-22T06:06:03Z_
 
 ## Latest
 
-The **daemon-store-family-build** orchestration [HALTED](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) at Phase 4: the child `daemon-store-phase4-sorted` (sorted variants + range queries for [endo-but-for-bots#809](https://github.com/kriskowal/garden/pull/809)'s persistent-stores design) deterministically overran the 2400s handler budget, so the reaper poisoned it into `plan/` (held, gate=go-ahead) and swept the downstream Phase 5/6 children — 3/6 done before the halt. It needs splitting into claim-sized stages or a detached run before it can proceed. The **xs2rust-endor** press (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is hitting the same wall repeatedly — over a dozen parked press ticks and a fresh overrun this cycle; its last stall report flagged a hard blocker (SES/XS can't bundle `node:crypto` pulled in by `blobref.js` during `daemon_bootstrap.js` generation), and it has now taken maintainer direction to add an XS crypto polyfill (option a). On the completed side, PR [#705](https://github.com/endojs/endo-but-for-bots/pull/705) landed a fix (pushed `a689a78fb`) and the PR [#719](https://github.com/endojs/endo-but-for-bots/pull/719) review finished; a review of PR [#160](https://github.com/endojs/endo-but-for-bots/pull/160) and a refresh of [#719](https://github.com/endojs/endo-but-for-bots/pull/719) remain in flight.
+The daemon-store-family-build orchestration **halted**: Phase 4 (`daemon-store-phase4-sorted`, issue [#59](https://github.com/kriskowal/garden/issues/59)) deterministically overran the 2400s handler budget and was poisoned/parked in the plan queue under a go-ahead gate, sweeping the Phase 5 and 6 children with it — 3 of 6 phases landed before the halt. It needs a maintainer decision: split it into claim-sized stages or raise the handler timeout, then promote. The long-running [xs2rust-endor](https://github.com/endojs/endo-but-for-bots/pull/600) (PR #600) press hit the same wall-clock ceiling and issued a final stall notice: the Rust engine is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green through stage 6), but `daemon_bootstrap.js` generation is blocked because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle. The maintainer directed option (a) — add an XS crypto polyfill — and a gardener has acknowledged and begun implementing. On the board, `improve-project-worktree-dep-cache` completed; 27 PRs remain parked for review, the oldest being [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (22d) and [#101](https://github.com/endojs/endo-but-for-bots/pull/101) (19d).
 
 ## Parked for maintainer feedback
 
@@ -127,28 +127,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.8M | $1044.14 _(notional, rate-card)_ | no quota set |
-| Codex | 659.4M _(+509.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 94.8M | $1045.07 _(notional, rate-card)_ | no quota set |
+| Codex | 659.7M _(+511.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr160-review-85ea7a37`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-85ea7a37.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr719-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #719
-- [`improve-project-worktree-dep-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-project-worktree-dep-cache.md) — scripts/jobs/ensure-project-worktree.sh
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-055018.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3232)
+### tada (3233)
+- [`improve-project-worktree-dep-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-project-worktree-dep-cache.md) — Completion report: improve-project-worktree-dep-cache
 - [`daemon-store-family-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) — orchestration daemon-store-family-build — HALTED
 - [`minion-town-agenda-review-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-055018.md) — Reviewed agenda, journal, repo, PR/CD state, and deployed edge. Posted substa...
 - [`endojs-endo-but-for-bots-pr705-review-207112c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-review-207112c7.md) — Implemented and pushed a689a78fb for PR #705.
 - [`endojs-endo-but-for-bots-pr719-review-9fcf7da1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-review-9fcf7da1.md) — Completion report: endojs/endo-but-for-bots PR #719 review (kriskowal, review...
-- [`design-endo-platform-neutral-hash`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-platform-neutral-hash.md) — Completion report
-- … and 3227 more
+- … and 3228 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
