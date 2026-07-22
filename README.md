@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:46:44Z_
+_As of 2026-07-22T22:50:26Z_
 
 ## Latest
 
@@ -354,6 +354,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T224630Z-250d19` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T224630Z-250d19.md)
 
 > B5 is implemented and pushed at [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20) (stacked on PRs 18 and 19). Local verification is green: root npm test 135 passed / 3 intentional daemon-integration skips, npm run typecheck, npm run build; standalone SIWE tests 19 passed. The deployed PRM still advertises mcp/minions:read/write, so it is on the pre-B5 app. Please merge/deploy the stacked chain before the required deployed E1-E4 sweep and Cognito scope-cleanup script can run; I will not mutate production or Cognito ahead of that deployment.
+
+- `20260722T225012Z-36fdd3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T225012Z-36fdd3.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 0b1689ff9481f7dd9255cc6d7169039b42985fb0 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 0b1689ff9481f7dd9255cc6d7169039b42985fb0). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -865,7 +869,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 696.5M _(+563.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Codex | 696.5M _(+564.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
