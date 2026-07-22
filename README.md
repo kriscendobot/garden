@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T02:42:25Z_
+_As of 2026-07-22T02:43:44Z_
 
 ## Latest
 
-A gardener consolidated the maintainer inbox — **199 unread entries folded into ~30 open items across 13 topics** ([omnibus digest](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260721T171232Z-297e3f.md)); every original was acknowledged, and it flags that the whole `@endo/exo-google-sheets` tree has now sat 11 days behind a single stale `CHANGES_REQUESTED` review on [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), plus several green-and-merge-gated items (M2 shims [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719), M3 [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)) awaiting your merge authority.
+The xs2rust-endor engine-port press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is the loudest signal and it is a stall, not progress: every hourly dispatch since ~16:50Z (`165010`, `180501`, `202001`, `012002`) deterministically overran the 2400s handler budget, was reaped, and parked as a poison job at `gate: go-ahead`. It cannot fit a single claim-scoped handler and needs a dedicated builder working across dispatches (or the schedule split into claim-sized stages) rather than the hourly press — two more presses sit in `doin` right now heading for the same wall.
 
-On the code side, finbot [#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI without changing any default. The iroh lane build for minion.town [#12](https://github.com/kriscendobot/minion.town/pull/12) reached its buildable edge, opening draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777) — full deploy blocks on merging #777 to `llm`. A shepherd got [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s own 21 URL tests green but found the remaining red is pre-existing master debt (jsdoc, text-codec permits, stale action pins), recommending a separate master-greening pass rather than smuggling fixes into the URL PR.
-
-The recurring **xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) remains broken**: three more hourly dispatches deterministically overran the 2400s handler budget and were poison-parked (after earlier leaking 356 orphaned processes). The omnibus is explicit that this work needs a dedicated builder able to span dispatches, not the hourly press — worth acting on to stop the noise. Also standing: the deployed-root cleanup on both hosts (`fix-garden-root-test-leak-cleanup`) and a stalled-since-07-17 deploy now that the corrupted remote is fixed. This week's Qwen watch found no harnessable upgrade over qwen3.6.
+Real forward motion landed elsewhere: [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha`-as-default question CLI-evaluable (`finbot-eval --significance-alpha=…`) without changing any default or proposal hash. The ocapn-iroh lane build ([minion.town#12](https://github.com/kriscendobot/minion.town/pull/12)) reached its buildable edge, opening draft [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777) — full deploy blocks on merging #777 to `llm`, which is open and conflicting. A shepherd got [#719](https://github.com/endojs/endo-but-for-bots/pull/719) partially green and diagnosed the rest as pre-existing master debt (jsdoc lint, TextEncoder/Decoder permit tests from `536f82d18`, stale zizmor action pins), recommending a dedicated master-greening pass rather than smuggling those fixes into the URL-shim PR. The weekly Qwen watch found no new harnessable model. Separately, the consolidated maintainer-inbox omnibus folded 199 entries into ~30 open decisions across 13 topics — the esheets/[#621](https://github.com/endojs/endo-but-for-bots/pull/621) re-review (11 days dammed) and the SturdyRef arbitration are the longest-stalled asks.
 
 ## Parked for maintainer feedback
 
@@ -208,6 +206,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T000219Z-c63368` — from gardener:kriscendobot-minion.town-pr12-a3def291, reply_to `kriscendobot-minion.town-pr12-a3def291` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T000219Z-c63368.md)
 
 > build of the ocapn-iroh lane ([kriscendobot/minion.town#12](https://github.com/kriscendobot/minion.town/issues/12)) done to the buildable edge: opened [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/issues/820) (draft) with the Gate-2 listener boot script, stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777). Full lane deploy is blocked on a decision only you can make — merging [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777) to llm (still open + conflicting with llm). No minion.town change (the deploy record is a capture-once-live per the design). Summary posted on [kriscendobot/minion.town#12](https://github.com/kriscendobot/minion.town/issues/12). Want me to also post a weave/rebase job for [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/issues/777), or hold?
+
+- `20260722T024320Z-df140c` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T024320Z-df140c.md)
+
+> gardener job 'xs2rust-endor-press-20260722-012002' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -585,8 +587,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.9M | $1000.99 _(notional, rate-card)_ | no quota set |
-| Codex | 579.5M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 89.9M | $1001.35 _(notional, rate-card)_ | no quota set |
+| Codex | 580.1M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
