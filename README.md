@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T14:50:33Z_
+_As of 2026-07-22T15:06:20Z_
 
 ## Latest
 
-The **xs2rust-endor press schedule is stuck in a deadline-overrun loop** and needs maintainer intervention: three consecutive hourly press jobs (033502, 045001, 055018) each hit the 2400s handler wall and were poisoned after one cycle, joining a parked backlog of ~30 earlier press jobs. The driver reported it reached stages 1–6 with ~2750 dual-run oracle tests green but is **hard-blocked** on daemon_bootstrap.js generation — `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle; it acknowledged direction to add an XS crypto polyfill before the schedule poisoned again. A separate orphan audit came back **GREEN (0 orphans)** on `endolin-garden-ece02cb4`, but flagged that the reaper process-group fix (commit 8eb3354a7e, in origin/main2) is **not yet deployed to the root** — worth a deliberate deploy.
+Two PRs are blocked on your review. [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft with green CI and a clean merge state — the only gate is a stale approval: your APPROVED review sits on head 9b40eef while the current head is a0cd0d0, so the conductor needs a fresh approval before it merges. The [#804](https://github.com/endojs/endo-but-for-bots/pull/804) doc-rename job is holding for an intent confirm before renaming `cbors.md`/`syrups.md` to the `-frame` names that actually shipped (the docs' "renamed to @endo/syrups" prose is false vs. what landed). [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced — the optional llmProgram role now runs in a fresh SES compartment with attenuated tool calls and CI is green — but its gauntlet is stuck behind the panel model's weekly limit (resets Jul 25).
 
-Two PRs are parked on approval mechanics: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft, clean, and green but its only APPROVED review is on the stale head (9b40eef vs current a0cd0d0) — **re-approve the current head to merge**; and [finbot#4](https://github.com/kriscendobot/finbot/pull/4) has its Actions check green but is blocked because the panel model is at its weekly limit (resets Jul 25 03:00 UTC). A review job on [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) is **holding for intent confirmation** before renaming design docs (`cbors.md`→`cbor-frame.md`, `syrups.md`→`syrup-frame.md`) to match what actually shipped.
-
-Also notable: the `daemon-store-family-build` orchestration **halted** after its Phase 4 child (`daemon-store-phase4-sorted`) overran and was poisoned (3/6 done), and a researcher verdict on **Kimi K3** landed — local hosting is infeasible (2.8T-param MoE, >10× the box's RAM), but a hosted arm via Moonshot's OpenAI-compatible `/v1` is cheap to wire and maps onto the bid-auction router, gated only on a funded API key.
+The board otherwise barely moved because three heavyweight jobs keep poisoning on the 2400s handler wall. The xs2rust-endor press-driver ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) overran and was poisoned on four consecutive ticks, blocked on `daemon_bootstrap.js` generation failing where `@endo/platform` blobref imports `node:crypto` that the XS bundler can't handle; you directed option (a), add an XS crypto polyfill, and implementation was starting. Separately the `daemon-store-family-build` orchestration halted after `daemon-store-phase4-sorted` overran (3/6 phases done), and `endojs-pr160-ci-fix-finalize` poisoned the same way — all three exceed a single claim and need splitting or a detached run. A researcher verdict on harnessing Kimi K3 also landed: local serving is off by >10× on memory (no fit), but a hosted OpenAI-compatible arm is cheap to wire and worth a bounded trial, gated on a funded Moonshot key.
 
 ## Parked for maintainer feedback
 
@@ -748,8 +746,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.2M | $1127.68 _(notional, rate-card)_ | no quota set |
-| Codex | 680.0M _(+519.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 104.5M | $1135.17 _(notional, rate-card)_ | no quota set |
+| Codex | 679.8M _(+519.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -873,5 +871,5 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 20 gardeners
-- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 10 gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 0 gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 0 gardeners
