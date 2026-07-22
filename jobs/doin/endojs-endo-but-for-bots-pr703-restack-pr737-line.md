@@ -40,3 +40,10 @@ Task (weaver):
    placed under home), report exactly which suites ran and which were blocked and why.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-22T20:33:13Z
