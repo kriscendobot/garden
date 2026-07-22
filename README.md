@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:24:07Z_
+_As of 2026-07-22T06:29:08Z_
 
 ## Latest
 
-The readable-blob range-attenuation design landed as draft [endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/pull/826), the one job to complete since the last bulletin. Two long-running efforts stalled hard and need maintainer attention: the hourly xs2rust-endor press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) and the Phase-4 sorted-store build both deterministically overran the 2400s handler budget and were poisoned to `jobs/plan/` (held for go-ahead), halting the `daemon-store-family-build` orchestration at 3/6 after it swept the Phase-5 and Phase-6 children. The xs2rust driver reports Rust stages 1–6 complete with ~2750 dual-run oracle tests green, but it is blocked on a real decision — `daemon_bootstrap.js` generation fails because `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; the driver acknowledged maintainer direction to add an XS crypto polyfill, so that press is mid-implementation but keeps timing out and should likely be split into claim-sized stages or run detached. Separately, review follow-ups on [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792) were implemented and pushed (all three items in 453a9ffbf6), with a companion audit confirming the conductor approval-gate root cause; a fresh #792 follow-up build is in flight.
+Two long-running jobs hit the 2400s handler wall and were poisoned this cycle. The `daemon-store-phase4-sorted` build (Phase 4 sorted variants for issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) overran deterministically, which **halted the serial `daemon-store-family-build` orchestration** — 3 of 6 children done, with phase 5 (parity) and phase 6 (CLI/WUI) swept. The standing `xs2rust-endor` press for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) likewise overran; before poisoning it reported the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked on `daemon_bootstrap.js` generation failing because `blobref.js` imports `node:crypto` the SES/XS bundler can't handle — it acknowledged maintainer direction to add an XS crypto polyfill, and fresh press ticks are already back in flight. Both poison jobs are parked held in `plan/` pending a human split-or-promote; watchdogs recommend splitting into claim-sized stages or detaching.
+
+On the merge front, review fixups landed for [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792) (all three items in one commit; root cause of the stuck conductor gate confirmed) and [#160](https://github.com/endojs/endo-but-for-bots/pull/160), [#719](https://github.com/endojs/endo-but-for-bots/pull/719) was refreshed, and a new design PR [#826](https://github.com/endojs/endo-but-for-bots/pull/826) opened for ReadableBlob range attenuation. The board is otherwise quiet — no queued work, four jobs in flight — with 27 PRs parked awaiting kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -251,15 +253,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.1M | $1047.25 _(notional, rate-card)_ | no quota set |
-| Codex | 667.4M _(+518.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 95.2M | $1047.74 _(notional, rate-card)_ | no quota set |
+| Codex | 669.9M _(+518.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-daemon-792-http-web-seed-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-792-http-web-seed-followups.md) — Follow-up build: address @kriskowal's review on endojs/endo-but-for-bots#792 ...
+- [`endojs-endo-but-for-bots-pr737-c18afe76`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr737-c18afe76.md) — attention directive on endojs/endo-but-for-bots PR #737
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-055018.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
