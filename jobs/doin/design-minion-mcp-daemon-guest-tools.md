@@ -75,3 +75,10 @@ submitter: kriskowal
 - Open questions are explicit; the build decomposition is executable by a future
   builder without further design clarification, or the report flags the blockers.
 - Report names the design slug and the PR number.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-22T07:28:08Z
