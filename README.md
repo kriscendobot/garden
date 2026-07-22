@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:08:51Z_
+_As of 2026-07-22T22:09:07Z_
 
 ## Latest
 
@@ -853,7 +853,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 696.3M _(+561.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 696.3M _(+561.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (7)
@@ -865,20 +865,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260722-220501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (5)
+### doin (4)
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`finbot-progress-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260722-220501.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3328)
+### tada (3329)
+- [`finbot-progress-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260722-220501.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/4 with fresh local ve...
 - [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-conduct.md) — orchestration-failed: true
 - [`endojs-endo-but-for-bots-pr807-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-rebase.md) — Rebased PR #807 onto llm and force-with-lease pushed head 640059855.
 - [`endo-sturdyref-restack-701-704-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-restack-701-704-pr737-line.md) — orchestration endo-sturdyref-restack-701-704-pr737-line — complete
 - [`endojs-endo-but-for-bots-pr704-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr704-restack-pr737-line.md) — Restacked PR #704 onto bridge cut 5 and force-with-lease pushed b212146bac9e2...
-- [`endojs-endo-but-for-bots-pr703-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr703-restack-pr737-line.md) — Restacked state confirmed: #703 already merged from current bridge-4 head 67b...
-- … and 3323 more
+- … and 3324 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
