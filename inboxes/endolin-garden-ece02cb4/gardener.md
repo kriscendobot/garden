@@ -894,3 +894,12 @@ Inspect via `git -C journal cat-file -p 77e59dff5cd6e0d4a140644cb3862a9547d7c32c
 - Context: gardener-12 on endolin-garden-ece02cb4: job 'deadmail-issue-comment-5047612017' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 77e59dff5cd6e0d4a140644cb3862a9547d7c32c`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-22T17:43:19Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 3968b7d29b2876b448eafec016a6c8d84ce1de57
+- Context: gardener-15 on endolin-garden-ece02cb4: job 'minion-town-mcp-b4-full-facet-surface' exit-0-unsatisfying but elapsed near-constant (587,587s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 3968b7d29b2876b448eafec016a6c8d84ce1de57`.
