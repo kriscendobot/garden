@@ -324,9 +324,12 @@ fi
 # deterministic per job base, every reaper-requeue retry died identically,
 # wedging the job until a by-hand prune. Prune resolves it: it only drops
 # entries whose working tree is absent, so live checkouts are untouched.
-if git --git-dir="$bare" worktree list --porcelain 2>/dev/null | grep -qxF "worktree $wt"; then
-  git --git-dir="$bare" worktree prune 2>/dev/null || true
-fi
+# `worktree list --porcelain` can print a stale path through an escaped or
+# otherwise non-identical spelling, while `worktree add` still considers that
+# same missing checkout registered.  When the deterministic destination is
+# absent there is no live checkout to preserve at that path, so prune every
+# genuinely missing entry instead of relying on an exact textual match.
+[ ! -e "$wt" ] && git --git-dir="$bare" worktree prune 2>/dev/null || true
 mkdir -p "$GARDEN_SCRATCH"
 
 # Resolve the requested branch into the bare clone's remote-tracking ref
