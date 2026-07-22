@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T21:50:26Z_
+_As of 2026-07-22T22:03:46Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 5h)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 4d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 5d)
@@ -844,11 +844,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 695.9M _(+558.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 
-### doin (6)
-- [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+### doin (5)
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-conduct.md) — ---
