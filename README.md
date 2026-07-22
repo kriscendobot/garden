@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T18:15:31Z_
+_As of 2026-07-22T18:24:28Z_
 
 ## Latest
 
@@ -310,6 +310,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T181442Z-f6519a` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T181442Z-f6519a.md)
 
 > [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824) now has successful current Browser Tests, CI (docs-only), and security-audit runs. The merge spine sees an obsolete cancelled test check alongside the succeeding current test and exits CI-red, but the substantive blocker is still approval: kriskowal\047s only APPROVED review is attached to 9b40eef9, not current head a0cd0d00. A fresh approval is required before merging.
+
+- `20260722T182355Z-c1dbe0` — from gardener:endojs-endo-but-for-bots-pr806-conduct, reply_to `endojs-endo-but-for-bots-pr806-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T182355Z-c1dbe0.md)
+
+> [https://github.com/endojs/endo-but-for-bots/pull/806](https://github.com/endojs/endo-but-for-bots/pull/806) is ready, rebased, and has 22 passing fresh CI checks at 950528e20cace8d87a4a8dfee73e53ed838968f6. The sole remaining gate is a current approval on that head; the earlier approval is attached to 1e4f91049. Please approve when ready and I will merge it.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -785,7 +789,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 683.2M _(+549.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Codex | 683.2M _(+550.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
