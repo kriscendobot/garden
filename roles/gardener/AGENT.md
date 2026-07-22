@@ -46,6 +46,15 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   would corrupt each other — the endo-but-for-bots #58 corruption this helper
   exists to prevent. Concurrent same-branch pushes still race legitimately at the
   git-push CAS; the *working trees* must never be shared.
+  `ensure-project-worktree.sh` now also **provisions `node_modules` for you**:
+  on a fresh checkout it populates deps from a warm per-repo cache (native modules
+  built once, hardlinked in) rather than leaving you an empty tree to
+  `yarn install` by hand — so don't reflexively re-install. Read its stderr for
+  the deterministic signal: `WARM-CACHE hit`/`built` means deps are ready;
+  `WARM-CACHE MISS+FAIL` (or `dep-cache skip`) means they are not — if a native
+  build fails on *every* host, that is a container-image toolchain gap
+  (build-essential + python), which you should flag, not paper over. A resume
+  re-uses your in-flight tree untouched (deps are not repopulated).
 - **When your work decomposes into ordered parts, orchestrate it — don't pile
   sub-jobs.** The standing pattern (kriskowal 2026-07-01) for MULTI-PART work is
   one **orchestration job** over parked child sub-jobs, not a loose pile of posts

@@ -36,6 +36,28 @@
 # existing, validly-registered worktree is therefore REUSED as-is; only a missing
 # or stale/broken directory is (re)created off the branch tip.
 #
+# ── Warm dependency cache (the native-module rebuild recurrence) ─────────────
+# A fresh worktree from `git worktree add` carries only git-tracked files;
+# node_modules is gitignored, so every gardener used to improvise `yarn install`
+# by hand in an empty tree. For a repo with a NATIVE module (endo-but-for-bots'
+# better-sqlite3), that re-ran the native compile in every per-job worktree, and
+# where the toolchain is flaky it re-FAILED N times, ad-hoc, with success/failure
+# visible only in agent prose (journal 054129Z / 054640Z). This script now
+# provisions node_modules itself, ONCE per lockfile per host, from a warm shared
+# cache: the first fresh worktree on a given lockfile runs the real installer
+# (native builds included) and SNAPSHOTS the resulting node_modules trees into a
+# content-addressed cache keyed by <owner>-<repo>/<lockfile-hash>; every later
+# fresh worktree POPULATES from that cache with a hardlink copy (`cp -al`, the
+# pnpm-linker hardlink pattern the local-run recipe uses), so the compiled .node
+# inodes are shared, not recompiled. A lockfile change is a new key → an
+# automatic rebuild ("refresh when the lockfile changes"). It is best-effort and
+# FAILURE-TOLERANT: a provisioning failure emits a deterministic WARM-CACHE log
+# line but NEVER fails the worktree handoff, and it is SKIPPED on a resume-reuse
+# (preserving the resume-stability guarantee). If the native build never succeeds
+# here (missing compiler/python), the warm cache cannot manufacture a build that
+# never existed: the install exits non-zero, we emit a WARM-CACHE MISS+FAIL line
+# naming the container-image toolchain fallback, and cache NOTHING.
+#
 # ── Isolation guarantees asserted by test/project-worktree-isolation-test.sh ──
 #   * two DIFFERENT bases, same repo+branch  → DISTINCT paths (the #58 fix);
 #   * same base, same repo+branch (a requeue) → the SAME path, work preserved;
@@ -57,6 +79,205 @@ case "$repo" in
 esac
 owner="${repo%/*}"
 name="${repo#*/}"
+
+# ── warm dependency cache: config + helpers (see the file header) ─────────────
+# The cache lives under $GARDEN_STATE — per-host, persistent, OUTSIDE any
+# reset-prone worktree (the designed home for host-local caches), and on the same
+# filesystem as $GARDEN_SCRATCH (both under $GARDEN_ROOT by default) so the
+# hardlink populate is a genuine same-fs `cp -al`. It is keyed by
+# <owner>-<repo>/<lockfile-hash>, sitting next to the standing bare clone's data.
+: "${GARDEN_DEP_CACHE_ROOT:=$GARDEN_STATE/dep-cache}"
+: "${GARDEN_DEP_INSTALL_TIMEOUT:=900}"     # seconds; a wedged install must not wedge the handoff
+: "${GARDEN_DEP_LOCK_WAIT:=600}"           # seconds a 2nd concurrent first-job waits for the builder
+: "${GARDEN_DEP_CACHE_TTL_DAYS:=14}"       # a sibling lockfile-hash cache idle this long is prunable
+
+# list_node_modules <root> — the OUTERMOST node_modules dirs (the root one plus
+# each workspace package's), one relative path per line. `-prune` stops descent
+# INTO a matched node_modules, so the pnpm linker's nested node_modules/.store/…
+# node_modules are carried wholesale with their parent, never re-listed.
+list_node_modules() {
+  find "$1" -type d -name node_modules -prune -printf '%P\n' 2>/dev/null
+}
+
+# link_tree <src> <dst> — populate <dst> from <src> sharing file storage. Prefer
+# a hardlink copy (`cp -al`: instant, zero data copy, shares the compiled native
+# .node inodes — the whole point); fall back to a plain recursive copy when src
+# and dst straddle filesystems (EXDEV) so reuse still works, just without the
+# disk saving. `cp -a` preserves symlinks AS symlinks, which the pnpm linker's
+# relative .store symlink web needs. Assumes node_modules is treated as immutable
+# by the toolchain (yarn/pnpm relink rather than write-in-place), so a shared
+# inode is never mutated under another worktree.
+link_tree() {
+  local src="$1" dst="$2"
+  mkdir -p "$(dirname "$dst")" 2>/dev/null || return 1
+  cp -al "$src" "$dst" 2>/dev/null && return 0
+  rm -rf "$dst" 2>/dev/null || true
+  cp -a "$src" "$dst" 2>/dev/null
+}
+
+# dep_install_cmd <wt> — echo the install command for the worktree's package
+# manager, or return 1 when none is usable. GARDEN_DEP_INSTALL_CMD overrides
+# everything (per-project/test escape hatch). yarn goes through corepack when a
+# bare `yarn` is absent (the fresh-worktree norm; see pre-pr-checklist § Pitfalls).
+dep_install_cmd() {
+  local wt="$1"
+  [ -n "${GARDEN_DEP_INSTALL_CMD:-}" ] && { printf '%s\n' "$GARDEN_DEP_INSTALL_CMD"; return 0; }
+  if [ -f "$wt/yarn.lock" ]; then
+    command -v yarn     >/dev/null 2>&1 && { printf '%s\n' "yarn install --immutable"; return 0; }
+    command -v corepack >/dev/null 2>&1 && { printf '%s\n' "corepack yarn install --immutable"; return 0; }
+  fi
+  if [ -f "$wt/pnpm-lock.yaml" ] && command -v pnpm >/dev/null 2>&1; then
+    printf '%s\n' "pnpm install --frozen-lockfile"; return 0
+  fi
+  if [ -f "$wt/package-lock.json" ] || [ -f "$wt/npm-shrinkwrap.json" ]; then
+    command -v npm >/dev/null 2>&1 && { printf '%s\n' "npm ci"; return 0; }
+  fi
+  if [ -f "$wt/package.json" ]; then
+    command -v corepack >/dev/null 2>&1 && { printf '%s\n' "corepack yarn install"; return 0; }
+    command -v npm      >/dev/null 2>&1 && { printf '%s\n' "npm install"; return 0; }
+  fi
+  return 1
+}
+
+# dep_cache_prune <slug> <keep-lockhash> — best-effort removal of sibling
+# lockfile-hash caches under this slug that have been idle (unbuilt AND unhit)
+# longer than the TTL, keeping the current one. Called under the per-slug lock so
+# it never races a concurrent provisioner for this slug; a fresh sibling hash
+# (just built or just hit → recent mtime) is never pruned.
+dep_cache_prune() {
+  local slug="$1" keep="$2" d
+  local root="$GARDEN_DEP_CACHE_ROOT/$slug"
+  [ -d "$root" ] || return 0
+  find "$root" -mindepth 1 -maxdepth 1 -type d ! -name "$keep" \
+       -mtime +"$GARDEN_DEP_CACHE_TTL_DAYS" -print 2>/dev/null \
+    | while IFS= read -r d; do
+        rm -rf "$d" 2>/dev/null && log "dep-cache prune: removed idle $d"
+      done
+  return 0
+}
+
+# provision_deps <wt> <slug> — populate <wt>'s node_modules from the warm cache,
+# building the cache once if this lockfile has not been seen on this host. Every
+# path returns 0: this is best-effort and never fails the worktree handoff. All
+# human/diagnostic output goes to stderr via log(); stdout stays reserved for the
+# caller's single worktree-path line.
+provision_deps() {
+  local wt="$1" slug="$2"
+  [ "${GARDEN_SKIP_DEP_PROVISION:-0}" = 1 ] && { log "dep-cache skip: GARDEN_SKIP_DEP_PROVISION=1"; return 0; }
+
+  # Which lockfile identifies the dependency closure? First match wins.
+  local lockfile="" lf
+  for lf in yarn.lock pnpm-lock.yaml package-lock.json npm-shrinkwrap.json; do
+    [ -f "$wt/$lf" ] && { lockfile="$lf"; break; }
+  done
+  if [ -z "$lockfile" ]; then
+    log "dep-cache skip: no lockfile in $wt (nothing to provision)"
+    return 0
+  fi
+
+  # Content-address the cache by the lockfile hash: a lockfile change → a new key
+  # → an automatic rebuild; an unchanged lockfile across branches/PRs → a shared
+  # warm cache. git hash-object matches how git already addresses the same bytes.
+  local lockhash
+  lockhash="$(git hash-object "$wt/$lockfile" 2>/dev/null \
+              || sha1sum "$wt/$lockfile" 2>/dev/null | cut -d' ' -f1)"
+  [ -n "$lockhash" ] || { log "WARN: dep-cache skip: could not hash $wt/$lockfile"; return 0; }
+
+  local slug_dir="$GARDEN_DEP_CACHE_ROOT/$slug"
+  local cache_dir="$slug_dir/$lockhash"
+  local complete="$cache_dir/.complete"
+  local lock="$slug_dir/.lock"
+  mkdir -p "$slug_dir" 2>/dev/null \
+    || { log "WARN: dep-cache skip: cannot create $slug_dir"; return 0; }
+  mkdir -p "$GARDEN_SCRATCH" 2>/dev/null || true
+
+  # Serialize per-repo (fd 9) so two concurrent first-jobs don't both run the
+  # native build; the loser waits, then hits the warm cache. The lock is released
+  # automatically when the subshell exits. On lock-wait timeout we skip
+  # provisioning entirely (best-effort) rather than block the handoff.
+  (
+    flock -w "$GARDEN_DEP_LOCK_WAIT" 9 || {
+      log "WARN: dep-cache: lock wait (${GARDEN_DEP_LOCK_WAIT}s) timed out for $slug; handing back unprovisioned"
+      exit 0
+    }
+
+    local t0 t1 secs rel n
+    t0="$(date +%s 2>/dev/null || echo 0)"
+
+    if [ -f "$complete" ] && [ -f "$cache_dir/manifest" ]; then
+      # Warm HIT: hardlink every cached node_modules tree into the fresh worktree.
+      n=0
+      while IFS= read -r rel; do
+        [ -n "$rel" ] || continue
+        [ -d "$cache_dir/trees/$rel" ] || continue
+        [ -e "$wt/$rel" ] && continue          # never clobber (fresh tree has none)
+        link_tree "$cache_dir/trees/$rel" "$wt/$rel" && n=$((n+1))
+      done < "$cache_dir/manifest"
+      touch "$cache_dir" "$complete" 2>/dev/null || true   # LRU: last-use, not last-build
+      t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
+      log "WARM-CACHE hit: ${slug}@${lockhash:0:12} populated ${n} node_modules tree(s) into ${wt} in ${secs}s"
+      exit 0
+    fi
+
+    # COLD: build the closure ONCE, here, under the lock.
+    local runner
+    runner="$(dep_install_cmd "$wt")" || {
+      log "dep-cache skip: no usable package manager for $wt (no yarn/pnpm/npm on PATH)"
+      exit 0
+    }
+    # yarn 4's portable shell writes exec shims to $TMPDIR; a noexec /tmp makes
+    # every yarn-run bin die with "permission denied" (agoric-sdk-local-build-env).
+    # Point TMPDIR at an exec-capable scratch dir defensively.
+    local tmpexec="$GARDEN_SCRATCH/tmpexec"
+    mkdir -p "$tmpexec" 2>/dev/null || true
+
+    local out rc=0
+    out="$(mktemp "$GARDEN_SCRATCH/dep-install.XXXXXX" 2>/dev/null)" || out=""
+    log "dep-cache: cold build ${slug}@${lockhash:0:12} — running '${runner}' in ${wt} (native builds included)"
+    if [ -n "$out" ]; then
+      ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$runner" ) >"$out" 2>&1 || rc=$?
+    else
+      ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$runner" ) >/dev/null 2>&1 || rc=$?
+    fi
+
+    if [ "$rc" -eq 0 ]; then
+      # SUCCESS: snapshot every node_modules tree into the cache, then mark complete.
+      rm -rf "$cache_dir/trees" "$cache_dir/manifest" "$cache_dir/manifest.tmp" 2>/dev/null || true
+      mkdir -p "$cache_dir/trees" 2>/dev/null || true
+      : > "$cache_dir/manifest.tmp" 2>/dev/null || true
+      n=0; local fail=0
+      while IFS= read -r rel; do
+        [ -n "$rel" ] || continue
+        printf '%s\n' "$rel" >> "$cache_dir/manifest.tmp"
+        if link_tree "$wt/$rel" "$cache_dir/trees/$rel"; then n=$((n+1)); else fail=1; fi
+      done < <(list_node_modules "$wt")
+      t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
+      if [ "$n" -gt 0 ] && [ "$fail" -eq 0 ]; then
+        mv -f "$cache_dir/manifest.tmp" "$cache_dir/manifest" 2>/dev/null
+        : > "$complete" 2>/dev/null || true
+        log "WARM-CACHE built: ${slug}@${lockhash:0:12} installed + cached ${n} node_modules tree(s) in ${secs}s"
+        dep_cache_prune "$slug" "$lockhash"
+      else
+        rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
+        log "WARN: dep-cache: install succeeded but snapshot captured ${n} tree(s) (fail=${fail}) for ${slug}; not caching"
+      fi
+      [ -n "$out" ] && rm -f "$out" 2>/dev/null
+      exit 0
+    fi
+
+    # FAILURE: do NOT cache a broken/empty closure. Emit a deterministic signal and
+    # name the container-image toolchain fallback (build-essential + python): if the
+    # native build never succeeds here, no warm cache can manufacture a build that
+    # never existed — the fix moves to the image/entrypoint, which this line flags.
+    local sha=""
+    [ -n "$out" ] && [ -s "$out" ] && sha="$(git -C "$wt" hash-object -w --stdin < "$out" 2>/dev/null || true)"
+    rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
+    log "WARN: WARM-CACHE MISS+FAIL: ${slug}@${lockhash:0:12} '${runner}' exited rc=${rc} (a native-module toolchain gap — missing compiler/python — or a lockfile needing update). If this recurs on every host, the fix is build-essential+python in the container image/entrypoint, NOT this cache. install log blob: ${sha:-<none>}$([ -n "$sha" ] && printf ' (inspect: git -C %s cat-file -p %s)' "$wt" "$sha")"
+    [ -n "$out" ] && rm -f "$out" 2>/dev/null
+    exit 0
+  ) 9>>"$lock"
+  return 0
+}
 
 # Standing bare clone the fork worktrees are cut from (WORKTREES.md § Adding a
 # fork worktree; kept fresh by clone-keeper.sh).
@@ -184,5 +405,12 @@ git --git-dir="$bare" worktree add --detach "$wt" "$add_ref" >/dev/null \
 # global git identity (the maintainer identity on a maintainer host).
 git -C "$wt" config user.name  "$(bot_name)"
 git -C "$wt" config user.email "$(bot_email)"
+
+# ── warm dependency provisioning (native-module reuse across worktrees) ──────
+# See the header § Warm dependency cache. Best-effort: the `|| log` net suspends
+# `set -e` for the whole call, so a provisioning failure logs and continues —
+# the worktree handoff (the printf below) is never blocked.
+provision_deps "$wt" "${owner}-${name}" || \
+  log "WARN: dep-cache: provisioning raised for ${owner}/${name}@${branch} (non-fatal); worktree handed back unprovisioned"
 
 printf '%s\n' "$wt"

@@ -52,7 +52,7 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 # wired with the fork fetch refspec exactly like a real garden fork clone.
 GROOT="$TR/garden"
 mkdir -p "$GROOT/scripts/jobs" "$GROOT/worktrees"
-cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" \
+cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$JOBS_SRC/quota-panel.sh" \
    "$JOBS_SRC/ensure-project-worktree.sh" "$GROOT/scripts/jobs/"
 chmod +x "$GROOT/scripts/jobs/ensure-project-worktree.sh"
 # The garden root is a git repo so bot_name/bot_email resolve to a pinned identity.
@@ -185,6 +185,106 @@ if P7="$(run_helper garden-held-branch endojs/held-branch llm 2>/dev/null)"; the
 else
   bad "helper hard-failed on a branch held checked-out by another worktree (the 2026-07-06 regression)"
 fi
+
+# === 8: warm dependency cache — build once, hardlink into every fresh tree ====
+# The recurring native-module rebuild (better-sqlite3 re-compiled/re-failed in
+# every fresh per-job worktree). The helper now provisions node_modules itself:
+# the FIRST fresh worktree on a lockfile runs the installer once and snapshots
+# the result into a content-addressed cache; every LATER fresh worktree populates
+# from that cache with a hardlink copy, so the compiled artifacts are SHARED, not
+# rebuilt. A stubbed installer (GARDEN_DEP_INSTALL_CMD) keeps this hermetic — no
+# real yarn/native toolchain needed.
+make_node_fork() {  # make_node_fork <owner> <name> <branch> — seed a node project + lockfile
+  local owner="$1" name="$2" branch="$3"
+  local up="$TR/upstream-$owner-$name.git" seed="$TR/seed-$owner-$name"
+  git init -q --bare "$up"
+  git init -q "$seed"
+  ( cd "$seed"
+    printf '{"name":"root","private":true,"workspaces":["packages/*"]}\n' > package.json
+    printf '# yarn lockfile v1\nbetter-sqlite3@^1: {}\n' > yarn.lock
+    mkdir -p packages/a
+    printf '{"name":"a","version":"1.0.0"}\n' > packages/a/package.json
+    git "${git_id[@]}" add -A
+    git "${git_id[@]}" commit -qm seed
+    git branch -M "$branch"
+    git remote add origin "$up"
+    git push -q -u origin "$branch" ) >/dev/null 2>&1
+  local bare="$GROOT/worktrees/${owner}-${name}.git"
+  git clone -q --bare "$up" "$bare"
+  git -C "$bare" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+  git -C "$bare" remote set-url origin "$up"
+}
+# The stubbed installer: creates a root node_modules (with a fake native .node in
+# the pnpm-style .store) AND a workspace-package node_modules — the two-level tree
+# the real pnpm linker produces. Writes noise to stdout to prove it never leaks
+# onto the helper's stdout (which must stay the single worktree path).
+STUB_INSTALL='echo installing...; mkdir -p node_modules/.store packages/a/node_modules; echo NATIVE > node_modules/.store/better_sqlite3.node; echo rootdep > node_modules/marker; echo wsdep > packages/a/node_modules/marker'
+run_node_helper() {  # run_node_helper <base> <owner/repo> <branch>
+  GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_DEP_INSTALL_CMD="$STUB_INSTALL" \
+    bash "$HELPER" "$1" "$2" "$3"
+}
+
+make_node_fork endojs warm-cache main
+# First fresh worktree: cold build → installer runs, node_modules snapshotted.
+W1="$(run_node_helper garden-warm-first endojs/warm-cache main)"
+if [ -n "$W1" ] && [ -f "$W1/node_modules/marker" ] && [ -f "$W1/node_modules/.store/better_sqlite3.node" ]; then
+  ok "cold build provisions root node_modules (installer ran once)"
+else
+  bad "cold build did not provision node_modules (W1='$W1')"
+fi
+[ -f "$W1/packages/a/node_modules/marker" ] \
+  && ok "cold build provisions the workspace package node_modules too" \
+  || bad "workspace-package node_modules missing after cold build"
+# The helper's stdout is STILL just the path — the installer's chatter never leaked.
+case "$W1" in *installing*|*NATIVE*) bad "installer output leaked onto the helper's stdout: $W1" ;;
+              *) ok "installer output did not leak onto the helper's stdout" ;; esac
+
+# Second fresh worktree, SAME repo+branch (same lockfile hash) → warm HIT: it must
+# be populated from the cache WITHOUT re-running the installer, sharing inodes.
+W2="$(run_node_helper garden-warm-second endojs/warm-cache main)"
+[ "$W2" != "$W1" ] && ok "second job gets a DISTINCT worktree (isolation preserved)" \
+  || bad "second job collided onto the first worktree ('$W2' == '$W1')"
+[ -f "$W2/node_modules/.store/better_sqlite3.node" ] && [ -f "$W2/packages/a/node_modules/marker" ] \
+  && ok "warm HIT populates node_modules (root + workspace) into the second tree" \
+  || bad "warm cache did not populate the second worktree's node_modules"
+# The whole point: the native artifact is the SAME inode, i.e. hardlinked, not rebuilt.
+if [ "$W1/node_modules/.store/better_sqlite3.node" -ef "$W2/node_modules/.store/better_sqlite3.node" ]; then
+  ok "the compiled native artifact is HARDLINKED (shared inode) across worktrees"
+else
+  ok "native artifact populated by copy (fallback; hardlink unavailable on this fs)"
+fi
+
+# Resume-reuse must NOT repopulate: re-run the first base, mutate its node_modules,
+# and confirm the requeue hands back the SAME tree untouched (resume stability).
+echo LOCAL_EDIT > "$W1/node_modules/marker"
+W1b="$(run_node_helper garden-warm-first endojs/warm-cache main)"
+[ "$W1b" = "$W1" ] && grep -q LOCAL_EDIT "$W1/node_modules/marker" \
+  && ok "resume-reuse does NOT repopulate node_modules (in-flight deps preserved)" \
+  || bad "resume-reuse clobbered/repopulated the existing worktree's node_modules"
+
+# A FAILING installer (a missing native toolchain) must NOT cache a broken/empty
+# closure, must still hand back the worktree, and must emit the deterministic
+# WARM-CACHE MISS+FAIL signal that names the container-image fallback.
+make_node_fork endojs warm-fail main
+WF_ERR="$TR/warm-fail.stderr"
+WF="$(GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_DEP_INSTALL_CMD='echo "gyp ERR native build failed" >&2; exit 1' \
+       bash "$HELPER" garden-warm-fail endojs/warm-fail main 2>"$WF_ERR")"
+[ -n "$WF" ] && [ -d "$WF" ] \
+  && ok "a failing installer still hands back a worktree (handoff never blocked)" \
+  || bad "a failing installer broke the worktree handoff (WF='$WF')"
+wf_complete="$(find "$GROOT/.garden-state/dep-cache/endojs-warm-fail" -name .complete 2>/dev/null | head -1)"
+[ -z "$wf_complete" ] \
+  && ok "a failing installer caches NOTHING (no .complete marker)" \
+  || bad "a failing installer left a .complete cache marker (would serve a broken tree)"
+grep -q "WARM-CACHE MISS+FAIL" "$WF_ERR" \
+  && ok "a failing installer emits the deterministic WARM-CACHE MISS+FAIL signal" \
+  || bad "no WARM-CACHE MISS+FAIL signal emitted on install failure"
+
+# A repo with NO lockfile provisions nothing and still hands back a worktree.
+W3="$(run_node_helper garden-warm-nolock endojs/endo-but-for-bots pr-58)"
+[ -n "$W3" ] && [ -d "$W3" ] && [ ! -d "$W3/node_modules" ] \
+  && ok "a lockfile-less repo is handed back unprovisioned (no crash)" \
+  || bad "lockfile-less provisioning misbehaved (W3='$W3')"
 
 # --- summary -----------------------------------------------------------------
 echo "----------------------------------------------------------------"
