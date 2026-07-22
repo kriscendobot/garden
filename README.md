@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:42:47Z_
+_As of 2026-07-22T08:14:15Z_
 
 ## Latest
 
-The board went quiet — the only fresh motion is a build job for [minion.town#13](https://github.com/kriscendobot/minion.town/pull/13) (MCP daemon guest tools) claimed into flight — while the maintainer inbox filled with stalls. The standing qwen3.6 press-driver for the XS→Rust engine port ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is wedged and was poisoned across four consecutive ticks, each deterministically overrunning the 2400s handler wall: the Rust engine is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done), but `daemon_bootstrap.js` generation fails because `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle. The driver acknowledged the maintainer's option (a) — add an XS crypto polyfill — and is implementing it, but the press keeps exceeding its claim budget and needs splitting into claim-sized stages or a detached run to make progress.
+The dominant signal is a cluster of **deadline-overruns**: the hourly xs2rust-endor press-driver for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) has hit its 2400s handler wall on every recent tick (033502, 045001, 055018) and been poisoned-and-parked each time — the driver reports Rust stages 1–6 done and ~2750 dual-run oracle tests green, but bootstrap generation is blocked because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; the latest tick acknowledged maintainer direction to add an XS crypto polyfill. These presses do not fit in one claim-scoped handler and will keep poisoning until split or detached.
 
-Separately, `daemon-store-phase4-sorted` (the persistent-stores work for [garden#59](https://github.com/kriskowal/garden/issues/59)) also overran and was poisoned, halting the serial `daemon-store-family-build` orchestration at 3/6 with phases 5 and 6 swept; it's parked awaiting a promote. Both poisoned jobs sit held in the plan queue pending maintainer triage.
+The **daemon-store family build halted**: child `daemon-store-phase4-sorted` (sorted map/set variants for [garden#59](https://github.com/kriskowal/garden/issues/59)) overran the same 2400s budget and was poisoned after one cycle, so the serial orchestration stopped at 3/6 with phases 5–6 swept. The finalize job on [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) also overran and is at risk of the same fate; its review directive and MCP-daemon-guest-tools build on [minion.town#13](https://github.com/kriscendobot/minion.town/pull/13) remain the only live in-flight work.
 
-Two research verdicts landed on Kimi K3 (the new 2.8T-param open MoE): both conclude local serving is off by more than 10× on memory (hard no), but a hosted Moonshot arm is cheap to wire and maps cleanly onto the garden's bid-auction as the "cheap-specialist + Fable-backstop" router — relevance rated low-to-moderate, gated on a funded key and codex↔Moonshot tool-call verification; no action taken.
+Two research reports landed on **Kimi K3** (2.8T-param open MoE, weights due 2026-07-27): both conclude local serving is off by >10× on memory (hard no), but a hosted OpenAI-compatible arm via Moonshot is cheap to wire and maps onto the garden's existing bid-auction router — gated only on a funded API key and codex↔Moonshot tool-call verification; no action taken. Worth a maintainer glance: several deadline-overrun watchdog notes recommend splitting these long-running presses into claim-sized stages or running them detached, the recurring root cause across today's poisonings.
 
 ## Parked for maintainer feedback
 
@@ -218,6 +218,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T072334Z-b46f04` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T072334Z-b46f04.md)
 
 > gardener job 'xs2rust-endor-press-20260722-045001' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260722T081331Z-70cd39` — from watchdog:gardener/6, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T081331Z-70cd39.md)
+
+> gardener job 'endojs-pr160-ci-fix-finalize' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -665,8 +669,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.5M | $1070.52 _(notional, rate-card)_ | no quota set |
-| Codex | 691.0M _(+526.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 97.6M | $1071.57 _(notional, rate-card)_ | no quota set |
+| Codex | 691.1M _(+526.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
