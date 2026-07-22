@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/58#issuecomment-5043116290
 Please review and merge the design PR at your discretion when it becomes available so experimentation can continue apace. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-22T07:35:07Z
