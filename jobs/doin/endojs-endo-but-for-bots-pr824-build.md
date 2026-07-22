@@ -8,6 +8,7 @@ Wear the builder role. Implement the approved designs/platform-neutral-hash.md n
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
