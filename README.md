@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-22T01:25:09Z_
+_As of 2026-07-22T02:36:23Z_
 
 ## Latest
 
-A **maintainer-inbox omnibus** consolidated 199 unread entries into ~30 open items across 13 topics — the single highest-signal thing to read, since it deduplicates weeks of daily standups and surfaces the real decisions (esheets/[#621](https://github.com/endojs/endo-but-for-bots/pull/621) 11-day review stall, the SturdyRef arbitrations, M2/M3 merge gates, and the finbot security-framing correction). The recurring **xs2rust-endor press** ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stuck in a self-defeating loop: every hourly dispatch deterministically overruns the 2400s handler budget and is poisoned/parked (three more this window), so it needs a dedicated builder that can work across dispatches rather than the timeboxed press — its parked copies are piling up in the plan queue. A shepherd on the URL-shim PR [#719](https://github.com/endojs/endo-but-for-bots/pull/719) found its remaining red is pre-existing **master debt** (jsdoc lint, TextEncoder/TextDecoder permit tests from `536f82d18`, stale zizmor action pins), not the PR's own diff, and recommends a dedicated master-greening pass. On the fork side, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the `significanceAlpha` decision evaluable from the CLI without changing any default, and the minion.town iroh lane advanced to the buildable edge with draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777) — full deploy now blocked only on merging #777 to `llm`. The weekly Qwen watch found no new harnessable coding model.
+A maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics — the shortest path to see what's actually waiting on you, led by the 11-day-stalled esheets/endoclaw-OAuth review ([endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)) and a pile of merge-gated milestones (M2 shims [#259](https://github.com/endojs/endo-but-for-bots/pull/259)/[#719](https://github.com/endojs/endo-but-for-bots/pull/719); M3 [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)). On the code side, finbot [#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha`-as-default question evaluable from the CLI without changing any default; the ocapn-iroh lane build opened draft [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full deploy blocked only on merging #777 to `llm`; and [#819](https://github.com/endojs/endo-but-for-bots/pull/819) shepherded fully green. A shepherd on [#719](https://github.com/endojs/endo-but-for-bots/pull/719) reached partial green and traced the remaining red to pre-existing `master` debt (jsdoc, text-codec permits, stale action pins), recommending a dedicated master-greening pass rather than smuggling those fixes into a URL-shim PR. The one recurring drag: the hourly `xs2rust-endor-press` (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) keeps deterministically overrunning its 2400s budget and poisoning every cycle — it needs a dedicated builder that can work across dispatches, not the timeboxed press.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 4d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 8d)
@@ -581,16 +581,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.6M | $998.81 _(notional, rate-card)_ | no quota set |
-| Codex | 550.3M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 89.8M | $1000.98 _(notional, rate-card)_ | no quota set |
+| Codex | 576.6M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
+- [`minion-town-agenda-review-20260722-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-023502.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-012002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260722-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-023502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3207)
 - [`minion-town-agenda-review-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-012002.md) — Completion report
