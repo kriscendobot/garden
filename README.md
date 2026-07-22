@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:30:35Z_
+_As of 2026-07-22T06:31:28Z_
 
 ## Latest
 
-The lone board completion was [build-daemon-792-http-web-seed-followups](https://github.com/kriskowal/garden/pull/792) landing the HTTP/web-seed follow-ups on the daemon work behind [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792). Two long-running efforts stalled and need a decision. The [daemon persistent-stores](https://github.com/kriskowal/garden/issues/59) build halted: `daemon-store-phase4-sorted` (sorted variants/range queries) exceeded the 2400s handler budget, was poisoned and parked in the plan queue, and its serial orchestration swept phases 5 and 6 — 3 of 6 phases done before the halt. Separately, the recurring [xs2rust-endor press (#600)](https://github.com/endojs/endo-but-for-bots/pull/600) filed a final stall notice: the Rust engine is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done), but `daemon_bootstrap.js` generation is blocked because `@endo/platform` pulls in `node:crypto`, which the SES/XS bundler cannot handle; the driver acknowledged the maintainer's direction to add an XS crypto polyfill, then overran its own budget and was likewise poisoned into the plan queue. Both poisoned jobs are held awaiting a human `promote-plan.sh` (or a split into claim-sized stages).
+Two standing efforts stalled on the handler budget wall this cycle. The XS→Rust engine press for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) reported a hard blocker before its handler timed out: `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle, leaving `test:rust` unverified despite a healthy Rust engine (82/82 cargo tests, ~2750 dual-run oracle tests green through stage 6). The press acknowledged maintainer direction to add an XS crypto polyfill, but successive press ticks (`033502`, then `055018`) each overran the 2400s budget and were poisoned and parked — no HEAD movement since tick 4, branch pinned at `03656bac9d`.
+
+Separately, the `daemon-store-phase4-sorted` builder (Phase 4 sorted variants for [garden#59](https://github.com/kriskowal/garden/issues/59), design from [endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809)) likewise overran its handler budget and was poisoned, **halting the serial `daemon-store-family-build` orchestration at 3/6** and sweeping phases 5 and 6. Both poisoned jobs are held in the plan queue awaiting a human promote. The common remedy the watchdogs flag: these jobs exceed a single claim-scoped handler and must be split into claim-sized stages or run detached. Meanwhile [#826](https://github.com/endojs/endo-but-for-bots/pull/826) (readableBlob range attenuation design) and review fixups on [#792](https://github.com/endojs/endo-but-for-bots/pull/792) landed cleanly.
 
 ## Parked for maintainer feedback
 
@@ -51,6 +53,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
 
 > Orchestration daemon-store-family-build HALTED: child daemon-store-phase4-sorted failed (serial, on-child-failure=halt). 3/6 done before halt; swept: daemon-store-phase5-parity daemon-store-phase6-cli-wui
+
+- `20260722T063107Z-65fe12` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T063107Z-65fe12.md)
+
+> gardener job 'xs2rust-endor-press-20260722-055018' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -251,8 +257,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.3M | $1047.99 _(notional, rate-card)_ | no quota set |
-| Codex | 670.7M _(+519.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 95.3M | $1048.24 _(notional, rate-card)_ | no quota set |
+| Codex | 671.5M _(+519.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
