@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-sturdyref-restack-701-704-pr737-line
-priority: normal
 role: weaver
-posted_by: endo-sturdyref-press-20260722-160501
-posted_at: 2026-07-22T16:09:51Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-22T16:31:03Z -->
 
 # Restack PR #703 (SturdyRef bridge cut 5, foreign-SturdyRef internalization) onto the restacked #700
 
