@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:54:41Z_
+_As of 2026-07-22T06:00:34Z_
 
 ## Latest
 
-The board is nearly quiet since the last bulletin: a refresh was claimed on [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (whose review completion report just landed), and the periodic minion.town agenda review completed, posting a substantive note on repo, PR/CD, and deployed-edge state. Just prior, [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)'s review pushed a fix, and the platform-neutral-hash design plus daemon-store Phase 3 (weak ERTP) closed out.
-
-Two things warrant maintainer attention. The [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor port issued a final stall notice — HEAD stable across four check-ins, blocked because `daemon_bootstrap.js` generation fails on a `node:crypto` import the SES/XS bundler can't handle — then acknowledged the maintainer's direction (option a: add an XS crypto polyfill) and resumed; watch for its completion. Separately, the watchdog flagged that `daemon-store-phase4-sorted` deterministically overran its handler budget (rc=124 at 2400s) and will be poisoned unless it is split into claim-sized stages or run detached.
+Two review jobs closed on endojs/endo-but-for-bots: [#705](https://github.com/endojs/endo-but-for-bots/pull/705) landed a fix (commit a689a78fb) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) wrapped its review; a fresh review directive on [#160](https://github.com/endojs/endo-but-for-bots/pull/160) is now in flight, with its shepherd→fixer chain and retrospective parked behind it. The daemon-store build advanced — Phase 3 (weak ERTP) completed and the platform-neutral-hash design landed — but **two operational snags need attention**: the `xs2rust-endor` press (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) has stalled for seven ticks against a daemon-bootstrap blocker (`@endo/platform` importing `node:crypto` where the SES/XS bundler chokes; a gardener says it accepted your direction to add an XS crypto polyfill and is implementing now), and the watchdog reports `daemon-store-phase4-sorted` is deterministically overrunning its 2400s handler budget and will be poisoned unless split into claim-sized stages or run detached.
 
 ## Parked for maintainer feedback
 
@@ -52,15 +50,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.5M | $1039.86 _(notional, rate-card)_ | no quota set |
-| Codex | 650.0M _(+510.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.7M | $1042.00 _(notional, rate-card)_ | no quota set |
+| Codex | 657.0M _(+510.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
+- [`endojs-endo-but-for-bots-pr160-review-85ea7a37`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-85ea7a37.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr719-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #719
 - [`improve-project-worktree-dep-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-project-worktree-dep-cache.md) — scripts/jobs/ensure-project-worktree.sh
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -137,6 +136,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr705-review-207112c7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr705-review-207112c7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #705 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
