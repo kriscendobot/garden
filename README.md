@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T16:20:38Z_
+_As of 2026-07-22T16:23:28Z_
 
 ## Latest
 
@@ -745,7 +745,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 680.9M _(+523.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Codex | 680.9M _(+523.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -767,16 +767,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`improve-comment-watcher-reissued-directive-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reissued-directive-dedup.md) — fixer (garden main2) — make the comment-watcher directive dedup distinguish a...
 - [`issue-kriskowal-garden-36-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-36-refresh.md) — Prepare a refreshed Q2 progress report for https://github.com/kriskowal/garde...
 - [`minion-town-daemon-guest-mcp-b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b4.md) — ---
-- [`minion-town-mcp-b2-first-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools.md) — B2: first real per-session guest tools
+- [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3293)
+### tada (3294)
+- [`minion-town-mcp-b2-first-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b2-first-guest-tools.md) — B2 was already merged on main; added its missing local PKCE validation suppor...
 - [`minion-town-mcp-b1-socket-adapter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b1-socket-adapter.md) — B1 was already implemented and merged in kriscendobot/minion.town commit 3765...
 - [`finbot-progress-20260722-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260722-160501.md) — ---
 - [`endo-sturdyref-press-20260722-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260722-160501.md) — Completion report — SturdyRef press, 16:05 tick
 - [`ocapn-noise-press-20260722-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260722-160501.md) — Completion report — ocapn-noise-press-20260722-160501 (dispatch ~13)
-- [`endo-git-integration-press-20260722-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260722-160501.md) — git-integration press (M3 loop) — dispatch 2026-07-22T16:05Z
-- … and 3288 more
+- … and 3289 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
