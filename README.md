@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T04:00:59Z_
+_As of 2026-07-22T04:02:18Z_
 
 ## Latest
 
-The **finbot** fork gained CI: [finbot#3](https://github.com/kriscendobot/finbot/pull/3) added a GitHub Actions workflow (`npm install` + `npm test`) gating every PR, closing a gap where merges relied on a human running tests locally, and [finbot#2](https://github.com/kriscendobot/finbot/pull/2) landed `finbot-eval --significance-alpha` tooling so the pending "make significanceAlpha the live default?" call can be evaluated from fixtures before committing; both merged green (607/607). The **ocapn-iroh** lane was built to its buildable edge — [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (draft, Gate-2 listener boot script) opened stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full deploy blocked on merging #777 to `llm` ([minion.town#12](https://github.com/kriscendobot/minion.town/pull/12)). The **esheets** tree is now 12 days dammed behind a single stale-`CHANGES_REQUESTED` re-review on [#621](https://github.com/endojs/endo-but-for-bots/pull/621) — CI-green and one-click-mergeable, blocking the OAuth exo plus `@endo/google-sheets`/`@endo/exo-google-sheets`, none of which exist on `llm` yet. Note the recurring infra drag: the hourly **xs2rust-endor** press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overran its 2400s handler budget again across four cycles and keeps getting poison-parked; it needs a dedicated builder working across dispatches, not the timeboxed press.
+On [kriscendobot/finbot](https://github.com/kriscendobot/finbot), two increments landed: the `--significance-alpha` Diebold-Mariano eval gate ([finbot#2](https://github.com/kriscendobot/finbot/pull/2), byte-identical when off) merged, then a first CI workflow ([finbot#3](https://github.com/kriscendobot/finbot/pull/3)) was added and gated itself green — the fork previously had no CI. Note that both finbot merges reached `main` with no panel review (the "run the gauntlet [finbot#2](https://github.com/kriscendobot/finbot/pull/2)" job arrived a minute after the bot self-merged); if finbot increments should clear a panel first, that ordering needs enforcing. The ocapn-iroh lane advanced to its buildable edge — [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script, draft) opened stacked on [endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), whose merge to `llm` is the maintainer-gated blocker ([minion.town#12](https://github.com/kriscendobot/minion.town/pull/12)). Two standing damns persist: esheets is 12 days stalled on a single approving re-review of [endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable, stale `CHANGES_REQUESTED`), blocking four downstream packages; a shepherd found [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s remaining red is pre-existing master debt, not its own diff. Worth your attention: the hourly `xs2rust-endor-press` on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) deterministically overran its 2400s budget and was poisoned on every cycle overnight — it needs a dedicated builder split into claim-sized stages, not the press. A consolidated maintainer-inbox omnibus also folded 199 unread entries into ~30 open decisions across 13 topics.
 
 ## Parked for maintainer feedback
 
@@ -259,6 +259,49 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Follow-up (small, non-gated): broaden CI from node 22 to a 20.x/22.x matrix once
 > the suite is verified on the engines>=20 floor.
+
+- `20260722T040202Z-8d9077` — from gardener:finbot-eval-significance-gate-gauntlet, reply_to `finbot-eval-significance-gate-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T040202Z-8d9077.md)
+
+> finbot PR [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/issues/2) (feat/eval-significance-gate, the --significance-alpha CLI gate) was
+> already MERGED into main by the bot at 03:54:30Z, about one minute before I
+> claimed the "run the gauntlet [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/issues/2)" job (03:55:32Z). The branch is deleted. So the
+> gauntlet's normal terminal (drive a draft PR to un-draft) could not run: PR [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/issues/2)
+> went to main with zero panel reviews and no fixer loop. I did the parts that
+> were still valuable post-merge and did NOT resolve the pending design call.
+>
+> VERIFIED post-merge (real execution, worktree off main @ 1def9c5, node v22):
+> - Full suite green: `npm test` exit 0, 607 assertions, 0 failures (after
+>   `npm install`; a fresh worktree missing node_modules fails harness/pipeline on
+>   `ses` — install gap, not a code defect; simulator tests need no deps).
+> - vol-eval.test.js: 18/18 pass, including the two byte-identical assertions.
+> - The "default (null) leaves the table byte-identical" INVARIANT HOLDS:
+>   gate-off == ungated (deepEqual); the three fixed baselines (garch/gjr/egarch)
+>   are untouched bit-for-bit when the gate engages; default CLI run is
+>   deterministic; out-of-range alpha fails fast (CLI exit 2 / library throws).
+> - The gate is LIVE wiring, not dead: at default vol-length=256 it is a no-op at
+>   alpha=0.05 (matches the design doc's fixture claim), but it DOES move the
+>   auto-egarch selection at alpha=0.20 and at other series lengths (e.g.
+>   --vol-length=200). Scope nuance: "byte-identical" is the gate-off==ungated
+>   invariant; the PR does add one `auto-garch-family` row to every eval table
+>   (intended, documented as purely additive), so default finbot-eval output is
+>   not identical to the pre-PR output -- it gains that row.
+> - My focused correctness review found no defects warranting a follow-up fix.
+>
+> PENDING DESIGN DECISION (surfaced, NOT resolved, per the job): whether
+> `significanceAlpha` should become the live default for the auto-family path.
+> The design doc (designs/ensemble-forecasting.md, new "Notes from the field
+> 2026-07-21" section) leaves this explicitly to you: making it the default would
+> change proposal hashes and needs a re-baselined fixture; live execution is
+> separately blocked on paper-wallet/test-net auth + a chosen CapTP transport. The
+> CLI now makes it evaluable -- `finbot-eval --significance-alpha=A` against the
+> fixtures shows the selection deltas -- so the decision can be made on evidence.
+>
+> PROCESS OBSERVATION: a "run the gauntlet #N" job on finbot (kriscendobot/finbot) is racing the
+> finbot-progress builder press, which self-merges increments (PR [kriscendobot/finbot#1](https://github.com/kriscendobot/finbot/issues/1) and [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/issues/2) both
+> bot-merged to main with no panel). If you want finbot increments to clear a
+> panel before landing, that ordering needs enforcing; today the gauntlet job can
+> arrive after the increment is already in main. No action taken on this -- flagging
+> for your call.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -760,8 +803,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $1016.39 _(notional, rate-card)_ | no quota set |
-| Codex | 596.7M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 92.0M | $1017.38 _(notional, rate-card)_ | no quota set |
+| Codex | 597.5M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
