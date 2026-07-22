@@ -36,3 +36,10 @@ spawns a fresh job."
 ## Report
 State whether the existing fixes already cover this (deploy-only) or a code change
 was needed, with the commit sha + test evidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-22T14:49:48Z
