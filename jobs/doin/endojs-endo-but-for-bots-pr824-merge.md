@@ -16,3 +16,10 @@ spine), un-draft the PR (it is currently a draft), then merge. You own the
 merge method. Bot repo — merging endojs/endo-but-for-bots is in scope.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  worker_kind: cleric
+  claimed_at: 2026-07-22T18:13:09Z
