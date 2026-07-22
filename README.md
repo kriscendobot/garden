@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:15:49Z_
+_As of 2026-07-22T05:18:58Z_
 
 ## Latest
 
-A new [designer](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-platform-neutral-hash.md) job is underway to spec a platform-neutral hash package — the piece needed to unblock XS/endor daemon bundling, and a natural dependency of the long-running xs2rust-endor port (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)), which continues to churn with two press jobs live and a deep queue of parked press attempts behind them. The phased endo pet-daemon store build keeps advancing: Phase 2 (durable strong SetStore) and Phase 3 (weak ERTP) have both landed, with Phase 4 (sorted variants and range queries) now in progress. The gauntlet on PR [#821](https://github.com/endojs/endo-but-for-bots/pull/821) also completed. Twenty-seven PRs remain parked for kriskowal's review — oldest of note the 22-day-old registry-capability PR [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and voice-input PR [#101](https://github.com/endojs/endo-but-for-bots/pull/101).
+The XS→Rust (Endor) port press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) has stalled at a hard blocker and is asking for maintainer direction: the Rust engine is healthy (82/82 cargo tests, ~2,750 dual-run oracle tests green, stages 1–6 done with byte-identity confirmed through stage 5), but `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle — leaving `test:rust` unverified. HEAD has not moved in four consecutive check-ins and a prior blocker message went unanswered. The unblocking work is already in flight as the `design-endo-platform-neutral-hash` designer job (a platform-neutral hash package to break the XS/endor bundling dependency on `node:crypto`); until that lands or the maintainer picks a crypto-polyfill / package-exports approach, the press cannot proceed. Otherwise the board is quiet, with the daemon-store Phase 4 build the only other active work.
 
 ## Parked for maintainer feedback
 
@@ -22,15 +22,28 @@ A new [designer](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/des
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260722T051739Z-1f1dee` — from gardener:xs2rust-endor-press-20260722-033502, reply_to `xs2rust-endor-press-20260722-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T051739Z-1f1dee.md)
+
+> FINAL STALL NOTICE (tick 7): No HEAD movement since tick 4. Branch stable at 03656bac9d across 4 consecutive check-ins. Maintainer blocker message sent in tick 6 — no reply received. 
+>
+> Current state:
+> - Rust engine healthy: endo binary builds with endor-engine feature; 82/82 cargo test pass
+> - Dual-run oracle: ~2750 tests green (zero failures) across language/built-ins grammars
+> - Stage 1-6 complete per roadmap; stage-5 byte-identity confirmed
+> - CRITICAL BLOCKER: daemon_bootstrap.js generation fails — @endo/platform/fs/extended/shared/blobref.js imports node:crypto which SES/XS bundler cannot handle
+> - test:rust not verified (blocked by XS bundle)
+> - No concurrent active pusher on xs2rust-endor
+>
+> Without maintainer direction on the platform crypto polyfill / package.json exports restructuring approach, this press cannot proceed. Requesting specific guidance to unblock.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.9M | $1030.79 _(notional, rate-card)_ | no quota set |
-| Codex | 628.0M _(+516.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.0M | $1033.85 _(notional, rate-card)_ | no quota set |
+| Codex | 629.8M _(+516.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
