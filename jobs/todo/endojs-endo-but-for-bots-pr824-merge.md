@@ -15,12 +15,4 @@ Conductor task: block on CI green (delegate/wait via the ci-wait-merge
 spine), un-draft the PR (it is currently a draft), then merge. You own the
 merge method. Bot repo — merging endojs/endo-but-for-bots is in scope.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  claimed_at: 2026-07-22T13:43:12Z
+<!-- garden-reaped: 2 -->
