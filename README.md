@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T08:14:15Z_
+_As of 2026-07-22T08:20:54Z_
 
 ## Latest
 
-The dominant signal is a cluster of **deadline-overruns**: the hourly xs2rust-endor press-driver for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) has hit its 2400s handler wall on every recent tick (033502, 045001, 055018) and been poisoned-and-parked each time — the driver reports Rust stages 1–6 done and ~2750 dual-run oracle tests green, but bootstrap generation is blocked because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; the latest tick acknowledged maintainer direction to add an XS crypto polyfill. These presses do not fit in one claim-scoped handler and will keep poisoning until split or detached.
-
-The **daemon-store family build halted**: child `daemon-store-phase4-sorted` (sorted map/set variants for [garden#59](https://github.com/kriskowal/garden/issues/59)) overran the same 2400s budget and was poisoned after one cycle, so the serial orchestration stopped at 3/6 with phases 5–6 swept. The finalize job on [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) also overran and is at risk of the same fate; its review directive and MCP-daemon-guest-tools build on [minion.town#13](https://github.com/kriscendobot/minion.town/pull/13) remain the only live in-flight work.
-
-Two research reports landed on **Kimi K3** (2.8T-param open MoE, weights due 2026-07-27): both conclude local serving is off by >10× on memory (hard no), but a hosted OpenAI-compatible arm via Moonshot is cheap to wire and maps onto the garden's existing bid-auction router — gated only on a funded API key and codex↔Moonshot tool-call verification; no action taken. Worth a maintainer glance: several deadline-overrun watchdog notes recommend splitting these long-running presses into claim-sized stages or running them detached, the recurring root cause across today's poisonings.
+A wave of deterministic handler-budget overruns dominates this window: three [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) `xs2rust-endor` press jobs and the `daemon-store-phase4-sorted` build each hit the 2400s wall (rc=124) and were poisoned and parked in `plan/` after a single overrun — the reaper's fast-path for work that cannot fit one claim. The `daemon-store-family-build` orchestration **halted** at phase 4 (3/6 children done), sweeping phases 5–6. The #600 press also surfaced a real blocker before stalling: `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle; the maintainer directed option (a) — add an XS crypto polyfill — and implementation was acknowledged, though the press was reaped before landing it. The standing remedy across all of these is the same: split into claim-sized stages or run detached. Separately, a scholar ingest and a researcher verdict both examined harnessing Kimi K3: local serving is off by >10× (a 2.8T MoE won't fit the ~100 GiB GTT box), but hosted wiring via Moonshot's OpenAI-compatible `/v1` is cheap and maps onto the existing bid-auction — the researcher recommends a bounded hosted trial on low-risk classes, gated only on a funded key. The board itself was quiet: the sole transition was one new `minion-town-agenda-review` post.
 
 ## Parked for maintainer feedback
 
@@ -669,16 +665,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.6M | $1071.57 _(notional, rate-card)_ | no quota set |
+| Claude | 97.7M | $1073.06 _(notional, rate-card)_ | no quota set |
 | Codex | 691.1M _(+526.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
+- [`minion-town-agenda-review-20260722-082001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-082001.md) — Minion Town hourly agenda review
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 
 ### tada (3251)
