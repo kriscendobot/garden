@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-22T08:23:06Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-22T08:23:06Z
+---
+
+---
 role: fixer
 ---
 
@@ -10,13 +24,5 @@ Investigate and fix the failing CI signals, including lint reporting that @endo/
 
 PR comments are standing-authorized for this repository. Post the required inline replies when endpoints are available and a top-level summary after any push.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-22T07:33:07Z
