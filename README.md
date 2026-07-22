@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T15:51:30Z_
+_As of 2026-07-22T15:53:15Z_
 
 ## Latest
 
-Board motion was near-nil this cycle — a single claim (the hourly Minion Town agenda review) — but the maintainer-facing queue tells the real story: a cluster of jobs hit the 2400s handler wall and were poisoned on their first overrun. Three [#600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor press-drivers (the 03:35, 04:50, and 05:50 ticks) all overran and parked in `plan/`, and the press itself surfaced a hard blocker before stalling: `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle — it needs a crypto-polyfill / package-exports decision to proceed (the Rust engine is otherwise healthy, 82/82 cargo tests and ~2750 dual-run oracle tests green). Separately, `daemon-store-phase4-sorted` overran and poisoned, which **halted** the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept); both it and the poisoned `endojs-pr160-ci-fix-finalize` want splitting into claim-sized stages before requeue.
+Two PRs sit one maintainer action from landing: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft with green CI and a clean merge state, but the conductor gate needs a fresh approval — kriskowal's APPROVED review is stuck on the prior head (9b40eef) while the current head is a0cd0d0. On [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/pull/4), the sandboxed `llmProgram` role now runs in a fresh SES compartment (dry-run confirms `WALLET TOUCHED: false`) and CI is green, but it's stalled awaiting panel — the panel model hit its weekly limit (resets Jul 25 03:00 UTC).
 
-Three PRs are blocked purely on maintainer action: [#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft, clean-merge, and green but its only APPROVED review is stale (attached to `9b40eef`, current head `a0cd0d0`) — it needs a fresh approval on the current head; [#804](https://github.com/endojs/endo-but-for-bots/pull/804) is held awaiting an intent confirm before the gardener renames `cbors.md`/`syrups.md` to their `-frame` names to match what actually shipped; and the [#806](https://github.com/endojs/endo-but-for-bots/pull/806) crossed-hello fix has been parked ~6h. Elsewhere, finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) advanced (the optional `llmProgram` role now runs in a fresh SES compartment with attenuated tool calls; CI green, wallet untouched) but its gauntlet is stuck on the panel model's weekly limit, which resets Jul 25. On the ops side, the xs2rust orphan audit came back GREEN (0 orphans, charter mitigation holding), though it flags that the reaper fix `8eb3354a7e` is on `origin/main2` but not yet deployed to this root. A researcher verdict also landed on Kimi K3: local serving is off by >10× (2.8T-param MoE), but a hosted `kimi-k3` arm is cheap to wire and maps onto the existing bid-auction — gated only on a funded Moonshot key and codex-compat verification.
+Repeated deadline-overrun poisonings dominate the failure surface: the hourly `xs2rust-endor` press driver (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) overran its 2400s handler budget on four separate ticks and was poisoned/parked each time — it needs to be split into claim-sized stages or run detached. `endojs-pr160-ci-fix-finalize` ([#160](https://github.com/endojs/endo-but-for-bots/pull/160), already merged by conductor per the tada board, so this fixer may be moot) and the `daemon-store-phase4-sorted` build child both hit the same wall; the latter's failure halted the serial `daemon-store-family-build` orchestration at 3/6, sweeping phases 5–6. A separate orphan audit reports GREEN (0 leaked processes) on endolin-garden-ece02cb4, but flags that the reaper fix (commit 8eb3354a7e, merged to main2) is **not yet deployed** to that root.
+
+Two items want a maintainer decision before churn: the [#804](https://github.com/endojs/endo-but-for-bots/pull/804) reviewer is holding for intent confirmation before renaming `cbors.md`/`syrups.md` design docs to the `-frame` names that actually shipped, and a researcher verdict on harnessing Kimi K3 lands as **local: no (>10× the box's memory), hosted: cheap to wire and worth a bounded bid-auction trial** gated on a funded Moonshot key.
 
 ## Parked for maintainer feedback
 
@@ -23,24 +25,6 @@ Three PRs are blocked purely on maintainer action: [#824](https://github.com/end
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260722T051739Z-1f1dee` — from gardener:xs2rust-endor-press-20260722-033502, reply_to `xs2rust-endor-press-20260722-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T051739Z-1f1dee.md)
-
-> FINAL STALL NOTICE (tick 7): No HEAD movement since tick 4. Branch stable at 03656bac9d across 4 consecutive check-ins. Maintainer blocker message sent in tick 6 — no reply received. 
->
-> Current state:
-> - Rust engine healthy: endo binary builds with endor-engine feature; 82/82 cargo test pass
-> - Dual-run oracle: ~2750 tests green (zero failures) across language/built-ins grammars
-> - Stage 1-6 complete per roadmap; stage-5 byte-identity confirmed
-> - CRITICAL BLOCKER: daemon_bootstrap.js generation fails — @endo/platform/fs/extended/shared/blobref.js imports node:crypto which SES/XS bundler cannot handle
-> - test:rust not verified (blocked by XS bundle)
-> - No concurrent active pusher on xs2rust-endor
->
-> Without maintainer direction on the platform crypto polyfill / package.json exports restructuring approach, this press cannot proceed. Requesting specific guidance to unblock.
-
-- `20260722T054733Z-9cefb7` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T054733Z-9cefb7.md)
-
-> gardener job 'daemon-store-phase4-sorted' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `20260722T060323Z-d3bb29` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060323Z-d3bb29.md)
 
@@ -742,7 +726,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.1M | $1152.19 _(notional, rate-card)_ | no quota set |
+| Claude | 106.3M | $1153.84 _(notional, rate-card)_ | no quota set |
 | Codex | 680.0M _(+519.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
