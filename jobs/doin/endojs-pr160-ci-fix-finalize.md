@@ -9,3 +9,10 @@ The review follow-up has been acknowledged and its separate native-Rust/XS desig
 Investigate and fix the failing CI signals, including lint reporting that @endo/ses-ava is missing from packages/platform dependencies and the Node 24 Ubuntu test failure. Use fresh CI evidence; do not assume either is flaky. Push only safe follow-up commits. After every check is green and the PR is mergeable, post a conductor job to un-draft if necessary and merge (do not specify a merge method). If not green or mergeable, report the exact blocker instead.
 
 PR comments are standing-authorized for this repository. Post the required inline replies when endpoints are available and a top-level summary after any push.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-22T07:08:37Z
