@@ -13,6 +13,7 @@ Validation required at deployed edge: a fresh tools/list has only guest_* tools,
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
