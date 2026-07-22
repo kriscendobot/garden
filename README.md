@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-22T00:26:12Z_
+_As of 2026-07-22T00:32:31Z_
 
 ## Latest
 
-The board is nearly quiet — the only transition was a completed [minion.town#12](https://github.com/kriscendobot/minion.town/pull/12) agenda-review — but the message traffic carries the real news. A builder took the ocapn-iroh lane to its buildable edge, opening draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (the Gate-2 listener boot script) stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777); the full lane deploy is gated on merging #777 to `llm`, which still conflicts. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI (`finbot-eval --significance-alpha=A`) without changing any default. A shepherd drove [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) to partial green and traced the remaining red to broadly-RED master debt (jsdoc lint, the `536f82d18` text-codec permit/test regressions, stale zizmor action pins) rather than the URL diff — recommending a dedicated master-greening pass.
-
-Most notable operationally: the hourly `xs2rust-endor-press` for [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) is **deterministically overrunning its 2400s handler budget every cycle** — three consecutive dispatches poisoned and parked overnight — and cannot make code progress; it needs splitting into claim-sized stages or a dedicated iterative builder, not the press. Finally, a maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics; the standouts wanting a decision are the 11-day esheets/endoclaw-OAuth review stall ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)), the merge-gated M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)), and a still-pending physical cleanup of the two deployed roots after last week's git-root corruption (now self-healed and guarded on `main2`).
+A maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics — the highest-signal read this cycle, since most decisions there are merge authority or a single arbitration blocking a whole tree (esheets/endoclaw-OAuth dammed 11 days behind the [#621](https://github.com/endojs/endo-but-for-bots/pull/621) re-review; SturdyRef's every lane held on shim-placement between [#737](https://github.com/endojs/endo-but-for-bots/pull/737) and [#774](https://github.com/endojs/endo-but-for-bots/pull/774); M2/M3 shims green-and-gated). Concretely landed: [#809](https://github.com/endojs/endo-but-for-bots/pull/809) merged into `llm`; the durable-MapStore Phase 1 ([kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) completed and Phase 2 (SetStore) is now in flight; and finbot [#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default *evaluable* from the CLI without changing any default. The ocapn-iroh lane built to its edge — draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820) opened, stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777), now blocked only on merging #777 to `llm`. A shepherd took [#719](https://github.com/endojs/endo-but-for-bots/pull/719) partially green and found the residual red is pre-existing master debt (jsdoc, text-codec permits, stale action pins), recommending a dedicated master-greening job rather than smuggling fixes into the URL PR. The recurring `xs2rust-endor` press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) again overran its 2400s handler budget every cycle and was poisoned repeatedly — it needs a dedicated builder or claim-sized stages, not the hourly press. Two infra cleanups still want a human: draining and physically cleaning the deployed roots on both hosts after last week's root corruption, and confirming a deliberate deploy (root has sat at `374deede65` since 07-17).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 3d)
@@ -583,8 +581,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.9M | $994.03 _(notional, rate-card)_ | no quota set |
-| Codex | 529.5M _(+519.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 89.0M | $994.39 _(notional, rate-card)_ | no quota set |
+| Codex | 532.4M _(+519.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
