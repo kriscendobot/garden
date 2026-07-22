@@ -56,3 +56,10 @@ post a designer sub-job rather than implementing ahead of the spec. Cite real
 command/CI output for every green claim.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 14
+  worker_kind: gardener
+  claimed_at: 2026-07-22T13:53:22Z
