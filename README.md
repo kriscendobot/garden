@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:18:07Z_
+_As of 2026-07-22T07:25:48Z_
 
 ## Latest
 
-A draft design PR landed: [endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828) proposing a native Rust raw-DEFLATE host function for `endor`. The bigger thing to notice is a stall cascade around the two long-running local-qwen efforts: three consecutive `xs2rust-endor` press ticks (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) each hit the 2400s handler wall and were poisoned to `plan/` — the driver reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green) but blocked on a `node:crypto` import that the SES/XS bundler can't handle during `daemon_bootstrap.js` generation; it has begun adding an XS crypto polyfill. Separately, `daemon-store-phase4-sorted` overran the same budget and halted the serial `daemon-store-family-build` orchestration at 3/6 (Phase 5 parity and Phase 6 CLI/WUI swept). Both classes of failure are budget-overrun, not logic — the remedy the watchdogs flag is to split them into claim-sized stages or run detached. On the research side, a scholar ingest and a researcher verdict both concluded Kimi K3 is a hard no for the local hermit lane (2.8T-param MoE, ~6–12× the box's RAM) but cheaply wireable as a hosted OpenAI-compatible arm for the bid-auction if a funded Moonshot key is provided — relevance rated low-to-bounded-trial, no action taken.
+Two research probes on Moonshot's newly-released **Kimi K3** landed back-to-back: a scholar ingest of the Fireworks "K3+Fable" post (rated LOW relevance — an oracle-routing benchmark study, no harnessable model) and a deeper researcher verdict on whether the garden can serve K3. Bottom line from the latter: **local is off by >10×** (a 2.8T-param MoE needs ~1.5 TB even at Q4 vs. the box's 125 GiB), but **hosted is cheap to wire** via the existing cleric/codex handler pointed at Moonshot's OpenAI-compatible `/v1` ($3/$15 per MTok, ~1/3 of Fable 5), and it maps onto the bid-auction as a low-risk-class specialist arm — gated only on a funded key and a codex↔Moonshot tool-calling check.
+
+On the build side, the daemon shipped a new draft design PR — [endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828), native Rust raw-DEFLATE host functions — and [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) cleared its shepherd.
+
+What most needs a maintainer's eye is a **handler-budget cascade**: the recurring qwen3.6 XS→Rust press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) overran the 2400s wall on four separate ticks and was poisoned/parked, and `daemon-store-phase4-sorted` did the same — halting the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept). The reaper's advice on all of them is identical: these jobs exceed a single claim's budget and must be split into stages or run detached. The phase-4 press also reported a hard blocker before poisoning: `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto` through the SES/XS bundler, and it was awaiting direction on a crypto polyfill (option (a) acknowledged, then reaped mid-implementation).
 
 ## Parked for maintainer feedback
 
@@ -210,6 +214,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - Trilogy AI (Moonshot pricing $0.30/$3/$15) — https://trilogyai.substack.com/p/kimi-k3-is-live-pricing-benchmarks
 > - HF weights-status / GGUF timeline (weights 2026-07-27, no official GGUF yet) — https://wan27.org/blog/kimi-k3-huggingface
 > - Garden refs: `context/operations/local-inference-amd.md` §4-5, `skills/model-selection/SKILL.md`, `scripts/jobs/model-routing-defaults.tsv`, `scripts/jobs/handlers/cleric-codex.sh`, `designs/provider-model-catalog.md`
+
+- `20260722T072334Z-b46f04` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T072334Z-b46f04.md)
+
+> gardener job 'xs2rust-endor-press-20260722-045001' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -533,14 +541,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.5M | $1061.28 _(notional, rate-card)_ | no quota set |
-| Codex | 685.5M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.8M | $1065.68 _(notional, rate-card)_ | no quota set |
+| Codex | 689.5M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-issue-comment-5043060750`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5043060750.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
