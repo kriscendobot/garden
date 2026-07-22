@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:13:51Z_
+_As of 2026-07-22T07:17:04Z_
 
 ## Latest
 
-The only board completion this cycle was the [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) shepherd finishing; everything else of note is stall and recovery. Three worker jobs deterministically overran the 2400s handler budget and were poisoned (parked in `plan/`, held for a human): two ticks of the hourly xs2rust-endor press against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and the daemon-store Phase 4 build. The Phase 4 poison halted the serial `daemon-store-family-build` orchestration at 3/6, sweeping Phases 5–6 (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)). The xs2rust press itself reported it is wedged on `daemon_bootstrap.js` generation — `@endo/platform` pulls in `node:crypto`, which the SES/XS bundler can't handle — and acknowledged a maintainer direction to add an XS crypto polyfill before it was reaped; the reaper's remedy for all three is the same: split into claim-sized stages or run detached. The scholar also filed a low-relevance read of a Fireworks Kimi K3-vs-Fable routing study (cloud-only, no harnessable weights). Maintainer action is queued: promote or split the three poisoned jobs, and confirm the crypto-polyfill approach for the xs2rust press.
+Two lines of work stand out. First, a research verdict landed: [research-harness-kimi-k3](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-harness-kimi-k3.md), alongside a companion scholar ingest, concluded the garden **cannot** run Moonshot's newly-released Kimi K3 locally (a 2.8T-param MoE — ~6–12× the box's RAM even at 2-bit, no weights until 2026-07-27) but **could** wire it as a hosted arm cheaply, reusing the existing codex handler against Moonshot's OpenAI-compatible `/v1` at ~1/3 of Fable 5's token price. The suggested move is a bounded bid-auction trial on low-risk, long-context classes gated on a funded `MOONSHOT_API_KEY` and codex↔Moonshot tool-calling verification — not defaulting `build`/`design` to it.
+
+Second, and needing attention: a wave of **handler-budget overruns**. The recurring [PR #600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor press jobs and the `daemon-store-phase4-sorted` builder all hit the 2400s wall (rc=124) and were poison-parked in `jobs/plan/` after a single overrun cycle — these jobs simply don't fit a claim-scoped handler and need splitting or detaching. The consequence: the serial `daemon-store-family-build` orchestration **HALTED at 3/6** (phases 5 and 6 swept). The xs2rust press also reported a real blocker before stalling — `daemon_bootstrap.js` generation fails because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle; the driver acknowledged maintainer direction to add an XS crypto polyfill. Rust engine health itself is fine (82/82 cargo tests, ~2750 dual-run oracle tests green). Note the earlier process-leak history flagged in these job bodies — bounded, reaped spawns remain the condition for resuming this schedule.
 
 ## Parked for maintainer feedback
 
@@ -89,6 +91,127 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > No next step recommended. Not worth a designer job or a benchmark pull. Worth a
 > glance only IF Fireworks later publishes K3 weights/arch and it turns out to be a
 > small/quantized variant that fits gfx1151 — but the post gives no such signal.
+
+- `20260722T071615Z-eaf442` — from gardener:research-harness-kimi-k3, reply_to `research-harness-kimi-k3` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T071615Z-eaf442.md)
+
+> # Can the garden harness Kimi K3? — researcher verdict (job `research-harness-kimi-k3`)
+>
+> **Bottom line: LOCAL — no (off by >10×). HOSTED — yes, and cheap to wire; worth a
+> bounded trial on low-risk work-classes.** The scholar ingest
+> `scholar-fireworks-kimik3-fable` had **not** landed on the board when I ran, so this
+> is from primary sources directly. All external page text treated as untrusted data.
+>
+> ## The model (primary sources)
+> - **2.8T total parameters**, sparse **MoE**, activates **16 of 896 experts** per token.
+>   Architecture: Kimi Delta Attention (KDA, hybrid linear attn) + Attention Residuals
+>   (AttnRes). **Native vision / multimodal** (text+image+video). **1M-token context**.
+> - **Active set ≈ 50B-class** (16/896 ≈ 1.8% of the net; ~50–60B once attention/shared
+>   weights are counted). **UNVERIFIED** — Moonshot has not published an exact active-param
+>   number; this is the widely-cited estimate. (For grounding: K2 was ~1T-total / ~32B-active.)
+> - **Released 2026-07-16**; **open weights due 2026-07-27** (5 days out) under a
+>   **Modified-MIT** license (K2's license shape; final K3 terms not yet posted — UNVERIFIED).
+>
+> ## Local (hermit lane): NOT FEASIBLE — the memory math
+> An MoE keeps **all** experts resident; the active set governs *speed*, not *footprint*.
+> So the whole 2.8T must fit in GTT. Our box: **125 GiB total unified RAM**, GTT default
+> ~50 GiB (raisable toward ~100 GiB, leaving OS headroom); largest model proven to fit is
+> **gpt-oss-120b at ~63 GB**. Projected K3 footprint (2.8T params):
+>
+> | Quant | bytes/param | K3 footprint | vs 125 GiB box |
+> | --- | --- | --- | --- |
+> | BF16 | 2.0 | ~5,600 GB | ~45× |
+> | Q8 | 1.0 | ~2,800 GB | ~22× |
+> | Q4 / MXFP4 | ~0.53 (same ratio that gives gpt-oss-120b its 63 GB) | **~1,470 GB (~1.5 TB)** | **~12×** |
+> | Q2 (~2.4-bit) | ~0.30 | ~840 GB | ~7× |
+> | 2-bit floor | 0.25 | ~700 GB | ~6× |
+>
+> Even the most aggressive ~2-bit quant (~700–840 GB) is **~6–7× the box's entire RAM** and
+> ~8–12× the ~100 GiB GTT ceiling; a *usable* Q4 (~1.5 TB) is **~12× total RAM / ~15× GTT**.
+> Off by more than an order of magnitude — no ollama tag or GGUF will fit. (Also: no official
+> GGUF exists yet — weights aren't public until 2026-07-27; only community "abliterated" prep
+> repos. Even the quant sizes above are projected, not measured.) **Hard no. Do not attempt.**
+>
+> ## Hosted (cleric-style backend): FEASIBLE
+> K3 is served behind an **OpenAI-compatible /v1** — exactly the surface the cleric/codex
+> handler already drives.
+> - **Moonshot direct (cheapest, recommended):** `base_url https://api.moonshot.ai/v1`,
+>   model id **`kimi-k3`**, **Bearer auth** via `MOONSHOT_API_KEY`. OpenAI-compatible
+>   `/v1/chat/completions`; 1M context (`max_completion_tokens` default 131072, up to
+>   1048576). **Pricing: $0.30 cached-input / $3.00 fresh-input / $15.00 output per MTok.**
+>   Min **$1 top-up** for access; RPM/TPM/TPD tiered by cumulative top-up (exact numbers
+>   UNVERIFIED).
+> - **OpenRouter alt:** slug `moonshotai/kimi-k3`, `base_url https://openrouter.ai/api/v1`,
+>   $3/$15, one key → many models (+ OpenRouter fee).
+> - **Fireworks (the post's host):** claims day-zero K3 support, but its Kimi model page has
+>   **not** published a K3 model id / price yet (only up to K2.7). **UNVERIFIED** — use
+>   Moonshot-direct.
+>
+> Cost cross-check: K3 $3/$15 is **~1/3 of Fable 5's $10/$50** (catalog §1) — matching the
+> "one-third the token price" reporting.
+>
+> ## What "fable" in the post refers to
+> **Not a serving/agent technique — it is Claude Fable 5** (`claude-fable-5`), the closed
+> model K3 is benchmarked against. The post's actual technique is **oracle / predictive model
+> routing**: run each task through both, pick the cheapest correct answer; an oracle sent K3
+> **72–96% of tasks**, with the expensive model reserved for the hard tail (~93% accuracy,
+> "up to ~50× cheaper" than Fable-only on long agentic loops). A *practical* router can't run
+> both — it must **predict** which arm wins on cost×quality.
+>
+> **This matters a lot for us:** the garden already has the `fable` tier (`claude-fable-5`),
+> and our **bid-accept / bid-auction market is exactly that predictive router**. Add a `kimi-k3`
+> arm and we have both halves of the post's "K3 + Fable = SoTA" mixture, with the auction
+> choosing between them per task on merge-worthiness-per-dollar.
+>
+> ## Concrete wiring plan (reuses the codex handler — no new handler file)
+> This is `context/operations/local-inference-amd.md` §4 Option 1, pointed at a **paid hosted**
+> OpenAI-compatible endpoint instead of on-box Ollama. Mirrors the `hermit`/`local` precedent.
+> 1. **Routing row (journal DATA, no deploy):**
+>    `scripts/jobs/set-model-routing.sh moonshot 'kimi-* moonshotai/*' kimi-k3`
+>    → any `model: kimi-k3` job pins to provider `moonshot`.
+> 2. **Handler arm (main2, one small edit):** add a `provider = moonshot` branch to
+>    `scripts/jobs/handlers/cleric-codex.sh` — mirror the `local` arm (~line 244): emit inline
+>    `-c model_provider=moonshot` + `-c model_providers.moonshot.{name,base_url=https://api.moonshot.ai/v1,env_key=MOONSHOT_API_KEY}`,
+>    a `GET /v1/models` reachability probe, default model `kimi-k3`. **Zero new handler file.**
+> 3. **Tier map:** `resolve_model_tier moonshot <tier>` in `common.sh` — bind e.g. `k3 → kimi-k3`,
+>    pass concrete `kimi-*` through, reject non-kimi ids (so it can't cross-pin a backend).
+> 4. **Worker kind + unit:** add a kind (e.g. `oracle`/`envoy`) to the `common.sh` worker-kind
+>    registry — handler `handlers/cleric-codex.sh`, `provider: moonshot`, unit `garden-<kind>@`,
+>    count_key/state_ns; add to `worker_kinds` so the scaler / `install-units.sh scale <kind> N` /
+>    template render with no per-kind source (hermit precedent). A `set-<kind>s.sh` (set-hermits.sh
+>    analogue) declares per-host count.
+> 5. **Rate card + catalog:** `provider: moonshot` row in `reputation/rate-card.md` and a §2.6 in
+>    `designs/provider-model-catalog.md` — $3 in ($0.30 cached) / $15 out per MTok, 1M context,
+>    multimodal, dated.
+> 6. **Credentials (the gating human step):** `MOONSHOT_API_KEY` into the fleet secret/env
+>    plumbing; a funded Moonshot account (min $1). This is the only precondition an agent can't do.
+>
+> **Verify before the first real job (UNVERIFIED):**
+> - codex's agentic loop against Moonshot's chat-completions `/v1` — the *same* open question
+>   already flagged for the hermit/Ollama path. If codex needs the OpenAI *responses* API or a
+>   specific tool-call schema, K3 compat must be checked. K2 supported tool/function calling; K3
+>   likely does — confirm.
+> - Exact Moonshot per-tier rate limits; Fireworks K3 model id/price (page not updated); the
+>   ~50B active-param estimate.
+>
+> ## Recommendation
+> - **Local: don't.** >10× memory; not close, and no weights/GGUF until 2026-07-27.
+> - **Hosted: worth a bounded trial.** Wiring is genuinely cheap (one handler arm + one routing
+>   row + one rate-card row + a key), and the Fireworks thesis — K3 as a cheap specialist an
+>   oracle router feeds most traffic — maps directly onto our bid-auction. **Seed a `kimi-k3` arm
+>   that bids on low-risk classes** (doc, triage, small `fix:`, mechanical `ops`, and especially
+>   **long-context 1M jobs** where K3's window is a real edge); let acceptance data price it. **Do
+>   NOT default high-stakes `build`/`design` on main to it.** Gated on: (a) a funded Moonshot key,
+>   (b) verifying codex↔Moonshot chat-completions + K3 tool-calling. If (a)+(b) clear, this
+>   realizes the post's "K3 + Fable" mixture with tiers we already have.
+>
+> ## Primary sources
+> - Moonshot Kimi K3 API quickstart (base_url, model id, auth, 1M) — https://platform.kimi.ai/docs/guide/kimi-k3-quickstart
+> - Fireworks post (the trigger; oracle routing, K3+Fable) — https://fireworks.ai/blog/kimik3-fable
+> - OpenRouter K3 ($3/$15, slug, multimodal) — https://openrouter.ai/moonshotai/kimi-k3
+> - MarkTechPost release (2.8T, 16/896, KDA/AttnRes, 1M) — https://www.marktechpost.com/2026/07/16/moonshot-ai-releases-kimi-k3-a-2-8-trillion-parameter-open-moe-model-with-kimi-delta-attention-and-1m-context/
+> - Trilogy AI (Moonshot pricing $0.30/$3/$15) — https://trilogyai.substack.com/p/kimi-k3-is-live-pricing-benchmarks
+> - HF weights-status / GGUF timeline (weights 2026-07-27, no official GGUF yet) — https://wan27.org/blog/kimi-k3-huggingface
+> - Garden refs: `context/operations/local-inference-amd.md` §4-5, `skills/model-selection/SKILL.md`, `scripts/jobs/model-routing-defaults.tsv`, `scripts/jobs/handlers/cleric-codex.sh`, `designs/provider-model-catalog.md`
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -412,27 +535,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $1059.93 _(notional, rate-card)_ | no quota set |
-| Codex | 685.3M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.4M | $1060.42 _(notional, rate-card)_ | no quota set |
+| Codex | 685.5M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endor-native-zip-xs-design.md) — ---
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
-- [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-harness-kimi-k3.md) — researcher — how or whether the garden can harness Kimi K3
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3244)
+### tada (3245)
+- [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-harness-kimi-k3.md) — Completion report follows.
 - [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr827-shepherd.md) — Completion report
 - [`scholar-fireworks-kimik3-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fireworks-kimik3-fable.md) — Report delivered to the maintainer.
 - [`daily-progress-summary-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260722-070506.md) — The periodical is committed and pushed to origin/journal2. Job complete.
 - [`minion-town-agenda-review-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-070506.md) — Reviewed agenda, journal, repo/PR/CD state, deployed source, and edge. Posted...
-- [`endojs-endo-but-for-bots-pr737-c18afe76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-c18afe76.md) — Rebased PR #737 onto #774, updated its GitHub base, and pushed 09130626cf.
-- … and 3239 more
+- … and 3240 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
