@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 7
-worker_kind: gardener
-claimed_at: 2026-07-22T05:52:23Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-improve-project-worktree-dep-cache
