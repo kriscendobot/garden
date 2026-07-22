@@ -20,12 +20,12 @@ Type=exec
 Slice=background.slice
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # The wrapper derives OLLAMA_HOST from GARDEN_LOCAL_OLLAMA_URL and sets the mandatory
-# OLLAMA_IGPU_ENABLE=1 before exec'ing `ollama serve`, so the served endpoint and the
-# hermit handler's client URL cannot drift. exec /bin/bash (always present) avoids a
+# OLLAMA_IGPU_ENABLE=1 before launching `ollama serve`, so the served endpoint and
+# the hermit handler's client URL cannot drift. exec /bin/bash (always present) avoids a
 # 203/EXEC burst if the script is momentarily absent mid-deploy.
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/ollama-serve.sh
-# Keep the endpoint up: a crashed/OOM'd ollama self-restarts so a pinned hermit tick
-# never strands on a dead endpoint (the outage this whole change removes).
+# Keep the endpoint up: the wrapper waits 60s after a failed precondition or child
+# exit, then Restart=always retries. RestartSec remains only a secondary safeguard.
 Restart=always
 RestartSec=5
 # A systemd stop/restart SIGTERMs the server; a signalled shutdown is a CLEAN exit.

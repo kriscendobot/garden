@@ -14,19 +14,65 @@
 # container entrypoint BEFORE the user manager starts (§ Container GPU access), so by
 # the time systemd starts this unit the bot user is already in video+render.
 #
-# The unit sets Restart=always, so a crash self-restarts; this script is a thin,
-# durable derivation shim (no config file needed — reset-proof, like the handler's
-# inline provider block).
+# The unit sets Restart=always, so this wrapper deliberately waits after a failed
+# precondition or a short-lived child. That keeps systemd from turning a persistent
+# host defect into a five-second journal hot loop. The delay belongs here rather
+# than solely in the unit, because Ollama can also exit successfully immediately.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 GARDEN_TAG="ollama-serve"
+OLLAMA_RESTART_BACKOFF_SECONDS="${GARDEN_OLLAMA_RESTART_BACKOFF_SECONDS:-60}"
+child_pid=""
 
-command -v ollama >/dev/null 2>&1 \
-  || die "ollama is not on PATH; a hermit host must ship it (Dockerfile ARG OLLAMA_VERSION) — see context/operations/local-inference-amd.md § 6"
+back_off() {
+  local reason="$1"
+  log "$reason; waiting ${OLLAMA_RESTART_BACKOFF_SECONDS}s before systemd retries"
+  sleep "$OLLAMA_RESTART_BACKOFF_SECONDS"
+}
+
+shutdown() {
+  local signal="$1" status="$2"
+  log "received SIG${signal}; stopping Ollama"
+  if [ -n "$child_pid" ]; then
+    kill "-$signal" "$child_pid" 2>/dev/null || true
+    wait "$child_pid" 2>/dev/null || true
+  fi
+  exit "$status"
+}
+
+trap 'shutdown TERM 143' TERM
+trap 'shutdown INT 130' INT
 
 export OLLAMA_IGPU_ENABLE=1
 OLLAMA_HOST="$(ollama_serve_host)"; export OLLAMA_HOST
+
+# A working endpoint means another Ollama has already bound this address. Starting
+# a second copy would only fail with address-in-use, so leave the existing endpoint
+# alone and hold this service off for a long interval.
+if curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null; then
+  back_off "Ollama endpoint already answers at $GARDEN_LOCAL_OLLAMA_URL (another process owns $OLLAMA_HOST)"
+  exit 0
+fi
+
+if ! command -v ollama >/dev/null 2>&1; then
+  back_off "ollama is not on PATH; a hermit host must ship it (Dockerfile ARG OLLAMA_VERSION) — see context/operations/local-inference-amd.md § 6"
+  exit 1
+fi
+
 log "starting supervised Ollama endpoint on $OLLAMA_HOST (serves $GARDEN_LOCAL_OLLAMA_URL)"
-exec ollama serve
+ollama serve &
+child_pid="$!"
+
+set +e
+wait "$child_pid"
+serve_status=$?
+set -e
+child_pid=""
+
+# SIGTERM and SIGINT are handled above so a normal systemd stop remains a clean
+# 143/130 result. Every other exit, including a misleading immediate 0, is held
+# back before Restart=always starts another attempt.
+back_off "ollama serve exited with status $serve_status"
+exit "$serve_status"

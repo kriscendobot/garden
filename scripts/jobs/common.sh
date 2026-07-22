@@ -142,6 +142,12 @@ export GARDEN
 # on its first successful read, after which this default no longer applies.
 : "${GARDEN_LEADER_DEFAULT:=leader}"
 
+# --- local inference (hermit worker backend, provider: local) ----------------
+# GARDEN_LOCAL_OLLAMA_URL is the OpenAI-compatible /v1 base URL the hermit (provider:
+# local) worker probes. The supervised endpoint derives its OLLAMA_HOST bind address
+# from the same URL, so the client and server cannot drift on a non-default port.
+: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
+
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
 # checkout, and the upgrade monitor compares its tip to the deployed sha. Named
@@ -447,6 +453,15 @@ read_desired_count() {
   v="$(sed -n "s/^$count_key:[[:space:]]*//p" "$f" | head -1)"
   [[ "$v" =~ ^[0-9]+$ ]] || return 1
   printf '%s\n' "$v"
+}
+
+# ollama_serve_host — derive Ollama's host:port bind value from the shared client URL.
+# Strip the scheme and any path so http://127.0.0.1:11434/v1 becomes 127.0.0.1:11434.
+ollama_serve_host() {
+  local u="${GARDEN_LOCAL_OLLAMA_URL:-http://127.0.0.1:11434/v1}"
+  u="${u#*://}"
+  u="${u%%/*}"
+  printf '%s\n' "${u:-127.0.0.1:11434}"
 }
 
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
