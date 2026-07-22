@@ -1,0 +1,1 @@
+Updated the Minion Town agenda-review cadence to daily and confirmed the active schedule records `cadence: daily`. Replied on issue #58: https://github.com/kriskowal/garden/issues/58#issuecomment-5050181844. No follow-up required.
