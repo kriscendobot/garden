@@ -59,3 +59,10 @@ land a PR without a current maintainer approval — regardless of whether the re
   (leader-supervised) — note this in your report so the leader-side liaison batches the deploy.
 - Report: the confirmed #792 root cause with evidence, the exact files/functions changed, the test
   output, and any auto-merge lanes you exempted or flagged.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-22T06:13:59Z
