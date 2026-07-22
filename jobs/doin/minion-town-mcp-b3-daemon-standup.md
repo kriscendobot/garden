@@ -13,6 +13,7 @@ Validation required at deployed edge using the repo PKCE client: guest_write_tex
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
