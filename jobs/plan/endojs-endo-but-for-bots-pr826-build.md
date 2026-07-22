@@ -1,0 +1,16 @@
+---
+gate: blocked
+blocked_on: endojs-endo-but-for-bots-pr826-conduct
+priority: high
+roadmap: readableblob-range-attenuation
+role: builder
+posted_by: liaison
+posted_at: 2026-07-22T20:58:51Z
+---
+
+# Build the approved ReadableBlob range-attenuation design from PR #826
+
+Repository: endojs/endo-but-for-bots
+Design PR: https://github.com/endojs/endo-but-for-bots/pull/826
+
+Wear the builder role. After the conductor has successfully merged design PR #826 into llm, implement that approved design against the then-current llm branch. Open or update the implementation as a DRAFT pull request, preserve the design intent, add proportionate tests and documentation, and run the repository-required local verification. This is a mergeable-feature build, so carry the resulting draft PR through the automatic gauntlet (clean, panel review, fix loop, and un-draft) under the normal gardening state machine. Report the implementation PR URL and verification evidence.
