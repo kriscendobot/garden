@@ -25,3 +25,10 @@ fixes into this URL feature PR — classify each as in-diff vs master-debt, and
 is "#719 is green on its own diff and blocked only on master-debt + the M2 decision,"
 report exactly that with the evidence. Follow the shepherd CI-failure-classification
 loop; cite real command output, no unverified "green" claims.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-22T14:48:17Z
