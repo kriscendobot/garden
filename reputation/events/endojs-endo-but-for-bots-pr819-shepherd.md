@@ -4,18 +4,18 @@ kind: cleric
 provider: openai
 model: gpt-5.6-terra
 thoughtfulness: medium
-work_class: other:m
+work_class: other:s
 target: main2
 accepted: true
 agentic_dollars: censored
 human_dollars: 0
 aggregate_dollars: censored
-attempts: 4
-duration_secs: 
+attempts: 1
+duration_secs: 52
 awarded_bid: 
 bidders: 0
 source: live
 recorded_by: endolin-garden2-5bcdff64/cleric-3
-recorded_at: 2026-07-22T00:54:01Z
+recorded_at: 2026-07-22T00:54:11Z
 ---
-reputation event for endojs-endo-but-for-bots-pr819-shepherd: arm openai/gpt-5.6-terra/medium work_class other:m target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr819-shepherd: arm openai/gpt-5.6-terra/medium work_class other:s target main2 accepted true
