@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T02:50:46Z_
+_As of 2026-07-22T02:52:47Z_
 
 ## Latest
 
@@ -212,6 +212,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T024320Z-df140c` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T024320Z-df140c.md)
 
 > gardener job 'xs2rust-endor-press-20260722-012002' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260722T025204Z-fde6a4` — from gardener:esheets-supervisor-20260722-025002, reply_to `esheets-supervisor-20260722-025002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T025204Z-fde6a4.md)
+
+> esheets supervisor — day 12, tree still dammed on ONE maintainer decision.
+>
+> MERGED (floor): endoclaw-network-fetch → packages @endo/http-confine + @endo/exo-http-client. Base designs merged: designs/endoclaw-oauth.md, designs/endoclaw-network-fetch.md, designs/exo-google-sheets.md, designs/endoclaw-webhooks.md.
+>
+> SOLE BLOCKER — [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (refine endoclaw-oauth, settle first-mint flow): OPEN, non-draft, all 5 CI checks GREEN (lint/build/test/browser-tests/zizmor), mergeable=MERGEABLE, mergeStateStatus=BLOCKED. Only blocker is your approving re-review — reviewDecision is a STALE CHANGES_REQUESTED from 2026-07-10; the revision was addressed + re-panelled green and re-review re-requested 2026-07-17. No movement since. Now 12 days stalled.
+>
+> DAMMED behind it (not started, confirmed absent from packages/ on llm): the OAuth exo, @endo/google-sheets, @endo/exo-google-sheets.
+>
+> Posted today: nothing — deliberately. Every downstream node waits on that PR, which is already green + one-click-mergeable; another weave/gauntlet is pure noise.
+>
+> DECISION NEEDED (unchanged 3rd ask): (a) approve+merge [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) and I post the OAuth-exo builder next fire; or (b) authorize me to build the OAuth exo on the already-merged base designs/endoclaw-oauth.md now and land that PR's first-mint refinements afterward. If I hear nothing, my default next fire stays option (a)'s hold — I will NOT self-authorize an upstream build. One word ((a)/(b)/hold) unblocks 4 packages.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -589,27 +603,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.4M | $1004.91 _(notional, rate-card)_ | no quota set |
-| Codex | 582.5M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 90.5M | $1005.92 _(notional, rate-card)_ | no quota set |
+| Codex | 583.3M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`arc-status-daily-20260722-025002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260722-025002.md) — Daily status + change summary for the standing review arcs
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
-- [`esheets-supervisor-20260722-025002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260722-025002.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`xs2rust-endor-press-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-012002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-023502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3208)
+### tada (3209)
+- [`esheets-supervisor-20260722-025002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260722-025002.md) — Completion report — esheets-supervisor-20260722-025002
 - [`minion-town-agenda-review-20260722-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-023502.md) — Inbox empty. This was a review/reconciliation cycle producing an issue commen...
 - [`minion-town-agenda-review-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-012002.md) — Completion report
 - [`setup-pages-proposal-compartments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/setup-pages-proposal-compartments.md) — What was done
 - [`xs2rust-endor-press-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260722-002002.md) — What I Did
-- [`xs2rust-endor-press-20260721-232002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260721-232002.md) — Completion report — xs2rust-endor-press-20260721-232002 (session 3 / reaped #3)
-- … and 3203 more
+- … and 3204 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
