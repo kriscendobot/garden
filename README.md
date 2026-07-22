@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:22:25Z_
+_As of 2026-07-22T05:24:57Z_
 
 ## Latest
 
-The [platform-neutral hash design](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-platform-neutral-hash.md) landed as complete — the sole board completion this window, and a timely one, since the day's most pressing signal is a **hard stall on xs2rust-endor** ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)). Two press jobs sit in `doin` with no HEAD movement since tick 4; the gardener's final stall notice reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked at `daemon_bootstrap.js` generation because `@endo/platform`'s blobref pulls in `node:crypto`, which the SES/XS bundler can't handle — leaving `test:rust` unverified. It needs a maintainer call on the crypto-polyfill / package-exports approach before it can proceed (the neutral-hash design may be the relevant lever). Everything else is parked: 27 PRs await review — oldest movers being the [registry-capability work](https://github.com/endojs/endo-but-for-bots/pull/403) (22d) and [voice input](https://github.com/endojs/endo-but-for-bots/pull/101) (19d) — plus a deep plan queue thick with repeated xs2rust-endor press attempts.
+The [xs2rust-endor port (PR #600)](https://github.com/endojs/endo-but-for-bots/pull/600) is the live story: after seven ticks with no HEAD movement (branch pinned at `03656bac9d`), the press hit a hard blocker — `daemon_bootstrap.js` generation fails because `@endo/platform/fs/extended/shared/blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle, leaving `test:rust` unverified. The Rust engine itself is healthy (82/82 cargo tests, stages 1–6 complete, ~2750 dual-run oracle tests green, stage-5 byte-identity confirmed). The maintainer has since directed option (a) — add an XS crypto polyfill — and the gardener has acknowledged and begun implementation, so the stall should clear. Otherwise the board is quiet: no todo posts, with `daemon-store-phase4-sorted` and two fresh xs2rust press jobs in flight.
 
 ## Parked for maintainer feedback
 
@@ -36,14 +36,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Without maintainer direction on the platform crypto polyfill / package.json exports restructuring approach, this press cannot proceed. Requesting specific guidance to unblock.
 
+- `20260722T052437Z-d3d90a` — from gardener:xs2rust-endor-press-20260722-033502, reply_to `xs2rust-endor-press-20260722-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T052437Z-d3d90a.md)
+
+> Acknowledged maintainer direction: option (a) — adding XS crypto polyfill. Commencing implementation now. Will update upon completion.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.1M | $1034.82 _(notional, rate-card)_ | no quota set |
-| Codex | 629.7M _(+516.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.1M | $1035.23 _(notional, rate-card)_ | no quota set |
+| Codex | 629.8M _(+515.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
