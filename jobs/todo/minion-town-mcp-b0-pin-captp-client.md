@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-mcp-daemon-guest-tools-orchestration
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-07-22T16:04:13Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-07-22T16:05:36Z -->
 
 # B0: pin and port the CapTP client
 
