@@ -11,3 +11,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot One more refinement after looking at this through the authority-scoping lens. The pinned-history idea is useful, but I no longer think `PlatformGit` is the right public boundary. "Platform/admin" names an expected holder rather than the authority being granted, and 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 22
+  worker_kind: cleric
+  claimed_at: 2026-07-22T21:05:25Z
