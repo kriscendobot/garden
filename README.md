@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T15:09:43Z_
+_As of 2026-07-22T15:12:42Z_
 
 ## Latest
 
-Two PRs need a maintainer decision to move. [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, clean-merge, and CI-green, but blocked purely on approval: kriskowal's APPROVED review is pinned to the old head `9b40eef` while the current head is `a0cd0d0`, so a fresh re-approval is required before the conductor will merge. On [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804), a gardener is holding a CHANGES_REQUESTED follow-up pending your intent confirm — your "rename cbor-frame/syrup-frame" comment cuts against what actually shipped (`@endo/syrup-frame` landed; no CBOR pkg did), so it's asking whether to rename `designs/cbors.md`/`syrups.md` to `*-frame.md` and rewrite the naming rationale before churning multiple docs.
+Little moved on the board itself — only [`scholar-provider-quota-signals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-provider-quota-signals.md) completed — but the maintainer inbox filled with blockers and approvals worth noticing. The hourly **xs2rust-endor** press-driver ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) hit a wall: four consecutive press jobs deterministically overran the 2400s handler budget and were poisoned into `plan/` (held on go-ahead). The underlying blocker is that `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle; the driver reports the Rust engine otherwise healthy (82/82 cargo tests, ~2750 dual-run oracle tests green) and acknowledged the maintainer's option-(a) direction to add an XS crypto polyfill. A separate orphan audit came back **GREEN** (0 leaked processes), so the charter's process-hygiene mitigation is holding — though that audit host still lacks the deployed reaper fix (commit `8eb3354a7e` not in root HEAD).
 
-The xs2rust-endor press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) collapsed this window: four consecutive hourly press-driver jobs deterministically overran the 2400s handler budget and were poisoned (parked in `plan/`, held for go-ahead). Root blocker is that `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle; the driver reports it acknowledged your "option (a) — XS crypto polyfill" direction and is implementing it. Separately, `daemon-store-phase4-sorted` overran and was poisoned, which HALTED the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept), and `endojs-pr160-ci-fix-finalize` was likewise poisoned.
+Relatedly, the serial **daemon-store-family-build** orchestration HALTED: child `daemon-store-phase4-sorted` overran and poisoned, sweeping the parked phase-5 and phase-6 children (3/6 done before halt).
 
-finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) advanced — optional `llmProgram` role code now runs in a fresh SES Compartment with attenuated host-mediated tool calls, tests pass with a dry-run "wallet touched: false", and CI is green — but sign-off is blocked on the panel model's weekly limit (resets Jul 25 03:00 UTC). Finally, a researcher verdict on harnessing Kimi K3 landed: local is infeasible (2.8T-param MoE, ~6–15× over the box's RAM/GTT ceiling), but a hosted Moonshot `/v1` arm is cheap to wire and maps onto the existing bid-auction router — gated only on a funded key and codex↔Moonshot tool-call verification.
+Two items need direct maintainer action: [#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft, clean-merge, and CI-green but stalled on approval — kriskowal's APPROVED review is pinned to the old head `9b40eef`, while the current head is `a0cd0d0`, so the conductor gate wants a fresh re-approval. And the [#804](https://github.com/endojs/endo-but-for-bots/pull/804) review job is holding for an intent confirm before churning design docs — whether to rename `designs/cbors.md`/`syrups.md` to the `-frame` names that actually landed. Meanwhile [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES-compartment role code, tests green, wallet untouched) but is blocked only by the panel model's weekly limit (resets Jul 25 03:00 UTC). Finally, a scholar+researcher pair concluded **Kimi K3** is a hard no for the local hermit lane (~12× the box's RAM even at Q4) but cheap to wire as a hosted OpenAI-compatible arm feeding the bid-auction — gated on a funded Moonshot key.
 
 ## Parked for maintainer feedback
 
@@ -748,14 +748,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.7M | $1138.20 _(notional, rate-card)_ | no quota set |
+| Claude | 104.8M | $1139.56 _(notional, rate-card)_ | no quota set |
 | Codex | 679.8M _(+519.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -773,15 +773,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-daemon-guest-mcp-b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b4.md) — ---
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`scholar-provider-quota-signals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-provider-quota-signals.md) — ---
 
-### tada (3274)
+### tada (3275)
+- [`scholar-provider-quota-signals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-provider-quota-signals.md) — Research complete. No repository, fleet-allocation, or production-configurati...
 - [`minion-town-agenda-review-20260722-143519`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-143519.md) — Reviewed and reported issue #58: https://github.com/kriskowal/garden/issues/5...
 - [`endo-sturdyref-restack-541-698-700-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-restack-541-698-700-pr737-line.md) — orchestration endo-sturdyref-restack-541-698-700-pr737-line — complete
 - [`endojs-endo-but-for-bots-pr700-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr700-restack-pr737-line.md) — Weaver report: rebase PR #700 (bridge cut 2) onto the restacked #698
 - [`endojs-endo-but-for-bots-pr698-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr698-restack-pr737-line.md) — Completion report — weave PR #698 onto restacked #541
-- [`endojs-endo-but-for-bots-pr541-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr541-restack-pr737-line.md) — Restacked PR #541 onto build/sturdyref-pass-style-ocapn-single, force-pushed ...
-- … and 3269 more
+- … and 3270 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
