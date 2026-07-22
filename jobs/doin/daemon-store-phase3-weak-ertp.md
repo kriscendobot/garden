@@ -64,6 +64,7 @@ Design authority for the full detail and file:line grounding:
 READ THE RELEVANT PHASE SECTION FIRST. When the PR is green and un-drafted,
 comment the outcome (link the PR) on https://github.com/kriskowal/garden/issues/59.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
