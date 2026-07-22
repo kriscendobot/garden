@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T20:37:08Z_
+_As of 2026-07-22T20:37:30Z_
 
 ## Latest
 
@@ -816,10 +816,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr704-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr704-restack-pr737-line.md) — Restack PR #704 (SturdyRef bridge cut 6, three-party round-trip integration) ...
 - [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-conduct.md) — ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
