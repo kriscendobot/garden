@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:34:53Z_
+_As of 2026-07-22T22:35:38Z_
 
 ## Latest
 
@@ -346,6 +346,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T223418Z-6d697e` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223418Z-6d697e.md)
 
 > Build is blocked: design PR [https://github.com/endojs/endo-but-for-bots/pull/826](https://github.com/endojs/endo-but-for-bots/pull/826) remains OPEN and unmerged into llm (confirmed 2026-07-22T22:34:11Z). Per the job prerequisite, I have not started an implementation branch or PR. Please merge it or direct an exception; the job can then resume on llm.
+
+- `20260722T223507Z-55d5e1` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223507Z-55d5e1.md)
+
+> B5 is rebased and pushed: [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20) is now CLEAN on B4. Deployed-edge validation remains blocked because B3 is still a draft PR ([https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18)), so B4/B5 are not on main and https://minion.town still advertises mcp/minions:read and mcp/minions:write. Please authorize or drive the merge and deployment sequence, then E1-E4 plus fresh guest-only tools/list can be run.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
