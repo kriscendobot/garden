@@ -12,11 +12,4 @@ state machine now: clean, panel, fixer loop as needed, CI, then un-draft only wh
 the panel terminates cleanly. This handoff was posted by the build completion edge,
 not inferred by a watcher.
 
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-22T16:43:10Z
+<!-- garden-reaped: 3 -->
