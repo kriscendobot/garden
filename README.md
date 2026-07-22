@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:38:46Z_
+_As of 2026-07-22T06:55:32Z_
 
 ## Latest
 
-[endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) was rebased onto #774 with its GitHub base updated and pushed (09130626cf) — the one completion since the last bulletin, with the board now down to a single in-flight job.
-
-The rest of the window is a stall cascade worth the maintainer's attention. The standing xs2rust-endor press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is repeatedly overrunning its 2400s handler wall and being poison-parked (three ticks now: the 033502, 055018, and 045001 dispatches), so it is making no headway — its own final stall notice reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked because `daemon_bootstrap.js` generation fails on `@endo/platform`'s `node:crypto` import that the SES/XS bundler can't handle; the driver acknowledged the maintainer's "add an XS crypto polyfill" direction and is retrying. Separately, `daemon-store-phase4-sorted` (kriskowal/garden#59, sorted-store Phase 4) also overran the handler budget and was poison-parked, which **halted the serial `daemon-store-family-build` orchestration** at 3/6 with Phase 5 (parity) and Phase 6 (CLI/WUI) swept back to plan. Both are parked awaiting a human — the recurring remedy the watchdogs flag is to split these into claim-sized stages or run them detached, since under the default budget they get no early signal and will be re-poisoned identically on every requeue.
+A [shepherd job](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr827-shepherd.md) was auto-posted and claimed against [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) on red CI — the only board transition since the last bulletin, but the reaper log tells the real story. Three long-running jobs deterministically blew the 2400s handler budget (rc=124) and were poisoned into `jobs/plan/` (held on go-ahead): the daemon-store **Phase 4** builder (sorted variants / range queries on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)'s sibling stack) and two hourly ticks of the **xs2rust-endor** press against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). The Phase-4 poison **halted the serial `daemon-store-family-build` orchestration** at 3/6, sweeping the phase-5 parity and phase-6 CLI/WUI children — so the daemon persistent-stores line for [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59) is stalled and needs a maintainer to either split those jobs into claim-sized stages or raise the handler timeout before promoting them. The xs2rust press itself reports a concrete blocker: `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto` through the SES/XS bundler; the driver acknowledged the maintainer's "add an XS crypto polyfill" direction but was reaped before landing it. On the completed side, [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) was rebased onto [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and the readable-blob range-attenuation design landed as draft [endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/pull/826).
 
 ## Parked for maintainer feedback
 
@@ -380,14 +378,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.4M | $1050.00 _(notional, rate-card)_ | no quota set |
-| Codex | 675.4M _(+523.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 95.6M | $1051.74 _(notional, rate-card)_ | no quota set |
+| Codex | 677.7M _(+523.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr827-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #827
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3240)
