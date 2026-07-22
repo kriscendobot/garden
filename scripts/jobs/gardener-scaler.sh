@@ -12,7 +12,8 @@
 # read has three outcomes, all leaving the pool unchanged except a clean parse:
 # file-missing OR value-present-but-unparsable → misconfig, WARN; key-line simply
 # absent from an existing file → normal (this host does not declare the kind), quiet
-# DEBUG; only an explicit `<count_key>: 0` scales that kind to zero. There is NO
+# DEBUG; only an explicit non-gardener `<count_key>: 0` scales that kind to zero.
+# Gardeners have a hard floor of one per active host. There is NO
 # second scaler service — the spine is one loop, one scaler.
 
 set -euo pipefail
@@ -53,8 +54,8 @@ f="$DIR/hosts/$host"
 # Reconcile EACH worker kind independently from its own count line. A kind whose
 # desired count is structurally missing/unparsable is a NO-OP for THAT kind (leave
 # it unchanged and warn), not a scale-to-0 — tearing a pool down is exactly wrong
-# when the signal is absent; only an explicitly-read `<count_key>: 0` scales a kind
-# to zero. Each kind delegates to the installer's scale path (the same mockable
+# when the signal is absent; only an explicitly-read non-gardener `<count_key>: 0`
+# scales a kind to zero. Each kind delegates to the installer's scale path (the same mockable
 # unit_ctl), keeping one place that knows how to enable/disable instances.
 for kind in $(worker_kinds); do
   count_key="$(worker_kind_field "$kind" count_key)"
@@ -64,8 +65,12 @@ for kind in $(worker_kinds); do
   # missing or value unparsable (status 1) is a real misconfig → WARN. All three
   # leave the pool unchanged except the clean parse; missing is never scale-to-0.
   if want="$(read_desired_count "$f" "$count_key")"; then
-    log "host '$host' desired $count_key: $want"
-    "$HERE/install-units.sh" scale "$kind" "$want"
+    if [ "$kind" = gardener ] && [ "$want" -eq 0 ]; then
+      log "WARN host '$host' declares gardeners: 0; refusing to scale gardeners below 1 (use drain-fleet.sh to pause work)"
+    else
+      log "host '$host' desired $count_key: $want"
+      "$HERE/install-units.sh" scale "$kind" "$want"
+    fi
   elif [ "$?" -eq 2 ]; then
     log "DEBUG host '$host' declares no $count_key line in hosts/$host; leaving $kind pool unchanged"
   else

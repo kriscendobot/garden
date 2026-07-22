@@ -1,14 +1,14 @@
 #!/bin/bash
 # set-workers.sh — declare a host's concurrent count for one worker KIND.
 #
-# Usage: set-workers.sh <kind> <N> [host]   (kind ∈ gardener|cleric; host defaults
-#                                            to this host)
+# Usage: set-workers.sh <kind> <N> [host]   (the optional host must be this host)
 #
 # Per-host worker concurrency is garden state, so it lives on the bus: writes the
 # journal hosts/<host> file's `<count_key>: N` line for the given kind (gardeners: /
 # clerics:). The gardener-scaler service on that host watches for the change and
-# reconciles its local pool for THAT kind. A host may thus be scaled from anywhere
-# (any host, or a human), and the change propagates via the journal push.
+# reconciles its local pool for THAT kind. Only the host that owns a record may
+# write it. A human changing another host's capacity runs this command on that
+# host, preventing one host's local action from changing another host's pool.
 #
 # A host's hosts/<host> file holds an INDEPENDENT count line per kind. This writer
 # updates ONLY the named kind's line and PRESERVES every other kind's line — so
@@ -27,6 +27,8 @@ n="${2:?usage: set-workers.sh <kind> <N> [host]}"
 host="${3:-$GARDEN}"
 count_key="$(worker_kind_field "$kind" count_key)" || die "unknown worker kind '$kind' (known: $(worker_kinds | paste -sd'|' -))"
 [[ "$n" =~ ^[0-9]+$ ]] || die "count must be a non-negative integer"
+[ "$host" = "$GARDEN" ] || die "refusing to write hosts/$host from $GARDEN; a host may set only its own worker counts"
+[ "$kind" != "gardener" ] || [ "$n" -ge 1 ] || die "refusing gardeners: 0; every active host must retain at least one gardener (use drain-fleet.sh to pause work)"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
@@ -44,8 +46,13 @@ for attempt in $(seq 1 50); do
       if [ "$k" = "$kind" ]; then
         printf '%s: %s\n' "$ck" "$n"
       else
-        cur="$(sed -n "s/^$ck:[[:space:]]*//p" "$f" 2>/dev/null | head -1)"
-        [[ "$cur" =~ ^[0-9]+$ ]] && printf '%s: %s\n' "$ck" "$cur"
+        cur=""
+        if [ -f "$f" ]; then
+          cur="$(sed -n "s/^$ck:[[:space:]]*//p" "$f" | head -1)"
+        fi
+        if [[ "$cur" =~ ^[0-9]+$ ]]; then
+          printf '%s: %s\n' "$ck" "$cur"
+        fi
       fi
     done
     printf 'updated_at: %s\n' "$(date -u +%FT%TZ)"

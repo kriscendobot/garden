@@ -1,7 +1,7 @@
 #!/bin/bash
 # set-clerics.sh — declare a host's concurrent cleric count in the journal.
 #
-# Usage: set-clerics.sh <N> [host]   (host defaults to this host)
+# Usage: set-clerics.sh <N> [host]   (the optional host must be this host)
 #
 # The cleric analogue of set-gardeners.sh: a thin wrapper over the generic
 # set-workers.sh, which writes the `clerics: N` line in hosts/<host> and preserves

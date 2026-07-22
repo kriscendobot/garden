@@ -5,8 +5,10 @@
 # distinct outcomes, so a legitimate steady state (this host runs one kind but not
 # another) does not spam a per-tick WARN and bury real signal:
 #
-#   PARSE   — the `<count_key>:` line is present and parses → scale to it. An
-#             explicit `0` is a legitimate scale-to-zero (status 0, stdout=count).
+#   PARSE   — the `<count_key>:` line is present and parses (status 0,
+#             stdout=count). The caller applies any kind-specific floor: the
+#             gardener scaler refuses `gardeners: 0`, while other kinds may scale
+#             to an explicit zero.
 #   ABSENT  — the file exists but has NO `<count_key>:` line → this host has not
 #             declared this kind; a NORMAL condition, quiet no-op (status 2).
 #   MISCFG  — file missing entirely, OR the line present but its value unparsable
@@ -49,9 +51,10 @@ printf 'gardeners: 7\nclerics: 10\n' > "$TD/full"
 [ "$(rc "$TD/full" gardeners)" = "0:7" ]  && ok "present integer → status 0, count 7"  || bad "present integer ($(rc "$TD/full" gardeners))"
 [ "$(rc "$TD/full" clerics)"   = "0:10" ] && ok "present integer → status 0, count 10" || bad "second kind ($(rc "$TD/full" clerics))"
 
-# PARSE zero: an explicit 0 is a legitimate scale-to-zero, NOT missing
+# PARSE zero: the generic parser preserves an explicit 0 for the caller's
+# kind-specific policy, rather than misclassifying it as missing.
 printf 'gardeners: 0\n' > "$TD/zero"
-[ "$(rc "$TD/zero" gardeners)" = "0:0" ] && ok "explicit 0 → status 0, count 0 (legit scale-to-zero)" || bad "explicit zero ($(rc "$TD/zero" gardeners))"
+[ "$(rc "$TD/zero" gardeners)" = "0:0" ] && ok "explicit 0 → status 0, count 0 (caller applies floor)" || bad "explicit zero ($(rc "$TD/zero" gardeners))"
 
 # ABSENT: file exists, key line absent → status 2, empty stdout (the spam case)
 printf 'gardeners: 7\n' > "$TD/gardeners-only"

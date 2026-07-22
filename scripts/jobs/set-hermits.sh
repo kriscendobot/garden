@@ -1,7 +1,7 @@
 #!/bin/bash
 # set-hermits.sh — declare a host's concurrent hermit (local codex-cleric) count.
 #
-# Usage: set-hermits.sh <N> [host]   (host defaults to this host)
+# Usage: set-hermits.sh <N> [host]   (the optional host must be this host)
 #
 # The local-inference analogue of set-clerics.sh: a thin wrapper over the generic
 # set-workers.sh, which writes the `hermits: N` line in hosts/<host> and preserves

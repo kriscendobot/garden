@@ -11,10 +11,10 @@ in-flight work," you are here; the leadership-handoff use of drain is
 ## Sizing the pool
 
 ```sh
-scripts/jobs/set-gardeners.sh <count> <host>
+scripts/jobs/set-gardeners.sh <count>
 ```
 
-This writes journal state (`hosts/<host>`) that this host's
+This writes this host's journal state (`hosts/<host>`) that its
 `garden-gardener-scaler` reconciles — **each host scales its own pool.** ~20
 workers is normal. The count is sized for **concurrency, not CPU**: most workers
 are idle-blocked waiting on messages at any moment (a job can block a long time
@@ -47,5 +47,5 @@ outage — hung agents, dead letters, poison — is a different engagement: see
 - **Durable capacity change** (this host should do more or less work
   indefinitely) → **`set-gardeners`**.
 - **Retiring a host** → drain, then hand off leadership if it was leader
-  ([leader-follower.md](leader-follower.md)), then `set-gardeners 0` if you want
-  its pool gone.
+  ([leader-follower.md](leader-follower.md)). Keep its gardener floor intact
+  until the host is actually shut down.

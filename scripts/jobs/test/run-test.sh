@@ -164,6 +164,29 @@ has4=$(grep -c '^garden-gardener@4\.service$' "$GARDEN_MOCK_STATE" || true)
 armed_after=$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE" || true)
 extra_after=$(grep -c '^garden-gardener@[23]\.service$' "$GARDEN_MOCK_STATE" || true)
 { [ "$armed_after" -eq 1 ] && [ "$extra_after" -eq 0 ]; } && ok "host count 1 → scaled down to gardener@1" || bad "scale-down (@1=$armed_after, @2-3=$extra_after)"
+# A host owns only its own hosts/<host> record. This is the direct regression for
+# a follower clobbering the leader's count during its deploy: an explicit foreign
+# host argument must fail before touching the journal.
+set +e
+foreign_out="$(GARDEN=testhost "$JOBS/set-gardeners.sh" 7 leaderhost 2>&1)"; foreign_rc=$?
+zero_out="$(GARDEN=testhost "$JOBS/set-gardeners.sh" 0 2>&1)"; zero_rc=$?
+set -e
+git -C "$V" fetch -q origin "$BRANCH"; git -C "$V" reset -q --hard "origin/$BRANCH"
+{ [ "$foreign_rc" -ne 0 ] && grep -q 'may set only its own worker counts' <<<"$foreign_out" && ! [ -e "$V/hosts/leaderhost" ]; } \
+  && ok "foreign host worker write refused without creating hosts/leaderhost" \
+  || bad "foreign host write guard failed (rc=$foreign_rc, output=$foreign_out)"
+{ [ "$zero_rc" -ne 0 ] && grep -q 'refusing gardeners: 0' <<<"$zero_out"; } \
+  && ok "gardeners: 0 writer request refused" \
+  || bad "gardeners zero floor failed (rc=$zero_rc, output=$zero_out)"
+# The scaler must also fail closed on a legacy or manually-corrupted zero so an
+# old journal entry cannot silently tear down the pool after a restart.
+push_change "hosts/testhost" $'gardeners: 0\nupdated_by: testhost' "seed invalid gardener zero"
+: > "$GARDEN_MOCK_LOG"
+zero_scale_out="$(GARDEN=testhost "$JOBS/gardener-scaler.sh" 2>&1)"
+zero_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
+{ grep -q "declares gardeners: 0; refusing" <<<"$zero_scale_out" && [ "$zero_disables" -eq 0 ]; } \
+  && ok "legacy gardeners: 0 is refused by scaler without disabling the pool" \
+  || bad "scaler zero floor failed (disables=$zero_disables, output=$zero_scale_out)"
 # A structurally-absent desired count (no hosts/<host> file) is a NO-OP, never a
 # scale-to-0: point the scaler at a host that was never declared and the gardener@1
 # pool above must survive untouched (no install-units.sh scale → zero disable calls).
