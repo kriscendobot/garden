@@ -4,3 +4,10 @@ Repository: endojs/endo-but-for-bots
 PR: https://github.com/endojs/endo-but-for-bots/pull/160
 
 The maintainer approval review 4751820634 has been addressed: its native Rust/XS ZIP design follow-up was completed separately, and the associated inline replies are posted. Live verification at dispatch: PR is open, non-draft, mergeStateStatus CLEAN, and every listed check passes. Perform the conductor finalization step and merge this bot-repository PR. Do not alter the implementation branch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 25
+  worker_kind: cleric
+  claimed_at: 2026-07-22T15:16:09Z
