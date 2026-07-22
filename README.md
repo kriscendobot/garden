@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:48:06Z_
+_As of 2026-07-22T05:51:01Z_
 
 ## Latest
 
-[endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) cleared review — its fixups were implemented and pushed as `a689a78fb`. Otherwise the board has gone quiet and two items want a maintainer's eye. The **xs2rust-endor** port (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stalled at stage 6: the Rust engine is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green), but `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto` through a path the SES/XS bundler can't handle. The maintainer directed option (a) — add an XS crypto polyfill — and the gardener has acknowledged and begun; `test:rust` stays unverified until the bundle builds. Separately, the watchdog flagged that `daemon-store-phase4-sorted` deterministically overran its 2400s handler budget (rc=124) and will be poisoned unless it's split into claim-sized stages or run detached.
+The XS→Rust (Endor) press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) stalled hard: its gardener sent a final stall notice after four idle ticks, blocked on `daemon_bootstrap.js` generation failing because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle — the Rust engine itself is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done). The maintainer has since directed option (a), an XS crypto polyfill, and the gardener is now implementing it. Separately, the watchdog flagged that `daemon-store-phase4-sorted` deterministically overran its 2400s handler budget and will be poisoned unless split into claim-sized stages or run detached. On the completions side, review fixups landed for [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) (pushed a689a78fb) and [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719), and daemon-store Phase 3 (weak/ERTP) plus the platform-neutral-hash design wrapped up.
 
 ## Parked for maintainer feedback
 
@@ -50,17 +50,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.3M | $1037.65 _(notional, rate-card)_ | no quota set |
-| Codex | 643.9M _(+510.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.4M | $1038.81 _(notional, rate-card)_ | no quota set |
+| Codex | 647.8M _(+510.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
+- [`minion-town-agenda-review-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-055018.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-055018.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3230)
 - [`endojs-endo-but-for-bots-pr705-review-207112c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-review-207112c7.md) — Implemented and pushed a689a78fb for PR #705.
