@@ -17,6 +17,7 @@ merge method. Bot repo — merging endojs/endo-but-for-bots is in scope.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
