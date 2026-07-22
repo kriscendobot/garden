@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 6
-worker_kind: gardener
-claimed_at: 2026-07-22T07:08:37Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-pr160-ci-fix-finalize
