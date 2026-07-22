@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T15:34:30Z_
+_As of 2026-07-22T15:43:50Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) merged into `llm` — the sole board completion this window. Two PRs are blocked only on your re-approval: [endojs/endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft with green CI, but your APPROVED review sits on the prior head (9b40eef) while the head has advanced to a0cd0d0, so GitHub reports no review decision — a fresh approval on the current head merges it immediately. On [endojs/endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804), a gardener is holding before churning multiple design docs and wants an intent confirm on your "rename to `-frame`" comment (whether to rename the `cbors.md`/`syrups.md` files and flip package names, and how far to rewrite the naming rationale). The hourly xs2rust-endor press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is thrashing: four consecutive press ticks plus `daemon-store-phase4-sorted` and `endojs-pr160-ci-fix-finalize` all deterministically overran the 2400s handler budget and were poisoned/parked — these jobs exceed a single claim and need splitting or a raised timeout, not a requeue. The overrun on phase-4 halted the serial `daemon-store-family-build` orchestration at 3/6 (phases 5–6 swept). An orphan audit came back green (0 leaked processes, charter mitigation holding), though it flags that the reaper fix (8eb3354a7e) is not yet deployed to that host's root. finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) advanced with green CI but is stuck awaiting panel — the panel model hit its weekly limit (resets Jul 25). Two research notes landed on Kimi K3: both conclude it can't run locally (>10× the box's memory) but is cheap to wire as a hosted bid-auction arm; no action needed.
+Two PRs need a maintainer touch: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, cleanly mergeable, and CI-green, but the only APPROVED review sits on a stale head (9b40eef) while the current head is a0cd0d0 — the conductor is holding for a fresh approval on the current head before it merges. On [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) a gardener has paused rather than churn multiple design docs: your "rename to cbor-frame/syrup-frame" comment cuts against what actually shipped (syrup-frame landed; the @endo/syrups and CBOR-framing renames never did), so it wants a Y/N on renaming the doc files and rewriting the Naming rationale. [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) merged into llm.
+
+The xs2rust-endor local-qwen press is stuck in a poison loop — four consecutive hourly presses (033502/045001/055018 and the earlier tick) each hit the 2400s handler wall and were parked as deadline-overruns; the driver reports a hard blocker (daemon_bootstrap.js generation fails because blobref.js pulls node:crypto through the SES/XS bundler) and is attempting the crypto-polyfill option. Relatedly, the `daemon-store-family-build` orchestration halted at Phase 4 (also a handler-budget overrun), sweeping the parity and CLI/WUI children; both it and the PR #160 CI-finalize job are parked awaiting a split-into-stages remedy. An orphan-process audit came back GREEN (0 leaks), though it notes the reaper fix (8eb3354a7e) isn't yet deployed to that host's root.
+
+[finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced — role code now runs in a fresh SES compartment with attenuated tool calls, tests green and dry-run wallet-untouched — but its required panel can't run until the panel model's weekly limit resets Jul 25. A researcher and scholar both concluded Kimi K3 is a hard no locally (>10× the box's memory) but cheap to wire as a hosted bid-auction arm if you fund a Moonshot key.
 
 ## Parked for maintainer feedback
 
@@ -744,18 +748,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.6M | $1148.13 _(notional, rate-card)_ | no quota set |
+| Claude | 105.8M | $1149.05 _(notional, rate-card)_ | no quota set |
 | Codex | 680.0M _(+519.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (15)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr719-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
 - [`endojs-endo-but-for-bots-pr807-5e6eb4e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-5e6eb4e5.md) — attention directive on endojs/endo-but-for-bots PR #807
