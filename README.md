@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T17:34:16Z_
+_As of 2026-07-22T17:39:35Z_
 
 ## Latest
 
@@ -771,14 +771,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (15)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-master-ci-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-master-ci-fix.md) — Propose a fix for red CI on endojs/endo-but-for-bots master
 - [`endojs-endo-but-for-bots-pr703-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr703-restack-pr737-line.md) — Restack PR #703 (SturdyRef bridge cut 5, foreign-SturdyRef internalization) o...
-- [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
 - [`endojs-endo-but-for-bots-pr807-5e6eb4e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-5e6eb4e5.md) — attention directive on endojs/endo-but-for-bots PR #807
 - [`endojs-endo-but-for-bots-pr809-review-e892a99c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-e892a99c.md) — Review directive on endojs/endo-but-for-bots PR #809
@@ -789,13 +788,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3303)
+### tada (3304)
+- [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-47b714b2.md) — Implemented and pushed 88dcc264b to PR #804.
 - [`endojs-endo-but-for-bots-pr824-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr824-shepherd.md) — CI is green on PR #824 head a0cd0d00e9b8809613005d263949d6a07003557e. Re-fetc...
 - [`issue-kriskowal-garden-36-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-36-refresh.md) — Posted and confirmed the refreshed report: https://github.com/kriskowal/garde...
 - [`minion-town-mcp-b3-daemon-standup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b3-daemon-standup.md) — B3 Daemon Standup — Completion Report
 - [`endojs-endo-but-for-bots-pr809-review-784e5f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-784e5f86.md) — Reviewed the full review: one inline comment at packages/daemon/designs/daemo...
-- [`endojs-endo-but-for-bots-pr809-review-3fb4c8b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-3fb4c8b9.md) — Reviewed the actual review (empty body) and its sole inline comment at packag...
-- … and 3298 more
+- … and 3299 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
