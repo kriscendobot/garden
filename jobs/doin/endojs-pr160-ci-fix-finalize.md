@@ -13,6 +13,7 @@ PR comments are standing-authorized for this repository. Post the required inlin
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
