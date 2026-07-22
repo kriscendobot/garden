@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:05:17Z_
+_As of 2026-07-22T05:08:38Z_
 
 ## Latest
 
-I'll write the "## Latest" section body.
+The endo pet-daemon durable-store build advanced — [Phase 2 (durable SetStore)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase2-setstore.md) and [Phase 3 (weak ERTP stores)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase3-weak-ertp.md) both landed, and Phase 4 (sorted variants + range queries) is now in flight. On the finbot fork, two increments merged: the [significance-gate eval CLI (#2)](https://github.com/kriscendobot/finbot/pull/2) and a first-ever [CI workflow (#3)](https://github.com/kriscendobot/finbot/pull/3) so future PRs gate automatically — though a gauntlet job noted both landed self-merged with no panel review, worth a call if you want finbot increments to clear review first. The ocapn-iroh lane reached its buildable edge with a stacked draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820), now blocked on merging [#777](https://github.com/endojs/endo-but-for-bots/pull/777) to `llm`.
 
-Two shims are merge-gated and green — the text-codecs shim [endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259) (a builder flags an errant direct-to-`master` push `536f82d18` to revert first) and the M3 exit chain [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707) plus [#694](https://github.com/endojs/endo-but-for-bots/pull/694), whose original merge directive went unread. The endoclaw-OAuth tree is now 12 days dammed behind a single stale-`CHANGES_REQUESTED` re-review on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — green, one-click-mergeable, blocking the OAuth exo and both Google-Sheets packages; the supervisor waits on one word (approve, or authorize building on the merged base design). A maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics, confirming several asks are now moot (the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812), content-store [#585](https://github.com/endojs/endo-but-for-bots/pull/585), and confined-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661) all merged).
-
-On the URL shim, a shepherd drove [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) partly green and traced the remaining reds to pre-existing `master` debt (jsdoc, the same `536f82d18` text-codec permit change, stale action pins) rather than the PR's own diff — recommending a master-greening pass before the URL feature lands. On the forks, finbot self-merged three increments including its first CI workflow ([kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3)) and a significance-gate eval tool ([#2](https://github.com/kriscendobot/finbot/pull/2)), though a gauntlet job noted those increments are landing on `main` with no panel review; the minion.town iroh lane built to its buildable edge with draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820), now blocked on merging [#777](https://github.com/endojs/endo-but-for-bots/pull/777) to `llm`.
-
-The one health item needing hands: the hourly `xs2rust-endor-press` ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) deterministically overruns its 2400s budget every cycle and has poisoned four times since 05:00 — it needs a dedicated builder working across dispatches, not the timeboxed press. Deploys have also stalled since 07-17 (root at `374deede65`) now that the deployed-root remote corruption is fixed, and the physical cleanup of both deployed roots is posted as `fix-garden-root-test-leak-cleanup`.
+Two things want your attention. The esheets tree is **12 days dammed on a single stale review**: [#621](https://github.com/endojs/endo-but-for-bots/pull/621) is green and one-click-mergeable but carries a `CHANGES_REQUESTED` from 2026-07-10 that was addressed and re-requested on 07-17; four downstream packages (the OAuth exo, `@endo/google-sheets`, `@endo/exo-google-sheets`) exist nowhere on `llm` until you approve it or authorize building on the merged base design. Separately, the maintainer inbox was consolidated from 199 unread entries down to ~30 open items across 13 topics — the surfaced merge-gated work (M2 text-codecs [#259](https://github.com/endojs/endo-but-for-bots/pull/259), M3 [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)) is worth a pass. Finally, the hourly `xs2rust-endor-press` continues to **deterministically overrun its 2400s budget and get poisoned every cycle** — five poison parks since the last bulletin; it needs splitting into claim-sized stages or a dedicated builder rather than the press, per topic 11.
 
 ## Parked for maintainer feedback
 
@@ -809,14 +805,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.1M | $1025.21 _(notional, rate-card)_ | no quota set |
-| Codex | 624.2M _(+517.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 93.3M | $1026.42 _(notional, rate-card)_ | no quota set |
+| Codex | 625.7M _(+517.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
