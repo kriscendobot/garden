@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T09:18:19Z_
+_As of 2026-07-22T09:20:50Z_
 
 ## Latest
 
-A wave of jobs tripped the 2400s handler budget and got poisoned for deadline overrun. The [xs2rust-endor press (PR #600)](https://github.com/endojs/endo-but-for-bots/pull/600) is the worst offender — four hourly press ticks overran and were parked to `jobs/plan/` (gate `go-ahead`), and the driver itself reported a hard stall: no HEAD movement since tick 4, blocked on `daemon_bootstrap.js` generation failing because `@endo/platform` pulls `node:crypto` through the SES/XS bundler. The maintainer's option-(a) direction (add an XS crypto polyfill) was acknowledged, but the recurring press cannot survive in one claim-scoped handler as written and needs splitting into claim-sized stages (or detaching). Two other jobs hit the same wall and were poisoned: [PR #160](https://github.com/endojs/endo-but-for-bots/pull/160)'s `endojs-pr160-ci-fix-finalize` and `daemon-store-phase4-sorted` — the latter halting the serial `daemon-store-family-build` orchestration at 3/6 (issue [garden#59](https://github.com/kriskowal/garden/issues/59)), with phases 5–6 swept back to plan.
+Four long-running jobs hit the 2400s handler wall this cycle and were poisoned into `jobs/plan/` (held for maintainer promotion). The [xs2rust-endor](https://github.com/endojs/endo-but-for-bots/pull/600) qwen3.6 press overran on four consecutive dispatches and reported a hard blocker: `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle — the driver acknowledged maintainer direction to add an XS crypto polyfill but was reaped before landing it. The `daemon-store-family-build` orchestration (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) **halted** when its Phase-4 sorted-stores child poisoned on the same overrun, 3/6 done, sweeping the Phase-5/6 children; that Phase-4 build is now parked. The [PR #160](https://github.com/endojs/endo-but-for-bots/pull/160) CI-fix/finalize fixer likewise overran and parked. These all trip the "split into claim-sized stages or run detached" remedy — worth deciding before re-promoting, since each would be killed identically on requeue.
 
-On minion.town, the daemon-guest MCP orchestration is moving: B1 completed and B2 is in flight on [PR #13](https://github.com/kriscendobot/minion.town/pull/13), following the merged design. Two independent Kimi K3 reports also landed: both conclude local hosting is infeasible (a 2.8T-param MoE is off by >10× the box's memory even at 2-bit), but a hosted Moonshot-`/v1` arm is cheap to wire into the existing codex handler and maps onto the bid-auction as the paper's "cheap-specialist + premium-backstop" router — gated only on a funded key and a codex↔Moonshot tool-calling check. Board movement itself was quiet: only new review/attention jobs on [PR #804](https://github.com/endojs/endo-but-for-bots/pull/804).
+On the research side, a scholar ingest and a researcher verdict both landed on Kimi K3 (the Fireworks K3-vs-Fable routing post): **local harnessing is a hard no** (a 2.8T MoE needs ~1.5 TB even at Q4, >10× the box), but hosted wiring via Moonshot's OpenAI-compatible `/v1` is cheap and maps onto the existing bid-auction as a low-risk specialist arm — gated only on a funded key and a codex↔Moonshot tool-calling check. minion.town daemon-guest MCP work continues under [PR #13](https://github.com/kriscendobot/minion.town/pull/13) (B1 complete, B2 in flight). The board is otherwise quiet — `todo` is empty and the deferred queue is dominated by dozens of parked xs2rust-endor press ticks.
 
 ## Parked for maintainer feedback
 
@@ -694,20 +694,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.8M | $1081.10 _(notional, rate-card)_ | no quota set |
+| Claude | 98.9M | $1082.57 _(notional, rate-card)_ | no quota set |
 | Codex | 691.0M _(+525.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr804-review-8df7f3e2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-review-8df7f3e2.md) — Review directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-review-aebac5fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-review-aebac5fc.md) — Review directive on endojs/endo-but-for-bots PR #806
 - [`endojs-endo-but-for-bots-pr824-review-e4950d9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-review-e4950d9b.md) — Review directive on endojs/endo-but-for-bots PR #824
 - [`issue-kriskowal-garden-36-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-36-refresh.md) — Prepare a refreshed Q2 progress report for https://github.com/kriskowal/garde...
+- [`minion-town-agenda-review-20260722-092002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-092002.md) — Minion Town hourly agenda review
 - [`minion-town-daemon-guest-mcp-b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b2.md) — ---
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 
