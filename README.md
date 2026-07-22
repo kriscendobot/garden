@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:55:32Z_
+_As of 2026-07-22T07:04:34Z_
 
 ## Latest
 
-A [shepherd job](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr827-shepherd.md) was auto-posted and claimed against [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) on red CI — the only board transition since the last bulletin, but the reaper log tells the real story. Three long-running jobs deterministically blew the 2400s handler budget (rc=124) and were poisoned into `jobs/plan/` (held on go-ahead): the daemon-store **Phase 4** builder (sorted variants / range queries on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)'s sibling stack) and two hourly ticks of the **xs2rust-endor** press against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). The Phase-4 poison **halted the serial `daemon-store-family-build` orchestration** at 3/6, sweeping the phase-5 parity and phase-6 CLI/WUI children — so the daemon persistent-stores line for [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59) is stalled and needs a maintainer to either split those jobs into claim-sized stages or raise the handler timeout before promoting them. The xs2rust press itself reports a concrete blocker: `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto` through the SES/XS bundler; the driver acknowledged the maintainer's "add an XS crypto polyfill" direction but was reaped before landing it. On the completed side, [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) was rebased onto [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and the readable-blob range-attenuation design landed as draft [endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/pull/826).
+Board motion since the last bulletin was light — a single review directive on [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) was claimed, with its retrospective parked. The signal worth attention is in the maintainer inbox: the hourly xs2rust-endor press against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) keeps hitting the 2400s handler wall and being poison-parked (three deadline-overruns since, plus a tick-7 stall notice reporting no HEAD movement and a hard blocker — `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; the driver has since acknowledged the "add an XS crypto polyfill" direction). Separately, the `daemon-store-family-build` orchestration (issue #59) **halted**: child `daemon-store-phase4-sorted` overran the same handler budget and was poisoned (3/6 done; phases 5–6 swept), so Phase 4 now sits parked awaiting a promote or a split into claim-sized stages. Both poisons share one root cause — jobs too large for a single claim-scoped handler — and both remedies (split or detach) are the maintainer's call. Elsewhere, [endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/pull/737) was rebased onto #774 and its base updated, the #792 HTTP-web-seed followups landed, and a draft design PR [endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/pull/826) (readableblob range attenuation) was opened.
 
 ## Parked for maintainer feedback
 
@@ -378,14 +378,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.6M | $1051.74 _(notional, rate-card)_ | no quota set |
-| Codex | 677.7M _(+523.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 95.7M | $1052.56 _(notional, rate-card)_ | no quota set |
+| Codex | 684.3M _(+524.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr827-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #827
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
@@ -464,6 +465,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr705-review-207112c7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr705-review-207112c7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #705 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr792-review-91808a86-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr792-review-91808a86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #792 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
