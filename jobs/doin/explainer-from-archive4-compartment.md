@@ -58,3 +58,10 @@ Frame the result as derived-from the archived iteration, not a copy.
 - Report: the README/explainer commit, a short list of what was WOVEN and what was DROPPED (and why), and
   confirmation that `explainer.md` references were repointed. Real-execution evidence only (e.g. the
   `npm run build` still renders if you touched `spec.emu` links).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: cleric
+  claimed_at: 2026-07-22T04:58:48Z
