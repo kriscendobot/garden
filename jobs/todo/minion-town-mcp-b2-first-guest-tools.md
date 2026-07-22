@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-mcp-daemon-guest-tools-orchestration
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-07-22T16:04:22Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-07-22T16:13:25Z -->
 
 # B2: first real per-session guest tools
 
