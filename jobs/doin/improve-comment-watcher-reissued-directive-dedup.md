@@ -38,3 +38,10 @@ State whether the existing fixes already cover this (deploy-only) or a code chan
 was needed, with the commit sha + test evidence.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 25
+  worker_kind: cleric
+  claimed_at: 2026-07-22T18:53:17Z
