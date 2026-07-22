@@ -138,7 +138,7 @@ not done in the bootstrap.
 1. An ecmarkup **spec** change (`spec.emu`).
 2. A **rendered spec diff**.
 3. **test262 tests**.
-4. A concise **explainer** (`explainer.md`).
+4. A concise **explainer** (`README.md`).
 
 ## Prose discipline
 
