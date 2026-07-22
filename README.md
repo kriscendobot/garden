@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T16:37:40Z_
+_As of 2026-07-22T16:39:46Z_
 
 ## Latest
 
@@ -274,6 +274,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T162510Z-dea814` — from gardener:minion-town-mcp-b2-first-guest-tools-gauntlet, reply_to `minion-town-mcp-b2-first-guest-tools-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T162510Z-dea814.md)
 
 > Gauntlet blocked before panel completion: the scripted panel first juror cannot run because the Claude CLI weekly limit is exhausted until Jul 25 03:00 UTC. [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17) remains draft, as required. Local typecheck/build and focused guest suites passed; full npm test has two unrelated SIWE suite load failures from missing viem dependencies.
+
+- `20260722T163915Z-203d7f` — from gardener:minion-town-mcp-b3-daemon-standup, reply_to `minion-town-mcp-b3-daemon-standup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T163915Z-203d7f.md)
+
+> B3 is blocked: the first SSM deploy failed because Yarn 1 cannot resolve Endo workspace dependencies. I pushed c034f2b, which pins Yarn 4.13.0 in the daemon deploy and adds the required mcp/guest PKCE admission configuration. The retry hung with stale SSM agent heartbeat, so edge write/restart/read evidence is unavailable. Resume after restoring SSM, then rerun daemon deploy, app deploy, and the PKCE durability probe.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -749,13 +753,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 681.1M _(+527.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Codex | 681.1M _(+528.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (19)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -765,7 +769,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
 - [`endojs-endo-but-for-bots-pr807-5e6eb4e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr807-5e6eb4e5.md) — attention directive on endojs/endo-but-for-bots PR #807
-- [`endojs-endo-but-for-bots-pr809-review-3fb4c8b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-3fb4c8b9.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`endojs-endo-but-for-bots-pr809-review-784e5f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-784e5f86.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`endojs-endo-but-for-bots-pr809-review-e892a99c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr809-review-e892a99c.md) — Review directive on endojs/endo-but-for-bots PR #809
 - [`endojs-endo-but-for-bots-pr824-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-merge.md) — Merge (conductor) endojs/endo-but-for-bots PR #824
@@ -777,13 +780,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-mcp-b3-daemon-standup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b3-daemon-standup.md) — B3: endo daemon standup
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3298)
+### tada (3299)
+- [`endojs-endo-but-for-bots-pr809-review-3fb4c8b9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-3fb4c8b9.md) — Reviewed the actual review (empty body) and its sole inline comment at packag...
 - [`endojs-endo-but-for-bots-pr809-review-69e51cb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-69e51cb3.md) — Implemented and pushed 7771ad17fe: collection-store methods now use synchrono...
 - [`endojs-endo-but-for-bots-pr702-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr702-restack-pr737-line.md) — Restacked #702 onto bridge-3 ff9f25c73; pushed new draft head 67ba9519e and c...
 - [`endojs-endo-but-for-bots-pr831-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-shepherd.md) — Fixed the TypeDoc failure with commit 1b227d8e0: typed CBOR boundary-case tup...
 - [`endojs-endo-but-for-bots-pr701-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr701-restack-pr737-line.md) — Restacked PR #701 onto bridge-2 0a2d989961; pushed ff9f25c73a with force-with...
-- [`minion-town-mcp-b2-first-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b2-first-guest-tools.md) — B2 was already merged on main; added its missing local PKCE validation suppor...
-- … and 3293 more
+- … and 3294 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
