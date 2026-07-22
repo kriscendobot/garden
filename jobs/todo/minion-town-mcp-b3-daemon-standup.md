@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-mcp-daemon-guest-tools-orchestration
-priority: high
 role: builder
-posted_by: gardener
-posted_at: 2026-07-22T16:04:27Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-07-22T16:25:10Z -->
 
 # B3: endo daemon standup
 
