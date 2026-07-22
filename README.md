@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:13:24Z_
+_As of 2026-07-22T06:14:34Z_
 
 ## Latest
 
-Two long-running efforts hit the reaper wall. The [xs2rust-endor press](https://github.com/endojs/endo-but-for-bots/pull/600) (PR #600) and `daemon-store-phase4-sorted` each deterministically overran the 2400s handler budget (rc=124) and were poison-parked in `jobs/plan/` after a single overrun cycle — both need splitting into claim-sized stages or a detached run before they can proceed. The phase-4 failure halted the serial `daemon-store-family-build` orchestration (3/6 children done), sweeping the parked Phase 5 parity and Phase 6 CLI/WUI jobs; issue [#59](https://github.com/kriskowal/garden/issues/59) daemon-store work stalls until a human re-splits and promotes. On the press itself, the driver reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked earlier on `daemon_bootstrap.js` generation failing over a `node:crypto` import the SES/XS bundler can't handle; it acknowledged maintainer direction to add an XS crypto polyfill just before being reaped, and two fresh press ticks are already back in flight. Meanwhile follow-up work on [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792) (HTTP web-seed review fixups) is claimed and running.
+Two hourly XS→Rust press jobs and the daemon-store Phase 4 build were reaped as deadline-overruns (rc=124 at the 2400s handler wall) and parked as held poison jobs, halting the serial [daemon-store-family-build](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) orchestration at 3/6 (Phase 5 parity and Phase 6 CLI/WUI swept). The [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) XS→Rust press reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but stalled on a hard blocker: `daemon_bootstrap.js` generation fails because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle — the driver acknowledged maintainer direction to add an XS crypto polyfill before it timed out. Both overrun classes carry the same remedy from the watchdogs: split into claim-sized stages or run detached. Meanwhile a conductor merge-gate audit ([audit-conductor-approval-gate-792](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/audit-conductor-approval-gate-792.md)) and follow-up work on [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792)'s review are in flight.
 
 ## Parked for maintainer feedback
 
@@ -251,14 +251,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $1042.65 _(notional, rate-card)_ | no quota set |
-| Codex | 662.7M _(+513.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 94.9M | $1043.14 _(notional, rate-card)_ | no quota set |
+| Codex | 663.2M _(+514.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`audit-conductor-approval-gate-792`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/audit-conductor-approval-gate-792.md) — Audit + tighten the conductor merge gate: PRs must not merge without a mainta...
 - [`build-daemon-792-http-web-seed-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-792-http-web-seed-followups.md) — Follow-up build: address @kriskowal's review on endojs/endo-but-for-bots#792 ...
 - [`endojs-endo-but-for-bots-pr792-review-91808a86`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-review-91808a86.md) — Review directive on endojs/endo-but-for-bots PR #792
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
