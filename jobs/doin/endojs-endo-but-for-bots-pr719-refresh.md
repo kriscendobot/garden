@@ -11,3 +11,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Actually, refresh and shepherd. I would like the base in particular to get pinned to current upstream master. Unrelated changes should vanish. Shepherd the result. 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-22T05:53:56Z
