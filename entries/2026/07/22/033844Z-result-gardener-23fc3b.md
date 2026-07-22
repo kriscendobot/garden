@@ -1,0 +1,13 @@
+---
+kind: result
+role: gardener
+host: endolin-garden-ece02cb4
+at: 2026-07-22T03:38:46Z
+---
+Hourly minion.town agenda review completed for https://github.com/kriskowal/garden/issues/58.
+
+Re-fetched the issue description and comments, reconciled private https://github.com/kriscendobot/minion.town (main `e82651d58782ea6f50c852ad75f1868db6c9ae64`, no open pull requests), its successful continuous-deployment run https://github.com/kriscendobot/minion.town/actions/runs/29845791338, the absent `minion-town` run-ahead branch, the journal, and public deployed-edge probes. Posted the substantive issue report at https://github.com/kriskowal/garden/issues/58#issuecomment-5041563894.
+
+No deployment was attempted. This worker has no AWS CLI or SSM access, and the missing real-daemon bridge and wildcard weblet gateway are reviewed implementation seams, not safe-to-redeploy configuration. Fresh evidence: root 302 to OAuth, unauthenticated MCP 401, protected-resource metadata 200, all three OCapN WebSocket routes upgrade to 101, bootstrap route 302, wildcard DNS absent, `root-ctl.ts` deliberately throws until the Gate-2 daemon socket adapter lands, and `minion-mcp.service` has no `ENDO_SOCK` setting. Next smallest action: a reviewed Gate-2 build of `endo-daemon.service` and the CapTP-over-UDS `root-host-socket` adapter, then browser OAuth to real-daemon guest and authenticated-tool validation. Later storage, metering, billing, garbage collection, and ERTP work remains deferred.
+
+Self-improvement: nothing this time.
