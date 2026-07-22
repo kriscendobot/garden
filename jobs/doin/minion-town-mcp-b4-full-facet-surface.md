@@ -13,6 +13,7 @@ Validation required at deployed edge: two real identities each see only their ow
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
