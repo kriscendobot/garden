@@ -1,28 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T04:11:28Z_
+_As of 2026-07-22T04:16:48Z_
 
 ## Latest
 
-I'll write the "## Latest" section body for the bulletin.
-
-Looking at the board transitions and inbox messages, here's the narrative:
-
-The only board transition since the last bulletin was the completion of [endojs/endo-but-for-bots#821](https://github.com/endojs/endo-but-for-bots/pull/821)'s gauntlet, so recent motion lives mostly in the reports flowing into the maintainer inbox.
-
-On **finbot**, three increments landed and merged clean: [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) added the `finbot-eval --significance-alpha` CLI gate (evidence tooling for the pending `significanceAlpha`-as-default call, byte-identical when off), [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) gave the fork its first CI workflow (every prior merge relied on a human running `npm test`), and its shepherd confirmed green. A process note worth your eye: the finbot press self-merges increments straight to `main` with no panel, so a "run the gauntlet" job arrived after [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) was already merged — if you want finbot increments to clear a panel first, that ordering needs enforcing.
-
-A **maintainer-inbox omnibus** consolidated 199 unread entries into ~30 open items across 13 topics — the highest-signal artifact this cycle. Its recurring asks: the esheets tree is 12 days dammed behind one stale `CHANGES_REQUESTED` on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable, four packages waiting); SturdyRef holds all lanes on your arbitration; M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)) are green-and-merge-gated; and the endo-daemon data-plane arc has reached its finish line awaiting a "wind it down."
-
-On the **ocapn-iroh lane**, a build reached its buildable edge and opened draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script, stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777)); full lane deploy blocks on merging [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777) to `llm`.
-
-Two things need cleanup attention. The **xs2rust-endor hourly press deterministically overruns** its 2400s handler budget every cycle — five poison-parks since the last bulletin — and needs splitting into claim-sized stages or a dedicated builder rather than the hourly cadence. And a shepherd on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) found its remaining CI red is pre-existing master debt (jsdoc warnings, TextEncoder/TextDecoder permit tests, stale zizmor pins), not the URL diff — recommending a master-greening pass before that PR can go green.
-
----
-
-Below is the clean "## Latest" body ready to drop into the bulletin (no heading, no fences):
-
-The only board transition since the last bulletin was the completed gauntlet on [endojs/endo-but-for-bots#821](https://github.com/endojs/endo-but-for-bots/pull/821); the substance this cycle is in the inbox reports. On finbot, three increments merged clean — [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) added the `finbot-eval --significance-alpha` gate (evidence tooling for the pending default-α call, byte-identical when off), [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) gave the fork its first CI workflow, and its shepherd confirmed green; note the finbot press self-merges to `main` with no panel, so enforce ordering if you want increments gated. A maintainer-inbox omnibus folded 199 unread entries into ~30 open items across 13 topics — chiefly that esheets is 12 days dammed behind the stale `CHANGES_REQUESTED` on the green, one-click-mergeable [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (four packages waiting), SturdyRef and the M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)) are green-and-merge-gated, and the endo-daemon data-plane arc awaits a "wind it down." The ocapn-iroh build opened draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 boot script, stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777)), whose lane deploy blocks on merging [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777) to `llm`. Two cleanups want attention: the xs2rust-endor hourly press deterministically overran its 2400s budget five times since the last bulletin (poison-parked each cycle) and needs splitting into claim-sized stages or a dedicated builder; and a shepherd traced [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s remaining red to pre-existing master debt, not its own diff, recommending a master-greening pass first.
+The durable-store build advanced a rung: **Phase 2** (strong durable `SetStore` in the endo pet daemon) completed and merged, and **Phase 3** (weak `WeakMapStore`/`WeakSetStore` variants + ERTP integration) is now claimed and in flight. On the finbot fork, two increments landed to `main` — [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) (the `--significance-alpha` DM-QLIKE eval gate, byte-identical when off) and [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) (first CI workflow on the previously CI-less repo); note both self-merged without a panel, and a gauntlet job arrived after the merge — worth a call on whether finbot increments should clear review before landing. The minion.town iroh lane reached its buildable edge with a new draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), whose full deploy blocks on merging #777 to `llm`. Two standing items still want a word: esheets is at **day 12** dammed entirely behind a single re-review of [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable, stale `CHANGES_REQUESTED`), and the hourly `xs2rust-endor` press keeps deterministically overrunning its 2400s handler budget every cycle and being poisoned — topic 11 of the inbox omnibus asks for a dedicated builder rather than the timed press.
 
 ## Parked for maintainer feedback
 
@@ -821,24 +803,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.4M | $1022.01 _(notional, rate-card)_ | no quota set |
-| Codex | 599.6M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 92.4M | $1020.25 _(notional, rate-card)_ | no quota set |
+| Codex | 603.4M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
-- [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
+- [`daemon-store-phase3-weak-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase3-weak-ertp.md) — Build Phase 3: weak variants (WeakMapStore / WeakSetStore) + ERTP integration...
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3223)
+### tada (3224)
+- [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (kriskowal/gard...
 - [`endojs-endo-but-for-bots-pr821-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr821-gauntlet.md) — Completion report
 - [`endo-npm-cas-registry-press-20260722-035001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260722-035001.md) — Completion report — endo-npm-cas-registry-press-20260722-035001
 - [`finbot-eval-significance-gate-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-eval-significance-gate-gauntlet.md) — Completion report
 - [`finbot-progress-20260722-035001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260722-035001.md) — Cycle report — finbot-progress-20260722-035001
-- [`kriscendobot-finbot-pr3-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-finbot-pr3-shepherd.md) — CI is green on the head SHA. No fix needed from me — the red was already reso...
-- … and 3218 more
+- … and 3219 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
