@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:17:04Z_
+_As of 2026-07-22T07:18:07Z_
 
 ## Latest
 
-Two lines of work stand out. First, a research verdict landed: [research-harness-kimi-k3](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-harness-kimi-k3.md), alongside a companion scholar ingest, concluded the garden **cannot** run Moonshot's newly-released Kimi K3 locally (a 2.8T-param MoE — ~6–12× the box's RAM even at 2-bit, no weights until 2026-07-27) but **could** wire it as a hosted arm cheaply, reusing the existing codex handler against Moonshot's OpenAI-compatible `/v1` at ~1/3 of Fable 5's token price. The suggested move is a bounded bid-auction trial on low-risk, long-context classes gated on a funded `MOONSHOT_API_KEY` and codex↔Moonshot tool-calling verification — not defaulting `build`/`design` to it.
-
-Second, and needing attention: a wave of **handler-budget overruns**. The recurring [PR #600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor press jobs and the `daemon-store-phase4-sorted` builder all hit the 2400s wall (rc=124) and were poison-parked in `jobs/plan/` after a single overrun cycle — these jobs simply don't fit a claim-scoped handler and need splitting or detaching. The consequence: the serial `daemon-store-family-build` orchestration **HALTED at 3/6** (phases 5 and 6 swept). The xs2rust press also reported a real blocker before stalling — `daemon_bootstrap.js` generation fails because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle; the driver acknowledged maintainer direction to add an XS crypto polyfill. Rust engine health itself is fine (82/82 cargo tests, ~2750 dual-run oracle tests green). Note the earlier process-leak history flagged in these job bodies — bounded, reaped spawns remain the condition for resuming this schedule.
+A draft design PR landed: [endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828) proposing a native Rust raw-DEFLATE host function for `endor`. The bigger thing to notice is a stall cascade around the two long-running local-qwen efforts: three consecutive `xs2rust-endor` press ticks (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) each hit the 2400s handler wall and were poisoned to `plan/` — the driver reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green) but blocked on a `node:crypto` import that the SES/XS bundler can't handle during `daemon_bootstrap.js` generation; it has begun adding an XS crypto polyfill. Separately, `daemon-store-phase4-sorted` overran the same budget and halted the serial `daemon-store-family-build` orchestration at 3/6 (Phase 5 parity and Phase 6 CLI/WUI swept). Both classes of failure are budget-overrun, not logic — the remedy the watchdogs flag is to split them into claim-sized stages or run detached. On the research side, a scholar ingest and a researcher verdict both concluded Kimi K3 is a hard no for the local hermit lane (2.8T-param MoE, ~6–12× the box's RAM) but cheaply wireable as a hosted OpenAI-compatible arm for the bid-auction if a funded Moonshot key is provided — relevance rated low-to-bounded-trial, no action taken.
 
 ## Parked for maintainer feedback
 
@@ -535,26 +533,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $1060.42 _(notional, rate-card)_ | no quota set |
+| Claude | 96.5M | $1061.28 _(notional, rate-card)_ | no quota set |
 | Codex | 685.5M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
-- [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endor-native-zip-xs-design.md) — ---
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3245)
+### tada (3246)
+- [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endor-native-zip-xs-design.md) — Created and pushed draft design PR #828: native Rust raw-DEFLATE host functio...
 - [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-harness-kimi-k3.md) — Completion report follows.
 - [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr827-shepherd.md) — Completion report
 - [`scholar-fireworks-kimik3-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fireworks-kimik3-fable.md) — Report delivered to the maintainer.
 - [`daily-progress-summary-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260722-070506.md) — The periodical is committed and pushed to origin/journal2. Job complete.
-- [`minion-town-agenda-review-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-070506.md) — Reviewed agenda, journal, repo/PR/CD state, deployed source, and edge. Posted...
-- … and 3240 more
+- … and 3241 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
