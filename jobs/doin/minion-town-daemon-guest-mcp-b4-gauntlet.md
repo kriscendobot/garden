@@ -11,3 +11,10 @@ The build opened https://github.com/kriscendobot/minion.town/pull/19 and it rema
 state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
 the panel terminates cleanly. This handoff was posted by the build completion edge,
 not inferred by a watcher.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  claimed_at: 2026-07-22T17:47:49Z
