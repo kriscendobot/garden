@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T02:52:47Z_
+_As of 2026-07-22T02:56:00Z_
 
 ## Latest
 
-The maintainer inbox was consolidated: an omnibus digest folded **199 unread entries** into ~30 open items across 13 topics (everything acknowledged, nothing deleted) — the fastest way to see what's actually waiting on kriskowal. It flags several stacks now merged and no longer needing action (content-store [#585](https://github.com/endojs/endo-but-for-bots/pull/585), confined-HTTP [#661](https://github.com/endojs/endo-but-for-bots/pull/661), the CAS-registry stack [#802](https://github.com/endojs/endo-but-for-bots/pull/802)/[#805](https://github.com/endojs/endo-but-for-bots/pull/805)/[#812](https://github.com/endojs/endo-but-for-bots/pull/812)), and surfaces the durable stalls: esheets/endoclaw-OAuth dammed 11 days behind [#621](https://github.com/endojs/endo-but-for-bots/pull/621), the SturdyRef lanes held on arbitration ([#737](https://github.com/endojs/endo-but-for-bots/pull/737) vs [#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and M2/M3 shims merge-gated ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)).
+Board activity was quiet this window — one daily arc-status job cleared — so the substance is in the gardener reports. [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged: it makes the pending `significanceAlpha` default decision evaluable from the CLI (`finbot-eval --significance-alpha`) without changing any default or proposal hash; the live executor still waits on a transport pick plus paper-wallet/test-net authorization. The ocapn-iroh lane build reached its buildable edge — [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (draft, Gate-2 listener boot script) opened stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full deploy gated on merging #777 into `llm` (still open and conflicting). A shepherd on the URL-shim [#719](https://github.com/endojs/endo-but-for-bots/pull/719) got it partial-green and traced the remaining red to pre-existing master debt (jsdoc lint, TextEncoder/TextDecoder permit tests, stale action pins), not the PR's own diff — it recommends a dedicated master-greening pass rather than smuggling those fixes into the feature PR.
 
-On the build side: finbot's [#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the `significanceAlpha` question CLI-evaluable without changing any default; the ocapn-iroh lane reached its buildable edge with a new draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777) (full deploy blocked on merging #777 to `llm`); and a shepherd drove [#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s own URL diff green, isolating the remaining red to pre-existing master debt (jsdoc, text-codec permits from `536f82d18`, stale action pins) that wants a dedicated master-greening pass, not a smuggled fix.
-
-Two operational notes deserve attention: the hourly **xs2rust-endor press** ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is deterministically overrunning its 2400s handler budget every cycle and being poisoned/parked — it needs a dedicated iterative builder, not the timeboxed press. The weekly Qwen watch found no new harnessable coding model. Board movement itself was quiet: only the daily `arc-status` and `esheets-supervisor` supervisors claimed.
+The recurring pain point: the hourly `xs2rust-endor` press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is deterministically overrunning its 2400s handler budget every cycle and getting poison-parked — four instances since last bulletin. It needs splitting into claim-sized stages or a dedicated iterative builder, not the timeboxed press. And esheets hit day 12 still dammed entirely on one stale `CHANGES_REQUESTED` re-review of [#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable) — the supervisor holds at its default rather than self-authorizing the downstream OAuth-exo build.
 
 ## Parked for maintainer feedback
 
@@ -603,26 +601,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.5M | $1005.92 _(notional, rate-card)_ | no quota set |
-| Codex | 583.3M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 90.5M | $1006.34 _(notional, rate-card)_ | no quota set |
+| Codex | 584.6M _(+520.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`arc-status-daily-20260722-025002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260722-025002.md) — Daily status + change summary for the standing review arcs
+### doin (3)
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
 - [`xs2rust-endor-press-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-012002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-023502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3209)
+### tada (3210)
+- [`arc-status-daily-20260722-025002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260722-025002.md) — Inbox empty. Job complete.
 - [`esheets-supervisor-20260722-025002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260722-025002.md) — Completion report — esheets-supervisor-20260722-025002
 - [`minion-town-agenda-review-20260722-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-023502.md) — Inbox empty. This was a review/reconciliation cycle producing an issue commen...
 - [`minion-town-agenda-review-20260722-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-012002.md) — Completion report
 - [`setup-pages-proposal-compartments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/setup-pages-proposal-compartments.md) — What was done
-- [`xs2rust-endor-press-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260722-002002.md) — What I Did
-- … and 3204 more
+- … and 3205 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
