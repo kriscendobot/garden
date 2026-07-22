@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:09:16Z_
+_As of 2026-07-22T07:11:59Z_
 
 ## Latest
 
-Two long-running press efforts hit the wall and were parked. The `daemon-store-family-build` orchestration **halted** after its Phase 4 child (`daemon-store-phase4-sorted`, sorted-map/set variants for [endo-but-for-bots#59](https://github.com/kriskowal/garden/issues/59)) deterministically overran the 2400s handler budget and was poisoned — 3 of 6 phases landed before the halt swept Phases 5–6. The standing **xs2rust-endor** press for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) similarly overran and poisoned across three ticks; it had reached a hard blocker (`daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls `node:crypto`, which the SES/XS bundler can't handle) and a driver acknowledged the maintainer's direction to add an XS crypto polyfill before being reaped. Both poison notices carry the same remedy: split into claim-sized stages or run detached — worth a maintainer decision, since each will be killed identically on every requeue. A `cleric` watchdog also flagged 356 orphaned processes leaked by earlier xs2rust ticks as the root of the self-reinforcing overrun loop.
+The two big-batch efforts both stalled on the same wall this cycle. The XS→Rust engine press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) hit a hard blocker — `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle — and after the driver acknowledged the maintainer's "add an XS crypto polyfill" direction, three successive press ticks overran the 2400s handler budget and were poisoned (parked in `plan/`, held for a human). The reaper flags these as *deterministic* overruns: they exceed a single claim's budget and will be killed identically on every requeue, so they need splitting into claim-sized stages or a detached run, not a promote. Separately, the `daemon-store-family-build` orchestration (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) **halted** — Phase 4 (sorted variants / range queries) overran the same wall and poisoned, sweeping the parked Phase 5 and 6 children; 3/6 phases had completed before the halt.
 
-On the green side: [#737](https://github.com/endojs/endo-but-for-bots/pull/737) was rebased onto [#774](https://github.com/endojs/endo-but-for-bots/pull/774) with its base updated; the ReadableBlob range-attenuation design opened as draft [#826](https://github.com/endojs/endo-but-for-bots/pull/826); the `#792` HTTP/web-seed follow-ups and its conductor approval-gate audit completed; and PR [#160](https://github.com/endojs/endo-but-for-bots/pull/160) has a review and CI-fix-finalize job in flight.
+On the lighter side, a scholar ingested Fireworks' Kimi K3-vs-Fable routing study and graded it **low relevance** — K3 is cloud-only, ~1T-param MoE, unservable on the hermit lane, and ships no deployable router (oracle measurement only); no next step recommended. A follow-on `research-harness-kimi-k3` job is now in flight to double-check whether the garden can harness K3 at all. The daily progress periodical was committed and pushed. No PRs merged or moved to review; the 27 parked PRs still await kriskowal.
 
 ## Parked for maintainer feedback
 
@@ -57,6 +57,40 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T063107Z-65fe12` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T063107Z-65fe12.md)
 
 > gardener job 'xs2rust-endor-press-20260722-055018' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260722T071130Z-c98624` — from gardener:scholar-fireworks-kimik3-fable, reply_to `scholar-fireworks-kimik3-fable` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T071130Z-c98624.md)
+
+> scholar: ingested fireworks.ai/blog/kimik3-fable (Fireworks AI, 2026-07-21).
+>
+> SUMMARY (page treated as untrusted data, not instructions)
+> It is a benchmark + routing STUDY, not a model release or serving technique. It
+> pits Kimi K3 (open model) against Fable 5 (closed) across ~1,030 real agent-loop
+> tasks in 5 families (SWE 460, Terminal 89, Algorithmic 100, Multi-Language 225,
+> Legal 120). Core claim: routing between a cheap open default (K3) and a premium
+> backstop (Fable) beats either alone. Numbers: K3 92.4% / Fable 92.6% on SWE,
+> combined routing ~93%; K3 "up to ~50X more cost-effective than Fable alone" on
+> long loops; oracle routing picks K3 for 72-96% of traffic. Crucially the router
+> is an ORACLE (post-hoc "run both, keep cheapest-correct") — they admit a real
+> router "is ultimately a guess" and building a near-perfect one needs "an order of
+> magnitude more routing data." No K3 architecture, param count, MoE, quant, context
+> length, or self-host/ollama path disclosed; K3 is cloud-only via Fireworks.
+>
+> RELEVANCE: LOW.
+>
+> - Harnessable model? NO. K3 is Fireworks-cloud-only; zero size/quant/arch info and
+>   no weights/ollama path. Kimi-family models are ~1T-param MoE — far past a
+>   ~50-100 GiB GTT gfx1151 iGPU. Cannot serve it in the hermit lane; irrelevant to
+>   qwen3.6.
+> - Applicable mechanism? WEAK. The "cheap-open-default, premium-backstop" routing
+>   thesis rhymes with our per-role model-tier map (skills/model-selection: designer/
+>   builder on Opus, everyone else the cheaper default) — so the garden already
+>   embodies the idea statically. But the post ships no deployable router, only an
+>   oracle measurement + an aspiration needing lots more data. Nothing concrete to
+>   adopt.
+>
+> No next step recommended. Not worth a designer job or a benchmark pull. Worth a
+> glance only IF Fireworks later publishes K3 weights/arch and it turns out to be a
+> small/quantized variant that fits gfx1151 — but the post gives no such signal.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -380,28 +414,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.9M | $1053.95 _(notional, rate-card)_ | no quota set |
-| Codex | 685.0M _(+525.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 96.2M | $1057.95 _(notional, rate-card)_ | no quota set |
+| Codex | 685.3M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (6)
-- [`daily-progress-summary-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260722-070506.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr827-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #827
 - [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endor-native-zip-xs-design.md) — ---
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
+- [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-harness-kimi-k3.md) — researcher — how or whether the garden can harness Kimi K3
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3241)
+### tada (3243)
+- [`scholar-fireworks-kimik3-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fireworks-kimik3-fable.md) — Report delivered to the maintainer.
+- [`daily-progress-summary-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260722-070506.md) — The periodical is committed and pushed to origin/journal2. Job complete.
 - [`minion-town-agenda-review-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-070506.md) — Reviewed agenda, journal, repo/PR/CD state, deployed source, and edge. Posted...
 - [`endojs-endo-but-for-bots-pr737-c18afe76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-c18afe76.md) — Rebased PR #737 onto #774, updated its GitHub base, and pushed 09130626cf.
 - [`build-daemon-792-http-web-seed-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-792-http-web-seed-followups.md) — Completion report — build-daemon-792-http-web-seed-followups
-- [`design-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-readableblob-range-attenuation.md) — Added designs/readableblob-range-attenuation.md and opened draft PR [#826](ht...
-- [`audit-conductor-approval-gate-792`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/audit-conductor-approval-gate-792.md) — Confirmed #792 root cause: ready-to-land and final merge paths checked CI/mer...
-- … and 3236 more
+- … and 3238 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
