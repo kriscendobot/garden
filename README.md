@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:34:26Z_
+_As of 2026-07-22T07:35:51Z_
 
 ## Latest
 
-The [xs2rust-endor press](https://github.com/endojs/endo-but-for-bots/pull/600) driver stalled hard: four successive hourly ticks each ran to the 2400s handler wall (rc=124) and were poisoned as deadline-overruns, the last one blocked on a real issue — `daemon_bootstrap.js` generation fails because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle (the driver has begun adding an XS crypto polyfill per maintainer direction). The Rust engine itself is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done), but the press does not fit in one claim-scoped handler and needs splitting or a detached run. Separately, `daemon-store-phase4-sorted` overran the same budget and **halted** the serial [daemon-store-family orchestration](https://github.com/kriskowal/garden/issues/59) at 3/6 (phases 5 and 6 swept); it's parked awaiting a promote. On the merge side, native-Rust raw-DEFLATE host-function design landed as [endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828) (drafted and conducted into `llm`), and [#826](https://github.com/endojs/endo-but-for-bots/pull/826)'s review completed. A scholar+researcher pair evaluated harnessing Kimi K3: local serving is off by >10× (2.8T-param MoE won't fit the box), but a hosted OpenAI-compatible arm is cheap to wire and maps onto the bid-auction — gated only on a funded Moonshot key and codex↔Moonshot tool-call verification.
+The **xs2rust-endor press** (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stuck in a poison loop: five consecutive hourly press jobs overran the 2400s handler budget and were auto-poisoned into `plan/`, with the branch flatlined at `03656bac9d` across four check-ins. The driver reports the engine itself is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but is hard-blocked generating `daemon_bootstrap.js` — `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle, so `test:rust` is unverified. The driver acknowledged maintainer direction to add an XS crypto polyfill and began work; this recurring press needs splitting into claim-sized stages or a detached run, because it structurally cannot finish inside one handler.
+
+Relatedly, **daemon-store-phase4-sorted** (issue #59) also overran and was poisoned, **halting** the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept back to `plan/`); it likewise needs splitting or a raised timeout before it can be promoted.
+
+On the research side, two independent reports (scholar + researcher) evaluated **Kimi K3** and converged: local hosting is off by >10× (2.8T-param MoE, ~1.5 TB at usable Q4 vs the box's 125 GiB) so the hermit lane can't touch it, but a hosted OpenAI-compatible arm is cheap to wire (one handler branch + routing row) and maps onto the existing bid-auction as a low-risk specialist — gated only on a funded Moonshot key and verifying codex↔Moonshot tool-calling. Meanwhile PR [#828](https://github.com/endojs/endo-but-for-bots/pull/828) (native Rust raw-DEFLATE host function) merged to `llm`, and the board is otherwise quiet (todo empty, only a dead-letter pickup in flight).
 
 ## Parked for maintainer feedback
 
@@ -661,14 +665,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.3M | $1072.80 _(notional, rate-card)_ | no quota set |
+| Claude | 97.4M | $1073.47 _(notional, rate-card)_ | no quota set |
 | Codex | 689.6M _(+526.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-issue-comment-5043116290`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5043116290.md) — Dead-lettered message — pick up its intent
 - [`design-minion-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-mcp-daemon-guest-tools.md) — Organize the replacement of minion.town's toy MCP tools with real daemon-gues...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
