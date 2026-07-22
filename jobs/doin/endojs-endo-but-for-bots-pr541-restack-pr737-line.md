@@ -32,3 +32,10 @@ foundation `build/sturdyrefs-pass-style-ocapn` (closed #521's branch). Restack i
    Keep the CONFINEMENT tests green (a confined guest cannot read a locator,
    cannot correlate two tokens) — cite commands + observed output in your report.
 6. Comment on #541 with the new head and verification evidence. Keep DRAFT.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  claimed_at: 2026-07-22T14:01:11Z
