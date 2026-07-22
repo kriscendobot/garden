@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:29:18Z_
+_As of 2026-07-22T07:31:18Z_
 
 ## Latest
 
-The xs2rust-endor press for [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) stalled hard and needs a decision: four successive hourly press jobs each hit the 2400s handler wall and were poison-parked (deterministic budget overruns, not a crash), with the driver reporting no HEAD movement since tick 4 — branch stable at `03656bac9d` — blocked on a `daemon_bootstrap.js` generation failure (`@endo/platform` pulling `node:crypto` through the SES/XS bundler), which it began addressing via an XS crypto polyfill before the reaper caught it. Separately, the Phase-4 sorted-stores build (`daemon-store-phase4-sorted`) also overran its budget and was poisoned, HALTING the serial `daemon-store-family-build` orchestration at 3/6 children; both jobs need splitting into claim-sized stages or a detached run. Two Kimi K3 investigations concluded: the scholar rated the Fireworks K3-vs-Fable routing study LOW relevance (an oracle-routing measurement, no deployable router, no local-servable weights), and the researcher confirmed K3 is >10× too large for the hermit lane but cheap to wire as a hosted bid-auction arm — gated on a funded Moonshot key and a codex-compat check. On the delivery side, draft design [endojs/endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828) (native Rust raw-DEFLATE host functions) opened and [endojs/endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) was shepherded to completion. The board is otherwise idle (todo empty), with 27 PRs still parked for review.
+[endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828) — the native Rust raw-DEFLATE host-function design — was created as a draft and then conducted into `llm`, and a review of [endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/pull/826) is now underway; a shepherd on [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) also completed.
+
+The bigger signal is operational, not code: a wave of jobs is deterministically overrunning the 2400s handler budget and being poisoned on the first cycle. The `daemon-store-family-build` orchestration **halted** (3/6 children done) when its Phase 4 sorted-store child, [daemon-store-phase4-sorted](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) for [issue #59](https://github.com/kriskowal/garden/issues/59), overran and parked — Phase 5 and Phase 6 were swept along with it. In parallel, the hourly `xs2rust-endor` press-driver ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is repeatedly timing out and poisoning: its own final stall notice reports the Rust engine healthy (82/82 cargo, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked on generating `daemon_bootstrap.js` because `@endo/platform` pulls in `node:crypto`, which the SES/XS bundler can't handle; the driver has acknowledged the maintainer's direction to add an XS crypto polyfill. Both classes want the same remedy — split into claim-sized stages or run detached — before they'll stop re-poisoning.
+
+Two research reports also landed on Kimi K3 (Moonshot's 2.8T open MoE, weights due 2026-07-27): the verdict is **local: no** (~6–12× over the box's RAM even at aggressive quant) but **hosted: cheap to wire** via an OpenAI-compatible `/v1` reusing the codex handler, mapping the post's "K3-as-cheap-specialist + Fable-backstop" oracle-routing thesis onto the garden's existing bid-auction. The scholar rates the underlying Fireworks study low-relevance (oracle router only, no deployable artifact).
 
 ## Parked for maintainer feedback
 
@@ -537,8 +541,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.0M | $1067.83 _(notional, rate-card)_ | no quota set |
-| Codex | 689.6M _(+525.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 97.2M | $1070.11 _(notional, rate-card)_ | no quota set |
+| Codex | 689.6M _(+526.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -547,17 +551,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (5)
 - [`design-minion-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-mcp-daemon-guest-tools.md) — Organize the replacement of minion.town's toy MCP tools with real daemon-gues...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
-- [`endojs-endo-but-for-bots-pr828-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr828-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #828
+- [`endojs-endo-but-for-bots-pr826-review-1756c24f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-review-1756c24f.md) — Review directive on endojs/endo-but-for-bots PR #826
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3247)
+### tada (3248)
+- [`endojs-endo-but-for-bots-pr828-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr828-conduct.md) — Merged endojs/endo-but-for-bots PR #828 into llm.
 - [`deadmail-issue-comment-5043060750`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5043060750.md) — Completion report
 - [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endor-native-zip-xs-design.md) — Created and pushed draft design PR #828: native Rust raw-DEFLATE host functio...
 - [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-harness-kimi-k3.md) — Completion report follows.
 - [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr827-shepherd.md) — Completion report
-- [`scholar-fireworks-kimik3-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fireworks-kimik3-fable.md) — Report delivered to the maintainer.
-- … and 3242 more
+- … and 3243 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -627,6 +631,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr792-review-91808a86-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr792-review-91808a86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #792 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr826-review-1756c24f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-1756c24f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
