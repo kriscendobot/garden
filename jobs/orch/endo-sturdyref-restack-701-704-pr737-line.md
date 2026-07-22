@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr701-restack-pr737-line endojs-endo-but-for-bots-pr702-restack-pr737-line endojs-endo-but-for-bots-pr703-restack-pr737-line endojs-endo-but-for-bots-pr704-restack-pr737-line
 on-child-failure: halt
-state: pending
+state: running
 created_by: endo-sturdyref-press-20260722-160501
 created_at: 2026-07-22T16:10:18Z
 ---
