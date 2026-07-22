@@ -25,13 +25,4 @@ test failures need diagnosis. Land the fix on master via the repo's normal flow.
 Once master is green, PRs based on frozen master snapshots can be re-cut/rebased to
 inherit the fix.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 9
-  worker_kind: cleric
-  claimed_at: 2026-07-22T19:53:12Z
+<!-- garden-reaped: 0 -->
