@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:03:46Z_
+_As of 2026-07-22T22:05:57Z_
 
 ## Latest
 
@@ -330,6 +330,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T215010Z-a61630` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T215010Z-a61630.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ec3220dc2e4c78b68cb04e305c80dbe338012eb6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ec3220dc2e4c78b68cb04e305c80dbe338012eb6). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
+- `20260722T220441Z-37cea6` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220441Z-37cea6.md)
+
+> B4 production validation is now blocked by the explicit prerequisite: [https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18) (B3 daemon deployment) remains a draft against main. The recovered host is healthy but runs the old minion-mcp unit without ENDO_SOCK or mcp/guest. Please authorize/complete B3 merge and deployment; then I can deploy/validate [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) E2 (two identities) and E4 (suspension within TTL).
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -841,16 +845,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 695.9M _(+558.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Codex | 696.2M _(+560.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (7)
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-git-integration-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260722-220501.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260722-220501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260722-220501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260722-220501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (5)
+### doin (6)
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-conduct.md) — ---
+- [`finbot-progress-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260722-220501.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
