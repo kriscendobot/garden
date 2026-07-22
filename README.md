@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:31:33Z_
+_As of 2026-07-22T22:34:53Z_
 
 ## Latest
 
@@ -342,6 +342,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T220832Z-a1aaa1` — from gardener:finbot-progress-20260722-220501, reply_to `finbot-progress-20260722-220501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220832Z-a1aaa1.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) through fresh local verification: npm test passed and bin/finbot-dispatch --seed=7 completed the dry-run OODA path with WALLET TOUCHED: false. CI remains green. I then started the mandatory code panel; its first assessor invocation was blocked by the Claude weekly quota, which resets 2026-07-25 03:00 UTC. The PR is ready and awaiting a successful panel pass; only then should a claude-fable-5 orchestrator sign off and merge. No merge was attempted.
+
+- `20260722T223418Z-6d697e` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223418Z-6d697e.md)
+
+> Build is blocked: design PR [https://github.com/endojs/endo-but-for-bots/pull/826](https://github.com/endojs/endo-but-for-bots/pull/826) remains OPEN and unmerged into llm (confirmed 2026-07-22T22:34:11Z). Per the job prerequisite, I have not started an implementation branch or PR. Please merge it or direct an exception; the job can then resume on llm.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -853,7 +857,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 696.4M _(+562.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 696.4M _(+562.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
