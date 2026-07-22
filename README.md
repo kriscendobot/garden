@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:00:34Z_
+_As of 2026-07-22T06:04:40Z_
 
 ## Latest
 
-Two review jobs closed on endojs/endo-but-for-bots: [#705](https://github.com/endojs/endo-but-for-bots/pull/705) landed a fix (commit a689a78fb) and [#719](https://github.com/endojs/endo-but-for-bots/pull/719) wrapped its review; a fresh review directive on [#160](https://github.com/endojs/endo-but-for-bots/pull/160) is now in flight, with its shepherd→fixer chain and retrospective parked behind it. The daemon-store build advanced — Phase 3 (weak ERTP) completed and the platform-neutral-hash design landed — but **two operational snags need attention**: the `xs2rust-endor` press (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) has stalled for seven ticks against a daemon-bootstrap blocker (`@endo/platform` importing `node:crypto` where the SES/XS bundler chokes; a gardener says it accepted your direction to add an XS crypto polyfill and is implementing now), and the watchdog reports `daemon-store-phase4-sorted` is deterministically overrunning its 2400s handler budget and will be poisoned unless split into claim-sized stages or run detached.
+The **daemon-store-family-build** orchestration [HALTED](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) at Phase 4: the child `daemon-store-phase4-sorted` (sorted variants + range queries for [endo-but-for-bots#809](https://github.com/kriskowal/garden/pull/809)'s persistent-stores design) deterministically overran the 2400s handler budget, so the reaper poisoned it into `plan/` (held, gate=go-ahead) and swept the downstream Phase 5/6 children — 3/6 done before the halt. It needs splitting into claim-sized stages or a detached run before it can proceed. The **xs2rust-endor** press (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is hitting the same wall repeatedly — over a dozen parked press ticks and a fresh overrun this cycle; its last stall report flagged a hard blocker (SES/XS can't bundle `node:crypto` pulled in by `blobref.js` during `daemon_bootstrap.js` generation), and it has now taken maintainer direction to add an XS crypto polyfill (option a). On the completed side, PR [#705](https://github.com/endojs/endo-but-for-bots/pull/705) landed a fix (pushed `a689a78fb`) and the PR [#719](https://github.com/endojs/endo-but-for-bots/pull/719) review finished; a review of PR [#160](https://github.com/endojs/endo-but-for-bots/pull/160) and a refresh of [#719](https://github.com/endojs/endo-but-for-bots/pull/719) remain in flight.
 
 ## Parked for maintainer feedback
 
@@ -44,21 +44,97 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'daemon-store-phase4-sorted' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260722T060323Z-d3bb29` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060323Z-d3bb29.md)
+
+> gardener job 'xs2rust-endor-press-20260722-033502' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
+
+> Orchestration daemon-store-family-build HALTED: child daemon-store-phase4-sorted failed (serial, on-child-failure=halt). 3/6 done before halt; swept: daemon-store-phase5-parity daemon-store-phase6-cli-wui
+
+- `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/daemon-store-phase4-sorted; it stays HELD until a human promotes it
+> (promote-plan.sh daemon-store-phase4-sorted) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: daemon-store-phase4-sorted
+>
+> --- original job body ---
+> ---
+> role: builder
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-22T05:07:03Z -->
+>
+> role: builder
+>
+> # Build Phase 4: sorted variants and range queries (design Phase 4)
+>
+> Repo: endojs/endo-but-for-bots. Implement **Phase 4** on top of the Phase 1-3
+> substrate: `SortedMapStore` and `SortedSetStore` with rank-ordered scans.
+>
+> Concrete surface (see design § Two encoding roles, § Phased Phase 4):
+> - add the sorted kinds and `makeSortedMapStore` / `makeSortedSetStore`;
+> - `key_rank` column produced by `@endo/marshal` `makeEncodePassable` (the
+>   order-preserving rank encoding — keep it fixed; the body columns stay a free
+>   swap, see the design's Design Decision on body vs rank);
+> - the composite SQLite index on (store_number, key_rank);
+> - `keys(pattern, bounds)` / `values` / `entries` scans with inclusive/exclusive
+>   bounds, ordered by `key_rank`.
+>
+> ## Tests
+> arbitrary `M.key()` ordering; pattern covers; inclusive/exclusive bounds;
+> `O(log n + k)` query-plan use (assert the index is used, not a full scan); and
+> restart persistence for each sorted variant.
+>
+> ## Base / stacking (stacked-PR build)
+>
+> Use skills/stacked-pr-build: because each phase depends on the code the prior
+> phase adds, do NOT branch off a bare `llm` for phases 2+. Branch off the PRIOR
+> phase's head branch so your worktree already contains its store substrate, and
+> open your DRAFT PR with that prior branch as the base (a stacked PR). Phase 1
+> branches off `llm`. If a prior phase has already merged to `llm` by the time you
+> start, rebase onto `llm` instead and base the PR on `llm`. Always
+> `git fetch` + rebase before you begin (skills/rebase-before-followup).
+>
+> Open a DRAFT PR; the build auto-runs the gauntlet (clean -> panel -> fix-loop ->
+> un-draft). Keep the PR scoped to THIS phase only. Do NOT add an `@agoric/*`
+> dependency; reuse `@endo/patterns` / `@endo/exo` / the daemon's own marshal
+> substrate. Run `yarn lint` and the daemon package tests locally before pushing
+> (garden memory "Endo local test bin shims" for the PATH shims). If the design
+> proves insufficient for this phase, STOP and surface to the maintainer rather
+> than guessing — the orchestration halts on a child failure.
+>
+> ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+> issue_spine: issue-kriskowal-garden-59
+> issue_url: [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59)
+> submitter: dckc
+> ----- END ISSUE NOTE -----
+>
+> Design authority for the full detail and file:line grounding:
+> `packages/daemon/designs/daemon-persistent-stores.md` (merged from PR #809).
+> READ THE RELEVANT PHASE SECTION FIRST. When the PR is green and un-drafted,
+> comment the outcome (link the PR) on [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59).
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.7M | $1042.00 _(notional, rate-card)_ | no quota set |
-| Codex | 657.0M _(+510.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.8M | $1044.14 _(notional, rate-card)_ | no quota set |
+| Codex | 659.4M _(+509.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr160-review-85ea7a37`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-85ea7a37.md) — Review directive on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr719-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #719
 - [`improve-project-worktree-dep-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-project-worktree-dep-cache.md) — scripts/jobs/ensure-project-worktree.sh
@@ -66,18 +142,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-055018.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3231)
+### tada (3232)
+- [`daemon-store-family-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) — orchestration daemon-store-family-build — HALTED
 - [`minion-town-agenda-review-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-055018.md) — Reviewed agenda, journal, repo, PR/CD state, and deployed edge. Posted substa...
 - [`endojs-endo-but-for-bots-pr705-review-207112c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-review-207112c7.md) — Implemented and pushed a689a78fb for PR #705.
 - [`endojs-endo-but-for-bots-pr719-review-9fcf7da1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-review-9fcf7da1.md) — Completion report: endojs/endo-but-for-bots PR #719 review (kriskowal, review...
 - [`design-endo-platform-neutral-hash`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-platform-neutral-hash.md) — Completion report
-- [`daemon-store-phase3-weak-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase3-weak-ertp.md) — Completion report — daemon-store-phase3-weak-ertp (build Phase 3)
-- … and 3226 more
+- … and 3227 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
+- [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
