@@ -48,3 +48,10 @@ host's deploy window is especially damaging — it survives the restart as a
 
 Reference: `scripts/jobs/{set-gardeners.sh,set-clerics.sh,set-hermits.sh,install-units.sh,common.sh}`,
 the gardener-scaler unit, and `context/operations/{scaling.md,leader-follower.md}`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 16
+  worker_kind: cleric
+  claimed_at: 2026-07-22T15:13:28Z
