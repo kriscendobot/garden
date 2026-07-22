@@ -1,0 +1,2 @@
+base: improve-ollama-serve-crashloop-backoff
+identity: mentor:scripts/jobs/ollama-serve.sh
