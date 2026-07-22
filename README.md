@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T23:04:09Z_
+_As of 2026-07-22T23:05:54Z_
 
 ## Latest
 
@@ -1082,7 +1082,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 696.8M _(+572.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 696.8M _(+573.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
@@ -1097,19 +1097,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (4)
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — ---
+### doin (3)
+- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reap-now -->
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
-- [`garden-moonshot-kimi-k3-worker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-moonshot-kimi-k3-worker.md) — Add a hosted Moonshot/Kimi K3 Codex worker kind
 - [`minion-town-mcp-b5-retire-toy-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b5-retire-toy-tools.md) — B5: retire toy tools
 
-### tada (3331)
+### tada (3332)
+- [`garden-moonshot-kimi-k3-worker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-moonshot-kimi-k3-worker.md) — Implemented and pushed 8f7b35468d3a28842f1030f75129b232fdd44423 to main2.
 - [`endojs-endo-but-for-bots-pr826-448995f1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-448995f1.md) — Re-fetched the maintainer comment and ran the feedback preflight (proceed).
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b4-full-facet-surface.md) — Implemented and pushed B4 on PR #19: full guest facet tools, evaluator-only g...
 - [`finbot-progress-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260722-220501.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/4 with fresh local ve...
 - [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-conduct.md) — orchestration-failed: true
-- [`endojs-endo-but-for-bots-pr807-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-rebase.md) — Rebased PR #807 onto llm and force-with-lease pushed head 640059855.
-- … and 3326 more
+- … and 3327 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
