@@ -15,3 +15,10 @@ Investigate, with primary-source and reproducible evidence where available:
 If direct mechanisms are sparse or unreliable, evaluate an indirect automatic control loop for the garden. Propose a deterministic state machine that uses bounded non-destructive probes, error classification, hysteresis, exponential backoff/jitter, minimum dwell times, and positive recovery confirmation to steer per-host allocations between `gardeners` (Anthropic) and `clerics` (Codex) without oscillation or duplicate cross-host action. Address leader ownership, journal-backed versus host-local state, active-job safety, scaler integration, observability, false positives, and a manual override. Relate the proposal to the existing quota panel, provider-aware foreman, worker scaler, and current temporary Codex-only allocation.
 
 Deliver a concise evidence matrix, recommended polling/probe strategy, unknowns requiring live experiments, and an implementation-oriented design recommendation. This is research and design only: do not change fleet allocation or production configuration.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 29
+  worker_kind: cleric
+  claimed_at: 2026-07-22T15:08:59Z
