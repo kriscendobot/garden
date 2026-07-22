@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T08:25:58Z_
+_As of 2026-07-22T08:58:34Z_
 
 ## Latest
 
-A minion.town daemon-guest MCP build orchestration is now underway — its agenda review completed and queued stages B1–B5, with [minion.town#13](https://github.com/kriscendobot/minion.town/pull/13)'s B1 (daemon-guest MCP tools) claimed into flight. The more urgent signal is a wave of deadline overruns: the `daemon-store-phase4-sorted` build ([endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809)'s Phase-4 follow-on) hit the 2400s handler wall and was poison-parked, halting the serial `daemon-store-family-build` orchestration (phases 5–6 swept, 3/6 done); the [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) CI-fix job overran and parked the same way; and four `xs2rust-endor` press ticks ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) each overran and poisoned. All share one root cause — work too large for a single claim-scoped handler — so each needs splitting into claim-sized stages or a detached run before it can make progress. The xs2rust press also surfaced a genuine blocker under the timeouts: `daemon_bootstrap.js` generation fails because `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle; the maintainer directed adding an XS crypto polyfill and that implementation is now in progress. Separately, a scholar/researcher pair concluded Kimi K3 is a hard no for local serving (~2.8T-param MoE, off by >10× on memory) but cheap to wire as a hosted arm behind the existing codex handler — worth a bounded bid-auction trial on low-risk, long-context work, gated only on a funded Moonshot key.
+The **minion.town daemon-guest MCP orchestration** advanced: sub-job B1 completed and B2 was claimed, building out the MCP daemon-guest tools on [kriscendobot/minion.town#13](https://github.com/kriscendobot/minion.town/pull/13) (with the PR #160 review directive on [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) still in flight). The bigger signal is a cluster of **deadline overruns**: four `xs2rust-endor` press ticks against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), the `daemon-store-phase4-sorted` build, and `endojs-pr160-ci-fix-finalize` all hit the 2400s handler wall (rc=124) and were poison-parked in `plan/` after a single overrun cycle — each needs splitting into claim-sized stages or running detached. The `daemon-store-family-build` orchestration **halted** on the phase-4 failure (3/6 done; phases 5–6 swept), and the phase-4 press separately reported a hard blocker: `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto`, which the XS bundler can't handle (maintainer opted for an XS crypto polyfill; implementation started). Finally, scholar + researcher passes on **Kimi K3** concur: local serving is infeasible (a 2.8T MoE, ~6–12× the box's RAM even at aggressive quant), but a hosted OpenAI-compatible arm via Moonshot is cheap to wire (~1/3 Fable's token price) and maps onto the existing bid-auction — gated only on a funded key and a codex↔Moonshot tool-calling check.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +17,7 @@ A minion.town daemon-guest MCP build orchestration is now underway — its agend
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 8d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 19d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 22d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 23d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -692,8 +692,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.0M | $1075.64 _(notional, rate-card)_ | no quota set |
-| Codex | 691.1M _(+526.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 98.2M | $1076.68 _(notional, rate-card)_ | no quota set |
+| Codex | 691.0M _(+525.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -701,16 +701,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
-- [`minion-town-daemon-guest-mcp-b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b1.md) — ---
+- [`minion-town-daemon-guest-mcp-b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b2.md) — ---
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 
-### tada (3252)
+### tada (3253)
+- [`minion-town-daemon-guest-mcp-b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-daemon-guest-mcp-b1.md) — Completion report
 - [`minion-town-agenda-review-20260722-082001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-082001.md) — Reviewed, queued B1-B5 daemon-guest MCP orchestration, and reported results o...
 - [`deadmail-issue-comment-5043116290`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5043116290.md) — The design PR has been reviewed, approved, and merged. Here's a summary:
 - [`design-minion-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-minion-mcp-daemon-guest-tools.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-review-1756c24f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-review-1756c24f.md) — Completion report
-- [`endojs-endo-but-for-bots-pr828-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr828-conduct.md) — Merged endojs/endo-but-for-bots PR #828 into llm.
-- … and 3247 more
+- … and 3248 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
