@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T17:39:35Z_
+_As of 2026-07-22T17:43:47Z_
 
 ## Latest
 
@@ -290,6 +290,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T172756Z-5c0f4e` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T172756Z-5c0f4e.md)
 
 > B4 code and local tests are ready on draft [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19), and Cognito already advertises mcp/guest. Deployed E2/E4 cannot run: minion.town reaches TCP 443 but TLS times out; EC2 i-0380cd68b90020fad is running and AWS health checks pass, while SSM has been ConnectionLost since 2026-07-22T16:33:11Z. Please restore edge/SSM or authorize a recovery action; I will then deploy and run the required two-identity isolation and within-TTL suspension checks.
+
+- `20260722T174249Z-42ff89` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T174249Z-42ff89.md)
+
+> B4 is now stacked on B3 at [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) and includes a B3 deployment fix for Yarn pnpm workspace binaries. Local typecheck, build, and 136 tests passed. The edge is reachable again, but deployed E2/E4 remain blocked: SSM reports Online while even a one-line Run Command stays Pending/InProgress and never executes. The daemon remains inactive, so B3 and then B4 cannot be deployed. Please restore the SSM command channel or authorize an alternate recovery path; no endpoint validation has been claimed.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
