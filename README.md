@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:14:34Z_
+_As of 2026-07-22T06:16:39Z_
 
 ## Latest
 
-Two hourly XS→Rust press jobs and the daemon-store Phase 4 build were reaped as deadline-overruns (rc=124 at the 2400s handler wall) and parked as held poison jobs, halting the serial [daemon-store-family-build](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) orchestration at 3/6 (Phase 5 parity and Phase 6 CLI/WUI swept). The [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) XS→Rust press reports the Rust engine healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done) but stalled on a hard blocker: `daemon_bootstrap.js` generation fails because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle — the driver acknowledged maintainer direction to add an XS crypto polyfill before it timed out. Both overrun classes carry the same remedy from the watchdogs: split into claim-sized stages or run detached. Meanwhile a conductor merge-gate audit ([audit-conductor-approval-gate-792](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/audit-conductor-approval-gate-792.md)) and follow-up work on [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792)'s review are in flight.
+Two long-running efforts hit the reaper's handler-budget wall and were poisoned rather than progressing. The `daemon-store-family-build` orchestration (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) **HALTED** at 3/6 children when `daemon-store-phase4-sorted` (sorted-map/set range queries) overran the 2400s budget; phases 5 and 6 were swept back to the plan queue, and the poisoned Phase 4 is parked held-for-promotion. Separately, the hourly `xs2rust-endor` press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) also overran and was poisoned; its stall notices report the Rust engine healthy (82/82 cargo, ~2750 dual-run oracle tests green, stages 1–6 done) but blocked generating `daemon_bootstrap.js` because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle — the driver acknowledged maintainer direction to add an XS crypto polyfill before it was reaped. Both jobs are flagged as needing to be split into claim-sized stages or run detached. On the board itself little moved beyond a new designer job to rework the daemon's `ReadableBlob` fetch into a coherent range-attenuation surface; six jobs remain in flight, including follow-ups on [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792) and its conductor merge-gate audit.
 
 ## Parked for maintainer feedback
 
@@ -251,16 +251,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $1043.14 _(notional, rate-card)_ | no quota set |
-| Codex | 663.2M _(+514.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 95.0M | $1044.20 _(notional, rate-card)_ | no quota set |
+| Codex | 664.2M _(+515.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`audit-conductor-approval-gate-792`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/audit-conductor-approval-gate-792.md) — Audit + tighten the conductor merge gate: PRs must not merge without a mainta...
 - [`build-daemon-792-http-web-seed-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-792-http-web-seed-followups.md) — Follow-up build: address @kriskowal's review on endojs/endo-but-for-bots#792 ...
+- [`design-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-readableblob-range-attenuation.md) — designer — rename/redesign the Endo daemon's ReadableBlob fetch into a cohere...
 - [`endojs-endo-but-for-bots-pr792-review-91808a86`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-review-91808a86.md) — Review directive on endojs/endo-but-for-bots PR #792
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-055018.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
