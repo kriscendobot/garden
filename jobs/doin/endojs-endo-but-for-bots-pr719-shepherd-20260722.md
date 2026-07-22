@@ -26,3 +26,10 @@ is "#719 is green on its own diff and blocked only on master-debt + the M2 decis
 report exactly that with the evidence. Follow the shepherd CI-failure-classification
 loop; cite real command output, no unverified "green" claims.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 23
+  worker_kind: cleric
+  claimed_at: 2026-07-22T15:16:58Z
