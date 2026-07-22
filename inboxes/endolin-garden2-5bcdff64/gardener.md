@@ -741,3 +741,12 @@ Inspect via `git -C journal cat-file -p 39f71ccc8150a5c79c5250961a7eaca9e6d47a01
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'xs2rust-endor-press-20260722-045001' exit-0-unsatisfying but elapsed near-constant (2067,2067s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 8af243f7aa46920d6c706f2c0dd95a701a20f859`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-22T07:43:27Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 60b37a043e1871316a4836966c4c731c02bf7423
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'minion-town-pr13-75344d2-build-mcp-daemon-guest-tools' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 60b37a043e1871316a4836966c4c731c02bf7423`.
