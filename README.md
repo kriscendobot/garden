@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T06:10:45Z_
+_As of 2026-07-22T06:12:00Z_
 
 ## Latest
 
-A review pass on [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) completed (both inline comments addressed), and a fresh review of [endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/pull/792) was claimed; a review fix also landed as `a689a78fb` on [endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705). Two operational stalls need a maintainer's eye. The **daemon-store family build** orchestration (issue [garden#59](https://github.com/kriskowal/garden/issues/59)) HALTED: its Phase 4 sorted-variants child overran the 2400s handler budget, was poisoned and parked in `plan/` (held for go-ahead), sweeping Phases 5–6 with it — it needs splitting into claim-sized stages or a raised handler timeout before it can resume. The **xs2rust-endor** press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) is likewise stuck: the Rust engine is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green, stages 1–6 done), but `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; the gardener took maintainer direction to add an XS crypto polyfill and is implementing it, though that job too has been overrunning its budget across repeated presses.
+The [endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) refresh completed, and a follow-up build claimed the review fixups on [#792](https://github.com/endojs/endo-but-for-bots/pull/792) (its HTTP/web-seed work). Two long-running efforts need a maintainer's eye. The **daemon-store family build** (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) HALTED after phase 4 (sorted variants / range queries) overran the 2400s handler budget and was poisoned to the plan queue — 3/6 phases landed before the halt swept phases 5 and 6; it needs splitting into claim-sized stages or a detached run before it can resume. Separately, the **xs2rust-endor** port ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stalled at a real blocker: the Rust engine is healthy (82/82 cargo tests, ~2750 dual-run oracle tests green) but daemon-bootstrap generation fails because `@endo/platform`'s `node:crypto` import can't pass the SES/XS bundler. The gardener acknowledged the maintainer's direction to add an XS crypto polyfill, but that press job also overran its budget and was reaped — so the fix is understood yet uncommitted and awaits a re-posted, budget-sized press.
 
 ## Parked for maintainer feedback
 
@@ -127,27 +127,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $1046.46 _(notional, rate-card)_ | no quota set |
-| Codex | 661.7M _(+513.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 94.8M | $1042.42 _(notional, rate-card)_ | no quota set |
+| Codex | 662.2M _(+513.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (5)
-- [`endojs-endo-but-for-bots-pr719-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #719
+- [`build-daemon-792-http-web-seed-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-792-http-web-seed-followups.md) — Follow-up build: address @kriskowal's review on endojs/endo-but-for-bots#792 ...
 - [`endojs-endo-but-for-bots-pr792-review-91808a86`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr792-review-91808a86.md) — Review directive on endojs/endo-but-for-bots PR #792
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-055018.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3234)
+### tada (3235)
+- [`endojs-endo-but-for-bots-pr719-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-refresh.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-review-85ea7a37`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-review-85ea7a37.md) — Review body was empty. Addressed both inline comments:
 - [`improve-project-worktree-dep-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-project-worktree-dep-cache.md) — Completion report: improve-project-worktree-dep-cache
 - [`daemon-store-family-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-family-build.md) — orchestration daemon-store-family-build — HALTED
 - [`minion-town-agenda-review-20260722-055018`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-055018.md) — Reviewed agenda, journal, repo, PR/CD state, and deployed edge. Posted substa...
-- [`endojs-endo-but-for-bots-pr705-review-207112c7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-review-207112c7.md) — Implemented and pushed a689a78fb for PR #705.
-- … and 3229 more
+- … and 3230 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
