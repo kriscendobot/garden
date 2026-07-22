@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:15:15Z_
+_As of 2026-07-22T05:15:49Z_
 
 ## Latest
 
-Nothing crossed the board since the last bulletin — the three in-flight jobs are still running: two overlapping press cycles on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (xs2rust-endor, driving toward endor integration and a green daemon test suite) and the daemon pet-store Phase 4 build (sorted variants and range queries), which follows the completed Phase 2 and Phase 3 SetStore/weak-ERTP work. The plan queue remains dominated by the long tail of parked `xs2rust-endor-press` respawns and a stack of maintainer-authorization holds (Cloudflare/AWS daemon-storage builds, the minion.town open-signup gate flip, SIWE wiring); 27 PRs sit parked for kriskowal's review, the freshest being the [endoclaw-oauth connector-credential design refinement (#621)](https://github.com/endojs/endo-but-for-bots/pull/621).
+A new [designer](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-platform-neutral-hash.md) job is underway to spec a platform-neutral hash package — the piece needed to unblock XS/endor daemon bundling, and a natural dependency of the long-running xs2rust-endor port (PR [#600](https://github.com/endojs/endo-but-for-bots/pull/600)), which continues to churn with two press jobs live and a deep queue of parked press attempts behind them. The phased endo pet-daemon store build keeps advancing: Phase 2 (durable strong SetStore) and Phase 3 (weak ERTP) have both landed, with Phase 4 (sorted variants and range queries) now in progress. The gauntlet on PR [#821](https://github.com/endojs/endo-but-for-bots/pull/821) also completed. Twenty-seven PRs remain parked for kriskowal's review — oldest of note the 22-day-old registry-capability PR [#403](https://github.com/endojs/endo-but-for-bots/pull/403) and voice-input PR [#101](https://github.com/endojs/endo-but-for-bots/pull/101).
 
 ## Parked for maintainer feedback
 
@@ -29,15 +29,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.8M | $1030.30 _(notional, rate-card)_ | no quota set |
-| Codex | 627.7M _(+516.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 93.9M | $1030.79 _(notional, rate-card)_ | no quota set |
+| Codex | 628.0M _(+516.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
+- [`design-endo-platform-neutral-hash`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-platform-neutral-hash.md) — designer — platform-neutral hash package to unblock XS/endor daemon bundling
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
