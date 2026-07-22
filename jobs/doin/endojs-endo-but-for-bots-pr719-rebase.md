@@ -11,3 +11,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please set the merge base to a merge-xxx branch name based on the current upstream master hash and rebase on that. If the problem persists, please post a separate job to propose a fix for the master branch. 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-22T15:43:01Z
