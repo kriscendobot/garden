@@ -1,15 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-22T09:26:20Z_
+_As of 2026-07-22T09:27:44Z_
 
 ## Latest
 
-[endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) cleared review — `pendingIdx` renamed to `pendingIndex` (7f95f89b7), inline replies posted — and moved to a conductor job to merge; it's the only board transition this window. Everything else of note is a **cluster of deadline-overrun poisonings** on `endolin-garden2`: five hourly `qwen3.6` press jobs against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (the XS→Rust endor port), the `daemon-store-phase4-sorted` build, and `endojs-pr160-ci-fix-finalize` each hit the 2400s handler wall and were parked in `plan/` after a single overrun. The #600 press reports the Rust engine healthy (82/82 cargo tests, ~2,750 dual-run oracle tests green) but blocked on daemon-bootstrap generation — `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; a maintainer directed the XS crypto-polyfill route (option a) before the job timed out. The phase-4 poison **halted the serial `daemon-store-family-build` orchestration** at 3/6, sweeping phases 5–6; all three need splitting into claim-sized stages or a detached run before they can resume.
+The [endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) crossed-hello-SYN fix advanced: a review pass renamed `pendingIdx`→`pendingIndex`, posted inline replies, and the PR now has a conductor job in flight to merge — it's parked awaiting your final look.
 
-Two things want a maintainer decision: the [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) review is **held** pending intent confirmation before renaming the `cbors.md`/`syrups.md` design docs to their landed `*-frame` package names, and a researcher verdict on Kimi K3 landed — local serving is infeasible (>10× the box's RAM even at 2-bit), but a hosted Moonshot arm is cheap to wire and maps onto the bid-auction, gated only on a funded API key.
+Three lanes are stalled and want a decision. The hourly **xs2rust-endor press** ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) hit a hard wall: every dispatch (033502, 045001, 055018) overran the 2400s handler budget and was poisoned after one cycle, and the underlying blocker is that `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle. The Rust side is otherwise healthy (82/82 cargo tests, ~2750 dual-run oracle tests green); the driver acknowledged your option (a) — add an XS crypto polyfill — but each press exceeds a single claim, so this recurring job needs splitting into claim-sized stages or a detached run before it can make progress. Separately, the **daemon persistent-stores** orchestration ([garden#59](https://github.com/kriskowal/garden/issues/59)) HALTED after `daemon-store-phase4-sorted` overran and poisoned (3/6 done; phases 5–6 swept), and the [#160](https://github.com/endojs/endo-but-for-bots/pull/160) CI-fix-finalize job also overran and parked. All four are held in `plan/` awaiting a promote or a re-shaping into smaller stages.
+
+A [#804](https://github.com/endojs/endo-but-for-bots/pull/804) review is holding for your intent before churning design docs: your CHANGES_REQUESTED comment asks to rename `cbors.md`/`syrups.md`, but the landed facts (`@endo/syrup-frame` shipped; no CBOR pkg landed) cut against the docs' story, so the gardener wants a Y/N on renaming both docs to the `-frame` convention before touching multiple files. Finally, a researcher verdict on harnessing **Kimi K3** concluded local serving is infeasible (2.8T-param MoE, off by >10× on memory) but a hosted Moonshot arm is cheap to wire and maps onto the bid-auction as a predictive router — worth a bounded trial gated on a funded key; the parallel scholar ingest rated the source's relevance low.
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1s)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -19,9 +22,8 @@ Two things want a maintainer decision: the [endo-but-for-bots#804](https://githu
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 5d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 8d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 19d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 23d)
 
-_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T051739Z-1f1dee` — from gardener:xs2rust-endor-press-20260722-033502, reply_to `xs2rust-endor-press-20260722-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T051739Z-1f1dee.md)
@@ -716,7 +718,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 99.2M | $1085.36 _(notional, rate-card)_ | no quota set |
+| Claude | 99.2M | $1085.71 _(notional, rate-card)_ | no quota set |
 | Codex | 691.0M _(+525.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
