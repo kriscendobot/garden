@@ -44,6 +44,8 @@ rm -rf "$TR"; mkdir -p "$TR"
 export STUBDIR="$TR" GARDEN_GH="$TR/gh"
 export GARDEN_NO_MAINTAINER_ALERT=1
 export GARDEN_CI_POLL_SECS=0 GARDEN_CI_POLL_MAX_SECS=0 GARDEN_CI_DEADLINE_SECS=5
+printf 'kriskowal\n' > "$TR/maintainers"
+export GARDEN_MAINTAINERS_ALLOWLIST="$TR/maintainers"
 
 cat > "$TR/gh" <<'STUB'
 #!/bin/bash
@@ -53,9 +55,12 @@ cat > "$TR/gh" <<'STUB'
 # $STUBDIR/basemeta (default: a LIVE base → no unfreeze); `pr list` returns the
 # shared-base PR count/numbers; `pr edit --base` appends to $STUBDIR/edit.log.
 SEQ="$STUBDIR/seq"; i=$(cat "$STUBDIR/i" 2>/dev/null || echo 0)
+if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"head123","user":{"login":"kriskowal"}}]'; exit 0; fi
 case "$1 $2" in
   "pr view")
     if printf ' %s' "$@" | grep -q -- '--json state,autoMergeRequest'; then cat "$STUBDIR/verify"; exit 0; fi
+    if printf ' %s' "$@" | grep -q -- '--json reviewDecision,headRefOid'; then
+      cat "$STUBDIR/approvalmeta" 2>/dev/null || printf '{"reviewDecision":"APPROVED","headRefOid":"head123"}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json statusCheckRollup --jq'; then cat "$STUBDIR/failures" 2>/dev/null; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json state,baseRefName'; then
       cat "$STUBDIR/basemeta" 2>/dev/null || printf '{"state":"OPEN","baseRefName":"llm"}'; exit 0; fi

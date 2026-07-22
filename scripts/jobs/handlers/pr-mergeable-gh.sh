@@ -5,7 +5,8 @@
 # Invoked as: pr-mergeable-gh.sh <owner/name> <pr-number>
 #
 # Exit code IS the answer (no stdout contract — the watcher reads only $?):
-#   0  OPEN + MERGEABLE + checks green   → ready; mint the conductor (un-draft+merge)
+#   0  OPEN + MERGEABLE + checks green + current maintainer approval
+#                                            → ready; mint the conductor (un-draft+merge)
 #   2  already MERGED or CLOSED          → nothing to finalize (idempotent no-op)
 #   1  OPEN but not mergeable / not green → escalate to the shepherd, do NOT force
 #
@@ -61,5 +62,10 @@ pending="$(printf '%s' "$json" | jq -r '
              or $s=="EXPECTED") ]
   | length')"
 [ "${pending:-0}" = 0 ] || exit 1
+
+# This is intentionally independent of GitHub branch protection. A clean PR is
+# not ready to conduct unless reviewDecision=APPROVED and a journal maintainer's
+# approval is for its current head.
+"$HERE/pr-maintainer-approval-gh.sh" "$repo" "$pr" >/dev/null || exit 1
 
 exit 0

@@ -15,9 +15,8 @@
 #     timeout/backoff cadence until every check has SETTLED (no QUEUED/IN_PROGRESS/
 #     PENDING/WAITING left), or the overall deadline passes.
 #   * On GREEN terminal (no failures) and --merge (default): first UNFREEZE the
-#     base if it is a frozen snapshot (conductor step 2 — see below), then refuse
-#     to merge if the PR's reviewDecision is CHANGES_REQUESTED (a maintainer
-#     review that landed during the wait — alert + exit 1, re-enqueue), else
+#     base if it is a frozen snapshot (conductor step 2 — see below), then require
+#     a current maintainer approval independently of branch protection, else
 #     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. Issuing
 #     the merge in the same invocation as the wait is the whole point — never
 #     "wait, exit, hope a later tick merges".
@@ -283,6 +282,16 @@ if [ "$review" = CHANGES_REQUESTED ]; then
   alert_maintainer "changes-requested-${repo//\//_}-$pr" \
     "conductor merge BLOCKED for $repo#$pr: reviewDecision=CHANGES_REQUESTED. A reviewer requested changes; I will NOT merge over it even though GitHub reports the PR mergeable (no branch protection requiring approval). Address the review feedback (or dismiss/supersede the review) and the next tick merges cleanly. (#$pr left claimable: not merged, not stranded.)"
   echo "review-blocked repo=$repo pr=$pr reviewDecision=CHANGES_REQUESTED → alerted maintainer, NOT merging"
+  exit 1
+fi
+
+# `reviewDecision=APPROVED` alone is not enough on a repository without branch
+# protection. Require a current APPROVED review by a journal maintainer here, at
+# the final merge point, so a hand-driven conductor cannot bypass the upstream
+# watcher gate. The helper also rejects dismissed reviews and approvals attached
+# to an older commit.
+if ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
+  echo "merge blocked: no maintainer approval repo=$repo pr=$pr"
   exit 1
 fi
 
