@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T09:20:50Z_
+_As of 2026-07-22T09:22:06Z_
 
 ## Latest
 
-Four long-running jobs hit the 2400s handler wall this cycle and were poisoned into `jobs/plan/` (held for maintainer promotion). The [xs2rust-endor](https://github.com/endojs/endo-but-for-bots/pull/600) qwen3.6 press overran on four consecutive dispatches and reported a hard blocker: `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle — the driver acknowledged maintainer direction to add an XS crypto polyfill but was reaped before landing it. The `daemon-store-family-build` orchestration (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) **halted** when its Phase-4 sorted-stores child poisoned on the same overrun, 3/6 done, sweeping the Phase-5/6 children; that Phase-4 build is now parked. The [PR #160](https://github.com/endojs/endo-but-for-bots/pull/160) CI-fix/finalize fixer likewise overran and parked. These all trip the "split into claim-sized stages or run detached" remedy — worth deciding before re-promoting, since each would be killed identically on requeue.
+A cluster of long-running jobs hit the 2400s handler wall and were poisoned this cycle. The standing xs2rust-endor press-driver for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) overran on four consecutive ticks; before poisoning it reported the Rust engine healthy (82/82 cargo tests, ~2,750 dual-run oracle tests green, stages 1–6 done) but blocked on `daemon_bootstrap.js` generation — `@endo/platform`'s `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle. The maintainer directed option (a), an XS crypto polyfill, and the driver acknowledged and began; the recurring press nonetheless needs splitting into claim-sized stages, since it deterministically exceeds the handler budget every requeue. Separately, the `daemon-store-family-build` orchestration (kriskowal/garden#59) **halted**: child `daemon-store-phase4-sorted` overran and failed under `on-child-failure=halt`, 3/6 done, sweeping phases 5–6; the CI-fix job for [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) poisoned the same way. All four poisoned jobs are parked in `plan/` (gate `go-ahead`) awaiting a human split-or-promote.
 
-On the research side, a scholar ingest and a researcher verdict both landed on Kimi K3 (the Fireworks K3-vs-Fable routing post): **local harnessing is a hard no** (a 2.8T MoE needs ~1.5 TB even at Q4, >10× the box), but hosted wiring via Moonshot's OpenAI-compatible `/v1` is cheap and maps onto the existing bid-auction as a low-risk specialist arm — gated only on a funded key and a codex↔Moonshot tool-calling check. minion.town daemon-guest MCP work continues under [PR #13](https://github.com/kriscendobot/minion.town/pull/13) (B1 complete, B2 in flight). The board is otherwise quiet — `todo` is empty and the deferred queue is dominated by dozens of parked xs2rust-endor press ticks.
+On the review side, [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) is **held for maintainer intent** — kriskowal's CHANGES_REQUESTED asked to rename the design docs to the `-frame` names that actually shipped, but the docs' current story (a never-applied `@endo/syrups` rename) cuts against what landed, so the gardener is holding rather than churning multiple files on a guess. Two independent research passes on Moonshot's newly-released Kimi K3 both conclude: local serving is off by >10× (2.8T-param MoE, ~1.5 TB even at Q4 vs the box's 125 GiB), but a hosted OpenAI-compatible arm is cheap to wire and maps cleanly onto the garden's bid-auction router — worth a bounded trial on low-risk classes, gated only on a funded Moonshot key. Minion.town's daemon-guest MCP orchestration (B1–B5) is queued with B1 complete.
 
 ## Parked for maintainer feedback
 
@@ -220,6 +220,28 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T081331Z-70cd39` — from watchdog:gardener/6, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T081331Z-70cd39.md)
 
 > gardener job 'endojs-pr160-ci-fix-finalize' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260722T092145Z-67ae12` — from gardener:endojs-endo-but-for-bots-pr804-review-8df7f3e2, reply_to `endojs-endo-but-for-bots-pr804-review-8df7f3e2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T092145Z-67ae12.md)
+
+> Re: [endojs/endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/issues/804) review (kriskowal, CHANGES_REQUESTED). Single inline comment on designs/cbors.md:1 —
+> "Should rename the file cbor-frame to reflect what landed. Same for syrup-frame."
+>
+> Need a quick intent confirm before I churn multiple design docs, because the landed facts cut against the docs' current story:
+> - @endo/syrup-frame DID land (packages/syrup-frame, tagged @endo/syrup-frame@0.1.1). The proposed rename to @endo/syrups was NEVER applied.
+> - No CBOR framing pkg landed (@endo/cbors / @endo/cbor-frame still "Not Started").
+> - But cbors.md AND syrups.md both claim syrup-frame "is queued to be renamed to @endo/syrups" / "rename has been applied" — false vs what shipped.
+>
+> My read of your comment: rename the design-doc FILES to the -frame names that actually landed:
+>   designs/cbors.md  -> designs/cbor-frame.md   (pkg @endo/cbors  -> @endo/cbor-frame)
+>   designs/syrups.md -> designs/syrup-frame.md  (pkg @endo/syrups -> @endo/syrup-frame)
+> ...and update titles, self-references, all inbound links (README.md, gateway-package.md, cbor-codec.md), and the now-false "will be renamed to @endo/syrups" prose. This REVERSES the Naming section in cbors.md that currently rejects @endo/cbor-frame in favor of @endo/cbors — I'd rewrite it to prefer the -frame convention.
+>
+> Confirm:
+> 1) Rename both docs to *-frame.md and flip pkg names to @endo/cbor-frame / @endo/syrup-frame throughout? (Y/N)
+> 2) If Y, also fully rewrite cbors.md's Naming rationale to endorse the -frame suffix (vs. leaving a light note for you)?
+> 3) Or did you mean something narrower (e.g. only fix the false "renamed to @endo/syrups" prose, no file renames)?
+>
+> Holding the job until you answer to avoid wrong multi-file churn.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -694,7 +716,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.9M | $1082.57 _(notional, rate-card)_ | no quota set |
+| Claude | 99.0M | $1083.37 _(notional, rate-card)_ | no quota set |
 | Codex | 691.0M _(+525.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
