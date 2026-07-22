@@ -45,7 +45,8 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # provider anthropic), one pinned to a paid codex model is cleric-only (openai), one
 # pinned to a served LOCAL tag (the qwen family) is hermit-only (local), and an
 # UNPINNED job (no `model:`, or a value no provider's patterns match) is claimable by
-# any kind. This is a small deterministic predicate — no LLM, no auction — and it is
+# any kind. Kimi is activation-only, so its pool accepts only an explicit K3 pin.
+# This is a small deterministic predicate — no LLM, no auction — and it is
 # the seam the bid auction (build child 2) later replaces: under the auction, backend
 # fit is PRICED into the bid instead of hard-filtered.
 #
@@ -61,10 +62,12 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 job_eligible_for_kind() {
   local jf="$1" pinned=""
   local m; m="$(plan_field "$jf" model)"
+  [ -n "$m" ] || [ "$KIND_PROVIDER" != moonshot ] || return 1
   [ -n "$m" ] || return 0                        # no model: unpinned -> eligible
   if [ -n "$(resolve_model_tier anthropic "$m")" ]; then pinned=anthropic
   elif [ -n "$(resolve_model_tier local "$m")" ]; then pinned=local
   elif [ -n "$(resolve_model_tier openai "$m")" ]; then pinned=openai
+  elif [ -n "$(resolve_model_tier moonshot "$m")" ]; then pinned=moonshot
   else return 0; fi                              # unknown value -> treat as unpinned
   [ "$pinned" = "$KIND_PROVIDER" ]
 }

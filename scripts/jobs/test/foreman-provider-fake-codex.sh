@@ -17,6 +17,7 @@ while [ "$#" -gt 0 ]; do
 done
 [ -n "$output" ] || exit 2
 case "$model" in
+  kimi-k3) provider=moonshot; response="${GARDEN_TEST_MOONSHOT_OUTPUT:-}"; rc="${GARDEN_TEST_MOONSHOT_CODEX_RC:-0}" ;;
   qwen*) provider=local; response="${GARDEN_TEST_LOCAL_OUTPUT:-}"; rc="${GARDEN_TEST_LOCAL_CODEX_RC:-0}" ;;
   *)     provider=openai; response="${GARDEN_TEST_OPENAI_OUTPUT:-}"; rc="${GARDEN_TEST_OPENAI_CODEX_RC:-0}" ;;
 esac

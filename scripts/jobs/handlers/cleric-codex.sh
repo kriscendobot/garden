@@ -40,10 +40,10 @@ worktree="$(worker_worktree_path "$base")"
 
 # --- worker kind + provider (this handler serves BOTH codex-backed kinds) ------
 #
-# The SAME codex handler drives two worker kinds, distinguished by their registry
+# The SAME codex handler drives three worker kinds, distinguished by their registry
 # `provider` field (common.sh worker-kind registry): the paid-OpenAI `cleric`
-# (provider=openai) and the LOCAL `hermit` (provider=local), a codex pointed at the
-# on-box Ollama /v1 endpoint. Everything below that differs between them — the tier
+# (provider=openai), LOCAL `hermit` (provider=local), and hosted Kimi `kimi`
+# (provider=moonshot). Everything below that differs between them — the tier
 # map, the fleet-default model, the auth/reachability preflight, and whether codex
 # gets a `-c model_provider=local` block — keys off $provider, so the local backend
 # is ZERO new handler code (design §4, guide §4 Option 1). The spine exports
@@ -124,6 +124,7 @@ fleet_default_model="$(model_routing_default "$provider" 2>/dev/null)"
 if [ -z "$fleet_default_model" ]; then
   case "$provider" in
     local) fleet_default_model="qwen3.6" ;;
+    moonshot) fleet_default_model="kimi-k3" ;;
     *)     fleet_default_model="gpt-5.6-terra" ;;
   esac
 fi
@@ -196,10 +197,13 @@ codex_args=(
 # worktree. Re-verify the exact `-c` key names and string-quoting on the live CLI
 # before the first real hermit job (guide §6 flags the end-to-end GPU run as the one
 # check confirmable only on a real rebuild).
-if [ "$provider" = local ]; then
+if [ "$provider" = local ] || [ "$provider" = moonshot ]; then
   codex_provider_extra_args "$provider"
   codex_args+=("${CODEX_PROVIDER_EXTRA_ARGS[@]}")
-  log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)"
+  case "$provider" in
+    local) log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)" ;;
+    moonshot) log "job '$base' running on Moonshot provider ($model)" ;;
+  esac
 fi
 
 set +e

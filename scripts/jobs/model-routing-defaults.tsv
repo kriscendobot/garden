@@ -14,7 +14,7 @@
 # TAB-separated, one row per provider/worker-kind backend:
 #   <provider>  <patterns>  <fleet-default-model>
 # provider  — the worker kind's provider (worker_kind_field <kind> provider):
-#             anthropic (gardener), openai (cleric), local (hermit).
+#             anthropic (gardener), openai (cleric), local (hermit), moonshot (kimi).
 # patterns  — space-separated shell globs matched against a job's resolved `model:`
 #             value to decide which provider it PINS to. A leading `!` marks an
 #             EXCLUDE glob (matched → this provider does NOT own the id), so openai
@@ -34,3 +34,4 @@
 anthropic	claude-*
 openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra
 local	qwen*	qwen3.6
+moonshot	kimi-k3	kimi-k3

@@ -75,6 +75,16 @@ codex_provider_preflight() {
     return 1
   fi
 
+  if [ "$provider" = moonshot ]; then
+    # Presence only. Never print, transform, or probe with the credential here.
+    if [ -z "${MOONSHOT_API_KEY:-}" ]; then
+      printf 'MOONSHOT_API_KEY is not set; %s cannot run %q. Export it before recreating the garden container so systemd inherits it.\n' \
+        "$kind" "$base" >&2
+      return 1
+    fi
+    return 0
+  fi
+
   local auth_boot auth_marker
   auth_boot="$(tr -dc 'a-f0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"
   auth_marker="$GARDEN_STATE/$state_ns/auth-ok-${auth_boot:-noboot}"
@@ -114,18 +124,29 @@ codex_effort_for_model() {
 
 # codex_provider_extra_args <provider>
 # Set CODEX_PROVIDER_EXTRA_ARGS to the inline provider settings required by the
-# existing hermit/Ollama route.  Keeping these settings here makes a foreman
-# local attempt identical to a hermit local attempt.
+# existing hosted/local routes. Keeping these settings here makes a foreman
+# attempt identical to its corresponding worker kind.
 codex_provider_extra_args() {
   local provider="${1:?provider}"
   # shellcheck disable=SC2034 # caller appends this shared array after invoking us
   CODEX_PROVIDER_EXTRA_ARGS=()
-  [ "$provider" = local ] || return 0
-  export OLLAMA_API_KEY="${OLLAMA_API_KEY:-ollama}"
-  CODEX_PROVIDER_EXTRA_ARGS=(
-    -c "model_provider=local"
-    -c "model_providers.local.name=\"local-ollama\""
-    -c "model_providers.local.base_url=\"$GARDEN_LOCAL_OLLAMA_URL\""
-    -c "model_providers.local.env_key=\"OLLAMA_API_KEY\""
-  )
+  case "$provider" in
+    local)
+      export OLLAMA_API_KEY="${OLLAMA_API_KEY:-ollama}"
+      # shellcheck disable=SC2034 # caller appends this shared array after invoking us
+      CODEX_PROVIDER_EXTRA_ARGS=(
+        -c "model_provider=local"
+        -c "model_providers.local.name=\"local-ollama\""
+        -c "model_providers.local.base_url=\"$GARDEN_LOCAL_OLLAMA_URL\""
+        -c "model_providers.local.env_key=\"OLLAMA_API_KEY\""
+      ) ;;
+    moonshot)
+      # shellcheck disable=SC2034 # caller appends this shared array after invoking us
+      CODEX_PROVIDER_EXTRA_ARGS=(
+        -c "model_provider=moonshot"
+        -c "model_providers.moonshot.name=\"moonshot\""
+        -c "model_providers.moonshot.base_url=\"https://api.moonshot.ai/v1\""
+        -c "model_providers.moonshot.env_key=\"MOONSHOT_API_KEY\""
+      ) ;;
+  esac
 }

@@ -52,6 +52,11 @@ schedule). The conversational first-run tour is the sibling tree,
   `provider: local` worker into the cleric/spine bid-auction cost model. Routes
   to `designs/cleric-worker-bid-auction-reputation.md`.
 
+- **[kimi-k3.md](kimi-k3.md)** — *"activate hosted Kimi" / "run the Kimi
+  canary."* A bounded Moonshot Kimi K3 activation: credential forwarding at
+  container creation, explicit K3 worker scaling, a no-secret models probe, a
+  tool-using canary, and provider-scoped reputation inspection.
+
 ## Convention
 
 Within-tree cross-references are relative; cross-tree references (skills,

@@ -200,7 +200,7 @@ fi
 # retains the historical global gate because its provider semantics are unknown.
 provider_fallback_enabled=false
 if [ "$GARDEN_FOREMAN_HANDLER" = "$HERE/handlers/foreman-claude.sh" ]; then
-  case ",${GARDEN_FOREMAN_PROVIDER_ORDER:-anthropic}," in *,openai,*|*,local,*) provider_fallback_enabled=true ;; esac
+  case ",${GARDEN_FOREMAN_PROVIDER_ORDER:-anthropic}," in *,openai,*|*,local,*|*,moonshot,*) provider_fallback_enabled=true ;; esac
 fi
 if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" in
   backoff)

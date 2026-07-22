@@ -52,11 +52,18 @@ hr; echo "CLASSIFY — the tracked default table routes the current (qwen) reali
 [ -z "$(resolve_model_tier local gpt-oss:20b)" ]  && ok "gpt-oss:20b is NOT local" || bad "gpt-oss still local"
 [ -z "$(resolve_model_tier openai gpt-oss:20b)" ] && ok "gpt-oss:20b is NOT openai (!gpt-oss* exclude)" || bad "gpt-oss captured by openai"
 [ -z "$(resolve_model_tier anthropic gpt-oss:20b)" ] && ok "gpt-oss:20b is NOT anthropic (fully unpinned)" || bad "gpt-oss leaked to anthropic"
+# Hosted Moonshot K3 is a distinct, exact id. It cannot cross-route onto the
+# OpenAI, Anthropic, or local worker providers.
+[ "$(resolve_model_tier moonshot kimi-k3)" = "kimi-k3" ] && ok "kimi-k3 -> moonshot" || bad "kimi-k3 not moonshot"
+[ -z "$(resolve_model_tier openai kimi-k3)" ] && ok "kimi-k3 is NOT openai" || bad "kimi leaked to openai"
+[ -z "$(resolve_model_tier anthropic kimi-k3)" ] && ok "kimi-k3 is NOT anthropic" || bad "kimi leaked to anthropic"
+[ -z "$(resolve_model_tier local kimi-k3)" ] && ok "kimi-k3 is NOT local" || bad "kimi leaked to local"
 
 # ============================================================================
 hr; echo "DEFAULTS — fleet defaults ride the routing table"; hr
 [ "$(model_routing_default local)" = "qwen3.6" ]      && ok "local fleet default = qwen3.6" || bad "local default ($(model_routing_default local))"
 [ "$(model_routing_default openai)" = "gpt-5.6-terra" ] && ok "openai fleet default = gpt-5.6-terra" || bad "openai default"
+[ "$(model_routing_default moonshot)" = "kimi-k3" ] && ok "moonshot fleet default = kimi-k3" || bad "moonshot default"
 [ -z "$(model_routing_default anthropic)" ]           && ok "anthropic default empty (sentinel decided in code)" || bad "anthropic default not empty"
 [ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder role default = qwen3.6 (from table)" || bad "hermit builder default"
 

@@ -86,6 +86,23 @@ fi
   && ok "unset provider order invokes only Anthropic" \
   || bad "normal order trace: $(tr '\n' ' ' < "$LOG4")"
 
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 5 — explicit Moonshot uses the same Codex provider path"; hr
+LOG5="$TR/log5"
+if out="$(run_handler moonshot,anthropic \
+  MOONSHOT_API_KEY='offline-fixture-not-a-credential' \
+  GARDEN_TEST_PROVIDER_LOG="$LOG5" \
+  GARDEN_TEST_MOONSHOT_OUTPUT='JOB moonshot-step\nMoonshot canary body\nENDJOB\n')"; then
+  [ "$out" = $'JOB moonshot-step\nMoonshot canary body\nENDJOB' ] \
+    && ok "valid Moonshot response is returned" \
+    || bad "unexpected Moonshot response: '$out'"
+else
+  bad "Moonshot provider attempt failed"
+fi
+[ "$(tr '\n' ' ' < "$LOG5")" = "moonshot " ] \
+  && ok "Moonshot attempt does not fall through to Anthropic" \
+  || bad "wrong Moonshot provider trace: $(tr '\n' ' ' < "$LOG5")"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

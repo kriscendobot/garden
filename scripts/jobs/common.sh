@@ -418,6 +418,18 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-hermit" ;;
         *) return 1 ;;
       esac ;;
+    kimi)
+      # Hosted Moonshot Kimi K3 reuses the Codex handler while retaining a
+      # separate pool, state namespace, provider identity, and reputation arm.
+      case "$field" in
+        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        provider)  printf '%s\n' "moonshot" ;;
+        unit)      printf '%s\n' "garden-kimi@" ;;
+        count_key) printf '%s\n' "kimis" ;;
+        state_ns)  printf '%s\n' "kimis" ;;
+        label)     printf '%s\n' "garden-kimi" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -426,7 +438,7 @@ worker_kind_field() {
 # scaler iterates this to reconcile every pool; set-workers.sh iterates it to
 # preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
 # in exactly one place besides worker_kind_field: here.
-worker_kinds() { printf '%s\n' gardener cleric hermit; }
+worker_kinds() { printf '%s\n' gardener cleric hermit kimi; }
 
 # read_desired_count <hosts-file> <count_key> — read one worker kind's declared
 # concurrency from a hosts/<host> file, distinguishing the THREE outcomes the pool
@@ -3078,7 +3090,8 @@ _model_routing_table() {
   printf '%s\n' \
     'anthropic	claude-*	' \
     'openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra' \
-    'local	qwen*	qwen3.6'
+    'local	qwen*	qwen3.6' \
+    'moonshot	kimi-k3	kimi-k3'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
@@ -3145,7 +3158,7 @@ model_routing_default() {
 resolve_model_tier() {
   local provider tier
   case "${1:-}" in
-    anthropic|openai|local) provider="$1"; tier="${2:-}" ;;
+    anthropic|openai|local|moonshot) provider="$1"; tier="${2:-}" ;;
     *)                      provider="anthropic"; tier="${1:-}" ;;
   esac
   case "$provider" in
@@ -3176,6 +3189,11 @@ resolve_model_tier() {
       # local, so a gpt-oss:* tag is NO LONGER local (it matches no provider ->
       # unpinned) per "hermits only respond to qwen at this time."
       if _model_classify local "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
+    moonshot)
+      case "$tier" in
+        k3) printf '%s\n' "kimi-k3" ;;
+        *)  if _model_classify moonshot "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
+      esac ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -3200,7 +3218,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    gardener|cleric|hermit) kind="$1"; role="${2:-}" ;;
+    gardener|cleric|hermit|kimi) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -3231,6 +3249,9 @@ role_default_model() {
         builder)  model_routing_default local ;;
         *)        printf '%s\n' "" ;;
       esac ;;
+    kimi)
+      # Activation-only: no design/build or other role defaults can select K3.
+      printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -3245,7 +3266,7 @@ role_default_model() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    gardener|cleric|hermit) role="${2:-}" ;;
+    gardener|cleric|hermit|kimi) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

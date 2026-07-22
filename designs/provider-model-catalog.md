@@ -154,6 +154,31 @@ seeded illustratively (guide §5). This row is the canonical rate for the `local
 provider that the token-cost ledger (§3, not yet wired) will apply, and that a journal
 `reputation/rate-card.md` row mirrors per-instance.
 
+### 2.6 Moonshot Kimi K3, hosted via the OpenAI-compatible Codex path (`kimi`)
+
+The `kimi` worker kind sends Codex to Moonshot's hosted OpenAI-compatible endpoint:
+`https://api.moonshot.ai/v1`. Its concrete model id and routing default are both
+`kimi-k3`; authentication is Bearer auth through `MOONSHOT_API_KEY`. The tracked
+facts below are provisional, dated **2026-07-22**, and attributed to the completed
+`research-harness-kimi-k3` report. That report recorded the [Moonshot Kimi
+quickstart](https://platform.kimi.ai/docs/guide/kimi-k3-quickstart) and a secondary
+pricing report as untrusted research inputs. Recheck the primary provider
+documentation before changing an operational pin or price.
+
+**Provisional rate card.**
+
+| Provider | Concrete id | Endpoint | Advertised context | Cached input / fresh input / output $ per MTok | `price_basis` |
+| --- | --- | --- | --- | --- | --- |
+| `moonshot` | `kimi-k3` | `https://api.moonshot.ai/v1` | 1M [unverified] | $0.30 / $3.00 / $15.00 [provisional, unverified] | `provisional` |
+
+**Compatibility boundary.** The endpoint, authentication shape, model id, advertised
+1M context, and prices are reported by the completed research harness, not exercised
+by this repository. In particular, **[unverified]**: Codex's `model_providers.*`
+configuration can drive Moonshot chat completions end to end, and K3 returns tool
+calls that Codex can use safely. The `kimi` pool is therefore explicit-model-only:
+it accepts `model: kimi-k3`, has no role default, and must not become the default for
+design, build, or another high-stakes role until the bounded canary succeeds.
+
 ---
 
 ## 3. Cross-provider thoughtfulness axis (the load-bearing mapping)
