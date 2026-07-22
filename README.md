@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T15:43:50Z_
+_As of 2026-07-22T15:48:37Z_
 
 ## Latest
 
-Two PRs need a maintainer touch: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, cleanly mergeable, and CI-green, but the only APPROVED review sits on a stale head (9b40eef) while the current head is a0cd0d0 — the conductor is holding for a fresh approval on the current head before it merges. On [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) a gardener has paused rather than churn multiple design docs: your "rename to cbor-frame/syrup-frame" comment cuts against what actually shipped (syrup-frame landed; the @endo/syrups and CBOR-framing renames never did), so it wants a Y/N on renaming the doc files and rewriting the Naming rationale. [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) merged into llm.
-
-The xs2rust-endor local-qwen press is stuck in a poison loop — four consecutive hourly presses (033502/045001/055018 and the earlier tick) each hit the 2400s handler wall and were parked as deadline-overruns; the driver reports a hard blocker (daemon_bootstrap.js generation fails because blobref.js pulls node:crypto through the SES/XS bundler) and is attempting the crypto-polyfill option. Relatedly, the `daemon-store-family-build` orchestration halted at Phase 4 (also a handler-budget overrun), sweeping the parity and CLI/WUI children; both it and the PR #160 CI-finalize job are parked awaiting a split-into-stages remedy. An orphan-process audit came back GREEN (0 leaks), though it notes the reaper fix (8eb3354a7e) isn't yet deployed to that host's root.
-
-[finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced — role code now runs in a fresh SES compartment with attenuated tool calls, tests green and dry-run wallet-untouched — but its required panel can't run until the panel model's weekly limit resets Jul 25. A researcher and scholar both concluded Kimi K3 is a hard no locally (>10× the box's memory) but cheap to wire as a hosted bid-auction arm if you fund a Moonshot key.
+Two PRs are stuck waiting on **kriskowal**: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, clean-merge, and green, but its only APPROVED review sits on a stale head (9b40eef) while the current head is a0cd0d0 — the conductor needs a fresh approval on the live head to merge; and the reviewer on [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) is holding before churning design docs, asking whether to rename `cbors.md`/`syrups.md` to the `-frame` names that actually shipped. Meanwhile the hourly qwen3.6 press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (xs2rust-endor) blew its 2400s handler budget on four consecutive ticks and was poisoned/parked each time; an orphan audit came back green (0 leaked processes), but the press is now blocked on generating `daemon_bootstrap.js` (a `node:crypto` import XS's bundler can't handle — an XS crypto polyfill is being attempted). The `daemon-store-family-build` orchestration halted at 3/6 after Phase 4 (`daemon-store-phase4-sorted`) likewise overran and poisoned, and [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160)'s CI-fix-finalize hit the same wall — all three are handler-budget overruns needing to be split or detached, not retried as-is. A job was just claimed to fix red CI on endo-but-for-bots master. On the forks, [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES-compartment role code, tests and dry-run green) but is stalled awaiting panel review, blocked by the panel model's weekly limit (resets Jul 25). A researcher verdict on harnessing Kimi K3 landed: local self-hosting is off by >10× on memory (don't), but a hosted Moonshot arm is cheap to wire and worth a bounded trial on low-risk work-classes.
 
 ## Parked for maintainer feedback
 
@@ -748,18 +744,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.8M | $1149.05 _(notional, rate-card)_ | no quota set |
+| Claude | 105.9M | $1150.40 _(notional, rate-card)_ | no quota set |
 | Codex | 680.0M _(+519.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (16)
 - [`deadmail-issue-comment-5047612017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5047612017.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-master-ci-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-master-ci-fix.md) — Propose a fix for red CI on endojs/endo-but-for-bots master
 - [`endojs-endo-but-for-bots-pr719-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
