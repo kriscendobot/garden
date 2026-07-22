@@ -786,3 +786,12 @@ Inspect via `git -C journal cat-file -p 77e59dff5cd6e0d4a140644cb3862a9547d7c32c
 - Context: gardener-7 on endolin-garden-ece02cb4: job 'endo-byte-array-press-20260722-095006' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 46a77a1a806b4edde845b38dec3a3fee2a4fe3cf`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-22T09:51:23Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1296f659ea5dcc4b11a5d8ebae9f622a183af279
+- Context: gardener-3 on endolin-garden-ece02cb4: job 'endo-sturdyref-press-20260722-095006' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1296f659ea5dcc4b11a5d8ebae9f622a183af279`.
