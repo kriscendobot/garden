@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T20:45:55Z_
+_As of 2026-07-22T20:46:24Z_
 
 ## Latest
 
@@ -825,13 +825,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3325)
+### tada (3326)
+- [`endo-sturdyref-restack-701-704-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-restack-701-704-pr737-line.md) — orchestration endo-sturdyref-restack-701-704-pr737-line — complete
 - [`endojs-endo-but-for-bots-pr704-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr704-restack-pr737-line.md) — Restacked PR #704 onto bridge cut 5 and force-with-lease pushed b212146bac9e2...
 - [`endojs-endo-but-for-bots-pr703-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr703-restack-pr737-line.md) — Restacked state confirmed: #703 already merged from current bridge-4 head 67b...
 - [`endojs-endo-but-for-bots-pr809-review-e892a99c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-e892a99c.md) — Completed as a no-op: PR #809 is merged, and dckc’s sole inline comment at pa...
 - [`endojs-endo-but-for-bots-master-ci-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-master-ci-fix.md) — Landed master fixes through 6ee3fda77b.
-- [`endojs-endo-but-for-bots-pr786-28d1e1d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr786-28d1e1d7.md) — Re-fetched the untrusted comment and ran the required preflight (proceed).
-- … and 3320 more
+- … and 3321 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
