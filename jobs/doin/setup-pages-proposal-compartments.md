@@ -40,3 +40,10 @@ bot-owned fork; no upstream interaction. Tracker: kriskowal/garden#61.
   200 + title evidence. If Actions/Pages could not be enabled (a token-permission gap on the
   fork), STOP and surface the exact gap via `scripts/jobs/message-user.sh <your-base>` rather than
   reporting success.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-22T01:01:27Z
