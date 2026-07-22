@@ -24,3 +24,10 @@ restores green CI on master. The Prettier and zizmor failures look mechanical; t
 test failures need diagnosis. Land the fix on master via the repo's normal flow.
 Once master is green, PRs based on frozen master snapshots can be re-cut/rebased to
 inherit the fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-22T15:48:24Z
