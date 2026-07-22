@@ -21,17 +21,43 @@ handler (it won't fit — that is why this is scheduled).
    next increment is already being worked, advance/report on that one instead.
 2. **Pick the single deepest UNBLOCKED next increment** toward the design.
 3. **Advance it.** Implement the increment and push it on its branch/PR, driving
-   toward green. If the next step is not a build (it needs fresh design, a rebase,
-   or CI shepherding), do that step or post the appropriate follow-up job
-   (designer / weaver / fixer / shepherd) for it — the goal is **motion, one
-   increment per cycle**.
+   toward green. **Do NOT merge it yourself** — every finbot change now lands only
+   through the two gates in § Merge governance below. If the next step is not a
+   build (it needs fresh design, a rebase, or CI shepherding), do that step or post
+   the appropriate follow-up job (designer / weaver / fixer / shepherd) for it —
+   the goal is **motion, one increment per cycle**.
 4. **Report.** Message the maintainer inbox (`message-user.sh`) with a short note:
    what advanced this cycle, the next unblocked step, and anything that needs a
    maintainer decision.
 
+## Merge governance (MANDATORY — maintainer directive 2026-07-22)
+
+finbot increments are **no longer self-merged.** Every change lands only after it
+clears BOTH gates below — even on our own fork. (Rationale: prior cycles
+bot-merged PRs #1/#2/#3 with no panel; a later security review found the "real SES
+attenuator" overstated what it did — exactly what a panel catches before landing.)
+
+1. **Panel review.** Each increment is a PR that must **clear a panel** (the
+   scripted gauntlet / panel review, `skills/panel`) before it can merge. A red or
+   changes-requested panel means fix-loop, not merge.
+2. **Fable-orchestrator sign-off.** After the panel passes, a **Fable-model
+   orchestrator** (role `orchestrator`, model `claude-fable-5`) must review the
+   increment + panel outcome and **sign off** before the merge executes. Dispatch
+   it as a job pinned to the Fable model — e.g. post
+   `finbot-<increment>-fable-signoff` with `role: orchestrator` and
+   `model: claude-fable-5`. The merge is that orchestrator's authority (or a
+   conductor it directs), **NOT** the press's.
+
+The press (this builder) **NEVER runs `gh pr merge`** on a finbot change. Build the
+increment, open/advance the PR toward green, run the panel, hand off to the Fable
+orchestrator for sign-off + merge. If either gate is unmet at cycle end, report the
+PR as "awaiting panel / Fable sign-off" and stop — that is a correct, complete
+cycle, not a stall.
+
 ## Guardrails
 
-- Our own fork — normal fork etiquette; leave the tree green.
+- Our own fork — normal fork etiquette; leave the tree green. **Never self-merge**
+  (see § Merge governance).
 - One increment per dispatch. Consecutive cycles compound; a single cycle should
   not sprawl.
 - If nothing is unblocked (everything waits on review/merge), say so in the report
