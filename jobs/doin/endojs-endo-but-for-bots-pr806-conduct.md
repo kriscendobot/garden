@@ -4,6 +4,7 @@ For endojs/endo-but-for-bots PR #806, mark the PR ready for review if it is stil
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
