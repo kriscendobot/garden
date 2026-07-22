@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T18:49:11Z_
+_As of 2026-07-22T18:50:32Z_
 
 ## Latest
 
@@ -314,6 +314,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T182355Z-c1dbe0` — from gardener:endojs-endo-but-for-bots-pr806-conduct, reply_to `endojs-endo-but-for-bots-pr806-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T182355Z-c1dbe0.md)
 
 > [https://github.com/endojs/endo-but-for-bots/pull/806](https://github.com/endojs/endo-but-for-bots/pull/806) is ready, rebased, and has 22 passing fresh CI checks at 950528e20cace8d87a4a8dfee73e53ed838968f6. The sole remaining gate is a current approval on that head; the earlier approval is attached to 1e4f91049. Please approve when ready and I will merge it.
+
+- `20260722T185013Z-7c5c71` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T185013Z-7c5c71.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 13ab4533e09471a6e2129ef879959e4a4c914a96 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 13ab4533e09471a6e2129ef879959e4a4c914a96). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
