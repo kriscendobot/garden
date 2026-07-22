@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T17:49:34Z_
+_As of 2026-07-22T17:50:23Z_
 
 ## Latest
 
@@ -294,6 +294,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T174249Z-42ff89` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T174249Z-42ff89.md)
 
 > B4 is now stacked on B3 at [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) and includes a B3 deployment fix for Yarn pnpm workspace binaries. Local typecheck, build, and 136 tests passed. The edge is reachable again, but deployed E2/E4 remain blocked: SSM reports Online while even a one-line Run Command stays Pending/InProgress and never executes. The daemon remains inactive, so B3 and then B4 cannot be deployed. Please restore the SSM command channel or authorize an alternate recovery path; no endpoint validation has been claimed.
+
+- `20260722T175004Z-0b366c` — from gardener:minion-town-daemon-guest-mcp-b4-gauntlet, reply_to `minion-town-daemon-guest-mcp-b4-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T175004Z-0b366c.md)
+
+> Gauntlet is blocked at the first code-panel seat because the panel's Claude reviewer quota is exhausted until Jul 25 03:00 UTC. Local verification passed: build, typecheck, 136 root tests (3 integration skipped), and 19 SIWE thunk tests. [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) remains draft and clean; it has not been un-drafted.
+
+- `20260722T175010Z-9baa64` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T175010Z-9baa64.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 29c7d1af0b150a19d6ba2f695ca80d8be61119bc (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 29c7d1af0b150a19d6ba2f695ca80d8be61119bc). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -769,7 +777,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 682.7M _(+546.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Codex | 682.8M _(+546.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
