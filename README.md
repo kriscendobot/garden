@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:25:48Z_
+_As of 2026-07-22T07:28:25Z_
 
 ## Latest
 
-Two research probes on Moonshot's newly-released **Kimi K3** landed back-to-back: a scholar ingest of the Fireworks "K3+Fable" post (rated LOW relevance — an oracle-routing benchmark study, no harnessable model) and a deeper researcher verdict on whether the garden can serve K3. Bottom line from the latter: **local is off by >10×** (a 2.8T-param MoE needs ~1.5 TB even at Q4 vs. the box's 125 GiB), but **hosted is cheap to wire** via the existing cleric/codex handler pointed at Moonshot's OpenAI-compatible `/v1` ($3/$15 per MTok, ~1/3 of Fable 5), and it maps onto the bid-auction as a low-risk-class specialist arm — gated only on a funded key and a codex↔Moonshot tool-calling check.
+Multiple standing presses stalled against the handler wall and need maintainer triage. The hourly **[endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)** xs2rust-endor press-driver repeatedly overran its 2400s claim budget (rc=124) and was poisoned after a single deadline-overrun cycle — three consecutive ticks (03:35, 04:50, 05:50) hit the wall, with the driver reporting Rust stages 1–6 complete and ~2750 dual-run oracle tests green but blocked on `daemon_bootstrap.js` generation (`@endo/platform` pulls `node:crypto`, which the SES/XS bundler can't handle); the driver acknowledged the maintainer's "add an XS crypto polyfill" direction and resumed. Separately, `daemon-store-phase4-sorted` (Phase 4 of the persistent-stores build on [endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809), issue kriskowal/garden#59) also overran and was poisoned, halting the serial `daemon-store-family-build` orchestration at 3/6 children (phases 5 and 6 swept). Both classes of failure are the same shape — work that does not fit one claim-scoped handler — and both are parked in `plan/` awaiting a split or a `go-ahead`.
 
-On the build side, the daemon shipped a new draft design PR — [endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828), native Rust raw-DEFLATE host functions — and [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) cleared its shepherd.
-
-What most needs a maintainer's eye is a **handler-budget cascade**: the recurring qwen3.6 XS→Rust press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) overran the 2400s wall on four separate ticks and was poisoned/parked, and `daemon-store-phase4-sorted` did the same — halting the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept). The reaper's advice on all of them is identical: these jobs exceed a single claim's budget and must be split into stages or run detached. The phase-4 press also reported a hard blocker before poisoning: `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto` through the SES/XS bundler, and it was awaiting direction on a crypto polyfill (option (a) acknowledged, then reaped mid-implementation).
+Two independent investigations of Moonshot's newly-released Kimi K3 (2.8T-param MoE, open weights due 2026-07-27) converged: local serving is off by >10× (a usable Q4 footprint ≈1.5 TB vs the box's ~100 GiB GTT ceiling — hard no), while a hosted OpenAI-compatible arm via the existing cleric/codex handler is cheap to wire and maps onto the garden's bid-auction as the predictive router the Fireworks "K3 + Fable" study only measured with an oracle; the researcher recommends a bounded hosted trial gated on a funded Moonshot key. On the board, a native Rust raw-DEFLATE design landed as draft PR **[endo-but-for-bots#828](https://github.com/endojs/endo-but-for-bots/pull/828)** (now moving to conduct), **[endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827)** was shepherded, and a design job for replacing minion.town's toy MCP tools with real daemon-guest tools is in flight.
 
 ## Parked for maintainer feedback
 
@@ -541,16 +539,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.8M | $1065.68 _(notional, rate-card)_ | no quota set |
-| Codex | 689.5M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 96.9M | $1066.45 _(notional, rate-card)_ | no quota set |
+| Codex | 689.5M _(+525.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
 - [`deadmail-issue-comment-5043060750`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5043060750.md) — Dead-lettered message — pick up its intent
+- [`design-minion-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-minion-mcp-daemon-guest-tools.md) — Organize the replacement of minion.town's toy MCP tools with real daemon-gues...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr828-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr828-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #828
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
