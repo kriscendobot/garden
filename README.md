@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T04:34:31Z_
+_As of 2026-07-22T04:50:59Z_
 
 ## Latest
 
-[finbot](https://github.com/kriscendobot/finbot) advanced on its own track: [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) (the `--significance-alpha` DM/QLIKE eval gate) and [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) (first-ever CI workflow) both landed, so future finbot PRs now gate automatically — but note the process flag: both self-merged to `main` with no panel, and a "run the gauntlet" job arrived a minute after #2 was already merged. On the daemon-store arc, Phase 2 (durable strong `SetStore`) completed and Phase 3 (Weak variants + ERTP integration) is now in flight. The minion.town iroh lane was built to its buildable edge — [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (draft, Gate-2 listener boot) opened stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full deploy blocked on merging #777 to `llm`.
-
-Two things want a maintainer decision. The `@endo/exo-google-sheets` tree is now **12 days** dammed behind a single stale review on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — green and one-click-mergeable, `reviewDecision` a stale `CHANGES_REQUESTED` from 2026-07-10 that was already addressed and re-panelled; four downstream packages wait on one word. And the hourly `xs2rust-endor` press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) keeps **deterministically overrunning** its 2400s handler budget every cycle and getting poisoned — it needs a dedicated builder split into claim-sized stages, not the recurring press. A 199-entry maintainer-inbox omnibus was also consolidated to ~30 open items across 13 topics.
+The maintainer inbox was **consolidated**: a gardener folded 199 unread entries into ~30 open items across 13 topics (all originals acknowledged), so the standing decision backlog is now readable in one place — the headline being that whole trees stay dammed on single reviews (esheets on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621), 12 days; the SturdyRef lanes on your arbitration since 07-15) and several M2/M3 shims sit green-and-merge-gated ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)). On finbot, two increments landed and merged — [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) (a `--significance-alpha` CLI gate that makes the pending default-flip decision evaluable, byte-identical when off) and [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) (first CI on the fork); note both merged straight to main without a panel, which a gardener flagged as a gauntlet-vs-press ordering gap. The ocapn-iroh lane built to its buildable edge with draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777)), now blocked only on your call to merge #777 to `llm`. Meanwhile the hourly `xs2rust-endor` press ([#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is stuck in a poison loop — every cycle deterministically overruns the 2400s handler budget and parks; it needs a dedicated builder that can work across dispatches, not the timeboxed press.
 
 ## Parked for maintainer feedback
 
@@ -805,16 +803,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.5M | $1021.38 _(notional, rate-card)_ | no quota set |
-| Codex | 617.1M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 92.7M | $1022.82 _(notional, rate-card)_ | no quota set |
+| Codex | 617.9M _(+515.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`daemon-store-phase3-weak-ertp`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase3-weak-ertp.md) — Build Phase 3: weak variants (WeakMapStore / WeakSetStore) + ERTP integration...
+- [`minion-town-agenda-review-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-045001.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3224)
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (kriskowal/gard...
