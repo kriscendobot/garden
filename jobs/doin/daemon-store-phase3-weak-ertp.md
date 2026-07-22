@@ -65,3 +65,10 @@ READ THE RELEVANT PHASE SECTION FIRST. When the PR is green and un-drafted,
 comment the outcome (link the PR) on https://github.com/kriskowal/garden/issues/59.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-22T04:53:12Z
