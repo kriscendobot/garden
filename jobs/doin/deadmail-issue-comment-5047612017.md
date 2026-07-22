@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/58#issuecomment-5047612017
 Let’s reduce the cadence of updates to daily. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-22T14:45:08Z
