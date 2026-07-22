@@ -66,6 +66,7 @@ comment the outcome (link the PR) on https://github.com/kriskowal/garden/issues/
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
