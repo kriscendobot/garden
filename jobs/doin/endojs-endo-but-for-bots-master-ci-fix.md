@@ -26,3 +26,10 @@ Once master is green, PRs based on frozen master snapshots can be re-cut/rebased
 inherit the fix.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-22T19:53:12Z
