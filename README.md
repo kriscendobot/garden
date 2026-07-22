@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T08:58:34Z_
+_As of 2026-07-22T09:06:16Z_
 
 ## Latest
 
-The **minion.town daemon-guest MCP orchestration** advanced: sub-job B1 completed and B2 was claimed, building out the MCP daemon-guest tools on [kriscendobot/minion.town#13](https://github.com/kriscendobot/minion.town/pull/13) (with the PR #160 review directive on [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160) still in flight). The bigger signal is a cluster of **deadline overruns**: four `xs2rust-endor` press ticks against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), the `daemon-store-phase4-sorted` build, and `endojs-pr160-ci-fix-finalize` all hit the 2400s handler wall (rc=124) and were poison-parked in `plan/` after a single overrun cycle — each needs splitting into claim-sized stages or running detached. The `daemon-store-family-build` orchestration **halted** on the phase-4 failure (3/6 done; phases 5–6 swept), and the phase-4 press separately reported a hard blocker: `daemon_bootstrap.js` generation fails because `@endo/platform` pulls `node:crypto`, which the XS bundler can't handle (maintainer opted for an XS crypto polyfill; implementation started). Finally, scholar + researcher passes on **Kimi K3** concur: local serving is infeasible (a 2.8T MoE, ~6–12× the box's RAM even at aggressive quant), but a hosted OpenAI-compatible arm via Moonshot is cheap to wire (~1/3 Fable's token price) and maps onto the existing bid-auction — gated only on a funded key and a codex↔Moonshot tool-calling check.
+A wave of handler-budget overruns (rc=124 at the 2400s wall) poisoned five jobs at once and parked them held in `plan/` for maintainer promotion: the entire hourly [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor press family, `daemon-store-phase4-sorted`, and `endojs-pr160-ci-fix-finalize` (the CI-finalize follow-up for [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160)). The phase-4 poison in turn HALTED the serial `daemon-store-family-build` orchestration (3/6 done; phases 5–6 swept) — the daemon persistent-stores build off design [endo-but-for-bots#809](https://github.com/endojs/endo-but-for-bots/pull/809) is stalled and needs the job split into claim-sized stages or a raised handler timeout before it can resume. Independently, the [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) driver surfaced a real blocker: `daemon_bootstrap.js` generation fails because `@endo/platform` `blobref.js` imports `node:crypto`, which the SES/XS bundler can't handle; the driver acknowledged the maintainer's option (a) — add an XS crypto polyfill — and began implementing before its own tick was reaped. On the research side, both a scholar ingest and a researcher verdict landed on Kimi K3: local serving is a hard no (2.8T MoE, ~6–15× over the box's RAM/GTT ceiling, no weights until 2026-07-27), but a hosted Moonshot `/v1` arm is cheap to wire (~$3/$15 per MTok, one handler branch + routing row) and worth a bounded trial gated on a funded key. Meanwhile the minion.town daemon-guest MCP work ([minion.town#13](https://github.com/kriscendobot/minion.town/pull/13)) is progressing — B1 completed and B2 is in flight.
 
 ## Parked for maintainer feedback
 
@@ -692,15 +692,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.2M | $1076.68 _(notional, rate-card)_ | no quota set |
+| Claude | 98.4M | $1078.42 _(notional, rate-card)_ | no quota set |
 | Codex | 691.0M _(+525.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr824-review-e4950d9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-review-e4950d9b.md) — Review directive on endojs/endo-but-for-bots PR #824
+- [`issue-kriskowal-garden-36-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-36-refresh.md) — Prepare a refreshed Q2 progress report for https://github.com/kriskowal/garde...
 - [`minion-town-daemon-guest-mcp-b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b2.md) — ---
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 
@@ -783,6 +785,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr792-review-91808a86-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr792-review-91808a86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #792 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr826-review-1756c24f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-1756c24f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr824-review-e4950d9b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-review-e4950d9b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #824 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
