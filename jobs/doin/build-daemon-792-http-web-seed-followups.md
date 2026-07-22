@@ -40,3 +40,10 @@ it. These are refactors of already-merged, working code — preserve behavior, k
   summary comment on the new PR (head SHA, what changed per point, verification status). Note in the
   summary that #792 merged without approval and this round is going through review.
 - Report the new PR #, the addressing SHAs per point, and real-execution lint/test evidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-22T06:11:40Z
