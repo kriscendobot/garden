@@ -19,3 +19,10 @@ Required outcomes:
 - Update CLAUDE.md current inventory only if this work adds a new role or skill. Keep role/skill changes compact and procedural.
 
 Before pushing, run the relevant focused checks plus the repository checks required by roles/COMMON.md. Report the commit SHA, exact verification, any unresolved Codex chat-completions/tool-call compatibility question, and the operator commands that remain after deploy. This job prepares code only: do not deploy this host, mutate host worker counts, or request/store the actual API key.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 19
+  worker_kind: cleric
+  claimed_at: 2026-07-22T22:50:55Z
