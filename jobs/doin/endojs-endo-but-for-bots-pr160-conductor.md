@@ -7,6 +7,7 @@ The maintainer approval review 4751820634 has been addressed: its native Rust/XS
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
