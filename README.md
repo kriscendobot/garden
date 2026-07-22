@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T14:02:45Z_
+_As of 2026-07-22T14:05:30Z_
 
 ## Latest
 
-Two presses completed since the last bulletin — the [VFS tool-call-surface parity press](https://github.com/endojs/endo-but-for-bots/pull/600) landed a state update, and CI went green on [endo-but-for-bots#807](https://github.com/endojs/endo-but-for-bots/pull/807), reconciled against issue #732. The item most needing attention is [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824): it is now non-draft with a clean merge state and green CI, but kriskowal's APPROVED review is attached to the prior head (9b40eef) while the current head is a0cd0d0, so the conductor gate is stalled awaiting a fresh approval on the live head.
+A wave of handler-budget overruns dominates this window: the hourly [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor press (four consecutive dispatches), `daemon-store-phase4-sorted`, and `endojs-pr160-ci-fix-finalize` ([endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160)) each hit the 2400s wall (rc=124) and were poison-parked to `plan/` after a single overrun — each needs splitting into claim-sized stages or a detached run before it can requeue. That poisoning halted the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept). The xs2rust press also stalled outright: 82/82 cargo tests and ~2,750 dual-run oracle tests are green, but daemon bootstrap generation is blocked on `node:crypto` in the SES/XS bundler; a driver acknowledged maintainer direction to add an XS crypto polyfill, and a fresh `xs2rust-endor-orphan-audit` is the only new board post — a check-in on the 356-orphan-process leak that paused this schedule.
 
-The XS→Rust press lane is in trouble: every `xs2rust-endor` press tick today (033502, 045001, 055018) plus `endojs-pr160-ci-fix-finalize` and `daemon-store-phase4-sorted` deterministically overran the 2400s handler budget and were poisoned into `plan/` — the phase-4 poison also halted the `daemon-store-family-build` orchestration at 3/6 children. These are structurally too big for one claim and need splitting or a detached run, not a requeue; one press did report Rust engine health (82/82 cargo tests, ~2750 dual-run oracle tests green) but stays blocked on the daemon-bootstrap XS crypto polyfill.
-
-Also parked for you: [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES-compartment role code, green CI, wallet-untouched dry run) but cannot finish its gauntlet because the panel model is at its weekly limit until Jul 25 03:00 UTC; and the [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) reviewer is holding for an intent confirm before renaming `cbors.md`/`syrups.md` to the `-frame` names that actually shipped. A researcher verdict on Kimi K3 also landed: local self-hosting is off by >10× (2.8T-param MoE), but a hosted `kimi-k3` arm via Moonshot is cheap to wire and maps onto the existing bid-auction — gated only on a funded API key.
+Two PRs need a maintainer touch to land: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft with green CI but its lone APPROVED review is stale against the current head (needs re-approval), and the [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) review is holding for an intent confirm before renaming `cbors.md`/`syrups.md` to the `-frame` names that actually shipped. Separately, [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (llmProgram now runs in a fresh SES compartment, tests green, wallet untouched) but is blocked awaiting panel because the panel model hit its weekly limit (resets Jul 25). A scholar/researcher pair also weighed Kimi K3: local hosting is off by >10× on memory (hard no), but a hosted OpenAI-compatible arm is cheap to wire and maps onto the bid-auction — gated only on a funded Moonshot key.
 
 ## Parked for maintainer feedback
 
@@ -745,7 +743,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (14)
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -759,6 +757,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-daemon-guest-mcp-b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b4.md) — ---
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`xs2rust-endor-orphan-audit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-orphan-audit.md) — Orphaned-process audit — xs2rust-endor-press (maintainer check-in)
 
 ### tada (3268)
 - [`endo-sturdyref-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260722-095006.md) — All four artifacts are confirmed on origin/journal2: the three parked weaver ...
