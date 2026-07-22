@@ -3,3 +3,10 @@ Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizing d
 Begin implementing this design. Because it is a multi-part build (B0–B6), decompose it into an ORCHESTRATION job: park B0–B6 as orchestrated child build jobs and post one orchestration job (serial, halt-on-child-failure) that promotes them in sequence and watches each to completion. Read the design doc first for the exact per-step scope and validation hooks. Start from B0.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-22T11:43:07Z
