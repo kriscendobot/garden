@@ -12,3 +12,10 @@ After B2, implement B3 from designs/mcp-daemon-guest-tools.md §7 and the carrie
 Validation required at deployed edge using the repo PKCE client: guest_write_text via https://minion.town/mcp; SSM endo list as daemon owner sees g-hash; restart endo-daemon; guest_read_text returns the durable note. Record concrete evidence. Do not wait for Claude OAuth validation.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-22T17:03:08Z
