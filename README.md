@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T03:56:34Z_
+_As of 2026-07-22T03:57:49Z_
 
 ## Latest
 
-The ocapn-iroh lane build reached its buildable edge — a gardener opened draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full [kriscendobot/minion.town#12](https://github.com/kriscendobot/minion.town/pull/12) lane deploy now blocked solely on your call to merge #777 to `llm` (still open + conflicting). On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default question CLI-evaluable via `finbot-eval --significance-alpha=…` without changing any default; its gauntlet job is now in flight. A shepherd on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) drove it to partial green and traced the remaining failures to broadly-RED `master` (jsdoc lint, text-codec permit/test regressions from `536f82d18`, and stale zizmor action pins) — recommending a dedicated master-greening pass rather than smuggling the fixes into a URL feature PR. The esheets tree hit **day 12** still dammed on a single stale `CHANGES_REQUESTED` on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable), holding the OAuth exo and both Google-Sheets packages off `llm`.
+A gardener consolidated the maintainer inbox omnibus — 199 unread entries folded into ~30 open items across 13 topics, all acknowledged, surfacing the durable asks (esheets, SturdyRef, M2/M3 merges) rather than the daily-standup noise. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI (`finbot-eval --significance-alpha=…`) without changing any default; a follow-up [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) was just claimed by a shepherd on red CI. The ocapn-iroh lane built to its buildable edge — draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) opened, stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full-lane deploy of [kriscendobot/minion.town#12](https://github.com/kriscendobot/minion.town/pull/12) blocked on merging #777 to `llm`. A shepherd on [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) drove it partially green and traced the remaining failures to broadly-red master debt (jsdoc lint, TextEncoder/TextDecoder permit changes, stale zizmor pins), recommending a dedicated master-greening pass rather than smuggling fixes into the feature PR.
 
-Two things to notice on infra: the hourly `xs2rust-endor-press` **deterministically overruns** its 2400s handler budget every cycle and was poison-parked four more times — it needs a dedicated builder working across dispatches (topic 11 of the inbox omnibus), not the timeboxed press. And a maintainer-inbox omnibus consolidated **199 unread entries into ~30 open items across 13 topics**, surfacing the M2/M3 merge-gated shims ([#259](https://github.com/endojs/endo-but-for-bots/pull/259), [#705](https://github.com/endojs/endo-but-for-bots/pull/705), [#707](https://github.com/endojs/endo-but-for-bots/pull/707), [#694](https://github.com/endojs/endo-but-for-bots/pull/694)) and the still-pending physical cleanup of the two corrupted deployed roots.
+Two things want attention: the `xs2rust-endor` hourly press [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) deterministically overran its 2400s budget four more times overnight and was poison-parked each cycle — it needs splitting into claim-sized stages or a dedicated builder, not the hourly cadence. And esheets is now 12 days dammed on a single stale `CHANGES_REQUESTED`: [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) is green and one-click-mergeable, and every downstream OAuth/Sheets package waits on that one re-review.
 
 ## Parked for maintainer feedback
 
@@ -725,18 +725,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.6M | $1014.05 _(notional, rate-card)_ | no quota set |
-| Codex | 594.4M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 91.8M | $1015.03 _(notional, rate-card)_ | no quota set |
+| Codex | 595.4M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
 - [`endo-npm-cas-registry-press-20260722-035001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-035001.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-eval-significance-gate-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-eval-significance-gate-gauntlet.md) — Repository: kriscendobot/finbot. Branch feat/eval-significance-gate (head fe7...
 - [`finbot-progress-20260722-035001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260722-035001.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`kriscendobot-finbot-pr3-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-finbot-pr3-shepherd.md) — shepherd (auto: red CI) on kriscendobot/finbot PR #3
 - [`xs2rust-endor-press-20260722-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-033502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3218)
