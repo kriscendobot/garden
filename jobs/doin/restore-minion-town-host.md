@@ -22,3 +22,10 @@ Diagnose and restore production using the least-destructive action that works. I
 Once access returns, inspect system health and logs; restore Caddy, oauth2-proxy, minion MCP/daemon, and SSM agent as applicable. Reconcile the deployed revision without overwriting uncommitted or in-flight B4 work. Verify from outside the host: HTTPS/TLS and expected landing/auth behavior; health/metadata endpoints; MCP authorization behavior using non-secret probes. Confirm EC2 system and instance status checks are both `ok` and SSM is `Online`.
 
 Coordinate with the in-flight B4 job through its inbox if it is still active. Determine whether B4 merely blocked on the outage, partially deployed, or needs deterministic requeue/resume; do not duplicate its feature implementation. Report root cause if knowable, exact recovery actions, before/after evidence, deployed revision, remaining risks, and any follow-up job needed for durable monitoring or recurrence prevention.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: cleric
+  claimed_at: 2026-07-22T19:11:32Z
