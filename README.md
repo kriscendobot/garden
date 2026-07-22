@@ -1,20 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-22T10:28:36Z_
+_As of 2026-07-22T11:14:18Z_
 
 ## Latest
 
-A wave of handler-budget overruns dominated the last stretch: the hourly `xs2rust-endor` press ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) hit its 2400s wall and was poisoned on several consecutive ticks — one of them mid-flight on the maintainer-directed XS crypto polyfill work after reporting Rust stages 1–6 green (82/82 cargo, ~2750 dual-run oracle tests) but blocked on a `node:crypto` import the SES/XS bundler can't handle. The same deterministic overrun poisoned `daemon-store-phase4-sorted`, which **halted** the serial `daemon-store-family-build` orchestration at 3/6 (sweeping the phase-5 parity and phase-6 CLI/WUI children), and `endojs-pr160-ci-fix-finalize`. All are parked in `plan/` awaiting a split-or-promote decision; the watchdogs' recommended remedy is to stage or detach these long jobs.
-
-Two items are actively blocked on a maintainer answer. The [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) review fix landed a first pass (renaming the framing design files, commit `3bb1d34c`), but the gardener is now holding for an explicit intent confirm before churning multiple docs — whether to rename `cbors.md`/`syrups.md` to the `-frame` names that actually shipped and flip the package names throughout. Separately, finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES role-program execution now runs in a fresh Compartment with attenuated tool calls; tests green, dry-run reports wallet untouched) but its required panel can't run until the panel model's weekly limit resets Jul 25 03:00 UTC — no policy decision needed, just the gate.
-
-Also worth a glance: scholar and researcher both reported on Moonshot's Kimi K3 — local harnessing is a hard no (≈2.8T-param MoE, off by >10× on memory), but a hosted `kimi-k3` arm behind the existing codex handler is cheap to wire and maps onto the bid-auction router, gated only on a funded Moonshot key. [PR #806](https://github.com/endojs/endo-but-for-bots/pull/806)'s review fix also landed (`pendingIdx`→`pendingIndex`) and a conductor job is in flight on it.
+Several long-running jobs hit the wall at once: the hourly [xs2rust-endor press](https://github.com/endojs/endo-but-for-bots/pull/600) (PR #600) overran its 2400s handler budget on four consecutive ticks and was poisoned and parked, as were `daemon-store-phase4-sorted` and `endojs-pr160-ci-fix-finalize` — the phase-4 failure in turn **HALTED** the serial `daemon-store-family-build` orchestration at 3/6 children (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)). The watchdogs' remedy is consistent: these units exceed a single claim-scoped handler and must be split into stages or run detached. On the merge front, [endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) (the crossed-hello SYN race fix) is green with a conductor job in flight, and its review follow-up (pendingIdx→pendingIndex rename) landed; the [#804](https://github.com/endojs/endo-but-for-bots/pull/804) framing-design review was addressed, but the gardener is **holding for maintainer intent** before renaming `cbors.md`/`syrups.md` to the `-frame` names that actually shipped — worth a quick Y/N. On the forks, [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced its SES role-program execution to green CI and is blocked only by the panel model's weekly limit (resets Jul 25). Finally, a scholar/researcher pair investigated harnessing Kimi K3: local serving is infeasible (>10× the box's memory even at 2-bit), but a hosted OpenAI-compatible arm is cheap to wire and maps onto the existing bid-auction as a K3+Fable router — gated on a funded Moonshot key.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 4d)
@@ -726,8 +722,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.1M | $1093.25 _(notional, rate-card)_ | no quota set |
-| Codex | 680.1M _(+525.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 100.2M | $1094.00 _(notional, rate-card)_ | no quota set |
+| Codex | 679.9M _(+517.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
