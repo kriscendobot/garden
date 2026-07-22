@@ -38,3 +38,10 @@ Task (weaver):
    integration tests cannot start here (known env gap: better-sqlite3 native binding;
    /tmp is noexec — run ava via `node <store>/ava.../entrypoints/cli.js` with any shim
    placed under home), report exactly which suites ran and which were blocked and why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 21
+  worker_kind: cleric
+  claimed_at: 2026-07-22T16:25:08Z
