@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T00:21:03Z_
+_As of 2026-07-22T00:26:12Z_
 
 ## Latest
 
-A gardener carried the [minion.town ocapn-iroh lane](https://github.com/kriscendobot/minion.town/pull/12) to its buildable edge, opening draft [endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [#777](https://github.com/endojs/endo-but-for-bots/pull/777); the full lane deploy now waits only on your call to merge #777 into `llm`. On finbot, [finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha`-as-default question evaluable from the CLI without flipping any default (`finbot-eval --significance-alpha=…`). A shepherd drove [#719](https://github.com/endojs/endo-but-for-bots/pull/719) (URL shim) to partial green and traced the residual red to a broadly-red `master` rather than the PR's diff, recommending a dedicated master-greening pass (jsdoc, text-codec permits, action-pin bump) before it rebases clean. The board is quiet — no completions this window, three fresh claims: a [#819](https://github.com/endojs/endo-but-for-bots/pull/819) shepherd, the hourly minion.town agenda review, and yet another [xs2rust-endor press](https://github.com/endojs/endo-but-for-bots/pull/600) — and that press remains the fleet's persistent sore spot, deterministically overrunning its 2400s handler budget every cycle and getting poisoned/parked; it needs splitting into claim-sized stages or a dedicated iterative builder rather than the hourly cadence. Finally, a consolidation gardener folded 199 unread maintainer-inbox entries into ~30 open items across 13 topics — worth a read, as most of the merge-gated milestone work (M2/M3 shims, esheets/endoclaw-OAuth, SturdyRef arbitration) is stalled solely on your decisions.
+The board is nearly quiet — the only transition was a completed [minion.town#12](https://github.com/kriscendobot/minion.town/pull/12) agenda-review — but the message traffic carries the real news. A builder took the ocapn-iroh lane to its buildable edge, opening draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (the Gate-2 listener boot script) stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777); the full lane deploy is gated on merging #777 to `llm`, which still conflicts. On finbot, [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) merged, making the pending `significanceAlpha` default decision evaluable from the CLI (`finbot-eval --significance-alpha=A`) without changing any default. A shepherd drove [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719) to partial green and traced the remaining red to broadly-RED master debt (jsdoc lint, the `536f82d18` text-codec permit/test regressions, stale zizmor action pins) rather than the URL diff — recommending a dedicated master-greening pass.
+
+Most notable operationally: the hourly `xs2rust-endor-press` for [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) is **deterministically overrunning its 2400s handler budget every cycle** — three consecutive dispatches poisoned and parked overnight — and cannot make code progress; it needs splitting into claim-sized stages or a dedicated iterative builder, not the press. Finally, a maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics; the standouts wanting a decision are the 11-day esheets/endoclaw-OAuth review stall ([endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621)), the merge-gated M2/M3 shims ([endojs/endo-but-for-bots#259](https://github.com/endojs/endo-but-for-bots/pull/259), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/pull/707), [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694)), and a still-pending physical cleanup of the two deployed roots after last week's git-root corruption (now self-healed and guarded on `main2`).
 
 ## Parked for maintainer feedback
 
@@ -581,27 +583,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.8M | $991.25 _(notional, rate-card)_ | no quota set |
-| Codex | 527.4M _(+518.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 88.9M | $994.03 _(notional, rate-card)_ | no quota set |
+| Codex | 529.5M _(+519.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`daemon-store-phase2-setstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daemon-store-phase2-setstore.md) — Build Phase 2: durable strong SetStore in the endo pet daemon (design Phase 2)
 - [`endojs-endo-but-for-bots-pr819-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr819-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #819
-- [`minion-town-agenda-review-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260722-002002.md) — Minion Town hourly agenda review
 - [`xs2rust-endor-press-20260721-232002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260721-232002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-002002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3201)
+### tada (3202)
+- [`minion-town-agenda-review-20260722-002002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-002002.md) — The live comment now carries the correct head SHA and no stale/incorrect one....
 - [`kriscendobot-minion.town-pr12-a3def291`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr12-a3def291.md) — Completion report
 - [`daemon-store-phase1-mapstore`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase1-mapstore.md) — Build Phase 1: durable strong MapStore in the endo pet daemon (kriskowal/gard...
 - [`endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-hardened-url-shim-shepherd.md) — Shepherd report — PR #719 (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr809-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-conduct.md) — Merged PR #809 into llm as ede9066b81232abd33b688beb1172dea36686bde.
-- [`endojs-endo-but-for-bots-pr809-review-39ff950a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr809-review-39ff950a.md) — Completion report
-- … and 3196 more
+- … and 3197 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
