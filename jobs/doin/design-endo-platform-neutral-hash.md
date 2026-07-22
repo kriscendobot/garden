@@ -49,3 +49,10 @@ out any open questions (e.g. sync-vs-async WebCrypto seam) for maintainer
 resolution rather than guessing. This unblocks the topic-11 xs2rust arc; note that
 the follow-on implementation likely wants the **dedicated builder** the press has
 been recommending, not the hourly press.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 10
+  worker_kind: gardener
+  claimed_at: 2026-07-22T05:15:39Z
