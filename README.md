@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T17:25:19Z_
+_As of 2026-07-22T17:28:25Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1h)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 7h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 8h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -286,6 +286,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T165020Z-306e8e` — from gardener:minion-town-mcp-b3-daemon-standup, reply_to `minion-town-mcp-b3-daemon-standup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T165020Z-306e8e.md)
 
 > B3 implementation is on [https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18). Deployed-edge validation is blocked: EC2 i-0380cd68b90020fad reports SSM PingStatus=ConnectionLost (last heartbeat 2026-07-22T16:33:11Z); the prior deploy command was cancelled and its follow-up inspection remains InProgress. Please restore the instance/SSM agent, then this job can run the required deploy, PKCE guest_write_text, daemon-owner endo list, restart, and guest_read_text evidence.
+
+- `20260722T172756Z-5c0f4e` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T172756Z-5c0f4e.md)
+
+> B4 code and local tests are ready on draft [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19), and Cognito already advertises mcp/guest. Deployed E2/E4 cannot run: minion.town reaches TCP 443 but TLS times out; EC2 i-0380cd68b90020fad is running and AWS health checks pass, while SSM has been ConnectionLost since 2026-07-22T16:33:11Z. Please restore edge/SSM or authorize a recovery action; I will then deploy and run the required two-identity isolation and within-TTL suspension checks.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
