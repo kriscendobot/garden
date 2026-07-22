@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-22T04:16:48Z_
+_As of 2026-07-22T04:34:31Z_
 
 ## Latest
 
-The durable-store build advanced a rung: **Phase 2** (strong durable `SetStore` in the endo pet daemon) completed and merged, and **Phase 3** (weak `WeakMapStore`/`WeakSetStore` variants + ERTP integration) is now claimed and in flight. On the finbot fork, two increments landed to `main` — [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) (the `--significance-alpha` DM-QLIKE eval gate, byte-identical when off) and [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) (first CI workflow on the previously CI-less repo); note both self-merged without a panel, and a gauntlet job arrived after the merge — worth a call on whether finbot increments should clear review before landing. The minion.town iroh lane reached its buildable edge with a new draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), whose full deploy blocks on merging #777 to `llm`. Two standing items still want a word: esheets is at **day 12** dammed entirely behind a single re-review of [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click-mergeable, stale `CHANGES_REQUESTED`), and the hourly `xs2rust-endor` press keeps deterministically overrunning its 2400s handler budget every cycle and being poisoned — topic 11 of the inbox omnibus asks for a dedicated builder rather than the timed press.
+[finbot](https://github.com/kriscendobot/finbot) advanced on its own track: [kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2) (the `--significance-alpha` DM/QLIKE eval gate) and [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3) (first-ever CI workflow) both landed, so future finbot PRs now gate automatically — but note the process flag: both self-merged to `main` with no panel, and a "run the gauntlet" job arrived a minute after #2 was already merged. On the daemon-store arc, Phase 2 (durable strong `SetStore`) completed and Phase 3 (Weak variants + ERTP integration) is now in flight. The minion.town iroh lane was built to its buildable edge — [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (draft, Gate-2 listener boot) opened stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777), with full deploy blocked on merging #777 to `llm`.
+
+Two things want a maintainer decision. The `@endo/exo-google-sheets` tree is now **12 days** dammed behind a single stale review on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — green and one-click-mergeable, `reviewDecision` a stale `CHANGES_REQUESTED` from 2026-07-10 that was already addressed and re-panelled; four downstream packages wait on one word. And the hourly `xs2rust-endor` press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) keeps **deterministically overrunning** its 2400s handler budget every cycle and getting poisoned — it needs a dedicated builder split into claim-sized stages, not the recurring press. A 199-entry maintainer-inbox omnibus was also consolidated to ~30 open items across 13 topics.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 2d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 4d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
@@ -803,8 +805,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.4M | $1020.25 _(notional, rate-card)_ | no quota set |
-| Codex | 603.4M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 92.5M | $1021.38 _(notional, rate-card)_ | no quota set |
+| Codex | 617.1M _(+516.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
