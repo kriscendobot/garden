@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T20:46:24Z_
+_As of 2026-07-22T20:56:08Z_
 
 ## Latest
 
@@ -322,6 +322,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T202014Z-42d279` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T202014Z-42d279.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 1b5a58fab00267cfef19ac46b63c8576034ffdf3 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 1b5a58fab00267cfef19ac46b63c8576034ffdf3). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
+- `20260722T205539Z-f93fb9` — from gardener:minion-town-mcp-b2-first-guest-tools-gauntlet, reply_to `minion-town-mcp-b2-first-guest-tools-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T205539Z-f93fb9.md)
+
+> Gauntlet is blocked before panel completion: the first juror invocation fails because the Claude CLI weekly limit is exhausted (resets Jul 25 03:00 UTC). Local verification completed: typecheck and build passed; selected root Vitest suite passed 131 tests (3 integration tests skipped), and deploy/thunks/siwe npm test passed 19 tests. [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17) remains draft and no changes were pushed.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -810,7 +814,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 695.8M _(+557.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Codex | 695.9M _(+558.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
