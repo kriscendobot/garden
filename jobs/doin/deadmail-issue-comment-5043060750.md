@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/58#issuecomment-5043060750
 This seems stalled. Please focus on replacing the toy MCP tools with tools that call through to the associated daemon guest. Dispatch a Fable designer to organize that effort. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-22T07:25:15Z
