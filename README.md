@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-22T14:05:30Z_
+_As of 2026-07-22T14:08:55Z_
 
 ## Latest
 
-A wave of handler-budget overruns dominates this window: the hourly [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) xs2rust-endor press (four consecutive dispatches), `daemon-store-phase4-sorted`, and `endojs-pr160-ci-fix-finalize` ([endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160)) each hit the 2400s wall (rc=124) and were poison-parked to `plan/` after a single overrun — each needs splitting into claim-sized stages or a detached run before it can requeue. That poisoning halted the serial `daemon-store-family-build` orchestration at 3/6 (phases 5 and 6 swept). The xs2rust press also stalled outright: 82/82 cargo tests and ~2,750 dual-run oracle tests are green, but daemon bootstrap generation is blocked on `node:crypto` in the SES/XS bundler; a driver acknowledged maintainer direction to add an XS crypto polyfill, and a fresh `xs2rust-endor-orphan-audit` is the only new board post — a check-in on the 356-orphan-process leak that paused this schedule.
+Two PRs are blocked on a fresh maintainer approval: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft with clean merge state and green CI, but kriskowal's APPROVED review sits on the stale head (9b40eef) while the current head is a0cd0d0, so GitHub reports no review decision — re-approve the current head and the conductor will merge immediately. On [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804), a gardener is holding before churning design docs and needs a yes/no on renaming `cbors.md`/`syrups.md` to the `*-frame.md` names that actually landed (and whether to rewrite the Naming rationale).
 
-Two PRs need a maintainer touch to land: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft with green CI but its lone APPROVED review is stale against the current head (needs re-approval), and the [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) review is holding for an intent confirm before renaming `cbors.md`/`syrups.md` to the `-frame` names that actually shipped. Separately, [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (llmProgram now runs in a fresh SES compartment, tests green, wallet untouched) but is blocked awaiting panel because the panel model hit its weekly limit (resets Jul 25). A scholar/researcher pair also weighed Kimi K3: local hosting is off by >10× on memory (hard no), but a hosted OpenAI-compatible arm is cheap to wire and maps onto the bid-auction — gated only on a funded Moonshot key.
+The recurring **xs2rust-endor press** (PR #600) schedule is misbehaving: three back-to-back presses plus the CI-finalize job for [#160](https://github.com/endojs/endo-but-for-bots/pull/160) and the `daemon-store-phase4-sorted` build all deterministically overran the 2400s handler wall and were poisoned into `plan/` — the phase-4 poison halted the `daemon-store-family-build` orchestration at 3/6. These jobs don't fit one claim; they need splitting or a detached run. The press's real blocker is a bundling failure: `blobref.js` pulls `node:crypto`, which the SES/XS bundler can't handle (the driver acknowledged proceeding with a crypto polyfill).
+
+The orphan audit came back GREEN (0 leaked worktree processes, charter mitigation holding), but flagged that the reaper fix `8eb3354a7e` is on `origin/main2` yet **not deployed to the root** — worth a deliberate deploy. Separately, [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES-compartmented `llmProgram`, green CI) but is stuck awaiting panel review, which is down until the panel model's weekly limit resets Jul 25. Research on Kimi K3 landed: local hosting is off by >10× (2.8T-param MoE), but a hosted Moonshot arm is cheap to wire — no maintainer action needed.
 
 ## Parked for maintainer feedback
 
@@ -262,6 +264,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T134426Z-bf7fef` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T134426Z-bf7fef.md)
 
 > [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, has a clean merge state, and its latest CI run is green. The only current gate is approval: kriskowal's APPROVED review is attached to the previous head 9b40eef, while the current head is a0cd0d0, so GitHub reports reviewDecision empty. Please re-approve the current head and I will merge it immediately.
+
+- `20260722T140806Z-7adc62` — from gardener:xs2rust-endor-orphan-audit, reply_to `xs2rust-endor-orphan-audit` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T140806Z-7adc62.md)
+
+> Orphan audit on host endolin-garden-ece02cb4: GREEN -- 0 orphans, charter mitigation holding.
+>
+> Raw evidence: full /proc scan of cwd and NUL-decoded cmdline for strict timestamped project-wt-xs2rust-endor-press-* paths found 0 processes. jobs/doin/ has 0 xs2rust-endor-press jobs, so there are no non-doin worktree processes to classify. ps -C endor-xst found 0 processes: no pegging CPU, no oldest orphan etime, and no per-job orphan counts.
+>
+> This is not the leader: journal leader is endolin-garden2-5bcdff64. This host runs ollama but its local model inventory is empty, so it is not serving local qwen. Please also run this host-local audit directly on leader/primary-qwen endolin-garden2-5bcdff64.
+>
+> Backstop: fix-handler-reap-spawned-process-group is in jobs/tada/ and commit 8eb3354a7e is in origin/main2, but it is NOT deployed to this root: root HEAD f570554e39641e92eab7bbc3dc2fd7b50d4d01ac does not contain 8eb3354a7e. Follow-up: deploy main2s reaper fix to the root; until then, retain the charter timeout/process-group mitigation and consider pausing the schedule if a leader-host audit finds recurrence.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -736,14 +748,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.8M | $1113.90 _(notional, rate-card)_ | no quota set |
+| Claude | 102.9M | $1114.65 _(notional, rate-card)_ | no quota set |
 | Codex | 680.0M _(+520.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -757,15 +769,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-daemon-guest-mcp-b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-daemon-guest-mcp-b4.md) — ---
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`xs2rust-endor-orphan-audit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-orphan-audit.md) — Orphaned-process audit — xs2rust-endor-press (maintainer check-in)
 
-### tada (3268)
+### tada (3269)
+- [`xs2rust-endor-orphan-audit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-orphan-audit.md) — Audited and notified maintainer: 0 orphaned press-worktree processes; no endo...
 - [`endo-sturdyref-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260722-095006.md) — All four artifacts are confirmed on origin/journal2: the three parked weaver ...
 - [`endo-vfs-parity-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260722-095006.md) — The state update landed on origin/journal2 (commit 84a09efabb — "State as of ...
 - [`endojs-endo-but-for-bots-pr807-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-shepherd.md) — CI is green on PR #807 head 862b256f96cd3ee6d640dc3adb5e3b9c4ca6cff1.
 - [`minion-town-agenda-review-20260722-133506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-133506.md) — Completion report
-- [`endojs-endo-but-for-bots-pr807-c55523fb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-c55523fb.md) — Reconciled PR #807 and issue #732. Pushed 862b256f, updated the issue with fi...
-- … and 3263 more
+- … and 3264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
