@@ -6,3 +6,10 @@ scripts/jobs/ollama-serve.sh
 2. Stop `exec`-ing so the script can observe serve's exit: run `ollama serve` as a child, and on any non-signalled exit `sleep` a backoff (e.g. 30–60s, ideally capped/escalating) before the script returns, converting systemd's 5s hot-loop into a low-noise slow retry. Preserve the clean-exit-on-SIGTERM/SIGINT contract (unit's `SuccessExitStatus=143 130`) so a systemd stop/deploy still counts as clean and does not incur the backoff.
 
 Net effect: a host that genuinely cannot serve (missing binary, occupied port, no GPU access) retries quietly on a long interval and emits one clear diagnostic, instead of writing a warning every 5 seconds forever. Keep the existing `OLLAMA_IGPU_ENABLE=1` / `OLLAMA_HOST` derivation intact. The companion unit keys (`RestartSec`, `StartLimitIntervalSec`) in `scripts/systemd/garden-ollama.service` may be tuned to match, but the throttle must live primarily in the script so it survives a serve that exits 0-but-immediately.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 18
+  worker_kind: cleric
+  claimed_at: 2026-07-22T15:21:40Z
