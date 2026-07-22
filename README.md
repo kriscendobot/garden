@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T13:57:53Z_
+_As of 2026-07-22T14:02:45Z_
 
 ## Latest
 
@@ -738,7 +738,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.6M | $1114.10 _(notional, rate-card)_ | no quota set |
+| Claude | 102.8M | $1113.90 _(notional, rate-card)_ | no quota set |
 | Codex | 680.0M _(+520.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
@@ -749,8 +749,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-sturdyref-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260722-095006.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr541-restack-pr737-line`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-restack-pr737-line.md) — weave: restack PR #541 onto the arbitrated #774→#737 line (@endo/sturdyref home)
 - [`endojs-endo-but-for-bots-pr804-47b714b2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-47b714b2.md) — attention directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — Role: conductor
 - [`endojs-endo-but-for-bots-pr824-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-merge.md) — Merge (conductor) endojs/endo-but-for-bots PR #824
@@ -760,13 +760,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-pr13-75344d2-build-mcp-daemon-guest-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-pr13-75344d2-build-mcp-daemon-guest-tools.md) — Repository: kriscendobot/minion.town. PR #13 landed a merged, build-organizin...
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3267)
+### tada (3268)
+- [`endo-sturdyref-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260722-095006.md) — All four artifacts are confirmed on origin/journal2: the three parked weaver ...
 - [`endo-vfs-parity-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260722-095006.md) — The state update landed on origin/journal2 (commit 84a09efabb — "State as of ...
 - [`endojs-endo-but-for-bots-pr807-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-shepherd.md) — CI is green on PR #807 head 862b256f96cd3ee6d640dc3adb5e3b9c4ca6cff1.
 - [`minion-town-agenda-review-20260722-133506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-133506.md) — Completion report
 - [`endojs-endo-but-for-bots-pr807-c55523fb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr807-c55523fb.md) — Reconciled PR #807 and issue #732. Pushed 862b256f, updated the issue with fi...
-- [`minion-town-daemon-guest-mcp-b3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-daemon-guest-mcp-b3.md) — Implemented B3 and opened https://github.com/kriscendobot/minion.town/pull/16...
-- … and 3262 more
+- … and 3263 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
