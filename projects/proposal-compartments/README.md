@@ -158,6 +158,8 @@ and the garden's `em-dash-style` skill.
   `build/index.html` titled "Compartments" with no lint errors.
 - Orchestration: Child 1 of `orch-proposal-compartments-launch` (serial, halt).
 
+
+- Rendered spec: https://kriscendobot.github.io/proposal-compartments/ (GitHub Pages, `gh-pages` branch via ecmarkup build)
 ## Additional completion criteria (maintainer @kriskowal, 2026-07-21; tracker kriskowal/garden#61)
 
 - Must account for **top-level await**.
