@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T20:56:08Z_
+_As of 2026-07-22T20:59:35Z_
 
 ## Latest
 
@@ -436,6 +436,29 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-minion-town-mcp-b2-first-guest-tools-gauntlet-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-minion-town-mcp-b2-first-guest-tools-gauntlet-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet; it stays HELD until a human promotes it
+> (promote-plan.sh minion-town-mcp-b2-first-guest-tools-gauntlet) or removes it, so nothing is lost.
+> Original job base: minion-town-mcp-b2-first-guest-tools-gauntlet
+>
+> --- original job body ---
+> ---
+> role: gardener
+> auto_gauntlet: true
+> build_job: minion-town-mcp-b2-first-guest-tools
+> pr: [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17)
+> ---
+>
+> Automatic gauntlet handoff for completed feature build minion-town-mcp-b2-first-guest-tools.
+>
+> The build opened [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17) and it remains an OPEN draft PR. Run the full gardening
+> state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
+> the panel terminates cleanly. This handoff was posted by the build completion edge,
+> not inferred by a watcher.
+
 - `poison-xs2rust-endor-press-20260722-033502-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260722-033502-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -814,18 +837,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 695.9M _(+558.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Codex | 695.9M _(+558.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-conduct.md) — ---
-- [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b4-full-facet-surface.md) — B4: full facet tool surface and tenant checks
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
@@ -867,6 +889,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
+- [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-182002.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260719-003513.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -927,6 +950,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — awaiting `endojs-endo-but-for-bots-pr826-conduct` · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
