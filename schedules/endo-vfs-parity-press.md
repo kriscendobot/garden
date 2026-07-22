@@ -20,21 +20,19 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-21 (post-21:35 tick): **#714** and **#643** MERGED;
+State as of 2026-07-22 (post-03:50 tick): **#714** and **#643** MERGED;
 **#658** closed (superseded). Open, review-blocked, ALL re-verified green and
-MERGEABLE/CLEAN at 2026-07-21 21:40 (23–24 SUCCESS checks each, zero
-pending/failed; no activity on any press PR since 2026-07-18 — three merges
-into `llm` since the last tick: #585 platform content-store powers for
-node fs (touches `packages/platform` but produced no conflict with the
-platform-delegating #788/#790), plus #805 endor top-level await and #812
-endor referrer-relative resolution, both endor-only; all seven PRs
-re-polled MERGEABLE/CLEAN after those merges — no re-weave needed; #814,
-the draft design for #650's denied-segments CLI flags by another worker,
-is mount-adjacent but does not touch the parity
-surface): **#656** (provideSubMount, head
+MERGEABLE/CLEAN at 2026-07-22 03:55 (23–24 SUCCESS checks each, zero
+pending/failed; no activity on any press PR since 2026-07-18 — one merge
+into `llm` since the last tick: #809 pet-daemon persistent-stores design,
+design-only (`packages/daemon/designs/daemon-persistent-stores.md`), no
+parity-surface contact; all seven PRs re-polled MERGEABLE/CLEAN after it
+— no re-weave needed; #814, the draft design for #650's denied-segments
+CLI flags by another worker, remains mount-adjacent but does not touch
+the parity surface): **#656** (provideSubMount, head
 76e6800ee5), **#655** (old non-delegated
 mount grep, head 741642e2ee — maintainer asked about closing as superseded
-by #713, still no reply as of 2026-07-21 21:40; msg 20260717T124846Z-815188;
+by #713, still no reply as of 2026-07-22 03:55; msg 20260717T124846Z-815188;
 do not re-ping), **#657** (mount JSON, head 89482d66ad),
 **#713** (mount glob+grep+glorp; full matrix confirmed green on 454b2b97db
 after one macOS `test (22.x)` flake — an unrelated @endo/agentry
