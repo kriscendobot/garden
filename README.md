@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-22T05:08:38Z_
+_As of 2026-07-22T05:09:22Z_
 
 ## Latest
 
-The endo pet-daemon durable-store build advanced — [Phase 2 (durable SetStore)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase2-setstore.md) and [Phase 3 (weak ERTP stores)](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daemon-store-phase3-weak-ertp.md) both landed, and Phase 4 (sorted variants + range queries) is now in flight. On the finbot fork, two increments merged: the [significance-gate eval CLI (#2)](https://github.com/kriscendobot/finbot/pull/2) and a first-ever [CI workflow (#3)](https://github.com/kriscendobot/finbot/pull/3) so future PRs gate automatically — though a gauntlet job noted both landed self-merged with no panel review, worth a call if you want finbot increments to clear review first. The ocapn-iroh lane reached its buildable edge with a stacked draft [#820](https://github.com/endojs/endo-but-for-bots/pull/820), now blocked on merging [#777](https://github.com/endojs/endo-but-for-bots/pull/777) to `llm`.
+On finbot ([kriscendobot/finbot](https://github.com/kriscendobot/finbot)), two increments landed: the `--significance-alpha` DM/QLIKE eval gate ([kriscendobot/finbot#2](https://github.com/kriscendobot/finbot/pull/2), 607/607 green, default-off invariant byte-identical) and a first CI workflow ([kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/pull/3)) — but both were bot-merged straight to `main` with no panel or fixer loop, a "run the gauntlet" job arriving a minute after the self-merge; if finbot increments should clear a panel before landing, that ordering needs enforcing. The iroh lane build carried [kriscendobot/minion.town#12](https://github.com/kriscendobot/minion.town/pull/12) to its buildable edge, opening draft [endojs/endo-but-for-bots#820](https://github.com/endojs/endo-but-for-bots/pull/820) (Gate-2 listener boot script) stacked on [endojs/endo-but-for-bots#777](https://github.com/endojs/endo-but-for-bots/pull/777) — full deploy is gated on merging #777 to `llm`, a maintainer-only call.
 
-Two things want your attention. The esheets tree is **12 days dammed on a single stale review**: [#621](https://github.com/endojs/endo-but-for-bots/pull/621) is green and one-click-mergeable but carries a `CHANGES_REQUESTED` from 2026-07-10 that was addressed and re-requested on 07-17; four downstream packages (the OAuth exo, `@endo/google-sheets`, `@endo/exo-google-sheets`) exist nowhere on `llm` until you approve it or authorize building on the merged base design. Separately, the maintainer inbox was consolidated from 199 unread entries down to ~30 open items across 13 topics — the surfaced merge-gated work (M2 text-codecs [#259](https://github.com/endojs/endo-but-for-bots/pull/259), M3 [#705](https://github.com/endojs/endo-but-for-bots/pull/705)/[#707](https://github.com/endojs/endo-but-for-bots/pull/707)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694)) is worth a pass. Finally, the hourly `xs2rust-endor-press` continues to **deterministically overrun its 2400s budget and get poisoned every cycle** — five poison parks since the last bulletin; it needs splitting into claim-sized stages or a dedicated builder rather than the press, per topic 11.
+Two things want attention. The hourly `xs2rust-endor` press ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) is *deterministically* overrunning its 2400s handler budget every cycle and getting poisoned; the Rust engine itself is healthy (82/82 cargo, stage-5 byte-identity), but it is now blocked on `daemon_bootstrap.js` failing to bundle because `@endo/platform` pulls in `node:crypto`, and it needs a dedicated builder plus a design call on the fix path rather than the reaped press. And esheets is on day 12 dammed behind a single stale `CHANGES_REQUESTED` on [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) (green, one-click mergeable) — four downstream packages wait on one word. Separately, a maintainer-inbox omnibus consolidated 199 unread entries into ~30 open items across 13 topics, and a shepherd found [endojs/endo-but-for-bots#719](https://github.com/endojs/endo-but-for-bots/pull/719)'s remaining red is pre-existing master debt, not its own diff.
 
 ## Parked for maintainer feedback
 
@@ -304,6 +304,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > panel before landing, that ordering needs enforcing; today the gauntlet job can
 > arrive after the increment is already in main. No action taken on this -- flagging
 > for your call.
+
+- `20260722T050908Z-4425d2` — from gardener:xs2rust-endor-press-20260722-033502, reply_to `xs2rust-endor-press-20260722-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T050908Z-4425d2.md)
+
+> BLOCKER: daemon_bootstrap.js cannot be generated (xs2rust-endor PR [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600), HEAD=03656bac9d). The bundle-bus-daemon-rust-xs.mjs script fails because @endo/platform/fs/extended/shared/blobref.js imports 'node:crypto' which SES/XS bundler cannot handle. This blocks test:rust and full endor daemon integration. Three potential fix paths:
+> 1) Add XS polyfill for crypto.createHash in the bundle environment
+> 2) Restructure platform package.json exports with xs condition to bypass node-only files
+> 3) Remove @endo/git dependency from the XS daemon path (bus-manager-rust-xs.js → manager.js)
+> All require cross-package changes. Requesting direction on which approach to take.
+> Meanwhile, Rust engine is healthy: 82/82 cargo test pass, ~2750 dual-run oracle tests across language/built-ins with zero failures, stage-5 byte-identity confirmed met.
 
 - `poison-xs2rust-endor-press-20260721-165010-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-xs2rust-endor-press-20260721-165010-deadline-overrun.md)
 
@@ -805,8 +814,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.3M | $1026.42 _(notional, rate-card)_ | no quota set |
-| Codex | 625.7M _(+517.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 93.3M | $1026.82 _(notional, rate-card)_ | no quota set |
+| Codex | 626.2M _(+517.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
