@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-22T07:11:59Z_
+_As of 2026-07-22T07:13:51Z_
 
 ## Latest
 
-The two big-batch efforts both stalled on the same wall this cycle. The XS→Rust engine press on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) hit a hard blocker — `daemon_bootstrap.js` generation fails because `@endo/platform`'s `blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle — and after the driver acknowledged the maintainer's "add an XS crypto polyfill" direction, three successive press ticks overran the 2400s handler budget and were poisoned (parked in `plan/`, held for a human). The reaper flags these as *deterministic* overruns: they exceed a single claim's budget and will be killed identically on every requeue, so they need splitting into claim-sized stages or a detached run, not a promote. Separately, the `daemon-store-family-build` orchestration (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)) **halted** — Phase 4 (sorted variants / range queries) overran the same wall and poisoned, sweeping the parked Phase 5 and 6 children; 3/6 phases had completed before the halt.
-
-On the lighter side, a scholar ingested Fireworks' Kimi K3-vs-Fable routing study and graded it **low relevance** — K3 is cloud-only, ~1T-param MoE, unservable on the hermit lane, and ships no deployable router (oracle measurement only); no next step recommended. A follow-on `research-harness-kimi-k3` job is now in flight to double-check whether the garden can harness K3 at all. The daily progress periodical was committed and pushed. No PRs merged or moved to review; the 27 parked PRs still await kriskowal.
+The only board completion this cycle was the [endo-but-for-bots#827](https://github.com/endojs/endo-but-for-bots/pull/827) shepherd finishing; everything else of note is stall and recovery. Three worker jobs deterministically overran the 2400s handler budget and were poisoned (parked in `plan/`, held for a human): two ticks of the hourly xs2rust-endor press against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) and the daemon-store Phase 4 build. The Phase 4 poison halted the serial `daemon-store-family-build` orchestration at 3/6, sweeping Phases 5–6 (issue [kriskowal/garden#59](https://github.com/kriskowal/garden/issues/59)). The xs2rust press itself reported it is wedged on `daemon_bootstrap.js` generation — `@endo/platform` pulls in `node:crypto`, which the SES/XS bundler can't handle — and acknowledged a maintainer direction to add an XS crypto polyfill before it was reaped; the reaper's remedy for all three is the same: split into claim-sized stages or run detached. The scholar also filed a low-relevance read of a Fireworks Kimi K3-vs-Fable routing study (cloud-only, no harnessable weights). Maintainer action is queued: promote or split the three poisoned jobs, and confirm the crypto-polyfill approach for the xs2rust press.
 
 ## Parked for maintainer feedback
 
@@ -414,28 +412,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.2M | $1057.95 _(notional, rate-card)_ | no quota set |
+| Claude | 96.3M | $1059.93 _(notional, rate-card)_ | no quota set |
 | Codex | 685.3M _(+525.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-review-b7e466e9.md) — Review directive on endojs/endo-but-for-bots PR #160
-- [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr827-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #827
 - [`endojs-endor-native-zip-xs-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endor-native-zip-xs-design.md) — ---
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-pr160-ci-fix-finalize.md) — ---
 - [`research-harness-kimi-k3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/research-harness-kimi-k3.md) — researcher — how or whether the garden can harness Kimi K3
 - [`xs2rust-endor-press-20260722-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260722-045001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3243)
+### tada (3244)
+- [`endojs-endo-but-for-bots-pr827-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr827-shepherd.md) — Completion report
 - [`scholar-fireworks-kimik3-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-fireworks-kimik3-fable.md) — Report delivered to the maintainer.
 - [`daily-progress-summary-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260722-070506.md) — The periodical is committed and pushed to origin/journal2. Job complete.
 - [`minion-town-agenda-review-20260722-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260722-070506.md) — Reviewed agenda, journal, repo/PR/CD state, deployed source, and edge. Posted...
 - [`endojs-endo-but-for-bots-pr737-c18afe76`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-c18afe76.md) — Rebased PR #737 onto #774, updated its GitHub base, and pushed 09130626cf.
-- [`build-daemon-792-http-web-seed-followups`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-792-http-web-seed-followups.md) — Completion report — build-daemon-792-http-web-seed-followups
-- … and 3238 more
+- … and 3239 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
