@@ -1,12 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr826-conduct
-priority: high
-roadmap: readableblob-range-attenuation
 role: builder
-posted_by: liaison
-posted_at: 2026-07-22T20:58:51Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-07-22T22:11:04Z -->
 
 # Build the approved ReadableBlob range-attenuation design from PR #826
 
