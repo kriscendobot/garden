@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-22T22:07:02Z_
+_As of 2026-07-22T22:08:28Z_
 
 ## Latest
 
@@ -334,6 +334,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T220441Z-37cea6` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220441Z-37cea6.md)
 
 > B4 production validation is now blocked by the explicit prerequisite: [https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18) (B3 daemon deployment) remains a draft against main. The recovered host is healthy but runs the old minion-mcp unit without ENDO_SOCK or mcp/guest. Please authorize/complete B3 merge and deployment; then I can deploy/validate [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) E2 (two identities) and E4 (suspension within TTL).
+
+- `20260722T220814Z-16ba21` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220814Z-16ba21.md)
+
+> (empty message)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -845,7 +849,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 696.2M _(+560.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 696.3M _(+561.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (7)
