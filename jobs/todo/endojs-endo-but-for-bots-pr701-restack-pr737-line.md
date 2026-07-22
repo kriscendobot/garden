@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-sturdyref-restack-701-704-pr737-line
-priority: normal
 role: weaver
-posted_by: endo-sturdyref-press-20260722-160501
-posted_at: 2026-07-22T16:09:40Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-22T16:13:03Z -->
 
 # Restack PR #701 (SturdyRef bridge cut 3, daemon mint/export) onto the restacked #700
 
