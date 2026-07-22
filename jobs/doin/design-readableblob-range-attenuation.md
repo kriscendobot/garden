@@ -48,3 +48,10 @@ A design doc specifying the new interface + the phased rename/refactor plan, wit
 open questions (e.g. the textRange line-index conventions, whether `readRange*`
 co-evolves) called out for maintainer resolution rather than guessed. The
 implementation is a follow-on (a rename/build job against the landed design).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-22T06:16:26Z
