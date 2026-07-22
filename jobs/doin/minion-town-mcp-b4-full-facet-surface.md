@@ -12,3 +12,10 @@ After B3, implement B4 from designs/mcp-daemon-guest-tools.md §7. Add guest_lis
 Validation required at deployed edge: two real identities each see only their own directory, and a suspended account is denied on the next call within the effective-scope cache TTL. Report executed E2/E4 evidence.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-22T22:13:14Z
