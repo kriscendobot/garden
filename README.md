@@ -1,20 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-22T15:21:51Z_
+_As of 2026-07-22T15:24:08Z_
 
 ## Latest
 
-A wave of handler-budget overruns dominates: three [xs2rust-endor](https://github.com/endojs/endo-but-for-bots/pull/600) press-driver ticks, `daemon-store-phase4-sorted`, and `endojs-pr160-ci-fix-finalize` each hit the 2400s wall and were poison-parked in `plan/` after a single overrun cycle — the reaper flags them as structurally over-budget, so requeuing won't help; they need splitting into claim-sized stages or a raised timeout. The poisoned Phase-4 child in turn **HALTED** the serial `daemon-store-family-build` orchestration at 3/6 (Phases 5 and 6 swept). The press-driver also self-reported a hard blocker before dying: `daemon_bootstrap.js` generation fails because `@endo/platform/.../blobref.js` pulls in `node:crypto`, which the SES/XS bundler can't handle; it acknowledged direction to add an XS crypto polyfill but ran out of budget.
+A wave of jobs hit the 2400s handler wall and were poisoned/parked this cycle: the `daemon-store-family-build` orchestration **halted** when its Phase-4 sorted-stores child overran (phases 5–6 swept), and three [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) `xs2rust-endor` press-drivers plus [endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160)'s CI-finalize also deadline-overran on a single overrun cycle — all preserved in `jobs/plan/` awaiting a split-or-promote decision. The xs2rust press is additionally blocked on substance: `daemon_bootstrap.js` generation fails because `@endo/platform`'s blobref imports `node:crypto`, which the SES/XS bundler can't handle; the driver acknowledged the maintainer's "add an XS crypto polyfill" direction before it was reaped.
 
-Two PRs are gated on maintainer action. [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, clean, and CI-green, but its only APPROVED review is stale (head advanced from `9b40eef` to `a0cd0d0`) — a fresh approval on the current head is all that's blocking merge. On [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) (CHANGES_REQUESTED) a gardener is holding for intent confirmation before renaming the `cbors.md`/`syrups.md` design docs to the `-frame` names that actually shipped, since the docs' current story contradicts what landed. A new [endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) (refuse late crossed-hello SYN) is freshly parked for review.
-
-Off-repo, [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced — the optional `llmProgram` role now runs in a fresh SES Compartment with attenuated, host-mediated tool calls, tests green and wallet untouched — but sits blocked awaiting panel, whose model is at its weekly limit until Jul 25 03:00 UTC. A researcher verdict on harnessing Kimi K3 concluded **local is off by >10×** (2.8T-param MoE, ~1.5 TB even at Q4) but a **hosted** arm via Moonshot's OpenAI-compatible `/v1` is cheap to wire and maps onto the existing bid-auction router — worth a bounded trial gated only on a funded key. An orphan-process audit on `endolin-garden-ece02cb4` came back **green (0 orphans)**, though it flags that the reaper fix (commit `8eb3354a7e`) is not yet deployed to that root.
+Two PRs need a maintainer hand: [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, clean-merge, and green, but blocks on a fresh approval — kriskowal's APPROVED review is on the old head `9b40eef`, not the current `a0cd0d0`; and the [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) reviewer is holding for an intent confirm before renaming the `cbors.md`/`syrups.md` design docs to the `-frame` names that actually shipped. Meanwhile [finbot#4](https://github.com/kriscendobot/finbot/pull/4) advanced (SES-compartment `llmProgram` role, green CI, wallet-untouched dry-run) but can't clear its gate until the panel model's weekly limit resets Jul 25. Research also landed a verdict on Kimi K3: local serving is off by >10× (2.8T-param MoE won't fit the box), but a hosted arm is cheap to wire and maps onto the existing bid-auction — gated on a funded Moonshot key. An xs2rust orphan-process audit came back green.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 5h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 4d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 4d)
@@ -748,8 +746,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.3M | $1145.78 _(notional, rate-card)_ | no quota set |
-| Codex | 679.8M _(+519.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 105.4M | $1146.58 _(notional, rate-card)_ | no quota set |
+| Codex | 679.9M _(+519.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
