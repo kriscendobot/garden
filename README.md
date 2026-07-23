@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T01:43:55Z_
+_As of 2026-07-23T01:45:13Z_
 
 ## Latest
 
@@ -1156,8 +1156,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (3)
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 1 -->
+- [`endojs-endo-but-for-bots-pr357-623fe9bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr357-623fe9bc.md) — attention directive on endojs/endo-but-for-bots PR #357
 - [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr838-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #838
 
 ### tada (3333)
@@ -1258,6 +1259,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr826-review-0ea51177-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-0ea51177-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr786-28d1e1d7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr786-28d1e1d7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr826-448995f1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-448995f1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr357-623fe9bc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-623fe9bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #357 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
