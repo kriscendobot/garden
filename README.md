@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T20:11:10Z_
+_As of 2026-07-23T20:15:44Z_
 
 ## Latest
 
@@ -738,6 +738,22 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Kimi K3 harness research complete. Recommendation: replace the current Codex Responses-based Kimi path with an official Kimi Code CLI headless handler, initially driven through Kimi Agent SDK only if event-level approval/usage capture is needed. Kimi Code explicitly supports Moonshot Open Platform Chat Completions at api.moonshot.ai/v1, tool use, isolated KIMI_CODE_HOME, headless --auto -p, and persisted/reusable sessions. Keep the shared gardener spine, worker-common prompt/sentinel/worktree contract, and use a per-base KIMI_CODE_HOME plus KIMI_MODEL_* ephemeral credentials. Do not enable workers until a 1-job canary proves forced Bash tool use, marker-gated completion, output capture, requeue/resume, and no root mutation. Primary evidence: Kimi API K3 docs (chat completions + tool loop), Kimi Code docs/repo, Kimi Agent SDK. No production changes made.
 
+- `20260723T201514Z-9ed73a` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201514Z-9ed73a.md)
+
+> triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
+
+- `20260723T201514Z-c85fe6` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201514Z-c85fe6.md)
+
+> triager: fetch for kriscendobot-ocapn at /home/kris/garden2/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
+
+- `20260723T201514Z-fe7c0f` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201514Z-fe7c0f.md)
+
+> triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
+
+- `20260723T201528Z-9ce237` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201528Z-9ce237.md)
+
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1317,8 +1333,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.7M | $1077.49 _(notional, rate-card)_ | no quota set |
-| Codex | 658.5M _(+576.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Claude | 96.7M | $1077.00 _(notional, rate-card)_ | no quota set |
+| Codex | 658.5M _(+578.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
