@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 10
+worker_kind: gardener
+claimed_at: 2026-07-23T20:10:08Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kimi-k3-harness-implement-20260723
