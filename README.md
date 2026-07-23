@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T22:37:55Z_
+_As of 2026-07-23T22:38:19Z_
 
 ## Latest
 
@@ -840,7 +840,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.6M | $1053.59 _(notional, rate-card)_ | no quota set |
+| Claude | 93.6M | $1053.27 _(notional, rate-card)_ | no quota set |
 | Codex | 659.3M _(+600.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
@@ -862,16 +862,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`finbot-progress-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-223502.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (0)
+(none)
 
-### tada (3374)
+### tada (3375)
+- [`finbot-progress-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-223502.md) — Assessed finbot. PR #4 is ready, CLEAN, and CI passed on 895ae48; no competin...
 - [`deadmail-20260723T214336Z-9e4611`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260723T214336Z-9e4611.md) — Validated bf1f9e4032:
 - [`endojs-endo-but-for-bots-pr831-cfde756b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-cfde756b.md) — Rebuilt PR #831 from frozen base, removing 79 entrained commits. The head now...
 - [`endojs-endo-but-for-bots-pr831-14cde530`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-14cde530.md) — Retargeted PR #831 to frozen upstream snapshot master-fb9cef4 (fb9cef49…); he...
 - [`mystic-harness-recovery-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-recovery-20260723.md) — orchestration mystic-harness-recovery-20260723 — complete
-- [`mystic-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-validate-20260723.md) — Validation passed; no changes made.
-- … and 3369 more
+- … and 3370 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
