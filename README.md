@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T12:40:32Z_
+_As of 2026-07-23T12:47:42Z_
 
 ## Latest
 
@@ -1238,7 +1238,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 102.2M | $1127.16 _(notional, rate-card)_ | no quota set |
-| Codex | 729.1M _(+582.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Codex | 726.0M _(+582.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (23)
@@ -1266,16 +1266,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`deadmail-issue-comment-5058457633`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5058457633.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (3343)
+### tada (3344)
+- [`deadmail-issue-comment-5058457633`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058457633.md) — Re-reviewed the requested repository snapshot and replied on issue #38 with f...
 - [`deadmail-issue-comment-5058037388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058037388.md) — Reviewed the linked revision and replied on issue #38: it is documentation-on...
 - [`finbot-progress-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-100531.md) — Completed finbot progress assessment. PR #4 remains a clean draft with passin...
 - [`kriscendobot-agoric-sdk-pr10-review-c28034ac`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-c28034ac.md) — Completed PR #10 review response.
 - [`daily-progress-summary-20260723-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260723-070502.md) — Created and pushed periodicals/2026/07/22.md to journal2 (commit 3db0b365c). ...
-- [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-a7bcbe21.md) — Addressed all five inline comments in b141d30c79 and 5c04dcac95: clarified or...
-- … and 3338 more
+- … and 3339 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
