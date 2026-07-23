@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T22:23:22Z_
+_As of 2026-07-23T22:36:04Z_
 
 ## Latest
 
@@ -836,24 +836,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.9M | $1055.81 _(notional, rate-card)_ | no quota set |
+| Claude | 93.7M | $1053.91 _(notional, rate-card)_ | no quota set |
 | Codex | 659.3M _(+600.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
-### todo (10)
+### todo (16)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260723-223502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-162019.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-223502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260723-162019.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260723-223502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260723-162019.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-sturdyref-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260723-223502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260723-162019.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260723-223502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (0)
-(none)
+### doin (1)
+- [`finbot-progress-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-223502.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (3374)
 - [`deadmail-20260723T214336Z-9e4611`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260723T214336Z-9e4611.md) — Validated bf1f9e4032:
