@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:29:07Z_
+_As of 2026-07-23T19:33:04Z_
 
 ## Latest
 
@@ -707,6 +707,33 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > stdout:
 > You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
+- `20260723T193026Z-d2e1f9` — from triager:kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T193026Z-d2e1f9.md)
+
+> kind: error
+>
+> # triage circuit-breaker OPENED for `kriscendobot-proposal-compartments`
+>
+> The triage handler (`/home/kris/garden/scripts/jobs/handlers/triager-claude.sh`) FAILED 5 consecutive times on the SAME change
+> and hit the threshold (`GARDEN_TRIAGE_FAIL_THRESHOLD=5`).
+>
+> - Repo slug: `kriscendobot-proposal-compartments`  (watched ref `main`)
+> - Failing range: `7e60fdbce66ef2d97370007afeb807192c653333` → `d23d7ded5531d901e258e1d2df15129ea04c10b9`
+>
+> Because the transition is deterministic (same old→new SHAs, same diff), retrying
+> cannot help — it only crash-loops the `garden-triager@kriscendobot-proposal-compartments` unit and fills the
+> journal. The breaker is now OPEN: this sha will NOT be re-triaged until a NEW
+> change appears on `kriscendobot-proposal-compartments:main`, which clears the breaker automatically.
+>
+> Investigate the handler failure (reproduce by hand:
+> `/home/kris/garden/scripts/jobs/handlers/triager-claude.sh kriscendobot-proposal-compartments 7e60fdbce66ef2d97370007afeb807192c653333 d23d7ded5531d901e258e1d2df15129ea04c10b9 <bare>`), or, if this repo should not be watched
+> at all, remove it from the watch set. Note: under CLAUDE.md § Monitoring safety
+> constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
+> worth confirming `kriscendobot-proposal-compartments` belongs in the set.
+
+- `20260723T193216Z-9dc39a` — from gardener:endo-master-fb9cef4-ci-build-gauntlet, reply_to `endo-master-fb9cef4-ci-build-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T193216Z-9dc39a.md)
+
+> Gauntlet blocked before panel: the first juror invocation failed because the Claude CLI reports its weekly limit is exhausted (resets Jul 25 03:00 UTC). [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) remains an open draft. GitHub CI is green on head 799128b915f6633ac04ad141874a7b02c712d8fe. Local verification could not run under this worktree: the warm dependency cache was incomplete and after yarn install Yarn cannot execute node_modules binaries (permission denied), while CI independently passed.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1287,18 +1314,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.9M | $665.08 _(notional, rate-card)_ | no quota set |
-| Codex | 23.4M _(+599.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Codex | 23.5M _(+600.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
-- [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-byte-array-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260723-040502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-sturdyref-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260722-220501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+### todo (0)
+(none)
 
-### doin (26)
+### doin (30)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-040502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-100531.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -1312,6 +1338,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-npm-cas-registry-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260723-040502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260723-100531.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260723-162019.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260722-220501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260723-040502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260723-100531.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260723-162019.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -1321,16 +1348,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-162019.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3357)
+### tada (3359)
+- [`kimi-k3-canary-20260723-b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723-b.md) — Created .kimi-k3-canary with marker kimi-k3 canary, read it back successfully...
+- [`kimi-k3-canary-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723.md) — Created, read back (kimi-k3-canary-ok), and removed .kimi-k3-canary. No repos...
 - [`xs2rust-endor-stage9c-worker-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-worker-surface.md) — Completion report — stage-9c child 8/9: the endor-vm worker surface
 - [`xs2rust-endor-stage9c-small-globals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-small-globals.md) — Completion report
 - [`xs2rust-endor-stage9c-rest-spread`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-rest-spread.md) — Completion report — xs2rust-endor-stage9c-rest-spread
-- [`xs2rust-endor-stage9c-reflect-trampolines`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-reflect-trampolines.md) — Completion report
-- [`xs2rust-endor-stage9c-proxy-mop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-stage9c-proxy-mop.md) — Completion report
-- … and 3352 more
+- … and 3354 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
