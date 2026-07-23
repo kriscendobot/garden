@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:22:25Z_
+_As of 2026-07-23T19:25:13Z_
 
 ## Latest
 
@@ -1428,4 +1428,4 @@ kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-nati
 
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 0 gardeners
-- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 0 gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 20 gardeners
