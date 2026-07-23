@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:15:47Z_
+_As of 2026-07-23T21:16:17Z_
 
 ## Latest
 
@@ -732,7 +732,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.5M | $1067.65 _(notional, rate-card)_ | no quota set |
+| Claude | 95.5M | $1067.33 _(notional, rate-card)_ | no quota set |
 | Codex | 659.2M _(+597.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
@@ -752,13 +752,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
 - [`endojs-endo-but-for-bots-pr831-14cde530`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr831-14cde530.md) — attention directive on endojs/endo-but-for-bots PR #831
 
-### tada (3370)
+### tada (3371)
+- [`mystic-harness-recovery-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-recovery-20260723.md) — orchestration mystic-harness-recovery-20260723 — complete
 - [`mystic-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-validate-20260723.md) — Validation passed; no changes made.
 - [`kimi-k3-harness-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-rollout-20260723.md) — orchestration kimi-k3-harness-rollout-20260723 — complete
 - [`kimi-k3-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-validate-20260723.md) — orchestration-failed: true
 - [`mystic-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-implement-20260723.md) — Implemented and pushed 8a65020da0 to main2.
-- [`kimi-k3-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-implement-20260723.md) — Implemented and pushed a1dd8984510f83c38f438f9aac5c5429ac5d3bbd to main2.
-- … and 3365 more
+- … and 3366 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
