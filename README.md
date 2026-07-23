@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T22:14:31Z_
+_As of 2026-07-23T22:23:22Z_
 
 ## Latest
 
@@ -292,6 +292,26 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > comment the outcome (link the PR) on [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59).
 >
 > <!-- garden-deadline-overrun: 1 -->
+
+- `poison-drive-mystic-rollout-20260723-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-drive-mystic-rollout-20260723-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/drive-mystic-rollout-20260723; it stays HELD until a human promotes it
+> (promote-plan.sh drive-mystic-rollout-20260723) or removes it, so nothing is lost.
+> Original job base: drive-mystic-rollout-20260723
+>
+> --- original job body ---
+> model: gpt-5.6-terra
+> role: orchestrator
+> handler-timeout: 10800
+> Drive the Mystic (Moonshot Kimi K3 via official Kimi Code CLI) rollout to verified completion.
+>
+> Own and recover the existing serial orchestration kimi-k3-harness-rollout-20260723 and its children kimi-k3-harness-implement-20260723 and kimi-k3-harness-validate-20260723. The implementation child is stranded in doin after a Claude quota failure; all Claude monk workers are intentionally disabled and must remain unable to claim jobs. Use the normal board/reaper/requeue mechanisms or create a clearly linked replacement child if recovery cannot safely reassign it. Ensure implementation work is performed by a non-Anthropic backend, preferably the Codex cleric path.
+>
+> Completion means all of the following: (1) land a dedicated worker kind named mystic, provider moonshot, model kimi-k3, using the official Kimi Code CLI rather than Codex Responses; (2) preserve explicit-model-only routing, isolated per-job worktree and KIMI_CODE_HOME, secret hygiene, bounded process cleanup, output/report capture, completion sentinel, resume/requeue behavior, and reputation metadata; (3) add and pass focused offline and worker-spine regression tests; (4) independently validate the landed implementation; (5) coordinate with the leader liaison for deliberate deployment of main2 rather than editing the deployed root; (6) ensure MOONSHOT_API_KEY reaches user systemd without printing it and install the supported Kimi Code CLI; (7) enable exactly one Mystic only for a reversible tool-using canary, prove correct worker/provider/model reputation scope plus interruption/resume behavior, then return Mystic capacity to zero unless the maintainer explicitly authorizes otherwise; and (8) leave monk capacity at zero.
+>
+> Do not make Kimi a default, do not enable high-stakes design/build routing, do not delete failed diagnostic evidence, and do not bypass the journal claim/completion contracts. Monitor every stage instead of merely posting follow-ups. Send concise progress only for a real blocker and send the final evidence-backed result to the maintainer inbox.
 
 - `poison-endo-master-fb9cef4-ci-build-gauntlet-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endo-master-fb9cef4-ci-build-gauntlet-requeue-exhausted.md)
 
@@ -816,7 +836,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.0M | $1056.66 _(notional, rate-card)_ | no quota set |
+| Claude | 93.9M | $1055.81 _(notional, rate-card)_ | no quota set |
 | Codex | 659.3M _(+600.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
@@ -832,8 +852,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
+### doin (0)
+(none)
 
 ### tada (3374)
 - [`deadmail-20260723T214336Z-9e4611`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260723T214336Z-9e4611.md) — Validated bf1f9e4032:
@@ -851,6 +871,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
+- [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
