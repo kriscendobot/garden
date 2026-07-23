@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T13:46:13Z_
+_As of 2026-07-23T13:47:07Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 21h)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 19h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 5d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 5d)
@@ -1266,11 +1266,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr357-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr357-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #357
+### doin (0)
+(none)
 
 ### tada (3345)
-- [`endojs-endo-but-for-bots-pr357-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-shepherd.md) — CI is green: all 26 checks passed on 45e38da.
+- [`endojs-endo-but-for-bots-pr357-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-shepherd.md) — PR #357 is green at head 45e38da5de5d628696dbf646508af35f673c57fb; all 27 rep...
 - [`deadmail-issue-comment-5058457633`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058457633.md) — Re-reviewed the requested repository snapshot and replied on issue #38 with f...
 - [`deadmail-issue-comment-5058037388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058037388.md) — Reviewed the linked revision and replied on issue #38: it is documentation-on...
 - [`finbot-progress-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-100531.md) — Completed finbot progress assessment. PR #4 remains a clean draft with passin...
