@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T00:13:38Z_
+_As of 2026-07-23T00:20:29Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3330](https://github.com/endojs/endo/pull/3330) — chore: add custom changelog formatter (waiting 2m)
+- [endojs/endo#3330](https://github.com/endojs/endo/pull/3330) — chore: add custom changelog formatter (waiting 6m)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 5h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 8h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
@@ -554,6 +554,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T233544Z-d928fb` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T233544Z-d928fb.md)
 
 > B5 now also cleans retired scopes from all three MCP OAuth clients before removing resource-server scopes (commit fa8667f on [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20)). Local checks are green: npm test 135 passed / 3 intended integration skips, npm run typecheck, npm run build, and bash -n for the cleanup script. Production remains pre-B5: the live PRM currently lists mcp/minions:read and mcp/minions:write. PR 20 is stacked on open PRs 18 and 19, so a merge/deploy of that chain is required before I can run the mandated fresh tools/list and E1-E4 edge sweep. I have not altered production or Cognito prematurely.
+
+- `20260723T002010Z-53a285` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T002010Z-53a285.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: da73637c4b59b2a86aff5da7200339ae6b3544c7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p da73637c4b59b2a86aff5da7200339ae6b3544c7). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
