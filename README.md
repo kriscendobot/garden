@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T04:44:05Z_
+_As of 2026-07-23T04:53:35Z_
 
 ## Latest
 
@@ -601,6 +601,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ba09a85f51509fa04ce28fe0271c77901451d4a1 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ba09a85f51509fa04ce28fe0271c77901451d4a1). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
+- `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/build-readableblob-range-attenuation; it stays HELD until a human promotes it
+> (promote-plan.sh build-readableblob-range-attenuation) or removes it, so nothing is lost.
+> Original job base: build-readableblob-range-attenuation
+>
+> --- original job body ---
+
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1170,8 +1180,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.7M | $1162.24 _(notional, rate-card)_ | no quota set |
-| Codex | 732.2M _(+581.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 106.5M | $1160.35 _(notional, rate-card)_ | no quota set |
+| Codex | 732.1M _(+579.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (17)
@@ -1193,8 +1203,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 4 -->
+### doin (0)
+(none)
 
 ### tada (3338)
 - [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
@@ -1208,6 +1218,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### awaiting go-ahead (maintainer authorization)
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
+- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · ---
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
