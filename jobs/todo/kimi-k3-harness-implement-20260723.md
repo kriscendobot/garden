@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: kimi-k3-harness-rollout-20260723
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-07-23T20:09:47Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-23T20:10:04Z -->
 
 Implement the approved Kimi K3 harness in the garden repository using the official Kimi Code CLI, based on completed research job research-kimi-k3-harness-20260723.
 
