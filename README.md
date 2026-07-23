@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T16:22:34Z_
+_As of 2026-07-23T16:25:33Z_
 
 ## Latest
 
@@ -1257,8 +1257,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.2M | $1117.13 _(notional, rate-card)_ | no quota set |
-| Codex | 668.9M _(+583.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 101.0M | $1116.27 _(notional, rate-card)_ | no quota set |
+| Codex | 668.5M _(+583.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
@@ -1292,7 +1292,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-5060803974`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5060803974.md) — Dead-lettered message — pick up its intent
 - [`finbot-progress-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-162019.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (3349)
