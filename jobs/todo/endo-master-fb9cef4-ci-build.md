@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-master-fb9cef4-ci-repair
-priority: high
 role: builder
-posted_by: liaison
-posted_at: 2026-07-23T18:49:04Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-07-23T18:50:13Z -->
 
 handler-timeout: 10800
 # Build a current-master CI baseline repair PR
