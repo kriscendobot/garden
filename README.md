@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T04:06:07Z_
+_As of 2026-07-23T04:09:44Z_
 
 ## Latest
 
@@ -14,10 +14,10 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 11h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 12h)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 9h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 5d)
@@ -590,6 +590,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T035332Z-8b2312` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T035332Z-8b2312.md)
 
 > gardener job 'build-readableblob-range-attenuation' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2405s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260723T040908Z-085798` — from gardener:finbot-progress-20260723-040502, reply_to `finbot-progress-20260723-040502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T040908Z-085798.md)
+
+> Advanced the blocked gate for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): CI is green and no competing finbot work is in flight, but the mandatory code panel remains blocked by Claude weekly quota until 2026-07-25T03:00Z.
+>
+> I scheduled a one-time panel retry for 2026-07-25T03:05Z. If it passes, that job will dispatch the required claude-fable-5 orchestrator sign-off; no merge will occur before both gates. No maintainer decision is needed now.
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -1183,17 +1189,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (1)
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 0 -->
-- [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-040502.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (3337)
+### tada (3338)
+- [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
 - [`fix-endo-but-for-bots-621`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-621.md) — Completed PR #621 follow-up. Resolved all three addressed review threads; rev...
 - [`esheets-supervisor-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260723-030512.md) — Assessed the dependency tree and board. Posted fix-endo-but-for-bots-621 for ...
 - [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
 - [`endojs-endo-but-for-bots-pr357-623fe9bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-623fe9bc.md) — Rebased PR #357 onto current llm, regenerated the Markdown format commit, and...
-- [`minion-town-mcp-daemon-guest-tools-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-daemon-guest-tools-orchestration.md) — orchestration minion-town-mcp-daemon-guest-tools-orchestration — HALTED
-- … and 3332 more
+- … and 3333 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
