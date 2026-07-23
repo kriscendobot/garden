@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/38#issuecomment-5058457633
 Re-review the whole repo as of that commit 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 21
+  worker_kind: cleric
+  claimed_at: 2026-07-23T12:40:15Z
