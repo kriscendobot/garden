@@ -20,3 +20,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - `Evaluators`, Evaluators constructor, per-compartment evaluators, separate globalThis, shared global object, realm intrinsics sharing, identity discontinuity, principle of least authority, supply-chain isolation → module-harmony-intersection-surface
 - Compartments layers, compartment layer 0 1 2 3 4, five-layer compartment structure, module source record, Module Imports Namespace, Module Exports Namespace → module-harmony-intersection-surface
 - import attributes, asset references, asset modules, ShadowRealm, module-harmony neighbors → module-harmony-intersection-surface
+- TerraLingua, artifact-mediated cultural evolution, external cultural memory, AI Anthropologist, artifact phylogeny → artifact-mediated-cultural-evolution
