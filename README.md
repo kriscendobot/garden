@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T20:50:38Z_
+_As of 2026-07-23T20:52:13Z_
 
 ## Latest
 
@@ -1333,16 +1333,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.1M | $1072.12 _(notional, rate-card)_ | no quota set |
-| Codex | 658.3M _(+573.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Claude | 96.0M | $1071.16 _(notional, rate-card)_ | no quota set |
+| Codex | 658.4M _(+574.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (36)
+### doin (35)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
-- [`cjs-module-lexer-upstream-20260723-205004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/cjs-module-lexer-upstream-20260723-205004.md) — ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
 - [`deadmail-issue-comment-5063268488`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5063268488.md) — Dead-lettered message — pick up its intent
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -1378,13 +1377,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3361)
+### tada (3362)
+- [`cjs-module-lexer-upstream-20260723-205004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cjs-module-lexer-upstream-20260723-205004.md) — Reported no upstream changes since 2.2.0 on https://github.com/kriskowal/gard...
 - [`endojs-endo-but-for-bots-pr848-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr848-shepherd.md) — Fixed PR #848’s Prettier failure with fixup commit 6b3b71cbdf and pushed it t...
 - [`research-kimi-k3-harness-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-kimi-k3-harness-20260723.md) — Research complete. Recommended harness: official Kimi Code CLI, with its Agen...
 - [`kimi-k3-canary-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723.md) — Created, read back (kimi-k3-canary-ok), and removed .kimi-k3-canary. No repos...
 - [`kimi-k3-canary-20260723-b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723-b.md) — Created .kimi-k3-canary with marker kimi-k3 canary, read it back successfully...
-- [`propose-pi-bump-0.81.1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/propose-pi-bump-0.81.1.md) — Opened https://github.com/endojs/endo-but-for-bots/pull/848 for the Pi 0.81.1...
-- … and 3356 more
+- … and 3357 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
