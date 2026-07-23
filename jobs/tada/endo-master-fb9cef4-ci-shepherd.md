@@ -1,0 +1,5 @@
+PR #847 is green at `799128b915f6633ac04ad141874a7b02c712d8fe`, correctly based on frozen `master-fb9cef4` (`fb9cef49eee34d8cf65fb8c6f46cc9b333663f41`). Its complete 14-check rollup passed: CI’s 12 jobs, zizmor, and mutual-dependency build. The CI run is https://github.com/endojs/endo-but-for-bots/actions/runs/30035861413.
+
+Verified the head is an intentional empty baseline commit: no changed files, lockfile, changeset, or unrelated repair scope. No new commit was needed. Local lint was not verified because the warm dependency cache lacked the root `prettier` executable; GitHub CI is the verification evidence.
+
+PR #719 cannot stack on #847: its base is `merge-adae30a` (`adae30a97445dfafe639c1e6e15132022d076b5a`), mutually divergent from #847’s frozen-base head. Landing #847 would not alter #719 because #847 has no source diff. #719 needs its own repair on the `merge-adae30a` lineage: its failed test matrix deterministically reports `packages/cbor/test/cbor.test.js` unable to resolve `@endo/eventual-send`; its old zizmor failure was stale action-version-tag auditing. Do not retry as transient.
