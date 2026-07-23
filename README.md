@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T15:50:34Z_
+_As of 2026-07-23T15:52:38Z_
 
 ## Latest
 
@@ -1250,7 +1250,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.3M | $1118.60 _(notional, rate-card)_ | no quota set |
-| Codex | 677.4M _(+583.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 677.4M _(+583.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (23)
@@ -1278,16 +1278,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`minion-town-agenda-review-20260723-155006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260723-155006.md) — Minion Town daily agenda review
+### doin (0)
+(none)
 
-### tada (3347)
+### tada (3348)
+- [`minion-town-agenda-review-20260723-155006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260723-155006.md) — Posted daily reconciliation to issue #58 (comment 5060502314). Confirmed B3 r...
 - [`issue-kriskowal-garden-62`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-62.md) — Posted the substantive comparison and five actionable lessons on issue #62. C...
 - [`endojs-endo-but-for-bots-pr357-03c93331`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-03c93331.md) — Checked PR #357 and replied on the PR: it is not conduct-able yet because Git...
 - [`endojs-endo-but-for-bots-pr357-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-shepherd.md) — PR #357 is green at head 45e38da5de5d628696dbf646508af35f673c57fb; all 27 rep...
 - [`deadmail-issue-comment-5058457633`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058457633.md) — Re-reviewed the requested repository snapshot and replied on issue #38 with f...
-- [`deadmail-issue-comment-5058037388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058037388.md) — Reviewed the linked revision and replied on issue #38: it is documentation-on...
-- … and 3342 more
+- … and 3343 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
