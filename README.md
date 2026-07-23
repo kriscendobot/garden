@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T04:34:12Z_
+_As of 2026-07-23T04:44:05Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 12h)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 9h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 10h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 3d)
@@ -1170,7 +1170,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.0M | $1164.05 _(notional, rate-card)_ | no quota set |
+| Claude | 106.7M | $1162.24 _(notional, rate-card)_ | no quota set |
 | Codex | 732.2M _(+581.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
@@ -1194,7 +1194,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (1)
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 3 -->
+- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 4 -->
 
 ### tada (3338)
 - [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
