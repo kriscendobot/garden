@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/62#issuecomment-5060803974
 Help me better understand TerraLingua. I want to see the compare / contrast info. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-23T16:25:10Z
