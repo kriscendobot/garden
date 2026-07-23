@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-23T10:05:31Z
-job_basename_prefix: endo-byte-array-press
----
 ---
 model: fable
 ---
