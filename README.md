@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:13:45Z_
+_As of 2026-07-23T19:14:39Z_
 
 ## Latest
 
@@ -682,6 +682,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Finbot progress: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) remains mergeable with its CI test SUCCESS and no competing finbot work. The sole deepest next increment is the mandatory panel, still blocked by the documented Claude weekly quota. Its one-time retry is already scheduled for 2026-07-25 03:05 UTC; a passing panel will dispatch the pinned Fable sign-off job. No maintainer decision is needed this cycle; no merge was performed.
 
+- `20260723T191359Z-b58239` — from gardener:endo-master-fb9cef4-ci-build-gauntlet, reply_to `endo-master-fb9cef4-ci-build-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T191359Z-b58239.md)
+
+> [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) is still draft, clean, and green on all checks. The required panel cannot start because the shared Claude CLI reports its weekly quota is exhausted until Jul 25 03:00 UTC. No changes or un-draft were made; please retry after quota reset or provide an approved alternative panel path.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1261,8 +1265,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.1M | $1080.72 _(notional, rate-card)_ | no quota set |
-| Codex | 663.0M _(+574.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 97.1M | $1080.41 _(notional, rate-card)_ | no quota set |
+| Codex | 663.0M _(+575.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
@@ -1296,17 +1300,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (1)
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
-- [`propose-pi-bump-0.81.1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/propose-pi-bump-0.81.1.md) — ---
 
-### tada (3356)
+### tada (3357)
+- [`propose-pi-bump-0.81.1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/propose-pi-bump-0.81.1.md) — Opened https://github.com/endojs/endo-but-for-bots/pull/848 for the Pi 0.81.1...
 - [`endo-master-fb9cef4-ci-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-repair.md) — orchestration endo-master-fb9cef4-ci-repair — complete
 - [`endo-master-fb9cef4-ci-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-shepherd.md) — PR #847 is green at 799128b915f6633ac04ad141874a7b02c712d8fe, correctly based...
 - [`pi-release-watch-20260723-190501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pi-release-watch-20260723-190501.md) — Pi watch complete: Genie, LAL, and Agentry pin both Pi packages at ^0.80.3; F...
 - [`endo-master-fb9cef4-ci-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-build.md) — Completed: opened draft baseline PR https://github.com/endojs/endo-but-for-bo...
-- [`proposal-compartments-press-20260723-183503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260723-183503.md) — Prerequisite guard: project charter is absent, so no fork/proposal work was p...
-- … and 3351 more
+- … and 3352 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
