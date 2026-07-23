@@ -10,3 +10,10 @@ Completion means all of the following: (1) land a dedicated worker kind named my
 Do not make Kimi a default, do not enable high-stakes design/build routing, do not delete failed diagnostic evidence, and do not bypass the journal claim/completion contracts. Monitor every stage instead of merely posting follow-ups. Send concise progress only for a real blocker and send the final evidence-backed result to the maintainer inbox.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 21
+  worker_kind: cleric
+  claimed_at: 2026-07-23T21:13:18Z
