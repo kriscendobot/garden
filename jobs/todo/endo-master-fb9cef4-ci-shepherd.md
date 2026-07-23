@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-master-fb9cef4-ci-repair
-priority: high
 role: shepherd
-posted_by: liaison
-posted_at: 2026-07-23T18:49:21Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-07-23T19:04:03Z -->
 
 handler-timeout: 10800
 # Shepherd the current-master CI repair PR to green
