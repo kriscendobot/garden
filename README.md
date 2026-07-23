@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T20:58:54Z_
+_As of 2026-07-23T21:01:05Z_
 
 ## Latest
 
@@ -81,38 +81,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T223418Z-6d697e` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223418Z-6d697e.md)
 
 > Build is blocked: design PR [https://github.com/endojs/endo-but-for-bots/pull/826](https://github.com/endojs/endo-but-for-bots/pull/826) remains OPEN and unmerged into llm (confirmed 2026-07-22T22:34:11Z). Per the job prerequisite, I have not started an implementation branch or PR. Please merge it or direct an exception; the job can then resume on llm.
-
-- `20260722T230334Z-bbae5d` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230334Z-bbae5d.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-OXELqU/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
-> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
-> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
-> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
-> class.
->
-> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
-> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
-> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
-> record the override in `/tmp/idg-OXELqU/state/identity-override` (or export
-> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
 - `20260722T233544Z-d928fb` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T233544Z-d928fb.md)
 
@@ -759,8 +727,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.8M | $1069.91 _(notional, rate-card)_ | no quota set |
-| Codex | 658.8M _(+579.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 95.8M | $1069.59 _(notional, rate-card)_ | no quota set |
+| Codex | 658.9M _(+581.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
