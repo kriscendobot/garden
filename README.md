@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:03:55Z_
+_As of 2026-07-23T21:04:48Z_
 
 ## Latest
 
@@ -31,28 +31,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
 
 > Orchestration daemon-store-family-build HALTED: child daemon-store-phase4-sorted failed (serial, on-child-failure=halt). 3/6 done before halt; swept: daemon-store-phase5-parity daemon-store-phase6-cli-wui
-
-- `20260722T092145Z-67ae12` — from gardener:endojs-endo-but-for-bots-pr804-review-8df7f3e2, reply_to `endojs-endo-but-for-bots-pr804-review-8df7f3e2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T092145Z-67ae12.md)
-
-> Re: [endojs/endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/issues/804) review (kriskowal, CHANGES_REQUESTED). Single inline comment on designs/cbors.md:1 —
-> "Should rename the file cbor-frame to reflect what landed. Same for syrup-frame."
->
-> Need a quick intent confirm before I churn multiple design docs, because the landed facts cut against the docs' current story:
-> - @endo/syrup-frame DID land (packages/syrup-frame, tagged @endo/syrup-frame@0.1.1). The proposed rename to @endo/syrups was NEVER applied.
-> - No CBOR framing pkg landed (@endo/cbors / @endo/cbor-frame still "Not Started").
-> - But cbors.md AND syrups.md both claim syrup-frame "is queued to be renamed to @endo/syrups" / "rename has been applied" — false vs what shipped.
->
-> My read of your comment: rename the design-doc FILES to the -frame names that actually landed:
->   designs/cbors.md  -> designs/cbor-frame.md   (pkg @endo/cbors  -> @endo/cbor-frame)
->   designs/syrups.md -> designs/syrup-frame.md  (pkg @endo/syrups -> @endo/syrup-frame)
-> ...and update titles, self-references, all inbound links (README.md, gateway-package.md, cbor-codec.md), and the now-false "will be renamed to @endo/syrups" prose. This REVERSES the Naming section in cbors.md that currently rejects @endo/cbor-frame in favor of @endo/cbors — I'd rewrite it to prefer the -frame convention.
->
-> Confirm:
-> 1) Rename both docs to *-frame.md and flip pkg names to @endo/cbor-frame / @endo/syrup-frame throughout? (Y/N)
-> 2) If Y, also fully rewrite cbors.md's Naming rationale to endorse the -frame suffix (vs. leaving a light note for you)?
-> 3) Or did you mean something narrower (e.g. only fix the false "renamed to @endo/syrups" prose, no file renames)?
->
-> Holding the job until you answer to avoid wrong multi-file churn.
 
 - `20260722T165020Z-306e8e` — from gardener:minion-town-mcp-b3-daemon-standup, reply_to `minion-town-mcp-b3-daemon-standup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T165020Z-306e8e.md)
 
@@ -751,7 +729,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 95.8M | $1069.59 _(notional, rate-card)_ | no quota set |
-| Codex | 658.9M _(+586.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 659.0M _(+588.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
@@ -766,19 +744,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (4)
+### doin (3)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
 - [`kimi-k3-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-harness-implement-20260723.md) — ---
 - [`mystic-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mystic-harness-implement-20260723.md) — ---
-- [`scholar-ingest-source-terralingua`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-terralingua.md) — Role: scholar
 
-### tada (3364)
+### tada (3365)
+- [`scholar-ingest-source-terralingua`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-terralingua.md) — Ingested TerraLingua as derived material, not the original paper.
 - [`deadmail-issue-comment-5063314226`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5063314226.md) — Posted scholar job scholar-ingest-source-terralingua and replied on issue #62...
 - [`deadmail-issue-comment-5063268488`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5063268488.md) — Posted the experiment proposal on https://github.com/kriskowal/garden/issues/...
 - [`cjs-module-lexer-upstream-20260723-205004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cjs-module-lexer-upstream-20260723-205004.md) — Reported no upstream changes since 2.2.0 on https://github.com/kriskowal/gard...
 - [`endojs-endo-but-for-bots-pr848-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr848-shepherd.md) — Fixed PR #848’s Prettier failure with fixup commit 6b3b71cbdf and pushed it t...
-- [`research-kimi-k3-harness-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-kimi-k3-harness-20260723.md) — Research complete. Recommended harness: official Kimi Code CLI, with its Agen...
-- … and 3359 more
+- … and 3360 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
