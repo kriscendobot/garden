@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T20:30:33Z_
+_As of 2026-07-23T20:50:38Z_
 
 ## Latest
 
@@ -1333,15 +1333,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.5M | $1075.04 _(notional, rate-card)_ | no quota set |
-| Codex | 658.5M _(+579.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Claude | 96.1M | $1072.12 _(notional, rate-card)_ | no quota set |
+| Codex | 658.3M _(+573.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (33)
+### doin (36)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
+- [`cjs-module-lexer-upstream-20260723-205004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/cjs-module-lexer-upstream-20260723-205004.md) — ----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+- [`deadmail-issue-comment-5063268488`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5063268488.md) — Dead-lettered message — pick up its intent
+- [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-040502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
