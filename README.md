@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:01:05Z_
+_As of 2026-07-23T21:03:55Z_
 
 ## Latest
 
@@ -226,6 +226,29 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > comment the outcome (link the PR) on [https://github.com/kriskowal/garden/issues/59](https://github.com/kriskowal/garden/issues/59).
 >
 > <!-- garden-deadline-overrun: 1 -->
+
+- `poison-endo-master-fb9cef4-ci-build-gauntlet-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endo-master-fb9cef4-ci-build-gauntlet-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endo-master-fb9cef4-ci-build-gauntlet; it stays HELD until a human promotes it
+> (promote-plan.sh endo-master-fb9cef4-ci-build-gauntlet) or removes it, so nothing is lost.
+> Original job base: endo-master-fb9cef4-ci-build-gauntlet
+>
+> --- original job body ---
+> ---
+> role: gardener
+> auto_gauntlet: true
+> build_job: endo-master-fb9cef4-ci-build
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847)
+> ---
+>
+> Automatic gauntlet handoff for completed feature build endo-master-fb9cef4-ci-build.
+>
+> The build opened [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) and it remains an OPEN draft PR. Run the full gardening
+> state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
+> the panel terminates cleanly. This handoff was posted by the build completion edge,
+> not inferred by a watcher.
 
 - `poison-endojs-endo-but-for-bots-pr806-conduct-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr806-conduct-requeue-exhausted.md)
 
@@ -728,7 +751,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 95.8M | $1069.59 _(notional, rate-card)_ | no quota set |
-| Codex | 658.9M _(+581.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 658.9M _(+586.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
@@ -743,9 +766,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (5)
+### doin (4)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
-- [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`kimi-k3-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-harness-implement-20260723.md) — ---
 - [`mystic-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/mystic-harness-implement-20260723.md) — ---
 - [`scholar-ingest-source-terralingua`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-terralingua.md) — Role: scholar
@@ -770,6 +792,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
 - [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
+- [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-master-fb9cef4-ci-build-gauntlet.md) — _normal_ · ---
 - [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260717-182002.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
