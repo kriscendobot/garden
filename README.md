@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:12:06Z_
+_As of 2026-07-23T21:12:37Z_
 
 ## Latest
 
@@ -733,7 +733,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 95.7M | $1068.63 _(notional, rate-card)_ | no quota set |
-| Codex | 659.2M _(+597.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Codex | 659.2M _(+597.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
@@ -748,17 +748,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (1)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
-- [`kimi-k3-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-harness-validate-20260723.md) — ---
 
-### tada (3367)
+### tada (3368)
+- [`kimi-k3-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-validate-20260723.md) — orchestration-failed: true
 - [`mystic-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-implement-20260723.md) — Implemented and pushed 8a65020da0 to main2.
 - [`kimi-k3-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-implement-20260723.md) — Implemented and pushed a1dd8984510f83c38f438f9aac5c5429ac5d3bbd to main2.
 - [`scholar-ingest-source-terralingua`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-terralingua.md) — Ingested TerraLingua as derived material, not the original paper.
 - [`deadmail-issue-comment-5063314226`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5063314226.md) — Posted scholar job scholar-ingest-source-terralingua and replied on issue #62...
-- [`deadmail-issue-comment-5063268488`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5063268488.md) — Posted the experiment proposal on https://github.com/kriskowal/garden/issues/...
-- … and 3362 more
+- … and 3363 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
