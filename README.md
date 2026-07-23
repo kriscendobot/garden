@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:19:40Z_
+_As of 2026-07-23T19:20:38Z_
 
 ## Latest
 
@@ -686,6 +686,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) is still draft, clean, and green on all checks. The required panel cannot start because the shared Claude CLI reports its weekly quota is exhausted until Jul 25 03:00 UTC. No changes or un-draft were made; please retry after quota reset or provide an approved alternative panel path.
 
+- `20260723T192022Z-0f559e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T192022Z-0f559e.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f8576a9852d62d3b75ea926aee790dec9efe2bf0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f8576a9852d62d3b75ea926aee790dec9efe2bf0). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1266,7 +1270,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.9M | $665.08 _(notional, rate-card)_ | no quota set |
-| Codex | 23.4M _(+598.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Codex | 23.4M _(+599.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
