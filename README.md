@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:04:16Z_
+_As of 2026-07-23T19:04:37Z_
 
 ## Latest
 
@@ -1262,10 +1262,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 97.4M | $1083.34 _(notional, rate-card)_ | no quota set |
-| Codex | 663.1M _(+573.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 663.1M _(+573.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
-### todo (30)
+### todo (29)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -1277,7 +1277,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-git-integration-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-040502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-100531.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-162019.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-master-fb9cef4-ci-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-master-fb9cef4-ci-shepherd.md) — Shepherd the current-master CI repair PR to green
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260722-220501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260723-040502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -1297,8 +1296,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
+### doin (2)
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
+- [`endo-master-fb9cef4-ci-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-shepherd.md) — Shepherd the current-master CI repair PR to green
 
 ### tada (3353)
 - [`endo-master-fb9cef4-ci-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-build.md) — Completed: opened draft baseline PR https://github.com/endojs/endo-but-for-bo...
