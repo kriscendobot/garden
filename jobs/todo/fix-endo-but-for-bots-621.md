@@ -1,0 +1,1 @@
+Fix https://github.com/endojs/endo-but-for-bots/pull/621: address the recorded CHANGES_REQUESTED review on the endoclaw-oauth foundation design, run the applicable documentation checks, push the authorized fix, and complete the PR follow-up.
