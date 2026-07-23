@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T16:27:10Z_
+_As of 2026-07-23T16:28:37Z_
 
 ## Latest
 
@@ -678,6 +678,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260723T162751Z-f33de9` — from gardener:finbot-progress-20260723-162019, reply_to `finbot-progress-20260723-162019` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T162751Z-f33de9.md)
+
+> Finbot progress: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) remains mergeable with its CI test SUCCESS and no competing finbot work. The sole deepest next increment is the mandatory panel, still blocked by the documented Claude weekly quota. Its one-time retry is already scheduled for 2026-07-25 03:05 UTC; a passing panel will dispatch the pinned Fable sign-off job. No maintainer decision is needed this cycle; no merge was performed.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1257,8 +1261,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.0M | $1115.97 _(notional, rate-card)_ | no quota set |
-| Codex | 668.3M _(+584.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 100.9M | $1115.20 _(notional, rate-card)_ | no quota set |
+| Codex | 668.1M _(+584.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
@@ -1292,16 +1296,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`finbot-progress-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-162019.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (0)
+(none)
 
-### tada (3350)
+### tada (3351)
+- [`finbot-progress-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-162019.md) — Assessed finbot state: PR https://github.com/kriscendobot/finbot/pull/4 is me...
 - [`deadmail-issue-comment-5060803974`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5060803974.md) — Posted a compare/contrast explanation on issue #62. No repository changes. Is...
 - [`kriscendobot-agoric-sdk-pr10-review-14260266`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-14260266.md) — Resolved review 4765874818: no inline comments were present. Posted public-re...
 - [`minion-town-agenda-review-20260723-155006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260723-155006.md) — Posted daily reconciliation to issue #58 (comment 5060502314). Confirmed B3 r...
 - [`issue-kriskowal-garden-62`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-62.md) — Posted the substantive comparison and five actionable lessons on issue #62. C...
-- [`endojs-endo-but-for-bots-pr357-03c93331`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-03c93331.md) — Checked PR #357 and replied on the PR: it is not conduct-able yet because Git...
-- … and 3345 more
+- … and 3346 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
