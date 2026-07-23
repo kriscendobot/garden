@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T13:59:06Z_
+_As of 2026-07-23T14:01:08Z_
 
 ## Latest
 
@@ -1266,16 +1266,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr357-03c93331`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr357-03c93331.md) — attention directive on endojs/endo-but-for-bots PR #357
+### doin (0)
+(none)
 
-### tada (3345)
+### tada (3346)
+- [`endojs-endo-but-for-bots-pr357-03c93331`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-03c93331.md) — Checked PR #357 and replied on the PR: it is not conduct-able yet because Git...
 - [`endojs-endo-but-for-bots-pr357-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-shepherd.md) — PR #357 is green at head 45e38da5de5d628696dbf646508af35f673c57fb; all 27 rep...
 - [`deadmail-issue-comment-5058457633`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058457633.md) — Re-reviewed the requested repository snapshot and replied on issue #38 with f...
 - [`deadmail-issue-comment-5058037388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058037388.md) — Reviewed the linked revision and replied on issue #38: it is documentation-on...
 - [`finbot-progress-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-100531.md) — Completed finbot progress assessment. PR #4 remains a clean draft with passin...
-- [`kriscendobot-agoric-sdk-pr10-review-c28034ac`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-c28034ac.md) — Completed PR #10 review response.
-- … and 3340 more
+- … and 3341 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
