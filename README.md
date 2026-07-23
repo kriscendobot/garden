@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T16:21:18Z_
+_As of 2026-07-23T16:22:34Z_
 
 ## Latest
 
@@ -674,6 +674,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Review 4765874818 on [https://github.com/kriscendobot/agoric-sdk/pull/10](https://github.com/kriscendobot/agoric-sdk/pull/10) is LGTM but asks you for guidance on opening the design to wider public review without implementation. The PR is already a public draft and contains only designs/beans-v2-deflation.md; changing it to ready-for-review would alter its review state but requires your decision. Please say whether to keep the public draft and share its URL, mark it ready for review, or take another approach.
 
+- `20260723T162217Z-3e319b` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T162217Z-3e319b.md)
+
+> (empty message)
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1253,7 +1257,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.2M | $1117.72 _(notional, rate-card)_ | no quota set |
+| Claude | 101.2M | $1117.13 _(notional, rate-card)_ | no quota set |
 | Codex | 668.9M _(+583.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
