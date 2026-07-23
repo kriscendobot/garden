@@ -19,3 +19,10 @@ From master-fb9cef4, create deterministic head branch fix/master-fb9cef4-ci-base
 Fix every reproducible standing CI defect needed to make the current-master snapshot green, with the narrowest semantically correct changes. Do not include any URL-shim or PR #719 feature changes. Run CI-equivalent local checks before pushing, preserve changeset/lockfile/commit discipline, and open a DRAFT PR in endojs/endo-but-for-bots with base master-fb9cef4. This is a diagnostic master repair PR for eventual upstream consideration, not a merge into a fork master. Carry the normal build gauntlet only to the extent compatible with a frozen master reflection; do not conduct or ferry upstream.
 
 Report the PR URL, base/head SHAs, exact baseline failures and repairs, verification evidence, and how PR #719 should be rebased or stacked to consume the fixes without importing unrelated fork history.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  claimed_at: 2026-07-23T18:50:36Z
