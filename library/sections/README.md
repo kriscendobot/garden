@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6632 (530 parent indexes + 6102 children).
+Total section files: 6638 (530 parent indexes + 6108 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8660,6 +8660,15 @@ Total section files: 6632 (530 parent indexes + 6102 children).
 - [papers--moreira-muir-volatility-managed-portfolios-2017--long-horizon-investors-still-care-about-volatility](papers--moreira-muir-volatility-managed-portfolios-2017--long-horizon-investors-still-care-about-volatility.md)
 - [papers--moreira-muir-volatility-managed-portfolios-2017--overview](papers--moreira-muir-volatility-managed-portfolios-2017--overview.md)
 - [papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link](papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link.md)
+
+### papers--paolo-terralingua-open-endedness-2026
+
+- [papers--paolo-terralingua-open-endedness-2026--ablation-balance-and-ecological-stability](papers--paolo-terralingua-open-endedness-2026--ablation-balance-and-ecological-stability.md)
+- [papers--paolo-terralingua-open-endedness-2026--ai-anthropologist-post-hoc-analysis](papers--paolo-terralingua-open-endedness-2026--ai-anthropologist-post-hoc-analysis.md)
+- [papers--paolo-terralingua-open-endedness-2026--artifacts-as-external-cultural-memory](papers--paolo-terralingua-open-endedness-2026--artifacts-as-external-cultural-memory.md)
+- [papers--paolo-terralingua-open-endedness-2026--lineages-institutions-and-governance](papers--paolo-terralingua-open-endedness-2026--lineages-institutions-and-governance.md)
+- [papers--paolo-terralingua-open-endedness-2026--overview](papers--paolo-terralingua-open-endedness-2026--overview.md)
+- [papers--paolo-terralingua-open-endedness-2026--resource-limited-ecology-and-agent-model](papers--paolo-terralingua-open-endedness-2026--resource-limited-ecology-and-agent-model.md)
 
 ### papers--patton-volatility-forecast-comparison-imperfect-proxies-2011
 
