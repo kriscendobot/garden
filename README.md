@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T02:33:54Z_
+_As of 2026-07-23T02:34:51Z_
 
 ## Latest
 
@@ -1156,17 +1156,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (1)
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 2 -->
-- [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr838-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #838
 
-### tada (3334)
+### tada (3335)
+- [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
 - [`endojs-endo-but-for-bots-pr357-623fe9bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-623fe9bc.md) — Rebased PR #357 onto current llm, regenerated the Markdown format commit, and...
 - [`minion-town-mcp-daemon-guest-tools-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-daemon-guest-tools-orchestration.md) — orchestration minion-town-mcp-daemon-guest-tools-orchestration — HALTED
 - [`garden-moonshot-kimi-k3-worker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-moonshot-kimi-k3-worker.md) — Implemented and pushed 8f7b35468d3a28842f1030f75129b232fdd44423 to main2.
 - [`endojs-endo-but-for-bots-pr826-448995f1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-448995f1.md) — Re-fetched the maintainer comment and ran the feedback preflight (proceed).
-- [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b4-full-facet-surface.md) — Implemented and pushed B4 on PR #19: full guest facet tools, evaluator-only g...
-- … and 3329 more
+- … and 3330 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
