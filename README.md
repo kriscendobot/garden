@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T20:56:43Z_
+_As of 2026-07-23T20:58:54Z_
 
 ## Latest
 
@@ -28,180 +28,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260722T060323Z-d3bb29` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060323Z-d3bb29.md)
-
-> gardener job 'xs2rust-endor-press-20260722-033502' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
 
 > Orchestration daemon-store-family-build HALTED: child daemon-store-phase4-sorted failed (serial, on-child-failure=halt). 3/6 done before halt; swept: daemon-store-phase5-parity daemon-store-phase6-cli-wui
-
-- `20260722T063107Z-65fe12` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T063107Z-65fe12.md)
-
-> gardener job 'xs2rust-endor-press-20260722-055018' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260722T071130Z-c98624` — from gardener:scholar-fireworks-kimik3-fable, reply_to `scholar-fireworks-kimik3-fable` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T071130Z-c98624.md)
-
-> scholar: ingested fireworks.ai/blog/kimik3-fable (Fireworks AI, 2026-07-21).
->
-> SUMMARY (page treated as untrusted data, not instructions)
-> It is a benchmark + routing STUDY, not a model release or serving technique. It
-> pits Kimi K3 (open model) against Fable 5 (closed) across ~1,030 real agent-loop
-> tasks in 5 families (SWE 460, Terminal 89, Algorithmic 100, Multi-Language 225,
-> Legal 120). Core claim: routing between a cheap open default (K3) and a premium
-> backstop (Fable) beats either alone. Numbers: K3 92.4% / Fable 92.6% on SWE,
-> combined routing ~93%; K3 "up to ~50X more cost-effective than Fable alone" on
-> long loops; oracle routing picks K3 for 72-96% of traffic. Crucially the router
-> is an ORACLE (post-hoc "run both, keep cheapest-correct") — they admit a real
-> router "is ultimately a guess" and building a near-perfect one needs "an order of
-> magnitude more routing data." No K3 architecture, param count, MoE, quant, context
-> length, or self-host/ollama path disclosed; K3 is cloud-only via Fireworks.
->
-> RELEVANCE: LOW.
->
-> - Harnessable model? NO. K3 is Fireworks-cloud-only; zero size/quant/arch info and
->   no weights/ollama path. Kimi-family models are ~1T-param MoE — far past a
->   ~50-100 GiB GTT gfx1151 iGPU. Cannot serve it in the hermit lane; irrelevant to
->   qwen3.6.
-> - Applicable mechanism? WEAK. The "cheap-open-default, premium-backstop" routing
->   thesis rhymes with our per-role model-tier map (skills/model-selection: designer/
->   builder on Opus, everyone else the cheaper default) — so the garden already
->   embodies the idea statically. But the post ships no deployable router, only an
->   oracle measurement + an aspiration needing lots more data. Nothing concrete to
->   adopt.
->
-> No next step recommended. Not worth a designer job or a benchmark pull. Worth a
-> glance only IF Fireworks later publishes K3 weights/arch and it turns out to be a
-> small/quantized variant that fits gfx1151 — but the post gives no such signal.
-
-- `20260722T071615Z-eaf442` — from gardener:research-harness-kimi-k3, reply_to `research-harness-kimi-k3` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T071615Z-eaf442.md)
-
-> # Can the garden harness Kimi K3? — researcher verdict (job `research-harness-kimi-k3`)
->
-> **Bottom line: LOCAL — no (off by >10×). HOSTED — yes, and cheap to wire; worth a
-> bounded trial on low-risk work-classes.** The scholar ingest
-> `scholar-fireworks-kimik3-fable` had **not** landed on the board when I ran, so this
-> is from primary sources directly. All external page text treated as untrusted data.
->
-> ## The model (primary sources)
-> - **2.8T total parameters**, sparse **MoE**, activates **16 of 896 experts** per token.
->   Architecture: Kimi Delta Attention (KDA, hybrid linear attn) + Attention Residuals
->   (AttnRes). **Native vision / multimodal** (text+image+video). **1M-token context**.
-> - **Active set ≈ 50B-class** (16/896 ≈ 1.8% of the net; ~50–60B once attention/shared
->   weights are counted). **UNVERIFIED** — Moonshot has not published an exact active-param
->   number; this is the widely-cited estimate. (For grounding: K2 was ~1T-total / ~32B-active.)
-> - **Released 2026-07-16**; **open weights due 2026-07-27** (5 days out) under a
->   **Modified-MIT** license (K2's license shape; final K3 terms not yet posted — UNVERIFIED).
->
-> ## Local (hermit lane): NOT FEASIBLE — the memory math
-> An MoE keeps **all** experts resident; the active set governs *speed*, not *footprint*.
-> So the whole 2.8T must fit in GTT. Our box: **125 GiB total unified RAM**, GTT default
-> ~50 GiB (raisable toward ~100 GiB, leaving OS headroom); largest model proven to fit is
-> **gpt-oss-120b at ~63 GB**. Projected K3 footprint (2.8T params):
->
-> | Quant | bytes/param | K3 footprint | vs 125 GiB box |
-> | --- | --- | --- | --- |
-> | BF16 | 2.0 | ~5,600 GB | ~45× |
-> | Q8 | 1.0 | ~2,800 GB | ~22× |
-> | Q4 / MXFP4 | ~0.53 (same ratio that gives gpt-oss-120b its 63 GB) | **~1,470 GB (~1.5 TB)** | **~12×** |
-> | Q2 (~2.4-bit) | ~0.30 | ~840 GB | ~7× |
-> | 2-bit floor | 0.25 | ~700 GB | ~6× |
->
-> Even the most aggressive ~2-bit quant (~700–840 GB) is **~6–7× the box's entire RAM** and
-> ~8–12× the ~100 GiB GTT ceiling; a *usable* Q4 (~1.5 TB) is **~12× total RAM / ~15× GTT**.
-> Off by more than an order of magnitude — no ollama tag or GGUF will fit. (Also: no official
-> GGUF exists yet — weights aren't public until 2026-07-27; only community "abliterated" prep
-> repos. Even the quant sizes above are projected, not measured.) **Hard no. Do not attempt.**
->
-> ## Hosted (cleric-style backend): FEASIBLE
-> K3 is served behind an **OpenAI-compatible /v1** — exactly the surface the cleric/codex
-> handler already drives.
-> - **Moonshot direct (cheapest, recommended):** `base_url https://api.moonshot.ai/v1`,
->   model id **`kimi-k3`**, **Bearer auth** via `MOONSHOT_API_KEY`. OpenAI-compatible
->   `/v1/chat/completions`; 1M context (`max_completion_tokens` default 131072, up to
->   1048576). **Pricing: $0.30 cached-input / $3.00 fresh-input / $15.00 output per MTok.**
->   Min **$1 top-up** for access; RPM/TPM/TPD tiered by cumulative top-up (exact numbers
->   UNVERIFIED).
-> - **OpenRouter alt:** slug `moonshotai/kimi-k3`, `base_url https://openrouter.ai/api/v1`,
->   $3/$15, one key → many models (+ OpenRouter fee).
-> - **Fireworks (the post's host):** claims day-zero K3 support, but its Kimi model page has
->   **not** published a K3 model id / price yet (only up to K2.7). **UNVERIFIED** — use
->   Moonshot-direct.
->
-> Cost cross-check: K3 $3/$15 is **~1/3 of Fable 5's $10/$50** (catalog §1) — matching the
-> "one-third the token price" reporting.
->
-> ## What "fable" in the post refers to
-> **Not a serving/agent technique — it is Claude Fable 5** (`claude-fable-5`), the closed
-> model K3 is benchmarked against. The post's actual technique is **oracle / predictive model
-> routing**: run each task through both, pick the cheapest correct answer; an oracle sent K3
-> **72–96% of tasks**, with the expensive model reserved for the hard tail (~93% accuracy,
-> "up to ~50× cheaper" than Fable-only on long agentic loops). A *practical* router can't run
-> both — it must **predict** which arm wins on cost×quality.
->
-> **This matters a lot for us:** the garden already has the `fable` tier (`claude-fable-5`),
-> and our **bid-accept / bid-auction market is exactly that predictive router**. Add a `kimi-k3`
-> arm and we have both halves of the post's "K3 + Fable = SoTA" mixture, with the auction
-> choosing between them per task on merge-worthiness-per-dollar.
->
-> ## Concrete wiring plan (reuses the codex handler — no new handler file)
-> This is `context/operations/local-inference-amd.md` §4 Option 1, pointed at a **paid hosted**
-> OpenAI-compatible endpoint instead of on-box Ollama. Mirrors the `hermit`/`local` precedent.
-> 1. **Routing row (journal DATA, no deploy):**
->    `scripts/jobs/set-model-routing.sh moonshot 'kimi-* moonshotai/*' kimi-k3`
->    → any `model: kimi-k3` job pins to provider `moonshot`.
-> 2. **Handler arm (main2, one small edit):** add a `provider = moonshot` branch to
->    `scripts/jobs/handlers/cleric-codex.sh` — mirror the `local` arm (~line 244): emit inline
->    `-c model_provider=moonshot` + `-c model_providers.moonshot.{name,base_url=https://api.moonshot.ai/v1,env_key=MOONSHOT_API_KEY}`,
->    a `GET /v1/models` reachability probe, default model `kimi-k3`. **Zero new handler file.**
-> 3. **Tier map:** `resolve_model_tier moonshot <tier>` in `common.sh` — bind e.g. `k3 → kimi-k3`,
->    pass concrete `kimi-*` through, reject non-kimi ids (so it can't cross-pin a backend).
-> 4. **Worker kind + unit:** add a kind (e.g. `oracle`/`envoy`) to the `common.sh` worker-kind
->    registry — handler `handlers/cleric-codex.sh`, `provider: moonshot`, unit `garden-<kind>@`,
->    count_key/state_ns; add to `worker_kinds` so the scaler / `install-units.sh scale <kind> N` /
->    template render with no per-kind source (hermit precedent). A `set-<kind>s.sh` (set-hermits.sh
->    analogue) declares per-host count.
-> 5. **Rate card + catalog:** `provider: moonshot` row in `reputation/rate-card.md` and a §2.6 in
->    `designs/provider-model-catalog.md` — $3 in ($0.30 cached) / $15 out per MTok, 1M context,
->    multimodal, dated.
-> 6. **Credentials (the gating human step):** `MOONSHOT_API_KEY` into the fleet secret/env
->    plumbing; a funded Moonshot account (min $1). This is the only precondition an agent can't do.
->
-> **Verify before the first real job (UNVERIFIED):**
-> - codex's agentic loop against Moonshot's chat-completions `/v1` — the *same* open question
->   already flagged for the hermit/Ollama path. If codex needs the OpenAI *responses* API or a
->   specific tool-call schema, K3 compat must be checked. K2 supported tool/function calling; K3
->   likely does — confirm.
-> - Exact Moonshot per-tier rate limits; Fireworks K3 model id/price (page not updated); the
->   ~50B active-param estimate.
->
-> ## Recommendation
-> - **Local: don't.** >10× memory; not close, and no weights/GGUF until 2026-07-27.
-> - **Hosted: worth a bounded trial.** Wiring is genuinely cheap (one handler arm + one routing
->   row + one rate-card row + a key), and the Fireworks thesis — K3 as a cheap specialist an
->   oracle router feeds most traffic — maps directly onto our bid-auction. **Seed a `kimi-k3` arm
->   that bids on low-risk classes** (doc, triage, small `fix:`, mechanical `ops`, and especially
->   **long-context 1M jobs** where K3's window is a real edge); let acceptance data price it. **Do
->   NOT default high-stakes `build`/`design` on main to it.** Gated on: (a) a funded Moonshot key,
->   (b) verifying codex↔Moonshot chat-completions + K3 tool-calling. If (a)+(b) clear, this
->   realizes the post's "K3 + Fable" mixture with tiers we already have.
->
-> ## Primary sources
-> - Moonshot Kimi K3 API quickstart (base_url, model id, auth, 1M) — https://platform.kimi.ai/docs/guide/kimi-k3-quickstart
-> - Fireworks post (the trigger; oracle routing, K3+Fable) — https://fireworks.ai/blog/kimik3-fable
-> - OpenRouter K3 ($3/$15, slug, multimodal) — https://openrouter.ai/moonshotai/kimi-k3
-> - MarkTechPost release (2.8T, 16/896, KDA/AttnRes, 1M) — https://www.marktechpost.com/2026/07/16/moonshot-ai-releases-kimi-k3-a-2-8-trillion-parameter-open-moe-model-with-kimi-delta-attention-and-1m-context/
-> - Trilogy AI (Moonshot pricing $0.30/$3/$15) — https://trilogyai.substack.com/p/kimi-k3-is-live-pricing-benchmarks
-> - HF weights-status / GGUF timeline (weights 2026-07-27, no official GGUF yet) — https://wan27.org/blog/kimi-k3-huggingface
-> - Garden refs: `context/operations/local-inference-amd.md` §4-5, `skills/model-selection/SKILL.md`, `scripts/jobs/model-routing-defaults.tsv`, `scripts/jobs/handlers/cleric-codex.sh`, `designs/provider-model-catalog.md`
-
-- `20260722T072334Z-b46f04` — from watchdog:hermit/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T072334Z-b46f04.md)
-
-> gardener job 'xs2rust-endor-press-20260722-045001' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260722T081331Z-70cd39` — from watchdog:gardener/6, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T081331Z-70cd39.md)
-
-> gardener job 'endojs-pr160-ci-fix-finalize' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2400s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `20260722T092145Z-67ae12` — from gardener:endojs-endo-but-for-bots-pr804-review-8df7f3e2, reply_to `endojs-endo-but-for-bots-pr804-review-8df7f3e2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T092145Z-67ae12.md)
 
@@ -225,87 +54,13 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Holding the job until you answer to avoid wrong multi-file churn.
 
-- `20260722T095818Z-d6cc01` — from gardener:finbot-progress-20260722-095006, reply_to `finbot-progress-20260722-095006` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T095818Z-d6cc01.md)
-
-> Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): optional llmProgram role code now runs in a fresh SES Compartment with copied prompt data and host-mediated, attenuated tool calls. npm test, focused spawn tests, and node bin/finbot-dispatch --seed=7 pass; the dry-run reports WALLET TOUCHED: false. The PR is draft. The required panel was started twice but could not run because the panel model is at its weekly limit (resets Jul 25 03:00 UTC), so it is awaiting panel before a Fable orchestrator sign-off can be posted. No maintainer policy decision is needed for this increment. The next unblocked design decision remains whether to make the volatility selector significance gate default.
-
-- `20260722T095836Z-bda2c7` — from gardener:finbot-progress-20260722-095006, reply_to `finbot-progress-20260722-095006` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T095836Z-bda2c7.md)
-
-> Update for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): GitHub Actions test check is now green. The only gate blocker is the panel model weekly limit; Fable sign-off has not been dispatched because panel approval is required first.
-
-- `20260722T132424Z-5a34cc` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T132424Z-5a34cc.md)
-
-> (empty message)
-
-- `20260722T132447Z-08d1fe` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T132447Z-08d1fe.md)
-
-> [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824) is ready for merge and CI is still running. The only recorded APPROVED review by kriskowal is for 9b40eef9; the current head is a0cd0d00, so the conductor gate requires a fresh approval on the current head before it can merge. Please re-approve once CI is green.
-
-- `20260722T134426Z-bf7fef` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T134426Z-bf7fef.md)
-
-> [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824) is now non-draft, has a clean merge state, and its latest CI run is green. The only current gate is approval: kriskowal's APPROVED review is attached to the previous head 9b40eef, while the current head is a0cd0d0, so GitHub reports reviewDecision empty. Please re-approve the current head and I will merge it immediately.
-
-- `20260722T140806Z-7adc62` — from gardener:xs2rust-endor-orphan-audit, reply_to `xs2rust-endor-orphan-audit` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T140806Z-7adc62.md)
-
-> Orphan audit on host endolin-garden-ece02cb4: GREEN -- 0 orphans, charter mitigation holding.
->
-> Raw evidence: full /proc scan of cwd and NUL-decoded cmdline for strict timestamped project-wt-xs2rust-endor-press-* paths found 0 processes. jobs/doin/ has 0 xs2rust-endor-press jobs, so there are no non-doin worktree processes to classify. ps -C endor-xst found 0 processes: no pegging CPU, no oldest orphan etime, and no per-job orphan counts.
->
-> This is not the leader: journal leader is endolin-garden2-5bcdff64. This host runs ollama but its local model inventory is empty, so it is not serving local qwen. Please also run this host-local audit directly on leader/primary-qwen endolin-garden2-5bcdff64.
->
-> Backstop: fix-handler-reap-spawned-process-group is in jobs/tada/ and commit 8eb3354a7e is in origin/main2, but it is NOT deployed to this root: root HEAD f570554e39641e92eab7bbc3dc2fd7b50d4d01ac does not contain 8eb3354a7e. Follow-up: deploy main2s reaper fix to the root; until then, retain the charter timeout/process-group mitigation and consider pausing the schedule if a leader-host audit finds recurrence.
-
-- `20260722T161133Z-f1a636` — from gardener:finbot-progress-20260722-160501, reply_to `finbot-progress-20260722-160501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T161133Z-f1a636.md)
-
-> finbot progress cycle 2026-07-22:
->
-> What advanced: feat/harness compartment-role-program feature branch. It adds llmProgram - running role JavaScript in a real SES Compartment with JSON-copied turn snapshots, tool-name-only access, and host-mediated invocation. CI test passed at 44s. PR is mergeable but has no reviews yet.
->
-> PR status: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) -- open, green CI, no panel review or sign-off. Per governance: needs panel (28 code seats) then Fable orchestrator sign-off before merge.
->
-> Next unblocked step: Panel review on the harness compartment feature PR (28-seat code panel via skills/panel). The increment is complete and code-ready; only governance gates remain.
->
-> Requires maintainer decision? No - this cycle's work (building the SES compartment role-program feature) is done. The remaining gates are automated workflow steps, not decisions. The bigger question is what to prioritize after this PR lands: loading archived role module graphs via compartment-mapper vs. live executor CapTP worker per cap-attenuation design doc.
-
-- `20260722T162010Z-3d7b13` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T162010Z-3d7b13.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: d14dee8fb5ecd3cbced399e53eab74844f12ad3c (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p d14dee8fb5ecd3cbced399e53eab74844f12ad3c). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260722T162510Z-dea814` — from gardener:minion-town-mcp-b2-first-guest-tools-gauntlet, reply_to `minion-town-mcp-b2-first-guest-tools-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T162510Z-dea814.md)
-
-> Gauntlet blocked before panel completion: the scripted panel first juror cannot run because the Claude CLI weekly limit is exhausted until Jul 25 03:00 UTC. [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17) remains draft, as required. Local typecheck/build and focused guest suites passed; full npm test has two unrelated SIWE suite load failures from missing viem dependencies.
-
-- `20260722T163915Z-203d7f` — from gardener:minion-town-mcp-b3-daemon-standup, reply_to `minion-town-mcp-b3-daemon-standup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T163915Z-203d7f.md)
-
-> B3 is blocked: the first SSM deploy failed because Yarn 1 cannot resolve Endo workspace dependencies. I pushed c034f2b, which pins Yarn 4.13.0 in the daemon deploy and adds the required mcp/guest PKCE admission configuration. The retry hung with stale SSM agent heartbeat, so edge write/restart/read evidence is unavailable. Resume after restoring SSM, then rerun daemon deploy, app deploy, and the PKCE durability probe.
-
-- `20260722T164755Z-f032b3` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T164755Z-f032b3.md)
-
-> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
-
 - `20260722T165020Z-306e8e` — from gardener:minion-town-mcp-b3-daemon-standup, reply_to `minion-town-mcp-b3-daemon-standup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T165020Z-306e8e.md)
 
 > B3 implementation is on [https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18). Deployed-edge validation is blocked: EC2 i-0380cd68b90020fad reports SSM PingStatus=ConnectionLost (last heartbeat 2026-07-22T16:33:11Z); the prior deploy command was cancelled and its follow-up inspection remains InProgress. Please restore the instance/SSM agent, then this job can run the required deploy, PKCE guest_write_text, daemon-owner endo list, restart, and guest_read_text evidence.
 
-- `20260722T172756Z-5c0f4e` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T172756Z-5c0f4e.md)
-
-> B4 code and local tests are ready on draft [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19), and Cognito already advertises mcp/guest. Deployed E2/E4 cannot run: minion.town reaches TCP 443 but TLS times out; EC2 i-0380cd68b90020fad is running and AWS health checks pass, while SSM has been ConnectionLost since 2026-07-22T16:33:11Z. Please restore edge/SSM or authorize a recovery action; I will then deploy and run the required two-identity isolation and within-TTL suspension checks.
-
-- `20260722T174249Z-42ff89` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T174249Z-42ff89.md)
-
-> B4 is now stacked on B3 at [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) and includes a B3 deployment fix for Yarn pnpm workspace binaries. Local typecheck, build, and 136 tests passed. The edge is reachable again, but deployed E2/E4 remain blocked: SSM reports Online while even a one-line Run Command stays Pending/InProgress and never executes. The daemon remains inactive, so B3 and then B4 cannot be deployed. Please restore the SSM command channel or authorize an alternate recovery path; no endpoint validation has been claimed.
-
 - `20260722T175004Z-0b366c` — from gardener:minion-town-daemon-guest-mcp-b4-gauntlet, reply_to `minion-town-daemon-guest-mcp-b4-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T175004Z-0b366c.md)
 
 > Gauntlet is blocked at the first code-panel seat because the panel's Claude reviewer quota is exhausted until Jul 25 03:00 UTC. Local verification passed: build, typecheck, 136 root tests (3 integration skipped), and 19 SIWE thunk tests. [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) remains draft and clean; it has not been un-drafted.
-
-- `20260722T175010Z-9baa64` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T175010Z-9baa64.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 29c7d1af0b150a19d6ba2f695ca80d8be61119bc (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 29c7d1af0b150a19d6ba2f695ca80d8be61119bc). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260722T175432Z-2af037` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T175432Z-2af037.md)
-
-> B4 deployed-edge validation is blocked: EC2 i-0380cd68b90020fad is running but has failed instance reachability since 2026-07-22T17:44Z; SSM is Undeliverable and minion.town:443 times out. May I reboot this production instance to restore the edge and execute E2/E4?
 
 - `20260722T181442Z-f6519a` — from gardener:endojs-endo-but-for-bots-pr824-merge, reply_to `endojs-endo-but-for-bots-pr824-merge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T181442Z-f6519a.md)
 
@@ -315,209 +70,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > [https://github.com/endojs/endo-but-for-bots/pull/806](https://github.com/endojs/endo-but-for-bots/pull/806) is ready, rebased, and has 22 passing fresh CI checks at 950528e20cace8d87a4a8dfee73e53ed838968f6. The sole remaining gate is a current approval on that head; the earlier approval is attached to 1e4f91049. Please approve when ready and I will merge it.
 
-- `20260722T185013Z-7c5c71` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T185013Z-7c5c71.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 13ab4533e09471a6e2129ef879959e4a4c914a96 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 13ab4533e09471a6e2129ef879959e4a4c914a96). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260722T202014Z-42d279` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T202014Z-42d279.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 1b5a58fab00267cfef19ac46b63c8576034ffdf3 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 1b5a58fab00267cfef19ac46b63c8576034ffdf3). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
 - `20260722T205539Z-f93fb9` — from gardener:minion-town-mcp-b2-first-guest-tools-gauntlet, reply_to `minion-town-mcp-b2-first-guest-tools-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T205539Z-f93fb9.md)
 
 > Gauntlet is blocked before panel completion: the first juror invocation fails because the Claude CLI weekly limit is exhausted (resets Jul 25 03:00 UTC). Local verification completed: typecheck and build passed; selected root Vitest suite passed 131 tests (3 integration tests skipped), and deploy/thunks/siwe npm test passed 19 tests. [https://github.com/kriscendobot/minion.town/pull/17](https://github.com/kriscendobot/minion.town/pull/17) remains draft and no changes were pushed.
-
-- `20260722T215010Z-a61630` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T215010Z-a61630.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ec3220dc2e4c78b68cb04e305c80dbe338012eb6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ec3220dc2e4c78b68cb04e305c80dbe338012eb6). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `20260722T220441Z-37cea6` — from gardener:minion-town-mcp-b4-full-facet-surface, reply_to `minion-town-mcp-b4-full-facet-surface` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220441Z-37cea6.md)
 
 > B4 production validation is now blocked by the explicit prerequisite: [https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18) (B3 daemon deployment) remains a draft against main. The recovered host is healthy but runs the old minion-mcp unit without ENDO_SOCK or mcp/guest. Please authorize/complete B3 merge and deployment; then I can deploy/validate [https://github.com/kriscendobot/minion.town/pull/19](https://github.com/kriscendobot/minion.town/pull/19) E2 (two identities) and E4 (suspension within TTL).
 
-- `20260722T220814Z-16ba21` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220814Z-16ba21.md)
-
-> (empty message)
-
-- `20260722T220832Z-a1aaa1` — from gardener:finbot-progress-20260722-220501, reply_to `finbot-progress-20260722-220501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T220832Z-a1aaa1.md)
-
-> Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) through fresh local verification: npm test passed and bin/finbot-dispatch --seed=7 completed the dry-run OODA path with WALLET TOUCHED: false. CI remains green. I then started the mandatory code panel; its first assessor invocation was blocked by the Claude weekly quota, which resets 2026-07-25 03:00 UTC. The PR is ready and awaiting a successful panel pass; only then should a claude-fable-5 orchestrator sign off and merge. No merge was attempted.
-
 - `20260722T223418Z-6d697e` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223418Z-6d697e.md)
 
 > Build is blocked: design PR [https://github.com/endojs/endo-but-for-bots/pull/826](https://github.com/endojs/endo-but-for-bots/pull/826) remains OPEN and unmerged into llm (confirmed 2026-07-22T22:34:11Z). Per the job prerequisite, I have not started an implementation branch or PR. Please merge it or direct an exception; the job can then resume on llm.
-
-- `20260722T223507Z-55d5e1` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223507Z-55d5e1.md)
-
-> B5 is rebased and pushed: [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20) is now CLEAN on B4. Deployed-edge validation remains blocked because B3 is still a draft PR ([https://github.com/kriscendobot/minion.town/pull/18](https://github.com/kriscendobot/minion.town/pull/18)), so B4/B5 are not on main and https://minion.town still advertises mcp/minions:read and mcp/minions:write. Please authorize or drive the merge and deployment sequence, then E1-E4 plus fresh guest-only tools/list can be run.
-
-- `20260722T224630Z-250d19` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T224630Z-250d19.md)
-
-> B5 is implemented and pushed at [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20) (stacked on PRs 18 and 19). Local verification is green: root npm test 135 passed / 3 intentional daemon-integration skips, npm run typecheck, npm run build; standalone SIWE tests 19 passed. The deployed PRM still advertises mcp/minions:read/write, so it is on the pre-B5 app. Please merge/deploy the stacked chain before the required deployed E1-E4 sweep and Cognito scope-cleanup script can run; I will not mutate production or Cognito ahead of that deployment.
-
-- `20260722T225012Z-36fdd3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T225012Z-36fdd3.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 0b1689ff9481f7dd9255cc6d7169039b42985fb0 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 0b1689ff9481f7dd9255cc6d7169039b42985fb0). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260722T230226Z-bb95be` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230226Z-bb95be.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-JVPrnG/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
-> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
-> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
-> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
-> class.
->
-> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
-> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
-> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
-> record the override in `/tmp/idg-JVPrnG/state/identity-override` (or export
-> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260722T230232Z-427bc1` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230232Z-427bc1.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-JVPrnG/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
-> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
-> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
-> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
-> class.
->
-> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
-> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
-> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
-> record the override in `/tmp/idg-JVPrnG/state/identity-override` (or export
-> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260722T230237Z-0fe3ef` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230237Z-0fe3ef.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-JVPrnG/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
-> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
-> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
-> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
-> class.
->
-> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
-> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
-> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
-> record the override in `/tmp/idg-JVPrnG/state/identity-override` (or export
-> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260722T230310Z-7da7a2` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230310Z-7da7a2.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-OXELqU/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
-> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
-> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
-> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
-> class.
->
-> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
-> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
-> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
-> record the override in `/tmp/idg-OXELqU/state/identity-override` (or export
-> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260722T230326Z-24b56c` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230326Z-24b56c.md)
-
-> kind: error
->
-> # Host-identity DRIFT detected (deterministic guard)
->
-> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
-> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
-> `/tmp/idg-OXELqU/state/identity-override`).
->
-> GARDEN is the single key every per-host structure hangs off — claim metadata, the
-> `hosts/<host>` worker count, the journal index, and the leader/follower
-> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
-> host's full gardener pool) and disables the leader gate.
->
-> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
->
-> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
-> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
-> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
-> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
-> class.
->
-> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
-> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
-> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
-> record the override in `/tmp/idg-OXELqU/state/identity-override` (or export
-> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
->
-> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
-> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
 - `20260722T230334Z-bbae5d` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T230334Z-bbae5d.md)
 
@@ -555,85 +118,13 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > B5 now also cleans retired scopes from all three MCP OAuth clients before removing resource-server scopes (commit fa8667f on [https://github.com/kriscendobot/minion.town/pull/20](https://github.com/kriscendobot/minion.town/pull/20)). Local checks are green: npm test 135 passed / 3 intended integration skips, npm run typecheck, npm run build, and bash -n for the cleanup script. Production remains pre-B5: the live PRM currently lists mcp/minions:read and mcp/minions:write. PR 20 is stacked on open PRs 18 and 19, so a merge/deploy of that chain is required before I can run the mandated fresh tools/list and E1-E4 edge sweep. I have not altered production or Cognito prematurely.
 
-- `20260723T002010Z-53a285` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T002010Z-53a285.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: da73637c4b59b2a86aff5da7200339ae6b3544c7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p da73637c4b59b2a86aff5da7200339ae6b3544c7). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
 - `20260723T004606Z-d721bb` — from orchestrator:minion-town-mcp-daemon-guest-tools-orchestration-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T004606Z-d721bb.md)
 
 > Orchestration minion-town-mcp-daemon-guest-tools-orchestration HALTED: child minion-town-mcp-b5-retire-toy-tools failed (serial, on-child-failure=halt). 5/7 done before halt; swept: minion-town-mcp-b6-extract-endo-mcp
 
-- `20260723T012012Z-d8c32a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T012012Z-d8c32a.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 54218744888d6c6b4b68aa1f1dcdbb2a8c8adb1d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 54218744888d6c6b4b68aa1f1dcdbb2a8c8adb1d). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T012322Z-cbf4b3` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T012322Z-cbf4b3.md)
-
-> triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
-
-- `20260723T024146Z-28b5cb` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T024146Z-28b5cb.md)
-
-> triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
-
-- `20260723T025011Z-ee41d2` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T025011Z-ee41d2.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 65d1c20d5079a42ec2f6522af8dc842e3bac7f22 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 65d1c20d5079a42ec2f6522af8dc842e3bac7f22). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
 - `20260723T030733Z-68fb88` — from gardener:esheets-supervisor-20260723-030512, reply_to `esheets-supervisor-20260723-030512` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T030733Z-68fb88.md)
 
 > Sheets connector daily: designs are present, while packages @endo/google-sheets and @endo/exo-google-sheets are not yet on llm. The network prerequisite is superseded by endo-fetch: its design PR [https://github.com/endojs/endo-but-for-bots/pull/722](https://github.com/endojs/endo-but-for-bots/pull/722) is merged; implementation PR [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) is a green draft explicitly awaiting maintainer disposition. OAuth design PR [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) is green but has CHANGES_REQUESTED, so I posted fix-endo-but-for-bots-621 today. Webhooks remains deferred from the v1 bar.
-
-- `20260723T034601Z-9ca78b` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T034601Z-9ca78b.md)
-
-> triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
-
-- `20260723T035332Z-8b2312` — from watchdog:hermit/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T035332Z-8b2312.md)
-
-> gardener job 'build-readableblob-range-attenuation' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2405s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `20260723T040908Z-085798` — from gardener:finbot-progress-20260723-040502, reply_to `finbot-progress-20260723-040502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T040908Z-085798.md)
-
-> Advanced the blocked gate for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): CI is green and no competing finbot work is in flight, but the mandatory code panel remains blocked by Claude weekly quota until 2026-07-25T03:00Z.
->
-> I scheduled a one-time panel retry for 2026-07-25T03:05Z. If it passes, that job will dispatch the required claude-fable-5 orchestrator sign-off; no merge will occur before both gates. No maintainer decision is needed now.
-
-- `20260723T042011Z-0b0fbd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T042011Z-0b0fbd.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ba09a85f51509fa04ce28fe0271c77901451d4a1 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ba09a85f51509fa04ce28fe0271c77901451d4a1). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T045817Z-1e2416` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T045817Z-1e2416.md)
-
-> triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
-
-- `20260723T045822Z-661745` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T045822Z-661745.md)
-
-> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
-
-- `20260723T055028Z-5f16c3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T055028Z-5f16c3.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 76469cd13021f8d616f4e61bed07250f9b71867c (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 76469cd13021f8d616f4e61bed07250f9b71867c). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T074654Z-6a0113` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T074654Z-6a0113.md)
-
-> triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
-
-- `20260723T075013Z-3e46d1` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T075013Z-3e46d1.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 21463538a58f9bbc9025e9060c18ee4c743eb486 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 21463538a58f9bbc9025e9060c18ee4c743eb486). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T085020Z-7d8358` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T085020Z-7d8358.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 3dce8a810087ea22d3559bb66e2ec41f11c308cf (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3dce8a810087ea22d3559bb66e2ec41f11c308cf). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T100750Z-da971a` — from gardener:finbot-progress-20260723-100531, reply_to `finbot-progress-20260723-100531` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T100750Z-da971a.md)
-
-> finbot progress: assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). Its sole CI check is green, it remains a clean draft at 895ae482, and there are no reviews or competing finbot jobs.
-> The deepest next increment is still its mandatory panel. It is blocked by the documented Claude quota reset; the existing one-time retry is scheduled for 2026-07-25T03:05:00Z. On a pass, that job will dispatch finbot-pr4-fable-signoff pinned to claude-fable-5; no merge will occur before that sign-off.
-> This cycle introduced no competing code change. No maintainer decision is needed.
-
-- `20260723T103745Z-819cdc` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T103745Z-819cdc.md)
-
-> triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden2/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
 
 - `20260723T112821Z-c23414` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T112821Z-c23414.md)
 
@@ -654,58 +145,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > You are shown this ONCE per individual. Reply or archive to dismiss it.
 
-- `20260723T120820Z-d3c901` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T120820Z-d3c901.md)
-
-> triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
-
-- `20260723T142239Z-391c1d` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T142239Z-391c1d.md)
-
-> triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
-
-- `20260723T142239Z-ac3afd` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T142239Z-ac3afd.md)
-
-> triager: fetch for kriscendobot-ymax-stdio-mcp at /home/kris/garden2/worktrees/kriscendobot-ymax-stdio-mcp.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ymax-stdio-mcp cannot be triaged until it is restored.
-
-- `20260723T144250Z-d9aac2` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T144250Z-d9aac2.md)
-
-> triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
-
 - `20260723T155818Z-aa486a` — from gardener:kriscendobot-agoric-sdk-pr10-review-14260266, reply_to `kriscendobot-agoric-sdk-pr10-review-14260266` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T155818Z-aa486a.md)
 
 > Review 4765874818 on [https://github.com/kriscendobot/agoric-sdk/pull/10](https://github.com/kriscendobot/agoric-sdk/pull/10) is LGTM but asks you for guidance on opening the design to wider public review without implementation. The PR is already a public draft and contains only designs/beans-v2-deflation.md; changing it to ready-for-review would alter its review state but requires your decision. Please say whether to keep the public draft and share its URL, mark it ready for review, or take another approach.
-
-- `20260723T162217Z-3e319b` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T162217Z-3e319b.md)
-
-> (empty message)
-
-- `20260723T162751Z-f33de9` — from gardener:finbot-progress-20260723-162019, reply_to `finbot-progress-20260723-162019` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T162751Z-f33de9.md)
-
-> Finbot progress: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) remains mergeable with its CI test SUCCESS and no competing finbot work. The sole deepest next increment is the mandatory panel, still blocked by the documented Claude weekly quota. Its one-time retry is already scheduled for 2026-07-25 03:05 UTC; a passing panel will dispatch the pinned Fable sign-off job. No maintainer decision is needed this cycle; no merge was performed.
-
-- `20260723T191359Z-b58239` — from gardener:endo-master-fb9cef4-ci-build-gauntlet, reply_to `endo-master-fb9cef4-ci-build-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T191359Z-b58239.md)
-
-> [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) is still draft, clean, and green on all checks. The required panel cannot start because the shared Claude CLI reports its weekly quota is exhausted until Jul 25 03:00 UTC. No changes or un-draft were made; please retry after quota reset or provide an approved alternative panel path.
-
-- `20260723T192022Z-0f559e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T192022Z-0f559e.md)
-
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f8576a9852d62d3b75ea926aee790dec9efe2bf0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f8576a9852d62d3b75ea926aee790dec9efe2bf0). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T192209Z-7bfcf5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T192209Z-7bfcf5.md)
-
-> self-heal: garden-triager@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 461c791ca3b419efbe94620312544dba36a78117 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 461c791ca3b419efbe94620312544dba36a78117). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
-
-- `20260723T192814Z-e2aeff` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T192814Z-e2aeff.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `20260723T193026Z-d2e1f9` — from triager:kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T193026Z-d2e1f9.md)
 
@@ -733,30 +175,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T193216Z-9dc39a` — from gardener:endo-master-fb9cef4-ci-build-gauntlet, reply_to `endo-master-fb9cef4-ci-build-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T193216Z-9dc39a.md)
 
 > Gauntlet blocked before panel: the first juror invocation failed because the Claude CLI reports its weekly limit is exhausted (resets Jul 25 03:00 UTC). [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) remains an open draft. GitHub CI is green on head 799128b915f6633ac04ad141874a7b02c712d8fe. Local verification could not run under this worktree: the warm dependency cache was incomplete and after yarn install Yarn cannot execute node_modules binaries (permission denied), while CI independently passed.
-
-- `20260723T200712Z-927808` — from gardener:research-kimi-k3-harness-20260723, reply_to `research-kimi-k3-harness-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T200712Z-927808.md)
-
-> Kimi K3 harness research complete. Recommendation: replace the current Codex Responses-based Kimi path with an official Kimi Code CLI headless handler, initially driven through Kimi Agent SDK only if event-level approval/usage capture is needed. Kimi Code explicitly supports Moonshot Open Platform Chat Completions at api.moonshot.ai/v1, tool use, isolated KIMI_CODE_HOME, headless --auto -p, and persisted/reusable sessions. Keep the shared gardener spine, worker-common prompt/sentinel/worktree contract, and use a per-base KIMI_CODE_HOME plus KIMI_MODEL_* ephemeral credentials. Do not enable workers until a 1-job canary proves forced Bash tool use, marker-gated completion, output capture, requeue/resume, and no root mutation. Primary evidence: Kimi API K3 docs (chat completions + tool loop), Kimi Code docs/repo, Kimi Agent SDK. No production changes made.
-
-- `20260723T201514Z-9ed73a` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201514Z-9ed73a.md)
-
-> triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
-
-- `20260723T201514Z-c85fe6` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201514Z-c85fe6.md)
-
-> triager: fetch for kriscendobot-ocapn at /home/kris/garden2/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
-
-- `20260723T201514Z-fe7c0f` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201514Z-fe7c0f.md)
-
-> triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
-
-- `20260723T201528Z-9ce237` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T201528Z-9ce237.md)
-
-> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
-
-- `20260723T205219Z-930855` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T205219Z-930855.md)
-
-> Rollout blocker: the original implementation child is still a live doin claim from a Claude quota failure and has not reached the reaper threshold. Its landed provisional commit 8f7b35468d uses Codex Responses and worker kind kimi, which conflicts with the official Kimi Code CLI and mystic requirements. I will create a linked cleric replacement and independently drive validation; deployment and live key/canary remain liaison-controlled.
 
 - `20260723T205604Z-9cb169` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T205604Z-9cb169.md)
 
@@ -1342,7 +760,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 95.8M | $1069.91 _(notional, rate-card)_ | no quota set |
-| Codex | 658.7M _(+578.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Codex | 658.8M _(+579.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
