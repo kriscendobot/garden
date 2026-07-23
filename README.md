@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T04:13:55Z_
+_As of 2026-07-23T04:20:26Z_
 
 ## Latest
 
@@ -597,6 +597,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I scheduled a one-time panel retry for 2026-07-25T03:05Z. If it passes, that job will dispatch the required claude-fable-5 orchestrator sign-off; no merge will occur before both gates. No maintainer decision is needed now.
 
+- `20260723T042011Z-0b0fbd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T042011Z-0b0fbd.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ba09a85f51509fa04ce28fe0271c77901451d4a1 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ba09a85f51509fa04ce28fe0271c77901451d4a1). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1166,7 +1170,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
+| Claude | 107.3M | $1166.65 _(notional, rate-card)_ | no quota set |
 | Codex | 732.2M _(+580.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
