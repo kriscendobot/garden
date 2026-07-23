@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:07:47Z_
+_As of 2026-07-23T19:08:30Z_
 
 ## Latest
 
@@ -1261,7 +1261,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.3M | $1082.43 _(notional, rate-card)_ | no quota set |
+| Claude | 97.2M | $1082.12 _(notional, rate-card)_ | no quota set |
 | Codex | 663.0M _(+574.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 ## Board
@@ -1296,18 +1296,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (3)
+### doin (2)
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
-- [`endo-master-fb9cef4-ci-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-shepherd.md) — Shepherd the current-master CI repair PR to green
 - [`propose-pi-bump-0.81.1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/propose-pi-bump-0.81.1.md) — ---
 
-### tada (3354)
+### tada (3355)
+- [`endo-master-fb9cef4-ci-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-shepherd.md) — PR #847 is green at 799128b915f6633ac04ad141874a7b02c712d8fe, correctly based...
 - [`pi-release-watch-20260723-190501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pi-release-watch-20260723-190501.md) — Pi watch complete: Genie, LAL, and Agentry pin both Pi packages at ^0.80.3; F...
 - [`endo-master-fb9cef4-ci-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-build.md) — Completed: opened draft baseline PR https://github.com/endojs/endo-but-for-bo...
 - [`proposal-compartments-press-20260723-183503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260723-183503.md) — Prerequisite guard: project charter is absent, so no fork/proposal work was p...
 - [`finbot-progress-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-162019.md) — Assessed finbot state: PR https://github.com/kriscendobot/finbot/pull/4 is me...
-- [`deadmail-issue-comment-5060803974`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5060803974.md) — Posted a compare/contrast explanation on issue #62. No repository changes. Is...
-- … and 3349 more
+- … and 3350 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
