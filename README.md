@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T08:50:35Z_
+_As of 2026-07-23T09:01:48Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 16h)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 14h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 5d)
@@ -1204,7 +1204,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.6M | $1146.26 _(notional, rate-card)_ | no quota set |
+| Claude | 104.6M | $1146.23 _(notional, rate-card)_ | no quota set |
 | Codex | 731.0M _(+580.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
@@ -1227,8 +1227,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr10-review-c28034ac`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-c28034ac.md) — Review directive on kriscendobot/agoric-sdk PR #10
 
 ### tada (3340)
 - [`daily-progress-summary-20260723-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260723-070502.md) — Created and pushed periodicals/2026/07/22.md to journal2 (commit 3db0b365c). ...
@@ -1331,6 +1331,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr826-448995f1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-448995f1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr357-623fe9bc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-623fe9bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #357 (primary: endojs-endo-but-f...
 - [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+- [`kriscendobot-agoric-sdk-pr10-review-c28034ac-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-c28034ac-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
