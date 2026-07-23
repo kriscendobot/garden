@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T11:55:31Z_
+_As of 2026-07-23T11:56:48Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 17h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 19h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 17h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
@@ -1262,16 +1262,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`deadmail-issue-comment-5058037388`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5058037388.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (3342)
+### tada (3343)
+- [`deadmail-issue-comment-5058037388`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5058037388.md) — Reviewed the linked revision and replied on issue #38: it is documentation-on...
 - [`finbot-progress-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-100531.md) — Completed finbot progress assessment. PR #4 remains a clean draft with passin...
 - [`kriscendobot-agoric-sdk-pr10-review-c28034ac`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-c28034ac.md) — Completed PR #10 review response.
 - [`daily-progress-summary-20260723-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260723-070502.md) — Created and pushed periodicals/2026/07/22.md to journal2 (commit 3db0b365c). ...
 - [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-a7bcbe21.md) — Addressed all five inline comments in b141d30c79 and 5c04dcac95: clarified or...
-- [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
-- … and 3337 more
+- … and 3338 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
