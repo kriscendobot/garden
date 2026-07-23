@@ -13,3 +13,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot please conduct. if unable to, please report why 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 17
+  worker_kind: cleric
+  claimed_at: 2026-07-23T13:41:20Z
