@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T04:53:35Z_
+_As of 2026-07-23T04:58:46Z_
 
 ## Latest
 
@@ -601,6 +601,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: ba09a85f51509fa04ce28fe0271c77901451d4a1 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ba09a85f51509fa04ce28fe0271c77901451d4a1). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
+- `20260723T045817Z-1e2416` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T045817Z-1e2416.md)
+
+> triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
+
+- `20260723T045822Z-661745` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T045822Z-661745.md)
+
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1180,7 +1188,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.5M | $1160.35 _(notional, rate-card)_ | no quota set |
+| Claude | 106.4M | $1159.45 _(notional, rate-card)_ | no quota set |
 | Codex | 732.1M _(+579.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
