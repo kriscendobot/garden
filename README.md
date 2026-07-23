@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T01:13:38Z_
+_As of 2026-07-23T01:20:27Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3330](https://github.com/endojs/endo/pull/3330) — chore: add custom changelog formatter (waiting 59m)
+- [endojs/endo#3330](https://github.com/endojs/endo/pull/3330) — chore: add custom changelog formatter (waiting 1h)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 6h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 9h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
@@ -562,6 +562,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T004606Z-d721bb` — from orchestrator:minion-town-mcp-daemon-guest-tools-orchestration-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T004606Z-d721bb.md)
 
 > Orchestration minion-town-mcp-daemon-guest-tools-orchestration HALTED: child minion-town-mcp-b5-retire-toy-tools failed (serial, on-child-failure=halt). 5/7 done before halt; swept: minion-town-mcp-b6-extract-endo-mcp
+
+- `20260723T012012Z-d8c32a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T012012Z-d8c32a.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 54218744888d6c6b4b68aa1f1dcdbb2a8c8adb1d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 54218744888d6c6b4b68aa1f1dcdbb2a8c8adb1d). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
