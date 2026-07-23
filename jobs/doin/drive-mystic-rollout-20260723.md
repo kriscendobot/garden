@@ -11,6 +11,7 @@ Do not make Kimi a default, do not enable high-stakes design/build routing, do n
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
