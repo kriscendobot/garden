@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T16:05:01Z_
+_As of 2026-07-23T16:21:18Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 23h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 21h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
@@ -1253,37 +1253,43 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.3M | $1118.60 _(notional, rate-card)_ | no quota set |
-| Codex | 672.9M _(+583.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 101.2M | $1117.72 _(notional, rate-card)_ | no quota set |
+| Codex | 668.9M _(+583.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
-### todo (23)
+### todo (29)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260723-040502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260723-100531.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260722-220501.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-040502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-100531.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260723-162019.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260722-095006.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260722-220501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260723-040502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260723-100531.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260723-162019.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260722-220501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260723-040502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260723-100531.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-sturdyref-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260723-162019.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260722-220501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260723-040502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260723-100531.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260723-162019.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (0)
-(none)
+### doin (1)
+- [`finbot-progress-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-162019.md) — Push progress on kriscendobot/finbot (every 6h)
 
 ### tada (3349)
 - [`kriscendobot-agoric-sdk-pr10-review-14260266`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-14260266.md) — Resolved review 4765874818: no inline comments were present. Posted public-re...
