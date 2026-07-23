@@ -2,7 +2,7 @@
 order: serial
 children: endo-master-fb9cef4-ci-build endo-master-fb9cef4-ci-shepherd
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-07-23T18:49:59Z
 ---
