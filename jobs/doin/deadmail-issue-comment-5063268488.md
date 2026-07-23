@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/62#issuecomment-5063268488
 This is interesting because I was thinking this morning about how to use a genetic evolutionary approach to improve the garden. We already have begun laying foundations for auction and reputation for different combinations of model and context. But, the garden itself is a single 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 10
+  worker_kind: cleric
+  claimed_at: 2026-07-23T20:50:12Z
