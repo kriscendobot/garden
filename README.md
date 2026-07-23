@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T20:15:44Z_
+_As of 2026-07-23T20:18:54Z_
 
 ## Latest
 
@@ -1333,14 +1333,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.7M | $1077.00 _(notional, rate-card)_ | no quota set |
-| Codex | 658.5M _(+578.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Claude | 96.6M | $1076.12 _(notional, rate-card)_ | no quota set |
+| Codex | 658.5M _(+579.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (34)
+### doin (33)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-095006.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260722-220501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -1366,7 +1366,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-040502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-100531.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-162019.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr848-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #848
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-harness-implement-20260723.md) — ---
@@ -1376,13 +1375,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3360)
+### tada (3361)
+- [`endojs-endo-but-for-bots-pr848-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr848-shepherd.md) — Fixed PR #848’s Prettier failure with fixup commit 6b3b71cbdf and pushed it t...
 - [`research-kimi-k3-harness-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/research-kimi-k3-harness-20260723.md) — Research complete. Recommended harness: official Kimi Code CLI, with its Agen...
 - [`kimi-k3-canary-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723.md) — Created, read back (kimi-k3-canary-ok), and removed .kimi-k3-canary. No repos...
 - [`kimi-k3-canary-20260723-b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723-b.md) — Created .kimi-k3-canary with marker kimi-k3 canary, read it back successfully...
 - [`propose-pi-bump-0.81.1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/propose-pi-bump-0.81.1.md) — Opened https://github.com/endojs/endo-but-for-bots/pull/848 for the Pi 0.81.1...
-- [`endo-master-fb9cef4-ci-repair`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-repair.md) — orchestration endo-master-fb9cef4-ci-repair — complete
-- … and 3355 more
+- … and 3356 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
