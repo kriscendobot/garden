@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T07:50:33Z_
+_As of 2026-07-23T08:50:35Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 15h)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 13h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 16h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 14h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 4d)
@@ -621,6 +621,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 21463538a58f9bbc9025e9060c18ee4c743eb486 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 21463538a58f9bbc9025e9060c18ee4c743eb486). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
+- `20260723T085020Z-7d8358` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T085020Z-7d8358.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 3dce8a810087ea22d3559bb66e2ec41f11c308cf (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3dce8a810087ea22d3559bb66e2ec41f11c308cf). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1200,7 +1204,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.6M | $1146.49 _(notional, rate-card)_ | no quota set |
+| Claude | 104.6M | $1146.26 _(notional, rate-card)_ | no quota set |
 | Codex | 731.0M _(+580.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
