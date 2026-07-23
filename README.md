@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T11:20:22Z_
+_As of 2026-07-23T11:28:57Z_
 
 ## Latest
 
@@ -635,6 +635,25 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden2/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
 
+- `20260723T112821Z-c23414` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T112821Z-c23414.md)
+
+> kind: access-request
+>
+> @PatrickMockridge interacted with the garden's issue inbox on kriskowal/garden #38 but is NOT on
+> the maintainer allowlist, so the interaction was DROPPED (dispatched
+> nothing). If this is a collaborator you want to let drive the garden by
+> issue, add them:
+>
+>     scripts/jobs/add-maintainer.sh PatrickMockridge
+>
+> After that, FUTURE issues/comments from @PatrickMockridge will dispatch — but THIS one
+> was already dropped, so ask them to re-post it (or re-post it yourself)
+> if it still matters.
+>
+> Interaction: [https://github.com/kriskowal/garden/issues/38](https://github.com/kriskowal/garden/issues/38)#issuecomment-5057850972
+>
+> You are shown this ONCE per individual. Reply or archive to dismiss it.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1214,7 +1233,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.9M | $1140.94 _(notional, rate-card)_ | no quota set |
+| Claude | 103.7M | $1139.10 _(notional, rate-card)_ | no quota set |
 | Codex | 731.1M _(+582.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
