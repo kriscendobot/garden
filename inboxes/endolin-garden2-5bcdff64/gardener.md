@@ -858,3 +858,12 @@ Inspect via `git -C journal cat-file -p e4206af5d95fc97bcab69d2893c688ed295e67fe
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'endo-master-fb9cef4-ci-build-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4ac30a0c0d708444fdfef49f5e26d1d04b161066`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-23T19:34:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 41b947c3b0212188b479c8383dd298eafefe705f
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'kimi-k3-canary-20260723-c' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 41b947c3b0212188b479c8383dd298eafefe705f`.
