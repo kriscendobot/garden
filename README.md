@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T18:35:49Z_
+_As of 2026-07-23T18:36:44Z_
 
 ## Latest
 
@@ -1262,7 +1262,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 98.4M | $1090.77 _(notional, rate-card)_ | no quota set |
-| Codex | 663.0M _(+575.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 663.0M _(+575.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
@@ -1296,16 +1296,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`proposal-compartments-press-20260723-183503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260723-183503.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
+### doin (0)
+(none)
 
-### tada (3351)
+### tada (3352)
+- [`proposal-compartments-press-20260723-183503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260723-183503.md) — Prerequisite guard: project charter is absent, so no fork/proposal work was p...
 - [`finbot-progress-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-162019.md) — Assessed finbot state: PR https://github.com/kriscendobot/finbot/pull/4 is me...
 - [`deadmail-issue-comment-5060803974`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5060803974.md) — Posted a compare/contrast explanation on issue #62. No repository changes. Is...
 - [`kriscendobot-agoric-sdk-pr10-review-14260266`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-14260266.md) — Resolved review 4765874818: no inline comments were present. Posted public-re...
 - [`minion-town-agenda-review-20260723-155006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260723-155006.md) — Posted daily reconciliation to issue #58 (comment 5060502314). Confirmed B3 r...
-- [`issue-kriskowal-garden-62`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-62.md) — Posted the substantive comparison and five actionable lessons on issue #62. C...
-- … and 3346 more
+- … and 3347 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
