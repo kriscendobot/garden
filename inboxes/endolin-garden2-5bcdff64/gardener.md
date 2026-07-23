@@ -804,3 +804,12 @@ Inspect via `git -C journal cat-file -p d89cccc5c35484d082e6c4cb2f2d9b43258cfab1
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr826-build' exit-0-unsatisfying but elapsed near-constant (52,52s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 1aff79425024e267119cf14dd4df4e8497a8760a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-23T19:26:57Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0bbf2541554cd1c144877679f861e00c9405ade0
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'endo-byte-array-press-20260723-100531' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0bbf2541554cd1c144877679f861e00c9405ade0`.
