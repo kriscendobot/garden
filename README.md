@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T07:47:10Z_
+_As of 2026-07-23T07:50:33Z_
 
 ## Latest
 
@@ -616,6 +616,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T074654Z-6a0113` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T074654Z-6a0113.md)
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
+
+- `20260723T075013Z-3e46d1` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T075013Z-3e46d1.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 21463538a58f9bbc9025e9060c18ee4c743eb486 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 21463538a58f9bbc9025e9060c18ee4c743eb486). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
