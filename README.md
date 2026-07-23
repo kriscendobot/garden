@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:22:58Z_
+_As of 2026-07-23T21:24:41Z_
 
 ## Latest
 
@@ -133,6 +133,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T211816Z-877dbc` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T211816Z-877dbc.md)
 
 > Mystic rollout has a deployment and credential blocker. I independently verified the landed harness and corrected the official Kimi Code wire-model mapping on main2 at bf1f9e4032 (garden selector `kimi-k3` maps to Kimi Code model `k3`; dedicated Mystic remains moonshot and explicit-only). Focused offline harness, model-routing, worker-spine, and foreman routing tests pass. Please deliberately deploy main2 through the liaison procedure, recreate the container with MOONSHOT_API_KEY injected without printing it, then run the documented one-worker reversible tool canary and scale Mystic back to zero. This host currently has no `kimi` executable, no `MOONSHOT_API_KEY` in user systemd, and no Mystic unit, so a live canary cannot truthfully be run here. The original implementation child remains in doin after its recorded Claude failure; I did not alter its claim and left it for the reaper's normal ownership/requeue path. Monk remains at zero.
+
+- `20260723T212425Z-60b4e4` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T212425Z-60b4e4.md)
+
+> Mystic implementation and independent validation are complete on main2 at bf1f9e4032. I independently reran mystic-kimi-harness-test (14), worker-spine-kinds (103), model-routing (29), and foreman-provider-order (10), all passing. Please perform the deliberate drained deploy from the leader liaison after this orchestration job is no longer busy, then notify me so I can run the one-worker reversible canary and return capacity to zero.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -736,8 +740,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.2M | $1065.29 _(notional, rate-card)_ | no quota set |
-| Codex | 659.2M _(+597.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
+| Claude | 95.2M | $1064.98 _(notional, rate-card)_ | no quota set |
+| Codex | 659.2M _(+598.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
