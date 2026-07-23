@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:20:38Z_
+_As of 2026-07-23T19:22:25Z_
 
 ## Latest
 
@@ -689,6 +689,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T192022Z-0f559e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T192022Z-0f559e.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f8576a9852d62d3b75ea926aee790dec9efe2bf0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f8576a9852d62d3b75ea926aee790dec9efe2bf0). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
+- `20260723T192209Z-7bfcf5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T192209Z-7bfcf5.md)
+
+> self-heal: garden-triager@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 461c791ca3b419efbe94620312544dba36a78117 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 461c791ca3b419efbe94620312544dba36a78117). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
