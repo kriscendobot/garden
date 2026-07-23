@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T00:43:39Z_
+_As of 2026-07-23T00:46:31Z_
 
 ## Latest
 
@@ -558,6 +558,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T002010Z-53a285` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T002010Z-53a285.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: da73637c4b59b2a86aff5da7200339ae6b3544c7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p da73637c4b59b2a86aff5da7200339ae6b3544c7). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
+- `20260723T004606Z-d721bb` — from orchestrator:minion-town-mcp-daemon-guest-tools-orchestration-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T004606Z-d721bb.md)
+
+> Orchestration minion-town-mcp-daemon-guest-tools-orchestration HALTED: child minion-town-mcp-b5-retire-toy-tools failed (serial, on-child-failure=halt). 5/7 done before halt; swept: minion-town-mcp-b6-extract-endo-mcp
 
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
@@ -1147,13 +1151,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 0 -->
 
-### tada (3332)
+### tada (3333)
+- [`minion-town-mcp-daemon-guest-tools-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-daemon-guest-tools-orchestration.md) — orchestration minion-town-mcp-daemon-guest-tools-orchestration — HALTED
 - [`garden-moonshot-kimi-k3-worker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-moonshot-kimi-k3-worker.md) — Implemented and pushed 8f7b35468d3a28842f1030f75129b232fdd44423 to main2.
 - [`endojs-endo-but-for-bots-pr826-448995f1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-448995f1.md) — Re-fetched the maintainer comment and ran the feedback preflight (proceed).
 - [`minion-town-mcp-b4-full-facet-surface`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b4-full-facet-surface.md) — Implemented and pushed B4 on PR #19: full guest facet tools, evaluator-only g...
 - [`finbot-progress-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260722-220501.md) — Advanced PR https://github.com/kriscendobot/finbot/pull/4 with fresh local ve...
-- [`endojs-endo-but-for-bots-pr826-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-conduct.md) — orchestration-failed: true
-- … and 3327 more
+- … and 3328 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
