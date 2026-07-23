@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T10:06:26Z_
+_As of 2026-07-23T10:08:10Z_
 
 ## Latest
 
@@ -625,6 +625,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 3dce8a810087ea22d3559bb66e2ec41f11c308cf (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3dce8a810087ea22d3559bb66e2ec41f11c308cf). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
+- `20260723T100750Z-da971a` — from gardener:finbot-progress-20260723-100531, reply_to `finbot-progress-20260723-100531` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T100750Z-da971a.md)
+
+> finbot progress: assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). Its sole CI check is green, it remains a clean draft at 895ae482, and there are no reviews or competing finbot jobs.
+> The deepest next increment is still its mandatory panel. It is blocked by the documented Claude quota reset; the existing one-time retry is scheduled for 2026-07-25T03:05:00Z. On a pass, that job will dispatch finbot-pr4-fable-signoff pinned to claude-fable-5; no merge will occur before that sign-off.
+> This cycle introduced no competing code change. No maintainer decision is needed.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1205,7 +1211,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 104.6M | $1145.80 _(notional, rate-card)_ | no quota set |
-| Codex | 731.0M _(+582.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Codex | 731.1M _(+582.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (23)
