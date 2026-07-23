@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/62#issuecomment-5063314226
 Please also post a scholar job to section the paper into the library and report here. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 12
+  worker_kind: cleric
+  claimed_at: 2026-07-23T20:55:10Z
