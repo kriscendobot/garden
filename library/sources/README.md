@@ -1031,6 +1031,8 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [kni example: german](kni--examples-german.md) | kriskowal/kni | 2018-03-25 (commit `2aea0f1b`) | Kris Kowal | 1 | current (rendering-only: `\` line-continuation, Unicode) |
 | [kni example: hyperlinks](kni--examples-hyperlinks.md) | kriskowal/kni | 2019-01-01 (commit `b6670835`) | Kris Kowal | 1 | current (rendering-only: the hyperlink brace form) |
 
+| [TerraLingua: Emergence and Analysis of Open-endedness in LLM Ecologies](papers--paolo-terralingua-open-endedness-2026.md) | arXiv:2603.16910 | 2026 | Giuseppe Paolo, Jamieson Warner, Hormoz Shahrzad, Babak Hodjat, Risto Miikkulainen, Elliot Meyerson | 6 | current (derived digest, not the original paper; persistent LLM-agent ecology, shared artifacts, and post-hoc analysis) |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
