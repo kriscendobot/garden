@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Compare/contrast the garden with  - [TerraLingua: Emergence and Analysis of Open-endedness in LLM Ecologies](https://arxiv.org/abs/2603.16910) what should the garden learn? 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 16
+  worker_kind: cleric
+  claimed_at: 2026-07-23T14:13:01Z
