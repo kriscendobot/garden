@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T04:09:44Z_
+_As of 2026-07-23T04:13:55Z_
 
 ## Latest
 
@@ -1167,7 +1167,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 732.1M _(+580.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Codex | 732.2M _(+580.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (17)
@@ -1190,7 +1190,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (1)
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 0 -->
+- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 1 -->
 
 ### tada (3338)
 - [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
