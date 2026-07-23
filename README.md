@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:20:25Z_
+_As of 2026-07-23T21:22:58Z_
 
 ## Latest
 
@@ -736,7 +736,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.3M | $1066.37 _(notional, rate-card)_ | no quota set |
+| Claude | 95.2M | $1065.29 _(notional, rate-card)_ | no quota set |
 | Codex | 659.2M _(+597.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
@@ -752,17 +752,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (1)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
-- [`endojs-endo-but-for-bots-pr831-cfde756b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr831-cfde756b.md) — attention directive on endojs/endo-but-for-bots PR #831
 
-### tada (3372)
+### tada (3373)
+- [`endojs-endo-but-for-bots-pr831-cfde756b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-cfde756b.md) — Rebuilt PR #831 from frozen base, removing 79 entrained commits. The head now...
 - [`endojs-endo-but-for-bots-pr831-14cde530`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-14cde530.md) — Retargeted PR #831 to frozen upstream snapshot master-fb9cef4 (fb9cef49…); he...
 - [`mystic-harness-recovery-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-recovery-20260723.md) — orchestration mystic-harness-recovery-20260723 — complete
 - [`mystic-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-validate-20260723.md) — Validation passed; no changes made.
 - [`kimi-k3-harness-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-rollout-20260723.md) — orchestration kimi-k3-harness-rollout-20260723 — complete
-- [`kimi-k3-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-validate-20260723.md) — orchestration-failed: true
-- … and 3367 more
+- … and 3368 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
