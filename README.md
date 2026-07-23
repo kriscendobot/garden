@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T22:03:21Z_
+_As of 2026-07-23T22:14:31Z_
 
 ## Latest
 
@@ -209,6 +209,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T215345Z-771502` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T215345Z-771502.md)
 
 > Evidence update: independent validation is now complete and passing (`mystic-harness-validate-20260723`), including official Kimi CLI use, explicit Mystic/Moonshot/kimi-k3 routing, KIMI_CODE_HOME isolation, sentinel/resume/cleanup, no default capacity, and provider-scoped reputation. main2 remains bf1f9e4032 while the deployed root is still pre-deploy, so requirements 5-7 are pending the leader's deliberate deployment and secret-safe container recreation. No Mystic capacity was enabled; Monk remains zero. After deployment, the only remaining sequence is one explicit reversible tool canary, inspect its Moonshot-scoped reputation event and interruption/resume evidence, then set Mystic back to zero.
+
+- `20260723T221404Z-bd5cb3` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T221404Z-bd5cb3.md)
+
+> Real deployment blocker: deliberate deploy correctly aborted because the deployed root is dirty (D journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md; M roles/liaison/AGENT.md). I will not modify or discard deployed-root state. Leader must resolve it then rerun deploy; Mystic remains zero and the canary has not run.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -812,8 +816,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.4M | $1059.57 _(notional, rate-card)_ | no quota set |
-| Codex | 659.2M _(+600.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 94.0M | $1056.66 _(notional, rate-card)_ | no quota set |
+| Codex | 659.3M _(+600.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
