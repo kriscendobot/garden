@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T19:04:37Z_
+_As of 2026-07-23T19:05:38Z_
 
 ## Latest
 
@@ -1261,8 +1261,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.4M | $1083.34 _(notional, rate-card)_ | no quota set |
-| Codex | 663.1M _(+573.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 97.4M | $1083.04 _(notional, rate-card)_ | no quota set |
+| Codex | 663.1M _(+574.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
@@ -1296,9 +1296,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (3)
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endo-master-fb9cef4-ci-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-shepherd.md) — Shepherd the current-master CI repair PR to green
+- [`pi-release-watch-20260723-190501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pi-release-watch-20260723-190501.md) — WEEKLY Pi-release watch → keep the endo-but-for-bots harnesses aligned with the
 
 ### tada (3353)
 - [`endo-master-fb9cef4-ci-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-master-fb9cef4-ci-build.md) — Completed: opened draft baseline PR https://github.com/endojs/endo-but-for-bo...
