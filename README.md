@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T10:08:10Z_
+_As of 2026-07-23T10:08:31Z_
 
 ## Latest
 
@@ -1239,16 +1239,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`finbot-progress-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260723-100531.md) — Push progress on kriscendobot/finbot (every 6h)
+### doin (0)
+(none)
 
-### tada (3341)
+### tada (3342)
+- [`finbot-progress-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-100531.md) — Completed finbot progress assessment. PR #4 remains a clean draft with passin...
 - [`kriscendobot-agoric-sdk-pr10-review-c28034ac`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-c28034ac.md) — Completed PR #10 review response.
 - [`daily-progress-summary-20260723-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260723-070502.md) — Created and pushed periodicals/2026/07/22.md to journal2 (commit 3db0b365c). ...
 - [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-a7bcbe21.md) — Addressed all five inline comments in b141d30c79 and 5c04dcac95: clarified or...
 - [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
-- [`fix-endo-but-for-bots-621`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-621.md) — Completed PR #621 follow-up. Resolved all three addressed review threads; rev...
-- … and 3336 more
+- … and 3337 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
