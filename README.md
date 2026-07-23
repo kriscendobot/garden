@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T02:50:29Z_
+_As of 2026-07-23T02:53:44Z_
 
 ## Latest
 
@@ -1149,7 +1149,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 709.1M _(+578.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Codex | 709.2M _(+578.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
@@ -1165,7 +1165,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (1)
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 3 -->
+- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 4 -->
 
 ### tada (3335)
 - [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
