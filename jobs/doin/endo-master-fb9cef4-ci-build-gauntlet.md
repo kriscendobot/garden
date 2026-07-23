@@ -13,3 +13,10 @@ the panel terminates cleanly. This handoff was posted by the build completion ed
 not inferred by a watcher.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: cleric
+  claimed_at: 2026-07-23T20:55:32Z
