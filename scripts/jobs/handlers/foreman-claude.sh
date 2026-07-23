@@ -114,7 +114,7 @@ provider_order() {
   [ "${#parts[@]}" -gt 0 ] || die "GARDEN_FOREMAN_PROVIDER_ORDER is empty"
   for item in "${parts[@]}"; do
     item="$(printf '%s' "$item" | tr -d '[:space:]')"
-    case "$item" in openai|local|anthropic) ;; *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, local, anthropic)" ;; esac
+    case "$item" in openai|local|anthropic) ;; *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, local, anthropic; Moonshot is explicit-job-only)" ;; esac
     case "$seen" in *",$item,"*) die "duplicate provider '$item' in GARDEN_FOREMAN_PROVIDER_ORDER" ;; esac
     seen+="$item,"
     out+="${out:+ }$item"

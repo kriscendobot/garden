@@ -45,8 +45,9 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # provider anthropic), one pinned to a paid codex model is cleric-only (openai), one
 # pinned to a served LOCAL tag (the qwen family) is hermit-only (local), and an
 # UNPINNED job (no `model:`, or a value no provider's patterns match) is claimable by
-# any kind. Mystic is activation-only, so its Kimi Code pool accepts only an explicit
-# K3 pin.
+# any kind. Mystic is activation-only, so its pool accepts only the exact explicit
+# `model: kimi-k3` pin. Do not resolve a short alias here: a K3 job is deliberately
+# never a default-routing decision.
 # This is a small deterministic predicate — no LLM, no auction — and it is
 # the seam the bid auction (build child 2) later replaces: under the auction, backend
 # fit is PRICED into the bid instead of hard-filtered.
@@ -61,13 +62,15 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" pinned=""
-  local m; m="$(plan_field "$jf" model)"
-  # Moonshot is a bounded K3 trial, not a general provider tier: require the
-  # concrete production id, not the convenient `k3` shorthand accepted by the
-  # model resolver. This prevents an accidental future K3-like alias from arming
-  # mystics or turning the pool into an implicit default.
-  [ "$KIND_PROVIDER" != moonshot ] || [ "$m" = "kimi-k3" ] || return 1
+  local jf="$1" pinned="" m role
+  m="$(plan_field "$jf" model)"
+  if [ "$KIND_PROVIDER" = moonshot ]; then
+    [ "$m" = "kimi-k3" ] || return 1
+    role="$(plan_role "$jf")"
+    case "$role" in
+      designer|builder) return 1 ;; # explicit K3 is not a high-stakes route
+    esac
+  fi
   [ -n "$m" ] || return 0                        # no model: unpinned -> eligible
   if [ -n "$(resolve_model_tier anthropic "$m")" ]; then pinned=anthropic
   elif [ -n "$(resolve_model_tier local "$m")" ]; then pinned=local

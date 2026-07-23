@@ -1,14 +1,13 @@
-# Reference: cross-provider model catalog (Claude, Codex, Kimi Code)
+# Reference: cross-provider model catalog (Claude + Codex)
 
 | Created | 2026-07-13 |
 | Updated | 2026-07-23 |
-| Author  | gardener (scholar, mystic) |
+| Author  | gardener, gardener (scholar) |
 | Status  | Reference |
 
-A catalog of the models the garden can drive across its agent backends: **Claude**
-via the `claude` CLI, **Codex** via the `codex` CLI, and **Kimi Code** via the
-`kimi` CLI. It records each model's concrete id, tier, supported thoughtfulness
-(reasoning-effort) levels, relative
+A catalog of the models the garden can drive across both agent backends — **Claude**
+via the `claude` CLI, and **Codex** via the `codex` CLI — with each model's concrete
+id, tier, supported thoughtfulness (reasoning-effort) levels, relative
 capability/cost, and intended use. It exists to ground two consumers:
 
 - the **model-selection policy** ([`skills/model-selection/SKILL.md`](../skills/model-selection/SKILL.md)),
@@ -155,20 +154,16 @@ seeded illustratively (guide §5). This row is the canonical rate for the `local
 provider that the token-cost ledger (§3, not yet wired) will apply, and that a journal
 `reputation/rate-card.md` row mirrors per-instance.
 
-### 2.6 Moonshot Kimi K3, hosted through official Kimi Code (`mystic`)
+### 2.6 Moonshot Kimi K3, hosted through the Kimi Code CLI (`mystic`)
 
-The `mystic` worker kind invokes [official Kimi Code](https://moonshotai.github.io/kimi-code/)
-against Moonshot's `https://api.moonshot.ai/v1` endpoint. Its concrete model id and
-routing default are both `kimi-k3`; the handler transfers `MOONSHOT_API_KEY` only
-through Kimi Code's ephemeral `KIMI_MODEL_API_KEY` channel. Its per-job
-`KIMI_CODE_HOME` contains the only Kimi config/session state. The working name
-`mystic` intentionally does not bake a provider or a model into the worker-kind
-namespace; `provider: moonshot` and `model: kimi-k3` remain the authoritative
-routing and reputation metadata.
-
-The tracked facts below are provisional, dated **2026-07-23**, and follow the
-completed `research-kimi-k3-harness-20260723` report. Recheck the primary provider
-documentation before changing an operational pin or price.
+The `mystic` worker kind uses the official Kimi Code CLI headless interface
+(`kimi --prompt`, with `kimi --continue` on a requeue), not Codex's
+OpenAI-compatible adapter. It supplies `MOONSHOT_API_KEY` only to Kimi's supported
+temporary `KIMI_MODEL_*` configuration channel, pins `kimi-k3`, and gives every
+base a private persisted `KIMI_CODE_HOME`. The pool has no routing default: only
+an exact `model: kimi-k3` job can claim it. It has no design/build default and is
+not eligible for builder or designer jobs. It is landed disabled until a maintainer
+deliberately sets a positive Mystic count.
 
 **Provisional rate card.**
 
@@ -176,12 +171,11 @@ documentation before changing an operational pin or price.
 | --- | --- | --- | --- | --- | --- |
 | `moonshot` | `kimi-k3` | `https://api.moonshot.ai/v1` | 1M [unverified] | $0.30 / $3.00 / $15.00 [provisional, unverified] | `provisional` |
 
-**Compatibility boundary.** The official Kimi Code CLI documents `--auto -p`,
-`KIMI_CODE_HOME`, `--continue`, and the ephemeral `KIMI_MODEL_*` model channel, but
-this repository's offline harness does not exercise a funded Moonshot request. The
-`mystic` pool is therefore explicit-model-only: it accepts `model: kimi-k3`, has no
-role default, starts at zero workers, and must not become the default for design,
-build, or another high-stakes role until the bounded canary succeeds.
+**Compatibility boundary.** The Kimi Code CLI's documented prompt, resume,
+temporary-model, and `KIMI_CODE_HOME` interfaces are the supported harness surface.
+The endpoint, authentication shape, advertised 1M context, and prices still require
+a bounded live canary before the pool is enabled. It must not become a default for
+design, build, or another high-stakes role.
 
 ---
 

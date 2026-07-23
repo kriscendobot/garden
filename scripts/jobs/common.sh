@@ -419,12 +419,10 @@ worker_kind_field() {
         *) return 1 ;;
       esac ;;
     mystic)
-      # Hosted Moonshot Kimi K3 uses Kimi Code, Moonshot's official coding CLI.
-      # It has its own pool, session namespace, and reputation arm. The evocative
-      # worker-kind name is deliberately provider/model-neutral enough to survive
-      # a future Moonshot model change; provider/model truth stays in metadata.
+      # Hosted Moonshot Kimi K3 uses the official Kimi Code CLI, while retaining
+      # a separate pool, state namespace, provider identity, and reputation arm.
       case "$field" in
-        handler)   printf '%s\n' "handlers/mystic-kimi-code.sh" ;;
+        handler)   printf '%s\n' "handlers/mystic-kimi.sh" ;;
         provider)  printf '%s\n' "moonshot" ;;
         unit)      printf '%s\n' "garden-mystic@" ;;
         count_key) printf '%s\n' "mystics" ;;
@@ -2108,30 +2106,6 @@ is_transient_empty_failure() {
   esac
 }
 
-# reap_process_group <pgid> [grace-secs] — terminate a handler's whole process
-# group after its bounded invocation returns. gardener.sh creates a fresh process
-# group for every handler, and both Claude/Codex/Kimi Code can spawn descendants;
-# this unconditional sweep prevents a timeout or interrupted requeue from leaving
-# an orphaned tool tree behind. Guard unsafe targets so a caller mistake can never
-# turn this into a broad signal.
-reap_process_group() {
-  local pgid="${1:-}" grace="${2:-5}" waited=0 self_pgid
-  case "$pgid" in ''|*[!0-9]*) return 0 ;; esac
-  [ "$pgid" -gt 1 ] 2>/dev/null || return 0
-  [ "$pgid" = "$$" ] && return 0
-  self_pgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -dc '0-9')"
-  [ -n "$self_pgid" ] && [ "$pgid" = "$self_pgid" ] && return 0
-  kill -0 -"$pgid" 2>/dev/null || return 0
-  kill -TERM -"$pgid" 2>/dev/null || true
-  while [ "$waited" -lt "$grace" ]; do
-    kill -0 -"$pgid" 2>/dev/null || return 0
-    sleep 1
-    waited=$((waited + 1))
-  done
-  kill -KILL -"$pgid" 2>/dev/null || true
-  return 0
-}
-
 # --- job completion signal ---------------------------------------------------
 #
 # The deterministic "the job genuinely finished" contract between the `claude -p`
@@ -3117,7 +3091,7 @@ _model_routing_table() {
     'anthropic	claude-*	' \
     'openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra' \
     'local	qwen*	qwen3.6' \
-    'moonshot	kimi-k3	kimi-k3'
+    'moonshot	kimi-k3'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
@@ -3216,10 +3190,9 @@ resolve_model_tier() {
       # unpinned) per "hermits only respond to qwen at this time."
       if _model_classify local "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     moonshot)
-      case "$tier" in
-        k3) printf '%s\n' "kimi-k3" ;;
-        *)  if _model_classify moonshot "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
-      esac ;;
+      # Mystic is activation-only. An abbreviated `model: k3` must not silently
+      # select it: only the concrete, explicit `model: kimi-k3` is valid.
+      if [ "$tier" = "kimi-k3" ] && _model_classify moonshot "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     *) printf '%s\n' "" ;;
   esac
 }

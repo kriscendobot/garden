@@ -1,11 +1,11 @@
 # Bounded Moonshot Kimi K3 activation
 
-The hosted `mystic` worker is an explicit-model-only Moonshot pool. It invokes the
-official Kimi Code CLI with `model: kimi-k3`, a per-job `KIMI_CODE_HOME`, and a
-one-invocation `KIMI_MODEL_API_KEY` derived from `MOONSHOT_API_KEY`. Do not enable
-it as a default for design, build, or other high-stakes work. `mystic` is the
-provider/model-neutral worker-kind name; `moonshot` and `kimi-k3` remain recorded
-in routing and reputation metadata.
+The hosted `mystic` worker is an explicit-model-only Moonshot pool. It uses the
+official Kimi Code CLI headless path with `model: kimi-k3` and `MOONSHOT_API_KEY`.
+Every job has a private persisted `KIMI_CODE_HOME`, so a requeue resumes only its
+own session state. Do not enable it as a default for design, build, or other
+high-stakes work. The pool ships disabled and remains so until a maintainer directs
+a bounded canary.
 
 ## 1. Supply the key before container creation
 
@@ -37,7 +37,7 @@ curl -sS -o /dev/null -w '%{http_code}\n' \
   https://api.moonshot.ai/v1/models
 ```
 
-Expect a successful status before proceeding. A failure means stop at zero mystic
+Expect a successful status before proceeding. A failure means stop at zero Mystic
 workers and diagnose account, network, or endpoint access without copying the key
 into logs or chat.
 
@@ -53,8 +53,8 @@ Post a small, reversible job with frontmatter that explicitly includes
 `model: kimi-k3`. Make it use a harmless tool action, such as creating and removing
 a file in its isolated worktree, and require its normal completion marker. Do not
 target a production repository, a design/build role, a merge, or an external side
-effect. The mystic pool refuses unpinned jobs by design, so the canary cannot take
-ordinary board work.
+effect. The Mystic pool refuses unpinned, builder, and designer jobs by design, so
+the canary cannot take ordinary or high-stakes board work.
 
 ## 4. Verify completion and reputation scope
 
@@ -68,6 +68,6 @@ larger trial:
 scripts/jobs/set-mystics.sh 0
 ```
 
-Record whether Kimi Code completed Moonshot chat completions and tool calls. Until
-both are observed, keep the compatibility question open and leave Kimi out of
-default role routing.
+Record whether Kimi Code completed Moonshot tool use and report capture. Until both
+are observed, keep the compatibility question open and leave Mystic out of default
+role routing.

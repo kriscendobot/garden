@@ -86,6 +86,15 @@ fi
   && ok "unset provider order invokes only Anthropic" \
   || bad "normal order trace: $(tr '\n' ' ' < "$LOG4")"
 
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 5: Moonshot cannot become foreman/default routing"; hr
+if run_handler moonshot,anthropic >"$TR/moonshot.out" 2>"$TR/moonshot.err"; then
+  bad "Moonshot provider order was accepted"
+else
+  ok "Moonshot provider order is rejected as explicit-job-only"
+fi
+grep -q 'explicit-job-only' "$TR/moonshot.err" && ok "routing refusal explains policy" || bad "routing refusal lacks policy diagnostic"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

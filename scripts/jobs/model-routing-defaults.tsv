@@ -34,4 +34,5 @@
 anthropic	claude-*
 openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra
 local	qwen*	qwen3.6
-moonshot	kimi-k3	kimi-k3
+# Moonshot has no fleet default. Mystic claims only exact `model: kimi-k3` jobs.
+moonshot	kimi-k3

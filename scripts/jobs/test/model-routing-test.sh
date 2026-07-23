@@ -63,7 +63,7 @@ hr; echo "CLASSIFY — the tracked default table routes the current (qwen) reali
 hr; echo "DEFAULTS — fleet defaults ride the routing table"; hr
 [ "$(model_routing_default local)" = "qwen3.6" ]      && ok "local fleet default = qwen3.6" || bad "local default ($(model_routing_default local))"
 [ "$(model_routing_default openai)" = "gpt-5.6-terra" ] && ok "openai fleet default = gpt-5.6-terra" || bad "openai default"
-[ "$(model_routing_default moonshot)" = "kimi-k3" ] && ok "moonshot fleet default = kimi-k3" || bad "moonshot default"
+[ -z "$(model_routing_default moonshot)" ] && ok "moonshot has no fleet default" || bad "moonshot default"
 [ -z "$(model_routing_default anthropic)" ]           && ok "anthropic default empty (sentinel decided in code)" || bad "anthropic default not empty"
 [ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder role default = qwen3.6 (from table)" || bad "hermit builder default"
 

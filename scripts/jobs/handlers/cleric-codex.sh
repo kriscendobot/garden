@@ -40,13 +40,12 @@ worktree="$(worker_worktree_path "$base")"
 
 # --- worker kind + provider (this handler serves BOTH codex-backed kinds) ------
 #
-# The SAME codex handler drives two worker kinds, distinguished by their registry
+# The SAME Codex handler drives two worker kinds, distinguished by their registry
 # `provider` field (common.sh worker-kind registry): the paid-OpenAI `cleric`
-# (provider=openai) and LOCAL `hermit` (provider=local). Everything below that
-# differs between them — the tier
-# map, the fleet-default model, the auth/reachability preflight, and whether codex
-# gets a `-c model_provider=local` block — keys off $provider, so the local backend
-# is ZERO new handler code (design §4, guide §4 Option 1). The spine exports
+# (provider=openai) and LOCAL `hermit` (provider=local). Kimi intentionally has
+# its own official CLI handler. Everything below that differs between the Codex
+# kinds: the tier map, fleet-default model, auth/reachability preflight, and the
+# local provider block key off $provider. The spine exports
 # GARDEN_WORKER_KIND; default to cleric for a standalone invocation.
 KIND="${GARDEN_WORKER_KIND:-cleric}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"

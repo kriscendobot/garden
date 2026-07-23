@@ -142,6 +142,21 @@ RUN for attempt in 1 2 3; do \
         sleep "$attempt"; \
     done
 
+# Kimi Code CLI (Moonshot) is installed from Moonshot's official checksum-verifying
+# installer, in an image-owned directory rather than the bind-mounted home. Mystic
+# jobs invoke this binary with a per-job KIMI_CODE_HOME, so the installed program and
+# each job's mutable state remain separate. The command check makes a broken download
+# fail the image build instead of the first explicit Mystic job.
+RUN for attempt in 1 2 3; do \
+        curl -fsSL -o /tmp/kimi-code-install.sh https://code.kimi.com/kimi-code/install.sh \
+        && KIMI_INSTALL_DIR=/opt/kimi-code KIMI_NO_MODIFY_PATH=1 bash /tmp/kimi-code-install.sh \
+        && ln -sfn /opt/kimi-code/bin/kimi /usr/local/bin/kimi \
+        && command -v kimi && kimi --version && rm -f /tmp/kimi-code-install.sh && exit 0; \
+        if [ "$attempt" -eq 3 ]; then exit 1; fi; \
+        echo "Kimi Code install failed (attempt $attempt); retrying..." >&2; \
+        sleep "$attempt"; \
+    done
+
 # Ollama + its bundled ROCm 7.2 runtime — the image-side half of durable LOCAL
 # inference on the AMD Ryzen (Strix Halo / gfx1151) host, so a rebuilt image ships a
 # GPU-capable OpenAI-compatible /v1 endpoint with no manual install (the codex-CLI

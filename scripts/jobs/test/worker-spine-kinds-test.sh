@@ -73,7 +73,7 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field hermit   unit)" = "garden-hermit@" ] && ok "hermit unit prefix" || bad "hermit unit"
 [ "$(worker_kind_field hermit   count_key)" = "hermits" ] && ok "hermit count_key" || bad "hermit count_key"
 [ "$(worker_kind_field hermit   state_ns)"  = "hermits" ] && ok "hermit state_ns"  || bad "hermit state_ns"
-[ "$(worker_kind_field mystic   handler)" = "handlers/mystic-kimi-code.sh" ] && ok "mystic uses official Kimi Code handler" || bad "mystic handler ($(worker_kind_field mystic handler))"
+[ "$(worker_kind_field mystic   handler)" = "handlers/mystic-kimi.sh" ] && ok "mystic uses official Kimi handler" || bad "mystic handler ($(worker_kind_field mystic handler))"
 [ "$(worker_kind_field mystic   provider)" = "moonshot" ] && ok "mystic provider moonshot" || bad "mystic provider"
 [ "$(worker_kind_field mystic   unit)" = "garden-mystic@" ] && ok "mystic unit prefix" || bad "mystic unit"
 [ "$(worker_kind_field mystic   count_key)" = "mystics" ] && ok "mystic count_key" || bad "mystic count_key"
@@ -99,8 +99,8 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ -z "$(resolve_model_tier local llama3.2:3b)" ] && ok "local map rejects a non-qwen served tag" || bad "local captured a non-qwen tag"
 [ -z "$(resolve_model_tier openai gpt-oss:20b)" ] && ok "openai map rejects a gpt-oss tag (!gpt-oss* exclude)" || bad "openai captured a gpt-oss tag"
 [ -z "$(resolve_model_tier local terra)" ] && ok "local map rejects a codex tier (no cross-provider leak)" || bad "local leaked a codex tier"
-[ "$(resolve_model_tier moonshot k3)" = "kimi-k3" ] && ok "moonshot k3 tier -> kimi-k3" || bad "moonshot k3 tier"
 [ "$(resolve_model_tier moonshot kimi-k3)" = "kimi-k3" ] && ok "moonshot concrete kimi-k3" || bad "moonshot concrete id"
+[ -z "$(resolve_model_tier moonshot k3)" ] && ok "moonshot refuses abbreviated k3 selector" || bad "moonshot accepted abbreviated K3"
 [ -z "$(resolve_model_tier openai kimi-k3)" ] && ok "openai rejects kimi-k3" || bad "openai captured Kimi"
 [ -z "$(resolve_model_tier anthropic kimi-k3)" ] && ok "anthropic rejects kimi-k3" || bad "anthropic captured Kimi"
 [ -z "$(resolve_model_tier local kimi-k3)" ] && ok "local rejects kimi-k3" || bad "local captured Kimi"
@@ -110,6 +110,13 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder → qwen3.6 (local fleet default from table)" || bad "hermit builder default ($(role_default_model hermit builder))"
 [ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
 [ -z "$(role_default_model mystic builder)" ] && ok "mystic builder has no high-stakes default" || bad "mystic builder default"
+ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-mystic-arm.XXXXXX")"
+printf '%s\n' '---' 'model: kimi-k3' 'role: fixer' '---' > "$ARM_JOB"
+# shellcheck source=../reputation.sh
+source "$JOBS/reputation.sh"
+mapfile -t mystic_arm < <(rep_resolve_arm mystic "$ARM_JOB")
+rm -f "$ARM_JOB"
+[ "${mystic_arm[*]}" = "moonshot kimi-k3 medium" ] && ok "mystic reputation arm retains kind/provider/model" || bad "mystic reputation arm (${mystic_arm[*]})"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
@@ -138,15 +145,6 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
     ok "$kind: claim metadata stamped worker_kind: $kind (journal history)"
   else
     bad "$kind: worker_kind not stamped in the claim history"
-  fi
-  if [ "$kind" = mystic ]; then
-    event="$v/reputation/events/$base.md"
-    if [ -f "$event" ] && grep -qx 'kind: mystic' "$event" \
-      && grep -qx 'provider: moonshot' "$event" && grep -qx 'model: kimi-k3' "$event"; then
-      ok "mystic: reputation event carries kind/provider/model metadata"
-    else
-      bad "mystic: reputation metadata missing or wrong ($event)"
-    fi
   fi
   # the spine logged its kind
   grep -q "kind=$kind" "$tr/worker.log" && ok "$kind: spine started with kind=$kind" || bad "$kind: spine kind not logged"
@@ -200,11 +198,13 @@ elig_case hermit   unpinnedjob2 ""                    claimed
 elig_case cleric   pinnedqwen3  "model: qwen3.6"      left
 elig_case gardener pinnedqwen4  "model: qwen3.6"      left
 elig_case mystic   pinnedkimi   "model: kimi-k3"      claimed
-elig_case mystic   shortkimi    "model: k3"           left
 elig_case cleric   pinnedkimi2  "model: kimi-k3"      left
 elig_case gardener pinnedkimi3  "model: kimi-k3"      left
 elig_case hermit   pinnedkimi4  "model: kimi-k3"      left
 elig_case mystic   unpinnedkimi ""                    left
+elig_case mystic   abbreviatedkimi "model: k3"         left
+elig_case mystic   builderkimi $'model: kimi-k3\nrole: builder' left
+elig_case mystic   designerkimi $'model: kimi-k3\nrole: designer' left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -247,7 +247,7 @@ gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
 [ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"
-[ "$gk" -eq 1 ] && ok "scale mystic 1 → garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
+[ "$gk" -eq 1 ] && ok "scale mystic 1 -> garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

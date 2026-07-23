@@ -114,8 +114,8 @@ codex_effort_for_model() {
 
 # codex_provider_extra_args <provider>
 # Set CODEX_PROVIDER_EXTRA_ARGS to the inline provider settings required by the
-# existing local route. Keeping these settings here makes a foreman local attempt
-# identical to its corresponding worker kind.
+# local route. Keeping these settings here makes a foreman attempt identical to
+# its corresponding worker kind.
 codex_provider_extra_args() {
   local provider="${1:?provider}"
   # shellcheck disable=SC2034 # caller appends this shared array after invoking us
