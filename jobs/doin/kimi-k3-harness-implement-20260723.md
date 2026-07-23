@@ -10,3 +10,10 @@ Work in an isolated garden development worktree; never edit the deployed root. F
 Use current primary Moonshot/Kimi Code documentation. Add focused offline tests for provider selection, CLI invocation/config isolation, completion gating, resume behavior, missing credential diagnostics, and unit/scaler integration. Run relevant existing worker-spine and routing tests. Record exact verification and the pushed main2 commit in the completion report, and message the maintainer when deployment-ready.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 20
+  worker_kind: cleric
+  claimed_at: 2026-07-23T20:55:42Z
