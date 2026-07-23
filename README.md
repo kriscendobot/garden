@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T02:42:06Z_
+_As of 2026-07-23T02:43:34Z_
 
 ## Latest
 
@@ -1161,7 +1161,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (1)
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 2 -->
+- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 3 -->
 
 ### tada (3335)
 - [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
