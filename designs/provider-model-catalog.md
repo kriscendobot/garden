@@ -1,13 +1,14 @@
-# Reference: cross-provider model catalog (Claude + Codex)
+# Reference: cross-provider model catalog (Claude, Codex, Kimi Code)
 
 | Created | 2026-07-13 |
-| Updated | 2026-07-13 |
-| Author  | gardener (scholar) |
+| Updated | 2026-07-23 |
+| Author  | gardener (scholar, mystic) |
 | Status  | Reference |
 
-A catalog of the models the garden can drive across both agent backends — **Claude**
-via the `claude` CLI, and **Codex** via the `codex` CLI — with each model's concrete
-id, tier, supported thoughtfulness (reasoning-effort) levels, relative
+A catalog of the models the garden can drive across its agent backends: **Claude**
+via the `claude` CLI, **Codex** via the `codex` CLI, and **Kimi Code** via the
+`kimi` CLI. It records each model's concrete id, tier, supported thoughtfulness
+(reasoning-effort) levels, relative
 capability/cost, and intended use. It exists to ground two consumers:
 
 - the **model-selection policy** ([`skills/model-selection/SKILL.md`](../skills/model-selection/SKILL.md)),
@@ -154,15 +155,19 @@ seeded illustratively (guide §5). This row is the canonical rate for the `local
 provider that the token-cost ledger (§3, not yet wired) will apply, and that a journal
 `reputation/rate-card.md` row mirrors per-instance.
 
-### 2.6 Moonshot Kimi K3, hosted via the OpenAI-compatible Codex path (`kimi`)
+### 2.6 Moonshot Kimi K3, hosted through official Kimi Code (`mystic`)
 
-The `kimi` worker kind sends Codex to Moonshot's hosted OpenAI-compatible endpoint:
-`https://api.moonshot.ai/v1`. Its concrete model id and routing default are both
-`kimi-k3`; authentication is Bearer auth through `MOONSHOT_API_KEY`. The tracked
-facts below are provisional, dated **2026-07-22**, and attributed to the completed
-`research-harness-kimi-k3` report. That report recorded the [Moonshot Kimi
-quickstart](https://platform.kimi.ai/docs/guide/kimi-k3-quickstart) and a secondary
-pricing report as untrusted research inputs. Recheck the primary provider
+The `mystic` worker kind invokes [official Kimi Code](https://moonshotai.github.io/kimi-code/)
+against Moonshot's `https://api.moonshot.ai/v1` endpoint. Its concrete model id and
+routing default are both `kimi-k3`; the handler transfers `MOONSHOT_API_KEY` only
+through Kimi Code's ephemeral `KIMI_MODEL_API_KEY` channel. Its per-job
+`KIMI_CODE_HOME` contains the only Kimi config/session state. The working name
+`mystic` intentionally does not bake a provider or a model into the worker-kind
+namespace; `provider: moonshot` and `model: kimi-k3` remain the authoritative
+routing and reputation metadata.
+
+The tracked facts below are provisional, dated **2026-07-23**, and follow the
+completed `research-kimi-k3-harness-20260723` report. Recheck the primary provider
 documentation before changing an operational pin or price.
 
 **Provisional rate card.**
@@ -171,13 +176,12 @@ documentation before changing an operational pin or price.
 | --- | --- | --- | --- | --- | --- |
 | `moonshot` | `kimi-k3` | `https://api.moonshot.ai/v1` | 1M [unverified] | $0.30 / $3.00 / $15.00 [provisional, unverified] | `provisional` |
 
-**Compatibility boundary.** The endpoint, authentication shape, model id, advertised
-1M context, and prices are reported by the completed research harness, not exercised
-by this repository. In particular, **[unverified]**: Codex's `model_providers.*`
-configuration can drive Moonshot chat completions end to end, and K3 returns tool
-calls that Codex can use safely. The `kimi` pool is therefore explicit-model-only:
-it accepts `model: kimi-k3`, has no role default, and must not become the default for
-design, build, or another high-stakes role until the bounded canary succeeds.
+**Compatibility boundary.** The official Kimi Code CLI documents `--auto -p`,
+`KIMI_CODE_HOME`, `--continue`, and the ephemeral `KIMI_MODEL_*` model channel, but
+this repository's offline harness does not exercise a funded Moonshot request. The
+`mystic` pool is therefore explicit-model-only: it accepts `model: kimi-k3`, has no
+role default, starts at zero workers, and must not become the default for design,
+build, or another high-stakes role until the bounded canary succeeds.
 
 ---
 

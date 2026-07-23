@@ -418,16 +418,18 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-hermit" ;;
         *) return 1 ;;
       esac ;;
-    kimi)
-      # Hosted Moonshot Kimi K3 reuses the Codex handler while retaining a
-      # separate pool, state namespace, provider identity, and reputation arm.
+    mystic)
+      # Hosted Moonshot Kimi K3 uses Kimi Code, Moonshot's official coding CLI.
+      # It has its own pool, session namespace, and reputation arm. The evocative
+      # worker-kind name is deliberately provider/model-neutral enough to survive
+      # a future Moonshot model change; provider/model truth stays in metadata.
       case "$field" in
-        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        handler)   printf '%s\n' "handlers/mystic-kimi-code.sh" ;;
         provider)  printf '%s\n' "moonshot" ;;
-        unit)      printf '%s\n' "garden-kimi@" ;;
-        count_key) printf '%s\n' "kimis" ;;
-        state_ns)  printf '%s\n' "kimis" ;;
-        label)     printf '%s\n' "garden-kimi" ;;
+        unit)      printf '%s\n' "garden-mystic@" ;;
+        count_key) printf '%s\n' "mystics" ;;
+        state_ns)  printf '%s\n' "mystics" ;;
+        label)     printf '%s\n' "garden-mystic" ;;
         *) return 1 ;;
       esac ;;
     *) return 1 ;;
@@ -438,7 +440,7 @@ worker_kind_field() {
 # scaler iterates this to reconcile every pool; set-workers.sh iterates it to
 # preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
 # in exactly one place besides worker_kind_field: here.
-worker_kinds() { printf '%s\n' gardener cleric hermit kimi; }
+worker_kinds() { printf '%s\n' gardener cleric hermit mystic; }
 
 # read_desired_count <hosts-file> <count_key> — read one worker kind's declared
 # concurrency from a hosts/<host> file, distinguishing the THREE outcomes the pool
@@ -2106,6 +2108,30 @@ is_transient_empty_failure() {
   esac
 }
 
+# reap_process_group <pgid> [grace-secs] — terminate a handler's whole process
+# group after its bounded invocation returns. gardener.sh creates a fresh process
+# group for every handler, and both Claude/Codex/Kimi Code can spawn descendants;
+# this unconditional sweep prevents a timeout or interrupted requeue from leaving
+# an orphaned tool tree behind. Guard unsafe targets so a caller mistake can never
+# turn this into a broad signal.
+reap_process_group() {
+  local pgid="${1:-}" grace="${2:-5}" waited=0 self_pgid
+  case "$pgid" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$pgid" -gt 1 ] 2>/dev/null || return 0
+  [ "$pgid" = "$$" ] && return 0
+  self_pgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -dc '0-9')"
+  [ -n "$self_pgid" ] && [ "$pgid" = "$self_pgid" ] && return 0
+  kill -0 -"$pgid" 2>/dev/null || return 0
+  kill -TERM -"$pgid" 2>/dev/null || true
+  while [ "$waited" -lt "$grace" ]; do
+    kill -0 -"$pgid" 2>/dev/null || return 0
+    sleep 1
+    waited=$((waited + 1))
+  done
+  kill -KILL -"$pgid" 2>/dev/null || true
+  return 0
+}
+
 # --- job completion signal ---------------------------------------------------
 #
 # The deterministic "the job genuinely finished" contract between the `claude -p`
@@ -3218,7 +3244,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    gardener|cleric|hermit|kimi) kind="$1"; role="${2:-}" ;;
+    gardener|cleric|hermit|mystic) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -3249,7 +3275,7 @@ role_default_model() {
         builder)  model_routing_default local ;;
         *)        printf '%s\n' "" ;;
       esac ;;
-    kimi)
+    mystic)
       # Activation-only: no design/build or other role defaults can select K3.
       printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
@@ -3266,7 +3292,7 @@ role_default_model() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    gardener|cleric|hermit|kimi) role="${2:-}" ;;
+    gardener|cleric|hermit|mystic) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

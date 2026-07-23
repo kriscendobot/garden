@@ -73,12 +73,12 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field hermit   unit)" = "garden-hermit@" ] && ok "hermit unit prefix" || bad "hermit unit"
 [ "$(worker_kind_field hermit   count_key)" = "hermits" ] && ok "hermit count_key" || bad "hermit count_key"
 [ "$(worker_kind_field hermit   state_ns)"  = "hermits" ] && ok "hermit state_ns"  || bad "hermit state_ns"
-[ "$(worker_kind_field kimi     handler)" = "handlers/cleric-codex.sh" ] && ok "kimi reuses codex handler" || bad "kimi handler ($(worker_kind_field kimi handler))"
-[ "$(worker_kind_field kimi     provider)" = "moonshot" ] && ok "kimi provider moonshot" || bad "kimi provider"
-[ "$(worker_kind_field kimi     unit)" = "garden-kimi@" ] && ok "kimi unit prefix" || bad "kimi unit"
-[ "$(worker_kind_field kimi     count_key)" = "kimis" ] && ok "kimi count_key" || bad "kimi count_key"
-[ "$(worker_kind_field kimi     state_ns)" = "kimis" ] && ok "kimi state_ns" || bad "kimi state_ns"
-[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric,hermit,kimi" ] && ok "worker_kinds enumerates all four" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+[ "$(worker_kind_field mystic   handler)" = "handlers/mystic-kimi-code.sh" ] && ok "mystic uses official Kimi Code handler" || bad "mystic handler ($(worker_kind_field mystic handler))"
+[ "$(worker_kind_field mystic   provider)" = "moonshot" ] && ok "mystic provider moonshot" || bad "mystic provider"
+[ "$(worker_kind_field mystic   unit)" = "garden-mystic@" ] && ok "mystic unit prefix" || bad "mystic unit"
+[ "$(worker_kind_field mystic   count_key)" = "mystics" ] && ok "mystic count_key" || bad "mystic count_key"
+[ "$(worker_kind_field mystic   state_ns)" = "mystics" ] && ok "mystic state_ns" || bad "mystic state_ns"
+[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric,hermit,mystic" ] && ok "worker_kinds enumerates all four" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 ( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
 ( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
 worker_kind_field friar handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'friar' → non-zero (registry rejects)"
@@ -109,7 +109,7 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
 [ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder → qwen3.6 (local fleet default from table)" || bad "hermit builder default ($(role_default_model hermit builder))"
 [ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
-[ -z "$(role_default_model kimi builder)" ] && ok "kimi builder has no high-stakes default" || bad "kimi builder default"
+[ -z "$(role_default_model mystic builder)" ] && ok "mystic builder has no high-stakes default" || bad "mystic builder default"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
@@ -139,6 +139,15 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
   else
     bad "$kind: worker_kind not stamped in the claim history"
   fi
+  if [ "$kind" = mystic ]; then
+    event="$v/reputation/events/$base.md"
+    if [ -f "$event" ] && grep -qx 'kind: mystic' "$event" \
+      && grep -qx 'provider: moonshot' "$event" && grep -qx 'model: kimi-k3' "$event"; then
+      ok "mystic: reputation event carries kind/provider/model metadata"
+    else
+      bad "mystic: reputation metadata missing or wrong ($event)"
+    fi
+  fi
   # the spine logged its kind
   grep -q "kind=$kind" "$tr/worker.log" && ok "$kind: spine started with kind=$kind" || bad "$kind: spine kind not logged"
   # per-kind state namespace: the identity marker lives under the kind's ns
@@ -149,7 +158,7 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
 run_kind gardener gspine ghost "model: opus"
 run_kind cleric   cspine chost "model: terra"
 run_kind hermit   hspine hhost "model: qwen3.6"
-run_kind kimi     kspine kihost "model: kimi-k3"
+run_kind mystic   mspine mihost "model: kimi-k3"
 
 # ============================================================================
 hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
@@ -190,11 +199,12 @@ elig_case hermit   pinnedclaude3 "model: opus"        left
 elig_case hermit   unpinnedjob2 ""                    claimed
 elig_case cleric   pinnedqwen3  "model: qwen3.6"      left
 elig_case gardener pinnedqwen4  "model: qwen3.6"      left
-elig_case kimi     pinnedkimi   "model: kimi-k3"      claimed
+elig_case mystic   pinnedkimi   "model: kimi-k3"      claimed
+elig_case mystic   shortkimi    "model: k3"           left
 elig_case cleric   pinnedkimi2  "model: kimi-k3"      left
 elig_case gardener pinnedkimi3  "model: kimi-k3"      left
 elig_case hermit   pinnedkimi4  "model: kimi-k3"      left
-elig_case kimi     unpinnedkimi ""                    left
+elig_case mystic   unpinnedkimi ""                    left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -209,16 +219,16 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in gardener cleric hermit kimi; do
+for kind in gardener cleric hermit mystic; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
 grep -q 'GARDEN_WORKER_KIND=cleric'   "$RT/garden-cleric@.service"   && ok "cleric unit sets GARDEN_WORKER_KIND=cleric"     || bad "cleric kind env"
 grep -q 'GARDEN_WORKER_KIND=hermit'   "$RT/garden-hermit@.service"   && ok "hermit unit sets GARDEN_WORKER_KIND=hermit"     || bad "hermit kind env"
-grep -q 'GARDEN_WORKER_KIND=kimi'     "$RT/garden-kimi@.service"     && ok "kimi unit sets GARDEN_WORKER_KIND=kimi"         || bad "kimi kind env"
+grep -q 'GARDEN_WORKER_KIND=mystic'   "$RT/garden-mystic@.service"   && ok "mystic unit sets GARDEN_WORKER_KIND=mystic"     || bad "mystic kind env"
 grep -q 'self-heal-run.sh garden-cleric ' "$RT/garden-cleric@.service" && ok "cleric ExecStart labels self-heal garden-cleric" || bad "cleric self-heal label"
 grep -q 'self-heal-run.sh garden-hermit ' "$RT/garden-hermit@.service" && ok "hermit ExecStart labels self-heal garden-hermit" || bad "hermit self-heal label"
-grep -q 'self-heal-run.sh garden-kimi ' "$RT/garden-kimi@.service" && ok "kimi ExecStart labels self-heal garden-kimi" || bad "kimi self-heal label"
+grep -q 'self-heal-run.sh garden-mystic ' "$RT/garden-mystic@.service" && ok "mystic ExecStart labels self-heal garden-mystic" || bad "mystic self-heal label"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -229,15 +239,15 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale cleric 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale gardener 3 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale hermit 2 >/dev/null 2>&1
-"$JOBS/install-units.sh" scale kimi 1 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale mystic 1 >/dev/null 2>&1
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
 gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
-gk=$(grep -c '^garden-kimi@1\.service$' "$GARDEN_MOCK_STATE" || true)
+gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
 [ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"
-[ "$gk" -eq 1 ] && ok "scale kimi 1 → garden-kimi@1 armed (hosted pool independently scalable)" || bad "kimi scale (@1=$gk)"
+[ "$gk" -eq 1 ] && ok "scale mystic 1 → garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

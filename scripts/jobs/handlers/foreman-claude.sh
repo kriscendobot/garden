@@ -114,7 +114,7 @@ provider_order() {
   [ "${#parts[@]}" -gt 0 ] || die "GARDEN_FOREMAN_PROVIDER_ORDER is empty"
   for item in "${parts[@]}"; do
     item="$(printf '%s' "$item" | tr -d '[:space:]')"
-    case "$item" in openai|local|moonshot|anthropic) ;; *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, local, moonshot, anthropic)" ;; esac
+    case "$item" in openai|local|anthropic) ;; *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, local, anthropic)" ;; esac
     case "$seen" in *",$item,"*) die "duplicate provider '$item' in GARDEN_FOREMAN_PROVIDER_ORDER" ;; esac
     seen+="$item,"
     out+="${out:+ }$item"
@@ -166,15 +166,15 @@ validate_foreman_response() {
   return 20
 }
 
-foreman_codex_attempt() { # <openai|local|moonshot> <prompt>
+foreman_codex_attempt() { # <openai|local> <prompt>
   local provider="$1" prompt="$2" kind model effort output json_capture rc
-  case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; moonshot) kind=kimi ;; *) return 20 ;; esac
+  case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; *) return 20 ;; esac
   # Keep OpenAI authentication and local endpoint availability markers separate:
   # a successful Codex login must never make a later Ollama reachability check
   # appear healthy for the rest of the boot.
   codex_provider_preflight "$provider" "$kind" foreman "foreman-$provider" || return 10
   model="$(model_routing_default "$provider" 2>/dev/null || true)"
-  [ -n "$model" ] || case "$provider" in local) model=qwen3.6 ;; moonshot) model=kimi-k3 ;; *) model=gpt-5.6-terra ;; esac
+  [ -n "$model" ] || case "$provider" in local) model=qwen3.6 ;; *) model=gpt-5.6-terra ;; esac
   effort="$(codex_effort_for_model "$model" "$(role_default_effort "$kind" foreman)")"
   output="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-$provider-message.XXXXXX")"
   json_capture="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-$provider-json.XXXXXX")"
@@ -216,7 +216,7 @@ for provider in $(provider_order); do
   : > "$raw"
   rc=0
   case "$provider" in
-    openai|local|moonshot) foreman_codex_attempt "$provider" "$prompt" > "$raw" || rc=$? ;;
+    openai|local) foreman_codex_attempt "$provider" "$prompt" > "$raw" || rc=$? ;;
     anthropic)    foreman_anthropic_attempt "$prompt" > "$raw" || rc=$? ;;
   esac
   if [ "$rc" -eq 10 ]; then
