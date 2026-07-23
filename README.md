@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T15:57:00Z_
+_As of 2026-07-23T15:58:31Z_
 
 ## Latest
 
@@ -670,6 +670,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
+- `20260723T155818Z-aa486a` — from gardener:kriscendobot-agoric-sdk-pr10-review-14260266, reply_to `kriscendobot-agoric-sdk-pr10-review-14260266` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T155818Z-aa486a.md)
+
+> Review 4765874818 on [https://github.com/kriscendobot/agoric-sdk/pull/10](https://github.com/kriscendobot/agoric-sdk/pull/10) is LGTM but asks you for guidance on opening the design to wider public review without implementation. The PR is already a public draft and contains only designs/beans-v2-deflation.md; changing it to ready-for-review would alter its review state but requires your decision. Please say whether to keep the public draft and share its URL, mark it ready for review, or take another approach.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1250,7 +1254,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.3M | $1118.60 _(notional, rate-card)_ | no quota set |
-| Codex | 675.1M _(+583.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 675.1M _(+583.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (23)
