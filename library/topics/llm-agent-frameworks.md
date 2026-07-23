@@ -69,6 +69,10 @@
 | [llm-meta-ai invocation and features](../sections/web--simonw-llm-meta-ai--invocation-and-features.md) | llm-agent-frameworks | The full harness path (install/auth/model/attachments/tools/schemas) and the tool-execution-loop mechanism that makes an agentic loop reachable for Muse Spark through `llm`. |
 | [Adventures In LLM Land — germane thesis](../sections/habitat-chronicles--adventures-in-llm-land--overview.md) | Adventures in LLM Land (Morningstar) | Getting the maximum benefit from AI coding tools takes a surprising amount of discipline — a different discipline than traditional programming. |
 | [agentic development and the agent flock](../sections/habitat-chronicles--adventures-in-llm-land--agentic-development-and-the-agent-flock.md) | Adventures in LLM Land (Morningstar) | Each AI coding tool behaves like a super-smart but tasteless junior hire; the productive posture is engineering management of the flock. |
+| [TerraLingua overview](../sections/papers--paolo-terralingua-open-endedness-2026--overview.md) | open-ended-agent-ecologies, llm-agent-frameworks | A persistent LLM-agent ecology with artifact memory and a post-hoc observer, not an agent harness. |
+| [resource-limited ecology and agent model](../sections/papers--paolo-terralingua-open-endedness-2026--resource-limited-ecology-and-agent-model.md) | open-ended-agent-ecologies, llm-agent-frameworks | An LLM decision core receives bounded local state, energy, lifespan, personality, and memory. |
+| [artifacts as external cultural memory](../sections/papers--paolo-terralingua-open-endedness-2026--artifacts-as-external-cultural-memory.md) | open-ended-agent-ecologies, llm-agent-frameworks | Persistent artifacts move cultural memory out of fixed LLM parameters and short context. |
+| [AI Anthropologist post-hoc analysis](../sections/papers--paolo-terralingua-open-endedness-2026--ai-anthropologist-post-hoc-analysis.md) | open-ended-agent-ecologies, llm-agent-frameworks | Post-hoc LLM analysis is deliberately separated from the ecology it evaluates. |
 
 ## See also
 
