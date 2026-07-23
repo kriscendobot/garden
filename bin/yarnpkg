@@ -1,1 +1,2 @@
-../../../usr/lib/node_modules/corepack/dist/yarnpkg.js
+#!/bin/sh
+exec corepack yarn "$@"
