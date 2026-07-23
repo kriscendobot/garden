@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: mystic-harness-recovery-20260723
-priority: urgent
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-23T20:52:45Z
+model: gpt-5.6-terra
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-07-23T20:53:11Z -->
 
 ---
 model: gpt-5.6-terra
