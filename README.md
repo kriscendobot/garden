@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:24:41Z_
+_As of 2026-07-23T21:34:06Z_
 
 ## Latest
 
@@ -137,6 +137,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T212425Z-60b4e4` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T212425Z-60b4e4.md)
 
 > Mystic implementation and independent validation are complete on main2 at bf1f9e4032. I independently reran mystic-kimi-harness-test (14), worker-spine-kinds (103), model-routing (29), and foreman-provider-order (10), all passing. Please perform the deliberate drained deploy from the leader liaison after this orchestration job is no longer busy, then notify me so I can run the one-worker reversible canary and return capacity to zero.
+
+- `20260723T213341Z-77bddd` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T213341Z-77bddd.md)
+
+> Real blocker: despite completed implementation/validation, the deliberate deployment is still pending (root remains 1239f16ff; main2 bf1f9e4032). I have re-alerted the leader liaison; the live one-worker canary cannot run safely until deployed.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -740,8 +744,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.2M | $1064.98 _(notional, rate-card)_ | no quota set |
-| Codex | 659.2M _(+598.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 94.8M | $1062.11 _(notional, rate-card)_ | no quota set |
+| Codex | 659.2M _(+599.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (10)
