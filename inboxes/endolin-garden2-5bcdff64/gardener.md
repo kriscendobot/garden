@@ -885,3 +885,12 @@ Inspect via `git -C journal cat-file -p 84369996bdddf21a989f753a9ac05df6c220b19d
 - Context: gardener-10 on endolin-garden2-5bcdff64: job 'kimi-k3-harness-implement-20260723' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 7ce56e8cc2f44c9501838f7916555e5ae0809328`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-23T21:29:14Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 0461da076b0ea0e24c72686fcf651805cc361470
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'drive-mystic-rollout-20260723' exit-0-unsatisfying but elapsed near-constant (344,344s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 0461da076b0ea0e24c72686fcf651805cc361470`.
