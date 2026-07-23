@@ -159,8 +159,9 @@ provider that the token-cost ledger (§3, not yet wired) will apply, and that a 
 The `mystic` worker kind uses the official Kimi Code CLI headless interface
 (`kimi --prompt`, with `kimi --continue` on a requeue), not Codex's
 OpenAI-compatible adapter. It supplies `MOONSHOT_API_KEY` only to Kimi's supported
-temporary `KIMI_MODEL_*` configuration channel, pins `kimi-k3`, and gives every
-base a private persisted `KIMI_CODE_HOME`. The pool has no routing default: only
+temporary `KIMI_MODEL_*` configuration channel, maps garden selector `kimi-k3` to
+Kimi Code's documented wire model id `k3`, and gives every base a private persisted
+`KIMI_CODE_HOME`. The pool has no routing default: only
 an exact `model: kimi-k3` job can claim it. It has no design/build default and is
 not eligible for builder or designer jobs. It is landed disabled until a maintainer
 deliberately sets a positive Mystic count.
@@ -169,7 +170,7 @@ deliberately sets a positive Mystic count.
 
 | Provider | Concrete id | Endpoint | Advertised context | Cached input / fresh input / output $ per MTok | `price_basis` |
 | --- | --- | --- | --- | --- | --- |
-| `moonshot` | `kimi-k3` | `https://api.moonshot.ai/v1` | 1M [unverified] | $0.30 / $3.00 / $15.00 [provisional, unverified] | `provisional` |
+| `moonshot` | garden `kimi-k3` -> Kimi Code `k3` | `https://api.moonshot.ai/v1` | 1M [unverified] | $0.30 / $3.00 / $15.00 [provisional, unverified] | `provisional` |
 
 **Compatibility boundary.** The Kimi Code CLI's documented prompt, resume,
 temporary-model, and `KIMI_CODE_HOME` interfaces are the supported harness surface.

@@ -1,7 +1,8 @@
 # Bounded Moonshot Kimi K3 activation
 
 The hosted `mystic` worker is an explicit-model-only Moonshot pool. It uses the
-official Kimi Code CLI headless path with `model: kimi-k3` and `MOONSHOT_API_KEY`.
+official Kimi Code CLI headless path with the garden routing id `model: kimi-k3`
+(mapped to Kimi Code's documented wire model id `k3`) and `MOONSHOT_API_KEY`.
 Every job has a private persisted `KIMI_CODE_HOME`, so a requeue resumes only its
 own session state. Do not enable it as a default for design, build, or other
 high-stakes work. The pool ships disabled and remains so until a maintainer directs

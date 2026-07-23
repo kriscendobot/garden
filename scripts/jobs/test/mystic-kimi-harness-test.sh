@@ -24,9 +24,11 @@ set -euo pipefail
 printf '%s\n' "$KIMI_CODE_HOME" > "$FAKE_KIMI_RECORD.home"
 printf '%s\n' KIMI_CODE_HOME KIMI_MODEL_NAME KIMI_MODEL_API_KEY KIMI_MODEL_BASE_URL > "$FAKE_KIMI_RECORD.env"
 printf '%s\n' "$@" > "$FAKE_KIMI_RECORD.args"
-[ "$KIMI_MODEL_NAME" = kimi-k3 ]
+[ "$KIMI_MODEL_NAME" = k3 ]
 [ "$KIMI_MODEL_PROVIDER_TYPE" = kimi ]
 [ "$KIMI_MODEL_BASE_URL" = https://api.moonshot.ai/v1 ]
+[ "$KIMI_CODE_AGENT_SWARM_MAX_CONCURRENCY" = 1 ]
+[ "$KIMI_SUBAGENT_TIMEOUT_MS" = 600000 ]
 [ "$KIMI_MODEL_API_KEY" = "${MOONSHOT_API_KEY:?}" ]
 bullet="$(printf '\342\200\242')"
 if [ "${FAKE_KIMI_COMPLETE:-0}" = 1 ]; then
@@ -71,7 +73,7 @@ rm -f "$TR/sentinel"
 run_handler 0
 home="$TR/state/mystics/kimi/resume-case"
 [ "$(cat "$TR/run.home")" = "$home" ] && ok "KIMI_CODE_HOME is private to this base" || bad "unexpected KIMI_CODE_HOME"
-grep -qx -- '--model' "$TR/run.args" && grep -qx kimi-k3 "$TR/run.args" && ok "headless invocation pins kimi-k3" || bad "model invocation not explicit"
+grep -qx -- '--model' "$TR/run.args" && grep -qx k3 "$TR/run.args" && ok "headless invocation maps garden kimi-k3 to documented Kimi Code k3" || bad "model invocation not explicit"
 grep -qx -- '--prompt' "$TR/run.args" && grep -qx -- '--output-format' "$TR/run.args" && ok "uses official prompt headless path" || bad "not a prompt headless invocation"
 grep -qx KIMI_MODEL_API_KEY "$TR/run.env" && ok "credential is passed through Kimi's supported temporary-model channel" || bad "missing Kimi model credential channel"
 if grep -Rq 'offline-fixture-not-a-credential' "$TR/run."* "$TR/report" 2>/dev/null; then
