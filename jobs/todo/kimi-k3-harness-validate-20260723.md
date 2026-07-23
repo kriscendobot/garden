@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: kimi-k3-harness-rollout-20260723
-priority: normal
 role: assayer
-posted_by: producer
-posted_at: 2026-07-23T20:09:52Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-23T21:10:03Z -->
 
 Review and validate the Kimi K3 harness implementation produced by kimi-k3-harness-implement-20260723 after it lands on main2.
 
