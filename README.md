@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T14:16:26Z_
+_As of 2026-07-23T14:23:07Z_
 
 ## Latest
 
@@ -658,6 +658,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
+- `20260723T142239Z-391c1d` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T142239Z-391c1d.md)
+
+> triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
+
+- `20260723T142239Z-ac3afd` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T142239Z-ac3afd.md)
+
+> triager: fetch for kriscendobot-ymax-stdio-mcp at /home/kris/garden2/worktrees/kriscendobot-ymax-stdio-mcp.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ymax-stdio-mcp cannot be triaged until it is restored.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1237,7 +1245,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.6M | $1120.89 _(notional, rate-card)_ | no quota set |
+| Claude | 101.5M | $1120.13 _(notional, rate-card)_ | no quota set |
 | Codex | 708.6M _(+583.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
