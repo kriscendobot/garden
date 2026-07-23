@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T00:24:08Z_
+_As of 2026-07-23T00:33:40Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3330](https://github.com/endojs/endo/pull/3330) — chore: add custom changelog formatter (waiting 6m)
+- [endojs/endo#3330](https://github.com/endojs/endo/pull/3330) — chore: add custom changelog formatter (waiting 19m)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 5h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 8h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
@@ -641,6 +641,23 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > For endojs/endo-but-for-bots PR #806, mark the PR ready for review if it is still draft, then carry the merge to completion. This review-feedback job has resolved every ask in kriskowal review 4752810208. Head 7f95f89b7400a28aa3f093e44055a3da4f03bba1 has all required checks green. kriskowal has been re-requested for a current approval after the fix. Wait for a current maintainer approval, rebase if needed, and merge via the conductor lifecycle. This is bot-repo work and authorizes the undraft and merge actions.
 
+- `poison-endojs-endo-but-for-bots-pr824-build-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr824-build-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr824-build; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr824-build) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr824-build
+>
+> --- original job body ---
+> # Build @endo/sha256 from the approved platform-neutral hash design
+>
+> Repository: endojs/endo-but-for-bots
+> Merged design PR: [https://github.com/endojs/endo-but-for-bots/pull/824](https://github.com/endojs/endo-but-for-bots/pull/824)
+> Dependent XS-to-Rust PR: [https://github.com/endojs/endo-but-for-bots/pull/600](https://github.com/endojs/endo-but-for-bots/pull/600)
+>
+> Wear the builder role. Implement the approved designs/platform-neutral-hash.md now merged into llm: add the platform-neutral @endo/sha256 package and the prescribed Node, browser, and XS conditional implementations, host-function contract, tests, documentation, and the scoped blobref migration. Treat unblocking the XS daemon bundle and PR #600 as a required acceptance criterion. Build against current llm, open a DRAFT implementation PR, run proportionate repository verification, and carry this mergeable-feature build through the automatic gauntlet (clean, panel, fix loop, un-draft). Report the implementation PR URL, verification evidence, and the exact follow-up PR #600 needs once this implementation is merged.
+
 - `poison-endojs-endo-but-for-bots-pr826-build-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr826-build-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1105,9 +1122,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-095006.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (3)
+### doin (2)
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 0 -->
-- [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`minion-town-mcp-b5-retire-toy-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-mcp-b5-retire-toy-tools.md) — B5: retire toy tools
 
 ### tada (3332)
@@ -1138,6 +1154,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #809
+- [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-build.md) — _normal_ · Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
