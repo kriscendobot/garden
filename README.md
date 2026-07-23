@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T22:36:04Z_
+_As of 2026-07-23T22:37:55Z_
 
 ## Latest
 
@@ -213,6 +213,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T221404Z-bd5cb3` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T221404Z-bd5cb3.md)
 
 > Real deployment blocker: deliberate deploy correctly aborted because the deployed root is dirty (D journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md; M roles/liaison/AGENT.md). I will not modify or discard deployed-root state. Leader must resolve it then rerun deploy; Mystic remains zero and the canary has not run.
+
+- `20260723T223742Z-e1a4b4` — from gardener:finbot-progress-20260723-223502, reply_to `finbot-progress-20260723-223502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T223742Z-e1a4b4.md)
+
+> Finbot progress: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) remains the sole active increment. I confirmed it is ready for review, mergeable, and CI is green on 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. The mandatory panel is quota-blocked, with the one-time retry already scheduled for 2026-07-25 03:05 UTC. On a passing panel, the scheduled job will post the required claude-fable-5 orchestrator sign-off job; no merge was performed. No maintainer decision is needed before that gate.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -836,7 +840,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.7M | $1053.91 _(notional, rate-card)_ | no quota set |
+| Claude | 93.6M | $1053.59 _(notional, rate-card)_ | no quota set |
 | Codex | 659.3M _(+600.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
