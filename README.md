@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T22:38:19Z_
+_As of 2026-07-23T23:13:31Z_
 
 ## Latest
 
@@ -840,8 +840,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.6M | $1053.27 _(notional, rate-card)_ | no quota set |
-| Codex | 659.3M _(+600.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Claude | 92.4M | $1044.56 _(notional, rate-card)_ | no quota set |
+| Codex | 659.0M _(+597.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (16)
@@ -862,8 +862,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #600
 
 ### tada (3375)
 - [`finbot-progress-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-223502.md) — Assessed finbot. PR #4 is ready, CLEAN, and CI passed on 895ae48; no competin...
