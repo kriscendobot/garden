@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T03:10:34Z_
+_As of 2026-07-23T03:10:58Z_
 
 ## Latest
 
@@ -1173,7 +1173,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 0 -->
 
 ### tada (3337)
-- [`fix-endo-but-for-bots-621`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-621.md) — Completed follow-up for https://github.com/endojs/endo-but-for-bots/pull/621.
+- [`fix-endo-but-for-bots-621`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-621.md) — Completed PR #621 follow-up. Resolved all three addressed review threads; rev...
 - [`esheets-supervisor-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260723-030512.md) — Assessed the dependency tree and board. Posted fix-endo-but-for-bots-621 for ...
 - [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
 - [`endojs-endo-but-for-bots-pr357-623fe9bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-623fe9bc.md) — Rebased PR #357 onto current llm, regenerated the Markdown format commit, and...
