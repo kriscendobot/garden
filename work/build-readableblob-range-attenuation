@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 11
+worker_kind: cleric
+claimed_at: 2026-07-23T01:23:09Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-readableblob-range-attenuation
