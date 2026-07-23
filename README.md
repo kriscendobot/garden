@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T13:47:07Z_
+_As of 2026-07-23T13:59:06Z_
 
 ## Latest
 
@@ -1237,7 +1237,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.9M | $1124.26 _(notional, rate-card)_ | no quota set |
+| Claude | 101.9M | $1123.98 _(notional, rate-card)_ | no quota set |
 | Codex | 708.5M _(+582.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 ## Board
@@ -1266,8 +1266,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr357-03c93331`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr357-03c93331.md) — attention directive on endojs/endo-but-for-bots PR #357
 
 ### tada (3345)
 - [`endojs-endo-but-for-bots-pr357-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-shepherd.md) — PR #357 is green at head 45e38da5de5d628696dbf646508af35f673c57fb; all 27 rep...
