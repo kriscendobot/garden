@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T15:52:38Z_
+_As of 2026-07-23T15:57:00Z_
 
 ## Latest
 
@@ -1250,7 +1250,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 101.3M | $1118.60 _(notional, rate-card)_ | no quota set |
-| Codex | 677.4M _(+583.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 675.1M _(+583.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (23)
@@ -1278,8 +1278,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-100531`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-100531.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-agoric-sdk-pr10-review-14260266`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-agoric-sdk-pr10-review-14260266.md) — Review directive on kriscendobot/agoric-sdk PR #10
 
 ### tada (3348)
 - [`minion-town-agenda-review-20260723-155006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260723-155006.md) — Posted daily reconciliation to issue #58 (comment 5060502314). Confirmed B3 r...
@@ -1383,6 +1383,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr357-623fe9bc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-623fe9bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #357 (primary: endojs-endo-but-f...
 - [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 - [`kriscendobot-agoric-sdk-pr10-review-c28034ac-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-c28034ac-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+- [`kriscendobot-agoric-sdk-pr10-review-14260266-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-14260266-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
