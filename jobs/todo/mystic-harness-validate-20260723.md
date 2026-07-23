@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: mystic-harness-recovery-20260723
-priority: urgent
 role: assayer
-posted_by: orchestrator
-posted_at: 2026-07-23T20:52:50Z
+model: gpt-5.6-terra
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-07-23T21:13:15Z -->
 
 ---
 model: gpt-5.6-terra
