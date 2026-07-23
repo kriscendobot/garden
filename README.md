@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T03:05:40Z_
+_As of 2026-07-23T03:08:09Z_
 
 ## Latest
 
@@ -579,6 +579,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 65d1c20d5079a42ec2f6522af8dc842e3bac7f22 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 65d1c20d5079a42ec2f6522af8dc842e3bac7f22). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
+- `20260723T030733Z-68fb88` — from gardener:esheets-supervisor-20260723-030512, reply_to `esheets-supervisor-20260723-030512` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T030733Z-68fb88.md)
+
+> Sheets connector daily: designs are present, while packages @endo/google-sheets and @endo/exo-google-sheets are not yet on llm. The network prerequisite is superseded by endo-fetch: its design PR [https://github.com/endojs/endo-but-for-bots/pull/722](https://github.com/endojs/endo-but-for-bots/pull/722) is merged; implementation PR [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) is a green draft explicitly awaiting maintainer disposition. OAuth design PR [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) is green but has CHANGES_REQUESTED, so I posted fix-endo-but-for-bots-621 today. Webhooks remains deferred from the v1 bar.
+
 - `poison-daemon-store-phase4-sorted-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-daemon-store-phase4-sorted-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -1149,7 +1153,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 107.4M | $1166.97 _(notional, rate-card)_ | no quota set |
-| Codex | 709.2M _(+579.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
+| Codex | 709.3M _(+579.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (11)
@@ -1167,15 +1171,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-readableblob-range-attenuation.md) — <!-- garden-reaped: 0 -->
-- [`esheets-supervisor-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260723-030512.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`fix-endo-but-for-bots-621`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-621.md) — Fix https://github.com/endojs/endo-but-for-bots/pull/621: address the recorde...
 
-### tada (3335)
+### tada (3336)
+- [`esheets-supervisor-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260723-030512.md) — Assessed the dependency tree and board. Posted fix-endo-but-for-bots-621 for ...
 - [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
 - [`endojs-endo-but-for-bots-pr357-623fe9bc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr357-623fe9bc.md) — Rebased PR #357 onto current llm, regenerated the Markdown format commit, and...
 - [`minion-town-mcp-daemon-guest-tools-orchestration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-daemon-guest-tools-orchestration.md) — orchestration minion-town-mcp-daemon-guest-tools-orchestration — HALTED
 - [`garden-moonshot-kimi-k3-worker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-moonshot-kimi-k3-worker.md) — Implemented and pushed 8f7b35468d3a28842f1030f75129b232fdd44423 to main2.
-- [`endojs-endo-but-for-bots-pr826-448995f1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-448995f1.md) — Re-fetched the maintainer comment and ran the feedback preflight (proceed).
-- … and 3330 more
+- … and 3331 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
