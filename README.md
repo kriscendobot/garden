@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T07:05:39Z_
+_As of 2026-07-23T07:09:06Z_
 
 ## Latest
 
@@ -1192,8 +1192,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.7M | $1147.37 _(notional, rate-card)_ | no quota set |
-| Codex | 730.9M _(+579.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
+| Claude | 104.7M | $1146.78 _(notional, rate-card)_ | no quota set |
+| Codex | 731.0M _(+580.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (17)
@@ -1215,16 +1215,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260722-220501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260722-220501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-040502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (1)
-- [`daily-progress-summary-20260723-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260723-070502.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (3339)
+### tada (3340)
+- [`daily-progress-summary-20260723-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260723-070502.md) — Created and pushed periodicals/2026/07/22.md to journal2 (commit 3db0b365c). ...
 - [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr10-review-a7bcbe21.md) — Addressed all five inline comments in b141d30c79 and 5c04dcac95: clarified or...
 - [`finbot-progress-20260723-040502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-040502.md) — Completed finbot gate handoff for https://github.com/kriscendobot/finbot/pull/4.
 - [`fix-endo-but-for-bots-621`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-endo-but-for-bots-621.md) — Completed PR #621 follow-up. Resolved all three addressed review threads; rev...
 - [`esheets-supervisor-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260723-030512.md) — Assessed the dependency tree and board. Posted fix-endo-but-for-bots-621 for ...
-- [`endojs-endo-but-for-bots-pr838-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr838-shepherd.md) — CI green on c27424e58d4b756aa122f0fffd5e11a6800b2465 (21/21 checks).
-- … and 3334 more
+- … and 3335 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
