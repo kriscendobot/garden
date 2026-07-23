@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-23T21:16:17Z_
+_As of 2026-07-23T21:18:48Z_
 
 ## Latest
 
@@ -129,6 +129,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T210657Z-8a2ea9` — from gardener:kimi-k3-harness-implement-20260723, reply_to `kimi-k3-harness-implement-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T210657Z-8a2ea9.md)
 
 > Kimi Code harness is deployment-ready on main2 at a1dd8984510f83c38f438f9aac5c5429ac5d3bbd. It adds the explicit-only mystic worker kind with the official Kimi Code CLI, isolated per-job KIMI_CODE_HOME/session resume, marker-gated completion, credential-safe KIMI_MODEL_* injection, and zero-default scaling. Offline verification passed: kimi-provider-test (18), worker-spine-kinds-test (101), model-routing-test (29), scaler-desired-count-test (12), completion-signal-test, handler-orphan-reap-test (15), and foreman-provider-order-test (8). No funded live Kimi canary was run; keep mystics at zero until the documented canary.
+
+- `20260723T211816Z-877dbc` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T211816Z-877dbc.md)
+
+> Mystic rollout has a deployment and credential blocker. I independently verified the landed harness and corrected the official Kimi Code wire-model mapping on main2 at bf1f9e4032 (garden selector `kimi-k3` maps to Kimi Code model `k3`; dedicated Mystic remains moonshot and explicit-only). Focused offline harness, model-routing, worker-spine, and foreman routing tests pass. Please deliberately deploy main2 through the liaison procedure, recreate the container with MOONSHOT_API_KEY injected without printing it, then run the documented one-worker reversible tool canary and scale Mystic back to zero. This host currently has no `kimi` executable, no `MOONSHOT_API_KEY` in user systemd, and no Mystic unit, so a live canary cannot truthfully be run here. The original implementation child remains in doin after its recorded Claude failure; I did not alter its claim and left it for the reaper's normal ownership/requeue path. Monk remains at zero.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -732,7 +736,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.5M | $1067.33 _(notional, rate-card)_ | no quota set |
+| Claude | 95.3M | $1066.37 _(notional, rate-card)_ | no quota set |
 | Codex | 659.2M _(+597.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
@@ -748,17 +752,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (2)
+### doin (1)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — model: gpt-5.6-terra
-- [`endojs-endo-but-for-bots-pr831-14cde530`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr831-14cde530.md) — attention directive on endojs/endo-but-for-bots PR #831
 
-### tada (3371)
+### tada (3372)
+- [`endojs-endo-but-for-bots-pr831-14cde530`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr831-14cde530.md) — Retargeted PR #831 to frozen upstream snapshot master-fb9cef4 (fb9cef49…); he...
 - [`mystic-harness-recovery-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-recovery-20260723.md) — orchestration mystic-harness-recovery-20260723 — complete
 - [`mystic-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-validate-20260723.md) — Validation passed; no changes made.
 - [`kimi-k3-harness-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-rollout-20260723.md) — orchestration kimi-k3-harness-rollout-20260723 — complete
 - [`kimi-k3-harness-validate-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-harness-validate-20260723.md) — orchestration-failed: true
-- [`mystic-harness-implement-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/mystic-harness-implement-20260723.md) — Implemented and pushed 8a65020da0 to main2.
-- … and 3366 more
+- … and 3367 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
