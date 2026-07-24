@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-24T04:53:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-24T04:53:04Z
+---
+
+---
 model: fable
 ---
 # Press git-integration / the M3 version-controlled-filesystem loop (endojs/endo-but-for-bots, base `llm`)
@@ -54,12 +68,3 @@ comment), and act on it in stack order the moment it lands. Respect stack order
 branch; if the endor CAS bindings need design settling, press #740 forward or
 post a designer sub-job rather than implementing ahead of the spec. Cite real
 command/CI output for every green claim.
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 18
-  worker_kind: gardener
-  claimed_at: 2026-07-24T00:44:23Z
