@@ -23,3 +23,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - TerraLingua, artifact-mediated cultural evolution, external cultural memory, AI Anthropologist, artifact phylogeny → artifact-mediated-cultural-evolution
 - MemGPT, MemoryGPT, Letta, LLM operating system → memgpt
 - virtual context, context paging, LLM memory tiers, memory pressure → virtual-context-management
+- Fireworks AI, Fireworks API, FIREWORKS_API_KEY, api.fireworks.ai, Fireworks Serverless, Fireworks deployment, OpenAI-compatible Fireworks → fireworks-ai-integration
