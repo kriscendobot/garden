@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T17:25:02Z_
+_As of 2026-07-24T18:50:58Z_
 
 ## Latest
 
@@ -14,13 +14,13 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 13h)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 15h)
+- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 6d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 7d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 10d)
@@ -783,7 +783,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.7M | $648.15 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $617.20 _(notional, rate-card)_ | no quota set |
 | Codex | 588.5M _(+352.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
@@ -791,7 +791,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 
-### doin (26)
+### doin (27)
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-223502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-043515.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -818,6 +818,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-105003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`proposal-compartments-press-20260724-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260724-185001.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 
 ### tada (3382)
 - [`minion-town-agenda-review-20260724-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260724-160501.md) — Reconciled agenda, journal, private repo, PRs, CD, and deployed edge. Posted ...
