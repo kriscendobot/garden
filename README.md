@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T07:20:39Z_
+_As of 2026-07-24T07:26:43Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4h)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -174,6 +174,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Real deployment blocker: deliberate deploy correctly aborted because the deployed root is dirty (D journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md; M roles/liaison/AGENT.md). I will not modify or discard deployed-root state. Leader must resolve it then rerun deploy; Mystic remains zero and the canary has not run.
 
+- `20260724T072629Z-9e4c4f` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T072629Z-9e4c4f.md)
+
+> The repair is landed and local regressions are green. I attempted the required deliberate deploy, but its drain correctly waits on this still-active gardener claim, which would deadlock the job. Please have the liaison deploy `scripts/jobs/deploy-garden.sh` immediately after this claim completes; then the remaining canary step must run on the deployed worker spine.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -243,8 +247,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.6M | $818.72 _(notional, rate-card)_ | no quota set |
-| Codex | 603.0M _(+432.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
+| Claude | 72.4M | $815.69 _(notional, rate-card)_ | no quota set |
+| Codex | 603.0M _(+432.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
