@@ -42,6 +42,7 @@ Please create a design PR against the garden and post the URL here. I am particu
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
