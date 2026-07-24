@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T01:26:11Z_
+_As of 2026-07-24T02:20:24Z_
 
 ## Latest
 
@@ -221,6 +221,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T005021Z-676fce` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T005021Z-676fce.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f32708c11c141fe55478c185867985a1f0d91444 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f32708c11c141fe55478c185867985a1f0d91444). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
+- `20260724T022009Z-a1ceae` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T022009Z-a1ceae.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 8ab0bab1d0574b7bbe0fd7ea7ec99b2cddaa24d2 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 8ab0bab1d0574b7bbe0fd7ea7ec99b2cddaa24d2). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -844,8 +848,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.3M | $979.27 _(notional, rate-card)_ | no quota set |
-| Codex | 626.2M _(+545.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Claude | 86.0M | $976.71 _(notional, rate-card)_ | no quota set |
+| Codex | 622.2M _(+547.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
