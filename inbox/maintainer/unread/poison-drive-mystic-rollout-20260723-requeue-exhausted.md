@@ -1,12 +1,16 @@
 from_host: endolin-garden2-5bcdff64
 from: reaper:endolin-garden2-5bcdff64
-sent_at: 2026-07-23T22:23:07Z
+sent_at: 2026-07-24T02:23:06Z
 poison_base: drive-mystic-rollout-20260723
 poison_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-07-23T22:23:07Z
-last_seen: 2026-07-23T22:23:07Z
+last_seen: 2026-07-24T02:23:06Z
 ---
+POISON notice — occurrence #2 (first seen 2026-07-23T22:23:07Z, latest 2026-07-24T02:23:06Z).
+This job has been poison-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
 Its handler appears to fail every time; the reaper stopped requeueing it.
 The work is preserved at jobs/plan/drive-mystic-rollout-20260723; it stays HELD until a human promotes it
@@ -14,6 +18,13 @@ The work is preserved at jobs/plan/drive-mystic-rollout-20260723; it stays HELD 
 Original job base: drive-mystic-rollout-20260723
 
 --- original job body ---
+---
+role: orchestrator
+model: gpt-5.6-terra
+handler-timeout: 10800
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-24T00:44:51Z -->
+
 model: gpt-5.6-terra
 role: orchestrator
 handler-timeout: 10800
