@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T04:37:08Z_
+_As of 2026-07-24T04:39:02Z_
 
 ## Latest
 
@@ -241,6 +241,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T035032Z-496be7` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T035032Z-496be7.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden2/worktrees/kriscendobot-cosgov.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
+
+- `20260724T043846Z-f0f63a` — from gardener:finbot-progress-20260724-043515, reply_to `finbot-progress-20260724-043515` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T043846Z-f0f63a.md)
+
+> Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) through current-state verification: its GitHub CI is green and I re-ran `npm test`, the focused harness spawn test, and `node bin/finbot-dispatch --seed=7`; all passed, with the dry run reporting `WALLET TOUCHED: false`.
+>
+> The required code-panel run was attempted and stopped at the assessor seat because the Claude panel backend reports its weekly limit. The PR has no panel verdict and no Fable sign-off, so it remains unmerged. Next unblocked step: rerun the panel after capacity returns; only after a passing panel should a `role: orchestrator`, `model: claude-fable-5` sign-off-and-merge job be posted. No maintainer decision is needed unless you want a different review capacity or priority.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -875,8 +881,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.4M | $949.45 _(notional, rate-card)_ | no quota set |
-| Codex | 621.4M _(+519.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 83.2M | $947.98 _(notional, rate-card)_ | no quota set |
+| Codex | 621.4M _(+519.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
