@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T22:21:11Z_
+_As of 2026-07-24T22:30:00Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 18h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 19h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -274,6 +274,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Advanced the existing gate for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) by reconfirming the exact PR head (895ae4822d3c0f36c4026c9bcbddcbcc59f81c62) is clean and locally green: npm test passed, and node bin/finbot-dispatch --seed=7 completed the dry-run OODA path with all six auditor invariants approved and WALLET TOUCHED: false.
 >
 > No competing finbot work is in flight. The mandatory panel remains quota-blocked and is already scheduled to retry at 2026-07-25T03:05:00Z. A pass must dispatch the required claude-fable-5 orchestrator sign-off; no merge was performed. No maintainer decision is needed before that gate.
+
+- `20260724T222935Z-c8547b` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T222935Z-c8547b.md)
+
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
+
+- `20260724T222941Z-2830e5` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T222941Z-2830e5.md)
+
+> triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -1261,8 +1269,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.6M | $594.21 _(notional, rate-card)_ | no quota set |
-| Codex | 589.3M _(+364.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Claude | 48.0M | $589.53 _(notional, rate-card)_ | no quota set |
+| Codex | 588.7M _(+358.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
