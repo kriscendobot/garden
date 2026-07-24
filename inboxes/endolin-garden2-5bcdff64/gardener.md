@@ -975,3 +975,12 @@ Inspect via `git -C journal cat-file -p 3fd42cb240605416b49c9e65dd3f06077afbd935
 - Context: gardener-14 on endolin-garden2-5bcdff64: job 'endo-npm-cas-registry-press-20260723-162019' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1e5739d58b9ad371b49aac28212306ef7fefcb2a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T04:53:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d9aa62522d21f4230dc04841a9fe89ca6359c1bc
+- Context: gardener-15 on endolin-garden2-5bcdff64: job 'endo-sturdyref-press-20260723-162019' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d9aa62522d21f4230dc04841a9fe89ca6359c1bc`.
