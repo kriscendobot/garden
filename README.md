@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T14:56:39Z_
+_As of 2026-07-24T15:59:40Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 11h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 12h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -198,6 +198,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Advanced the panel gate attempt for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). CI remains green on 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62, but the code panel is still blocked at assessor by the Claude weekly-limit response. The scheduled retry at 2026-07-25T03:05:00Z remains the next unblocked step; if it passes, it will dispatch the required Fable orchestrator sign-off. No merge or source change occurred.
 
+- `20260724T155925Z-606f6d` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T155925Z-606f6d.md)
+
+> triager: fetch for kriscendobot-garden at /home/kris/garden2/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -286,8 +290,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.9M | $688.96 _(notional, rate-card)_ | no quota set |
-| Codex | 593.4M _(+358.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 58.6M | $677.59 _(notional, rate-card)_ | no quota set |
+| Codex | 592.7M _(+358.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
