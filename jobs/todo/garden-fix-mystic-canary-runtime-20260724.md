@@ -14,12 +14,4 @@ Also audit and harden secret-safe Moonshot propagation against the established A
 
 After landing and deliberate deployment coordination, requeue exactly one reversible kimi-k3 canary, validate completion plus mystic/moonshot/kimi-k3 reputation scope, and return mystics to 0. Keep monks at 0 throughout. Preserve the failed canary evidence and use normal board/reaper contracts.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: cleric
-  claimed_at: 2026-07-24T21:23:11Z
+<!-- garden-reaped: 2 -->
