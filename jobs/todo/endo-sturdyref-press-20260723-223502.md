@@ -101,10 +101,3 @@ its observed output. When you could not run a bar, report it "not verified" and 
 State the confinement property preserved in every report.
 
 <!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 19
-  worker_kind: gardener
-  claimed_at: 2026-07-24T13:13:44Z
