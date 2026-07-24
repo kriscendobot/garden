@@ -894,3 +894,12 @@ Inspect via `git -C journal cat-file -p 7ce56e8cc2f44c9501838f7916555e5ae0809328
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'drive-mystic-rollout-20260723' exit-0-unsatisfying but elapsed near-constant (344,344s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 0461da076b0ea0e24c72686fcf651805cc361470`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T00:45:03Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8579a5c6ed5a9a382a64d79ac16ef10f4aafe603
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'endo-vfs-parity-press-20260723-162019' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8579a5c6ed5a9a382a64d79ac16ef10f4aafe603`.
