@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T03:21:07Z_
+_As of 2026-07-24T03:23:13Z_
 
 ## Latest
 
@@ -225,6 +225,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T022009Z-a1ceae` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T022009Z-a1ceae.md)
 
 > self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 8ab0bab1d0574b7bbe0fd7ea7ec99b2cddaa24d2 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 8ab0bab1d0574b7bbe0fd7ea7ec99b2cddaa24d2). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
+
+- `20260724T032257Z-13a8ba` — from gardener:esheets-supervisor-20260724-032002, reply_to `esheets-supervisor-20260724-032002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T032257Z-13a8ba.md)
+
+> Daily Sheets standup: the network floor is merged (`@endo/http-confine` + `@endo/exo-http-client`; [https://github.com/endojs/endo-but-for-bots/pull/566](https://github.com/endojs/endo-but-for-bots/pull/566)). OAuth refinement [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) is open/non-draft, now CONFLICTING after `llm` advanced; its last five checks were green, but it still needs rebase and your re-review. I posted `weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724` today. `@endo/google-sheets` and `@endo/exo-google-sheets` remain absent and stay blocked behind OAuth. Push/webhooks remains deferred by design.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -859,14 +863,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.2M | $970.31 _(notional, rate-card)_ | no quota set |
-| Codex | 621.8M _(+535.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 85.1M | $969.15 _(notional, rate-card)_ | no quota set |
+| Codex | 621.7M _(+533.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (19)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -885,6 +889,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724.md) — ---
 
 ### tada (3375)
 - [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — Restored Node daemon implementations in b6a48c7d1, removing XS-only stubs tha...
