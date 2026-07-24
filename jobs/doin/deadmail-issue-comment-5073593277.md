@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/62#issuecomment-5073593277
 Please create a design PR against the garden and post the URL here. I am particularly interested in making continuous use of our ollama gardeners for evaluations, since that is effectively free, then expanding to budgeted evaluation of other model+memory pairings or evaluations b
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 14
+  worker_kind: cleric
+  claimed_at: 2026-07-24T19:20:09Z
