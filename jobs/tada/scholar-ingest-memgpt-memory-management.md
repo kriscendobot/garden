@@ -1,0 +1,1 @@
+Ingested the MemGPT research source and linked paper into the journal library: five provenance-anchored sections, source/index entries, two concepts, and keyword/topic routes. Integrity checks passed; projected indexes were regenerated. Self-improvement: record hub reachability and ingest the canonical linked paper when the hub contains only a synopsis.
