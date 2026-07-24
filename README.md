@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T04:39:02Z_
+_As of 2026-07-24T04:39:36Z_
 
 ## Latest
 
@@ -881,14 +881,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.2M | $947.98 _(notional, rate-card)_ | no quota set |
-| Codex | 621.4M _(+519.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 83.2M | $947.32 _(notional, rate-card)_ | no quota set |
+| Codex | 621.4M _(+519.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (24)
+### doin (23)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -907,20 +907,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-162019.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-223502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-043515.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`finbot-progress-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260724-043515.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3378)
+### tada (3379)
+- [`finbot-progress-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-043515.md) — Advanced https://github.com/kriscendobot/finbot/pull/4: CI and local verifica...
 - [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — CI is green on head ee359efb57f259bdb99b88f756e1024a138a6b97. The initially c...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724.md) — Rebased PR #621 onto llm 28dffa9, resolved both design-index conflicts preser...
 - [`esheets-supervisor-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260724-032002.md) — Assessed the Sheets dependency tree and board; no duplicate live work existed.
 - [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — Restored Node daemon implementations in b6a48c7d1, removing XS-only stubs tha...
-- [`finbot-progress-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260723-223502.md) — Assessed finbot. PR #4 is ready, CLEAN, and CI passed on 895ae48; no competin...
-- … and 3373 more
+- … and 3374 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
