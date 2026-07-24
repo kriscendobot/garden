@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T07:26:43Z_
+_As of 2026-07-24T07:54:11Z_
 
 ## Latest
 
@@ -178,6 +178,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > The repair is landed and local regressions are green. I attempted the required deliberate deploy, but its drain correctly waits on this still-active gardener claim, which would deadlock the job. Please have the liaison deploy `scripts/jobs/deploy-garden.sh` immediately after this claim completes; then the remaining canary step must run on the deployed worker spine.
 
+- `20260724T075343Z-549535` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T075343Z-549535.md)
+
+> Deliberate deployment is blocked by tracked changes in the deployed root: roles/liaison/AGENT.md and journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md. The deploy guard correctly refused to overwrite them and lifted the drain. Please resolve or deploy those root changes, then this job can run exactly one Kimi canary. No credential values were read or logged.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -247,8 +251,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.4M | $815.69 _(notional, rate-card)_ | no quota set |
-| Codex | 603.0M _(+432.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
+| Claude | 71.5M | $805.45 _(notional, rate-card)_ | no quota set |
+| Codex | 602.9M _(+434.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
