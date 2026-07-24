@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T07:54:11Z_
+_As of 2026-07-24T08:03:34Z_
 
 ## Latest
 
@@ -223,6 +223,25 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Do not make Kimi a default, do not enable high-stakes design/build routing, do not delete failed diagnostic evidence, and do not bypass the journal claim/completion contracts. Monitor every stage instead of merely posting follow-ups. Send concise progress only for a real blocker and send the final evidence-backed result to the maintainer inbox.
 
+- `poison-garden-fix-mystic-canary-runtime-20260724-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-garden-fix-mystic-canary-runtime-20260724-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/garden-fix-mystic-canary-runtime-20260724; it stays HELD until a human promotes it
+> (promote-plan.sh garden-fix-mystic-canary-runtime-20260724) or removes it, so nothing is lost.
+> Original job base: garden-fix-mystic-canary-runtime-20260724
+>
+> --- original job body ---
+> model: gpt-5.6-terra
+> role: fixer
+> Fix and revalidate the Kimi K3 Mystic canary runtime in kriskowal/garden.
+>
+> Observed live failure on both kimi-k3-canary-20260723-c and -d: scripts/jobs/gardener.sh line 481 calls reap_process_group, but the function is absent at runtime, so mystic/1 exits rc=1 immediately after the handler. Restore the helper in the shared worker spine/common library with its documented safety guards and add a regression that runs the real deployed call path, not only a sourced fixture. Re-run handler-orphan-reap, mystic-kimi-harness, worker-spine, completion, and routing tests.
+>
+> Also audit and harden secret-safe Moonshot propagation against the established Anthropic path: garden passes ANTHROPIC_API_KEY via Docker -e at container creation; PID 1 -> systemd --user -> worker unit inheritance supplies it without embedding secrets in unit files. MOONSHOT_API_KEY should follow the same path, with deterministic presence-only diagnostics and documentation that existing containers require secret-safe recreation. Do not print, inspect, persist, or commit credential values.
+>
+> After landing and deliberate deployment coordination, requeue exactly one reversible kimi-k3 canary, validate completion plus mystic/moonshot/kimi-k3 reputation scope, and return mystics to 0. Keep monks at 0 throughout. Preserve the failed canary evidence and use normal board/reaper contracts.
+
 - `poison-minion-town-mcp-b5-retire-toy-tools-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-minion-town-mcp-b5-retire-toy-tools-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -251,7 +270,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.5M | $805.45 _(notional, rate-card)_ | no quota set |
+| Claude | 71.2M | $801.76 _(notional, rate-card)_ | no quota set |
 | Codex | 602.9M _(+434.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
@@ -259,7 +278,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 
-### doin (21)
+### doin (20)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -277,7 +296,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-162019.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-223502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-043515.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-mystic-canary-runtime-20260724.md) — model: gpt-5.6-terra
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -318,6 +336,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
