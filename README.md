@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T22:11:16Z_
+_As of 2026-07-24T22:11:34Z_
 
 ## Latest
 
@@ -1261,7 +1261,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.3M | $598.82 _(notional, rate-card)_ | no quota set |
+| Claude | 49.2M | $598.35 _(notional, rate-card)_ | no quota set |
 | Codex | 589.2M _(+362.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
@@ -1296,7 +1296,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — ---
 
 ### tada (3386)
-- [`scholar-ingest-memgpt-memory-management`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-memgpt-memory-management.md) — Ingested the MemGPT research source and linked paper into the journal library...
+- [`scholar-ingest-memgpt-memory-management`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-memgpt-memory-management.md) — Ingested MemGPT paper into the journal library with five sections, source/top...
 - [`finbot-progress-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-165003.md) — Assessed PR #4: clean, CI green, no competing finbot work.
 - [`issue-kriskowal-garden-63`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-63.md) — Dispatched the scholar ingest job and posted recommendations on issue #63. No...
 - [`deadmail-issue-comment-5073449888`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5073449888.md) — Reviewed cross-analysis; posted recommendations on issue #62 covering artifac...
