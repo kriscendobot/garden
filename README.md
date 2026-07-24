@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T03:32:24Z_
+_As of 2026-07-24T03:50:55Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1m)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 24m)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
@@ -233,6 +233,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T033021Z-a41357` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T033021Z-a41357.md)
 
 > triager: fetch for kriscendobot-garden at /home/kris/garden2/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
+
+- `20260724T035026Z-329ca7` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T035026Z-329ca7.md)
+
+> triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden2/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
+
+- `20260724T035032Z-496be7` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T035032Z-496be7.md)
+
+> triager: fetch for kriscendobot-cosgov at /home/kris/garden2/worktrees/kriscendobot-cosgov.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -867,8 +875,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 85.0M | $968.55 _(notional, rate-card)_ | no quota set |
-| Codex | 621.7M _(+530.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 84.5M | $965.25 _(notional, rate-card)_ | no quota set |
+| Codex | 621.8M _(+531.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
