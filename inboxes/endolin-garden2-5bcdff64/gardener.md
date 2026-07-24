@@ -1020,3 +1020,12 @@ Inspect via `git -C journal cat-file -p b3abc79892084b33444e85f0594f4f8110ceefc1
 - Context: gardener-5 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260724-043515' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 64b1f178b85cd65d9862a4a77109d20dde9ce898`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T08:43:35Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8808ba6a06816f7620036c7a8db2afd860e5f4f8
+- Context: gardener-14 on endolin-garden2-5bcdff64: job 'endo-sturdyref-press-20260724-043515' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8808ba6a06816f7620036c7a8db2afd860e5f4f8`.
