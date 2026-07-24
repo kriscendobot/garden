@@ -14,10 +14,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Shepherd. 
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 26
-  worker_kind: cleric
-  claimed_at: 2026-07-23T23:13:09Z
+<!-- garden-reaped: 1 -->
