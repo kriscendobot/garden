@@ -1011,3 +1011,12 @@ Inspect via `git -C journal cat-file -p 3550840e66f4f592081bb323e4ba0882d738cfc3
 - Context: gardener-3 on endolin-garden2-5bcdff64: job 'garden-fix-mystic-canary-runtime-20260724' exit-0-unsatisfying but elapsed near-constant (89,89s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p b3abc79892084b33444e85f0594f4f8110ceefc1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T08:43:18Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 64b1f178b85cd65d9862a4a77109d20dde9ce898
+- Context: gardener-5 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260724-043515' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 64b1f178b85cd65d9862a4a77109d20dde9ce898`.
