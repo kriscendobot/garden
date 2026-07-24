@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T16:12:45Z_
+_As of 2026-07-24T16:14:15Z_
 
 ## Latest
 
@@ -237,6 +237,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T161203Z-024a53` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161203Z-024a53.md)
 
 > triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
+
+- `20260724T161352Z-5a75e4` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161352Z-5a75e4.md)
+
+> triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
