@@ -10,6 +10,7 @@ After landing and deliberate deployment coordination, requeue exactly one revers
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
