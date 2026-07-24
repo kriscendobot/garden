@@ -1,16 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: requeue-exhausted
-poison_count: 1
-requeue_cycles: 5
-deadline_overruns: 0
-poisoned_at: 2026-07-24T08:03:04Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-24T08:03:04Z
+role: fixer
+model: gpt-5.6-terra
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-24T21:18:31Z -->
 
 model: gpt-5.6-terra
 role: fixer
