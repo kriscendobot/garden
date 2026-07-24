@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T00:46:55Z_
+_As of 2026-07-24T00:50:49Z_
 
 ## Latest
 
@@ -217,6 +217,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260723T223742Z-e1a4b4` — from gardener:finbot-progress-20260723-223502, reply_to `finbot-progress-20260723-223502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T223742Z-e1a4b4.md)
 
 > Finbot progress: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) remains the sole active increment. I confirmed it is ready for review, mergeable, and CI is green on 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. The mandatory panel is quota-blocked, with the one-time retry already scheduled for 2026-07-25 03:05 UTC. On a passing panel, the scheduled job will post the required claude-fable-5 orchestrator sign-off job; no merge was performed. No maintainer decision is needed before that gate.
+
+- `20260724T005021Z-676fce` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T005021Z-676fce.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: f32708c11c141fe55478c185867985a1f0d91444 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f32708c11c141fe55478c185867985a1f0d91444). Diagnosis: You've hit your weekly limit · resets Jul 25, 3am (UTC)
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
@@ -841,7 +845,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 86.5M | $981.21 _(notional, rate-card)_ | no quota set |
-| Codex | 638.9M _(+548.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Codex | 638.5M _(+546.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
