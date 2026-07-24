@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T16:10:34Z_
+_As of 2026-07-24T16:12:01Z_
 
 ## Latest
 
@@ -226,6 +226,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-test262 at /home/kris/garden2/worktrees/kriscendobot-test262.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
 
+- `20260724T161102Z-4393cc` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161102Z-4393cc.md)
+
+> triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
+
+- `20260724T161124Z-ed6338` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161124Z-ed6338.md)
+
+> self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: cef62643427a6f8ef5a71265edabab4ebd4a14e6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p cef62643427a6f8ef5a71265edabab4ebd4a14e6). Diagnosis: You've hit your weekly limit · resets 4:10pm (UTC)
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -315,7 +323,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 57.8M | $670.59 _(notional, rate-card)_ | no quota set |
-| Codex | 592.7M _(+359.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Codex | 592.7M _(+359.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
@@ -351,7 +359,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-105003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### tada (3382)
-- [`minion-town-agenda-review-20260724-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260724-160501.md) — Re-fetched https://github.com/kriskowal/garden/issues/58 and all comments, re...
+- [`minion-town-agenda-review-20260724-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260724-160501.md) — Reconciled agenda, journal, private repo, PRs, CD, and deployed edge. Posted ...
 - [`finbot-progress-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-105003.md) — Advanced PR #4’s panel gate attempt. CI remains green; the code panel again s...
 - [`daily-progress-summary-20260724-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260724-070501.md) — Wrote and pushed journal/periodicals/2026/07/23.md to journal2 (commit f54937...
 - [`finbot-progress-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-043515.md) — Advanced https://github.com/kriscendobot/finbot/pull/4: CI and local verifica...
