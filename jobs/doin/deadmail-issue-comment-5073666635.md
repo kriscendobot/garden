@@ -40,3 +40,10 @@ Create a pull request for that branch.
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 13
+  worker_kind: gardener
+  claimed_at: 2026-07-24T21:18:07Z
