@@ -73,6 +73,11 @@
 | [resource-limited ecology and agent model](../sections/papers--paolo-terralingua-open-endedness-2026--resource-limited-ecology-and-agent-model.md) | open-ended-agent-ecologies, llm-agent-frameworks | An LLM decision core receives bounded local state, energy, lifespan, personality, and memory. |
 | [artifacts as external cultural memory](../sections/papers--paolo-terralingua-open-endedness-2026--artifacts-as-external-cultural-memory.md) | open-ended-agent-ecologies, llm-agent-frameworks | Persistent artifacts move cultural memory out of fixed LLM parameters and short context. |
 | [AI Anthropologist post-hoc analysis](../sections/papers--paolo-terralingua-open-endedness-2026--ai-anthropologist-post-hoc-analysis.md) | open-ended-agent-ecologies, llm-agent-frameworks | Post-hoc LLM analysis is deliberately separated from the ecology it evaluates. |
+| [MemGPT virtual context](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--virtual-context-and-memory-hierarchy.md) | MemGPT paper | Prompt and external tiers form a virtual context. |
+| [MemGPT queue management](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--main-context-and-queue-management.md) | MemGPT paper | Prompt partition, capacity warnings, recursive summary, and recall-backed FIFO eviction. |
+| [MemGPT memory tools](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--self-directed-memory-tools-and-control-flow.md) | MemGPT paper | Tool calls, feedback, events, and multi-step retrieval. |
+| [MemGPT conversation evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--conversation-memory-evaluation.md) | MemGPT paper | Experiment-specific deep-memory retrieval and opener results. |
+| [MemGPT retrieval evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--document-retrieval-and-multihop-evaluation.md) | MemGPT paper | Archival search, pagination, and nested key-value findings. |
 
 ## See also
 
