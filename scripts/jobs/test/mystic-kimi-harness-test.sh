@@ -1,7 +1,9 @@
 #!/bin/bash
 # mystic-kimi-harness-test.sh: offline tests for the official Kimi CLI contract.
 # No network call is made. The fake CLI records argument and environment NAMES only,
-# never the fixture credential value.
+# never the fixture credential value. The final subtest drives the selected Mystic
+# handler through the real gardener spine, so a missing shared-spine helper cannot
+# be hidden by a sourced-handler fixture.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
@@ -12,6 +14,10 @@ PASS=0; FAIL=0
 ok() { echo "  PASS: $*"; PASS=$((PASS + 1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL + 1)); }
 hr() { echo "----------------------------------------------------------------"; }
+# A live worker exports its own clone and state paths. The real-spine subtest must
+# use only its throwaway journal, never inherit a production clone.
+unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+export GARDEN_TEST=1
 mkdir -p "$ROOT/scratch"
 TR="$(mktemp -d "$ROOT/scratch/garden-mystic-kimi.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
@@ -55,7 +61,8 @@ missing_out="$(env -u MOONSHOT_API_KEY PATH="$BIN:$PATH" FAKE_KIMI_RECORD="$miss
 missing_rc=$?
 set -e
 [ "$missing_rc" -ne 0 ] && ok "missing key rejects Mystic" || bad "missing key was accepted"
-[[ "$missing_out" == *'MOONSHOT_API_KEY is not set'* ]] && ok "missing-key diagnostic is actionable" || bad "missing-key diagnostic absent"
+[[ "$missing_out" == *'MOONSHOT_API_KEY: absent'* ]] && ok "missing-key diagnostic is deterministic and presence-only" || bad "missing-key diagnostic absent"
+[[ "$missing_out" == *'secret-safe recreation'* ]] && ok "missing-key diagnostic requires secret-safe container recreation" || bad "missing-key recreation guidance absent"
 [ ! -e "$missing_record.args" ] && ok "missing key never invokes Kimi" || bad "missing key invoked Kimi"
 
 job="$TR/job.md"
@@ -93,6 +100,48 @@ else
   ok "completion marker stripped from report"
 fi
 [ ! -d "$home" ] && [ ! -d "$TR/scratch/gardener-wt-resume-case" ] && ok "completed run cleans private state and worktree" || bad "completed state/worktree not cleaned"
+
+hr; echo "REAL SPINE: gardener selects Mystic, reaps its handler group, and completes"; hr
+# This is intentionally not a direct handler invocation. gardener.sh sources the
+# shared common library, chooses handlers/mystic-kimi.sh from the worker registry,
+# starts its isolated handler process group, then calls reap_process_group before
+# completing the board job. A missing helper therefore fails this deployed call path.
+SPINE="$TR/spine"; mkdir -p "$SPINE"
+git init -q --bare "$SPINE/journal.git"
+git init -q "$SPINE/seed"; git -C "$SPINE/seed" checkout -q -b journal2
+(
+  cd "$SPINE/seed"
+  mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
+  for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+  printf '%s\n' '---' 'model: kimi-k3' 'role: gardener' '---' 'complete the offline Mystic spine canary' > jobs/todo/mystic-spine.md
+)
+git -C "$SPINE/seed" add -A
+git -C "$SPINE/seed" -c user.name=test -c user.email=test@localhost commit -q -m seed
+git -C "$SPINE/seed" remote add origin "$SPINE/journal.git"
+git -C "$SPINE/seed" push -q -u origin journal2
+
+set +e
+env PATH="$BIN:$PATH" GARDEN_TEST=1 GARDEN="mystic-test" GARDEN_ROOT="$ROOT" \
+  GARDEN_STATE="$SPINE/state" GARDEN_SCRATCH="$SPINE/scratch" GARDEN_MAIN_BRANCH=main2 \
+  JOURNAL_REMOTE="$SPINE/journal.git" JOURNAL_BRANCH=journal2 \
+  GARDEN_WORKER_KIND=mystic GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+  MOONSHOT_API_KEY='offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$SPINE/kimi" FAKE_KIMI_COMPLETE=1 \
+  "$JOBS/gardener.sh" 1 > "$SPINE/gardener.log" 2>&1
+spine_rc=$?
+set -e
+[ "$spine_rc" -eq 0 ] && ok "real gardener Mystic call path exited cleanly" || bad "real gardener Mystic call path exited rc=$spine_rc ($(tail -3 "$SPINE/gardener.log"))"
+git clone -q --single-branch --branch journal2 "$SPINE/journal.git" "$SPINE/verify"
+[ -f "$SPINE/verify/jobs/tada/mystic-spine.md" ] && ok "real gardener completed the Mystic canary to tada" || bad "real gardener did not complete Mystic canary (see $SPINE/gardener.log)"
+if grep -q 'reap_process_group: command not found' "$SPINE/gardener.log"; then
+  bad "real gardener could not find reap_process_group in the shared worker spine"
+else
+  ok "real gardener resolved reap_process_group from the shared worker spine"
+fi
+if grep -Rq 'offline-fixture-not-a-credential' "$SPINE/kimi."* "$SPINE/gardener.log" "$SPINE/verify" 2>/dev/null; then
+  bad "real spine capture persisted the fixture credential"
+else
+  ok "real spine capture contains no fixture credential"
+fi
 
 hr
 echo "mystic-kimi-harness-test: $PASS passed, $FAIL failed"

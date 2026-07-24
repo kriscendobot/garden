@@ -10,9 +10,10 @@ a bounded canary.
 
 ## 1. Supply the key before container creation
 
-The launcher passes `MOONSHOT_API_KEY` only when it **creates** a container. The
-value is not written to the repository or logs. PID 1 receives it at creation, and
-the user systemd manager and `garden-mystic@*.service` workers inherit it.
+The launcher passes `MOONSHOT_API_KEY` only when it **creates** a container, the
+same secret-safe inheritance path used for `ANTHROPIC_API_KEY`. The value is not
+written to a unit file, repository, or log. PID 1 receives it at creation, and the
+user systemd manager and `garden-mystic@*.service` workers inherit it.
 
 On the host, avoid shell tracing and export the real value only in the command's
 environment:
@@ -22,9 +23,11 @@ environment:
 MOONSHOT_API_KEY='replace-with-secret' ./garden create
 ```
 
-`reset` is required only when the existing container was created without the key.
-If the container does not yet exist, omit it and run the second command. Do not use
-`docker inspect`, `set -x`, or a command that prints the environment to test this.
+An existing container cannot acquire a new creation-time secret by restart. If it
+was created without the key, use this secret-safe recreation sequence (`reset`, then
+create with the key in that command environment). If the container does not yet
+exist, omit `reset` and run the second command. Do not use `docker inspect`, `set
+-x`, or a command that prints the environment to test this.
 
 ## 2. Probe without leaking authorization
 

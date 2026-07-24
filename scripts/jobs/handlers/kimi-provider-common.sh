@@ -15,7 +15,7 @@ kimi_provider_preflight() { # <base>
     return 1
   }
   if [ -z "${MOONSHOT_API_KEY:-}" ]; then
-    printf 'MOONSHOT_API_KEY is not set; mystic cannot run %q. Export it before recreating the garden container so systemd inherits it.\n' \
+    printf 'MOONSHOT_API_KEY: absent; mystic cannot run %q. Export it before secret-safe recreation of the garden container so PID 1 and systemd inherit it.\n' \
       "$base" >&2
     return 1
   fi
