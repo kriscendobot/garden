@@ -1299,3 +1299,12 @@ Inspect via `git -C journal cat-file -p 46b2c878d8566e8c3aa8099dc8e4fa30a7169c48
 - Context: gardener-17 on endolin-garden2-5bcdff64: job 'deadmail-issue-comment-5073666635' exit-0-unsatisfying but elapsed near-constant (14,14s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 359714839dba1a3263f803ba935852f009138255`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T19:55:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 73ca4495daa1f910e78af415e4aa3fb85bf7dcf8
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'issue-kriskowal-garden-64' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 73ca4495daa1f910e78af415e4aa3fb85bf7dcf8`.
