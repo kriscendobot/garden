@@ -1002,3 +1002,12 @@ Inspect via `git -C journal cat-file -p 5650fc626957d462bd73587ab1ecd83864fd99d4
 - Context: gardener-12 on endolin-garden2-5bcdff64: job 'arc-status-daily-20260724-032002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 3550840e66f4f592081bb323e4ba0882d738cfc3`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-24T07:34:56Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: b3abc79892084b33444e85f0594f4f8110ceefc1
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'garden-fix-mystic-canary-runtime-20260724' exit-0-unsatisfying but elapsed near-constant (89,89s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p b3abc79892084b33444e85f0594f4f8110ceefc1`.
