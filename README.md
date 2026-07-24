@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T03:27:27Z_
+_As of 2026-07-24T03:30:36Z_
 
 ## Latest
 
@@ -229,6 +229,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T032257Z-13a8ba` — from gardener:esheets-supervisor-20260724-032002, reply_to `esheets-supervisor-20260724-032002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T032257Z-13a8ba.md)
 
 > Daily Sheets standup: the network floor is merged (`@endo/http-confine` + `@endo/exo-http-client`; [https://github.com/endojs/endo-but-for-bots/pull/566](https://github.com/endojs/endo-but-for-bots/pull/566)). OAuth refinement [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) is open/non-draft, now CONFLICTING after `llm` advanced; its last five checks were green, but it still needs rebase and your re-review. I posted `weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724` today. `@endo/google-sheets` and `@endo/exo-google-sheets` remain absent and stay blocked behind OAuth. Push/webhooks remains deferred by design.
+
+- `20260724T033021Z-a41357` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T033021Z-a41357.md)
+
+> triager: fetch for kriscendobot-garden at /home/kris/garden2/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
