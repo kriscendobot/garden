@@ -80,7 +80,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | [open-ended-agent-ecologies](open-ended-agent-ecologies.md) | Persistent multi-agent environments that seek cumulative social and cultural development through the interaction of ecological constraints, limited agent cognition, shared editable artifacts, and post-hoc interpretation. Distinct from `llm-agent-frameworks` (agent construction/runtime) and `agent-fleet-orchestration` (operational task coordination). | 6 |
 
-| [fireworks-ai-integration](fireworks-ai-integration.md) | Practical Fireworks AI provider integration: OpenAI-compatible auth/endpoints, model and deployment selection, serverless operations, streaming/metrics, capacity/error behavior, and retention boundaries. | 0 |
+| [fireworks-ai-integration](fireworks-ai-integration.md) | Practical Fireworks AI provider integration: OpenAI-compatible auth/endpoints, model and deployment selection, serverless operations, streaming/metrics, capacity/error behavior, and retention boundaries. | 7 |
 
 ## Seed-but-not-yet-populated topics
 
