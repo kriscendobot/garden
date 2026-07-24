@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6638 (530 parent indexes + 6108 children).
+Total section files: 6643 (530 parent indexes + 6113 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8660,6 +8660,14 @@ Total section files: 6638 (530 parent indexes + 6108 children).
 - [papers--moreira-muir-volatility-managed-portfolios-2017--long-horizon-investors-still-care-about-volatility](papers--moreira-muir-volatility-managed-portfolios-2017--long-horizon-investors-still-care-about-volatility.md)
 - [papers--moreira-muir-volatility-managed-portfolios-2017--overview](papers--moreira-muir-volatility-managed-portfolios-2017--overview.md)
 - [papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link](papers--moreira-muir-volatility-managed-portfolios-2017--variance-timing-beats-mean-timing-under-weak-risk-return-link.md)
+
+### papers--packer-memgpt-towards-llms-as-operating-systems-2023
+
+- [papers--packer-memgpt-towards-llms-as-operating-systems-2023--conversation-memory-evaluation](papers--packer-memgpt-towards-llms-as-operating-systems-2023--conversation-memory-evaluation.md)
+- [papers--packer-memgpt-towards-llms-as-operating-systems-2023--document-retrieval-and-multihop-evaluation](papers--packer-memgpt-towards-llms-as-operating-systems-2023--document-retrieval-and-multihop-evaluation.md)
+- [papers--packer-memgpt-towards-llms-as-operating-systems-2023--main-context-and-queue-management](papers--packer-memgpt-towards-llms-as-operating-systems-2023--main-context-and-queue-management.md)
+- [papers--packer-memgpt-towards-llms-as-operating-systems-2023--self-directed-memory-tools-and-control-flow](papers--packer-memgpt-towards-llms-as-operating-systems-2023--self-directed-memory-tools-and-control-flow.md)
+- [papers--packer-memgpt-towards-llms-as-operating-systems-2023--virtual-context-and-memory-hierarchy](papers--packer-memgpt-towards-llms-as-operating-systems-2023--virtual-context-and-memory-hierarchy.md)
 
 ### papers--paolo-terralingua-open-endedness-2026
 
