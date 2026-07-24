@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6643 (530 parent indexes + 6113 children).
+Total section files: 6650 (530 parent indexes + 6120 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9017,6 +9017,28 @@ Total section files: 6643 (530 parent indexes + 6113 children).
 
 - [web--esbuild-api--conditions-main-fields-and-packages](web--esbuild-api--conditions-main-fields-and-packages.md)
 - [web--esbuild-api--tree-shaking-and-sideeffects](web--esbuild-api--tree-shaking-and-sideeffects.md)
+
+### web--fireworks-openai-compatibility
+
+- [web--fireworks-openai-compatibility--authentication-endpoint-and-streaming-contract](web--fireworks-openai-compatibility--authentication-endpoint-and-streaming-contract.md)
+
+### web--fireworks-serverless-overview
+
+- [web--fireworks-serverless-overview--serverless-operational-and-deployment-boundaries](web--fireworks-serverless-overview--serverless-operational-and-deployment-boundaries.md)
+
+### web--fireworks-serverless-rate-limits
+
+- [web--fireworks-serverless-rate-limits--adaptive-capacity-and-retry-semantics](web--fireworks-serverless-rate-limits--adaptive-capacity-and-retry-semantics.md)
+
+### web--fireworks-text-models
+
+- [web--fireworks-text-models--api-models-and-deployments](web--fireworks-text-models--api-models-and-deployments.md)
+- [web--fireworks-text-models--configuration-and-inference-errors](web--fireworks-text-models--configuration-and-inference-errors.md)
+- [web--fireworks-text-models--streaming-observability-and-advanced-capabilities](web--fireworks-text-models--streaming-observability-and-advanced-capabilities.md)
+
+### web--fireworks-zero-data-retention
+
+- [web--fireworks-zero-data-retention--request-and-response-data-retention](web--fireworks-zero-data-retention--request-and-response-data-retention.md)
 
 ### web--gcp-marketplace-partner-program
 
