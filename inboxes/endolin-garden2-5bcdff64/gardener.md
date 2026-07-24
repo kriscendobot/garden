@@ -1389,3 +1389,12 @@ Inspect via `git -C journal cat-file -p bcc6d1ed983428b9db4f06b86b7eca905870e016
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'scholar-ingest-source-claude-5-context-engineering' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 7e87a27d1ad149d6cbcaba71b2b31afa172b04f2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T23:53:16Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8f493d32394c648c1f22ed4483a1a8a0a4f6356c
+- Context: gardener-9 on endolin-garden2-5bcdff64: job 'deadmail-issue-comment-5073593277' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8f493d32394c648c1f22ed4483a1a8a0a4f6356c`.
