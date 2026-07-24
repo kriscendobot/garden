@@ -15,3 +15,10 @@ discipline. The excerpt below is for human context only:
 Shepherd. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 29
+  worker_kind: cleric
+  claimed_at: 2026-07-24T00:03:37Z
