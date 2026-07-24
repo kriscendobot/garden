@@ -59,3 +59,10 @@ idempotent, defer to live workers on shared branches, and cite real execution
 evidence for any "works everywhere" claim.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-24T21:18:20Z
