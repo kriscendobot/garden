@@ -1200,3 +1200,12 @@ Inspect via `git -C journal cat-file -p 2248c7f0573b923cff98bb8d8283fd2dd23c8933
 - Context: gardener-3 on endolin-garden2-5bcdff64: job 'endo-sturdyref-press-20260724-165003' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4cc517bf0412d62162ab43271f94051ec6d91f3c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T16:51:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8c9a5ac54b6ec0c7962f9289bf772c1bd414a8bc
+- Context: gardener-20 on endolin-garden2-5bcdff64: job 'finbot-progress-20260724-165003' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8c9a5ac54b6ec0c7962f9289bf772c1bd414a8bc`.
