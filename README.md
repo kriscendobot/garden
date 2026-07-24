@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T16:06:15Z_
+_As of 2026-07-24T16:10:34Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 12h)
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1d)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
@@ -218,6 +218,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
 
+- `20260724T160955Z-b1672f` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T160955Z-b1672f.md)
+
+> triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden2/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
+
+- `20260724T161011Z-23b043` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161011Z-23b043.md)
+
+> triager: fetch for kriscendobot-test262 at /home/kris/garden2/worktrees/kriscendobot-test262.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -306,15 +314,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.1M | $672.66 _(notional, rate-card)_ | no quota set |
-| Codex | 592.7M _(+358.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 57.8M | $670.59 _(notional, rate-card)_ | no quota set |
+| Codex | 592.7M _(+359.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 
-### doin (27)
+### doin (26)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -337,19 +345,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260723-223502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-043515.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-105003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`minion-town-agenda-review-20260724-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260724-160501.md) — Minion Town daily agenda review
 - [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-162019.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-105003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3381)
+### tada (3382)
+- [`minion-town-agenda-review-20260724-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260724-160501.md) — Re-fetched https://github.com/kriskowal/garden/issues/58 and all comments, re...
 - [`finbot-progress-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-105003.md) — Advanced PR #4’s panel gate attempt. CI remains green; the code panel again s...
 - [`daily-progress-summary-20260724-070501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260724-070501.md) — Wrote and pushed journal/periodicals/2026/07/23.md to journal2 (commit f54937...
 - [`finbot-progress-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-043515.md) — Advanced https://github.com/kriscendobot/finbot/pull/4: CI and local verifica...
 - [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — CI is green on head ee359efb57f259bdb99b88f756e1024a138a6b97. The initially c...
-- [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724.md) — Rebased PR #621 onto llm 28dffa9, resolved both design-index conflicts preser...
-- … and 3376 more
+- … and 3377 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
