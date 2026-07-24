@@ -1335,3 +1335,12 @@ Inspect via `git -C journal cat-file -p 79db061ec83af98492ce77107316a277ada4bce3
 - Context: gardener-15 on endolin-garden2-5bcdff64: job 'issue-kriskowal-garden-65' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 797e519fa3a5523cb728c6230bccba7dc77a2e96`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T22:17:33Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e847f4b43918a2cb50e68fbf2f3f426854493196
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'scholar-ingest-fireworks-ai-harness-followup' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e847f4b43918a2cb50e68fbf2f3f426854493196`.
