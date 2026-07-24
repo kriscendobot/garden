@@ -1101,3 +1101,12 @@ Inspect via `git -C journal cat-file -p e06b4b434834cd281575ef6138929b546120e2ef
 - Context: gardener-18 on endolin-garden2-5bcdff64: job 'arc-status-daily-20260724-032002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p bc645198aa4222c134ed64a9eebb44f28975336e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-24T12:53:26Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4d2666ddc18d0bc8340e26be286eb81636c2ebea
+- Context: gardener-5 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260724-043515' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4d2666ddc18d0bc8340e26be286eb81636c2ebea`.
