@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T21:20:11Z_
+_As of 2026-07-24T21:21:56Z_
 
 ## Latest
 
@@ -872,7 +872,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.0M | $604.44 _(notional, rate-card)_ | no quota set |
+| Claude | 50.0M | $604.02 _(notional, rate-card)_ | no quota set |
 | Codex | 589.1M _(+357.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 ## Board
@@ -880,7 +880,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 
-### doin (30)
+### doin (31)
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073666635.md) — Dead-lettered message — pick up its intent
@@ -905,6 +905,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-mystic-canary-runtime-20260724.md) — ---
 - [`issue-kriskowal-garden-64`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-64.md) — Issue from kriskowal on kriskowal/garden #64
+- [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-65.md) — Issue from kriskowal on kriskowal/garden #65
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260723-223502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-105003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
