@@ -23,3 +23,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a scholar to ingest https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models into the library in preparation for an upgrade of Claude that will support new models. Provide a report of recommendations that we can tackle now in thi
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: cleric
+  claimed_at: 2026-07-24T19:38:47Z
