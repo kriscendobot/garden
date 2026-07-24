@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T02:20:24Z_
+_As of 2026-07-24T02:23:29Z_
 
 ## Latest
 
@@ -307,6 +307,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `poison-drive-mystic-rollout-20260723-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-drive-mystic-rollout-20260723-requeue-exhausted.md)
 
+> POISON notice — occurrence #2 (first seen 2026-07-23T22:23:07Z, latest 2026-07-24T02:23:06Z).
+> This job has been poison-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
 > Its handler appears to fail every time; the reaper stopped requeueing it.
 > The work is preserved at jobs/plan/drive-mystic-rollout-20260723; it stays HELD until a human promotes it
@@ -314,6 +318,13 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: drive-mystic-rollout-20260723
 >
 > --- original job body ---
+> ---
+> role: orchestrator
+> model: gpt-5.6-terra
+> handler-timeout: 10800
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-24T00:44:51Z -->
+>
 > model: gpt-5.6-terra
 > role: orchestrator
 > handler-timeout: 10800
@@ -848,16 +859,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 86.0M | $976.71 _(notional, rate-card)_ | no quota set |
+| Claude | 85.9M | $976.07 _(notional, rate-card)_ | no quota set |
 | Codex | 622.2M _(+547.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260723-030512.md) — Daily status + change summary for the standing review arcs
-- [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-162019.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260723-223502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260722-095006.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -890,6 +900,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
+- [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
