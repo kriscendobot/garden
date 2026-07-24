@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T19:04:40Z_
+_As of 2026-07-24T19:10:41Z_
 
 ## Latest
 
@@ -264,6 +264,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T185823Z-8109d7` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T185823Z-8109d7.md)
 
 > triager: fetch for kriscendobot-ocapn at /home/kris/garden2/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
+
+- `20260724T191024Z-ba39a3` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T191024Z-ba39a3.md)
+
+> triager: fetch for kriscendobot-ymax-stdio-mcp at /home/kris/garden2/worktrees/kriscendobot-ymax-stdio-mcp.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ymax-stdio-mcp cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -787,8 +791,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.5M | $616.60 _(notional, rate-card)_ | no quota set |
-| Codex | 588.6M _(+352.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 51.5M | $616.15 _(notional, rate-card)_ | no quota set |
+| Codex | 588.6M _(+352.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
