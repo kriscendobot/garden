@@ -60,6 +60,10 @@
 | [web--brandon-against-sql--overview](../sections/web--brandon-against-sql--overview.md) | Against SQL (Jamie Brandon, outsider opinion) | The relational model is great but SQL is inexpressive/incompressible/non-porous — the language/interface counterpoint for a designer weighing Endo's embedded SQLite backend (see the [query-languages](query-languages.md) topic and [sql-language-critique](../concepts/sql-language-critique.md) concept). |
 | [dialog-db--rust-dialog-storage-readme--storage-backends](../sections/dialog-db--rust-dialog-storage-readme--storage-backends.md) | dialog-storage README | dialog-db's pluggable content-addressed backends (Memory/FileSystem/IndexedDb/S3) — durable identity keyed on content hash. |
 | [Git-ref journal durability — RMW-CAS and cutover](../sections/unum--lore-journal-durability.md) | unum LORE | Concurrent git-ref writers need read-modify-write CAS not a blind overlay; pick the write primitive by file lifecycle; migrate journal-then-untrack atomically so a re-clone never sees neither copy. |
+| [MemGPT virtual context](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--virtual-context-and-memory-hierarchy.md) | MemGPT paper | The prompt/external-store boundary is about inference visibility. |
+| [MemGPT queue management](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--main-context-and-queue-management.md) | MemGPT paper | Recall storage preserves evicted messages while summary retains a bounded trace. |
+| [MemGPT conversation evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--conversation-memory-evaluation.md) | MemGPT paper | Multi-session retrieval evaluation over retained history. |
+| [MemGPT retrieval evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--document-retrieval-and-multihop-evaluation.md) | MemGPT paper | Archival-store retrieval and repeated lookup evaluation. |
 
 ## See also
 
