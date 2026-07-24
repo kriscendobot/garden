@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T22:15:31Z_
+_As of 2026-07-24T22:19:19Z_
 
 ## Latest
 
@@ -1261,8 +1261,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.1M | $597.88 _(notional, rate-card)_ | no quota set |
-| Codex | 589.3M _(+363.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Claude | 48.9M | $595.99 _(notional, rate-card)_ | no quota set |
+| Codex | 589.3M _(+364.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
@@ -1287,23 +1287,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-043515.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-105003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`garden-investigate-ollama-no-job-claims-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-investigate-ollama-no-job-claims-20260724.md) — role: gardener
 - [`issue-kriskowal-garden-64`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-64.md) — Issue from kriskowal on kriskowal/garden #64
 - [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-65.md) — Issue from kriskowal on kriskowal/garden #65
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-105003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-press-20260724-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260724-185001.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
+- [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness-followup.md) — role: scholar
 - [`scholar-ingest-fireworks-ai-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness.md) — role: scholar
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — ---
 
-### tada (3386)
+### tada (3387)
+- [`garden-investigate-ollama-no-job-claims-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-ollama-no-job-claims-20260724.md) — Investigation complete. No code or state changes made.
 - [`scholar-ingest-memgpt-memory-management`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-memgpt-memory-management.md) — Ingested MemGPT paper into the journal library with five sections, source/top...
 - [`finbot-progress-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-165003.md) — Assessed PR #4: clean, CI green, no competing finbot work.
 - [`issue-kriskowal-garden-63`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-63.md) — Dispatched the scholar ingest job and posted recommendations on issue #63. No...
 - [`deadmail-issue-comment-5073449888`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5073449888.md) — Reviewed cross-analysis; posted recommendations on issue #62 covering artifac...
-- [`minion-town-agenda-review-20260724-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260724-160501.md) — Reconciled agenda, journal, private repo, PRs, CD, and deployed edge. Posted ...
-- … and 3381 more
+- … and 3382 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
