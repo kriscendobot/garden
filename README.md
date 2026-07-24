@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T10:52:12Z_
+_As of 2026-07-24T11:04:23Z_
 
 ## Latest
 
@@ -182,6 +182,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Deliberate deployment is blocked by tracked changes in the deployed root: roles/liaison/AGENT.md and journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md. The deploy guard correctly refused to overwrite them and lifted the drain. Please resolve or deploy those root changes, then this job can run exactly one Kimi canary. No credential values were read or logged.
 
+- `20260724T110405Z-e89417` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T110405Z-e89417.md)
+
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
+
+- `20260724T110411Z-b356af` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T110411Z-b356af.md)
+
+> triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -270,8 +278,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.5M | $752.30 _(notional, rate-card)_ | no quota set |
-| Codex | 602.0M _(+402.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
+| Claude | 67.2M | $749.54 _(notional, rate-card)_ | no quota set |
+| Codex | 601.8M _(+392.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
