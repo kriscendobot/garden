@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T22:19:19Z_
+_As of 2026-07-24T22:21:11Z_
 
 ## Latest
 
@@ -1261,15 +1261,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.9M | $595.99 _(notional, rate-card)_ | no quota set |
-| Codex | 589.3M _(+364.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Claude | 48.6M | $594.21 _(notional, rate-card)_ | no quota set |
+| Codex | 589.3M _(+364.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 
-### doin (26)
+### doin (25)
 - [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260724-032002.md) — Daily status + change summary for the standing review arcs
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073666635.md) — Dead-lettered message — pick up its intent
@@ -1294,16 +1294,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-press-20260724-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260724-185001.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness-followup.md) — role: scholar
-- [`scholar-ingest-fireworks-ai-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness.md) — role: scholar
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — ---
 
-### tada (3387)
+### tada (3388)
+- [`scholar-ingest-fireworks-ai-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-fireworks-ai-harness.md) — Ingested 5 official Fireworks AI sources into journal2 (7 sections), with pro...
 - [`garden-investigate-ollama-no-job-claims-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-ollama-no-job-claims-20260724.md) — Investigation complete. No code or state changes made.
 - [`scholar-ingest-memgpt-memory-management`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-memgpt-memory-management.md) — Ingested MemGPT paper into the journal library with five sections, source/top...
 - [`finbot-progress-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-165003.md) — Assessed PR #4: clean, CI green, no competing finbot work.
 - [`issue-kriskowal-garden-63`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-63.md) — Dispatched the scholar ingest job and posted recommendations on issue #63. No...
-- [`deadmail-issue-comment-5073449888`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5073449888.md) — Reviewed cross-analysis; posted recommendations on issue #62 covering artifac...
-- … and 3382 more
+- … and 3383 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
