@@ -39,6 +39,7 @@ Create a pull request for that branch.
 
 ----- END ORIGINAL MESSAGE -----
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
