@@ -43,3 +43,10 @@ Selection** for version resolution. The CAS is the cache of the registry.
    its output cited. Reading code is not proof.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  worker_kind: gardener
+  claimed_at: 2026-07-24T13:13:26Z
