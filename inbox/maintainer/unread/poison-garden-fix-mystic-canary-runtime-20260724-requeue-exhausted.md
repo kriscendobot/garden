@@ -1,12 +1,16 @@
 from_host: endolin-garden2-5bcdff64
 from: reaper:endolin-garden2-5bcdff64
-sent_at: 2026-07-24T08:03:08Z
+sent_at: 2026-07-24T22:03:06Z
 poison_base: garden-fix-mystic-canary-runtime-20260724
 poison_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-07-24T08:03:08Z
-last_seen: 2026-07-24T08:03:08Z
+last_seen: 2026-07-24T22:03:06Z
 ---
+POISON notice — occurrence #2 (first seen 2026-07-24T08:03:08Z, latest 2026-07-24T22:03:06Z).
+This job has been poison-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
 Its handler appears to fail every time; the reaper stopped requeueing it.
 The work is preserved at jobs/plan/garden-fix-mystic-canary-runtime-20260724; it stays HELD until a human promotes it
@@ -14,6 +18,12 @@ The work is preserved at jobs/plan/garden-fix-mystic-canary-runtime-20260724; it
 Original job base: garden-fix-mystic-canary-runtime-20260724
 
 --- original job body ---
+---
+role: fixer
+model: gpt-5.6-terra
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-24T21:18:31Z -->
+
 model: gpt-5.6-terra
 role: fixer
 Fix and revalidate the Kimi K3 Mystic canary runtime in kriskowal/garden.
