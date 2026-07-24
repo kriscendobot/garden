@@ -16,6 +16,8 @@ This index is a third axis next to [`sources/`](../sources/README.md) (by proven
 
 ## Seed inventory (bootstrap, 2026-05-14)
 
+- [fireworks-ai-integration](fireworks-ai-integration.md) — Fireworks provider harness configuration: OpenAI-compatible endpoint and Bearer key, Serverless versus dedicated deployments, streaming observability, adaptive limits, and storage boundary (added 2026-07-24; topic fireworks-ai-integration).
+
 Bootstrapped from the daemon design cluster and the structural principles in `conventions.md`. Extended cycle 50 with `delegates-and-epithets`, `caretaker-pattern`, and `pass-invariant-handle-equality` from the `daemon-capability-persona` ingest:
 
 - [agoric-system](agoric-system.md) — a software system using market mechanisms based on capability-security foundations for encapsulation and communication of information, access, and resources; Miller-Drexler 1988 coinage from *agora*; the entire Agoric project's mission anchor (added 2026-05-29 by the cycle-76 decomposition batch; six citations across the Miller 1988-2005 cluster).
