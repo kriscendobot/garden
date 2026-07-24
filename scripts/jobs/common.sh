@@ -2106,6 +2106,31 @@ is_transient_empty_failure() {
   esac
 }
 
+# reap_process_group <pgid> [grace-secs] — terminate a completed handler's
+# process group, including any non-detaching children it left behind. gardener.sh
+# creates a fresh group for every claim and invokes this for every outcome.
+# Refuse unsafe targets so a caller defect can never broaden the signal scope.
+#
+# Kept here with the other spine helpers. The Mystic migration must not remove it:
+# gardener.sh invokes this independently of the selected worker kind.
+reap_process_group() {
+  local pgid="${1:-}" grace="${2:-5}" waited=0 self_pgid
+  case "$pgid" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$pgid" -gt 1 ] 2>/dev/null || return 0
+  [ "$pgid" = "$$" ] && return 0
+  self_pgid="$(ps -o pgid= -p "$$" 2>/dev/null | tr -dc '0-9')"
+  [ -n "$self_pgid" ] && [ "$pgid" = "$self_pgid" ] && return 0
+  kill -0 -"$pgid" 2>/dev/null || return 0
+  kill -TERM -"$pgid" 2>/dev/null || true
+  while [ "$waited" -lt "$grace" ]; do
+    kill -0 -"$pgid" 2>/dev/null || return 0
+    sleep 1
+    waited=$((waited + 1))
+  done
+  kill -KILL -"$pgid" 2>/dev/null || true
+  return 0
+}
+
 # --- job completion signal ---------------------------------------------------
 #
 # The deterministic "the job genuinely finished" contract between the `claude -p`
