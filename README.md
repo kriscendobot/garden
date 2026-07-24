@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-24T16:12:01Z_
+_As of 2026-07-24T16:12:45Z_
 
 ## Latest
 
@@ -233,6 +233,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260724T161124Z-ed6338` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161124Z-ed6338.md)
 
 > self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: cef62643427a6f8ef5a71265edabab4ebd4a14e6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p cef62643427a6f8ef5a71265edabab4ebd4a14e6). Diagnosis: You've hit your weekly limit · resets 4:10pm (UTC)
+
+- `20260724T161203Z-024a53` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161203Z-024a53.md)
+
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
 
 - `poison-build-readableblob-range-attenuation-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-build-readableblob-range-attenuation-requeue-exhausted.md)
 
