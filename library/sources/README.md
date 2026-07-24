@@ -1034,6 +1034,12 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 
 | [TerraLingua: Emergence and Analysis of Open-endedness in LLM Ecologies](papers--paolo-terralingua-open-endedness-2026.md) | arXiv:2603.16910 | 2026 | Giuseppe Paolo, Jamieson Warner, Hormoz Shahrzad, Babak Hodjat, Risto Miikkulainen, Elliot Meyerson | 6 | current (derived digest, not the original paper; persistent LLM-agent ecology, shared artifacts, and post-hoc analysis) |
 
+| [Fireworks Text Models](web--fireworks-text-models.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 3 | current (OpenAI-compatible text APIs, deployment IDs, streaming, observability, and advanced-capability routing) |
+| [Fireworks OpenAI compatibility](web--fireworks-openai-compatibility.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (endpoint, credential wiring, context overflow, and streaming usage) |
+| [Fireworks Serverless Overview](web--fireworks-serverless-overview.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (multi-tenant inference, serving paths, billing/cache, lifecycle, and on-demand comparison) |
+| [Fireworks Serverless Rate Limits](web--fireworks-serverless-rate-limits.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (adaptive per-model capacity, 429 backoff, and 503 load shedding) |
+| [Fireworks Zero Data Retention](web--fireworks-zero-data-retention.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (open-model zero retention and Responses storage controls) |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
