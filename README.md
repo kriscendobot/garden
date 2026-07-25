@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:07:34Z_
+_As of 2026-07-25T03:08:08Z_
 
 ## Latest
 
@@ -2012,14 +2012,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.3M | $535.67 _(notional, rate-card)_ | no quota set |
-| Codex | 588.3M _(+344.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 43.4M | $536.79 _(notional, rate-card)_ | no quota set |
+| Codex | 588.4M _(+345.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (32)
+### doin (31)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2051,15 +2051,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`proposal-compartments-test262-staging-tests-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-test262-staging-tests-20260725.md) — Author the first executable Compartments test262 staging suite
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
-- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone.md) — In scripts/jobs/common.sh, journal/cursor git operations die with cannot lock...
 
-### tada (3398)
+### tada (3399)
+- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone.md) — Implemented and pushed 25eec87417 to main2.
 - [`finbot-progress-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-225004.md) — Assessed PR #4: sole open increment, READY, CLEAN, and CI-green.
 - [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-fireworks-ai-harness-followup.md) — Ingested six verified Fireworks docs with SHA-256 anchors and eight library s...
 - [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-65.md) — Dispatched scholar-ingest-osdi26-sharma-sandboxing with the issue note preser...
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5073666635.md) — Created https://github.com/kriskowal/garden/pull/66 from design/continuous-ev...
-- [`kimi-k3-canary-20260725-f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260725-f.md) — • Verifying the prior state (file removed, tree clean) before closing out.
-- … and 3393 more
+- … and 3394 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
