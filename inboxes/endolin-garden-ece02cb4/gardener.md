@@ -1110,3 +1110,12 @@ Inspect via `git -C journal cat-file -p d75ec5810e520373411a5818dd0393d7d67662a2
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'build-endo-but-for-bots-cap-std-watch-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b082d8fbd69890c83e0a07827a9bf5c809a3d0d3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T10:51:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 9228f7797c26102abcf1efcfbbcb1d216a68408a
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'finbot-progress-20260725-105007' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 9228f7797c26102abcf1efcfbbcb1d216a68408a`.
