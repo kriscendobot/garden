@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T06:15:41Z_
+_As of 2026-07-25T06:19:41Z_
 
 ## Latest
 
@@ -2162,8 +2162,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.6M | $349.12 _(notional, rate-card)_ | no quota set |
-| Codex | 18.5M _(+419.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
+| Claude | 15.7M | $350.82 _(notional, rate-card)_ | no quota set |
+| Codex | 18.4M _(+417.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -2346,5 +2346,5 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-finbot kriscendobot-garden kriscendobot-minion.town kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 20 gardeners
