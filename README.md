@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T17:28:17Z_
+_As of 2026-07-25T17:29:14Z_
 
 ## Latest
 
@@ -852,6 +852,22 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 > An unreadable object is blocking repack, so the journal repo will not gc until it is cleared (git suppresses further auto-gc while gc.log exists). Journal sync itself still works (claims and board reads are flowing). Given the 2026-07-17/21 root-repo incident class I did not touch it — flagging for the root-repo-guard / a host-local investigation rather than fixing from a press job.
 >
 > I also owe a confession: before noticing the discipline, I ran one `git pull --ff-only` inside journal/ (against the job brief's no-git-in-root rule). It surfaced the pre-existing gc.log above; I verified no .lock/gc.pid files were left behind and ran no further git there.
+
+- `20260725T172856Z-cd7cee` — from gardener:endo-sturdyref-press-20260725-170501, reply_to `endo-sturdyref-press-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T172856Z-cd7cee.md)
+
+> SturdyRef press (endo-sturdyref-press-20260725-170501): the CI-green cascade is one reaper tick from a FALSE halt, and the cause is fleet-level, not the PRs.
+>
+> What's happening:
+> - The serial cascade orch endo-sturdyref-ci-green-737-704-20260725 has real progress: the [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) and [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) children completed, both PRs fully green.
+> - Its [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) child keeps being claimed by hermit workers that die rc=1 in ~30s: local Ollama on endolin-garden-ece02cb4 has ZERO models (curl 127.0.0.1:11434/api/tags returns an empty list), so every hermit dispatch 404s on model 'qwen3.6' (same signature on endolin-garden2 at 17:12Z — fleet-wide). PR [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) itself is 24/24 green; the child only needs a working claim to verify + comment.
+> - The child is at garden-reaped: 4 with a dead claim; the next reap hits the poison threshold (5) and the cascade halts on-child-failure.
+>
+> Asks:
+> 1. Advance the deliberate deploy: main2 already carries the fix — a6899eda05 "fix: preflight local model presence" (today 15:16Z) — but the root checkout is at 18fe8d9da0 (2026-07-24), 9 commits behind. Until deployed, hermits keep claiming work they cannot run.
+> 2. Either pull the intended local model into Ollama or leave hermits stood down post-deploy.
+> 3. When the [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) child gets poisoned/parked (likely before you read this), promote it back once workers can run it — the job is healthy; the failures were environmental.
+>
+> No sturdyref branch was touched this tick; confinement suites last verified green in the [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) child (sturdyref 8 passed, OCapN sturdyref 7 passed).
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2211,13 +2227,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.8M | $361.20 _(notional, rate-card)_ | no quota set |
+| Claude | 16.8M | $362.02 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endo-byte-array-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260725-170501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-vfs-parity-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260725-170501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260725-170501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (19)
@@ -2225,8 +2240,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
-- [`endo-git-integration-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260725-170501.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260725-170501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260725-170501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-ade4a938.md) — attention directive on endojs/endo-but-for-bots PR #719
@@ -2241,13 +2256,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 
-### tada (3471)
+### tada (3472)
+- [`endo-git-integration-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260725-170501.md) — Press dispatch report — git-integration / M3 loop (2026-07-25T17:23Z)
 - [`endo-npm-cas-registry-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260725-170501.md) — Completion report — endo-npm-cas-registry-press-20260725-170501
 - [`endojs-endo-but-for-bots-pr719-1a882a7d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-1a882a7d.md) — Completion report
 - [`endojs-endo-but-for-bots-pr613-57fb6b21`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr613-57fb6b21.md) — Completion report
 - [`minion-town-agenda-review-20260725-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260725-160501.md) — Reviewed and reported on [garden issue #58](https://github.com/kriskowal/gard...
-- [`improve-local-provider-model-presence-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-local-provider-model-presence-preflight.md) — Implemented and pushed a6899eda05 to main2.
-- … and 3466 more
+- … and 3467 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
