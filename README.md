@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T07:05:57Z_
+_As of 2026-07-25T07:13:33Z_
 
 ## Latest
 
@@ -2169,7 +2169,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (28)
+### doin (29)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260725-070506.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5077246643.md) — Dead-lettered message — pick up its intent
@@ -2185,6 +2185,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr719-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr849-a6858de7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-a6858de7.md) — attention directive on endojs/endo-but-for-bots PR #849
+- [`endojs-endo-but-for-bots-pr852-57d49137`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-57d49137.md) — attention directive on endojs/endo-but-for-bots PR #852
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr852-review-c981d05c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-review-c981d05c.md) — Review directive on endojs/endo-but-for-bots PR #852
 - [`endojs-endo-but-for-bots-pr855-df7988e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr855-df7988e4.md) — attention directive on endojs/endo-but-for-bots PR #855
