@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T19:09:26Z_
+_As of 2026-07-25T19:14:43Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 1h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 51m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 56m)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 18h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
@@ -900,6 +900,20 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T190827Z-b01774` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T190827Z-b01774.md)
 
 > The `proposal-compartments-v8-validation-20260725` report leaves one open spec-annex decision that is your call: whether the Compartments proposal adds a host-only synchronous evaluation operation to cover the charter's non-TLA path shortfall. No garden action taken pending your direction. (The native-v8-port follow-up is inert — gated on upstream V8 landing source-phase imports, `import.source()`, and `import defer` — so nothing is posted for it.)
+
+- `20260725T191430Z-65bf96` — from gardener:ebfb-stream-buffer-spring-sink-refactor-gauntlet, reply_to `ebfb-stream-buffer-spring-sink-refactor-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T191430Z-65bf96.md)
+
+> Gauntlet done — [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/issues/858) (feat(stream): add unbounded buffer) is un-drafted, CI fully green.
+>
+> The panel found and I fixed one real MUST-FIX before un-drafting:
+> - spring.throw() enqueued a bare Promise.reject, so if the sink hadn't pulled yet the rejection floated unhandled → a process-fatal unhandledRejection (empirically reproduced under plain Node and SES/ava). The buffer's whole premise is a producer that runs ahead of the sink, so that window is a first-class use case (unlike makeStream, which is pumped). Fix: route all three spring methods through an enqueue() helper that attaches an inert .catch so the queued promise is marked handled, while makeQueue.get still chains its own reaction so the sink observes the error. Added load-bearing regression tests for throw-before-consume AND next(rejectingPromise). Commits 70d6e79 + 7d23bf0.
+>
+> Note: the same latent pattern exists byte-for-byte in makeStream.throw (index.js). I deliberately did NOT touch makeStream (out of scope, and it's pumped so the window doesn't arise in practice) — flagging in case you want to propagate the guard.
+>
+> Non-blocking design notes the panel surfaced for your call (left as-is, your API taste on your repo):
+> - decomplector: the two-file / two-subpath split (buffer.js re-export + ./buffer and ./buffer/unbounded) is speculative generality for a future bounded variant; a single buffer.js would preserve that room. Also ./buffer/unbounded is exported but undocumented/unexercised (surfacer/packager).
+> - breaker/corner-prober (by-design for fire-and-forget, non-must): sink.next() after a terminal hangs rather than repeatedly resolving {done:true}; no terminal-op guard, so enqueue after a terminal silently retains.
+> - nits: JSDoc @template T vs .d.ts TValue naming; the freeze-cast comment from index.js not carried over.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2312,7 +2326,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.5M | $349.76 _(notional, rate-card)_ | no quota set |
+| Claude | 16.6M | $351.34 _(notional, rate-card)_ | no quota set |
 | Codex | 19.3M _(+458.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
