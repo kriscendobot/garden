@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: hermit
-claimed_at: 2026-07-25T22:53:14Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-proposal-compartments-endor-validation-20260725
