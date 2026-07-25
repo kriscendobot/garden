@@ -17,3 +17,10 @@ rust/endo code; after this lands they may need a trivial rebase (design-doc
 paragraphs) — do not merge them (no approval yet).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-25T21:13:21Z
