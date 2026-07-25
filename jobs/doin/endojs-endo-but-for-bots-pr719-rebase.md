@@ -13,3 +13,10 @@ discipline. The excerpt below is for human context only:
 Results on https://github.com/endojs/endo-but-for-bots/pull/831 suggest the failure on the base are a red herring. Please adjust the merge base to current upstream, rebase, and shepherd. 
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-25T10:33:14Z
