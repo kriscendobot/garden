@@ -32,6 +32,7 @@ closely-held reveal) are LOAD-BEARING: run them and cite command+output in a PR
 comment. Done = #737 checks green (or the sole residual documented as
 out-of-scope with evidence).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
