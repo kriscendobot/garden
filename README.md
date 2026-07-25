@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T21:15:40Z_
+_As of 2026-07-25T21:16:02Z_
 
 ## Latest
 
@@ -2342,14 +2342,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.5M | $362.06 _(notional, rate-card)_ | no quota set |
-| Codex | 19.5M _(+466.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 17.5M | $361.52 _(notional, rate-card)_ | no quota set |
+| Codex | 19.5M _(+466.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
@@ -2362,16 +2362,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
 - [`kriscendobot-endo-but-for-bots-pr1-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr1-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #1
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
-- [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3487)
+### tada (3488)
+- [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Conductor report — endojs/endo-but-for-bots#856 (ambiguous .js entry ESM dete...
 - [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-ade4a938.md) — Assessed readiness: upstream PR #3332 is green (15/15 checks) and already re-...
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-review-6ca53b57.md) — Review already resolved on PR #740; no new edit or push was needed.
 - [`kriscendobot-endo-but-for-bots-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr2-shepherd.md) — CI is green on head 1217949dd4e1d67de6d22fd9d56f9163542c1774.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — Completion report — gauntlet for endojs/endo-but-for-bots#858 (feat(stream): ...
-- [`proposal-compartments-xs-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-xs-validation-20260725.md) — Validated XS against the charter pins. xst built successfully at XS 13.3.0; t...
-- … and 3482 more
+- … and 3483 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
