@@ -76,10 +76,4 @@ building.
 
 role: builder
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: hermit
-  claimed_at: 2026-07-25T09:36:38Z
+<!-- garden-reaped: 1 -->
