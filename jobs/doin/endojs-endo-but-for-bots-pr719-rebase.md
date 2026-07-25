@@ -12,6 +12,7 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Results on https://github.com/endojs/endo-but-for-bots/pull/831 suggest the failure on the base are a red herring. Please adjust the merge base to current upstream, rebase, and shepherd. 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
