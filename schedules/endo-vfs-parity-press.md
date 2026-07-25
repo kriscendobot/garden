@@ -20,26 +20,25 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-25 (post-05:00 tick): **#714** and **#643** MERGED;
+State as of 2026-07-25 (post-17:05 tick): **#714** and **#643** MERGED;
 **#658** closed (superseded). Open, review-blocked, ALL re-verified green and
-MERGEABLE/CLEAN at 2026-07-25 05:00 (all-SUCCESS check rollups, 23–24 each,
+MERGEABLE/CLEAN at 2026-07-25 ~17:30 (all-SUCCESS check rollups, 23–24 each,
 zero pending/failed; heads unchanged; no activity on any press PR since
-2026-07-18 — eight merges into `llm` since the 07-22 16:10 verification:
-#821 (endor archive error message), #824 (sha256 design), #826 (ReadableBlob
-range-attenuation design), #833 (PR-gating TypeScript composite build),
-#834 (ESLint 10 flat-config port), #839 (root TS program check), #840
-(opt-in tsd contracts in CI), #854 (endor CJS named exports in ESM facade)
-— none with parity-surface contact; all seven PRs re-polled MERGEABLE/CLEAN
-with all-SUCCESS rollups after them, no re-weave needed. NOTE: #833/#839/#840
-changed the CI gate and #834 the lint config on `llm` AFTER the press heads'
-last runs; mergeStateStatus stays CLEAN so no forced re-weave, but expect the
-new TS-composite/tsd checks to run — and possibly bite — on the next weave or
+2026-07-18 — two merges into `llm` since the 07-25 05:00 verification:
+#850 (floot × Claude Code CLI sandbox integration; touches
+packages/{claude-sandbox,exo-stream,floot,chat}, root tsconfig.composite.json,
+yarn.lock) and #777 (ocapn-iroh QUIC netlayer) — neither with parity-surface
+contact; all seven PRs re-polled MERGEABLE/CLEAN with all-SUCCESS rollups
+after them, no re-weave needed. Standing NOTE: #833/#839/#840 changed the CI
+gate and #834 the lint config on `llm` AFTER the press heads' last runs;
+mergeStateStatus stays CLEAN so no forced re-weave, but expect the new
+TS-composite/tsd checks to run — and possibly bite — on the next weave or
 force-push of any press PR; #814, the draft design for #650's denied-segments
 CLI flags by another worker, remains mount-adjacent but does not touch the
 parity surface):
 **#656** (provideSubMount, head 76e6800ee5), **#655** (old non-delegated
 mount grep, head 741642e2ee — maintainer asked about closing as superseded
-by #713, still no reply as of 2026-07-25 05:00; msg 20260717T124846Z-815188;
+by #713, still no reply as of 2026-07-25 17:30; msg 20260717T124846Z-815188;
 do not re-ping), **#657** (mount JSON, head 89482d66ad),
 **#713** (mount glob+grep+glorp; full matrix confirmed green on 454b2b97db
 after one macOS `test (22.x)` flake — an unrelated @endo/agentry
