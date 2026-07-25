@@ -1,7 +1,7 @@
 ---
 id: context-pruning
 aliases: ["context pruning", "fewer tokens", "prune context", "context engine", "agent-ready codebase", "shift verification left", "context window spend", "/context", "context reduction", "minimum tokens per unit shipped"]
-topics: [coding-agent-economics]
+topics: [coding-agent-economics, context-engineering]
 ---
 
 # context-pruning
@@ -20,8 +20,12 @@ topics: [coding-agent-economics]
 | Section | One-line summary |
 |---|---|
 | [Fewer tokens](../sections/web--allen-pike-coding-agent-spend--fewer-tokens.md) | Agent-ready codebase, shift verification left, prune the window, context engines, watch cloud-harness behavior. |
+| [Compaction](../sections/web--anthropic-context-engineering--compaction.md) | Anthropic's window-summarization technique and tool-result clearing — a concrete "prune the window" mechanism from the context-engineering side. |
+| [The anatomy of effective context](../sections/web--anthropic-context-engineering--anatomy-of-effective-context.md) | The smallest set of high-signal tokens across system prompts, tools, and examples — the curation half of "fewer tokens." |
 
 ## See also
 
 - [[coding-agent-spend]] — the cost `token_cost × token_count`; context-pruning is the second factor.
 - [[model-routing]] — the complementary "cheaper tokens" lever on the first factor.
+- [[context-compaction]] — the context-engineering technique for pruning a near-full window; the cost-side and discipline-side views of the same move.
+- [[context-engineering]] — the token-curation discipline of which pruning is the economics-facing view.
