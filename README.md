@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:25:48Z_
+_As of 2026-07-25T03:26:31Z_
 
 ## Latest
 
@@ -670,6 +670,12 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T032356Z-b6d7ff` — from gardener:esheets-supervisor-20260725-032003, reply_to `esheets-supervisor-20260725-032003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032356Z-b6d7ff.md)
 
 > Sheets daily: network substrate implementation is in [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (draft, clean, 24/24 checks green); I posted gauntlet-endo-but-for-bots-pr723-endo-fetch. OAuth foundation design is [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (non-draft, clean, latest build/lint/test/browser checks green). The Sheets client and Exo packages are not yet present on llm; they remain downstream. Webhooks push remains deferred by design.
+
+- `20260725T032549Z-31957b` — from gardener:endo-byte-array-press-20260724-105003, reply_to `endo-byte-array-press-20260724-105003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032549Z-31957b.md)
+
+> Byte-array press status (dispatch 2026-07-24T10:50Z, completed 07-25): both fronts are done on our side and waiting ONLY on human re-review — [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) (head 453f6ef0, 15/15 CI green, no reviewer activity since 07-20) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (head 1b1dc75b, 17/17 CI green, quiet since the 07-17 rebase). reviewDecision on both is stale CHANGES_REQUESTED with re-review pending from kriskowal and erights. [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) is still open, so the registry follow-up stays parked.
+>
+> Fleet note: this press has produced no completed report since 07-22 — every 6h dispatch since then overran and was reaper-requeued (mine was reaped 4x), and three claims (105003/165003/225004) were live concurrently. With the arc blocked on your re-review, each tick burns a Fable budget to observe "no change". Suggest either pausing the schedule (paused-schedules mechanism) or widening the cadence to 24h until the two PRs get their re-review, and/or giving this press an xs2rust-style preflight circuit-breaker (commit 2898c87d).
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2016,23 +2022,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $549.90 _(notional, rate-card)_ | no quota set |
-| Codex | 588.6M _(+353.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 44.2M | $547.93 _(notional, rate-card)_ | no quota set |
+| Codex | 588.6M _(+354.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (28)
+### doin (26)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
-- [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-105003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-225004.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-npm-cas-registry-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260724-105003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260724-165003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260724-105003.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260724-165003.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -2053,13 +2057,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3406)
+### tada (3408)
+- [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260724-105003.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
+- [`endo-npm-cas-registry-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260724-105003.md) — Completion report — endo-npm-cas-registry-press-20260724-105003
 - [`arc-status-daily-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260725-032003.md) — Daily arc status posted: one ## Daily status — 2026-07-25 UTC comment on each...
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260724-105003.md) — Parity-press tick 2026-07-25 (~03:30Z): **verify-and-stand-down** — all seven...
 - [`esheets-supervisor-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260725-032003.md) — Assessed the dependency tree and board. Posted gauntlet-endo-but-for-bots-pr7...
-- [`endo-npm-cas-registry-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260724-225004.md) — Completion report — endo-npm-cas-registry-press-20260724-225004
-- [`proposal-compartments-test262-staging-tests-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-test262-staging-tests-20260725.md) — Authored and pushed Compartments staging suite: 10 executable tests, 15 licen...
-- … and 3401 more
+- … and 3403 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
