@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T18:23:28Z_
+_As of 2026-07-25T18:25:29Z_
 
 ## Latest
 
@@ -868,6 +868,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > 3. When the [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) child gets poisoned/parked (likely before you read this), promote it back once workers can run it — the job is healthy; the failures were environmental.
 >
 > No sturdyref branch was touched this tick; confinement suites last verified green in the [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) child (sturdyref 8 passed, OCapN sturdyref 7 passed).
+
+- `20260725T182507Z-d00a30` — from orchestrator:endo-sturdyref-ci-green-737-704-20260725-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T182507Z-d00a30.md)
+
+> Orchestration endo-sturdyref-ci-green-737-704-20260725 HALTED: child endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725 failed (serial, on-child-failure=halt). 2/8 done before halt; swept: endojs-endo-but-for-bots-pr700-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr701-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr702-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr703-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr704-ci-green-cascade-20260725
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2280,7 +2284,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.4M | $348.19 _(notional, rate-card)_ | no quota set |
+| Claude | 16.4M | $348.23 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
@@ -2304,13 +2308,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 
-### tada (3477)
+### tada (3478)
+- [`endo-sturdyref-ci-green-737-704-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-ci-green-737-704-20260725.md) — orchestration endo-sturdyref-ci-green-737-704-20260725 — HALTED
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-review-6cfb0803.md) — Resolved PR #856 review feedback in ca0b6c0234 and pushed it.
 - [`endo-byte-array-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260725-170501.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260725-170501.md) — **Verify-and-stand-down tick — all seven press PRs remain green and mergeable...
 - [`ocapn-noise-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260725-170501.md) — **Completion report — ocapn-noise-press-20260725-170501**
-- [`endo-sturdyref-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260725-170501.md) — Press tick complete — assessment recorded, stall root-caused and surfaced; no...
-- … and 3472 more
+- … and 3473 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
