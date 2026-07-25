@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T19:34:17Z_
+_As of 2026-07-25T19:36:02Z_
 
 ## Latest
 
@@ -914,6 +914,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > - decomplector: the two-file / two-subpath split (buffer.js re-export + ./buffer and ./buffer/unbounded) is speculative generality for a future bounded variant; a single buffer.js would preserve that room. Also ./buffer/unbounded is exported but undocumented/unexercised (surfacer/packager).
 > - breaker/corner-prober (by-design for fire-and-forget, non-must): sink.next() after a terminal hangs rather than repeatedly resolving {done:true}; no terminal-op guard, so enqueue after a terminal silently retains.
 > - nits: JSDoc @template T vs .d.ts TValue naming; the freeze-cast comment from index.js not carried over.
+
+- `20260725T193546Z-1c89f3` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T193546Z-1c89f3.md)
+
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2326,8 +2330,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.3M | $344.56 _(notional, rate-card)_ | no quota set |
-| Codex | 19.3M _(+461.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 16.4M | $345.10 _(notional, rate-card)_ | no quota set |
+| Codex | 19.3M _(+461.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
