@@ -1740,3 +1740,12 @@ Inspect via `git -C journal cat-file -p da5deb9f87f30e94410cd25a3129c7e010ba321f
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'proposal-compartments-endor-validation-20260725' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p ef160833c8d705e5d7a44a713f2956826b7ba77e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T19:03:43Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4177146625cf755a3b55106399176db9f3854a20
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'improve-report-error-transcript-reachable' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4177146625cf755a3b55106399176db9f3854a20`.
