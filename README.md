@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T10:26:49Z_
+_As of 2026-07-25T10:33:59Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 9h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 10h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -2166,14 +2166,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.3M | $357.47 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+449.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Claude | 16.9M | $363.52 _(notional, rate-card)_ | no quota set |
+| Codex | 19.1M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (19)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260725-070506.md) — Daily midnight Pacific progress summary
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
@@ -2189,19 +2189,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr855-df7988e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr855-df7988e4.md) — attention directive on endojs/endo-but-for-bots PR #855
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-review-6cfb0803.md) — Review directive on endojs/endo-but-for-bots PR #856
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260725.md) — role: builder
-- [`fireworks-gardener-implement`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fireworks-gardener-implement.md) — Implement a first-class Fireworks.ai-backed gardener worker kind in the garde...
 - [`improve-local-provider-model-presence-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-local-provider-model-presence-preflight.md) — scripts/jobs/handlers/codex-provider-common.sh
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3450)
+### tada (3451)
+- [`fireworks-gardener-implement`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fireworks-gardener-implement.md) — Implemented and pushed 2c21ea3f2c to main2.
 - [`ebfb-stream-buffer-spring-sink-refactor`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-stream-buffer-spring-sink-refactor.md) — Implemented and pushed 8cba46a9cc (feat(stream): add unbounded buffer).
 - [`tune-fable-k3-model-assignments-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/tune-fable-k3-model-assignments-20260725.md) — Completion report — tune-fable-k3-model-assignments-20260725
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5077246643.md) — Replied on https://github.com/kriskowal/garden/issues/65#issuecomment-5078113...
 - [`endo-npm-cas-registry-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260724-165003.md) — Completion report — endo-npm-cas-registry-press-20260724-165003
-- [`endojs-endo-but-for-bots-pr849-a6858de7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr849-a6858de7.md) — Completion report — job endojs-endo-but-for-bots-pr849-a6858de7
-- … and 3445 more
+- … and 3446 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
