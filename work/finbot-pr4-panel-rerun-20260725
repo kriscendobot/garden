@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: hermit
-claimed_at: 2026-07-25T13:43:11Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-finbot-pr4-panel-rerun-20260725
