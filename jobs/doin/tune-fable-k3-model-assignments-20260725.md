@@ -9,3 +9,10 @@ First audit all live assignment surfaces, not just the canonical tier table: rol
 Then implement a coherent policy: (1) no implicit Fable assignments anywhere; explicit model: fable remains honored, (2) designer and every other former Fable default resolve to claude-opus-4-8, (3) define a conservative explicit K3 trial/reputation lane for low-risk, reversible, tool-verifiable gardener/research-style work if the routing/reputation machinery can express it safely, with K3 still zero-default and never an implicit builder/designer choice, (4) update documentation and tests so drift is caught, and (5) preserve explicit-request precedence for both Fable and K3.
 
 Run the focused model-selection, routing, worker-spine, provider-order, and scaler/eligibility tests plus repository checks appropriate to touched files. Push main2 directly per garden convention and report the full before/after assignment map, any K3 trial classes selected, tests, commit, and deployment readiness. Do not enable or scale any hosted worker pool and do not consume live credentials as part of this policy change.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 9
+  worker_kind: gardener
+  claimed_at: 2026-07-25T05:56:09Z
