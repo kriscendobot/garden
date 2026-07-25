@@ -4,3 +4,10 @@ The LOCAL-provider branch of `codex_provider_preflight` (and its `codex_local_en
 Change: add a model-presence gate to the LOCAL-provider preflight. Introduce a helper (e.g. `codex_local_model_present <model>`) that parses the `/v1/models` list (the JSON `data[].id`, or `ollama list`) and confirms the *requested* model tag is actually served, and have `codex_provider_preflight` require it for `provider=local` (accept the resolved model as a new argument). When the endpoint is up but the model is absent, fail preflight with a clear HOST-defect diagnostic — `local endpoint reachable but model 'qwen3.6' not pulled; run 'ollama pull qwen3.6' (see context/operations/local-inference-amd.md)` — exactly as the unreachable-endpoint path already does, optionally extending `codex_local_self_heal` to `ollama pull` the missing tag for the pinned-hermit (`self_heal=1`) case. This fails fast with an actionable message instead of a cryptic 5×404 transcript and stops doomed jobs from burning poison cycles fleet-wide.
 
 Because the model isn't resolved until after the current preflight call in the callers, the two call sites must pass the model: `scripts/jobs/handlers/cleric-codex.sh` (preflight at line 63 runs before model resolution at ~122–135 — resolve the model first, or add a second model-presence check after resolution) and `scripts/jobs/handlers/foreman-claude.sh:175` (it already computes `model` at line 176–177 for provider ordering — thread it in so an empty local model list advances it to the next provider instead of dispatching a 404-doomed local run). The most-implicated single script is `codex-provider-common.sh`, which owns the shared preflight both callers route through.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-25T06:53:47Z
