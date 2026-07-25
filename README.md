@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T04:43:01Z_
+_As of 2026-07-25T04:45:41Z_
 
 ## Latest
 
@@ -2150,8 +2150,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.1M | $565.91 _(notional, rate-card)_ | no quota set |
-| Codex | 589.7M _(+402.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 46.0M | $565.40 _(notional, rate-card)_ | no quota set |
+| Codex | 589.7M _(+404.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -2160,6 +2160,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
 ### doin (14)
+- [`deadmail-20260725T044129Z-881b68`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260725T044129Z-881b68.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -2170,18 +2171,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725.md) — cascade: rebase PR #541 onto its moved predecessor and drive its CI green
-- [`endojs-endo-but-for-bots-pr852-review-a9f2d553`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-review-a9f2d553.md) — Review directive on endojs/endo-but-for-bots PR #852
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 
-### tada (3422)
+### tada (3423)
+- [`endojs-endo-but-for-bots-pr852-review-a9f2d553`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-review-a9f2d553.md) — Addressed PR #852 review feedback in commit 73f3d1b395.
 - [`finbot-pr4-panel-fixer-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-fixer-20260725.md) — Completion report
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endor-packaging.md) — Completion report
 - [`finbot-pr4-panel-fixer-reissue-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-fixer-reissue-20260725.md) — Implemented and pushed PR #4 fixes.
 - [`finbot-pr4-panel-retry-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-retry-20260725.md) — Panel requested changes: 16 completed code-seat blocks recorded multiple requ...
-- [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-systemd-api-key-handoff-20260725.md) — Working tree clean; nothing pushed. The job's deliverable already lives on ma...
-- … and 3417 more
+- … and 3418 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
