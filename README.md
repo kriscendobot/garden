@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T17:34:08Z_
+_As of 2026-07-25T17:53:30Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 19m)
+- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 38m)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 17h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
@@ -2052,6 +2052,19 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 > idempotent, defer to live workers on shared branches, and cite real execution
 > evidence for any "works everywhere" claim.
 
+- `poison-finbot-pr4-panel-rerun-20260725-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr4-panel-rerun-20260725-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden-ece02cb4.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/finbot-pr4-panel-rerun-20260725; it stays HELD until a human promotes it
+> (promote-plan.sh finbot-pr4-panel-rerun-20260725) or removes it, so nothing is lost.
+> Original job base: finbot-pr4-panel-rerun-20260725
+>
+> --- original job body ---
+> role: builder
+>
+> Re-run the required full code panel for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) at head 63df8109aba818eb3fcbe9fb480f27205494b85c (base 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62). The prior panel requested changes and the fixer commit is green. PR was returned to draft correctly. Run the scripted panel with non-empty, formal verdict evidence; do not treat empty seat output as pass. If the panel passes, dispatch finbot-pr4-fable-signoff with role orchestrator and model claude-fable-5, including the panel outcome. Do not merge.
+
 - `poison-garden-fix-mystic-canary-runtime-20260724-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-garden-fix-mystic-canary-runtime-20260724-requeue-exhausted.md)
 
 > POISON notice — occurrence #2 (first seen 2026-07-24T08:03:08Z, latest 2026-07-24T22:03:06Z).
@@ -2227,14 +2240,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.7M | $358.87 _(notional, rate-card)_ | no quota set |
+| Claude | 16.8M | $361.05 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
@@ -2246,7 +2259,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-review-6cfb0803.md) — Review directive on endojs/endo-but-for-bots PR #856
-- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260725.md) — role: builder
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-170501.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
@@ -2305,6 +2317,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-build.md) — _normal_ · Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
+- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
