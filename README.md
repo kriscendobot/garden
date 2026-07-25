@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T00:50:20Z_
+_As of 2026-07-25T01:14:50Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 16m)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 41m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 21h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -406,6 +406,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T003154Z-648bdd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T003154Z-648bdd.md)
 
 > self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T011437Z-79aae0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011437Z-79aae0.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -1448,8 +1452,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $534.69 _(notional, rate-card)_ | no quota set |
-| Codex | 588.0M _(+347.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 43.4M | $533.97 _(notional, rate-card)_ | no quota set |
+| Codex | 588.0M _(+341.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
