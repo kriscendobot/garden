@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 8
+worker_kind: gardener
+claimed_at: 2026-07-25T03:20:11Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-arc-status-daily-20260725-032003
