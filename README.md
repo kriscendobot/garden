@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:31:34Z_
+_As of 2026-07-25T03:32:29Z_
 
 ## Latest
 
@@ -688,6 +688,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > 3. [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (transport root of the stack) has drifted to CONFLICTING vs `llm`. Per plan we weave the stack ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) -> [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) -> [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) -> [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)) once [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) lands, so one rebase covers both; no action needed from you on that.
 >
 > Standing open questions (unchanged): cross-host TCP+CBOR port choice; iroh-lane orchestration.
+
+- `20260725T033216Z-feef53` — from gardener:finbot-pr4-panel-retry-20260725, reply_to `finbot-pr4-panel-retry-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T033216Z-feef53.md)
+
+> The full 28-seat code panel for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) is progressing sequentially but has completed 13 seats after about 25 minutes. The claimed handler has the default 40-minute budget, which is insufficient at this observed rate. Please requeue with a longer handler-timeout or authorize a resumable panel harness so the remaining seats can complete without restarting.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2034,8 +2038,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.2M | $556.77 _(notional, rate-card)_ | no quota set |
-| Codex | 588.6M _(+356.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 45.6M | $560.29 _(notional, rate-card)_ | no quota set |
+| Codex | 588.6M _(+356.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
