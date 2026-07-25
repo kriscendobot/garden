@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T15:21:37Z_
+_As of 2026-07-25T15:40:06Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 14h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 15h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
@@ -2187,19 +2187,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.6M | $364.51 _(notional, rate-card)_ | no quota set |
+| Claude | 16.6M | $364.99 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (13)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr613-57fb6b21`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr613-57fb6b21.md) — attention directive on endojs/endo-but-for-bots PR #613
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
+- [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-review-6ca53b57.md) — Review directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
