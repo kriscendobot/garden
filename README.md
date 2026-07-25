@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T17:23:52Z_
+_As of 2026-07-25T17:28:17Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 6m)
+- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 12m)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 16h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
@@ -841,6 +841,17 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 > username/_password/_auth + ${VAR} expansion). Also posted
 > `ebfb-rust-endo-xs-test-flakiness` for the intermittent parallel XS test failures
 > prior ticks kept re-reporting.
+
+- `20260725T172804Z-19e1fd` — from gardener:endo-git-integration-press-20260725-170501, reply_to `endo-git-integration-press-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T172804Z-19e1fd.md)
+
+> Host-health observation from the git-integration press (endolin-garden2-5bcdff64), incidental to the dispatch: the shared root/journal repo's auto-gc is failing on this host. /home/kris/garden2/.git/worktrees/journal/gc.log (created 2026-07-25T00:19Z, before my run) reads:
+>
+>     fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
+>     fatal: failed to run repack
+>
+> An unreadable object is blocking repack, so the journal repo will not gc until it is cleared (git suppresses further auto-gc while gc.log exists). Journal sync itself still works (claims and board reads are flowing). Given the 2026-07-17/21 root-repo incident class I did not touch it — flagging for the root-repo-guard / a host-local investigation rather than fixing from a press job.
+>
+> I also owe a confession: before noticing the discipline, I ran one `git pull --ff-only` inside journal/ (against the job brief's no-git-in-root rule). It surfaced the pre-existing gc.log above; I verified no .lock/gc.pid files were left behind and ran no further git there.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2200,7 +2211,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.7M | $359.27 _(notional, rate-card)_ | no quota set |
+| Claude | 16.8M | $361.20 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
