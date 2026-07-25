@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T17:32:03Z_
+_As of 2026-07-25T17:34:08Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 12m)
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 16h)
+- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 19m)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 17h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -2227,19 +2227,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.7M | $358.51 _(notional, rate-card)_ | no quota set |
+| Claude | 16.7M | $358.87 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
-- [`endo-byte-array-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260725-170501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-ade4a938.md) — attention directive on endojs/endo-but-for-bots PR #719
@@ -2254,13 +2253,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 
-### tada (3475)
+### tada (3476)
+- [`endo-byte-array-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260725-170501.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260725-170501.md) — **Verify-and-stand-down tick — all seven press PRs remain green and mergeable...
 - [`ocapn-noise-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260725-170501.md) — **Completion report — ocapn-noise-press-20260725-170501**
 - [`endo-sturdyref-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260725-170501.md) — Press tick complete — assessment recorded, stall root-caused and surfaced; no...
 - [`endo-git-integration-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260725-170501.md) — Press dispatch report — git-integration / M3 loop (2026-07-25T17:23Z)
-- [`endo-npm-cas-registry-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260725-170501.md) — Completion report — endo-npm-cas-registry-press-20260725-170501
-- … and 3470 more
+- … and 3471 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
