@@ -1,8 +1,8 @@
 ---
 base: endojs-endo-but-for-bots-pr719-rebase
-kind: gardener
-provider: anthropic
-model: claude-default
+kind: cleric
+provider: openai
+model: gpt-5.6-terra
 thoughtfulness: medium
 work_class: other:m
 target: main2
@@ -10,12 +10,12 @@ accepted: true
 agentic_dollars: censored
 human_dollars: 0
 aggregate_dollars: censored
-attempts: 1
-duration_secs: 341
+attempts: 3
+duration_secs: 82
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden2-5bcdff64/gardener-3
-recorded_at: 2026-07-22T15:49:05Z
+recorded_by: endolin-garden2-5bcdff64/cleric-1
+recorded_at: 2026-07-25T10:34:45Z
 ---
-reputation event for endojs-endo-but-for-bots-pr719-rebase: arm anthropic/claude-default/medium work_class other:m target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr719-rebase: arm openai/gpt-5.6-terra/medium work_class other:m target main2 accepted true
