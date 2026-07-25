@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T00:49:43Z_
+_As of 2026-07-25T00:50:20Z_
 
 ## Latest
 
@@ -1449,13 +1449,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 43.5M | $534.69 _(notional, rate-card)_ | no quota set |
-| Codex | 588.0M _(+347.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Codex | 588.0M _(+347.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (37)
+### doin (36)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073666635.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
@@ -1485,7 +1485,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
-- [`kimi-k3-canary-20260725-f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-f.md) — model: kimi-k3
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-043515.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-105003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -1494,13 +1493,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness-followup.md) — role: scholar
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3393)
+### tada (3394)
+- [`kimi-k3-canary-20260725-f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260725-f.md) — • Verifying the prior state (file removed, tree clean) before closing out.
 - [`fix-mystic-completion-marker-rendering-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-completion-marker-rendering-20260725.md) — Implemented and pushed 85c51a3ef6 to main2.
 - [`fix-mystic-kimi-k3-model-selection-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-kimi-k3-model-selection-20260725.md) — Implemented and pushed 846b589c4a to main2.
 - [`fix-systemd-api-key-handoff-20260725-codex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-systemd-api-key-handoff-20260725-codex.md) — Implemented and pushed 38d951e65c to main2.
 - [`fix-mystic-prompt-yolo-20260725-codex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-prompt-yolo-20260725-codex.md) — Implemented and pushed ba65db9b02 to main2.
-- [`issue-kriskowal-garden-64`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-64.md) — Opened draft design PR: https://github.com/endojs/endo-but-for-bots/pull/853
-- … and 3388 more
+- … and 3389 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
