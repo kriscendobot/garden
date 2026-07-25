@@ -6,10 +6,4 @@ Use an isolated project worktree from ensure-project-worktree.sh keyed to this j
 
 If the panel passes, dispatch the required Fable orchestrator sign-off job with basename finbot-pr4-fable-signoff, role: orchestrator, model: claude-fable-5. Its body must name https://github.com/kriscendobot/finbot/pull/4 and the panel result, and must authorize review/sign-off and merge only after sign-off. If the panel requests changes, report the findings and hand off a fixer instead.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 17
-  worker_kind: cleric
-  claimed_at: 2026-07-25T03:05:07Z
+<!-- garden-reaped: 1 -->
