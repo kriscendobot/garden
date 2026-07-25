@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T02:19:32Z_
+_As of 2026-07-25T02:19:58Z_
 
 ## Latest
 
@@ -574,6 +574,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T021920Z-cf5ab6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021920Z-cf5ab6.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T021941Z-7dad0f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021941Z-7dad0f.md)
+
+> self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T021946Z-2a2b1b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021946Z-2a2b1b.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 2:20am (UTC)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
