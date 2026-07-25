@@ -1,0 +1,27 @@
+# Topic: context-engineering
+
+## Abstract
+
+The discipline of curating and maintaining the optimal set of tokens available to a large language model during inference — the natural, *iterative* progression of prompt engineering, where the curation phase happens each turn rather than once. The organizing principle is that **context is a finite resource**: named phenomena like *context rot* (recall degrades as tokens grow) and the *attention budget* (finite, depleted by every token, rooted in the transformer's n² attention) mean the goal is to **find the smallest set of high-signal tokens that maximize the likelihood of the desired outcome**. The topic collects the anatomy of effective context (system prompts at the "right altitude", token-efficient unambiguous tools, curated canonical examples), the shift to **just-in-time context retrieval** (agents hold lightweight identifiers and load data at runtime; the hybrid `CLAUDE.md`-plus-`glob`/`grep` model), and the **long-horizon techniques** for tasks whose token count exceeds the window: compaction, structured note-taking (agentic memory), and sub-agent architectures. Seeded 2026-07-25 from Anthropic's framing post *Effective context engineering for AI agents* (2025-09-29). Distinct from `coding-agent-economics` (the *cost* of tokens; context pruning as a spend lever) and `agent-fleet-orchestration` (operationally coordinating many agents against a work queue); this topic is the *token-curation discipline* itself. Cross-references the garden's own context machinery — the just-in-time role/skill library, `CLAUDE.md` up-front orientation, sub-agent distilled summaries, and the journal as external memory.
+
+## Sections
+
+| Section | Topics | One-line |
+|---------|--------|----------|
+| [Overview](../sections/web--anthropic-context-engineering--overview.md) | context-engineering | Context is a critical but finite resource; the question is "what configuration of context is most likely to generate the desired behavior?" |
+| [Context engineering vs. prompt engineering](../sections/web--anthropic-context-engineering--context-engineering-vs-prompt-engineering.md) | context-engineering | Context engineering is the iterative progression of prompt engineering: curate the whole token state each turn, not just write a prompt once. |
+| [Why context engineering is important](../sections/web--anthropic-context-engineering--why-context-engineering-matters.md) | context-engineering | Context rot and the finite attention budget (transformer n² attention) make context a finite resource with a performance gradient, not a cliff. |
+| [The anatomy of effective context](../sections/web--anthropic-context-engineering--anatomy-of-effective-context.md) | context-engineering | Smallest set of high-signal tokens: system prompts at the right altitude, token-efficient unambiguous tools, curated canonical examples. |
+| [Context retrieval and agentic search](../sections/web--anthropic-context-engineering--context-retrieval-and-agentic-search.md) | context-engineering | Just-in-time context: hold lightweight identifiers, load at runtime; progressive disclosure; Claude Code's hybrid CLAUDE.md + glob/grep model. |
+| [Context engineering for long-horizon tasks](../sections/web--anthropic-context-engineering--long-horizon-tasks.md) | context-engineering | Tasks whose token count exceeds the window need compaction, structured note-taking, or multi-agent architectures; choose by task shape. |
+| [Compaction](../sections/web--anthropic-context-engineering--compaction.md) | context-engineering | Summarize a near-full window and reinitialize with the summary; keep architectural decisions and open bugs; tool-result clearing is the lightest touch. |
+| [Structured note-taking](../sections/web--anthropic-context-engineering--structured-note-taking.md) | context-engineering | Agentic memory: write notes outside the window and pull them back (NOTES.md, to-do lists); the Claude-plays-Pokémon demonstration; the Sonnet 4.5 memory tool. |
+| [Sub-agent architectures](../sections/web--anthropic-context-engineering--sub-agent-architectures.md) | context-engineering, agent-fleet-orchestration | Sub-agents explore with clean context windows and return only a 1,000-2,000-token distilled summary; separation of concerns for complex research. |
+| [Conclusion](../sections/web--anthropic-context-engineering--conclusion.md) | context-engineering | The invariant principle: curate what enters the finite attention budget at each step; treat context as a precious, finite resource. |
+
+## See also
+
+- [coding-agent-economics](coding-agent-economics.md) — the *cost* side of tokens; `context-pruning` there is the "fewer tokens" spend lever, complementary to this topic's curation discipline.
+- [agent-fleet-orchestration](agent-fleet-orchestration.md) — operationally coordinating many agents against a work queue; the sub-agent-architectures section is filed under both.
+- [llm-agent-frameworks](llm-agent-frameworks.md) — the harness layer (LangChain/LangGraph memory, tool calling) whose context this discipline curates.
+- [automatic-agentic-loop](automatic-agentic-loop.md) — the deterministic-plus-agentic loop whose durable transcript is one form of the external memory this topic's note-taking technique describes.
