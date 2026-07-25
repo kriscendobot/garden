@@ -67,7 +67,7 @@ git -C "$GROOT" init -q
 git -C "$GROOT" config user.email t@localhost
 git -C "$GROOT" config user.name test
 # Copy the real scripts the handler sources, plus the handler under test.
-cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$GROOT/scripts/jobs/"
+cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$JOBS_SRC/quota-panel.sh" "$GROOT/scripts/jobs/"
 cp "$JOBS_SRC/handlers/gardener-claude.sh" "$JOBS_SRC/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
 chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh"
 printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"

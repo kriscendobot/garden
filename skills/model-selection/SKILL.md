@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-07-13
+updated: 2026-07-25
 author: gardener
 ---
 
@@ -41,6 +41,18 @@ today.) These are the only two roles pinned by default today. Web variants
 (`web-designer` / `web-builder`) and every other role are unpinned — they ride the
 fleet default unless a dispatch or job names a model explicitly.
 
+**No implicit Fable — the standing invariant (2026-07-25, via the liaison).** Fable
+is **available only on an explicit per-job `model: fable` pin**; it is **never a
+default, a fallback, or an implicit choice** for any role, kind, or producer going
+forward. The role→model map above already reflects this (no role default resolves to
+Fable), and the `worker-spine-kinds-test.sh` § *POLICY INVARIANTS* block now asserts
+it as a drift guard: if a future edit re-pins any role on any worker kind to the
+Fable id, that test fails. Explicit-request precedence is preserved in both
+directions — a maintainer who writes `model: fable` on one job still gets Fable
+(§ Overrides), and standing schedules that explicitly carry `model: fable` (the endo
+press-driver campaigns) are honored, because those are explicit requests, not
+implicit defaults.
+
 | Role | Tier | Concrete id | Why |
 | --- | --- | --- | --- |
 | `designer` | Opus | `claude-opus-4-8` | Design-only authoring — drafting design documents and surfacing open questions. Moved to the latest Opus (2026-07-13), the same tier `builder` uses. |
@@ -56,16 +68,18 @@ maintainer pins another role.
 The short tier names bind to concrete model ids (`resolve_model_tier` in
 `common.sh`). The current binding (2026-07-02):
 
-| Tier | Concrete id |
-| --- | --- |
-| `fable` | `claude-fable-5` |
-| `opus` | `claude-opus-4-8` |
-| `sonnet` | `claude-sonnet-4-6` |
-| `haiku` | `claude-haiku-4-5-20251001` |
+| Tier | Concrete id | Notes |
+| --- | --- | --- |
+| `fable` | `claude-fable-5` | **Explicit-only** — a valid per-job `model: fable` pin, but never a role default (§ Standing role policy). |
+| `opus` | `claude-opus-4-8` | The default for `designer`/`builder`. |
+| `sonnet` | `claude-sonnet-4-6` | |
+| `haiku` | `claude-haiku-4-5-20251001` | |
 
 A value that is already a concrete `claude-*` id passes through verbatim. An
 unknown or blank value resolves to empty, and the caller falls back to the fleet
-default (no `--model`) — a typo must never crash a tick.
+default (no `--model`) — a typo must never crash a tick. The `fable` tier still
+**binds** (so an explicit pin is honored); it is simply no longer any role's
+default.
 
 ### Provider-scoped tiers (the codex/cleric backend)
 
@@ -141,6 +155,59 @@ scripts/jobs/set-model-routing.sh --show                           # print the e
 scripts/jobs/set-model-routing.sh --validate [file]                # validate before/without committing
 ```
 
+### The `moonshot` provider (the mystic backend) — the explicit-only K3 trial lane
+
+The fourth provider is `moonshot` — the **mystic** worker kind, a hosted Moonshot
+**Kimi K3** pool driven through the official Kimi Code CLI (worker-kind registry in
+`common.sh`; handler `handlers/mystic-kimi.sh`; ops runbook
+[context/operations/kimi-k3.md](../../context/operations/kimi-k3.md)). It is the
+garden's **conservative, explicit-only reputation lane for low-risk, reversible,
+tool-verifiable work** — deliberately narrow, and grounded in evidence rather than a
+blanket default:
+
+- **Research grounding.** The researcher brief `research-harness-kimi-k3` and the
+  scholar ingest `scholar-fireworks-kimik3-fable` established that K3 is **hosted-only**
+  (2.8T MoE, ~1.5 TB even at Q4 — the local box is off by >10×, so no hermit path),
+  OpenAI-compatible at `api.moonshot.ai/v1`, and priced ~1/3 of Fable. "Fable" in that
+  research is **Claude Fable 5** as a routing partner, not a serving technique — adding
+  a K3 arm realizes the "K3+Fable mixture" the source described. The **live canary**
+  `kimi-k3-canary-20260725-f` proved the harness end to end: a mystic worker on
+  `moonshot / kimi-k3 / medium`, work_class **`gardener:s`**, tool-verified file
+  create → readback → remove, `accepted: true`, reputation arm scoped to
+  `worker_kind: mystic` / `provider: moonshot` / `model: kimi-k3`.
+
+- **Zero-default, explicit-only.** `resolve_model_tier moonshot <t>` binds **no short
+  alias** — only the exact concrete `model: kimi-k3` selects it (an abbreviated
+  `model: k3` resolves to empty on purpose). `role_default_model mystic <role>` is
+  **empty for every role**: no design/build or other role default can ever route to
+  K3. The mystic pool also **ships disabled** (`set-mystics.sh 0`) and is scaled only
+  by a maintainer for a bounded trial — landing the harness does not arm it.
+
+- **Never a high-stakes route.** The claim-path eligibility filter
+  (`claim-job.sh` § 1.3, `job_eligible_for_kind`) accepts a job for the mystic pool
+  **only** when it carries the exact `model: kimi-k3` pin **and** its `role:` is not
+  `designer`/`builder`; an unpinned job, a short-alias job, and any design/build job
+  are all refused. So an explicit K3 request rides in for **gardener/researcher/
+  scholar-style** work (the `gardener:s`, `researcher:*`, `scholar:*` reversible,
+  tool-verifiable classes the canary exercised) and is structurally barred from
+  design, build, merges, and external side effects.
+
+- **Trial classes (guidance, not a routing rule).** When choosing whether to *pin* a
+  job to `model: kimi-k3` for reputation-building, prefer **low-risk, reversible,
+  tool-verifiable gardener/research work**: file-scoped chores, read-and-report
+  research/scholar briefs, and other tasks a tool result can confirm and a peer can
+  cheaply undo. Do **not** pin K3 on design, build, merge/ferry, or any job whose
+  effect is hard to reverse — those stay on Opus (designer/builder) or the fleet
+  default. K3 remains zero-default: this is a lane for *explicit* opt-in, never an
+  automatic assignment.
+
+To scale a bounded trial (leader host, after the ops runbook's key + probe steps):
+
+```sh
+scripts/jobs/set-mystics.sh 1   # arm exactly one mystic worker for a bounded canary
+scripts/jobs/set-mystics.sh 0   # return the pool to zero after the trial
+```
+
 ## Procedure
 
 ### Agent-dispatch path (orchestrator / judge)
@@ -181,8 +248,12 @@ canonical for subsequent dispatches.
   are `scripts/jobs/handlers/gardener-claude.sh` (anthropic/claude) and
   `scripts/jobs/handlers/cleric-codex.sh` (openai/codex), each in its § *model
   selection*. The `gardener-worktree-test.sh` covers the claude `model:`/`role:`
-  resolution; `worker-spine-kinds-test.sh` covers the provider-scoped tiers and the
-  per-kind role defaults for both backends.
+  resolution (designer/builder → Opus, explicit `model: fable` override); the mystic
+  handler is `handlers/mystic-kimi.sh`. `worker-spine-kinds-test.sh` covers the
+  provider-scoped tiers, the per-kind role defaults for all four backends, the mystic
+  claim-eligibility gate, and the § *POLICY INVARIANTS* drift guard (no role default
+  on any kind resolves to Fable; K3 zero-default; K3 binds under no non-moonshot
+  provider).
 - The **cross-provider model catalog**
   ([`designs/provider-model-catalog.md`](../../designs/provider-model-catalog.md))
   is the reference behind this policy: it lists every Claude id (with context window,
@@ -222,3 +293,22 @@ canonical for subsequent dispatches.
   (a gpt-oss job is now unpinned, not auto-local). Tests: `model-routing-test.sh`
   (classification, defaults, override, fail-safe, the edit helper) and the updated
   `worker-spine-kinds-test.sh` eligibility cases.
+- _2026-07-25_: **no-implicit-Fable invariant + explicit K3 trial lane documented**
+  (job `tune-fable-k3-model-assignments`, maintainer-directed). Audited every live
+  assignment surface (roles, `role_default_model`/`resolve_model_tier`, the
+  claim-path eligibility gate, the model-routing seed, foreman/scaler, schedules,
+  docs, tests) and confirmed the code policy already carries the 07-13 walk-back — no
+  role default on any of the four worker kinds resolves to Fable. Made the invariant
+  **explicit and drift-guarded**: this skill now states Fable is explicit-only, and
+  `worker-spine-kinds-test.sh` § *POLICY INVARIANTS* fails if any role default on any
+  kind ever re-binds to the Fable id. Documented the pre-existing **mystic/moonshot
+  Kimi K3** backend as the conservative, **explicit-only, zero-default** trial lane
+  for low-risk/reversible/tool-verifiable gardener/research work — grounded in
+  `research-harness-kimi-k3`, `scholar-fireworks-kimik3-fable`, and the accepted live
+  canary `kimi-k3-canary-20260725-f` (work_class `gardener:s`). No routing/eligibility
+  code changed (the machinery already expresses the lane: mystic claims only exact
+  `model: kimi-k3` and refuses designer/builder). Also fixed a pre-existing staging
+  gap in `gardener-worktree-test.sh` (it did not copy `quota-panel.sh`, which
+  `common.sh` now sources, so the model-selection assertions could not run). The
+  standing schedules that explicitly pin `model: fable` (the endo press campaigns) are
+  left untouched — explicit requests, honored by policy, not implicit defaults.

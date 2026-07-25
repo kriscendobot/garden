@@ -122,6 +122,38 @@ rm -f "$ARM_JOB"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
 
 # ============================================================================
+hr; echo "POLICY INVARIANTS — no IMPLICIT Fable; K3 is an explicit-only trial lane"; hr
+# Maintainer directive (2026-07-25, via the liaison): walk back EVERY implicit/
+# default use of Fable to Opus. Fable is honored only on an EXPLICIT per-job
+# `model: fable`; NO role default on ANY worker kind may resolve to the Fable id.
+# This is the drift guard: if a future edit re-pins any role to Fable, it fails here.
+FABLE_ID="$(resolve_model_tier anthropic fable)"
+[ "$FABLE_ID" = "claude-fable-5" ] && ok "fable tier still BINDS (explicit model: fable honored)" || bad "fable tier binding ($FABLE_ID)"
+fable_default_leak=0
+for k in gardener cleric hermit mystic; do
+  for r in designer builder fixer weaver conductor shepherd researcher scholar triager cleaner journalist orchestrator; do
+    if [ "$(role_default_model "$k" "$r")" = "$FABLE_ID" ]; then
+      bad "IMPLICIT Fable default leaked: kind=$k role=$r resolves to $FABLE_ID"
+      fable_default_leak=1
+    fi
+  done
+done
+[ "$fable_default_leak" -eq 0 ] && ok "no role default on any kind resolves to Fable (no implicit Fable anywhere)"
+# The two pinned gardener roles land on Opus, not Fable (positive assertion).
+[ "$(role_default_model gardener designer)" = "claude-opus-4-8" ] && ok "gardener designer → Opus (former Fable default walked back)" || bad "gardener designer default ($(role_default_model gardener designer))"
+[ "$(role_default_model gardener builder)"  = "claude-opus-4-8" ] && ok "gardener builder → Opus" || bad "gardener builder default"
+# K3 trial lane: mystic is the ONLY K3-capable kind and it is ZERO-default. No
+# role default — design/build or otherwise — selects K3 on any kind; K3 rides in
+# only on an explicit `model: kimi-k3` pin (eligibility section proves the claim path).
+for r in designer builder fixer researcher scholar triager; do
+  [ -z "$(role_default_model mystic "$r")" ] || bad "mystic role default must be empty (zero-default K3): role=$r"
+done
+ok "mystic zero-default across roles (K3 never an implicit choice)"
+# No non-mystic kind can even bind the K3 id via its provider tier map.
+{ [ -z "$(resolve_model_tier anthropic kimi-k3)" ] && [ -z "$(resolve_model_tier openai kimi-k3)" ] && [ -z "$(resolve_model_tier local kimi-k3)" ]; } \
+  && ok "kimi-k3 binds under NO non-moonshot provider (explicit K3 stays on the mystic lane)" || bad "kimi-k3 leaked to a non-moonshot provider"
+
+# ============================================================================
 hr; echo "ONE SPINE — the SAME gardener.sh completes a job as gardener AND as cleric"; hr
 run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
   local kind="$1" base="$2" host="$3" front="${4:-}" tr bare
