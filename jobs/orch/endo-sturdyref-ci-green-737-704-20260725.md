@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr737-ci-green-20260725 endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr700-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr701-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr702-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr703-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr704-ci-green-cascade-20260725
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-07-25T03:29:20Z
 ---
