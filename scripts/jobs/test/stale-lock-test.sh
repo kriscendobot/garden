@@ -120,6 +120,30 @@ landed=0; [ -f "$V/jobs/todo/stale-post.md" ] && landed=1
   || bad "post wedged on a stale tombstone (rc=$prc landed=$landed elapsed=${elapsed}s)"
 
 # ============================================================================
+hr; echo "SUBTEST 5 — stale git ref locks are swept before sync and cursor writes"; hr
+# SIGKILL can leave git's internal ref lock behind after the sibling flock has
+# already been released. Plant the precise journal2 HEAD-update shape, then
+# assert sync_clone removes it and remains usable.
+REFLOCK="$CLONE/.git/refs/heads/journal2.lock"
+mkdir -p "$(dirname "$REFLOCK")"; : > "$REFLOCK"
+if sync_out="$( ( sync_clone "$CLONE" ) 2>&1 )"; then src=0; else src=$?; fi
+{ [ "$src" -eq 0 ] && [ ! -e "$REFLOCK" ] && grep -q 'swept stale git lockfile(s)' <<<"$sync_out"; } \
+  && ok "sync_clone swept stale refs/heads/journal2.lock and completed" \
+  || bad "sync_clone did not sweep the stale ref lock (rc=$src exists=$([ -e "$REFLOCK" ] && echo yes || echo no) out=$sync_out)"
+clone_unlock "$CLONE"
+
+# cursor-set owns the cursor clone in production. Re-plant the ref lock to
+# prove the real cursor update path is unwedged too, then read the pushed value
+# from a fresh clone.
+: > "$REFLOCK"
+if printf 'last_event_id: stale-lock-recovered\n' | GARDEN_CURSOR_CLONE="$CLONE" "$JOBS/cursor-set.sh" stale-lock-cursor >/dev/null 2>&1; then crc=0; else crc=$?; fi
+CURVERIFY="$TR/cursor-verify"; rm -rf "$CURVERIFY"
+git clone -q --single-branch --branch journal2 "$BARE" "$CURVERIFY" 2>/dev/null
+{ [ "$crc" -eq 0 ] && [ ! -e "$REFLOCK" ] && grep -q 'last_event_id: stale-lock-recovered' "$CURVERIFY/cursors/stale-lock-cursor"; } \
+  && ok "cursor-set swept the stale ref lock and advanced the cursor" \
+  || bad "cursor-set remained wedged on the stale ref lock (rc=$crc exists=$([ -e "$REFLOCK" ] && echo yes || echo no))"
+
+# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"

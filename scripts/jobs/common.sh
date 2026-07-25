@@ -1643,6 +1643,30 @@ clone_unlock() {
   exec {fd}>&- || true
 }
 
+# Remove git's own lockfiles left behind when a git child is killed while
+# updating this clone. clone_lock protects the entire clone critical section,
+# so any such lockfile found while it is held cannot belong to a live fleet git
+# operation. Keep the set deliberately narrow: only git's standard top-level
+# locks plus ref locks are recoverable here.
+_sweep_stale_git_locks() {
+  local dir="$1" gitdir="$1/.git" lock removed=0
+  [ -d "$gitdir" ] || return 0
+
+  for lock in index.lock HEAD.lock config.lock packed-refs.lock ORIG_HEAD.lock; do
+    if [ -e "$gitdir/$lock" ]; then
+      rm -f -- "$gitdir/$lock"
+      removed=1
+    fi
+  done
+  if [ -d "$gitdir/refs" ]; then
+    while IFS= read -r -d '' lock; do
+      rm -f -- "$lock"
+      removed=1
+    done < <(find "$gitdir/refs" -type f -name '*.lock' -print0)
+  fi
+  [ "$removed" -eq 0 ] || log "swept stale git lockfile(s) in $gitdir"
+}
+
 # Ensure a single-branch journal clone exists at $1 and is identity-pinned. The
 # clone + config write is serialized so concurrent producers don't race a cold
 # `git clone` into the same dir or collide on `.git/config`.
@@ -1676,6 +1700,7 @@ ensure_clone() {
       die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
     fi
   fi
+  _sweep_stale_git_locks "$dir"
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
   clone_unlock "$dir"
@@ -2619,6 +2644,7 @@ job_cycle_productive() {
 sync_clone() {
   local dir="$1" rc
   clone_lock "$dir"
+  _sweep_stale_git_locks "$dir"
   # `journal_fetch ...; rc=$?` would trip the caller's `set -e` at the call itself
   # when the fetch fails (a function returning non-zero in a bare statement is a
   # `set -e` exit), killing the process before we can classify the failure as a
