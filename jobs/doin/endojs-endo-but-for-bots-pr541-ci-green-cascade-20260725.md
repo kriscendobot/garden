@@ -30,3 +30,10 @@ Done = this PR rebased on its predecessor, checks green (or sole residual
 documented with evidence), draft preserved.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 19
+  worker_kind: cleric
+  claimed_at: 2026-07-25T04:43:09Z
