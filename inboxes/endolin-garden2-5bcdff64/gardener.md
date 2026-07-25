@@ -1560,3 +1560,12 @@ Inspect via `git -C journal cat-file -p ed5da75aee06e4911a0c921afacd7398bef4fa5f
 - Context: gardener-19 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p ed5da75aee06e4911a0c921afacd7398bef4fa5f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T05:56:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 96772c7dd7c237da1a77f29d7b9e787c3e2df258
+- Context: gardener-9 on endolin-garden2-5bcdff64: job 'tune-fable-k3-model-assignments-20260725' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 96772c7dd7c237da1a77f29d7b9e787c3e2df258`.
