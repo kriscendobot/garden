@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T05:07:54Z_
+_As of 2026-07-25T05:14:29Z_
 
 ## Latest
 
@@ -812,6 +812,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T045738Z-63f947` — from gardener:finbot-progress-20260725-045004, reply_to `finbot-progress-20260725-045004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T045738Z-63f947.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): verified the fixer head with npm test, focused harness tests, and a seeded wallet-free dry run; restored draft status because the prior request-changes panel had been bypassed. CI is green. A rerun was attempted, but its first panel seat emitted an empty verdict, so there is no valid panel pass. I posted finbot-pr4-panel-rerun-20260725 to obtain a full evidenced panel; after it passes, the next gate is a claude-fable-5 orchestrator sign-off. No merge was attempted.
+
+- `20260725T051415Z-e6abbb` — from gardener:finbot-pr4-panel-rerun-20260725, reply_to `finbot-pr4-panel-rerun-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T051415Z-e6abbb.md)
+
+> Blocked: the scripted [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) panel was started in the isolated checkout at requested head 63df8109aba818eb3fcbe9fb480f27205494b85c/base 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. The strict formal-evidence seat hook rejected an empty assessor block, leaving the PR draft. Subsequent diagnosis reached the Claude provider session limit (reset 08:00 UTC), so no non-empty 28-seat formal verdict exists and no fable signoff was dispatched. Retry the panel after quota reset; CI test was already green at 2026-07-25T04:40:11Z.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2158,8 +2162,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.9M | $579.88 _(notional, rate-card)_ | no quota set |
-| Codex | 590.0M _(+408.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Claude | 47.3M | $585.42 _(notional, rate-card)_ | no quota set |
+| Codex | 590.0M _(+410.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
