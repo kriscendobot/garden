@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T04:37:33Z_
+_As of 2026-07-25T04:40:06Z_
 
 ## Latest
 
@@ -796,6 +796,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260725T043939Z-a68a9e` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T043939Z-a68a9e.md)
+
+> Duplicate fixer detected on finbot [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) . Two fixer jobs are live for the same panel must-fix: finbot-pr4-panel-fixer-20260725 (me, Claude) and finbot-pr4-panel-fixer-reissue-20260725 (a Codex cleric, about 2h in, no commit yet). Panel verdict was request-changes; the dominant must-fix is the compartment egress boundary (runCompartmentLlm returns program(snapshot) unvalidated/unhardened while ingress is JSON-copied+hardened). To avoid a double-push race I'm coordinating with the peer and will not double-push. If you want ME to own it, say so and I'll land it; otherwise I'll defer to the reissue.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2142,8 +2146,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.2M | $568.17 _(notional, rate-card)_ | no quota set |
-| Codex | 589.4M _(+398.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 46.3M | $569.31 _(notional, rate-card)_ | no quota set |
+| Codex | 589.5M _(+400.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -2151,7 +2155,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
-### doin (16)
+### doin (15)
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2164,18 +2168,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725.md) — cascade: rebase PR #541 onto its moved predecessor and drive its CI green
 - [`finbot-pr4-panel-fixer-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-fixer-20260725.md) — ---
-- [`finbot-pr4-panel-fixer-reissue-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-fixer-reissue-20260725.md) — ---
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 
-### tada (3419)
+### tada (3420)
+- [`finbot-pr4-panel-fixer-reissue-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-fixer-reissue-20260725.md) — Implemented and pushed PR #4 fixes.
 - [`finbot-pr4-panel-retry-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-retry-20260725.md) — Panel requested changes: 16 completed code-seat blocks recorded multiple requ...
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-systemd-api-key-handoff-20260725.md) — Working tree clean; nothing pushed. The job's deliverable already lives on ma...
 - [`endojs-endo-but-for-bots-pr737-ci-green-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-ci-green-20260725.md) — Fixed and pushed all CI blockers on draft PR #737:
 - [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-prompt-yolo-20260725.md) — Confirmed the compatibility fix is already on main2: prompt-mode Kimi invocat...
-- [`gauntlet-endo-but-for-bots-pr723-endo-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr723-endo-fetch.md) — Completion report
-- … and 3414 more
+- … and 3415 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
