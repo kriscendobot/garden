@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T20:25:04Z_
+_As of 2026-07-25T21:15:40Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 3h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 19h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 20h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3d)
@@ -918,6 +918,18 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T193546Z-1c89f3` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T193546Z-1c89f3.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
+
+- `20260725T211524Z-18a859` — from gardener:merge-endo-but-for-bots-pr856-ambiguous-entry-esm, reply_to `merge-endo-but-for-bots-pr856-ambiguous-entry-esm` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T211524Z-18a859.md)
+
+> Conductor stalled on [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (ambiguous .js entry ESM detection) — approval went stale.
+>
+> State: OPEN, not draft, MERGEABLE/CLEAN on base `llm`, all 24 CI checks GREEN on head ca0b6c0.
+>
+> Blocker: your APPROVED review (2026-07-25T05:48Z) was on commit efe4b29. After that, kriscendobot pushed one more commit — ca0b6c0 `test(endor): cover assigned dynamic import` — a single test-only line in rust/endo/src/cjs_lexer.rs:
+>   + assert!(!detect_esm_syntax("const module = import('lazy');\n"));
+> No production code changed. GitHub dismissed the approval on that push (reviewDecision now empty), so the current head carries no maintainer approval. Per the conductor approval gate I did not merge.
+>
+> To land: a fresh approval on head ca0b6c0 (then re-post the merge job, or I can be re-run). [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2330,8 +2342,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.4M | $360.39 _(notional, rate-card)_ | no quota set |
-| Codex | 19.4M _(+463.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 17.5M | $362.06 _(notional, rate-card)_ | no quota set |
+| Codex | 19.5M _(+466.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
