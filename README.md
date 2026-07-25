@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:26:31Z_
+_As of 2026-07-25T03:27:09Z_
 
 ## Latest
 
@@ -676,6 +676,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > Byte-array press status (dispatch 2026-07-24T10:50Z, completed 07-25): both fronts are done on our side and waiting ONLY on human re-review — [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) (head 453f6ef0, 15/15 CI green, no reviewer activity since 07-20) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (head 1b1dc75b, 17/17 CI green, quiet since the 07-17 rebase). reviewDecision on both is stale CHANGES_REQUESTED with re-review pending from kriskowal and erights. [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) is still open, so the registry follow-up stays parked.
 >
 > Fleet note: this press has produced no completed report since 07-22 — every 6h dispatch since then overran and was reaper-requeued (mine was reaped 4x), and three claims (105003/165003/225004) were live concurrently. With the arc blocked on your re-review, each tick burns a Fable budget to observe "no change". Suggest either pausing the schedule (paused-schedules mechanism) or widening the cadence to 24h until the two PRs get their re-review, and/or giving this press an xs2rust-style preflight circuit-breaker (commit 2898c87d).
+
+- `20260725T032633Z-ca6252` — from gardener:ocapn-noise-press-20260724-105003, reply_to `ocapn-noise-press-20260724-105003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032633Z-ca6252.md)
+
+> Subject: OCapN-over-Noise: [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) merge is ownerless and waits only on your fresh approval
+>
+> Press-driver status (dispatch 20260724-105003; M1-M5 remain proven, no regressions):
+>
+> 1. **[endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806)** (crossed-hello race fix) has been sitting MERGEABLE / mergeStateStatus CLEAN at head `b1d86021` since 2026-07-22T18:35Z (bot rebase onto `llm`, unchanged two-commit stack). Your earlier approval was on a pre-rebase head, so it is stale under the current-approval-before-merge rule; a review re-request to kriskowal is pending on GitHub. **Action asked: approve [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) at `b1d86021`.**
+> 2. The conductor that owned the merge died: job `endojs-endo-but-for-bots-pr806-conduct` was poisoned (requeue-exhausted, 5 cycles) on 07-22T18:53Z and is parked in `jobs/plan/` behind a `go-ahead` gate. **Action asked: after approving, say "promote endojs-endo-but-for-bots-pr806-conduct"** (or have the liaison post a fresh conduct job) so the merge has an owner again.
+> 3. [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (transport root of the stack) has drifted to CONFLICTING vs `llm`. Per plan we weave the stack ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) -> [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) -> [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) -> [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)) once [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) lands, so one rebase covers both; no action needed from you on that.
+>
+> Standing open questions (unchanged): cross-host TCP+CBOR port choice; iroh-lane orchestration.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2022,8 +2034,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $547.93 _(notional, rate-card)_ | no quota set |
-| Codex | 588.6M _(+354.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 44.2M | $549.61 _(notional, rate-card)_ | no quota set |
+| Codex | 588.6M _(+354.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
