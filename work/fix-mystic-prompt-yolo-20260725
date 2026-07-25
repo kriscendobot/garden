@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 13
+worker_kind: gardener
+claimed_at: 2026-07-25T00:21:59Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-mystic-prompt-yolo-20260725
