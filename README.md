@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T09:19:27Z_
+_As of 2026-07-25T09:33:32Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 8h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 9h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -2166,21 +2166,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.9M | $353.27 _(notional, rate-card)_ | no quota set |
+| Claude | 16.1M | $354.60 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+427.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 
-### doin (29)
+### doin (28)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260725-070506.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5077246643.md) — Dead-lettered message — pick up its intent
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260724-165003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260724-165003.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260724-225004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
