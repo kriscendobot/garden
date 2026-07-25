@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T12:13:06Z_
+_As of 2026-07-25T12:13:57Z_
 
 ## Latest
 
@@ -2173,11 +2173,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (15)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
-- [`endojs-endo-but-for-bots-pr486-4fd03559`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr486-4fd03559.md) — attention directive on endojs/endo-but-for-bots PR #486
 - [`endojs-endo-but-for-bots-pr613-57fb6b21`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr613-57fb6b21.md) — attention directive on endojs/endo-but-for-bots PR #613
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
@@ -2191,13 +2190,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
-### tada (3463)
+### tada (3464)
+- [`endojs-endo-but-for-bots-pr486-4fd03559`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-4fd03559.md) — No-op: re-fetched the trusted comment and confirmed it says PR #486 was repla...
 - [`endojs-endo-but-for-bots-pr852-57d49137`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-57d49137.md) — What the directive said
 - [`endo-sturdyref-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260724-225004.md) — Press tick complete — observed, recorded, yielded. No push this tick because ...
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260724-225004.md) — Press dispatch ocapn-noise-press-20260724-225004 (resumed after reaper requeu...
 - [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260725-070506.md) — Wrote and pushed periodicals/2026/07/24.md to journal2 (commit 4e92e5c9e3). I...
-- [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260724-225004.md) — No new comments or reviews on any press PR — the maintainer's question on #65...
-- … and 3458 more
+- … and 3459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
