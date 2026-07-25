@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct
-priority: normal
 role: shepherd
-posted_by: producer
-posted_at: 2026-07-25T05:18:21Z
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-25T05:19:11Z -->
 
 ---
 handler-timeout: 7200
