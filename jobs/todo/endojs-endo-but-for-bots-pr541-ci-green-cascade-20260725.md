@@ -29,14 +29,4 @@ and the zizmor pin comments. Do, in order:
 Done = this PR rebased on its predecessor, checks green (or sole residual
 documented with evidence), draft preserved.
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 19
-  worker_kind: gardener
-  claimed_at: 2026-07-25T04:53:18Z
+<!-- garden-reaped: 0 -->
