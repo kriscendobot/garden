@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T22:54:48Z_
+_As of 2026-07-25T22:56:12Z_
 
 ## Latest
 
@@ -2358,16 +2358,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.8M | $363.37 _(notional, rate-card)_ | no quota set |
+| Claude | 17.8M | $362.75 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+474.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (10)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
+- [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — ---
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-proposal-compartments-v8-validation-20260725-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-proposal-compartments-v8-validation-20260725-1.md) — In kriscendobot/test262 on branch proposal-compartments, fix the fixture-path...
