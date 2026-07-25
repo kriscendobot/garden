@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:24:58Z_
+_As of 2026-07-25T03:25:48Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 23h)
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 5d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
@@ -2016,15 +2016,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $548.51 _(notional, rate-card)_ | no quota set |
-| Codex | 588.6M _(+353.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 44.3M | $549.90 _(notional, rate-card)_ | no quota set |
+| Codex | 588.6M _(+353.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (29)
-- [`arc-status-daily-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260725-032003.md) — Daily status + change summary for the standing review arcs
+### doin (28)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2054,13 +2053,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3405)
+### tada (3406)
+- [`arc-status-daily-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260725-032003.md) — Daily arc status posted: one ## Daily status — 2026-07-25 UTC comment on each...
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260724-105003.md) — Parity-press tick 2026-07-25 (~03:30Z): **verify-and-stand-down** — all seven...
 - [`esheets-supervisor-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260725-032003.md) — Assessed the dependency tree and board. Posted gauntlet-endo-but-for-bots-pr7...
 - [`endo-npm-cas-registry-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260724-225004.md) — Completion report — endo-npm-cas-registry-press-20260724-225004
 - [`proposal-compartments-test262-staging-tests-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-test262-staging-tests-20260725.md) — Authored and pushed Compartments staging suite: 10 executable tests, 15 licen...
-- [`endojs-endo-but-for-bots-pr853-review-37004cbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-review-37004cbc.md) — Completion report
-- … and 3400 more
+- … and 3401 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
