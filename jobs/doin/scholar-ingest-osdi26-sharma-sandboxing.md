@@ -7,3 +7,10 @@ submitter: kriskowal
 ----- END ISSUE NOTE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  worker_kind: cleric
+  claimed_at: 2026-07-25T05:33:09Z
