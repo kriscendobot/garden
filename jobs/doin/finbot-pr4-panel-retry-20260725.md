@@ -8,6 +8,7 @@ If the panel passes, dispatch the required Fable orchestrator sign-off job with 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
