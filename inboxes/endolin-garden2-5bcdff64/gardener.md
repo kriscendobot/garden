@@ -1416,3 +1416,12 @@ Inspect via `git -C journal cat-file -p 6bbd6a76f05ce133bd90e28ca1ce33b3374705af
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'fix-systemd-api-key-handoff-20260725' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 81a68e7b7a412a97b6704f6eefc85645866028f3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T00:19:45Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b3ca3367e051f0bc863a0c2d2c49e4694f350345
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'kimi-k3-canary-20260723-d' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b3ca3367e051f0bc863a0c2d2c49e4694f350345`.
