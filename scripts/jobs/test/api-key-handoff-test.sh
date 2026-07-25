@@ -14,7 +14,7 @@ cleanup() { rm -rf "$TR"; }
 trap cleanup EXIT
 
 run_seed() {
-    env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY \
+    env -u ANTHROPIC_API_KEY -u MOONSHOT_API_KEY -u FIREWORKS_API_KEY \
         GARDEN_TEST=1 GARDEN_API_KEY_HANDOFF_DIR="$TR/run/environment.d" \
         GARDEN_USER="$(id -un)" "$@" "$SEED"
 }
@@ -23,9 +23,9 @@ bash -n "$ROOT/entrypoint.sh" "$SEED" "$ROOT/garden" \
     && ok "entrypoint, handoff seeder, and launcher parse" \
     || bad "shell syntax failure"
 
-run_seed env ANTHROPIC_API_KEY=synthetic-anthropic MOONSHOT_API_KEY=synthetic-moonshot
+run_seed env ANTHROPIC_API_KEY=synthetic-anthropic MOONSHOT_API_KEY=synthetic-moonshot FIREWORKS_API_KEY=synthetic-fireworks
 handoff="$TR/run/environment.d/60-garden-api-keys.conf"
-expected=$'ANTHROPIC_API_KEY=synthetic-anthropic\nMOONSHOT_API_KEY=synthetic-moonshot'
+expected=$'ANTHROPIC_API_KEY=synthetic-anthropic\nMOONSHOT_API_KEY=synthetic-moonshot\nFIREWORKS_API_KEY=synthetic-fireworks'
 actual="$(cat "$handoff")"
 [[ "$actual" = "$expected" ]] \
     && ok "both allowlisted keys reach the environment.d generator input" \

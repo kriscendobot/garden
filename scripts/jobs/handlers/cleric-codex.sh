@@ -42,14 +42,16 @@ worktree="$(worker_worktree_path "$base")"
 #
 # The SAME Codex handler drives two worker kinds, distinguished by their registry
 # `provider` field (common.sh worker-kind registry): the paid-OpenAI `cleric`
-# (provider=openai) and LOCAL `hermit` (provider=local). Kimi intentionally has
-# its own official CLI handler. Everything below that differs between the Codex
-# kinds: the tier map, fleet-default model, auth/reachability preflight, and the
-# local provider block key off $provider. The spine exports
+# (provider=openai), LOCAL `hermit` (provider=local), and explicit Fireworks
+# `fireworker` (provider=fireworks). Kimi intentionally has its own official CLI
+# handler. Everything below that differs between the Codex kinds: the tier map,
+# fleet-default model, auth/reachability preflight, and provider route key off
+# $provider. The spine exports
 # GARDEN_WORKER_KIND; default to cleric for a standalone invocation.
 KIND="${GARDEN_WORKER_KIND:-cleric}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"
 state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
+[ "$provider" != fireworks ] || [ "$KIND" = fireworker ] || die "Fireworks provider requires the fireworker kind"
 # --- reachability + auth preflight -------------------------------------------
 #
 # A backend outage must read as a HOST defect, not a job defect: die with a clear
@@ -123,6 +125,7 @@ fleet_default_model="$(model_routing_default "$provider" 2>/dev/null)"
 if [ -z "$fleet_default_model" ]; then
   case "$provider" in
     local) fleet_default_model="qwen3.6" ;;
+    fireworks) fleet_default_model="" ;; # explicit model only
     *)     fleet_default_model="gpt-5.6-terra" ;;
   esac
 fi
@@ -131,6 +134,9 @@ requested_role="$(plan_role "$jobfile")"
 requested_effort="$(plan_field "$jobfile" effort)"
 
 model=""
+if [ "$provider" = fireworks ]; then
+  [ -n "$requested_model" ] || die "fireworker only runs explicit model: fireworks/<wire-model-or-deployment-id> jobs (refusing '$base')"
+fi
 if [ -n "$requested_model" ]; then
   model="$(resolve_model_tier "$provider" "$requested_model")"
   if [ -n "$model" ]; then
@@ -144,6 +150,14 @@ if [ -z "$model" ] && [ -n "$requested_role" ]; then
   [ -n "$model" ] && log "job '$base' role '$requested_role' -> default codex model $model"
 fi
 [ -n "$model" ] || model="$fleet_default_model"
+[ -n "$model" ] || die "no model resolved for $KIND job '$base'"
+# The namespace is garden-only routing metadata.  The provider receives the exact
+# wire identifier after `fireworks/`, which can be a Serverless, Fast-router, or
+# dedicated deployment id without a code/catalog release.
+if [ "$provider" = fireworks ]; then
+  [[ "$model" == fireworks/* ]] && [ -n "${model#fireworks/}" ] || die "invalid Fireworks model selector '$requested_model'"
+  model="${model#fireworks/}"
+fi
 
 # codex_effort_for_model <model> <level> — normalize a unified-axis thoughtfulness
 # level DOWN to the model's nearest supported codex reasoning-effort (catalog §2):
@@ -195,10 +209,14 @@ codex_args=(
 # worktree. Re-verify the exact `-c` key names and string-quoting on the live CLI
 # before the first real hermit job (guide §6 flags the end-to-end GPU run as the one
 # check confirmable only on a real rebuild).
-if [ "$provider" = local ]; then
+if [ "$provider" = local ] || [ "$provider" = fireworks ]; then
   codex_provider_extra_args "$provider"
   codex_args+=("${CODEX_PROVIDER_EXTRA_ARGS[@]}")
-  log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)"
+  if [ "$provider" = local ]; then
+    log "job '$base' running on LOCAL provider ($model via $GARDEN_LOCAL_OLLAMA_URL)"
+  else
+    log "job '$base' running on Fireworks provider (explicit model selected; endpoint configured)"
+  fi
 fi
 
 set +e
@@ -213,8 +231,16 @@ if $resuming && [ -n "$resume_sid" ]; then
     rc=$?
   fi
 else
-  ( cd "$worktree" && codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
-  rc=$?
+  attempt=1
+  while :; do
+    ( cd "$worktree" && codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+    rc=$?
+    [ "$provider" = fireworks ] && [ "$rc" -ne 0 ] && fireworks_retryable_failure "$json_capture" \
+      && [ "$attempt" -lt "$GARDEN_FIREWORKS_RETRY_ATTEMPTS" ] || break
+    delay=$(( GARDEN_FIREWORKS_RETRY_DELAY * (2 ** (attempt - 1)) ))
+    log "Fireworks transient capacity/availability failure for '$base'; retrying attempt $((attempt + 1))/$GARDEN_FIREWORKS_RETRY_ATTEMPTS after ${delay}s"
+    sleep "$delay"; attempt=$((attempt + 1))
+  done
 fi
 set -e
 
@@ -232,7 +258,18 @@ fi
 # report's stderr channel (the spine captures the handler's stdout+stderr for
 # failure hashing) so a codex failure is not silent. Keep it off the report body,
 # which must stay the clean agent message for tada.
-[ "$rc" -ne 0 ] && tail -n 40 "$json_capture" >&2 2>/dev/null || true
+if [ "$rc" -ne 0 ]; then
+  if [ "$provider" = fireworks ]; then
+    # Fireworks errors may echo request metadata.  Preserve only a safe class.
+    if fireworks_retryable_failure "$json_capture"; then
+      printf 'Fireworks request ended after retryable capacity/availability failures; retained state for resume.\n' >&2
+    else
+      printf 'Fireworks request failed (non-retryable provider/configuration class); retained state for resume.\n' >&2
+    fi
+  else
+    tail -n 40 "$json_capture" >&2 2>/dev/null || true
+  fi
+fi
 
 # --- deterministic completion signal -----------------------------------------
 #

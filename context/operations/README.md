@@ -57,6 +57,11 @@ schedule). The conversational first-run tour is the sibling tree,
   container creation, explicit K3 worker scaling, a no-secret models probe, a
   tool-using canary, and provider-scoped reputation inspection.
 
+- **[fireworks.md](fireworks.md)** — *"activate Fireworks" / "run the
+  Fireworks canary."* An explicit-model-only OpenAI-compatible Fireworks worker:
+  tmpfs-only credential forwarding, status-only probe, configurable endpoint and
+  model/deployment route, capacity classification, and a bounded canary.
+
 ## Convention
 
 Within-tree cross-references are relative; cross-tree references (skills,

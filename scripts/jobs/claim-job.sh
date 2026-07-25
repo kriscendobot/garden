@@ -71,11 +71,18 @@ job_eligible_for_kind() {
       designer|builder) return 1 ;; # explicit K3 is not a high-stakes route
     esac
   fi
+  # Fireworks is an explicit-model-only lane.  Its `fireworks/<wire-id>` routing
+  # namespace preserves the live Serverless/Fast/deployment id without making an
+  # unpinned board job eligible for a newly-enabled paid provider.
+  if [ "$KIND_PROVIDER" = fireworks ]; then
+    [[ "$m" == fireworks/* ]] && [ -n "${m#fireworks/}" ] || return 1
+  fi
   [ -n "$m" ] || return 0                        # no model: unpinned -> eligible
   if [ -n "$(resolve_model_tier anthropic "$m")" ]; then pinned=anthropic
   elif [ -n "$(resolve_model_tier local "$m")" ]; then pinned=local
   elif [ -n "$(resolve_model_tier openai "$m")" ]; then pinned=openai
   elif [ -n "$(resolve_model_tier moonshot "$m")" ]; then pinned=moonshot
+  elif [ -n "$(resolve_model_tier fireworks "$m")" ]; then pinned=fireworks
   else return 0; fi                              # unknown value -> treat as unpinned
   [ "$pinned" = "$KIND_PROVIDER" ]
 }

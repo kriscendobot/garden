@@ -78,7 +78,11 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field mystic   unit)" = "garden-mystic@" ] && ok "mystic unit prefix" || bad "mystic unit"
 [ "$(worker_kind_field mystic   count_key)" = "mystics" ] && ok "mystic count_key" || bad "mystic count_key"
 [ "$(worker_kind_field mystic   state_ns)" = "mystics" ] && ok "mystic state_ns" || bad "mystic state_ns"
-[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric,hermit,mystic" ] && ok "worker_kinds enumerates all four" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+[ "$(worker_kind_field fireworker handler)" = "handlers/cleric-codex.sh" ] && ok "fireworker reuses OpenAI-compatible Codex handler" || bad "fireworker handler"
+[ "$(worker_kind_field fireworker provider)" = "fireworks" ] && ok "fireworker provider fireworks" || bad "fireworker provider"
+[ "$(worker_kind_field fireworker unit)" = "garden-fireworker@" ] && ok "fireworker unit prefix" || bad "fireworker unit"
+[ "$(worker_kind_field fireworker count_key)" = "fireworkers" ] && ok "fireworker count key" || bad "fireworker count key"
+[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric,hermit,mystic,fireworker" ] && ok "worker_kinds enumerates all five" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 ( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
 ( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
 worker_kind_field friar handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'friar' → non-zero (registry rejects)"
@@ -104,12 +108,15 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ -z "$(resolve_model_tier openai kimi-k3)" ] && ok "openai rejects kimi-k3" || bad "openai captured Kimi"
 [ -z "$(resolve_model_tier anthropic kimi-k3)" ] && ok "anthropic rejects kimi-k3" || bad "anthropic captured Kimi"
 [ -z "$(resolve_model_tier local kimi-k3)" ] && ok "local rejects kimi-k3" || bad "local captured Kimi"
+[ "$(resolve_model_tier fireworks fireworks/accounts/fireworks/models/example)" = "fireworks/accounts/fireworks/models/example" ] && ok "fireworks explicit selector binds" || bad "fireworks selector"
+[ -z "$(resolve_model_tier fireworks accounts/fireworks/models/example)" ] && ok "fireworks requires namespaced explicit selector" || bad "fireworks selector was implicit"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
 [ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
 [ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
 [ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder → qwen3.6 (local fleet default from table)" || bad "hermit builder default ($(role_default_model hermit builder))"
 [ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
 [ -z "$(role_default_model mystic builder)" ] && ok "mystic builder has no high-stakes default" || bad "mystic builder default"
+[ -z "$(role_default_model fireworker fixer)" ] && ok "fireworker has no implicit model default" || bad "fireworker default"
 ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-mystic-arm.XXXXXX")"
 printf '%s\n' '---' 'model: kimi-k3' 'role: fixer' '---' > "$ARM_JOB"
 # shellcheck source=../reputation.sh
@@ -130,7 +137,7 @@ hr; echo "POLICY INVARIANTS — no IMPLICIT Fable; K3 is an explicit-only trial 
 FABLE_ID="$(resolve_model_tier anthropic fable)"
 [ "$FABLE_ID" = "claude-fable-5" ] && ok "fable tier still BINDS (explicit model: fable honored)" || bad "fable tier binding ($FABLE_ID)"
 fable_default_leak=0
-for k in gardener cleric hermit mystic; do
+for k in gardener cleric hermit mystic fireworker; do
   for r in designer builder fixer weaver conductor shepherd researcher scholar triager cleaner journalist orchestrator; do
     if [ "$(role_default_model "$k" "$r")" = "$FABLE_ID" ]; then
       bad "IMPLICIT Fable default leaked: kind=$k role=$r resolves to $FABLE_ID"
@@ -189,6 +196,7 @@ run_kind gardener gspine ghost "model: opus"
 run_kind cleric   cspine chost "model: terra"
 run_kind hermit   hspine hhost "model: qwen3.6"
 run_kind mystic   mspine mihost "model: kimi-k3"
+run_kind fireworker fwspine fwhost "model: fireworks/accounts/fireworks/models/example"
 
 # ============================================================================
 hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pinned job"; hr
@@ -237,6 +245,10 @@ elig_case mystic   unpinnedkimi ""                    left
 elig_case mystic   abbreviatedkimi "model: k3"         left
 elig_case mystic   builderkimi $'model: kimi-k3\nrole: builder' left
 elig_case mystic   designerkimi $'model: kimi-k3\nrole: designer' left
+elig_case fireworker pinnedfireworks "model: fireworks/accounts/fireworks/models/example" claimed
+elig_case fireworker unpinnedfireworks "" left
+elig_case fireworker rawfireworks "model: accounts/fireworks/models/example" left
+elig_case cleric foreignfireworks "model: fireworks/accounts/fireworks/models/example" left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
 elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
@@ -251,16 +263,18 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in gardener cleric hermit mystic; do
+for kind in gardener cleric hermit mystic fireworker; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
 grep -q 'GARDEN_WORKER_KIND=cleric'   "$RT/garden-cleric@.service"   && ok "cleric unit sets GARDEN_WORKER_KIND=cleric"     || bad "cleric kind env"
 grep -q 'GARDEN_WORKER_KIND=hermit'   "$RT/garden-hermit@.service"   && ok "hermit unit sets GARDEN_WORKER_KIND=hermit"     || bad "hermit kind env"
 grep -q 'GARDEN_WORKER_KIND=mystic'   "$RT/garden-mystic@.service"   && ok "mystic unit sets GARDEN_WORKER_KIND=mystic"     || bad "mystic kind env"
+grep -q 'GARDEN_WORKER_KIND=fireworker' "$RT/garden-fireworker@.service" && ok "fireworker unit sets GARDEN_WORKER_KIND=fireworker" || bad "fireworker kind env"
 grep -q 'self-heal-run.sh garden-cleric ' "$RT/garden-cleric@.service" && ok "cleric ExecStart labels self-heal garden-cleric" || bad "cleric self-heal label"
 grep -q 'self-heal-run.sh garden-hermit ' "$RT/garden-hermit@.service" && ok "hermit ExecStart labels self-heal garden-hermit" || bad "hermit self-heal label"
 grep -q 'self-heal-run.sh garden-mystic ' "$RT/garden-mystic@.service" && ok "mystic ExecStart labels self-heal garden-mystic" || bad "mystic self-heal label"
+grep -q 'self-heal-run.sh garden-fireworker ' "$RT/garden-fireworker@.service" && ok "fireworker ExecStart labels self-heal garden-fireworker" || bad "fireworker self-heal label"
 rm -rf "$RT"
 
 # The scaler scale path arms EACH kind's pool via mock-systemctl (no real systemd).
@@ -272,14 +286,17 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale gardener 3 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale hermit 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale mystic 1 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale fireworker 1 >/dev/null 2>&1
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
 gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
+gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
 [ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"
 [ "$gk" -eq 1 ] && ok "scale mystic 1 -> garden-mystic@1 armed (hosted pool independently scalable)" || bad "mystic scale (@1=$gk)"
+[ "$gf" -eq 1 ] && ok "scale fireworker 1 -> garden-fireworker@1 armed (Fireworks pool independently scalable)" || bad "fireworker scale (@1=$gf)"
 # back-compat: bare `scale <N>` still means gardener
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1

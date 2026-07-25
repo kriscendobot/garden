@@ -111,6 +111,15 @@ Per-kind role defaults live in `role_default_model <kind> <role>` and
 side pins `designer`/`builder` to `gpt-5.6-terra` (at `high`), every other role
 unpinned (fleet default `gpt-5.6-terra` at `medium`).
 
+### The `fireworks` provider (the fireworker backend)
+
+The Fireworks-backed `fireworker` pool is **explicit-model-only**. Its routing id
+is `fireworks/<wire-model-or-deployment-id>`; the suffix is passed unchanged to the
+OpenAI-compatible Fireworks endpoint. This avoids baking a volatile Serverless,
+Fast-router, or dedicated-deployment catalog into the garden. It has no default
+model and cannot claim unpinned jobs. Operations and the bounded canary procedure
+are in [`context/operations/fireworks.md`](../../context/operations/fireworks.md).
+
 ### The `local` provider (the hermit backend) + the journal-backed routing table
 
 The third provider is `local` — the **hermit** worker kind, a codex-cleric pointed

@@ -176,6 +176,7 @@ rep_resolve_arm() {
     case "$provider" in
       openai) model="$(model_routing_default openai 2>/dev/null)"; [ -n "$model" ] || model="gpt-5.6-terra" ;;
       local)  model="$(model_routing_default local  2>/dev/null)"; [ -n "$model" ] || model="qwen3.6" ;;
+      fireworks) model="fireworks-unconfigured" ;;
       *)      model="claude-default" ;;
     esac
   fi

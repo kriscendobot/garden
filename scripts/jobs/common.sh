@@ -148,6 +148,12 @@ export GARDEN
 # from the same URL, so the client and server cannot drift on a non-default port.
 : "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
 
+# Fireworks is OpenAI-chat compatible.  The endpoint is deliberately a knob: a
+# deployment/model selection is live provider data, not a garden release fact.
+: "${GARDEN_FIREWORKS_BASE_URL:=https://api.fireworks.ai/inference/v1}"
+: "${GARDEN_FIREWORKS_RETRY_ATTEMPTS:=3}"
+: "${GARDEN_FIREWORKS_RETRY_DELAY:=1}"
+
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
 # checkout, and the upgrade monitor compares its tip to the deployed sha. Named
@@ -430,6 +436,19 @@ worker_kind_field() {
         label)     printf '%s\n' "garden-mystic" ;;
         *) return 1 ;;
       esac ;;
+    fireworker)
+      # Fireworks uses the Codex custom OpenAI-compatible provider harness.  Its
+      # routing id is deliberately namespaced (`fireworks/<wire-model>`), leaving
+      # the volatile wire model/deployment identifier explicit in each job.
+      case "$field" in
+        handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        provider)  printf '%s\n' "fireworks" ;;
+        unit)      printf '%s\n' "garden-fireworker@" ;;
+        count_key) printf '%s\n' "fireworkers" ;;
+        state_ns)  printf '%s\n' "fireworkers" ;;
+        label)     printf '%s\n' "garden-fireworker" ;;
+        *) return 1 ;;
+      esac ;;
     *) return 1 ;;
   esac
 }
@@ -438,7 +457,7 @@ worker_kind_field() {
 # scaler iterates this to reconcile every pool; set-workers.sh iterates it to
 # preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
 # in exactly one place besides worker_kind_field: here.
-worker_kinds() { printf '%s\n' gardener cleric hermit mystic; }
+worker_kinds() { printf '%s\n' gardener cleric hermit mystic fireworker; }
 
 # read_desired_count <hosts-file> <count_key> — read one worker kind's declared
 # concurrency from a hosts/<host> file, distinguishing the THREE outcomes the pool
@@ -3142,7 +3161,8 @@ _model_routing_table() {
     'anthropic	claude-*	' \
     'openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra' \
     'local	qwen*	qwen3.6' \
-    'moonshot	kimi-k3'
+    'moonshot	kimi-k3' \
+    'fireworks	fireworks/*	'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
@@ -3209,7 +3229,7 @@ model_routing_default() {
 resolve_model_tier() {
   local provider tier
   case "${1:-}" in
-    anthropic|openai|local|moonshot) provider="$1"; tier="${2:-}" ;;
+    anthropic|openai|local|moonshot|fireworks) provider="$1"; tier="${2:-}" ;;
     *)                      provider="anthropic"; tier="${1:-}" ;;
   esac
   case "$provider" in
@@ -3244,6 +3264,10 @@ resolve_model_tier() {
       # Mystic is activation-only. An abbreviated `model: k3` must not silently
       # select it: only the concrete, explicit `model: kimi-k3` is valid.
       if [ "$tier" = "kimi-k3" ] && _model_classify moonshot "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
+    fireworks)
+      # Do not turn a changing Fireworks catalog into code.  A namespaced,
+      # explicit routing id carries the exact Serverless/Fast/deployment wire id.
+      if [[ "$tier" == fireworks/* ]] && [ -n "${tier#fireworks/}" ] && _model_classify fireworks "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -3268,7 +3292,7 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    gardener|cleric|hermit|mystic) kind="$1"; role="${2:-}" ;;
+    gardener|cleric|hermit|mystic|fireworker) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
@@ -3302,6 +3326,10 @@ role_default_model() {
     mystic)
       # Activation-only: no design/build or other role defaults can select K3.
       printf '%s\n' "" ;;
+    fireworker)
+      # Explicit model only.  There is no safe catalog default for a hosted,
+      # changing Fireworks fleet.
+      printf '%s\n' "" ;;
     *) printf '%s\n' "" ;;
   esac
 }
@@ -3316,7 +3344,7 @@ role_default_model() {
 role_default_effort() {
   local role
   case "${1:-}" in
-    gardener|cleric|hermit|mystic) role="${2:-}" ;;
+    gardener|cleric|hermit|mystic|fireworker) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

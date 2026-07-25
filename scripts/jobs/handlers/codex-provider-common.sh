@@ -75,6 +75,11 @@ codex_provider_preflight() {
     return 1
   fi
 
+  if [ "$provider" = fireworks ]; then
+    fireworks_provider_preflight "$kind" "$base"
+    return
+  fi
+
   local auth_boot auth_marker
   auth_boot="$(tr -dc 'a-f0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"
   auth_marker="$GARDEN_STATE/$state_ns/auth-ok-${auth_boot:-noboot}"
@@ -88,6 +93,42 @@ codex_provider_preflight() {
 
   mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
   : > "$auth_marker" 2>/dev/null || true
+}
+
+# Fireworks is a separately credentialed OpenAI-compatible service.  Probe only
+# `/models`, discard its body, and print status-free diagnostics so neither the
+# bearer key nor provider response text can reach a journal/report/log.  A 429 is
+# an adaptive-capacity/quota result (retryable); a 503 is load shedding
+# (retryable); auth/configuration statuses are not retried.
+fireworks_provider_preflight() { # <kind> <base>
+  local kind="${1:?kind}" base="${2:?base}" status rc
+  command -v codex >/dev/null 2>&1 || { printf 'codex not on PATH; cannot run %s handler for %q\n' "$kind" "$base" >&2; return 1; }
+  [ -n "${FIREWORKS_API_KEY:-}" ] || { printf 'FIREWORKS_API_KEY: absent; %s cannot run %q. Recreate the container with the key in its creation environment.\n' "$kind" "$base" >&2; return 1; }
+  set +e
+  status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 \
+    -H "Authorization: Bearer $FIREWORKS_API_KEY" "$GARDEN_FIREWORKS_BASE_URL/models" 2>/dev/null)"
+  rc=$?
+  set -e
+  if [ "$rc" -ne 0 ]; then
+    printf 'Fireworks availability check failed for %s %q (network/endpoint unavailable); retry later.\n' "$kind" "$base" >&2
+    return 1
+  fi
+  case "$status" in
+    2*) return 0 ;;
+    401|403) printf 'Fireworks authentication/authorization rejected %s %q; check credential access without printing it.\n' "$kind" "$base" >&2 ;;
+    429) printf 'Fireworks adaptive capacity/quota limited %s %q (HTTP 429); retry with exponential backoff.\n' "$kind" "$base" >&2 ;;
+    503) printf 'Fireworks load shed %s %q (HTTP 503); retry with exponential backoff.\n' "$kind" "$base" >&2 ;;
+    *) printf 'Fireworks availability check returned HTTP %s for %s %q; retry only after endpoint/configuration diagnosis.\n' "${status:-000}" "$kind" "$base" >&2 ;;
+  esac
+  return 1
+}
+
+# fireworks_retryable_failure <capture> -- diagnostics-only classifier.  Codex
+# hides the upstream status in some releases, so retain both status and familiar
+# provider wording.  It never prints the capture; callers log only this class.
+fireworks_retryable_failure() {
+  local capture="${1:?capture}"
+  grep -Eqi '(^|[^0-9])(429|503)([^0-9]|$)|rate.?limit|too many requests|load.?shed|service unavailable|temporar(il)?y unavailable' "$capture" 2>/dev/null
 }
 
 # codex_effort_for_model <model> <unified effort>
@@ -129,6 +170,18 @@ codex_provider_extra_args() {
         -c "model_providers.local.name=\"local-ollama\""
         -c "model_providers.local.base_url=\"$GARDEN_LOCAL_OLLAMA_URL\""
         -c "model_providers.local.env_key=\"OLLAMA_API_KEY\""
+      ) ;;
+    fireworks)
+      # Codex's OpenAI-compatible custom-provider configuration.  The exact
+      # Fireworks model/deployment/Fast-router id comes from the explicit job
+      # header, never from this adapter.  Priority is intentionally not asserted
+      # here: it is a JSON request field and Codex currently exposes no verified
+      # provider-level way to inject it.
+      CODEX_PROVIDER_EXTRA_ARGS=(
+        -c "model_provider=fireworks"
+        -c "model_providers.fireworks.name=\"fireworks\""
+        -c "model_providers.fireworks.base_url=\"$GARDEN_FIREWORKS_BASE_URL\""
+        -c "model_providers.fireworks.env_key=\"FIREWORKS_API_KEY\""
       ) ;;
   esac
 }

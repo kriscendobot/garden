@@ -27,7 +27,7 @@ trap cleanup EXIT
 # are the only secrets this bridge may carry. Provider tokens use the base64url
 # alphabet; reject every other character so an environment.d parser can never
 # reinterpret a secret as syntax. Failures name the variable, never its value.
-for key_name in ANTHROPIC_API_KEY MOONSHOT_API_KEY; do
+for key_name in ANTHROPIC_API_KEY MOONSHOT_API_KEY FIREWORKS_API_KEY; do
     key_value="${!key_name:-}"
     if [[ -n "$key_value" ]]; then
         if [[ ! "$key_value" =~ ^[A-Za-z0-9_-]+$ ]]; then

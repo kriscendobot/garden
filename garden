@@ -75,6 +75,7 @@ Commands:
 Environment:
   ANTHROPIC_API_KEY   Forwarded to the container for Claude Code auth.
   MOONSHOT_API_KEY    Forwarded to the container for hosted Kimi workers.
+  FIREWORKS_API_KEY   Forwarded to the container for Fireworks workers.
   GARDEN_IMAGE        Override image name (default: garden-<hostuser>, so the
                       per-user baked image never collides with another user's).
   GARDEN_CONTAINER    Expert override for the container name (default: the
@@ -182,6 +183,9 @@ ensure_container() {
         fi
         if [[ -n "${MOONSHOT_API_KEY:-}" ]]; then
             api_key_args+=(-e "MOONSHOT_API_KEY=${MOONSHOT_API_KEY}")
+        fi
+        if [[ -n "${FIREWORKS_API_KEY:-}" ]]; then
+            api_key_args+=(-e "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}")
         fi
 
         # Seed the container guard's SessionStart hook (host-side, only when
