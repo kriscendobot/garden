@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T02:30:36Z_
+_As of 2026-07-25T02:31:59Z_
 
 ## Latest
 
@@ -1997,13 +1997,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 43.1M | $530.82 _(notional, rate-card)_ | no quota set |
-| Codex | 588.2M _(+344.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Codex | 588.2M _(+345.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (30)
+### doin (29)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2031,17 +2031,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-press-20260724-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260724-185001.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
-- [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness-followup.md) — role: scholar
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3396)
+### tada (3397)
+- [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-fireworks-ai-harness-followup.md) — Ingested six verified Fireworks docs with SHA-256 anchors and eight library s...
 - [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-65.md) — Dispatched scholar-ingest-osdi26-sharma-sandboxing with the issue note preser...
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5073666635.md) — Created https://github.com/kriskowal/garden/pull/66 from design/continuous-ev...
 - [`kimi-k3-canary-20260725-f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260725-f.md) — • Verifying the prior state (file removed, tree clean) before closing out.
 - [`fix-mystic-completion-marker-rendering-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-completion-marker-rendering-20260725.md) — Implemented and pushed 85c51a3ef6 to main2.
-- [`fix-mystic-kimi-k3-model-selection-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-kimi-k3-model-selection-20260725.md) — Implemented and pushed 846b589c4a to main2.
-- … and 3391 more
+- … and 3392 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
