@@ -79,6 +79,21 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
   though it is injection-safe by construction — it reads only CI status and feeds no
   external text to `claude -p`. Leader-only singleton (`is-main-host.sh`
   ExecCondition) so the shepherd is never double-posted across hosts.
+- **Dependabot-PR watch + auto-botanist.** A fourth deterministic sibling,
+  `scripts/jobs/dependabot-watcher.sh` (`garden-dependabot-watcher@<slug>`), posts a
+  `<slug>-pr<N>-dependabot` botanist job the moment a new `dependabot[bot]`-authored
+  PR appears on a watched repo — no maintainer comment (kriskowal on
+  endojs/endo-but-for-bots#849: "This should occur automatically for every
+  dependabot PR going forward."). It enumerates the repo's own open PRs
+  authoritatively (paginated REST, sharing the CI watcher's PR source), keeps only
+  `dependabot[bot]`-authored ones, and posts exactly one botanist job each, deduped
+  by basename across ticks and hosts. Unlike the ci-watcher it applies **no
+  bot-repo or head-pushable gate** — the botanist merely reviews (executes on
+  bot-owned repos, recommends on upstreams), so a dependabot PR on any watched repo
+  is worth a botanist verdict. It reads only PR authorship/metadata and feeds none
+  of it to `claude -p` (injection-safe by construction, like the CI watcher), and
+  rides the SAME cleared `comment-repos/` set. Leader-only singleton so the botanist
+  job is never double-posted across hosts.
 - **GitHub-wide @-mention watch + the SENDER-TRUST GATE.** A separate watcher,
   `scripts/jobs/mention-watcher.sh` (single instance, `garden-mention-watcher`),
   watches **all of GitHub** for @kriscendobot mentions — not a gated repo set.

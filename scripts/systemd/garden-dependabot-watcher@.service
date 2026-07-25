@@ -1,0 +1,37 @@
+[Unit]
+Description=Garden dependabot-PR watcher for repo %i
+# Producer: watch one gated repo's open dependabot[bot]-authored PRs and auto-post a
+# botanist job for each. Driven by its .timer. Monitoring-safety gated: armed only
+# for repos in the journal's comment-repos/ set (the same cleared set the comment/CI
+# watchers use), reconciled by the repo-watcher. See dependabot-watcher.sh.
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit,
+# not a failure. The self-heal wrapper normalizes 143/130 to 0; this is the belt.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+# Graceful drain on stop/restart. The source's `gh --paginate` forks git credential
+# helpers; KillMode=mixed sends the initial SIGTERM only to the main process
+# (self-heal-run.sh → dependabot-watcher.sh), whose EXIT/INT/TERM trap then reaps the
+# source's whole process group deterministically, and the cgroup-wide SIGKILL
+# backstop at TimeoutStopSec catches anything the process-group reap cannot reach.
+# Mirrors garden-ci-watcher@.service.
+KillMode=mixed
+# Short stop timeout: the poll holds NO in-flight work worth preserving (a killed
+# tick simply re-polls next firing — a botanist job is posted only after a verified
+# board read), so a straggler git is SIGKILLed by the cgroup backstop well before
+# the next firing rather than racing it.
+TimeoutStopSec=20s
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: run only on the host whose GARDEN identity matches the
+# journal `leader` marker. On a follower the timer still fires but this
+# ExecCondition fails, so the tick is SKIPPED CLEANLY (condition-failed, never
+# marked Failed) — that IS follower mode, and it is what stops the botanist job from
+# being double-posted across hosts. Each firing re-evaluates, so a leader change is
+# picked up next tick with no restart. See CLAUDE.md § Leader and follower hosts.
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-dependabot-watcher@%i -- @GARDEN_ROOT@/scripts/jobs/dependabot-watcher.sh %i
+# The self-heal responder runs synchronously on a failed tick before the wrapper
+# returns the failing rc; give it headroom beyond the implicit 90s oneshot start
+# timeout (responder itself is hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900

@@ -5,12 +5,14 @@
 #
 # Two journal-backed watch sets, reconciled to systemd timer units each tick:
 #   repos/         → garden-triager@<slug>         (commit watch; laxer bar)
-#   comment-repos/ → garden-comment-watcher@<slug> (PR/issue COMMENT watch)
-#                  → garden-ci-watcher@<slug>      (CI-STATUS watch; auto-shepherd)
-# The CI-status watcher rides the SAME cleared comment-repos/ set: a repo cleared
-# for comment surveillance is also cleared for the by-construction-safe CI-status
-# watch (it reads only CI status, feeds no external text to an LLM), so it needs no
-# third set and never widens the surveillance surface. See ci-watcher.sh header
+#   comment-repos/ → garden-comment-watcher@<slug>    (PR/issue COMMENT watch)
+#                  → garden-ci-watcher@<slug>         (CI-STATUS watch; auto-shepherd)
+#                  → garden-dependabot-watcher@<slug> (dependabot-PR watch; auto-botanist)
+# The CI-status and dependabot-PR watchers ride the SAME cleared comment-repos/ set:
+# a repo cleared for comment surveillance is also cleared for those two
+# by-construction-safe watches (each reads only PR status/authorship metadata, feeds
+# no external text to an LLM), so neither needs a third set nor widens the
+# surveillance surface. See ci-watcher.sh / dependabot-watcher.sh headers
 # § Monitoring safety. A commit that adds a file is a watch, one that removes it an
 # unwatch. This
 # service's primary input is therefore the JOURNAL, not the repos themselves.
@@ -214,7 +216,9 @@ unit_ctl daemon-reload 2>/dev/null || log "WARN: daemon-reload failed (continuin
 
 # repos/ → commit triager (laxer bar); comment-repos/ → comment watcher (stricter
 # monitoring-safety bar, widened only after journal-recorded maintainer auth) AND
-# the CI-status watcher (auto-shepherd on red; rides the same cleared set).
+# the CI-status watcher (auto-shepherd on red) AND the dependabot-PR watcher
+# (auto-botanist on a new dependabot PR); both ride the same cleared set.
 reconcile_set repos         garden-triager
 reconcile_set comment-repos garden-comment-watcher
 reconcile_set comment-repos garden-ci-watcher
+reconcile_set comment-repos garden-dependabot-watcher

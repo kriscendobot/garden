@@ -1,0 +1,19 @@
+[Unit]
+Description=Garden dependabot-PR watcher timer for repo %i
+
+[Timer]
+# Bind the instance timer explicitly to its same-instance service.
+Unit=garden-dependabot-watcher@%i.service
+# OnBootSec anchors the first elapse to a FIXED monotonic reference (boot), so the
+# timer always has a concrete next-trigger and fires promptly on arming;
+# OnUnitActiveSec drives the steady cadence after the first run. A new dependabot PR
+# is not latency-sensitive (the botanist embargoes non-CVE bumps a week anyway), so
+# a slower cadence than the CI watcher keeps the enumeration cost low. Mirrors
+# garden-ci-watcher@.timer's anchor shape.
+OnBootSec=90s
+OnUnitActiveSec=300s
+# Default accuracy is 1min; tighten so the cadence does not get batched late.
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

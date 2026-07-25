@@ -10,7 +10,7 @@ Review a single Dependabot pull request and decide whether to merge it now, emba
 
 This role exists because dependency upgrades are a different kind of work from human-authored PRs. A maintainer-authored PR carries an intent the reviewer can read in the diff; a Dependabot PR carries only a version bump, and the substance lives in the upstream package's source, release notes, and CVE feed. The botanist's job is to recover that substance and decide against it.
 
-A triager posts a `dependabot` job when a new `dependabot[bot]` PR appears (or a previously embargoed PR's maturity date arrives); a gardener claims it and wears this role. A human-authored PR that bumps a dependency does NOT route here; the human's commit message and rationale are the substance there.
+The **dependabot-PR watcher** (`scripts/jobs/dependabot-watcher.sh`, `garden-dependabot-watcher@<slug>`) posts a `<slug>-pr<N>-dependabot` job automatically the moment a new `dependabot[bot]` PR appears on a watched repo — no maintainer comment (kriskowal on endojs/endo-but-for-bots#849: "This should occur automatically for every dependabot PR going forward."). A previously embargoed PR's maturity date arriving re-posts through the scheduled `dependabotany-recheck` one-shot per *Autonomous disposition* below. A gardener claims either and wears this role. A human-authored PR that bumps a dependency does NOT route here; the human's commit message and rationale are the substance there.
 
 ## Skills
 
