@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T02:22:38Z_
+_As of 2026-07-25T02:23:31Z_
 
 ## Latest
 
@@ -614,6 +614,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T022223Z-51c41e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022223Z-51c41e.md)
 
 > self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T022300Z-43fd87` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022300Z-43fd87.md)
+
+> self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T022304Z-1d9bdf` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022304Z-1d9bdf.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -1960,7 +1968,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.2M | $531.49 _(notional, rate-card)_ | no quota set |
+| Claude | 43.1M | $530.82 _(notional, rate-card)_ | no quota set |
 | Codex | 588.1M _(+341.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 ## Board
