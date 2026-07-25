@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-25T23:05:03Z
-job_basename_prefix: endo-vfs-parity-press
----
 ---
 model: fable
 ---
