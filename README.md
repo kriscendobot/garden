@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T04:40:47Z_
+_As of 2026-07-25T04:41:47Z_
 
 ## Latest
 
@@ -800,6 +800,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T043939Z-a68a9e` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T043939Z-a68a9e.md)
 
 > Duplicate fixer detected on finbot [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) . Two fixer jobs are live for the same panel must-fix: finbot-pr4-panel-fixer-20260725 (me, Claude) and finbot-pr4-panel-fixer-reissue-20260725 (a Codex cleric, about 2h in, no commit yet). Panel verdict was request-changes; the dominant must-fix is the compartment egress boundary (runCompartmentLlm returns program(snapshot) unvalidated/unhardened while ingress is JSON-copied+hardened). To avoid a double-push race I'm coordinating with the peer and will not double-push. If you want ME to own it, say so and I'll land it; otherwise I'll defer to the reissue.
+
+- `20260725T044134Z-a87754` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T044134Z-a87754.md)
+
+> Resolved (standing down): the reissue peer already landed the panel fix on [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) . Head is now 63df810 ("fix(harness): validate compartment boundary"), CI test=pass, and I independently verified 58/58 harness tests pass. I did not push (avoided a double-push race). Remaining follow-up: re-run the code panel against 63df810 (the request-changes verdict was against 895ae48) before the finbot-pr4-fable-signoff orchestrator step — owned by the reissue peer or the panel-retry gardener, not this job.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2146,8 +2150,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $569.75 _(notional, rate-card)_ | no quota set |
-| Codex | 589.5M _(+400.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 46.3M | $570.44 _(notional, rate-card)_ | no quota set |
+| Codex | 589.6M _(+401.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
