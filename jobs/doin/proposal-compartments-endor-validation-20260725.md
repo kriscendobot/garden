@@ -8,6 +8,7 @@ This is one of four parallel validation fronts. Use an isolated `kriscendobot/en
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
