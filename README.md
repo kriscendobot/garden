@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T17:06:46Z_
+_As of 2026-07-25T17:12:10Z_
 
 ## Latest
 
@@ -828,6 +828,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T140823Z-84c7b9` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T140823Z-84c7b9.md)
 
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
+
+- `20260725T171127Z-34b706` — from gardener:endo-npm-cas-registry-press-20260725-170501, reply_to `endo-npm-cas-registry-press-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T171127Z-34b706.md)
+
+> npm-CAS press tick 17:05: Your APPROVED review on draft [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856)
+> (ambiguous-.js-entry ESM fix) + all-green CI met the conductor's ready-to-land bar,
+> so I marked it ready and posted merge job
+> `merge-endo-but-for-bots-pr856-ambiguous-entry-esm` (park it if you'd rather hold).
+> Drafts [endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) (peer/optional deps) and
+> [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) (process shim) are CI-green awaiting your review.
+> This tick's press: the ".npmrc auth beyond tokens" design gap (Basic auth
+> username/_password/_auth + ${VAR} expansion). Also posted
+> `ebfb-rust-endo-xs-test-flakiness` for the intermittent parallel XS test failures
+> prior ticks kept re-reporting.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2187,7 +2200,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.3M | $345.61 _(notional, rate-card)_ | no quota set |
+| Claude | 16.3M | $348.12 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
@@ -2197,9 +2210,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260725-170501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260725-170501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (17)
+### doin (19)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
+- [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
 - [`endo-git-integration-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260725-170501.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260725-170501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -2215,6 +2229,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-170501.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
+- [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 
 ### tada (3470)
 - [`endojs-endo-but-for-bots-pr719-1a882a7d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-1a882a7d.md) — Completion report
