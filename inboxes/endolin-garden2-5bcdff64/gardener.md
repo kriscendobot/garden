@@ -1452,3 +1452,12 @@ Inspect via `git -C journal cat-file -p a7a5cc5494f11a159b7d7ce611a4af5f0ca3da98
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'kimi-k3-canary-20260725-e' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 57b5c1eafd1664d8feb6c59bba706942d4f64c47`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T01:23:34Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e294e064a0d823c22827a6af713c28831663ec7a
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260724-165003' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e294e064a0d823c22827a6af713c28831663ec7a`.
