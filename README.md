@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T23:08:13Z_
+_As of 2026-07-25T23:08:31Z_
 
 ## Latest
 
@@ -950,6 +950,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T230755Z-fa17b5` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230755Z-fa17b5.md)
 
 > Assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) at f5d1f913: CI and independent local `npm test` plus `node bin/finbot-dispatch --seed=7` are green, with the dry run reporting `WALLET TOUCHED: false`. I did not duplicate its dedicated panel work: the panel rerun is a poisoned go-ahead plan and another finbot progress driver remains active. The next unblocked action needs your decision: authorize a supervised full panel rerun and choose the pinned `fetch` policy for `oracle-watcher` plus the concrete bounded globals surface for `steward`. After a passing panel, the required Fable orchestrator sign-off can be dispatched. No merge was performed.
+
+- `20260725T230813Z-4dbe70` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230813Z-4dbe70.md)
+
+> Correction to my preceding note: the first local commands were accidentally invoked from the garden worktree and did not execute finbot. I have now run them from the isolated finbot worktree at f5d1f913: `npm test` passed, and `node bin/finbot-dispatch --seed=7` completed its dry run with `WALLET TOUCHED: false`. The gating assessment and no-merge status are unchanged.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2362,8 +2366,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.7M | $357.87 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+474.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 17.7M | $357.98 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+474.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
