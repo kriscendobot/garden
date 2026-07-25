@@ -1128,3 +1128,12 @@ Inspect via `git -C journal cat-file -p 9228f7797c26102abcf1efcfbbcb1d216a68408a
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'improve-report-error-transcript-reachable' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p aa37ab3652e0e80789a7f355004f8d26bb5c2874`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T12:13:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: fad20cd4c94f476f40cf942843e722ee81f585eb
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr613-57fb6b21' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p fad20cd4c94f476f40cf942843e722ee81f585eb`.
