@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-25T18:52:50Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-proposal-compartments-v8-validation-20260725
