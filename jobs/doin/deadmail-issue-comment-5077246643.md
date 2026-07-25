@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/65#issuecomment-5077246643
 Endor does absolutely include the JS engine in the TCB. However, C-XS and Rust-XS #600 both lack JIT. Does that imply SFI is an unnecessary complication? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 11
+  worker_kind: gardener
+  claimed_at: 2026-07-25T06:10:07Z
