@@ -1434,3 +1434,12 @@ Inspect via `git -C journal cat-file -p b3ca3367e051f0bc863a0c2d2c49e4694f350345
 - Context: gardener-13 on endolin-garden2-5bcdff64: job 'fix-mystic-prompt-yolo-20260725' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p a317e3d317de7d821a6690319d82d698bed72b7c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T00:27:04Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a7a5cc5494f11a159b7d7ce611a4af5f0ca3da98
+- Context: gardener-19 on endolin-garden2-5bcdff64: job 'design-endor-packaging' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a7a5cc5494f11a159b7d7ce611a4af5f0ca3da98`.
