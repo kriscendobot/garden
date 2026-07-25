@@ -1200,3 +1200,12 @@ Inspect via `git -C journal cat-file -p 154a73161672f4b79e012ffc3d9a02a7e2c2f585
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'ebfb-stream-buffer-spring-sink-refactor-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 3c40461ac6612e6fd266472b2cfc1415458a135f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T15:21:46Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b1056f4aa5019ccf6f0f39692e182e0f778712bb
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr740-review-6ca53b57' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b1056f4aa5019ccf6f0f39692e182e0f778712bb`.
