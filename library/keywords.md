@@ -25,3 +25,11 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - virtual context, context paging, LLM memory tiers, memory pressure → virtual-context-management
 - Fireworks AI, Fireworks API, FIREWORKS_API_KEY, api.fireworks.ai, Fireworks Serverless, Fireworks deployment, OpenAI-compatible Fireworks → fireworks-ai-integration
 - Fireworks tool calling, Fireworks function calling, Fireworks structured outputs, Fireworks response_format, Firectl, Fireworks Priority tier, Fireworks Fast serving path → fireworks-ai-integration
+- context engineering, effective context engineering, curate context, context configuration, configuration of context → context-engineering
+- context rot, needle in a haystack, long-context recall, recall degradation, lost in the middle → context-rot
+- attention budget, attention scarcity, finite attention, n squared attention, n^2 pairwise relationships, transformer attention constraint, position encoding interpolation → attention-budget
+- just in time context, just-in-time retrieval, JIT context, lightweight identifiers, runtime context loading, agentic search, hybrid retrieval → just-in-time-context
+- compaction, context compaction, conversation summarization, context window summarization, tool result clearing, auto-compact → context-compaction
+- progressive disclosure, incremental context discovery, layer by layer understanding, self-managed context window → progressive-disclosure
+- structured note-taking, agentic memory, NOTES.md, memory tool, notes outside the context window → context-engineering
+- right altitude, Goldilocks prompt altitude, minimal system prompt, smallest set of high-signal tokens → context-engineering
