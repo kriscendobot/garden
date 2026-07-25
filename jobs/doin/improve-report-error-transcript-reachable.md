@@ -3,6 +3,7 @@ The transcript captured on a handler failure is unreachable to every off-host re
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
