@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T00:28:46Z_
+_As of 2026-07-25T00:30:59Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 20h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 21h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -1444,14 +1444,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.7M | $536.65 _(notional, rate-card)_ | no quota set |
-| Codex | 588.1M _(+345.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Claude | 43.6M | $535.56 _(notional, rate-card)_ | no quota set |
+| Codex | 588.1M _(+347.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (36)
+### doin (35)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073666635.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
@@ -1476,7 +1476,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-progress-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260724-225004.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-mystic-prompt-yolo-20260725.md) — role: fixer
-- [`fix-systemd-api-key-handoff-20260725-codex`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-systemd-api-key-handoff-20260725-codex.md) — model: gpt-5.6-terra
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-systemd-api-key-handoff-20260725.md) — role: builder
 - [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-65.md) — Issue from kriskowal on kriskowal/garden #65
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
@@ -1489,13 +1488,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-fireworks-ai-harness-followup.md) — role: scholar
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3390)
+### tada (3391)
+- [`fix-systemd-api-key-handoff-20260725-codex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-systemd-api-key-handoff-20260725-codex.md) — Implemented and pushed 38d951e65c to main2.
 - [`fix-mystic-prompt-yolo-20260725-codex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-prompt-yolo-20260725-codex.md) — Implemented and pushed ba65db9b02 to main2.
 - [`issue-kriskowal-garden-64`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-64.md) — Opened draft design PR: https://github.com/endojs/endo-but-for-bots/pull/853
 - [`scholar-ingest-fireworks-ai-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-fireworks-ai-harness.md) — Ingested 5 official Fireworks AI sources into journal2 (7 sections), with pro...
 - [`garden-investigate-ollama-no-job-claims-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-ollama-no-job-claims-20260724.md) — Investigation complete. No code or state changes made.
-- [`scholar-ingest-memgpt-memory-management`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-memgpt-memory-management.md) — Ingested MemGPT paper into the journal library with five sections, source/top...
-- … and 3385 more
+- … and 3386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
