@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: mystic
+claimed_at: 2026-07-25T00:18:58Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kimi-k3-canary-20260723-c
