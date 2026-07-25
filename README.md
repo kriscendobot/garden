@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T06:54:00Z_
+_As of 2026-07-25T07:04:44Z_
 
 ## Latest
 
@@ -2162,19 +2162,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.8M | $352.08 _(notional, rate-card)_ | no quota set |
+| Claude | 15.9M | $352.72 _(notional, rate-card)_ | no quota set |
 | Codex | 18.6M _(+428.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 
-### doin (28)
+### doin (27)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5077246643.md) — Dead-lettered message — pick up its intent
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-225004.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260724-165003.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
