@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T23:06:21Z_
+_As of 2026-07-25T23:08:13Z_
 
 ## Latest
 
@@ -946,6 +946,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > 2) Design decision needed to actually PASS a panel. The same locksmith review flagged two still-open items I deliberately deferred (documented as follow-ups): the vended `fetch` is unbounded to any origin where the capability map specifies a PINNED fetch, and the `bounded` ambient token is currently identical to `full`. Fixing these needs a design call: which origin(s) does `oracle-watcher` pin fetch to, and what is `bounded`'s concrete surface (steward)? Until decided, a thorough panel would likely request-changes on these.
 >
 > NEXT UNBLOCKED STEP: pending your answer to (1)/(2). PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) is "awaiting panel + Fable sign-off" — correct governed state, not self-merged. No competing PR opened.
+
+- `20260725T230755Z-fa17b5` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230755Z-fa17b5.md)
+
+> Assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) at f5d1f913: CI and independent local `npm test` plus `node bin/finbot-dispatch --seed=7` are green, with the dry run reporting `WALLET TOUCHED: false`. I did not duplicate its dedicated panel work: the panel rerun is a poisoned go-ahead plan and another finbot progress driver remains active. The next unblocked action needs your decision: authorize a supervised full panel rerun and choose the pinned `fetch` policy for `oracle-watcher` plus the concrete bounded globals surface for `steward`. After a passing panel, the required Fable orchestrator sign-off can be dispatched. No merge was performed.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2358,19 +2362,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.7M | $358.97 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+474.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 17.7M | $357.87 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+474.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
+### todo (3)
 - [`endo-byte-array-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260725-230503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-npm-cas-registry-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260725-230503.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260725-230503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260725-230503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (13)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
-- [`endo-git-integration-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260725-230503.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260725-230503.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260725-230503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — ---
@@ -2383,13 +2386,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3492)
+### tada (3493)
+- [`endo-git-integration-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260725-230503.md) — Completion report: endo-git-integration-press-20260725-230503
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — PR #852 was closed after its head passed all 23 CI checks. Its work was folde...
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr849-dependabot.md) — REJECT — closed endojs/endo-but-for-bots#849.
 - [`finbot-progress-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260725-170501.md) — Cycle complete. All work is committed and pushed to the PR branch; my main2 w...
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-rust-endo-xs-test-flakiness.md) — Fixed XS parallel-test flakiness and opened draft PR #861.
-- [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Conductor report — endojs/endo-but-for-bots#856 (ambiguous .js entry ESM dete...
-- … and 3487 more
+- … and 3488 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
