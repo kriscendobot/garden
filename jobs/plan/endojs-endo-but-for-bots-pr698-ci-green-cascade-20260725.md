@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-25T18:23:03Z
+poisoned_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-07-25T18:23:03Z
+---
+
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-25T05:25:16Z -->
 
 # cascade: rebase PR #698 onto its moved predecessor and drive its CI green
@@ -28,12 +42,3 @@ and the zizmor pin comments. Do, in order:
 
 Done = this PR rebased on its predecessor, checks green (or sole residual
 documented with evidence), draft preserved.
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: hermit
-  claimed_at: 2026-07-25T14:13:15Z
