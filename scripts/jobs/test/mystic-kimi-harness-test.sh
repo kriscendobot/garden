@@ -53,7 +53,19 @@ fi
 bullet="$(printf '\342\200\242')"
 if [ "${FAKE_KIMI_COMPLETE:-0}" = 1 ]; then
   printf '%s %s\n' "$bullet" 'completed by fake Kimi'
-  printf '%s %s\n' "$bullet" '<<<GARDEN-JOB-COMPLETE>>>'
+  case "${FAKE_KIMI_MARKER_FORM:-bullet}" in
+    bullet) printf '%s %s\n' "$bullet" '<<<GARDEN-JOB-COMPLETE>>>' ;;
+    two-space) printf '  %s\n' '<<<GARDEN-JOB-COMPLETE>>>' ;;
+    embedded)
+      printf '  %s\n' '<<<GARDEN-JOB-COMPLETE>>>'
+      printf '%s %s\n' "$bullet" 'continued fake Kimi report'
+      ;;
+    suffixed) printf '  %s suffixed\n' '<<<GARDEN-JOB-COMPLETE>>>' ;;
+    *) echo "unknown fake marker form: ${FAKE_KIMI_MARKER_FORM}" >&2; exit 65 ;;
+  esac
+  if [ "${FAKE_KIMI_TRAILING_BLANKS:-0}" = 1 ]; then
+    printf '\n\n'
+  fi
 else
   printf '%s %s\n' "$bullet" 'unfinished fake Kimi attempt'
 fi
@@ -81,17 +93,18 @@ set -e
 
 job="$TR/job.md"
 printf '%s\n' '---' 'model: kimi-k3' 'role: builder' '---' 'offline Mystic harness job' > "$job"
-run_handler() { # <complete 0|1>
-  local complete="$1"
+run_handler() { # <base> <complete 0|1> [marker-form] [trailing-blanks 0|1]
+  local base="$1" complete="$2" marker_form="${3:-bullet}" trailing_blanks="${4:-0}"
   env PATH="$BIN:$PATH" GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state" GARDEN_SCRATCH="$TR/scratch" \
     GARDEN_MAIN_BRANCH=main2 GARDEN_WORKER_KIND=mystic GARDEN_COMPLETION_SENTINEL="$TR/sentinel" \
     MOONSHOT_API_KEY='offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$TR/run" FAKE_KIMI_COMPLETE="$complete" \
-    "$HANDLER" resume-case "$job" "$TR/report"
+    FAKE_KIMI_MARKER_FORM="$marker_form" FAKE_KIMI_TRAILING_BLANKS="$trailing_blanks" \
+    "$HANDLER" "$base" "$job" "$TR/report"
 }
 
 hr; echo "INVOCATION AND CONFIG ISOLATION: first attempt keeps per-base state"; hr
 rm -f "$TR/sentinel"
-run_handler 0
+run_handler resume-case 0
 home="$TR/state/mystics/kimi/resume-case"
 [ "$(cat "$TR/run.home")" = "$home" ] && ok "KIMI_CODE_HOME is private to this base" || bad "unexpected KIMI_CODE_HOME"
 if grep -Eqx -- '--model|k3|kimi-k3' "$TR/run.args"; then
@@ -114,7 +127,7 @@ fi
 [ -d "$home" ] && [ ! -e "$TR/sentinel" ] && ok "unfinished run retains state and withholds sentinel" || bad "unfinished state/sentinel contract broken"
 
 hr; echo "SENTINEL AND RESUME: second attempt continues and then cleans up"; hr
-run_handler 1
+run_handler resume-case 1
 grep -qx -- '--continue' "$TR/run.args" && ok "requeue resumes Kimi session state" || bad "resume flag missing"
 if grep -Eqx -- '--model|k3|kimi-k3' "$TR/run.args"; then
   bad "resume invocation overrides the temporary KIMI_MODEL_NAME selection"
@@ -128,6 +141,34 @@ else
   ok "completion marker stripped from report"
 fi
 [ ! -d "$home" ] && [ ! -d "$TR/scratch/gardener-wt-resume-case" ] && ok "completed run cleans private state and worktree" || bad "completed state/worktree not cleaned"
+
+hr; echo "COMPLETION MARKER NORMALIZATION: accepts Kimi renderer decoration only at report end"; hr
+rm -f "$TR/sentinel"
+run_handler two-space-case 1 two-space
+[ -e "$TR/sentinel" ] && ok "two-space continuation marker gates sentinel" || bad "two-space continuation marker did not gate sentinel"
+if grep -q '<<<GARDEN-JOB-COMPLETE>>>' "$TR/report"; then
+  bad "two-space marker leaked into human report"
+else
+  ok "two-space marker is normalized and stripped from report"
+fi
+
+rm -f "$TR/sentinel"
+run_handler bullet-case 1 bullet
+[ -e "$TR/sentinel" ] && ok "bullet marker gates sentinel" || bad "bullet marker did not gate sentinel"
+
+rm -f "$TR/sentinel"
+run_handler trailing-blanks-case 1 two-space 1
+[ -e "$TR/sentinel" ] && ok "trailing blanks after two-space marker preserve completion" || bad "trailing blanks prevented completion"
+
+rm -f "$TR/sentinel"
+run_handler embedded-marker-case 1 embedded
+[ ! -e "$TR/sentinel" ] && ok "embedded marker does not gate sentinel" || bad "embedded marker forged completion"
+[ -d "$TR/state/mystics/kimi/embedded-marker-case" ] && ok "embedded marker retains state for requeue" || bad "embedded marker incorrectly cleaned state"
+
+rm -f "$TR/sentinel"
+run_handler suffixed-marker-case 1 suffixed
+[ ! -e "$TR/sentinel" ] && ok "suffixed marker does not gate sentinel" || bad "suffixed marker forged completion"
+[ -d "$TR/state/mystics/kimi/suffixed-marker-case" ] && ok "suffixed marker retains state for requeue" || bad "suffixed marker incorrectly cleaned state"
 
 hr; echo "REAL SPINE: gardener selects Mystic, reaps its handler group, and completes"; hr
 # This is intentionally not a direct handler invocation. gardener.sh sources the

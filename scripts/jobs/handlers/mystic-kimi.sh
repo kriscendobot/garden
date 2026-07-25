@@ -64,15 +64,17 @@ set +e
 rc=$?
 set -e
 
-# Text-mode Kimi output prefixes assistant lines with a bullet. Normalize only a
-# trailing completion marker, preserving the shared sentinel contract exactly.
+# Kimi Code 0.29.1 renders the first text line with a bullet, but indents
+# continuation lines (including the completion marker) with two spaces.
+# Normalize only the last non-blank line and accept only that decoration: leading
+# horizontal whitespace, or one bullet followed by horizontal whitespace.
 if [ "$rc" -eq 0 ]; then
-  awk -v m="$GARDEN_COMPLETION_MARKER" -v b="$(printf '\342\200\242') " '
+  awk -v m="$GARDEN_COMPLETION_MARKER" -v b="$(printf '\342\200\242')" '
     { line[NR]=$0 }
     END {
       n=NR
       while (n>0 && line[n] ~ /^[ \t]*$/) n--
-      if (n>0 && line[n]==b m) line[n]=m
+      if (n>0 && (line[n] ~ "^[ \\t]*" m "$" || line[n] ~ "^" b "[ \\t]+" m "$")) line[n]=m
       for (i=1; i<=NR; i++) print line[i]
     }
   ' "$report" > "$report.normalized" && mv "$report.normalized" "$report"
