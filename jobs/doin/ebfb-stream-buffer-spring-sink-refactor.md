@@ -75,3 +75,10 @@ rather than guessing — but the maintainer asked for a builder job, so default 
 building.
 
 role: builder
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-25T09:36:38Z
