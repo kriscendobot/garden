@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6668 (530 parent indexes + 6138 children).
+Total section files: 6673 (530 parent indexes + 6143 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8693,6 +8693,14 @@ Total section files: 6668 (530 parent indexes + 6138 children).
 - [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--overview-and-the-discovery-target.md)
 - [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--stepm-stepdown-bootstrap-and-strong-fwer](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--stepm-stepdown-bootstrap-and-strong-fwer.md)
 - [papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--studentization-and-dependence-aware-power](papers--romano-wolf-stepwise-multiple-testing-data-snooping-2005--studentization-and-dependence-aware-power.md)
+
+### papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026
+
+- [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--assurance-cost-and-open-boundary-questions](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--assurance-cost-and-open-boundary-questions.md)
+- [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--jit-validation-and-writable-executable-code](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--jit-validation-and-writable-executable-code.md)
+- [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--large-memory-software-fault-isolation](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--large-memory-software-fault-isolation.md)
+- [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--security-boundary-and-endor-threat-model](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--security-boundary-and-endor-threat-model.md)
+- [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--typed-disaggregation-and-boundary-sanitization](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--typed-disaggregation-and-boundary-sanitization.md)
 
 ### papers--stiegler-karp-yee-miller-polaris-2004
 
