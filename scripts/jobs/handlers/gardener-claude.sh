@@ -141,9 +141,9 @@ fi
 #      SAME map the Agent-dispatch path follows via skills/model-selection.
 #   2. Absent an explicit (valid) `model:`, the job's `role:` field selects a
 #      per-role DEFAULT model via role_default_model (common.sh): the canonical
-#      policy that runs both a `designer` and a `builder` job on Opus
-#      without the producer having to name a model. Every other role is unpinned
-#      and rides the fleet default.
+#      policy that runs `designer`/`builder` on Opus and classified mechanical
+#      roles on Haiku or Sonnet without the producer having to name a model.
+#      Unclassified roles ride the fleet default.
 #
 # Robustness (job spec): neither field present -> no `--model`, behavior UNCHANGED
 # (the fleet default model). A blank/unknown explicit `model:` falls back to the

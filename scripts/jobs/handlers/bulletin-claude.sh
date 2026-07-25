@@ -65,4 +65,10 @@ EOF
 # fleet posture (operator pre-consents via skipDangerousModePermissionPrompt in
 # ~/.claude). Requires running as non-root. The journalist is read-only by role,
 # so the broad grant is narrated prose, not autonomous action.
-claude -p --dangerously-skip-permissions "$prompt"
+# Journalist is a bounded, read-only narration pass. Keep this direct handler on
+# the same canonical role policy as board jobs rather than silently using Claude's
+# fleet default.
+model="$(role_default_model gardener journalist)"
+model_args=()
+[ -n "$model" ] && model_args=(--model "$model")
+claude -p --dangerously-skip-permissions "${model_args[@]}" "$prompt"

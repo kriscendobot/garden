@@ -3278,17 +3278,15 @@ resolve_model_tier() {
 # leading kind is OPTIONAL and defaults to `gardener`, so every historical single-arg
 # caller (`role_default_model builder`) is unchanged.
 #
-# Gardener (claude) side, the maintainer's standing policy (2026-07-13, via the
-# liaison): the design-only `designer` role and the mergeable-feature `builder` role
-# both run on the latest Opus. (Superseding the 2026-07-02 policy that ran `designer`
-# on Fable — every role formerly assigned to Fable is now on Opus.) Every other role
-# is unpinned here (empty) and rides the fleet default.
+# Gardener (claude) side: designer and builder run on the latest Opus. Mechanical
+# work is deliberately pinned to the cheapest adequate Claude tier: deterministic
+# text/lockfile work uses Haiku; rebase/merge and Pages recovery use Sonnet for the
+# small amount of judgment they require. All other roles ride the fleet default.
 #
-# Cleric (codex) side: designer/builder pin the balanced `gpt-5.6-terra` (the effort
-# distinction is carried by role_default_effort, not the model); every other role is
-# unpinned and rides the cleric fleet default, which is also gpt-5.6-terra. An
-# explicit per-job `model:` ALWAYS overrides this default — the caller applies this
-# only when no `model:` field is present.
+# Cleric (codex) side: designer/builder pin `gpt-5.6-terra`; mechanical roles use
+# the corresponding economical tiers (`mini` or `frontier`). The effort distinction
+# is carried by role_default_effort. An explicit per-job `model:` ALWAYS overrides
+# this default — the caller applies this only when no `model:` field is present.
 role_default_model() {
   local kind role
   case "${1:-}" in
@@ -3300,12 +3298,20 @@ role_default_model() {
       case "$role" in
         designer) printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
         builder)  printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
+        cleaner|retcon|yarn-lock|journalist)
+                  printf '%s\n' "$(resolve_model_tier anthropic haiku)" ;;
+        weaver|conductor|pages-shepherd)
+                  printf '%s\n' "$(resolve_model_tier anthropic sonnet)" ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     cleric)
       case "$role" in
         designer) printf '%s\n' "$(resolve_model_tier openai terra)" ;;
         builder)  printf '%s\n' "$(resolve_model_tier openai terra)" ;;
+        cleaner|retcon|yarn-lock|journalist)
+                  printf '%s\n' "$(resolve_model_tier openai mini)" ;;
+        weaver|conductor|pages-shepherd)
+                  printf '%s\n' "$(resolve_model_tier openai frontier)" ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     hermit)
@@ -3319,8 +3325,8 @@ role_default_model() {
       # it wins such a job. When a box grows a distinct heavier local model, add it to
       # the routing table and pin the role here — a data edit plus (for the pin) one code line.
       case "$role" in
-        designer) model_routing_default local ;;
-        builder)  model_routing_default local ;;
+        designer|builder|cleaner|retcon|yarn-lock|journalist|weaver|conductor|pages-shepherd)
+                  model_routing_default local ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     mystic)

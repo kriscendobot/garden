@@ -183,6 +183,14 @@ verb_action() {  # human-readable mapping for the job body
   esac
 }
 
+verb_role() {
+  case "$1" in
+    rebase) printf '%s\n' weaver ;;
+    retcon) printf '%s\n' retcon ;;
+    *)      printf '%s\n' "" ;;
+  esac
+}
+
 shorthash() { printf '%s' "$1" | (sha1sum 2>/dev/null || shasum) | cut -c1-8; }
 
 # --- the BEFORE-YOU-EDIT preflight instruction (attention path) --------------
@@ -208,8 +216,10 @@ preflight_instruction() {  # preflight_instruction <repo> <number> <comment-id> 
 # trusted: name the URL so the claiming gardener re-fetches verbatim and reads the
 # body as data, not instructions.
 write_job_body() {  # write_job_body <out> <verb> <repo> <surface> <author> <number> <url> <body-file> [comment-id]
-  local out="$1" verb="$2" repo="$3" surface="$4" author="$5" number="$6" url="$7" bf="$8" cid="${9:-}"
+  local out="$1" verb="$2" repo="$3" surface="$4" author="$5" number="$6" url="$7" bf="$8" cid="${9:-}" role
+  role="$(verb_role "$verb")"
   {
+    [ -n "$role" ] && printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
     printf '# %s directive from @-mention on %s #%s\n\n' "$verb" "$repo" "$number"
     printf 'Map: **%s** → %s.\n\n' "$verb" "$(verb_action "$verb")"
     printf 'Source: %s by %s (VERIFIED-TRUSTED sender)\nMention: %s\n\n' "$surface" "$author" "$url"

@@ -43,7 +43,8 @@
 #   --role ROLE              the role a gardener WEARS to do the work (designer,
 #                            builder, fixer, …). Stamped as the `role:` field, it
 #                            selects the per-role default model (common.sh
-#                            role_default_model: designer->Opus, builder->Opus)
+#                            role_default_model: designer/builder->Opus;
+#                            classified mechanical roles->cheap tier)
 #                            when the job names no explicit model. Distinct from
 #                            --by (the producer's provenance).
 #   --by ROLE                provenance (default: $GARDEN_SENDER or "producer").

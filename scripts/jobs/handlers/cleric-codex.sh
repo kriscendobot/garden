@@ -98,8 +98,9 @@ fi
 #   1. An explicit `model:` header requests a specific model (a short tier — openai:
 #      terra/luna/frontier/mini; local has no short tier now, a concrete served tag
 #      passes through iff the routing table classifies it as local).
-#   2. Absent that, the job's `role:` selects a per-role default (designer/builder), else
-#      this kind's fleet default from the journal-backed routing table
+#   2. Absent that, the job's `role:` selects a per-role default (designer/builder
+#      or a classified mechanical role), else this kind's fleet default from the
+#      journal-backed routing table
 #      (model_routing_default: openai → gpt-5.6-terra; local → qwen3.6).
 # Thoughtfulness resolves from an optional `effort:` header, else the role default
 # (high for designer/builder, medium otherwise), then is normalized DOWN to the

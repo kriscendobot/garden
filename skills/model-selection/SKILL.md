@@ -24,8 +24,9 @@ The **executable source of truth** for the fleet path is two functions in
 - `resolve_model_tier <tier-or-id>` — binds the short tier names to concrete
   `claude-*` ids (a concrete id passes through). One edit here retargets a
   Claude-version bump for the whole fleet.
-- `role_default_model <role>` — the role→default-model map (designer→Opus,
-  builder→Opus; every other role empty, so it rides the fleet default).
+- `role_default_model <kind> <role>` — the per-worker-kind role→default-model
+  map. It keeps substantive design/build on Opus (or the equivalent provider
+  tier) while sending explicitly classified mechanical work to cheap tiers.
 
 This document and those two functions are kept in agreement deliberately: prose is
 what the Agent path reads, code is what the fleet path runs, and each names the
@@ -37,9 +38,20 @@ The maintainer's directive (2026-07-13, via the liaison): **the design-only
 `designer` role and the mergeable-feature `builder` role both run on the latest
 Opus.** (This supersedes the 2026-07-02 policy that ran `designer` on Fable; every
 role formerly assigned to Fable is now on Opus, so no role defaults to Fable
-today.) These are the only two roles pinned by default today. Web variants
-(`web-designer` / `web-builder`) and every other role are unpinned — they ride the
-fleet default unless a dispatch or job names a model explicitly.
+today.) They remain the only judgment-heavy default pins. The mechanical defaults
+are classified separately below. Web variants (`web-designer` / `web-builder`) and
+every other role are unpinned — they ride the fleet default unless a dispatch or
+job names a model explicitly.
+
+**Mechanical-work downgrade (2026-07-25, via the liaison).** The roles below are
+classified as mechanical or low-judgment. `cleaner`, `retcon`, bounded
+`yarn-lock` chores, and `journalist` are deterministic or narrowly editorial;
+they use Haiku. `weaver`, `conductor`, and `pages-shepherd` need limited conflict,
+state, or failure classification, so they use Sonnet. On the cleric/Codex backend
+the same split is `mini` / `frontier`; on a hermit every one of these roles resolves
+to the local Ollama fleet default (currently `qwen3.6`). This is a tier policy, not
+a worker-kind change. `fixer`, `shepherd`, jurors, and all other roles remain
+unpinned unless separately classified: their work can require substantive judgment.
 
 **No implicit Fable — the standing invariant (2026-07-25, via the liaison).** Fable
 is **available only on an explicit per-job `model: fable` pin**; it is **never a
@@ -57,11 +69,13 @@ implicit defaults.
 | --- | --- | --- | --- |
 | `designer` | Opus | `claude-opus-4-8` | Design-only authoring — drafting design documents and surfacing open questions. Moved to the latest Opus (2026-07-13), the same tier `builder` uses. |
 | `builder` | Opus | `claude-opus-4-8` | Substantive, mergeable implementation within a single well-scoped dispatch, where correctness compounds. The latest Opus. |
+| `cleaner`, `retcon`, `yarn-lock`, `journalist` | Haiku | `claude-haiku-4-5-20251001` | Bounded test/commit reshaping, lockfile housekeeping, or read-only narrative work. |
+| `weaver`, `conductor`, `pages-shepherd` | Sonnet | `claude-sonnet-4-6` | Mechanical operations with light conflict, repository-state, or failure classification. |
 
 Any other role: no default pin — omit the `model` parameter on an `Agent`
 dispatch, and post its job without a `model:`/`role:`-driven pin, so it runs on the
 fleet default. Add a row here (and a case in `role_default_model`) when the
-maintainer pins another role.
+maintainer classifies another role as adequately low-judgment.
 
 ## Tiers
 
@@ -108,8 +122,10 @@ level via `-c model_reasoning_effort=<level>`, recording the honored level.
 
 Per-kind role defaults live in `role_default_model <kind> <role>` and
 `role_default_effort <kind> <role>` (kind defaulting to `gardener`): the cleric
-side pins `designer`/`builder` to `gpt-5.6-terra` (at `high`), every other role
-unpinned (fleet default `gpt-5.6-terra` at `medium`).
+side pins `designer`/`builder` to `gpt-5.6-terra` (at `high`), routes the Haiku-like
+mechanical set to `gpt-5.4-mini`, and routes the Sonnet-like set to `gpt-5.5`.
+Every other cleric role remains unpinned (fleet default `gpt-5.6-terra` at
+`medium`).
 
 ### The `fireworks` provider (the fireworker backend)
 
@@ -221,9 +237,10 @@ scripts/jobs/set-mystics.sh 0   # return the pool to zero after the trial
 
 ### Agent-dispatch path (orchestrator / judge)
 
-1. Read the role's row in the standing-policy table. For `designer` pass
-   `model: opus`; for `builder` pass `model: opus`; for any other role omit the
-   `model` parameter (fleet default).
+1. Read the role's row in the standing-policy table. For `designer` and `builder`
+   pass `model: opus`; for a classified mechanical role pass its table tier
+   (`haiku` or `sonnet`); for any other role omit the `model` parameter (fleet
+   default).
 2. Pass the tier to the `Agent` tool's `model` parameter at dispatch time.
 3. Record the choice in the `dispatch` journal entry's `model:` frontmatter.
 
@@ -321,3 +338,10 @@ canonical for subsequent dispatches.
   `common.sh` now sources, so the model-selection assertions could not run). The
   standing schedules that explicitly pin `model: fable` (the endo press campaigns) are
   left untouched — explicit requests, honored by policy, not implicit defaults.
+- _2026-07-25_: **mechanical roles downgraded** (job
+  `downgrade-mechanical-model-tiers`, maintainer-directed). The canonical map now
+  sends `cleaner`/`retcon`/`yarn-lock`/`journalist` to Haiku and
+  `weaver`/`conductor`/`pages-shepherd` to Sonnet; clerics use the matching
+  `mini`/`frontier` tiers and hermits use their Ollama default. Fixed-verb watcher
+  jobs now stamp `role:` for rebase, retcon, and conductor work; Pages jobs stamp
+  `pages-shepherd`; the direct bulletin handler resolves the journalist role map.

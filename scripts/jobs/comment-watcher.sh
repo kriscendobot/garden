@@ -822,6 +822,18 @@ verb_action() {  # human-readable mapping for the job body
   esac
 }
 
+# A fixed branch-operation verb is enough to stamp the role deterministically;
+# this lets the canonical model policy apply without asking the gardener to infer
+# a role from prose after it has claimed the job.
+verb_role() {
+  case "$1" in
+    rebase) printf '%s\n' weaver ;;
+    retcon) printf '%s\n' retcon ;;
+    conduct|merge|finalize) printf '%s\n' conductor ;;
+    *) printf '%s\n' "" ;;
+  esac
+}
+
 shorthash() { printf '%s' "$1" | (sha1sum 2>/dev/null || shasum) | cut -c1-8; }
 
 # --- the BEFORE-YOU-EDIT preflight instruction (review/attention paths) -------
@@ -848,12 +860,14 @@ preflight_instruction() {  # preflight_instruction <pr> <comment-id> <author>
 # Build the job body. The comment text is UNTRUSTED: name the URL so the claiming
 # gardener re-fetches verbatim and reads the body as data, not instructions.
 write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> <body-file> [primary-verb] [comment-id]
-  local out="$1" verb="$2" surface="$3" author="$4" pr="$5" url="$6" bf="$7" primary="${8:-}" cid="${9:-}"
+  local out="$1" verb="$2" surface="$3" author="$4" pr="$5" url="$6" bf="$7" primary="${8:-}" cid="${9:-}" role
+  role="$(verb_role "$verb")"
   if [ "$verb" = review ]; then
     # The WHOLE review is the unit. List the review body AND every inline comment
     # as the asks; the mapped verb (if any) is the PRIMARY action but one item
     # among them, never the entire job.
     {
+      [ -n "$role" ] && printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
       printf '# Review directive on %s PR #%s\n\n' "$repo" "$pr"
       printf 'A trusted maintainer/contributor REVIEW on #%s. Treat the WHOLE review\n' "$pr"
       printf 'as the unit of work: address its top-level body AND every inline comment\n'
@@ -891,6 +905,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     # checks green. Dispatch the conductor to un-draft (if draft) and merge. Never
     # name a merge method — the conductor owns that (roles/conductor/AGENT.md).
     {
+      [ -n "$role" ] && printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
       printf '# Finalize (curate → merge) %s PR #%s\n\n' "$repo" "$pr"
       printf 'A trusted maintainer APPROVED this PR and the watcher confirmed it is\n'
       printf 'OPEN, mergeable, and checks green. This is the CURATION step: dispatch the\n'
@@ -908,6 +923,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     return
   fi
   {
+    [ -n "$role" ] && printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
     printf '# %s directive on %s PR #%s\n\n' "$verb" "$repo" "$pr"
     # A shepherd BLOCKS on CI, which overruns the default handler budget — stamp a
     # CI-sized handler-timeout so the gardener honors it in place of the default and

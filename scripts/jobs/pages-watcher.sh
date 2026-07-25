@@ -267,6 +267,9 @@ fi
 
 jb="$(mktemp)"
 {
+  printf '%s\n' '---'
+  printf '%s\n' 'role: pages-shepherd'
+  printf '%s\n\n' '---'
   printf '# pages-shepherd (auto: red Pages deploy) on %s\n\n' "$REPO"
   printf 'The GitHub Pages build/deploy action (`%s`) for the garden site is RED on\n' "$GARDEN_PAGES_WORKFLOW"
   printf 'its NEWEST completed run — the live site (https://kriskowal.github.io/garden/)\n'
