@@ -33,3 +33,10 @@ comment. Done = #737 checks green (or the sole residual documented as
 out-of-scope with evidence).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: cleric
+  claimed_at: 2026-07-25T03:43:12Z
