@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T05:57:54Z_
+_As of 2026-07-25T06:04:28Z_
 
 ## Latest
 
@@ -2162,14 +2162,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.9M | $573.87 _(notional, rate-card)_ | no quota set |
-| Codex | 590.9M _(+442.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Claude | 46.9M | $569.13 _(notional, rate-card)_ | no quota set |
+| Codex | 590.9M _(+445.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (22)
+### doin (23)
+- [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
