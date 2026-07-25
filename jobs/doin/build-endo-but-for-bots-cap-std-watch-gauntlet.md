@@ -11,3 +11,10 @@ The build opened https://github.com/kriscendobot/endo-but-for-bots/pull/1 and it
 state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
 the panel terminates cleanly. This handoff was posted by the build completion edge,
 not inferred by a watcher.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-25T06:38:14Z
