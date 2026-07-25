@@ -59,3 +59,10 @@ proposals (source-phase imports, import defer, and the rest — see the library 
 
 No bar is "verified"/"green" without real-execution evidence — cite the command and its output. When you
 could not run a bar (a validation front, a spec render), report it "not verified" and why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-25T18:50:23Z
