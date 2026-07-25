@@ -39,11 +39,4 @@ Please create a design PR against the garden and post the URL here. I am particu
 
 ----- END ORIGINAL MESSAGE -----
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 9
-  worker_kind: gardener
-  claimed_at: 2026-07-24T23:53:08Z
+<!-- garden-reaped: 2 -->
