@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-07-25T18:50:17Z
-job_basename_prefix: proposal-compartments-press
----
 # Press the fresh Compartments proposal forward (daily) — spec, tests, explainer, validation
 
 You are the standing **daily press-driver** for a fresh, minimal `tc39/proposal-compartments`
