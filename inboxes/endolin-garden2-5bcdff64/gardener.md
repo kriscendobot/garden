@@ -1686,3 +1686,12 @@ Inspect via `git -C journal cat-file -p d6f010e52d5c486553dd4fc8d50da651300754d3
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'ebfb-stream-buffer-spring-sink-refactor-gauntlet' exit-0-unsatisfying but elapsed near-constant (561,561s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p fb3a191441c4f9e709f5a3a6051a7ae544a82323`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T17:06:26Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1b9948b9d9afa30b1dda96577bf94bcccdc290da
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'librarian-library-audit-20260725-170501' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1b9948b9d9afa30b1dda96577bf94bcccdc290da`.
