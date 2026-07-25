@@ -1191,3 +1191,12 @@ Inspect via `git -C journal cat-file -p 44275aa642b97dc5aa74f2187a3599dbd2db0d08
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'finbot-progress-20260725-105007' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 154a73161672f4b79e012ffc3d9a02a7e2c2f585`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T15:13:27Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3c40461ac6612e6fd266472b2cfc1415458a135f
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'ebfb-stream-buffer-spring-sink-refactor-gauntlet' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3c40461ac6612e6fd266472b2cfc1415458a135f`.
