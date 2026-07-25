@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T16:14:35Z_
+_As of 2026-07-25T16:17:12Z_
 
 ## Latest
 
@@ -2187,19 +2187,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.3M | $351.96 _(notional, rate-card)_ | no quota set |
+| Claude | 16.3M | $350.65 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (13)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
+- [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-ade4a938.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-review-6ca53b57.md) — Review directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
@@ -2345,6 +2346,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr855-df7988e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr855-df7988e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #855 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr856-review-6cfb0803-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #856 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-6ca53b57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr719-ade4a938-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-ade4a938-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
