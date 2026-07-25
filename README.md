@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T21:16:02Z_
+_As of 2026-07-25T21:24:07Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 3h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
+- [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 4h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 3h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 20h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
@@ -2342,16 +2342,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.5M | $361.52 _(notional, rate-card)_ | no quota set |
-| Codex | 19.5M _(+466.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 17.8M | $364.34 _(notional, rate-card)_ | no quota set |
+| Codex | 19.6M _(+472.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
-- [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
@@ -2364,13 +2363,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3488)
+### tada (3489)
+- [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-rust-endo-xs-test-flakiness.md) — Fixed XS parallel-test flakiness and opened draft PR #861.
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Conductor report — endojs/endo-but-for-bots#856 (ambiguous .js entry ESM dete...
 - [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-ade4a938.md) — Assessed readiness: upstream PR #3332 is green (15/15 checks) and already re-...
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-review-6ca53b57.md) — Review already resolved on PR #740; no new edit or push was needed.
 - [`kriscendobot-endo-but-for-bots-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr2-shepherd.md) — CI is green on head 1217949dd4e1d67de6d22fd9d56f9163542c1774.
-- [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — Completion report — gauntlet for endojs/endo-but-for-bots#858 (feat(stream): ...
-- … and 3483 more
+- … and 3484 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
