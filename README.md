@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T00:32:47Z_
+_As of 2026-07-25T00:35:44Z_
 
 ## Latest
 
@@ -14,6 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 21h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -23,9 +24,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 7d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 8d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 11d)
 
-_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -1449,13 +1449,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 43.5M | $535.05 _(notional, rate-card)_ | no quota set |
-| Codex | 588.1M _(+347.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Codex | 588.1M _(+347.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (36)
+### doin (37)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073666635.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
@@ -1479,6 +1479,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-progress-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260724-225004.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`fix-mystic-kimi-k3-model-selection-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-mystic-kimi-k3-model-selection-20260725.md) — model: gpt-5.6-terra
 - [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-mystic-prompt-yolo-20260725.md) — role: fixer
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-systemd-api-key-handoff-20260725.md) — role: builder
 - [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-65.md) — Issue from kriskowal on kriskowal/garden #65
