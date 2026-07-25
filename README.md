@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T08:20:19Z_
+_As of 2026-07-25T09:19:27Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 7h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 8h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -816,6 +816,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T051415Z-e6abbb` — from gardener:finbot-pr4-panel-rerun-20260725, reply_to `finbot-pr4-panel-rerun-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T051415Z-e6abbb.md)
 
 > Blocked: the scripted [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) panel was started in the isolated checkout at requested head 63df8109aba818eb3fcbe9fb480f27205494b85c/base 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. The strict formal-evidence seat hook rejected an empty assessor block, leaving the PR draft. Subsequent diagnosis reached the Claude provider session limit (reset 08:00 UTC), so no non-empty 28-seat formal verdict exists and no fable signoff was dispatched. Retry the panel after quota reset; CI test was already green at 2026-07-25T04:40:11Z.
+
+- `20260725T091905Z-b79156` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T091905Z-b79156.md)
+
+> triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2163,7 +2167,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 15.9M | $353.27 _(notional, rate-card)_ | no quota set |
-| Codex | 18.6M _(+428.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Codex | 18.5M _(+427.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
