@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T18:13:35Z_
+_As of 2026-07-25T18:17:41Z_
 
 ## Latest
 
@@ -2240,14 +2240,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.4M | $349.80 _(notional, rate-card)_ | no quota set |
+| Claude | 16.3M | $348.85 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
@@ -2258,6 +2258,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-review-6ca53b57.md) — Review directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
+- [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-review-6cfb0803.md) — Review directive on endojs/endo-but-for-bots PR #856
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-170501.md) — Push progress on kriscendobot/finbot (every 6h)
