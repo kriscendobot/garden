@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-07-25T04:23:18Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-systemd-api-key-handoff-20260725
