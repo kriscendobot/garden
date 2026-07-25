@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T04:41:47Z_
+_As of 2026-07-25T04:42:34Z_
 
 ## Latest
 
@@ -2150,8 +2150,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $570.44 _(notional, rate-card)_ | no quota set |
-| Codex | 589.6M _(+401.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 46.2M | $568.14 _(notional, rate-card)_ | no quota set |
+| Codex | 589.7M _(+401.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -2159,8 +2159,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
-### doin (16)
-- [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
+### doin (15)
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260724-165003.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -2177,13 +2176,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 
-### tada (3420)
+### tada (3421)
+- [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endor-packaging.md) — Completion report
 - [`finbot-pr4-panel-fixer-reissue-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-fixer-reissue-20260725.md) — Implemented and pushed PR #4 fixes.
 - [`finbot-pr4-panel-retry-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-retry-20260725.md) — Panel requested changes: 16 completed code-seat blocks recorded multiple requ...
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-systemd-api-key-handoff-20260725.md) — Working tree clean; nothing pushed. The job's deliverable already lives on ma...
 - [`endojs-endo-but-for-bots-pr737-ci-green-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr737-ci-green-20260725.md) — Fixed and pushed all CI blockers on draft PR #737:
-- [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-prompt-yolo-20260725.md) — Confirmed the compatibility fix is already on main2: prompt-mode Kimi invocat...
-- … and 3415 more
+- … and 3416 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
