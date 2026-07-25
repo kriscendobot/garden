@@ -30,6 +30,20 @@ set -euo pipefail
 printf '%s\n' "$KIMI_CODE_HOME" > "$FAKE_KIMI_RECORD.home"
 printf '%s\n' KIMI_CODE_HOME KIMI_MODEL_NAME KIMI_MODEL_API_KEY KIMI_MODEL_BASE_URL > "$FAKE_KIMI_RECORD.env"
 printf '%s\n' "$@" > "$FAKE_KIMI_RECORD.args"
+has_prompt=0
+has_auto=0
+has_yolo=0
+for arg in "$@"; do
+  case "$arg" in
+    --prompt) has_prompt=1 ;;
+    --auto) has_auto=1 ;;
+    --yolo) has_yolo=1 ;;
+  esac
+done
+if [ "$has_prompt" -eq 1 ] && { [ "$has_auto" -eq 1 ] || [ "$has_yolo" -eq 1 ]; }; then
+  echo 'fake Kimi rejects --prompt combined with --auto or --yolo' >&2
+  exit 64
+fi
 [ "$KIMI_MODEL_NAME" = k3 ]
 [ "$KIMI_MODEL_PROVIDER_TYPE" = kimi ]
 [ "$KIMI_MODEL_BASE_URL" = https://api.moonshot.ai/v1 ]
@@ -82,6 +96,11 @@ home="$TR/state/mystics/kimi/resume-case"
 [ "$(cat "$TR/run.home")" = "$home" ] && ok "KIMI_CODE_HOME is private to this base" || bad "unexpected KIMI_CODE_HOME"
 grep -qx -- '--model' "$TR/run.args" && grep -qx k3 "$TR/run.args" && ok "headless invocation maps garden kimi-k3 to documented Kimi Code k3" || bad "model invocation not explicit"
 grep -qx -- '--prompt' "$TR/run.args" && grep -qx -- '--output-format' "$TR/run.args" && ok "uses official prompt headless path" || bad "not a prompt headless invocation"
+if grep -Eqx -- '--(auto|yolo)' "$TR/run.args"; then
+  bad "prompt invocation included an incompatible auto/yolo flag"
+else
+  ok "prompt invocation omits incompatible auto/yolo flags"
+fi
 grep -qx KIMI_MODEL_API_KEY "$TR/run.env" && ok "credential is passed through Kimi's supported temporary-model channel" || bad "missing Kimi model credential channel"
 if grep -Rq 'offline-fixture-not-a-credential' "$TR/run."* "$TR/report" 2>/dev/null; then
   bad "fixture credential appeared in captured output"

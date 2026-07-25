@@ -56,7 +56,7 @@ diagnostic="$(mktemp "${TMPDIR:-/tmp}/garden-kimi-diagnostic-$base.XXXXXX")"
 # `kimi-k3` is the garden's explicit routing/reputation id. Kimi Code's
 # documented wire model id is `k3`, so do not send the garden-private spelling to
 # Moonshot. The temporary KIMI_MODEL_* provider created below is named `k3` too.
-kimi_args=(--model k3 --prompt "$prompt" --output-format text --yolo)
+kimi_args=(--model k3 --prompt "$prompt" --output-format text)
 $resuming && kimi_args=(--continue "${kimi_args[@]}")
 set +e
 ( cd "$worktree" && kimi_model_environment "$kimi_home" k3 kimi "${kimi_args[@]}" ) > "$report" 2> "$diagnostic"
