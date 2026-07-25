@@ -1038,3 +1038,12 @@ Inspect via `git -C journal cat-file -p 4bacab30e6b516ff285f16f053984cb674fe4900
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr719-rebase' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 0e59bf1b631176d101371a73f95cb2fd053cd996`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T06:54:14Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 56778a9e6086aa2227876549e064a8cd90b6c9e2
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'improve-local-provider-model-presence-preflight' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 56778a9e6086aa2227876549e064a8cd90b6c9e2`.
