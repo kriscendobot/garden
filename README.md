@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T18:50:36Z_
+_As of 2026-07-25T18:54:07Z_
 
 ## Latest
 
@@ -2284,14 +2284,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.4M | $348.07 _(notional, rate-card)_ | no quota set |
-| Codex | 19.2M _(+457.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Claude | 16.4M | $349.01 _(notional, rate-card)_ | no quota set |
+| Codex | 19.2M _(+458.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (19)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
@@ -2306,7 +2306,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
+- [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
+- [`proposal-compartments-jsc-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-jsc-validation-20260725.md) — ---
 - [`proposal-compartments-press-20260725-185017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260725-185017.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
+- [`proposal-compartments-v8-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-v8-validation-20260725.md) — ---
+- [`proposal-compartments-xs-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-xs-validation-20260725.md) — ---
 
 ### tada (3479)
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/downgrade-mechanical-model-tiers.md) — Updated and pushed b4b65d78f4 to origin/main2. Mechanical roles now resolve a...
