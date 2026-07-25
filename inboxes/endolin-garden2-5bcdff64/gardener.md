@@ -1578,3 +1578,12 @@ Inspect via `git -C journal cat-file -p 96772c7dd7c237da1a77f29d7b9e787c3e2df258
 - Context: gardener-11 on endolin-garden2-5bcdff64: job 'deadmail-issue-comment-5077246643' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p ed5da75aee06e4911a0c921afacd7398bef4fa5f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T06:38:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6452897168edb435a55deccd4a723ca4e4686d94
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'build-endo-but-for-bots-cap-std-watch-gauntlet' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6452897168edb435a55deccd4a723ca4e4686d94`.
