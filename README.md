@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T20:21:09Z_
+_As of 2026-07-25T20:25:04Z_
 
 ## Latest
 
@@ -2330,18 +2330,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.4M | $360.25 _(notional, rate-card)_ | no quota set |
-| Codex | 19.3M _(+462.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 17.4M | $360.39 _(notional, rate-card)_ | no quota set |
+| Codex | 19.4M _(+463.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (14)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
-- [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-ade4a938.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — ---
@@ -2354,13 +2353,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3486)
+### tada (3487)
+- [`endojs-endo-but-for-bots-pr719-ade4a938`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr719-ade4a938.md) — Assessed readiness: upstream PR #3332 is green (15/15 checks) and already re-...
 - [`endojs-endo-but-for-bots-pr740-review-6ca53b57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-review-6ca53b57.md) — Review already resolved on PR #740; no new edit or push was needed.
 - [`kriscendobot-endo-but-for-bots-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr2-shepherd.md) — CI is green on head 1217949dd4e1d67de6d22fd9d56f9163542c1774.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — Completion report — gauntlet for endojs/endo-but-for-bots#858 (feat(stream): ...
 - [`proposal-compartments-xs-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-xs-validation-20260725.md) — Validated XS against the charter pins. xst built successfully at XS 13.3.0; t...
-- [`proposal-compartments-v8-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-v8-validation-20260725.md) — What I did
-- … and 3481 more
+- … and 3482 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
