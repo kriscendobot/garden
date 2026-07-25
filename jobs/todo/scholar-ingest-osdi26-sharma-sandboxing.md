@@ -6,9 +6,4 @@ issue_url: https://github.com/kriskowal/garden/issues/65
 submitter: kriskowal
 ----- END ISSUE NOTE -----
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 18
-  worker_kind: gardener
-  claimed_at: 2026-07-25T01:24:31Z
+<!-- garden-reaped: 1 -->
