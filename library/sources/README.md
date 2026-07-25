@@ -1039,6 +1039,12 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [Fireworks Serverless Overview](web--fireworks-serverless-overview.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (multi-tenant inference, serving paths, billing/cache, lifecycle, and on-demand comparison) |
 | [Fireworks Serverless Rate Limits](web--fireworks-serverless-rate-limits.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (adaptive per-model capacity, 429 backoff, and 503 load shedding) |
 | [Fireworks Zero Data Retention](web--fireworks-zero-data-retention.md) | docs.fireworks.ai | 2026-07-24 | Fireworks AI | 1 | current (open-model zero retention and Responses storage controls) |
+| [Fireworks Serverless Pricing](web--fireworks-serverless-pricing.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 1 | current (hash-pinned token rates, fallback price bands, embeddings, and batch discount) |
+| [Fireworks Serverless Serving Paths](web--fireworks-serverless-serving-paths.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 1 | current (Standard, Priority, and Fast selectors and traffic tradeoffs) |
+| [Firectl Getting Started](web--fireworks-firectl.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 1 | current (CLI installation, interactive sign-in, account confirmation, and upgrade) |
+| [Fireworks MLOps and Observability](web--fireworks-mlops-observability.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 1 | current (Weights & Biases and MLflow Tracing integration directory) |
+| [Fireworks Tool Calling](web--fireworks-tool-calling.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 2 | current (tool request and response schema, multi-turn exchange, streaming, and schema boundary) |
+| [Fireworks Structured Outputs](web--fireworks-structured-outputs.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 2 | current (response-format schema, JSON-reference behavior, reasoning tradeoff, and grammar mode) |
 
 ## Notes
 
