@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T00:26:33Z_
+_As of 2026-07-25T00:26:53Z_
 
 ## Latest
 
@@ -1445,15 +1445,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 43.7M | $536.77 _(notional, rate-card)_ | no quota set |
-| Codex | 588.0M _(+344.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Codex | 588.0M _(+344.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (36)
+### doin (37)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073666635.md) — Dead-lettered message — pick up its intent
+- [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-043515.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
