@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T10:04:23Z_
+_As of 2026-07-25T10:06:56Z_
 
 ## Latest
 
@@ -2166,12 +2166,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.4M | $369.41 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+441.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 16.4M | $371.87 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+443.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`tune-fable-k3-model-assignments-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/tune-fable-k3-model-assignments-20260725.md) — model: claude-opus-4-8
+### todo (0)
+(none)
 
 ### doin (23)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
@@ -2185,7 +2185,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr719-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #719
-- [`endojs-endo-but-for-bots-pr849-a6858de7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-a6858de7.md) — attention directive on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr849-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #849
 - [`endojs-endo-but-for-bots-pr852-57d49137`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-57d49137.md) — attention directive on endojs/endo-but-for-bots PR #852
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — ---
@@ -2197,14 +2196,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`tune-fable-k3-model-assignments-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/tune-fable-k3-model-assignments-20260725.md) — model: claude-opus-4-8
 
-### tada (3445)
+### tada (3446)
+- [`endojs-endo-but-for-bots-pr849-a6858de7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr849-a6858de7.md) — Completion report — job endojs-endo-but-for-bots-pr849-a6858de7
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260723-d.md) — • This is a simple canary job. Let me check for leftover state from the inter...
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260724-165003.md) — The escalation message (20260725T032633Z-ca6252.md) is still sitting **unread...
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260724-165003.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260724-165003.md) — All state verified. This tick is a verify-and-stand-down: everything is green...
-- [`endo-sturdyref-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260724-165003.md) — SturdyRef press tick 2026-07-25T09:33Z — **observation tick; cascade mid-flig...
-- … and 3440 more
+- … and 3441 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
