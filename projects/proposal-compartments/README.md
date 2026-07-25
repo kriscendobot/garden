@@ -72,37 +72,45 @@ module primitives & loader API for ESM customization", by joyeecheung). Each is 
 place where this proposal must either satisfy the constraint or record the
 shortfall. Flagged shortfalls are press work items.
 
-- [ ] **Share the caller's global.** A loader can register for the main context so
+- [x] **Share the caller's global.** A loader can register for the main context so
   ESM in the existing global uses it, in addition to creating a new context with
   its own global. Compartments must express "evaluate against the surrounding
   realm's global" as a first-class option. *Potential shortfall: earlier iterations
   assumed a fresh global per Compartment; the intersection design must make the
   shared-global path primary.*
-- [ ] **Context-aware resolution.** The loader receives the target context when
+  *Met — spec `d23d7de`: `new Compartment()` records the current Realm and its global object; the shared-global path is primary (§ The Compartment Constructor).*
+- [x] **Context-aware resolution.** The loader receives the target context when
   resolving and constructing modules, so it builds each module in the right
   context. *Potential shortfall: a `ModuleSource`-keyed Compartment must thread the
   target global/context through resolution without reintroducing a descriptor.*
-- [ ] **Phase information on module requests.** Requests carry phase data for
+  *Met — spec `d23d7de`: the host loader receives the requesting Compartment, Realm, and global while selecting a target, with no descriptor reintroduced (§ Cross-Compartment Linking).*
+- [x] **Phase information on module requests.** Requests carry phase data for
   source-phase and dynamic source imports. Compartments must consume that phase
   signal from the existing proposals rather than defining a second one.
-- [ ] **Single loader/registration per context.** Only one loader per context is
+  *Met — spec `d23d7de`: Compartments consume existing ModuleRequest phase information and define no replacement (§ Intersection with Module Phases).*
+- [x] **Single loader/registration per context.** Only one loader per context is
   allowed. *Potential shortfall: reconcile with multiple Compartments over one
   shared global; clarify whether Compartment identity or context identity is the
   unit of registration.*
-- [ ] **Composable with `module.registerHooks()`.** The loader sits above the
+  *Met — spec `d23d7de`: Compartments keep instance Maps and register no loader, including when several share one global (§ Cross-Compartment Linking).*
+- [x] **Composable with `module.registerHooks()`.** The loader sits above the
   lower-level hooks and coexists with them. Compartments must not preclude the
   host's own hook layer.
+  *Met at this boundary — spec `d23d7de`: no Compartment hook intercepts or replaces the host hook layer; a Node integration test remains implementation work.*
 - [ ] **Error separation.** Loader/infrastructure errors surface synchronously;
   module-evaluation errors surface through the module's own result surface
   (top-level capability / error). The Compartment `import` surface must keep this
   separation.
+  *Shortfall (open work item) — spec `d23d7de`: the source-key API has only synchronous brand errors and asynchronous load/link/evaluation failures. A Node loader-registration API is needed to specify synchronous infrastructure errors.*
 - [ ] **Both TLA and non-TLA evaluation paths.** The API supports top-level-await
   and synchronous module evaluation. *Potential shortfall: confirm the Compartment
   entry points cover a synchronous evaluation path where the host requires it.*
-- [ ] **Loader-level lifetime for callbacks.** Callbacks are managed at the loader
+  *Shortfall (open work item) — spec `d23d7de`: `Compartment.prototype.import` is deliberately asynchronous; no synchronous evaluation entry point is included. Maintainer decision requested on a host-only synchronous evaluation operation.*
+- [x] **Loader-level lifetime for callbacks.** Callbacks are managed at the loader
   level rather than per-module, to avoid the earlier per-module memory leaks. The
   Compartment-to-source-instance mapping must not reintroduce per-module retained
   callbacks.
+  *Met at this boundary — spec `d23d7de`: the minimum surface accepts no callbacks and retains only source-key, module, and namespace identities.*
 - [ ] **Meaningful base defaults.** A base loader provides defaults a subclass can
   delegate to (`super.getModules()`). If Compartments expose an overridable
   loading surface, it should offer a usable default rather than an all-or-nothing
@@ -168,3 +176,5 @@ and the garden's `em-dash-style` skill.
 - Must enable **cross-compartment linkage**.
 - Must be coherent with **importing the same module source in multiple compartments** — each gets its own instance, while it remains simultaneously possible to create links (possibly cyclic) with modules in farther compartments. SES does this with `compartment.module(specifier)`, which yields a module exports namespace, at the cost that the namespace must be constructed before the corresponding source, keyed on the specifier in a compartment. Producing a module source will not suffice, because that effects a local instance in the importing compartment. **Navigate these trade-offs**; deferred module export namespaces may be reusable for this purpose.
 - Must include an **implementation for v8, JSC, XS, and endor that passes the compartment test262 suite**.
+
+  *Deferred — spec `d23d7de`: the minimum surface defines no overridable loader class; a future loader API must specify delegation defaults with that API.*
