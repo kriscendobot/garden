@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: hermit
-claimed_at: 2026-07-25T19:03:14Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-report-error-transcript-reachable
