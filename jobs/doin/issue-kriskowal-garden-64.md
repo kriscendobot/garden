@@ -25,3 +25,10 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 Please propose a design PR for continuously publish Endo packages from the llm branch with a dev prefixed tag in chronological order. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 18
+  worker_kind: cleric
+  claimed_at: 2026-07-25T00:03:12Z
