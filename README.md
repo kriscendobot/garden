@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T11:15:33Z_
+_As of 2026-07-25T11:16:27Z_
 
 ## Latest
 
@@ -2166,16 +2166,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.1M | $369.48 _(notional, rate-card)_ | no quota set |
+| Claude | 17.1M | $370.14 _(notional, rate-card)_ | no quota set |
 | Codex | 19.1M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
-- [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260725-070506.md) — Daily midnight Pacific progress summary
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
 - [`endo-sturdyref-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260724-225004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -2193,13 +2192,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3459)
+### tada (3460)
+- [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260725-070506.md) — Wrote and pushed periodicals/2026/07/24.md to journal2 (commit 4e92e5c9e3). I...
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260724-225004.md) — No new comments or reviews on any press PR — the maintainer's question on #65...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260724-225004.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-npm-cas-registry-press-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260725-105007.md) — Completion report — endo-npm-cas-registry-press-20260725-105007
 - [`endo-byte-array-press-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260725-105007.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`ocapn-noise-press-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260725-105007.md) — **Completion report — ocapn-noise-press-20260725-105007**
-- … and 3454 more
+- … and 3455 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
