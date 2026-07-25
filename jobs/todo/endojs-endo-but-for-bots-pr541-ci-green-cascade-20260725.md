@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: endo-sturdyref-ci-green-737-704-20260725
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-25T03:28:38Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-25T04:37:03Z -->
 
 # cascade: rebase PR #541 onto its moved predecessor and drive its CI green
 
