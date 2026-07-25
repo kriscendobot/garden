@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6650 (530 parent indexes + 6120 children).
+Total section files: 6658 (530 parent indexes + 6128 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9018,6 +9018,14 @@ Total section files: 6650 (530 parent indexes + 6120 children).
 - [web--esbuild-api--conditions-main-fields-and-packages](web--esbuild-api--conditions-main-fields-and-packages.md)
 - [web--esbuild-api--tree-shaking-and-sideeffects](web--esbuild-api--tree-shaking-and-sideeffects.md)
 
+### web--fireworks-firectl
+
+- [web--fireworks-firectl--installation-and-account-sign-in-practice](web--fireworks-firectl--installation-and-account-sign-in-practice.md)
+
+### web--fireworks-mlops-observability
+
+- [web--fireworks-mlops-observability--external-integrations](web--fireworks-mlops-observability--external-integrations.md)
+
 ### web--fireworks-openai-compatibility
 
 - [web--fireworks-openai-compatibility--authentication-endpoint-and-streaming-contract](web--fireworks-openai-compatibility--authentication-endpoint-and-streaming-contract.md)
@@ -9026,15 +9034,33 @@ Total section files: 6650 (530 parent indexes + 6120 children).
 
 - [web--fireworks-serverless-overview--serverless-operational-and-deployment-boundaries](web--fireworks-serverless-overview--serverless-operational-and-deployment-boundaries.md)
 
+### web--fireworks-serverless-pricing
+
+- [web--fireworks-serverless-pricing--token-billing-and-current-rate-schedule](web--fireworks-serverless-pricing--token-billing-and-current-rate-schedule.md)
+
 ### web--fireworks-serverless-rate-limits
 
 - [web--fireworks-serverless-rate-limits--adaptive-capacity-and-retry-semantics](web--fireworks-serverless-rate-limits--adaptive-capacity-and-retry-semantics.md)
+
+### web--fireworks-serverless-serving-paths
+
+- [web--fireworks-serverless-serving-paths--selectors-and-capacity-tradeoffs](web--fireworks-serverless-serving-paths--selectors-and-capacity-tradeoffs.md)
+
+### web--fireworks-structured-outputs
+
+- [web--fireworks-structured-outputs--response-format-request-and-response-constraints](web--fireworks-structured-outputs--response-format-request-and-response-constraints.md)
+- [web--fireworks-structured-outputs--schema-references-reasoning-and-grammar-mode](web--fireworks-structured-outputs--schema-references-reasoning-and-grammar-mode.md)
 
 ### web--fireworks-text-models
 
 - [web--fireworks-text-models--api-models-and-deployments](web--fireworks-text-models--api-models-and-deployments.md)
 - [web--fireworks-text-models--configuration-and-inference-errors](web--fireworks-text-models--configuration-and-inference-errors.md)
 - [web--fireworks-text-models--streaming-observability-and-advanced-capabilities](web--fireworks-text-models--streaming-observability-and-advanced-capabilities.md)
+
+### web--fireworks-tool-calling
+
+- [web--fireworks-tool-calling--definition-call-response-and-result-turn](web--fireworks-tool-calling--definition-call-response-and-result-turn.md)
+- [web--fireworks-tool-calling--selection-streaming-and-schema-validation](web--fireworks-tool-calling--selection-streaming-and-schema-validation.md)
 
 ### web--fireworks-zero-data-retention
 
