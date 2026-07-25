@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T04:40:06Z_
+_As of 2026-07-25T04:40:47Z_
 
 ## Latest
 
@@ -2146,8 +2146,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $569.31 _(notional, rate-card)_ | no quota set |
-| Codex | 589.5M _(+400.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 46.3M | $569.75 _(notional, rate-card)_ | no quota set |
+| Codex | 589.5M _(+400.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -2155,7 +2155,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
-### doin (15)
+### doin (16)
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2167,6 +2167,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725.md) — cascade: rebase PR #541 onto its moved predecessor and drive its CI green
+- [`endojs-endo-but-for-bots-pr852-review-a9f2d553`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-review-a9f2d553.md) — Review directive on endojs/endo-but-for-bots PR #852
 - [`finbot-pr4-panel-fixer-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-fixer-20260725.md) — ---
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -2302,6 +2303,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr831-14cde530-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-14cde530-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr831-cfde756b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-cfde756b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr853-review-37004cbc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr853-review-37004cbc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #853 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr852-review-a9f2d553-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-a9f2d553-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
