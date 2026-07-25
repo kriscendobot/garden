@@ -12,6 +12,7 @@ Shepherd endojs/endo-but-for-bots PR #852 in response to the maintainer directiv
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
