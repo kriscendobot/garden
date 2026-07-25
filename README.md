@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T23:40:53Z_
+_As of 2026-07-25T23:42:19Z_
 
 ## Latest
 
@@ -2386,16 +2386,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.2M | $375.53 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+474.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 18.2M | $375.70 _(notional, rate-card)_ | no quota set |
+| Codex | 19.8M _(+473.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
-- [`endo-byte-array-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260725-230503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-npm-cas-registry-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260725-230503.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260725-230503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
@@ -2406,13 +2405,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3497)
+### tada (3498)
+- [`endo-byte-array-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260725-230503.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`ocapn-noise-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260725-230503.md) — All gating state verified unchanged. This dispatch is a verify-and-stand-down...
 - [`endo-vfs-parity-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260725-230503.md) — All checks are clean — this is a verify-and-stand-down tick per the job spec....
 - [`fu-proposal-compartments-v8-validation-20260725-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-proposal-compartments-v8-validation-20260725-1.md) — Fixed all 14 affected Compartments fixture imports and pushed 63b7e7c300 to k...
 - [`finbot-progress-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260725-230503.md) — Assessed and advanced PR #4 verification without duplicating its poisoned pan...
-- [`endo-git-integration-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260725-230503.md) — Completion report: endo-git-integration-press-20260725-230503
-- … and 3492 more
+- … and 3493 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
