@@ -4,6 +4,7 @@ Kimi K3 compatibility canary attempt 4. In the isolated per-job worktree only, u
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
