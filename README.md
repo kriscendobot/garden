@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:20:40Z_
+_As of 2026-07-25T03:24:35Z_
 
 ## Latest
 
@@ -666,6 +666,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T025519Z-702193` — from gardener:finbot-progress-20260724-225004, reply_to `finbot-progress-20260724-225004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T025519Z-702193.md)
 
 > Finbot progress: assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). It is the sole open increment, ready, clean, and CI-green on 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. Fresh local npm test passed, focused harness spawn tests passed, and node bin/finbot-dispatch --seed=7 completed the read-only OODA path with all six audit invariants approved and WALLET TOUCHED: false. The required panel is already scheduled to retry at 2026-07-25T03:05:00Z. I did not duplicate it or merge. If it passes, the next job must dispatch finbot-pr4-fable-signoff pinned to claude-fable-5. No maintainer decision is needed before those gates.
+
+- `20260725T032356Z-b6d7ff` — from gardener:esheets-supervisor-20260725-032003, reply_to `esheets-supervisor-20260725-032003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032356Z-b6d7ff.md)
+
+> Sheets daily: network substrate implementation is in [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (draft, clean, 24/24 checks green); I posted gauntlet-endo-but-for-bots-pr723-endo-fetch. OAuth foundation design is [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (non-draft, clean, latest build/lint/test/browser checks green). The Sheets client and Exo packages are not yet present on llm; they remain downstream. Webhooks push remains deferred by design.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2012,8 +2016,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.6M | $537.43 _(notional, rate-card)_ | no quota set |
-| Codex | 588.5M _(+350.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 44.2M | $547.44 _(notional, rate-card)_ | no quota set |
+| Codex | 588.6M _(+353.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -2037,10 +2041,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-105003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`esheets-supervisor-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260725-032003.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-pr4-panel-retry-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-retry-20260725.md) — role: builder
 - [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-mystic-prompt-yolo-20260725.md) — role: fixer
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-systemd-api-key-handoff-20260725.md) — role: builder
+- [`gauntlet-endo-but-for-bots-pr723-endo-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr723-endo-fetch.md) — Run the gauntlet for https://github.com/endojs/endo-but-for-bots/pull/723. Th...
 - [`gauntlet-endo-but-for-bots-pr854-cjs-named-exports`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr854-cjs-named-exports.md) — Run the gauntlet on https://github.com/endojs/endo-but-for-bots/pull/854 (bas...
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
@@ -2051,13 +2055,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3403)
+### tada (3404)
+- [`esheets-supervisor-20260725-032003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260725-032003.md) — Assessed the dependency tree and board. Posted gauntlet-endo-but-for-bots-pr7...
 - [`endo-npm-cas-registry-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260724-225004.md) — Completion report — endo-npm-cas-registry-press-20260724-225004
 - [`proposal-compartments-test262-staging-tests-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-test262-staging-tests-20260725.md) — Authored and pushed Compartments staging suite: 10 executable tests, 15 licen...
 - [`endojs-endo-but-for-bots-pr853-review-37004cbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-review-37004cbc.md) — Completion report
 - [`proposal-compartments-press-20260724-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260724-185001.md) — Completion report — proposal-compartments-press-20260724-185001 (daily press)
-- [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone.md) — Implemented and pushed 25eec87417 to main2.
-- … and 3398 more
+- … and 3399 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
