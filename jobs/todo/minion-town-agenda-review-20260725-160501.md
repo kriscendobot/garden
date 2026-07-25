@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-07-25T16:05:01Z
-job_basename_prefix: minion-town-agenda-review
----
 role: gardener
 ---
 # Minion Town daily agenda review
