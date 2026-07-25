@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T09:45:34Z_
+_As of 2026-07-25T09:47:03Z_
 
 ## Latest
 
@@ -2166,14 +2166,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.1M | $354.60 _(notional, rate-card)_ | no quota set |
-| Codex | 18.6M _(+428.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 16.1M | $355.59 _(notional, rate-card)_ | no quota set |
+| Codex | 18.6M _(+428.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (25)
+### doin (24)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`daily-progress-summary-20260725-070506`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260725-070506.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5077246643.md) — Dead-lettered message — pick up its intent
@@ -2196,17 +2196,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
-- [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`tune-fable-k3-model-assignments-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/tune-fable-k3-model-assignments-20260725.md) — model: claude-opus-4-8
 
-### tada (3443)
+### tada (3444)
+- [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260724-165003.md) — The escalation message (20260725T032633Z-ca6252.md) is still sitting **unread...
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260724-165003.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260724-165003.md) — All state verified. This tick is a verify-and-stand-down: everything is green...
 - [`endo-sturdyref-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260724-165003.md) — SturdyRef press tick 2026-07-25T09:33Z — **observation tick; cascade mid-flig...
 - [`endo-git-integration-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260724-165003.md) — All quiet and unchanged. Everything the job spec describes is still exactly t...
-- [`endojs-endo-but-for-bots-pr852-review-c981d05c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-review-c981d05c.md) — All work complete. Final report:
-- … and 3438 more
+- … and 3439 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
