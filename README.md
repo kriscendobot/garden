@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T23:22:57Z_
+_As of 2026-07-25T23:23:59Z_
 
 ## Latest
 
@@ -2374,18 +2374,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.1M | $369.36 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+475.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 18.1M | $370.02 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+475.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
+### todo (2)
 - [`endo-byte-array-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260725-230503.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-sturdyref-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260725-230503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 
-### doin (13)
+### doin (11)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`endo-npm-cas-registry-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260725-230503.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-sturdyref-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260725-230503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`endo-vfs-parity-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260725-230503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — ---
@@ -2396,13 +2395,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260725-230503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3495)
+### tada (3496)
+- [`endo-vfs-parity-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260725-230503.md) — All checks are clean — this is a verify-and-stand-down tick per the job spec....
 - [`fu-proposal-compartments-v8-validation-20260725-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-proposal-compartments-v8-validation-20260725-1.md) — Fixed all 14 affected Compartments fixture imports and pushed 63b7e7c300 to k...
 - [`finbot-progress-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260725-230503.md) — Assessed and advanced PR #4 verification without duplicating its poisoned pan...
 - [`endo-git-integration-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260725-230503.md) — Completion report: endo-git-integration-press-20260725-230503
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — PR #852 was closed after its head passed all 23 CI checks. Its work was folde...
-- [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr849-dependabot.md) — REJECT — closed endojs/endo-but-for-bots#849.
-- … and 3490 more
+- … and 3491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
