@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T19:36:02Z_
+_As of 2026-07-25T19:44:48Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 2h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1h)
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 18h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 19h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3d)
@@ -2330,14 +2330,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.4M | $345.10 _(notional, rate-card)_ | no quota set |
-| Codex | 19.3M _(+461.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 17.2M | $353.78 _(notional, rate-card)_ | no quota set |
+| Codex | 19.3M _(+462.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (15)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
@@ -2350,18 +2350,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-170501.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-proposal-compartments-v8-validation-20260725-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-proposal-compartments-v8-validation-20260725-1.md) — In kriscendobot/test262 on branch proposal-compartments, fix the fixture-path...
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
-- [`kriscendobot-endo-but-for-bots-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr2-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #2
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3484)
+### tada (3485)
+- [`kriscendobot-endo-but-for-bots-pr2-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr2-shepherd.md) — CI is green on head 1217949dd4e1d67de6d22fd9d56f9163542c1774.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — Completion report — gauntlet for endojs/endo-but-for-bots#858 (feat(stream): ...
 - [`proposal-compartments-xs-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-xs-validation-20260725.md) — Validated XS against the charter pins. xst built successfully at XS 13.3.0; t...
 - [`proposal-compartments-v8-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-v8-validation-20260725.md) — What I did
 - [`proposal-compartments-jsc-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-jsc-validation-20260725.md) — Completion report
-- [`proposal-compartments-press-20260725-185017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260725-185017.md) — Completed daily press assessment and advanced the next increment.
-- … and 3479 more
+- … and 3480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
