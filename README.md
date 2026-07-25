@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T21:24:07Z_
+_As of 2026-07-25T21:24:58Z_
 
 ## Latest
 
@@ -930,6 +930,22 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > No production code changed. GitHub dismissed the approval on that push (reviewDecision now empty), so the current head carries no maintainer approval. Per the conductor approval gate I did not merge.
 >
 > To land: a fresh approval on head ca0b6c0 (then re-post the merge job, or I can be re-run). [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856)
+
+- `20260725T212441Z-e28be4` — from gardener:finbot-progress-20260725-170501, reply_to `finbot-progress-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T212441Z-e28be4.md)
+
+> finbot cycle (progress-20260725-170501) — PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) advanced, green; merge chain needs a decision.
+>
+> WHAT ADVANCED
+> - Increment landed on PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) (branch feat/harness-compartment-role-program), head now f5d1f91, CI green, still DRAFT (not merged).
+> - Fix: the SES compartment attenuator is now the SOLE source of a role program's ambient globals. `runCompartmentLlm` was re-deriving globals from CAPABILITY_MAP, so a caller-supplied `params.attenuator` narrowed only the tool slice, not ambient authority — the declared narrowing point was not the only one. spawn() now threads the attenuated globals into the compartment. Added a regression test proving a narrowing attenuator's globals are honored (fails against the pre-fix path). Recorded a design note in designs/cap-attenuation.md. This is exactly the "boundary overstates what it enforces" class the merge-governance panel exists to catch — found by running the locksmith seat manually.
+>
+> TWO THINGS THAT NEED YOUR DECISION (chain is blocked on these, not on more building):
+>
+> 1) The panel gate is structurally stuck. The prior panel-rerun job `finbot-pr4-panel-rerun-20260725` is POISONED (requeue-exhausted, 5 cycles) and references the stale old head. Root cause of the recurring "empty seat output": the 28-seat panel.sh either can't complete inside one job's deadline or the seats produce empty verdicts. I confirmed a seat DOES produce a substantive verdict when its `claude -p` runs from the PR worktree cwd (I ran locksmith by hand and got a real review). I did NOT post another identical panel job — it would re-poison. Options: (a) I supervise a full panel long-run next cycle from the worktree; (b) a fail-closed panel.sh fix (empty seat = FAIL, and run seats with the worktree as cwd) as a garden main2 job; (c) an explicitly-authorized reduced seat set for small harness diffs. Which do you want?
+>
+> 2) Design decision needed to actually PASS a panel. The same locksmith review flagged two still-open items I deliberately deferred (documented as follow-ups): the vended `fetch` is unbounded to any origin where the capability map specifies a PINNED fetch, and the `bounded` ambient token is currently identical to `full`. Fixing these needs a design call: which origin(s) does `oracle-watcher` pin fetch to, and what is `bounded`'s concrete surface (steward)? Until decided, a thorough panel would likely request-changes on these.
+>
+> NEXT UNBLOCKED STEP: pending your answer to (1)/(2). PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) is "awaiting panel + Fable sign-off" — correct governed state, not self-merged. No competing PR opened.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
