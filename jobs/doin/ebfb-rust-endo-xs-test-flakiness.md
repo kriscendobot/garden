@@ -15,3 +15,10 @@ fix so the suite is reliably green in parallel. Real evidence bar: N consecutive
 clean full-suite runs before/after comparison. Open a DRAFT PR against llm.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-25T21:13:25Z
