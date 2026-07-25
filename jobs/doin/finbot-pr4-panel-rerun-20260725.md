@@ -4,6 +4,7 @@ Re-run the required full code panel for https://github.com/kriscendobot/finbot/p
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
