@@ -1470,3 +1470,12 @@ Inspect via `git -C journal cat-file -p e294e064a0d823c22827a6af713c28831663ec7a
 - Context: gardener-18 on endolin-garden2-5bcdff64: job 'scholar-ingest-osdi26-sharma-sandboxing' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 73ca4495daa1f910e78af415e4aa3fb85bf7dcf8`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T02:53:19Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b6b4f7146d7098d9f5598b4af135daf5fb4168f1
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'endo-git-integration-press-20260724-225004' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b6b4f7146d7098d9f5598b4af135daf5fb4168f1`.
