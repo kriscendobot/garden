@@ -44,7 +44,7 @@ if [ "$has_prompt" -eq 1 ] && { [ "$has_auto" -eq 1 ] || [ "$has_yolo" -eq 1 ]; 
   echo 'fake Kimi rejects --prompt combined with --auto or --yolo' >&2
   exit 64
 fi
-[ "$KIMI_MODEL_NAME" = k3 ]
+[ "$KIMI_MODEL_NAME" = kimi-k3 ]
 [ "$KIMI_MODEL_PROVIDER_TYPE" = kimi ]
 [ "$KIMI_MODEL_BASE_URL" = https://api.moonshot.ai/v1 ]
 [ "$KIMI_CODE_AGENT_SWARM_MAX_CONCURRENCY" = 1 ]
@@ -94,7 +94,11 @@ rm -f "$TR/sentinel"
 run_handler 0
 home="$TR/state/mystics/kimi/resume-case"
 [ "$(cat "$TR/run.home")" = "$home" ] && ok "KIMI_CODE_HOME is private to this base" || bad "unexpected KIMI_CODE_HOME"
-grep -qx -- '--model' "$TR/run.args" && grep -qx k3 "$TR/run.args" && ok "headless invocation maps garden kimi-k3 to documented Kimi Code k3" || bad "model invocation not explicit"
+if grep -Eqx -- '--model|k3|kimi-k3' "$TR/run.args"; then
+  bad "headless invocation overrides the temporary KIMI_MODEL_NAME selection"
+else
+  ok "headless invocation preserves temporary kimi-k3 model selection without --model"
+fi
 grep -qx -- '--prompt' "$TR/run.args" && grep -qx -- '--output-format' "$TR/run.args" && ok "uses official prompt headless path" || bad "not a prompt headless invocation"
 if grep -Eqx -- '--(auto|yolo)' "$TR/run.args"; then
   bad "prompt invocation included an incompatible auto/yolo flag"
@@ -112,6 +116,11 @@ fi
 hr; echo "SENTINEL AND RESUME: second attempt continues and then cleans up"; hr
 run_handler 1
 grep -qx -- '--continue' "$TR/run.args" && ok "requeue resumes Kimi session state" || bad "resume flag missing"
+if grep -Eqx -- '--model|k3|kimi-k3' "$TR/run.args"; then
+  bad "resume invocation overrides the temporary KIMI_MODEL_NAME selection"
+else
+  ok "resume preserves temporary kimi-k3 model selection without --model"
+fi
 [ -e "$TR/sentinel" ] && ok "completion marker gates sentinel" || bad "completion sentinel missing"
 if grep -q '<<<GARDEN-JOB-COMPLETE>>>' "$TR/report"; then
   bad "machine marker leaked into human report"

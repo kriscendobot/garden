@@ -53,13 +53,14 @@ fi
 
 : > "$report"
 diagnostic="$(mktemp "${TMPDIR:-/tmp}/garden-kimi-diagnostic-$base.XXXXXX")"
-# `kimi-k3` is the garden's explicit routing/reputation id. Kimi Code's
-# documented wire model id is `k3`, so do not send the garden-private spelling to
-# Moonshot. The temporary KIMI_MODEL_* provider created below is named `k3` too.
-kimi_args=(--model k3 --prompt "$prompt" --output-format text)
+# `kimi-k3` is both the garden's explicit routing/reputation id and Moonshot's
+# documented wire model id. KIMI_MODEL_* synthesizes Kimi Code's temporary model
+# in memory. Do not add --model: it overrides that temporary selection and makes
+# Kimi Code look for a persisted config.toml alias instead.
+kimi_args=(--prompt "$prompt" --output-format text)
 $resuming && kimi_args=(--continue "${kimi_args[@]}")
 set +e
-( cd "$worktree" && kimi_model_environment "$kimi_home" k3 kimi "${kimi_args[@]}" ) > "$report" 2> "$diagnostic"
+( cd "$worktree" && kimi_model_environment "$kimi_home" kimi-k3 kimi "${kimi_args[@]}" ) > "$report" 2> "$diagnostic"
 rc=$?
 set -e
 

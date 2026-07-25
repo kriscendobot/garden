@@ -25,8 +25,8 @@ kimi_provider_preflight() { # <base>
 # Execute a command with the official Kimi Code CLI's temporary-model variables.
 # Keep this as a function rather than writing config.toml: a credential can never
 # escape the per-process environment into a persisted config file or another job's
-# KIMI_CODE_HOME. `kimi-k3` is the garden's routing id; `k3` is Kimi Code's
-# documented model id. The K3 context size is the current public K3 window.
+# KIMI_CODE_HOME. `kimi-k3` is both the garden routing id and Moonshot's documented
+# wire model id. The K3 context size is the current public K3 window.
 kimi_model_environment() {
   local kimi_home="${1:?kimi home}" model="${2:?model}"; shift 2
   KIMI_CODE_HOME="$kimi_home" \
