@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: cleric
+claimed_at: 2026-07-25T03:07:11Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-proposal-compartments-test262-staging-tests-20260725

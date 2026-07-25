@@ -81,3 +81,10 @@ dispositions those as dropped.
 Descriptions, `info` prose, staging README, and commit messages follow the
 `ai-writing-tells-and-avoidance` guidance (`scholar-research-ai-writing-tells`) and the
 `em-dash-style` skill.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  claimed_at: 2026-07-25T03:07:11Z
