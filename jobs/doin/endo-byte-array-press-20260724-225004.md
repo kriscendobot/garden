@@ -26,3 +26,10 @@ stalled. No bar is "green" without real-execution evidence — cite the command 
 its output.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-25T11:13:11Z
