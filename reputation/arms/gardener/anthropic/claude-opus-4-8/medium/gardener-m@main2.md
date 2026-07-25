@@ -1,12 +1,12 @@
-kind: cleric
-provider: openai
-model: gpt-5.6-terra
+kind: gardener
+provider: anthropic
+model: claude-opus-4-8
 thoughtfulness: medium
-work_class: other:m
+work_class: gardener:m
 target: main2
 attempts: 0
 accepts: 0
-censored: 190
+censored: 1
 mean_dollars: 0.000000
 m2: 0.000000
 acceptance_rate: 0.0000
