@@ -39,9 +39,4 @@ Endor does absolutely include the JS engine in the TCB. However, C-XS and Rust-X
 
 ----- END ORIGINAL MESSAGE -----
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 11
-  worker_kind: gardener
-  claimed_at: 2026-07-25T06:10:07Z
+<!-- garden-reaped: 1 -->
