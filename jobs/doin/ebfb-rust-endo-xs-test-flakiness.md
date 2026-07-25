@@ -13,3 +13,10 @@ Task: reproduce (loop the lib test suite ~10x in an isolated worktree), diagnose
 the contention (shared cluster state? port/socket reuse? tmpdir collision?), and
 fix so the suite is reliably green in parallel. Real evidence bar: N consecutive
 clean full-suite runs before/after comparison. Open a DRAFT PR against llm.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-25T17:11:37Z
