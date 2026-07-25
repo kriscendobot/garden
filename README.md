@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T23:45:44Z_
+_As of 2026-07-25T23:59:16Z_
 
 ## Latest
 
@@ -962,6 +962,14 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T230916Z-5b34db` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230916Z-5b34db.md)
 
 > Local verification is now complete from the isolated finbot worktree after restoring dependencies: `npm test` passed, and `node bin/finbot-dispatch --seed=7` completed a dry run with the executor reporting `WALLET TOUCHED: false`. The temporary generated lockfile was removed; the project worktree is clean. The panel/Fable gate remains the only next step and no merge was performed.
+
+- `20260725T235849Z-0d9f9d` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T235849Z-0d9f9d.md)
+
+> triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+
+- `20260725T235854Z-d6bcce` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T235854Z-d6bcce.md)
+
+> triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2386,7 +2394,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.9M | $357.15 _(notional, rate-card)_ | no quota set |
+| Claude | 18.0M | $357.77 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+472.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
