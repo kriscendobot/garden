@@ -1218,3 +1218,12 @@ Inspect via `git -C journal cat-file -p b1056f4aa5019ccf6f0f39692e182e0f778712bb
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr719-313d4bc7' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 84ce169b96a34eff107e1f173f9802c757c8af7c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T16:17:16Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 800a37c31156106c920f67c83aeb7db2d2605e3b
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr719-ade4a938' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 800a37c31156106c920f67c83aeb7db2d2605e3b`.
