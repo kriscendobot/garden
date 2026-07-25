@@ -1101,3 +1101,12 @@ Inspect via `git -C journal cat-file -p 1abf435a5b681710933f81d14957f90c7cddb496
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'downgrade-mechanical-model-tiers' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p d75ec5810e520373411a5818dd0393d7d67662a2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T10:43:35Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b082d8fbd69890c83e0a07827a9bf5c809a3d0d3
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'build-endo-but-for-bots-cap-std-watch-gauntlet' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b082d8fbd69890c83e0a07827a9bf5c809a3d0d3`.
