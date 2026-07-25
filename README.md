@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T16:05:32Z_
+_As of 2026-07-25T16:07:37Z_
 
 ## Latest
 
@@ -2187,14 +2187,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.4M | $354.90 _(notional, rate-card)_ | no quota set |
+| Claude | 16.4M | $354.06 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+454.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
@@ -2208,15 +2208,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260725.md) — role: builder
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
-- [`minion-town-agenda-review-20260725-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260725-160501.md) — Minion Town daily agenda review
 
-### tada (3467)
+### tada (3468)
+- [`minion-town-agenda-review-20260725-160501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260725-160501.md) — Reviewed and reported on [garden issue #58](https://github.com/kriskowal/gard...
 - [`improve-local-provider-model-presence-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-local-provider-model-presence-preflight.md) — Implemented and pushed a6899eda05 to main2.
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260725-e.md) — • I'll do the canary task: create the marker file, read it back, remove it.
 - [`endojs-endo-but-for-bots-pr855-df7988e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr855-df7988e4.md) — Work complete. Summary report follows.
 - [`endojs-endo-but-for-bots-pr486-4fd03559`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-4fd03559.md) — No-op: re-fetched the trusted comment and confirmed it says PR #486 was repla...
-- [`endojs-endo-but-for-bots-pr852-57d49137`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-57d49137.md) — What the directive said
-- … and 3462 more
+- … and 3463 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
