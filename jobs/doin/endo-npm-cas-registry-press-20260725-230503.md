@@ -44,6 +44,7 @@ Selection** for version resolution. The CAS is the cache of the registry.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
