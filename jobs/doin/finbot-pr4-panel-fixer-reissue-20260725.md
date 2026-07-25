@@ -13,3 +13,10 @@ The resumed code-panel evidence contains 16 completed seat blocks and multiple r
 - Align whitespace-only llmProgram validation between schema and runner, and avoid duplicated input global plus function-argument delivery unless both channels are justified.
 
 Do not merge. Report the commit SHA and real test evidence.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 15
+  worker_kind: cleric
+  claimed_at: 2026-07-25T04:35:18Z
