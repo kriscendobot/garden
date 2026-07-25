@@ -1704,3 +1704,12 @@ Inspect via `git -C journal cat-file -p 1b9948b9d9afa30b1dda96577bf94bcccdc290da
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'merge-endo-but-for-bots-pr856-ambiguous-entry-esm' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e25209ecd260fc539fdab52519ae73eea87cbbe6`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T18:13:51Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 30eaf1b845029a4aa5c2f1924ca92a82b3d2a970
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr849-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 30eaf1b845029a4aa5c2f1924ca92a82b3d2a970`.
