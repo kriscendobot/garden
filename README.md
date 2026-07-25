@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T18:54:07Z_
+_As of 2026-07-25T18:54:50Z_
 
 ## Latest
 
@@ -2285,13 +2285,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 16.4M | $349.01 _(notional, rate-card)_ | no quota set |
-| Codex | 19.2M _(+458.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Codex | 19.3M _(+458.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (18)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-rust-endo-xs-test-flakiness.md) — Investigate intermittent parallel XS-execution test failures in rust/endo (en...
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
@@ -2308,17 +2308,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`merge-endo-but-for-bots-pr856-ambiguous-entry-esm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr856-ambiguous-entry-esm.md) — Merge endojs/endo-but-for-bots PR #856 (ambiguous .js entry ESM detection)
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 - [`proposal-compartments-jsc-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-jsc-validation-20260725.md) — ---
-- [`proposal-compartments-press-20260725-185017`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260725-185017.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`proposal-compartments-v8-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-v8-validation-20260725.md) — ---
 - [`proposal-compartments-xs-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-xs-validation-20260725.md) — ---
 
-### tada (3479)
+### tada (3480)
+- [`proposal-compartments-press-20260725-185017`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260725-185017.md) — Completed daily press assessment and advanced the next increment.
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/downgrade-mechanical-model-tiers.md) — Updated and pushed b4b65d78f4 to origin/main2. Mechanical roles now resolve a...
 - [`endo-sturdyref-ci-green-737-704-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-ci-green-737-704-20260725.md) — orchestration endo-sturdyref-ci-green-737-704-20260725 — HALTED
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-review-6cfb0803.md) — Resolved PR #856 review feedback in ca0b6c0234 and pushed it.
 - [`endo-byte-array-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260725-170501.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`endo-vfs-parity-press-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260725-170501.md) — **Verify-and-stand-down tick — all seven press PRs remain green and mergeable...
-- … and 3474 more
+- … and 3475 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
