@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T03:10:27Z_
+_As of 2026-07-25T03:11:28Z_
 
 ## Latest
 
@@ -2012,14 +2012,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $537.82 _(notional, rate-card)_ | no quota set |
-| Codex | 588.4M _(+346.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 43.4M | $538.17 _(notional, rate-card)_ | no quota set |
+| Codex | 588.4M _(+346.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (30)
+### doin (29)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2037,7 +2037,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-105003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr853-review-37004cbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr853-review-37004cbc.md) — Review directive on endojs/endo-but-for-bots PR #853
 - [`finbot-pr4-panel-retry-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-retry-20260725.md) — role: builder
 - [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-mystic-prompt-yolo-20260725.md) — role: fixer
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-systemd-api-key-handoff-20260725.md) — role: builder
@@ -2051,13 +2050,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3400)
+### tada (3401)
+- [`endojs-endo-but-for-bots-pr853-review-37004cbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr853-review-37004cbc.md) — Completion report
 - [`proposal-compartments-press-20260724-185001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260724-185001.md) — Completion report — proposal-compartments-press-20260724-185001 (daily press)
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone.md) — Implemented and pushed 25eec87417 to main2.
 - [`finbot-progress-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-225004.md) — Assessed PR #4: sole open increment, READY, CLEAN, and CI-green.
 - [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-fireworks-ai-harness-followup.md) — Ingested six verified Fireworks docs with SHA-256 anchors and eight library s...
-- [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-65.md) — Dispatched scholar-ingest-osdi26-sharma-sandboxing with the issue note preser...
-- … and 3395 more
+- … and 3396 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
