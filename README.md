@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T02:48:40Z_
+_As of 2026-07-25T02:55:48Z_
 
 ## Latest
 
@@ -662,6 +662,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T024820Z-2a0265` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T024820Z-2a0265.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+
+- `20260725T025519Z-702193` — from gardener:finbot-progress-20260724-225004, reply_to `finbot-progress-20260724-225004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T025519Z-702193.md)
+
+> Finbot progress: assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). It is the sole open increment, ready, clean, and CI-green on 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. Fresh local npm test passed, focused harness spawn tests passed, and node bin/finbot-dispatch --seed=7 completed the read-only OODA path with all six audit invariants approved and WALLET TOUCHED: false. The required panel is already scheduled to retry at 2026-07-25T03:05:00Z. I did not duplicate it or merge. If it passes, the next job must dispatch finbot-pr4-fable-signoff pinned to claude-fable-5. No maintainer decision is needed before those gates.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2008,14 +2012,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.1M | $530.82 _(notional, rate-card)_ | no quota set |
-| Codex | 588.2M _(+345.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 43.1M | $530.43 _(notional, rate-card)_ | no quota set |
+| Codex | 588.2M _(+344.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (29)
+### doin (28)
 - [`deadmail-issue-comment-5073593277`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5073593277.md) — Dead-lettered message — pick up its intent
 - [`design-endor-packaging`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endor-packaging.md) — role: designer
 - [`endo-byte-array-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-105003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2033,7 +2037,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-105003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-105003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`finbot-progress-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260724-225004.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-mystic-prompt-yolo-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-mystic-prompt-yolo-20260725.md) — role: fixer
 - [`fix-systemd-api-key-handoff-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-systemd-api-key-handoff-20260725.md) — role: builder
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
@@ -2046,13 +2049,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingest and analyze the paper at https://www.usenix.org/system/files/osdi26-sh...
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-claude-5-context-engineering.md) — <!-- garden-reaped: 1 -->
 
-### tada (3397)
+### tada (3398)
+- [`finbot-progress-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260724-225004.md) — Assessed PR #4: sole open increment, READY, CLEAN, and CI-green.
 - [`scholar-ingest-fireworks-ai-harness-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-fireworks-ai-harness-followup.md) — Ingested six verified Fireworks docs with SHA-256 anchors and eight library s...
 - [`issue-kriskowal-garden-65`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-65.md) — Dispatched scholar-ingest-osdi26-sharma-sandboxing with the issue note preser...
 - [`deadmail-issue-comment-5073666635`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5073666635.md) — Created https://github.com/kriskowal/garden/pull/66 from design/continuous-ev...
 - [`kimi-k3-canary-20260725-f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260725-f.md) — • Verifying the prior state (file removed, tree clean) before closing out.
-- [`fix-mystic-completion-marker-rendering-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-mystic-completion-marker-rendering-20260725.md) — Implemented and pushed 85c51a3ef6 to main2.
-- … and 3392 more
+- … and 3393 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
