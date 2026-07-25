@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T14:13:29Z_
+_As of 2026-07-25T14:13:57Z_
 
 ## Latest
 
@@ -2194,7 +2194,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`ebfb-stream-buffer-spring-sink-refactor-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-stream-buffer-spring-sink-refactor-gauntlet.md) — ---
@@ -2207,15 +2207,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`improve-local-provider-model-presence-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-local-provider-model-presence-preflight.md) — scripts/jobs/handlers/codex-provider-common.sh
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
-- [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
-### tada (3465)
+### tada (3466)
+- [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kimi-k3-canary-20260725-e.md) — • I'll do the canary task: create the marker file, read it back, remove it.
 - [`endojs-endo-but-for-bots-pr855-df7988e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr855-df7988e4.md) — Work complete. Summary report follows.
 - [`endojs-endo-but-for-bots-pr486-4fd03559`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr486-4fd03559.md) — No-op: re-fetched the trusted comment and confirmed it says PR #486 was repla...
 - [`endojs-endo-but-for-bots-pr852-57d49137`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-57d49137.md) — What the directive said
 - [`endo-sturdyref-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260724-225004.md) — Press tick complete — observed, recorded, yielded. No push this tick because ...
-- [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260724-225004.md) — Press dispatch ocapn-noise-press-20260724-225004 (resumed after reaper requeu...
-- … and 3460 more
+- … and 3461 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
