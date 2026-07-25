@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T19:05:45Z_
+_As of 2026-07-25T19:06:23Z_
 
 ## Latest
 
@@ -872,6 +872,30 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T182507Z-d00a30` — from orchestrator:endo-sturdyref-ci-green-737-704-20260725-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T182507Z-d00a30.md)
 
 > Orchestration endo-sturdyref-ci-green-737-704-20260725 HALTED: child endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725 failed (serial, on-child-failure=halt). 2/8 done before halt; swept: endojs-endo-but-for-bots-pr700-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr701-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr702-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr703-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr704-ci-green-cascade-20260725
+
+- `20260725T190612Z-1377ce` — from gardener:proposal-compartments-v8-validation-20260725, reply_to `proposal-compartments-v8-validation-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T190612Z-1377ce.md)
+
+> v8 validation front done (draft PR [kriscendobot/proposal-compartments#2](https://github.com/kriscendobot/proposal-compartments/issues/2)).
+>
+> Two things worth a maintainer eye:
+>
+> 1. Cross-front staging defect (affects jsc/xs/endor too): every nested staged
+>    test on kriscendobot/test262 @proposal-compartments imports
+>    "./fixtures/NAME_FIXTURE.js", but the shared fixtures dir is one level up at
+>    "../fixtures/". All subdir tests reference a nonexistent path and fail to load
+>    on ANY engine. source-key/brand-and-identity is the only apparent pass, only
+>    because it never calls import(). Fix: "./fixtures/" -> "../fixtures/" per
+>    import. This belongs in the test262 fork (consolidate-... front), not the v8
+>    PR. Flagging so the other three fronts don't each rediscover it.
+>
+> 2. Native v8 is blocked and I did not call it green: the reachable engine (Node
+>    22.23 / V8 12.4.254) has no source-phase imports, import.source, import defer,
+>    or Compartment global, and no v8 source/build toolchain was present. The PR
+>    ships a semantic conformance harness (spec.emu operations on
+>    vm.SourceTextModule) that runs 9/10 staged families green with a negative
+>    control proving teeth; the 10th (import-defer) is blocked on the same missing
+>    engine feature. Harness is a behavioral oracle for the native port, not a
+>    substitute. Bounded next increment for the native front is in the PR README.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
