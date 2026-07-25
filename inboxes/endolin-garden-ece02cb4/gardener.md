@@ -1047,3 +1047,12 @@ Inspect via `git -C journal cat-file -p 0e59bf1b631176d101371a73f95cb2fd053cd996
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'improve-local-provider-model-presence-preflight' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 56778a9e6086aa2227876549e064a8cd90b6c9e2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T07:13:50Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1d78584b4717c3c463c3062ed698d4709b95e289
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr852-57d49137' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1d78584b4717c3c463c3062ed698d4709b95e289`.
