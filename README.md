@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T23:08:50Z_
+_As of 2026-07-25T23:09:44Z_
 
 ## Latest
 
@@ -958,6 +958,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T230833Z-f96aeb` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230833Z-f96aeb.md)
 
 > Second correction: the finbot-worktree test attempt did run there, but it failed before assertions because its dependency cache was absent (`ERR_MODULE_NOT_FOUND` for `ses` and `@finbot/simulator`). Consequently neither `npm test` nor the dry-run command has yet been verified locally by this cycle. I am restoring only the project dependencies before rerunning them; no source change or merge has occurred.
+
+- `20260725T230916Z-5b34db` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230916Z-5b34db.md)
+
+> Local verification is now complete from the isolated finbot worktree after restoring dependencies: `npm test` passed, and `node bin/finbot-dispatch --seed=7` completed a dry run with the executor reporting `WALLET TOUCHED: false`. The temporary generated lockfile was removed; the project worktree is clean. The panel/Fable gate remains the only next step and no merge was performed.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2370,8 +2374,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.7M | $358.19 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+474.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 17.7M | $358.01 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+475.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -2379,7 +2383,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260725-230503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260725-230503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (13)
+### doin (12)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`endo-npm-cas-registry-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260725-230503.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260725-230503.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
@@ -2387,20 +2391,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — ---
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-230503.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-proposal-compartments-v8-validation-20260725-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-proposal-compartments-v8-validation-20260725-1.md) — In kriscendobot/test262 on branch proposal-compartments, fix the fixture-path...
 - [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — skills/gardener-inbox-error-reporting/report-error.sh
 - [`kriscendobot-endo-but-for-bots-pr1-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr1-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #1
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3493)
+### tada (3494)
+- [`finbot-progress-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260725-230503.md) — Assessed and advanced PR #4 verification without duplicating its poisoned pan...
 - [`endo-git-integration-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260725-230503.md) — Completion report: endo-git-integration-press-20260725-230503
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd.md) — PR #852 was closed after its head passed all 23 CI checks. Its work was folde...
 - [`endojs-endo-but-for-bots-pr849-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr849-dependabot.md) — REJECT — closed endojs/endo-but-for-bots#849.
 - [`finbot-progress-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260725-170501.md) — Cycle complete. All work is committed and pushed to the PR branch; my main2 w...
-- [`ebfb-rust-endo-xs-test-flakiness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-rust-endo-xs-test-flakiness.md) — Fixed XS parallel-test flakiness and opened draft PR #861.
-- … and 3488 more
+- … and 3489 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
