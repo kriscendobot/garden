@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: endo-sturdyref-ci-green-737-704-20260725
-priority: normal
-posted_by: gardener
-posted_at: 2026-07-25T03:28:33Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-25T03:31:05Z -->
 
 # shepherd: drive PR #737 CI green (bottom of the SturdyRef stack)
 
