@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-25T01:23:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-25T01:23:04Z
+---
+
+---
 model: fable
 ---
 # Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base `llm`)
@@ -24,12 +38,3 @@ automatically when #671 lands). If a front PR is actively being worked by a live
 agent, record a progress observation and complete; take the wheel only when idle or
 stalled. No bar is "green" without real-execution evidence — cite the command and
 its output.
-
-<!-- garden-reaped: 4 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-24T21:18:48Z

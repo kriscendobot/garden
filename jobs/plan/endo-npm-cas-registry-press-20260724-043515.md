@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-25T01:23:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-25T01:23:04Z
+---
+
+---
 model: fable
 ---
 # Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base `llm`)
@@ -41,12 +55,3 @@ Selection** for version resolution. The CAS is the cache of the registry.
 4. No bar is "green" without **real-execution evidence** — e.g. an actual `endor run`
    of a program with a real npm dependency, fetched-then-cached, with the command and
    its output cited. Reading code is not proof.
-
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 15
-  worker_kind: gardener
-  claimed_at: 2026-07-24T21:18:18Z

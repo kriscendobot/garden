@@ -24,9 +24,4 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a scholar to ingest https://www.usenix.org/system/files/osdi26-sharma.pdf and report back with findings, particular pertaining to JavaScript sandboxing that might apply to Endor. 
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 15
-  worker_kind: gardener
-  claimed_at: 2026-07-24T21:21:45Z
+<!-- garden-reaped: 1 -->

@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-25T01:23:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-25T01:23:04Z
+---
+
+---
 model: fable
 ---
 # Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throughout Endo agents, under Distributed Confinement
@@ -99,12 +113,3 @@ two tokens or read a locator.
 No bar is "verified"/"green" without real-execution evidence — cite the command and
 its observed output. When you could not run a bar, report it "not verified" and why.
 State the confinement property preserved in every report.
-
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 18
-  worker_kind: gardener
-  claimed_at: 2026-07-24T21:18:15Z
