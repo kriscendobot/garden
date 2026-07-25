@@ -15,3 +15,10 @@ not draft, approval current, CI green, MERGEABLE), rebase onto llm if behind, an
 merge per repo convention. Note: sibling drafts #857 and #859 touch adjacent
 rust/endo code; after this lands they may need a trivial rebase (design-doc
 paragraphs) — do not merge them (no approval yet).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-25T17:11:07Z
