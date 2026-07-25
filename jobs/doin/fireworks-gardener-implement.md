@@ -5,3 +5,10 @@ Ground the implementation in the completed journal research under the fireworks-
 Keep model identifiers and serving-path choices configurable rather than baking in volatile catalog assumptions. Preserve the monitoring and external-text safety boundaries. Validate all unauthenticated paths locally; if FIREWORKS_API_KEY is available after deployment, perform a minimal authenticated canary without exposing the key. Report any credential or model-selection decision that still requires the maintainer.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-25T10:23:13Z
