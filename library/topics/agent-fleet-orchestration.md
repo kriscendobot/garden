@@ -42,6 +42,7 @@
 | [agentic development and the agent flock](../sections/habitat-chronicles--adventures-in-llm-land--agentic-development-and-the-agent-flock.md) | Adventures in LLM Land (Morningstar) | Agents are multiple independent entities working on your behalf, managed like brilliant-but-naive junior developers (engineering-management-as-higher-level-programming). |
 | [division of labor between human and machine](../sections/habitat-chronicles--adventures-in-llm-land--division-of-labor-human-and-machine.md) | Adventures in LLM Land (Morningstar) | The machine makes, the human wants: "the AI can make things for you, but it can't want things for you"; a vague want yields slop. |
 | [delegation, wanting, and the CEO analogy](../sections/habitat-chronicles--adventures-in-llm-land--delegation-wanting-and-the-ceo-analogy.md) | Adventures in LLM Land (Morningstar) | Why you can't swap humans for AIs in org-chart boxes: delegation passes down judgment and taste through many layers of recursively ramified desire. |
+| [Sub-agent architectures](../sections/web--anthropic-context-engineering--sub-agent-architectures.md) | Effective context engineering (Anthropic) | Specialized sub-agents explore with clean context windows and return only a 1,000-2,000-token distilled summary; separation of concerns for complex research. |
 
 ## See also
 
