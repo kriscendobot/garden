@@ -59,3 +59,10 @@ to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-25T11:13:16Z
