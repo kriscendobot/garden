@@ -9,7 +9,9 @@
 #      `systemctl --user enable` (run later by scripts/jobs/install-units.sh)
 #      can write its default.target.wants/ links and the units survive a
 #      container restart.
-#   4. exec's "$@" (the CMD, /lib/systemd/systemd).
+#   4. Seeds the allowlisted API-key handoff in /run/environment.d for the
+#      independently PAM-started lingering user manager.
+#   5. exec's "$@" (the CMD, /lib/systemd/systemd).
 #
 # The bot user's name is baked into the image (ENV GARDEN_USER, = the host user)
 # and read here so nothing is pinned to one account.
@@ -43,6 +45,13 @@ if [ -n "${GARDEN_HOME:-}" ] && getent passwd "$GARDEN_USER" >/dev/null \
     usermod -d "$HOME_DIR" "$GARDEN_USER"
 fi
 SYSTEMD_USER_DIR="${HOME_DIR}/.config/systemd/user"
+
+# user@<uid>.service is started by PAM with a fresh environment, rather than
+# inheriting PID 1's Docker environment. Seed systemd's built-in environment-d
+# generator before PID 1 starts. The target is /run (a Docker tmpfs), never the
+# bind-mounted home or a unit file, and the helper accepts only the two explicit
+# provider keys.
+/usr/local/lib/garden/seed-api-key-handoff.sh
 
 link_if_safe() {
     local target=$1 link_path=$2

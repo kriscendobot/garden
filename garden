@@ -173,7 +173,9 @@ ensure_container() {
 
     if ! docker container inspect "$CONTAINER_NAME" &>/dev/null; then
         # Values are passed directly to Docker at creation and never logged.
-        # PID 1 receives them, so its user systemd workers inherit them.
+        # PID 1 seeds only these allowlisted values into /run/environment.d;
+        # systemd's environment-d generator then gives them to the separately
+        # PAM-started lingering user manager. The handoff is tmpfs-only.
         local api_key_args=()
         if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
             api_key_args=(-e "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}")

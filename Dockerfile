@@ -278,10 +278,12 @@ RUN mkdir -p /var/lib/systemd/linger && touch "/var/lib/systemd/linger/${USERNAM
 # their cache.
 ENV GARDEN_USER=${USERNAME}
 
-# Entrypoint links dotfiles and prepares the user-systemd dir before
-# exec'ing systemd as PID 1.
+# Entrypoint links dotfiles, seeds the tmpfs-only API-key handoff for the
+# lingering user manager, and prepares the user-systemd dir before exec'ing
+# systemd as PID 1.
 COPY entrypoint.sh /usr/local/bin/garden-entrypoint
-RUN chmod +x /usr/local/bin/garden-entrypoint
+COPY scripts/systemd/seed-api-key-handoff.sh /usr/local/lib/garden/seed-api-key-handoff.sh
+RUN chmod +x /usr/local/bin/garden-entrypoint /usr/local/lib/garden/seed-api-key-handoff.sh
 
 # systemd's clean-shutdown signal.
 STOPSIGNAL SIGRTMIN+3

@@ -11,9 +11,12 @@ a bounded canary.
 ## 1. Supply the key before container creation
 
 The launcher passes `MOONSHOT_API_KEY` only when it **creates** a container, the
-same secret-safe inheritance path used for `ANTHROPIC_API_KEY`. The value is not
-written to a unit file, repository, or log. PID 1 receives it at creation, and the
-user systemd manager and `garden-mystic@*.service` workers inherit it.
+same secret-safe handoff used for `ANTHROPIC_API_KEY`. The value is not written to
+a unit file, repository, bind-mounted home, or log. PID 1 seeds only the two
+allowlisted provider keys into `/run/environment.d` (a container tmpfs) before the
+lingering user manager starts; systemd's environment-d generator gives the key to
+that manager and `garden-mystic@*.service` workers. The manager starts through PAM
+with a fresh environment, so it does not inherit PID 1 directly.
 
 On the host, avoid shell tracing and export the real value only in the command's
 environment:
