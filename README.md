@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T06:23:04Z_
+_As of 2026-07-25T06:38:26Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 5h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 6h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
@@ -2162,15 +2162,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.7M | $351.53 _(notional, rate-card)_ | no quota set |
-| Codex | 18.5M _(+419.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
+| Claude | 15.8M | $350.78 _(notional, rate-card)_ | no quota set |
+| Codex | 18.6M _(+428.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (27)
-- [`build-endo-but-for-bots-cap-std-watch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch.md) — ---
+- [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5077246643.md) — Dead-lettered message — pick up its intent
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2198,13 +2198,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`tune-fable-k3-model-assignments-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/tune-fable-k3-model-assignments-20260725.md) — model: claude-opus-4-8
 
-### tada (3436)
+### tada (3437)
+- [`build-endo-but-for-bots-cap-std-watch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-but-for-bots-cap-std-watch.md) — Implemented capability-scoped Rust/XS directory watching and opened draft PR ...
 - [`weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr621-endoclaw-oauth-20260724.md) — Rebased PR #621 onto llm 28dffa9, resolved both design-index conflicts preser...
 - [`self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-triager-kriscendobot-ymax-stdio-mcp-stale-git-ref-lock-cursor-clone.md) — Implemented and pushed 25eec87417 to main2.
 - [`scholar-ingest-source-terralingua`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-terralingua.md) — Ingested TerraLingua as derived material, not the original paper.
 - [`scholar-ingest-source-claude-5-context-engineering`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-claude-5-context-engineering.md) — The doin→tada transition is driven by the spine when I emit the completion si...
-- [`scholar-ingest-osdi26-sharma-sandboxing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-osdi26-sharma-sandboxing.md) — Ingested Mohabi into the library (5 sections), verified integrity and indexes...
-- … and 3431 more
+- … and 3432 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
