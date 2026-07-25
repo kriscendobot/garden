@@ -1,0 +1,15 @@
+## Completion report — endo-npm-cas-registry-press-20260725-105007
+
+**Assessment.** The arc is past the design's five phases: #276 (Phase 2 fetch), #799 (Phase 4 resolver), #800 (Phase 4 assembly + XS execution), and #803 (Phase 5 offline/.npmrc) are all **merged** into `llm`. The previous tick (completed ~40 min before my claim) opened draft **#857** (peer/optionalDependencies + `||` semver union) — no live worker or review on it, so I left it alone — and named the next unblocked increment: the **`process` global gap**, where real npm packages (react, graphql) resolved, fetched, and linked but died at `get process: undefined variable` in the confined XS runtime.
+
+**Press: draft PR [#859](https://github.com/endojs/endo-but-for-bots/pull/859)** (`feat/endor-process-endowment`, base `llm`, DRAFT, one commit `a3e7b25c6`):
+- Endows every archive compartment with a **minimal frozen `process` shim** (not a Node emulation): `env` is a deterministic `Object.freeze({ NODE_ENV: 'production' })` (never the host's environment), `nextTick` rides the promise queue, `versions` has no `node` key so Node-detection takes its non-Node branch; `stdout`/`exit`/signals stay absent by design.
+- Deduplicates the two hand-copied `__archiveEndowments` blobs (supervised worker path and standalone `endor run` path in `rust/endo/xsnap/src/lib.rs`) into one shared `ARCHIVE_ENDOWMENTS_JS` const.
+- Adds a regression test mirroring react's exact `NODE_ENV`-gated CJS entry shape, plus a design-doc paragraph recording the shim.
+
+**Real-execution evidence (fresh state, live registry, no npm CLI / node_modules / lockfile):** built `endor` from the branch; `endor run entry.js` with `"graphql": "^16.8.0"` fetched graphql@16.14.2 into the CAS, built a schema, and executed a real query in XS — output `result: {"data":{"hello":"world","sum":42}}`, `NODE_ENV seen by app: production`, exit 0. Same for `"react": "^19.0.0"`: react@19.2.8 takes its production `require('./cjs/react.production.js')` branch and creates elements. Both packages failed at `get process` before this change. Warm-state `endor run --offline` replays both purely from CAS + registry table; cold `--offline` refuses with the typed offline error. `cargo test --release -p endo --lib`: 171 passed; clippy clean in touched code.
+
+**Follow-ups for the next tick:**
+- **Pre-existing test flakiness (not from this change):** at base `e2c6ff853`, 2 of 5 full `cargo test -p endo --lib` runs fail intermittently on parallel XS-execution tests (`nested_module_relative_imports_resolve_against_referrer`; on my branch a different pair once) — always passing in isolation. Likely shared-XS-cluster contention; worth its own job.
+- #857 (peer/optional deps) and #859 both await review/gauntlet; they touch disjoint code, with only a trivial adjacent-paragraph design-doc conflict for whichever lands second.
+- Standing gap: the xsnap JS bundles (`ses_boot.js` etc.) still aren't generatable in-tree (`bundle-bus-worker-xs.mjs` missing); I reused the previous tick's generated copies.
