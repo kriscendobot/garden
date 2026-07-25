@@ -1,6 +1,3 @@
-once: 2026-07-25T03:05:00Z
-job_basename_prefix: finbot-pr4-panel-retry-20260725
----
 role: builder
 
 Resume the mandatory code-panel gate for https://github.com/kriscendobot/finbot/pull/4 after the documented Claude weekly-quota reset (2026-07-25T03:00:00Z).
