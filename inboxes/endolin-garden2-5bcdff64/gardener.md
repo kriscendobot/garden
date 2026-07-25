@@ -1569,3 +1569,12 @@ Inspect via `git -C journal cat-file -p ed5da75aee06e4911a0c921afacd7398bef4fa5f
 - Context: gardener-9 on endolin-garden2-5bcdff64: job 'tune-fable-k3-model-assignments-20260725' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 96772c7dd7c237da1a77f29d7b9e787c3e2df258`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T06:10:35Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ed5da75aee06e4911a0c921afacd7398bef4fa5f
+- Context: gardener-11 on endolin-garden2-5bcdff64: job 'deadmail-issue-comment-5077246643' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ed5da75aee06e4911a0c921afacd7398bef4fa5f`.
