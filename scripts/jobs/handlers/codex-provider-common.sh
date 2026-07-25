@@ -16,6 +16,23 @@ codex_local_endpoint_ready() {
   curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null 2>&1
 }
 
+# codex_local_model_present <model> -- confirm that the OpenAI-compatible local
+# endpoint actually serves the requested model. A reachable Ollama with an empty
+# model store still returns HTTP 200 for /v1/models, so endpoint liveness alone is
+# not sufficient to dispatch a local Codex run. An unqualified request also accepts
+# Ollama's canonical `:latest` spelling: `ollama pull qwen3.6` serves both requests
+# as qwen3.6:latest.
+codex_local_model_present() {
+  local model="${1:?model}" models
+  models="$(curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models")" || return 1
+  command -v jq >/dev/null 2>&1 || return 1
+  jq -e --arg model "$model" '
+    (.data | type == "array") and
+    any(.data[]?; .id == $model or
+      (($model | contains(":") | not) and .id == ($model + ":latest")))
+  ' <<<"$models" >/dev/null
+}
+
 # codex_local_self_heal <kind> <base> — recover an unreachable local endpoint: start
 # the supervised garden-ollama.service (Restart=always covers a crash BETWEEN jobs;
 # this covers "the endpoint was already down when a hermit job started", plus a
@@ -35,7 +52,7 @@ codex_local_self_heal() {
   return 1
 }
 
-# codex_provider_preflight <provider> <kind> <base> <state-namespace> [self_heal]
+# codex_provider_preflight <provider> <kind> <base> <state-namespace> [self_heal] [model]
 #
 # A backend outage must read as a HOST defect, not a job defect. For a paid provider
 # this stays a once-per-boot auth check (a codex login probe is comparatively
@@ -54,7 +71,7 @@ codex_local_self_heal() {
 # to fall through to, so an unreachable endpoint must advance immediately, not block
 # on a 30s heal it does not need.
 codex_provider_preflight() {
-  local provider="${1:?provider}" kind="${2:?kind}" base="${3:?base}" state_ns="${4:?state namespace}" self_heal="${5:-0}"
+  local provider="${1:?provider}" kind="${2:?kind}" base="${3:?base}" state_ns="${4:?state namespace}" self_heal="${5:-0}" model="${6:-}"
   command -v codex >/dev/null 2>&1 || {
     printf 'codex not on PATH; cannot run %s handler for %q\n' "$kind" "$base" >&2
     return 1
@@ -64,9 +81,21 @@ codex_provider_preflight() {
     # PER-JOB liveness (NOT the per-boot marker): probe now; self-heal only if the
     # caller requested it (a pinned hermit tick), else fail through for the caller
     # (the foreman) to try the next provider.
-    codex_local_endpoint_ready && return 0
+    if codex_local_endpoint_ready; then
+      if codex_local_model_present "$model"; then
+        return 0
+      fi
+      printf "local endpoint reachable but model '%s' not pulled; run 'ollama pull %s' (see context/operations/local-inference-amd.md).\n" \
+        "$model" "$model" >&2
+      return 1
+    fi
     if [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base"; then
-      return 0
+      if codex_local_model_present "$model"; then
+        return 0
+      fi
+      printf "local endpoint reachable but model '%s' not pulled; run 'ollama pull %s' (see context/operations/local-inference-amd.md).\n" \
+        "$model" "$model" >&2
+      return 1
     fi
     printf 'local inference endpoint %s not reachable%s; %s cannot run %q. Ensure garden-ollama.service is running (ollama on PATH, GPU group access — context/operations/local-inference-amd.md).\n' \
       "$GARDEN_LOCAL_OLLAMA_URL" \

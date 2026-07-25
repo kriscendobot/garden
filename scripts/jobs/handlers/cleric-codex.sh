@@ -52,18 +52,6 @@ KIND="${GARDEN_WORKER_KIND:-cleric}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo openai)"
 state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || echo clerics)"
 [ "$provider" != fireworks ] || [ "$KIND" = fireworker ] || die "Fireworks provider requires the fireworker kind"
-# --- reachability + auth preflight -------------------------------------------
-#
-# A backend outage must read as a HOST defect, not a job defect: die with a clear
-# diagnostic rather than letting codex fail deep in the run and look like the job's
-# fault. For a paid provider the check is gated behind a per-boot marker (keyed on the
-# boot id + the kind's state namespace) so it runs once per host boot. For the LOCAL
-# provider (hermit) it is a PER-JOB liveness check that SELF-HEALS (5th arg = 1): a
-# down on-box Ollama endpoint is recovered by (re)starting garden-ollama.service and
-# polling for readiness before dying, so a pinned `model: qwen3.6` tick never strands
-# on a crashed/never-started endpoint — the whole point of this handler's self-heal.
-codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" 1 || exit 1
-
 # --- session resume across a reaper requeue ----------------------------------
 #
 # codex assigns its OWN session UUID (no deterministic-session-id analogue of the
@@ -158,6 +146,15 @@ if [ "$provider" = fireworks ]; then
   [[ "$model" == fireworks/* ]] && [ -n "${model#fireworks/}" ] || die "invalid Fireworks model selector '$requested_model'"
   model="${model#fireworks/}"
 fi
+
+# --- reachability + model-presence preflight ----------------------------------
+#
+# A backend outage or an unpulled local model must read as a HOST defect, not a job
+# defect. Resolve the model first so LOCAL preflight can reject an empty Ollama store
+# before Codex spends its reconnect attempts on deterministic 404s. A hermit is
+# pinned local, so its endpoint liveness check self-heals; an unpulled model remains
+# an actionable operator fix.
+codex_provider_preflight "$provider" "$KIND" "$base" "$state_ns" 1 "$model" || exit 1
 
 # codex_effort_for_model <model> <level> — normalize a unified-axis thoughtfulness
 # level DOWN to the model's nearest supported codex reasoning-effort (catalog §2):

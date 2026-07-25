@@ -38,8 +38,8 @@ if out="$(run_handler openai,local,anthropic \
 else
   bad "OpenAI failure did not advance to local"
 fi
-[ "$(tr '\n' ' ' < "$LOG1")" = "openai local-preflight local " ] \
-  && ok "attempt order is OpenAI then local, with no Claude call" \
+[ "$(tr '\n' ' ' < "$LOG1")" = "openai local-preflight local-preflight local " ] \
+  && ok "attempt order is OpenAI then local, with liveness and model probes" \
   || bad "wrong provider attempt order: $(tr '\n' ' ' < "$LOG1")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
@@ -57,6 +57,22 @@ fi
 [ "$(tr '\n' ' ' < "$LOG2")" = "local-preflight anthropic " ] \
   && ok "OpenAI auth failure skips its exec; local failure then reaches Claude" \
   || bad "wrong fallback trace: $(tr '\n' ' ' < "$LOG2")"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "EMPTY MODEL LIST — local preflight advances to Claude without Codex"; hr
+LOG_EMPTY="$TR/log-empty"
+if out="$(run_handler local,anthropic \
+  GARDEN_TEST_PROVIDER_LOG="$LOG_EMPTY" \
+  GARDEN_TEST_LOCAL_MODELS_JSON='{"object":"list","data":null}')"; then
+  [ "$out" = $'JOB anthropic-step\nanthropic fallback body\nENDJOB' ] \
+    && ok "empty local model list falls through to Claude" \
+    || bad "unexpected empty-list fallback response: '$out'"
+else
+  bad "empty local model list did not advance to Claude"
+fi
+[ "$(tr '\n' ' ' < "$LOG_EMPTY")" = "local-preflight local-preflight anthropic " ] \
+  && ok "empty model list prevents the local Codex dispatch" \
+  || bad "empty-list fallback trace: $(tr '\n' ' ' < "$LOG_EMPTY")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
 hr; echo "SUBTEST 3 — malformed semantic output never fans out"; hr

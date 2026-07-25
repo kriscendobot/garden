@@ -17,6 +17,8 @@
 #   PER-JOB     — the local branch consults NO once-per-boot auth marker: a first call
 #                 that succeeds writes no marker, so a later call with the endpoint now
 #                 DOWN re-probes (and self-heals) instead of being masked for the boot.
+#   NO-MODEL    — a reachable endpoint with an empty /v1/models list is rejected with
+#                 an actionable `ollama pull` host-defect diagnostic.
 #   HOST DERIVE — ollama_serve_host strips scheme + /v1 from GARDEN_LOCAL_OLLAMA_URL,
 #                 so the served OLLAMA_HOST and the client URL cannot drift.
 #
@@ -74,13 +76,21 @@ hr; echo "HOST DERIVE — ollama_serve_host strips scheme + /v1 path"; hr
 # ============================================================================
 hr; echo "REACHABLE — endpoint up → return 0, no self-heal"; hr
 reset_ctl; : > "$HEAL_CTL/up"
-if codex_provider_preflight local hermit job-a hermits 1 >/dev/null 2>&1; then ok "reachable endpoint → preflight 0"; else bad "reachable endpoint failed preflight"; fi
+if codex_provider_preflight local hermit job-a hermits 1 qwen3.6 >/dev/null 2>&1; then ok "reachable endpoint → preflight 0"; else bad "reachable endpoint failed preflight"; fi
 called_systemctl && bad "systemctl start issued for a reachable endpoint" || ok "no systemctl start when reachable (fast path)"
+
+# ============================================================================
+hr; echo "NO-MODEL — reachable endpoint with no pulled model → host-defect fail"; hr
+reset_ctl; : > "$HEAL_CTL/up"; : > "$HEAL_CTL/empty-models"
+err="$(codex_provider_preflight local hermit job-empty hermits 1 qwen3.6 2>&1)" && rc=0 || rc=$?
+[ "$rc" -ne 0 ] && grep -Fq "local endpoint reachable but model 'qwen3.6' not pulled; run 'ollama pull qwen3.6'" <<<"$err" \
+  && ok "empty model list fails with the pull diagnostic" \
+  || bad "empty model list did not produce the pull diagnostic: $err"
 
 # ============================================================================
 hr; echo "RECOVER — down, self_heal=1, garden-ollama start brings it up"; hr
 reset_ctl                       # no 'up' file → down initially
-if GARDEN_TEST_HEAL_SUCCEEDS=1 codex_provider_preflight local hermit job-b hermits 1 >/dev/null 2>&1; then
+if GARDEN_TEST_HEAL_SUCCEEDS=1 codex_provider_preflight local hermit job-b hermits 1 qwen3.6 >/dev/null 2>&1; then
   ok "self-heal recovered the endpoint → preflight 0"
 else
   bad "self-heal did not recover a startable endpoint"
@@ -91,7 +101,7 @@ grep -q 'start garden-ollama.service' "$HEAL_CTL/systemctl-calls" 2>/dev/null \
 # ============================================================================
 hr; echo "GIVE-UP — down, self_heal=1, start does not help → host-defect die"; hr
 reset_ctl                       # start will NOT create 'up' (GARDEN_TEST_HEAL_SUCCEEDS unset)
-err="$(codex_provider_preflight local hermit job-c hermits 1 2>&1)" && rc=0 || rc=$?
+err="$(codex_provider_preflight local hermit job-c hermits 1 qwen3.6 2>&1)" && rc=0 || rc=$?
 [ "$rc" -ne 0 ] && ok "unrecoverable endpoint → preflight non-zero (host defect)" || bad "give-up path returned 0"
 grep -q 'self-heal' <<<"$err" && grep -q 'garden-ollama.service' <<<"$err" \
   && ok "diagnostic names the failed self-heal + garden-ollama.service" || bad "diagnostic missing self-heal detail: $err"
@@ -101,7 +111,7 @@ called_systemctl && ok "systemctl start was attempted before giving up" || bad "
 hr; echo "NO-HEAL — down, self_heal=0 (foreman probe) → immediate fail, no start"; hr
 reset_ctl
 before="$(date +%s)"
-codex_provider_preflight local hermit job-d hermits 0 >/dev/null 2>&1 && rc=0 || rc=$?
+codex_provider_preflight local hermit job-d hermits 0 qwen3.6 >/dev/null 2>&1 && rc=0 || rc=$?
 after="$(date +%s)"
 [ "$rc" -ne 0 ] && ok "self_heal=0 down endpoint → immediate non-zero" || bad "self_heal=0 returned 0"
 called_systemctl && bad "self_heal=0 still started garden-ollama (should just advance)" || ok "self_heal=0 issues NO systemctl start (foreman advances providers)"
@@ -111,7 +121,7 @@ called_systemctl && bad "self_heal=0 still started garden-ollama (should just ad
 # ============================================================================
 hr; echo "PER-JOB — local branch consults NO once-per-boot auth marker"; hr
 reset_ctl; : > "$HEAL_CTL/up"
-codex_provider_preflight local hermit job-e hermits 1 >/dev/null 2>&1 || true
+codex_provider_preflight local hermit job-e hermits 1 qwen3.6 >/dev/null 2>&1 || true
 # The local branch must NOT have written an auth-ok-<boot> marker (that would mask a
 # later mid-life crash for the rest of the boot — the gap this change closes).
 if find "$GARDEN_STATE" -name 'auth-ok-*' 2>/dev/null | grep -q .; then
@@ -122,7 +132,7 @@ fi
 # Now the endpoint dies mid-boot: a fresh call must re-probe (self_heal=0, no recovery
 # so it simply reports down) rather than short-circuiting on a stale marker.
 reset_ctl                       # down again, no 'up'
-codex_provider_preflight local hermit job-f hermits 0 >/dev/null 2>&1 && rc=0 || rc=$?
+codex_provider_preflight local hermit job-f hermits 0 qwen3.6 >/dev/null 2>&1 && rc=0 || rc=$?
 [ "$rc" -ne 0 ] && [ "$(curl_call_count)" -ge 1 ] \
   && ok "a later call re-probes the endpoint (mid-life crash re-triggers, not masked)" \
   || bad "later call did not re-probe (rc=$rc probes=$(curl_call_count))"
