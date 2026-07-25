@@ -22,3 +22,10 @@ Scope of change (garden repo, main2 — pushed directly, NO PR per CLAUDE.md):
 Deliverable: model-selection skill + resolver updated and pushed to origin/main2,
 with a one-paragraph note in the job report listing which roles moved to which tier.
 This change reaches running hosts only via a subsequent garden deploy/upgrade.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-25T06:04:14Z
