@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T00:15:11Z_
+_As of 2026-07-25T00:15:44Z_
 
 ## Latest
 
@@ -358,6 +358,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T001440Z-cfa804` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-cfa804.md)
 
 > self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: 3db55bef5191a056844d952654a0de582f38bc4a (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3db55bef5191a056844d952654a0de582f38bc4a). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T001531Z-3e4ca0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001531Z-3e4ca0.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -1401,7 +1405,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 44.5M | $542.04 _(notional, rate-card)_ | no quota set |
-| Codex | 587.9M _(+341.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Codex | 587.9M _(+341.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
