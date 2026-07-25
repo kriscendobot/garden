@@ -2,3 +2,10 @@ skills/gardener-inbox-error-reporting/report-error.sh
 The transcript captured on a handler failure is unreachable to every off-host responder (the central mentor), so escalations arrive with an un-inspectable SHA. `report-error.sh` writes the diagnostic via `git hash-object -w --stdin` (a loose blob) and commits only the inbox markdown that *names* the SHA — the blob is never in a committed tree, so it is not reachable from `journal2` and `git push HEAD:journal2` does not carry it. Confirmed live this tick: transcripts `7f51e38aa4816d9ee8a936bb7452f08e694e8b18` (job `endojs-endo-but-for-bots-pr852-…-shepherd`) and `b082d8fbd69890c83e0a07827a9bf5c809a3d0d3` (job `build-endo-but-for-bots-cap-std-watch-gauntlet`) both fail `git cat-file -p` in the mentor's clone even after fetching `origin/journal2`. Fix: make the transcript reachable via the pushed ref. In step 1, after computing `TRANSCRIPT_SHA`, also write the transcript content into a tracked, content-addressed file under the inbox — e.g. `inboxes/$GARDEN/captures/<sha>` (idempotent/deduped by SHA) — and `git add` it alongside `gardener.md` in step 3 so the blob becomes reachable from the `journal2` tree and travels with the existing push. Keep the "Inspect via `git -C journal cat-file -p <sha>`" line, which then works for every responder after a plain `journal2` fetch. This also makes the best-effort `anchor_blob` in `scripts/jobs/gardener.sh` (which pushes `refs/captures/<suffix>` that ordinary fetches don't retrieve) redundant for the responder rather than the sole delivery path; consider dropping or demoting it once the committed route lands.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-25T14:53:12Z
