@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T04:54:26Z_
+_As of 2026-07-25T04:58:20Z_
 
 ## Latest
 
@@ -804,6 +804,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T044134Z-a87754` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T044134Z-a87754.md)
 
 > Resolved (standing down): the reissue peer already landed the panel fix on [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) . Head is now 63df810 ("fix(harness): validate compartment boundary"), CI test=pass, and I independently verified 58/58 harness tests pass. I did not push (avoided a double-push race). Remaining follow-up: re-run the code panel against 63df810 (the request-changes verdict was against 895ae48) before the finbot-pr4-fable-signoff orchestrator step — owned by the reissue peer or the panel-retry gardener, not this job.
+
+- `20260725T045717Z-1321b3` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T045717Z-1321b3.md)
+
+> (empty message)
+
+- `20260725T045738Z-63f947` — from gardener:finbot-progress-20260725-045004, reply_to `finbot-progress-20260725-045004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T045738Z-63f947.md)
+
+> Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): verified the fixer head with npm test, focused harness tests, and a seeded wallet-free dry run; restored draft status because the prior request-changes panel had been bypassed. CI is green. A rerun was attempted, but its first panel seat emitted an empty verdict, so there is no valid panel pass. I posted finbot-pr4-panel-rerun-20260725 to obtain a full evidenced panel; after it passes, the next gate is a claude-fable-5 orchestrator sign-off. No merge was attempted.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2150,8 +2158,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $570.71 _(notional, rate-card)_ | no quota set |
-| Codex | 589.8M _(+404.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Claude | 46.7M | $578.49 _(notional, rate-card)_ | no quota set |
+| Codex | 589.8M _(+406.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (3)
@@ -2159,7 +2167,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260725-e.md) — model: kimi-k3
 
-### doin (16)
+### doin (17)
 - [`deadmail-20260725T044129Z-881b68`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260725T044129Z-881b68.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-165003.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260724-225004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2172,6 +2180,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-165003.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260724-225004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-ci-green-cascade-20260725.md) — cascade: rebase PR #541 onto its moved predecessor and drive its CI green
+- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260725.md) — role: builder
 - [`finbot-progress-20260725-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-045004.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`ocapn-noise-press-20260724-165003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-165003.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-225004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260724-225004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
