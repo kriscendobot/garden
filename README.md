@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T06:22:41Z_
+_As of 2026-07-25T06:23:04Z_
 
 ## Latest
 
@@ -2162,14 +2162,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.7M | $351.49 _(notional, rate-card)_ | no quota set |
-| Codex | 18.5M _(+419.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
+| Claude | 15.7M | $351.53 _(notional, rate-card)_ | no quota set |
+| Codex | 18.5M _(+419.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (26)
+### doin (27)
 - [`build-endo-but-for-bots-cap-std-watch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch.md) — ---
 - [`deadmail-issue-comment-5077246643`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5077246643.md) — Dead-lettered message — pick up its intent
 - [`downgrade-mechanical-model-tiers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/downgrade-mechanical-model-tiers.md) — Downgrade all MECHANICAL gardener work to the cheapest adequate model tier.
@@ -2190,6 +2190,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr855-df7988e4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr855-df7988e4.md) — attention directive on endojs/endo-but-for-bots PR #855
 - [`endojs-endo-but-for-bots-pr856-review-6cfb0803`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-review-6cfb0803.md) — Review directive on endojs/endo-but-for-bots PR #856
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260725.md) — role: builder
+- [`fireworks-gardener-implement`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fireworks-gardener-implement.md) — Implement a first-class Fireworks.ai-backed gardener worker kind in the garde...
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-c.md) — model: kimi-k3
 - [`kimi-k3-canary-20260723-d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260723-d.md) — model: kimi-k3
 - [`kimi-k3-canary-20260725-e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kimi-k3-canary-20260725-e.md) — model: kimi-k3
