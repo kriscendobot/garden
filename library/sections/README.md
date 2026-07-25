@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6658 (530 parent indexes + 6128 children).
+Total section files: 6668 (530 parent indexes + 6138 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8939,6 +8939,19 @@ Total section files: 6658 (530 parent indexes + 6128 children).
 - [web--allen-pike-coding-agent-spend--high-cost-of-free-coding](web--allen-pike-coding-agent-spend--high-cost-of-free-coding.md)
 - [web--allen-pike-coding-agent-spend--overview](web--allen-pike-coding-agent-spend--overview.md)
 - [web--allen-pike-coding-agent-spend--this-is-too-much](web--allen-pike-coding-agent-spend--this-is-too-much.md)
+
+### web--anthropic-context-engineering
+
+- [web--anthropic-context-engineering--anatomy-of-effective-context](web--anthropic-context-engineering--anatomy-of-effective-context.md)
+- [web--anthropic-context-engineering--compaction](web--anthropic-context-engineering--compaction.md)
+- [web--anthropic-context-engineering--conclusion](web--anthropic-context-engineering--conclusion.md)
+- [web--anthropic-context-engineering--context-engineering-vs-prompt-engineering](web--anthropic-context-engineering--context-engineering-vs-prompt-engineering.md)
+- [web--anthropic-context-engineering--context-retrieval-and-agentic-search](web--anthropic-context-engineering--context-retrieval-and-agentic-search.md)
+- [web--anthropic-context-engineering--long-horizon-tasks](web--anthropic-context-engineering--long-horizon-tasks.md)
+- [web--anthropic-context-engineering--overview](web--anthropic-context-engineering--overview.md)
+- [web--anthropic-context-engineering--structured-note-taking](web--anthropic-context-engineering--structured-note-taking.md)
+- [web--anthropic-context-engineering--sub-agent-architectures](web--anthropic-context-engineering--sub-agent-architectures.md)
+- [web--anthropic-context-engineering--why-context-engineering-matters](web--anthropic-context-engineering--why-context-engineering-matters.md)
 
 ### web--apple-es-new-descendants-client
 
