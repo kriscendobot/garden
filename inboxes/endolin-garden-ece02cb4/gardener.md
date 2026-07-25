@@ -993,3 +993,12 @@ Inspect via `git -C journal cat-file -p 634062fa3686ec26630eaff38f9a6162fc3736b8
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'kimi-k3-canary-20260725-e' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 6f9942fe81cb8581c1bd29c9650816fc5ee19bac`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T05:57:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3f6feb56fdb739d763336047770a9a2773f58b08
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'kimi-k3-canary-20260723-d' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3f6feb56fdb739d763336047770a9a2773f58b08`.
