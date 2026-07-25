@@ -1695,3 +1695,12 @@ Inspect via `git -C journal cat-file -p fb3a191441c4f9e709f5a3a6051a7ae544a82323
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'librarian-library-audit-20260725-170501' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1b9948b9d9afa30b1dda96577bf94bcccdc290da`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T17:11:39Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e25209ecd260fc539fdab52519ae73eea87cbbe6
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'merge-endo-but-for-bots-pr856-ambiguous-entry-esm' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e25209ecd260fc539fdab52519ae73eea87cbbe6`.
