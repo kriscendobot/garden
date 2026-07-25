@@ -24,3 +24,10 @@ with a one-paragraph note in the job report listing which roles moved to which t
 This change reaches running hosts only via a subsequent garden deploy/upgrade.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-25T14:23:08Z
