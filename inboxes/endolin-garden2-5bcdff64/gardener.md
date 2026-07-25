@@ -1488,3 +1488,12 @@ Inspect via `git -C journal cat-file -p b6b4f7146d7098d9f5598b4af135daf5fb4168f1
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'endo-vfs-parity-press-20260724-225004' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p bce08dd67173be412117709757a8ce7f1fa10962`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T05:17:00Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ed5da75aee06e4911a0c921afacd7398bef4fa5f
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr852-review-c981d05c' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ed5da75aee06e4911a0c921afacd7398bef4fa5f`.
