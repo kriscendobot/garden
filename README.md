@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-25T02:25:50Z_
+_As of 2026-07-25T02:30:36Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 22h)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 23h)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -638,6 +638,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T022535Z-e0bdca` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022535Z-e0bdca.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T022847Z-4f2e09` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022847Z-4f2e09.md)
+
+> self-heal: garden-triager@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T022851Z-2802ed` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022851Z-2802ed.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
+
+- `20260725T022940Z-2e1c66` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022940Z-2e1c66.md)
+
+> self-heal: garden-triager@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -1985,7 +1997,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 43.1M | $530.82 _(notional, rate-card)_ | no quota set |
-| Codex | 588.2M _(+342.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Codex | 588.2M _(+344.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
