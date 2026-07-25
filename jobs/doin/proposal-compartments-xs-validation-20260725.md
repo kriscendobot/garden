@@ -7,3 +7,10 @@ Validate and, where feasible, prototype the fresh Compartments operation surface
 This is one of four parallel validation fronts. Use an isolated `kriscendobot/moddable` worktree or the existing XS harness. Assess the smallest implementation path for the ModuleSource-keyed API, shared surrounding-realm global, per-Compartment identity, deferred cross-Compartment namespace/cycle support, top-level-await propagation, and source-phase/import-defer compatibility. Run real commands against the executable staging tests when possible. Do not call an unsupported build green. If a port is too large or the required harness is absent, report the exact blocking prerequisite and command output, then propose the next bounded implementation increment. Reconcile any semantic disagreement against the charter, not SES legacy. Keep any proposal PR draft.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-25T19:03:23Z
