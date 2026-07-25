@@ -1677,3 +1677,12 @@ Inspect via `git -C journal cat-file -p f532d9e241fe471070f611c621248494bc11377c
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'build-endo-but-for-bots-cap-std-watch-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p d6f010e52d5c486553dd4fc8d50da651300754d3`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-25T15:12:48Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: fb3a191441c4f9e709f5a3a6051a7ae544a82323
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'ebfb-stream-buffer-spring-sink-refactor-gauntlet' exit-0-unsatisfying but elapsed near-constant (561,561s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p fb3a191441c4f9e709f5a3a6051a7ae544a82323`.
