@@ -1650,3 +1650,12 @@ Inspect via `git -C journal cat-file -p 7f51e38aa4816d9ee8a936bb7452f08e694e8b18
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'ebfb-stream-buffer-spring-sink-refactor-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 5efe0423346fdb4c71e97bc3b1dc145fbcdc2114`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T11:03:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2d10e951caa2832e2ac3a57ba215fb791e30963b
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'improve-local-provider-model-presence-preflight' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2d10e951caa2832e2ac3a57ba215fb791e30963b`.
