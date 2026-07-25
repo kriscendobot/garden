@@ -1029,3 +1029,12 @@ Inspect via `git -C journal cat-file -p df2579c58627a41a3bdc28f93ee67b0ba68fca93
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'fireworks-gardener-implement' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4bacab30e6b516ff285f16f053984cb674fe4900`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T06:23:56Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0e59bf1b631176d101371a73f95cb2fd053cd996
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr719-rebase' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0e59bf1b631176d101371a73f95cb2fd053cd996`.
