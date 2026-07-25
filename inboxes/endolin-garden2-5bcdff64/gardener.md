@@ -1425,3 +1425,12 @@ Inspect via `git -C journal cat-file -p 81a68e7b7a412a97b6704f6eefc85645866028f3
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'kimi-k3-canary-20260723-d' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b3ca3367e051f0bc863a0c2d2c49e4694f350345`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-25T00:22:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a317e3d317de7d821a6690319d82d698bed72b7c
+- Context: gardener-13 on endolin-garden2-5bcdff64: job 'fix-mystic-prompt-yolo-20260725' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a317e3d317de7d821a6690319d82d698bed72b7c`.
