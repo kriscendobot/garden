@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T21:52:22Z_
+_As of 2026-07-26T22:21:19Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 6h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 7h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
@@ -3919,15 +3919,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.8M | $394.32 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 21.8M | $394.99 _(notional, rate-card)_ | no quota set |
+| Codex | 20.1M _(+493.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (11)
-- [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
+- [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-build-endor-git-cas`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-cas.md) — ---
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`xs2rust-endor-press-20260726-060501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-060501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -3939,13 +3939,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-202002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-202002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-212016`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-212016.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3546)
+### tada (3547)
+- [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-agent-surface-build.md) — Implemented and pushed PR https://github.com/endojs/endo-but-for-bots/pull/87...
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — Merged PR #740 by squash as f6d2efb. Dispatched builder job endojs-endo-but-f...
 - [`proposal-compartments-press-20260726-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260726-190502.md) — Completion report — proposal-compartments daily press (2026-07-26)
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr862-shepherd.md) — Re-fetched the referenced review (APPROVED; no actionable body). PR #862 head...
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr861-shepherd.md) — The completion report:
-- [`endojs-endo-but-for-bots-pr340-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-weave.md) — Completion report — weaver, endojs/endo-but-for-bots PR #340
-- … and 3541 more
+- … and 3542 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
