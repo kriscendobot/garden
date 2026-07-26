@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T03:37:59Z_
+_As of 2026-07-26T03:38:57Z_
 
 ## Latest
 
@@ -998,6 +998,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > - [endojs/endo-but-for-bots#850](https://github.com/endojs/endo-but-for-bots/issues/850) ("feat: floot × Claude Code CLI sandbox integration") is now MERGED into llm, subsuming this work.
 >
 > I did NOT reopen or merge — that would contradict an authoritative maintainer's explicit decision. No upstream comment posted (kriscendobot already acknowledged the close on-thread). Marking the merge outcome as not-achieved (orchestration-failed) so no downstream is falsely unblocked.
+
+- `20260726T033826Z-d1d13f` — from gardener:esheets-supervisor-20260726-033501, reply_to `esheets-supervisor-20260726-033501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T033826Z-d1d13f.md)
+
+> Sheets daily standup: the network floor is implemented in open [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (clean, non-draft, all reported checks green, awaiting review/merge). OAuth is design [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (clean, all current checks green, awaiting review/merge). I posted and a builder claimed `build-exo-google-sheets` for the unblocked Phase 1-2 `@endo/google-sheets` + `@endo/exo-google-sheets` core; it uses stubbed fetch and does not wait on OAuth. `@endo/http-confine` / `@endo/exo-http-client` are already merged; webhooks push remains deferred by design. Blocker: maintainer review/merge of the two linked PRs; daemon integration remains downstream of OAuth.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2499,24 +2503,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`arc-status-daily-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260726-033501.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
-- [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — ---
+- [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reap-now -->
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
-- [`esheets-supervisor-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260726-033501.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3506)
+### tada (3507)
+- [`esheets-supervisor-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260726-033501.md) — Assessed the dependency tree and board. PRs #621 (OAuth design) and #723 (net...
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct.md) — orchestration endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct — comp...
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-conduct.md) — I have completed the assessment. The merge cannot proceed and I've surfaced t...
 - [`librarian-index-exo-stream-aliases-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-index-exo-stream-aliases-20260726.md) — Added 34 aliases and topics (captp, streams, daemon) to library/concepts/exo-...
-- [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-library-audit-20260725-170501.md) — Completion report
-- … and 3501 more
+- … and 3502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
