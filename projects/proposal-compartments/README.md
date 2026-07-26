@@ -125,6 +125,42 @@ for the shortfall.
 - Implementation in **v8** and **JSC** (new).
 - The existing **endor** and **XS** validations.
 
+### Status and the shared native prerequisite (2026-07-26)
+
+All four native fronts have run and converge on one finding: none of the four
+engines can execute the staged suite yet, and they are blocked on the **same**
+upstream feature rather than on any Compartment disagreement.
+
+- A Compartment source key is, per the spec (`spec.emu` § Compartment Source
+  Keys), *only* a source-phase module source object — the value `import source`
+  and `import.source()` produce. That syntax is the sole route to a source key,
+  so every staged test opens with it, and it is unimplemented in **v8** (Node
+  22.23 / V8 12.4), **JSC** (WebKitGTK 2.52.3), and **XS/endor** (Moddable XS
+  13.x/17.x). The tests fail at parse before any `Compartment` code runs. This is
+  intersection-by-design working as intended: the proposal layers on source-phase
+  imports rather than restating them.
+- Each front's bounded next increment is therefore identical — land source-phase
+  imports behind a flag in that engine — and JSC is closest (it already ships
+  `import defer` behind `--useImportDefer=1`). JSC report: draft PR
+  kriscendobot/proposal-compartments#1 (`validation/jsc.md`). Endor report: draft
+  PR #3 (`validations/endor.md`). The XS front recorded the same red baseline.
+- The strongest spec-semantics validation short of a native engine is the **v8
+  semantic harness** (draft PR #2, branch `v8-semantic-validation-harness`),
+  which implements the spec's normative operations over Node's
+  `vm.SourceTextModule`. Re-run 2026-07-26 against test262 staging HEAD
+  `63b7e7c`: **9 passed, 0 failed, 1 blocked** of 10 families
+  (`node run.mjs <staging> <harness>`). It covers source-key brand/identity,
+  shared surrounding-realm global with no lockdown, per-Compartment instance
+  identity, deferred cross-Compartment namespace identity, cross-Compartment
+  cyclic linking, and TLA dependency/error propagation. The one blocked family
+  (`intersection/import-defer-and-tla`) needs native `import defer` with
+  synchronous deferred evaluation.
+
+Open strategic question (surfaced to the maintainer 2026-07-26): the finish-line
+bar of four-engine native agreement depends on source-phase imports shipping in
+each engine — a large, per-engine effort separate from this proposal. See the
+tracker for the options put to the maintainer.
+
 ## test262
 
 A kriscendobot fork of test262 (sibling job `bootstrap-test262-bot-fork`) holds the
