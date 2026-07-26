@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T15:11:14Z_
+_As of 2026-07-26T15:12:12Z_
 
 ## Latest
 
@@ -2906,15 +2906,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.3M | $371.47 _(notional, rate-card)_ | no quota set |
-| Codex | 19.7M _(+474.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 20.4M | $371.84 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+474.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
-- [`endojs-endo-but-for-bots-pr740-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #740
+### doin (13)
 - [`endojs-endo-but-for-bots-pr836-review-eda700a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-review-eda700a0.md) — Review directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
@@ -2929,13 +2928,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-140502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-140502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3529)
+### tada (3530)
+- [`endojs-endo-but-for-bots-pr740-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-shepherd.md) — PR #740 is already green on head 712d97960a5520e510c9b0838ae32f6bb474caac: al...
 - [`endojs-endo-but-for-bots-pr856-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-shepherd.md) — PR #856 is green and mergeable at ca0b6c02349ccb7a5df4ec368c3cef7beadbbfbf.
 - [`endo-sturdyref-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-112002.md) — SturdyRef press tick — completion report (endo-sturdyref-press-20260726-112002)
 - [`endo-byte-array-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-112002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`finbot-progress-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-112002.md) — Assessed PR #4 and verified its current head: npm test, focused harness tests...
-- [`ocapn-noise-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-112002.md) — All checks are done and nothing has moved. This dispatch's outcome per the st...
-- … and 3524 more
+- … and 3525 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
