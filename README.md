@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T14:54:20Z_
+_As of 2026-07-26T14:55:02Z_
 
 ## Latest
 
@@ -2913,8 +2913,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (12)
-- [`endojs-endo-but-for-bots-pr856-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #856
+### doin (11)
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -2927,13 +2926,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-125016`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-125016.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-140502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-140502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3528)
+### tada (3529)
+- [`endojs-endo-but-for-bots-pr856-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-shepherd.md) — PR #856 is green and mergeable at ca0b6c02349ccb7a5df4ec368c3cef7beadbbfbf.
 - [`endo-sturdyref-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-112002.md) — SturdyRef press tick — completion report (endo-sturdyref-press-20260726-112002)
 - [`endo-byte-array-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-112002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`finbot-progress-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-112002.md) — Assessed PR #4 and verified its current head: npm test, focused harness tests...
 - [`ocapn-noise-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-112002.md) — All checks are done and nothing has moved. This dispatch's outcome per the st...
-- [`endo-npm-cas-registry-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-112002.md) — Work complete. Delivering the final report.
-- … and 3523 more
+- … and 3524 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
