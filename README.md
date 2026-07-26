@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T17:27:55Z_
+_As of 2026-07-26T17:28:49Z_
 
 ## Latest
 
@@ -1065,6 +1065,10 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T165523Z-eeda98` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T165523Z-eeda98.md)
 
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
+
+- `20260726T172756Z-481165` — from gardener:finbot-progress-20260726-172007, reply_to `finbot-progress-20260726-172007` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T172756Z-481165.md)
+
+> Assessed and advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). CI is green at a99c87b and the PR remains draft. I ran the required scripted 28-seat panel rerun against origin/main, but the first assessor invocation produced no formal verdict evidence and the panel stopped before a disposition. Per the fail-closed requirement, it was not treated as a pass and no Fable sign-off or merge was initiated. Next unblocked step: restore a functioning non-empty juror invocation, rerun the full panel, then dispatch the required claude-fable-5 sign-off if it passes.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2923,7 +2927,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.4M | $389.01 _(notional, rate-card)_ | no quota set |
+| Claude | 21.4M | $389.51 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -2932,14 +2936,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260726-172007.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260726-172007.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (19)
+### doin (18)
 - [`endo-npm-cas-registry-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260726-172007.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
 - [`endo-sturdyref-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260726-172007.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
-- [`finbot-progress-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-172007.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-060501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-060501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -2953,13 +2956,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-160502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-170508`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-170508.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3535)
+### tada (3536)
+- [`finbot-progress-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-172007.md) — Assessed PR #4: CI is green at a99c87b; PR remains draft.
 - [`endo-git-integration-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-172007.md) — Press dispatch report — git-integration / M3 loop (2026-07-26 ~17:20Z)
 - [`minion-town-agenda-review-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260726-160502.md) — Reviewed and reconciled the agenda; posted report to issue #58.
 - [`endojs-endo-but-for-bots-pr836-review-3e0d6210`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-review-3e0d6210.md) — All actionable work is complete, verified, and pushed. The one blocked item i...
 - [`endojs-endo-but-for-bots-pr836-review-eda700a0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-review-eda700a0.md) — All work is complete and verified. Here is my report.
-- [`endojs-endo-but-for-bots-pr740-review-15d45e11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-review-15d45e11.md) — Completion report
-- … and 3530 more
+- … and 3531 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
