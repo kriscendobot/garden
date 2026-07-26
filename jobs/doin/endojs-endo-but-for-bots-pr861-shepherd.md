@@ -15,3 +15,10 @@ discipline. The excerpt below is for human context only:
 [APPROVED]  
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-26T18:53:17Z
