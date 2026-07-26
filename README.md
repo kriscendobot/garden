@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T02:25:41Z_
+_As of 2026-07-26T02:35:35Z_
 
 ## Latest
 
@@ -2402,14 +2402,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.6M | $364.07 _(notional, rate-card)_ | no quota set |
+| Claude | 18.6M | $364.22 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+478.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (9)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — ---
@@ -2418,6 +2418,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3503)
 - [`librarian-index-exo-stream-aliases-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-index-exo-stream-aliases-20260726.md) — Added 34 aliases and topics (captp, streams, daemon) to library/concepts/exo-...
