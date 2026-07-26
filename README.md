@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T01:30:16Z_
+_As of 2026-07-26T02:05:40Z_
 
 ## Latest
 
@@ -14,12 +14,12 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 7h)
 - [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 8h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 7h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 1d)
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3d)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 6d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 8d)
@@ -970,6 +970,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260725T235854Z-d6bcce` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T235854Z-d6bcce.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
+
+- `20260726T020521Z-87c1f9` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T020521Z-87c1f9.md)
+
+> triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2394,7 +2398,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.3M | $361.27 _(notional, rate-card)_ | no quota set |
+| Claude | 18.4M | $362.10 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+478.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
