@@ -2,7 +2,9 @@
 # set-schedule.sh — race a schedule change onto the journal (CAS).
 #
 # Usage: set-schedule.sh <name> <cadence> [<basename-prefix>] [<body-file>]
-#   <cadence>  weekly | daily | hourly | <N>s   (most schedules are weekly)
+#   <cadence>  interval: weekly | daily | hourly | <N>{s,m,h,d}  (most are weekly)
+#              anchored: daily-at-HH:MM-<TZ>          (DST-aware wall-clock)
+#                        weekly-at-<Day>-HH:MM-<TZ>   (e.g. weekly-at-Tue-13:00-America/Los_Angeles)
 #   body from <body-file> else stdin: the task to duplicate each period.
 #
 # Optional deterministic preflight gate (env GARDEN_SCHEDULE_PREFLIGHT=<script>):

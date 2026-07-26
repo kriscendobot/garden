@@ -43,7 +43,12 @@ cadence_seconds() {
 # for "at 00:00 local every day". An ANCHORED cadence pins the fire to a wall-clock
 # time in a named IANA timezone:
 #
-#   daily-at-HH:MM-<TZ>        e.g. daily-at-00:00-America/Los_Angeles
+#   daily-at-HH:MM-<TZ>            e.g. daily-at-00:00-America/Los_Angeles
+#   weekly-at-<Day>-HH:MM-<TZ>     e.g. weekly-at-Tue-13:00-America/Los_Angeles
+#
+# The weekly form pins the fire to a wall-clock HH:MM on a named weekday
+# (Mon..Sun, 3-letter or full, case-insensitive) — the drift-free way to say
+# "every Tuesday afternoon" that a plain `weekly` interval cannot express.
 #
 # Due-ness is decided against the most recent anchor instant at-or-before now, and
 # last_dispatched is stamped to that ANCHOR (not to the actual fire time), so the
@@ -82,13 +87,76 @@ anchor_epoch() {
   printf '%s\n' "$anchor"
 }
 
+# dow_to_u <day-name> -> ISO weekday number 1..7 (Mon..Sun); rc 1 on an unknown
+# name. Accepts the 3-letter abbreviation or the full name, case-insensitively.
+dow_to_u() {
+  case "${1,,}" in
+    mon|monday)       echo 1 ;;
+    tue|tuesday)      echo 2 ;;
+    wed|wednesday)    echo 3 ;;
+    thu|thursday)     echo 4 ;;
+    fri|friday)       echo 5 ;;
+    sat|saturday)     echo 6 ;;
+    sun|sunday)       echo 7 ;;
+    *) return 1 ;;
+  esac
+}
+
+# anchored_weekly_cadence <cadence>: on a match echoes "HH:MM TZ DOW" (DOW as the
+# ISO weekday 1..7) and returns 0, else 1. Format weekly-at-<Day>-HH:MM-<TZ>, e.g.
+# weekly-at-Tue-13:00-America/Los_Angeles. As with daily-at-, the TZ is everything
+# after the first hyphen following HH:MM, so a hyphenated zone (Etc/GMT-5) survives.
+anchored_weekly_cadence() {
+  case "$1" in
+    weekly-at-*)
+      local rest="${1#weekly-at-}" day rest2 hhmm tz u
+      day="${rest%%-*}"; rest2="${rest#*-}"
+      hhmm="${rest2%%-*}"; tz="${rest2#*-}"
+      case "$hhmm" in [01][0-9]:[0-5][0-9]|2[0-3]:[0-5][0-9]) : ;; *) return 1 ;; esac
+      [ -n "$tz" ] && [ "$tz" != "$hhmm" ] || return 1
+      u="$(dow_to_u "$day")" || return 1
+      printf '%s %s %s\n' "$hhmm" "$tz" "$u"; return 0 ;;
+  esac
+  return 1
+}
+
+# anchor_epoch_weekly <now-epoch> <HH:MM> <TZ> <DOW-u>: the most recent occurrence
+# of weekday <DOW-u> at HH:MM in TZ at or before now, as a UTC epoch. All wall-clock
+# math is local-date-string arithmetic (never @epoch offsets) so a DST week is
+# spanned correctly. Empty output + rc 1 on an unparseable TZ/time.
+anchor_epoch_weekly() {
+  local now="$1" hhmm="$2" tz="$3" tgt="$4" cur today back date0 anchor
+  cur="$(TZ="$tz" date -d "@$now" +%u 2>/dev/null)" || return 1
+  today="$(TZ="$tz" date -d "@$now" +%Y-%m-%d 2>/dev/null)" || return 1
+  [ -n "$cur" ] && [ -n "$today" ] || return 1
+  # days to step back from today's local date to reach the target weekday.
+  back=$(( (cur - tgt + 7) % 7 ))
+  date0="$(TZ="$tz" date -d "$today $back days ago" +%Y-%m-%d 2>/dev/null)" || return 1
+  [ -n "$date0" ] || return 1
+  anchor="$(TZ="$tz" date -d "$date0 $hhmm" +%s 2>/dev/null)" || return 1
+  [ -n "$anchor" ] || return 1
+  # target weekday is today (back==0) but HH:MM has not occurred yet → step back to
+  # the same weekday one week earlier.
+  if [ "$anchor" -gt "$now" ]; then
+    anchor="$(TZ="$tz" date -d "$date0 $hhmm 7 days ago" +%s 2>/dev/null)" || return 1
+  fi
+  printf '%s\n' "$anchor"
+}
+
 # Decide whether a recurring schedule is due at `now`, given its last-dispatch
 # epoch, and print the last_dispatched STAMP (UTC ISO) to use on stdout — returning
 # 0 when due, 1 when not. Anchored cadences stamp the anchor instant (drift-free);
 # interval cadences stamp `now`. Used both before the CAS loop and on the in-loop
 # re-check, so the two paths cannot disagree on due-ness or on the stamp.
 schedule_due_stamp() {  # $1=cadence $2=last-epoch $3=now-epoch
-  local cad="$1" last="$2" now="$3" anc hhmm tz anchor cad_s
+  local cad="$1" last="$2" now="$3" anc hhmm tz dow anchor cad_s
+  if anc="$(anchored_weekly_cadence "$cad")"; then
+    read -r hhmm tz dow <<<"$anc"
+    anchor="$(anchor_epoch_weekly "$now" "$hhmm" "$tz" "$dow")" \
+      || { log "WARN: anchored cadence '$cad' unparseable (bad TZ '$tz'?); schedule will NEVER fire until fixed"; return 1; }
+    [ -n "$anchor" ] && [ "$last" -lt "$anchor" ] || return 1
+    date -u -d "@$anchor" +%FT%TZ; return 0
+  fi
   if anc="$(anchored_cadence "$cad")"; then
     read -r hhmm tz <<<"$anc"
     # WARN when the anchor cannot be computed (an unknown TZ): "not due" and
@@ -100,8 +168,8 @@ schedule_due_stamp() {  # $1=cadence $2=last-epoch $3=now-epoch
     [ -n "$anchor" ] && [ "$last" -lt "$anchor" ] || return 1
     date -u -d "@$anchor" +%FT%TZ; return 0
   fi
-  case "$cad" in daily-at-*)
-    log "WARN: cadence '$cad' looks anchored but does not parse (HH:MM out of range?); treating as interval, which will misfire — fix the schedule name"
+  case "$cad" in daily-at-*|weekly-at-*)
+    log "WARN: cadence '$cad' looks anchored but does not parse (HH:MM out of range, or unknown weekday?); treating as interval, which will misfire — fix the schedule name"
   ;; esac
   cad_s="$(cadence_seconds "$cad")"
   [ $(( now - last )) -ge "$cad_s" ] || return 1

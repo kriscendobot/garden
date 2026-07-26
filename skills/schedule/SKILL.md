@@ -17,7 +17,8 @@ board and stamps `last_dispatched` — atomically, so no host double-dispatches.
 Recurring (`cadence:`):
 ```
 cadence: weekly            # interval: weekly | daily | hourly | <N>s | <N>m | <N>h | <N>d
-                           # anchored: daily-at-HH:MM-<TZ>  (DST-aware wall-clock, see below)
+                           # anchored: daily-at-HH:MM-<TZ>            (DST-aware wall-clock, see below)
+                           #           weekly-at-<Day>-HH:MM-<TZ>     (drift-free "every Tuesday afternoon")
 last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
 job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 preflight: <script>        # OPTIONAL deterministic gate (see below)
@@ -36,7 +37,14 @@ recent anchor instant at-or-before now, and `last_dispatched` is stamped to that
 **anchor** (not the actual fire time). So the daily wall-clock time never drifts
 even when a tick fires hours late — the next fire is always computed forward from
 the *intended* schedule — and DST transitions are handled by the zoneinfo database
-(a 23h/25h local day is spanned correctly). For an anchored daily cadence the
+(a 23h/25h local day is spanned correctly). The **weekly anchored** form
+`weekly-at-<Day>-HH:MM-<TZ>` (e.g. `weekly-at-Tue-13:00-America/Los_Angeles`; `Day`
+is `Mon`..`Sun`, 3-letter or full, case-insensitive) pins the fire to a wall-clock
+`HH:MM` on a named weekday — the drift-free way to say "every Tuesday afternoon"
+that a plain `weekly` interval (which just fires 7d after the last dispatch, so a
+late tick creeps the fire forward every week) cannot express. It stamps the anchor
+instant exactly like the daily form; a weekly anchored cadence does **not** get the
+prepended context block (that is daily-only). For an anchored daily cadence the
 scheduler also **prepends a computed context block** to the dispatched job body
 naming the `prior 24 hours` window (`window_start`/`window_end`, UTC) and the
 `pacific_date` + `journal/periodicals/<YYYY>/<MM>/<DD>.md` output path the fire
