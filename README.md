@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T23:56:39Z_
+_As of 2026-07-26T23:56:59Z_
 
 ## Latest
 
@@ -4108,18 +4108,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.0M | $399.31 _(notional, rate-card)_ | no quota set |
+| Claude | 22.0M | $399.67 _(notional, rate-card)_ | no quota set |
 | Codex | 20.2M _(+494.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`endo-git-integration-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260726-233502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-233502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
-- [`ocapn-noise-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260726-233502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-press-20260726-082003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-082003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-115001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -4130,13 +4129,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-223501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-223501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-233502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3553)
+### tada (3554)
+- [`ocapn-noise-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-233502.md) — Completion report — ocapn-noise-press-20260726-233502
 - [`endo-npm-cas-registry-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-233502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-26, 23:35Z)
 - [`endo-vfs-parity-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-233502.md) — Completion report — VFS parity press, 2026-07-26 ~23:45Z tick
 - [`endojs-endo-but-for-bots-build-endor-git-cas`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-build-endor-git-cas.md) — Implemented Phase 1 Git CAS and opened draft PR: https://github.com/endojs/en...
 - [`endo-sturdyref-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-233502.md) — SturdyRef press tick — whole stack CI-green (bar 1 complete end to end); stal...
-- [`endo-byte-array-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-233502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- … and 3548 more
+- … and 3549 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
