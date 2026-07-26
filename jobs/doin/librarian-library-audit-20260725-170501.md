@@ -18,3 +18,10 @@ Deliverable: the set of posted split/index jobs, or a `tada` report stating the
 library is within budget and fully indexed.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-26T01:23:21Z
