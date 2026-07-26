@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T22:21:19Z_
+_As of 2026-07-26T22:35:36Z_
 
 ## Latest
 
@@ -3919,14 +3919,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.8M | $394.99 _(notional, rate-card)_ | no quota set |
+| Claude | 21.8M | $395.40 _(notional, rate-card)_ | no quota set |
 | Codex | 20.1M _(+493.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (12)
 - [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-build-endor-git-cas`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-cas.md) — ---
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
@@ -3938,6 +3938,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-192001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-192001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-202002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-202002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-212016`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-212016.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260726-223501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-223501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3547)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-agent-surface-build.md) — Implemented and pushed PR https://github.com/endojs/endo-but-for-bots/pull/87...
