@@ -9,3 +9,10 @@ Scope: implement the design on the appropriate implementation base, beginning wi
 The maintainer directive at https://github.com/endojs/endo-but-for-bots/pull/740#issuecomment-5084077705 authorized dispatch after the design was integrated, squashed, and merged as f6d2efbbb98c38973dcc98d6bd1bf44fc217dfe2.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-26T23:33:24Z
