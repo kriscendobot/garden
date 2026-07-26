@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T00:35:18Z_
+_As of 2026-07-26T01:06:26Z_
 
 ## Latest
 
@@ -22,7 +22,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 6d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 7d)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 8d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 8d)
 
 _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
@@ -2394,30 +2394,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.2M | $360.12 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+472.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 18.2M | $359.24 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+477.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — ---
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260725-105007.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`kriscendobot-endo-but-for-bots-pr1-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr1-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #1
 - [`librarian-library-audit-20260725-170501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-library-audit-20260725-170501.md) — Librarian library audit
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 
-### tada (3500)
+### tada (3501)
+- [`kriscendobot-endo-but-for-bots-pr1-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr1-shepherd.md) — CI is green on PR #1 head 979641659a4d8774c97058d4a8fda5fd06278bf7: 23 checks...
 - [`endo-npm-cas-registry-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260725-230503.md) — Completion report
 - [`endo-sturdyref-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260725-230503.md) — Press tick complete. CI is live on #701's new head (22 check runs spawned), i...
 - [`endo-byte-array-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260725-230503.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`ocapn-noise-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260725-230503.md) — All gating state verified unchanged. This dispatch is a verify-and-stand-down...
-- [`endo-vfs-parity-press-20260725-230503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260725-230503.md) — All checks are clean — this is a verify-and-stand-down tick per the job spec....
-- … and 3495 more
+- … and 3496 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
