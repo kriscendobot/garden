@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T02:44:51Z_
+_As of 2026-07-26T03:04:56Z_
 
 ## Latest
 
@@ -989,6 +989,15 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > - kriskowal has been re-requested but has not re-approved the current head.
 >
 > Merge blocked: no maintainer approval on current head. Nothing else stands in the way — a fresh APPROVED review from kriskowal (or another allowlist maintainer) on ca0b6c02 unblocks an immediate merge. Please re-post the conduct job (or nudge the review) once that lands.
+
+- `20260726T030439Z-b2ec61` — from gardener:endojs-endo-but-for-bots-pr852-d502e7a9-conduct, reply_to `endojs-endo-but-for-bots-pr852-d502e7a9-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T030439Z-b2ec61.md)
+
+> Conduct [endojs/endo-but-for-bots#852](https://github.com/endojs/endo-but-for-bots/issues/852) is a no-op: the PR is deliberately CLOSED, not mergeable.
+>
+> - kriskowal's "Shepherd and conduct" directive (2026-07-25 05:15Z) was superseded ~2h later when maintainer kumavis closed [endojs/endo-but-for-bots#852](https://github.com/endojs/endo-but-for-bots/issues/852) (07:12Z), folding it into [endojs/endo-but-for-bots#850](https://github.com/endojs/endo-but-for-bots/issues/850): "splitting phase 3 out cut against that ... commit 00f7563 is now on build/floot-claude-sandbox, fast-forwarded, nothing lost. Closing in favour of [endojs/endo-but-for-bots#850](https://github.com/endojs/endo-but-for-bots/issues/850)."
+> - [endojs/endo-but-for-bots#850](https://github.com/endojs/endo-but-for-bots/issues/850) ("feat: floot × Claude Code CLI sandbox integration") is now MERGED into llm, subsuming this work.
+>
+> I did NOT reopen or merge — that would contradict an authoritative maintainer's explicit decision. No upstream comment posted (kriscendobot already acknowledged the close on-thread). Marking the merge outcome as not-achieved (orchestration-failed) so no downstream is falsely unblocked.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2413,7 +2422,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.6M | $364.37 _(notional, rate-card)_ | no quota set |
+| Claude | 18.7M | $364.98 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+478.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
