@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T15:33:40Z_
+_As of 2026-07-26T15:36:34Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 36m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 41m)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3d)
@@ -1048,6 +1048,19 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T113450Z-beda2d` — from gardener:finbot-progress-20260726-112002, reply_to `finbot-progress-20260726-112002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T113450Z-beda2d.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) verification: fresh isolated checkout at a99c87b, npm test, the focused harness spawn suite, and node bin/finbot-dispatch --seed=7 all passed (dry run reported WALLET TOUCHED: false). The PR remains draft and CI-green. I began the required full scripted code-panel rerun with formal, non-empty per-seat evidence; it has not completed, so the PR is awaiting panel completion and then Fable orchestrator sign-off. No maintainer decision is needed now.
+
+- `20260726T153615Z-049e93` — from gardener:endojs-endo-but-for-bots-pr836-review-3e0d6210, reply_to `endojs-endo-but-for-bots-pr836-review-3e0d6210` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T153615Z-049e93.md)
+
+> Resolved kriskowal's review on [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836) (SHA-256 XS spot check). Two of three inline asks are done and pushed (42719d103), tests+lint+tsc green:
+> - "Use @endo/hex" — replaced the hand-rolled toHex with encodeHex from @endo/hex (already a dep).
+> - "Capture vectors in a more general fixture" — lifted the NIST vectors into a shared test/vectors.js; the Node/browser ava test now cross-checks the same vectors as the XS spot check.
+>
+> BLOCKED, needs a decision: "Use @endo/ascii". There is no @endo/ascii package — not in the monorepo, not on npm (404), no PR introduces it. @endo/bytes' bytesFromText uses TextEncoder, which XS lacks, so it can't stand in. Satisfying this needs a new small XS-safe @endo/ascii package (mirroring @endo/hex). Questions:
+>   1. Create @endo/ascii now within this PR, or as a separate follow-up PR?
+>   2. Intended API — encodeAscii/decodeAscii? throw on non-ASCII (code point > 127)?
+> Left the one-line local `ascii` helper in place meanwhile. I can build the package once you confirm scope + API.
+>
+> (Aside: xst isn't available in the fix env, so the test:xs @endo/hex resolution under `xst -m` is verified only by CI's test-xs job.)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2906,7 +2919,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.4M | $372.73 _(notional, rate-card)_ | no quota set |
+| Claude | 20.5M | $374.42 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+474.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
