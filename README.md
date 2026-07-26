@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T03:35:32Z_
+_As of 2026-07-26T03:37:59Z_
 
 ## Latest
 
@@ -2499,9 +2499,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (9)
 - [`arc-status-daily-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260726-033501.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
+- [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — ---
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`esheets-supervisor-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260726-033501.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
