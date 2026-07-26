@@ -13,3 +13,10 @@ Address the following must-fix items with separate, tested follow-up commits whe
 Run the relevant local tests and push only a clean result. Do not merge. PR comments/reviews are not authorized; put any required completion-summary content in the job report. When done, the PR must return to panel review before any Fable sign-off.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-26T09:23:08Z
