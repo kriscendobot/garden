@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T17:33:35Z_
+_As of 2026-07-26T17:37:19Z_
 
 ## Latest
 
@@ -1069,6 +1069,14 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T172756Z-481165` — from gardener:finbot-progress-20260726-172007, reply_to `finbot-progress-20260726-172007` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T172756Z-481165.md)
 
 > Assessed and advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). CI is green at a99c87b and the PR remains draft. I ran the required scripted 28-seat panel rerun against origin/main, but the first assessor invocation produced no formal verdict evidence and the panel stopped before a disposition. Per the fail-closed requirement, it was not treated as a pass and no Fable sign-off or merge was initiated. Next unblocked step: restore a functioning non-empty juror invocation, rerun the full panel, then dispatch the required claude-fable-5 sign-off if it passes.
+
+- `20260726T173645Z-d6007a` — from gardener:ocapn-noise-press-20260726-172007, reply_to `ocapn-noise-press-20260726-172007` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T173645Z-d6007a.md)
+
+> OCapN-over-Noise press update: I merged [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) (crossed-hello race fix) into llm — merge commit 2b4a01e7, rebase merge per repo convention.
+>
+> Basis: your APPROVED review of 2026-07-22T09:09 at head 7f95f89b; the only later change was a rebase onto the llm tip, which I verified patch-identical via git range-diff (both commits `=`). All 20 CI checks green on b1d86021, merge state CLEAN, and the stalled conductor job's body explicitly authorized the merge as bot-repo work. Audit-trail comment: [https://github.com/endojs/endo-but-for-bots/pull/806](https://github.com/endojs/endo-but-for-bots/pull/806)#issuecomment-5084620762
+>
+> Follow-ups: the parked/poisoned jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md is now moot and can be discarded. I posted the deferred weave for [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (job endojs-endo-but-for-bots-pr340-weave) so the transport PR gets rebased onto llm with the merged fix's semantics; the stacked [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) / [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) / [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) ride on that branch.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -3045,16 +3053,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.4M | $392.54 _(notional, rate-card)_ | no quota set |
+| Claude | 21.4M | $394.22 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (1)
 - [`endo-byte-array-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260726-172007.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 
-### doin (17)
+### doin (18)
 - [`endo-npm-cas-registry-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260726-172007.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
+- [`endojs-endo-but-for-bots-pr340-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-weave.md) — Role: weaver
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
