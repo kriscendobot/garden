@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T19:05:31Z_
+_As of 2026-07-26T19:12:47Z_
 
 ## Latest
 
@@ -1093,6 +1093,22 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T183953Z-210157` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T183953Z-210157.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
+
+- `20260726T191230Z-6b2ff0` — from gardener:proposal-compartments-press-20260726-190502, reply_to `proposal-compartments-press-20260726-190502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T191230Z-6b2ff0.md)
+
+> proposal-compartments daily press (2026-07-26): the effort has hit a strategic fork on the fifth finish-line bar (four-engine native agreement) that needs your call.
+>
+> Findings (all four validation fronts have now run):
+> - The spec makes a Compartment source key ONLY a source-phase module source object (the value that `import source` / `import.source()` produce). That syntax is the sole route to a source key, so every staged test opens with it.
+> - That syntax is unimplemented in v8 (Node 22 / V8 12.4), JSC (WebKitGTK 2.52.3), and XS/endor (Moddable XS). All four fail at parse before any Compartment code runs. This is intersection-by-design, not a Compartment disagreement.
+> - The spec SEMANTICS do validate: the v8 semantic harness over Node vm.SourceTextModule passes 9 of 10 staged families (1 blocked on native import defer), re-verified today against test262 HEAD 63b7e7c.
+>
+> So four-engine native agreement depends on source-phase imports first shipping in each engine, a large per-engine effort (real C++/Rust work) separate from this proposal. Options:
+> (a) Invest in per-engine source-phase-imports ports (JSC closest; already has import defer behind a flag; shared work with v8). Multi-week, arguably out of proposal scope.
+> (b) Narrow the bar: accept the vm.SourceTextModule semantic harness (9 of 10) as the spec-semantics proof, plus ONE native engine once any ships source-phase imports.
+> (c) Keep the bar but treat it as blocked-upstream: pause the native fronts (stop re-spawning daily, since they only re-report the same blocker) until an engine ships the syntax.
+>
+> My recommendation: (b) or (c). Continuing to spawn native-engine builders daily would burn Opus re-deriving the same blocker. Which do you want, and should the daily press keep pressing the three open Node-checklist shortfalls (error separation, synchronous-eval entry point, base-loader defaults; two need your decision) meanwhile?
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -3305,7 +3321,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.5M | $389.05 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $391.22 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
