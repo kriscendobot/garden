@@ -1,7 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-07-26T06:05:01Z
-job_basename_prefix: xs2rust-endor-press
----
 ---
 model: qwen3.6
 ---
