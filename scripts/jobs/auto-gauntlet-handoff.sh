@@ -58,6 +58,7 @@ trap 'rm -f "$body"' EXIT
 cat >"$body" <<EOF
 ---
 role: gardener
+handler-timeout: $GARDEN_SHEPHERD_HANDLER_TIMEOUT
 auto_gauntlet: true
 build_job: $base
 pr: $pr_url

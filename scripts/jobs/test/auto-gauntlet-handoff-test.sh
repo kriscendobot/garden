@@ -40,6 +40,7 @@ export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/99
 assert_posted build-feature-gauntlet
 grep -q 'auto_gauntlet: true' "$TR/check-build-feature-gauntlet/jobs/todo/build-feature-gauntlet.md"
 grep -q 'build_job: build-feature' "$TR/check-build-feature-gauntlet/jobs/todo/build-feature-gauntlet.md"
+grep -qx 'handler-timeout: 7200' "$TR/check-build-feature-gauntlet/jobs/todo/build-feature-gauntlet.md"
 
 # A retry is idempotent by the deterministic gauntlet basename.
 "$JOBS/auto-gauntlet-handoff.sh" build-feature "$job" "$report"
