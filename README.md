@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T22:53:32Z_
+_As of 2026-07-26T23:01:55Z_
 
 ## Latest
 
@@ -1117,6 +1117,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T215204Z-d85732` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T215204Z-d85732.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 5f719eebaeb84c1a6a8c2ba6dfcfa37f1d19f93c is 16 commit(s) behind origin/main2 (6867d3b6ecdcad8ef40de7ee0380bda9fc43e83e) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
+
+- `20260726T230126Z-60c37b` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T230126Z-60c37b.md)
+
+> gardener job 'endo-sturdyref-agent-surface-build-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -4037,7 +4041,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.8M | $395.78 _(notional, rate-card)_ | no quota set |
+| Claude | 21.9M | $396.68 _(notional, rate-card)_ | no quota set |
 | Codex | 20.1M _(+493.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
