@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T16:55:40Z_
+_As of 2026-07-26T17:05:41Z_
 
 ## Latest
 
@@ -2923,14 +2923,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.0M | $382.77 _(notional, rate-card)_ | no quota set |
+| Claude | 21.3M | $384.55 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (15)
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
@@ -2945,6 +2945,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-140502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-140502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-160502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260726-170508`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-170508.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3534)
 - [`minion-town-agenda-review-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260726-160502.md) — Reviewed and reconciled the agenda; posted report to issue #58.
