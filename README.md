@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T17:37:19Z_
+_As of 2026-07-26T17:38:24Z_
 
 ## Latest
 
@@ -18,14 +18,14 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
-- [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/pull/806) — fix(ocapn-noise): refuse late crossed-hello SYN instead of minting a doomed session (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 7d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 8d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 9d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 9d)
 
-_Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -3057,17 +3057,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`endo-byte-array-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260726-172007.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+### todo (0)
+(none)
 
 ### doin (18)
+- [`endo-byte-array-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260726-172007.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-npm-cas-registry-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260726-172007.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
 - [`endojs-endo-but-for-bots-pr340-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-weave.md) — Role: weaver
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
-- [`ocapn-noise-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260726-172007.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-060501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-060501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -3080,13 +3080,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-160502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-170508`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-170508.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3538)
+### tada (3539)
+- [`ocapn-noise-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-172007.md) — **Completion report — ocapn-noise-press-20260726-172007**
 - [`endo-vfs-parity-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-172007.md) — Verify-and-stand-down tick for the VFS parity press — no repo activity, all s...
 - [`endo-sturdyref-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-172007.md) — Completion report — endo-sturdyref-press-20260726-172007 (hourly SturdyRef pr...
 - [`finbot-progress-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-172007.md) — Assessed PR #4: CI is green at a99c87b; PR remains draft.
 - [`endo-git-integration-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-172007.md) — Press dispatch report — git-integration / M3 loop (2026-07-26 ~17:20Z)
-- [`minion-town-agenda-review-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260726-160502.md) — Reviewed and reconciled the agenda; posted report to issue #58.
-- … and 3533 more
+- … and 3534 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
