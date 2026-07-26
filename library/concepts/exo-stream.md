@@ -1,6 +1,8 @@
 ---
+aliases: ["@endo/exo-stream", "exo-stream", "exo stream", "CapTP streaming", "CapTP stream", "CapTP stream protocol", "reader-ref", "reader-ref.js", "ref-reader", "ref-reader.js", "stream-ref", "async iterator over CapTP", "bidirectional stream protocol", "synchronize chain", "acknowledge chain", "PassableReader", "PassableBytesReader", "PassableWriter", "PassableBytesWriter", "readerFromIterator", "bytesReaderFromIterator", "writerFromIterator", "bytesWriterFromIterator", "iterateReader", "iterateBytesReader", "iterateWriter", "iterateBytesWriter", "makeReaderPump", "makeWriterPump", "makeIteratorRef", "makeReaderRef", "makeRefIterator", "makeRefReader", "streamBase64"]
+topics: [captp, streams, daemon]
 created: 2026-06-17
-updated: 2026-07-06
+updated: 2026-07-26
 author: researcher
 status: draft
 ---
