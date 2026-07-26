@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T23:01:55Z_
+_As of 2026-07-26T23:03:21Z_
 
 ## Latest
 
@@ -1774,6 +1774,34 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > 4. No bar is "green" without **real-execution evidence** — e.g. an actual `endor run`
 >    of a program with a real npm dependency, fetched-then-cached, with the command and
 >    its output cited. Reading code is not proof.
+
+- `poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/endo-sturdyref-agent-surface-build-gauntlet; it stays HELD until a human promotes it
+> (promote-plan.sh endo-sturdyref-agent-surface-build-gauntlet) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: endo-sturdyref-agent-surface-build-gauntlet
+>
+> --- original job body ---
+> ---
+> role: gardener
+> auto_gauntlet: true
+> build_job: endo-sturdyref-agent-surface-build
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871)
+> ---
+>
+> Automatic gauntlet handoff for completed feature build endo-sturdyref-agent-surface-build.
+>
+> The build opened [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) and it remains an OPEN draft PR. Run the full gardening
+> state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
+> the panel terminates cleanly. This handoff was posted by the build completion edge,
+> not inferred by a watcher.
+>
+> <!-- garden-deadline-overrun: 1 -->
 
 - `poison-endo-sturdyref-press-20260723-162019-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endo-sturdyref-press-20260723-162019-requeue-exhausted.md)
 
@@ -4048,8 +4076,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (11)
-- [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build-gauntlet.md) — ---
+### doin (10)
 - [`endojs-endo-but-for-bots-build-endor-git-cas`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-cas.md) — ---
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`xs2rust-endor-press-20260726-082003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-082003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -4098,6 +4125,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-162019.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-223502.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260724-043515.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-build-gauntlet.md) — _normal_ · ---
 - [`endo-sturdyref-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-162019.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-223502.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260724-043515.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
