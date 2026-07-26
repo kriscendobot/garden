@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T01:20:24Z_
+_As of 2026-07-26T01:21:01Z_
 
 ## Latest
 
@@ -2394,8 +2394,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.3M | $361.19 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+477.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 18.3M | $361.43 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+477.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -2426,7 +2426,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · ---
+- [`consolidate-test262-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/consolidate-test262-fixtures.md) — _normal_ · Refactor: consolidate test262 fixtures (@endo/test262-runner + endor-vm cases...
 - [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
+- [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/decommission-cxs-rust-default-xst-ci-parity.md) — _normal_ · End-state: decommission C-XS — drop c/moddable, remove the C-binding Endor, m...
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
