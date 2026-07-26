@@ -1,0 +1,2 @@
+base: improve-auto-gauntlet-handler-timeout
+identity: mentor:scripts/jobs/auto-gauntlet-handoff.sh
