@@ -53,3 +53,10 @@ skills/stacked-pr-build). Keep the PR DRAFT (the whole sturdyref line stays draf
 until the finish line — press charter, maintainer directive 2026-07-11). Report the
 PR number, affected packages, real-execution test evidence, and which confinement
 property each test exercises.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-26T17:27:38Z
