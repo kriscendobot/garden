@@ -55,3 +55,10 @@ PR number, affected packages, real-execution test evidence, and which confinemen
 property each test exercises.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-26T17:53:10Z
