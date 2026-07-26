@@ -1,4 +1,4 @@
-cadence: weekly
+cadence: weekly-at-Tue-13:00-America/Los_Angeles
 last_dispatched: 2026-07-21T20:00:00Z
 job_basename_prefix: endo-meeting-agenda
 ---
