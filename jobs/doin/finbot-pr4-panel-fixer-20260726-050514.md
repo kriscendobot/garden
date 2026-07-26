@@ -11,3 +11,10 @@ Address the following must-fix items with separate, tested follow-up commits whe
 3. A role program runs in-thread, so the spawn `timeoutMs` cannot preempt a non-yielding synchronous program. Determine the smallest sound resolution consistent with the PR's untrusted-program claim. If this needs a worker-isolation design rather than an in-scope fix, do not disguise a documentation change as a security bound: report the precise design decision and hand off through the completion report.
 
 Run the relevant local tests and push only a clean result. Do not merge. PR comments/reviews are not authorized; put any required completion-summary content in the job report. When done, the PR must return to panel review before any Fable sign-off.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-26T05:15:34Z
