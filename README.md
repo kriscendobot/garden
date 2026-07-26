@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T11:23:34Z_
+_As of 2026-07-26T11:31:56Z_
 
 ## Latest
 
@@ -1032,6 +1032,18 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T100533Z-a48229` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T100533Z-a48229.md)
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
+
+- `20260726T113143Z-a39dce` — from gardener:endo-npm-cas-registry-press-20260726-112002, reply_to `endo-npm-cas-registry-press-20260726-112002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T113143Z-a39dce.md)
+
+> npm-via-CAS press (2026-07-26 tick): the finish line is REACHED, gated on one merge.
+>
+> Real-execution evidence at endo-but-for-bots `llm` HEAD (2be66d9f67), fresh isolated state each run:
+> - `endor run entry.mjs` and a CJS `.js` entry both work end to end TODAY: network fetch from registry.npmjs.org → CAS ingest (content-addressed, deduplicated) → SQLite registry-table row → XS execution. Transitive CJS graph (semver@7.5.4 → lru-cache@6 → yallist@4) fetches and executes; `--offline` replay is deterministic (identical hashes, zero network); fresh-state `--offline` correctly refuses. No npm CLI, no node_modules, no lockfile.
+> - The ONE remaining execution gap at HEAD: an ambiguous import-bearing `.js` entry (the design's literal `endor run entry.js`) misroutes into the CJS loader and fails. [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (open, NOT draft, CI green, MERGEABLE, review feedback addressed) fixes exactly this; I built llm plus that branch merged locally and confirmed the exact repro flips to passing. Cross-validation evidence posted: [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856)#issuecomment-5083281137
+>
+> Recommendation: merge [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) — it is the last execution blocker for the npm-registry-proxy finish line. After it lands, the design's Status section can be marked Complete with the evidence above.
+>
+> Also live on this arc (draft, from prior ticks, all MERGEABLE/green): [endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) peer/optionalDependencies, [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) process shim (consolidated with [endojs/endo-but-for-bots#863](https://github.com/endojs/endo-but-for-bots/issues/863)), [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) .npmrc auth, [endojs/endo-but-for-bots#862](https://github.com/endojs/endo-but-for-bots/issues/862) registry CLI.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2644,8 +2656,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.6M | $365.72 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+476.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 19.5M | $366.85 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+475.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (2)
