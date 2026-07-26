@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T21:41:02Z_
+_As of 2026-07-26T21:52:22Z_
 
 ## Latest
 
@@ -1113,6 +1113,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T214043Z-5748bd` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T214043Z-5748bd.md)
 
 > triager: fetch for kriscendobot-vattr97 at /home/kris/garden/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
+
+- `20260726T215204Z-d85732` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T215204Z-d85732.md)
+
+> root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 5f719eebaeb84c1a6a8c2ba6dfcfa37f1d19f93c is 16 commit(s) behind origin/main2 (6867d3b6ecdcad8ef40de7ee0380bda9fc43e83e) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -3915,7 +3919,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.7M | $393.70 _(notional, rate-card)_ | no quota set |
+| Claude | 21.8M | $394.32 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
