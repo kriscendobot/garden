@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T05:30:56Z_
+_As of 2026-07-26T05:35:17Z_
 
 ## Latest
 
@@ -2521,25 +2521,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 1 -->
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`finbot-pr4-panel-fixer-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-fixer-20260726-050514.md) — ---
-- [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-035002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-035002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3515)
+### tada (3516)
+- [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-index-sources-compartment-class-20260726.md) — Done. The index gap is closed.
 - [`endo-npm-cas-registry-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-050514.md) — Completion report
 - [`finbot-progress-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-050514.md) — Advanced PR #4: CI and local npm test, harness tests, and offline dispatch pa...
 - [`ocapn-noise-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-050514.md) — Press-driver dispatch 20260726-050514 complete. Report:
 - [`endo-sturdyref-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-050514.md) — SturdyRef press tick — completion report (endo-sturdyref-press-20260726-050514)
-- [`endo-vfs-parity-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-050514.md) — Everything verified clean. This is a verify-and-stand-down tick — here's the ...
-- … and 3510 more
+- … and 3511 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
