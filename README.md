@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T19:23:31Z_
+_As of 2026-07-26T19:25:46Z_
 
 ## Latest
 
@@ -3557,7 +3557,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.5M | $390.30 _(notional, rate-card)_ | no quota set |
+| Claude | 21.5M | $390.42 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -3566,7 +3566,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (12)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
-- [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
+- [`endojs-endo-but-for-bots-build-endor-git-cas`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-endor-git-cas.md) — ---
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-060501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-060501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -3578,13 +3578,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-170508`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-170508.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-192001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-192001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3545)
+### tada (3546)
+- [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — Merged PR #740 by squash as f6d2efb. Dispatched builder job endojs-endo-but-f...
 - [`proposal-compartments-press-20260726-190502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260726-190502.md) — Completion report — proposal-compartments daily press (2026-07-26)
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr862-shepherd.md) — Re-fetched the referenced review (APPROVED; no actionable body). PR #862 head...
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr861-shepherd.md) — The completion report:
 - [`endojs-endo-but-for-bots-pr340-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-weave.md) — Completion report — weaver, endojs/endo-but-for-bots PR #340
-- [`endo-npm-cas-registry-press-20260726-172007`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-172007.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-26)
-- … and 3540 more
+- … and 3541 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
