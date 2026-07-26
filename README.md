@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T17:57:21Z_
+_As of 2026-07-26T18:05:54Z_
 
 ## Latest
 
@@ -3068,7 +3068,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
@@ -3085,6 +3085,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-160502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-170508`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-170508.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260726-180521`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-180521.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3542)
 - [`endojs-endo-but-for-bots-pr340-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-weave.md) — Completion report — weaver, endojs/endo-but-for-bots PR #340
