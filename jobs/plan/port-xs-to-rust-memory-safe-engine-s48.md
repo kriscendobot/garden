@@ -7,9 +7,12 @@ posted_at: 2026-07-20T11:07:47Z
 ---
 
 ---
-model: fable
+model: opus
 ---
-# Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, autonomously
+# Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, autonomously
+
+<!-- model: adjusted fable → opus (claude-opus-4-8) per maintainer directive 2026-07-26 (liaison). -->
+<!-- (This job title formerly read "Fable supervisor"; the supervisor now rides Opus.) -->
 
 ## Supervisor state (stage handoff — read first)
 
