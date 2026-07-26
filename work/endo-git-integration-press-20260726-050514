@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-26T05:05:30Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-git-integration-press-20260726-050514
