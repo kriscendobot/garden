@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T05:08:05Z_
+_As of 2026-07-26T05:08:40Z_
 
 ## Latest
 
@@ -2496,20 +2496,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.8M | $367.92 _(notional, rate-card)_ | no quota set |
+| Claude | 18.9M | $368.40 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+478.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endo-npm-cas-registry-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260726-050514.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260726-050514.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260726-050514.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (12)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 1 -->
-- [`endo-git-integration-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260726-050514.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260726-050514.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260726-050514.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`finbot-progress-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-050514.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
@@ -2519,13 +2518,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-035002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-035002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3509)
+### tada (3510)
+- [`endo-git-integration-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-050514.md) — Press dispatch report — git-integration M3 loop (2026-07-26)
 - [`endo-byte-array-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-050514.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`arc-status-daily-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260726-033501.md) — Posted today's (2026-07-26 UTC) daily status to all ten arc tracking issues —...
 - [`esheets-supervisor-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260726-033501.md) — Assessed the dependency tree and board. PRs #621 (OAuth design) and #723 (net...
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct.md) — orchestration endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct — comp...
-- [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — Completion report
-- … and 3504 more
+- … and 3505 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
