@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T15:29:30Z_
+_As of 2026-07-26T15:33:18Z_
 
 ## Latest
 
@@ -2906,14 +2906,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.3M | $371.30 _(notional, rate-card)_ | no quota set |
+| Claude | 20.4M | $372.73 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+474.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`xs2rust-endor-press-20260726-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260726-070504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### doin (14)
+### doin (13)
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr836-review-3e0d6210`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-review-3e0d6210.md) — Review directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
@@ -2921,7 +2921,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-060501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-060501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260726-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-070504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-082003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-082003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-103521`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-103521.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-115001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
