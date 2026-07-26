@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T03:38:57Z_
+_As of 2026-07-26T03:40:27Z_
 
 ## Latest
 
@@ -2503,8 +2503,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (8)
-- [`arc-status-daily-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260726-033501.md) — Daily status + change summary for the standing review arcs
+### doin (7)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reap-now -->
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
@@ -2513,13 +2512,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3507)
+### tada (3508)
+- [`arc-status-daily-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260726-033501.md) — Posted today's (2026-07-26 UTC) daily status to all ten arc tracking issues —...
 - [`esheets-supervisor-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260726-033501.md) — Assessed the dependency tree and board. PRs #621 (OAuth design) and #723 (net...
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct.md) — orchestration endojs-endo-but-for-bots-pr852-d502e7a9-shepherd-conduct — comp...
 - [`endojs-endo-but-for-bots-pr852-d502e7a9-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr852-d502e7a9-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-conduct.md) — I have completed the assessment. The merge cannot proceed and I've surfaced t...
-- [`librarian-index-exo-stream-aliases-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/librarian-index-exo-stream-aliases-20260726.md) — Added 34 aliases and topics (captp, streams, daemon) to library/concepts/exo-...
-- … and 3502 more
+- … and 3503 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
