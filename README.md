@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T11:34:22Z_
+_As of 2026-07-26T11:35:15Z_
 
 ## Latest
 
@@ -1044,6 +1044,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > Recommendation: merge [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) — it is the last execution blocker for the npm-registry-proxy finish line. After it lands, the design's Status section can be marked Complete with the evidence above.
 >
 > Also live on this arc (draft, from prior ticks, all MERGEABLE/green): [endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) peer/optionalDependencies, [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) process shim (consolidated with [endojs/endo-but-for-bots#863](https://github.com/endojs/endo-but-for-bots/issues/863)), [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) .npmrc auth, [endojs/endo-but-for-bots#862](https://github.com/endojs/endo-but-for-bots/issues/862) registry CLI.
+
+- `20260726T113450Z-beda2d` — from gardener:finbot-progress-20260726-112002, reply_to `finbot-progress-20260726-112002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T113450Z-beda2d.md)
+
+> Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) verification: fresh isolated checkout at a99c87b, npm test, the focused harness spawn suite, and node bin/finbot-dispatch --seed=7 all passed (dry run reported WALLET TOUCHED: false). The PR remains draft and CI-green. I began the required full scripted code-panel rerun with formal, non-empty per-seat evidence; it has not completed, so the PR is awaiting panel completion and then Fable orchestrator sign-off. No maintainer decision is needed now.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2656,18 +2660,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.5M | $366.25 _(notional, rate-card)_ | no quota set |
+| Claude | 19.5M | $365.98 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+475.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (11)
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 2 -->
 - [`endo-byte-array-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260726-112002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-sturdyref-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260726-112002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`finbot-progress-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-112002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-035002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-035002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -2677,13 +2680,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-082003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-082003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-103521`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-103521.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3525)
+### tada (3526)
+- [`finbot-progress-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-112002.md) — Assessed PR #4 and verified its current head: npm test, focused harness tests...
 - [`ocapn-noise-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-112002.md) — All checks are done and nothing has moved. This dispatch's outcome per the st...
 - [`endo-npm-cas-registry-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-112002.md) — Work complete. Delivering the final report.
 - [`endo-vfs-parity-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-112002.md) — Verify-and-stand-down tick — no repo activity since the last dispatch, all se...
 - [`endo-git-integration-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-112002.md) — Press dispatch complete — this was an assess-and-hold pass; nothing in the st...
-- [`finbot-pr4-panel-fixer-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-pr4-panel-fixer-20260726-050514.md) — Implemented and pushed two tested follow-up commits to PR #4:
-- … and 3520 more
+- … and 3521 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
