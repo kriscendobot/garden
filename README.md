@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T02:35:35Z_
+_As of 2026-07-26T02:44:31Z_
 
 ## Latest
 
@@ -978,6 +978,17 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T022527Z-9163c4` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T022527Z-9163c4.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
+
+- `20260726T024419Z-9fb3d7` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T024419Z-9fb3d7.md)
+
+> Conductor stall — [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) is ready EXCEPT for a current maintainer approval.
+>
+> - State: OPEN, non-draft, MERGEABLE/CLEAN, base=llm (live trunk).
+> - CI: 24/24 checks green.
+> - Approval: the APPROVED review 4778593042 by kriskowal is on the SUPERSEDED commit efe4b29f. The current head is ca0b6c02 (the follow-up that resolved the inline feedback). The only review on the current head is a COMMENTED (non-approving) one by kriscendobot.
+> - kriskowal has been re-requested but has not re-approved the current head.
+>
+> Merge blocked: no maintainer approval on current head. Nothing else stands in the way — a fresh APPROVED review from kriskowal (or another allowlist maintainer) on ca0b6c02 unblocks an immediate merge. Please re-post the conduct job (or nudge the review) once that lands.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
