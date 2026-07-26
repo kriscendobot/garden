@@ -54,12 +54,4 @@ until the finish line — press charter, maintainer directive 2026-07-11). Repor
 PR number, affected packages, real-execution test evidence, and which confinement
 property each test exercises.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  claimed_at: 2026-07-26T17:33:21Z
+<!-- garden-reaped: 2 -->
