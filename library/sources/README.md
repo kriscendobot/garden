@@ -766,6 +766,7 @@ The TC39 module-proposal landscape a **minimal Compartments spec must intersect*
 | [Compartments — layer 1 (static analysis / `ModuleSource.bindings`)](tc39-module-harmony--compartments-static-analysis.md) | https://github.com/tc39/proposal-compartments/blob/master/1-static-analysis.md | 1 | 2 | current |
 | [Compartments — layer 2 (virtual module sources)](tc39-module-harmony--compartments-virtual-module-source.md) | https://github.com/tc39/proposal-compartments/blob/master/2-virtual-module-source.md | 1 | 3 | current |
 | [Compartments — layer 3 (Evaluators)](tc39-module-harmony--compartments-evaluator.md) | https://github.com/tc39/proposal-compartments/blob/master/3-evaluator.md | 1 | 2 | current |
+| [Compartments — layer 4 (Compartment class)](tc39-module-harmony--compartments-compartment-class.md) | https://github.com/tc39/proposal-compartments/blob/master/4-compartment.md | 1 | 5 | current |
 | [Compartments — GRAPH (feature → use-case map)](tc39-module-harmony--compartments-graph.md) | https://github.com/tc39/proposal-compartments/blob/master/GRAPH.md | 1 | 2 | current |
 
 ## External web sources
