@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T05:13:19Z_
+_As of 2026-07-26T05:16:21Z_
 
 ## Latest
 
@@ -1012,6 +1012,14 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > 1. [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) (crossed-hello race fix): MERGEABLE / CLEAN at head b1d86021 since 07-22; all checks green; your review re-request pending on GitHub; prior approval stale (pre-rebase, pre-refactor-commit). **Ask: approve [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) at b1d86021.**
 > 2. Conductor job endojs-endo-but-for-bots-pr806-conduct remains poisoned+parked in jobs/plan/ behind a go-ahead gate — the merge is ownerless. **Ask: after approving, say 'promote endojs-endo-but-for-bots-pr806-conduct'.**
 > 3. [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) still CONFLICTING; the stack weave ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) -> [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) -> [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) -> [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)) stays deferred until [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) lands. M1-M5 remain proven; no regressions, no code motion since 07-22.
+
+- `20260726T051521Z-23175b` — from gardener:finbot-progress-20260726-050514, reply_to `finbot-progress-20260726-050514` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T051521Z-23175b.md)
+
+> Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) by revalidating the current head: local `npm test`, the harness spawn test, and the offline `node bin/finbot-dispatch --seed=7` all passed; the dispatch confirmed `WALLET TOUCHED: false`. CI is also green.
+>
+> The required code panel is not clear, so no Fable sign-off or merge was requested. Its fresh assessor pass found a must-fix regression: SES `errorTaming: 'safe'` clears host error stacks process-wide while spawn records them. I posted a dedicated fixer job with that issue, the previously surfaced timestamp normalization concern, and the unpreemptible synchronous-role-program liveness decision.
+>
+> Next unblocked step: land the fixer result, then rerun the complete panel on the new head. Only a passing panel may be handed to a `claude-fable-5` orchestrator for sign-off and merge.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2506,7 +2514,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.8M | $367.92 _(notional, rate-card)_ | no quota set |
+| Claude | 18.9M | $369.80 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+478.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -2518,7 +2526,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 1 -->
 - [`endo-npm-cas-registry-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260726-050514.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
-- [`finbot-progress-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-050514.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-pr4-panel-fixer-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-fixer-20260726-050514.md) — ---
 - [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -2526,13 +2534,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-035002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-035002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3513)
+### tada (3514)
+- [`finbot-progress-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-050514.md) — Advanced PR #4: CI and local npm test, harness tests, and offline dispatch pa...
 - [`ocapn-noise-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-050514.md) — Press-driver dispatch 20260726-050514 complete. Report:
 - [`endo-sturdyref-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-050514.md) — SturdyRef press tick — completion report (endo-sturdyref-press-20260726-050514)
 - [`endo-vfs-parity-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-050514.md) — Everything verified clean. This is a verify-and-stand-down tick — here's the ...
 - [`endo-git-integration-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-050514.md) — Press dispatch report — git-integration M3 loop (2026-07-26)
-- [`endo-byte-array-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-050514.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- … and 3508 more
+- … and 3509 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
