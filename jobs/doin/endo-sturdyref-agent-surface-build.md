@@ -55,3 +55,10 @@ PR number, affected packages, real-execution test evidence, and which confinemen
 property each test exercises.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-26T22:03:10Z
