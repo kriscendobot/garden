@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-26T11:34:05Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-byte-array-press-20260726-112002
