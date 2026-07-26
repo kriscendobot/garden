@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T12:03:58Z_
+_As of 2026-07-26T12:14:27Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 31m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 42m)
 - [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/pull/740) — design(endor): define in-process Git CAS bindings (waiting 18h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
@@ -2668,7 +2668,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (10)
-- [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 3 -->
+- [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 4 -->
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-035002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-035002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
