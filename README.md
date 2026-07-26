@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T23:56:59Z_
+_As of 2026-07-26T23:59:06Z_
 
 ## Latest
 
@@ -1160,6 +1160,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > (same locator mints unlinkable sturdyrefs), opaque-and-unforgeable (resolution
 > binding unforgeable); [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) adds the guard/escrow
 > regression tests for the agent surface.
+
+- `20260726T235837Z-244282` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T235837Z-244282.md)
+
+> The endo npm/CAS-registry arc now has a PR for every actionable known gap — #857, #859, #860, #862, and #873 on endojs/endo-but-for-bots — and the remaining press work is landing them through the gauntlet, which is gated on your promotion. Please promote whichever of these you want run through the gauntlet next (the two deliberate non-goals, install scripts and native modules, need no action).
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -4108,17 +4112,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.0M | $399.67 _(notional, rate-card)_ | no quota set |
+| Claude | 22.1M | $400.78 _(notional, rate-card)_ | no quota set |
 | Codex | 20.2M _(+494.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (14)
 - [`endo-git-integration-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260726-233502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-233502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
+- [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
+- [`fu-endo-npm-cas-registry-press-20260726-233502-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-2.md) — On endojs/endo-but-for-bots, re-verify that PR #864 (https://github.com/endoj...
 - [`xs2rust-endor-press-20260726-082003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-082003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-115001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-115001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
