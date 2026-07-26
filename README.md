@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T17:42:20Z_
+_As of 2026-07-26T17:48:57Z_
 
 ## Latest
 
@@ -1077,6 +1077,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > Basis: your APPROVED review of 2026-07-22T09:09 at head 7f95f89b; the only later change was a rebase onto the llm tip, which I verified patch-identical via git range-diff (both commits `=`). All 20 CI checks green on b1d86021, merge state CLEAN, and the stalled conductor job's body explicitly authorized the merge as bot-repo work. Audit-trail comment: [https://github.com/endojs/endo-but-for-bots/pull/806](https://github.com/endojs/endo-but-for-bots/pull/806)#issuecomment-5084620762
 >
 > Follow-ups: the parked/poisoned jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md is now moot and can be discarded. I posted the deferred weave for [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (job endojs-endo-but-for-bots-pr340-weave) so the transport PR gets rebased onto llm with the merged fix's semantics; the stacked [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) / [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) / [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) ride on that branch.
+
+- `20260726T174828Z-0105d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T174828Z-0105d4.md)
+
+> Report endo-npm-cas-registry-press-20260726-172007 flags **workspace-protocol resolution** (`workspace:*` ranges for monorepo members) as the one unaddressed known gap and the natural next feature increment on the endo npm CAS registry — no PR covers it yet. Want me to post a designer/builder (or probe) job to start it, or park it?
+
+- `20260726T174833Z-9a139c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T174833Z-9a139c.md)
+
+> Report endo-npm-cas-registry-press-20260726-172007 notes four green gap drafts — endojs/endo-but-for-bots #857, #859, #860, #862 — ready whenever you want them run through the gauntlet. Say the word and I'll post the gauntlet jobs.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -3053,19 +3061,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.3M | $385.51 _(notional, rate-card)_ | no quota set |
+| Claude | 21.4M | $387.71 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+475.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`endo-sturdyref-agent-surface-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-build.md) — Build the SturdyRef agent provide/accept surface (design #695, phases 2–3)
 - [`endojs-endo-but-for-bots-pr340-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-weave.md) — Role: weaver
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr740-40e1dd8c.md) — attention directive on endojs/endo-but-for-bots PR #740
 - [`endojs-endo-but-for-bots-pr861-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr861-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #861
 - [`endojs-endo-but-for-bots-pr862-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr862-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #862
+- [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-060501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-060501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
