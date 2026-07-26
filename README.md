@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T05:09:52Z_
+_As of 2026-07-26T05:13:19Z_
 
 ## Latest
 
@@ -1002,6 +1002,16 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T033826Z-d1d13f` — from gardener:esheets-supervisor-20260726-033501, reply_to `esheets-supervisor-20260726-033501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T033826Z-d1d13f.md)
 
 > Sheets daily standup: the network floor is implemented in open [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (clean, non-draft, all reported checks green, awaiting review/merge). OAuth is design [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (clean, all current checks green, awaiting review/merge). I posted and a builder claimed `build-exo-google-sheets` for the unblocked Phase 1-2 `@endo/google-sheets` + `@endo/exo-google-sheets` core; it uses stubbed fetch and does not wait on OAuth. `@endo/http-confine` / `@endo/exo-http-client` are already merged; webhooks push remains deferred by design. Blocker: maintainer review/merge of the two linked PRs; daemon integration remains downstream of OAuth.
+
+- `20260726T051228Z-1c67ce` — from gardener:ocapn-noise-press-20260726-050514, reply_to `ocapn-noise-press-20260726-050514` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T051228Z-1c67ce.md)
+
+> Subject: [single re-nudge per policy] OCapN [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) merge still waits only on your approval
+>
+> This is the ONE scheduled follow-up to escalation 20260725T032633Z-ca6252 (2026-07-25), per the press-driver's one-re-nudge policy — no further duplicates will be sent. State re-verified 2026-07-26T05:15Z, unchanged:
+>
+> 1. [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) (crossed-hello race fix): MERGEABLE / CLEAN at head b1d86021 since 07-22; all checks green; your review re-request pending on GitHub; prior approval stale (pre-rebase, pre-refactor-commit). **Ask: approve [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) at b1d86021.**
+> 2. Conductor job endojs-endo-but-for-bots-pr806-conduct remains poisoned+parked in jobs/plan/ behind a go-ahead gate — the merge is ownerless. **Ask: after approving, say 'promote endojs-endo-but-for-bots-pr806-conduct'.**
+> 3. [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) still CONFLICTING; the stack weave ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) -> [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) -> [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) -> [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)) stays deferred until [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) lands. M1-M5 remain proven; no regressions, no code motion since 07-22.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2496,34 +2506,33 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 18.9M | $369.07 _(notional, rate-card)_ | no quota set |
+| Claude | 18.8M | $367.92 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+478.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`endo-npm-cas-registry-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260726-050514.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### todo (0)
+(none)
 
-### doin (12)
+### doin (11)
 - [`build-endo-but-for-bots-cap-std-watch-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-but-for-bots-cap-std-watch-gauntlet.md) — ---
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 1 -->
-- [`endo-sturdyref-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260726-050514.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-npm-cas-registry-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260726-050514.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr719-313d4bc7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr719-313d4bc7.md) — attention directive on endojs/endo-but-for-bots PR #719
 - [`finbot-progress-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-050514.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`librarian-index-sources-compartment-class-20260726`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/librarian-index-sources-compartment-class-20260726.md) — Index gap: sources/README.md missing compartment-class
-- [`ocapn-noise-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260726-050514.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-endor-validation-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-endor-validation-20260725.md) — ---
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-035002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-035002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-045004`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-045004.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3511)
+### tada (3513)
+- [`ocapn-noise-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-050514.md) — Press-driver dispatch 20260726-050514 complete. Report:
+- [`endo-sturdyref-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260726-050514.md) — SturdyRef press tick — completion report (endo-sturdyref-press-20260726-050514)
 - [`endo-vfs-parity-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-050514.md) — Everything verified clean. This is a verify-and-stand-down tick — here's the ...
 - [`endo-git-integration-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-050514.md) — Press dispatch report — git-integration M3 loop (2026-07-26)
 - [`endo-byte-array-press-20260726-050514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-050514.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`arc-status-daily-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260726-033501.md) — Posted today's (2026-07-26 UTC) daily status to all ten arc tracking issues —...
-- [`esheets-supervisor-20260726-033501`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260726-033501.md) — Assessed the dependency tree and board. PRs #621 (OAuth design) and #723 (net...
-- … and 3506 more
+- … and 3508 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
