@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T11:35:15Z_
+_As of 2026-07-26T11:35:59Z_
 
 ## Latest
 
@@ -2660,16 +2660,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.5M | $365.98 _(notional, rate-card)_ | no quota set |
+| Claude | 19.5M | $365.86 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+475.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets.md) — <!-- garden-reaped: 2 -->
-- [`endo-byte-array-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260726-112002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-sturdyref-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260726-112002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`xs2rust-endor-press-20260726-012007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-012007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-023504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-023504.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -2680,13 +2679,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-082003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-082003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-103521`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-103521.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3526)
+### tada (3527)
+- [`endo-byte-array-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260726-112002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`finbot-progress-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-112002.md) — Assessed PR #4 and verified its current head: npm test, focused harness tests...
 - [`ocapn-noise-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-112002.md) — All checks are done and nothing has moved. This dispatch's outcome per the st...
 - [`endo-npm-cas-registry-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-112002.md) — Work complete. Delivering the final report.
 - [`endo-vfs-parity-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-112002.md) — Verify-and-stand-down tick — no repo activity since the last dispatch, all se...
-- [`endo-git-integration-press-20260726-112002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-112002.md) — Press dispatch complete — this was an assess-and-hold pass; nothing in the st...
-- … and 3521 more
+- … and 3522 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
