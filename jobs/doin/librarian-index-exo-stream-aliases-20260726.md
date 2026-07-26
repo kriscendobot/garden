@@ -23,3 +23,10 @@ journal/ worktree. Deliverable: exo-stream.md carries an aliases: list so
 term search resolves to it.
 
 (Found by the librarian library audit, job librarian-library-audit-20260725-170501.)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-26T01:27:41Z
