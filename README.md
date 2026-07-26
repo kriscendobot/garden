@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T09:35:45Z_
+_As of 2026-07-26T09:45:55Z_
 
 ## Latest
 
@@ -1020,6 +1020,14 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 > The required code panel is not clear, so no Fable sign-off or merge was requested. Its fresh assessor pass found a must-fix regression: SES `errorTaming: 'safe'` clears host error stacks process-wide while spawn records them. I posted a dedicated fixer job with that issue, the previously surfaced timestamp normalization concern, and the unpreemptible synchronous-role-program liveness decision.
 >
 > Next unblocked step: land the fixer result, then rerun the complete panel on the new head. Only a passing panel may be handed to a `claude-fable-5` orchestrator for sign-off and merge.
+
+- `20260726T094528Z-d36796` — from watchdog:triager/kriscendobot-moddable, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T094528Z-d36796.md)
+
+> triager: fetch for kriscendobot-moddable at /home/kris/garden/worktrees/kriscendobot-moddable.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-moddable cannot be triaged until it is restored.
+
+- `20260726T094528Z-f25ad1` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T094528Z-f25ad1.md)
+
+> triager: fetch for kriscendobot-test262 at /home/kris/garden/worktrees/kriscendobot-test262.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -2515,7 +2523,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 19.2M | $361.36 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+476.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Codex | 19.9M _(+476.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
