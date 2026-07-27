@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T19:54:35Z_
+_As of 2026-07-27T19:55:58Z_
 
 ## Latest
 
@@ -5957,17 +5957,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.8M | $459.56 _(notional, rate-card)_ | no quota set |
+| Claude | 34.8M | $460.20 _(notional, rate-card)_ | no quota set |
 | Codex | 19.3M _(+478.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-8840fcdb.md) — attention directive on endojs/endo-but-for-bots PR #825
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop.md) — The comment-watcher for kriscendobot/garden crash-loops (systemd restart fore...
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-062002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-072006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-072006.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
