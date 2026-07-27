@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T13:13:25Z_
+_As of 2026-07-27T13:35:07Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 1h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 22h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
@@ -1259,6 +1259,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > 1. Five gap drafts are held awaiting your promotion — #857, #859, #860, #873, and the new #875. Once you approve any of them, the plan is to land on the #862 pattern (verify on the exact merged tree, merge, provenance comment). Which, if any, should I promote?
 >
 > 2. Two probe findings were recorded but not pressed, and the report flags a design note is wanted before any code: (a) nanoid's `node:crypto`/webcrypto — builtin-shim vs. browser-condition policy; and (b) missing `Intl` in XS compartments (engine arc's surface). Want me to post a designer job for a design note on either, or park them?
+
+- `20260727T133450Z-8754ba` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T133450Z-8754ba.md)
+
+> triager: fetch for kriscendobot-ocapn at /home/kris/garden/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5551,7 +5555,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.2M | $440.15 _(notional, rate-card)_ | no quota set |
+| Claude | 33.6M | $442.95 _(notional, rate-card)_ | no quota set |
 | Codex | 19.5M _(+481.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
