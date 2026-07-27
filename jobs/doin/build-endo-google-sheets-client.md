@@ -34,6 +34,7 @@ work only on the fork/PR this job authorizes; no upstream pushes beyond the PR h
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
