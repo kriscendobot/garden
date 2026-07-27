@@ -43,3 +43,10 @@ unconditionally (the validator enforces this). Report what was reconciled,
 recalibrated, and groomed.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: hermit
+  claimed_at: 2026-07-27T06:43:12Z
