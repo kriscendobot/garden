@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T05:05:38Z_
+_As of 2026-07-27T05:36:23Z_
 
 ## Latest
 
@@ -4506,16 +4506,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.7M | $369.39 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $369.46 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (4)
+- [`endo-byte-array-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260727-053502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-sturdyref-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260727-053502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260727-053502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260727-053502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### doin (16)
+### doin (19)
+- [`endo-git-integration-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260727-053502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260727-053502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
+- [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
 - [`plan-recalibrate-20260727-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260727-023502.md) — Weekly plan recalibration and grooming (Sunday evening)
