@@ -59,13 +59,32 @@ procedure in [frozen-base-branch].
 
 ## Draft discipline
 
-**The build stage opens every PR in draft state** (`gh pr create --draft`). The
-draft flag is the load-bearing signal that the bot-side chain has not yet
-finished. **The panel stage is the only thing that moves the PR out of draft**
-(`gh pr ready <N>`), and only when the panel-fixer loop terminates with no
-must-fix items and the appellate pass has finished. Draft state is enforced by
-GitHub itself (no auto-requested reviewers, merge button disabled), which is why
-it is the load-bearing state rather than an advisory label.
+**Every new PR the garden opens MUST be created in draft state**
+(`gh pr create --draft`) — no exceptions, whatever opens it: a `build`, a `probe`,
+a design PR, a stacked or initial-stub PR, or a maintainer-requested PR posted as a
+job. This is the single most load-bearing rule in this skill (reinforced by the
+maintainer, 2026-07-27): **opening a PR ready-for-review is a defect, because it
+makes the gauntlet abort early.** The gardening state machine reads a non-draft PR
+as "the bot-side chain already finished, nothing owed," so it **skips the
+clean → panel → fixer-loop → un-draft chain entirely** and an *unreviewed* PR lands
+straight in the maintainer's queue — the exact outcome the draft flag exists to
+prevent. The draft flag is the load-bearing signal that the bot-side chain has not
+yet finished; it is what *triggers* the gauntlet, not merely a status label. When in
+doubt, open draft: an over-cautious draft costs nothing (the chain un-drafts it),
+while a premature ready-for-review skips review on a PR nobody vetted.
+
+**The panel stage is the only thing that moves a PR out of draft**
+(`gh pr ready <N>`), and only when the panel-fixer loop terminates with no must-fix
+items and the appellate pass has finished. Un-draft is **earned at the end of the
+chain, never the starting state**. Draft state is enforced by GitHub itself (no
+auto-requested reviewers, merge button disabled), which is why it is the
+load-bearing state rather than an advisory label.
+
+The lone deliberate exception is the *un-draft*, not the *open*: a **probe**
+([`gap-revealing-build`](../gap-revealing-build/SKILL.md)) is opened draft like
+everything else and is simply *meant to stay* draft (its chain deliberately does not
+un-draft). So "open every PR draft" holds without exception; only which PRs later
+leave draft varies.
 
 ## Flow ordering
 
