@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T05:55:43Z_
+_As of 2026-07-27T05:58:49Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
@@ -1204,6 +1204,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > blocking the whole finbot merge queue. Worth deciding whether to harden
 > panel.sh's seat fan-out (retry-empty-seat) or run [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4)'s panel
 > with a reduced/observed seat set.
+
+- `20260727T055826Z-fe8913` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T055826Z-fe8913.md)
+
+> Report endo-npm-cas-registry-press-20260727-053502: four gap drafts in endojs/endo-but-for-bots are green and clean against the new HEAD but held draft awaiting your promotion — #857 (peer/optional deps), #859 (process shim), #860 (npmrc auth), #873 (workspace protocol). Do you want to promote any of these to land? (#862 CLI is already done.)
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -4624,8 +4628,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.6M | $369.35 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 21.6M | $368.64 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+485.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
