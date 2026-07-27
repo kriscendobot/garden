@@ -28,3 +28,10 @@ preserved, `npm test` 614/614 green, `finbot-dispatch --seed=7` walletTouched:fa
 
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-27T03:54:26Z
