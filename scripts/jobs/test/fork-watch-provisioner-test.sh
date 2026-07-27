@@ -13,6 +13,8 @@
 #   E. materialization → the triager bare clone appears at $GARDEN_REPOS/<slug>.git
 #      (staged+atomic), and is not re-cloned when already present
 #   F. a dashed fork-owners entry is skipped with a warning (never misparsed)
+#   G. a bare clone whose UPSTREAM 404s is NOT armed and IS auto-tombstoned
+#      (watch-optout/<slug>), while a live-upstream own fork still arms normally
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -68,11 +70,26 @@ srcrepo="$TR/src"; git init -q "$srcrepo"
 ( cd "$srcrepo" && echo hi > README && git add README && git "${git_id[@]}" commit -q -m init )
 git clone -q --bare "$srcrepo" "$GHBASE/kriscendobot/minion.town.git"
 
+# hermetic upstream-existence check: exit 1 (404) for any "<owner>/<name>" listed
+# in $DEADLIST, else exit 0. Keeps the whole test off GitHub — the real check is a
+# `gh api` call, which run_prov never reaches because it points
+# GARDEN_FORKWATCH_UPSTREAM_CHECK here.
+DEADLIST="$TR/dead-upstreams"; : > "$DEADLIST"
+CHECK="$TR/upstream-check.sh"
+cat > "$CHECK" <<'EOS'
+#!/bin/bash
+# args: <owner> <name>
+[ -f "$DEADLIST" ] && grep -qxF "$1/$2" "$DEADLIST" && exit 1
+exit 0
+EOS
+chmod +x "$CHECK"
+
 run_prov() {  # run_prov [materialize] [logfile]
   env GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_WORKTREES="$WTS" GARDEN_REPOS="$TR/repos" \
       GARDEN_FORK_CLONE_URL_BASE="$GHBASE" \
       GARDEN_FORKWATCH_MATERIALIZE="${1:-0}" \
+      GARDEN_FORKWATCH_UPSTREAM_CHECK="$CHECK" DEADLIST="$DEADLIST" \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/fork-watch-provisioner.sh" >/dev/null 2>"${2:-/dev/null}"
 }
@@ -141,6 +158,32 @@ FLOG="$TR/f.log"
 run_prov 0 "$FLOG"
 grep -q "contains '-'" "$FLOG" && ok "dashed owner skipped with a warning" || bad "no warning for dashed owner ($(cat "$FLOG"))"
 [ -z "$(jtip repos/some-dashed-owner-repo)" ] && ok "dashed owner's repo not armed" || bad "dashed owner's repo armed"
+
+# ============================================================================
+hr; echo "G — dead-upstream clone: not armed, auto-tombstoned; live fork still arms"; hr
+# A leftover bare clone of a fork whose upstream was DELETED (gh 404). Owner is
+# listed (own fork), so without the guard DISCOVER would arm it and the three
+# per-repo watchers would FATAL-flap. The guard must skip + auto-tombstone it.
+jpush config/fork-owners "kriscendobot"             # case F left a mangled entry; restore a clean own-fork owner set
+git init -q --bare "$WTS/kriscendobot-deadfork.git"
+echo "kriscendobot/deadfork" > "$DEADLIST"          # this upstream 404s
+# ensure the live own fork is armable again for the co-existence assertion
+[ -n "$(jtip watch-optout/kriscendobot-minion.town)" ] && jrm watch-optout/kriscendobot-minion.town || true
+GLOG="$TR/g.log"
+run_prov 0 "$GLOG"
+[ -z "$(jtip repos/kriscendobot-deadfork)" ] && [ -z "$(jtip comment-repos/kriscendobot-deadfork)" ] \
+  && ok "dead-upstream fork NOT armed" || bad "dead-upstream fork was armed"
+[ -n "$(jtip watch-optout/kriscendobot-deadfork)" ] \
+  && ok "dead-upstream fork auto-tombstoned (watch-optout landed)" || bad "no watch-optout tombstone for dead fork"
+jtip watch-optout/kriscendobot-deadfork | grep -qi '404' \
+  && ok "tombstone records the 404 reason" || bad "tombstone missing 404 reason"
+[ -n "$(jtip repos/kriscendobot-minion.town)" ] \
+  && ok "live-upstream own fork still armed alongside the dead one" || bad "live fork not armed"
+# re-run: tombstoned dead fork is a no-op (never probed/armed again)
+: > "$DEADLIST"   # even if the upstream 'came back', the tombstone wins
+n_g="$(jcommits)"
+run_prov
+[ "$(jcommits)" = "$n_g" ] && ok "tombstoned dead fork not re-armed on re-run" || bad "dead fork re-armed after tombstone"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

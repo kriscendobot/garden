@@ -56,9 +56,13 @@
 # ── What one tick does ────────────────────────────────────────────────────────
 #   1. DISCOVER (every host): scan $GARDEN_WORKTREES/*.git for slugs whose owner
 #      is in config/fork-owners; for each not tombstoned and missing from
-#      repos/ or comment-repos/ at the origin tip, CAS-land the missing arming
-#      record(s) — one commit, retried through the standard sync/commit_and_push
-#      loop, idempotent (a peer landing first makes ours a no-op).
+#      repos/ or comment-repos/ at the origin tip, first confirm the upstream fork
+#      still EXISTS (cheap read-only `gh api repos/<owner>/<name>`) — a leftover
+#      clone of a DELETED/renamed fork 404s and is auto-tombstoned instead of armed
+#      (the kriscendobot/garden 404-flap class), so watchers that would only FATAL
+#      are never created; otherwise CAS-land the missing arming record(s) — one
+#      commit, retried through the standard sync/commit_and_push loop, idempotent
+#      (a peer landing first makes ours a no-op).
 #   2. MATERIALIZE (leader only): the triager hard-requires a bare clone at
 #      $GARDEN_REPOS/<slug>.git and the per-repo units are leader-gated, so for
 #      every own-fork slug armed in repos/ whose clone is missing on THIS host,
@@ -140,8 +144,58 @@ owner_listed() {  # owner_listed <lowercase-login>
 # slug_owner_lc <slug> — the owner half of the FIRST-dash split, lowercased.
 slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 
+# --- dead-upstream guard (the kriscendobot/garden 404-flap class) -------------
+# A bare clone whose upstream fork was DELETED or RENAMED on GitHub still sits in
+# the worktrees shelf, so DISCOVER would re-arm repos/ + comment-repos/ for it and
+# all three per-repo watchers (garden-triager@, garden-comment-watcher@,
+# garden-ci-watcher@) would FATAL-flap against a 404 repo every tick — exactly what
+# a stale worktrees/kriscendobot-garden.git did after kriscendobot/garden was
+# deleted. Before arming a NOT-yet-armed own fork we therefore confirm the upstream
+# still exists with a cheap read-only `gh api repos/<owner>/<name>` (bot identity,
+# via the fleet gh wrapper). Already-armed forks never reach this check (DISCOVER
+# only probes slugs missing from the sets), so the cost is one API call per NEW
+# candidate, not per fork per tick.
+#
+# upstream_exists <owner> <name> — exit 0 exists, 1 upstream 404s (dead fork),
+# 2 the check itself was inconclusive (network/auth/rate-limit) so the caller
+# treats it as "unknown" and neither arms nor tombstones this tick. Overridable
+# via GARDEN_FORKWATCH_UPSTREAM_CHECK (a command run as `<cmd> <owner> <name>`
+# whose exit status is used verbatim) so the test harness can drive it with no
+# GitHub.
+upstream_exists() {
+  local owner="$1" name="$2" out
+  if [ -n "${GARDEN_FORKWATCH_UPSTREAM_CHECK:-}" ]; then
+    "$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name"
+    return
+  fi
+  if out="$(gh api "repos/$owner/$name" --jq .id 2>&1)"; then
+    return 0
+  fi
+  case "$out" in
+    *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*) return 1 ;;
+    *) log "WARN: upstream check for $owner/$name inconclusive: $out"; return 2 ;;
+  esac
+}
+
+write_dead_tombstone() {  # write_dead_tombstone <out-path> <owner/name>
+  {
+    printf '# watch-optout tombstone (auto — dead upstream)\n'
+    printf 'unwatched: %s\n' "$2"
+    printf 'reason: upstream 404 (deleted or renamed fork)\n'
+    printf 'tombstoned_at: %s\n' "$(date -u +%FT%TZ)"
+    printf 'tombstoned_by: scripts/jobs/fork-watch-provisioner.sh\n'
+    printf 'note: A bare clone worktrees/%s.git exists on a garden host but\n' "${2//\//-}"
+    printf '  gh api repos/%s returned 404, so arming the per-repo watchers would\n' "$2"
+    printf '  only FATAL-flap every tick (the kriscendobot/garden class). Auto-\n'
+    printf '  tombstoned so the reconciler never re-adds it. Remove this file only\n'
+    printf '  after the upstream repo exists again AND the stale bare clone is\n'
+    printf '  refreshed. Design: designs/auto-provision-fork-watchers.md.\n'
+  } > "$1"
+}
+
 # --- 1. DISCOVER: local own-fork bare clones missing from the watch sets ------
 declare -a NEW=()
+declare -a DEAD=()
 shopt -s nullglob
 for bare in "$GARDEN_WORKTREES"/*.git; do
   slug="$(basename "$bare" .git)"
@@ -150,10 +204,55 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
   [ -f "$bare/HEAD" ] || continue                      # not actually a bare repo
   tip_has "watch-optout/$slug" && continue             # deliberately unwatched — never re-add
   if ! tip_has "repos/$slug" || ! tip_has "comment-repos/$slug"; then
+    # Confirm the upstream still exists before arming: a leftover clone of a
+    # DELETED/renamed fork would otherwise arm watchers that only ever FATAL
+    # (the kriscendobot/garden 404-flap class). 404 → auto-tombstone; an
+    # inconclusive check → defer, neither arm nor tombstone.
+    owner="${slug%%-*}"; name="${slug#*-}"
+    # Guarded capture (NOT a bare `upstream_exists ...; ur=$?`): a function that
+    # returns non-zero in bare-command position is a `set -e` exit at the call
+    # itself, which would kill the tick before we could classify 404 vs unknown.
+    if upstream_exists "$owner" "$name"; then ur=0; else ur=$?; fi
+    if [ "$ur" -eq 1 ]; then
+      log "WARN: $slug upstream ($owner/$name) 404s — NOT arming; auto-tombstoning watch-optout/$slug"
+      DEAD+=("$slug")
+      continue
+    elif [ "$ur" -eq 2 ]; then
+      log "WARN: $slug upstream check inconclusive — deferring arm to a later tick"
+      continue
+    fi
     NEW+=("$slug")
   fi
 done
 shopt -u nullglob
+
+# --- 1a. auto-tombstone dead-upstream forks (durable, so no re-arm) -----------
+if [ "${#DEAD[@]}" -gt 0 ]; then
+  log "discovered ${#DEAD[@]} own-fork clone(s) whose upstream 404s: ${DEAD[*]} — auto-tombstoning"
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    for slug in "${DEAD[@]}"; do
+      tip_has "watch-optout/$slug" && continue   # tombstoned by a racing peer
+      owner="${slug%%-*}"; name="${slug#*-}"
+      mkdir -p "$DIR/watch-optout"
+      write_dead_tombstone "$DIR/watch-optout/$slug" "$owner/$name"
+      git -C "$DIR" add "watch-optout/$slug"
+      # drop any stale/partial arming records so the tombstone fully closes it
+      for rec in "repos/$slug" "comment-repos/$slug"; do
+        [ -e "$DIR/$rec" ] && git -C "$DIR" rm -q "$rec"
+      done
+    done
+    if git -C "$DIR" diff --cached --quiet; then
+      log "dead-fork tombstone(s) already at tip (a peer won the race) — no-op"
+      break
+    fi
+    if commit_and_push "$DIR" "fork-watch: auto-tombstone dead-upstream fork(s) ${DEAD[*]} (gh 404)"; then
+      log "auto-tombstoned ${DEAD[*]} (watch-optout) on origin/$JOURNAL_BRANCH"
+      break
+    fi
+    backoff "$attempt"
+  done
+fi
 
 write_triager_record() {  # write_triager_record <out-path> <owner/name>
   {
