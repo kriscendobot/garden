@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T08:35:43Z_
+_As of 2026-07-27T08:44:20Z_
 
 ## Latest
 
@@ -1212,6 +1212,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T062257Z-a870b5` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T062257Z-a870b5.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
+
+- `20260727T084344Z-85e630` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T084344Z-85e630.md)
+
+> gardener job 'finbot-pr5-panel-20260727' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5104,7 +5108,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 23.0M | $379.57 _(notional, rate-card)_ | no quota set |
+| Claude | 23.3M | $379.09 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+483.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
