@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T03:38:45Z_
+_As of 2026-07-27T03:39:11Z_
 
 ## Latest
 
@@ -4356,17 +4356,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.7M | $371.84 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $371.05 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`arc-status-daily-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260727-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-google-sheets-client.md) — build @endo/google-sheets — the plain Sheets REST client (Phase 1 of the exo-...
-- [`esheets-supervisor-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260727-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-233502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
@@ -4382,13 +4381,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-013518`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-013518.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-025003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-025003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3557)
+### tada (3558)
+- [`esheets-supervisor-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260727-033502.md) — Completion report
 - [`ebfb-llm-designs-groom-20260727-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-llm-designs-groom-20260727-023502.md) — Audited 171 design records and designs/README.md on current llm (f6d2efbbb9).
 - [`endo-git-integration-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-233502.md) — All green and zero unresolved threads on #691 at its new head. The dispatch a...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260726-233502-2.md) — Report
 - [`ocapn-noise-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-233502.md) — Completion report — ocapn-noise-press-20260726-233502
-- [`endo-npm-cas-registry-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-233502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-26, 23:35Z)
-- … and 3552 more
+- … and 3553 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
