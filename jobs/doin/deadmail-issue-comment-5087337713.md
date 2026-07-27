@@ -38,3 +38,10 @@ Comment: https://github.com/kriskowal/garden/issues/51#issuecomment-5087337713
 Choose the better solution or integrate the best aspects of both.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: hermit
+  claimed_at: 2026-07-27T04:45:09Z
