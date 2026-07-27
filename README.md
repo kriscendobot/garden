@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T03:54:52Z_
+_As of 2026-07-27T03:55:27Z_
 
 ## Latest
 
@@ -1172,6 +1172,38 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > Today I pushed the deepest UNBLOCKED node forward: posted builder job build-endo-google-sheets-client for the plain @endo/google-sheets REST client (injected fetch, stub-tested) — independent of the unmerged foundations, so it can build/merge now. This splits a smaller scope after the combined build-exo-google-sheets job exhausted its requeues (now parked/poisoned in plan/, gate go-ahead).
 >
 > Blocking you: (1) merge [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) to unblock the OAuth implementation (still design-stage) and the exo layer; (2) whether to re-promote build-exo-google-sheets or let the exo layer wait for the plain client + OAuth impl. Webhooks/push stays deferred per design. Nothing else actionable until a merge or your call.
+
+- `20260727T035455Z-bc2fb2` — from gardener:finbot-progress-20260726-233502, reply_to `finbot-progress-20260726-233502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T035455Z-bc2fb2.md)
+
+> finbot progress (cycle 20260726-233502):
+>
+> ADVANCED: Opened [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (DRAFT) — "inference-driven OBSERVE
+> stage dispatch". This closes the last gap in the "every OODA stage has an
+> inference-driven path" story: ORIENT/DECIDE/ACT already had dispatch<Role>
+> subagents that reason then call their deterministic tool, but OBSERVE still ran
+> as a bare function call. PR adds `dispatchObserver` + an observe-phase tool
+> subset (`observe_opportunities` only — least authority), wires it into
+> bin/finbot-dispatch, and a mirrored test proving the inference crossings equal
+> the headless output byte-for-byte. `npm test` 614/614 green; --seed=7 dry-run
+> walletTouched:false; downstream proposal_hash unchanged. README status (which
+> had drifted, naming only ORIENT/DECIDE) updated to the full OBSERVE->ACT loop.
+>
+> I did NOT touch the stuck [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) — it's blocked on the flaky
+> 28-seat panel gate, not on code, so I made forward motion on an independent
+> increment off `main` instead (per the "pick the deepest UNBLOCKED increment"
+> guardrail).
+>
+> NEXT / GATES: Posted job `finbot-pr5-panel-20260727` (role builder) to run the
+> required panel; on pass it dispatches `finbot-pr5-fable-signoff` (orchestrator,
+> claude-fable-5). Per merge governance the press does not self-merge —
+> [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) is awaiting panel + Fable sign-off.
+>
+> MAINTAINER DECISION NEEDED: [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4)'s panel has failed ~4 cycles
+> on juror-infra flakiness (a seat's `claude -p` returns no formal verdict, so
+> panel.sh fails closed). This is an infra problem, not a code problem, and it's
+> blocking the whole finbot merge queue. Worth deciding whether to harden
+> panel.sh's seat fan-out (retry-empty-seat) or run [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4)'s panel
+> with a reduced/observed seat set.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -4356,7 +4388,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.9M | $372.84 _(notional, rate-card)_ | no quota set |
+| Claude | 21.9M | $372.68 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
