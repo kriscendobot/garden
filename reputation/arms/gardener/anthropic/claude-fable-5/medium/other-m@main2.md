@@ -6,7 +6,7 @@ work_class: other:m
 target: main2
 attempts: 0
 accepts: 0
-censored: 143
+censored: 144
 mean_dollars: 0.000000
 m2: 0.000000
 acceptance_rate: 0.0000
