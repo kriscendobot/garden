@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T05:45:46Z_
+_As of 2026-07-27T05:49:10Z_
 
 ## Latest
 
@@ -4506,15 +4506,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.6M | $368.77 _(notional, rate-card)_ | no quota set |
+| Claude | 21.7M | $370.36 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (19)
-- [`endo-npm-cas-registry-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260727-053502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### doin (18)
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
@@ -4534,13 +4533,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-050502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-050502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3566)
+### tada (3567)
+- [`endo-npm-cas-registry-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260727-053502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-27, 05:35Z)
 - [`endo-byte-array-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260727-053502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260727-053502.md) — Press tick complete — verify-and-stand-down, as the standing spec anticipates...
 - [`endo-sturdyref-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260727-053502.md) — **SturdyRef press tick complete — holding pattern, zero drift, still gated on...
 - [`endo-git-integration-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260727-053502.md) — The sweep is complete and no action is required this dispatch — the stack is ...
-- [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-google-sheets-client.md) — Completion report
-- … and 3561 more
+- … and 3562 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
