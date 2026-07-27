@@ -2,9 +2,10 @@
 slug: daemon-xs-worker-metering
 repository: endo-but-for-bots
 status: Complete
+milestone: M11
 depends_on: []
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-07-27
 source: imported from origin/llm designs/README.md
 ---
 
@@ -836,3 +837,6 @@ Files: `rust/endo/xsnap/src/daemon_bootstrap.js`
 > which it accumulates steps toward its quota. This value will be
 > clamped based on a burst limit, so that the worker cannot
 > accumulate steps toward its quota beyond a certain amount of time.
+
+---
+_Groomed 2026-07-27: filed into milestone M11 (Rust `endor`) — XS-worker-runtime / endor-substrate design that was previously unfiled; matches M11's exit criterion (XS worker debugger, endor bus/state)._

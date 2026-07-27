@@ -6,7 +6,7 @@ milestone: M9
 depends_on: []
 pr: endo-but-for-bots#287
 created: 2026-03-26
-updated: 2026-07-12
+updated: 2026-07-27
 source: imported from origin/llm designs/README.md
 ---
 
@@ -319,3 +319,6 @@ _Groomed 2026-07-05: `pr: endo-but-for-bots#287` was **closed without merge** on
 
 ---
 _Groomed 2026-07-12: filed under **M9** (UX Polish and Agent Tooling) — the daemon-side `editMessage`/`messageHistory` surface that its M9 dependents chat-edit-message-ui and chat-pending-commands (and daemon-commands-as-messages) build on; the `pr: #287` closed-unmerged drift flagged 2026-07-05 is unchanged this week (no replacement PR is open — verified against the endo-but-for-bots PR list)._
+
+---
+_Groomed 2026-07-27: status drift noted. The recorded `pr: endo-but-for-bots#287` (streamReply + StreamWriter, Phase 1) was **closed unmerged** and no superseding PR exists; the auto-flip reconciler will never advance this record while the pointer names a dead PR. Left `status: In Progress` and the `pr:` pointer intact for the maintainer to decide whether to re-open the Phase-1 work or retire the design; flagged rather than mutated._

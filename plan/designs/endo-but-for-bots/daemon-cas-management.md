@@ -2,9 +2,10 @@
 slug: daemon-cas-management
 repository: endo-but-for-bots
 status: In Progress
+milestone: M11
 depends_on: []
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-07-27
 source: imported from origin/llm designs/README.md
 ---
 
@@ -406,3 +407,6 @@ Control verb handlers in `endo.rs` delegate to it.
 > The content address store may need to be much more intimately
 > aware of the type of the addressed content at least to
 > distinguish directory trees from blobs.
+
+---
+_Groomed 2026-07-27: filed into milestone M11 (Rust `endor`) — XS-worker-runtime / endor-substrate design that was previously unfiled; matches M11's exit criterion (XS worker debugger, endor bus/state)._

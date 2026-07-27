@@ -28,8 +28,8 @@ of records, so a milestone spanning repositories rolls up as one.
 | M8 | 4 | 0 | 0% | 9 |
 | M9 | 33 | 17 | 51% | 44 |
 | M10 | 9 | 0 | 0% | 53 |
-| M11 | 7 | 3 | 42% | 30 |
-| (unfiled) | 23 | 12 | 52% | 0 |
+| M11 | 12 | 4 | 33% | 30 |
+| (unfiled) | 18 | 11 | 61% | 0 |
 
 ## Designs
 
@@ -39,15 +39,10 @@ of records, so a milestone spanning repositories rolls up as one.
 | cli-http-client | endo-but-for-bots | — | Proposed | — | — |
 | cli-store-verb-text-modes | endo-but-for-bots | — | Proposed | — | — |
 | daemon-capability-bus | endo-but-for-bots | — | In Progress | — | — |
-| daemon-cas-management | endo-but-for-bots | — | In Progress | — | — |
 | daemon-cross-peer-gc | endo-but-for-bots | — | Complete | — | — |
-| daemon-debug-worker-restart | endo-but-for-bots | — | Not Started | — | — |
 | daemon-make-archive | endo-but-for-bots | — | In Progress | — | — |
 | daemon-mount-capabilities | endo-but-for-bots | — | Complete | — | — |
 | daemon-web-gateway | endo-but-for-bots | — | Complete | — | — |
-| daemon-xs-worker-debugger | endo-but-for-bots | — | In Progress | — | — |
-| daemon-xs-worker-metering | endo-but-for-bots | — | Complete | — | — |
-| daemon-xs-worker-snapshot | endo-but-for-bots | — | In Progress | — | — |
 | endo-fs-backend-seam | endo-but-for-bots | — | Complete | — | — |
 | endoclaw | endo-but-for-bots | — | Reference | — | — |
 | endopi | endo-but-for-bots | — | Reference | — | — |
@@ -75,9 +70,14 @@ of records, so a milestone spanning repositories rolls up as one.
 | endoclaw-skill-registry | endo-but-for-bots | M10 | Not Started | M | — |
 | endopi-extension-package-manifest | endo-but-for-bots | M10 | Proposed | M | — |
 | endopi-skills-markdown-format | endo-but-for-bots | M10 | Proposed | M | — |
+| daemon-cas-management | endo-but-for-bots | M11 | In Progress | — | — |
+| daemon-debug-worker-restart | endo-but-for-bots | M11 | Not Started | — | — |
 | daemon-endo-rust-sqlite | endo-but-for-bots | M11 | Complete | — | — |
 | daemon-endor-architecture | endo-but-for-bots | M11 | Active | — | — |
 | daemon-rust-xs-performance | endo-but-for-bots | M11 | Active | — | — |
+| daemon-xs-worker-debugger | endo-but-for-bots | M11 | In Progress | — | — |
+| daemon-xs-worker-metering | endo-but-for-bots | M11 | Complete | — | — |
+| daemon-xs-worker-snapshot | endo-but-for-bots | M11 | In Progress | — | — |
 | endor-bus-tui | endo-but-for-bots | M11 | Not Started | XL | — |
 | endor-npm-registry-proxy | endo-but-for-bots | M11 | In Progress | — | — |
 | endor-run-expanded | endo-but-for-bots | M11 | In Progress | — | — |

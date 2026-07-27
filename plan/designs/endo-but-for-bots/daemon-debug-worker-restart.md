@@ -2,9 +2,10 @@
 slug: daemon-debug-worker-restart
 repository: endo-but-for-bots
 status: Not Started
+milestone: M11
 depends_on: []
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-07-27
 source: imported from origin/llm designs/README.md
 ---
 
@@ -394,3 +395,6 @@ used from Chat/Familiar.
 > to be instructed to take its first steps. This should surface
 > as a method on the Endo agent that names the worker to restart
 > in debug mode, like debugWorker('@main').
+
+---
+_Groomed 2026-07-27: filed into milestone M11 (Rust `endor`) — XS-worker-runtime / endor-substrate design that was previously unfiled; matches M11's exit criterion (XS worker debugger, endor bus/state)._
