@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T20:34:24Z_
+_As of 2026-07-27T20:54:51Z_
 
 ## Latest
 
@@ -1309,6 +1309,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
 
 - `20260727T195419Z-425c2c` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T195419Z-425c2c.md)
+
+> triager: fetch for kriscendobot-garden at /home/kris/garden/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
+
+- `20260727T205427Z-491248` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T205427Z-491248.md)
 
 > triager: fetch for kriscendobot-garden at /home/kris/garden/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
 
@@ -6075,19 +6079,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.4M | $440.27 _(notional, rate-card)_ | no quota set |
-| Codex | 19.2M _(+475.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 34.4M | $436.08 _(notional, rate-card)_ | no quota set |
+| Codex | 19.1M _(+474.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (23)
+### doin (24)
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-8840fcdb.md) — attention directive on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
