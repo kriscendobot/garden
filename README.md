@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T05:58:49Z_
+_As of 2026-07-27T06:14:02Z_
 
 ## Latest
 
@@ -4628,18 +4628,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.6M | $368.64 _(notional, rate-card)_ | no quota set |
-| Codex | 19.7M _(+485.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 21.6M | $368.80 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+485.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (15)
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
 - [`plan-recalibrate-20260727-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260727-023502.md) — Weekly plan recalibration and grooming (Sunday evening)
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -4653,13 +4652,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-050502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-050502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3568)
+### tada (3569)
+- [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — PR #864 CI is green at eb14d8f59c9274ad53e21e674e11b73fc2c50baf: all 22 check...
 - [`ocapn-noise-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260727-053502.md) — Completion report — ocapn-noise-press-20260727-053502 (dispatch 20)
 - [`endo-npm-cas-registry-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260727-053502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-27, 05:35Z)
 - [`endo-byte-array-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260727-053502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260727-053502.md) — Press tick complete — verify-and-stand-down, as the standing spec anticipates...
-- [`endo-sturdyref-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260727-053502.md) — **SturdyRef press tick complete — holding pattern, zero drift, still gated on...
-- … and 3563 more
+- … and 3564 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
