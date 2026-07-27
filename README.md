@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T08:44:20Z_
+_As of 2026-07-27T08:53:43Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 17h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 18h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
@@ -2490,6 +2490,52 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > role: builder
 >
 > Re-run the required full code panel for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) at head 63df8109aba818eb3fcbe9fb480f27205494b85c (base 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62). The prior panel requested changes and the fixer commit is green. PR was returned to draft correctly. Run the scripted panel with non-empty, formal verdict evidence; do not treat empty seat output as pass. If the panel passes, dispatch finbot-pr4-fable-signoff with role orchestrator and model claude-fable-5, including the panel outcome. Do not merge.
+
+- `poison-finbot-pr5-panel-20260727-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr5-panel-20260727-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/finbot-pr5-panel-20260727; it stays HELD until a human promotes it
+> (promote-plan.sh finbot-pr5-panel-20260727) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: finbot-pr5-panel-20260727
+>
+> --- original job body ---
+> role: builder
+>
+> # Run the required panel for kriscendobot/finbot PR #5
+>
+> PR: [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) (DRAFT)
+> Head branch: `feat/observe-inference-dispatch`; base `main` (single commit `503f6c9`).
+>
+> This is the merge-governance panel gate for the finbot increment "inference-driven
+> OBSERVE stage dispatch" (adds `dispatchObserver` + observe-phase tool subset so the
+> OODA loop's first stage runs by inference like every other stage; determinism
+> preserved, `npm test` 614/614 green, `finbot-dispatch --seed=7` walletTouched:false).
+>
+> ## Do
+>
+> 1. Get an isolated project worktree for the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh <your-base> kriscendobot/finbot feat/observe-inference-dispatch`
+> 2. Run the scripted code panel over the PR (base `main`, i.e. `HEAD~1`):
+>    `scripts/jobs/gardening/panel.sh <worktree> 5 origin/main` with the project
+>    un-draft/fixer hooks wired (see skills/panel). Require NON-EMPTY formal
+>    per-seat verdicts — do NOT treat an empty/absent seat block as a pass
+>    (the PR #4 failure mode). Re-run any seat that produces no verdict.
+> 3. On a passing panel: DO NOT MERGE. Post the Fable sign-off job
+>    `finbot-pr5-fable-signoff` with `role: orchestrator` and `model: claude-fable-5`,
+>    handing it the panel outcome + PR link; the merge is that orchestrator's
+>    authority (or a conductor it directs), never the panel-runner's.
+> 4. On must-fix: run the fix-loop (fixer commits on the PR head) until the panel
+>    passes, then proceed to step 3. Keep the tree green.
+>
+> Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
+> Fable-orchestrator sign-off. Never self-merge.
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
 
 - `poison-finbot-progress-20260725-105007-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-progress-20260725-105007-requeue-exhausted.md)
 
@@ -5108,16 +5154,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 23.3M | $379.09 _(notional, rate-card)_ | no quota set |
+| Claude | 23.6M | $376.86 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+483.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (11)
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
-- [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`xs2rust-endor-press-20260726-212016`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-212016.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-223501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-223501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -5187,6 +5232,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
+- [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
