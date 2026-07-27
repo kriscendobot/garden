@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T19:44:21Z_
+_As of 2026-07-27T19:52:39Z_
 
 ## Latest
 
@@ -1303,6 +1303,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > - All four native engines still fail at parse on source-phase imports (unimplemented per engine). That is intersection-by-design, not a Compartment disagreement.
 >
 > The finish-line bar of four-engine native agreement depends on source-phase imports shipping in each engine, a large per-engine effort outside this proposal. Options from 07-26 stand: (a) fund per-engine source-phase ports, (b) narrow the bar to the semantic harness + one native engine (JSC is closest; it already ships import defer behind a flag), or (c) pause native fronts as blocked-upstream. I recommend (b) or (c) so the daily press stops re-deriving the same blocker. No reply needed if you've already seen this; I'll hold at re-verify-and-report until you decide.
+
+- `20260727T195218Z-8abefc` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T195218Z-8abefc.md)
+
+> triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5949,7 +5953,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.8M | $458.62 _(notional, rate-card)_ | no quota set |
+| Claude | 34.8M | $459.24 _(notional, rate-card)_ | no quota set |
 | Codex | 19.3M _(+478.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
