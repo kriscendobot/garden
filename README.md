@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T18:58:13Z_
+_As of 2026-07-27T19:05:39Z_
 
 ## Latest
 
@@ -5945,9 +5945,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (15)
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
+- [`proposal-compartments-press-20260727-190507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260727-190507.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-062002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-072006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-072006.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
