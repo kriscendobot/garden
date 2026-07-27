@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T18:07:12Z_
+_As of 2026-07-27T18:08:46Z_
 
 ## Latest
 
@@ -1284,6 +1284,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T173549Z-172280` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T173549Z-172280.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
+
+- `20260727T180817Z-609184` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T180817Z-609184.md)
+
+> endo-npm-cas-registry press (report endo-npm-cas-registry-press-20260727-175002): six gap drafts on endojs/endo-but-for-bots are held awaiting your promotion — #857, #859, #860, #873, #875, and new #876 — to land on the #862 pattern. Heads-up: #875 and #876 both touch EXPORTS_RESOLVER_JS, so whichever you promote second takes a trivial rebase plus a one-line extra-conditions splice. Please say which to promote (and in what order).
+
+- `20260727T180823Z-d67dd9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T180823Z-d67dd9.md)
+
+> endo-npm-cas-registry press (same report): the default-condition-set policy for still-open web-global gaps — TextEncoder/TextDecoder, crypto.subtle, atob/btoa/URL (and Intl on the engine arc) — needs your word: browser-by-default vs opt-in vs node-shims. The gaps are recorded but blocked on this policy call before further drafts.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5812,7 +5820,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $457.78 _(notional, rate-card)_ | no quota set |
+| Claude | 34.7M | $458.10 _(notional, rate-card)_ | no quota set |
 | Codex | 19.2M _(+478.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
