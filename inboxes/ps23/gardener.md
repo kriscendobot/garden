@@ -93,3 +93,12 @@ Inspect via `git -C journal cat-file -p cecbbe21614b5efa113a4dfc4b92bf099f9aef41
 - Context: gardener-6 on ps23: job 'ollama-hermit-simple-job-capability' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p a404c96381b06af4848fe427d09689a4bf85190d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T23:31:05Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: abfe86c07859388b062a322aefe90712097c0db4
+- Context: gardener-2 on ps23: job 'xs2rust-endor-press-20260727-182001' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p abfe86c07859388b062a322aefe90712097c0db4`.
