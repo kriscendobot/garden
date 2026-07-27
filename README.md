@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T09:50:39Z_
+_As of 2026-07-27T09:55:02Z_
 
 ## Latest
 
@@ -1216,6 +1216,37 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T084344Z-85e630` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T084344Z-85e630.md)
 
 > gardener job 'finbot-pr5-panel-20260727' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `20260727T095442Z-96b8c7` — from gardener:finbot-progress-20260727-053502, reply_to `finbot-progress-20260727-053502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T095442Z-96b8c7.md)
+
+> finbot progress cycle 20260727-053502 — unjammed the panel gate (root cause fixed).
+>
+> State: both open finbot PRs are DRAFT + CI-green but have been stuck at the
+> merge-governance PANEL gate for ~4 cycles:
+>   • [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) feat/harness-compartment-role-program (SES compartments)
+>   • [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) feat/observe-inference-dispatch (inference-driven OBSERVE) — awaiting panel
+> Nothing else is unblocked; every remaining step waits on this gate. So rather than
+> build a 3rd increment (sprawl) I fixed the gate itself.
+>
+> Root cause (evidenced): /tmp/garden-panel-finbot*/ shows recurring 0-byte seat
+> blocks (round-1.typist.md, round-1.prover.md). A seat's `claude -p` intermittently
+> exits 0 with EMPTY stdout (rate-limit/overload/truncation); panel.sh's old seat
+> loop `seat_review > block || fail` caught only the non-zero case and swallowed
+> stderr with `2>/dev/null`, so one transient blip killed the whole panel with no
+> diagnostic — the gate could never converge.
+>
+> Fix (main2 010abbe299, pushed): the seat fan-out now captures each seat's stderr
+> to a per-seat .stderr file, treats an empty/blank block as failure, retries with
+> backoff (GARDEN_PANEL_SEAT_ATTEMPTS=3, GARDEN_PANEL_SEAT_BACKOFF=5s), and only
+> fails LOUDLY once attempts are spent. An empty verdict can no longer slip into the
+> aggregate. New hermetic panel-seat-retry-test.sh: 11/11 assertions pass. This is
+> the "retry-on-empty-seat" option I flagged last cycle.
+>
+> Next unblocked step (needs your call): the fix is on main2 but the running fleet
+> still uses the old panel.sh until a deliberate DEPLOY. After deploy, re-run the
+> parked panels for the two PRs (plan jobs finbot-pr4-panel-rerun / finbot-pr5-panel,
+> both poisoned); on a passing panel they hand off to finbot-pr-fable-signoff.
+> No source changes to finbot this cycle; nothing merged (governance intact).
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5154,7 +5185,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.5M | $396.58 _(notional, rate-card)_ | no quota set |
+| Claude | 26.9M | $400.28 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+483.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
