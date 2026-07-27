@@ -57,3 +57,10 @@ DST day is spanned correctly. It was flipped from the earlier fixed-interval
 midnight) once the anchored scheduler landed on the leader host; do not revert it
 to `daily` while any leader host still runs a pre-anchor scheduler, or that
 scheduler would treat the token as its weekly default.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-27T07:05:12Z
