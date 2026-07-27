@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-26T23:59:54Z_
+_As of 2026-07-27T00:05:22Z_
 
 ## Latest
 
@@ -4112,15 +4112,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.1M | $401.37 _(notional, rate-card)_ | no quota set |
+| Claude | 22.1M | $402.02 _(notional, rate-card)_ | no quota set |
 | Codex | 20.2M _(+494.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
-- [`endo-git-integration-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260726-233502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+### doin (12)
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-233502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
@@ -4134,13 +4133,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260726-223501`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-223501.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-233502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3555)
+### tada (3556)
+- [`endo-git-integration-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-233502.md) — All green and zero unresolved threads on #691 at its new head. The dispatch a...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260726-233502-2.md) — Report
 - [`ocapn-noise-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260726-233502.md) — Completion report — ocapn-noise-press-20260726-233502
 - [`endo-npm-cas-registry-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260726-233502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-26, 23:35Z)
 - [`endo-vfs-parity-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260726-233502.md) — Completion report — VFS parity press, 2026-07-26 ~23:45Z tick
-- [`endojs-endo-but-for-bots-build-endor-git-cas`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-build-endor-git-cas.md) — Implemented Phase 1 Git CAS and opened draft PR: https://github.com/endojs/en...
-- … and 3550 more
+- … and 3551 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
