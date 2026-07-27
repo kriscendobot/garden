@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T11:54:29Z_
+_As of 2026-07-27T11:58:53Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 34m)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 20h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 40m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 21h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
@@ -1251,6 +1251,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T112017Z-11f3f4` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T112017Z-11f3f4.md)
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
+
+- `20260727T115833Z-39a22e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T115833Z-39a22e.md)
+
+> Report `endo-npm-cas-registry-press-20260727-113510` (endojs/endo-but-for-bots) has two items needing your call:
+>
+> 1. Five gap drafts are held awaiting your promotion — #857, #859, #860, #873, and the new #875. Once you approve any of them, the plan is to land on the #862 pattern (verify on the exact merged tree, merge, provenance comment). Which, if any, should I promote?
+>
+> 2. Two probe findings were recorded but not pressed, and the report flags a design note is wanted before any code: (a) nanoid's `node:crypto`/webcrypto — builtin-shim vs. browser-condition policy; and (b) missing `Intl` in XS compartments (engine arc's surface). Want me to post a designer job for a design note on either, or park them?
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5425,7 +5433,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.3M | $449.05 _(notional, rate-card)_ | no quota set |
+| Claude | 33.3M | $447.10 _(notional, rate-card)_ | no quota set |
 | Codex | 19.5M _(+481.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
