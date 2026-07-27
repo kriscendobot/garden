@@ -2,7 +2,7 @@
 order: serial
 children: gnome-backend-autotune-design gnome-backend-autotune-build
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-27T22:17:17Z
 ---
