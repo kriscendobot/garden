@@ -18,3 +18,10 @@ obvious blunders in the hermit setup/harness that make even trivial jobs fail.
 - Hermits are disabled fleet-wide (hermits:0); exercise the harness path directly
   (you may start ollama locally in your worktree) WITHOUT re-enabling fleet hermits.
 Deliverable: a clear verdict (simple job: succeeds/fails + why) + any blunder fixes on main2.
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-27T22:33:47Z
