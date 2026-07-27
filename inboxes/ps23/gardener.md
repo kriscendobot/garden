@@ -75,3 +75,12 @@ Inspect via `git -C journal cat-file -p e58fe46d851ab34fe28212a78bd18fd9b277ffc8
 - Context: gardener-6 on ps23: job 'gnome-backend-autotune-design' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1d1d711f9dbfd587445532bde264c2909c33e9e4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T22:28:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: cecbbe21614b5efa113a4dfc4b92bf099f9aef41
+- Context: gardener-4 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p cecbbe21614b5efa113a4dfc4b92bf099f9aef41`.
