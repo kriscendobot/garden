@@ -6,3 +6,10 @@ Fix, three parts:
 3. Add a regression case (extend an existing watcher test that drives repo-watcher, or add `scripts/jobs/test/repo-watcher-test.sh`) asserting: arm a slug, remove its arming file, re-run reconcile, and assert the instance timer is `disable`d — which fails under the corrected mock until part 1 lands.
 
 Also perform the immediate host-local remediation the reconcile can't yet do: `systemctl --user disable --now garden-comment-watcher@kriscendobot-garden.timer garden-ci-watcher@kriscendobot-garden.timer garden-triager@kriscendobot-garden.timer` on whatever host runs this job (the slug is already tombstoned + absent from both journal sets, so a fixed reconcile will not re-arm it). Note the deploy of parts 1-2 rides `main2` via the normal deliberate-deploy path, which is what finally lets every host auto-disarm de-armed slugs.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-27T20:27:06Z
