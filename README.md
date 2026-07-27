@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T05:36:23Z_
+_As of 2026-07-27T05:38:13Z_
 
 ## Latest
 
@@ -4506,19 +4506,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.6M | $369.46 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $368.77 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (4)
+### todo (3)
 - [`endo-byte-array-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260727-053502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-sturdyref-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260727-053502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260727-053502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260727-053502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
 ### doin (19)
-- [`endo-git-integration-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260727-053502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260727-053502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260727-053502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
@@ -4537,13 +4536,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-050502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-050502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3562)
+### tada (3563)
+- [`endo-git-integration-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260727-053502.md) — The sweep is complete and no action is required this dispatch — the stack is ...
 - [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-google-sheets-client.md) — Completion report
 - [`deadmail-issue-comment-5087337713`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5087337713.md) — I picked up the intent of the message and carried the comment forward as new ...
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-233502.md) — Completion report — finbot progress cycle 20260726-233502
 - [`arc-status-daily-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260727-033502.md) — Inbox empty. Job complete.
-- [`esheets-supervisor-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260727-033502.md) — Completion report
-- … and 3557 more
+- … and 3558 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
