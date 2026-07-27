@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T02:57:46Z_
+_As of 2026-07-27T03:35:51Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 12h)
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2d)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 2d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 7d)
@@ -4348,14 +4348,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.8M | $382.12 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $371.05 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (16)
+- [`arc-status-daily-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260727-033502.md) — Daily status + change summary for the standing review arcs
+- [`esheets-supervisor-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260727-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-233502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
