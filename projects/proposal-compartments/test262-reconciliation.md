@@ -1,10 +1,16 @@
 # Compartments test262 reconciliation
 
-Status: blocked on the normative operation surface. This is an inventory and
-disposition report, not an implementation claim. The fresh specification only
-names the required outcomes. It does not yet define the observable constructor,
-source-key acquisition, import, linking, or root-global-selection operations
-needed to author executable test262 tests.
+Status: the operation surface is now specified, and the fresh-suite targets
+below are staged as executable families. When first written (2026-07-21) this was
+an inventory only, because the specification named required outcomes without
+defining the observable operations. That gap is closed: spec `d23d7de` ("specify
+minimum Compartment operation surface") defines `compartment.exports(source)` and
+`compartment.import(source)` over an opaque source-phase key, so the six targets
+in "Fresh-suite targets" are now authored as ten staged families on
+`kriscendobot/test262` branch `proposal-compartments` (`test/staging/Compartments/`,
+tip `63b7e7c`). See "Staging update (2026-07-27)" below. The inventory and
+disposition of the legacy fixtures (following sections) stand as the 2026-07-21
+provenance record.
 
 ## Evidence and provenance
 
@@ -162,27 +168,77 @@ not copied from the legacy fixtures:
 
 ## Open questions for the daily press or maintainer
 
-1. What operation exposes a source-phase `ModuleSource` to a Compartment: an
-   `import` method, a host operation, or another module-harmony form? Its
-   arguments and result determine the test262 layout.
-2. What observable operation selects the surrounding realm's global object, and
-   is it the default or an explicit constructor option?
-3. What is the specified pre-link namespace operation for cross-Compartment
-   cycles? The charter permits an equivalent of SES `compartment.module(specifier)`
-   but has not selected one.
-4. Is synchronous module evaluation part of the ECMAScript surface, host-defined,
-   or out of scope? The Node.js checklist asks for both TLA and non-TLA paths,
-   while the current scaffold defines only `Compartment.prototype.import`.
-5. Which source-phase and import-defer feature names should staging frontmatter
-   use until the test262 feature registry settles them?
+Questions 1 through 3 are answered by spec `d23d7de`. Questions 4 and 5 remain
+open.
 
-## Staging result
+1. Answered. A Compartment acquires a source-phase `ModuleSource` and operates
+   on it through two methods keyed on the opaque source object:
+   `compartment.import(source)` (asynchronous, links and evaluates) and
+   `compartment.exports(source)` (the deferred exports namespace, usable before
+   linking). The source object is what `import source` and `import.source()`
+   produce. No `import`-method-versus-host-operation ambiguity remains.
+2. Answered. `new Compartment()` records the current Realm and its global object,
+   and the shared surrounding-realm global is the default (not an opt-in option).
+   A fresh-global mode is not part of the minimum surface.
+3. Answered. The pre-link namespace operation is `compartment.exports(source)`,
+   which yields a deferred exports namespace keyed by Compartment and source key
+   before source construction. The charter's trade-off with SES
+   `compartment.module(specifier)` is stated in the spec and exercised by
+   `cross-compartment/deferred-exports-identity.js`.
+4. Open. Synchronous module evaluation is not in the minimum surface:
+   `Compartment.prototype.import` is deliberately asynchronous and no synchronous
+   entry point exists. The Node.js checklist asks for both TLA and non-TLA paths,
+   so this is an outstanding maintainer decision (README shortfall, "Both TLA and
+   non-TLA evaluation paths").
+5. Open. Staging frontmatter uses the provisional `Compartment` feature name.
+   The source-phase and import-defer feature names depend on the test262 feature
+   registry, which has not settled them.
 
-No legacy fixture was copied to `kriscendobot/test262` because all 127 source
-records either encode the abandoned descriptor/hook design, contradict
-root-global reuse, are unrelated endor corpus cases, or depend on an operation
-the fresh specification has not defined. The test262 staging branch has a
-documentation-only checkpoint recording this result. This is intentional
+## Staging result (legacy fixtures)
+
+No legacy fixture was copied to `kriscendobot/test262`. All 127 source records
+either encode the abandoned descriptor/hook design, contradict root-global reuse,
+are unrelated endor corpus cases, or depend on an operation the fresh
+specification had not yet defined at inventory time. This is intentional
 de-legacification, not a claim that the 56 XS, 42 overlay, 42 endor-vendored, or
-29 endor-corpus records pass the new design. Executable fixtures remain blocked
-on the five questions above.
+29 endor-corpus records pass the new design.
+
+## Staging update (2026-07-27)
+
+The legacy fixtures were not staged. The fresh-suite targets were, authored from
+the charter after spec `d23d7de` defined the operation surface. The staging tree
+`test/staging/Compartments/` on branch `proposal-compartments` (tip `63b7e7c`)
+holds ten executable families. Each of the six fresh-suite targets maps to a
+staged family:
+
+| Target | Staged family |
+| --- | --- |
+| 1. Same source key, one instance per Compartment | `instance-memoization/same-compartment.js` |
+| 2. Same source key, distinct instances across Compartments | `instance-memoization/separate-compartments.js` |
+| 3. Surrounding-realm global reused for a root-realm graph | `constructor/shared-realm-global.js` |
+| 4. Cross-Compartment link namespace identity and cycle | `cross-compartment/deferred-exports-identity.js`, `cross-compartment/cyclic-linking.js` |
+| 5. TLA completion and rejection across a link | `tla/dependency-and-error-propagation.js` |
+| 6. No-lockdown module-linking semantics | folded into `constructor/shared-realm-global.js` (the shared-global run performs no lockdown) |
+
+Four families beyond the six exercise the source-key brand and identity
+(`source-key/brand-and-identity.js`), asynchronous import namespaces and error
+separation (`import/async-namespace-and-errors.js`), and the module-phase
+intersection (`intersection/source-phase-static-and-expression.js` and
+`intersection/import-defer-and-tla.js`).
+
+No native engine (v8, JSC, XS, endor) runs the suite yet. All four fail at parse
+on the opening source-phase import, which is unimplemented in each reachable
+engine build. This is intersection-by-design: the proposal layers on source-phase
+imports rather than restating them. The strongest available oracle is the v8
+semantic harness (draft PR `kriscendobot/proposal-compartments#2`), which
+implements the spec's normative operations over Node's `vm.SourceTextModule`.
+Re-run 2026-07-27 against staging `63b7e7c`
+(`node run.mjs <staging> <harness>`): **9 passed, 0 failed, 1 blocked** of the ten
+families, exit 0. The one blocked family (`intersection/import-defer-and-tla.js`)
+needs native `import defer` with synchronous deferred evaluation, which no
+reachable engine or the vm-based harness provides.
+
+Growing the suite further is bounded by the same source-phase prerequisite: new
+families that open with `import source` cannot be validated on any native engine
+until source-phase imports ship there. The semantic harness remains the practical
+gate for new families until then.
