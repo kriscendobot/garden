@@ -33,3 +33,10 @@ plain client out as this smaller scope is the remediation. External-repo etiquet
 work only on the fork/PR this job authorizes; no upstream pushes beyond the PR head.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-27T04:33:13Z
