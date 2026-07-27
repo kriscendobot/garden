@@ -140,7 +140,11 @@ seat_review() {  # seat_review <seat> -> prints that seat's per-juror block
 brief, then review the diff and return ONE per-juror block: a Verdict \
 (approve / request-changes / comment-only) and Findings, each finding citing a \
 standing rule [rule: <path>] or proposing one [proposed-rule: ...]. Brief: \
-$(cat "$brief"). Diff base: $base." 2>/dev/null
+$(cat "$brief"). Diff base: $base."
+  # NOTE: stderr is intentionally NOT swallowed here. The caller redirects this
+  # function's stderr to a per-seat .stderr file so a failing `claude -p`
+  # (rate-limit/overload/truncation) is DIAGNOSABLE instead of vanishing — the
+  # cause of the recurring 0-byte seat blocks that jammed the panel gate.
 }
 
 # --- DECISION HOOK: aggregate the seat verdicts into one disposition ---------
@@ -204,7 +208,30 @@ while :; do
   : > "$agg"
   for seat in $seats; do
     block="$GARDEN_PANEL_RUNDIR/round-$round.$seat.md"
-    seat_review "$seat" > "$block" || fail "seat $seat"
+    # RETRY-ON-EMPTY SEAT. A seat's `claude -p` intermittently exits non-zero or
+    # (worse) exits 0 with EMPTY stdout — a rate-limit / overload / truncation.
+    # The old `seat_review > block || fail` handled only the non-zero case and,
+    # on a 0-byte-but-exit-0 answer, SILENTLY aggregated an empty verdict the
+    # decider then judged over (a seat with no signal, diluting the disposition);
+    # the non-zero case failed the WHOLE panel on one transient blip, its stderr
+    # swallowed by `2>/dev/null` so the cause was undiagnosable (the recurring
+    # 0-byte round-1.typist.md / round-1.prover.md that jammed the finbot merge
+    # gate for days — /tmp/garden-panel-finbot*/). Now: capture the seat's stderr
+    # to disk, treat an empty/blank block as a failure, retry with backoff, and
+    # only fail LOUDLY (pointing at the captured stderr) once the attempts are
+    # spent. An empty seat verdict is never legitimate signal and must never
+    # reach the aggregate.
+    seat_ok=""
+    attempts="${GARDEN_PANEL_SEAT_ATTEMPTS:-3}"
+    for _seat_try in $(seq 1 "$attempts"); do
+      if seat_review "$seat" > "$block" 2> "$block.stderr" \
+         && grep -q '[^[:space:]]' "$block"; then
+        seat_ok=1; break
+      fi
+      echo "panel #$pr: seat '$seat' returned no verdict (attempt $_seat_try/$attempts); retrying" >&2
+      [ "$_seat_try" -lt "$attempts" ] && sleep "$(( _seat_try * ${GARDEN_PANEL_SEAT_BACKOFF:-5} ))"
+    done
+    [ -n "$seat_ok" ] || fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)"
     { echo "### $seat"; cat "$block"; echo; } >> "$agg"
   done
 
