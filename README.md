@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T07:01:23Z_
+_As of 2026-07-27T07:05:33Z_
 
 ## Latest
 
@@ -4632,14 +4632,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.6M | $369.57 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $369.05 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+483.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
+### doin (16)
+- [`daily-progress-summary-20260727-070502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260727-070502.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
