@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T03:35:51Z_
+_As of 2026-07-27T03:38:45Z_
 
 ## Latest
 
@@ -1164,6 +1164,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260726T235837Z-244282` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T235837Z-244282.md)
 
 > The endo npm/CAS-registry arc now has a PR for every actionable known gap — #857, #859, #860, #862, and #873 on endojs/endo-but-for-bots — and the remaining press work is landing them through the gauntlet, which is gated on your promotion. Please promote whichever of these you want run through the gauntlet next (the two deliberate non-goals, install scripts and native modules, need no action).
+
+- `20260727T033826Z-0c1538` — from gardener:esheets-supervisor-20260727-033502, reply_to `esheets-supervisor-20260727-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T033826Z-0c1538.md)
+
+> esheets standup (2026-07-27): Foundations green + mergeable but awaiting your merge — [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) (@endo/fetch network floor, 24/24 checks green) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (endoclaw-oauth design refinement, green). Neither is merged into llm yet; both are the blocking maintainer decision. No sheets/oauth/fetch packages exist under packages/ on llm.
+>
+> Today I pushed the deepest UNBLOCKED node forward: posted builder job build-endo-google-sheets-client for the plain @endo/google-sheets REST client (injected fetch, stub-tested) — independent of the unmerged foundations, so it can build/merge now. This splits a smaller scope after the combined build-exo-google-sheets job exhausted its requeues (now parked/poisoned in plan/, gate go-ahead).
+>
+> Blocking you: (1) merge [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) to unblock the OAuth implementation (still design-stage) and the exo layer; (2) whether to re-promote build-exo-google-sheets or let the exo layer wait for the plain client + OAuth impl. Webhooks/push stays deferred per design. Nothing else actionable until a merge or your call.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -4348,15 +4356,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.6M | $371.05 _(notional, rate-card)_ | no quota set |
+| Claude | 21.7M | $371.84 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`arc-status-daily-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260727-033502.md) — Daily status + change summary for the standing review arcs
+- [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-google-sheets-client.md) — build @endo/google-sheets — the plain Sheets REST client (Phase 1 of the exo-...
 - [`esheets-supervisor-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260727-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260726-233502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
