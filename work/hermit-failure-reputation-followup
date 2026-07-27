@@ -1,0 +1,5 @@
+host: ps23
+gardener: 3
+worker_kind: gardener
+claimed_at: 2026-07-27T22:28:06Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-hermit-failure-reputation-followup
