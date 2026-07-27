@@ -2424,3 +2424,12 @@ Inspect via `git -C journal cat-file -p 08e7d10a386240301f14839bb347c227f2360eb9
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'plan-recalibrate-20260727-023502' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e12e7dc454df23979a286216e053a4daa9ef8014`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T02:53:37Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 49d7f85a0892853373e395b40596d29dfca75f0f
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'xs2rust-endor-press-20260726-223501' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 49d7f85a0892853373e395b40596d29dfca75f0f`.
