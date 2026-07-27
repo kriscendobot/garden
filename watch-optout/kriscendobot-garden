@@ -1,0 +1,11 @@
+# watch-optout tombstone — durable unwatch of an auto-provisioned own fork.
+#
+# Fork kriscendobot/garden no longer exists on GitHub (gh api repos/kriscendobot/garden
+# -> 404) but a stale bare clone worktrees/kriscendobot-garden.git kept
+# fork-watch-provisioner.sh re-arming it into repos/ + comment-repos/, so all three
+# per-repo watchers (garden-triager@, garden-comment-watcher@, garden-ci-watcher@)
+# FATAL-flapped against a 404 repo every tick. This tombstone is the design's
+# required durable-unwatch signal: the provisioner never re-adds a tombstoned slug.
+# See job self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch
+# and designs/auto-provision-fork-watchers.md.
+unwatched: kriscendobot/garden (dead fork, upstream 404)
