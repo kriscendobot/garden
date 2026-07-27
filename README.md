@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T05:53:50Z_
+_As of 2026-07-27T05:55:43Z_
 
 ## Latest
 
@@ -4624,20 +4624,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.7M | $372.95 _(notional, rate-card)_ | no quota set |
+| Claude | 21.6M | $369.35 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
-- [`ocapn-noise-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260727-053502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`plan-recalibrate-20260727-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/plan-recalibrate-20260727-023502.md) — Weekly plan recalibration and grooming (Sunday evening)
 - [`xs2rust-endor-press-20260726-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260726-192001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260726-192001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
@@ -4650,13 +4649,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-050502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-050502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3567)
+### tada (3568)
+- [`ocapn-noise-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260727-053502.md) — Completion report — ocapn-noise-press-20260727-053502 (dispatch 20)
 - [`endo-npm-cas-registry-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260727-053502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-27, 05:35Z)
 - [`endo-byte-array-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260727-053502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endo-vfs-parity-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260727-053502.md) — Press tick complete — verify-and-stand-down, as the standing spec anticipates...
 - [`endo-sturdyref-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260727-053502.md) — **SturdyRef press tick complete — holding pattern, zero drift, still gated on...
-- [`endo-git-integration-press-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260727-053502.md) — The sweep is complete and no action is required this dispatch — the stack is ...
-- … and 3562 more
+- … and 3563 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
