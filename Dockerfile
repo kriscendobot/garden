@@ -124,8 +124,19 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 # PATH and thus reachable from /etc/profile.d/garden.sh below). The trailing
 # `command -v claude` asserts the exec contract at build time: a broken install
 # fails the build loudly rather than at first `./garden`.
+#
+# The version is a FLOOR, not an exact pin (ARG CLAUDE_CODE_MIN): a rebuild still
+# tracks the latest published CLI — which is what a fleet of agents wants — but can
+# never land BELOW the floor. That is the durability this arg buys. An upgrade done
+# inside a running container (`npm install -g` into the writable layer) is lost the
+# moment the container is recreated from an older image; raising the floor here is
+# how such an upgrade is carried into the image. So: after upgrading the CLI in a
+# live container, bump CLAUDE_CODE_MIN to the version you now run. `claude --version`
+# makes the build fail loudly if the resolved install cannot even report itself.
+ARG CLAUDE_CODE_MIN=2.1.220
 RUN for attempt in 1 2 3; do \
-        npm install -g @anthropic-ai/claude-code && command -v claude && exit 0; \
+        npm install -g "@anthropic-ai/claude-code@>=${CLAUDE_CODE_MIN}" \
+            && command -v claude && claude --version && exit 0; \
         if [ "$attempt" -eq 3 ]; then exit 1; fi; \
         echo "npm install failed (attempt $attempt); retrying..." >&2; \
         sleep "$attempt"; \
