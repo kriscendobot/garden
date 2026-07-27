@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T19:05:39Z_
+_As of 2026-07-27T19:12:27Z_
 
 ## Latest
 
@@ -1292,6 +1292,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T180823Z-d67dd9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T180823Z-d67dd9.md)
 
 > endo-npm-cas-registry press (same report): the default-condition-set policy for still-open web-global gaps — TextEncoder/TextDecoder, crypto.subtle, atob/btoa/URL (and Intl on the engine arc) — needs your word: browser-by-default vs opt-in vs node-shims. The gaps are recorded but blocked on this policy call before further drafts.
+
+- `20260727T191211Z-927bea` — from gardener:proposal-compartments-press-20260727-190507, reply_to `proposal-compartments-press-20260727-190507` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T191211Z-927bea.md)
+
+> Compartments daily press (2026-07-27): still awaiting your call on the four-engine native bar (raised 2026-07-26). Nothing new to fix; the effort is stable, not degrading. State today:
+>
+> - Spec unchanged at d23d7de (minimum operation surface). Rendered spec live (HTTP 200). Explainer current.
+> - test262: 10 staged families on kriscendobot/test262 @63b7e7c cover all 6 charter targets. I reconciled the now-stale test262-reconciliation.md with this reality today (journal2).
+> - v8 semantic harness re-run today: 9 passed / 0 failed / 1 blocked, exit 0. The 1 blocked family needs native `import defer`.
+> - All four native engines still fail at parse on source-phase imports (unimplemented per engine). That is intersection-by-design, not a Compartment disagreement.
+>
+> The finish-line bar of four-engine native agreement depends on source-phase imports shipping in each engine, a large per-engine effort outside this proposal. Options from 07-26 stand: (a) fund per-engine source-phase ports, (b) narrow the bar to the semantic harness + one native engine (JSC is closest; it already ships import defer behind a flag), or (c) pause native fronts as blocked-upstream. I recommend (b) or (c) so the daily press stops re-deriving the same blocker. No reply needed if you've already seen this; I'll hold at re-verify-and-report until you decide.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
