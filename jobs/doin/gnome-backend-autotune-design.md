@@ -37,3 +37,10 @@ Produce `designs/gnome-backend-verified-autotune.md` covering:
 - Observability: log each auto-tune; surface a host that cannot run its declared kinds.
 Design ONLY (no implementation). Base: garden main2 (direct, no PR). Keep it tight
 and implementable.
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-27T22:19:07Z
