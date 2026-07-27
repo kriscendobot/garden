@@ -42,9 +42,4 @@ Bounds: bot identity, bot-actionable repos only; `agoric-sdk` excluded
 unconditionally (the validator enforces this). Report what was reconciled,
 recalibrated, and groomed.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  claimed_at: 2026-07-27T02:35:14Z
+<!-- garden-reaped: 1 -->
