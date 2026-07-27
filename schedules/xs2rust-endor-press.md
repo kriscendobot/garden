@@ -1,13 +1,13 @@
-cadence: hourly
+cadence: 10800s
 last_dispatched: 2026-07-27T21:35:02Z
 job_basename_prefix: xs2rust-endor-press
 ---
 ---
-model: qwen3.6
+model: opus
 ---
 # Press xs2rust-endor (PR #600) forward — to endor integration + green daemon tests + test262 parity
 
-You are the standing **local-qwen (qwen3.6) press-driver** for the XS→Rust engine port on
+You are the standing **Claude (Opus 4.8) press-driver** for the XS→Rust engine port on
 `endojs/endo-but-for-bots` **PR #600** (branch `xs2rust-endor`, base `llm`, kept
 DRAFT). Directive source: maintainer @kriskowal on PR #600 (the directive
 comment is anchor `issuecomment-4871559130` — cited here WITHOUT a live
@@ -31,7 +31,7 @@ Press the implementation forward until ALL of the following hold, then stop:
    (bit-exact result + computron agreement with the C-XS oracle across the
    staged corpus, extended per the roadmap stage you are on).
 
-## What to do on each dispatch (you are woken every hour; be idempotent)
+## What to do on each dispatch (you are woken every 3 hours; be idempotent)
 
 1. **Assess, don't assume.** Read `designs/xs2rust-endor-engine.md` (§ Resolved
    Questions is BINDING; § Staged Roadmap + any "Stage-N amendment" is the
