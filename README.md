@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T04:45:28Z_
+_As of 2026-07-27T04:45:58Z_
 
 ## Latest
 
@@ -4388,16 +4388,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.9M | $373.82 _(notional, rate-card)_ | no quota set |
+| Claude | 21.9M | $374.10 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (16)
 - [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-google-sheets-client.md) — build @endo/google-sheets — the plain Sheets REST client (Phase 1 of the exo-...
-- [`deadmail-issue-comment-5087337713`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5087337713.md) — Dead-lettered message — pick up its intent
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
@@ -4414,13 +4413,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-025003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-025003.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3560)
+### tada (3561)
+- [`deadmail-issue-comment-5087337713`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5087337713.md) — I picked up the intent of the message and carried the comment forward as new ...
 - [`finbot-progress-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/finbot-progress-20260726-233502.md) — Completion report — finbot progress cycle 20260726-233502
 - [`arc-status-daily-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/arc-status-daily-20260727-033502.md) — Inbox empty. Job complete.
 - [`esheets-supervisor-20260727-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/esheets-supervisor-20260727-033502.md) — Completion report
 - [`ebfb-llm-designs-groom-20260727-023502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-llm-designs-groom-20260727-023502.md) — Audited 171 design records and designs/README.md on current llm (f6d2efbbb9).
-- [`endo-git-integration-press-20260726-233502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260726-233502.md) — All green and zero unresolved threads on #691 at its new head. The dispatch a...
-- … and 3555 more
+- … and 3556 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
