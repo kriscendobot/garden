@@ -32,12 +32,4 @@ combined `build-exo-google-sheets` attempt exhausted its requeues; splitting the
 plain client out as this smaller scope is the remediation. External-repo etiquette:
 work only on the fork/PR this job authorizes; no upstream pushes beyond the PR head.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: hermit
-  claimed_at: 2026-07-27T04:13:11Z
+<!-- garden-reaped: 2 -->
