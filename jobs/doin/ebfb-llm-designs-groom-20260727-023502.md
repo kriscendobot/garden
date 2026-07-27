@@ -27,6 +27,7 @@ do not merge and do not comment on unrelated upstream work.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
