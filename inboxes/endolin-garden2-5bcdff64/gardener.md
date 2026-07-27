@@ -2856,3 +2856,12 @@ Inspect via `git -C journal cat-file -p e5d798824aa0891704ef14e9c7dacb599dcf0c04
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 918d26f3db2ca495bce55f3f111216cf91a1de9d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T20:03:31Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 318237efa42db51364050e8370721fcb2cfb178c
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'xs2rust-endor-press-20260727-115015' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 318237efa42db51364050e8370721fcb2cfb178c`.
