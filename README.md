@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T04:47:43Z_
+_As of 2026-07-27T04:50:35Z_
 
 ## Latest
 
@@ -4388,15 +4388,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.9M | $375.12 _(notional, rate-card)_ | no quota set |
+| Claude | 22.0M | $377.80 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-google-sheets-client.md) — build @endo/google-sheets — the plain Sheets REST client (Phase 1 of the exo-...
+- [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
@@ -4578,6 +4579,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr740-review-15d45e11-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-15d45e11-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-40e1dd8c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr836-review-3e0d6210-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-3e0d6210-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr874-review-e6cccb99-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-e6cccb99-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
