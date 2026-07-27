@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-27T17:50:02Z
-job_basename_prefix: endo-git-integration-press
----
 ---
 model: fable
 ---
