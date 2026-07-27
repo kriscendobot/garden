@@ -1,0 +1,11 @@
+## Completion report — ocapn-noise-press-20260727-175002 (dispatch 22)
+
+**Assessment.** Dispatch 21's sole open item was confirming CI on the restacked heads (#684 `b18eee0c`, #688 `a137a121`, #693 `b1348c72`; docs/demo-only deltas over previously-green trees). Verified against live sources: `llm` unmoved at `7f8c08d7`, no new PR comments or reviews, no live peers on the branches, inbox empty throughout.
+
+**CI confirmed green — the whole stack is clean.** All five PRs (#340, #683, #684, #688, #693) now show **zero non-passing checks and MERGEABLE/CLEAN**. Getting there took burning down two macOS failures, all in the known-flake catalog and none PR-attributable: #688 `test (24.x, macos-15)` (`@endo/chat` token-autocomplete UI test) went green on its first rerun; #684 `test (22.x, macos-15)` failed twice with *different* known signatures (first a `@endo/chat` channel.test.js ava-SIGINT hang with 32 tests pending, then the `@endo/daemon` endo.test.js teardown race — cited from the log: "1047 tests passed, 1 unhandled rejection" on `Termination requested`, exit 1) and went green on the second rerun.
+
+**Live proof re-run (real output captured):** both `wss://minion.town/ocapn` and `/ocapn-daemon` answer 426, and the toy greeter round-trip from #684's head passed — `RESULT {"ok":true,"swissnum":"greeter","nodeId":"563ce21f…","reply":"Hello, press dispatch 22! …"}` with the returned nodeId matching the designator (Noise IK + reverse peer authentication intact). One environment note: `run-demo.sh` needs `~/.local/bin` on PATH for the `aws` CLI (SSM step).
+
+**Evidence comment:** endojs/endo-but-for-bots#693 issuecomment-5095427150. **Memory** (`ocapn-over-noise-goal.md`) updated: CI-confirmed state, the #684 double-flake pattern, dispatch 22 entry.
+
+**Follow-ups:** none new for the next dispatch beyond steady state — the stack is green and awaits maintainer review/un-draft; standing blocked items unchanged (mutual pairing, `daemon-agent-network-identity`, session-reconnect design still Proposed, cross-host TCP+CBOR blocked on the 443-only security group; #794 key-only session boundary remains the likely next arc). Operational note: this session was reaper-requeued twice while waiting on CI in background shells — foreground polling inside the 10-minute Bash timeout proved the reliable wait pattern for press dispatches.
