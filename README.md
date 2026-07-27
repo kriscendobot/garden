@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T03:55:57Z_
+_As of 2026-07-27T04:45:28Z_
 
 ## Latest
 
@@ -18,7 +18,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 4d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 7d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 9d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 9d)
@@ -4388,15 +4388,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 21.9M | $372.19 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+486.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 21.9M | $373.82 _(notional, rate-card)_ | no quota set |
+| Codex | 19.8M _(+486.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (16)
+### doin (17)
 - [`build-endo-google-sheets-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-google-sheets-client.md) — build @endo/google-sheets — the plain Sheets REST client (Phase 1 of the exo-...
+- [`deadmail-issue-comment-5087337713`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5087337713.md) — Dead-lettered message — pick up its intent
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`fu-endo-npm-cas-registry-press-20260726-172007-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-172007-1.md) — Shepherd CI to green on endojs/endo-but-for-bots PR #864 (the endo npm CAS re...
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — On endojs/endo-but-for-bots, shepherd PR #873 (https://github.com/endojs/endo...
