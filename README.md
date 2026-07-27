@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T21:13:35Z_
+_As of 2026-07-27T21:35:46Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 9h)
+- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 10h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 5d)
@@ -6197,14 +6197,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.4M | $437.11 _(notional, rate-card)_ | no quota set |
+| Claude | 34.4M | $438.18 _(notional, rate-card)_ | no quota set |
 | Codex | 19.1M _(+474.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (23)
+### doin (24)
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
@@ -6228,6 +6228,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-192007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-192007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-202011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-202011.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260727-213502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-213502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3594)
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode.md) — Implemented and pushed 55feb33e49 to main2.
