@@ -97,3 +97,10 @@ here.
   maintainer decision — e.g. one of the design's five open questions, or the
   `endoclaw-webhooks` gap), say so plainly in the daily check-in and name the
   decision needed, rather than posting nothing without explanation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-27T03:35:16Z
