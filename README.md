@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T17:18:30Z_
+_As of 2026-07-27T17:36:08Z_
 
 ## Latest
 
@@ -1280,6 +1280,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > After deploy: re-post FRESH (un-poisoned) panel jobs for [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) and [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (the parked ones carry poison baggage); a passing panel then hands off to the Fable sign-off job per governance. Both PRs are green now, so no build/fix work is pending — only the gate.
 >
 > I did NOT build a 3rd increment (would be sprawl onto a jammed queue) and touched no finbot source — governance intact, nothing self-merged.
+
+- `20260727T173549Z-172280` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T173549Z-172280.md)
+
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5808,7 +5812,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.2M | $451.09 _(notional, rate-card)_ | no quota set |
+| Claude | 34.2M | $451.92 _(notional, rate-card)_ | no quota set |
 | Codex | 19.2M _(+478.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
