@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-07-27T03:35:02Z
-job_basename_prefix: esheets-supervisor
----
 # DAILY supervisor — drive `@endo/exo-google-sheets` from design to operational
 
 You are a gardener acting as a **supervisor** for the implementation of the
