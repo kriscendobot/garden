@@ -48,3 +48,12 @@ Inspect via `git -C journal cat-file -p 66ab1f9273b9816c85d60104044a68b770b98eba
 - Context: gardener-7 on ps23: job 'issue-kriskowal-garden-67' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 6ec4e2118d8bb17b83e04566cd43079db5164ac2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T21:53:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 968e03c81825e47e71022551abf776570390188a
+- Context: gardener-8 on ps23: job 'finbot-progress-20260727-175002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 968e03c81825e47e71022551abf776570390188a`.
