@@ -109,6 +109,7 @@ When you could not run a bar, report it "not verified" and why.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
