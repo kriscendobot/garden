@@ -24,9 +24,4 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 ----- issue body excerpt (untrusted, truncated) -----
 we recently added 2 Morpho vaults to Ymax in/near PR https://github.com/Agoric/agoric-sdk/pull/12767 Much of it... perhaps all? is changes in configuration data. What would it take to have a creatorFacet method for adding new ERC4626 vaults? Create a design. Identify implementati
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  claimed_at: 2026-07-27T17:18:04Z
+<!-- garden-reaped: 1 -->
