@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T16:05:48Z_
+_As of 2026-07-27T16:07:07Z_
 
 ## Latest
 
@@ -1263,6 +1263,23 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T133450Z-8754ba` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T133450Z-8754ba.md)
 
 > triager: fetch for kriscendobot-ocapn at /home/kris/garden/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
+
+- `20260727T160648Z-edfa74` — from gardener:finbot-progress-20260727-113510, reply_to `finbot-progress-20260727-113510` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T160648Z-edfa74.md)
+
+> finbot progress cycle (20260727-113510) — BLOCKED ON DEPLOY, one action needed from the leader/liaison.
+>
+> State: [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) (SES-compartment harness) and [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (inference-driven OBSERVE dispatch) are both DRAFT + CI-green + MERGEABLE, stuck at the merge-governance panel gate. Nothing toward the design is unblocked below that gate.
+>
+> Precise diagnosis (this cycle's finding): the fleet's deployed root is only 9 commits behind main2, and those 9 commits contain EXACTLY the two fixes that make the finbot panel gate converge:
+>   - 010abbe299  fix(panel): retry empty seat verdicts instead of failing the whole gate
+>   - 6963e506db  fix(jobs): give gauntlets CI-sized handler budgets
+> The running fleet still uses the OLD panel.sh, so promoting the parked panel jobs (finbot-pr4-panel-rerun, finbot-pr5-panel — both currently poisoned) just reaps them again (empty-seat close / deadline-overrun) — the two exact failure modes those commits fix.
+>
+> Single required action: DEPLOY main2 to the fleet (leader host endolin-garden-ece02cb4; a clean 9-commit fast-forward). This host is a follower and cannot drive the deliberate drained deploy.
+>
+> After deploy: re-post FRESH (un-poisoned) panel jobs for [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) and [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (the parked ones carry poison baggage); a passing panel then hands off to the Fable sign-off job per governance. Both PRs are green now, so no build/fix work is pending — only the gate.
+>
+> I did NOT build a 3rd increment (would be sprawl onto a jammed queue) and touched no finbot source — governance intact, nothing self-merged.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -5791,7 +5808,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.1M | $450.15 _(notional, rate-card)_ | no quota set |
+| Claude | 34.2M | $450.50 _(notional, rate-card)_ | no quota set |
 | Codex | 19.2M _(+478.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
