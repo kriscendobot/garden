@@ -25,10 +25,4 @@ Report the files and design records examined, changes made, checks run, PR URL i
 any, and maintainer decisions intentionally left unresolved. Bot identity only;
 do not merge and do not comment on unrelated upstream work.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: hermit
-  claimed_at: 2026-07-27T02:35:19Z
+<!-- garden-reaped: 1 -->
