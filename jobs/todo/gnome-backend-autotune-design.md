@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: gnome-backend-autotune
-priority: normal
-posted_by: producer
-posted_at: 2026-07-27T22:17:06Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-27T22:19:03Z -->
 
 role: designer
 # Design: backend-verified worker provisioning + auth auto-tune for garden nodes ("gnomes")
