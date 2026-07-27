@@ -307,6 +307,9 @@ push_change "repos/kriscendobot-endo" "@DELETE" "unwatch: kriscendobot-endo"
 "$JOBS/repo-watcher.sh" >/dev/null 2>&1
 grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
   && bad "triager still armed after unwatch" || ok "unwatch → disarmed triager unit"
+grep -qxF "systemctl --user disable --now garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_LOG" \
+  && ok "unwatch issued disable --now for the triager timer" \
+  || bad "unwatch did not issue disable --now for the triager timer"
 
 # --- self-heal a missing template unit ---------------------------------------
 # A comment-repo wants garden-comment-watcher@ AND garden-ci-watcher@. With a

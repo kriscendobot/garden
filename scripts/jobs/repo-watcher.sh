@@ -167,7 +167,7 @@ reconcile_set() {
         inst="${unit#"$prefix"@}"; inst="${inst%.timer}"
         [ -n "$inst" ] && have["$inst"]=1;;  # skip the bare template
     esac
-  done < <(unit_ctl list-unit-files "$prefix@*.timer" --no-legend 2>/dev/null || true)
+  done < <(unit_ctl list-units --all "$prefix@*.timer" --no-legend 2>/dev/null || true)
 
   # Before arming any instance, make sure the template unit for $prefix is
   # actually rendered into the user manager; otherwise every `enable --now` below

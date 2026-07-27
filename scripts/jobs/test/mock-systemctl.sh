@@ -53,14 +53,27 @@ case "$cmd" in
       echo 0
     fi
     ;;
-  list-units|list-unit-files)
-    # print "<unit> enabled" for each armed unit matching the glob pattern arg
+  list-units)
+    # list-units reports loaded instances, which the armed mock state models.
     pat=""; for a in "$@"; do case "$a" in --*) ;; *) pat="$a";; esac; done
     while read -r u; do
       [ -n "$u" ] || continue
       if [ -z "$pat" ]; then printf '%s enabled\n' "$u"
       else case "$u" in $pat) printf '%s enabled\n' "$u";; esac; fi
     done < "$STATE"
+    ;;
+  list-unit-files)
+    # list-unit-files reports templates on disk, not their enabled instances.
+    # Model systemd by returning only the bare template matching the requested
+    # instance glob. This distinction keeps repo-watcher's disarm regression
+    # test faithful: only list-units can discover an armed @<slug> instance.
+    pat=""; for a in "$@"; do case "$a" in --*) ;; *) pat="$a";; esac; done
+    case "$pat" in
+      *@*.timer)
+        template="${pat%%\@*}@.timer"
+        printf '%s indirect enabled\n' "$template"
+        ;;
+    esac
     ;;
   enable)
     u="$(unit_arg "$@")"
