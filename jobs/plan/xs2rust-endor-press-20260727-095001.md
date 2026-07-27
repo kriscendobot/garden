@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-27T18:33:07Z
+poisoned_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-07-27T18:33:07Z
+---
+
+---
 model: qwen3.6
 ---
 # Press xs2rust-endor (PR #600) forward — to endor integration + green daemon tests + test262 parity
@@ -106,13 +120,3 @@ the *board job* but does **not** kill the process tree you started.
 Do not claim a bar is "verified"/"green" without real-execution evidence — cite
 the command and its observed output (the gardener reporting norm burned on #58).
 When you could not run a bar, report it "not verified" and why.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: hermit
-  claimed_at: 2026-07-27T18:23:10Z
