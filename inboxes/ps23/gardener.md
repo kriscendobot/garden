@@ -84,3 +84,12 @@ Inspect via `git -C journal cat-file -p 1d1d711f9dbfd587445532bde264c2909c33e9e4
 - Context: gardener-4 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p cecbbe21614b5efa113a4dfc4b92bf099f9aef41`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T22:34:02Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a404c96381b06af4848fe427d09689a4bf85190d
+- Context: gardener-6 on ps23: job 'ollama-hermit-simple-job-capability' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a404c96381b06af4848fe427d09689a4bf85190d`.
