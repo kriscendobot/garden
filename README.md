@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T08:23:28Z_
+_As of 2026-07-27T08:35:43Z_
 
 ## Latest
 
@@ -5104,14 +5104,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.5M | $373.60 _(notional, rate-card)_ | no quota set |
+| Claude | 23.0M | $379.57 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+483.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (12)
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-e6cccb99.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260727.md) — Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260727-053502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-053502.md) — Push progress on kriscendobot/finbot (every 6h)
@@ -5123,6 +5123,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-050502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-050502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-062002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260727-072006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-072006.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260727-083507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-083507.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (3572)
 - [`fu-endo-npm-cas-registry-press-20260726-233502-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260726-233502-1.md) — PR #873 is mergeable with all 24 CI checks green, including both lint jobs. N...
