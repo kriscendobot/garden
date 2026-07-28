@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T11:37:37Z_
+_As of 2026-07-28T11:38:48Z_
 
 ## Latest
 
@@ -1995,6 +1995,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > deepest unblocked build. No maintainer decision required — pipeline is self-draining
 > now that both panel gates are posted/in-flight and the fleet carries the panel fixes.
 
+- `20260728T113828Z-1c72c2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T113828Z-1c72c2.md)
+
+> Report `issue-kriskowal-garden-67` (issue [https://github.com/kriskowal/garden/issues/67](https://github.com/kriskowal/garden/issues/67), from dckc) proposes two follow-ups, both against Agoric's agoric-sdk (ERC4626/Morpho vault registration for Ymax, cf. [https://github.com/Agoric/agoric-sdk/pull/12767](https://github.com/Agoric/agoric-sdk/pull/12767)): (1) turn design phase 0 — structural shapes plus explicit membership checks against the existing static vault list, no registry, no new authority — into an actual PR on the `kriscendobot/agoric-sdk` fork; (2) drill into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. Both are outside the autonomous follow-up service's scope (agoric-sdk is excluded from autonomous JOB/SCHEDULE posting), and (1) commits real builder effort on a fork PR. Your call whether to post a builder job for phase 0 and/or a designer job for the attestation drill-down.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2325,8 +2329,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.4M | $634.19 _(notional, rate-card)_ | no quota set |
-| Codex | 369.3M _(+440.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 48.6M | $637.56 _(notional, rate-card)_ | no quota set |
+| Codex | 369.3M _(+441.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
