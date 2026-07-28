@@ -26,6 +26,7 @@ proceed; the push CAS is still the backstop.)
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
