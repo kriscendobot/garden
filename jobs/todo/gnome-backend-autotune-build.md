@@ -21,11 +21,4 @@ predecessor design job). Garden repo, main2, DIRECT push, NO PR (per CLAUDE.md):
 Report the files changed and how a Claude-only gnome (ps23) vs an all-backend gnome
 (garden/garden2) now behaves. This change reaches running hosts only via a later deploy.
 
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 12
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:54:26Z
+<!-- garden-reaped: 3 -->

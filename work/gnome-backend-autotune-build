@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 12
-worker_kind: gardener
-claimed_at: 2026-07-28T16:54:26Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-gnome-backend-autotune-build

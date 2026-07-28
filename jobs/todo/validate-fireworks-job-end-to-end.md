@@ -94,12 +94,4 @@ that is a notable finding — it would be the first lane with real cost evidence
 - No secret, provider response body, or fixture containing either appears in any
   journal entry, report, log, or commit.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-28T20:53:16Z
+<!-- garden-reaped: 4 -->

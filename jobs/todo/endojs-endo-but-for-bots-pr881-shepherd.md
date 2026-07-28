@@ -14,11 +14,4 @@ If the failure is out of a shepherds scope, escalate to a fixer per the
 shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
-<!-- garden-reaped: 3 -->
-
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 20
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:53:11Z
+<!-- garden-reaped: 4 -->
