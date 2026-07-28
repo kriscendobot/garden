@@ -110,3 +110,10 @@ refinement is worth a follow-up.
 - Pushed to `main2`; `tada` report quotes the mystic/moonshot/kimi-k3 arm before and
   after, and says plainly whether kimi-k3 can now accumulate auction-relevant
   evidence.
+
+---
+claim:
+  host: ps23
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:41:36Z
