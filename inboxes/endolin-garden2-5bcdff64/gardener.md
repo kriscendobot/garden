@@ -3153,3 +3153,12 @@ Inspect via `git -C journal cat-file -p 303b1ead14dfcef11b1c97cb4b448e92ebe26d78
 - Context: gardener-5 on endolin-garden2-5bcdff64: job 'hermit-failure-reputation-followup' transient-classified (rc=1) but elapsed near-constant (853,853s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 1a836735793cf05d69b4da34c3be2ea049eb502b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:35:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 208c5e60af0c6b3806d207be9fe96230eb64f7af
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-token-cost-ledger' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 208c5e60af0c6b3806d207be9fe96230eb64f7af`.
