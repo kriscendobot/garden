@@ -74,7 +74,9 @@ proceed on a cross-host hostname collision.
    the leader/follower gate only bites when a second host joins
    ([leader-follower.md](leader-follower.md)).
 
-6. **Check for a stale drain and uncork it.** A re-start is very likely the
+6. **Check for a stale drain and lift it.** A drain is a *moratorium* on taking
+   new work, not a fixture — lifting it is what lets workers claim again
+   ([scaling.md](scaling.md) § Pausing: drain). A re-start is very likely the
    aftermath of a deploy/upgrade: `deploy-garden.sh` ([deploy.md](deploy.md))
    drains the fleet, and although a *successful* deploy lifts its own drain, an
    **operator-engaged** drain (a prior `stand down` / `drain`) — or a deploy

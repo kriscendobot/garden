@@ -1,9 +1,10 @@
 # Sizing the pool and pausing the fleet
 
 Two operator controls over how much a host is doing: **`set-gardeners`** sizes
-its worker pool, and **`drain`** pauses it (workers finish their current job and
-take no new ones). This page is when to reach for which and what a healthy pool
-size looks like. If your question is "scale up/down" or "pause without killing
+its worker pool, and **`drain`** declares a moratorium on new claims (workers
+finish their current job and take no new ones; **lift** relaxes it). This page
+is when to reach for which and what a healthy pool size looks like. If your
+question is "scale up/down" or "pause without killing
 in-flight work," you are here; the leadership-handoff use of drain is
 [leader-follower.md](leader-follower.md), and the deliberate-deploy use is
 [deploy.md](deploy.md).
@@ -30,13 +31,24 @@ scripts/jobs/drain-fleet.sh on [reason]    # workers finish current jobs, take n
 scripts/jobs/drain-fleet.sh off            # resume claiming
 ```
 
-Drain is the **graceful pause**: no work is killed, in-flight jobs run to
-completion, and no new jobs are claimed. Prefer it over scaling to zero when the
-pause is temporary — draining preserves the configured pool size, so `drain off`
-restores the fleet without re-sizing. Reach for it before a leadership handoff
-(the outgoing leader drains first, [leader-follower.md](leader-follower.md)) and
-as the first move of the deliberate deploy ([deploy.md](deploy.md), which
-drains, quiesces, merges, and lifts). Recovering a fleet that is stuck after an
+**Drain enacts a moratorium on undertaking further work, while allowing work
+already in progress to finish.** **Lift** (`drain off`) relaxes the moratorium
+and workers resume claiming. So it is the **graceful pause**: no work is killed,
+in-flight jobs run to completion, and no new jobs are claimed.
+
+What is being drained is the **`doin/` board** — the set of in-flight claims. It
+empties because inflow stopped (no new claims) while outflow continues (claimed
+jobs finish). That is the metaphor: **draining as a process**, a pool emptying,
+**not a physical drain** — there is no fixture here to plug, uncork, or open. A
+moratorium is *in force* or *lifted*, and the two operator words for those acts
+are **drain** and **lift**.
+
+Prefer drain over scaling to zero when the pause is temporary — draining
+preserves the configured pool size, so `drain off` restores the fleet without
+re-sizing. Reach for it before a leadership handoff (the outgoing leader drains
+first, [leader-follower.md](leader-follower.md)) and as the first move of the
+deliberate deploy ([deploy.md](deploy.md), which drains, quiesces, merges, and
+lifts). Recovering a fleet that is stuck after an
 outage — hung agents, dead letters, poison — is a different engagement: see
 [health.md](health.md) and `skills/restore/SKILL.md`.
 

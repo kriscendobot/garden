@@ -174,16 +174,21 @@ maintainer.
   *positively* live.** A re-start is usually the aftermath of a deploy/upgrade,
   which drains the fleet, and a stale draining marker makes every gardener exit
   cleanly on start — zero failed units, yet zero gardeners running. So the
-  bring-up ends by probing `drain-fleet.sh status`, uncorking it (ask-before-acting)
+  bring-up ends by probing `drain-fleet.sh status`, **lifting** it (ask-before-acting)
   if draining, and confirming *active* `garden-gardener@*` units > 0 — an empty
   `--state=failed` list alone is not proof. The command-level bring-up, the
-  uncork step, and the positive-liveness check are
+  lift step, and the positive-liveness check are
   [context/operations/starting.md](../../context/operations/starting.md).
 - **"stand down" / "drain" / "stop the garden" / "halt the garden"** → the
-  graceful dual of standing up. **Drain** (workers finish in-flight claims, take
-  no new ones) with `scripts/jobs/drain-fleet.sh on` and lift with `off`; **fully
-  halt** additionally stops/disables the units. Prefer drain for a pause. Sizing
-  and drain detail: [context/operations/scaling.md](../../context/operations/scaling.md).
+  graceful dual of standing up. **Drain** enacts a *moratorium on undertaking
+  further work, while allowing work already in progress to finish* — workers
+  finish in-flight claims and take no new ones — with
+  `scripts/jobs/drain-fleet.sh on`; **lift** the moratorium with `off` and
+  claiming resumes. (Draining is a *process*, a board emptying because inflow
+  stopped; it is not a fixture, so never speak of uncorking or plugging it.)
+  **Fully halt** additionally stops/disables the units. Prefer drain for a pause.
+  Sizing and drain detail, and the canonical definition:
+  [context/operations/scaling.md](../../context/operations/scaling.md).
 - **"make this host the leader" / "designate <host> the leader"** →
   `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the authoritative journal
   `leader` marker. **Designating a leader *is* raising it:** the new leader's
@@ -228,14 +233,14 @@ autonomous background service.
   drain on the success and self-abort paths, but a drain it did **not** engage (an
   operator `stand down` it honored) or a hard kill before its lift can leave the
   draining marker behind — and the marker outlives the deploy. So a re-start after
-  a deploy must treat un-drain as part of standing up (§ stand up, above;
+  a deploy must treat **lifting the drain** as part of standing up (§ stand up, above;
   [starting.md](../../context/operations/starting.md) step 5). We deliberately
-  keep the un-drain **operator-confirmed at re-start** rather than teaching the
+  keep the lift **operator-confirmed at re-start** rather than teaching the
   deploy to force-lift every drain: an unconditional auto-lift would silently
   resume a fleet the operator had *intentionally* paused, undermining the
   deliberate-deploy posture ([deliberate-deploy](../../designs/deliberate-deploy.md)).
   The trade-off is the maintainer's to revisit; the safe default is the checked,
-  confirmed uncork at re-start.
+  confirmed lift at re-start.
 
 ### Restore after an outage (vocabulary)
 

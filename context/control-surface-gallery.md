@@ -310,7 +310,7 @@ state, which is why they survive resets and deploys.
 - **The stale-drain trap, and what was deliberately not automated.** A drain
   marker that outlives a deploy leaves a fleet where every startup probe looks
   healthy while zero gardeners run. The fix added a bring-up step probing
-  `drain-fleet.sh status` with an operator-confirmed uncork, and recorded the
+  `drain-fleet.sh status` with an operator-confirmed lift, and recorded the
   negative-space decision next to it: auto-lifting was rejected because it
   would silently resume a fleet an operator intentionally paused. The rename
   episode that preceded it made the marker itself self-documenting: engaging

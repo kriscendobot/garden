@@ -101,7 +101,7 @@ host assuming leadership; outgoing = the current leader):
    confirmation**, atomically stopping the outgoing host's systemd singletons
    and starting the incoming host's.
 4. **Incoming arms** its maintainer-inbox and deploy-on-upgrade Monitors, lifts
-   any drain (`drain-fleet.sh off`), and drains its liaison bus.
+   any drain (`drain-fleet.sh off`), and reads its liaison bus to empty.
 5. **Incoming signals** "leadership assumed" on `role/liaison`.
 
 **Invariant:** the outgoing Monitors are down (step 2) **before** the marker

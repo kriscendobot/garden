@@ -55,8 +55,8 @@ lift — leaves the **draining marker** behind, and that marker **outlives** the
 deploy. A gardener that starts while the marker is present logs `fleet draining;
 exiting cleanly` and exits: units installed, linger on, nothing *failed*, yet **0
 gardeners running**. That is why a re-start ([starting.md](starting.md) step 5)
-probes `drain-fleet.sh status`, uncorks a stale drain (operator-confirmed), and
+probes `drain-fleet.sh status`, **lifts** a stale drain (operator-confirmed), and
 verifies gardeners are *positively* active — never trusting an empty
-`--state=failed` list alone. The un-drain is kept deliberately on the re-start
+`--state=failed` list alone. The lift is kept deliberately on the re-start
 surface, not force-lifted by the deploy, so a fleet an operator *intentionally*
 paused is never silently resumed ([deliberate-deploy](../../designs/deliberate-deploy.md)).

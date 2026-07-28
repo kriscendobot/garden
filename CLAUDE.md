@@ -58,7 +58,7 @@ The maintainer steers the liaison in plain language; these verbs are just precis
 | **ferry #N** | carry approved work upstream under the maintainer's identity — authorization required (§ The ferry). |
 | **defer/park X**, **promote X / go ahead** | park a job on the plan queue, or promote a parked one (`roles/liaison/AGENT.md` § Plan queue). |
 
-The compound chain idioms (*wrap up #N*, *retcon and ferry #N*), the garden-meta phrases (*encode this*, *carve a role for X*), the plan-queue vocabulary, the stand-up / stand-down / drain and **restore** fleet operations (the last recovering the fleet after an API/quota outage — [restore](skills/restore/SKILL.md)), and the negation patterns (*don't X*, *never X*) all live on [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md).
+The compound chain idioms (*wrap up #N*, *retcon and ferry #N*), the garden-meta phrases (*encode this*, *carve a role for X*), the plan-queue vocabulary, the stand-up / stand-down / drain / lift and **restore** fleet operations (*drain* = a moratorium on undertaking further work while work already in progress finishes, *lift* relaxes it — [context/operations/scaling.md](context/operations/scaling.md); *restore* recovers the fleet after an API/quota outage — [restore](skills/restore/SKILL.md)), and the negation patterns (*don't X*, *never X*) all live on [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md).
 
 ### The ferry and host preconditions
 

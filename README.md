@@ -91,7 +91,7 @@ deterministically. `#N` is a pull-request number.
 | **ferry #N** | carry approved work upstream under your own identity — authorization required |
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **promote X** / go ahead on X | move a parked job onto the board now |
-| **stand up / stand down / drain** | fleet operations, handled by the liaison directly |
+| **stand up / stand down / drain / lift** | fleet operations, handled by the liaison directly. **Drain** = a moratorium on undertaking further work, while work already in progress finishes; **lift** relaxes it ([scaling.md](context/operations/scaling.md)) |
 | **restore** | recover the fleet after an outage: reactivate hung agents, forward dead letters, ack + redispatch poison ([restore](skills/restore/SKILL.md)) |
 
 ---
@@ -126,8 +126,9 @@ Common interactions, mined from practice:
   `maintainer-reply.sh` routes your answer back into the asking worker's
   inbox mid-job.
 - **Steer the plan**: "defer X", "promote X", "go ahead on the retcon".
-- **Operate the fleet**: "drain the fleet", "hand off leadership to petunia",
-  "scale down to 50", "restore" (recover after an API/quota outage).
+- **Operate the fleet**: "drain the fleet" (a moratorium on new claims —
+  in-flight jobs finish; "lift" resumes claiming), "hand off leadership to
+  petunia", "scale down to 50", "restore" (recover after an API/quota outage).
 - **Teach it**: "encode this" writes the correction into the role or skill
   that got it wrong, and the change broadcasts to the running fleet.
 
@@ -258,7 +259,7 @@ follow-up service reads each completed report's `## Follow-ups` section and
 turns actionable ones into new jobs, schedules, or messages to you — the
 board feeds itself. If the issue implies design work, the design→build
 pipeline above takes over: a poller notices approved designs with no tracking
-PR and posts the build. When the board drains entirely, the **foreman** looks
+PR and posts the build. When the board empties entirely, the **foreman** looks
 at the current milestone and posts its next most important unblocked step, so
 an idle garden reaches for the roadmap instead of napping.
 

@@ -17,6 +17,17 @@ status summary (units, board counts, leadership, drain state) plus the
 `help <topic>` menu — the stage pages double as the topic answers, so nothing
 is written twice.
 
+**"Drain state"** is the first term of art a new operator meets here, so teach it
+correctly the first time rather than letting the wrong reading set: **drain** is
+an *act* — it enacts a **moratorium on undertaking further work, while allowing
+work already in progress to finish** — and **lift** relaxes that moratorium so
+workers resume claiming. What drains is the board of in-flight claims, emptying
+because inflow stopped while outflow continues. It is **draining as a process**,
+not a physical drain: there is no plug, cork, or floodgate anywhere in the
+garden, and an operator who reaches for those words has the concept wrong.
+Canonical page: [../operations/scaling.md](../operations/scaling.md) § Pausing:
+drain.
+
 ## Interaction norms (binding on the liaison driving the track)
 
 - **Ask before acting, act on approval.** Every mutating step is proposed in one

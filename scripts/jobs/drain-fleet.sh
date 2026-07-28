@@ -6,8 +6,12 @@
 #   drain-fleet.sh off               remove the draining marker (fleet resumes)
 #   drain-fleet.sh status            report whether the fleet is draining
 #
-# Draining is a graceful, mundane pause: workers finish whatever they have
-# already claimed but take no new claims while the marker is present. The marker
+# Draining is an ACT, not a fixture: it enacts a moratorium on undertaking
+# further work, while allowing work already in progress to finish. Workers finish
+# whatever they have already claimed but take no new claims while the marker is
+# present; `off` LIFTS the moratorium and claiming resumes. It is a graceful,
+# mundane pause — the board of in-flight claims empties because inflow stopped
+# while outflow continues (draining as a process, not a plug to pull). The marker
 # is a host-local FILE under $GARDEN_STATE; its EXISTENCE is the programmatic
 # signal (the fleet_draining predicate in common.sh keys on existence only). Its
 # CONTENTS are a short prose note so anyone who finds the file understands what it
@@ -37,7 +41,13 @@ case "$action" in
       echo "but takes no new ones. This is a graceful pause, not a kill — nothing"
       echo "is interrupted; the fleet simply stops accepting new work."
       echo
-      echo "To resume the fleet, remove this file:"
+      echo "Put precisely: a drain is a MORATORIUM on undertaking further work,"
+      echo "while work already in progress is allowed to finish. Removing this"
+      echo "file LIFTS the moratorium and workers resume claiming. The metaphor is"
+      echo "draining as a process — the board of in-flight claims empties because"
+      echo "inflow stopped while outflow continues — not a plug or a valve."
+      echo
+      echo "To lift the moratorium and resume the fleet, remove this file:"
       echo "    scripts/jobs/drain-fleet.sh off"
       echo "    (or just: rm '$GARDEN_DRAINING_MARKER')"
       echo
