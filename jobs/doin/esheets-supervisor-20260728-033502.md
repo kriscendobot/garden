@@ -99,3 +99,10 @@ here.
   decision needed, rather than posting nothing without explanation.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:17:11Z
