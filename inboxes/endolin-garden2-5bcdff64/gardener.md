@@ -3270,3 +3270,12 @@ Inspect via `git -C journal cat-file -p 1e847e680e438d2bb3b176ce7fb4e7fd8663a52a
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'arc-status-daily-20260728-033502' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 0f79a6e40bae0f5615d25068175bfb08ced706f9`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:40:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 49f2879f1095f5d97e01baa8f0dde70864846bca
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'gnome-backend-autotune-build' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 49f2879f1095f5d97e01baa8f0dde70864846bca`.
