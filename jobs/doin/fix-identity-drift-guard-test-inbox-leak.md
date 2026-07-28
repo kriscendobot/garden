@@ -72,3 +72,10 @@ Note: the three messages above are being archived separately by the liaison, so 
 not count on them still being unread; the journal history preserves them.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:20:42Z
