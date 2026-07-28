@@ -20,3 +20,10 @@ predecessor design job). Garden repo, main2, DIRECT push, NO PR (per CLAUDE.md):
   parity defect to close); push to origin/main2.
 Report the files changed and how a Claude-only gnome (ps23) vs an all-backend gnome
 (garden/garden2) now behaves. This change reaches running hosts only via a later deploy.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:39:26Z
