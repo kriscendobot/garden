@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-28T19:21:15Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-ocapn-noise-press-20260728-192002
