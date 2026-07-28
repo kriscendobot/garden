@@ -41,3 +41,10 @@ Comment: https://github.com/kriscendobot/garden/issues/9#issuecomment-5098251895
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:22:22Z
