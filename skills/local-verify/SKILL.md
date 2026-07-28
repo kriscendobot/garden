@@ -79,12 +79,21 @@ just the green.
 
 ## The steps (in order)
 
-`format -> lint -> build -> codegen -> test -> docgen`, then a **codegen-then-clean gate**.
+`format -> build -> lint -> codegen -> test -> docgen`, then a **codegen-then-clean gate**.
 
 Run in that order against the project worktree. The harness errs toward running
 the project's **full** suite: false positives (a wasted check) are fine, false
 negatives (a regression that slips to CI) are not. Steps are not sense-gated,
 matching the gardening state machine's "evaluation gate (always)" discipline.
+
+**`build` precedes `lint` on purpose**, matching how a CI workflow orders them
+(install, then build, then lint). A typed linter resolves each file through the
+TypeScript project service, and on an unbuilt tree that service does not yet
+know about files a build brings into a project, so eslint reports
+`Parsing error: <file> was not found by the project service`: a hard error that
+fails the step for an ordering reason rather than a real one. The order costs
+nothing, because the harness runs every step regardless of earlier failures; it
+only decides whether the lint result is trustworthy.
 
 The `codegen` step runs the project's generators (candidates
 `gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types:gen`,
@@ -358,3 +367,27 @@ and `shellcheck` clean.
   The project-side half is endojs/endo-but-for-bots#883, which pins rerere off in
   the fixture's own repository-local config; the two defenses are independently
   sufficient, and the fixture's is the one that also protects a human's checkout.
+
+- _2026-07-28_: **`build` now precedes `lint`** (job
+  `endojs-endo-but-for-bots-form-data-advisory`), closing a second
+  environment-divergence class of the same shape as the gitconfig one above.
+  Linting an unbuilt tree made eslint's TypeScript project service report whole
+  directories under `packages/familiar` and `packages/lal` as
+  `Parsing error: <file> was not found by the project service` — hard errors, so
+  the step failed, while the identical content was green on CI (whose lint job
+  builds first). Re-running `yarn lint:eslint` after the build step on the same
+  worktree reported zero errors, which is what identified the ordering rather
+  than the branch as the cause. The tell is a lint failure naming files the diff
+  does not touch.
+
+  Sibling gap found in the same run and NOT yet closed: eight `@endo/cli` demo
+  tests fail locally at `endo start` with
+  `ENOENT ... <worktree>/.tmp/endo-cli-test-XXXXXX/runtime/endo.sock`. The socket
+  path is 134 bytes against the 108-byte `sun_path` limit, because a per-job
+  project worktree path (`$GARDEN_SCRATCH/project-wt-<job-base>-<hash8>`) is
+  already ~90 bytes before the test appends its own suffix. That workflow's own
+  `Move working directory` step relocates its checkout under `$RUNNER_TEMP` for
+  exactly this reason. Any project whose tests bind a unix socket under the
+  worktree is exposed; the fix is a shorter per-job checkout path (or a short
+  socket dir), and it belongs in `scripts/jobs/ensure-project-worktree.sh` rather
+  than here, since changing that naming has to stay stable across a requeue.

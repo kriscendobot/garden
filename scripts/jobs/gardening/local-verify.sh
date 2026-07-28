@@ -98,7 +98,21 @@ fi
 # Steps in execution order, and the package.json script names each maps to. The
 # first candidate that exists wins. Check-only variants come first so the harness
 # verifies rather than mutates where a project offers the choice.
-STEPS="format lint build codegen test docs"
+#
+# BUILD RUNS BEFORE LINT, matching how CI orders them (install -> build -> lint).
+# A typed linter resolves each file through the TypeScript project service, and
+# on an unbuilt tree that service does not yet know about files a build step
+# brings into a project, so eslint reports them as
+# `Parsing error: <file> was not found by the project service` — hard errors that
+# fail the step for an ordering reason rather than a real one. Linting first
+# therefore produced a local-FAIL/CI-pass discrepancy on
+# endojs/endo-but-for-bots (whole directories under packages/familiar and
+# packages/lal), which is the environment-divergence class § Parity is the
+# contract requires closing rather than working around. Re-running the same lint
+# after the build reports zero errors. Ordering costs nothing here: the harness
+# runs every step regardless (it does not stop at the first failure), so this
+# only changes whether the lint result is trustworthy.
+STEPS="format build lint codegen test docs"
 candidates() {
   case "$1" in
     format)  echo "format:check check:format format-check format" ;;
