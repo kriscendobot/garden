@@ -1,5 +1,0 @@
-host: ps23
-gardener: 4
-worker_kind: gardener
-claimed_at: 2026-07-27T22:27:59Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-consolidate-maintainer-inbox-20260727

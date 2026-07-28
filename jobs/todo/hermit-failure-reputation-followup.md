@@ -24,9 +24,4 @@ Note: hermits are currently disabled fleet-wide (hermits:0) pending investigatio
 this won't exercise until re-enabled — build it regardless; it is the measurement that
 justifies re-enabling or retiring the local tier per job class.
 
----
-claim:
-  host: ps23
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-27T22:28:06Z
+<!-- garden-reaped: 1 -->
