@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 18
-worker_kind: gardener
-claimed_at: 2026-07-28T16:46:42Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-job-host-requirements-gating

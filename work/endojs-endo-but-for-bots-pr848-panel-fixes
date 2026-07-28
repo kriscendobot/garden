@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 13
-worker_kind: gardener
-claimed_at: 2026-07-28T16:46:34Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr848-panel-fixes

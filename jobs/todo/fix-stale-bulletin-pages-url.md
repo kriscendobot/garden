@@ -16,9 +16,4 @@ that should move to `kriscendobot/garden` for consistency, using judgment
 about which references are meant to name the canonical repo (should update)
 vs. historical/quoted text (should not).
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:46:50Z
+<!-- garden-reaped: 1 -->

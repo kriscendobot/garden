@@ -92,9 +92,4 @@ self-grant authorization.
   check.
 - Pushed to `main2` (direct push, no PR).
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 18
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:46:42Z
+<!-- garden-reaped: 1 -->
