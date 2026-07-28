@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T17:18:42Z_
+_As of 2026-07-28T17:20:00Z_
 
 ## Latest
 
@@ -2232,6 +2232,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Please re-approve [https://github.com/endojs/endo-but-for-bots/pull/755](https://github.com/endojs/endo-but-for-bots/pull/755) on the current head (1231a9d7a) and the conductor will merge immediately (CI is green, base is unfrozen and ready).
 
+- `20260728T171902Z-cc2bb3` — from gardener:finbot-progress-20260728-130502, reply_to `finbot-progress-20260728-130502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T171902Z-cc2bb3.md)
+
+> finbot progress cycle 20260728-130502 — one increment, governance intact.
+>
+> State: 3 open DRAFT + CI-green + MERGEABLE PRs, all at the merge-governance gate.
+> - [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) (SES-compartment harness, foundational) — its panel was POISONED (requeue-exhausted, 5 cycles, 0 deadline overruns, poisoned 16:53Z on follower endolin-garden2 — host churn, not a structural failure).
+> - [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (OBSERVE-dispatch) — panel running (claimed 17:03Z).
+> - [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) (forecast data-sufficiency) — panel running (claimed 16:53Z).
+>
+> Increment this cycle: posted a fresh, un-poisoned panel for the foundational [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) — job finbot-pr4-panel-rerun-20260728 — since it was the only stuck gate and the other two panels prove the infra runs clean on the current fleet. It's already claimed and running (jobs/doin). On a pass it hands off to finbot-pr4-fable-signoff (role: orchestrator, model: claude-fable-5); never self-merges/un-drafts.
+>
+> Coordination: a duplicate 6h dispatch (finbot-progress-20260728-065010) fired ~10min before me on ps23; I messaged it to take a different increment (no reply, no collision — no peer panel appeared).
+>
+> Next unblocked step: nothing further until the three panels + Fable sign-offs drain the gate; then the next design increment (cap-attenuation deepening / ensemble-forecasting / ymax-integration) becomes the deepest build. No maintainer decision required.
+>
+> Governance: no finbot source touched, nothing merged/un-drafted, no gh pr merge run.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2985,14 +3002,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.0M | $720.74 _(notional, rate-card)_ | no quota set |
-| Codex | 331.2M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 54.1M | $723.19 _(notional, rate-card)_ | no quota set |
+| Codex | 331.1M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (35)
+### doin (34)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -3013,7 +3030,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-130502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-stale-bulletin-pages-url`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-stale-bulletin-pages-url.md) — The GitHub repo kriskowal/garden was transferred/renamed to kriscendobot/garden
 - [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
@@ -3029,13 +3045,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3712)
+### tada (3713)
+- [`finbot-progress-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-130502.md) — Completion report — finbot progress cycle 20260728-130502
 - [`endo-byte-array-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-130502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-atproto-ucan-addressing-taxonomy.md) — Completion report
 - [`endo-sturdyref-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260728-130502.md) — Cost
 - [`ocapn-noise-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260728-130502.md) — Cost
-- [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260727-182001.md) — Cost
-- … and 3707 more
+- … and 3708 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
