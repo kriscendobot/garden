@@ -2964,3 +2964,12 @@ Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'issue-garden-62-jcorbin-cross-analysis' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T08:11:32Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8a7d5468e3ed866f11012bb51d932c261cfe43ab
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8a7d5468e3ed866f11012bb51d932c261cfe43ab`.
