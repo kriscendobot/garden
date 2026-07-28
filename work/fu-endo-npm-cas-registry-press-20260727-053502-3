@@ -1,0 +1,5 @@
+host: ps23
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-28T06:59:35Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-fu-endo-npm-cas-registry-press-20260727-053502-3
