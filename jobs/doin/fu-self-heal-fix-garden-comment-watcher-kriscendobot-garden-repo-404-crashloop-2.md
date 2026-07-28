@@ -1,1 +1,8 @@
 In the garden repo (kriskowal/garden, `main2`), audit `scripts/jobs/ci-watcher.sh` and `scripts/jobs/triager.sh` for the repo-gone (upstream 404) failure class that crashlooped `comment-watcher.sh`. The triager reportedly already exits 0 and alerts on a fetch failure; confirm that and add the same guard to `ci-watcher.sh` if it is missing, matching the guard shape landed for the comment watcher.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:08:32Z
