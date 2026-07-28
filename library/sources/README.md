@@ -1049,6 +1049,23 @@ kriskowal's own **kni** — a whitespace-significant language that presents as i
 | [Fireworks Tool Calling](web--fireworks-tool-calling.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 2 | current (tool request and response schema, multi-turn exchange, streaming, and schema boundary) |
 | [Fireworks Structured Outputs](web--fireworks-structured-outputs.md) | docs.fireworks.ai | 2026-07-25 | Fireworks AI | 2 | current (response-format schema, JSON-reference behavior, reasoning tradeoff, and grammar mode) |
 
+## Addressing and authorization specifications (ATProto, UCAN)
+
+Primary specifications for the identifier / authorization families the garden's
+addressing-taxonomy work compares against magnet URNs and OCapN locators
+(garden issue [#34](https://github.com/kriscendobot/garden/issues/34), the
+`endojs/endo-but-for-bots` content-locator design). The two ATProto rows are
+`source_kind: web` (rendered spec pages, anchored by content SHA-256); the two
+UCAN rows are ordinary repo sources anchored by a file-specific commit SHA,
+because the specs are repository READMEs.
+
+| Source | Repo / URL | Anchor | Sections | Status |
+|--------|------------|--------|----------|--------|
+| [ATProto DID specification](atproto--specs-did.md) | https://atproto.com/specs/did | content SHA-256 `624594bb` | 4 | current (retrieved 2026-07-28, fetched `direct`; blessed methods, DID-document parsing contract, `#atproto_pds` as the deployed location hint) |
+| [ATProto repository specification](atproto--specs-repository.md) | https://atproto.com/specs/repository | content SHA-256 `bb8ddfac` | 5 | current (retrieved 2026-07-28, fetched `direct`; MST, signed commits, CAR export and diffs, blessed CID formats; note the DRISL rename of DAG-CBOR) |
+| [UCAN 1.0 specification](ucan-wg--spec-readme.md) | ucan-wg/spec `README.md` | commit `9955aa1f` (2026-07-08) | 5 | current (README on `main` reads "Version 1.0.0" while the latest git tag is `v1.0-rc.1`; pin the commit, not the version string) |
+| [UCAN Delegation 1.0 specification](ucan-wg--delegation-readme.md) | ucan-wg/delegation `README.md` | commit `1cb32dbc` (2026-07-08) | 4 | current (no tags or releases on the repository; the commit is the only reliable pin) |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
