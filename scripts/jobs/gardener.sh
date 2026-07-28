@@ -25,6 +25,11 @@
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Whether the OPERATOR set the pre-claim health gate explicitly, captured BEFORE
+# common.sh defaults it — so the substituted-handler auto-disable below can defer to
+# a deliberate setting instead of clobbering it (the test harness forces the gate ON
+# with a stub handler to exercise the spine's park/claim behavior directly).
+health_gate_explicit="${GARDEN_WORKER_HEALTH_GATE+set}"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
 
@@ -65,7 +70,19 @@ CLONE="$GARDEN_GARDENER_CLONE"
 
 : "${GARDEN_IDLE_SLEEP:=5}"
 : "${GARDEN_ONESHOT:=0}"
-: "${GARDEN_JOB_HANDLER:=$HERE/$(worker_kind_field "$KIND" handler)}"
+DEFAULT_JOB_HANDLER="$HERE/$(worker_kind_field "$KIND" handler)"
+: "${GARDEN_JOB_HANDLER:=$DEFAULT_JOB_HANDLER}"
+# --- pre-claim health gate applicability (common.sh § pre-claim worker health gate)
+# The gate asserts this KIND's agent CLI resolves, which is the dependency of the
+# kind's OWN handler. The spine is backend-pluggable, so a SUBSTITUTED handler (a
+# test stub, an operator experiment) has dependencies the spine cannot know — gating
+# it on `claude` would park a worker whose handler never wanted claude. Apply the
+# gate only for the registry's default handler; GARDEN_WORKER_HEALTH_GATE=0 (honored
+# inside worker_health_gate) disables it outright.
+if [ "$GARDEN_JOB_HANDLER" != "$DEFAULT_JOB_HANDLER" ] && [ -z "$health_gate_explicit" ]; then
+  GARDEN_WORKER_HEALTH_GATE=0
+  log "job handler substituted ($GARDEN_JOB_HANDLER); pre-claim agent-CLI health gate does not apply"
+fi
 # Upper runtime bound for ONE handler invocation (see the wrapped call below).
 # INVARIANT: GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL
 # (reaper.sh, default 14400) so no handler — even one that ignores SIGTERM and is only
@@ -234,6 +251,13 @@ idle_attempt=1
 # keeps growing while the outage persists. Complements the SHARED fleet brake below.
 fail_attempt=1
 
+# Consecutive PARKED ticks under the pre-claim health gate, driving idle_backoff on
+# the self-disqualification path (the failure-path analog of idle_attempt, third of
+# its kind). SEPARATE from both so a park streak backs off exponentially on its own
+# schedule and is reset the instant the CLI resolves — the re-probe cadence that
+# makes recovery automatic after an `npm install -g` window closes.
+health_attempt=1
+
 # Graceful drain on stop. Under the unit's KillMode=mixed, a systemd stop/restart
 # SIGTERMs only the main worker process (self-heal-run.sh, which forwards the
 # signal to THIS loop with a single-process `kill`, never to the handler subtree),
@@ -267,6 +291,36 @@ while :; do
   # every loop. The inbox key and role channel are kind-scoped so a cleric reads
   # role/cleric and a gardener reads role/gardener.
   "$HERE/read-msgs.sh" "$KIND-$id" "role/$KIND" "broadcast" || true
+
+  # --- pre-claim health gate (the ps23 work-sink outage) ----------------------
+  # THE INVARIANT: a worker that cannot run a job never takes one. The agent CLI
+  # used to be probed INSIDE the handler — after the claim had already stolen the
+  # job from the shared board — so a host without the CLI failed every job in about
+  # a second, returned to this loop faster than any healthy worker doing real work,
+  # and won claim races disproportionately: a work SINK that drained the fleet's
+  # board into doin/ and poisoned it while every healthy host sat idle. And no peer
+  # could stop it (set-gardeners.sh refuses a cross-host write; drain-fleet.sh's
+  # marker is host-local), so the only actor that can take a broken worker out of
+  # rotation is that worker. Probe BEFORE the claim; on failure park and re-poll
+  # rather than exiting into a systemd restart loop, so the worker resumes by itself
+  # the moment the binary reappears (an `npm install -g` window closing). The gate
+  # reports ONE journal entry per host per kind per EDGE, not per tick — see
+  # common.sh § pre-claim worker health gate. Placed after the drain/stop checks and
+  # the bus read so a parked worker still honors a stop, a deploy, and its messages.
+  if ! worker_health_gate "$KIND" "$id"; then
+    if [ "$GARDEN_ONESHOT" = "1" ]; then
+      # A ONESHOT run is timer-rearmed and short-lived by contract; parking in a
+      # sleep loop would hold the slot until the timer's own kill. Exit CLEAN (never
+      # a failure rc, which would arm a self-heal responder against an environmental
+      # condition no code fix addresses) — the next tick re-probes and self-heals.
+      log "agent CLI unresolvable; SELF-DISQUALIFIED — claiming nothing and exiting cleanly (oneshot; the next timer tick re-probes)"
+      exit 0
+    fi
+    log "agent CLI unresolvable; SELF-DISQUALIFIED — claiming nothing, parked and re-probing (park tick $health_attempt)"
+    idle_backoff "$health_attempt"; health_attempt=$((health_attempt+1))
+    continue
+  fi
+  health_attempt=1
 
   # --- shared fleet brake -----------------------------------------------------
   # A correlated outage (a Claude quota/usage cut) makes many handlers fail at

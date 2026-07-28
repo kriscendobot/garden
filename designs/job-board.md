@@ -78,6 +78,59 @@ boundary and hammer `journal2` with ~100 simultaneous fetches every interval, so
 each gardener's idle tick is independently jittered and a persistently-empty board
 backs the poll off toward the cap.
 
+### The pre-claim health gate: a broken worker never takes work
+
+Before step 1, the spine asks one question of itself: *can I actually run a job?*
+If not, it **does not claim** (`common.sh worker_health_gate`, called from
+`gardener.sh`'s poll loop). The invariant is **a worker that cannot run a job
+never takes one**.
+
+This is not politeness — it is a fleet-integrity property. The agent CLI used to
+be probed *inside the handler*, i.e. **after** the claim had already removed the
+job from `todo/`. A host whose CLI is unresolvable therefore fails every job in
+about a second and returns to its poll loop far faster than a healthy worker
+doing real work, so it **wins claim races disproportionately**: it drains the
+shared board into `doin/`, fails everything, and the reaper requeues each job
+until it poisons — while every healthy host sits idle. One misconfigured host
+poisons the whole fleet's board (host `ps23`, 2026-07-27/28: 249 journal entries,
+zero `tada` completions, all 52 `doin/` claims held by that one host).
+
+Nor can a peer intervene: `set-gardeners.sh` refuses a cross-host write ("a host
+may set only its own worker counts") and `drain-fleet.sh`'s marker is host-local.
+Those guardrails are correct and stay. Their consequence is that **the only actor
+that can take a broken worker out of rotation is that worker**, so the gate has to
+live in the spine.
+
+Shape:
+
+- **Probe target from the worker-kind registry** (`agent_bin`: gardener→`claude`,
+  cleric/hermit/fireworker→`codex`, mystic→`kimi`), so the one call site covers
+  every kind. It uses the same resolver as the handlers (§ agent-CLI resolution:
+  the `GARDEN_<NAME>_BIN` override, then PATH, then the known install locations),
+  so the gate and the handler can never disagree about what "present" means.
+- **Park, don't crash.** An unhealthy worker idle-polls on the shared exponential
+  backoff rather than exiting into a systemd restart loop, and resumes claiming by
+  itself the moment the binary reappears — e.g. an in-place `npm install -g`
+  window closing. Under `GARDEN_ONESHOT` it exits *clean* instead (that deployment
+  is timer-rearmed, and a failure rc would arm a self-heal responder against an
+  environmental condition no code fix addresses).
+- **One report per edge, not per tick.** The unhealthy episode is latched by an
+  atomic `mkdir` of a host-local, kind-scoped marker, so exactly one worker of the
+  ~20 in a pool emits the journal `error`, and exactly one emits the `progress` on
+  recovery. `ps23` emitted one error entry *per failed job* for hours; that flood
+  is the thing being fixed, not just the claiming.
+- **Scoped to the kind's own handler.** The spine is backend-pluggable, so when
+  `GARDEN_JOB_HANDLER` names a substituted handler its dependencies are unknown
+  and the gate does not apply (`GARDEN_WORKER_HEALTH_GATE=0` disables it
+  outright). A healthy host is bit-for-bit unchanged: one probe and one directory
+  test per loop, no forks, no journal traffic.
+
+The complementary half is the **resolver** (§ agent-CLI resolution in
+`common.sh`), which makes the binary easier to *find*; the gate handles the case
+where it still cannot be found. Both are needed — a resolver alone fails open on a
+host where the CLI is genuinely absent. Covered by
+`scripts/jobs/test/worker-health-gate-test.sh`.
+
 ### Divergences from pivoker / hazards (and how they're handled)
 
 - **Local `mv` ≠ claim.** Only the accepted push is authoritative. No code path

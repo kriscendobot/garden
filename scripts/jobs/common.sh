@@ -427,6 +427,8 @@ killswitch_engaged() { fleet_draining; }
 # CLI) is then: one handler script implementing the handler contract, one row here,
 # one rate-card/tier block — no spine file is copied or forked.
 #   handler   default job handler path, relative to scripts/jobs/
+#   agent_bin the agent CLI that kind's DEFAULT handler cannot run without — the
+#             one thing the pre-claim health gate probes (worker_health_gate)
 #   provider  the model provider (rate-card / model-selection scope)
 #   unit      the systemd instance template prefix (rendered from garden-worker@.in)
 #   count_key the hosts/<host> count line this kind reads/writes
@@ -438,6 +440,7 @@ worker_kind_field() {
     gardener)
       case "$field" in
         handler)   printf '%s\n' "handlers/gardener-claude.sh" ;;
+        agent_bin) printf '%s\n' "claude" ;;
         provider)  printf '%s\n' "anthropic" ;;
         unit)      printf '%s\n' "garden-gardener@" ;;
         count_key) printf '%s\n' "gardeners" ;;
@@ -448,6 +451,7 @@ worker_kind_field() {
     cleric)
       case "$field" in
         handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        agent_bin) printf '%s\n' "codex" ;;
         provider)  printf '%s\n' "openai" ;;
         unit)      printf '%s\n' "garden-cleric@" ;;
         count_key) printf '%s\n' "clerics" ;;
@@ -466,6 +470,7 @@ worker_kind_field() {
       # *local* provider (§4.2).
       case "$field" in
         handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        agent_bin) printf '%s\n' "codex" ;;
         provider)  printf '%s\n' "local" ;;
         unit)      printf '%s\n' "garden-hermit@" ;;
         count_key) printf '%s\n' "hermits" ;;
@@ -478,6 +483,7 @@ worker_kind_field() {
       # a separate pool, state namespace, provider identity, and reputation arm.
       case "$field" in
         handler)   printf '%s\n' "handlers/mystic-kimi.sh" ;;
+        agent_bin) printf '%s\n' "kimi" ;;
         provider)  printf '%s\n' "moonshot" ;;
         unit)      printf '%s\n' "garden-mystic@" ;;
         count_key) printf '%s\n' "mystics" ;;
@@ -491,6 +497,7 @@ worker_kind_field() {
       # the volatile wire model/deployment identifier explicit in each job.
       case "$field" in
         handler)   printf '%s\n' "handlers/cleric-codex.sh" ;;
+        agent_bin) printf '%s\n' "codex" ;;
         provider)  printf '%s\n' "fireworks" ;;
         unit)      printf '%s\n' "garden-fireworker@" ;;
         count_key) printf '%s\n' "fireworkers" ;;
@@ -805,6 +812,141 @@ claude_bin_now() { agent_bin_probe claude; }
 #     already normalizes EX_TEMPFAIL) and burns no self-heal responder.
 # The message still goes to the capture, so the environmental cause is diagnosable.
 die_environmental() { log "ENVIRONMENT: $*"; exit "${GARDEN_ENV_RC:-75}"; }
+
+# --- pre-claim worker health gate (the ps23 WORK-SINK outage) ----------------
+#
+# The resolver above makes the agent CLI easier to FIND; this gate stops a worker
+# that STILL cannot find it from taking work. Both halves are needed — a resolver
+# alone still fails open on a host where the CLI is genuinely absent.
+#
+# WHY A BROKEN HOST IS A FLEET PROBLEM, NOT A HOST PROBLEM. Probing the binary
+# inside the handler — the shape every claude/codex handler had — runs AFTER the
+# claim, so the job has already been stolen from the shared board. The handler then
+# fails in about a second, which returns that worker to the poll loop far faster
+# than a healthy worker actually doing a job. A fast-failing host therefore WINS
+# CLAIM RACES DISPROPORTIONATELY: it drains the board into doin/, fails everything,
+# the reaper requeues, and the jobs poison — while every healthy host sits idle.
+# One misconfigured host can poison the whole fleet's board (ps23, 2026-07-27/28:
+# 249 journal entries, ZERO tada completions, all 52 doin/ claims held by ps23).
+#
+# AND IT CANNOT BE FIXED FROM OUTSIDE. `set-gardeners.sh 0 <host>` is refused by
+# design ("a host may set only its own worker counts") and drain-fleet.sh's marker
+# is host-local ($GARDEN_ROOT/.garden-state/draining), so no peer can take a broken
+# host out of rotation. The ONLY actor that can stop a broken worker from claiming
+# is that worker. Hence: a gate in the spine, BEFORE the claim.
+#
+# THE INVARIANT: a worker that cannot run a job never takes one.
+#
+# Three properties the gate must have, each learned from the outage:
+#   * SELF-DISQUALIFY, DON'T CRASH. An unhealthy worker idle-polls (re-probing on
+#     the shared exponential backoff) rather than exiting into a systemd restart
+#     loop, so it self-heals the moment the binary reappears after e.g. an
+#     `npm install -g` window, and stays parked as long as it is unhealthy.
+#   * REPORT ON THE EDGE, NOT PER TICK. ps23 emitted a journal `error` per failed
+#     job for hours. The report here is keyed HOST-WIDE PER KIND and won by exactly
+#     ONE worker via an atomic mkdir, so ~20 gardeners on a broken host produce ONE
+#     error entry for the whole episode and ONE progress entry on recovery — never
+#     one per worker, never one per tick (silent-until-error).
+#   * COVER EVERY KIND. The probe target comes from the worker-kind registry
+#     (agent_bin), so gardener→claude, cleric/hermit/fireworker→codex,
+#     mystic→kimi are all gated by the one call site in the spine's poll loop.
+#
+# SCOPE: the gate asserts only that the kind's DEFAULT handler can run. The spine
+# is backend-pluggable, so when GARDEN_JOB_HANDLER names a SUBSTITUTED handler (a
+# test stub, an operator experiment) its dependencies are unknown to the spine and
+# the gate does not apply — gardener.sh makes that determination at the call site.
+# GARDEN_WORKER_HEALTH_GATE=0 disables it outright.
+: "${GARDEN_WORKER_HEALTH_GATE:=1}"
+# Host-local edge state. One directory per KIND per episode; its existence IS the
+# "this kind is currently unhealthy on this host" fact, and creating/removing it is
+# the atomic right to report the transition.
+: "${GARDEN_WORKER_HEALTH_DIR:=$GARDEN_STATE/health}"
+
+# worker_agent_bin <kind> — the agent CLI a kind's default handler drives. Prints
+# the name; returns non-zero for an unknown kind or a kind with no CLI dependency.
+worker_agent_bin() {
+  worker_kind_field "${1:?worker_agent_bin: kind required}" agent_bin 2>/dev/null
+}
+
+# worker_health_marker <kind> — the per-kind episode marker directory (see above).
+worker_health_marker() {
+  printf '%s\n' "$GARDEN_WORKER_HEALTH_DIR/${1:?worker_health_marker: kind required}.unhealthy"
+}
+
+# worker_health_probe <kind> — ONE resolution pass for this kind's agent CLI.
+# Prints the resolved command and returns 0 when the worker can run a job; returns
+# 1 when the CLI is nowhere to be found. Deliberately the single-pass
+# agent_bin_probe, not the retrying agent_bin: the gate's own backoff-and-re-probe
+# park IS the retry, and a bounded sleep here would stall the loop's drain/stop
+# checks. A kind with no declared CLI is healthy by definition (nothing to break).
+worker_health_probe() {
+  local kind="${1:?worker_health_probe: kind required}" name
+  name="$(worker_agent_bin "$kind")" || return 0
+  [ -n "$name" ] && [ "$name" != none ] || return 0
+  agent_bin_probe "$name"
+}
+
+# _worker_health_report <kind> <id> <state> <detail> — the ONE transition report.
+# Writes a journal entry (kind:error on the healthy→unhealthy edge, kind:progress
+# on recovery) and raises/clears the matching coalescing maintainer notice. Only
+# ever reached by the worker that won the atomic edge claim below. Never fails its
+# caller: a journal push cannot be assumed to work on a host this broken.
+_worker_health_report() {
+  local kind="$1" id="$2" state="$3" detail="$4" entry_kind msg key
+  key="worker-agent-bin-$kind-$GARDEN"
+  if [ "$state" = unhealthy ]; then
+    entry_kind=error
+    msg="$(printf '%s\n' \
+      "$kind workers on $GARDEN cannot resolve their agent CLI ($detail) — the pool has SELF-DISQUALIFIED and is claiming nothing." \
+      "" \
+      "Every $kind on this host is parked in its poll loop, re-probing on a backoff; it resumes claiming by itself the moment the CLI resolves (no restart needed). This is deliberate: a worker whose handler dies in a second wins claim races against healthy workers doing real work, so it would drain the shared board into doin/ and poison it. Parking makes the host merely IDLE instead of a work SINK." \
+      "" \
+      "To fix: install or repair the CLI on $GARDEN (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, \$NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.")"
+  else
+    entry_kind=progress
+    msg="$kind workers on $GARDEN resolved their agent CLI again ($detail); the pool has UN-parked and is claiming normally. Closing the self-disqualification episode."
+  fi
+  log "health gate: $kind on $GARDEN is $state ($detail)"
+  printf '%s\n' "$msg" \
+    | GARDEN_ROLE="$kind" "$GARDEN_ROOT/scripts/jobs/journal-entry.sh" "$entry_kind" >/dev/null 2>&1 || true
+  if [ "$state" = unhealthy ]; then alert_maintainer "$key" "$msg"
+  else alert_maintainer_clear "$key" "$msg"; fi
+  return 0
+}
+
+# worker_health_gate <kind> <id> — THE PRE-CLAIM GATE. Returns 0 when this worker
+# may claim, 1 when it must not. Idempotent and cheap on the happy path: one probe
+# plus one directory test, no fork, no journal traffic, so a healthy fleet behaves
+# exactly as it did before this existed.
+worker_health_gate() {
+  local kind="${1:?worker_health_gate: kind required}" id="${2:-0}" marker cli name claimed
+  [ "${GARDEN_WORKER_HEALTH_GATE:-1}" = 0 ] && return 0
+  marker="$(worker_health_marker "$kind")"
+  name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
+  if cli="$(worker_health_probe "$kind" 2>/dev/null)"; then
+    # HEALTHY. Fast path when no episode is open. When one IS open, exactly one
+    # worker wins the recovery report: the rename succeeds for the first caller
+    # only, and every later caller finds the marker already gone.
+    if [ -d "$marker" ]; then
+      claimed="$marker.recovered.$$"
+      if mv "$marker" "$claimed" 2>/dev/null; then
+        rm -rf "$claimed" 2>/dev/null || true
+        _worker_health_report "$kind" "$id" healthy "${cli:-${name:-agent CLI}}"
+      fi
+    fi
+    return 0
+  fi
+  # UNHEALTHY. `mkdir` on an existing directory fails, so it is the atomic
+  # healthy→unhealthy edge latch: the single winner reports, everyone else parks
+  # silently. A marker we cannot create at all (an unwritable state dir) still
+  # parks the worker — the invariant holds even when the bookkeeping does not.
+  mkdir -p "$GARDEN_WORKER_HEALTH_DIR" 2>/dev/null || true
+  if mkdir "$marker" 2>/dev/null; then
+    date -u +%FT%TZ > "$marker/since" 2>/dev/null || true
+    _worker_health_report "$kind" "$id" unhealthy "${name:-agent CLI} not on PATH nor in any known install location"
+  fi
+  return 1
+}
 
 # --- watchdog notices: one entry per CONDITION, not one per occurrence --------
 #
