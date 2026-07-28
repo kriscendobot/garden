@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T12:14:13Z_
+_As of 2026-07-28T12:15:35Z_
 
 ## Latest
 
@@ -2329,17 +2329,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.8M | $665.38 _(notional, rate-card)_ | no quota set |
-| Codex | 369.6M _(+456.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 50.9M | $667.96 _(notional, rate-card)_ | no quota set |
+| Codex | 369.6M _(+458.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (21)
+- [`design-post-verdict-addressee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-post-verdict-addressee.md) — The gap
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
 - [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
 - [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
 - [`fu-fix-identity-drift-guard-test-inbox-leak-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-fix-identity-drift-guard-test-inbox-leak-2.md) — In kriskowal/garden (main2), sweep the ~80 suites under scripts/jobs/test/ th...
-- [`fu-fix-identity-drift-guard-test-inbox-leak-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-fix-identity-drift-guard-test-inbox-leak-3.md) — In kriskowal/garden (main2), add the two identity drift-guard tests to the CI...
 - [`fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1.md) — In the garden's own job board (journal2, jobs/todo/), drop the two now-no-op ...
 - [`fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2.md) — In the garden repo (kriskowal/garden, main2), audit scripts/jobs/ci-watcher.s...
 - [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
@@ -2377,11 +2377,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fu-deadmail-20260728T074423Z-6bee53-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-deadmail-20260728T074423Z-6bee53-2.md) — In the garden's own repo (kriskowal/garden), post a designer job to close the...
 - [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — In endojs/endo-but-for-bots, assess whether https://github.com/endojs/endo-bu...
-- [`fu-endo-npm-cas-registry-press-20260728-065010-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-065010-1.md) — In endojs/endo-but-for-bots, check CI on https://github.com/endojs/endo-but-f...
 - [`fu-endojs-endo-but-for-bots-pr556-dependabot-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr556-dependabot-3.md) — In the garden's own library (kriskowal/garden, main2), extend roles/botanist/...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
 - [`fu-endojs-endo-but-for-bots-pr868-dependabot-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr868-dependabot-3.md) — Garden-infra change in kriskowal/garden main2: amend roles/botanist/AGENT.md ...
 - [`fu-fix-identity-drift-guard-test-inbox-leak-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-1.md) — In kriskowal/garden (main2), fix the two pre-existing failures in tests/check...
+- [`fu-fix-identity-drift-guard-test-inbox-leak-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-3.md) — In kriskowal/garden (main2), add the two identity drift-guard tests to the CI...
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`requeue-ps23-stranded-claims`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/requeue-ps23-stranded-claims.md) — Free the 52 claims stranded on ps23
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
@@ -2389,13 +2389,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3658)
+### tada (3659)
+- [`fu-endo-npm-cas-registry-press-20260728-065010-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260728-065010-1.md) — What I checked
 - [`issue-kriskowal-garden-67`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-67.md) — What the job asked
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fork-watch-provisioner-armed-recheck.md) — Report
 - [`finbot-progress-20260728-004711`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-004711.md) — Completion report — finbot progress cycle 20260728-004711
 - [`improve-follow-up-outage-retry-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-follow-up-outage-retry-budget.md) — Report
-- [`improve-panel-parallel-seat-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-panel-parallel-seat-fanout.md) — Report
-- … and 3653 more
+- … and 3654 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
