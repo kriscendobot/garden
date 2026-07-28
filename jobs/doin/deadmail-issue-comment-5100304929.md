@@ -38,3 +38,10 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-510030492
 I’m looking for a report for my previous response https://github.com/kriscendobot/garden/issues/51#issuecomment-5087337713 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:30:29Z
