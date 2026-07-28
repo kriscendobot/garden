@@ -1,0 +1,1 @@
+{"source":"result","num_turns":50,"elapsed_s":612,"input_tokens":77,"output_tokens":20535,"cache_creation_tokens":74982,"cache_read_tokens":2850599,"total_cost_usd":2.6888795,"ts":"2026-07-28T21:14:01Z","base":"validate-fireworks-job-end-to-end","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
