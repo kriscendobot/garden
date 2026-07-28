@@ -2,11 +2,11 @@ kind: gardener
 provider: anthropic
 model: claude-default
 thoughtfulness: medium
-work_class: gardener:l
+work_class: orchestrator:l
 target: main2
-attempts: 3
-accepts: 3
+attempts: 1
+accepts: 1
 censored: 0
-mean_dollars: 1.903900
-m2: 2.201953
+mean_dollars: 1.933510
+m2: 0.000000
 acceptance_rate: 1.0000
