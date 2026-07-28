@@ -95,6 +95,7 @@ frozen as they are now — and the fleet is actively adding lanes (open jobs
 - `usage-meter.sh` behavior is unchanged; show the check.
 - Pushed to `main2` per the garden's own-repo convention (direct push, no PR).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
