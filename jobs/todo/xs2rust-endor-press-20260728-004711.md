@@ -1,7 +1,3 @@
-cadence: 10800s
-last_dispatched: 2026-07-28T00:47:11Z
-job_basename_prefix: xs2rust-endor-press
----
 ---
 model: opus
 ---
