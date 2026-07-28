@@ -28,6 +28,34 @@ separate failure investigation, unrelated to this design).
 
 Design only. Base: garden `main2`, direct (no PR).
 
+## 0. Relation to the pre-claim health gate (already landed)
+
+`worker_health_gate` (`common.sh`, wired into `gardener.sh`'s poll loop; the ps23
+work-sink regression 2026-07-27/28) is the **software half at the claim boundary**:
+a worker that cannot resolve its agent binary (`worker_health_probe` → `command -v
+claude|codex|kimi`) **self-disqualifies before claiming**, latches one journal
+error per healthy→unhealthy edge, and un-parks itself when the binary reappears.
+It is fast (one `command -v` + a dir test), per-worker, and per-claim.
+
+This design is **layered on top of it, not a replacement**, and adds the two
+dimensions the health gate deliberately does not carry:
+
+1. **Credentials, not just software.** `worker_health_gate` proves the CLI exists;
+   it does not prove the host is *authenticated* to the backend. `codex` on PATH
+   with no `codex login`, or `claude` with no credential, passes the health gate
+   but cannot do work. The backend **probe** here adds the auth check.
+2. **Effective count / provisioning, at the scaler layer.** The health gate acts
+   on one worker at claim time; it cannot keep a host from *declaring* a kind it
+   can't back, nor ramp a whole pool down to 0 and back. That is the scaler-layer
+   effective-count and the `set-workers` declare-gate below.
+
+Division of labor: the **health gate** stays the cheap per-claim software backstop
+(unchanged); the **backend probe + effective count** is the per-tick credential and
+capacity layer. Both reuse the same registry (`worker_kind_field`), so a new kind
+is covered by both from one place. The probe's software checks (`command -v …`)
+intentionally mirror the health gate's rather than depend on it, because the probe
+runs in the scaler and in `set-workers`, not only in the worker poll loop.
+
 ---
 
 ## 1. The per-backend probe (cheap, deterministic, no LLM)
@@ -291,7 +319,7 @@ Tight and localized; no new services, no new journal schema.
 
 | File | Change |
 | --- | --- |
-| `scripts/jobs/common.sh` | add `claude_auth_ok`, `worker_backend_probe <kind>` (dispatch on registry `provider`, reuse existing preflights), `backend_effective_count <kind> <declared>` (hysteresis over `$GARDEN_STATE/<ns>/backend/`). |
+| `scripts/jobs/common.sh` | add `claude_auth_ok`, `worker_backend_probe <kind>` (dispatch on registry `provider`, reuse existing preflights + the software check that mirrors `worker_health_probe`), `backend_effective_count <kind> <declared>` (hysteresis over `$GARDEN_STATE/<ns>/backend/`). Sits alongside the landed `worker_health_gate`/`worker_health_probe` (§ 0), does not modify them. |
 | `scripts/jobs/handlers/codex-provider-common.sh` | honor `GARDEN_PROBE_LIVE=1` to bypass the per-boot `auth-ok` marker in `codex_provider_preflight`. |
 | `scripts/jobs/gardener-scaler.sh` | between `read_desired_count` and `install-units.sh scale`, compute `effective`; keep the gardener floor on `declared`; pass `effective` to `scale`; log transitions; alert on sustained degradation. |
 | `scripts/jobs/set-workers.sh` | add the probe gate for non-gardener `n>0` (with `GARDEN_FORCE_DECLARE=1` override). |
