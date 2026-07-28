@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":21,"elapsed_s":393,"input_tokens":458,"output_tokens":23139,"cache_creation_tokens":86688,"cache_read_tokens":1003596,"total_cost_usd":2.020795,"ts":"2026-07-28T12:25:56Z","base":"investigate-opencode-alternate-harness","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}
