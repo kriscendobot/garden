@@ -93,3 +93,10 @@ the same problem; mystic is just where it shows first.
 - Reducer remains deterministic and idempotent (run it twice; second pass is a
   no-op).
 - Pushed to `main2`; `tada` report quotes the corrected mystic arm.
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:35:17Z
