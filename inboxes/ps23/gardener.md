@@ -1065,3 +1065,12 @@ Inspect via `git -C journal cat-file -p 20d9615b81d5022f585937d8f286bb1bf40c93b6
 - Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr848-gauntlet-backfill' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p bfc6a5801483bb08a36cec312dc5621da23d4e20`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a027005dbe373f9ed5a8627e6ec024e14bf983eb
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr755-review-a0778b2e' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a027005dbe373f9ed5a8627e6ec024e14bf983eb`.
