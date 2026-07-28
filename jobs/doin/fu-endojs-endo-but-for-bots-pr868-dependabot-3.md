@@ -2,3 +2,10 @@ Garden-infra change in kriskowal/garden `main2`: amend `roles/botanist/AGENT.md`
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:06:37Z
