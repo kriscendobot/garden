@@ -125,3 +125,47 @@ out to N ≈ 256K — **it does not go away on the latest release.** That is the
 Scope: read-only analysis + on-host builds/runs of the open-source XS engine from
 public Moddable release tarballs. No upstream `Moddable-OpenSource/moddable` or
 `agoric/agoric-sdk` interaction.
+
+## Follow-up (2026-07-28) — the fix as a PR on the fork, and a fast reproducer
+
+mhofman asked for the fix as a PR against **upstream HEAD** on the bot fork
+([kriskowal/garden#9 comment 5098251895](https://github.com/kriscendobot/garden/issues/9#issuecomment-5098251895)):
+[**kriscendobot/moddable#2**](https://github.com/kriscendobot/moddable/pull/2) —
+base `upstream-public` (a branch of the fork pinned at
+`Moddable-OpenSource/moddable@23b4d6b0`, "version bump 8.3.1"), head
+`xs-flat-value-stack`. It *moves* the `73aad47b` leaf `mxPop()` to the end of the
+`if (fxHasIndex)` block (upstream HEAD already carries the leaf pop, so this is a
+move, not an addition) and adds two tests in Moddable's own suite:
+`tests/xs/built-ins/Array/prototype/{flat,flatMap}/value-stack.js`.
+
+**The reproducer is now instant, not minutes.** The O(N²) runtime reported above is
+**not** the leak — it is how the *source array* is built. Under XS,
+`new Array(N)` followed by index assignment (or `.fill(ref)`) is quadratic; the
+same array built with `push` is linear:
+
+| build of a 300000-element array | time |
+| --- | --- |
+| `new Array(N)` + `a[i] = inner` | 3 m 56 s |
+| `new Array(N).fill(inner)` | ~16 s at N=100000 |
+| `a = []; a.push(inner)` | **0.15 s** |
+
+With `push`, the nested-branch overflow on stock release `xst` (256K slot value
+stack) trips in **0.15 s** at N = 300000 — so the Moddable test needs no small
+`stackCount` build and no minutes-long run. That is what the PR's test cases do.
+
+**Verification of the PR (x86-64 linux, `make -f xst.mk GOAL=release`, XS 17.9.1):**
+
+| suite | before (`23b4d6b0`) | after (PR#2) |
+| --- | --- | --- |
+| the two new tests (via test262 runner, strict + sloppy) | both `JavaScript stack overflow` | 4 cases, no failures |
+| `test262` `built-ins/Array` (6112 cases) | 6 failures | same 6 failures |
+| `$MODDABLE/tests/xs/built-ins` | 6 failures (4 pre-existing + the 2 new) | 4 pre-existing |
+| `$MODDABLE/tests/xs/language` | 0 failures | 0 failures |
+
+Recipe: copy `$MODDABLE/tests` to `<test262>/test/moddable` (or symlink), then from
+`<test262>/test` run `xst moddable/xs/built-ins/Array/prototype/flat`. `xst` enters
+test262 mode whenever `../harness` resolves from the cwd.
+
+(`$MODDABLE/tests/xs/issues` aborts stock `xst` at case ~#287 with a glibc
+`free(): double free detected in tcache 2` — **pre-existing**, byte-identical
+before and after the patch, unrelated to `flatAux`.)
