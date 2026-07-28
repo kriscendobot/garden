@@ -1,0 +1,5 @@
+host: ps23
+gardener: 2
+worker_kind: gardener
+claimed_at: 2026-07-28T05:33:17Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-improve-fork-watch-provisioner-armed-recheck

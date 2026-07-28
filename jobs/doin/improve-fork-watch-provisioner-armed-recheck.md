@@ -8,3 +8,10 @@ Change: add a liveness reconciliation pass over the ALREADY-armed own-fork set (
 Also confirm the disarm is complete end to end: removing `repos/<slug>` and `comment-repos/<slug>` must cause the per-host unit reconciliation in `scripts/jobs/repo-watcher.sh` to stop and disable the corresponding `garden-{triager,comment-watcher,ci-watcher,dependabot-watcher}@<slug>` units. If that reconciler only ever adds units, the tombstone silences the journal record while the flapping units survive, and the fix is incomplete.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:33:17Z
