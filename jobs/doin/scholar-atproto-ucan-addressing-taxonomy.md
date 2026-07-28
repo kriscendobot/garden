@@ -135,3 +135,10 @@ first** — it is what the maintainer asked for — and defer ingestion to the
 follow-on job.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:43:55Z
