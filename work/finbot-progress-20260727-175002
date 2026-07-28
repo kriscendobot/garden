@@ -1,5 +1,0 @@
-host: ps23
-gardener: 7
-worker_kind: gardener
-claimed_at: 2026-07-28T06:13:08Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-finbot-progress-20260727-175002
