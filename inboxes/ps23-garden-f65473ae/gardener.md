@@ -354,3 +354,12 @@ Inspect via `git -C journal cat-file -p 00a7677563b1d05528cb3c0359ca0b14e118c8be
 - Context: gardener-5 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr671-review-36ae135d' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p fb3ee28e90ac3ae21ecb4e0db8648b84eacc9947`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T21:19:26Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: fb3ee28e90ac3ae21ecb4e0db8648b84eacc9947
+- Context: gardener-2 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr713-panel-fixes' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p fb3ee28e90ac3ae21ecb4e0db8648b84eacc9947`.
