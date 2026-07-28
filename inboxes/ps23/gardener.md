@@ -183,3 +183,12 @@ Inspect via `git -C journal cat-file -p 835b09215e61c20ff51edfe1b3a5af25b6ab93ce
 - Context: gardener-1 on ps23: job 'ocapn-noise-press-20260728-004711' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 518d6662ae416237d98a32c09a08a37d3aa04306`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:49:47Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4b5b36c539031c64a9178ce7c52999820edecea5
+- Context: gardener-4 on ps23: job 'xs2rust-endor-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4b5b36c539031c64a9178ce7c52999820edecea5`.
