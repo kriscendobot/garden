@@ -957,3 +957,12 @@ Inspect via `git -C journal cat-file -p 347d3b27a55587a1a94672f5b3affeeebf151630
 - Context: gardener-1 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p f8a3c8fe44422a895c610b6a9aae3574f7d1c498`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:13:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a8d4a6edfef100b2c5b909dcb52ae36033f3ff1e
+- Context: gardener-1 on ps23: job 'endo-git-integration-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a8d4a6edfef100b2c5b909dcb52ae36033f3ff1e`.
