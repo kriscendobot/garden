@@ -96,12 +96,4 @@ non-comment gh calls are unaffected; the deployed sha (not tip) is what is linke
 the repo URL survives the pending transfer. Direct push to `main2`. Report where you
 enforced it and why, and the review-comment scope decision.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:53:33Z
+<!-- garden-reaped: 1 -->

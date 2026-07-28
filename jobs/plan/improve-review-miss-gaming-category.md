@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 3
+deadline_overruns: 1
+poisoned_at: 2026-07-28T17:03:06Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T17:03:06Z
+---
+
+---
 role: builder
 ---
 # Add an evaluator-gaming category to the review-retrospective loop
@@ -60,13 +74,5 @@ evaluator-coupling prospectively without ever looking for it retrospectively.
 Recording it continuously as it is noticed is cheaper and more durable than an
 archaeological audit, and the garden already has the loop to hang it on.
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 10
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:53:14Z

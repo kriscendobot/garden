@@ -76,12 +76,4 @@ Consolidated 2026-07-27 from ten redundant qwen3.6-pinned dispatches of the stan
 press (`schedules/xs2rust-endor-press.md`), all stale-claimed by a local hermit that
 stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 11
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:53:29Z
+<!-- garden-reaped: 1 -->

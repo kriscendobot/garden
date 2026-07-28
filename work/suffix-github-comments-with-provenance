@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 8
-worker_kind: gardener
-claimed_at: 2026-07-28T16:53:33Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-suffix-github-comments-with-provenance
