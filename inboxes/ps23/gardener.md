@@ -390,3 +390,12 @@ Inspect via `git -C journal cat-file -p 89bce4f4a6a3f10f366c6a3bc27fb68d0315ae00
 - Context: gardener-1 on ps23: job 'hermit-failure-reputation-followup' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 19a689b8f565a66e4fddd84d54e20a6283ad768d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:54:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 628993aaae133d7391f8174e714ebcca12ae1c6f
+- Context: gardener-8 on ps23: job 'improve-gardener-claude-bin-resolution' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 628993aaae133d7391f8174e714ebcca12ae1c6f`.
