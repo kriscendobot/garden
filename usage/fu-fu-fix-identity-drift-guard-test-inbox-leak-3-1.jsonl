@@ -1,1 +1,2 @@
 {"source":"result","num_turns":1,"elapsed_s":2,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-07-28T12:38:10Z","base":"fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1","host":"endolin-garden2-5bcdff64","outcome":"fail"}
+{"ts":"2026-07-28T16:56:24Z","base":"fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1","host":"endolin-garden-ece02cb4","outcome":"tada","source":"none","elapsed_s":131}
