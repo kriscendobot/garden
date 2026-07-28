@@ -44,6 +44,10 @@ hr()  { echo "----------------------------------------------------------------";
 
 # Scrub ambient fleet env so a live gardener running this as a board job cannot
 # splice its own GARDEN_*/JOURNAL_* state underneath the fixture.
+# shellcheck disable=SC2046  # the split is the point: `unset` takes a LIST of names,
+# and `compgen -v` emits only shell variable names ([A-Za-z_][A-Za-z0-9_]*), which
+# can hold neither whitespace nor glob characters — so word splitting is safe here.
+# Quoting would instead pass the whole newline-joined blob as one bogus name.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 # Test-context sentinel (set AFTER the scrub, which strips GARDEN_*): common.sh's
 # guard_no_production_push_in_test then refuses any push that resolves to the real

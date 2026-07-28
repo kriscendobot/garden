@@ -41,6 +41,10 @@ PROJECT_ROOT=$(cd "$HARNESS_DIR/../.." && pwd)
 GUARD="$PROJECT_ROOT/scripts/jobs/identity-drift-guard.sh"
 
 # Layer 4: scrub ambient fleet state BEFORE anything resolves a remote or a clone.
+# shellcheck disable=SC2046  # the split is the point: `unset` takes a LIST of names,
+# and `compgen -v` emits only shell variable names ([A-Za-z_][A-Za-z0-9_]*), which
+# can hold neither whitespace nor glob characters — so word splitting is safe here.
+# Quoting would instead pass the whole newline-joined blob as one bogus name.
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 
 PASS=0

@@ -37,10 +37,12 @@ jobs:
       - name: shellcheck (daemons + watcher stub + checks gates + per-test scripts)
         # Lint the in-PR bash artifacts. Scope is the daemon management
         # wrappers, the stub feed watcher, the gardener-inbox error
-        # reporter, the pre-dispatch grep-gate runner and gates, and the
-        # checks test harness. Pre-existing scripts outside this scope
-        # have known issues; widening the lint surface is a separate
-        # effort.
+        # reporter, the pre-dispatch grep-gate runner and gates, the
+        # checks test harness, and the two identity drift-guard tests
+        # (the sibling pair that leaked into the real maintainer inbox on
+        # 2026-07-28 — kept lint-clean so their hermetic-fixture layers
+        # cannot rot). Pre-existing scripts outside this scope have known
+        # issues; widening the lint surface is a separate effort.
         run: |
           shellcheck -S warning \
             scripts/daemons/start.sh \
@@ -60,7 +62,9 @@ jobs:
             tests/checks/test_double_space_sentence_separator.sh \
             tests/checks/test_maintainer_inbox_information_hiding.sh \
             tests/checks/test_claude_md_inventory_drift.sh \
-            tests/checks/test_run_all.sh
+            tests/checks/test_run_all.sh \
+            tests/checks/test_identity_drift_guard.sh \
+            scripts/jobs/test/identity-drift-guard-test.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
         # Syntactic check on every shell script under scripts/ and skills/.
