@@ -3207,3 +3207,12 @@ Inspect via `git -C journal cat-file -p 13c870244497de8e235db805e0ed4127c3c17c07
 - Context: gardener-7 on endolin-garden2-5bcdff64: job 'migrate-garden-origins-to-kriscendobot' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e554789ab0b3a81dd42b2d04f47335aa2eabb9dd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:38:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1eb7d1d2231589cc7c9c350b4860732ba3434526
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1eb7d1d2231589cc7c9c350b4860732ba3434526`.
