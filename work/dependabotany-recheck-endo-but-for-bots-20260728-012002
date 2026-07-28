@@ -1,0 +1,5 @@
+host: ps23
+gardener: 3
+worker_kind: gardener
+claimed_at: 2026-07-28T01:20:20Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-dependabotany-recheck-endo-but-for-bots-20260728-012002
