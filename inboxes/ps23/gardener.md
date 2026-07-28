@@ -309,3 +309,12 @@ Inspect via `git -C journal cat-file -p a1c015328a952410301adc6fd806aa8c558bd0ea
 - Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr868-lint-fix' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p df42a95e3099bec6df4fe4692a7c6c30e4e81dcd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:18:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5b5f9923f7e33bc9ed074f541d4ac62326518949
+- Context: gardener-2 on ps23: job 'fu-endo-npm-cas-registry-press-20260728-004711-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5b5f9923f7e33bc9ed074f541d4ac62326518949`.
