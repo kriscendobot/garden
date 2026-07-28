@@ -40,3 +40,10 @@ We now have: - URLs, which are grounded in the location and authority to provide
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:13:16Z
