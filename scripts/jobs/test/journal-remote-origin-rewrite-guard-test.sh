@@ -14,7 +14,8 @@
 #
 # THE FIX (mirrors guard_no_production_push_in_test's structural-refusal shape):
 # journal_remote REFUSES to return any resolved remote that is a FOREIGN github
-# repo (_is_foreign_github_remote: a github.com repo that is not kriskowal/garden)
+# repo (_is_foreign_github_remote: a github.com repo that is not the canonical
+# garden repo or one of its migration aliases)
 # — the exact poison signature. A poisoned source is skipped with a loud REFUSED
 # log; journal_remote falls through to a clean source, and from a non-shared clean
 # source (cache / per-instance clone) re-asserts the correct root origin
@@ -25,7 +26,10 @@
 #
 # Cases:
 #   * _is_foreign_github_remote unit table (fork -> yes; garden -> no;
-#     local path -> no; empty -> no; https + scp-ssh fork forms -> yes)
+#     local path -> no; empty -> no; https + scp-ssh fork forms -> yes;
+#     the pre-transfer kriskowal/garden alias -> no; a SIBLING repo under the
+#     garden's own new owner -> still yes, so accepting kriscendobot/garden
+#     did not widen the guard to every kriscendobot repo)
 #   * root origin rewritten to a fork, cache holds the garden url -> REFUSED on the
 #     shared config, self-heals FROM the cache, and REPAIRS the root origin back to
 #     garden (the poison is gone after one resolution)
@@ -58,7 +62,11 @@ UP="$TR/upstream.git"      # the shared origin (a LOCAL bare repo — legit, not
 GR="$TR/gr"                # stands in for $GARDEN_ROOT
 JW="$GR/journal"           # the linked journal worktree
 FORK="git@github.com:endojs/endo-but-for-bots.git"   # the poison
-GARDEN_URL="git@github.com:kriskowal/garden.git"     # the canonical garden remote
+GARDEN_URL="git@github.com:kriscendobot/garden.git"  # the canonical garden remote
+# The pre-transfer path (kriskowal/garden -> kriscendobot/garden, 2026-07-28). Still
+# accepted as a MIGRATION ALIAS so a host whose origin has not been migrated is not
+# stranded; GitHub redirects the old endpoint indefinitely.
+GARDEN_URL_ALIAS="git@github.com:kriskowal/garden.git"
 
 setup_fixture() {
   rm -rf "$TR"; mkdir -p "$TR"
@@ -100,9 +108,12 @@ bash -n "$JOBS/common.sh" && ok "common.sh parses" || bad "syntax error"
 hr; echo "UNIT — _is_foreign_github_remote classifies the poison signature"; hr
 _is_foreign_github_remote "$FORK"                         && ok "fork (scp-ssh) -> foreign" || bad "fork (scp-ssh) not flagged"
 _is_foreign_github_remote "https://github.com/endojs/endo-but-for-bots.git" && ok "fork (https) -> foreign" || bad "fork (https) not flagged"
-_is_foreign_github_remote "https://github.com/kriscendobot/garden.git"      && ok "kriscendobot fork -> foreign" || bad "kriscendobot fork not flagged"
+_is_foreign_github_remote "https://github.com/kriscendobot/endo-but-for-bots.git" && ok "sibling repo under the garden's OWN owner -> foreign" || bad "kriscendobot sibling repo not flagged (the guard was widened to a bare owner prefix)"
+_is_foreign_github_remote "https://github.com/kriscendobot/garden-transcripts.git" && ok "owner+name PREFIX of the garden repo -> foreign" || bad "kriscendobot/garden-transcripts not flagged (the repo anchor is not exact)"
 ! _is_foreign_github_remote "$GARDEN_URL"                 && ok "garden remote -> NOT foreign" || bad "garden remote wrongly flagged"
-! _is_foreign_github_remote "https://github.com/kriskowal/garden"           && ok "garden (https, no .git) -> NOT foreign" || bad "garden https wrongly flagged"
+! _is_foreign_github_remote "https://github.com/kriscendobot/garden"        && ok "garden (https, no .git) -> NOT foreign" || bad "garden https wrongly flagged"
+! _is_foreign_github_remote "$GARDEN_URL_ALIAS"                             && ok "pre-transfer alias -> NOT foreign" || bad "migration alias wrongly flagged (a non-migrated host would be stranded)"
+! _is_foreign_github_remote "https://github.com/kriskowal/garden"           && ok "pre-transfer alias (https) -> NOT foreign" || bad "migration alias https wrongly flagged"
 ! _is_foreign_github_remote "$UP"                         && ok "local bare upstream -> NOT foreign" || bad "local upstream wrongly flagged"
 ! _is_foreign_github_remote ""                            && ok "empty -> NOT foreign" || bad "empty wrongly flagged"
 
@@ -142,7 +153,7 @@ run_journal_remote
 [ "$JR_RC" -ne 0 ] && ok "journal_remote died when every source is a fork" || bad "journal_remote did NOT die (rc=$JR_RC out='$JR_OUT')"
 [ "$JR_OUT" != "$FORK" ] && ok "did NOT print the fork url on the die path" || bad "printed the fork url"
 grep -qiF "foreign github" <<<"$JR_ERR" && ok "die message names the foreign-github diagnosis" || bad "die message missing the diagnosis: $JR_ERR"
-grep -qF "remote set-url origin git@github.com:kriskowal/garden.git" <<<"$JR_ERR" && ok "die message names the restore command" || bad "die message missing the restore command: $JR_ERR"
+grep -qF "remote set-url origin $GARDEN_URL" <<<"$JR_ERR" && ok "die message names the restore command" || bad "die message missing the restore command: $JR_ERR"
 
 # ============================================================================
 hr; echo "PASS-THROUGH — a clean garden origin is returned unchanged"; hr

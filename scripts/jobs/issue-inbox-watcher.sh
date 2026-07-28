@@ -55,7 +55,7 @@
 #
 # Per-instance config lives in the JOURNAL (NOT main2) so main2 stays generic and
 # "clone main2 + init a fresh journal" is enough to start a new garden:
-#   config/garden-repo          the instance's own owner/name (e.g. kriskowal/garden)
+#   config/garden-repo          the instance's own owner/name (e.g. kriscendobot/garden)
 #   maintainers/allowlist       the maintainer set (one login per line; '#' comments)
 # Set them with set-garden-repo.sh / add-maintainer.sh. The watcher is INERT until
 # both exist — it logs and exits 0, dispatching nothing.

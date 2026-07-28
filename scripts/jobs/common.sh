@@ -61,12 +61,28 @@
 # GARDEN_STATE under `.garden-test` is a secondary heuristic (kept tight so it can
 # never match a real deployment's `.garden-state`).
 : "${GARDEN_TEST:=0}"
-# The signature of the canonical production journal remote (github.com/kriskowal/garden
-# in https, scp-ssh, or ssh:// form, with or without a .git suffix / trailing slash).
-# Overridable so this repo's own name is not hard-wired forever. Anchored to the repo
-# path so a fork remote (kriscendobot/…) — the product-repo pushes never route through
-# commit_and_push anyway — can never match.
-: "${GARDEN_PRODUCTION_JOURNAL_REMOTE_RE:=github\.com[:/]kriskowal/garden(\.git)?/?\$}"
+# The canonical production journal repo, as <owner>/<name>. The garden's own repo was
+# TRANSFERRED kriskowal/garden -> kriscendobot/garden on 2026-07-28, so the OLD path is
+# carried alongside it as a MIGRATION ALIAS: GitHub redirects the old web and git
+# endpoints indefinitely, and a host whose root/journal origin has not yet been migrated
+# must keep resolving and pushing rather than be stranded mid-fleet. Drop the alias once
+# no live origin, cache, or clone still names the old path.
+: "${GARDEN_PRODUCTION_JOURNAL_REPO:=kriscendobot/garden}"
+: "${GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES:=kriskowal/garden}"
+# The URL every "restore the canonical origin" instruction names.
+: "${GARDEN_PRODUCTION_JOURNAL_URL:=git@github.com:$GARDEN_PRODUCTION_JOURNAL_REPO.git}"
+# The signature of the canonical production journal remote (any of the repos above in
+# https, scp-ssh, or ssh:// form, with or without a .git suffix / trailing slash).
+# Overridable so this repo's own name is not hard-wired forever. Anchored to the FULL
+# <owner>/<name> path — an alternation of exact repos, never a bare owner prefix — so a
+# product fork under the SAME owner (kriscendobot/endo-but-for-bots, kriscendobot/…)
+# still cannot match; accepting the new owner must not mean accepting its other repos.
+_garden_prod_repo_alt="$GARDEN_PRODUCTION_JOURNAL_REPO"
+for _garden_prod_repo in $GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES; do
+  _garden_prod_repo_alt="$_garden_prod_repo_alt|$_garden_prod_repo"
+done
+: "${GARDEN_PRODUCTION_JOURNAL_REMOTE_RE:=github\.com[:/]($_garden_prod_repo_alt)(\.git)?/?\$}"
+unset _garden_prod_repo_alt _garden_prod_repo
 
 # Per-instance state (gardener/producer journal clones, triager seen-markers).
 # Kept OUTSIDE any reset-prone worktree on purpose.
@@ -1350,9 +1366,14 @@ _reheal_journal_worktree_origin() {
 }
 
 # _is_foreign_github_remote <url> — 0 when <url> is a github.com repo that is NOT the
-# canonical garden journal remote: the exact signature of the incident-2026-07-21
-# poison, a root origin a worker rewrote to a project/fork repo (endojs/…,
-# kriscendobot/…). Returns 1 for the garden remote itself AND for any NON-github url
+# canonical garden journal remote (nor one of its migration aliases): the exact
+# signature of the incident-2026-07-21 poison, a root origin a worker rewrote to a
+# project/fork repo (endojs/endo-but-for-bots, kriscendobot/endo-but-for-bots, …).
+# Note the garden's OWN repo now lives under the same owner as the product forks
+# (kriscendobot/garden since the 2026-07-28 transfer), so this rests on the exact
+# <owner>/<name> anchor in GARDEN_PRODUCTION_JOURNAL_REMOTE_RE: a sibling
+# kriscendobot repo is still the poison, only kriscendobot/garden is not.
+# Returns 1 for the garden remote itself AND for any NON-github url
 # (a local throwaway test upstream, an operator's JOURNAL_REMOTE bare repo), so the
 # refusal it drives targets ONLY a foreign github repo and can never reject a
 # legitimate non-production journal remote. The github match is deliberately broad
@@ -1436,7 +1457,8 @@ journal_remote() {
   # push CAS silently targeted the fork). The durable fix, in the same shape as
   # guard_no_production_push_in_test: REFUSE any resolved journal remote whose url is
   # a FOREIGN github repo (_is_foreign_github_remote — a github.com repo that is not
-  # kriskowal/garden), the exact poison signature. A local throwaway test upstream or
+  # the canonical garden repo or a migration alias of it), the exact poison
+  # signature. A local throwaway test upstream or
   # an operator's JOURNAL_REMOTE bare repo is NOT github-shaped, so it flows through
   # untouched. A poisoned source is skipped with a loud REFUSED log (never cached,
   # never re-healed FROM); we fall through to a clean source and, from a non-shared
@@ -1446,7 +1468,7 @@ journal_remote() {
   if url="$(git -C "$jw" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
     if _is_foreign_github_remote "$url"; then
       poisoned=1
-      log "REFUSED: journal worktree $jw origin is '$url', a foreign github repo (NOT kriskowal/garden) — the root checkout's remote.origin.url appears rewritten to a project/fork repo; refusing to propagate it (would make fresh doer clones clone the wrong repo). Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin git@github.com:kriskowal/garden.git"
+      log "REFUSED: journal worktree $jw origin is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — the root checkout's remote.origin.url appears rewritten to a project/fork repo; refusing to propagate it (would make fresh doer clones clone the wrong repo). Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL"
     else
       _cache_journal_remote "$url"
       printf '%s\n' "$url"; return
@@ -1469,7 +1491,7 @@ journal_remote() {
   if url="$(cat "$JOURNAL_REMOTE_CACHE" 2>/dev/null)" && [ -n "$url" ]; then
     if _is_foreign_github_remote "$url"; then
       poisoned=1
-      log "REFUSED: cached journal remote at $JOURNAL_REMOTE_CACHE is '$url', a foreign github repo (NOT kriskowal/garden) — a poisoned root origin was previously cached; refusing. Clear it with: rm -f \"$JOURNAL_REMOTE_CACHE\""
+      log "REFUSED: cached journal remote at $JOURNAL_REMOTE_CACHE is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — a poisoned root origin was previously cached; refusing. Clear it with: rm -f \"$JOURNAL_REMOTE_CACHE\""
     else
       log "WARN: journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
       _reheal_journal_worktree_origin "$url" "$jw"
@@ -1480,7 +1502,7 @@ journal_remote() {
   if url="$(git -C "$GARDEN_ROOT" config --get remote.origin.url 2>/dev/null)" && [ -n "$url" ]; then
     if _is_foreign_github_remote "$url"; then
       poisoned=1
-      log "REFUSED: $GARDEN_ROOT origin is '$url', a foreign github repo (NOT kriskowal/garden) — the root checkout's origin appears rewritten to a project/fork repo; refusing to propagate it as the journal remote. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin git@github.com:kriskowal/garden.git"
+      log "REFUSED: $GARDEN_ROOT origin is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — the root checkout's origin appears rewritten to a project/fork repo; refusing to propagate it as the journal remote. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL"
     else
       log "WARN: journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
       _cache_journal_remote "$url"
@@ -1491,7 +1513,7 @@ journal_remote() {
   if url="$(_journal_remote_from_state_clones)" && [ -n "$url" ]; then
     if _is_foreign_github_remote "$url"; then
       poisoned=1
-      log "REFUSED: per-instance clone origin under $GARDEN_STATE is '$url', a foreign github repo (NOT kriskowal/garden) — refusing."
+      log "REFUSED: per-instance clone origin under $GARDEN_STATE is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — refusing."
     else
       log "WARN: journal worktree $jw yielded no origin; falling back to a per-instance clone origin under $GARDEN_STATE ($url)"
       _cache_journal_remote "$url"
@@ -1506,7 +1528,7 @@ journal_remote() {
   # url — a fork url would make fresh doer clones clone the wrong repo and the push
   # CAS target the fork. Name the exact repair.
   if [ "$poisoned" = 1 ]; then
-    die "journal remote UNRESOLVABLE: every source that yielded a value was a foreign github repo (a project/fork, NOT kriskowal/garden). The root checkout's remote.origin.url was rewritten by a worker misusing the deployed root as a project working tree. Refusing to return a fork url. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin git@github.com:kriskowal/garden.git   then clear the poisoned cache: rm -f \"$JOURNAL_REMOTE_CACHE\""
+    die "journal remote UNRESOLVABLE: every source that yielded a value was a foreign github repo (a project/fork, NOT $GARDEN_PRODUCTION_JOURNAL_REPO). The root checkout's remote.origin.url was rewritten by a worker misusing the deployed root as a project working tree. Refusing to return a fork url. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL   then clear the poisoned cache: rm -f \"$JOURNAL_REMOTE_CACHE\""
   fi
   # Nothing resolved on either checkout. Distinguish a BROKEN worktree (git can't
   # open the repo — name the dangling gitdir target so the fix is obvious) from a
@@ -2753,7 +2775,8 @@ _in_test_context() {
 }
 
 # is_production_journal_remote <url> — 0 when <url> is the canonical production
-# journal remote (github.com/kriskowal/garden, any transport form). Empty → 1.
+# journal remote (github.com/<GARDEN_PRODUCTION_JOURNAL_REPO> or a migration alias,
+# any transport form). Empty → 1.
 is_production_journal_remote() {
   local url="$1"
   [ -n "$url" ] || return 1
@@ -2779,7 +2802,7 @@ guard_no_production_push_in_test() {
   _in_test_context || return 0
   url="$(_journal_push_target "$dir")"
   if is_production_journal_remote "$url"; then
-    die "REFUSING production-journal push from a TEST context (GARDEN_TEST=${GARDEN_TEST:-0} GARDEN_STATE=${GARDEN_STATE:-}): target '$url' is the real kriskowal/garden journal — point JOURNAL_REMOTE / GARDEN_PRODUCER_CLONE at a throwaway bare repo (guard: harden-test-journal-push, incident 2026-07-11)"
+    die "REFUSING production-journal push from a TEST context (GARDEN_TEST=${GARDEN_TEST:-0} GARDEN_STATE=${GARDEN_STATE:-}): target '$url' is the real $GARDEN_PRODUCTION_JOURNAL_REPO journal — point JOURNAL_REMOTE / GARDEN_PRODUCER_CLONE at a throwaway bare repo (guard: harden-test-journal-push, incident 2026-07-11)"
   fi
   return 0
 }

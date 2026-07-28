@@ -121,7 +121,7 @@ GARDEN_TAG="bulletin"
 # follow-up link the maintainer can click through to the source (a job file, a
 # host record, a message). Overridable for a fork; defaults to this repo's
 # journal2 branch.
-: "${GARDEN_BLOB_BASE:=https://github.com/kriskowal/garden/blob/journal2}"
+: "${GARDEN_BLOB_BASE:=https://github.com/$GARDEN_PRODUCTION_JOURNAL_REPO/blob/$JOURNAL_BRANCH}"
 
 # Where the garden's bare fork clones live (worktrees/<owner>-<repo>.git). Used to
 # resolve a maintainer message's originating project repo so a bare `#N` in the

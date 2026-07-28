@@ -14,7 +14,7 @@ is never the Pages source; the page pulls `journal2` content at runtime.
 3. **Build and deployment → Source:** "Deploy from a branch".
 4. **Branch:** `main2`, **folder:** `/docs`. Save.
 5. Wait for the first build. The bulletin is then live at
-   **`https://kriskowal.github.io/garden/bulletin/`**
+   **`https://kriscendobot.github.io/garden/bulletin/`**
    (`https://<owner>.github.io/<repo>/bulletin/` in general).
 
 Reads work immediately and unauthenticated, because the garden repo is public.
@@ -27,8 +27,15 @@ This is the default, no-backend path. The token stays in your browser's
 
 1. GitHub → **Settings → Developer settings → Personal access tokens →
    Fine-grained tokens → Generate new token**.
-2. **Resource owner:** `kriskowal`. **Repository access:** "Only select
-   repositories" → `kriskowal/garden`.
+2. **Resource owner:** `kriscendobot`. **Repository access:** "Only select
+   repositories" → `kriscendobot/garden`.
+
+   > The repo was **transferred** `kriskowal/garden` → `kriscendobot/garden` on
+   > 2026-07-28. A fine-grained token is scoped to a **resource owner**, and that
+   > scope does not follow a transfer, so a token minted under `kriskowal` can no
+   > longer write here even though the old URL redirects. Re-mint under
+   > `kriscendobot` — the account must grant the token, so this is a maintainer
+   > action, not something the fleet can do.
 3. **Permissions → Repository permissions → Contents: Read and write.** Leave
    everything else at "No access". (Contents write is what lets the page commit
    the reply to `journal2`.)
@@ -50,7 +57,7 @@ tiny stateless token-exchange shim that adds CORS headers. This is the only part
 that is not strictly pure-client-side, which is why it is optional.
 
 1. **Register a GitHub App** (Settings → Developer settings → GitHub Apps → New).
-   Give it **Contents: Read and write** on `kriskowal/garden` and enable
+   Give it **Contents: Read and write** on `kriscendobot/garden` and enable
    **Device Flow**. Note the **Client ID** and generate a **Client secret**.
 2. **Deploy the CORS shim** (for example a Cloudflare Worker). It exposes two
    POST routes and forwards to GitHub with `Access-Control-Allow-Origin` set to

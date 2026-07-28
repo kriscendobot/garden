@@ -32,7 +32,7 @@ export GARDEN_TURNKEY_ARCH="arm64"
 
 # The garden source the AMI ships. Public repo (no auth to clone); we pin a reviewed
 # main2 revision at bake time so the AMI records exactly what it carries.
-export GARDEN_TURNKEY_SOURCE_REPO="${GARDEN_TURNKEY_SOURCE_REPO:-https://github.com/kriskowal/garden.git}"
+export GARDEN_TURNKEY_SOURCE_REPO="${GARDEN_TURNKEY_SOURCE_REPO:-https://github.com/kriscendobot/garden.git}"
 export GARDEN_TURNKEY_SOURCE_BRANCH="${GARDEN_TURNKEY_SOURCE_BRANCH:-main2}"
 # The on-host checkout location (also the bind-mounted container home).
 export GARDEN_TURNKEY_CHECKOUT="/home/ubuntu/garden"

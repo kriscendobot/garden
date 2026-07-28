@@ -11,7 +11,7 @@
 # source branch, serving main2/docs — the bulletin web app) constantly; each push
 # fires the built-in `pages-build-deployment` workflow. Nothing watched that action,
 # so a broken Pages build (a bad docs/ edit, or a flaky "Deployment failed, try again
-# later") could leave https://kriskowal.github.io/garden/ stale with no one noticing.
+# later") could leave https://kriscendobot.github.io/garden/ stale with no one noticing.
 # Now a completed-red Pages deploy yields exactly one pages-shepherd job, deduped
 # across ticks and hosts, with no maintainer comment.
 #
@@ -272,7 +272,7 @@ jb="$(mktemp)"
   printf '%s\n\n' '---'
   printf '# pages-shepherd (auto: red Pages deploy) on %s\n\n' "$REPO"
   printf 'The GitHub Pages build/deploy action (`%s`) for the garden site is RED on\n' "$GARDEN_PAGES_WORKFLOW"
-  printf 'its NEWEST completed run — the live site (https://kriskowal.github.io/garden/)\n'
+  printf 'its NEWEST completed run — the live site (https://kriscendobot.github.io/garden/)\n'
   printf 'last deploy failed. This is a push WITHOUT a pull request, so wear the\n'
   printf '**pages-shepherd** role (roles/pages-shepherd/AGENT.md) — the shepherd applied\n'
   printf 'to a branch push — and drive the Pages deploy back to green.\n\n'

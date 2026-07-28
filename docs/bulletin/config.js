@@ -2,7 +2,7 @@
 // generic. The garden repo is public, so reads work without a token; a token is
 // only needed to push the reply commit.
 window.GARDEN_BULLETIN_CONFIG = {
-  owner: 'kriskowal',
+  owner: 'kriscendobot',
   repo: 'garden',
   // The orphan branch that holds the bulletin README and the maintainer inbox.
   journalBranch: 'journal2',

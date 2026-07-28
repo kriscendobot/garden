@@ -165,7 +165,7 @@ per-host local infra. The full inventory and rationale are
   own repo and tracks its own maintainers:
 
   ```sh
-  scripts/jobs/set-garden-repo.sh <owner/name>   # e.g. kriskowal/garden
+  scripts/jobs/set-garden-repo.sh <owner/name>   # e.g. kriscendobot/garden
   scripts/jobs/add-maintainer.sh  <login>        # one per trusted maintainer
   ```
 
@@ -180,10 +180,10 @@ per-host local infra. The full inventory and rationale are
   and **spools** its finished transcripts locally — nothing is lost, only the push
   is gated. Arming publishes the fleet's raw working memory, so it is the
   maintainer's deliberate call: create a **private** repo to hold the branch
-  (recommended: `kriskowal/garden-transcripts`), grant the bot push, then
+  (recommended: `kriscendobot/garden-transcripts`), grant the bot push, then
 
   ```sh
-  scripts/jobs/set-transcripts-remote.sh git@github.com:kriskowal/garden-transcripts.git
+  scripts/jobs/set-transcripts-remote.sh git@github.com:kriscendobot/garden-transcripts.git
   ```
 
   and record it with a journal `message` entry. **Offer this; do not arm it

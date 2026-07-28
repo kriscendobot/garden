@@ -1,7 +1,7 @@
 #!/bin/bash
 # set-garden-repo.sh — declare THIS instance's own GitHub repo in the journal (CAS).
 #
-# Usage: set-garden-repo.sh <owner/name>     e.g. set-garden-repo.sh kriskowal/garden
+# Usage: set-garden-repo.sh <owner/name>     e.g. set-garden-repo.sh kriscendobot/garden
 #
 # Writes config/garden-repo on the journal. The garden-issue-inbox watcher reads
 # it at runtime and is INERT until it (and at least one maintainer) exists. This

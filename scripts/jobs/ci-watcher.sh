@@ -113,7 +113,7 @@ repo="$owner/$name"
 # login). agoric/agoric-sdk and the endojs/endo upstream are NEVER autonomously
 # driven — those stay the maintainer's (and the boatman's) call. Denylist-by-default:
 # anything not provably a bot repo is skipped. A cleared comment-repos/ entry that is
-# NOT a bot repo (e.g. kriskowal/garden, watched for comments but not bot-authored
+# NOT a bot repo (e.g. an upstream watched for comments but not bot-authored
 # PR-driven) exits cleanly here before any gh call.
 is_bot_repo() {  # is_bot_repo <owner/name>
   case "$1" in

@@ -74,7 +74,7 @@ Create `skills/<name>/SKILL.md`. Sections: purpose, inputs, state (if any), proc
 
 ## Conventions
 
-- **No PR workflows for the garden's own repo.** The garden is a meta library, not application code. Both `main2` (development) and `journal2` are pushed directly to `origin` (`github.com/kriskowal/garden`); we do not generally open pull requests against ourselves. PR workflows are reserved for fork worktrees of *other* repos, where the [boatman](roles/boatman/AGENT.md) ferries work upstream.
+- **No PR workflows for the garden's own repo.** The garden is a meta library, not application code. Both `main2` (development) and `journal2` are pushed directly to `origin` (`github.com/kriscendobot/garden`; transferred from `kriskowal/garden` on 2026-07-28, and the old path still redirects); we do not generally open pull requests against ourselves. PR workflows are reserved for fork worktrees of *other* repos, where the [boatman](roles/boatman/AGENT.md) ferries work upstream.
 - The `journal2` branch is orphan; it never merges with `main2`, and PR comparisons against `main2` are meaningless. GitHub will sometimes offer a "create PR for journal" link after a push; ignore it.
 
 ## Host environment

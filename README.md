@@ -197,7 +197,7 @@ Usage is one line, from the credentialed host: **"ferry #96."**
 
 ### The bulletin: GitHub Pages
 
-**<https://kriskowal.github.io/garden/bulletin/>** — the garden's face, for
+**<https://kriscendobot.github.io/garden/bulletin/>** — the garden's face, for
 when you're away from any terminal. It shows the live dashboard from the
 journal (PRs parked for your review ranked by roadmap position, board counts,
 per-host workers, your unread inbox) with a `## Latest` narrative lead
@@ -367,7 +367,7 @@ old mode never breaks.
   playbook per capability. Named `AGENT.md`/`SKILL.md` (not `CLAUDE.md`) on
   purpose, so workers load only what their role names.
 - [`WORKTREES.md`](./WORKTREES.md) — worktree shapes and lifecycles.
-- **[The live board](https://github.com/kriskowal/garden/tree/journal2)** —
+- **[The live board](https://github.com/kriscendobot/garden/tree/journal2)** —
   the journal branch: jobs, inboxes, plan, library, and the bulletin's
   dashboard, all in one orphan branch that never merges with development.
 

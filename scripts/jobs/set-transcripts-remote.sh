@@ -3,7 +3,7 @@
 # that carries the `transcripts2` orphan branch, in the journal (CAS).
 #
 # Usage: set-transcripts-remote.sh <git-url>
-#   e.g. set-transcripts-remote.sh git@github.com:kriskowal/garden-transcripts.git
+#   e.g. set-transcripts-remote.sh git@github.com:kriscendobot/garden-transcripts.git
 #
 # Writes config/transcripts-remote on the journal. transcript-capture.sh reads it
 # at runtime and is INERT until it exists: every host still disables Claude Code's

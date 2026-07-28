@@ -26,13 +26,13 @@ agent picks, so the remote is per-instance journal config and arming is your
 call.
 
 1. **Create a remote to hold the branch.** A **dedicated private repo** is
-   recommended (e.g. `kriskowal/garden-transcripts`); grant the bot push access.
+   recommended (e.g. `kriscendobot/garden-transcripts`); grant the bot push access.
    Using the garden's own origin is possible but **it is public** — that would
    publish the fleet's transcripts to the world.
 2. **Point the fleet at it:**
 
    ```sh
-   scripts/jobs/set-transcripts-remote.sh git@github.com:kriskowal/garden-transcripts.git
+   scripts/jobs/set-transcripts-remote.sh git@github.com:kriscendobot/garden-transcripts.git
    ```
 
    This CAS-writes `config/transcripts-remote` on `journal2`. The next

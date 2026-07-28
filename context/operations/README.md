@@ -31,6 +31,13 @@ schedule). The conversational first-run tour is the sibling tree,
   checkout."* The deliberate deploy: the upgrade-ready signal, `deploy-garden.sh`,
   and why the root checkout is a deployed version, not a dev tree.
 
+- **[repo-transfer.md](repo-transfer.md)** — *"the garden's own repo moved to a
+  new owner."* What a GitHub transfer carries (both branches, indefinite web/API/
+  git redirects) and what it does not (the Pages URL, fine-grained token scope),
+  the canonical-repo knobs and their migration alias, and the deploy-before-you-
+  migrate ordering. Records the 2026-07-28 `kriskowal/garden` →
+  `kriscendobot/garden` move.
+
 - **[schedules.md](schedules.md)** — *"run something weekly / once at a time."*
   Recurring and one-shot schedules. Routes to `skills/schedule/SKILL.md`.
 

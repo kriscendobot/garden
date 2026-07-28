@@ -24,7 +24,8 @@
 # $GARDEN_ROOT" rule in every worker prompt, worker-common.sh) are:
 #   * a MOVED HEAD — off the deployed detached commit onto a branch, or onto a commit
 #     that is not a main2 ancestor (a fixture commit); and
-#   * a REWRITTEN origin — no longer the canonical kriskowal/garden remote.
+#   * a REWRITTEN origin — no longer the canonical garden remote
+#     ($GARDEN_PRODUCTION_JOURNAL_REPO, or a migration alias of it).
 #
 # INVARIANTS asserted, each with a bounded, lossless repair:
 #
@@ -98,7 +99,7 @@ guard_origin() {
   fi
 
   if [ -z "$good" ]; then
-    local msg="root repo $ROOT has a NON-CANONICAL origin (\"${url:-<unset>}\", not github.com/kriskowal/garden) and NO trusted canonical URL could be found to repair it (no per-instance clone or cache carries one). This breaks journal sync host-wide. Reconcile by hand: 'git -C $ROOT remote set-url origin <canonical>'. (host=$GARDEN)"
+    local msg="root repo $ROOT has a NON-CANONICAL origin (\"${url:-<unset>}\", not github.com/$GARDEN_PRODUCTION_JOURNAL_REPO) and NO trusted canonical URL could be found to repair it (no per-instance clone or cache carries one). This breaks journal sync host-wide. Reconcile by hand: 'git -C $ROOT remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL'. (host=$GARDEN)"
     log "ORIGIN-DRIFT-UNREPAIRABLE: $msg"
     alert_maintainer "root-repo-origin-unrepairable-$GARDEN" "$msg"
     return 1
