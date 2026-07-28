@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T22:35:27Z_
+_As of 2026-07-28T22:39:49Z_
 
 ## Latest
 
@@ -2577,6 +2577,48 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `qwen-model-watch-20260728-180502` needs a call on the local Qwen lane's fate: either promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop the lane's pretense (the current `qwen3:0.6b` is small enough that it isn't obviously useful). Both options change the local model routing default, so I'm not acting on it autonomously — which do you want?
 
+- `20260728T223932Z-07a3b0` — from gardener:fu-qwen-model-watch-20260728-180502-1-20260728-223502, reply_to `fu-qwen-model-watch-20260728-180502-1-20260728-223502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T223932Z-07a3b0.md)
+
+> Weekly Qwen model watch (2026-07-28) — no upstream release; one local-lane note.
+>
+> UPSTREAM: nothing new worth harnessing.
+> - https://ollama.com/library/qwen3.7 -> still HTTP 404. No flip. Also 404:
+>   qwen4, qwen3.7-preview, qwen3.6.5, qwen3.6-coder, qwen3.6-vl, qwen3-asr.
+> - Newest official Qwen on Ollama is still qwen3.6 (updated ~1 month ago; tags
+>   latest/35b 24GB, 27b 17GB, +mlx variants, 256K ctx). https://ollama.com/search?q=qwen
+> - https://huggingface.co/Qwen new since the 07-21 watch: Qwen3-ASR-0.6B-hf and
+>   Qwen3-ASR-1.7B-hf (updated ~07-22). Speech recognition, not a text/agentic
+>   hermit-lane candidate, and no Ollama tag exists. Qwen-AgentWorld-35B-A3B
+>   (Jun 25) unchanged and still tagless — already reported 07-21.
+> - Only "Qwen3.7" on HF is third-party RscriptSQwen/Qwen3.7-plus (Jun 4), not Qwen org.
+> => No routing change warranted by upstream.
+>
+> LOCAL LANE (read live, not assumed):
+> - Effective routing table = tracked seed (no journal config/model-routing override):
+>   local  qwen*  qwen3:0.6b. Set 20h ago by c090912036 "fix: use the exact local qwen
+>   tag". Reads as deliberate — it matches the leader's 07-25 workaround
+>   (`ollama pull qwen3:0.6b && ollama cp qwen3:0.6b qwen3.6`), not drift.
+> - `ollama list` / GET /api/tags on this box: EMPTY. Daemon pid 210 (v0.31.2,
+>   restarted 2026-07-28T06:19:49Z) runs User=ollama with
+>   OLLAMA_MODELS=/usr/share/ollama/.ollama/models, which is empty (12K).
+> - Consistent with hermits: 0 here and no garden-hermit@ units — the lane is
+>   deliberately parked under the 07-27 maintainer directive, so this is a known
+>   standing condition, not a new outage. No alarm raised.
+>
+> ONE THING POSSIBLY NOT KNOWN, for whenever hermits are re-enabled:
+>   A full 23 GB qwen3.6:latest store already exists on this box at
+>   /home/kris/garden2/.ollama/models (manifest .../library/qwen3.6/latest, pulled
+>   Jul 14, kris-owned) — the daemon simply does not read that path. So the box may
+>   not need a re-pull at all: an ollama.service drop-in
+>   Environment=OLLAMA_MODELS=/home/kris/garden2/.ollama/models (plus read access for
+>   the ollama user) would restore the real qwen3.6 (35B MoE, 256K ctx) instead of
+>   qwen3:0.6b (Qwen3 0.6B, ~9 months old, ~40x smaller) — a large quality difference
+>   for the same lane. Both tags verified live upstream (registry manifest HEAD 200).
+>   Also note the handler messaging references garden-ollama.service, which does not
+>   exist on this host; the running unit is ollama.service.
+>   I made no host or routing changes — re-enabling the lane and touching systemd are
+>   yours to call.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3739,8 +3781,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $813.69 _(notional, rate-card)_ | no quota set |
-| Codex | 261.0M _(+456.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 54.2M | $815.09 _(notional, rate-card)_ | no quota set |
+| Codex | 258.9M _(+456.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
