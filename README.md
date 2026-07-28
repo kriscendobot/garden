@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T22:24:34Z_
+_As of 2026-07-28T22:28:09Z_
 
 ## Latest
 
@@ -3735,14 +3735,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $823.41 _(notional, rate-card)_ | no quota set |
+| Claude | 54.3M | $820.16 _(notional, rate-card)_ | no quota set |
 | Codex | 263.7M _(+456.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (33)
+### doin (32)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3767,7 +3767,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
-- [`local-verify-parity-endo-but-for-bots-warm-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/local-verify-parity-endo-but-for-bots-warm-cache.md) — local-verify parity: two divergences on endojs/endo-but-for-bots
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-192002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -3777,13 +3776,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3732)
+### tada (3733)
+- [`local-verify-parity-endo-but-for-bots-warm-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-parity-endo-but-for-bots-warm-cache.md) — Report
 - [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-form-data-advisory.md) — endojs/endo-but-for-bots #880 — form-data advisory closed
 - [`qwen-model-watch-20260728-180502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/qwen-model-watch-20260728-180502.md) — Weekly Qwen watch — completion report
 - [`deadmail-20260728T215535Z-4f5e74`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260728T215535Z-4f5e74.md) — Cost
 - [`endojs-endo-but-for-bots-pr881-review-d23c8dbf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-review-d23c8dbf.md) — Completion report
-- [`fu-build-exo-google-sheets-facets-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-build-exo-google-sheets-facets-2.md) — Cost
-- … and 3727 more
+- … and 3728 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
