@@ -813,3 +813,12 @@ Inspect via `git -C journal cat-file -p 9ad2f846c0e92305349e119cfc82246455fd694e
 - Context: gardener-6 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 19f5a93795e6c3872c00cf7eaef157ba49349ecb`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:43:22Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 083bd15d49e60fae962066406dfcb6e785f3fdd8
+- Context: gardener-2 on ps23: job 'hermit-failure-reputation-followup' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 083bd15d49e60fae962066406dfcb6e785f3fdd8`.
