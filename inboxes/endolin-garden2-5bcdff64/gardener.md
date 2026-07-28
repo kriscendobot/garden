@@ -2937,3 +2937,12 @@ Inspect via `git -C journal cat-file -p 4f8df9b5b57c972fcd85e1acf2491bc65c6007ff
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'fu-endo-npm-cas-registry-press-20260728-065010-1' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T08:08:16Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'fu-clarify-drain-moratorium-vocabulary-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99`.
