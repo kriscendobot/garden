@@ -131,18 +131,19 @@ candidates() {
   esac
 }
 
-has_script() {  # has_script <name> — true if package.json defines scripts.<name>
-  [ -f "$pkg" ] || return 1
+has_script_in() {  # has_script_in <package.json> <name>
+  local package_json="$1" name="$2"
+  [ -f "$package_json" ] || return 1
   if command -v jq >/dev/null 2>&1; then
-    jq -e --arg s "$1" '(.scripts // {}) | has($s)' "$pkg" >/dev/null 2>&1
+    jq -e --arg s "$name" '(.scripts // {}) | has($s)' "$package_json" >/dev/null 2>&1
   else
     # jq-less fallback: match a "<name>": key. Coarser but never silently empty.
-    grep -qE "\"$1\"[[:space:]]*:" "$pkg"
+    grep -qE "\"$name\"[[:space:]]*:" "$package_json"
   fi
 }
 
-discover() {  # discover <step> — print the command string to run, or nothing
-  local step="$1" up override name
+discover_in() {  # discover_in <package.json> <step> — print command, or nothing
+  local package_json="$1" step="$2" up override name
   up="$(printf '%s' "$step" | tr '[:lower:]' '[:upper:]')"
   override="LOCAL_VERIFY_$up"
   if [ -n "${!override+x}" ]; then        # override is SET (even if empty)
@@ -152,10 +153,12 @@ discover() {  # discover <step> — print the command string to run, or nothing
     esac
   fi
   for name in $(candidates "$step"); do
-    if has_script "$name"; then printf '%s run %s\n' "$YARN" "$name"; return 0; fi
+    if has_script_in "$package_json" "$name"; then printf '%s run %s\n' "$YARN" "$name"; return 0; fi
   done
   return 0                                 # no command — skip
 }
+
+discover() { discover_in "$pkg" "$1"; }
 
 failures=0
 
@@ -183,8 +186,79 @@ run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
   return 1
 }
 
+run_workspace_tests() {  # Run every workspace test, even after one fails.
+  # A root `test` script often uses `workspaces foreach`, whose fail-fast
+  # behavior hides later red packages. List the workspaces and invoke each
+  # package's own test script instead, accumulating their output into the usual
+  # one-blob failure report.
+  local listing location workspace_pkg cmd out sha lines tail failed=0 found=0
+  # An explicit command is defined to run in the project worktree, not once in
+  # every package. Preserve that override contract.
+  [ -n "${LOCAL_VERIFY_TEST+x}" ] && return 2
+  listing="$(cd "$wt" && $YARN workspaces list --json 2>/dev/null)" || return 2
+  [ -n "$listing" ] || return 2
+
+  out="$(mktemp "${TMPDIR:-/tmp}/local-verify-test.XXXXXX")"
+  while IFS= read -r location; do
+    [ -n "$location" ] || continue
+    [ "$location" = . ] && continue       # root test is commonly fail-fast aggregation
+    workspace_pkg="$wt/$location/package.json"
+    cmd="$(discover_in "$workspace_pkg" test)"
+    [ -n "$cmd" ] || continue
+    found=1
+    if ! { printf '[workspace %s]\n' "$location"; ( cd "$wt/$location" && bash -c "$cmd" ); } >>"$out" 2>&1; then
+      failed=1
+    fi
+  done < <(
+    if command -v jq >/dev/null 2>&1; then
+      printf '%s\n' "$listing" | jq -r '.location // empty'
+    else
+      printf '%s\n' "$listing" | node -e '
+        let input = "";
+        process.stdin.on("data", chunk => { input += chunk; });
+        process.stdin.on("end", () => input.split(/\n/).filter(Boolean).forEach(line => {
+          const workspace = JSON.parse(line);
+          if (workspace.location) console.log(workspace.location);
+        }));
+      '
+    fi
+  )
+
+  # A non-workspace project, or a runner that cannot list workspaces, retains
+  # the ordinary root-package test behavior.
+  if [ "$found" -eq 0 ]; then
+    rm -f "$out"
+    return 2
+  fi
+  if [ "$failed" -eq 0 ]; then
+    rm -f "$out"
+    return 0
+  fi
+
+  sha="$(capture_blob "$out" "$wt" 2>/dev/null)" || sha="(capture failed)"
+  lines="$(wc -l <"$out" | tr -d ' ')"
+  tail="$(grep -v '^[[:space:]]*$' "$out" | tail -n 1)"
+  printf 'STEP test FAILED: output blob %s (%s lines) inspect: git -C %s cat-file -p %s\n' \
+    "$sha" "$lines" "$wt" "$sha"
+  [ -n "$tail" ] && printf '  %s\n' "$tail"
+  rm -f "$out"
+  failures=$((failures + 1))
+  return 1
+}
+
 for step in $STEPS; do
-  run_step "$step" || true                 # run all steps; aggregate failures
+  if [ "$step" = test ]; then
+    run_workspace_tests
+    test_rc=$?
+    # 2 means this is not a discoverable Yarn workspace tree; use the ordinary
+    # root script in that case. A real workspace test failure (1) is already
+    # captured and must not re-run the fail-fast root aggregator.
+    if [ "$test_rc" -eq 2 ]; then
+      run_step "$step" || true
+    fi
+  else
+    run_step "$step" || true                 # run all steps; aggregate failures
+  fi
 done
 
 # Codegen-then-clean gate: once every step has run (the codegen generators

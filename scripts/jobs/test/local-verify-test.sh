@@ -175,6 +175,44 @@ s10c="$(printf '%s' "$o10c" | grep -oE '[0-9a-f]{40}' | head -1)"
 git -C "$R10" cat-file -p "$s10c" 2>/dev/null | grep -q 'rerere=false' \
   && ok "repository-local git config still applies" || bad "local git config was blanked too"
 
+# --- 11: workspace tests all run after one fails -----------------------------
+# A root test aggregator may bail at its first red package. The harness must
+# instead run each workspace test and retain both failures in the one captured
+# test blob, so fixing one package never leaves the next package uncovered.
+R11="$TR/workspaces"; mkdir -p "$R11/packages/a" "$R11/packages/b"
+git -C "$R11" init -q
+git -C "$R11" config user.email t@localhost; git -C "$R11" config user.name test
+cat > "$R11/package.json" <<'PKG'
+{ "name": "root", "workspaces": ["packages/*"], "scripts": { "test": "root-aggregator" } }
+PKG
+cat > "$R11/packages/a/package.json" <<'PKG'
+{ "name": "workspace-a", "scripts": { "test": "test-a" } }
+PKG
+cat > "$R11/packages/b/package.json" <<'PKG'
+{ "name": "workspace-b", "scripts": { "test": "test-b" } }
+PKG
+printf '%s\n' '#!/bin/bash
+case "$1:$2" in
+  workspaces:list) printf "{\"location\":\".\",\"name\":\"root\"}\\n{\"location\":\"packages/a\",\"name\":\"workspace-a\"}\\n{\"location\":\"packages/b\",\"name\":\"workspace-b\"}\\n"; exit 0 ;;
+  run:test) case "$PWD" in
+    */packages/a) echo "workspace-a failed"; exit 1 ;;
+    */packages/b) echo "workspace-b failed"; exit 1 ;;
+    *) echo "root aggregator ran"; exit 1 ;;
+  esac ;;
+  *) exit 0 ;;
+esac' > "$R11/yarn-stub.sh"
+git -C "$R11" add -A; git -C "$R11" commit -qm init >/dev/null
+o11="$(GARDEN_YARN="bash $R11/yarn-stub.sh" "$LV" "$R11" 2>&1)"; rc11=$?
+[ "$rc11" -ne 0 ] && ok "workspace failures exit non-zero" || bad "workspace failures should fail the gate"
+s11="$(printf '%s' "$o11" | grep -oE '[0-9a-f]{40}' | head -1)"
+b11="$(git -C "$R11" cat-file -p "$s11" 2>/dev/null)"
+printf '%s' "$b11" | grep -q 'workspace-a failed' \
+  && ok "captures the first workspace failure" || bad "first workspace failure missing"
+printf '%s' "$b11" | grep -q 'workspace-b failed' \
+  && ok "captures a later workspace failure" || bad "later workspace failure missing"
+printf '%s' "$b11" | grep -q 'root aggregator ran' \
+  && bad "re-ran the fail-fast root aggregator" || ok "does not re-run the root aggregator"
+
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

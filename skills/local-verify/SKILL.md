@@ -153,6 +153,15 @@ Per-step command discovery (each step, in order, first match wins):
 
 3. Otherwise the step is skipped (recorded, silent).
 
+For a Yarn workspace tree, the `test` step deliberately does not delegate to a
+root test aggregator. It lists every workspace and runs each workspace's first
+matching `test` / `test:unit` script directly. This prevents a fail-fast
+`workspaces foreach` root script from hiding failures in later packages. All
+workspace output is accumulated into the single SHA-captured `STEP test FAILED`
+report; every workspace test runs even after an earlier one fails. A project
+that is not a discoverable Yarn workspace tree retains the ordinary root test
+script behavior.
+
 The package runner defaults to `yarn` when present, else `npx corepack yarn`
 (plain `yarn` is often absent in a fresh worktree; see
 [pre-pr-checklist](../pre-pr-checklist/SKILL.md) § Pitfalls). Override with
@@ -195,6 +204,11 @@ For each step, in order:
    The raw output never reaches stdout. The harness runs **all** steps (it does
    not stop at the first failure) so the final report enumerates every failing
    step, then exits non-zero.
+
+For the `test` step in a Yarn workspace tree, discovery and execution happen for
+each workspace independently. A failed package does not stop the loop; the
+captured test blob includes the package-labelled output for every failed
+workspace.
 
 After every step, the **codegen-then-clean gate** runs once: if
 `git status --porcelain` reports the worktree dirty, a generator regenerated a
@@ -279,8 +293,9 @@ git repos with a stubbed runner (`GARDEN_YARN`): a full pass is silent and exits
 check-variant; overrides skip and replace; a repo with no `package.json` exits 0;
 the same failure hashes to the same SHA (determinism); and the codegen-then-clean
 gate fails (with a SHA-captured diff, no raw diff on stdout) when a generator
-staled an artifact but stays silent when the generator is up to date. `bash -n`
-and `shellcheck` clean.
+staled an artifact but stays silent when the generator is up to date. It also
+proves two failing workspaces both appear in the captured test blob, without
+re-running the fail-fast root aggregator. `bash -n` and `shellcheck` clean.
 
 ## Pitfalls
 
