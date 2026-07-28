@@ -2,7 +2,7 @@
 order: serial
 children: fireworks-glm52-kimik3-survey fireworks-glm52-kimik3-build fireworks-glm52-kimik3-canary
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-07-28T07:17:28Z
 ---
