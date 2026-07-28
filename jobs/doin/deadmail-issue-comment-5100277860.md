@@ -41,3 +41,10 @@ We now have: - URLs, which are grounded in the location and authority to provide
 
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:32:10Z
