@@ -26,6 +26,7 @@ justifies re-enabling or retiring the local tier per job class.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
