@@ -1596,3 +1596,12 @@ Inspect via `git -C journal cat-file -p f0a3ce2767e3ae7923bda76335edd91de118cdb2
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'scholar-refresh-assert-js-line-citations' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T21:24:08Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4
+- Context: gardener-6 on endolin-garden-ece02cb4: job 'fu-endojs-endo-but-for-bots-pr825-8840fcdb-2' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4`.
