@@ -4,3 +4,10 @@ The drift scan can post a refresh for a given source exactly ONCE, ever, then si
 Confirmed live on 2026-07-28 by the hourly scholar cycle (job `scholar-library-cycle-20260728-075002`): `endo--packages-ses-src-error-assert-js` was refreshed 2026-06-27; upstream moved again 2026-06-29 (`bfa149b4` → `0594e99f`, endojs/endo#3130 — a *behavioral* change to `makeError`/`sanitizeError`). The scan has logged `DRIFT` and posted nothing on every tick since. It surfaced only because an idle scholar happened to run `--dry-run` by hand.
 
 Fix, cheapest first (scholar's own ranking): give the refresh post a **directive identity keyed on `(slug, upstream-sha)`** — `post-job.sh` documents that with an identity, `tada/` no longer blocks, which is the exact silent-drop hazard the identity layer exists for; or scope `refresh_present()` to `todo/`+`doin/` only (drop the `$JOBS_TADA` arm); or carry the upstream sha in the basename so each distinct drift is a distinct job. Whichever is chosen, both guards must move together — fixing only `refresh_present()` leaves `post-job.sh` blocking.
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T17:23:33Z
