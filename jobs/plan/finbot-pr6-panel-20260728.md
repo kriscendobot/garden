@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 3
+deadline_overruns: 1
+poisoned_at: 2026-07-28T17:43:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T17:43:04Z
+---
+
 role: builder
 
 # Run the required merge-governance panel for kriscendobot/finbot PR #6
@@ -38,13 +52,5 @@ only after BOTH a passing panel AND a Fable-orchestrator sign-off — even on ou
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:53:21Z
