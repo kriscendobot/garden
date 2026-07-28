@@ -3009,3 +3009,12 @@ Inspect via `git -C journal cat-file -p 6482529ae3b0648ef0831ff1cf7ef0b4d724d3ec
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'fireworks-glm52-kimik3-build' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p bb0b82d2a6f4c652b24c5ab915e6df5f3e91e0ba`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-28T08:15:24Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: d5d235750447f4097fd864c390d2252e3a76a5a8
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-token-cost-ledger' transient-classified (rc=1) but elapsed near-constant (15,15s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p d5d235750447f4097fd864c390d2252e3a76a5a8`.
