@@ -111,3 +111,12 @@ Inspect via `git -C journal cat-file -p 243344d455e81f576b56dbc675df2c73504ace05
 - Context: gardener-10 on ps23-garden-f65473ae: job 'improve-review-miss-gaming-category' transient-classified (rc=1) but elapsed near-constant (9,9s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p a781537f6fdc599b088aef95da1ae667d0582789`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-28T16:55:34Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: ec6157a2f07834292f2b2166624f663f33bf8c9c
+- Context: gardener-13 on ps23-garden-f65473ae: job 'xs2rust-endor-press-20260727-182001' transient-classified (rc=1) but elapsed near-constant (48,48s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p ec6157a2f07834292f2b2166624f663f33bf8c9c`.
