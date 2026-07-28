@@ -1,5 +1,0 @@
-host: ps23
-gardener: 7
-worker_kind: gardener
-claimed_at: 2026-07-27T21:23:09Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-issue-kriskowal-garden-67
