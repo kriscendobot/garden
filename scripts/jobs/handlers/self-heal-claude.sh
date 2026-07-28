@@ -85,6 +85,26 @@ fi
 
 [ -n "$out" ] || { log "responder produced no output for '$context'"; exit 0; }
 
+# --- provider quota: ONE fleet condition, not one report per unit ------------
+# When the account's usage/weekly cap is exhausted, `claude -p` does not diagnose
+# anything — it REFUSES, and its refusal ("You've hit your weekly limit · resets
+# 3am (UTC)") lands in $out. Escalating that as this unit's diagnosis produced 94
+# near-identical maintainer messages over four days (2026-07-24..28), one per unit
+# per throttle window, burying genuinely actionable mail. It is one ENVIRONMENTAL
+# fact: report it once, fleet-level and coalescing, and say nothing per unit. The
+# unit's own failure is not lost — its capture blob stays addressable, and the
+# fleet notice names the latest context and blob.
+if is_provider_quota_text "$out"; then
+  note_provider_quota "$context" \
+    "$(printf '%s' "$out" | head -c 400) — the responder could NOT diagnose $context (rc=$rc); its capture is blob $sha (git -C $dir cat-file -p $sha)."
+  log "responder for '$context' was refused by the provider quota; folded into the fleet-level notice (no per-unit report)"
+  exit 0
+fi
+
+# The provider ANSWERED, so any open fleet-level quota condition has ended. Cheap
+# no-op (one file test) when none was ever raised on this host.
+note_provider_ok "$context"
+
 # Parse and post any JOB blocks (the mentor-claude.sh convention).
 posted=0
 base=""; body=""

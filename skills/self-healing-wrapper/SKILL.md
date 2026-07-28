@@ -148,6 +148,19 @@ just the script's own stdout. Two routes, by how durable the escalation must be:
 - **Post a follow-up job.** When the fix is a discrete unit of work, post it to
   the board (`skills/job-board/post-job.sh`) so a gardener claims and does it.
 
+> **When the responder itself is refused.** An exhausted provider quota does not
+> produce a diagnosis — `claude -p` answers with the refusal ("You've hit your
+> weekly limit · resets 4:10pm (UTC)"), and escalating THAT as the unit's
+> diagnosis is how 94 near-identical maintainer messages accumulated over four
+> days in July 2026. `self-heal-claude.sh` now tests the responder's output with
+> `is_provider_quota_text` and, on a match, files ONE coalescing fleet-level
+> `provider-quota` notice (`note_provider_quota`) instead of a per-unit report;
+> a responder that DID answer calls `note_provider_ok`, which posts the single
+> recovery notice closing the condition. The unit's own failure is not lost — its
+> capture blob stays addressable and the fleet notice names the latest context and
+> SHA. Rationale:
+> [designs/watchdog-notice-dedup.md](../../designs/watchdog-notice-dedup.md).
+
 > **The cross-host nuance the audit flags.** A blob hashed into a service's *own*
 > journal clone under `$GARDEN_STATE/<svc>/journal` is **local until pushed**. A
 > capture another host must read requires either pushing it

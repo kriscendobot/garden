@@ -78,6 +78,18 @@ root-cause fix for the comment-watcher inactivity false-positives stops that noi
 at the source; this auto-clear handles whatever watchdog noise remains, from any
 monitor.
 
+Since **2026-07-28** the volume this pre-pass sees is far smaller, because the
+notices themselves **coalesce**: `alert_maintainer` delivers through
+`scripts/jobs/watchdog-notice.sh`, which keeps ONE keyed entry per open condition
+and amends it (`notice_count` / `first_seen` / `last_seen`) instead of posting a
+fresh message per throttle window, and folds a provider quota/usage-cap refusal
+into a single fleet-level `provider-quota` notice. So a burst that used to arrive
+as 94 messages now arrives as one entry counting to 94. Two consequences for this
+role: the tally line's `×K` now counts *conditions*, not occurrences; and
+archiving an entry **re-opens** its dedup (the next occurrence posts fresh — the
+deliberate rule, so a re-occurrence after it was handled is seen again).
+Rationale: [designs/watchdog-notice-dedup.md](../../designs/watchdog-notice-dedup.md).
+
 ## PR-comment auto-clear
 
 A second **sanctioned exception** to "always report to the maintainer," per the

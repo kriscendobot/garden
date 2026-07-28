@@ -121,18 +121,98 @@ fi
 # Use the shared fetch timeout knobs, and retain stderr for the same offline
 # classification sync_clone uses. `if` preserves the failed command's status
 # under set -e so the clean-skip branch below can run.
+#
+# ONLY origin, not `--all`. The triager watches refs/remotes/origin/<ref>; every
+# OTHER remote a clone happens to carry (kriscendobot-endo keeps a
+# nodejs/cjs-module-lexer remote, kriscendobot-agoric-sdk an `upstream`,
+# kriscendobot-minion.town a `minion-town`) is network IO this watcher does not
+# read, and — because `fetch --all` fails the whole run when ANY remote fails — a
+# second, unrelated way to lose the tick and page the maintainer. Fetch what we
+# read. A clone with no `origin` (none exist today, but a hand-made shelf entry
+# could) falls back to --all rather than silently fetching nothing.
+if git --git-dir="$BARE" remote 2>/dev/null | grep -qx origin; then
+  fetch_target=(origin)
+else
+  fetch_target=(--all)
+fi
 if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-    git --git-dir="$BARE" fetch -q --all --prune 2>&1 1>/dev/null)"; then
+    git --git-dir="$BARE" fetch -q "${fetch_target[@]}" --prune 2>&1 1>/dev/null)"; then
   rc=0
 else
   rc=$?
 fi
 if [ "$rc" -ne 0 ]; then
-  fmsg="triager: fetch for $slug at $BARE failed (rc=$rc). Retrying next tick; if this persists, the upstream is unreachable and $slug cannot be triaged until it is restored."
-  log "WARN: fetch failed for $slug (transient? retrying next tick)"
+  # CLASSIFY before escalating. A fetch failure has three materially different
+  # causes and the remedy differs per cause; the pre-2026-07-28 code captured
+  # git's stderr and then threw it away, escalating every cause identically as
+  # "failed (rc=N)" with no diagnosis attached — 43 unread maintainer notices
+  # across 13 repos, of which 9 landed inside ONE 20-minute network outage.
+  err_tail="$(printf '%s' "$GARDEN_FETCH_STDERR" | tail -n 5 | tr '\n' ' ')"
+
+  # (a) UPSTREAM GONE — checked FIRST, because GitHub's dead-repo message ("ERROR:
+  #     Repository not found." + "fatal: Could not read from remote repository.")
+  #     also matches the offline signature set, and misreading a deleted fork as a
+  #     network blip is how a dead watch retries silently forever. This does NOT
+  #     self-resolve: report it with the disarm remedy. (fork-watch-provisioner.sh
+  #     independently re-probes armed own forks every 4h and auto-tombstones a 404,
+  #     so this notice is the audit trail, not the only cure.)
+  if _fetch_stderr_is_upstream_gone "$GARDEN_FETCH_STDERR"; then
+    gmsg="triager: fetch for $slug at $BARE failed (rc=$rc) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: $err_tail
+This does NOT self-heal by retrying: $slug is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/${slug%%-*}/${slug#*-}', then either restore access, or disarm the watch durably by adding journal watch-optout/$slug AND removing repos/$slug (see designs/auto-provision-fork-watchers.md)."
+    log "WARN: fetch for $slug failed rc=$rc — upstream gone/unreachable: $err_tail"
+    alert_maintainer "triager-upstream-gone-${slug//[^A-Za-z0-9._-]/_}" "$gmsg"
+    exit 0
+  fi
+
+  # (b) TRANSIENT connectivity / timeout — the same classification sync_clone
+  #     applies, which this path always intended (see the comment above) but never
+  #     actually performed. A DNS blip, a reset connection, a GitHub 5xx, or the
+  #     wall-clock kill (124/137) is self-resolving.
+  #
+  #     Do NOT page for weather, and do NOT go silent either: a blip that lasts one
+  #     or two ticks is nobody's business (9 of the 43 fetch notices landed inside a
+  #     single 20-minute outage on 2026-07-24, across 9 unrelated repos), but a
+  #     "transient" failure that keeps repeating means this repo is not being
+  #     triaged at all, which IS the maintainer's business. Count consecutive
+  #     transient failures in host-local state and escalate only once the streak
+  #     reaches GARDEN_TRIAGE_OFFLINE_ALERT_STREAK (default 5 ticks, ~5-10 minutes).
+  #     The escalation is the same coalescing key as (c), so a long outage is one
+  #     entry whose count rises, not one message per window.
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+    streak_file="$GARDEN_STATE/triager/offline-streak/${slug//[^A-Za-z0-9._-]/_}"
+    mkdir -p "$(dirname "$streak_file")" 2>/dev/null || true
+    streak="$(cat "$streak_file" 2>/dev/null || echo 0)"
+    [[ "$streak" =~ ^[0-9]+$ ]] || streak=0
+    streak=$(( streak + 1 ))
+    printf '%s\n' "$streak" > "$streak_file" 2>/dev/null || true
+    if [ "${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}" -gt 0 ] \
+       && [ "$streak" -ge "${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}" ]; then
+      omsg="triager: fetch for $slug at $BARE has failed TRANSIENTLY on $streak consecutive ticks (latest rc=$rc). git said: $err_tail
+Each failure alone looks like weather (DNS/TLS/reset/5xx/timeout), but it has now persisted, so $slug is NOT being triaged. If the rest of the fleet is fetching fine, suspect this repo's remote or this host's credentials rather than the network."
+      log "WARN: transient fetch failure for $slug persisted $streak ticks (rc=$rc): $err_tail"
+      alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$omsg"
+    else
+      log "offline/timeout fetching $slug (rc=$rc, streak $streak/${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}); skipping tick: $err_tail"
+    fi
+    exit 0
+  fi
+
+  # (c) Anything else — a real, unclassified fetch failure. Escalate WITH git's own
+  #     words, so the notice is diagnosable without a live shell on the host.
+  fmsg="triager: fetch for $slug at $BARE failed (rc=$rc). git said: $err_tail
+Retrying next tick; if this persists, the upstream is unreachable and $slug cannot be triaged until it is restored."
+  log "WARN: fetch failed for $slug (rc=$rc): $err_tail"
   alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$fmsg"
   exit 0
 fi
+# Close the loop: a fetch that SUCCEEDS after an escalation ends the condition, so
+# the maintainer learns it recovered instead of inferring it from silence. A cheap
+# builtin file test when nothing was ever raised (the overwhelmingly common case).
+rm -f "$GARDEN_STATE/triager/offline-streak/${slug//[^A-Za-z0-9._-]/_}" 2>/dev/null || true
+alert_maintainer_clear "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" \
+  "triager: fetch for $slug at $BARE is SUCCEEDING again; $slug is being triaged normally."
+alert_maintainer_clear "triager-upstream-gone-${slug//[^A-Za-z0-9._-]/_}" \
+  "triager: the upstream for $slug is reachable again; $slug is being triaged normally."
 
 # resolve the ref to watch. --verify -q keeps a missing primary ref from echoing its
 # unresolved name to stdout (which the `||` fallback would then glue onto the real SHA —

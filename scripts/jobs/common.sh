@@ -806,31 +806,166 @@ claude_bin_now() { agent_bin_probe claude; }
 # The message still goes to the capture, so the environmental cause is diagnosable.
 die_environmental() { log "ENVIRONMENT: $*"; exit "${GARDEN_ENV_RC:-75}"; }
 
-# alert_maintainer <dedup-key> <message> — best-effort, THROTTLED escalation to
-# the maintainer inbox. Used by require_tools and the watchers' silent-output
-# anomaly check. Throttled per <dedup-key> (default 1h) via a local state marker
-# so a per-minute failure loop cannot spam the inbox with hundreds of messages.
+# --- watchdog notices: one entry per CONDITION, not one per occurrence --------
+#
+# Every `watchdog:*` maintainer message in the fleet is written by
+# alert_maintainer below, so this is the ONE place the flood is fixed for every
+# watchdog path (self-heal, the per-repo triagers, the foreman, ollama-serve, the
+# journal-worktree keeper, the root-repo guard, …). Two mechanisms, layered:
+#
+#   1. COALESCE. Delivery goes through watchdog-notice.sh, which keeps ONE keyed
+#      inbox entry per open condition and AMENDS it (notice_count / first_seen /
+#      last_seen) instead of appending a new message — the reaper's poison-notice
+#      treatment, generalized. Occurrences suppressed by the throttle are COUNTED
+#      locally and folded into the next delivery, so notice_count is the true
+#      occurrence count, not the delivery count.
+#   2. CLASSIFY. A provider quota / usage-limit refusal is an ENVIRONMENTAL
+#      condition affecting every unit at once, not one fault per unit: it is
+#      re-keyed to the single fleet-level `provider-quota` key, so 94 per-unit
+#      reports of "you've hit your weekly limit" become ONE fleet notice that
+#      counts up. alert_maintainer_clear closes it when service returns.
+#
+# Local state per key, under $GARDEN_STATE/alerts/<key>.*:
+#   .last   epoch of the last DELIVERY   (the throttle window)
+#   .count  occurrences observed since the last delivery (folded into the next)
+#   .total  occurrences in this episode  (reported by the recovery notice)
+#   .first  ISO time of the episode's first occurrence
+# All four are cleared by alert_maintainer_clear, which starts a fresh episode.
+
+# Signatures of a PROVIDER quota / usage-cap refusal — the environmental class.
+# Deliberately NARROWER than GARDEN_TRANSIENT_CLAUDE_SIGNATURES: a generic
+# `rate limit` or 429 is retried in-band and is not necessarily fleet-wide, while
+# these wordings are the account-level cap that refuses every call until a named
+# reset time (e.g. "You've hit your weekly limit · resets 4:10pm (UTC)"). Matched
+# case-insensitively.
+: "${GARDEN_PROVIDER_QUOTA_SIGNATURES:=hit your (session|usage|weekly|5-hour) limit|(session|usage|weekly|5-hour) limit (reached|exceeded)|usage limit reached|quota (exceeded|exhausted)|resets [0-9][^)]*\(utc\)}"
+# The ONE fleet-level key every provider-quota observation folds into.
+: "${GARDEN_PROVIDER_QUOTA_KEY:=provider-quota}"
+
+# is_provider_quota_text <text> — 0 when the text is a provider quota/limit
+# refusal (the environmental class), 1 otherwise.
+is_provider_quota_text() {
+  printf '%s' "${1:-}" | grep -qiE "$GARDEN_PROVIDER_QUOTA_SIGNATURES"
+}
+
+# provider_quota_reset_clause <text> — echoes the "resets …" clause when the
+# refusal names its own reset time, else nothing. Lets the fleet notice tell the
+# maintainer WHEN the condition ends without them reading the raw diagnosis.
+provider_quota_reset_clause() {
+  printf '%s' "${1:-}" | grep -oiE 'resets [^.·|]*' | head -1 | sed 's/[[:space:]]*$//'
+}
+
+# alert_maintainer <dedup-key> <message> — best-effort, THROTTLED, COALESCING
+# escalation to the maintainer inbox. Used by require_tools, the watchers'
+# silent-output anomaly checks, the triagers, and the self-heal responder.
+# Throttled per <dedup-key> (default 1h) via a local state marker so a per-minute
+# failure loop cannot spam the inbox, and coalesced per key so a condition that
+# outlives many windows still occupies ONE inbox entry whose count rises.
 # Never fails its caller: every path swallows errors and returns 0.
 alert_maintainer() {
   local key="$1" msg="$2"
   [ "${GARDEN_NO_MAINTAINER_ALERT:-0}" = 1 ] && return 0
-  # Throttle: at most once per window per key (a runaway timer must not flood).
-  local marker="$GARDEN_STATE/alerts/${key//[^A-Za-z0-9._-]/_}.last" now last
+
+  # Environmental reclassification (before keying): one fleet condition, one key.
+  if is_provider_quota_text "$msg"; then
+    local resets; resets="$(provider_quota_reset_clause "$msg" 2>/dev/null || true)"
+    msg="provider quota/usage limit reached — the API is refusing calls fleet-wide${resets:+ (}${resets}${resets:+)}.
+This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
+resumes on its own once the window resets (see skills/restore/SKILL.md for the
+post-outage restore). Every unit that trips the limit folds into THIS one notice
+rather than filing its own. Latest observation (originally keyed '$key', host $GARDEN):
+$msg"
+    key="$GARDEN_PROVIDER_QUOTA_KEY"
+  fi
+
+  local skey="${key//[^A-Za-z0-9._-]/_}"
+  local dir="$GARDEN_STATE/alerts"
+  local marker="$dir/$skey.last" cfile="$dir/$skey.count" tfile="$dir/$skey.total" ffile="$dir/$skey.first"
+  local now last n total first
   now="$(date +%s 2>/dev/null || echo 0)"
+  mkdir -p "$dir" 2>/dev/null || true
+
+  # Count the occurrence FIRST, so one suppressed by the throttle is still folded
+  # into the next delivery's notice_count (the flood's real magnitude, reported in
+  # one entry instead of one message per window).
+  n="$(cat "$cfile" 2>/dev/null || echo 0)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0; n=$(( n + 1 ))
+  printf '%s\n' "$n" > "$cfile" 2>/dev/null || true
+  total="$(cat "$tfile" 2>/dev/null || echo 0)"; [[ "$total" =~ ^[0-9]+$ ]] || total=0
+  printf '%s\n' "$(( total + 1 ))" > "$tfile" 2>/dev/null || true
+  [ -s "$ffile" ] || date -u +%FT%TZ > "$ffile" 2>/dev/null || true
+
+  # Throttle: at most one DELIVERY per window per key.
   if [ -f "$marker" ]; then
     last="$(cat "$marker" 2>/dev/null || echo 0)"
     [ $(( now - last )) -lt "${GARDEN_ALERT_THROTTLE_SECS:-3600}" ] && return 0
   fi
-  mkdir -p "$(dirname "$marker")" 2>/dev/null || true
   printf '%s\n' "$now" > "$marker" 2>/dev/null || true
+  first="$(cat "$ffile" 2>/dev/null || true)"
+
   if [ -n "${GARDEN_ALERT_CMD:-}" ]; then
-    "$GARDEN_ALERT_CMD" "$key" "$msg" >/dev/null 2>&1 || true
+    # Test/alternate sink. The historical two-argument contract is preserved; the
+    # folded count and first_seen ride along as optional extra arguments.
+    "$GARDEN_ALERT_CMD" "$key" "$msg" "$n" "${first:-}" >/dev/null 2>&1 || true
+    printf '0\n' > "$cfile" 2>/dev/null || true
     return 0
   fi
   printf '%s\n' "$msg" \
     | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="watchdog:${GARDEN_TAG:-jobs}" \
-      "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 || true
+      "$GARDEN_ROOT/scripts/jobs/watchdog-notice.sh" \
+        --count "$n" ${first:+--first-seen "$first"} "$key" >/dev/null 2>&1 || true
+  printf '0\n' > "$cfile" 2>/dev/null || true
   return 0
+}
+
+# alert_maintainer_clear <dedup-key> [message] — close the loop when a condition
+# CLEARS. Silent-until-error means the maintainer never learns an alert ended
+# unless we say so, and "it stopped" is exactly the fact that lets them stop
+# reading the notice. Posts ONE recovery notice (amending the open entry in place,
+# so the whole episode reads as one closed item) and starts a fresh episode.
+#
+# No-op — a single builtin file test, no fork — when the key was never raised, so
+# a caller may put it on its happy path (the triager clears its fetch alert on
+# every successful fetch). Never fails its caller.
+alert_maintainer_clear() {
+  local key="$1" msg="${2:-}"
+  [ "${GARDEN_NO_MAINTAINER_ALERT:-0}" = 1 ] && return 0
+  local skey="${key//[^A-Za-z0-9._-]/_}"
+  local dir="$GARDEN_STATE/alerts"
+  local marker="$dir/$skey.last" cfile="$dir/$skey.count" tfile="$dir/$skey.total" ffile="$dir/$skey.first"
+  # Nothing was ever DELIVERED for this key on this host → nothing to close.
+  [ -f "$marker" ] || return 0
+  local total first
+  total="$(cat "$tfile" 2>/dev/null || echo 1)"; [[ "$total" =~ ^[0-9]+$ ]] || total=1
+  first="$(cat "$ffile" 2>/dev/null || true)"
+  rm -f "$marker" "$cfile" "$tfile" "$ffile" 2>/dev/null || true
+  [ -n "$msg" ] || msg="the watchdog condition '$key' has cleared on $GARDEN."
+  if [ -n "${GARDEN_ALERT_CMD:-}" ]; then
+    "$GARDEN_ALERT_CMD" "$key" "RECOVERED: $msg" "$total" "${first:-}" >/dev/null 2>&1 || true
+    return 0
+  fi
+  printf '%s\n' "$msg" \
+    | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="watchdog:${GARDEN_TAG:-jobs}" \
+      "$GARDEN_ROOT/scripts/jobs/watchdog-notice.sh" \
+        --recovered --count "$total" ${first:+--first-seen "$first"} "$key" >/dev/null 2>&1 || true
+  return 0
+}
+
+# note_provider_quota <context> [text] — record ONE observation of the fleet-level
+# provider quota condition, from whichever unit happened to trip it. The canonical
+# phrase leads the message so alert_maintainer's classifier always fires (keying is
+# then idempotent), and the observed refusal text rides along so its reset clause
+# reaches the notice.
+note_provider_quota() {
+  alert_maintainer "$GARDEN_PROVIDER_QUOTA_KEY" \
+    "usage limit reached while running ${1:-the fleet}. Observed: ${2:-(no detail captured)}"
+}
+
+# note_provider_ok [context] — the provider ANSWERED, so any open fleet-level
+# quota condition has ended: emit the single recovery notice. Cheap no-op when no
+# quota condition was ever raised on this host.
+note_provider_ok() {
+  alert_maintainer_clear "$GARDEN_PROVIDER_QUOTA_KEY" \
+    "provider quota/usage limit CLEARED — a \`claude -p\` call completed normally on $GARDEN${1:+ (unit: $1)}. The fleet is serving again; see skills/restore/SKILL.md if workers need a restore."
 }
 
 # Exponential backoff with full jitter (per kriskowal #10, "use exponential
@@ -2090,6 +2225,16 @@ journal_fetch() {
 # git-over-HTTPS's `Could not resolve host:` and SSH's `Could not resolve hostname`.
 : "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve host|Temporary failure in name resolution|Could not read from remote repository|Connection timed out|Operation timed out|Connection reset by peer|Recv failure|Early EOF|unexpected disconnect|RPC failed|HTTP 5[0-9][0-9]|The requested URL returned error: 5|gnutls_handshake|SSL|TLS|error connecting to|check your internet connection}"
 
+# Canonical UPSTREAM-GONE signature set — the failures that do NOT self-resolve.
+# A deleted/renamed fork (or a host whose credentials lost access to it) fails a
+# fetch with a message that OVERLAPS the offline set: GitHub-over-SSH answers a
+# missing repo with "ERROR: Repository not found." followed by "fatal: Could not
+# read from remote repository.", and that second line is an offline signature. Any
+# caller that classifies offline FIRST therefore reads a dead upstream as weather
+# and retries it silently forever. Test THIS set first; it is deliberately narrow,
+# matching only wordings GitHub/git emit for a repo that is absent or forbidden.
+: "${GARDEN_UPSTREAM_GONE_SIGNATURES:=Repository not found|remote: Not Found|HTTP 404|The requested URL returned error: 404|repository .* (does not exist|not found)|does not appear to be a git repository|Permission denied \(publickey\)|You do not have permission|access denied}"
+
 # Classify captured git-fetch stderr ($1) as a connectivity/DNS outage rather
 # than a real repository error. These are the transient, self-resolving failures
 # a tick should skip over (EX_TEMPFAIL) instead of dying on. Returns 0 if the
@@ -2097,6 +2242,13 @@ journal_fetch() {
 # signature classifies regardless of how the producing tool cased it.
 _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
+}
+
+# Classify captured git-fetch stderr ($1) as a GONE/FORBIDDEN upstream — the
+# non-self-resolving class the offline set would otherwise swallow (see above).
+# Returns 0 on a match, 1 otherwise. Case-insensitive, same rationale.
+_fetch_stderr_is_upstream_gone() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_UPSTREAM_GONE_SIGNATURES"
 }
 
 # --- bounded read-only gh-api retry (the transient-blip absorber) ------------
