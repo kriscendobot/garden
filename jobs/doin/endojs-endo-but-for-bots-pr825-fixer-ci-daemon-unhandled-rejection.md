@@ -9,3 +9,10 @@ Failure inventory:
 Investigate the macOS/Node 22 daemon-test interaction and apply a real fix. Do not suppress the test or bypass safety checks. CI evidence: https://github.com/endojs/endo-but-for-bots/actions/runs/30330210988/job/90213778460
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:03:35Z
