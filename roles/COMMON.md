@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-07-11
+updated: 2026-07-28
 author: gardener, liaison
 ---
 
@@ -37,15 +37,7 @@ The subagent does not commit role or skill changes itself; structural lessons go
 
 ## Style
 
-Three prose-style rules apply to every document you author or edit in the garden, including journal entry bodies. All are skills:
-
-- `garden/skills/em-dash-style/SKILL.md`: avoid em-dashes in prose; rewrite as period, parentheses, or colon.
-- `garden/skills/relative-paths/SKILL.md`: paths within one document tree are relative; absolute paths are reserved for the cross-tree case (a document instructing an agent in another tree, as this file does for subagents reading it from a dispatch-root copy of `garden/`).
-- `garden/skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
-- `garden/skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
-- `garden/skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand.
-
-Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots.
+The garden's standing style rules apply to every document you author or edit, including journal entry bodies and inbox messages. The consolidated index lives in § House style at the end of this file: read it there rather than re-listing here, so the set is stated in one place and cannot drift out of sync. Vendored content under `references/<source>/` is exempt from all of them: references are read-only snapshots.
 
 ## Document frontmatter
 
@@ -257,5 +249,6 @@ The garden's standing style rules. Every dispatched agent follows these on every
 - `garden/skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
 - `garden/skills/test-title-spec-spelling/SKILL.md`: when a test title names a spec-defined surface, spell it exactly as the specification does.
 - `garden/skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand. This is a GitHub-communication rule, distinct from `relative-paths` (which keeps links *inside* a document tree relative).
+- `garden/skills/gricean-maxims/SKILL.md`: be concise; optimize for the reader's attention. Apply Grice's four maxims (Quantity, Quality, Relation, Manner) to every communication (completion reports, PR comments, review replies, journal bodies, bus messages). Unlike the mechanical rules above, these are judgment calls, so the skill makes them operational with do/don't pairs. The maxims govern **how** something is said, never **whether** a required disclosure (a completion-summary element, an inline-reply anchor, the `tada` contract) is made.
 
-Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots. The first four rules are also summarized in § Style above, which the existing prose-style references point at; this section is the consolidated index of all standing-style skills.
+Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots. This section is the single consolidated index of all standing-style skills; § Style near the top of this file defers here rather than re-listing them.

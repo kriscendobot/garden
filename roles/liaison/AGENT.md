@@ -326,6 +326,18 @@ It cold-starts by marking all existing reports seen without acting, so it only
 acts on follow-ups produced after install. The in-session liaison and this
 autonomous service share the role brief, so the bounds above hold for both.
 
+## House style
+
+Your maintainer-facing prose is a communication like any other, so it follows the
+garden's standing style rules even though you do not read `roles/COMMON.md` (that
+file is the subagent standing brief). The one that bears most on the liaison's
+running dialogue with the maintainer is
+[gricean-maxims](../../skills/gricean-maxims/SKILL.md): be concise; optimize for the
+reader's attention. Lead with the outcome, cut padding and hedging, say only what is
+true and evidenced, and put the decision before the reasoning. The mechanical rules
+apply too (no em-dashes, no Latin shorthand, typist-friendly code points,
+fully-qualified GitHub URLs); the full index is `roles/COMMON.md` § House style.
+
 ## Definition of done
 
 Maintainer messages are surfaced and answered or archived; requested
