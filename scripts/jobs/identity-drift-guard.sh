@@ -56,21 +56,39 @@ GARDEN_TAG="identity-drift-guard"
 # Monitor and the bulletin both surface to a human. It is sent NOT as a living
 # agent (no reply_to): the guard is a deterministic script with no doer inbox to
 # receive a reply. The JOURNAL entry is an additional greppable record.
+#
+# emit_sink is the ONE door every sink goes through, and it is FAIL-CLOSED in a test
+# context (incident 2026-07-28: a test captured the journal sink but not the
+# maintainer sink — which was added to the guard after the test was written — so
+# three synthetic `driftname` kind:error reports landed in the REAL maintainer
+# inbox). With no capture override set, a real sink runs ONLY outside a test context;
+# under _in_test_context (common.sh: GARDEN_TEST=1, a `.garden-test` state root, or a
+# test-tree entrypoint) the body is swallowed and the emission REFUSED with a loud log
+# line. So a sink
+# added later that forgets its override degrades to a failing, noisy test rather than
+# to production traffic. Production behavior is unchanged: outside a test context the
+# real helper is invoked exactly as before.
+emit_sink() {
+  local name="$1" override="$2"; shift 2
+  if [ -n "$override" ]; then bash -c "$override"; return; fi
+  if _in_test_context; then
+    cat >/dev/null 2>&1 || true
+    log "REFUSING to emit the $name report to the REAL bus from a TEST context (GARDEN_TEST=${GARDEN_TEST:-0} GARDEN_STATE=${GARDEN_STATE:-}) with no capture override set — a test must capture EVERY sink (guard: identity-drift-guard-test-containment, incident 2026-07-28)"
+    return 1
+  fi
+  "$@"
+}
+
 : "${GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT:=}"
 emit_maintainer() {
-  if [ -n "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT" ]; then
-    bash -c "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT"
-  else
-    GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="identity-drift-guard:$host_short" "$HERE/inbox-send.sh" maintainer
-  fi
+  emit_sink maintainer-inbox "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT" \
+    env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER="identity-drift-guard:$host_short" \
+        "$HERE/inbox-send.sh" maintainer
 }
 : "${GARDEN_IDENTITY_GUARD_EMIT:=}"
 emit_error() {
-  if [ -n "$GARDEN_IDENTITY_GUARD_EMIT" ]; then
-    bash -c "$GARDEN_IDENTITY_GUARD_EMIT"
-  else
-    GARDEN_ROLE="gardener-scaler" "$HERE/journal-entry.sh" error
-  fi
+  emit_sink journal-entry "$GARDEN_IDENTITY_GUARD_EMIT" \
+    env GARDEN_ROLE="gardener-scaler" "$HERE/journal-entry.sh" error
 }
 
 host_short="$(hostname -s 2>/dev/null || echo host)"

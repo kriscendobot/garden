@@ -2985,14 +2985,26 @@ _verify_pushed() {
 # --- test-context production-push guard (incident 2026-07-11) -----------------
 #
 # _in_test_context — 0 (in a test) when the positive sentinel GARDEN_TEST=1 is set,
-# or (secondary heuristic) GARDEN_STATE lives under a `.garden-test` throwaway root.
-# The heuristic is deliberately tight: it matches ONLY the `.garden-test` path the
-# harness uses, never a real deployment's `.garden-state`, so it can never mistake a
-# production run for a test.
+# or (secondary heuristic) GARDEN_STATE lives under a `.garden-test` throwaway root,
+# or the ENTRYPOINT script itself lives under a `test/`/`tests/` tree. The heuristics
+# are deliberately tight: `.garden-test` matches only the path the harness uses, never
+# a real deployment's `.garden-state`, and the entrypoint check reads $0 (the script
+# the process was started with), not the cwd — so a gardener working in a project
+# checkout that merely CONTAINS a tests/ directory is never mistaken for a test.
+#
+# The entrypoint heuristic is the self-arming half (incident 2026-07-28): a test run
+# DIRECTLY — not through a harness that exports GARDEN_TEST — used to be invisible to
+# this guard, which is exactly how tests/checks/test_identity_drift_guard.sh pushed
+# three synthetic drift reports onto production journal2. Nothing under a test tree
+# may ever push to the production journal, so recognizing the entrypoint closes that
+# shape for every test at once rather than one forgotten export at a time.
 _in_test_context() {
   [ "${GARDEN_TEST:-0}" = 1 ] && return 0
   case "${GARDEN_STATE:-}" in
     */.garden-test|*/.garden-test/*) return 0 ;;
+  esac
+  case "${0:-}" in
+    */test/*|*/tests/*) return 0 ;;
   esac
   return 1
 }

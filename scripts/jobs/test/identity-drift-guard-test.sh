@@ -16,9 +16,22 @@
 #             marker written; the maintainer body carries the `kind: error` marker.
 # SUBTEST 3 — same drift on a second tick → DEDUPED (no new emission).
 # SUBTEST 4 — divergence + recorded override → NO emission (deliberate parallel pool).
+# SUBTEST 5 — CONTAINMENT: a sink whose override is FORGOTTEN refuses to emit rather
+#             than falling through to the real bus, and any unwrapped bus call lands
+#             in a throwaway origin (incident 2026-07-28).
 #
-# Hermetic: the reporting sinks are captured via the guard's EMIT overrides (no real
-# journal push); GARDEN_LEADER short-circuits the leader lookup (no network).
+# Hermetic, in LAYERS rather than by remembering one override per sink — because
+# forgetting one is exactly what leaked on 2026-07-28 (the sibling
+# tests/checks/test_identity_drift_guard.sh captured the journal sink but not the
+# maintainer sink, and posted three synthetic `driftname` kind:error reports into the
+# real maintainer inbox on journal2):
+#   1. THROWAWAY REMOTE — JOURNAL_REMOTE points at a scratch bare repo, so ANY
+#      journal-writing path, wrapped or not, writes to the fixture.
+#   2. TEST SENTINEL — GARDEN_TEST=1 arms common.sh's guard_no_production_push_in_test.
+#   3. FAIL-CLOSED SINK — the guard's emit_sink refuses a real sink under a test
+#      context when its capture override is unset.
+#   4. ENV SCRUB — ambient fleet GARDEN_*/JOURNAL_* cannot splice underneath.
+# GARDEN_LEADER short-circuits the leader lookup (no network).
 #
 # Usage: identity-drift-guard-test.sh
 set -uo pipefail
@@ -41,6 +54,26 @@ export GARDEN_TEST=1
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-drift-guard.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 HOST_SHORT="$(hostname -s 2>/dev/null || echo host)"
 DRIFT="${HOST_SHORT}2"
+
+# Layer 1: a throwaway journal origin, shaped like journal2. Any bus call that
+# escapes an EMIT override — a sink added later, a helper invoked directly — lands
+# here instead of on production journal2.
+BARE="$TR/journal.git"; git init -q --bare "$BARE"
+SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b journal2
+mkdir -p "$SEED"/{jobs/{todo,doin,tada,index},entries,msgs,hosts,inbox/maintainer/{unread,read}}
+find "$SEED" -type d -not -path '*/.git/*' -not -name .git -exec touch {}/.gitkeep \;
+git -C "$SEED" add -A
+git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -q -m seed
+git -C "$SEED" push -q "$BARE" HEAD:journal2
+GARDEN_ROOT="$(cd "$JOBS/../.." && pwd)"
+export GARDEN_ROOT JOURNAL_BRANCH=journal2
+export JOURNAL_REMOTE="$BARE"
+
+# Count maintainer messages on the fixture origin (no working tree needed).
+bare_inbox_count() {
+  git -C "$BARE" ls-tree -r --name-only journal2 2>/dev/null \
+    | grep -c '^inbox/maintainer/unread/[^/]*\.md$' || true
+}
 
 MAINT_OUT="$TR/maint.out"; JRNL_OUT="$TR/jrnl.out"
 export MAINT_OUT JRNL_OUT
@@ -127,6 +160,37 @@ if [ "$(n_emit MAINT "$MAINT_OUT")" -eq 0 ] && [ "$(n_emit JRNL "$JRNL_OUT")" -e
 else
   bad "override should silence (maint=$(n_emit MAINT "$MAINT_OUT") jrnl=$(n_emit JRNL "$JRNL_OUT"))"
 fi
+
+# ============================================================================
+hr; echo "SUBTEST 5 — CONTAINMENT: a FORGOTTEN sink override cannot reach the real bus"; hr
+# Stand in for a NEW escalation path added to the guard whose capture override
+# nobody remembers to set: run genuine drift with GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT
+# UNSET — the exact shape that leaked on 2026-07-28.
+S5="$TR/s5"; : > "$MAINT_OUT"; : > "$JRNL_OUT"
+INBOX_BEFORE="$(bare_inbox_count)"
+env GARDEN="$DRIFT" GARDEN_STATE="$S5" GARDEN_LEADER="$HOST_SHORT" \
+    GARDEN_IDENTITY_GUARD_EMIT="$CAP_JRNL" \
+    "$JOBS/identity-drift-guard.sh" > "$TR/s5.log" 2>&1 || true
+grep -q 'REFUSING to emit the maintainer-inbox report' "$TR/s5.log" \
+  && ok "a sink with no capture override REFUSES rather than posting for real" \
+  || bad "forgotten sink did not refuse: $(tr '\n' ' ' < "$TR/s5.log" | tail -c 200)"
+[ "$(bare_inbox_count)" -eq "$INBOX_BEFORE" ] \
+  && ok "and nothing was written to the journal origin at all" \
+  || bad "the forgotten sink still wrote to the journal origin"
+[ ! -f "$S5/identity-drift-reported" ] \
+  && ok "a refused escalation does not arm the dedup marker (it retries next tick)" \
+  || bad "dedup marker armed despite a refused escalation"
+
+# The other half of the invariant: containment must not become SUPPRESSION. With no
+# test context in effect, the real sink path runs and a genuine drift report reaches
+# the maintainer inbox (here, the fixture origin's).
+S5B="$TR/s5b"; INBOX_BEFORE="$(bare_inbox_count)"
+env GARDEN_TEST=0 GARDEN="$DRIFT" GARDEN_STATE="$S5B" GARDEN_LEADER="$HOST_SHORT" \
+    GARDEN_IDENTITY_GUARD_EMIT="$CAP_JRNL" \
+    "$JOBS/identity-drift-guard.sh" > "$TR/s5b.log" 2>&1 || true
+[ "$(bare_inbox_count)" -gt "$INBOX_BEFORE" ] \
+  && ok "outside a test context a REAL drift still posts a maintainer-inbox report" \
+  || bad "real drift no longer reports: $(tr '\n' ' ' < "$TR/s5b.log" | tail -c 200)"
 
 # ============================================================================
 hr

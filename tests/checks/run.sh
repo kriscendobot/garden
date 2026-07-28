@@ -8,6 +8,14 @@ set -u
 
 HARNESS_DIR=$(cd "$(dirname "$0")" && pwd)
 
+# Test-context sentinel, exported from this ONE place so every suite below inherits
+# it (mirrors scripts/jobs/test/run-test.sh). common.sh's
+# guard_no_production_push_in_test then refuses any push whose remote resolves to the
+# real garden journal, and fail-closed sinks (identity-drift-guard.sh's emit_sink)
+# refuse to reach the real bus — even if a suite forgets to isolate its remote or to
+# capture a sink. Backstop for the 2026-07-11 and 2026-07-28 journal-leak incidents.
+export GARDEN_TEST=1
+
 OVERALL_PASS=0
 OVERALL_FAIL=0
 FAILING_TESTS=()
