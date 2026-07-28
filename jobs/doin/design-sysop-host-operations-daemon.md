@@ -91,3 +91,10 @@ is OUT of scope for the first build. Do not write implementation code, unit file
 role/skill files — the follow-on build job does that from this doc.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:23:34Z
