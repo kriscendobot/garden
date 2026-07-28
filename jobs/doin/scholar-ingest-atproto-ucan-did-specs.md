@@ -100,3 +100,10 @@ now in the garden's library and where, so the maintainer knows the citation
 trail is durable. **Never close the issue**; the submitter closes it.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:23:37Z
