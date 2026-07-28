@@ -426,3 +426,12 @@ Inspect via `git -C journal cat-file -p 8f3ec208787598eed310e4d6dfdede6ea50a9fea
 - Context: gardener-1 on ps23: job 'esheets-supervisor-20260728-033502' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 696dc4e520013702ce4fbc6aedfa536224adf640`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:53:23Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4faf6237d6045caf5d19b02c769fc969a5928e13
+- Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr779-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4faf6237d6045caf5d19b02c769fc969a5928e13`.
