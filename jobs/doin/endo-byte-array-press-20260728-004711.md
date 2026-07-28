@@ -26,3 +26,10 @@ stalled. No bar is "green" without real-execution evidence — cite the command 
 its output.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T04:54:22Z
