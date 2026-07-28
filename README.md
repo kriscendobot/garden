@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T06:53:03Z_
+_As of 2026-07-28T06:57:35Z_
 
 ## Latest
 
@@ -1735,6 +1735,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065717Z-7c3b61` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065717Z-7c3b61.md)
+
+> triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6617,7 +6621,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.2M | $468.87 _(notional, rate-card)_ | no quota set |
+| Claude | 41.4M | $475.89 _(notional, rate-card)_ | no quota set |
 | Codex | 437.4M _(+407.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
