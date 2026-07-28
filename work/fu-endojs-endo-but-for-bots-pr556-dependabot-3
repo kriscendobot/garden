@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 7
+worker_kind: gardener
+claimed_at: 2026-07-28T08:06:56Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-fu-endojs-endo-but-for-bots-pr556-dependabot-3
