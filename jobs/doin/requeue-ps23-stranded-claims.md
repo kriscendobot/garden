@@ -71,3 +71,10 @@ Confirm the guard is actually live before requeuing:
   deliberately left alone with the reason.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:43:32Z
