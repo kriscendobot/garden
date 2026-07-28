@@ -68,6 +68,7 @@ arrived". Demonstrate with the motivating case end to end: set another host's
 updated and its pool reconciled. Report the trust model you implemented and any op
 you deliberately left out of the first vocabulary.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
