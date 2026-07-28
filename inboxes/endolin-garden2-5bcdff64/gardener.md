@@ -3225,3 +3225,12 @@ Inspect via `git -C journal cat-file -p 1eb7d1d2231589cc7c9c350b4860732ba3434526
 - Context: gardener-3 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 6ec4321282ab98001ff83737507935836cb14101`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-28T12:38:39Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: e777c8047f1c4ba9162824d1f81a336a97e57bbd
+- Context: gardener-6 on endolin-garden2-5bcdff64: job 'fu-endojs-endo-but-for-bots-pr825-8840fcdb-2' transient-classified (rc=1) but elapsed near-constant (1403,1403s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p e777c8047f1c4ba9162824d1f81a336a97e57bbd`.
