@@ -63,11 +63,45 @@ The files are gone; their diagnostic signal is preserved here in aggregate:
 | poisoned on endolin-garden-ece02cb4 | 51 across both hosts |
 | window | 2026-07-20 → 2026-07-27 |
 
-**What those numbers say.** 177-odd requeue cycles and 22 deadline overruns in eight
-days is a press that never fit its handler budget: the job carried no
-`handler-timeout:`, so every dispatch was SIGTERM-killed at the 40-minute default,
-requeued, and killed again until the reaper poisoned it. The replacement bins each
-carry `handler-timeout: 10800`, which is the fix for that specific loop.
+**What those numbers say — corrected 2026-07-28 from the failure captures.** An
+earlier revision of this record blamed the whole graveyard on the missing
+`handler-timeout:`. The transcripts say that explains only about half of it. The 51
+poison records split into two distinct failure modes:
+
+**Mode 1 — deadline-overrun (22 records, the 2026-07-20/21 era).** Genuine long work
+killed at the wall: the job carried no `handler-timeout:`, so each dispatch was
+SIGTERM-killed at the 40-minute default (`rc=124, elapsed ~= GARDEN_HANDLER_TIMEOUT=2400s`),
+requeued, and killed identically next cycle. The reaper's own notice named the triage:
+"split the job, raise GARDEN_HANDLER_TIMEOUT for this work, or fix what makes it run
+long." The replacement bins do the first two — one bar each, `handler-timeout: 10800`.
+
+**Mode 2 — requeue-exhausted (29 records, and every one of the ten in-flight jobs
+above).** NOT slow at all: the handler failed in 3-15 seconds with `rc=1`, every time.
+The captured output gives the reason verbatim:
+
+    ERROR codex_models_manager::manager: failed to refresh available models:
+      ... body: {"object":"list","data":null}
+    {"type":"error","message":"unexpected status 404 Not Found:
+      model 'qwen3.6' not found, url: http://127.0.0.1:11434/v1/responses"}
+
+The local Ollama endpoint serves **no models at all** — `GET /api/tags` returns
+`{"models":[]}` and `ollama list` is empty — so every `model: qwen3.6` job 404s on its
+first turn. Across error entries from 2026-07-24 to 07-27 whose capture blobs are still
+resolvable on this host, **99 of 100 carry this exact signature** (1 other, 37 blobs
+held only on the peer host). The oldest sampled instance is 2026-07-26T15:33Z, so the
+endpoint had been empty for at least two days before the redirect.
+
+This reframes the redirect to Claude: it was not a preference change, it was the only
+model that could run at all. It also means the hermit fleet is dead weight until the
+local model store is repopulated — and that the routing table's `local qwen* qwen3.6`
+default currently names a tag the box does not serve.
+
+A third mode is referenced in the fleet code but did not appear in this graveyard's
+poison signatures: the "exit-0-unsatisfying wedge" (`gardener.sh:671`, which names the
+xs2rust-endor-press wedge by name) — a handler exiting 0 without the completion signal
+at near-constant elapsed, e.g. 542s across consecutive cycles on
+`xs2rust-endor-stage10n-remeasure`.
+
 
 Retired in this sweep:
   - xs2rust-endor-press-20260720-022510
