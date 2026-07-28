@@ -77,3 +77,10 @@ press (`schedules/xs2rust-endor-press.md`), all stale-claimed by a local hermit 
 stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:03:24Z
