@@ -219,19 +219,19 @@ fi
 
 set +e
 if $resuming && [ -n "$resume_sid" ]; then
-  ( cd "$worktree" && codex exec resume "$resume_sid" "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$resume_sid" "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
   rc=$?
   # A resume that fails on an unusable session (pruned/expired) falls back to a fresh
   # session over the preserved worktree — the uncommitted work carries the state.
   if [ "$rc" -ne 0 ]; then
     log "codex resume of session $resume_sid failed (rc=$rc) for '$base'; retrying as a FRESH session over the preserved worktree"
-    ( cd "$worktree" && codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
     rc=$?
   fi
 else
   attempt=1
   while :; do
-    ( cd "$worktree" && codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
+    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec "${codex_args[@]}" "$prompt" ) > "$json_capture" 2>&1
     rc=$?
     [ "$provider" = fireworks ] && [ "$rc" -ne 0 ] && fireworks_retryable_failure "$json_capture" \
       && [ "$attempt" -lt "$GARDEN_FIREWORKS_RETRY_ATTEMPTS" ] || break

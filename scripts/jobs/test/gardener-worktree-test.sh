@@ -105,6 +105,7 @@ done
 pwd > "$FAKE_CWD_OUT"
 printf '%s\n' "$mode" > "$FAKE_MODE_OUT"
 printf '%s\n' "$model" > "${FAKE_MODEL_OUT:-/dev/null}"
+[ -z "${GARDEN_USAGE_FILE+x}" ] && printf '%s\n' absent > "${FAKE_USAGE_OUT:-/dev/null}" || printf '%s\n' present > "${FAKE_USAGE_OUT:-/dev/null}"
 # Mimic Claude writing its session transcript into the launch cwd's project dir.
 if [ -n "$sid" ]; then
   pd="$HOME/.claude/projects/$(printf '%s' "$PWD" | sed 's#/#-#g')"
@@ -145,8 +146,8 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
   HOME="$TR/home" PATH="$FAKEDIR:$PATH" \
     GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$TR/state" \
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
-    GARDEN_COMPLETION_SENTINEL="$SENTINEL" FAKE_COMPLETION_MARKER="$MARKER" \
-    FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" \
+    GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/usage.json" FAKE_COMPLETION_MARKER="$MARKER" \
+    FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_USAGE_OUT="$TR/usage.out" \
     bash "$HANDLER" "$1" "$2" "$3"
   RC=$?
 }
@@ -167,6 +168,8 @@ cwd1="$(cat "$TR/cwd.out" 2>/dev/null)"
   || bad "claude ran in the root tree '$GROOT'"
 [ "$(cat "$TR/mode.out" 2>/dev/null)" = "fresh" ] && ok "fresh claim starts a fresh session" \
   || bad "fresh claim should start a fresh session, not resume"
+[ "$(cat "$TR/usage.out" 2>/dev/null)" = absent ] && ok "Claude cannot see the private usage handoff" \
+  || bad "Claude inherited GARDEN_USAGE_FILE and could forge accounting"
 # The marker-signaled completion wrote the sentinel gardener.sh gates doin→tada on.
 [ -e "$SENTINEL" ] && ok "marker-signaled completion wrote the completion sentinel" \
   || bad "completion sentinel not written on a genuine completion"

@@ -42,5 +42,5 @@ kimi_model_environment() {
   KIMI_MODEL_BASE_URL=https://api.moonshot.ai/v1 \
   KIMI_MODEL_MAX_CONTEXT_SIZE=1048576 \
   KIMI_MODEL_CAPABILITIES=thinking,tool_use \
-  "$@"
+  env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "$@"
 }

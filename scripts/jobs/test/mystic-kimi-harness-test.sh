@@ -29,6 +29,7 @@ set -euo pipefail
 : "${FAKE_KIMI_RECORD:?}"
 printf '%s\n' "$KIMI_CODE_HOME" > "$FAKE_KIMI_RECORD.home"
 printf '%s\n' KIMI_CODE_HOME KIMI_MODEL_NAME KIMI_MODEL_API_KEY KIMI_MODEL_BASE_URL > "$FAKE_KIMI_RECORD.env"
+[ -z "${GARDEN_USAGE_FILE+x}" ] && printf '%s\n' absent > "$FAKE_KIMI_RECORD.usage" || printf '%s\n' present > "$FAKE_KIMI_RECORD.usage"
 printf '%s\n' "$@" > "$FAKE_KIMI_RECORD.args"
 has_prompt=0
 has_auto=0
@@ -107,6 +108,7 @@ rm -f "$TR/sentinel"
 run_handler resume-case 0
 home="$TR/state/mystics/kimi/resume-case"
 [ "$(cat "$TR/run.home")" = "$home" ] && ok "KIMI_CODE_HOME is private to this base" || bad "unexpected KIMI_CODE_HOME"
+[ "$(cat "$TR/run.usage")" = absent ] && ok "Kimi cannot see the private usage handoff" || bad "Kimi inherited GARDEN_USAGE_FILE and could forge accounting"
 if grep -Eqx -- '--model|k3|kimi-k3' "$TR/run.args"; then
   bad "headless invocation overrides the temporary KIMI_MODEL_NAME selection"
 else

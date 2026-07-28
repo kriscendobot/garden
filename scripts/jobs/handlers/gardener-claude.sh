@@ -190,15 +190,17 @@ claude_cli="$(claude_bin)" \
   || die_environmental "claude CLI not found on PATH nor in any known install location after ${GARDEN_AGENT_BIN_ATTEMPTS} probes; cannot run default gardener handler for '$base'"
 
 # The terminal JSON envelope is Claude's own cumulative accounting for exactly this
-# invocation.  Keep it outside the report: the report remains the agent's .result,
-# while the code-only handoff gives gardener.sh the immutable measurement.
+# invocation. Keep it outside the report: the report remains the agent's .result,
+# while the code-only handoff gives gardener.sh the immutable measurement. Do not
+# pass the handoff path into Claude's environment: an agent may run arbitrary shell
+# commands, and must not be able to author or erase its own cost record.
 envelope="$(mktemp "${TMPDIR:-/tmp}/garden-claude-envelope-$base.XXXXXX")"
 rusage="$(mktemp "${TMPDIR:-/tmp}/garden-claude-rusage-$base.XXXXXX")"
 set +e
 if [ -x /usr/bin/time ]; then
-  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
 else
-  ( cd "$worktree" && "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
 fi
 rc=$?
 set -e
