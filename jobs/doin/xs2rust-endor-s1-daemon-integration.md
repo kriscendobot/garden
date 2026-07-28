@@ -75,3 +75,10 @@ behind `llm`, or draft-dirty, is not a reason to defer.
 Consolidated 2026-07-27 from ten redundant qwen3.6-pinned dispatches of the standing
 press (`schedules/xs2rust-endor-press.md`), all stale-claimed by a local hermit that
 stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
+
+---
+claim:
+  host: ps23
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T01:01:10Z
