@@ -112,3 +112,10 @@ refinement is worth a follow-up.
   evidence.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:43:27Z
