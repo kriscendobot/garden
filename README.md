@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T06:57:35Z_
+_As of 2026-07-28T07:00:14Z_
 
 ## Latest
 
@@ -1739,6 +1739,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T065717Z-7c3b61` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065717Z-7c3b61.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+
+- `20260728T065948Z-3a877e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065948Z-3a877e.md)
+
+> The npm-CAS-registry press arc has **seven** gap drafts sitting green, clean, and deliberately held in draft awaiting your promotion: endojs/endo-but-for-bots #857 (peer/optional deps), #859 (process shim), #860 (npmrc auth), #873 (workspace protocol), #875, #876, and #877. Reports `endo-npm-cas-registry-press-20260727-175002` and `-20260728-004711` note the promotion order matters slightly — #875/#876 both touch `EXPORTS_RESOLVER_JS` and #876/#877 both touch `__archiveEndowments`, so whichever lands second in each pair takes a trivial rebase. Do you want them run through the gauntlet (the #862 pattern: verify on the exact merged tree, merge, provenance comment), and in what order? Separately, #876 is blocked on your word on the **default-condition-set policy** — browser-by-default vs opt-in vs node-shims — which also governs the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`). I have posted a job to write a design note on the `node:crypto`/webcrypto case to inform that call.
+
+- `20260728T065954Z-dce64f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065954Z-dce64f.md)
+
+> From report `proposal-compartments-v8-validation-20260725`: a spec-annex decision is still open and is yours — whether a **host-only synchronous evaluation operation** is added, to address the charter's non-TLA path shortfall. The native v8 port is otherwise gated on upstream V8 work (source-phase imports + `import.source()`, then `import defer`), so nothing autonomous is waiting on it; only this annex question is actionable now.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6621,14 +6629,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.4M | $475.89 _(notional, rate-card)_ | no quota set |
+| Claude | 41.5M | $480.01 _(notional, rate-card)_ | no quota set |
 | Codex | 437.4M _(+407.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (65)
+### doin (69)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
@@ -6674,8 +6682,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
 - [`fix-identity-drift-guard-test-inbox-leak`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-identity-drift-guard-test-inbox-leak.md) — identity-drift-guard's test posts REAL maintainer-inbox reports; the hermetic
 - [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
+- [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
+- [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — In endojs/endo-but-for-bots, assess whether https://github.com/endojs/endo-bu...
+- [`fu-endo-npm-cas-registry-press-20260727-113510-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-113510-2.md) — In endojs/endo-but-for-bots, write a design note (designer job, no code) on t...
 - [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — On endojs/endo-but-for-bots, check the CI status of https://github.com/endojs...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
+- [`fu-endojs-endo-but-for-bots-pr868-dependabot-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr868-dependabot-3.md) — Garden-infra change in kriskowal/garden main2: amend roles/botanist/AGENT.md ...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/guard-worker-self-disqualify-missing-agent-bin.md) — A worker that cannot resolve its agent binary must self-disqualify, not claim
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
