@@ -171,8 +171,10 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 > Do **not** hand-run `ollama serve &` in production — the endpoint is now a
 > supervised systemd `--user` unit, `garden-ollama.service` (source
 > `scripts/systemd/garden-ollama.service`, wrapper `scripts/jobs/ollama-serve.sh`),
-> with `Restart=always` so a crash self-restarts. It is the **only** unit permitted to
-> serve `:11434`: the installer-created system `ollama.service` remains disabled.
+> with `Restart=always` so a crash self-restarts. It is the **intended** sole owner of
+> `:11434` — but see § Which unit is actually serving, because on a container built
+> before 2026-07-28 the installer's system `ollama.service` is enabled and holds the
+> port instead, and that is then the endpoint you must go to.
 > It is enabled **only on hosts that
 > declare hermits** (`hermits: N>0` in `hosts/<host>` → `install-units.sh scale
 > hermit N` enables it; a zero-hermit host never does) and derives its `OLLAMA_HOST`
@@ -181,8 +183,11 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 > additionally **self-heals** a down endpoint: its per-job preflight
 > (`codex-provider-common.sh`) starts this unit and polls `/v1/models` for readiness
 > before failing, so a pinned `model: qwen3:0.6b` tick never strands on a crashed or
-> never-started endpoint (§ 6 Durability). A zero-hermit host enables neither unit and
-> serves no local inference at all. The manual line below is the underlying
+> never-started endpoint (§ 6 Durability) — noting that the start it issues is
+> `systemctl --user start garden-ollama.service`, which cannot displace a system
+> `ollama.service` already on the port. A zero-hermit host enables **the garden unit**
+> nowhere; whether it serves local inference at all still depends on the installer's
+> system unit (§ Which unit is actually serving). The manual line below is the underlying
 > invocation the unit runs, kept for a one-off smoke test:
 
 ```sh
@@ -205,6 +210,41 @@ curl http://localhost:11434/v1/chat/completions \
 
 Ollama exposes `/v1/chat/completions`, `/v1/completions`, `/v1/models`, and
 `/v1/embeddings` — enough for any OpenAI-SDK client to point `base_url` at it.
+
+### Which unit is actually serving (check this before diagnosing anything)
+
+**Two different units can own `:11434`, and which one does is per-host. Do not assume.**
+
+| Unit | Scope | Runs as | When it is up |
+| --- | --- | --- | --- |
+| `garden-ollama.service` | `systemctl --user` (bot user) | the bot user | **hermit-count-gated** — enabled only where `hermits: N>0` (`install-units.sh scale hermit N` → `reconcile_ollama_unit`). A zero-hermit host has it *installed but disabled*. |
+| `ollama.service` | system (`/etc/systemd/system`) | the `ollama` user | Enabled by the Ollama installer. The Dockerfile stopped enabling it on **2026-07-28** (`d4a40ed9ba`, "make garden Ollama the sole endpoint owner"), so it is gone from newly built images — but **any container from an earlier image still has it enabled, running, and holding the port**. |
+
+```sh
+systemctl --user is-active garden-ollama.service   # the garden-supervised endpoint
+systemctl is-active ollama.service                 # the installer's system endpoint
+curl -fsS http://127.0.0.1:11434/v1/models         # what is actually being served
+```
+
+Observed on `endolin-garden2` (2026-07-28): `hermits: 0` → `garden-ollama.service`
+disabled/inactive, while the system `ollama.service` was **active** and serving an
+**empty** model list. Sending an operator to `garden-ollama.service` there is a dead
+end: it is disabled by design, and starting it cannot displace the system unit (it
+would fail on address-in-use — the case `ollama-serve.sh` refuses to stand down for).
+The hermit preflight therefore no longer hardcodes a unit name: `codex_local_endpoint_unit_hint`
+(`scripts/jobs/handlers/codex-provider-common.sh`) probes both read-only and names
+whichever one this host is really running.
+
+**The model store follows the serving daemon, not the user you are logged in as.** The
+system unit's store belongs to the `ollama` user (`/usr/share/ollama/.ollama`); the
+garden unit's belongs to the bot (`~/.ollama`). A model pulled into the *other* store
+is invisible to the live endpoint — the bot's store held `qwen3.6` while the system
+unit served nothing. Because `ollama pull` is a **client** call against `$OLLAMA_HOST`,
+running it while the endpoint is up always lands the model in the right store:
+
+```sh
+ollama pull qwen3:0.6b        # goes to whichever daemon owns :11434
+```
 
 ### Path B — vLLM (production serving; now supports gfx1151)
 
@@ -553,9 +593,13 @@ endpoint is no longer a hand-run `OLLAMA_IGPU_ENABLE=1 ollama serve &`; it is a
 supervised systemd `--user` unit — `scripts/systemd/garden-ollama.service`, whose
 `ExecStart` is the thin wrapper `scripts/jobs/ollama-serve.sh` (sets the mandatory
 `OLLAMA_IGPU_ENABLE=1` and derives `OLLAMA_HOST` from `GARDEN_LOCAL_OLLAMA_URL` via
-`ollama_serve_host`, so the served and client endpoints cannot drift). The image does
-**not** enable the installer-created system `ollama.service`: exactly one unit may own
-`:11434`, and it is `garden-ollama.service`. `Restart=always`
+`ollama_serve_host`, so the served and client endpoints cannot drift). Since
+**2026-07-28** (`d4a40ed9ba`) the image no longer enables the installer-created system
+`ollama.service`, the intent being that exactly one unit owns `:11434` and it is
+`garden-ollama.service`. That is an **image-build-time** change, so it holds only for
+containers built after it — an older container still has the system unit enabled and
+serving, and § Which unit is actually serving is how you tell which world you are in
+before diagnosing. `Restart=always`
 self-restarts a crash. It is a **per-host** singleton (NOT leader-only: every host with
 its own hermits runs its own endpoint), enabled **only where `hermits: N>0`** —
 `install-units.sh scale hermit N` (the same hermit-count signal the scaler reads)

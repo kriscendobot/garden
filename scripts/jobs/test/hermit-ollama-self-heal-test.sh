@@ -21,6 +21,9 @@
 #                 an actionable `ollama pull` host-defect diagnostic.
 #   HOST DERIVE — ollama_serve_host strips scheme + /v1 from GARDEN_LOCAL_OLLAMA_URL,
 #                 so the served OLLAMA_HOST and the client URL cannot drift.
+#   UNIT HINT   — the operator-facing diagnostics name the unit ACTUALLY serving on this
+#                 host (garden `--user` garden-ollama.service vs the installer's SYSTEM
+#                 ollama.service), probed read-only, never a hardcoded guess.
 #
 # Usage: hermit-ollama-self-heal-test.sh
 set -euo pipefail
@@ -64,7 +67,11 @@ source "$JOBS/common.sh"
 source "$JOBS/handlers/codex-provider-common.sh"
 
 reset_ctl() { rm -rf "$HEAL_CTL"; mkdir -p "$HEAL_CTL"; }
-called_systemctl() { [ -s "$HEAL_CTL/systemctl-calls" ]; }
+# Only a unit-STARTING call counts as "the preflight touched systemd". The operator
+# unit hint also shells out to systemctl, but read-only (`is-active`), so a bare
+# "systemctl-calls is non-empty" check would now conflate a diagnostic probe with a
+# state change — exactly the distinction these assertions exist to police.
+called_systemctl_start() { grep -q ' start ' "$HEAL_CTL/systemctl-calls" 2>/dev/null; }
 curl_call_count() { [ -f "$HEAL_CTL/curl-calls" ] && wc -l < "$HEAL_CTL/curl-calls" | tr -d ' ' || echo 0; }
 
 # ============================================================================
@@ -79,7 +86,7 @@ hr; echo "HOST DERIVE — ollama_serve_host strips scheme + /v1 path"; hr
 hr; echo "REACHABLE — endpoint up → return 0, no self-heal"; hr
 reset_ctl; : > "$HEAL_CTL/up"
 if codex_provider_preflight local hermit job-a hermits 1 qwen3:0.6b >/dev/null 2>&1; then ok "reachable endpoint → preflight 0"; else bad "reachable endpoint failed preflight"; fi
-called_systemctl && bad "systemctl start issued for a reachable endpoint" || ok "no systemctl start when reachable (fast path)"
+called_systemctl_start && bad "systemctl start issued for a reachable endpoint" || ok "no systemctl start when reachable (fast path)"
 
 # ============================================================================
 hr; echo "NO-MODEL — reachable endpoint with no pulled model → host-defect fail"; hr
@@ -113,7 +120,7 @@ err="$(codex_provider_preflight local hermit job-c hermits 1 qwen3:0.6b 2>&1)" &
 [ "$rc" -ne 0 ] && ok "unrecoverable endpoint → preflight non-zero (host defect)" || bad "give-up path returned 0"
 grep -q 'self-heal' <<<"$err" && grep -q 'garden-ollama.service' <<<"$err" \
   && ok "diagnostic names the failed self-heal + garden-ollama.service" || bad "diagnostic missing self-heal detail: $err"
-called_systemctl && ok "systemctl start was attempted before giving up" || bad "no start attempt on the give-up path"
+called_systemctl_start && ok "systemctl start was attempted before giving up" || bad "no start attempt on the give-up path"
 
 # ============================================================================
 hr; echo "NO-HEAL — down, self_heal=0 (foreman probe) → immediate fail, no start"; hr
@@ -122,7 +129,7 @@ before="$(date +%s)"
 codex_provider_preflight local hermit job-d hermits 0 qwen3:0.6b >/dev/null 2>&1 && rc=0 || rc=$?
 after="$(date +%s)"
 [ "$rc" -ne 0 ] && ok "self_heal=0 down endpoint → immediate non-zero" || bad "self_heal=0 returned 0"
-called_systemctl && bad "self_heal=0 still started garden-ollama (should just advance)" || ok "self_heal=0 issues NO systemctl start (foreman advances providers)"
+called_systemctl_start && bad "self_heal=0 still started garden-ollama (should just advance)" || ok "self_heal=0 issues NO systemctl start (foreman advances providers)"
 [ "$(curl_call_count)" = 2 ] && ok "self_heal=0 probes model readiness then endpoint status (no poll loop)" || bad "self_heal=0 probed $(curl_call_count) times (expected 2)"
 [ $((after - before)) -lt "$GARDEN_OLLAMA_HEAL_TIMEOUT" ] && ok "self_heal=0 returns without waiting the heal window" || bad "self_heal=0 blocked on the heal poll"
 
@@ -144,6 +151,52 @@ codex_provider_preflight local hermit job-f hermits 0 qwen3:0.6b >/dev/null 2>&1
 [ "$rc" -ne 0 ] && [ "$(curl_call_count)" -ge 1 ] \
   && ok "a later call re-probes the endpoint (mid-life crash re-triggers, not masked)" \
   || bad "later call did not re-probe (rc=$rc probes=$(curl_call_count))"
+
+# ============================================================================
+hr; echo "UNIT HINT — the diagnostic names the unit that is ACTUALLY serving"; hr
+# Two units can serve the endpoint (the garden's `--user` garden-ollama.service, which
+# is hermit-count-gated and therefore DISABLED on a zero-hermit host, and the installer's
+# SYSTEM ollama.service, still enabled in any container built before 2026-07-28). Naming
+# one unconditionally walks an operator to a dead unit while the live endpoint is the
+# other, so the hint must follow the host, and must never start/enable/disable anything.
+reset_ctl; : > "$HEAL_CTL/unit-active-system"
+hint="$(codex_local_endpoint_unit_hint)"
+grep -q 'systemctl status ollama.service' <<<"$hint" && grep -q 'SYSTEM unit' <<<"$hint" \
+  && ok "system unit serving → hint sends the operator to ollama.service" || bad "system-only hint: $hint"
+grep -q 'hermits: N>0' <<<"$hint" \
+  && ok "system-only hint explains why garden-ollama is disabled here" || bad "system-only hint omits the hermit gate: $hint"
+
+reset_ctl; : > "$HEAL_CTL/unit-active-garden"
+hint="$(codex_local_endpoint_unit_hint)"
+grep -q 'systemctl --user status garden-ollama.service' <<<"$hint" \
+  && ok "garden unit serving → hint sends the operator to garden-ollama.service" || bad "garden-only hint: $hint"
+
+reset_ctl; : > "$HEAL_CTL/unit-active-garden"; : > "$HEAL_CTL/unit-active-system"
+hint="$(codex_local_endpoint_unit_hint)"
+grep -q 'garden-ollama.service' <<<"$hint" && grep -q 'address-in-use' <<<"$hint" \
+  && ok "both active → hint flags the port conflict instead of picking one" || bad "both-active hint: $hint"
+
+reset_ctl
+hint="$(codex_local_endpoint_unit_hint)"
+grep -q 'garden-ollama.service' <<<"$hint" && grep -q 'ollama.service' <<<"$hint" \
+  && ok "neither active → hint names both candidates" || bad "neither-active hint: $hint"
+called_systemctl_start && bad "the read-only hint started a unit" || ok "the hint probes read-only (no start/enable/disable)"
+
+# The unreachable-endpoint diagnostic must CARRY the hint, not a hardcoded unit name.
+reset_ctl; : > "$HEAL_CTL/unit-active-system"
+err="$(codex_provider_preflight local hermit job-g hermits 0 qwen3:0.6b 2>&1)" || true
+grep -q 'systemctl status ollama.service' <<<"$err" \
+  && ok "unreachable diagnostic names the live system unit" || bad "unreachable diagnostic missed the live unit: $err"
+
+# So must the model-less one — plus a store-agnostic `ollama pull` against the LIVE
+# endpoint (a client call), not "pull into the bot user's store": a model sitting in a
+# non-serving user's ~/.ollama is invisible to whichever daemon owns the port.
+reset_ctl; : > "$HEAL_CTL/up"; : > "$HEAL_CTL/empty-models"; : > "$HEAL_CTL/unit-active-system"
+err="$(codex_provider_preflight local hermit job-h hermits 0 qwen3:0.6b 2>&1)" || true
+grep -Fq 'ollama pull qwen3:0.6b' <<<"$err" && grep -q "serving daemon's own store" <<<"$err" \
+  && ok "model-less diagnostic gives a store-agnostic pull against the live endpoint" || bad "model-less pull guidance: $err"
+grep -q 'systemctl status ollama.service' <<<"$err" \
+  && ok "model-less diagnostic names the live system unit" || bad "model-less diagnostic missed the live unit: $err"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

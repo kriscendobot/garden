@@ -40,14 +40,63 @@ codex_local_endpoint_ready() {
   codex_local_model_present "${1:?model}"
 }
 
+# codex_unit_active <scope-flag|""> <unit> — read-only "is this unit running?".  Bounded
+# so a wedged systemd/dbus cannot hang a preflight, and silent about its verdict except
+# through the exit status.  It NEVER starts, enables or disables anything.
+codex_unit_active() {
+  local scope="$1" unit="${2:?unit}"
+  command -v systemctl >/dev/null 2>&1 || return 1
+  if [ -n "$scope" ]; then
+    timeout 5 systemctl "$scope" is-active --quiet "$unit" >/dev/null 2>&1
+  else
+    timeout 5 systemctl is-active --quiet "$unit" >/dev/null 2>&1
+  fi
+}
+
+# codex_local_endpoint_unit_hint — name the unit an operator should ACTUALLY inspect on
+# THIS host.  Two different units can serve $GARDEN_LOCAL_OLLAMA_URL and the guidance
+# must not assume one, because naming the wrong one walks the reader to a dead unit
+# while the live endpoint is the other:
+#
+#   * garden-ollama.service — the garden's supervised `systemctl --user` unit.  It is
+#     hermit-count-gated (install-units.sh reconcile_ollama_unit enables it only where
+#     `hermits: N>0`), so on a zero-hermit host it is installed-but-DISABLED.
+#   * ollama.service — the Ollama installer's SYSTEM unit, running as the `ollama` user.
+#     The Dockerfile stopped enabling it (2026-07-28, "make garden Ollama the sole
+#     endpoint owner"), but a container built from any earlier image still has it
+#     enabled and holding :11434, and it is then the endpoint local inference is really
+#     served from.  Observed live on endolin-garden2 (hermits: 0, garden-ollama
+#     disabled, system ollama.service active) — the case this hint exists for.
+#
+# The probe is read-only; deciding which unit SHOULD own the port is an operator call,
+# not something a preflight may act on.
+codex_local_endpoint_unit_hint() {
+  local garden=0 system=0
+  codex_unit_active --user garden-ollama.service && garden=1
+  codex_unit_active '' ollama.service && system=1
+  if [ "$garden" = 1 ] && [ "$system" = 1 ]; then
+    printf 'Two units claim the endpoint here: the garden-supervised `systemctl --user status garden-ollama.service` and the installer system unit `systemctl status ollama.service`. Only one can hold the port, so the other is looping on address-in-use; read both journals before changing either.'
+  elif [ "$system" = 1 ]; then
+    printf 'On this host the live endpoint is the installer SYSTEM unit, not the garden one: check `systemctl status ollama.service` (runs as the `ollama` user, so root manages it). `garden-ollama.service` is `--user`-scoped and hermit-count-gated (`hermits: N>0`), so it is disabled here and starting it cannot displace the system unit.'
+  elif [ "$garden" = 1 ]; then
+    printf 'The live endpoint is the garden-supervised unit: check `systemctl --user status garden-ollama.service` and `journalctl --user -u garden-ollama.service`.'
+  else
+    printf 'No local-inference unit is running: neither `systemctl --user status garden-ollama.service` (the garden-supervised one, enabled only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit, run as the `ollama` user) is active. Bring up whichever this host is meant to serve with.'
+  fi
+}
+
 # codex_local_self_heal <kind> <base> — recover an unreachable local endpoint: start
 # the supervised garden-ollama.service (Restart=always covers a crash BETWEEN jobs;
 # this covers "the endpoint was already down when a hermit job started", plus a
 # first-ever start), then poll /v1/models for the pinned model. Returns 0 as soon as
 # the model is present, 1 if it remains unavailable after GARDEN_OLLAMA_HEAL_TIMEOUT.
+# Only the garden's `--user` unit is startable from here: the installer's system
+# ollama.service needs root, and if THAT unit is the one holding the port this start
+# fails on address-in-use — which is why the give-up diagnostic below appends the
+# host-accurate unit hint rather than repeating one unit name.
 codex_local_self_heal() {
   local kind="${1:?kind}" base="${2:?base}" model="${3:?model}" waited=0
-  log "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL does not serve '$model' for $kind '$base'; starting garden-ollama.service and polling ~${GARDEN_OLLAMA_HEAL_TIMEOUT}s for the pinned model"
+  log "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL does not serve '$model' for $kind '$base'; starting the garden-supervised garden-ollama.service and polling ~${GARDEN_OLLAMA_HEAL_TIMEOUT}s for the pinned model"
   systemctl --user start garden-ollama.service >/dev/null 2>&1 || true
   while [ "$waited" -lt "$GARDEN_OLLAMA_HEAL_TIMEOUT" ]; do
     if codex_local_endpoint_ready "$model"; then
@@ -91,15 +140,21 @@ codex_provider_preflight() {
     if codex_local_endpoint_ready "$model"; then return 0; fi
     if [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base" "$model"; then return 0; fi
     if codex_local_endpoint_responds; then
-      local msg="local inference endpoint $GARDEN_LOCAL_OLLAMA_URL serves no $model; $kind cannot run '$base'. Ensure garden-ollama.service owns the port and pull $model into the bot user's store."
+      # The store that matters is the one owned by the daemon holding the port — a model
+      # sitting in another user's ~/.ollama is invisible to the endpoint (the bot's store
+      # held qwen3.6 while the `ollama`-user system unit served an empty list, 2026-07-28).
+      # `ollama pull` is a CLIENT call against $OLLAMA_HOST, so pulling against the LIVE
+      # endpoint lands the model in the right store whichever unit owns it.
+      local msg
+      msg="local inference endpoint $GARDEN_LOCAL_OLLAMA_URL serves no $model; $kind cannot run '$base'. Run \`ollama pull $model\` against this endpoint (a client call, so it lands in the serving daemon's own store — a copy in another user's store is invisible here). $(codex_local_endpoint_unit_hint)"
       alert_maintainer "ollama-model-less-endpoint-${GARDEN}" "$msg"
       printf '%s\n' "$msg" >&2
       return 1
     fi
-    printf 'local inference endpoint %s not reachable%s; %s cannot run %q. Ensure garden-ollama.service is running (ollama on PATH, GPU group access — context/operations/local-inference-amd.md).\n' \
+    printf 'local inference endpoint %s not reachable%s; %s cannot run %q. %s Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.\n' \
       "$GARDEN_LOCAL_OLLAMA_URL" \
       "$([ "$self_heal" = 1 ] && printf ' and self-heal (start garden-ollama.service + %ss poll) failed' "$GARDEN_OLLAMA_HEAL_TIMEOUT")" \
-      "$kind" "$base" >&2
+      "$kind" "$base" "$(codex_local_endpoint_unit_hint)" >&2
     return 1
   fi
 
