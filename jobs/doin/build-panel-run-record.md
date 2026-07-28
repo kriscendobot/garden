@@ -70,3 +70,10 @@ Posted from issue #62 follow-up (`issue-garden-62-jcorbin-cross-analysis`),
 responding to @jcorbin's cross-analysis call-out that the garden should be able to
 audit its own evaluator. It cannot today, because the evidence is deleted. This is
 the enabling change; the audit itself is a separate job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:30:48Z
