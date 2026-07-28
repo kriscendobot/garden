@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:29:32Z_
+_As of 2026-07-28T01:29:58Z_
 
 ## Latest
 
@@ -1337,6 +1337,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > local inference endpoint http://127.0.0.1:11434/v1 answers but serves no models; refusing to stand down for the foreign listener on 127.0.0.1:11434
 
 - `20260728T012918Z-26056f` — from watchdog:foreman-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T012918Z-26056f.md)
+
+> local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3.6; hermit cannot run 'foreman'. Ensure garden-ollama.service owns the port and pull qwen3.6 into the bot user's store.
+
+- `20260728T012939Z-e8b935` — from watchdog:foreman-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T012939Z-e8b935.md)
 
 > local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3.6; hermit cannot run 'foreman'. Ensure garden-ollama.service owns the port and pull qwen3.6 into the bot user's store.
 
@@ -6221,7 +6225,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.1M | $460.02 _(notional, rate-card)_ | no quota set |
+| Claude | 35.1M | $460.25 _(notional, rate-card)_ | no quota set |
 | Codex | 18.9M _(+469.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
