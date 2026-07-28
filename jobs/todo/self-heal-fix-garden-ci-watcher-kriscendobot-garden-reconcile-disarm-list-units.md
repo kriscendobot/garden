@@ -1,0 +1,11 @@
+In `scripts/jobs/repo-watcher.sh`, `reconcile_set()` builds its `have` (already-armed instances) set at line 168 with `unit_ctl list-unit-files "$prefix@*.timer"`. For a systemd *template* unit, `list-unit-files` enumerates only on-disk unit files, so it returns just the bare `garden-<prefix>@.timer` template and never the enabled per-repo instances (which are `.wants/` symlinks, not files). Confirmed: `systemctl --user list-unit-files 'garden-ci-watcher@*.timer'` returns one line (`garden-ci-watcher@.timer indirect enabled`), while `systemctl --user list-units 'garden-ci-watcher@*.timer' --all` returns all 18 instantiated timers. Result: `have` is always empty, so the disarm loop (lines 194–199) is dead code and no unwatched repo's per-repo watcher timers are ever torn down.
+
+Fix: enumerate armed instances via loaded units instead of unit files — change line 168 to
+`done < <(unit_ctl list-units "$prefix@*.timer" --all --no-legend 2>/dev/null || true)`
+The existing parse (`case "$unit" in "$prefix"@*.timer)` extracting `inst`, skipping the bare template via `[ -n "$inst" ]`) works unchanged on `list-units` output (first column is the unit name). Keep the `list-unit-files` call at line 81 (`ensure_template_installed`) as-is — there it correctly wants the on-disk template. If `unit_ctl`/mock-systemctl in the tests only stubs `list-unit-files`, extend the mock and the disarm-loop test to cover a `list-units`-visible instance whose journal file is gone, asserting it gets `disable --now`'d.
+
+Failure signature this closes: `garden-ci-watcher@kriscendobot-garden` (and its sibling triager/comment-watcher instances) FATAL-flapping `gh: Not Found (HTTP 404)` on the dead fork `kriscendobot/garden` despite the `watch-optout/kriscendobot-garden` tombstone and its removal from `comment-repos/`.
+
+Immediate remediation (do this on the affected host(s), e.g. endolin-garden2, before/independently of the code fix, to stop the current flap): `systemctl --user disable --now garden-ci-watcher@kriscendobot-garden.timer garden-comment-watcher@kriscendobot-garden.timer garden-triager@kriscendobot-garden.timer`. Once the reconcile fix ships, the next `repo-watcher` tick performs this teardown automatically for any tombstoned/removed repo.
+
+<!-- garden-reaped: 2 -->
