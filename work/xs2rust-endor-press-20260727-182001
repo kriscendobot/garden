@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 13
+worker_kind: gardener
+claimed_at: 2026-07-28T16:54:13Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-xs2rust-endor-press-20260727-182001
