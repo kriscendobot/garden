@@ -8,9 +8,4 @@ Failure signature this closes: `garden-ci-watcher@kriscendobot-garden` (and its 
 
 Immediate remediation (do this on the affected host(s), e.g. endolin-garden2, before/independently of the code fix, to stop the current flap): `systemctl --user disable --now garden-ci-watcher@kriscendobot-garden.timer garden-comment-watcher@kriscendobot-garden.timer garden-triager@kriscendobot-garden.timer`. Once the reconcile fix ships, the next `repo-watcher` tick performs this teardown automatically for any tombstoned/removed repo.
 
----
-claim:
-  host: ps23
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-27T20:27:27Z
+<!-- garden-reaped: 1 -->

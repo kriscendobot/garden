@@ -1,5 +1,0 @@
-host: ps23
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-07-27T20:33:20Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr779-gauntlet-backfill

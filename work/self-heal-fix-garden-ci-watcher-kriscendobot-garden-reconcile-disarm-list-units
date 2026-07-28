@@ -1,5 +1,0 @@
-host: ps23
-gardener: 8
-worker_kind: gardener
-claimed_at: 2026-07-27T20:27:27Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units
