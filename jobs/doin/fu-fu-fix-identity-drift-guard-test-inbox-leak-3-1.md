@@ -2,6 +2,7 @@ In the garden's own repo (kriscendobot/garden, branch `main2`), the maintainer-i
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: ps23-garden-f65473ae
