@@ -79,9 +79,13 @@ negatives (a regression that slips to CI) are not. Steps are not sense-gated,
 matching the gardening state machine's "evaluation gate (always)" discipline.
 
 The `codegen` step runs the project's generators (candidates
-`gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types`) so the
-generation happens as part of the gate rather than being left to an agent's
-memory. Immediately after every step, the **codegen-then-clean gate** checks
+`gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types:gen`,
+`build:types`) so the generation happens as part of the gate rather than being
+left to an agent's memory. This is the one step that deliberately wants the
+**mutating** variant rather than the check variant, because the dirty gate below
+is the detector: a candidate that only compiles or verifies (`build:types`, a
+`tsc --build`) regenerates nothing and lets a staled artifact through, so a real
+generator (`build:types:gen`) outranks it. Immediately after every step, the **codegen-then-clean gate** checks
 `git status --porcelain`: if the worktree became dirty, a checked-in generated
 artifact was **stale** (a generator just regenerated it), and the gate fails with
 `STEP codegen left tree dirty: generated artifacts are stale — commit the regen`
@@ -126,7 +130,7 @@ Per-step command discovery (each step, in order, first match wins):
    | format  | `format:check`, `check:format`, `format-check`, `format` |
    | lint    | `lint:check`, `lint`, `eslint`                  |
    | build   | `build`, `compile`, `build:js`                  |
-   | codegen | `gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types` |
+   | codegen | `gen:code-mode-types`, `codegen`, `gen`, `generate`, `build:types:gen`, `build:types` |
    | test    | `test`, `test:unit`                            |
    | docs    | `docs`, `build:types`, `generate-docs`         |
 
@@ -314,3 +318,15 @@ and `shellcheck` clean.
   `scripts/jobs/ensure-project-worktree.sh` already applied to the dep install.
   The tell is a "failure" whose message is `permission denied` rather than an
   assertion: that is the environment, not the change.
+- _2026-07-28_: closed a coverage gap found in the same shepherd run. On
+  endojs/endo-but-for-bots the `codegen` step matched `build:types` at the repo
+  root, which is `tsc --build tsconfig.composite.json` — a **compile**, not a
+  generator. The real generator is `build:types:gen`
+  (`node scripts/generate-composite-tsconfigs.mjs`), so nothing regenerated the
+  composite tsconfigs and the dirty gate had nothing to catch. Adding a workspace
+  dependency (`@endo/harden` to `packages/agent-tools`) staled
+  `packages/agent-tools/tsconfig.composite.json`, the local gate stayed silent,
+  and CI's separate `yarn build:types:check` step turned `lint` red. Fix:
+  `build:types:gen` now outranks `build:types` in the codegen candidates. General
+  lesson for the table: a codegen candidate must **mutate**; a check-or-compile
+  script in that slot makes the codegen-then-clean gate vacuous.

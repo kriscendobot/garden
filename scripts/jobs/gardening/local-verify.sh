@@ -96,8 +96,11 @@ candidates() {
     build)   echo "build compile build:js" ;;
     # codegen runs the project's generators so a staled checked-in artifact is
     # regenerated in-tree, then caught by the codegen-then-clean gate below —
-    # rather than left to an agent's memory and discovered on CI.
-    codegen) echo "gen:code-mode-types codegen gen generate build:types" ;;
+    # rather than left to an agent's memory and discovered on CI. Unlike the
+    # other steps this one wants the MUTATING variant, since the dirty gate is
+    # the detector: `build:types:gen` (the generator) must therefore outrank
+    # `build:types` (a tsc compile that regenerates nothing).
+    codegen) echo "gen:code-mode-types codegen gen generate build:types:gen build:types" ;;
     test)    echo "test test:unit" ;;
     docs)    echo "docs build:types generate-docs" ;;
     *)       echo "" ;;
