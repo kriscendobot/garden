@@ -285,3 +285,67 @@ rep_human_dollars() {
     printf "%.6f", mins/60.0*rate;
   }'
 }
+
+# --- demerits (hermit-failure capability probe; design hermit-failure-capability-
+# demerit.md, feeding gnome-backend-verified-autotune.md) ---------------------
+# A DEMERIT records that an arm FAILED a job that a CAPABLE reference model
+# (claude/codex) COMPLETED on a bounded follow-up probe (hermit-capability-probe.sh).
+# It is an ORDINARY reputation event — same schema the reducer already folds — with
+# `accepted: false` and a NON-censored `aggregate_dollars`, so recompute_arms counts
+# it as one un-accepted ATTEMPT for the arm: attempts++ without accepts++, driving
+# that arm's `acceptance_rate` DOWN for the (work_class, target). That is exactly the
+# routing signal future selection / the gnome-backend autotune reads — "local inference
+# is unfit for this job class." A censored aggregate would be skipped by the reducer
+# (cen++; next) and register nothing, so a demerit MUST carry a positive dollar figure.
+#
+# The demerit event is written under a demerit-SUFFIXED base so it never collides with
+# the capable arm's own completion event for the SAME original base: complete-job.sh
+# writes reputation/events/<base>.md when a (possibly different) worker later completes
+# the requeued job, whereas a demerit writes reputation/events/<base>.<suffix>.md. Both
+# fold by their OWN arm fields, independently.
+: "${GARDEN_REP_DEMERIT_SUFFIX:=hermit-demerit}"
+
+# rep_demerit_event_relpath <base> — journal-relative path of <base>'s demerit event.
+rep_demerit_event_relpath() {
+  printf '%s/%s.%s.md\n' "$REP_EVENTS" "$(rep_sanitize "${1:?}")" "$GARDEN_REP_DEMERIT_SUFFIX"
+}
+
+# rep_record_demerit <dir> <base> <kind> <provider> <model> <tht> <wc> <tgt> \
+#                    <dollars> [probe_agent] [probe_model]
+# Write (and git-add, in the journal clone <dir>) a demerit reputation event for the
+# (kind,provider,model,thoughtfulness) arm × <wc> × <tgt>, attributing the failure of
+# <base> that a capable probe DID complete. Deterministic and fail-open; the caller
+# pushes it on its own single-writer CAS. A non-numeric/`censored` <dollars> falls back
+# to the cold-prior mean so the event always folds as a counted attempt.
+rep_record_demerit() {
+  local dir="${1:?}" base="${2:?}" kind="${3:?}" provider="${4:?}" model="${5:?}"
+  local tht="${6:?}" wc="${7:?}" tgt="${8:?}" dollars="${9:?}" pagent="${10:-unknown}" pmodel="${11:-unknown}"
+  local rel; rel="$(rep_demerit_event_relpath "$base")"
+  case "$dollars" in ''|censored|*[!0-9.]*) dollars="${GARDEN_REP_COLD_MEAN:-10}" ;; esac
+  mkdir -p "$dir/$(dirname "$rel")"
+  {
+    printf -- '---\n'
+    printf 'base: %s.%s\n' "$base" "$GARDEN_REP_DEMERIT_SUFFIX"
+    printf 'kind: %s\n' "$kind"
+    printf 'provider: %s\n' "$provider"
+    printf 'model: %s\n' "$model"
+    printf 'thoughtfulness: %s\n' "$tht"
+    printf 'work_class: %s\n' "$wc"
+    printf 'target: %s\n' "$tgt"
+    printf 'accepted: false\n'
+    printf 'agentic_dollars: %s\n' "$dollars"
+    printf 'human_dollars: 0\n'
+    printf 'aggregate_dollars: %s\n' "$dollars"
+    printf 'demerit: true\n'
+    printf 'demerit_of: %s\n' "$base"
+    printf 'probe_agent: %s\n' "$pagent"
+    printf 'probe_model: %s\n' "$pmodel"
+    printf 'source: probe\n'
+    printf 'recorded_by: %s\n' "${GARDEN:-unknown}/hermit-probe"
+    printf 'recorded_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n'
+    printf 'demerit for %s: arm %s/%s/%s/%s FAILED work_class %s target %s where a capable probe (%s/%s) succeeded\n' \
+      "$base" "$kind" "$provider" "$model" "$tht" "$wc" "$tgt" "$pagent" "$pmodel"
+  } > "$dir/$rel"
+  git -C "$dir" add "$rel" 2>/dev/null || true
+}

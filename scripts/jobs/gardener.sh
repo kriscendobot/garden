@@ -1231,6 +1231,28 @@ while :; do
       printf 'gardener-%s on %s: job %s handler FAILED (rc=%s); output captured as %s, escalated to the gardener inbox, left in doin for the reaper\n' \
         "$id" "$GARDEN" "$base" "$rc" "$sha" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
+
+      # --- hermit capability probe (design hermit-failure-capability-demerit.md) --
+      # A local/ollama (hermit) worker that DETERMINISTICALLY failed this job — a REAL
+      # failure, the classifier above having already excluded external signal-kills,
+      # wall-clock timeouts, environmental/offline rcs, and transient-claude blips — is
+      # the signal the maintainer (2026-07-27) asked us to MEASURE: would a capable
+      # reference model (claude/codex) have completed the same work? Fire a BOUNDED,
+      # best-effort, once-per-base follow-up probe that re-attempts the work on a capable
+      # model in an ISOLATED throwaway worktree (measurement-only: it never pushes, never
+      # touches this job's board entry, never double-runs live work). On
+      # capable-succeeds-where-hermit-failed it records a DEMERIT against the (local,
+      # hermit, work-class) reputation arm, building the routing signal that local
+      # inference is unfit for that job class. ONLY for the hermit kind — a capable
+      # gardener's own real failure says nothing about local inference. Subshell-isolated
+      # and internally time-bounded so it can never strand or wedge the loop; it skips
+      # itself under the fleet brake (budget freeze). It runs INLINE on this just-failed
+      # worker (which is about to idle-backoff anyway), so no orphan process escapes the
+      # spine's supervision.
+      if [ "$KIND" = hermit ] && [ "${GARDEN_HERMIT_PROBE:-1}" = 1 ]; then
+        ( "$HERE/hermit-capability-probe.sh" "$base" "$jobfile" ) >>"$capture" 2>&1 \
+          || log "hermit capability probe for '$base' returned non-zero (best-effort; ignored)"
+      fi
     fi
   fi
   rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
