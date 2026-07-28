@@ -1,0 +1,2 @@
+base: improve-drift-scan-refresh-once-per-source
+identity: mentor:scripts/jobs/library-source-drift-scan.sh
