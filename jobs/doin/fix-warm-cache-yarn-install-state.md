@@ -98,3 +98,10 @@ maintainer's standing "run every lint and test locally before pushing"
 policy has not actually been met by the harness on warm worktrees.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:13:10Z
