@@ -88,3 +88,10 @@ first suggested remedy and is the durable answer.
   can now be dropped as superseded.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:43:15Z
