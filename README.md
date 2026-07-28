@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T21:11:43Z_
+_As of 2026-07-28T21:15:31Z_
 
 ## Latest
 
@@ -21,11 +21,11 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 11d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 10d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 11d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 14d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 26d)
 
-_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -3138,6 +3138,110 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-measure-requeue-exit-knowledge-loss-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-measure-requeue-exit-knowledge-loss-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/measure-requeue-exit-knowledge-loss; it stays HELD until a human promotes it
+> (promote-plan.sh measure-requeue-exit-knowledge-loss) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: measure-requeue-exit-knowledge-loss
+>
+> --- original job body ---
+> ---
+> role: builder
+> ---
+> # Measure and close the cross-host gap in requeue session-resume
+>
+> Quantify what a worker exit actually costs the garden, then close the one gap the
+> measurement is expected to expose.
+>
+> ## The mechanism, as built
+>
+> `scripts/jobs/handlers/gardener-claude.sh` pins a **deterministic** Claude session
+> id derived from the job base, so a reaper requeue can `--resume <sid>` and carry
+> the dead session's transcript forward. The per-job worktree is preserved across the
+> requeue, so uncommitted edits survive too. This is a real answer to per-exit
+> knowledge loss and it works — but the handler's own comment states the limit
+> plainly:
+>
+> > Resume is best-effort and same-host: a transcript lives under
+> > `~/.claude/projects/<encoded-cwd>/<sid>.jsonl` on the host that wrote it. If the
+> > requeue is claimed on another host (or the transcript was pruned) `$resuming` is
+> > false, `ensure_worktree` recreated a fresh worktree, and we fall back to a fresh
+> > session.
+>
+> A **cross-host requeue therefore loses everything** — transcript and worktree
+> both — and the resumed worker is told it is resuming a session "carried forward
+> intact" that it does not in fact have. The garden is a leader/follower multibot
+> fleet in which gardeners run on every host and race-claim, so a cross-host requeue
+> is not a hypothetical.
+>
+> ## Part 1 — measure (do this first, and report it even if part 2 is deferred)
+>
+> From the journal alone:
+>
+> - Requeue rate. Baseline measured 2026-07-28: **26 of 3659** `jobs/tada/` reports
+>   carry a `garden-reaped:` marker (~0.7%), with a reap-count distribution of
+>   13×1, 2×2, 2×3, 3×4 (plus 7 with an empty value — find out why the marker is
+>   written without a count, and fix it if it is a bug).
+> - **The number that matters:** of those reaped jobs, how many were re-claimed on a
+>   **different host** than the original claim? Job files carry `claim: host:`, so
+>   compare the claim host across requeues. That fraction is the true
+>   total-loss rate.
+> - Where recoverable, whether the resumed run actually resumed: the handler logs
+>   `resuming session <sid> for requeued job '<base>'`. Report the resume-success vs
+>   fresh-fallback split and say how confident the log evidence is.
+>
+> Report these as a small table. If the cross-host loss rate turns out to be zero or
+> near-zero in practice, **say so and stop** — part 2 is then not worth building, and
+> that is a legitimate and valuable outcome.
+>
+> ## Part 2 — close the honesty gap, and optionally the capability gap
+>
+> Two changes, in order of cost:
+>
+> 1. **Cheap and unconditionally worth doing: stop asserting a false resume.**
+>    `worker_job_prompt` (`scripts/jobs/handlers/worker-common.sh`) emits the same
+>    `resume` framing — "carried forward to you intact" — regardless of whether
+>    `--resume` actually attached. On a fresh-session fallback that statement is
+>    false, and it actively misleads the worker into trusting a memory it does not
+>    have and into expecting uncommitted work in a worktree that was recreated.
+>    Split the framing: a **true resume** keeps today's text; a **fallback** says
+>    plainly that the prior session's transcript and working tree were lost, that
+>    only committed work and the journal survive, and that the worker should re-derive
+>    state rather than assume it.
+>
+> 2. **Conditional on part 1's number: make the requeue host-affine or the
+>    transcript host-portable.** Options to weigh in the tada, not to pick blindly —
+>    a claim preference for the original host on a requeue (cheap, weakens the
+>    race), or draining the transcript to the already-armed `transcripts2` archive
+>    eagerly enough that another host could fetch it (expensive, and the archive
+>    sweeps only on a 6h idle timer today). Recommend; do not build the expensive
+>    option without maintainer sign-off.
+>
+> ## Verification
+>
+> - Part 1: the table, with the query method stated so it is reproducible.
+> - Part 2.1: a test asserting the two prompt framings differ on the resuming vs
+>   fallback path. `scripts/jobs/test/gardener-worktree-test.sh` already distinguishes
+>   `--resume` from `--session-id` and is the natural place.
+>
+> ## Why now
+>
+> Posted from issue #62 follow-up (`issue-garden-62-jcorbin-cross-analysis`).
+> @jcorbin's devoker cross-analysis flagged that the garden's TerraLingua
+> self-assessment was silent on what a worker's exit costs — its architecture
+> (persistent lanes, requeueing board) abstracts death away, where devoker's
+> burst sessions live it. The machinery here turned out to be better than that
+> critique assumed; the gap is that it has never been measured and that it lies to
+> the worker when it fails.
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr874-gauntlet-retry` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr874-gauntlet-retry.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -3257,14 +3361,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.6M | $756.14 _(notional, rate-card)_ | no quota set |
-| Codex | 289.8M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 53.6M | $762.04 _(notional, rate-card)_ | no quota set |
+| Codex | 287.4M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (40)
+### doin (39)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3276,6 +3380,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-192002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260728-192002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
+- [`endojs-endo-but-for-bots-pr671-review-36ae135d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-36ae135d.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
@@ -3294,7 +3399,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
-- [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-192002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -3302,17 +3406,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`qwen-model-watch-20260728-180502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/qwen-model-watch-20260728-180502.md) — scholar — weekly watch: new Qwen models harnessable by ollama on our hardware
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
-- [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3723)
+### tada (3724)
+- [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/validate-fireworks-job-end-to-end.md) — Report
 - [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-primitives.md) — What I did
 - [`fireworks-canary-20260728-glm52`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fireworks-canary-20260728-glm52.md) — Cost
 - [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Completion report
 - [`fix-stale-bulletin-pages-url`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-stale-bulletin-pages-url.md) — Completion report
-- [`finbot-progress-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-192002.md) — Completion report — finbot progress cycle 20260728-192002
-- … and 3718 more
+- … and 3719 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3384,6 +3487,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-review-miss-gaming-category.md) — _normal_ · Add an evaluator-gaming category to the review-retrospective loop
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
+- [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
@@ -3456,6 +3560,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr881-review-d23c8dbf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-d23c8dbf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr881-review-b8bb5665-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-b8bb5665-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr882-review-4a754464-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr882-review-4a754464-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #882 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr671-review-36ae135d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-36ae135d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
