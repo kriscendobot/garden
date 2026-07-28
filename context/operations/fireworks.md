@@ -1,6 +1,6 @@
 ---
 created: 2026-07-25
-updated: 2026-07-25
+updated: 2026-07-28
 author: gardener
 ---
 
@@ -68,3 +68,50 @@ HTTP 429 means adaptive per-account/model capacity and is retried with exponenti
 backoff. HTTP 503 is load shedding and is also retried. Authentication errors and
 other configuration failures are not retried. Do not copy API response bodies into
 reports or journal entries.
+
+## Validated end to end (2026-07-28)
+
+The lane was exercised end to end on `endolin-garden2-5bcdff64` and returned to
+zero. What the run established, so a later operator need not rediscover it:
+
+**Resolving a wire id.** The routing table row is `fireworks	fireworks/*`, so
+`_model_classify` accepts any `fireworks/`-namespaced id — the table does not and
+should not police the catalog. The live set is whatever `GET $GARDEN_FIREWORKS_BASE_URL/models`
+returns for the account; on this date it listed five Serverless ids. Read that list
+for ids only (`jq -r '.data[].id'`) and never persist the body. The canary used
+`fireworks/accounts/fireworks/models/glm-5p2`, confirmed with
+`resolve_model_tier fireworks fireworks/accounts/fireworks/models/glm-5p2`, which
+echoes the id back when it is accepted and an empty string when it is not. Run that
+check before posting: an id the resolver rejects is treated as unpinned and the
+canary will simply never be claimed.
+
+**The explicit-model-only gate holds.** Observed directly in the logs: all eight
+gardeners (anthropic), the cleric (openai), and the mystic (moonshot) each declined
+the canary with `pinned to a model this <kind> (<provider>) cannot honor; skipping
+(backend-fit)`. Only the fireworker claimed it. A pinned Fireworks job cannot wander
+onto another lane, and an unpinned job cannot wander onto Fireworks.
+
+**Reputation scoping is correct despite the shared handler.** `handlers/cleric-codex.sh`
+serves both the cleric (openai) and the fireworker, so mis-scoping would silently
+bill Fireworks work to the **openai** arm. It does not: the event recorded
+`kind: fireworker`, `provider: fireworks`,
+`model: fireworks/accounts/fireworks/models/glm-5p2`,
+`recorded_by: …/fireworker-1`. Re-check this specific field set on any future change
+to the shared handler.
+
+**The codex lane emits no token data.** The successful canary's ledger row was
+`{"outcome":"tada","source":"none","elapsed_s":8}` — `complete-job.sh`'s fallback,
+with no token fields. The handler has a parse path for it (the jq extraction of
+codex's terminal `token_count` event, ~line 258), but it yielded nothing. This is
+codex-lane-wide rather than a Fireworks defect: of the 110 ledger rows carrying
+`source: "result"` with real tokens and dollars, every one is the anthropic/claude
+lane, and no codex-lane row has ever carried tokens. Wall-clock, by contrast, is
+recorded reliably. Consequently a Fireworks arm stays `agentic_dollars: censored`,
+and cost for this lane is currently unmeasured — weigh that before authorizing a
+trial larger than a canary.
+
+**Declaring zero is not the same as declaring nothing.** The scaler treats an absent
+`fireworkers:` line as "this host does not declare this kind" and leaves the pool
+alone; an explicit `fireworkers: 0` means the same thing operationally but records
+that the kind was considered and is deliberately off. This host now carries the
+explicit `0`.
