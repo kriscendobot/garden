@@ -1,8 +1,0 @@
-In the garden's own repo (kriscendobot/garden), correct the existing `qwen-model-watch` recurring job spec on the journal schedule (`scripts/jobs/set-schedule.sh`, skill `skills/schedule/SKILL.md`): replace its body so it names the ollama library page and the Hugging Face `Qwen` org as primary sources instead of the unfetchable Qwen blog, and instructs the runner to read the live model routing table plus `ollama list` rather than hardcoding a baseline. The hardcoded "serves qwen3.6" premise in the current body is what produced the wrong conclusion in report `qwen-model-watch-20260728-180502`.
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-28T22:28:45Z
