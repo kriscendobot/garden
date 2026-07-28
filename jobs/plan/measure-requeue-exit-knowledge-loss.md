@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 4
+deadline_overruns: 1
+poisoned_at: 2026-07-28T21:13:06Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T21:13:06Z
+---
+
+---
 role: builder
 ---
 # Measure and close the cross-host gap in requeue session-resume
@@ -87,13 +101,5 @@ burst sessions live it. The machinery here turned out to be better than that
 critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-28T21:03:27Z

@@ -97,12 +97,4 @@ so this is a blind spot rather than a silent green -- but it means the
 maintainer's standing "run every lint and test locally before pushing"
 policy has not actually been met by the harness on warm worktrees.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-28T21:03:16Z
+<!-- garden-reaped: 2 -->

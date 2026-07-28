@@ -37,9 +37,4 @@ on all 21 files is already correct (1-212 / 214-522 / 524-649); do not change it
 Low priority: cosmetic navigation accuracy, not a correctness gate. Land through
 `land-journal-edit.sh` and re-run the step-8 integrity gate as usual.
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-28T17:03:09Z
+<!-- garden-reaped: 1 -->
