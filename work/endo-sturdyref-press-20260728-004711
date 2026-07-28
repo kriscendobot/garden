@@ -1,5 +1,0 @@
-host: ps23
-gardener: 4
-worker_kind: gardener
-claimed_at: 2026-07-28T00:48:39Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-endo-sturdyref-press-20260728-004711

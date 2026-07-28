@@ -25,9 +25,4 @@ agent, record a progress observation and complete; take the wheel only when idle
 stalled. No bar is "green" without real-execution evidence — cite the command and
 its output.
 
----
-claim:
-  host: ps23
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-28T00:48:13Z
+<!-- garden-reaped: 1 -->

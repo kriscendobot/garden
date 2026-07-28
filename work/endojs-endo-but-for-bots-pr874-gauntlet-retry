@@ -1,5 +1,0 @@
-host: ps23
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-07-28T00:47:58Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr874-gauntlet-retry
