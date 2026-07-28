@@ -89,6 +89,7 @@ the worker when it fails.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: ps23-garden-f65473ae
