@@ -1,0 +1,7 @@
+---
+kind: progress
+role: gardener
+host: endolin-garden2-5bcdff64
+at: 2026-07-28T08:04:54Z
+---
+gardener-1 on endolin-garden2-5bcdff64: job endojs-endo-but-for-bots-form-data-advisory handler exited rc=1 (signal-kill/timeout/empty/transient-signature output); transient handler outage, requeue cycle 1 of poison threshold 5 (elapsed=513s); left in doin for reaper requeue
