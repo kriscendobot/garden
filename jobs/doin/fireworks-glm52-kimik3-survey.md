@@ -63,3 +63,10 @@ have, is the **current wire model id** for each of the two targets.
 A `jobs/tada/` report carries the wire ids (or an explicit statement that one could
 not be established and why), the K3 dual-backend recommendation, and a build
 proposal specific enough to execute without re-research.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T07:20:34Z
