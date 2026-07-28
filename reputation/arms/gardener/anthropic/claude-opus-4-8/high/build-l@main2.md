@@ -6,7 +6,7 @@ work_class: build:l
 target: main2
 attempts: 1
 accepts: 1
-censored: 26
+censored: 27
 mean_dollars: 1.309138
 m2: 0.000000
 acceptance_rate: 1.0000
