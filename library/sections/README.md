@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6673 (530 parent indexes + 6143 children).
+Total section files: 6691 (530 parent indexes + 6161 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -258,6 +258,21 @@ Total section files: 6673 (530 parent indexes + 6143 children).
 - [athanor--readme--pi-agent-sync](athanor--readme--pi-agent-sync.md)
 - [athanor--readme--registry-and-stable-ports](athanor--readme--registry-and-stable-ports.md)
 - [athanor--readme--supervisor-and-observability](athanor--readme--supervisor-and-observability.md)
+
+### atproto--specs-did
+
+- [atproto--specs-did--blessed-did-methods](atproto--specs-did--blessed-did-methods.md)
+- [atproto--specs-did--did-document-atproto-fields](atproto--specs-did--did-document-atproto-fields.md)
+- [atproto--specs-did--did-identifier-syntax](atproto--specs-did--did-identifier-syntax.md)
+- [atproto--specs-did--public-key-representation](atproto--specs-did--public-key-representation.md)
+
+### atproto--specs-repository
+
+- [atproto--specs-repository--car-export-and-diffs](atproto--specs-repository--car-export-and-diffs.md)
+- [atproto--specs-repository--commit-objects-and-signing](atproto--specs-repository--commit-objects-and-signing.md)
+- [atproto--specs-repository--mst-structure](atproto--specs-repository--mst-structure.md)
+- [atproto--specs-repository--paths-records-and-cid-formats](atproto--specs-repository--paths-records-and-cid-formats.md)
+- [atproto--specs-repository--self-certifying-repository](atproto--specs-repository--self-certifying-repository.md)
 
 ### blick--readme
 
@@ -8899,6 +8914,21 @@ Total section files: 6673 (530 parent indexes + 6143 children).
 - [typescript-website--packages-documentation-copy-en-modules-reference--exports-types-conditions-and-declaration-branches](typescript-website--packages-documentation-copy-en-modules-reference--exports-types-conditions-and-declaration-branches.md)
 - [typescript-website--packages-documentation-copy-en-modules-reference--node16-and-nodenext-resolution](typescript-website--packages-documentation-copy-en-modules-reference--node16-and-nodenext-resolution.md)
 - [typescript-website--packages-documentation-copy-en-modules-reference--typesversions-and-legacy-types-fields](typescript-website--packages-documentation-copy-en-modules-reference--typesversions-and-legacy-types-fields.md)
+
+### ucan-wg--delegation-readme
+
+- [ucan-wg--delegation-readme--command-and-policy](ucan-wg--delegation-readme--command-and-policy.md)
+- [ucan-wg--delegation-readme--delegation-payload](ucan-wg--delegation-readme--delegation-payload.md)
+- [ucan-wg--delegation-readme--subject-resource-and-powerline](ucan-wg--delegation-readme--subject-resource-and-powerline.md)
+- [ucan-wg--delegation-readme--token-validation](ucan-wg--delegation-readme--token-validation.md)
+
+### ucan-wg--spec-readme
+
+- [ucan-wg--spec-readme--canonicalization-envelope-and-cids](ucan-wg--spec-readme--canonicalization-envelope-and-cids.md)
+- [ucan-wg--spec-readme--capability-authority-command-attenuation](ucan-wg--spec-readme--capability-authority-command-attenuation.md)
+- [ucan-wg--spec-readme--inversion-of-control-and-security](ucan-wg--spec-readme--inversion-of-control-and-security.md)
+- [ucan-wg--spec-readme--motivation-and-auth-model-comparison](ucan-wg--spec-readme--motivation-and-auth-model-comparison.md)
+- [ucan-wg--spec-readme--roles-subject-issuer-audience](ucan-wg--spec-readme--roles-subject-issuer-audience.md)
 
 ### unum
 
