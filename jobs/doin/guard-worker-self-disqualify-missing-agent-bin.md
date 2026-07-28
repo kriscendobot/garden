@@ -98,3 +98,10 @@ resolver alone still fails open on a host where the CLI is genuinely absent.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:10:19Z
