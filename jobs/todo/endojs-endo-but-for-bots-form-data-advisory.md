@@ -1,16 +1,4 @@
----
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 4
-deadline_overruns: 1
-poisoned_at: 2026-07-28T12:43:06Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-28T12:43:06Z
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T12:57:39Z -->
 
 # fixer on endojs/endo-but-for-bots `llm`: close the form-data advisory in the dev toolchain
 
