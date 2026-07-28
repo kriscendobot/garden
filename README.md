@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T06:49:24Z_
+_As of 2026-07-28T06:53:03Z_
 
 ## Latest
 
@@ -1447,6 +1447,294 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > <https://kriskowal.github.io/garden/bulletin/> is a hard 404 (verified). Any
 > bookmark or external link to the old address is dead — I updated every in-repo
 > reference, but I cannot fix links held outside the repo.
+
+- `20260728T065045Z-4263ca` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065045Z-4263ca.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-ypSqRn/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-ypSqRn/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065053Z-ae1787` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065053Z-ae1787.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-ypSqRn/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-ypSqRn/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065100Z-0f958f` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065100Z-0f958f.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-ypSqRn/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-ypSqRn/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065143Z-826502` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065143Z-826502.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-PLpLEu/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-PLpLEu/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065150Z-b8dae6` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065150Z-b8dae6.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-PLpLEu/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-PLpLEu/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065159Z-614d03` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065159Z-614d03.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-PLpLEu/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-PLpLEu/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065228Z-947042` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065228Z-947042.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-MxUVjP/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-MxUVjP/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065233Z-1bfd39` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065233Z-1bfd39.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-MxUVjP/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-MxUVjP/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
+
+- `20260728T065246Z-ff6a75` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065246Z-ff6a75.md)
+
+> kind: error
+>
+> # Host-identity DRIFT detected (deterministic guard)
+>
+> **GARDEN=`driftname`** diverges from **hostname -s=`endolin-garden2-5bcdff64`** on this host,
+> with NO recorded parallel-pool override (checked GARDEN_IDENTITY_OVERRIDE and
+> `/tmp/idg-MxUVjP/state/identity-override`).
+>
+> GARDEN is the single key every per-host structure hangs off — claim metadata, the
+> `hosts/<host>` worker count, the journal index, and the leader/follower
+> predicate. An unrecorded divergence silently mislabels all of it (here: up to this
+> host's full gardener pool) and disables the leader gate.
+>
+> **Leader impact:** is-main-host reports FOLLOWER: the leader marker names 'endolin-garden2-5bcdff64' (this host's real hostname -s), but the drifted GARDEN=driftname does not match it — every leader-only singleton is being SKIPPED on the true leader host
+>
+> **Likely source:** an inherited-env `GARDEN` pinned for the fleet (commonly
+> `~/.config/environment.d/*.conf`, which the systemd --user manager inherits;
+> common.sh precedence step 1). Identity is otherwise DERIVED from `hostname -s`;
+> there is no `.garden` file consulted anymore. This is the endolinbot2 regression
+> class.
+>
+> **Fix:** remove the pinned `GARDEN` (delete the environment.d entry, then
+> `systemctl --user unset-environment GARDEN` and restart the pool) so identity
+> falls back to the derived `endolin-garden2-5bcdff64`; if this is a deliberate parallel pool,
+> record the override in `/tmp/idg-MxUVjP/state/identity-override` (or export
+> GARDEN_IDENTITY_OVERRIDE=`driftname`) so this guard stays quiet.
+>
+> Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
+> (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6329,14 +6617,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.0M | $464.11 _(notional, rate-card)_ | no quota set |
-| Codex | 437.5M _(+407.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 41.2M | $468.87 _(notional, rate-card)_ | no quota set |
+| Codex | 437.4M _(+407.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (57)
+### doin (65)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
@@ -6346,8 +6634,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`design-sysop-host-operations-daemon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-sysop-host-operations-daemon.md) — Design the sysop: a per-host daemon that receives and executes host-local
 - [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-004711.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260728-065010.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-004711.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-sturdyref-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-065010.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260728-004711.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260728-065010.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr268-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #268
 - [`endojs-endo-but-for-bots-pr269-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr269-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #269
 - [`endojs-endo-but-for-bots-pr556-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr556-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #556
@@ -6360,7 +6651,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #825
+- [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr865-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr865-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #865
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
@@ -6371,6 +6665,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`esheets-supervisor-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260728-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-progress-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-bulletin-after-repo-transfer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-bulletin-after-repo-transfer.md) — Fix the bulletin after the repo transfer, and canonicalize every reference to it
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
 - [`fix-identity-drift-guard-test-inbox-leak`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-identity-drift-guard-test-inbox-leak.md) — identity-drift-guard's test posts REAL maintainer-inbox reports; the hermetic
@@ -6385,6 +6680,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-004711.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
@@ -6395,13 +6691,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3605)
+### tada (3607)
+- [`endo-git-integration-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-065010.md) — All green across the board. This dispatch is a clean assessment pass — nothin...
+- [`endo-byte-array-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-065010.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
 - [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260728-004711.md) — The only match is my own claude -p handler — no endor-xst, no manager-node, n...
 - [`tune-fable-k3-model-assignments-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/tune-fable-k3-model-assignments-20260725.md) — Completion report — tune-fable-k3-model-assignments-20260725
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode.md) — Implemented and pushed 55feb33e49 to main2.
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch.md) — Completion report
-- … and 3600 more
+- … and 3602 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6542,4 +6838,4 @@ kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kris
 ## Hosts
 - [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 8 gardeners
-- [ps23](https://github.com/kriskowal/garden/blob/journal2/hosts/ps23): 0 gardeners
+- [ps23](https://github.com/kriskowal/garden/blob/journal2/hosts/ps23): 1 gardeners
