@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T08:24:52Z_
+_As of 2026-07-28T08:27:17Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 26m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 31m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -28,19 +28,19 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
+- `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
 
 > Orchestration daemon-store-family-build HALTED: child daemon-store-phase4-sorted failed (serial, on-child-failure=halt). 3/6 done before halt; swept: daemon-store-phase5-parity daemon-store-phase6-cli-wui
 
-- `20260722T223418Z-6d697e` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T223418Z-6d697e.md)
+- `20260722T223418Z-6d697e` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T223418Z-6d697e.md)
 
 > Build is blocked: design PR [https://github.com/endojs/endo-but-for-bots/pull/826](https://github.com/endojs/endo-but-for-bots/pull/826) remains OPEN and unmerged into llm (confirmed 2026-07-22T22:34:11Z). Per the job prerequisite, I have not started an implementation branch or PR. Please merge it or direct an exception; the job can then resume on llm.
 
-- `20260723T004606Z-d721bb` — from orchestrator:minion-town-mcp-daemon-guest-tools-orchestration-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T004606Z-d721bb.md)
+- `20260723T004606Z-d721bb` — from orchestrator:minion-town-mcp-daemon-guest-tools-orchestration-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T004606Z-d721bb.md)
 
 > Orchestration minion-town-mcp-daemon-guest-tools-orchestration HALTED: child minion-town-mcp-b5-retire-toy-tools failed (serial, on-child-failure=halt). 5/7 done before halt; swept: minion-town-mcp-b6-extract-endo-mcp
 
-- `20260723T112821Z-c23414` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T112821Z-c23414.md)
+- `20260723T112821Z-c23414` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T112821Z-c23414.md)
 
 > kind: access-request
 >
@@ -59,7 +59,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > You are shown this ONCE per individual. Reply or archive to dismiss it.
 
-- `20260723T193026Z-d2e1f9` — from triager:kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T193026Z-d2e1f9.md)
+- `20260723T193026Z-d2e1f9` — from triager:kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T193026Z-d2e1f9.md)
 
 > kind: error
 >
@@ -82,27 +82,27 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > constraint only `endojs/endo-but-for-bots` is currently authorized for watching —
 > worth confirming `kriscendobot-proposal-compartments` belongs in the set.
 
-- `20260723T205604Z-9cb169` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T205604Z-9cb169.md)
+- `20260723T205604Z-9cb169` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T205604Z-9cb169.md)
 
 > Rollout operational preconditions checked: the user systemd manager has MOONSHOT_API_KEY present (value not inspected or printed), and the official Kimi Code installer completed with kimi 0.29.0 at ~/.kimi-code/bin/kimi. A cleric has claimed the linked mystic recovery implementation. Please keep deployment deliberate: do not deploy or enable Mystic until its independent validation finishes; then use the bounded one-worker canary and scale back to zero.
 
-- `20260723T210657Z-8a2ea9` — from gardener:kimi-k3-harness-implement-20260723, reply_to `kimi-k3-harness-implement-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T210657Z-8a2ea9.md)
+- `20260723T210657Z-8a2ea9` — from gardener:kimi-k3-harness-implement-20260723, reply_to `kimi-k3-harness-implement-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T210657Z-8a2ea9.md)
 
 > Kimi Code harness is deployment-ready on main2 at a1dd8984510f83c38f438f9aac5c5429ac5d3bbd. It adds the explicit-only mystic worker kind with the official Kimi Code CLI, isolated per-job KIMI_CODE_HOME/session resume, marker-gated completion, credential-safe KIMI_MODEL_* injection, and zero-default scaling. Offline verification passed: kimi-provider-test (18), worker-spine-kinds-test (101), model-routing-test (29), scaler-desired-count-test (12), completion-signal-test, handler-orphan-reap-test (15), and foreman-provider-order-test (8). No funded live Kimi canary was run; keep mystics at zero until the documented canary.
 
-- `20260723T211816Z-877dbc` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T211816Z-877dbc.md)
+- `20260723T211816Z-877dbc` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T211816Z-877dbc.md)
 
 > Mystic rollout has a deployment and credential blocker. I independently verified the landed harness and corrected the official Kimi Code wire-model mapping on main2 at bf1f9e4032 (garden selector `kimi-k3` maps to Kimi Code model `k3`; dedicated Mystic remains moonshot and explicit-only). Focused offline harness, model-routing, worker-spine, and foreman routing tests pass. Please deliberately deploy main2 through the liaison procedure, recreate the container with MOONSHOT_API_KEY injected without printing it, then run the documented one-worker reversible tool canary and scale Mystic back to zero. This host currently has no `kimi` executable, no `MOONSHOT_API_KEY` in user systemd, and no Mystic unit, so a live canary cannot truthfully be run here. The original implementation child remains in doin after its recorded Claude failure; I did not alter its claim and left it for the reaper's normal ownership/requeue path. Monk remains at zero.
 
-- `20260723T212425Z-60b4e4` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T212425Z-60b4e4.md)
+- `20260723T212425Z-60b4e4` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T212425Z-60b4e4.md)
 
 > Mystic implementation and independent validation are complete on main2 at bf1f9e4032. I independently reran mystic-kimi-harness-test (14), worker-spine-kinds (103), model-routing (29), and foreman-provider-order (10), all passing. Please perform the deliberate drained deploy from the leader liaison after this orchestration job is no longer busy, then notify me so I can run the one-worker reversible canary and return capacity to zero.
 
-- `20260723T213341Z-77bddd` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T213341Z-77bddd.md)
+- `20260723T213341Z-77bddd` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T213341Z-77bddd.md)
 
 > Real blocker: despite completed implementation/validation, the deliberate deployment is still pending (root remains 1239f16ff; main2 bf1f9e4032). I have re-alerted the leader liaison; the live one-worker canary cannot run safely until deployed.
 
-- `20260723T214650Z-cb691c` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T214650Z-cb691c.md)
+- `20260723T214650Z-cb691c` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T214650Z-cb691c.md)
 
 > kind: error
 >
@@ -134,7 +134,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260723T214655Z-e04fac` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T214655Z-e04fac.md)
+- `20260723T214655Z-e04fac` — from identity-drift-guard:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T214655Z-e04fac.md)
 
 > kind: error
 >
@@ -166,83 +166,83 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260723T215345Z-771502` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T215345Z-771502.md)
+- `20260723T215345Z-771502` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T215345Z-771502.md)
 
 > Evidence update: independent validation is now complete and passing (`mystic-harness-validate-20260723`), including official Kimi CLI use, explicit Mystic/Moonshot/kimi-k3 routing, KIMI_CODE_HOME isolation, sentinel/resume/cleanup, no default capacity, and provider-scoped reputation. main2 remains bf1f9e4032 while the deployed root is still pre-deploy, so requirements 5-7 are pending the leader's deliberate deployment and secret-safe container recreation. No Mystic capacity was enabled; Monk remains zero. After deployment, the only remaining sequence is one explicit reversible tool canary, inspect its Moonshot-scoped reputation event and interruption/resume evidence, then set Mystic back to zero.
 
-- `20260723T221404Z-bd5cb3` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260723T221404Z-bd5cb3.md)
+- `20260723T221404Z-bd5cb3` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T221404Z-bd5cb3.md)
 
 > Real deployment blocker: deliberate deploy correctly aborted because the deployed root is dirty (D journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md; M roles/liaison/AGENT.md). I will not modify or discard deployed-root state. Leader must resolve it then rerun deploy; Mystic remains zero and the canary has not run.
 
-- `20260724T072629Z-9e4c4f` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T072629Z-9e4c4f.md)
+- `20260724T072629Z-9e4c4f` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T072629Z-9e4c4f.md)
 
 > The repair is landed and local regressions are green. I attempted the required deliberate deploy, but its drain correctly waits on this still-active gardener claim, which would deadlock the job. Please have the liaison deploy `scripts/jobs/deploy-garden.sh` immediately after this claim completes; then the remaining canary step must run on the deployed worker spine.
 
-- `20260724T075343Z-549535` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T075343Z-549535.md)
+- `20260724T075343Z-549535` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T075343Z-549535.md)
 
 > Deliberate deployment is blocked by tracked changes in the deployed root: roles/liaison/AGENT.md and journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md. The deploy guard correctly refused to overwrite them and lifted the drain. Please resolve or deploy those root changes, then this job can run exactly one Kimi canary. No credential values were read or logged.
 
-- `20260724T110405Z-e89417` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T110405Z-e89417.md)
+- `20260724T110405Z-e89417` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T110405Z-e89417.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
-- `20260724T110411Z-b356af` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T110411Z-b356af.md)
+- `20260724T110411Z-b356af` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T110411Z-b356af.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
-- `20260724T111218Z-b77592` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T111218Z-b77592.md)
+- `20260724T111218Z-b77592` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T111218Z-b77592.md)
 
 > triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
 
-- `20260724T145608Z-699a80` — from gardener:finbot-progress-20260724-105003, reply_to `finbot-progress-20260724-105003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T145608Z-699a80.md)
+- `20260724T145608Z-699a80` — from gardener:finbot-progress-20260724-105003, reply_to `finbot-progress-20260724-105003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T145608Z-699a80.md)
 
 > Advanced the panel gate attempt for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). CI remains green on 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62, but the code panel is still blocked at assessor by the Claude weekly-limit response. The scheduled retry at 2026-07-25T03:05:00Z remains the next unblocked step; if it passes, it will dispatch the required Fable orchestrator sign-off. No merge or source change occurred.
 
-- `20260724T155925Z-606f6d` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T155925Z-606f6d.md)
+- `20260724T155925Z-606f6d` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T155925Z-606f6d.md)
 
 > triager: fetch for kriscendobot-garden at /home/kris/garden2/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
 
-- `20260724T160112Z-d43ec3` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T160112Z-d43ec3.md)
+- `20260724T160112Z-d43ec3` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T160112Z-d43ec3.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
-- `20260724T160432Z-73d845` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T160432Z-73d845.md)
+- `20260724T160432Z-73d845` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T160432Z-73d845.md)
 
 > triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
 
-- `20260724T160500Z-fdcc24` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T160500Z-fdcc24.md)
+- `20260724T160500Z-fdcc24` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T160500Z-fdcc24.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
-- `20260724T160528Z-4788fb` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T160528Z-4788fb.md)
+- `20260724T160528Z-4788fb` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T160528Z-4788fb.md)
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
 
-- `20260724T160955Z-b1672f` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T160955Z-b1672f.md)
+- `20260724T160955Z-b1672f` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T160955Z-b1672f.md)
 
 > triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden2/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
 
-- `20260724T161011Z-23b043` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161011Z-23b043.md)
+- `20260724T161011Z-23b043` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T161011Z-23b043.md)
 
 > triager: fetch for kriscendobot-test262 at /home/kris/garden2/worktrees/kriscendobot-test262.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
 
-- `20260724T161102Z-4393cc` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161102Z-4393cc.md)
+- `20260724T161102Z-4393cc` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T161102Z-4393cc.md)
 
 > triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
 
-- `20260724T161124Z-ed6338` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161124Z-ed6338.md)
+- `20260724T161124Z-ed6338` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T161124Z-ed6338.md)
 
 > self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: cef62643427a6f8ef5a71265edabab4ebd4a14e6 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p cef62643427a6f8ef5a71265edabab4ebd4a14e6). Diagnosis: You've hit your weekly limit · resets 4:10pm (UTC)
 
-- `20260724T161203Z-024a53` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161203Z-024a53.md)
+- `20260724T161203Z-024a53` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T161203Z-024a53.md)
 
 > triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
 
-- `20260724T161352Z-5a75e4` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T161352Z-5a75e4.md)
+- `20260724T161352Z-5a75e4` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T161352Z-5a75e4.md)
 
 > triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
 
-- `20260724T172202Z-86162d` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T172202Z-86162d.md)
+- `20260724T172202Z-86162d` — from issue-inbox-watcher, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T172202Z-86162d.md)
 
 > kind: access-request
 >
@@ -261,419 +261,419 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > You are shown this ONCE per individual. Reply or archive to dismiss it.
 
-- `20260724T185823Z-8109d7` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T185823Z-8109d7.md)
+- `20260724T185823Z-8109d7` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T185823Z-8109d7.md)
 
 > triager: fetch for kriscendobot-ocapn at /home/kris/garden2/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
 
-- `20260724T191024Z-ba39a3` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T191024Z-ba39a3.md)
+- `20260724T191024Z-ba39a3` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T191024Z-ba39a3.md)
 
 > triager: fetch for kriscendobot-ymax-stdio-mcp at /home/kris/garden2/worktrees/kriscendobot-ymax-stdio-mcp.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ymax-stdio-mcp cannot be triaged until it is restored.
 
-- `20260724T211935Z-56a1e5` — from gardener:finbot-progress-20260724-165003, reply_to `finbot-progress-20260724-165003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T211935Z-56a1e5.md)
+- `20260724T211935Z-56a1e5` — from gardener:finbot-progress-20260724-165003, reply_to `finbot-progress-20260724-165003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T211935Z-56a1e5.md)
 
 > Advanced the existing gate for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) by reconfirming the exact PR head (895ae4822d3c0f36c4026c9bcbddcbcc59f81c62) is clean and locally green: npm test passed, and node bin/finbot-dispatch --seed=7 completed the dry-run OODA path with all six auditor invariants approved and WALLET TOUCHED: false.
 >
 > No competing finbot work is in flight. The mandatory panel remains quota-blocked and is already scheduled to retry at 2026-07-25T03:05:00Z. A pass must dispatch the required claude-fable-5 orchestrator sign-off; no merge was performed. No maintainer decision is needed before that gate.
 
-- `20260724T222935Z-c8547b` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T222935Z-c8547b.md)
+- `20260724T222935Z-c8547b` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T222935Z-c8547b.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
-- `20260724T222941Z-2830e5` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260724T222941Z-2830e5.md)
+- `20260724T222941Z-2830e5` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T222941Z-2830e5.md)
 
 > triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
 
-- `20260725T001312Z-f94767` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001312Z-f94767.md)
+- `20260725T001312Z-f94767` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001312Z-f94767.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001318Z-d5b7db` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001318Z-d5b7db.md)
+- `20260725T001318Z-d5b7db` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001318Z-d5b7db.md)
 
 > self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 12:10am (UTC)
 
-- `20260725T001325Z-38a948` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001325Z-38a948.md)
+- `20260725T001325Z-38a948` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001325Z-38a948.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001332Z-715ca2` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001332Z-715ca2.md)
+- `20260725T001332Z-715ca2` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001332Z-715ca2.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001332Z-bc9a51` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001332Z-bc9a51.md)
+- `20260725T001332Z-bc9a51` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001332Z-bc9a51.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001348Z-44955f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-44955f.md)
+- `20260725T001348Z-44955f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-44955f.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001348Z-b717ab` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-b717ab.md)
+- `20260725T001348Z-b717ab` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-b717ab.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-chrome-native-function-caller-arguments-repro exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001348Z-dc1762` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-dc1762.md)
+- `20260725T001348Z-dc1762` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-dc1762.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001348Z-de4a32` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-de4a32.md)
+- `20260725T001348Z-de4a32` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001348Z-de4a32.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001411Z-0e7eb0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-0e7eb0.md)
+- `20260725T001411Z-0e7eb0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-0e7eb0.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001411Z-2086d0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-2086d0.md)
+- `20260725T001411Z-2086d0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-2086d0.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001411Z-3e1c63` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-3e1c63.md)
+- `20260725T001411Z-3e1c63` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-3e1c63.md)
 
 > self-heal: garden-comment-watcher@kriskowal-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001411Z-63f6da` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-63f6da.md)
+- `20260725T001411Z-63f6da` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-63f6da.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001411Z-ec530d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-ec530d.md)
+- `20260725T001411Z-ec530d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-ec530d.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001411Z-f9275b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-f9275b.md)
+- `20260725T001411Z-f9275b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001411Z-f9275b.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001440Z-3f423e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-3f423e.md)
+- `20260725T001440Z-3f423e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-3f423e.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001440Z-518734` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-518734.md)
+- `20260725T001440Z-518734` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-518734.md)
 
 > self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001440Z-8be42a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-8be42a.md)
+- `20260725T001440Z-8be42a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-8be42a.md)
 
 > self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001440Z-cfa804` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-cfa804.md)
+- `20260725T001440Z-cfa804` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001440Z-cfa804.md)
 
 > self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: 3db55bef5191a056844d952654a0de582f38bc4a (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3db55bef5191a056844d952654a0de582f38bc4a). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001531Z-3e4ca0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001531Z-3e4ca0.md)
+- `20260725T001531Z-3e4ca0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001531Z-3e4ca0.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001713Z-a5ead6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001713Z-a5ead6.md)
+- `20260725T001713Z-a5ead6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001713Z-a5ead6.md)
 
 > self-heal: garden-triager@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001816Z-c57282` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001816Z-c57282.md)
+- `20260725T001816Z-c57282` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001816Z-c57282.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001827Z-b93e6d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001827Z-b93e6d.md)
+- `20260725T001827Z-b93e6d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001827Z-b93e6d.md)
 
 > self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T001827Z-bf2ded` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T001827Z-bf2ded.md)
+- `20260725T001827Z-bf2ded` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T001827Z-bf2ded.md)
 
 > self-heal: garden-triager@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 12:20am (UTC)
 
-- `20260725T002024Z-40a35b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T002024Z-40a35b.md)
+- `20260725T002024Z-40a35b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T002024Z-40a35b.md)
 
 > self-heal: garden-triager@kriscendobot-chrome-native-function-caller-arguments-repro exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T002029Z-0bc65b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T002029Z-0bc65b.md)
+- `20260725T002029Z-0bc65b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T002029Z-0bc65b.md)
 
 > self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T002035Z-5f3f45` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T002035Z-5f3f45.md)
+- `20260725T002035Z-5f3f45` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T002035Z-5f3f45.md)
 
 > self-heal: garden-triager@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T002035Z-a9e05d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T002035Z-a9e05d.md)
+- `20260725T002035Z-a9e05d` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T002035Z-a9e05d.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T002441Z-87f9dd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T002441Z-87f9dd.md)
+- `20260725T002441Z-87f9dd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T002441Z-87f9dd.md)
 
 > self-heal: garden-triager@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T002449Z-ea3dca` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T002449Z-ea3dca.md)
+- `20260725T002449Z-ea3dca` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T002449Z-ea3dca.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T003154Z-648bdd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T003154Z-648bdd.md)
+- `20260725T003154Z-648bdd` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T003154Z-648bdd.md)
 
 > self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011437Z-79aae0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011437Z-79aae0.md)
+- `20260725T011437Z-79aae0` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011437Z-79aae0.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011450Z-c78ee3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011450Z-c78ee3.md)
+- `20260725T011450Z-c78ee3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011450Z-c78ee3.md)
 
 > self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: 320406e0c3cf466e3be02c9f95eca37f217058c1 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 320406e0c3cf466e3be02c9f95eca37f217058c1). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011508Z-06f9b5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011508Z-06f9b5.md)
+- `20260725T011508Z-06f9b5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011508Z-06f9b5.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011516Z-a48b08` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011516Z-a48b08.md)
+- `20260725T011516Z-a48b08` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011516Z-a48b08.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011523Z-26936e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011523Z-26936e.md)
+- `20260725T011523Z-26936e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011523Z-26936e.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011527Z-862c20` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011527Z-862c20.md)
+- `20260725T011527Z-862c20` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011527Z-862c20.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011534Z-989c06` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011534Z-989c06.md)
+- `20260725T011534Z-989c06` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011534Z-989c06.md)
 
 > self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011539Z-53ac8a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011539Z-53ac8a.md)
+- `20260725T011539Z-53ac8a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011539Z-53ac8a.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011548Z-35a8e5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011548Z-35a8e5.md)
+- `20260725T011548Z-35a8e5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011548Z-35a8e5.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011555Z-40609a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011555Z-40609a.md)
+- `20260725T011555Z-40609a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011555Z-40609a.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011631Z-c15f57` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011631Z-c15f57.md)
+- `20260725T011631Z-c15f57` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011631Z-c15f57.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011639Z-122d24` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011639Z-122d24.md)
+- `20260725T011639Z-122d24` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011639Z-122d24.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011650Z-770280` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011650Z-770280.md)
+- `20260725T011650Z-770280` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011650Z-770280.md)
 
 > self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011711Z-5a724b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011711Z-5a724b.md)
+- `20260725T011711Z-5a724b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011711Z-5a724b.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011723Z-2a4d50` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011723Z-2a4d50.md)
+- `20260725T011723Z-2a4d50` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011723Z-2a4d50.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-chrome-native-function-caller-arguments-repro exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011752Z-513d09` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011752Z-513d09.md)
+- `20260725T011752Z-513d09` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011752Z-513d09.md)
 
 > self-heal: garden-comment-watcher@kriskowal-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011757Z-a6b733` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011757Z-a6b733.md)
+- `20260725T011757Z-a6b733` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011757Z-a6b733.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011803Z-b235ac` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011803Z-b235ac.md)
+- `20260725T011803Z-b235ac` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011803Z-b235ac.md)
 
 > self-heal: garden-triager@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011828Z-bec0e5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011828Z-bec0e5.md)
+- `20260725T011828Z-bec0e5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011828Z-bec0e5.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T011941Z-327d8e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T011941Z-327d8e.md)
+- `20260725T011941Z-327d8e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T011941Z-327d8e.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012006Z-71069a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012006Z-71069a.md)
+- `20260725T012006Z-71069a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012006Z-71069a.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012011Z-13f4e9` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012011Z-13f4e9.md)
+- `20260725T012011Z-13f4e9` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012011Z-13f4e9.md)
 
 > self-heal: garden-triager@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012044Z-627827` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012044Z-627827.md)
+- `20260725T012044Z-627827` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012044Z-627827.md)
 
 > self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012228Z-a37601` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012228Z-a37601.md)
+- `20260725T012228Z-a37601` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012228Z-a37601.md)
 
 > self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012238Z-a8ec04` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012238Z-a8ec04.md)
+- `20260725T012238Z-a8ec04` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012238Z-a8ec04.md)
 
 > self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012250Z-5ebb82` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012250Z-5ebb82.md)
+- `20260725T012250Z-5ebb82` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012250Z-5ebb82.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012258Z-8a3b7e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012258Z-8a3b7e.md)
+- `20260725T012258Z-8a3b7e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012258Z-8a3b7e.md)
 
 > self-heal: garden-triager@kriscendobot-chrome-native-function-caller-arguments-repro exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 1:20am (UTC)
 
-- `20260725T012348Z-09743b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012348Z-09743b.md)
+- `20260725T012348Z-09743b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012348Z-09743b.md)
 
 > self-heal: garden-triager@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012559Z-b207c3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012559Z-b207c3.md)
+- `20260725T012559Z-b207c3` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012559Z-b207c3.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T012638Z-2c148e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T012638Z-2c148e.md)
+- `20260725T012638Z-2c148e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T012638Z-2c148e.md)
 
 > self-heal: garden-triager@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T013233Z-273f85` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T013233Z-273f85.md)
+- `20260725T013233Z-273f85` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T013233Z-273f85.md)
 
 > self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021604Z-178e55` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021604Z-178e55.md)
+- `20260725T021604Z-178e55` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021604Z-178e55.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021619Z-edd8df` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021619Z-edd8df.md)
+- `20260725T021619Z-edd8df` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021619Z-edd8df.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021710Z-b341e1` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021710Z-b341e1.md)
+- `20260725T021710Z-b341e1` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021710Z-b341e1.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021749Z-1831be` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021749Z-1831be.md)
+- `20260725T021749Z-1831be` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021749Z-1831be.md)
 
 > self-heal: garden-issue-inbox exited rc=1 with no scoped fix. Capture: 88950a653574862ced456ac70f062d75a4583ddf (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 88950a653574862ced456ac70f062d75a4583ddf). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021800Z-72a635` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021800Z-72a635.md)
+- `20260725T021800Z-72a635` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021800Z-72a635.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021836Z-70d6ed` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021836Z-70d6ed.md)
+- `20260725T021836Z-70d6ed` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021836Z-70d6ed.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021843Z-cfcdfe` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021843Z-cfcdfe.md)
+- `20260725T021843Z-cfcdfe` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021843Z-cfcdfe.md)
 
 > self-heal: garden-comment-watcher@kriskowal-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021848Z-ee24e2` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021848Z-ee24e2.md)
+- `20260725T021848Z-ee24e2` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021848Z-ee24e2.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-chrome-native-function-caller-arguments-repro exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021857Z-88dd1a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021857Z-88dd1a.md)
+- `20260725T021857Z-88dd1a` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021857Z-88dd1a.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021912Z-031e06` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021912Z-031e06.md)
+- `20260725T021912Z-031e06` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021912Z-031e06.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 2:20am (UTC)
 
-- `20260725T021920Z-cf5ab6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021920Z-cf5ab6.md)
+- `20260725T021920Z-cf5ab6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021920Z-cf5ab6.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021941Z-7dad0f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021941Z-7dad0f.md)
+- `20260725T021941Z-7dad0f` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021941Z-7dad0f.md)
 
 > self-heal: garden-triager@kriscendobot-endo exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T021946Z-2a2b1b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T021946Z-2a2b1b.md)
+- `20260725T021946Z-2a2b1b` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T021946Z-2a2b1b.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 2:20am (UTC)
 
-- `20260725T022010Z-8e2658` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022010Z-8e2658.md)
+- `20260725T022010Z-8e2658` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022010Z-8e2658.md)
 
 > self-heal: garden-triager@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022015Z-bec70e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022015Z-bec70e.md)
+- `20260725T022015Z-bec70e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022015Z-bec70e.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022025Z-5c1df6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022025Z-5c1df6.md)
+- `20260725T022025Z-5c1df6` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022025Z-5c1df6.md)
 
 > self-heal: garden-triager@kriscendobot-agoric-3-proposals exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022050Z-6311d5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022050Z-6311d5.md)
+- `20260725T022050Z-6311d5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022050Z-6311d5.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022119Z-80901c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022119Z-80901c.md)
+- `20260725T022119Z-80901c` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022119Z-80901c.md)
 
 > self-heal: garden-triager@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022141Z-b05608` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022141Z-b05608.md)
+- `20260725T022141Z-b05608` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022141Z-b05608.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022151Z-b489bc` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022151Z-b489bc.md)
+- `20260725T022151Z-b489bc` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022151Z-b489bc.md)
 
 > self-heal: garden-triager@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022223Z-51c41e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022223Z-51c41e.md)
+- `20260725T022223Z-51c41e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022223Z-51c41e.md)
 
 > self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022300Z-43fd87` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022300Z-43fd87.md)
+- `20260725T022300Z-43fd87` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022300Z-43fd87.md)
 
 > self-heal: garden-triager@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022304Z-1d9bdf` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022304Z-1d9bdf.md)
+- `20260725T022304Z-1d9bdf` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022304Z-1d9bdf.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-agoric-sdk exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022425Z-a4f12e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022425Z-a4f12e.md)
+- `20260725T022425Z-a4f12e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022425Z-a4f12e.md)
 
 > self-heal: garden-triager@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022447Z-5d8b64` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022447Z-5d8b64.md)
+- `20260725T022447Z-5d8b64` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022447Z-5d8b64.md)
 
 > self-heal: garden-triager@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022454Z-5a5558` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022454Z-5a5558.md)
+- `20260725T022454Z-5a5558` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022454Z-5a5558.md)
 
 > self-heal: garden-triager@kriscendobot-chrome-native-function-caller-arguments-repro exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022535Z-e0bdca` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022535Z-e0bdca.md)
+- `20260725T022535Z-e0bdca` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022535Z-e0bdca.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022847Z-4f2e09` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022847Z-4f2e09.md)
+- `20260725T022847Z-4f2e09` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022847Z-4f2e09.md)
 
 > self-heal: garden-triager@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022851Z-2802ed` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022851Z-2802ed.md)
+- `20260725T022851Z-2802ed` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022851Z-2802ed.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-garden exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T022940Z-2e1c66` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T022940Z-2e1c66.md)
+- `20260725T022940Z-2e1c66` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T022940Z-2e1c66.md)
 
 > self-heal: garden-triager@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T023626Z-72bcbb` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T023626Z-72bcbb.md)
+- `20260725T023626Z-72bcbb` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T023626Z-72bcbb.md)
 
 > self-heal: garden-triager@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: ddba433cd00d63c9ab2942664a41bcb8a817b1f7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p ddba433cd00d63c9ab2942664a41bcb8a817b1f7). Diagnosis: You've hit your weekly limit · resets 3am (UTC)
 
-- `20260725T023720Z-0a1a33` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T023720Z-0a1a33.md)
+- `20260725T023720Z-0a1a33` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T023720Z-0a1a33.md)
 
 > triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
 
-- `20260725T024820Z-2a0265` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T024820Z-2a0265.md)
+- `20260725T024820Z-2a0265` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T024820Z-2a0265.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
-- `20260725T032356Z-b6d7ff` — from gardener:esheets-supervisor-20260725-032003, reply_to `esheets-supervisor-20260725-032003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032356Z-b6d7ff.md)
+- `20260725T032356Z-b6d7ff` — from gardener:esheets-supervisor-20260725-032003, reply_to `esheets-supervisor-20260725-032003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T032356Z-b6d7ff.md)
 
 > Sheets daily: network substrate implementation is in [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (draft, clean, 24/24 checks green); I posted gauntlet-endo-but-for-bots-pr723-endo-fetch. OAuth foundation design is [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (non-draft, clean, latest build/lint/test/browser checks green). The Sheets client and Exo packages are not yet present on llm; they remain downstream. Webhooks push remains deferred by design.
 
-- `20260725T032549Z-31957b` — from gardener:endo-byte-array-press-20260724-105003, reply_to `endo-byte-array-press-20260724-105003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032549Z-31957b.md)
+- `20260725T032549Z-31957b` — from gardener:endo-byte-array-press-20260724-105003, reply_to `endo-byte-array-press-20260724-105003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T032549Z-31957b.md)
 
 > Byte-array press status (dispatch 2026-07-24T10:50Z, completed 07-25): both fronts are done on our side and waiting ONLY on human re-review — [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) (head 453f6ef0, 15/15 CI green, no reviewer activity since 07-20) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (head 1b1dc75b, 17/17 CI green, quiet since the 07-17 rebase). reviewDecision on both is stale CHANGES_REQUESTED with re-review pending from kriskowal and erights. [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) is still open, so the registry follow-up stays parked.
 >
 > Fleet note: this press has produced no completed report since 07-22 — every 6h dispatch since then overran and was reaper-requeued (mine was reaped 4x), and three claims (105003/165003/225004) were live concurrently. With the arc blocked on your re-review, each tick burns a Fable budget to observe "no change". Suggest either pausing the schedule (paused-schedules mechanism) or widening the cadence to 24h until the two PRs get their re-review, and/or giving this press an xs2rust-style preflight circuit-breaker (commit 2898c87d).
 
-- `20260725T032633Z-ca6252` — from gardener:ocapn-noise-press-20260724-105003, reply_to `ocapn-noise-press-20260724-105003` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T032633Z-ca6252.md)
+- `20260725T032633Z-ca6252` — from gardener:ocapn-noise-press-20260724-105003, reply_to `ocapn-noise-press-20260724-105003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T032633Z-ca6252.md)
 
 > Subject: OCapN-over-Noise: [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) merge is ownerless and waits only on your fresh approval
 >
@@ -685,19 +685,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Standing open questions (unchanged): cross-host TCP+CBOR port choice; iroh-lane orchestration.
 
-- `20260725T033216Z-feef53` — from gardener:finbot-pr4-panel-retry-20260725, reply_to `finbot-pr4-panel-retry-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T033216Z-feef53.md)
+- `20260725T033216Z-feef53` — from gardener:finbot-pr4-panel-retry-20260725, reply_to `finbot-pr4-panel-retry-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T033216Z-feef53.md)
 
 > The full 28-seat code panel for [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) is progressing sequentially but has completed 13 seats after about 25 minutes. The claimed handler has the default 40-minute budget, which is insufficient at this observed rate. Please requeue with a longer handler-timeout or authorize a resumable panel harness so the remaining seats can complete without restarting.
 
-- `20260725T033911Z-1c5ec8` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T033911Z-1c5ec8.md)
+- `20260725T033911Z-1c5ec8` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T033911Z-1c5ec8.md)
 
 > triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden2/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
 
-- `20260725T042332Z-efa8f5` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T042332Z-efa8f5.md)
+- `20260725T042332Z-efa8f5` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T042332Z-efa8f5.md)
 
 > gardener job 'finbot-pr4-panel-retry-20260725' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2412s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `20260725T043118Z-29201b` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T043118Z-29201b.md)
+- `20260725T043118Z-29201b` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T043118Z-29201b.md)
 
 > kind: error
 >
@@ -729,7 +729,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260725T043124Z-6dd8ed` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T043124Z-6dd8ed.md)
+- `20260725T043124Z-6dd8ed` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T043124Z-6dd8ed.md)
 
 > kind: error
 >
@@ -761,7 +761,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260725T043129Z-33af3d` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T043129Z-33af3d.md)
+- `20260725T043129Z-33af3d` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T043129Z-33af3d.md)
 
 > kind: error
 >
@@ -793,39 +793,39 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260725T043939Z-a68a9e` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T043939Z-a68a9e.md)
+- `20260725T043939Z-a68a9e` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T043939Z-a68a9e.md)
 
 > Duplicate fixer detected on finbot [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) . Two fixer jobs are live for the same panel must-fix: finbot-pr4-panel-fixer-20260725 (me, Claude) and finbot-pr4-panel-fixer-reissue-20260725 (a Codex cleric, about 2h in, no commit yet). Panel verdict was request-changes; the dominant must-fix is the compartment egress boundary (runCompartmentLlm returns program(snapshot) unvalidated/unhardened while ingress is JSON-copied+hardened). To avoid a double-push race I'm coordinating with the peer and will not double-push. If you want ME to own it, say so and I'll land it; otherwise I'll defer to the reissue.
 
-- `20260725T044134Z-a87754` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T044134Z-a87754.md)
+- `20260725T044134Z-a87754` — from gardener:finbot-pr4-panel-fixer-20260725, reply_to `finbot-pr4-panel-fixer-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T044134Z-a87754.md)
 
 > Resolved (standing down): the reissue peer already landed the panel fix on [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) . Head is now 63df810 ("fix(harness): validate compartment boundary"), CI test=pass, and I independently verified 58/58 harness tests pass. I did not push (avoided a double-push race). Remaining follow-up: re-run the code panel against 63df810 (the request-changes verdict was against 895ae48) before the finbot-pr4-fable-signoff orchestrator step — owned by the reissue peer or the panel-retry gardener, not this job.
 
-- `20260725T045717Z-1321b3` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T045717Z-1321b3.md)
+- `20260725T045717Z-1321b3` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T045717Z-1321b3.md)
 
 > (empty message)
 
-- `20260725T045738Z-63f947` — from gardener:finbot-progress-20260725-045004, reply_to `finbot-progress-20260725-045004` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T045738Z-63f947.md)
+- `20260725T045738Z-63f947` — from gardener:finbot-progress-20260725-045004, reply_to `finbot-progress-20260725-045004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T045738Z-63f947.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4): verified the fixer head with npm test, focused harness tests, and a seeded wallet-free dry run; restored draft status because the prior request-changes panel had been bypassed. CI is green. A rerun was attempted, but its first panel seat emitted an empty verdict, so there is no valid panel pass. I posted finbot-pr4-panel-rerun-20260725 to obtain a full evidenced panel; after it passes, the next gate is a claude-fable-5 orchestrator sign-off. No merge was attempted.
 
-- `20260725T051415Z-e6abbb` — from gardener:finbot-pr4-panel-rerun-20260725, reply_to `finbot-pr4-panel-rerun-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T051415Z-e6abbb.md)
+- `20260725T051415Z-e6abbb` — from gardener:finbot-pr4-panel-rerun-20260725, reply_to `finbot-pr4-panel-rerun-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T051415Z-e6abbb.md)
 
 > Blocked: the scripted [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) panel was started in the isolated checkout at requested head 63df8109aba818eb3fcbe9fb480f27205494b85c/base 895ae4822d3c0f36c4026c9bcbddcbcc59f81c62. The strict formal-evidence seat hook rejected an empty assessor block, leaving the PR draft. Subsequent diagnosis reached the Claude provider session limit (reset 08:00 UTC), so no non-empty 28-seat formal verdict exists and no fable signoff was dispatched. Retry the panel after quota reset; CI test was already green at 2026-07-25T04:40:11Z.
 
-- `20260725T091905Z-b79156` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T091905Z-b79156.md)
+- `20260725T091905Z-b79156` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T091905Z-b79156.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
-- `20260725T140823Z-45cffd` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T140823Z-45cffd.md)
+- `20260725T140823Z-45cffd` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T140823Z-45cffd.md)
 
 > triager: fetch for kriscendobot-minion.town at /home/kris/garden/worktrees/kriscendobot-minion.town.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-minion.town cannot be triaged until it is restored.
 
-- `20260725T140823Z-84c7b9` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T140823Z-84c7b9.md)
+- `20260725T140823Z-84c7b9` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T140823Z-84c7b9.md)
 
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
 
-- `20260725T171127Z-34b706` — from gardener:endo-npm-cas-registry-press-20260725-170501, reply_to `endo-npm-cas-registry-press-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T171127Z-34b706.md)
+- `20260725T171127Z-34b706` — from gardener:endo-npm-cas-registry-press-20260725-170501, reply_to `endo-npm-cas-registry-press-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T171127Z-34b706.md)
 
 > npm-CAS press tick 17:05: Your APPROVED review on draft [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856)
 > (ambiguous-.js-entry ESM fix) + all-green CI met the conductor's ready-to-land bar,
@@ -838,7 +838,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > `ebfb-rust-endo-xs-test-flakiness` for the intermittent parallel XS test failures
 > prior ticks kept re-reporting.
 
-- `20260725T172804Z-19e1fd` — from gardener:endo-git-integration-press-20260725-170501, reply_to `endo-git-integration-press-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T172804Z-19e1fd.md)
+- `20260725T172804Z-19e1fd` — from gardener:endo-git-integration-press-20260725-170501, reply_to `endo-git-integration-press-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T172804Z-19e1fd.md)
 
 > Host-health observation from the git-integration press (endolin-garden2-5bcdff64), incidental to the dispatch: the shared root/journal repo's auto-gc is failing on this host. /home/kris/garden2/.git/worktrees/journal/gc.log (created 2026-07-25T00:19Z, before my run) reads:
 >
@@ -849,7 +849,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I also owe a confession: before noticing the discipline, I ran one `git pull --ff-only` inside journal/ (against the job brief's no-git-in-root rule). It surfaced the pre-existing gc.log above; I verified no .lock/gc.pid files were left behind and ran no further git there.
 
-- `20260725T172856Z-cd7cee` — from gardener:endo-sturdyref-press-20260725-170501, reply_to `endo-sturdyref-press-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T172856Z-cd7cee.md)
+- `20260725T172856Z-cd7cee` — from gardener:endo-sturdyref-press-20260725-170501, reply_to `endo-sturdyref-press-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T172856Z-cd7cee.md)
 
 > SturdyRef press (endo-sturdyref-press-20260725-170501): the CI-green cascade is one reaper tick from a FALSE halt, and the cause is fleet-level, not the PRs.
 >
@@ -865,11 +865,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No sturdyref branch was touched this tick; confinement suites last verified green in the [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) child (sturdyref 8 passed, OCapN sturdyref 7 passed).
 
-- `20260725T182507Z-d00a30` — from orchestrator:endo-sturdyref-ci-green-737-704-20260725-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T182507Z-d00a30.md)
+- `20260725T182507Z-d00a30` — from orchestrator:endo-sturdyref-ci-green-737-704-20260725-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T182507Z-d00a30.md)
 
 > Orchestration endo-sturdyref-ci-green-737-704-20260725 HALTED: child endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725 failed (serial, on-child-failure=halt). 2/8 done before halt; swept: endojs-endo-but-for-bots-pr700-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr701-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr702-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr703-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr704-ci-green-cascade-20260725
 
-- `20260725T190612Z-1377ce` — from gardener:proposal-compartments-v8-validation-20260725, reply_to `proposal-compartments-v8-validation-20260725` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T190612Z-1377ce.md)
+- `20260725T190612Z-1377ce` — from gardener:proposal-compartments-v8-validation-20260725, reply_to `proposal-compartments-v8-validation-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T190612Z-1377ce.md)
 
 > v8 validation front done (draft PR [kriscendobot/proposal-compartments#2](https://github.com/kriscendobot/proposal-compartments/issues/2)).
 >
@@ -893,11 +893,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >    engine feature. Harness is a behavioral oracle for the native port, not a
 >    substitute. Bounded next increment for the native front is in the PR README.
 
-- `20260725T190827Z-b01774` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T190827Z-b01774.md)
+- `20260725T190827Z-b01774` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T190827Z-b01774.md)
 
 > The `proposal-compartments-v8-validation-20260725` report leaves one open spec-annex decision that is your call: whether the Compartments proposal adds a host-only synchronous evaluation operation to cover the charter's non-TLA path shortfall. No garden action taken pending your direction. (The native-v8-port follow-up is inert — gated on upstream V8 landing source-phase imports, `import.source()`, and `import defer` — so nothing is posted for it.)
 
-- `20260725T191430Z-65bf96` — from gardener:ebfb-stream-buffer-spring-sink-refactor-gauntlet, reply_to `ebfb-stream-buffer-spring-sink-refactor-gauntlet` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T191430Z-65bf96.md)
+- `20260725T191430Z-65bf96` — from gardener:ebfb-stream-buffer-spring-sink-refactor-gauntlet, reply_to `ebfb-stream-buffer-spring-sink-refactor-gauntlet` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T191430Z-65bf96.md)
 
 > Gauntlet done — [endojs/endo-but-for-bots#858](https://github.com/endojs/endo-but-for-bots/issues/858) (feat(stream): add unbounded buffer) is un-drafted, CI fully green.
 >
@@ -911,11 +911,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > - breaker/corner-prober (by-design for fire-and-forget, non-must): sink.next() after a terminal hangs rather than repeatedly resolving {done:true}; no terminal-op guard, so enqueue after a terminal silently retains.
 > - nits: JSDoc @template T vs .d.ts TValue naming; the freeze-cast comment from index.js not carried over.
 
-- `20260725T193546Z-1c89f3` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T193546Z-1c89f3.md)
+- `20260725T193546Z-1c89f3` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T193546Z-1c89f3.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
-- `20260725T211524Z-18a859` — from gardener:merge-endo-but-for-bots-pr856-ambiguous-entry-esm, reply_to `merge-endo-but-for-bots-pr856-ambiguous-entry-esm` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T211524Z-18a859.md)
+- `20260725T211524Z-18a859` — from gardener:merge-endo-but-for-bots-pr856-ambiguous-entry-esm, reply_to `merge-endo-but-for-bots-pr856-ambiguous-entry-esm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T211524Z-18a859.md)
 
 > Conductor stalled on [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (ambiguous .js entry ESM detection) — approval went stale.
 >
@@ -927,7 +927,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > To land: a fresh approval on head ca0b6c0 (then re-post the merge job, or I can be re-run). [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856)
 
-- `20260725T212441Z-e28be4` — from gardener:finbot-progress-20260725-170501, reply_to `finbot-progress-20260725-170501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T212441Z-e28be4.md)
+- `20260725T212441Z-e28be4` — from gardener:finbot-progress-20260725-170501, reply_to `finbot-progress-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T212441Z-e28be4.md)
 
 > finbot cycle (progress-20260725-170501) — PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) advanced, green; merge chain needs a decision.
 >
@@ -943,39 +943,39 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > NEXT UNBLOCKED STEP: pending your answer to (1)/(2). PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) is "awaiting panel + Fable sign-off" — correct governed state, not self-merged. No competing PR opened.
 
-- `20260725T230755Z-fa17b5` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230755Z-fa17b5.md)
+- `20260725T230755Z-fa17b5` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T230755Z-fa17b5.md)
 
 > Assessed [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) at f5d1f913: CI and independent local `npm test` plus `node bin/finbot-dispatch --seed=7` are green, with the dry run reporting `WALLET TOUCHED: false`. I did not duplicate its dedicated panel work: the panel rerun is a poisoned go-ahead plan and another finbot progress driver remains active. The next unblocked action needs your decision: authorize a supervised full panel rerun and choose the pinned `fetch` policy for `oracle-watcher` plus the concrete bounded globals surface for `steward`. After a passing panel, the required Fable orchestrator sign-off can be dispatched. No merge was performed.
 
-- `20260725T230813Z-4dbe70` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230813Z-4dbe70.md)
+- `20260725T230813Z-4dbe70` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T230813Z-4dbe70.md)
 
 > Correction to my preceding note: the first local commands were accidentally invoked from the garden worktree and did not execute finbot. I have now run them from the isolated finbot worktree at f5d1f913: `npm test` passed, and `node bin/finbot-dispatch --seed=7` completed its dry run with `WALLET TOUCHED: false`. The gating assessment and no-merge status are unchanged.
 
-- `20260725T230833Z-f96aeb` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230833Z-f96aeb.md)
+- `20260725T230833Z-f96aeb` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T230833Z-f96aeb.md)
 
 > Second correction: the finbot-worktree test attempt did run there, but it failed before assertions because its dependency cache was absent (`ERR_MODULE_NOT_FOUND` for `ses` and `@finbot/simulator`). Consequently neither `npm test` nor the dry-run command has yet been verified locally by this cycle. I am restoring only the project dependencies before rerunning them; no source change or merge has occurred.
 
-- `20260725T230916Z-5b34db` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T230916Z-5b34db.md)
+- `20260725T230916Z-5b34db` — from gardener:finbot-progress-20260725-230503, reply_to `finbot-progress-20260725-230503` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T230916Z-5b34db.md)
 
 > Local verification is now complete from the isolated finbot worktree after restoring dependencies: `npm test` passed, and `node bin/finbot-dispatch --seed=7` completed a dry run with the executor reporting `WALLET TOUCHED: false`. The temporary generated lockfile was removed; the project worktree is clean. The panel/Fable gate remains the only next step and no merge was performed.
 
-- `20260725T235849Z-0d9f9d` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T235849Z-0d9f9d.md)
+- `20260725T235849Z-0d9f9d` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T235849Z-0d9f9d.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
-- `20260725T235854Z-d6bcce` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260725T235854Z-d6bcce.md)
+- `20260725T235854Z-d6bcce` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T235854Z-d6bcce.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
-- `20260726T020521Z-87c1f9` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T020521Z-87c1f9.md)
+- `20260726T020521Z-87c1f9` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T020521Z-87c1f9.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
-- `20260726T022527Z-9163c4` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T022527Z-9163c4.md)
+- `20260726T022527Z-9163c4` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T022527Z-9163c4.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
-- `20260726T024419Z-9fb3d7` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T024419Z-9fb3d7.md)
+- `20260726T024419Z-9fb3d7` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T024419Z-9fb3d7.md)
 
 > Conductor stall — [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) is ready EXCEPT for a current maintainer approval.
 >
@@ -986,7 +986,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Merge blocked: no maintainer approval on current head. Nothing else stands in the way — a fresh APPROVED review from kriskowal (or another allowlist maintainer) on ca0b6c02 unblocks an immediate merge. Please re-post the conduct job (or nudge the review) once that lands.
 
-- `20260726T030439Z-b2ec61` — from gardener:endojs-endo-but-for-bots-pr852-d502e7a9-conduct, reply_to `endojs-endo-but-for-bots-pr852-d502e7a9-conduct` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T030439Z-b2ec61.md)
+- `20260726T030439Z-b2ec61` — from gardener:endojs-endo-but-for-bots-pr852-d502e7a9-conduct, reply_to `endojs-endo-but-for-bots-pr852-d502e7a9-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T030439Z-b2ec61.md)
 
 > Conduct [endojs/endo-but-for-bots#852](https://github.com/endojs/endo-but-for-bots/issues/852) is a no-op: the PR is deliberately CLOSED, not mergeable.
 >
@@ -995,11 +995,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did NOT reopen or merge — that would contradict an authoritative maintainer's explicit decision. No upstream comment posted (kriscendobot already acknowledged the close on-thread). Marking the merge outcome as not-achieved (orchestration-failed) so no downstream is falsely unblocked.
 
-- `20260726T033826Z-d1d13f` — from gardener:esheets-supervisor-20260726-033501, reply_to `esheets-supervisor-20260726-033501` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T033826Z-d1d13f.md)
+- `20260726T033826Z-d1d13f` — from gardener:esheets-supervisor-20260726-033501, reply_to `esheets-supervisor-20260726-033501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T033826Z-d1d13f.md)
 
 > Sheets daily standup: the network floor is implemented in open [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (clean, non-draft, all reported checks green, awaiting review/merge). OAuth is design [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (clean, all current checks green, awaiting review/merge). I posted and a builder claimed `build-exo-google-sheets` for the unblocked Phase 1-2 `@endo/google-sheets` + `@endo/exo-google-sheets` core; it uses stubbed fetch and does not wait on OAuth. `@endo/http-confine` / `@endo/exo-http-client` are already merged; webhooks push remains deferred by design. Blocker: maintainer review/merge of the two linked PRs; daemon integration remains downstream of OAuth.
 
-- `20260726T051228Z-1c67ce` — from gardener:ocapn-noise-press-20260726-050514, reply_to `ocapn-noise-press-20260726-050514` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T051228Z-1c67ce.md)
+- `20260726T051228Z-1c67ce` — from gardener:ocapn-noise-press-20260726-050514, reply_to `ocapn-noise-press-20260726-050514` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T051228Z-1c67ce.md)
 
 > Subject: [single re-nudge per policy] OCapN [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) merge still waits only on your approval
 >
@@ -1009,7 +1009,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > 2. Conductor job endojs-endo-but-for-bots-pr806-conduct remains poisoned+parked in jobs/plan/ behind a go-ahead gate — the merge is ownerless. **Ask: after approving, say 'promote endojs-endo-but-for-bots-pr806-conduct'.**
 > 3. [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) still CONFLICTING; the stack weave ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) -> [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) -> [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) -> [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693)) stays deferred until [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) lands. M1-M5 remain proven; no regressions, no code motion since 07-22.
 
-- `20260726T051521Z-23175b` — from gardener:finbot-progress-20260726-050514, reply_to `finbot-progress-20260726-050514` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T051521Z-23175b.md)
+- `20260726T051521Z-23175b` — from gardener:finbot-progress-20260726-050514, reply_to `finbot-progress-20260726-050514` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T051521Z-23175b.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) by revalidating the current head: local `npm test`, the harness spawn test, and the offline `node bin/finbot-dispatch --seed=7` all passed; the dispatch confirmed `WALLET TOUCHED: false`. CI is also green.
 >
@@ -1017,19 +1017,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Next unblocked step: land the fixer result, then rerun the complete panel on the new head. Only a passing panel may be handed to a `claude-fable-5` orchestrator for sign-off and merge.
 
-- `20260726T094528Z-d36796` — from watchdog:triager/kriscendobot-moddable, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T094528Z-d36796.md)
+- `20260726T094528Z-d36796` — from watchdog:triager/kriscendobot-moddable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T094528Z-d36796.md)
 
 > triager: fetch for kriscendobot-moddable at /home/kris/garden/worktrees/kriscendobot-moddable.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-moddable cannot be triaged until it is restored.
 
-- `20260726T094528Z-f25ad1` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T094528Z-f25ad1.md)
+- `20260726T094528Z-f25ad1` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T094528Z-f25ad1.md)
 
 > triager: fetch for kriscendobot-test262 at /home/kris/garden/worktrees/kriscendobot-test262.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
 
-- `20260726T100533Z-a48229` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T100533Z-a48229.md)
+- `20260726T100533Z-a48229` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T100533Z-a48229.md)
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
 
-- `20260726T113143Z-a39dce` — from gardener:endo-npm-cas-registry-press-20260726-112002, reply_to `endo-npm-cas-registry-press-20260726-112002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T113143Z-a39dce.md)
+- `20260726T113143Z-a39dce` — from gardener:endo-npm-cas-registry-press-20260726-112002, reply_to `endo-npm-cas-registry-press-20260726-112002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T113143Z-a39dce.md)
 
 > npm-via-CAS press (2026-07-26 tick): the finish line is REACHED, gated on one merge.
 >
@@ -1041,11 +1041,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Also live on this arc (draft, from prior ticks, all MERGEABLE/green): [endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) peer/optionalDependencies, [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) process shim (consolidated with [endojs/endo-but-for-bots#863](https://github.com/endojs/endo-but-for-bots/issues/863)), [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) .npmrc auth, [endojs/endo-but-for-bots#862](https://github.com/endojs/endo-but-for-bots/issues/862) registry CLI.
 
-- `20260726T113450Z-beda2d` — from gardener:finbot-progress-20260726-112002, reply_to `finbot-progress-20260726-112002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T113450Z-beda2d.md)
+- `20260726T113450Z-beda2d` — from gardener:finbot-progress-20260726-112002, reply_to `finbot-progress-20260726-112002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T113450Z-beda2d.md)
 
 > Advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) verification: fresh isolated checkout at a99c87b, npm test, the focused harness spawn suite, and node bin/finbot-dispatch --seed=7 all passed (dry run reported WALLET TOUCHED: false). The PR remains draft and CI-green. I began the required full scripted code-panel rerun with formal, non-empty per-seat evidence; it has not completed, so the PR is awaiting panel completion and then Fable orchestrator sign-off. No maintainer decision is needed now.
 
-- `20260726T153615Z-049e93` — from gardener:endojs-endo-but-for-bots-pr836-review-3e0d6210, reply_to `endojs-endo-but-for-bots-pr836-review-3e0d6210` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T153615Z-049e93.md)
+- `20260726T153615Z-049e93` — from gardener:endojs-endo-but-for-bots-pr836-review-3e0d6210, reply_to `endojs-endo-but-for-bots-pr836-review-3e0d6210` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T153615Z-049e93.md)
 
 > Resolved kriskowal's review on [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836) (SHA-256 XS spot check). Two of three inline asks are done and pushed (42719d103), tests+lint+tsc green:
 > - "Use @endo/hex" — replaced the hand-rolled toHex with encodeHex from @endo/hex (already a dep).
@@ -1058,15 +1058,15 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > (Aside: xst isn't available in the fix env, so the test:xs @endo/hex resolution under `xst -m` is verified only by CI's test-xs job.)
 
-- `20260726T165523Z-eeda98` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T165523Z-eeda98.md)
+- `20260726T165523Z-eeda98` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T165523Z-eeda98.md)
 
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
 
-- `20260726T172756Z-481165` — from gardener:finbot-progress-20260726-172007, reply_to `finbot-progress-20260726-172007` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T172756Z-481165.md)
+- `20260726T172756Z-481165` — from gardener:finbot-progress-20260726-172007, reply_to `finbot-progress-20260726-172007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T172756Z-481165.md)
 
 > Assessed and advanced [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4). CI is green at a99c87b and the PR remains draft. I ran the required scripted 28-seat panel rerun against origin/main, but the first assessor invocation produced no formal verdict evidence and the panel stopped before a disposition. Per the fail-closed requirement, it was not treated as a pass and no Fable sign-off or merge was initiated. Next unblocked step: restore a functioning non-empty juror invocation, rerun the full panel, then dispatch the required claude-fable-5 sign-off if it passes.
 
-- `20260726T173645Z-d6007a` — from gardener:ocapn-noise-press-20260726-172007, reply_to `ocapn-noise-press-20260726-172007` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T173645Z-d6007a.md)
+- `20260726T173645Z-d6007a` — from gardener:ocapn-noise-press-20260726-172007, reply_to `ocapn-noise-press-20260726-172007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T173645Z-d6007a.md)
 
 > OCapN-over-Noise press update: I merged [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) (crossed-hello race fix) into llm — merge commit 2b4a01e7, rebase merge per repo convention.
 >
@@ -1074,23 +1074,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Follow-ups: the parked/poisoned jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md is now moot and can be discarded. I posted the deferred weave for [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (job endojs-endo-but-for-bots-pr340-weave) so the transport PR gets rebased onto llm with the merged fix's semantics; the stacked [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) / [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) / [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) ride on that branch.
 
-- `20260726T174828Z-0105d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T174828Z-0105d4.md)
+- `20260726T174828Z-0105d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T174828Z-0105d4.md)
 
 > Report endo-npm-cas-registry-press-20260726-172007 flags **workspace-protocol resolution** (`workspace:*` ranges for monorepo members) as the one unaddressed known gap and the natural next feature increment on the endo npm CAS registry — no PR covers it yet. Want me to post a designer/builder (or probe) job to start it, or park it?
 
-- `20260726T174833Z-9a139c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T174833Z-9a139c.md)
+- `20260726T174833Z-9a139c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T174833Z-9a139c.md)
 
 > Report endo-npm-cas-registry-press-20260726-172007 notes four green gap drafts — endojs/endo-but-for-bots #857, #859, #860, #862 — ready whenever you want them run through the gauntlet. Say the word and I'll post the gauntlet jobs.
 
-- `20260726T181546Z-d59872` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T181546Z-d59872.md)
+- `20260726T181546Z-d59872` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T181546Z-d59872.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
-- `20260726T183953Z-210157` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T183953Z-210157.md)
+- `20260726T183953Z-210157` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T183953Z-210157.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
-- `20260726T191230Z-6b2ff0` — from gardener:proposal-compartments-press-20260726-190502, reply_to `proposal-compartments-press-20260726-190502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T191230Z-6b2ff0.md)
+- `20260726T191230Z-6b2ff0` — from gardener:proposal-compartments-press-20260726-190502, reply_to `proposal-compartments-press-20260726-190502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T191230Z-6b2ff0.md)
 
 > proposal-compartments daily press (2026-07-26): the effort has hit a strategic fork on the fifth finish-line bar (four-engine native agreement) that needs your call.
 >
@@ -1106,19 +1106,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > My recommendation: (b) or (c). Continuing to spawn native-engine builders daily would burn Opus re-deriving the same blocker. Which do you want, and should the daily press keep pressing the three open Node-checklist shortfalls (error separation, synchronous-eval entry point, base-loader defaults; two need your decision) meanwhile?
 
-- `20260726T214043Z-5748bd` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T214043Z-5748bd.md)
+- `20260726T214043Z-5748bd` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T214043Z-5748bd.md)
 
 > triager: fetch for kriscendobot-vattr97 at /home/kris/garden/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
 
-- `20260726T215204Z-d85732` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T215204Z-d85732.md)
+- `20260726T215204Z-d85732` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T215204Z-d85732.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 5f719eebaeb84c1a6a8c2ba6dfcfa37f1d19f93c is 16 commit(s) behind origin/main2 (6867d3b6ecdcad8ef40de7ee0380bda9fc43e83e) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
 
-- `20260726T230126Z-60c37b` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T230126Z-60c37b.md)
+- `20260726T230126Z-60c37b` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T230126Z-60c37b.md)
 
 > gardener job 'endo-sturdyref-agent-surface-build-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `20260726T234209Z-5dd69f` — from gardener:endo-sturdyref-press-20260726-233502, reply_to `endo-sturdyref-press-20260726-233502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T234209Z-5dd69f.md)
+- `20260726T234209Z-5dd69f` — from gardener:endo-sturdyref-press-20260726-233502, reply_to `endo-sturdyref-press-20260726-233502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T234209Z-5dd69f.md)
 
 > # SturdyRef press: whole stack CI-green; one go-ahead needed to run the agent-surface panel
 >
@@ -1157,11 +1157,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > binding unforgeable); [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) adds the guard/escrow
 > regression tests for the agent surface.
 
-- `20260726T235837Z-244282` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260726T235837Z-244282.md)
+- `20260726T235837Z-244282` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T235837Z-244282.md)
 
 > The endo npm/CAS-registry arc now has a PR for every actionable known gap — #857, #859, #860, #862, and #873 on endojs/endo-but-for-bots — and the remaining press work is landing them through the gauntlet, which is gated on your promotion. Please promote whichever of these you want run through the gauntlet next (the two deliberate non-goals, install scripts and native modules, need no action).
 
-- `20260727T033826Z-0c1538` — from gardener:esheets-supervisor-20260727-033502, reply_to `esheets-supervisor-20260727-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T033826Z-0c1538.md)
+- `20260727T033826Z-0c1538` — from gardener:esheets-supervisor-20260727-033502, reply_to `esheets-supervisor-20260727-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T033826Z-0c1538.md)
 
 > esheets standup (2026-07-27): Foundations green + mergeable but awaiting your merge — [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) (@endo/fetch network floor, 24/24 checks green) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (endoclaw-oauth design refinement, green). Neither is merged into llm yet; both are the blocking maintainer decision. No sheets/oauth/fetch packages exist under packages/ on llm.
 >
@@ -1169,23 +1169,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Blocking you: (1) merge [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) to unblock the OAuth implementation (still design-stage) and the exo layer; (2) whether to re-promote build-exo-google-sheets or let the exo layer wait for the plain client + OAuth impl. Webhooks/push stays deferred per design. Nothing else actionable until a merge or your call.
 
-- `20260727T055826Z-fe8913` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T055826Z-fe8913.md)
+- `20260727T055826Z-fe8913` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T055826Z-fe8913.md)
 
 > Report endo-npm-cas-registry-press-20260727-053502: four gap drafts in endojs/endo-but-for-bots are green and clean against the new HEAD but held draft awaiting your promotion — #857 (peer/optional deps), #859 (process shim), #860 (npmrc auth), #873 (workspace protocol). Do you want to promote any of these to land? (#862 CLI is already done.)
 
-- `20260727T062257Z-a870b5` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T062257Z-a870b5.md)
+- `20260727T062257Z-a870b5` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T062257Z-a870b5.md)
 
 > triager: fetch for kriscendobot-cosgov at /home/kris/garden/worktrees/kriscendobot-cosgov.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-cosgov cannot be triaged until it is restored.
 
-- `20260727T084344Z-85e630` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T084344Z-85e630.md)
+- `20260727T084344Z-85e630` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T084344Z-85e630.md)
 
 > gardener job 'finbot-pr5-panel-20260727' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `20260727T112017Z-11f3f4` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T112017Z-11f3f4.md)
+- `20260727T112017Z-11f3f4` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T112017Z-11f3f4.md)
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
 
-- `20260727T115833Z-39a22e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T115833Z-39a22e.md)
+- `20260727T115833Z-39a22e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T115833Z-39a22e.md)
 
 > Report `endo-npm-cas-registry-press-20260727-113510` (endojs/endo-but-for-bots) has two items needing your call:
 >
@@ -1193,23 +1193,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > 2. Two probe findings were recorded but not pressed, and the report flags a design note is wanted before any code: (a) nanoid's `node:crypto`/webcrypto — builtin-shim vs. browser-condition policy; and (b) missing `Intl` in XS compartments (engine arc's surface). Want me to post a designer job for a design note on either, or park them?
 
-- `20260727T133450Z-8754ba` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T133450Z-8754ba.md)
+- `20260727T133450Z-8754ba` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T133450Z-8754ba.md)
 
 > triager: fetch for kriscendobot-ocapn at /home/kris/garden/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
 
-- `20260727T173549Z-172280` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T173549Z-172280.md)
+- `20260727T173549Z-172280` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T173549Z-172280.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
 
-- `20260727T180817Z-609184` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T180817Z-609184.md)
+- `20260727T180817Z-609184` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T180817Z-609184.md)
 
 > endo-npm-cas-registry press (report endo-npm-cas-registry-press-20260727-175002): six gap drafts on endojs/endo-but-for-bots are held awaiting your promotion — #857, #859, #860, #873, #875, and new #876 — to land on the #862 pattern. Heads-up: #875 and #876 both touch EXPORTS_RESOLVER_JS, so whichever you promote second takes a trivial rebase plus a one-line extra-conditions splice. Please say which to promote (and in what order).
 
-- `20260727T180823Z-d67dd9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T180823Z-d67dd9.md)
+- `20260727T180823Z-d67dd9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T180823Z-d67dd9.md)
 
 > endo-npm-cas-registry press (same report): the default-condition-set policy for still-open web-global gaps — TextEncoder/TextDecoder, crypto.subtle, atob/btoa/URL (and Intl on the engine arc) — needs your word: browser-by-default vs opt-in vs node-shims. The gaps are recorded but blocked on this policy call before further drafts.
 
-- `20260727T191211Z-927bea` — from gardener:proposal-compartments-press-20260727-190507, reply_to `proposal-compartments-press-20260727-190507` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T191211Z-927bea.md)
+- `20260727T191211Z-927bea` — from gardener:proposal-compartments-press-20260727-190507, reply_to `proposal-compartments-press-20260727-190507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T191211Z-927bea.md)
 
 > Compartments daily press (2026-07-27): still awaiting your call on the four-engine native bar (raised 2026-07-26). Nothing new to fix; the effort is stable, not degrading. State today:
 >
@@ -1220,23 +1220,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The finish-line bar of four-engine native agreement depends on source-phase imports shipping in each engine, a large per-engine effort outside this proposal. Options from 07-26 stand: (a) fund per-engine source-phase ports, (b) narrow the bar to the semantic harness + one native engine (JSC is closest; it already ships import defer behind a flag), or (c) pause native fronts as blocked-upstream. I recommend (b) or (c) so the daily press stops re-deriving the same blocker. No reply needed if you've already seen this; I'll hold at re-verify-and-report until you decide.
 
-- `20260727T195218Z-8abefc` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T195218Z-8abefc.md)
+- `20260727T195218Z-8abefc` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T195218Z-8abefc.md)
 
 > triager: fetch for kriscendobot-finbot at /home/kris/garden/worktrees/kriscendobot-finbot.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-finbot cannot be triaged until it is restored.
 
-- `20260727T195419Z-425c2c` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T195419Z-425c2c.md)
+- `20260727T195419Z-425c2c` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T195419Z-425c2c.md)
 
 > triager: fetch for kriscendobot-garden at /home/kris/garden/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
 
-- `20260727T205427Z-491248` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T205427Z-491248.md)
+- `20260727T205427Z-491248` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T205427Z-491248.md)
 
 > triager: fetch for kriscendobot-garden at /home/kris/garden/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
 
-- `20260728T005942Z-b6ecc2` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T005942Z-b6ecc2.md)
+- `20260728T005942Z-b6ecc2` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T005942Z-b6ecc2.md)
 
 > triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
 
-- `20260728T011828Z-6af236` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T011828Z-6af236.md)
+- `20260728T011828Z-6af236` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T011828Z-6af236.md)
 
 > Two decisions from report `endo-npm-cas-registry-press-20260728-004711` (npm CAS registry press, endojs/endo-but-for-bots):
 >
@@ -1244,7 +1244,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > 2. **#876's default-conditions policy awaits your word** — [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876). The press cannot proceed on the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`) with confidence until that policy call is made.
 
-- `20260728T064148Z-f821b9` — from gardener:garden-repo-transfer-followthrough, reply_to `garden-repo-transfer-followthrough` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T064148Z-f821b9.md)
+- `20260728T064148Z-f821b9` — from gardener:garden-repo-transfer-followthrough, reply_to `garden-repo-transfer-followthrough` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T064148Z-f821b9.md)
 
 > # Repo transfer follow-through: one maintainer-only action, plus two host notes
 >
@@ -1311,19 +1311,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > bookmark or external link to the old address is dead — I updated every in-repo
 > reference, but I cannot fix links held outside the repo.
 
-- `20260728T065717Z-7c3b61` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065717Z-7c3b61.md)
+- `20260728T065717Z-7c3b61` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065717Z-7c3b61.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
 
-- `20260728T065948Z-3a877e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065948Z-3a877e.md)
+- `20260728T065948Z-3a877e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065948Z-3a877e.md)
 
 > The npm-CAS-registry press arc has **seven** gap drafts sitting green, clean, and deliberately held in draft awaiting your promotion: endojs/endo-but-for-bots #857 (peer/optional deps), #859 (process shim), #860 (npmrc auth), #873 (workspace protocol), #875, #876, and #877. Reports `endo-npm-cas-registry-press-20260727-175002` and `-20260728-004711` note the promotion order matters slightly — #875/#876 both touch `EXPORTS_RESOLVER_JS` and #876/#877 both touch `__archiveEndowments`, so whichever lands second in each pair takes a trivial rebase. Do you want them run through the gauntlet (the #862 pattern: verify on the exact merged tree, merge, provenance comment), and in what order? Separately, #876 is blocked on your word on the **default-condition-set policy** — browser-by-default vs opt-in vs node-shims — which also governs the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`). I have posted a job to write a design note on the `node:crypto`/webcrypto case to inform that call.
 
-- `20260728T065954Z-dce64f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T065954Z-dce64f.md)
+- `20260728T065954Z-dce64f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065954Z-dce64f.md)
 
 > From report `proposal-compartments-v8-validation-20260725`: a spec-annex decision is still open and is yours — whether a **host-only synchronous evaluation operation** is added, to address the charter's non-TLA path shortfall. The native v8 port is otherwise gated on upstream V8 work (source-phase imports + `import.source()`, then `import defer`), so nothing autonomous is waiting on it; only this annex question is actionable now.
 
-- `20260728T070704Z-102704` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070704Z-102704.md)
+- `20260728T070704Z-102704` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070704Z-102704.md)
 
 > kind: error
 >
@@ -1355,7 +1355,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070709Z-9d42d7` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070709Z-9d42d7.md)
+- `20260728T070709Z-9d42d7` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070709Z-9d42d7.md)
 
 > kind: error
 >
@@ -1387,7 +1387,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070714Z-ed48d4` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070714Z-ed48d4.md)
+- `20260728T070714Z-ed48d4` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070714Z-ed48d4.md)
 
 > kind: error
 >
@@ -1419,7 +1419,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070745Z-ff2684` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070745Z-ff2684.md)
+- `20260728T070745Z-ff2684` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070745Z-ff2684.md)
 
 > kind: error
 >
@@ -1451,7 +1451,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070751Z-837dd4` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070751Z-837dd4.md)
+- `20260728T070751Z-837dd4` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070751Z-837dd4.md)
 
 > kind: error
 >
@@ -1483,7 +1483,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070756Z-2a1bd8` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070756Z-2a1bd8.md)
+- `20260728T070756Z-2a1bd8` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070756Z-2a1bd8.md)
 
 > kind: error
 >
@@ -1515,7 +1515,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070825Z-fa3479` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070825Z-fa3479.md)
+- `20260728T070825Z-fa3479` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070825Z-fa3479.md)
 
 > kind: error
 >
@@ -1547,7 +1547,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070833Z-0ca9f6` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070833Z-0ca9f6.md)
+- `20260728T070833Z-0ca9f6` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070833Z-0ca9f6.md)
 
 > kind: error
 >
@@ -1579,7 +1579,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T070838Z-6bdb1f` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T070838Z-6bdb1f.md)
+- `20260728T070838Z-6bdb1f` — from identity-drift-guard:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T070838Z-6bdb1f.md)
 
 > kind: error
 >
@@ -1611,7 +1611,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
 
-- `20260728T071714Z-2cdc32` — from gardener:endo-sturdyref-press-20260728-004711, reply_to `endo-sturdyref-press-20260728-004711` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T071714Z-2cdc32.md)
+- `20260728T071714Z-2cdc32` — from gardener:endo-sturdyref-press-20260728-004711, reply_to `endo-sturdyref-press-20260728-004711` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T071714Z-2cdc32.md)
 
 > # ESCALATION — sturdyref finish line gated ~32h on one promotion: "go ahead on endo-sturdyref-agent-surface-build-gauntlet"
 >
@@ -1648,11 +1648,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) carries the agent-surface guard/escrow regression
 > tests, green inside the 21/21 rollup cited above.
 
-- `20260728T071906Z-9c5d90` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T071906Z-9c5d90.md)
+- `20260728T071906Z-9c5d90` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T071906Z-9c5d90.md)
 
 > Eight gap drafts from report `endo-npm-cas-registry-press-20260728-065010` are held in draft awaiting your promotion decision in `endojs/endo-but-for-bots`: #857, #859, #860, #873, #875, #876, #877, and the new #878. Separately, the default-conditions policy question on #876 still needs your word before the remaining web-global gaps (`crypto.subtle`, streaming/`fatal` `TextDecoder` fidelity, `encodeInto`) are worth pressing further.
 
-- `20260728T072431Z-c67da0` — from gardener:finbot-progress-20260727-175002, reply_to `finbot-progress-20260727-175002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T072431Z-c67da0.md)
+- `20260728T072431Z-c67da0` — from gardener:finbot-progress-20260727-175002, reply_to `finbot-progress-20260727-175002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T072431Z-c67da0.md)
 
 > finbot progress cycle 20260727-175002 — panel gate now RUNNABLE, posted [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) panel
 >
@@ -1680,7 +1680,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > deploy landed. Only flag: if the quota throttle lifts, both panels could run in parallel
 > to drain the gate faster.
 
-- `20260728T072602Z-6ccaf1` — from gardener:self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404, reply_to `self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T072602Z-6ccaf1.md)
+- `20260728T072602Z-6ccaf1` — from gardener:self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404, reply_to `self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T072602Z-6ccaf1.md)
 
 > fork-watch dead-upstream self-heal (chrome-native-function-caller-arguments-repro) is closed out:
 >
@@ -1692,11 +1692,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Note main2 has moved ahead of the deployed root (root HEAD 0d2e75298b predates both fixes), so the guard only takes effect on this host at the next deliberate deploy.
 
-- `20260728T072853Z-891d7c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T072853Z-891d7c.md)
+- `20260728T072853Z-891d7c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T072853Z-891d7c.md)
 
 > `self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop` needs your call on the stale bare clone `worktrees/kriskowal-garden.git`: remove it, or re-point its origin. The self-heal stopped the crashloop but left the clone as-is, since either choice is yours.
 
-- `20260728T073405Z-fc467c` — from gardener:endojs-endo-but-for-bots-pr556-dependabot, reply_to `endojs-endo-but-for-bots-pr556-dependabot` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T073405Z-fc467c.md)
+- `20260728T073405Z-fc467c` — from gardener:endojs-endo-but-for-bots-pr556-dependabot, reply_to `endojs-endo-but-for-bots-pr556-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073405Z-fc467c.md)
 
 > botanist verdict MERGE-NOW on [https://github.com/endojs/endo-but-for-bots/pull/556](https://github.com/endojs/endo-but-for-bots/pull/556) (bump actions/cache 4.3.0 -> 5.0.5). Needs only your APPROVAL to land.
 >
@@ -1708,7 +1708,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Full verdict comment: [https://github.com/endojs/endo-but-for-bots/pull/556](https://github.com/endojs/endo-but-for-bots/pull/556)#issuecomment-5101266315
 
-- `20260728T073443Z-990c59` — from gardener:endojs-endo-but-for-bots-pr558-dependabot, reply_to `endojs-endo-but-for-bots-pr558-dependabot` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T073443Z-990c59.md)
+- `20260728T073443Z-990c59` — from gardener:endojs-endo-but-for-bots-pr558-dependabot, reply_to `endojs-endo-but-for-bots-pr558-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073443Z-990c59.md)
 
 > Botany MERGE-NOW ready, blocked only on your approval: [https://github.com/endojs/endo-but-for-bots/pull/558](https://github.com/endojs/endo-but-for-bots/pull/558) (`softprops/action-gh-release` 3.0.0 to 3.0.1).
 >
@@ -1721,7 +1721,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Note for the batch: [https://github.com/endojs/endo-but-for-bots/pull/556](https://github.com/endojs/endo-but-for-bots/pull/556), [https://github.com/endojs/endo-but-for-bots/pull/557](https://github.com/endojs/endo-but-for-bots/pull/557), [https://github.com/endojs/endo-but-for-bots/pull/268](https://github.com/endojs/endo-but-for-bots/pull/268), and [https://github.com/endojs/endo-but-for-bots/pull/269](https://github.com/endojs/endo-but-for-bots/pull/269) are sibling GitHub Actions bumps from the same watcher wave, being reviewed by peer gardeners right now, and they will land in the same approval-gated state. A single review pass over the batch would clear them together.
 
-- `20260728T073619Z-9e5213` — from gardener:endojs-endo-but-for-bots-pr562-dependabot, reply_to `endojs-endo-but-for-bots-pr562-dependabot` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T073619Z-9e5213.md)
+- `20260728T073619Z-9e5213` — from gardener:endojs-endo-but-for-bots-pr562-dependabot, reply_to `endojs-endo-but-for-bots-pr562-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073619Z-9e5213.md)
 
 > # Approval needed: a CRITICAL advisory sits unrepaired behind an unreviewed dependabot PR
 >
@@ -1766,7 +1766,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Only `/commits/<sha>/check-runs` carries real signal here. Any gate reading the
 > former would stall forever on every PR in the repo.
 
-- `20260728T073735Z-c05a3f` — from gardener:endojs-endo-but-for-bots-pr562-dependabot, reply_to `endojs-endo-but-for-bots-pr562-dependabot` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T073735Z-c05a3f.md)
+- `20260728T073735Z-c05a3f` — from gardener:endojs-endo-but-for-bots-pr562-dependabot, reply_to `endojs-endo-but-for-bots-pr562-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073735Z-c05a3f.md)
 
 > # Follow-up to my previous note: the CI-rollup finding needs no action
 >
@@ -1790,7 +1790,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > [https://github.com/endojs/endo-but-for-bots/pull/869](https://github.com/endojs/endo-but-for-bots/pull/869) to clear the CRITICAL
 > happy-dom advisory, or say you would rather wait.
 
-- `20260728T073821Z-4e10cc` — from gardener:consolidate-maintainer-inbox-20260727, reply_to `consolidate-maintainer-inbox-20260727` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T073821Z-4e10cc.md)
+- `20260728T073821Z-4e10cc` — from gardener:consolidate-maintainer-inbox-20260727, reply_to `consolidate-maintainer-inbox-20260727` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073821Z-4e10cc.md)
 
 > Maintainer inbox consolidation
 >
@@ -1811,7 +1811,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > - `20260728T064148Z-f821b9.md`: repo-transfer follow-through; the bulletin token needs a maintainer re-mint.
 > - `20260728T065717Z-7c3b61.md`: `kriscendobot-endo` triage is still retrying after a fetch failure.
 
-- `20260728T073900Z-0126e9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T073900Z-0126e9.md)
+- `20260728T073900Z-0126e9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073900Z-0126e9.md)
 
 > Two decisions are waiting on you:
 >
@@ -1819,7 +1819,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > 2. **Broken automatic gc in the shared garden repo** — report `dedupe-watchdog-notices-and-fix-triager-fetch` recorded `fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` / `failed to run repack` in the journal worktree's `gc.log`; the object is genuinely missing. The job deliberately left the root repo's object store alone, and I am not posting a job that touches it — repairing the object store under a deployed root checkout shared with the `journal/` worktree needs either your hand or an explicit widening of the root-repo-guard's mandate. Which?
 
-- `20260728T074750Z-a00ff0` — from gardener:endojs-endo-but-for-bots-pr869-dependabot, reply_to `endojs-endo-but-for-bots-pr869-dependabot` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T074750Z-a00ff0.md)
+- `20260728T074750Z-a00ff0` — from gardener:endojs-endo-but-for-bots-pr869-dependabot, reply_to `endojs-endo-but-for-bots-pr869-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T074750Z-a00ff0.md)
 
 > Botany verdict MERGE-NOW on [https://github.com/endojs/endo-but-for-bots/pull/869](https://github.com/endojs/endo-but-for-bots/pull/869)
 > (happy-dom 15.11.7 -> 20.11.0). It needs ONE approval and nothing else.
@@ -1866,7 +1866,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Full verdict on the PR:
 > [https://github.com/endojs/endo-but-for-bots/pull/869](https://github.com/endojs/endo-but-for-bots/pull/869)#issuecomment-5101396827
 
-- `20260728T075054Z-2de24d` — from gardener:endojs-endo-but-for-bots-pr869-dependabot, reply_to `endojs-endo-but-for-bots-pr869-dependabot` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075054Z-2de24d.md)
+- `20260728T075054Z-2de24d` — from gardener:endojs-endo-but-for-bots-pr869-dependabot, reply_to `endojs-endo-but-for-bots-pr869-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075054Z-2de24d.md)
 
 > Host-health note, unrelated to the PR 869 botany job I just finished, but found
 > while pushing from it.
@@ -1899,7 +1899,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > The `garden-root-repo-guard` timer checks origin/HEAD invariants rather than
 > object-store health, so I do not think it will catch this on its own.
 
-- `20260728T075221Z-2e8fc2` — from gardener:esheets-supervisor-20260728-033502, reply_to `esheets-supervisor-20260728-033502` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075221Z-2e8fc2.md)
+- `20260728T075221Z-2e8fc2` — from gardener:esheets-supervisor-20260728-033502, reply_to `esheets-supervisor-20260728-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075221Z-2e8fc2.md)
 
 > **esheets daily standup (2026-07-28)**
 >
@@ -1923,31 +1923,31 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >   Nothing the fleet can do moves those.
 > - Webhooks/push stays deferred per design; not part of the v1 operational bar.
 
-- `20260728T075346Z-b38f2b` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075346Z-b38f2b.md)
+- `20260728T075346Z-b38f2b` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075346Z-b38f2b.md)
 
 > triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
 
-- `20260728T075526Z-ad4148` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075526Z-ad4148.md)
+- `20260728T075526Z-ad4148` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075526Z-ad4148.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr867-dependabot' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `20260728T075830Z-5fce96` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075830Z-5fce96.md)
+- `20260728T075830Z-5fce96` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075830Z-5fce96.md)
 
 > [endojs/endo-but-for-bots#869](https://github.com/endojs/endo-but-for-bots/issues/869) (Dependabot PR, report `endojs-endo-but-for-bots-pr869-dependabot`) is complete except for **one approval** — that is the entire remaining distance. Approving is your call; the fleet will not self-approve.
 
-- `20260728T075835Z-4f80ad` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075835Z-4f80ad.md)
+- `20260728T075835Z-4f80ad` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075835Z-4f80ad.md)
 
 > Host-health finding from report `endojs-endo-but-for-bots-pr869-dependabot` (inbox `20260728T075054Z-2de24d`): auto-gc is wedged on the shared garden repo — object `9ad05cc3…` is referenced but genuinely missing, so `repack` aborts on every git command. Refs, fetch, push, and journal sync still work, so it is slow-burn rather than urgent. The reporting gardener deliberately did not attempt repair: `gc`/`fsck`/reflog-expiry on the root repo is the reserved class and wants a deliberate hand with the fleet drained. `garden-root-repo-guard` checks origin/HEAD invariants, not object-store health, so it will not catch this. Decision needed: schedule a drained repair window, and whether to extend the root-repo guard to cover object-store health.
 
-- `20260728T081152Z-e2126d` — from watchdog:gardener/5, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T081152Z-e2126d.md)
+- `20260728T081152Z-e2126d` — from watchdog:gardener/5, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T081152Z-e2126d.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr755-review-a0778b2e' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `20260728T081557Z-2df92c` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T081557Z-2df92c.md)
+- `20260728T081557Z-2df92c` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T081557Z-2df92c.md)
 
 > gardener job 'ebfb-reconcile-xsnap-pending-jobs-861-864' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
+- `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
 > Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
@@ -2014,7 +2014,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
-- `poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun.md)
+- `poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
 > Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
@@ -2042,7 +2042,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
-- `poison-endojs-endo-but-for-bots-pr755-review-a0778b2e-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr755-review-a0778b2e-deadline-overrun.md)
+- `poison-endojs-endo-but-for-bots-pr755-review-a0778b2e-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr755-review-a0778b2e-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
 > Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
@@ -2093,7 +2093,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
-- `poison-endojs-endo-but-for-bots-pr867-dependabot-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr867-dependabot-deadline-overrun.md)
+- `poison-endojs-endo-but-for-bots-pr867-dependabot-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-endojs-endo-but-for-bots-pr867-dependabot-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
 > Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
@@ -2128,7 +2128,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
-- `poison-finbot-pr5-panel-20260727-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr5-panel-20260727-deadline-overrun.md)
+- `poison-finbot-pr5-panel-20260727-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr5-panel-20260727-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
 > Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
@@ -2174,6 +2174,94 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git is SUCCEEDING again; kriscendobot-agoric-3-proposals is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-agoric-sdk` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-sdk.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-sdk` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git is SUCCEEDING again; kriscendobot-agoric-sdk is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-cosgov` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-cosgov.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-cosgov` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-cosgov at /home/kris/garden2/worktrees/kriscendobot-cosgov.git is SUCCEEDING again; kriscendobot-cosgov is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git is SUCCEEDING again; kriscendobot-endo is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-finbot` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-finbot.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-finbot` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-finbot at /home/kris/garden2/worktrees/kriscendobot-finbot.git is SUCCEEDING again; kriscendobot-finbot is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-minion.town.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-minion.town` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git is SUCCEEDING again; kriscendobot-minion.town is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-ocapn` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-ocapn.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-ocapn` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-ocapn at /home/kris/garden2/worktrees/kriscendobot-ocapn.git is SUCCEEDING again; kriscendobot-ocapn is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-proposal-compartments` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-proposal-compartments.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-proposal-compartments` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden2/worktrees/kriscendobot-proposal-compartments.git is SUCCEEDING again; kriscendobot-proposal-compartments is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-test262` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-test262.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-test262` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-test262 at /home/kris/garden2/worktrees/kriscendobot-test262.git is SUCCEEDING again; kriscendobot-test262 is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-vattr97` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-vattr97.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-vattr97` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git is SUCCEEDING again; kriscendobot-vattr97 is being triaged normally.
+
+- `watchdog-triager-fetch-failed-kriscendobot-ymax-stdio-mcp` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-ymax-stdio-mcp.md)
+
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-ymax-stdio-mcp at /home/kris/garden2/worktrees/kriscendobot-ymax-stdio-mcp.git is SUCCEEDING again; kriscendobot-ymax-stdio-mcp is being triaged normally.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
@@ -2181,218 +2269,218 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 46.5M | $609.11 _(notional, rate-card)_ | no quota set |
-| Codex | 413.3M _(+437.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Codex | 412.5M _(+437.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (53)
-- [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`build-exo-google-sheets-facets`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
-- [`build-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
-- [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
-- [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
-- [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
-- [`endojs-endo-but-for-bots-pr779-fix-namespace-order`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-fix-namespace-order.md) — Fix: PR #779 regresses module-namespace enumeration order (spec violation)
-- [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
-- [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Fix CI on https://github.com/endojs/endo-but-for-bots/pull/825.
-- [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
-- [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
-- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
-- [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
-- [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
-- [`finbot-pr4-panel-20260728`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fireworks-glm52-kimik3-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
-- [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
-- [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
-- [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
-- [`fu-deadmail-20260728T074423Z-6bee53-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-deadmail-20260728T074423Z-6bee53-2.md) — In the garden's own repo (kriskowal/garden), post a designer job to close the...
-- [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — In endojs/endo-but-for-bots, assess whether https://github.com/endojs/endo-bu...
-- [`fu-endo-npm-cas-registry-press-20260728-065010-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-065010-1.md) — In endojs/endo-but-for-bots, check CI on https://github.com/endojs/endo-but-f...
-- [`fu-endojs-endo-but-for-bots-pr556-dependabot-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr556-dependabot-3.md) — In the garden's own library (kriskowal/garden, main2), extend roles/botanist/...
-- [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
-- [`fu-endojs-endo-but-for-bots-pr868-dependabot-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr868-dependabot-3.md) — Garden-infra change in kriskowal/garden main2: amend roles/botanist/AGENT.md ...
-- [`fu-fix-identity-drift-guard-test-inbox-leak-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-1.md) — In kriskowal/garden (main2), fix the two pre-existing failures in tests/check...
-- [`fu-fix-identity-drift-guard-test-inbox-leak-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-2.md) — In kriskowal/garden (main2), sweep the ~80 suites under scripts/jobs/test/ th...
-- [`fu-fix-identity-drift-guard-test-inbox-leak-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-3.md) — In kriskowal/garden (main2), add the two identity drift-guard tests to the CI...
-- [`fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1.md) — In the garden's own job board (journal2, jobs/todo/), drop the two now-no-op ...
-- [`fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2.md) — In the garden repo (kriskowal/garden, main2), audit scripts/jobs/ci-watcher.s...
-- [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
-- [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/guard-worker-self-disqualify-missing-agent-bin.md) — A worker that cannot resolve its agent binary must self-disqualify, not claim
-- [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
-- [`improve-dependabot-supersession-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
-- [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
-- [`improve-journal-entry-duplicate-suppression`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
-- [`investigate-opencode-alternate-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-opencode-alternate-harness.md) — Investigate opencode as an alternate worker harness
-- [`issue-garden-62-jcorbin-cross-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-garden-62-jcorbin-cross-analysis.md) — Fold @jcorbin's devoker cross-analysis into the TerraLingua work (issue #62)
-- [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
-- [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
-- [`ocapn-noise-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
-- [`scholar-library-cycle-20260728-075002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
-- [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
-- [`suffix-github-comments-with-provenance`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
-- [`validate-fireworks-job-end-to-end`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
-- [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
-- [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
+- [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
+- [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
+- [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
+- [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
+- [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
+- [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr779-fix-namespace-order`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-fix-namespace-order.md) — Fix: PR #779 regresses module-namespace enumeration order (spec violation)
+- [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
+- [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Fix CI on https://github.com/endojs/endo-but-for-bots/pull/825.
+- [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
+- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
+- [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
+- [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
+- [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
+- [`finbot-progress-20260728-004711`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
+- [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
+- [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
+- [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
+- [`fu-deadmail-20260728T074423Z-6bee53-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-deadmail-20260728T074423Z-6bee53-2.md) — In the garden's own repo (kriskowal/garden), post a designer job to close the...
+- [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — In endojs/endo-but-for-bots, assess whether https://github.com/endojs/endo-bu...
+- [`fu-endo-npm-cas-registry-press-20260728-065010-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-065010-1.md) — In endojs/endo-but-for-bots, check CI on https://github.com/endojs/endo-but-f...
+- [`fu-endojs-endo-but-for-bots-pr556-dependabot-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr556-dependabot-3.md) — In the garden's own library (kriskowal/garden, main2), extend roles/botanist/...
+- [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
+- [`fu-endojs-endo-but-for-bots-pr868-dependabot-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr868-dependabot-3.md) — Garden-infra change in kriskowal/garden main2: amend roles/botanist/AGENT.md ...
+- [`fu-fix-identity-drift-guard-test-inbox-leak-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-1.md) — In kriskowal/garden (main2), fix the two pre-existing failures in tests/check...
+- [`fu-fix-identity-drift-guard-test-inbox-leak-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-2.md) — In kriskowal/garden (main2), sweep the ~80 suites under scripts/jobs/test/ th...
+- [`fu-fix-identity-drift-guard-test-inbox-leak-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fix-identity-drift-guard-test-inbox-leak-3.md) — In kriskowal/garden (main2), add the two identity drift-guard tests to the CI...
+- [`fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1.md) — In the garden's own job board (journal2, jobs/todo/), drop the two now-no-op ...
+- [`fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2.md) — In the garden repo (kriskowal/garden, main2), audit scripts/jobs/ci-watcher.s...
+- [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
+- [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/guard-worker-self-disqualify-missing-agent-bin.md) — A worker that cannot resolve its agent binary must self-disqualify, not claim
+- [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
+- [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
+- [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
+- [`improve-journal-entry-duplicate-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
+- [`investigate-opencode-alternate-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-opencode-alternate-harness.md) — Investigate opencode as an alternate worker harness
+- [`issue-garden-62-jcorbin-cross-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-garden-62-jcorbin-cross-analysis.md) — Fold @jcorbin's devoker cross-analysis into the TerraLingua work (issue #62)
+- [`issue-kriskowal-garden-67`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
+- [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
+- [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
+- [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
+- [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
+- [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
+- [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
+- [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
+- [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
 ### tada (3652)
-- [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-shepherd.md) — Shepherd escalated CI to fixer.
-- [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr866-dependabot.md) — REJECT — reviewed PR #866, posted the structured verdict, and closed it. Scri...
-- [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`build-sysop-host-operations`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-sysop-host-operations.md) — orchestration build-sysop-host-operations — complete
-- [`build-sysop-host-operations-daemon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-sysop-host-operations-daemon.md) — Completion report: build the sysop (per-host host-operations daemon)
+- [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-shepherd.md) — Shepherd escalated CI to fixer.
+- [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr866-dependabot.md) — REJECT — reviewed PR #866, posted the structured verdict, and closed it. Scri...
+- [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
+- [`build-sysop-host-operations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-host-operations.md) — orchestration build-sysop-host-operations — complete
+- [`build-sysop-host-operations-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-host-operations-daemon.md) — Completion report: build the sysop (per-host host-operations daemon)
 - … and 3647 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- [`arc-status-daily-20260723-030512`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/arc-status-daily-20260723-030512.md) — _normal_ · Daily status + change summary for the standing review arcs
-- [`arc-status-daily-20260724-032002`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/arc-status-daily-20260724-032002.md) — _normal_ · Daily status + change summary for the standing review arcs
-- [`build-endo-daemon-cloudflare-storage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
-- [`build-exo-google-sheets`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · ---
-- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
-- [`build-readableblob-range-attenuation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · ---
-- [`consolidate-test262-fixtures`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/consolidate-test262-fixtures.md) — _normal_ · Refactor: consolidate test262 fixtures (@endo/test262-runner + endor-vm cases...
-- [`daemon-store-phase4-sorted`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
-- [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/decommission-cxs-rust-default-xst-ci-parity.md) — _normal_ · End-state: decommission C-XS — drop c/moddable, remove the C-binding Endor, m...
-- [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
-- [`deploy-siwe-thunk-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
-- [`drive-mystic-rollout-20260723`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
-- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
-- [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
-- [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
-- [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
-- [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — _normal_ · Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
-- [`endo-byte-array-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-162019.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-byte-array-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-223502.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-byte-array-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260724-043515.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260722-095006`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260722-095006.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-162019.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-223502.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260724-043515.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-master-fb9cef4-ci-build-gauntlet.md) — _normal_ · ---
-- [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-162019.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-npm-cas-registry-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-223502.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-npm-cas-registry-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260724-043515.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-build-gauntlet.md) — _normal_ · ---
-- [`endo-sturdyref-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-162019.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`endo-sturdyref-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-223502.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`endo-sturdyref-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260724-043515.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260717-182002.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260723-162019.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260723-223502.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260724-043515.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
-- [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
-- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-fixer.md) — _normal_ · fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
-- [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
-- [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — _normal_ · cascade: rebase PR #698 onto its moved predecessor and drive its CI green
-- [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr704-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #704
-- [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #755
-- [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
-- [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #809
-- [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-build.md) — _normal_ · Build @endo/sha256 from the approved platform-neutral hash design
-- [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
-- [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr867-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
-- [`endojs-pr160-ci-fix-finalize`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
-- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
-- [`finbot-pr5-panel-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
-- [`finbot-progress-20260725-105007`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
-- [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
-- [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
-- [`garden-style-url-not-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
-- [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
-- [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
-- [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — _normal_ · ---
-- [`improve-report-error-transcript-reachable`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/improve-report-error-transcript-reachable.md) — _normal_ · ---
-- [`kimi-k3-canary-20260723-c`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
-- [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
-- [`merge-upstream-master-into-llm-20260717`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
-- [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
-- [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
-- [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
-- [`minion-town-mcp-b5-retire-toy-tools`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/minion-town-mcp-b5-retire-toy-tools.md) — _normal_ · B5: retire toy tools
-- [`ocapn-noise-press-20260717-000503`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260717-182002`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-182002.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260719-003513`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260719-003513.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260723-162019`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-162019.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260723-223502`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-223502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260724-043515`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260724-043515.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`open-signup-gate-flip-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
-- [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
-- [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
-- [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
-- [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
+- [`arc-status-daily-20260723-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/arc-status-daily-20260723-030512.md) — _normal_ · Daily status + change summary for the standing review arcs
+- [`arc-status-daily-20260724-032002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/arc-status-daily-20260724-032002.md) — _normal_ · Daily status + change summary for the standing review arcs
+- [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
+- [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · ---
+- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
+- [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · ---
+- [`consolidate-test262-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/consolidate-test262-fixtures.md) — _normal_ · Refactor: consolidate test262 fixtures (@endo/test262-runner + endor-vm cases...
+- [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
+- [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/decommission-cxs-rust-default-xst-ci-parity.md) — _normal_ · End-state: decommission C-XS — drop c/moddable, remove the C-binding Endor, m...
+- [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
+- [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
+- [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
+- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
+- [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
+- [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
+- [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
+- [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — _normal_ · Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
+- [`endo-byte-array-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-162019.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-223502.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-byte-array-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260724-043515.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-git-integration-press-20260722-095006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260722-095006.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-162019.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-223502.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260724-043515.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-master-fb9cef4-ci-build-gauntlet.md) — _normal_ · ---
+- [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-162019.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-223502.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260724-043515.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-build-gauntlet.md) — _normal_ · ---
+- [`endo-sturdyref-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-162019.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-sturdyref-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-223502.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-sturdyref-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260724-043515.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260717-182002.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260723-162019.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260723-223502.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260724-043515.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
+- [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-fixer.md) — _normal_ · fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
+- [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
+- [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — _normal_ · cascade: rebase PR #698 onto its moved predecessor and drive its CI green
+- [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr704-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #704
+- [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #755
+- [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
+- [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #809
+- [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-build.md) — _normal_ · Build @endo/sha256 from the approved platform-neutral hash design
+- [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
+- [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr867-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
+- [`endojs-pr160-ci-fix-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
+- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
+- [`finbot-pr5-panel-20260727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
+- [`finbot-progress-20260725-105007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
+- [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
+- [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
+- [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
+- [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
+- [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — _normal_ · ---
+- [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-report-error-transcript-reachable.md) — _normal_ · ---
+- [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
+- [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
+- [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
+- [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
+- [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
+- [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
+- [`minion-town-mcp-b5-retire-toy-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b5-retire-toy-tools.md) — _normal_ · B5: retire toy tools
+- [`ocapn-noise-press-20260717-000503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260717-182002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-182002.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260719-003513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260719-003513.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-162019.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-223502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260724-043515.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
+- [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
+- [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
+- [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
+- [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endo-bejar-hofman-box-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
-- [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
-- [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endor-debugger-cdp-devtools-investigation.md) — _normal_ · Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
-- [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
-- [`endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr705-review-207112c7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr705-review-207112c7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #705 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr792-review-91808a86-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr792-review-91808a86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #792 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr826-review-1756c24f-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-1756c24f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr824-review-e4950d9b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-review-e4950d9b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #824 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr806-review-aebac5fc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-review-aebac5fc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #806 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr804-47b714b2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-47b714b2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr804-review-8df7f3e2-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-review-8df7f3e2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr807-c55523fb-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-c55523fb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #807 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr807-5e6eb4e5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-5e6eb4e5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #807 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr827-569ae9f5-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr827-569ae9f5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #827 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-e892a99c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-e892a99c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-69e51cb3-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-69e51cb3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-784e5f86-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-784e5f86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-3fb4c8b9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-3fb4c8b9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr826-review-0ea51177-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-0ea51177-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr786-28d1e1d7-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr786-28d1e1d7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr826-448995f1-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-448995f1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr357-623fe9bc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-623fe9bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #357 (primary: endojs-endo-but-f...
-- [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
-- [`kriscendobot-agoric-sdk-pr10-review-c28034ac-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-c28034ac-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
-- [`kriscendobot-agoric-sdk-pr10-review-14260266-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-14260266-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
-- [`endojs-endo-but-for-bots-pr831-14cde530-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-14cde530-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr831-cfde756b-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-cfde756b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr853-review-37004cbc-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr853-review-37004cbc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #853 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr852-review-a9f2d553-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-a9f2d553-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr852-review-c981d05c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-c981d05c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr852-d502e7a9-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-d502e7a9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr856-review-6cfb0803-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr856-review-6cfb0803-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #856 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr855-df7988e4-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr855-df7988e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #855 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr719-1a882a7d-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-1a882a7d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr719-ade4a938-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-ade4a938-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr740-40e1dd8c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-40e1dd8c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr740-review-15d45e11-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-15d45e11-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr740-review-6ca53b57-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-6ca53b57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr755-review-a0778b2e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #755 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-review-3e0d6210-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-3e0d6210-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-review-eda700a0-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-eda700a0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr874-review-e6cccb99-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-e6cccb99-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
+- [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
+- [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
+- [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-debugger-cdp-devtools-investigation.md) — _normal_ · Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
+- [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr705-review-207112c7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr705-review-207112c7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #705 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr792-review-91808a86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr792-review-91808a86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #792 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr826-review-1756c24f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-1756c24f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr824-review-e4950d9b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-review-e4950d9b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #824 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr806-review-aebac5fc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-review-aebac5fc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #806 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr804-47b714b2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-47b714b2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr804-review-8df7f3e2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-review-8df7f3e2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr807-c55523fb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-c55523fb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #807 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr807-5e6eb4e5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-5e6eb4e5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #807 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr827-569ae9f5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr827-569ae9f5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #827 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr809-review-e892a99c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-e892a99c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr809-review-69e51cb3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-69e51cb3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr809-review-784e5f86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-784e5f86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr809-review-3fb4c8b9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-3fb4c8b9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr826-review-0ea51177-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-0ea51177-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr786-28d1e1d7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr786-28d1e1d7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr826-448995f1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-448995f1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr357-623fe9bc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-623fe9bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #357 (primary: endojs-endo-but-f...
+- [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+- [`kriscendobot-agoric-sdk-pr10-review-c28034ac-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-c28034ac-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+- [`kriscendobot-agoric-sdk-pr10-review-14260266-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-14260266-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
+- [`endojs-endo-but-for-bots-pr831-14cde530-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-14cde530-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr831-cfde756b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-cfde756b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr853-review-37004cbc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr853-review-37004cbc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #853 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr852-review-a9f2d553-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-a9f2d553-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr852-review-c981d05c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-c981d05c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr852-d502e7a9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-d502e7a9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr856-review-6cfb0803-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr856-review-6cfb0803-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #856 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr855-df7988e4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr855-df7988e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #855 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr719-1a882a7d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-1a882a7d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr719-ade4a938-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-ade4a938-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr740-40e1dd8c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-40e1dd8c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr740-review-15d45e11-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-15d45e11-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr740-review-6ca53b57-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-6ca53b57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr755-review-a0778b2e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #755 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr836-review-3e0d6210-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-3e0d6210-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr836-review-eda700a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-eda700a0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr874-review-e6cccb99-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-e6cccb99-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
-- [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
-- [`build-endo-regexp-conservative-subset`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`design-xs-bytecode-precompile-cache`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
-- [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
-- [`registry-immutable-byte-array-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
-- [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
+- [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
+- [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
+- [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
+- [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
+- [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot kriscendobot-minion.town kriscendobot-moddable kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
-- [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 8 gardeners
-- [ps23](https://github.com/kriskowal/garden/blob/journal2/hosts/ps23): 1 gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 8 gardeners
+- [ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23): 1 gardeners
