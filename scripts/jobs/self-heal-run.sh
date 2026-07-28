@@ -102,14 +102,16 @@ trap - TERM INT
 wait 2>/dev/null || true
 
 # --- decide: clean exit vs. a failure worth diagnosing ----------------------
-# GARDEN_OFFLINE_RC (75=EX_TEMPFAIL): sync_clone exits this code when it
-# classified the tick as a transient connectivity/DNS outage. A network blip is
-# NOT a unit failure — normalize it to a CLEAN exit 0 so systemd records success
-# (no fleet-wide `Failed with result 'exit-code'` noise) and no responder spends
-# on a self-resolving outage. Checked first, ahead of the generic clean-exit
-# handling, because we deliberately rewrite the code to 0 rather than preserve it.
-if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
-  log "transient connectivity outage; skipping responder"
+# EX_TEMPFAIL (75), in any of its three named spellings — GARDEN_OFFLINE_RC (a
+# transient connectivity/DNS outage, sync_clone), GARDEN_ENV_RC (die_environmental:
+# the agent CLI is absent), GARDEN_TRANSIENT_RC (die_transient: an API-blip /
+# contention failure the next attempt will likely clear). None of these is a unit
+# failure — normalize to a CLEAN exit 0 so systemd records success (no fleet-wide
+# `Failed with result 'exit-code'` noise) and no responder spends on a
+# self-resolving outage. Checked first, ahead of the generic clean-exit handling,
+# because we deliberately rewrite the code to 0 rather than preserve it.
+if is_nonattributable_rc "$rc"; then
+  log "transient/environmental failure (rc=$rc); skipping responder"
   exit 0
 fi
 

@@ -1297,6 +1297,74 @@ cB=$(awk '{print $1}' "$FC_FUR" 2>/dev/null || echo NONE)
   || bad "streak reset wrong (cA=$cA cB=$cB)"
 
 # ============================================================================
+hr; echo "SUBTEST 13d — FOLLOW-UP: an OUTAGE must not spend the quarantine budget"; hr
+# Quarantine DISCARDS work, so only a failure ATTRIBUTABLE to the digest may be
+# charged to the retry budget. The 2026-07-28 storm failed four consecutive ticks
+# (one short of the ceiling) for a reason that had nothing to do with the pending
+# reports. Assert each not-attributable cause leaves the streak UNCHANGED, the
+# marker un-advanced, and the tick exiting EX_TEMPFAIL (which self-heal-run.sh
+# normalizes to clean) — while a genuinely attributable failure still counts.
+export GARDEN_STATE="$TR/state-fut" GARDEN=futhost
+SEEN_FUT="$GARDEN_STATE/follow-up/seen"; FC_FUT="$GARDEN_STATE/follow-up/fail-count"
+TS_FUT="$GARDEN_STATE/follow-up/transient"
+push_change "jobs/tada/fut-prime.md" "$(printf '# prime\n## Follow-ups\n- None\n')" "seed prime tada (cold start, t)"
+env GARDEN_FOLLOWUP_HANDLER=/bin/true "$JOBS/follow-up.sh" >/dev/null 2>&1
+push_change "jobs/tada/fut-wedge.md" "$(printf '# wedge\n## Follow-ups (escalated to liaison)\n- do a thing\n')" "seed outage-tick report"
+# one ATTRIBUTABLE failure first (bare rc=1, no output, no storm) → streak 1
+env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
+cT0=$(awk '{print $1}' "$FC_FUT" 2>/dev/null || echo NONE)
+# (i) the handler SIGNALS transient by exit code (die_transient's EX_TEMPFAIL)
+rcT1=0
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-outage-stub.sh" GARDEN_FOLLOWUP_MAX_RETRIES=3 \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcT1=$?
+cT1=$(awk '{print $1}' "$FC_FUT" 2>/dev/null || echo NONE)
+# (ii) an rc=1 handler whose OUTPUT carries a transient claude signature
+rcT2=0
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-outage-stub.sh" GARDEN_FOLLOWUP_MAX_RETRIES=3 \
+    STUB_FOLLOWUP_RC=1 STUB_FOLLOWUP_OUT="API error: Overloaded (529)" \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcT2=$?
+cT2=$(awk '{print $1}' "$FC_FUT" 2>/dev/null || echo NONE)
+# (iii) a bare rc=1 handler while the FLEET BRAKE is engaged (host-wide storm)
+BRAKE_FUT="$TR/fut-brake"; : > "$BRAKE_FUT"
+for _i in $(seq 1 12); do date +%s >> "$BRAKE_FUT"; done
+rcT3=0
+env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 \
+    GARDEN_FLEET_BRAKE_LEDGER="$BRAKE_FUT" "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcT3=$?
+cT3=$(awk '{print $1}' "$FC_FUT" 2>/dev/null || echo NONE)
+seenT=0; grep -qxF "jobs/tada/fut-wedge.md" "$SEEN_FUT" 2>/dev/null && seenT=1
+{ [ "$cT0" = 1 ] && [ "$cT1" = 1 ] && [ "$cT2" = 1 ] && [ "$cT3" = 1 ] && [ "$seenT" -eq 0 ]; } \
+  && ok "not-attributable ticks (rc signal / transient signature / fleet brake) leave the streak at 1, nothing quarantined" \
+  || bad "outage spent the budget (streak $cT0→$cT1→$cT2→$cT3, seen=$seenT)"
+{ [ "$rcT1" -eq "${GARDEN_TRANSIENT_RC:-75}" ] && [ "$rcT2" -eq 75 ] && [ "$rcT3" -eq 75 ]; } \
+  && ok "an uncounted tick exits EX_TEMPFAIL (self-heal-run normalizes it to clean)" \
+  || bad "uncounted tick rc wrong (rc1=$rcT1 rc2=$rcT2 rc3=$rcT3 — want 75)"
+# the budget is still live for a genuinely attributable failure: 1 → 2
+env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
+cT4=$(awk '{print $1}' "$FC_FUT" 2>/dev/null || echo NONE)
+ts_gone=0; [ -f "$TS_FUT" ] || ts_gone=1
+{ [ "$cT4" = 2 ] && [ "$ts_gone" -eq 1 ]; } \
+  && ok "an attributable failure still counts (1→2) and clears the uncounted-stretch marker" \
+  || bad "attributable failure not counted (cT4=$cT4 stretch-marker-cleared=$ts_gone)"
+# UNCOUNTED IS NOT UNBOUNDED: backdate the stretch past the wall-clock bound and
+# assert ONE maintainer notice, no quarantine, and no repeat notice.
+sha_fut="$(printf '%s\n' "jobs/tada/fut-wedge.md" | git hash-object --stdin)"
+printf '%s %s 0\n' "$(( $(date +%s) - 90000 ))" "$sha_fut" > "$TS_FUT"
+mm_t0=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/futv0" && \
+  ls -1 "$TR/futv0/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/futv0"
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-outage-stub.sh" GARDEN_FOLLOWUP_MAX_RETRIES=3 \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
+mm_t1=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/futv1" && \
+  ls -1 "$TR/futv1/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/futv1"
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-outage-stub.sh" GARDEN_FOLLOWUP_MAX_RETRIES=3 \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
+mm_t2=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/futv2" && \
+  ls -1 "$TR/futv2/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/futv2"
+seenT2=0; grep -qxF "jobs/tada/fut-wedge.md" "$SEEN_FUT" 2>/dev/null && seenT2=1
+{ [ "$mm_t1" -gt "$mm_t0" ] && [ "$mm_t2" -eq "$mm_t1" ] && [ "$seenT2" -eq 0 ]; } \
+  && ok "a long uncounted stretch tells the maintainer ONCE and still does not quarantine" \
+  || bad "stretch bound wrong (mm:$mm_t0→$mm_t1→$mm_t2 seen=$seenT2 — want one notice, no quarantine)"
+
+# ============================================================================
 hr; echo "SUBTEST 14 — FOREMAN: idle-pump, settle window, cost gate, anti-flap"; hr
 # Dedicated empty board on its own origin so idle state is fully controllable.
 FBARE="$TR/foreman.git"; git init -q --bare "$FBARE"

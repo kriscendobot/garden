@@ -146,10 +146,14 @@ if [ "$rc" -ne 0 ]; then
   # bad digest ~6 times.
   if is_transient_claude_signature "$(printf '%s\n%s' "$err_full" "$out")"; then
     # A transient API blip (overload / rate-limit / 5xx / bare connection drop)
-    # WILL likely succeed on the next roll: keep the historical behavior — die,
-    # fail the tick, and let follow-up.sh leave the seen-marker and retry the SAME
-    # digest next cadence.
-    die "claude -p failed transiently (rc=$rc); stderr: ${err_tail:-<empty>}; stdout: $(printf '%.500s' "$out") — failing the tick so follow-up.sh retries the digest"
+    # WILL likely succeed on the next roll: fail the tick so follow-up.sh leaves
+    # the seen-marker and retries the SAME digest next cadence. `die_transient`
+    # (not `die`) so the exit CODE carries the classification: follow-up.sh's
+    # bounded-retry budget exists to quarantine a digest that is ITSELF wedged, and
+    # an API outage is not that — charging it would spend the budget on ticks whose
+    # follow-ups were never attempted and then discard them (common.sh
+    # § the transient handler exit).
+    die_transient "claude -p failed transiently (rc=$rc); stderr: ${err_tail:-<empty>}; stdout: $(printf '%.500s' "$out") — failing the tick so follow-up.sh retries the digest without spending retry budget"
   fi
   # A NON-transient failure (genuine crash, malformed prompt, auth) is
   # deterministic: re-rolling the same digest only reproduces it. Route the
@@ -259,5 +263,7 @@ done <<< "$out"
 # A transient producer failure leaves the tick FAILED so follow-up.sh keeps the
 # seen-marker and retries next cadence; deterministic rejections and successes
 # leave the tick clean so the marker advances (and the bad block does not wedge
-# self-heal forever).
-[ "$tick_failed" -eq 0 ] || die "a producer failed transiently; failing the tick so follow-up.sh retries the digest"
+# self-heal forever). `die_transient` for the same reason as the inner-claude
+# transient arm above: push-retry exhaustion is contention/connectivity, not a
+# defect in the digest, so it must not spend follow-up.sh's quarantine budget.
+[ "$tick_failed" -eq 0 ] || die_transient "a producer failed transiently; failing the tick so follow-up.sh retries the digest"

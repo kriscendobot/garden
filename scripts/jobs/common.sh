@@ -813,6 +813,44 @@ claude_bin_now() { agent_bin_probe claude; }
 # The message still goes to the capture, so the environmental cause is diagnosable.
 die_environmental() { log "ENVIRONMENT: $*"; exit "${GARDEN_ENV_RC:-75}"; }
 
+# --- the transient (not-attributable) handler exit ---------------------------
+#
+# EX_TEMPFAIL again, the SAME code as GARDEN_ENV_RC / GARDEN_OFFLINE_RC (all three
+# are species of "this failure is not attributable to the INPUT the handler was
+# given") — named separately for the same reason those two are: so the intent
+# reads clearly at the exit site, and so they can be tuned apart later.
+#
+# The distinction matters wherever a caller keeps a BOUNDED-RETRY BUDGET against a
+# fixed input and DISCARDS that input when the budget runs out. follow-up.sh is the
+# case that motivated this: it quarantines a digest of tada-report follow-ups after
+# GARDEN_FOLLOWUP_MAX_RETRIES consecutive failures on the same pending set. A
+# fleet-wide API outage (2026-07-28 08:48–09:18: four consecutive `garden-follow-up`
+# failures inside the storm that took down ~30 gardener handlers) fails every tick
+# for a reason that has NOTHING to do with the digest, so a budget that counts those
+# ticks discards follow-ups that were never actually attempted. A handler that
+# `die_transient`s says so explicitly, so the caller can retry WITHOUT spending
+# budget instead of re-deriving the classification from captured text.
+: "${GARDEN_TRANSIENT_RC:=75}"
+
+# die_transient <msg> — the handler failed for a TRANSIENT cause that the next
+# attempt on the SAME input will likely clear (an API overload/rate-limit window, a
+# push-contention exhaustion), NOT because that input is bad. Exits
+# GARDEN_TRANSIENT_RC (EX_TEMPFAIL), which self-heal-run.sh normalizes to a CLEAN
+# exit — so a fleet-wide outage neither spends a retry budget, nor marks the unit
+# failed, nor burns a self-heal responder per cadence.
+die_transient() { log "TRANSIENT: $*"; exit "${GARDEN_TRANSIENT_RC:-75}"; }
+
+# Classify an exit code ($1) as NOT ATTRIBUTABLE to the handler's input: the
+# transient rc above, or either environmental rc (is_environmental_rc). Returns 0
+# for those, 1 otherwise. A caller holding a bounded-retry budget against a fixed
+# input must NOT charge these to it.
+is_nonattributable_rc() {
+  case "$1" in
+    "${GARDEN_TRANSIENT_RC:-75}") return 0 ;;
+  esac
+  is_environmental_rc "$1"
+}
+
 # --- pre-claim worker health gate (the ps23 WORK-SINK outage) ----------------
 #
 # The resolver above makes the agent CLI easier to FIND; this gate stops a worker
