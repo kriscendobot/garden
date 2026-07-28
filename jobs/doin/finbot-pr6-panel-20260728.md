@@ -40,6 +40,8 @@ Fable-orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
