@@ -189,9 +189,11 @@ host instead of resting on a per-prosecutor timestamp eyeball:
 
 - **Genuine post-fix recurrence** (`review_at` postdates the improvement): the
   writer reopens the cluster (`status=open`) and reports `recurrence=1
-  drain_reopen=0`. When you see `recurrence=1`, message the maintainer
-  (`message-user.sh`): the improvement demonstrably failed to prevent or catch the
-  pattern, and a second improvement round should not proceed on autopilot.
+  drain_reopen=0`. When you see `recurrence=1`, escalate through your job report,
+  naming the reopened cluster: the improvement demonstrably failed to prevent or
+  catch the pattern, and a second improvement round should not proceed on
+  autopilot. The report is the escalation surface here because a retrospective is
+  scoped to one PR's review; the supervising gardener carries it onward.
 - **Backlog-drain artifact** (`review_at` predates the improvement — a pre-fix
   cascade review that merely landed after the cluster closed mid-drain): the writer
   keeps `status=closed` and reports `recurrence=0 drain_reopen=1`. This is a

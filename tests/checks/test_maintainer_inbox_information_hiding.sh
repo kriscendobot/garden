@@ -38,10 +38,13 @@ ALLOWLIST=(
   roles/proxy/AGENT.md
   roles/foreman/AGENT.md
   roles/gardener/AGENT.md
+  roles/orchestrator/AGENT.md
   skills/message-bus/SKILL.md
   skills/at-mention-surveillance/SKILL.md
   skills/activity-feed-watcher/SKILL.md
   skills/self-healing-wrapper/SKILL.md
+  skills/orchestration/SKILL.md
+  skills/restore/SKILL.md
 )
 
 # --- 1. the real tree is clean ---

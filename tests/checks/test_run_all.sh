@@ -26,11 +26,40 @@ echo "=== test_run_all ==="
 
 [ -x "$RUN_ALL" ] || [ -f "$RUN_ALL" ] || { echo "missing $RUN_ALL"; exit 2; }
 
+# The claude stub below is placed on PATH and MUST be executable: bash's
+# PATH search (and `command -v`) probes with the equivalent of `[ -x ]`,
+# which honors a mount's `noexec` flag. The default temp base (/tmp) is
+# mounted `noexec` in the garden container, so a stub written there reads
+# as "present but not runnable", the PATH search skips it, and the runner
+# falls through to the REAL /usr/bin/claude — subtest 4 then spawns a live
+# agent and burns tokens on every `tests/checks/run.sh` (this bit: the two
+# stub assertions failed for exactly this reason). So base the fixture on
+# an EXEC-capable filesystem, probing candidates the way
+# scripts/jobs/test/{claude-bin-resolver,gardener-worktree}-test.sh do.
+pick_exec_base() {
+  local c probe rc
+  for c in "${GARDEN_TEST_TMP:-}" "${TMPDIR:-}" /tmp /var/tmp "${GARDEN_SCRATCH:-}" \
+           "${GARDEN_ROOT:+$GARDEN_ROOT/scratch}"; do
+    [ -n "$c" ] || continue
+    [ -d "$c" ] && [ -w "$c" ] || continue
+    probe="$(mktemp -d "$c/run-all-probe.XXXXXX" 2>/dev/null)" || continue
+    printf '#!/bin/sh\nexit 7\n' > "$probe/x"; chmod +x "$probe/x" 2>/dev/null
+    "$probe/x" >/dev/null 2>&1; rc=$?
+    rm -rf "$probe"
+    [ "$rc" -eq 7 ] && { printf '%s\n' "$c"; return 0; }
+  done
+  return 1
+}
+EXEC_BASE="$(pick_exec_base)" || {
+  echo "  SKIP: no exec-allowed temp base (needed to run a fake claude)"
+  exit 0
+}
+
 # Build a scratch tree that mirrors the runner-required layout. The
 # runner expects scripts/checks/<gate>/check.sh+prompt.md under the
 # repo root.
-SCRATCH=$(mktemp -d -t run-all-XXXXXX)
-STUB_BIN=$(mktemp -d -t run-all-bin-XXXXXX)
+SCRATCH=$(mktemp -d "$EXEC_BASE/run-all.XXXXXX")
+STUB_BIN=$(mktemp -d "$EXEC_BASE/run-all-bin.XXXXXX")
 STUB_LOG="$SCRATCH/claude-invocations.log"
 
 trap 'rm -rf "$SCRATCH" "$STUB_BIN"' EXIT
@@ -80,6 +109,20 @@ echo "claude invoked: \$*" >> "$STUB_LOG"
 exit 0
 EOF
 chmod +x "$STUB_BIN/claude"
+
+# FAIL-CLOSED GUARD (defense in depth): assert the stub really is what the
+# name `claude` resolves to under the test PATH, BEFORE any non-dry subtest
+# can dispatch. Without this, a stub that is unexecutable (noexec base) or
+# shadowed silently hands subtest 4 to the REAL claude, which spawns a live
+# agent, burns tokens, and still leaves the assertions failing with no hint
+# as to why. Abort loudly instead of leaking to production.
+resolved=$(PATH="$STUB_BIN:$PATH" bash -c 'command -v claude' 2>/dev/null || true)
+if [ "$resolved" != "$STUB_BIN/claude" ]; then
+  echo "FATAL: claude stub does not win PATH resolution (got '${resolved:-none}'," >&2
+  echo "       expected '$STUB_BIN/claude'). Refusing to run: the non-dry subtest" >&2
+  echo "       would invoke the REAL claude. Is $EXEC_BASE mounted noexec?" >&2
+  exit 2
+fi
 
 # --- 1. --list enumerates both gates ---
 set +e

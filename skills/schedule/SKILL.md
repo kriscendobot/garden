@@ -60,7 +60,7 @@ clock, post nothing) and log `preflight gated: no work`; any other exit is treat
 as work-present (fail open) so a broken gate never starves a schedule. A gate that
 is **not found / not executable** (a deploy-lag or a typo'd `preflight:` path) also
 fails open, but is DISTINGUISHED from a gate that runs and errors: on the FIRST tick
-of the breakage the scheduler escalates ONCE to the maintainer inbox (via
+of the breakage the scheduler escalates ONCE (in plain code, via
 `alert_maintainer`, keyed/deduped on the schedule name — the journal-worktree
 keeper's paging-key discipline), so a permanently-absent gate gets surfaced and
 fixed instead of quietly re-firing an expensive dispatch every cadence. The

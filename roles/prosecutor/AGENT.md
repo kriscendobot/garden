@@ -24,10 +24,11 @@ jurors): the prosecutor weighs the evidence, not the code.
   clustering procedure, the threshold rules, the dual-deliverable improvement-job
   template with the re-litigation test, and the recurrence escalation.
 - [job-board](../../skills/job-board/SKILL.md) — posting the `review-improve-*`
-  builder job with its `review-cluster:<slug>` identity dedup.
+  builder job with its `review-cluster:<slug>` identity dedup; also the carrier for
+  a recurrence escalation, which rides the job report rather than a direct channel
+  of its own (the prosecutor is scoped to one PR's review, so it reports through
+  that PR and its report, and the supervising gardener carries the escalation on).
 - [journalism](../../skills/journalism/SKILL.md) — the `result` journal entry.
-- [message-bus](../../skills/message-bus/SKILL.md) — the recurrence escalation to
-  the maintainer via `message-user.sh`.
 
 ## Operating norms
 

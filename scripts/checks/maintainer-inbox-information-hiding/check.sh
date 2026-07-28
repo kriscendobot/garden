@@ -71,6 +71,7 @@ FREE_STANDING_ROLES=(
   researcher   # refines a proposed design/build task
   monitor      # re-homed redirect onto triager + watchman
   mentor       # posts improvement jobs
+  orchestrator # drives a job tree on the board; halts surface to the maintainer
 )
 
 # The EXACT set of files under roles/ + skills/ permitted to carry a
@@ -82,10 +83,13 @@ INBOX_ALLOWLIST=(
   roles/proxy/AGENT.md
   roles/foreman/AGENT.md
   roles/gardener/AGENT.md
+  roles/orchestrator/AGENT.md
   skills/message-bus/SKILL.md
   skills/at-mention-surveillance/SKILL.md
   skills/activity-feed-watcher/SKILL.md
   skills/self-healing-wrapper/SKILL.md
+  skills/orchestration/SKILL.md
+  skills/restore/SKILL.md
 )
 
 in_git=0
