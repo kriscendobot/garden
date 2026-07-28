@@ -38,3 +38,10 @@ Low priority: cosmetic navigation accuracy, not a correctness gate. Land through
 `land-journal-edit.sh` and re-run the step-8 integrity gate as usual.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:13:32Z
