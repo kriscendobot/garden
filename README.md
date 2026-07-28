@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T04:55:12Z_
+_As of 2026-07-28T04:58:58Z_
 
 ## Latest
 
@@ -1347,6 +1347,39 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T024949Z-3486af` — from watchdog:ollama-serve, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T024949Z-3486af.md)
 
 > local inference endpoint http://127.0.0.1:11434/v1 answers but serves no models; refusing to stand down for the foreign listener on 127.0.0.1:11434
+
+- `20260728T045821Z-77c284` — from gardener:xs2rust-endor-press-20260728-004711, reply_to `xs2rust-endor-press-20260728-004711` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T045821Z-77c284.md)
+
+> xs2rust-endor ([endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600)) watchdog — classification: STUCK.
+>
+> Note: this tick carries the OLD press-driver body, but the schedule
+> `schedules/xs2rust-endor-press.md` was redefined 07-27 to a read-only WATCHDOG
+> (job_basename_prefix: xs2rust-endor-watchdog, model sonnet, "do not implement,
+> commit, or push under any circumstance"). I honored the current watchdog intent:
+> assessed only, no push, no duplicate build.
+>
+> State:
+> - Branch HEAD b6a48c7d1 (2026-07-23), 350 ahead / 152 behind llm. HEAD has NOT
+>   moved in 5 days across many ticks.
+> - The finish-line orchestration (3 opus-5 bins) now owns the pressing. Bin 1
+>   `xs2rust-endor-s1-daemon-integration` was claimed 2026-07-28T01:01Z on ps23/
+>   gardener-2 (3h timeout) but went quiet at 01:07Z, pushed nothing (HEAD static),
+>   and its 3h window expired ~04:01Z. It sits in jobs/doin/ with no tada report and
+>   no reaped marker — effectively dead, awaiting the reaper. Bins 2 (s2-test-rust-
+>   green) and 3 (s3-test262-parity) remain parked in jobs/plan/ behind it.
+> - Failure signature: no s1-specific error capture is resolvable on this host
+>   (likely held on ps23). Contemporaneously, ps23 gardeners are emitting repeated
+>   "error: gardener on ps23" / "inboxes(gardener): error from lane 0 state
+>   handler-nonzero" in the journal right now — a possible API/quota issue on that
+>   host (consistent with the standing quota throttle).
+>
+> Decision needed (I did NOT re-promote or repost — a halt is deliberate):
+> Bin 1 died without progress and is blocking the serial chain. Options: (a) let the
+> reaper clear s1 and let the orchestration halt policy surface it, then re-dispatch
+> bin 1 when ps23 handler errors clear; (b) investigate the ps23 handler-nonzero
+> errors (quota/API) first, since a re-dispatch into the same failure mode will just
+> re-stall. I recommend (b) then (a). No un-drafting or judge-chain hand-off is
+> warranted yet — the daemon-integration bar is not met.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6229,14 +6262,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $461.11 _(notional, rate-card)_ | no quota set |
+| Claude | 34.6M | $461.48 _(notional, rate-card)_ | no quota set |
 | Codex | 18.6M _(+466.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (50)
+### doin (49)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
@@ -6258,7 +6291,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
-- [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-8840fcdb.md) — attention directive on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
@@ -6288,13 +6320,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260728-004711.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3599)
+### tada (3600)
+- [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-8840fcdb.md) — What the directive was
 - [`ollama-hermit-simple-job-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ollama-hermit-simple-job-capability.md) — Verdict: report-only job succeeded end-to-end; simple filesystem transform fa...
 - [`fix-two-ollama-units-single-owner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-two-ollama-units-single-owner.md) — Implemented and pushed d4a40ed9ba to main2.
 - [`endojs-endo-but-for-bots-pr868-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr868-dependabot.md) — Botany review: endojs/endo-but-for-bots PR #868 — EMBARGO-2026-08-02
 - [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
-- [`endo-npm-cas-registry-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-004711.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28, 00:48Z)
-- … and 3594 more
+- … and 3595 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
