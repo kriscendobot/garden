@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:17:11Z_
+_As of 2026-07-28T16:18:53Z_
 
 ## Latest
 
@@ -2716,14 +2716,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $709.57 _(notional, rate-card)_ | no quota set |
+| Claude | 53.4M | $711.03 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (48)
+### doin (49)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2734,6 +2734,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr755-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-conduct.md) — Conduct (merge) endojs/endo-but-for-bots#755
 - [`endojs-endo-but-for-bots-pr755-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots #755
 - [`endojs-endo-but-for-bots-pr755-review-ea305fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-ea305fae.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
