@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:45:44Z_
+_As of 2026-07-28T07:47:14Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 21m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 26m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -1899,14 +1899,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.6M | $531.34 _(notional, rate-card)_ | no quota set |
-| Codex | 427.2M _(+420.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 43.7M | $534.31 _(notional, rate-card)_ | no quota set |
+| Codex | 426.9M _(+421.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (44)
+### todo (43)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`deadmail-20260728T074052Z-b3c391`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-20260728T074052Z-b3c391.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260728T074423Z-6bee53`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-20260728T074423Z-6bee53.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #836
@@ -1952,7 +1951,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (16)
 - [`build-sysop-host-operations-daemon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-sysop-host-operations-daemon.md) — Build the sysop: per-host daemon + host/<GARDEN> bus addressing, per designs/...
 - [`build-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
-- [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260728T074423Z-6bee53`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260728T074423Z-6bee53.md) — Dead-lettered message — pick up its intent
 - [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
 - [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
@@ -1967,13 +1966,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 
-### tada (3638)
+### tada (3639)
+- [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5098251895.md) — Report
 - [`endojs-endo-but-for-bots-pr562-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr562-dependabot.md) — Report
 - [`endojs-endo-but-for-bots-pr560-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr560-dependabot.md) — Botany review of endojs/endo-but-for-bots PR #560 — verdict: REJECT (supersed...
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-maintainer-inbox-20260727.md) — Archived 77 redundant maintainer-inbox messages, mostly the requeue-exhausted...
 - [`deadmail-issue-comment-5100277860`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5100277860.md) — **Completion report — deadmail-issue-comment-5100277860**
-- [`endo-vfs-parity-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-065010.md) — Verify-and-stand-down tick, completed. Report follows.
-- … and 3633 more
+- … and 3634 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2054,6 +2053,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- [`endo-bejar-hofman-box-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
+- [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
 - [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
