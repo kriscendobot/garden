@@ -63,3 +63,10 @@ tombstone in one CAS'd commit. Constraints:
 - CI-equivalent checks run locally BEFORE pushing (a CI failure is an automation defect,
   not something to discover in CI).
 - Direct push to `main2`. Report which rate-limiting strategy you chose.
+
+---
+claim:
+  host: ps23
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T01:11:12Z
