@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:56:33Z_
+_As of 2026-07-28T07:59:01Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 31m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 3m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -1931,6 +1931,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr867-dependabot' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260728T075830Z-5fce96` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075830Z-5fce96.md)
+
+> [endojs/endo-but-for-bots#869](https://github.com/endojs/endo-but-for-bots/issues/869) (Dependabot PR, report `endojs-endo-but-for-bots-pr869-dependabot`) is complete except for **one approval** — that is the entire remaining distance. Approving is your call; the fleet will not self-approve.
+
+- `20260728T075835Z-4f80ad` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T075835Z-4f80ad.md)
+
+> Host-health finding from report `endojs-endo-but-for-bots-pr869-dependabot` (inbox `20260728T075054Z-2de24d`): auto-gc is wedged on the shared garden repo — object `9ad05cc3…` is referenced but genuinely missing, so `repack` aborts on every git command. Refs, fetch, push, and journal sync still work, so it is slow-burn rather than urgent. The reporting gardener deliberately did not attempt repair: `gc`/`fsck`/reflog-expiry on the root repo is the reserved class and wants a deliberate hand with the fleet drained. `garden-root-repo-guard` checks origin/HEAD invariants, not object-store health, so it will not catch this. Decision needed: schedule a drained repair window, and whether to extend the root-repo guard to cover object-store health.
+
 - `poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
@@ -2011,11 +2019,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.3M | $564.84 _(notional, rate-card)_ | no quota set |
-| Codex | 422.7M _(+425.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 46.0M | $583.04 _(notional, rate-card)_ | no quota set |
+| Codex | 421.1M _(+426.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
-### todo (41)
+### todo (42)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
@@ -2028,6 +2036,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
 - [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
 - [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
+- [`fu-deadmail-20260728T074423Z-6bee53-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fu-deadmail-20260728T074423Z-6bee53-2.md) — In the garden's own repo (kriskowal/garden), post a designer job to close the...
 - [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — In endojs/endo-but-for-bots, assess whether https://github.com/endojs/endo-bu...
 - [`fu-endo-npm-cas-registry-press-20260728-065010-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fu-endo-npm-cas-registry-press-20260728-065010-1.md) — In endojs/endo-but-for-bots, check CI on https://github.com/endojs/endo-but-f...
 - [`fu-endojs-endo-but-for-bots-pr556-dependabot-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr556-dependabot-3.md) — In the garden's own library (kriskowal/garden, main2), extend roles/botanist/...
