@@ -318,3 +318,12 @@ Inspect via `git -C journal cat-file -p 8ac8537fc88f00132439cd0e21806c95166529de
 - Context: gardener-2 on ps23-garden-f65473ae: job 'endo-cbor-adopt-ocapn' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 62ec6bcf1a205c133d954edcfdedca714c155ca0`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T21:13:15Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7afe68e200964f7de63f3a017d15a41221511714
+- Context: gardener-4 on ps23-garden-f65473ae: job 'fix-warm-cache-yarn-install-state' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7afe68e200964f7de63f3a017d15a41221511714`.
