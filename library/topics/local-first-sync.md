@@ -51,6 +51,7 @@
 | [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](../sections/dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md) | dialog-db session.ts | A per-DID BroadcastChannel converges every tab's live queries on each commit; a GENESIS broadcast reopens an erased replica. |
 | [dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle](../sections/dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle.md) | dialog-db session.ts | Revisions as IPLD content-addresses, GENESIS the empty-DB marker, and clear erasing this local replica. |
 | [dialog-db--ts-dialog-experimental-react--overview](../sections/dialog-db--ts-dialog-experimental-react--overview.md) | dialog-db react.ts | React hooks over the local replica: useQuery re-renders on each local commit; useTransaction writes to it. |
+| [atproto--specs-repository--car-export-and-diffs](../sections/atproto--specs-repository--car-export-and-diffs.md) | atproto specs/repository | CAR v1 full export and CAR-slice diffs; operation inversion recomputes the inverted MST root and checks it against the previous revision's data field. |
 
 ## See also
 
