@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:31:20Z_
+_As of 2026-07-28T16:32:06Z_
 
 ## Latest
 
@@ -2198,6 +2198,30 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Once the base is updated, I will proceed to merge when CI is green. No further rebasing needed — the head is already on top of `llm`.
 
+- `20260728T163147Z-f98052` — from gardener:endojs-endo-but-for-bots-pr755-conduct, reply_to `endojs-endo-but-for-bots-pr755-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T163147Z-f98052.md)
+
+> **URGENT: GitHub token expired — cannot complete merge of [endojs/endo-but-for-bots#755](https://github.com/endojs/endo-but-for-bots/issues/755)**
+>
+> The `kriscendobot` GitHub token (`GH_TOKEN`) has become invalid (HTTP 401 Bad credentials) during the conduct job.
+>
+> Steps already completed:
+> - Rebased `build/endo-cbor-package` onto live `llm` at `7f8c08d74`
+> - Absorbed the `fixup!` commit — 10 clean commits
+> - Pushed new head: `1231a9d7a` (force-with-lease, push succeeded before token expired)
+> - CI was running (8-12/24 checks complete, 0 failures at last check ~16:31Z)
+>
+> Steps blocked by token expiry:
+> - Cannot change PR base from `llm-4f09410` to `llm` (also needed `pull_requests:write` even before expiry)
+> - Cannot monitor CI or merge when green
+>
+> **Actions needed:**
+> 1. Renew/replace the `kriscendobot` GitHub token
+> 2. Grant `pull_requests:write` permission for the `endojs` org to the bot's PAT
+> 3. Manually change PR base: `gh pr edit 755 -R endojs/endo-but-for-bots --base llm` (as kriskowal)
+> 4. Once token is restored and CI passes, the conduct job can be re-enqueued to complete the merge
+>
+> The job will NOT be marked complete — it will be left for re-enqueueing once credentials are restored.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2737,7 +2761,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $714.87 _(notional, rate-card)_ | no quota set |
+| Claude | 53.4M | $715.32 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
