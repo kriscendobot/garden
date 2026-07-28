@@ -26,3 +26,10 @@ proceed; the push CAS is still the backstop.)
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:42:11Z
