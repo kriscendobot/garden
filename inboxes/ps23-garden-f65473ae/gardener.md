@@ -336,3 +336,12 @@ Inspect via `git -C journal cat-file -p 7afe68e200964f7de63f3a017d15a41221511714
 - Context: gardener-8 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr882-shepherd' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p fcfe5d040c4b795c9bac86d9aafeafdbb1368b32`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T21:13:45Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 00a7677563b1d05528cb3c0359ca0b14e118c8be
+- Context: gardener-7 on ps23-garden-f65473ae: job 'build-token-cost-ledger' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 00a7677563b1d05528cb3c0359ca0b14e118c8be`.
