@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:57:29Z_
+_As of 2026-07-28T17:01:06Z_
 
 ## Latest
 
@@ -14,13 +14,13 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 8h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 9h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 10d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 11d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 11d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 14d)
@@ -2218,6 +2218,20 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration fireworks-glm52-kimik3 HALTED: child fireworks-glm52-kimik3-build failed (serial, on-child-failure=halt). 1/3 done before halt; swept: fireworks-glm52-kimik3-canary
 
+- `20260728T165845Z-c54469` — from gardener:endojs-endo-but-for-bots-pr755-conduct, reply_to `endojs-endo-but-for-bots-pr755-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T165845Z-c54469.md)
+
+> [endojs/endo-but-for-bots#755](https://github.com/endojs/endo-but-for-bots/issues/755) (@endo/cbor phase 1) needs a re-approval before merge.
+>
+> The situation:
+> - kriskowal approved commit b595e017 at 16:13Z (review-4799487076)
+> - A concurrent gauntlet run subsequently force-pushed the branch, rebasing onto live llm and producing a new tip at 1231a9d7a
+> - CI is now fully green on 1231a9d7a
+> - Base is unfrozen (llm-4f09410 → llm) ✓
+>
+> The new head is functionally equivalent: same commits by message, rebased onto current llm (which already includes the zizmor pin refresh that was a separate commit in the approved version). The only reason it differs is the rebase.
+>
+> Please re-approve [https://github.com/endojs/endo-but-for-bots/pull/755](https://github.com/endojs/endo-but-for-bots/pull/755) on the current head (1231a9d7a) and the conductor will merge immediately (CI is green, base is unfrozen and ready).
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2894,8 +2908,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.2M | $704.05 _(notional, rate-card)_ | no quota set |
-| Codex | 337.8M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 53.3M | $707.22 _(notional, rate-card)_ | no quota set |
+| Codex | 336.5M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
