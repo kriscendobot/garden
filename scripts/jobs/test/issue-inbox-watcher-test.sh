@@ -41,6 +41,15 @@ PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 hr()  { echo "----------------------------------------------------------------"; }
+reported=0
+report_result() {
+  hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
+  reported=1
+}
+# A test assertion must never be able to make this suite look clean merely by
+# aborting before its result line.  Normal completion reports below; an
+# unexpected `set -e` exit still prints the partial total and its exit code.
+trap 'rc=$?; if [ "$reported" -eq 0 ]; then hr; echo "RESULT: $PASS passed, $FAIL failed (ABORTED, rc=$rc)"; hr; fi' EXIT
 
 rm -rf "$TR"; mkdir -p "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)
@@ -258,13 +267,19 @@ BIN="$TR/bin"; mkdir -p "$BIN"; GHLOG="$TR/gh-args.log"; : > "$GHLOG"
 cat > "$BIN/gh" <<EOF
 #!/bin/bash
 printf '%s\n' "\$*" >> "$GHLOG"
+# `gh api` writes the created reaction object on a successful POST.  Keep this
+# fixture response-shaped so the endpoint assertion proves a successful request,
+# not merely that a stub accepted arbitrary arguments.
+printf '%s\n' '{"id":1,"content":"eyes"}'
 exit 0
 EOF
 chmod +x "$BIN/gh"
-PATH="$BIN:$PATH" "$JOBS/handlers/comment-reactji-gh.sh" "$REPO" issue 13 eyes >/dev/null 2>&1
+# The assertion below is about the request path.  A handler failure must not
+# abort the suite before that assertion gets a chance to diagnose it.
+PATH="$BIN:$PATH" GARDEN_GH="$BIN/gh" "$JOBS/handlers/comment-reactji-gh.sh" "$REPO" issue 13 eyes >/dev/null 2>&1 || true
 grep -qF "repos/$REPO/issues/13/reactions" "$GHLOG" && ok "issue surface POSTs to repos/$REPO/issues/13/reactions" || bad "wrong endpoint ($(cat "$GHLOG"))"
 : > "$GHLOG"
-PATH="$BIN:$PATH" "$JOBS/handlers/comment-reactji-gh.sh" "$REPO" issue-comment 555 eyes >/dev/null 2>&1
+PATH="$BIN:$PATH" GARDEN_GH="$BIN/gh" "$JOBS/handlers/comment-reactji-gh.sh" "$REPO" issue-comment 555 eyes >/dev/null 2>&1 || true
 grep -qF "repos/$REPO/issues/comments/555/reactions" "$GHLOG" && ok "issue-comment surface unchanged (/issues/comments/555/reactions)" || bad "issue-comment regressed ($(cat "$GHLOG"))"
 
 # ============================================================================
@@ -380,5 +395,5 @@ grep -q 'Bad credentials (HTTP 401)' "$SOURCE_ERR" \
   || bad "source stderr lost gh diagnostic: $(cat "$SOURCE_ERR")"
 
 # ============================================================================
-hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
+report_result
 [ "$FAIL" -eq 0 ]
