@@ -120,3 +120,12 @@ Inspect via `git -C journal cat-file -p a781537f6fdc599b088aef95da1ae667d0582789
 - Context: gardener-13 on ps23-garden-f65473ae: job 'xs2rust-endor-press-20260727-182001' transient-classified (rc=1) but elapsed near-constant (48,48s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p ec6157a2f07834292f2b2166624f663f33bf8c9c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T16:56:09Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7aa46954ae26004273188a125033ffead5b2da87
+- Context: gardener-12 on ps23-garden-f65473ae: job 'fix-warm-cache-yarn-install-state' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
