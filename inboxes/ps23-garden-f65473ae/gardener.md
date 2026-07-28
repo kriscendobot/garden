@@ -66,3 +66,12 @@ Inspect via `git -C journal cat-file -p 59c97fb21dfe8b7fd6ae0ebd3540ea71f6b693ff
 - Context: gardener-18 on ps23-garden-f65473ae: job 'job-host-requirements-gating' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p d451c0d155ec174341a2df000f6b48c9eb386c97`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-28T16:47:32Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 80682a7aa317d2405ed01b9b5065546b837b5084
+- Context: gardener-17 on ps23-garden-f65473ae: job 'xs2rust-endor-s1-daemon-integration' transient-classified (rc=1) but elapsed near-constant (105,105s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 80682a7aa317d2405ed01b9b5065546b837b5084`.
