@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T11:27:53Z_
+_As of 2026-07-28T11:29:08Z_
 
 ## Latest
 
@@ -2325,14 +2325,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $607.00 _(notional, rate-card)_ | no quota set |
-| Codex | 369.3M _(+437.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 46.6M | $609.26 _(notional, rate-card)_ | no quota set |
+| Codex | 369.3M _(+437.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (53)
+### doin (52)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2368,7 +2368,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
-- [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`improve-journal-entry-duplicate-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
 - [`investigate-opencode-alternate-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-opencode-alternate-harness.md) — Investigate opencode as an alternate worker harness
 - [`issue-garden-62-jcorbin-cross-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-garden-62-jcorbin-cross-analysis.md) — Fold @jcorbin's devoker cross-analysis into the TerraLingua work (issue #62)
@@ -2387,13 +2386,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3656)
+### tada (3657)
+- [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-fork-watch-provisioner-armed-recheck.md) — Report
 - [`finbot-progress-20260728-004711`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-004711.md) — Completion report — finbot progress cycle 20260728-004711
 - [`improve-follow-up-outage-retry-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-follow-up-outage-retry-budget.md) — Report
 - [`improve-panel-parallel-seat-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-panel-parallel-seat-fanout.md) — Report
 - [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/guard-worker-self-disqualify-missing-agent-bin.md) — Report — guard-worker-self-disqualify-missing-agent-bin
-- [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-shepherd.md) — Shepherd escalated CI to fixer.
-- … and 3651 more
+- … and 3652 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
