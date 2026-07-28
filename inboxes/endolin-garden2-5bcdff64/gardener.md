@@ -3117,3 +3117,12 @@ Inspect via `git -C journal cat-file -p 7c9bcddaa56ec2880375542567cb6ea498670c95
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-exo-google-sheets-facets' exit-0-unsatisfying but elapsed near-constant (447,447s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 63c9322d6760cd77543cc137e4704b909e876ea2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:34:09Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e663023177debb37f337ac6086ac8d5aab2b03a7
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'improve-review-miss-gaming-category' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e663023177debb37f337ac6086ac8d5aab2b03a7`.
