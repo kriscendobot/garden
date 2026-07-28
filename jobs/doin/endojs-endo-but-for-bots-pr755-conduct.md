@@ -85,3 +85,10 @@ gated `blocked` on this very PR, so **merging this PR is what releases it**.
   `endo-cbor-adopt-primitives` can confirm `@endo/cbor` is on trunk.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:43:24Z
