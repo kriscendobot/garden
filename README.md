@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T22:18:25Z_
+_As of 2026-07-28T22:19:05Z_
 
 ## Latest
 
@@ -3685,14 +3685,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.3M | $890.46 _(notional, rate-card)_ | no quota set |
+| Claude | 55.3M | $889.81 _(notional, rate-card)_ | no quota set |
 | Codex | 264.0M _(+457.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (36)
+### doin (35)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3724,19 +3724,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-192002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260728-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
-- [`qwen-model-watch-20260728-180502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/qwen-model-watch-20260728-180502.md) — scholar — weekly watch: new Qwen models harnessable by ollama on our hardware
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3730)
+### tada (3731)
+- [`qwen-model-watch-20260728-180502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/qwen-model-watch-20260728-180502.md) — Weekly Qwen watch — completion report
 - [`deadmail-20260728T215535Z-4f5e74`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260728T215535Z-4f5e74.md) — Cost
 - [`endojs-endo-but-for-bots-pr881-review-d23c8dbf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-review-d23c8dbf.md) — Completion report
 - [`fu-build-exo-google-sheets-facets-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-build-exo-google-sheets-facets-2.md) — Cost
 - [`improve-root-repo-object-store-health`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-root-repo-object-store-health.md) — Report
-- [`endo-npm-cas-registry-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-130502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28 13:05Z, resumed po...
-- … and 3725 more
+- … and 3726 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
