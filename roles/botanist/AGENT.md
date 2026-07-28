@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-25
+updated: 2026-07-28
 author: gardener, liaison
 ---
 
@@ -33,6 +33,8 @@ The **dependabot-PR watcher** (`scripts/jobs/dependabot-watcher.sh`, `garden-dep
 For a single Dependabot PR `#N`:
 
 1. **Pre-flight.** Confirm the diff touches only `package.json`, the lockfile, and possibly the dependabot config. A Dependabot PR that touches source files is suspect; reject and surface.
+
+   **Then check for supersession, before spending a review on it.** List the repo's open Dependabot PRs (`gh pr list --repo <owner>/<repo> --author "app/dependabot" --state open --json number,title,headRefName,createdAt`) and look for another bumping the same package. Dependabot does not reliably close the PR it supersedes, and the stale one is hard to spot: its **branch name still carries the old target version** while its title has been rebased forward, so the pair does not read as a pair at a glance. When two exist, the older is **REJECT-superseded** (close it with the structured verdict naming the live PR) and only the live one gets the full review. Confirm supersession rather than assuming it: compare the `index <old>..<new>` blob hashes on the changed manifests in both diffs (identical hashes on both sides mean the two produce identical manifests), and measure each head against the base with `gh api "repos/<owner>/<repo>/compare/<base>...<head-sha>" -q '"ahead=\(.ahead_by) behind=\(.behind_by)"'`. The targets may differ, in which case the newer PR supersedes rather than duplicates, and the only finding that flips that is a reason the newer target is worse. Precipitating evidence: 2026-07-28 on `endojs/endo-but-for-bots`, three concurrent pairs (561/868, 560/870, 562/869), each a 2026-06-28 PR left open when the 2026-07-26 run opened its replacement. Skipping this check costs a duplicate review and a duplicate lint fix per dependency, and puts two competing `yarn.lock` mutations for one package in front of the merge queue.
 2. **Read the lockfile diff and enumerate the full transitive set.** Do not stop at the headline package. List **every** transitive version that moved in the lockfile, the publish date of each new version, whether any range was published in the last 24 hours, any newly-introduced transitive package (one that had no prior entry), and any new or changed license. A package appearing for the first time and a version less than 24 hours old are each higher-risk and must be called out by name in the verdict.
 3. **Install with scripts disabled** in the project worktree.
 4. **Read the source** for the headline package and any transitively changed package. Pull the new tag, read the changelog, skim every changed source file (focus on entry points, `bin/`, install scripts). Look for new network calls, new filesystem writes, dynamic require of user input, new child_process spawns, telemetry sends.
@@ -86,6 +88,7 @@ On a `dependabot[bot]`-authored PR on a repo where the bot holds merge authority
 
 ## Anti-patterns
 
+- Do not review a Dependabot PR without first checking whether a newer Dependabot PR supersedes it (step 1). The stale one's branch name lies about its target version, so supersession is invisible unless you look for it deliberately.
 - Do not approve based on green CI alone. Green CI tells you the upgrade does not break the project's existing tests; it tells you nothing about a malicious payload that does not run during the test suite. The gate above makes this explicit: CI green is one necessary leg, not the verdict.
 - Do not enable scripts during install.
 - Do not embargo without recording the maturity floor, placing the precise one-shot recheck at it (ceil-to-hour + 15m epsilon), and ensuring the daily backstop heartbeat exists; without the recheck wiring, no later tick re-posts the job and the PR rots. Do not rely on the daily heartbeat alone — its cron-aligned cadence leaves a no-op window for any non-aligned floor.
