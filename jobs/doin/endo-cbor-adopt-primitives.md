@@ -148,3 +148,10 @@ scripts/jobs/post-orchestration.sh --serial --on-child-failure halt \
 - `endo-cbor-adopt-slots` parked, blocked on
   https://github.com/endojs/endo-but-for-bots/pull/124 .
 - Report names the three basenames so the maintainer can track the arc.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:06:11Z
