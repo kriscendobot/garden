@@ -894,3 +894,12 @@ Inspect via `git -C journal cat-file -p 5f569b69f3e43a33365f69ad91d6f31904b883c2
 - Context: gardener-1 on ps23: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p d8da219698830af2a872b61c174cdacb8bb05e64`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:59:28Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: aa7b992d03f6dac95c09bd6545befe85158f2a56
+- Context: gardener-1 on ps23: job 'fu-clarify-drain-moratorium-vocabulary-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p aa7b992d03f6dac95c09bd6545befe85158f2a56`.
