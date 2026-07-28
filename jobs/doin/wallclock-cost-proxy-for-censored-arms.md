@@ -116,6 +116,7 @@ refinement is worth a follow-up.
 <!-- garden-productive-cycle -->
 <!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: ps23-garden-f65473ae
