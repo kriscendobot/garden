@@ -29,6 +29,10 @@ state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || true)"
   || die "mystic only runs explicit model: kimi-k3 jobs (refusing '$base')"
 kimi_provider_preflight "$base" || exit 1
 
+# Publish the resolved model so the fleet's gh wrapper can stamp it into the
+# GitHub-comment provenance footer (scripts/jobs/comment-provenance.sh).
+export GARDEN_JOB_MODEL="kimi-k3"
+
 main_branch="${GARDEN_MAIN_BRANCH:-main2}"
 worktree="$(worker_worktree_path "$base")"
 kimi_home="$GARDEN_STATE/$state_ns/kimi/$base"

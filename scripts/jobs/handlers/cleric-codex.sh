@@ -148,6 +148,11 @@ if [ "$provider" = fireworks ]; then
   model="${model#fireworks/}"
 fi
 
+# Publish the resolved model so the fleet's gh wrapper can stamp it into the
+# GitHub-comment provenance footer (scripts/jobs/comment-provenance.sh); the agent
+# and every gh call it makes inherit this environment.
+export GARDEN_JOB_MODEL="$model"
+
 # --- reachability + model-presence preflight ----------------------------------
 #
 # A backend outage or an unpulled local model must read as a HOST defect, not a job

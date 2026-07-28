@@ -152,4 +152,26 @@ if [ -z "${GH_TOKEN:-}" ]; then
   fi
 fi
 
+# --- GitHub-comment provenance footer (maintainer directive 2026-07-28) --------
+# Every PR/issue comment the fleet posts carries a small-text footer naming the
+# model, harness, and DEPLOYED garden sha (hyperlinked). Enforcing it HERE — the
+# single PATH chokepoint every fleet gh call passes through — is far more reliable
+# than a skill telling agents to remember (roles/mentor/AGENT.md). The rewrite is
+# fail-open by construction: comment-provenance.sh returns rc 1 (passthrough) for
+# every non-comment call, an already-footed body, an unresolvable footer, or ANY
+# parse doubt, so the exec below is unchanged for the overwhelming majority of
+# calls (reads, reactji, merges, label edits). Only a genuine comment-create is
+# rewritten, and even then a body that cannot be footered posts as-is.
+_prov_lib="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/comment-provenance.sh"
+if [ -r "$_prov_lib" ]; then
+  # shellcheck source=../comment-provenance.sh
+  . "$_prov_lib" 2>/dev/null || true
+  if declare -f provenance_rewrite_argv >/dev/null 2>&1 \
+     && provenance_rewrite_argv "$@" 2>/dev/null; then
+    "$real_gh" "${PROV_NEWARGV[@]}"; _prov_rc=$?
+    declare -f provenance_cleanup >/dev/null 2>&1 && provenance_cleanup
+    exit "$_prov_rc"
+  fi
+fi
+
 exec "$real_gh" "$@"

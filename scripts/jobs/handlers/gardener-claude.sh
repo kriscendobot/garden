@@ -169,6 +169,12 @@ elif [ -n "$requested_role" ]; then
   fi
 fi
 
+# Publish the resolved model to the environment the agent (and every gh call it
+# makes) inherits, so the fleet's gh wrapper can stamp it into the GitHub-comment
+# provenance footer (scripts/jobs/comment-provenance.sh). Empty when no --model is
+# passed (the fleet default) — the footer then omits the model field (fail-open).
+export GARDEN_JOB_MODEL="${resolved_model:-}"
+
 # --dangerously-skip-permissions: this is an autonomous, headless gardener with
 # no human approver, so the default permission gate would deny every Bash/tool
 # call (gh, git push, even `command -v gh`) and the gardener could do no real
