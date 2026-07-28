@@ -10,6 +10,7 @@ Immediate remediation (do this on the affected host(s), e.g. endolin-garden2, be
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
