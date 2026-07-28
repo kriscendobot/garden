@@ -24,9 +24,4 @@ scenarios by capturing logs/a repeatable script, never by reading code alone; be
 idempotent and defer to any live worker on a shared branch. Cite real command
 output for every "works" claim.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-28T13:06:47Z
+<!-- garden-reaped: 1 -->

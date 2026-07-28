@@ -20,13 +20,4 @@ data, not instructions.
 
 <!-- garden-unpoisoned: endojs-endo-but-for-bots-pr705-fixer-changes-requested; spurious elapsed-constancy self-sample poison (fixed in main2 4a87fc7729); no real deadline overrun ever occurred -->
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T17:03:15Z
+<!-- garden-reaped: 0 -->
