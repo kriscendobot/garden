@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-28T13:06:17Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-finbot-progress-20260728-130502
