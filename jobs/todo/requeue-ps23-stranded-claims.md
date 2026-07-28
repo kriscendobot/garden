@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: fix-ps23-claude-path-outage
-priority: normal
-posted_by: producer
-posted_at: 2026-07-28T06:31:11Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T08:40:03Z -->
 
 scripts/jobs/reaper.sh
 
