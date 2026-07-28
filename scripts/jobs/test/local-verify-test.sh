@@ -144,6 +144,37 @@ git -C "$R9" add -A; git -C "$R9" commit -qm init >/dev/null  # commit the stub 
 o9="$(GARDEN_YARN="bash $R9/yarn-stub.sh" "$LV" "$R9" 2>&1)"; rc9=$?
 [ "$rc9" -eq 0 ] && [ -z "$o9" ] && ok "up-to-date codegen: silent, exit 0" || bad "clean codegen not silent/zero (rc=$rc9 out=[$o9])"
 
+# --- 10: steps run against repository-local git config only -----------------
+# The container bind-mounts the host user's home, so the maintainer's git config
+# is in effect for every git a step spawns while a CI runner has none — a silent
+# local-vs-CI divergence for any SEMANTICS-changing setting. The observed case:
+# rerere.enabled=true auto-resolved a project fixture's intentional rebase
+# conflict, failing locally and passing on CI. The step must not see it.
+R10="$TR/hermetic"
+make_repo "$R10" '#!/bin/bash
+case "$2" in
+  test) echo "rerere=$(git config --get rerere.enabled || echo unset)"; exit 1 ;;
+  *)    exit 0 ;;
+esac'
+HOSTCFG="$TR/host-gitconfig"
+printf '[rerere]\n\tenabled = true\n' > "$HOSTCFG"
+o10="$(GIT_CONFIG_GLOBAL="$HOSTCFG" GARDEN_YARN="bash $R10/yarn-stub.sh" "$LV" "$R10" 2>&1)"
+s10="$(printf '%s' "$o10" | grep -oE '[0-9a-f]{40}' | head -1)"
+git -C "$R10" cat-file -p "$s10" 2>/dev/null | grep -q 'rerere=unset' \
+  && ok "host global git config is invisible to a step" || bad "host global git config leaked into a step"
+# The opt-out escape hatch restores the inherited configuration verbatim.
+o10b="$(GARDEN_INHERIT_GITCONFIG=1 GIT_CONFIG_GLOBAL="$HOSTCFG" \
+        GARDEN_YARN="bash $R10/yarn-stub.sh" "$LV" "$R10" 2>&1)"
+s10b="$(printf '%s' "$o10b" | grep -oE '[0-9a-f]{40}' | head -1)"
+git -C "$R10" cat-file -p "$s10b" 2>/dev/null | grep -q 'rerere=true' \
+  && ok "GARDEN_INHERIT_GITCONFIG=1 opts back in" || bad "opt-out did not restore inherited config"
+# Repository-local config still applies (it is checked in, hence CI-identical).
+git -C "$R10" config --local rerere.enabled false
+o10c="$(GIT_CONFIG_GLOBAL="$HOSTCFG" GARDEN_YARN="bash $R10/yarn-stub.sh" "$LV" "$R10" 2>&1)"
+s10c="$(printf '%s' "$o10c" | grep -oE '[0-9a-f]{40}' | head -1)"
+git -C "$R10" cat-file -p "$s10c" 2>/dev/null | grep -q 'rerere=false' \
+  && ok "repository-local git config still applies" || bad "local git config was blanked too"
+
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

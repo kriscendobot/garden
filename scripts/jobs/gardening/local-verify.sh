@@ -74,6 +74,16 @@ pkg="$wt/package.json"
 TMPDIR="$(exec_tmpdir)"
 export TMPDIR
 
+# Parity guard: the container bind-mounts the host user's home, so the
+# maintainer's ~/.config/git/config is in effect for every git a verification
+# step spawns, while a CI runner has none. A semantics-changing setting there
+# (rerere.enabled, diff.algorithm, merge.conflictStyle, core.autocrlf, ...) then
+# makes a step behave differently here than on CI in either direction. Run every
+# step against repository-local git configuration only, so the gate's silence
+# means what it claims. See common.sh's hermetic_gitconfig and
+# skills/local-verify § Parity is the contract.
+hermetic_gitconfig
+
 # The package runner: plain `yarn` is often absent in a fresh worktree, so fall
 # back to `npx corepack yarn` (see skills/pre-pr-checklist § Pitfalls). Override
 # with GARDEN_YARN for tests or a project that uses a different runner.

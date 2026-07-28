@@ -59,6 +59,14 @@ kinds, and both must be closed (never worked around with a one-off green push):
    only CI runs it. The parity fix is to provide the shims (see the field notes),
    not to accept the skip.
 
+Divergence in the **other** direction — local-fail, CI-pass — is the same defect
+and gets the same treatment. A gate that red-lights work CI would have accepted
+sends an agent chasing a phantom, and, worse, teaches the fleet that a red gate
+is negotiable. The container's inherited **host git configuration** is the
+standing source of these (it bind-mounts the maintainer's home, while a CI runner
+has no user configuration at all), which is why the harness blanks it; see the
+2026-07-28 rerere field note below.
+
 The fix is therefore always **two-part**: (i) green the PR, and (ii) close the
 gap (add the missing check or restore the environment parity) so the same class
 of local-pass/CI-fail cannot recur. Part (ii) is the defect fix the maintainer's
@@ -330,3 +338,23 @@ and `shellcheck` clean.
   `build:types:gen` now outranks `build:types` in the codegen candidates. General
   lesson for the table: a codegen candidate must **mutate**; a check-or-compile
   script in that slot makes the codegen-then-clean gate vacuous.
+- _2026-07-28_: closed an environment divergence in the **opposite** direction —
+  local-fail, CI-pass (job `fu-build-exo-google-sheets-facets-1`). The container
+  bind-mounts the host user's home, so the maintainer's
+  `~/.config/git/config` was in effect for every `git` a verification step
+  spawned, while a CI runner has no user configuration at all. Its
+  `rerere.enabled=true` made `@endo/agentry`'s conflict-rebase eval fixture
+  auto-resolve the conflict it exists to provoke (`Staged 'app.txt' using
+  previous resolution`), so a test asserting the conflict stops the rebase failed
+  here and passed on CI. `local-verify.sh` now calls the new
+  `hermetic_gitconfig` helper (`scripts/jobs/common.sh`), which points
+  `GIT_CONFIG_GLOBAL`/`GIT_CONFIG_SYSTEM` at `/dev/null` so every step sees only
+  repository-local configuration — checked in, hence identical on CI.
+  `GARDEN_INHERIT_GITCONFIG=1` opts back out while debugging. The class is wider
+  than rerere: `diff.algorithm`, `diff.renames`, `merge.conflictStyle`,
+  `rebase.autostash`, `core.autocrlf`, and `url.<base>.insteadOf` all change git's
+  semantics from a config file CI never reads. The tell is a failure that
+  reproduces for the fleet but never for CI, on a project whose tests shell git.
+  The project-side half is endojs/endo-but-for-bots#883, which pins rerere off in
+  the fixture's own repository-local config; the two defenses are independently
+  sufficient, and the fixture's is the one that also protects a human's checkout.

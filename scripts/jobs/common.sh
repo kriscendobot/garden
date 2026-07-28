@@ -1520,6 +1520,35 @@ exec_tmpdir() {
   if [ "$rc" -eq 0 ]; then printf '%s\n' "$alt"; else printf '%s\n' "$cur"; fi
 }
 
+# hermetic_gitconfig — export GIT_CONFIG_GLOBAL/GIT_CONFIG_SYSTEM so that every
+# `git` in this process tree sees ONLY repository-local configuration.
+#
+# The garden container bind-mounts the host user's home, so the maintainer's
+# ~/.config/git/config is in effect for every git the fleet spawns — while a
+# stock CI runner has no user configuration at all. Any setting there that
+# changes git's SEMANTICS rather than its presentation is therefore a silent
+# local-vs-CI divergence in the sense of skills/local-verify § Parity is the
+# contract. Observed instance: `rerere.enabled=true` made a project's conflict
+# fixture auto-resolve its intentional conflict ("Staged 'app.txt' using
+# previous resolution"), so a test that asserts on the conflict stopping the
+# rebase failed locally and passed on CI. `diff.algorithm`, `diff.renames`,
+# `merge.conflictStyle`, `rebase.autostash`, `core.autocrlf`, and
+# `url.<base>.insteadOf` are the same hazard waiting to happen.
+#
+# Blanking both config layers is what makes a local run match the runner, so the
+# gate's silence means what it claims. Repository-local config still applies (it
+# is checked in, hence identical on CI), as does anything a project passes with
+# `git -c`. Set GARDEN_INHERIT_GITCONFIG=1 to opt out while debugging.
+#
+# Idempotent, never fails, and exports nothing when opted out.
+hermetic_gitconfig() {
+  [ "${GARDEN_INHERIT_GITCONFIG:-}" = "1" ] && return 0
+  GIT_CONFIG_GLOBAL=/dev/null
+  GIT_CONFIG_SYSTEM=/dev/null
+  GIT_CONFIG_NOSYSTEM=1
+  export GIT_CONFIG_GLOBAL GIT_CONFIG_SYSTEM GIT_CONFIG_NOSYSTEM
+}
+
 # scratch_cleanup <dir> — remove a scratch dir created by scratch_dir. If <dir>
 # is a registered git worktree (of any repo whose admin dir can be located), it
 # is torn down with `git worktree remove --force` first so no stale worktree
