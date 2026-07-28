@@ -66,6 +66,7 @@ Commenting on this repository is covered by the standing authorization
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
