@@ -1,5 +1,0 @@
-host: ps23
-gardener: 7
-worker_kind: gardener
-claimed_at: 2026-07-28T06:41:36Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-wallclock-cost-proxy-for-censored-arms

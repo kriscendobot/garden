@@ -1,5 +1,0 @@
-host: ps23
-gardener: 6
-worker_kind: gardener
-claimed_at: 2026-07-28T06:43:35Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-fix-issue-inbox-watcher-test-silent-abort
