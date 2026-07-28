@@ -3324,3 +3324,12 @@ Inspect via `git -C journal cat-file -p be8b6989643f39f0c20c7026d5dbd8436b79b7d3
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr868-lint-fix' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p caa23672440ce237b3208b0e3e15c75c555086db`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:44:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 75303a0ef231d8f1447fe25402dab24b8bb802c7
+- Context: gardener-6 on endolin-garden2-5bcdff64: job 'hermit-failure-reputation-followup' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 75303a0ef231d8f1447fe25402dab24b8bb802c7`.
