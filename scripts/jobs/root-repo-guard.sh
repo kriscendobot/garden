@@ -109,9 +109,12 @@ BEHIND_SINCE="$GUARD_STATE/behind-since"
 STALL_ALERTED="$GUARD_STATE/stall-alerted"
 
 # --- invariant C knobs (object-store health) ---------------------------------
-# Aborted-repack temp files younger than this are left alone: a repack in flight owns
-# them, and no legitimate one lives for a day.
-: "${GARDEN_ROOT_GUARD_TMP_AGE_HOURS:=24}"
+# Temp pack files younger than this are left alone — one in flight is owned by a live
+# writer. 6h is ~50x the longest pack write the fleet can produce (bounded_fetch is
+# capped at GARDEN_FETCH_TIMEOUT, a gc here at GARDEN_ROOT_GUARD_GC_TIMEOUT), and the
+# gate doubles as the ceiling on steady-state garbage, which on a broken store
+# regenerates at ~10 GB/day.
+: "${GARDEN_ROOT_GUARD_TMP_AGE_HOURS:=6}"
 # Ceilings past which the store is "needs maintenance" even with no gc.log. A healthy
 # gc'd repo sits at 1–2 packs; git's own auto-gc threshold is 50 packs / 6700 loose.
 : "${GARDEN_ROOT_GUARD_MAX_PACKS:=50}"
@@ -259,10 +262,15 @@ root_common_gitdir() {
   ( cd "$d" 2>/dev/null && pwd ) || printf '%s\n' "$d"
 }
 
-# C.1 — sweep aborted-repack garbage. Cheap (one `find` over one directory) and run
-# EVERY tick regardless of whether the store otherwise needs maintenance, because it
-# is pure reclamation: git itself classifies these as "garbage found" and has no code
-# path that ever removes them. Age-gated so an in-flight repack's temp files are safe.
+# C.1 — sweep orphaned temp pack files. EVERY pack write lands in objects/pack/tmp_*
+# first — a repack's output, and every incoming fetch's index-pack — and is renamed
+# into place only on success. Any write that dies (a repack that hit a missing object,
+# a fetch that bounded_fetch's timeout killed mid-transfer) strands its tmp_* there
+# FOREVER: git reports them as "garbage found" on every invocation and has no code
+# path that removes them. Cheap (one `find` over one directory) and run every tick
+# regardless of whether the store otherwise needs maintenance, because it is pure
+# reclamation. Age-gated so a live writer's temp file is never pulled out from under
+# it.
 sweep_pack_garbage() {
   local packdir="$1/objects/pack"
   [ -d "$packdir" ] || return 0
@@ -273,7 +281,7 @@ sweep_pack_garbage() {
   [ "$n" -eq 0 ] && return 0
   bytes="$(printf '%s\n' "$sizes" | awk '{s+=$1} END{printf "%d", s+0}' 2>/dev/null || echo 0)"
   find "$packdir" -maxdepth 1 -type f -name 'tmp_*' -mmin "+$mins" -delete 2>/dev/null || true
-  log "OBJSTORE-SWEPT: removed $n aborted-repack temp file(s) (~$(( bytes / 1048576 )) MiB) from $packdir — leftovers from repacks that died, which git reports as garbage but never reclaims"
+  log "OBJSTORE-SWEPT: removed $n orphaned temp pack file(s) (~$(( bytes / 1048576 )) MiB) from $packdir — stranded by pack writes (repacks, incoming fetches) that died, which git reports as garbage but never reclaims"
 }
 
 # Clear the stale gc.log(s) — the common one AND each worktree's own copy, since any

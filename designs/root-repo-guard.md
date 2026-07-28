@@ -114,13 +114,24 @@ It does not, and the way it stops covering it is silent and **self-reinforcing**
 | stale `gc.log` | present in the common git dir **and 5 worktree admin dirs** (Jul 27) |
 | packs | **1301** (a gc'd repo sits at 1–2) |
 | objects | 511,993 in-pack + 10,459 loose, 136 prune-packable |
-| **aborted-repack garbage** | **139 `tmp_*` files, 15.4 GB** — against a real store of ~320 MB |
+| **orphaned temp packs** | **139 `tmp_*` files, 15.4 GB** — against a real store of ~320 MB |
 | missing objects | 22, all reachable only from `journal2` (`origin/main2` and `main2` scan clean) |
 
 The garbage figure is the headline: git's own `count-objects -v` reports it as
 `size-garbage`, calls it "garbage found" on every invocation — and has **no code path
-that ever deletes it**. Each aborted repack left a partial pack behind, so the 48×
-disk overshoot was produced entirely by the failure loop, not by the repo.
+that ever deletes it**. The 48× disk overshoot was produced entirely by the failure
+loop, not by the repo.
+
+The mechanism is broader than failed repacks, and worth naming precisely because it
+sets the sweep's age gate. **Every** pack write lands in `objects/pack/tmp_*` first and
+is renamed into place only on success — a repack's output *and* every incoming fetch's
+`index-pack`. So a repack that dies on a missing object strands one, and so does a
+fetch that `bounded_fetch`'s `timeout` kills mid-transfer. On the audited host these
+were being stranded at **~10 GB/day** (dozens per hour, 70–250 MB each), because with
+1301 packs every fetch was slow enough to hit the timeout — the loop feeding itself
+again. The sweep's age gate is therefore both the safety margin for a live writer and
+the ceiling on steady-state garbage, which is why it is **6h** (~50× the longest pack
+write the fleet can produce, all of which are `timeout`-bounded) rather than a day.
 
 Fleet impact beyond disk and slowness: `journal/` is a **worktree of this same repo**,
 so every journal sync paid the 1301-pack index scan, and every git call in the root —
@@ -133,9 +144,9 @@ Same bounded/lossless discipline as A and B, cheapest first, each step condition
 the previous one failing:
 
 1. **Sweep the garbage** (`objects/pack/tmp_*` older than
-   `GARDEN_ROOT_GUARD_TMP_AGE_HOURS`, default 24h). Unconditional, every tick, one
+   `GARDEN_ROOT_GUARD_TMP_AGE_HOURS`, default 6h). Unconditional, every tick, one
    `find` — pure reclamation of files git has already classified as garbage. The age
-   gate is what keeps an **in-flight** repack's temp files safe.
+   gate is what keeps a **live** pack writer's temp file safe.
 2. **Run a bounded `git gc`** when a `gc.log` is present or the pack/loose counts pass
    their ceilings (`GARDEN_ROOT_GUARD_MAX_PACKS` 50, `..._MAX_LOOSE` 10000 — git's own
    auto-gc thresholds). The gc.log(s) are removed **only once gc actually succeeds**,
