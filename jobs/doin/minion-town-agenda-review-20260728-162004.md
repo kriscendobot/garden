@@ -15,3 +15,10 @@ Autonomous minion.town deployments are authorized when they are the smallest saf
 Report each engagement substantively on https://github.com/kriskowal/garden/issues/58. State concrete movement, deployments or validation attempted, evidence observed, blockers, and the next smallest action. Do not close the issue.
 
 The primary-phase target is an Endo daemon with OAuth-mapped guests, authenticated MCP tool access, and published weblets. Subsequent distributed-store, metering, billing, garbage collection, and ERTP work remains deliberately deferred until the issue description changes or a maintainer explicitly directs otherwise.
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 16
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:20:10Z
