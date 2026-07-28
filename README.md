@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:20:32Z_
+_As of 2026-07-28T01:23:50Z_
 
 ## Latest
 
@@ -6209,14 +6209,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.0M | $458.38 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+471.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 35.1M | $459.92 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+470.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (47)
+### doin (48)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`dependabotany-recheck-endo-but-for-bots-20260728-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260728-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
@@ -6253,6 +6253,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
+- [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 - [`ocapn-noise-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-004711.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ollama-hermit-simple-job-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ollama-hermit-simple-job-capability.md) — Investigate whether Ollama (local hermit) can complete a SIMPLE job; fix obvi...
