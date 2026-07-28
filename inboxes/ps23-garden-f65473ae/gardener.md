@@ -57,3 +57,12 @@ Inspect via `git -C journal cat-file -p 109fe106fa8f052e5fd838a7cc396a017120a2f8
 - Context: gardener-9 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr713-gauntlet-backfill' transient-classified (rc=1) but elapsed near-constant (62,62s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 59c97fb21dfe8b7fd6ae0ebd3540ea71f6b693ff`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T16:47:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d451c0d155ec174341a2df000f6b48c9eb386c97
+- Context: gardener-18 on ps23-garden-f65473ae: job 'job-host-requirements-gating' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d451c0d155ec174341a2df000f6b48c9eb386c97`.
