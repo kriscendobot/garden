@@ -3369,3 +3369,12 @@ Inspect via `git -C journal cat-file -p 1eb7d1d2231589cc7c9c350b4860732ba3434526
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'build-exo-google-sheets-facets' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p f2224320fcef58738236925cf39098ed08ad67e0`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:53:40Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0b8efc22242a19f3a6dad27cdcba1992e311411a
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0b8efc22242a19f3a6dad27cdcba1992e311411a`.
