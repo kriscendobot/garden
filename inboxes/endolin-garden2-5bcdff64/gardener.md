@@ -3306,3 +3306,12 @@ Inspect via `git -C journal cat-file -p 9a0c0f5c0bc5c0449212836228fd5ec33932aaf7
 - Context: gardener-5 on endolin-garden2-5bcdff64: job 'fireworks-glm52-kimik3-build' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 3681918e9acce45a196c0407f18bc70f84bc15ab`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:41:54Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: be8b6989643f39f0c20c7026d5dbd8436b79b7d3
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'scholar-atproto-ucan-addressing-taxonomy' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p be8b6989643f39f0c20c7026d5dbd8436b79b7d3`.
