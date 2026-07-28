@@ -16,3 +16,10 @@ this job was minted from a rollup read at post time.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T07:52:29Z
