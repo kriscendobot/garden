@@ -705,3 +705,12 @@ Inspect via `git -C journal cat-file -p c665593cd52be1263bc13f0de6d415264023c10a
 - Context: gardener-5 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 79a679fd1f17f35999efd33010dcc7460e70c87d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:26:33Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 95e0dc41586873440e79dd4f792e22616c1b9b7d
+- Context: gardener-1 on ps23: job 'fix-identity-drift-guard-test-inbox-leak' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 95e0dc41586873440e79dd4f792e22616c1b9b7d`.
