@@ -1587,3 +1587,12 @@ Inspect via `git -C journal cat-file -p 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4
 - Context: gardener-7 on endolin-garden-ece02cb4: job 'gnome-backend-autotune-build' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p f0a3ce2767e3ae7923bda76335edd91de118cdb2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T21:14:35Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'scholar-refresh-assert-js-line-citations' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4`.
