@@ -24,7 +24,8 @@ so once the page holds a token it can read and write through the REST + Git Data
 APIs entirely from the browser. The token is stored in `localStorage` on the
 maintainer's own machine and never leaves it except as the `Authorization`
 header to `api.github.com`. Minimal scope: a fine-grained PAT limited to the
-`kriskowal/garden` repository with **Contents: Read and write** (nothing else).
+`kriscendobot/garden` repository with **Contents: Read and write** (nothing
+else).
 
 **Optional OAuth upgrade (documented, not the default):** the device flow can be
 made to work if the maintainer deploys a tiny stateless token-exchange shim (for
