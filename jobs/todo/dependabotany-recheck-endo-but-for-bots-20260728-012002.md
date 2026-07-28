@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-07-28T01:20:02Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots
----
 # botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 
 Wear roles/botanist/AGENT.md. This is the **backstop** heartbeat over the
