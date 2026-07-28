@@ -23,3 +23,10 @@ stale) — discover the real transport packages, don't assume paths. Validate
 scenarios by capturing logs/a repeatable script, never by reading code alone; be
 idempotent and defer to any live worker on a shared branch. Cite real command
 output for every "works" claim.
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T00:49:00Z
