@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T02:52:37Z_
+_As of 2026-07-28T02:54:07Z_
 
 ## Latest
 
@@ -6229,14 +6229,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.3M | $464.68 _(notional, rate-card)_ | no quota set |
-| Codex | 18.8M _(+470.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 35.3M | $465.01 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+469.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (47)
+### doin (48)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`dependabotany-recheck-endo-but-for-bots-20260728-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260728-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
@@ -6274,6 +6274,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
+- [`improve-gardener-claude-bin-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-claude-bin-resolution.md) — scripts/jobs/handlers/gardener-claude.sh
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 - [`ocapn-noise-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-004711.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404.md) — scripts/jobs/fork-watch-provisioner.sh
