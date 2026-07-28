@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T15:20:50Z_
+_As of 2026-07-28T15:26:00Z_
 
 ## Latest
 
@@ -2708,18 +2708,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $702.03 _(notional, rate-card)_ | no quota set |
+| Claude | 52.7M | $702.58 _(notional, rate-card)_ | no quota set |
 | Codex | 344.6M _(+469.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (44)
+### doin (43)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
-- [`deadmail-issue-comment-5106045535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5106045535.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-130502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260728-130502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -2761,13 +2760,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3684)
+### tada (3685)
+- [`deadmail-issue-comment-5106045535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5106045535.md) — Report
 - [`deadmail-issue-comment-5105796865`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5105796865.md) — Report — deadmail-issue-comment-5105796865
 - [`endo-vfs-parity-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-130502.md) — Verify-and-stand-down tick — no changes anywhere on the parity surface, no ac...
 - [`fix-ps23-claude-path-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-ps23-claude-path-outage.md) — orchestration fix-ps23-claude-path-outage — complete
 - [`requeue-ps23-stranded-claims`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/requeue-ps23-stranded-claims.md) — Report — requeue-ps23-stranded-claims
-- [`build-panel-run-record`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-panel-run-record.md) — Completion report
-- … and 3679 more
+- … and 3680 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
