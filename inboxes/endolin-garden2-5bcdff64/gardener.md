@@ -3342,3 +3342,12 @@ Inspect via `git -C journal cat-file -p 75303a0ef231d8f1447fe25402dab24b8bb802c7
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'xs2rust-endor-press-20260727-182001' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 775578d0411d012c3e156070ac449ffa9c36ef1e`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-28T12:46:15Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: e36c34157f63603ae07a48bd4785ada1aeac9e1a
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' exit-0-unsatisfying but elapsed near-constant (111,111s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p e36c34157f63603ae07a48bd4785ada1aeac9e1a`.
