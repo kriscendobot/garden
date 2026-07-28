@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:22:55Z_
+_As of 2026-07-28T07:23:19Z_
 
 ## Latest
 
@@ -6958,11 +6958,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.6M | $504.95 _(notional, rate-card)_ | no quota set |
+| Claude | 42.7M | $506.65 _(notional, rate-card)_ | no quota set |
 | Codex | 434.5M _(+412.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
-### todo (46)
+### todo (49)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`daily-progress-summary-20260728-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/daily-progress-summary-20260728-070504.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5100277860`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5100277860.md) — Dead-lettered message — pick up its intent
@@ -6976,12 +6976,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr558-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr558-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #558
 - [`endojs-endo-but-for-bots-pr560-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr560-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #560
 - [`endojs-endo-but-for-bots-pr562-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr562-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #562
+- [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr865-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr865-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #865
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
 - [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
 - [`endojs-endo-but-for-bots-pr869-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr869-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #869
@@ -7000,6 +7002,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/guard-worker-self-disqualify-missing-agent-bin.md) — A worker that cannot resolve its agent binary must self-disqualify, not claim
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
+- [`improve-journal-entry-duplicate-suppression`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
@@ -7010,15 +7013,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### doin (17)
+### doin (15)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`dedupe-watchdog-notices-and-fix-triager-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dedupe-watchdog-notices-and-fix-triager-fetch.md) — Watchdog notices flood the maintainer inbox: 147 unread, 94 for one condition
 - [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-sturdyref-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-065010.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr561-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr561-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #561
-- [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
-- [`endojs-endo-but-for-bots-pr865-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr865-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #865
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
