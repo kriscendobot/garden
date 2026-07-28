@@ -90,6 +90,7 @@
 | [web--miller-equality-argument-passing-rules--vat-based-rules](../sections/web--miller-equality-argument-passing-rules--vat-based-rules.md) | Argument Passing Rules (Miller) | leaving-home / going-home / travelling transforms of a PassByProxy reference across vats; the three-vat travelling case is what CapTP three-party-handoff realizes. |
 | [web--miller-equality-object-sameness--overview](../sections/web--miller-equality-object-sameness--overview.md) | Object Sameness (Miller) | Selfish (PassByProxy default) vs Selfless (value identity) — the identity taxonomy that pairs with the passing taxonomy. |
 | [web--miller-equality-reference-sameness--overview](../sections/web--miller-equality-reference-sameness--overview.md) | Reference Sameness (Miller) | The `==` predicate and designational equivalence — the E ancestor of pass-invariant equality that lets a passed-and-returned reference stay comparable. |
+| [ucan-wg--spec-readme--canonicalization-envelope-and-cids](../sections/ucan-wg--spec-readme--canonicalization-envelope-and-cids.md) | ucan-wg/spec README.md | The required cryptosuite (did:key only), DAG-CBOR canonical encoding, the [Signature, {VarsigHeader, TokenPayload}] envelope, and CIDv1/base58btc/SHA-256/DAG-CBOR token addressing ('zdpu'). |
 
 - [`captp`](captp.md): consumer of marshal for capability transport.
 - [`ocapn`](ocapn.md): protocol family that combines marshal with transports.
