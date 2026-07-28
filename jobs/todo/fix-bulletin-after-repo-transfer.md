@@ -93,10 +93,4 @@ credential to the repo.
   after your change deploys, and that reads work with no token at all.
 - Run CI-equivalent checks locally before pushing. Direct push to `main2`.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T06:46:28Z
+<!-- garden-reaped: 1 -->
