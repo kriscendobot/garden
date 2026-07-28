@@ -134,9 +134,4 @@ If the ingestion cannot fit alongside the report in one cycle, **post the report
 first** — it is what the maintainer asked for — and defer ingestion to the
 follow-on job.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-28T08:15:16Z
+<!-- garden-reaped: 1 -->

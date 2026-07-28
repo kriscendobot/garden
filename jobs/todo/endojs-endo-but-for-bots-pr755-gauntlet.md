@@ -87,10 +87,4 @@ first suggested remedy and is the durable answer.
 - The report states whether `jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e.md`
   can now be dropped as superseded.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-28T11:30:15Z
+<!-- garden-reaped: 1 -->

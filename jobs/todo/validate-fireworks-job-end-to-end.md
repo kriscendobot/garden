@@ -94,9 +94,4 @@ that is a notable finding — it would be the first lane with real cost evidence
 - No secret, provider response body, or fixture containing either appears in any
   journal entry, report, log, or commit.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-28T08:15:43Z
+<!-- garden-reaped: 1 -->

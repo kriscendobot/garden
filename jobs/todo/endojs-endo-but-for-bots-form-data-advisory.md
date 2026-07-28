@@ -64,11 +64,4 @@ here. Only the `^4.0.0` resolution is left for this job.
 Commenting on this repository is covered by the standing authorization
 (`journal/projects/endo-but-for-bots/README.md` § Standing authorizations).
 
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-28T08:15:47Z
+<!-- garden-reaped: 3 -->
