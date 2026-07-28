@@ -102,6 +102,7 @@ State the confinement property preserved in every report.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
