@@ -687,3 +687,12 @@ Inspect via `git -C journal cat-file -p 5ba8f368bd3db485359262b97a85bb149b8d951b
 - Context: gardener-5 on ps23: job 'fu-endo-npm-cas-registry-press-20260728-004711-1' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 88f72f03666432a0a20c8bffab6c4c0ef4371625`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:23:27Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c665593cd52be1263bc13f0de6d415264023c10a
+- Context: gardener-6 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c665593cd52be1263bc13f0de6d415264023c10a`.
