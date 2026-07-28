@@ -3,10 +3,10 @@ title: Connection to the wider library
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
-source_date: 2026-06-23
+source_commit: 0594e99fb7ecf2ff1ae64489125aea1da9e02ab2
+source_date: 2026-06-29
 source_authors: [Richard Gibson]
-source_lines: "214-506 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
+source_lines: "214-522 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
 topics: [hardened-javascript, errors]
 status: current
 notes: |
@@ -25,7 +25,10 @@ notes: |
   lineNumber / etc. in non-V8 engines), annotates the error with a
   `note` describing the dropped values, and converts accessor
   properties (V8's `stack` getter) to data properties to make the
-  error robust to redaction. The §loggedErrorHandler is the exact
+  error robust to redaction; since commit `0594e99f` (2026-06-29) it
+  also conditionally whitelists a string-valued `code`, the counterpart
+  of `makeError`'s new non-enumerable `code` option.
+  The §loggedErrorHandler is the exact
   bridge cycle-96's makeCausalConsole consumes.
 parent: endo--packages-ses-src-error-assert-js--logArgs-makeError-sanitizeError-tagError-and-loggedErrorHandler
 ---
