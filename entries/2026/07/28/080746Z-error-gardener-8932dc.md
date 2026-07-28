@@ -1,0 +1,7 @@
+---
+kind: error
+role: gardener
+host: endolin-garden2-5bcdff64
+at: 2026-07-28T08:08:12Z
+---
+gardener-6 on endolin-garden2-5bcdff64: job fu-endo-npm-cas-registry-press-20260728-065010-1 handler FAILED (rc=1); output captured as 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99, escalated to the gardener inbox, left in doin for the reaper
