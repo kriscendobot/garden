@@ -109,6 +109,7 @@ When you could not run a bar, report it "not verified" and why.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
