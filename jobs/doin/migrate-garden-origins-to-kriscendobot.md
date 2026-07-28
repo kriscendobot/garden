@@ -71,3 +71,10 @@ and do not do it while any host is unmigrated. Background:
 `context/operations/repo-transfer.md`.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 14
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:53:37Z
