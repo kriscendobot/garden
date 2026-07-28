@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T20:54:56Z_
+_As of 2026-07-28T21:02:12Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 12h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 13h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -2298,6 +2298,57 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > throttle so panels can actually complete. Otherwise correct increments keep landing
 > in a queue that never drains.
 
+- `20260728T210156Z-d948a3` — from gardener:validate-fireworks-job-end-to-end, reply_to `validate-fireworks-job-end-to-end` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T210156Z-d948a3.md)
+
+> Job `validate-fireworks-job-end-to-end` (4th claim, reaped 3x already) hit a
+> genuine infrastructure blocker, not a mistake in the job spec:
+>
+> **This claim landed on `ps23-garden-f65473ae`, which was created WITHOUT
+> FIREWORKS_API_KEY** (also without ANTHROPIC_API_KEY / MOONSHOT_API_KEY — this
+> host has only ever run gardener workers, never cleric/hermit/mystic/fireworker).
+> Confirmed via `systemctl --user show-environment` (no key vars) and
+> `/run/environment.d/` (empty — the tmpfs handoff file was never written, since
+> `seed-api-key-handoff.sh` only writes it when a key is present at container
+> creation). Ran the actual `fireworks_provider_preflight` from
+> `handlers/codex-provider-common.sh` and it correctly fails closed: "FIREWORKS_API_KEY:
+> absent... Recreate the container with the key in its creation environment."
+>
+> Per `context/operations/fireworks.md`, that key is a **creation-time** secret —
+> an existing container can't acquire it by restart, only by
+> `./garden reset && FIREWORKS_API_KEY=... ./garden create`, which I can't safely
+> self-service (it would tear down the container I'm running in, and I shouldn't
+> handle the key value anyway).
+>
+> The job spec's own "measured starting state" was recorded on
+> `endolin-garden2-5bcdff64`, which reportedly *does* have the key. There's no
+> `requires:`/host-capability gating yet (that's exactly what the in-progress
+> `job-host-requirements-gating` design job is for), so this job is claimable —
+> and has now been claimed twice — by a host that structurally cannot complete it.
+> That's almost certainly why it's bounced 3 times already.
+>
+> **What I *did* complete from here** (all host-independent):
+> - Resolved a wire id: `fireworks/accounts/fireworks/models/deepseek-v3p1`
+>   (Fireworks' own `docs.fireworks.ai/guides/querying-text-models` page, the
+>   worked example throughout; already ingested 2026-07-24 in
+>   `library/sections/web--fireworks-text-models--api-models-and-deployments.md`,
+>   re-fetched today and unchanged). Confirmed it classifies:
+>   `resolve_model_tier fireworks fireworks/accounts/fireworks/models/deepseek-v3p1`
+>   returns it unchanged (pattern is `fireworks/*`, and `_model_classify` matches).
+> - Ran the real status-only auth preflight (no key ever printed) — see above.
+>
+> **Not done, and can't be from this host:** the live probe succeeding, arming a
+> fireworker, the tool-using canary, and the reputation-scope check.
+>
+> I'm leaving `fireworkers: 0` (never armed anything) and NOT completing the job,
+> so it stays open for a claim that lands on a key-bearing host
+> (`endolin-garden2-5bcdff64` and/or `endolin-garden-ece02cb4` per earlier job
+> docs). Two things worth your call:
+> 1. Do you want `ps23-garden-f65473ae` provisioned with `FIREWORKS_API_KEY` too
+>    (widens the footprint), or should this validation stay confined to the
+>    endolin hosts?
+> 2. This is a concrete, reproducible case for `job-host-requirements-gating` —
+>    worth pointing that job's author at this one as a real example.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3206,8 +3257,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.0M | $722.38 _(notional, rate-card)_ | no quota set |
-| Codex | 298.5M _(+455.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 52.0M | $724.52 _(notional, rate-card)_ | no quota set |
+| Codex | 296.4M _(+455.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
