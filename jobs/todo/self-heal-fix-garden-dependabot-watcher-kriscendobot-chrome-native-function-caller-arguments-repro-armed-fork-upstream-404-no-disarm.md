@@ -20,9 +20,4 @@ Extend the existing harnesses rather than adding new ones: `scripts/jobs/test/fo
 
 Finally, garbage-collect the concrete instance: after the reconciler lands (or as a one-shot in the same job), ensure `watch-optout/kriscendobot-chrome-native-function-caller-arguments-repro` exists on `journal2` with `repos/`+`comment-repos/` entries removed, stop/disable/reset-failed the four `@kriscendobot-chrome-native-function-caller-arguments-repro` units, and remove or clearly mark the stale bare clone `worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git` so a future DISCOVER pass does not re-litigate it.
 
----
-claim:
-  host: ps23
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T01:06:22Z
+<!-- garden-reaped: 1 -->

@@ -1,5 +1,0 @@
-host: ps23
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-07-28T01:04:23Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr869-dependabot
