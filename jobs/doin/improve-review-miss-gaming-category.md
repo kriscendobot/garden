@@ -62,6 +62,7 @@ archaeological audit, and the garden already has the loop to hang it on.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: ps23-garden-f65473ae
