@@ -102,3 +102,10 @@ what was decided at the time and is not retconned for wording.
 - Committed and pushed to `main2` directly (no PR for the garden's own repo),
   with a `tada` report naming each file touched and quoting the one-sentence
   definition as landed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:27:29Z
