@@ -97,3 +97,10 @@ narrow stage rather than a fresh full gauntlet.
   chain reaches un-draft.
 - A stated migration path for the nine poisoned jobs.
 - Pushed to `main2` (direct push, no PR).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:00:24Z
