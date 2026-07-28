@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 5
+worker_kind: gardener
+claimed_at: 2026-07-28T12:14:54Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-fu-fix-identity-drift-guard-test-inbox-leak-3
