@@ -4,3 +4,10 @@ Move **PR find-or-create off the builder agent into a script**, so a job that is
 Add `scripts/jobs/gardening/ensure-pr.sh <job-base> <remote> <head-branch> <base-branch> [--title T --body-file F]`: query `gh pr list` for an open PR whose head matches, and additionally for any open bot-authored PR carrying a `<!-- garden-job: <base> -->` marker in its body; if exactly one is found, print its number and exit 0 without creating anything; if none, create the PR with that marker embedded and print the new number; if more than one is found, print all of them and exit non-zero rather than guessing — a human/gardener resolves, but the script never adds a third. Record the resulting number into the job's journal `work/<base>` record so a later incarnation resolves it without any GitHub query. Then point the builder role's PR-opening step at this script (roles/builder/AGENT.md and skills/pr-formation, skills/pr-creation-flow) so the agent supplies title/body and the script owns identity.
 
 Pair well with the claim fence above: the fence stops a stranded worker from pushing, this stops a re-claimed one from opening a second PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-28T23:52:23Z
