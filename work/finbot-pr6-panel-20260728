@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-07-28T16:43:47Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-finbot-pr6-panel-20260728

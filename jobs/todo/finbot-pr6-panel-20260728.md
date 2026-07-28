@@ -38,12 +38,4 @@ only after BOTH a passing panel AND a Fable-orchestrator sign-off — even on ou
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:43:47Z
+<!-- garden-reaped: 2 -->

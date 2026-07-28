@@ -60,12 +60,4 @@ evaluator-coupling prospectively without ever looking for it retrospectively.
 Recording it continuously as it is noticed is cheaper and more durable than an
 archaeological audit, and the garden already has the loop to hang it on.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 4
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:43:49Z
+<!-- garden-reaped: 2 -->

@@ -87,12 +87,4 @@ burst sessions live it. The machinery here turned out to be better than that
 critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 14
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:43:10Z
+<!-- garden-reaped: 2 -->

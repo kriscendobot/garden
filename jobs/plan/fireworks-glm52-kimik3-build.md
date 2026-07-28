@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 4
+deadline_overruns: 1
+poisoned_at: 2026-07-28T16:53:05Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T16:53:05Z
+---
+
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T07:25:08Z -->
 
 # Wire GLM 5.2 and Kimi K3 into the fireworker route
@@ -76,13 +90,5 @@ accurately, the pool is still at zero, the Moonshot K3 lane is demonstrably
 unchanged, and the `jobs/tada/` report names exactly what a canary should post for
 each of the two models.
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-28T16:43:33Z
