@@ -106,3 +106,10 @@ authorizations), so post the completion summary comment on the PR per
 the PR: the embargo lifts at 2026-08-02T16:39:39Z and the scheduled recheck
 `dependabotany-recheck-endo-but-for-bots-pr868` fires at 2026-08-02T17:15:00Z
 to render the terminal verdict.
+
+---
+claim:
+  host: ps23
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T01:12:06Z
