@@ -3054,3 +3054,12 @@ Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T08:23:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5425ee9fb98a970d79141fcb8d97a6171a795c5e
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'build-token-cost-ledger' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5425ee9fb98a970d79141fcb8d97a6171a795c5e`.
