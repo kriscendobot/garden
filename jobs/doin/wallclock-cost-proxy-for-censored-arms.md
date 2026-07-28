@@ -112,3 +112,10 @@ refinement is worth a follow-up.
   evidence.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:39:09Z
