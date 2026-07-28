@@ -97,3 +97,10 @@ the repo URL survives the pending transfer. Direct push to `main2`. Report where
 enforced it and why, and the review-comment scope decision.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:53:33Z
