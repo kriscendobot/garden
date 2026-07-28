@@ -8,6 +8,7 @@ In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/pull
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23-garden-f65473ae
