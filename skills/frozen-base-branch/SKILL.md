@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-07-13
+updated: 2026-07-28
 author: gardener
 ---
 
@@ -295,6 +295,12 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-07-28_: first application to a **design** PR on `kriscendobot/agoric-sdk`
+  (fork PR #18, base `master-70d307d`). That fork has no roadmap branch, so the
+  frozen base is what gives a design PR a diff of exactly the design file rather
+  than the fork `master`'s drift behind upstream (30 commits / ~190 files at the
+  time). `roles/designer/AGENT.md` now names this skill as the base convention for
+  a fork with no roadmap branch.
 - _2026-07-17_: endo-but-for-bots `master` retired per kriskowal on #475
   (2026-07-16): `master-<sha>` reflections there snapshot **upstream
   `endojs/endo` master** (fetch the upstream remote, not the fork's `master`),
