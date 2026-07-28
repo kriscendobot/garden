@@ -78,6 +78,7 @@ stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
