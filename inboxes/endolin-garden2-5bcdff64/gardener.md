@@ -2982,3 +2982,12 @@ Inspect via `git -C journal cat-file -p 8a7d5468e3ed866f11012bb51d932c261cfe43ab
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T08:13:22Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: fba12001f99779d4bc462da0ba6794cacf9458b2
+- Context: gardener-7 on endolin-garden2-5bcdff64: job 'hermit-failure-reputation-followup' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p fba12001f99779d4bc462da0ba6794cacf9458b2`.
