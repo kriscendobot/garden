@@ -26,6 +26,7 @@ we recently added 2 Morpho vaults to Ymax in/near PR https://github.com/Agoric/a
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
