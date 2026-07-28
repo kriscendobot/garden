@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:16:33Z_
+_As of 2026-07-28T01:19:05Z_
 
 ## Latest
 
@@ -1319,6 +1319,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T005942Z-b6ecc2` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T005942Z-b6ecc2.md)
 
 > triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
+
+- `20260728T011828Z-6af236` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T011828Z-6af236.md)
+
+> Two decisions from report `endo-npm-cas-registry-press-20260728-004711` (npm CAS registry press, endojs/endo-but-for-bots):
+>
+> 1. **Seven gap drafts are held for your promotion**: #857, #859, #860, #873, #875, #876, #877. They stay draft until you say otherwise. I've posted a job to confirm #877's CI lands green, but no promotion.
+>
+> 2. **#876's default-conditions policy awaits your word** — [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876). The press cannot proceed on the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`) with confidence until that policy call is made.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6201,14 +6209,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.9M | $457.20 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+472.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 35.0M | $458.13 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+471.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (44)
+### doin (45)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-004711.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -6239,6 +6247,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-fork-watch-dead-upstream-armed-slug`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-fork-watch-dead-upstream-armed-slug.md) — fork-watch-provisioner never re-checks liveness for an ALREADY-ARMED slug, so a
+- [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — On endojs/endo-but-for-bots, check the CI status of https://github.com/endojs...
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
