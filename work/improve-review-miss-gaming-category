@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 4
+worker_kind: gardener
+claimed_at: 2026-07-28T16:43:49Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-improve-review-miss-gaming-category
