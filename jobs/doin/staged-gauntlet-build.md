@@ -97,3 +97,10 @@ Read `designs/staged-gauntlet.md` end to end first; it is the spec. Build:
   so the liaison can schedule the deploy + demo + migration.
 - If you decompose this into ordered parts, orchestrate them (don't pile sub-jobs).
 </content>
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:12:43Z
