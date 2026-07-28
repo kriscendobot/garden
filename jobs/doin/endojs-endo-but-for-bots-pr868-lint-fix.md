@@ -108,3 +108,10 @@ the PR: the embargo lifts at 2026-08-02T16:39:39Z and the scheduled recheck
 to render the terminal verdict.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:16:22Z
