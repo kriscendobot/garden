@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T18:03:26Z_
+_As of 2026-07-28T18:05:52Z_
 
 ## Latest
 
@@ -3161,14 +3161,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.3M | $756.11 _(notional, rate-card)_ | no quota set |
+| Claude | 56.3M | $755.83 _(notional, rate-card)_ | no quota set |
 | Codex | 329.2M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (32)
+### doin (33)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -3196,6 +3196,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`qwen-model-watch-20260728-180502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/qwen-model-watch-20260728-180502.md) — scholar — weekly watch: new Qwen models harnessable by ollama on our hardware
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
