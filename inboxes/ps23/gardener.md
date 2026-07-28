@@ -318,3 +318,12 @@ Inspect via `git -C journal cat-file -p df42a95e3099bec6df4fe4692a7c6c30e4e81dcd
 - Context: gardener-2 on ps23: job 'fu-endo-npm-cas-registry-press-20260728-004711-1' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 5b5f9923f7e33bc9ed074f541d4ac62326518949`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:19:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2af559d978016f01e92139b0f98d805b91b3b73a
+- Context: gardener-4 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2af559d978016f01e92139b0f98d805b91b3b73a`.
