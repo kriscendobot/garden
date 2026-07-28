@@ -759,3 +759,12 @@ Inspect via `git -C journal cat-file -p 58563f9f2b31e99b096539228eb4a54387509c7c
 - Context: gardener-3 on ps23: job 'suffix-github-comments-with-provenance' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 252a79042f7d958e7d9954e92faeca2f6f859c25`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:13:15Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4ba49a0a12287615b149ee53db9f6cad763df493
+- Context: gardener-7 on ps23: job 'finbot-progress-20260727-175002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4ba49a0a12287615b149ee53db9f6cad763df493`.
