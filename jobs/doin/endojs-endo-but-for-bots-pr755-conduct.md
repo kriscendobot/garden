@@ -83,3 +83,10 @@ gated `blocked` on this very PR, so **merging this PR is what releases it**.
 - Frozen base unfrozen; head and snapshot branches swept per the rule above.
 - The report notes the merge commit SHA, so the follow-up gardener promoted off
   `endo-cbor-adopt-primitives` can confirm `@endo/cbor` is on trunk.
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:18:24Z
