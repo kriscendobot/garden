@@ -3,10 +3,10 @@ title: Body
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
-source_date: 2026-06-23
+source_commit: 0594e99fb7ecf2ff1ae64489125aea1da9e02ab2
+source_date: 2026-06-29
 source_authors: [Richard Gibson]
-source_lines: "214-506 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
+source_lines: "214-522 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
 topics: [hardened-javascript, errors]
 status: current
 notes: |
@@ -25,7 +25,10 @@ notes: |
   lineNumber / etc. in non-V8 engines), annotates the error with a
   `note` describing the dropped values, and converts accessor
   properties (V8's `stack` getter) to data properties to make the
-  error robust to redaction. The §loggedErrorHandler is the exact
+  error robust to redaction; since commit `0594e99f` (2026-06-29) it
+  also conditionally whitelists a string-valued `code`, the counterpart
+  of `makeError`'s new non-enumerable `code` option.
+  The §loggedErrorHandler is the exact
   bridge cycle-96's makeCausalConsole consumes.
 parent: endo--packages-ses-src-error-assert-js--logArgs-makeError-sanitizeError-tagError-and-loggedErrorHandler
 ---
@@ -123,21 +126,27 @@ The §cross-reference rendering: when the causal-console encounters an error as 
 
 ### §sanitizeError — stripping host-added own properties
 
-The §sanitizeError function (lines 310-340):
+The §sanitizeError function (lines 310-346):
 
 ```js
-const sanitizeError = error => {
+export const sanitizeError = error => {
   const descs = getOwnPropertyDescriptors(error);
   const {
     name: _nameDesc,
     message: _messageDesc,
-    errors: _errorsDesc,
-    cause: _causeDesc,
-    stack: _stackDesc,
+    errors: _errorsDesc = undefined,
+    cause: _causeDesc = undefined,
+    stack: _stackDesc = undefined,
+    code: codeDesc = undefined,
     ...restDescs
   } = descs;
 
   const restNames = ownKeys(restDescs);
+
+  // the spec allows any value, but we drop 'code' if it's not a string
+  if (codeDesc?.value !== undefined && typeof codeDesc.value !== 'string') {
+    arrayPush(restNames, 'code');
+  }
   if (restNames.length >= 1) {
     for (const name of restNames) {
       delete error[name];
@@ -148,6 +157,7 @@ const sanitizeError = error => {
     note(error, droppedDetails);
   }
   for (const name of ownKeys(error)) {
+    // @ts-expect-error TypeScript is still confused by symbols as property keys
     const desc = descs[name];
     if (desc && hasOwn(desc, 'get')) {
       const value = error[name]; // invokes the getter
@@ -158,11 +168,12 @@ const sanitizeError = error => {
 };
 ```
 
-The §three structural steps:
+The §four structural steps:
 
-1. **Whitelist the *known-standard* own-properties** (`name`, `message`, `errors`, `cause`, `stack`) and rest-collect everything else.
-2. **Delete the rest-collected properties from the error**, but *preserve them via a `note` annotation*. The dropped values are wrapped in `quote(dropped)` and noted as *originally with properties …*. The error doesn't *lose* the diagnostic information — it is moved from own-property to annotation-list.
-3. **Convert remaining accessor properties to data properties** (V8's `stack` is the canonical case — it's a getter on the instance). This is the *eagerly-evaluate-and-freeze* discipline: after this pass, the error has no live getters, so freezing it doesn't accidentally lock in mutable behavior.
+1. **Whitelist the *known-standard* own-properties** (`name`, `message`, `errors`, `cause`, `stack`, and — as of the 2026-06-29 change, commit `0594e99f` — `code`) and rest-collect everything else.
+2. **Re-drop a non-string `code`.** `code` is whitelisted *conditionally*, not unconditionally: the destructure pulls it out of `restDescs`, and then the guard `codeDesc?.value !== undefined && typeof codeDesc.value !== 'string'` pushes the name *back* onto `restNames` so it is deleted with the rest. The comment states the rationale in one line — *the spec allows any value, but we drop `code` if it's not a string*. The §shape of the check is worth reading precisely: an *accessor* `code` (a descriptor with no `value`) has `codeDesc.value === undefined`, so it survives the guard and is *kept* — the accessor-to-data-property conversion in step 4 handles it, exactly as it handles V8's `stack` getter.
+3. **Delete the rest-collected properties from the error**, but *preserve them via a `note` annotation*. The dropped values are wrapped in `quote(dropped)` and noted as *originally with properties …*. The error doesn't *lose* the diagnostic information — it is moved from own-property to annotation-list. Note the §asymmetry introduced by step 2: a re-dropped non-string `code` is *deleted* from the error but is **not** in `restDescs`, so it does **not** appear in the *originally with properties …* annotation. The value is discarded, not moved.
+4. **Convert remaining accessor properties to data properties** (V8's `stack` is the canonical case — it's a getter on the instance). This is the *eagerly-evaluate-and-freeze* discipline: after this pass, the error has no live getters, so freezing it doesn't accidentally lock in mutable behavior.
 
 The §rationale for stripping:
 
@@ -174,23 +185,30 @@ The §note about the dropped values is rendered by the causal-console as a sub-l
 
 ### §makeError — the factory
 
-The §makeError function (lines 345-414):
+The §makeError function (lines 351-430):
 
 ```js
 const makeError = (
   optDetails,
   errConstructor,
-  { errorName = undefined, cause = undefined, errors = undefined, sanitize = true } = {},
+  {
+    errorName = undefined,
+    cause = undefined,
+    errors = undefined,
+    sanitize = true,
+    code = undefined,
+  } = {},
 ) => {
   // The first two parameters above cannot be inferred unless this is rewritten
   // as a function declaration using an @overload tag. This is a workaround so
   // that we at least have type-safety within the function body.
   //
   // Note that due to the overload of AssertionUtilities['makeError'], strict
-  // mode will complain if default parameters are provided in the method
+  // Note that due to the overload of AssertionUtilities['makeError'], Typescript's so-called "strict
+  // mode" will complain if default parameters are provided in the method
   // signature. The below workaround (optDetails -> details; errConstructor ->
   // errCtor) is functionally equivalent but allows us to use type assertions to
-  // workaround the strict mode issue.
+  // workaround the issue with TypeScript's so-called "strict mode".
   let details = /** @type {Details} */ (
     optDetails ?? redactedDetails`Assert failed`
   );
@@ -220,6 +238,11 @@ const makeError = (
       });
     }
   }
+  if (code !== undefined) {
+    defineProperty(error, 'code', {
+      value: code, writable: true, enumerable: false, configurable: true,
+    });
+  }
   weakmapSet(hiddenMessageLogArgs, error, getLogArgs(hiddenDetails));
   if (errorName !== undefined) { tagError(error, errorName); }
   if (sanitize) { sanitizeError(error); }
@@ -227,20 +250,21 @@ const makeError = (
 };
 ```
 
-The §six-step construction:
+The §seven-step construction:
 
-1. **Apply the parameter defaults internally, not in the signature**. As of the 2026-06-23 refactor (Christopher Hiller, commit `bfa149b4`) the `optDetails`/`errConstructor` parameters carry *no* default-value expressions; instead the body reassigns `details = optDetails ?? redactedDetails\`Assert failed\`` and `errCtor = errConstructor ?? globalThis.Error` behind `@type` assertions. The §reason named in the new comment block: `AssertionUtilities['makeError']` is a typed *overload*, and TypeScript strict mode complains when default parameters are written on a method that has an `@overload` declaration. The behaviour is *functionally equivalent* to the old signature defaults — this is purely a type-checking workaround — but the rename (`optDetails` → `details`, `errConstructor` → `errCtor`) lets the assertions land. Maintainers can still write `makeError('something failed')` instead of `makeError(X\`something failed\`)`; the string-coercion below turns it into a single-literal details token.
+1. **Apply the parameter defaults internally, not in the signature**. As of the 2026-06-23 refactor (Christopher Hiller, commit `bfa149b4`) the `optDetails`/`errConstructor` parameters carry *no* default-value expressions; instead the body reassigns `details = optDetails ?? redactedDetails\`Assert failed\`` and `errCtor = errConstructor ?? globalThis.Error` behind `@type` assertions. The §reason named in the new comment block: `AssertionUtilities['makeError']` is a typed *overload*, and TypeScript strict mode complains when default parameters are written on a method that has an `@overload` declaration. The behaviour is *functionally equivalent* to the old signature defaults — this is purely a type-checking workaround — but the rename (`optDetails` → `details`, `errConstructor` → `errCtor`) lets the assertions land. Maintainers can still write `makeError('something failed')` instead of `makeError(X\`something failed\`)`; the string-coercion below turns it into a single-literal details token. The 2026-06-29 change (commit `0594e99f`) only reworded this comment — *strict mode* became *Typescript's so-called "strict mode"* — and in doing so left a §stray duplicated lead line: the file now carries `// Note that due to the overload of AssertionUtilities['makeError'], strict` immediately followed by the reworded `// Note that due to the overload of AssertionUtilities['makeError'], Typescript's so-called "strict`. The transcription above is verbatim, duplicate included; it is an upstream editing artifact, not a distinction the reader should try to parse.
 2. **Look up the hidden parts**. If the token doesn't have hidden parts, throw `TypeError` — the caller passed something that wasn't a details-token.
 3. **Compute the redacted message string** via `getMessageString` (used as the error's `.message` own property).
 4. **Branch on AggregateError**. If the requested constructor is `AggregateError`, use its constructor signature `(errors, message, opts)`. Otherwise call the standard `(message, opts)` and *backfill* `errors` as a non-enumerable own-property if provided. The §`opts.cause` field uses the new `Error.prototype.cause` semantics.
-5. **Store the log-args form** in `hiddenMessageLogArgs` so the causal-console can later render the verbose form.
-6. **Optionally tag and sanitize**. The default is `sanitize: true`; callers who want to preserve host-added properties can pass `sanitize: false`.
+5. **Attach an optional `code` own-property** (added 2026-06-29, commit `0594e99f`, Christopher Hiller). A new `code` option on the third parameter is, when supplied, defined on the error with exactly the same descriptor shape `errors` gets — `writable: true, enumerable: false, configurable: true`. The §non-enumerability is the point: `code` is diagnostic metadata for programmatic dispatch (the Node.js `err.code === 'ENOENT'` idiom), not part of the error's message surface, so it must not show up in enumeration or in the redacted message. The option is applied *unconditionally on both branches* — it sits after the `AggregateError`/standard-constructor `if`/`else`, so an `AggregateError` gets it too. It is also applied *before* the sanitize step, which is what makes the paired `sanitizeError` whitelist above necessary: without `code` in that whitelist, sanitize would immediately delete the property `makeError` had just defined.
+6. **Store the log-args form** in `hiddenMessageLogArgs` so the causal-console can later render the verbose form.
+7. **Optionally tag and sanitize**. The default is `sanitize: true`; callers who want to preserve host-added properties can pass `sanitize: false`.
 
-The §footer comment (line 412): `// The next line is a particularly fruitful place to put a breakpoint.` — the *honest-debugger-affordance* idiom. The maintainer wrote this knowing that anyone debugging an assert failure will want to break right before the error is returned to its eventual `throw`. The 2026-06-23 refactor prefixes this with a short note that the return type is externally `InstanceType<T>` (where `T extends GenericErrorConstructor`) but internally `InstanceType<GenericErrorConstructor>` for implementation simplicity — the same internal-vs-external typing distinction the parameter rename is in service of.
+The §footer comment (line 428): `// The next line is a particularly fruitful place to put a breakpoint.` — the *honest-debugger-affordance* idiom. The maintainer wrote this knowing that anyone debugging an assert failure will want to break right before the error is returned to its eventual `throw`. The 2026-06-23 refactor prefixes this with a short note that the return type is externally `InstanceType<T>` (where `T extends GenericErrorConstructor`) but internally `InstanceType<GenericErrorConstructor>` for implementation simplicity — the same internal-vs-external typing distinction the parameter rename is in service of.
 
 ### §note — the after-the-error annotation surface
 
-The §hiddenNoteCallbacks WeakMap + §note function (lines 434-456):
+The §hiddenNoteCallbacks WeakMap + §note function (lines 450-472):
 
 ```js
 const hiddenNoteCallbacks = new WeakMap();
@@ -276,7 +300,7 @@ The §design intent: errors are often created and annotated over their lifetime 
 
 ### §defaultGetStackString — the non-privileged fallback
 
-The §defaultGetStackString function (lines 467-477):
+The §defaultGetStackString function (lines 483-493):
 
 ```js
 const defaultGetStackString = error => {
@@ -303,7 +327,7 @@ The §comment naming choice: *unprivileged form that just uses the de facto `err
 
 ### §loggedErrorHandler — the canonical bridge object
 
-The §loggedErrorHandler (lines 480-505):
+The §loggedErrorHandler (lines 496-521):
 
 ```js
 const loggedErrorHandler = {
