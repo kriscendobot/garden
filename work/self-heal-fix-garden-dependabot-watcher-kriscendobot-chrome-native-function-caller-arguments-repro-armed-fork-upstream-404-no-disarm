@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 6
-worker_kind: gardener
-claimed_at: 2026-07-28T08:11:46Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm
