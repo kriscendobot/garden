@@ -327,3 +327,12 @@ Inspect via `git -C journal cat-file -p 5b5f9923f7e33bc9ed074f541d4ac62326518949
 - Context: gardener-4 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 2af559d978016f01e92139b0f98d805b91b3b73a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:20:34Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e2823804a352ea574722cc924fe0fd67a1df1b1a
+- Context: gardener-3 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e2823804a352ea574722cc924fe0fd67a1df1b1a`.
