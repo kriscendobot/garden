@@ -36,3 +36,10 @@ Any later correction therefore has nowhere to land. `inbox-send.sh` dead-letters
 10. **Out of scope** and known gaps.
 
 Diagrams in mermaid, parse-validated per `skills/mermaid-validation/SKILL.md`. Ground every claim in the actual scripts before asserting it — the file:line pointers above are leads to verify, not facts to copy. The implementing build is a separate follow-up job, not part of this one.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T12:25:23Z
