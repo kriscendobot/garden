@@ -41,10 +41,11 @@ schedule). The conversational first-run tour is the sibling tree,
 - **[schedules.md](schedules.md)** — *"run something weekly / once at a time."*
   Recurring and one-shot schedules. Routes to `skills/schedule/SKILL.md`.
 
-- **[health.md](health.md)** — *"a unit failed" / "recover after an outage" /
-  "what are the reaper, deadmail, poison."* Failed-unit checks, the restore
-  engagement (routes to `skills/restore/SKILL.md`), and the self-healing
-  services in one paragraph each.
+- **[health.md](health.md)** — *"a unit failed" / "claude not on PATH" /
+  "recover after an outage" / "what are the reaper, deadmail, poison."*
+  Failed-unit checks, where the agent CLI lives and how a worker resolves it,
+  the restore engagement (routes to `skills/restore/SKILL.md`), and the
+  self-healing services in one paragraph each.
 
 - **[turnkey-host.md](turnkey-host.md)** — *"bake / launch the one-click Amazon
   garden host."* The private ARM64 AMI + launch template: bake pipeline, credential
