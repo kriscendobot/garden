@@ -34,3 +34,10 @@ Per merge governance (2026-07-22), finbot lands only after BOTH the panel and th
 Fable-orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:36:41Z
