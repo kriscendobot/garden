@@ -408,3 +408,12 @@ Inspect via `git -C journal cat-file -p 628993aaae133d7391f8174e714ebcca12ae1c6f
 - Context: gardener-3 on ps23: job 'xs2rust-endor-press-20260727-182001' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 941795e78da3fd7dfa03de3bf1064718f07b69fd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T03:35:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8f3ec208787598eed310e4d6dfdede6ea50a9fea
+- Context: gardener-1 on ps23: job 'arc-status-daily-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8f3ec208787598eed310e4d6dfdede6ea50a9fea`.
