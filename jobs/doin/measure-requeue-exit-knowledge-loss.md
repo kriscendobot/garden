@@ -89,6 +89,7 @@ the worker when it fails.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
