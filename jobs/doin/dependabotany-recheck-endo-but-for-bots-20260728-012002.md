@@ -32,3 +32,10 @@ re-creates it idempotently per `roles/botanist/AGENT.md` § Autonomous
 disposition.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:23:16Z
