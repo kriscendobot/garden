@@ -38,3 +38,10 @@ Comment: https://github.com/kriscendobot/garden/issues/9#issuecomment-5098251895
 @kriscendobot can you create a local PR targeting the upstream (Moddable-OpenSource/moddable) HEAD but on your fork? Please keep the description of the PR succinct, and reference the test case it fixes. I'm not sure if Moddable has custom test cases beyond running test262, but if
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: ps23
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T01:05:21Z
