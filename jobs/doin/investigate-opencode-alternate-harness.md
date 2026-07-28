@@ -120,3 +120,10 @@ Verify each against opencode's actual capabilities rather than assuming.
 - Keys currently present on this host: `MOONSHOT_API_KEY`, `FIREWORKS_API_KEY`. The
   `fireworker` lane is wired but **undeclared** (no `fireworkers:` line in
   `hosts/<host>`), so it is inert — relevant prior art for how a lane gets added.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:09:29Z
