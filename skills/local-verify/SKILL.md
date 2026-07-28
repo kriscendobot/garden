@@ -313,6 +313,19 @@ re-running the fail-fast root aggregator. `bash -n` and `shellcheck` clean.
 - **Do not inline a failure log into a prompt.** The whole point is the SHA: pass
   it, inspect slices. A debugging agent that `cat-file`s the whole blob into
   context has defeated the harness.
+- **Every step failing with the *same* one-line tail is one environment failure,
+  not N defects.** The steps are independent checks of independent things; they
+  do not fail in unison over a real change. When the tails match — especially
+  when the message is a *usage* error from the package runner rather than an
+  assertion — the harness never reached the project's checks at all. Fix the
+  environment (see the warm-cache field note below), then re-run for a real
+  verdict; do not start fixing the code.
+- **Confirm you are running the harness you think you are.** The deployed root
+  checkout advances only by a deliberate drained deploy, so it can lag `main2` by
+  days (CLAUDE.md § Deliberate deploy). A divergence whose fix is already
+  described in these field notes is the tell; `diff` the deployed
+  `scripts/jobs/gardening/local-verify.sh` against `main2`'s before re-diagnosing
+  it as new.
 
 ## Notes from the field
 
@@ -406,3 +419,46 @@ re-running the fail-fast root aggregator. `bash -n` and `shellcheck` clean.
   worktree is exposed; the fix is a shorter per-job checkout path (or a short
   socket dir), and it belongs in `scripts/jobs/ensure-project-worktree.sh` rather
   than here, since changing that naming has to stay stable across a requeue.
+
+- _2026-07-28_: closed an environment divergence that made the gate **unrunnable
+  on a warm-cache worktree** (job `local-verify-parity-endo-but-for-bots-warm-cache`).
+  `scripts/jobs/ensure-project-worktree.sh` populates a fresh per-job worktree by
+  hardlinking cached `node_modules` trees in and skipping the install. But a
+  package manager keeps its *"is this project installed?"* state **outside**
+  `node_modules` — yarn 4 writes `.yarn/install-state.gz` at the project root —
+  and that file is gitignored, so `git worktree add` never carries it and the
+  cache never copied it. Yarn therefore refused every `yarn run <script>` in the
+  populated tree with `Usage Error: The project in .../package.json doesn't seem
+  to have been installed`, and `local-verify.sh` reported **all six steps
+  FAILED** with that one message. Fix: a cache HIT now finishes by running the
+  package manager's own install (`dep_reconcile_cmd`) to reconcile its state
+  against the trees just linked in. It does not defeat the cache — what the cache
+  spares is the **native build**, and a reconcile against a populated store
+  performs none: measured on `endojs/endo-but-for-bots`, ~5s reconcile against a
+  ~5s cold install on an already-warm yarn store, with `better-sqlite3`'s
+  prebuilt `.node` keeping its cached inode and mtime. Both numbers now appear in
+  the `WARM-CACHE hit:` log line, so a reconcile that ever grew into a real
+  rebuild would be visible rather than inferred. `npm ci` is substituted for
+  `npm install` on this path only, because `npm ci` deletes `node_modules` first
+  and would throw away the hardlinked trees. The tell is the pitfall above: six
+  identical one-line tails, all a package-runner *usage* error.
+
+- _2026-07-28_: a second divergence reported alongside it — `@endo/agentry`'s
+  `eval > conflict-rebase > outcome assertion fails when conflicted worktree is
+  left mid-rebase` failing locally while green on CI — turned out **not to be
+  new**. It is exactly the `rerere.enabled=true` divergence the gitconfig note
+  above already closed: the fixture provisions its repository by resolving the
+  conflict once, so an inherited rerere auto-stages `app.txt` on the test's own
+  rebase, leaving `M  app.txt` where the test asserts `UU app.txt`, and the test
+  rethrows. It reappeared because the **deployed** root checkout was behind
+  `main2` and its `local-verify.sh` predated `hermetic_gitconfig` (also predating
+  build-before-lint and the workspace-test aggregation). Verified directly on a
+  fresh worktree: the test **passes** under `GIT_CONFIG_GLOBAL=/dev/null
+  GIT_CONFIG_SYSTEM=/dev/null` and **fails** without them, printing
+  `Staged 'app.txt' using previous resolution` — the same signature. Nothing to
+  fix in the harness; the follow-up is a deliberate deploy
+  ([context/operations/deploy.md](../../context/operations/deploy.md)).
+  Generalized as the second new pitfall above. Note the project-side pin from
+  `endojs/endo-but-for-bots#883` (`rerere.enabled=false` in the fixture's own
+  repository-local config) is still not on `llm`, so the harness-side defense is
+  currently the only one in force.

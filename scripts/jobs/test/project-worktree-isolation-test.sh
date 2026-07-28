@@ -45,7 +45,23 @@ TR="$(mktemp -d "$BASE_DIR/proj-wt-iso-test.XXXXXX")"
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
-trap 'rm -rf "$TR"' EXIT
+EXECDIR=""
+trap 'rm -rf "$TR" ${EXECDIR:+"$EXECDIR"}' EXIT
+
+# The container mounts /tmp noexec, so a stub binary placed on $PATH under $TR
+# cannot be executed there. Find a directory that really can exec, probing rather
+# than assuming (skills/local-verify § the noexec-TMPDIR field note).
+pick_exec_dir() {
+  local c probe
+  for c in "$TR" "${GARDEN_SCRATCH:-}" "${GARDEN_ROOT:+$GARDEN_ROOT/scratch}" "$HOME"; do
+    [ -n "$c" ] && [ -d "$c" ] && [ -w "$c" ] || continue
+    probe="$(mktemp -d "$c/exec-probe.XXXXXX" 2>/dev/null)" || continue
+    printf '#!/bin/sh\nexit 0\n' > "$probe/p" && chmod +x "$probe/p" 2>/dev/null
+    "$probe/p" 2>/dev/null && { printf '%s\n' "$probe"; return 0; }
+    rm -rf "$probe"
+  done
+  return 1
+}
 
 git_id=(-c user.name=test -c user.email=test@localhost)
 
@@ -222,8 +238,14 @@ make_node_fork() {  # make_node_fork <owner> <name> <branch> — seed a node pro
 # the real pnpm linker produces. Writes noise to stdout to prove it never leaks
 # onto the helper's stdout (which must stay the single worktree path).
 STUB_INSTALL='echo installing...; mkdir -p node_modules/.store packages/a/node_modules; echo NATIVE > node_modules/.store/better_sqlite3.node; echo rootdep > node_modules/marker; echo wsdep > packages/a/node_modules/marker'
+# The stubbed link-state reconcile a warm HIT must run: it stands in for
+# `yarn install --immutable` writing .yarn/install-state.gz beside the linked-in
+# trees. Deliberately distinct from STUB_INSTALL so the two are distinguishable,
+# and deliberately additive so it cannot be mistaken for a rebuild.
+STUB_RECONCILE='mkdir -p .yarn; echo reconciled > .yarn/install-state'
 run_node_helper() {  # run_node_helper <base> <owner/repo> <branch>
   GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_DEP_INSTALL_CMD="$STUB_INSTALL" \
+    GARDEN_DEP_RECONCILE_CMD="$STUB_RECONCILE" \
     bash "$HELPER" "$1" "$2" "$3"
 }
 
@@ -257,6 +279,34 @@ else
   ok "native artifact populated by copy (fallback; hardlink unavailable on this fs)"
 fi
 
+# The link-state reconcile: a HIT copies node_modules and NOTHING ELSE, but a
+# package manager keeps its "project is installed" state OUTSIDE node_modules
+# (yarn 4: .yarn/install-state.gz), which is gitignored and so absent from a fresh
+# worktree. Without reconciling it, every `yarn run <script>` in the populated
+# tree dies with "The project ... doesn't seem to have been installed" and
+# local-verify reported ALL SIX steps failed on that one usage error. So a HIT
+# must finish by running the package manager's own install.
+[ -f "$W2/.yarn/install-state" ] \
+  && ok "warm HIT reconciles the package manager's link state (gate is runnable)" \
+  || bad "warm HIT left no reconciled link state in $W2 (yarn would refuse every script)"
+# ...and the COLD build must not have needed it: its own installer wrote the state.
+[ ! -f "$W1/.yarn/install-state" ] \
+  && ok "cold build does NOT run the reconcile (the installer already ran)" \
+  || bad "cold build ran the reconcile too (redundant work on the expensive path)"
+# The reconcile is a relink, not a rebuild: the native artifact keeps its inode.
+[ "$W1/node_modules/.store/better_sqlite3.node" -ef "$W2/node_modules/.store/better_sqlite3.node" ] \
+  && ok "the reconcile did not rebuild the native artifact (cache purpose intact)" \
+  || ok "native artifact unshared after reconcile (copy fallback; not a rebuild signal)"
+# The hit log line carries both timings, so a reconcile that ever grows into a
+# real rebuild is visible in the journal rather than inferred.
+W4_ERR="$TR/warm-hit.stderr"
+GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_DEP_INSTALL_CMD="$STUB_INSTALL" \
+  GARDEN_DEP_RECONCILE_CMD="$STUB_RECONCILE" \
+  bash "$HELPER" garden-warm-third endojs/warm-cache main 2>"$W4_ERR" >/dev/null
+grep -q "WARM-CACHE hit:.*link-state reconcile.*cold install was" "$W4_ERR" \
+  && ok "the HIT log line reports the reconcile cost and the cold-install baseline" \
+  || bad "the HIT log line lost its cold-vs-warm timing delta"
+
 # Resume-reuse must NOT repopulate: re-run the first base, mutate its node_modules,
 # and confirm the requeue hands back the SAME tree untouched (resume stability).
 echo LOCAL_EDIT > "$W1/node_modules/marker"
@@ -282,6 +332,59 @@ wf_complete="$(find "$GROOT/.garden-state/dep-cache/endojs-warm-fail" -name .com
 grep -q "WARM-CACHE MISS+FAIL" "$WF_ERR" \
   && ok "a failing installer emits the deterministic WARM-CACHE MISS+FAIL signal" \
   || bad "no WARM-CACHE MISS+FAIL signal emitted on install failure"
+
+# The reconcile command is DERIVED from the install command, with one deliberate
+# substitution: `npm ci` DELETES node_modules before installing, so reconciling
+# with it would throw away the very trees the hit just hardlinked in (and, since
+# they share inodes, is the one install that could reach back into the cache).
+# The additive `npm install` reconciles instead. Proven with a stub `npm` on PATH.
+EXECDIR="$(pick_exec_dir)" || EXECDIR=""
+if [ -z "$EXECDIR" ]; then
+  echo "  SKIP: no exec-capable directory for the npm stub; npm-reconcile assertions skipped"
+else
+make_node_fork endojs npm-ci main
+NPMBIN="$EXECDIR/npmbin"; NPMLOG="$TR/npm.log"
+mkdir -p "$NPMBIN"
+cat > "$NPMBIN/npm" <<'STUBNPM'
+#!/bin/bash
+echo "npm $*" >> "$NPM_LOG"
+[ "${1:-}" = ci ] && rm -rf node_modules
+mkdir -p node_modules/.store
+# Additive, like a real reconcile: never rewrite an artifact already in place
+# (it is hardlinked to the cache, and truncating it would reach back into it).
+[ -f node_modules/.store/native.node ] || echo NATIVE > node_modules/.store/native.node
+[ -f node_modules/marker ] || echo dep > node_modules/marker
+exit 0
+STUBNPM
+chmod +x "$NPMBIN/npm"
+# Swap the lockfile for an npm one on the seeded fork, then re-push.
+NPMSEED="$TR/seed-endojs-npm-ci"
+( cd "$NPMSEED" && rm -f yarn.lock && printf '{"lockfileVersion":3}\n' > package-lock.json \
+    && git "${git_id[@]}" add -A && git "${git_id[@]}" commit -qm 'npm lockfile' \
+    && git push -q origin main ) >/dev/null 2>&1
+run_npm_helper() {  # run_npm_helper <base>
+  PATH="$NPMBIN:$PATH" NPM_LOG="$NPMLOG" GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+    bash "$HELPER" "$1" endojs/npm-ci main
+}
+: > "$NPMLOG"
+NW1="$(run_npm_helper garden-npm-first)"
+grep -qx "npm ci" "$NPMLOG" \
+  && ok "a package-lock.json cold build installs with 'npm ci' (unchanged)" \
+  || bad "cold build did not run 'npm ci' (log: $(tr '\n' '|' <"$NPMLOG"))"
+: > "$NPMLOG"
+NW2="$(run_npm_helper garden-npm-second)"
+grep -qx "npm install" "$NPMLOG" \
+  && ok "the warm-HIT reconcile substitutes the additive 'npm install'" \
+  || bad "warm-HIT reconcile did not run 'npm install' (log: $(tr '\n' '|' <"$NPMLOG"))"
+grep -qx "npm ci" "$NPMLOG" \
+  && bad "warm-HIT reconcile ran 'npm ci', which deletes the hardlinked trees" \
+  || ok "warm-HIT reconcile never runs 'npm ci' (cached trees survive)"
+[ -f "$NW2/node_modules/.store/native.node" ] \
+  && ok "the populated trees survive the npm reconcile" \
+  || bad "the npm reconcile destroyed the populated node_modules in $NW2"
+[ -n "$NW1" ] && [ "$NW1" != "$NW2" ] \
+  || bad "npm-lockfile worktrees collided ('$NW1' == '$NW2')"
+fi
 
 # A repo with NO lockfile provisions nothing and still hands back a worktree.
 W3="$(run_node_helper garden-warm-nolock endojs/endo-but-for-bots pr-58)"

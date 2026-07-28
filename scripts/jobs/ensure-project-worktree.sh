@@ -58,6 +58,22 @@
 # never existed: the install exits non-zero, we emit a WARM-CACHE MISS+FAIL line
 # naming the container-image toolchain fallback, and cache NOTHING.
 #
+# ── Link-state reconcile on a HIT (why a hit still runs the installer) ───────
+# A cache HIT populates node_modules and NOTHING ELSE, but a package manager
+# keeps its "is this project installed?" state OUTSIDE node_modules — yarn 4
+# writes .yarn/install-state.gz at the project root — and that file is gitignored,
+# so a fresh worktree has none. Yarn then refuses every `yarn run <script>` with
+# "The project in .../package.json doesn't seem to have been installed", which
+# made local-verify.sh report ALL SIX steps FAILED with that one usage error on
+# endojs/endo-but-for-bots: the pre-push gate was unrunnable on exactly the
+# worktrees the cache is for. So a hit now finishes by running the package
+# manager's own install (dep_reconcile_cmd) to reconcile its state against the
+# trees just linked in. This does not defeat the cache: what the cache exists to
+# spare is the NATIVE BUILD, and a reconcile against a populated store performs
+# none (measured on endojs/endo-but-for-bots: ~5s reconcile against a ~5s cold
+# install on an already-warm yarn store, with better-sqlite3's prebuilt .node
+# keeping its cached inode and mtime). Both numbers appear in the HIT log line.
+#
 # ── Isolation guarantees asserted by test/project-worktree-isolation-test.sh ──
 #   * two DIFFERENT bases, same repo+branch  → DISTINCT paths (the #58 fix);
 #   * same base, same repo+branch (a requeue) → the SAME path, work preserved;
@@ -119,6 +135,9 @@ link_tree() {
 # manager, or return 1 when none is usable. GARDEN_DEP_INSTALL_CMD overrides
 # everything (per-project/test escape hatch). yarn goes through corepack when a
 # bare `yarn` is absent (the fresh-worktree norm; see pre-pr-checklist § Pitfalls).
+#
+# NOTE for the warm-HIT reconcile below: use dep_reconcile_cmd, not this, so a
+# destructive `npm ci` never deletes the trees we just linked in.
 dep_install_cmd() {
   local wt="$1"
   [ -n "${GARDEN_DEP_INSTALL_CMD:-}" ] && { printf '%s\n' "$GARDEN_DEP_INSTALL_CMD"; return 0; }
@@ -137,6 +156,23 @@ dep_install_cmd() {
     command -v npm      >/dev/null 2>&1 && { printf '%s\n' "npm install"; return 0; }
   fi
   return 1
+}
+
+# dep_reconcile_cmd <wt> — echo the install command to run in a worktree that has
+# ALREADY been populated from the warm cache, so the package manager reconciles
+# its own link state against the trees we linked in (see § Link-state reconcile).
+# It is dep_install_cmd with one substitution: `npm ci` DELETES node_modules
+# before installing, which would throw away the very trees the hit just placed,
+# so the additive `npm install` reconciles instead. `yarn install --immutable`
+# and `pnpm install --frozen-lockfile` are already additive/idempotent.
+dep_reconcile_cmd() {
+  local wt="$1" cmd
+  [ -n "${GARDEN_DEP_RECONCILE_CMD:-}" ] && { printf '%s\n' "$GARDEN_DEP_RECONCILE_CMD"; return 0; }
+  cmd="$(dep_install_cmd "$wt")" || return 1
+  case "$cmd" in
+    "npm ci") cmd="npm install" ;;
+  esac
+  printf '%s\n' "$cmd"
 }
 
 # dep_cache_prune <slug> <keep-lockhash> — best-effort removal of sibling
@@ -204,6 +240,13 @@ provision_deps() {
     local t0 t1 secs rel n
     t0="$(date +%s 2>/dev/null || echo 0)"
 
+    # yarn 4's portable shell writes exec shims to $TMPDIR; a noexec /tmp makes
+    # every yarn-run bin die with "permission denied" (agoric-sdk-local-build-env).
+    # Point TMPDIR at an exec-capable scratch dir defensively. Both the cold
+    # install and the warm-hit reconcile below dispatch through package bins.
+    local tmpexec="$GARDEN_SCRATCH/tmpexec"
+    mkdir -p "$tmpexec" 2>/dev/null || true
+
     if [ -f "$complete" ] && [ -f "$cache_dir/manifest" ]; then
       # Warm HIT: hardlink every cached node_modules tree into the fresh worktree.
       n=0
@@ -214,8 +257,50 @@ provision_deps() {
         link_tree "$cache_dir/trees/$rel" "$wt/$rel" && n=$((n+1))
       done < "$cache_dir/manifest"
       touch "$cache_dir" "$complete" 2>/dev/null || true   # LRU: last-use, not last-build
+
+      # ── Link-state reconcile ──────────────────────────────────────────────
+      # The cache holds node_modules trees ONLY, but a package manager keeps its
+      # "is this project installed?" state OUTSIDE them: yarn 4 writes
+      # .yarn/install-state.gz at the project root (and .yarn-state.yml under the
+      # node-modules linker), and both are gitignored, so a fresh `git worktree
+      # add` has neither. The linked-in trees are therefore invisible to yarn and
+      # EVERY `yarn run <script>` in the worktree dies with
+      #   Usage Error: The project in .../package.json doesn't seem to have been
+      #   installed - running an install there might help
+      # which made local-verify.sh report ALL SIX steps FAILED with that one
+      # message — an environment divergence in the sense of skills/local-verify
+      # § Parity is the contract, and a strong incentive to push without the gate.
+      # Assuming the copied trees ARE the whole install is the bug; the package
+      # manager's own install is what reconciles its state against them. On a warm
+      # store that is a relink plus a state write, and it provably does NOT redo
+      # the native build the cache exists to spare (better-sqlite3's prebuilt
+      # .node keeps its cached inode and mtime across the reconcile). The log line
+      # below carries both numbers so the cold-vs-warm delta stays observable.
+      local rsecs=0 rrunner rrc=0 r0 r1 rout rsha cold="" coldnote="cold install unrecorded"
+      [ -f "$cache_dir/install-secs" ] && cold="$(cat "$cache_dir/install-secs" 2>/dev/null)"
+      [ -n "$cold" ] && coldnote="cold install was ${cold}s"
+      if [ "${GARDEN_SKIP_DEP_RECONCILE:-0}" = 1 ]; then
+        rrunner="(skipped: GARDEN_SKIP_DEP_RECONCILE=1)"
+      elif rrunner="$(dep_reconcile_cmd "$wt")"; then
+        r0="$(date +%s 2>/dev/null || echo 0)"
+        rout="$(mktemp "$GARDEN_SCRATCH/dep-reconcile.XXXXXX" 2>/dev/null)" || rout=""
+        ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$rrunner" ) \
+          >"${rout:-/dev/null}" 2>&1 || rrc=$?
+        r1="$(date +%s 2>/dev/null || echo 0)"; rsecs=$((r1 - r0))
+        if [ "$rrc" -ne 0 ]; then
+          # Never fails the handoff, but say so loudly: the trees are in place yet
+          # the package manager may still refuse to run any script in the tree.
+          rsha=""
+          [ -n "$rout" ] && [ -s "$rout" ] && rsha="$(git -C "$wt" hash-object -w --stdin < "$rout" 2>/dev/null || true)"
+          log "WARN: WARM-CACHE reconcile FAILED: '${rrunner}' exited rc=${rrc} in ${wt}; the package manager may still report the project as not installed, in which case every 'yarn run' (and so every local-verify step) fails with one usage error. log blob: ${rsha:-<none>}$([ -n "$rsha" ] && printf ' (inspect: git -C %s cat-file -p %s)' "$wt" "$rsha")"
+        fi
+        [ -n "$rout" ] && rm -f "$rout" 2>/dev/null
+      else
+        rrunner="(none: no usable package manager)"
+      fi
+
       t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
-      log "WARM-CACHE hit: ${slug}@${lockhash:0:12} populated ${n} node_modules tree(s) into ${wt} in ${secs}s"
+      log "WARM-CACHE hit: ${slug}@${lockhash:0:12} populated ${n} node_modules tree(s) into ${wt} in ${secs}s (of which ${rsecs}s link-state reconcile '${rrunner}' rc=${rrc}; ${coldnote})"
       exit 0
     fi
 
@@ -225,20 +310,16 @@ provision_deps() {
       log "dep-cache skip: no usable package manager for $wt (no yarn/pnpm/npm on PATH)"
       exit 0
     }
-    # yarn 4's portable shell writes exec shims to $TMPDIR; a noexec /tmp makes
-    # every yarn-run bin die with "permission denied" (agoric-sdk-local-build-env).
-    # Point TMPDIR at an exec-capable scratch dir defensively.
-    local tmpexec="$GARDEN_SCRATCH/tmpexec"
-    mkdir -p "$tmpexec" 2>/dev/null || true
-
-    local out rc=0
+    local out rc=0 i0 i1 isecs
     out="$(mktemp "$GARDEN_SCRATCH/dep-install.XXXXXX" 2>/dev/null)" || out=""
     log "dep-cache: cold build ${slug}@${lockhash:0:12} — running '${runner}' in ${wt} (native builds included)"
+    i0="$(date +%s 2>/dev/null || echo 0)"
     if [ -n "$out" ]; then
       ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$runner" ) >"$out" 2>&1 || rc=$?
     else
       ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$runner" ) >/dev/null 2>&1 || rc=$?
     fi
+    i1="$(date +%s 2>/dev/null || echo 0)"; isecs=$((i1 - i0))
 
     if [ "$rc" -eq 0 ]; then
       # SUCCESS: snapshot every node_modules tree into the cache, then mark complete.
@@ -254,8 +335,11 @@ provision_deps() {
       t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
       if [ "$n" -gt 0 ] && [ "$fail" -eq 0 ]; then
         mv -f "$cache_dir/manifest.tmp" "$cache_dir/manifest" 2>/dev/null
+        # Record the cold install's own duration so every later HIT can log the
+        # cold-vs-warm delta (§ Link-state reconcile) rather than assert it.
+        printf '%s\n' "$isecs" > "$cache_dir/install-secs" 2>/dev/null || true
         : > "$complete" 2>/dev/null || true
-        log "WARM-CACHE built: ${slug}@${lockhash:0:12} installed + cached ${n} node_modules tree(s) in ${secs}s"
+        log "WARM-CACHE built: ${slug}@${lockhash:0:12} installed + cached ${n} node_modules tree(s) in ${secs}s (install ${isecs}s)"
         dep_cache_prune "$slug" "$lockhash"
       else
         rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
