@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T23:26:12Z_
+_As of 2026-07-28T23:26:38Z_
 
 ## Latest
 
@@ -3793,14 +3793,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.0M | $804.80 _(notional, rate-card)_ | no quota set |
-| Codex | 253.2M _(+452.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 53.0M | $803.41 _(notional, rate-card)_ | no quota set |
+| Codex | 253.0M _(+452.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (28)
+### doin (27)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
@@ -3823,20 +3823,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-192002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`proposal-compartments-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260728-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3742)
+### tada (3743)
+- [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260728-192002.md) — Cost
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-192002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Completion report — endojs-endo-but-for-bots-pr705-fixer-changes-requested
 - [`endojs-endo-but-for-bots-pr825-review-18fde0da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-review-18fde0da.md) — Report
 - [`fu-fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3.md) — What was wrong
-- [`fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2.md) — What the problem actually was
-- … and 3737 more
+- … and 3738 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
