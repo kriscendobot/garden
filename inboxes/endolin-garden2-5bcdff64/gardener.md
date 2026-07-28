@@ -3495,3 +3495,12 @@ Inspect via `git -C journal cat-file -p 2eeab5ed4d72fffdd191bb7f3c1483dc1374d5df
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr825-review-18fde0da' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p cb73a27d6edeac81474c15e6d14928dc789099ea`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-28T21:40:35Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 81c9603007997a8b7f46e4f54972dbbaffe25e70
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr705-fixer-changes-requested' exit-0-unsatisfying but elapsed near-constant (417,417s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 81c9603007997a8b7f46e4f54972dbbaffe25e70`.
