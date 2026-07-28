@@ -4,3 +4,10 @@ The seat fan-out is a strictly sequential `for seat in $seats` loop (~line 210),
 Measured on this host in this window (gardener message `entries/2026/07/28/080057Z-message-gardener-22d086.md`, from the #779 gauntlet backfill): one seat reviewing a ~1500-line diff took over three minutes, putting the full 28-seat panel at roughly 1.5–2.5 hours against `GARDEN_HANDLER_TIMEOUT=2400`. That gardener could only run a REDUCED 10-seat panel and had to post `endojs-endo-but-for-bots-pr779-panel-remaining-seats` (stamped `handler-timeout: 10800`) for the other 18 — and that spillover job is itself one of the 21 jobs that then failed in the storm above. Running the same 10 seats hand-parallelized took ~2.5 minutes wall-clock versus an estimated ~30 sequential.
 
 The loop body already parallelizes cleanly: each seat writes its own `round-$round.$seat.md` and `.stderr`, and the retry-on-empty-seat logic is per-seat and self-contained; only the `>> "$agg"` append is order-dependent and can be done in a deterministic second pass after the join. Add a bounded-concurrency knob (`GARDEN_PANEL_CONCURRENCY`, default ~8) — background each seat's retry block and join in batches, or drive it with `xargs -P` — preserving per-seat attempts/backoff, propagating any seat's terminal failure to the existing loud `fail`, and appending blocks in `$seats` order after the join so the aggregate stays byte-stable. One constraint on the implementation: **`/tmp` is mounted `noexec` on this host** (same message, section 2 — a `chmod 755` helper in `/tmp` failed with `Permission denied`, visible only in a redirected log), so any generated per-seat helper must live under `GARDEN_SCRATCH` or be invoked as `bash <path>`. Worth adding that constraint as a sentence to `roles/COMMON.md`, which currently frames the no-`/tmp` rule as tree hygiene rather than an execution constraint.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T10:22:42Z
