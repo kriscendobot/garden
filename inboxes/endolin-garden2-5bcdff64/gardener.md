@@ -3162,3 +3162,12 @@ Inspect via `git -C journal cat-file -p 1a836735793cf05d69b4da34c3be2ea049eb502b
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-token-cost-ledger' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 208c5e60af0c6b3806d207be9fe96230eb64f7af`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:36:03Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0cb309be32c8796a9b84668c8db498c939ed44ed
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'finbot-pr6-panel-20260728' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0cb309be32c8796a9b84668c8db498c939ed44ed`.
