@@ -41,6 +41,7 @@ Comment: https://github.com/kriscendobot/garden/issues/9#issuecomment-5098251895
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
