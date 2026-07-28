@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T22:58:03Z_
+_As of 2026-07-28T22:58:55Z_
 
 ## Latest
 
@@ -2623,6 +2623,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `fu-qwen-model-watch-20260728-180502-1-20260728-223502` (weekly Qwen model watch) leaves one decision to you: whether to re-enable the hermit lane on this host — `garden-ollama.service` is installed but disabled because the hermit worker count is 0, and the report also lays out a models-directory option. Both are consequential host/systemd operations outside a watch job's scope, so nothing was changed; say the word (or send a `host/<GARDEN>` sysop op) if you want the lane armed. I have posted a separate job for the unrelated naming discrepancy in the handler messaging, and follow-up 3 needs no action — `journal/schedules/qwen-model-watch.md` has already been refreshed to name no hardcoded model and to explicitly warn off `qwen.ai/blog`.
 
+- `20260728T225826Z-b71182` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T225826Z-b71182.md)
+
+> Report `fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2` notes the garden container image must be **rebuilt** before commit `d4a40ed9ba`'s model-ownership invariant actually takes effect; until then this host keeps two candidate ollama model-store owners. Image rebuild + container recreation is your call — tell me when to schedule it (and whether any hosts need draining first). Related: this container's ollama endpoint currently serves zero models (`/v1/models` → `data: null`, empty manifest store), so any `provider: local` work here would fail preflight; `hermits: 0` so nothing is affected yet — let me know if you want models pulled here.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3785,14 +3789,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $813.11 _(notional, rate-card)_ | no quota set |
+| Claude | 53.9M | $813.50 _(notional, rate-card)_ | no quota set |
 | Codex | 254.1M _(+456.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (31)
+### doin (32)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3813,6 +3817,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
+- [`fu-fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3.md) — In the garden's own repo (kriscendobot/garden, main2), scripts/jobs/ollama-se...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
