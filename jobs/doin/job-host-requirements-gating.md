@@ -93,3 +93,10 @@ self-grant authorization.
 - Pushed to `main2` (direct push, no PR).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T20:53:18Z
