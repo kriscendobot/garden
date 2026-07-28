@@ -30,3 +30,12 @@ Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87
 - Context: gardener-19 on ps23-garden-f65473ae: job 'arc-status-daily-20260728-033502' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 3840b8f64a4d42520b13aba028034b0c5d450e0c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T16:45:38Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e3ffc469d24e18b5f65c2eb25e73f278f0319908
+- Context: gardener-11 on ps23-garden-f65473ae: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e3ffc469d24e18b5f65c2eb25e73f278f0319908`.
