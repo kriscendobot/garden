@@ -91,6 +91,7 @@
 | [skeptical-rest--hateoas](../sections/habitat-chronicles--skeptical-perspective-on-rest--hateoas-and-the-limits-of-hypermedia.md) | habitat-chronicles REST essay | HATEOAS for machine clients: transitions are referenced but not described; humans are general-purpose interpreters, machines are blind; analysis at dev-time not use-time. |
 | [skeptical-rest--put-post](../sections/habitat-chronicles--skeptical-perspective-on-rest--put-post-and-http-verb-semantics.md) | habitat-chronicles REST essay | The PUT/POST/PATCH verb muddle and the read-modify-write problem; 409-conflict spurious races; impoverished error feedback; DELETE 405 ambiguity. |
 | [skeptical-rest--state-statelessness-polling](../sections/habitat-chronicles--skeptical-perspective-on-rest--state-statelessness-and-polling.md) | habitat-chronicles REST essay | state1 vs state2; the stateless server cannot speak first, so clients must poll, and caching does not fix it. |
+| [atproto--specs-did--did-document-atproto-fields](../sections/atproto--specs-did--did-document-atproto-fields.md) | atproto specs/did | The three fields a resolver extracts: the alsoKnownAs handle (bidirectionally validated), the #atproto Multikey signing key, and the #atproto_pds serviceEndpoint naming the account's PDS. |
 
 ## See also
 
