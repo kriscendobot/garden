@@ -8,3 +8,10 @@ scripts/jobs/handlers/gardener-claude.sh
 The same bare-`command -v`-then-`die` shape appears in the sibling handlers (`triager-claude.sh:64`, `watchman-claude.sh:42`, `bulletin-claude.sh:26`, `proxy-claude.sh:38`, `follow-up-claude.sh:99`); route them through the shared resolver in the same change.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:56:23Z
