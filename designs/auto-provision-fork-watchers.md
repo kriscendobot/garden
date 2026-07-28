@@ -74,6 +74,19 @@ Per tick:
    tick. A live missing membership CAS-lands the arming record(s) in one commit
    through the standard `sync_clone`/`commit_and_push` retry loop. Idempotent:
    a peer host landing first makes this host's attempt a staged-empty no-op.
+
+   **Retiring an armed fork is harder than declining to arm an unarmed one.**
+   Declining costs a tick and reverses itself; retiring tears down four live
+   per-repo unit families and writes a tombstone only a human removes. So the
+   armed path — and only the armed path — carries two extra guards: a **confirm
+   re-check** (a first definitive 404 is re-probed once; anything but a second
+   definitive 404 defers to the next tick, so a rename mid-flight or an
+   eventual-consistency blip cannot retire a live fork), and a **mass-404
+   breaker** (if every armed fork probed in a tick 404s and there are at least
+   two of them, that is a read-side failure — a token that lost `repo` scope
+   reads a *private* fork as 404, not as 401 — so nothing armed is retired and
+   the maintainer is alerted). A mixed tick, where some armed forks still
+   resolve, is the ordinary one-fork-was-deleted case and retires normally.
 2. **Materialize** (leader only): `triager.sh` hard-requires a bare clone at
    `$GARDEN_REPOS/<slug>.git` and the per-repo units carry the `is-main-host`
    ExecCondition, so the leader clones any armed own-fork whose triager clone is

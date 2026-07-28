@@ -18,6 +18,10 @@
 #   H. a FULLY armed fork whose upstream later 404s is tombstoned and disarmed
 #   I. an inconclusive liveness check leaves a fully armed fork untouched; a
 #      tombstone is never probed; a live fully armed fork stays untouched
+#   J. retiring an ARMED fork is harder than declining to arm: an unconfirmed
+#      one-off 404 is absorbed by a confirm re-check, an all-armed-forks-404 tick
+#      is treated as a read-side failure and retires nothing, and a mixed tick
+#      still retires the genuinely dead ones
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -79,6 +83,10 @@ git clone -q --bare "$srcrepo" "$GHBASE/kriscendobot/minion.town.git"
 # GARDEN_FORKWATCH_UPSTREAM_CHECK here.
 DEADLIST="$TR/dead-upstreams"; : > "$DEADLIST"
 UNKNOWNLIST="$TR/unknown-upstreams"; : > "$UNKNOWNLIST"
+# a FLAKYLIST upstream 404s on its FIRST probe of a run and reads live after —
+# the one-off 404 the armed-path confirm re-check exists to absorb.
+FLAKYLIST="$TR/flaky-upstreams"; : > "$FLAKYLIST"
+FLAKYSEEN="$TR/flaky-seen"; mkdir -p "$FLAKYSEEN"
 PROBELOG="$TR/probes"; : > "$PROBELOG"
 CHECK="$TR/upstream-check.sh"
 cat > "$CHECK" <<'EOS'
@@ -87,6 +95,10 @@ cat > "$CHECK" <<'EOS'
 [ -n "${PROBELOG:-}" ] && printf '%s/%s\n' "$1" "$2" >> "$PROBELOG"
 [ -f "$UNKNOWNLIST" ] && grep -qxF "$1/$2" "$UNKNOWNLIST" && exit 2
 [ -f "$DEADLIST" ] && grep -qxF "$1/$2" "$DEADLIST" && exit 1
+if [ -f "${FLAKYLIST:-}" ] && grep -qxF "$1/$2" "$FLAKYLIST"; then
+  seen="$FLAKYSEEN/$1-$2"
+  if [ ! -e "$seen" ]; then touch "$seen"; exit 1; fi
+fi
 exit 0
 EOS
 chmod +x "$CHECK"
@@ -98,6 +110,7 @@ run_prov() {  # run_prov [materialize] [logfile]
       GARDEN_FORKWATCH_MATERIALIZE="${1:-0}" \
       GARDEN_FORKWATCH_UPSTREAM_CHECK="$CHECK" DEADLIST="$DEADLIST" \
       UNKNOWNLIST="$UNKNOWNLIST" PROBELOG="$PROBELOG" \
+      FLAKYLIST="$FLAKYLIST" FLAKYSEEN="$FLAKYSEEN" \
       GARDEN_FORKWATCH_LIVENESS_INTERVAL="${GARDEN_FORKWATCH_LIVENESS_INTERVAL:-0}" \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/fork-watch-provisioner.sh" >/dev/null 2>"${2:-/dev/null}"
@@ -243,6 +256,53 @@ GARDEN_FORKWATCH_LIVENESS_INTERVAL=14400 run_prov
 [ -n "$(jtip repos/kriscendobot-inconclusive)" ] && [ -n "$(jtip comment-repos/kriscendobot-inconclusive)" ] \
   && ok "live fully armed fork remains armed" || bad "live fully armed fork changed"
 [ "$(jcommits)" = "$n_live" ] && ok "live liveness probe does not mutate the journal" || bad "live liveness probe mutated the journal"
+
+# ============================================================================
+hr; echo "J — retiring an ARMED fork is harder than declining to arm"; hr
+# Three more live own forks, armed normally, so the armed set is big enough to
+# distinguish "one fork was deleted" from "every read failed".
+for s in massa massb flaky; do git init -q --bare "$WTS/kriscendobot-$s.git"; done
+: > "$DEADLIST"; : > "$UNKNOWNLIST"; : > "$FLAKYLIST"
+run_prov
+[ -n "$(jtip repos/kriscendobot-massa)" ] && [ -n "$(jtip repos/kriscendobot-flaky)" ] \
+  && ok "J fixture: the new own forks armed" || bad "J fixture: new own forks not armed"
+
+# J1 — a ONE-OFF 404 on an armed fork is absorbed by the confirm re-check.
+echo "kriscendobot/flaky" > "$FLAKYLIST"; rm -f "$FLAKYSEEN"/*
+: > "$PROBELOG"; n_j1="$(jcommits)"
+run_prov
+[ -z "$(jtip watch-optout/kriscendobot-flaky)" ] \
+  && ok "unconfirmed 404 does not retire an armed fork" || bad "one-off 404 retired an armed fork"
+[ -n "$(jtip repos/kriscendobot-flaky)" ] && [ -n "$(jtip comment-repos/kriscendobot-flaky)" ] \
+  && ok "unconfirmed 404 leaves both arming records" || bad "unconfirmed 404 dropped an arming record"
+[ "$(grep -cxF 'kriscendobot/flaky' "$PROBELOG")" = 2 ] \
+  && ok "a 404 on an armed fork triggers exactly one confirm re-check" || bad "confirm re-check probe count wrong: $(grep -cxF 'kriscendobot/flaky' "$PROBELOG")"
+[ "$(jcommits)" = "$n_j1" ] && ok "unconfirmed 404 lands no journal mutation" || bad "unconfirmed 404 mutated the journal"
+
+# J2 — EVERY armed fork 404ing at once is a read-side failure, not a fleet of
+# deletions: retire none, alert instead.
+: > "$FLAKYLIST"
+printf '%s\n' kriscendobot/inconclusive kriscendobot/massa kriscendobot/massb kriscendobot/flaky > "$DEADLIST"
+JLOG="$TR/j.log"; n_j2="$(jcommits)"
+run_prov 0 "$JLOG"
+grep -q "NO armed watch set was retired" "$JLOG" \
+  && ok "mass 404 warns instead of retiring" || bad "no mass-404 warning ($(cat "$JLOG"))"
+[ -z "$(jtip watch-optout/kriscendobot-massa)" ] && [ -z "$(jtip watch-optout/kriscendobot-inconclusive)" ] \
+  && ok "mass 404 tombstones nothing" || bad "mass 404 tombstoned an armed fork"
+[ -n "$(jtip repos/kriscendobot-massa)" ] && [ -n "$(jtip comment-repos/kriscendobot-inconclusive)" ] \
+  && ok "mass 404 leaves every arming record intact" || bad "mass 404 dropped an arming record"
+[ "$(jcommits)" = "$n_j2" ] && ok "mass 404 lands no journal mutation" || bad "mass 404 mutated the journal"
+
+# J3 — the breaker is narrow: a MIXED tick (some armed forks still resolve) is the
+# ordinary deleted-fork case and still retires, confirmed 404 by confirmed 404.
+printf '%s\n' kriscendobot/massa kriscendobot/massb > "$DEADLIST"
+run_prov
+[ -n "$(jtip watch-optout/kriscendobot-massa)" ] && [ -n "$(jtip watch-optout/kriscendobot-massb)" ] \
+  && ok "a mixed tick still retires the genuinely dead armed forks" || bad "mixed tick did not retire dead armed forks"
+[ -z "$(jtip repos/kriscendobot-massa)" ] && [ -z "$(jtip comment-repos/kriscendobot-massb)" ] \
+  && ok "retired armed forks are disarmed in both sets" || bad "retired armed fork kept an arming record"
+[ -n "$(jtip repos/kriscendobot-inconclusive)" ] && [ -n "$(jtip repos/kriscendobot-flaky)" ] \
+  && ok "the live armed forks in the same tick are untouched" || bad "a live armed fork was retired in a mixed tick"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

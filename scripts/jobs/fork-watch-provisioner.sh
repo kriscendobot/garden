@@ -55,12 +55,15 @@
 #
 # ── What one tick does ────────────────────────────────────────────────────────
 #   1. DISCOVER (every host): scan $GARDEN_WORKTREES/*.git for slugs whose owner
-#      is in config/fork-owners; for each not tombstoned and missing from
-#      repos/ or comment-repos/ at the origin tip, first confirm the upstream fork
-#      still EXISTS (cheap read-only `gh api repos/<owner>/<name>`) — a leftover
-#      clone of a DELETED/renamed fork 404s and is auto-tombstoned instead of armed
-#      (the kriscendobot/garden 404-flap class), so watchers that would only FATAL
-#      are never created; otherwise CAS-land the missing arming record(s) — one
+#      is in config/fork-owners; for each not tombstoned, confirm the upstream fork
+#      still EXISTS (cheap read-only `gh api repos/<owner>/<name>`) — before arming
+#      one missing from repos/ or comment-repos/, and on a four-hourly liveness
+#      beat for one already armed in both. A leftover clone of a DELETED/renamed
+#      fork 404s and is auto-tombstoned instead of armed, and an armed fork whose
+#      upstream is deleted LATER is retired the same way (the kriscendobot/garden
+#      and kriscendobot/chrome-native-function-caller-arguments-repro 404-flap
+#      class), so watchers that would only FATAL are never created and never
+#      outlive their repo; otherwise CAS-land the missing arming record(s) — one
 #      commit, retried through the standard sync/commit_and_push loop, idempotent
 #      (a peer landing first makes ours a no-op).
 #   2. MATERIALIZE (leader only): the triager hard-requires a bare clone at
@@ -171,6 +174,22 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # one tick; an inconclusive probe deliberately leaves no stamp, so it retries rather
 # than silently extending the interval.
 #
+# RETIRING an ARMED fork is deliberately HARDER than declining to arm an unarmed
+# one: declining costs a tick, retiring tears down a live watch set (four unit
+# families) and writes a tombstone only a human removes. Two guards therefore sit
+# on the armed path only:
+#   * a CONFIRM re-check — a first definitive 404 is re-probed once, and anything
+#     but a second definitive 404 defers to the next tick, so a one-off 404 (a
+#     rename mid-flight, an eventual-consistency blip) cannot retire a live fork;
+#   * a MASS-404 breaker — if EVERY armed fork probed this tick 404s and there are
+#     at least two of them, that is a systemic read failure, not N deleted forks
+#     (a degraded token reads a PRIVATE fork as 404, not as 401), so no armed fork
+#     is retired this tick and the maintainer is alerted. A mixed tick (some armed
+#     forks still resolve) is exactly the "one fork really was deleted" case and
+#     retires normally.
+# Neither guard touches UNARMED candidates: not arming a dead clone is cheap and
+# reversible, so it keeps the single-probe bar.
+#
 # upstream_exists <owner> <name> — exit 0 exists, 1 upstream 404s (dead fork),
 # 2 the check itself was inconclusive (network/auth/rate-limit) so the caller
 # treats it as "unknown" and neither arms nor tombstones this tick. Overridable
@@ -228,6 +247,8 @@ write_dead_tombstone() {  # write_dead_tombstone <out-path> <owner/name>
 # --- 1. DISCOVER: local own-fork bare clones and upstream liveness ------------
 declare -a NEW=()
 declare -a DEAD=()
+declare -a ARMED_DEAD=()   # the subset of DEAD that is currently armed (retirements)
+ARMED_PROBED=0             # armed forks actually probed this tick (breaker denominator)
 shopt -s nullglob
 for bare in "$GARDEN_WORKTREES"/*.git; do
   slug="$(basename "$bare" .git)"
@@ -249,7 +270,18 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
   # returns non-zero in bare-command position is a `set -e` exit at the call
   # itself, which would kill the tick before we could classify 404 vs unknown.
   if upstream_exists "$owner" "$name"; then ur=0; else ur=$?; fi
+  [ -n "$armed" ] && ARMED_PROBED=$((ARMED_PROBED + 1))
   if [ "$ur" -eq 1 ]; then
+    if [ -n "$armed" ]; then
+      # Confirm re-check: retiring a LIVE watch set on a single fluke 404 is the
+      # expensive mistake, so demand a second definitive 404 before believing it.
+      if upstream_exists "$owner" "$name"; then cr=0; else cr=$?; fi
+      if [ "$cr" -ne 1 ]; then
+        log "WARN: $slug upstream ($owner/$name) 404 NOT confirmed on re-check (rc=$cr) — leaving its armed watch set intact this tick"
+        continue
+      fi
+      ARMED_DEAD+=("$slug")
+    fi
     log "WARN: $slug upstream ($owner/$name) 404s — auto-tombstoning watch-optout/$slug"
     DEAD+=("$slug")
     continue
@@ -266,7 +298,27 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
 done
 shopt -u nullglob
 
-# --- 1a. auto-tombstone dead-upstream forks (durable, so no re-arm) -----------
+# --- 1a. mass-404 breaker: never retire EVERY armed fork in one tick ----------
+# Two or more armed forks reading 404 while NONE reads live is a read-side
+# failure (a token that lost repo scope sees every PRIVATE own fork as 404), not
+# a maintainer deleting the whole fleet's forks at once. Suppress the armed
+# retirements — the confirm re-check cannot catch this, since both probes ride the
+# same broken credential — and alert. Unarmed candidates keep their (cheap,
+# reversible) decline-to-arm tombstone.
+if [ "${#ARMED_DEAD[@]}" -ge 2 ] && [ "${#ARMED_DEAD[@]}" -eq "$ARMED_PROBED" ]; then
+  msg="fork-watch: ALL $ARMED_PROBED armed own-fork upstream probes 404'd this tick (${ARMED_DEAD[*]}) — treating that as a read-side failure (a gh token that lost repo scope reads a private fork as 404) rather than as $ARMED_PROBED deleted forks, so NO armed watch set was retired. If those forks really are gone, tombstone them by hand (journal watch-optout/<slug> + git rm repos/<slug> comment-repos/<slug>); otherwise check the bot token's scopes."
+  log "WARN: $msg"
+  alert_maintainer "fork-watch-mass-404" "$msg"
+  declare -a KEPT=()
+  for slug in "${DEAD[@]}"; do
+    suppressed=""
+    for a in "${ARMED_DEAD[@]}"; do [ "$a" = "$slug" ] && suppressed=1 && break; done
+    [ -n "$suppressed" ] || KEPT+=("$slug")
+  done
+  DEAD=("${KEPT[@]}")
+fi
+
+# --- 1b. auto-tombstone dead-upstream forks (durable, so no re-arm) -----------
 if [ "${#DEAD[@]}" -gt 0 ]; then
   log "discovered ${#DEAD[@]} own-fork clone(s) whose upstream 404s: ${DEAD[*]} — auto-tombstoning"
   for attempt in $(seq 1 50); do
