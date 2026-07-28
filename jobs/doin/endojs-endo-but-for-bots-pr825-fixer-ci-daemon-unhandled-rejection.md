@@ -11,6 +11,7 @@ Investigate the macOS/Node 22 daemon-test interaction and apply a real fix. Do n
 <!-- garden-reaped: 1 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
