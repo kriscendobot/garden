@@ -61,6 +61,11 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# reputation.sh (source-once guarded) supplies rep_resolve_arm/rep_work_class/
+# rep_target/rep_arm_relpath, used ONLY by the best-effort kimi-fallback attribution
+# event below. It never gates the requeue path.
+# shellcheck source=reputation.sh
+source "$HERE/reputation.sh"
 GARDEN_TAG="reaper"
 
 : "${GARDEN_CLAIM_TTL:=14400}"         # seconds a claim may sit in doin before reaping (4h; must match gardener.sh)
@@ -490,6 +495,47 @@ clean_body() {
   ' "$1"
 }
 
+# record_kimi_fallback_event <doin-file> <spine> <kimi-cycles> — BEST-EFFORT, fully
+# guarded: when a kimi-k3 job is re-routed to opus, record ONE reputation event for
+# the KIMI arm marked `accepted: false` so the evaluation charges the failed attempt
+# to kimi (without this the kimi arm never sees the attempt and the comparison lies —
+# designs/kimi-k3-takes-opus-work-with-opus-fallback.md § Evaluation). The doin file
+# still carries `model: kimi-k3` at call time, so rep_resolve_arm resolves the kimi
+# arm. Dollars stay `censored` until build-token-cost-ledger lands; the acceptance
+# half works today. Staged into the SAME requeue commit; never aborts the requeue.
+record_kimi_fallback_event() {
+  local jf="$1" spine="$2" cycles="$3" provider model tht wc tgt dest
+  { read -r provider; read -r model; read -r tht; } < <(rep_resolve_arm mystic "$jf" 2>/dev/null) || return 0
+  [ -n "$provider" ] && [ -n "$model" ] || return 0
+  wc="$(rep_work_class "$jf" 2>/dev/null || echo other)"
+  tgt="$(rep_target "$jf" 2>/dev/null || echo main2)"
+  dest="$REP_EVENTS/${spine}-kimi-fallback.md"
+  mkdir -p "$DIR/$(dirname "$dest")" 2>/dev/null || return 0
+  {
+    printf -- '---\n'
+    printf 'base: %s\n' "${spine}-kimi-fallback"
+    printf 'kind: %s\n' "mystic"
+    printf 'provider: %s\n' "$provider"
+    printf 'model: %s\n' "$model"
+    printf 'thoughtfulness: %s\n' "$tht"
+    printf 'work_class: %s\n' "$wc"
+    printf 'target: %s\n' "$tgt"
+    printf 'accepted: %s\n' "false"
+    printf 'agentic_dollars: %s\n' "censored"
+    printf 'human_dollars: %s\n' "0"
+    printf 'aggregate_dollars: %s\n' "censored"
+    printf 'attempts: %s\n' "$cycles"
+    printf 'fallback: %s\n' "kimi-k3->opus"
+    printf 'source: fallback\n'
+    printf 'recorded_by: %s\n' "reaper:$GARDEN"
+    printf 'recorded_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n'
+    printf 'kimi-fallback event for %s: arm %s/%s/%s work_class %s target %s accepted false (re-routed to opus after %s kimi cycle(s))\n' \
+      "$spine" "$provider" "$model" "$tht" "$wc" "$tgt" "$cycles"
+  } > "$DIR/$dest" 2>/dev/null || return 0
+  git -C "$DIR" add "$dest" 2>/dev/null || true
+}
+
 # Reap stuck fetches FIRST: if the reaper's own sync_clone below would contend
 # for a clone lock held by a hung fetch, clearing the hang first lets this very
 # tick proceed instead of blocking behind it.
@@ -795,6 +841,32 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
       POISON_OVERRUN+=("$overrun"); POISON_SIG+=("$sig")
     else
+      # --- kimi-k3 -> opus re-route (the automatic fallback) -------------------
+      # On a GENUINE failure (not an outage, not a productive cycle) of a job whose
+      # `model:` pin is fallback-eligible AND that carries a `fallback-model:` chain,
+      # advance the pin to the chain head so an opus gardener claims the SAME base
+      # next instead of a mystic re-claiming and failing again. Gated on the armed
+      # journal flag (default off => no-op), on `outage -ne 1` (never re-route during
+      # an environmental storm — that is not kimi's fault), and on the job having
+      # reached GARDEN_KIMI_FALLBACK_AFTER genuine failure cycles. A re-route RESETS
+      # the reap counter (the fresh provider earns a fresh poison budget) and records
+      # the kimi arm as a failure so the evaluation stays honest. Session/worktree
+      # freshness is by construction: the opus handler finds no Claude transcript for
+      # this base (kimi wrote none) and resets the leftover worktree — see the design.
+      # Bounded to ONE hop: reroute_job_model pops the burned model into model-burned:
+      # and empties a single-entry chain, and the re-routed job is no longer kimi-k3-
+      # pinned, so a mystic cannot re-claim it. Fully guarded — a failure anywhere
+      # here leaves the ordinary requeue below to run.
+      if [ "$outage" -ne 1 ] && [ "$count" -ge "${GARDEN_KIMI_FALLBACK_AFTER:-1}" ] \
+         && kimi_fallback_enabled "$DIR"; then
+        rerouted_body="$(printf '%s\n' "$body" | reroute_job_model)" && rerouted=1 || rerouted=0
+        if [ "$rerouted" -eq 1 ]; then
+          record_kimi_fallback_event "$f" "$spine" "$count" || true
+          body="$rerouted_body"
+          log "kimi-fallback: '$base' failed $count cycle(s) on kimi-k3; re-routing model: to the fallback chain head (an opus gardener will claim it fresh), resetting reap counter"
+          count=0
+        fi
+      fi
       {
         printf '%s\n' "$body"
         printf '\n<!-- garden-reaped: %s -->\n' "$count"

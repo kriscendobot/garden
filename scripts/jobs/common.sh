@@ -4085,6 +4085,102 @@ role_default_effort() {
   esac
 }
 
+# --- kimi-k3-takes-opus-work-with-opus-fallback ------------------------------
+# The directive (kriskowal 2026-07-28): route some opus-exclusive work (builder)
+# to kimi-k3 for evaluation, with an AUTOMATIC opus retry on failure. Opus's
+# exclusive work is exactly what a mystic is barred from (job_eligible_for_kind),
+# so honoring it means RELAXING that bar — but only behind the fallback that
+# justifies it. Two knobs plus a pure body transform implement the whole thing;
+# the eligibility relaxation (claim-job.sh) and the re-route (reaper.sh) read
+# these. Design: designs/kimi-k3-takes-opus-work-with-opus-fallback.md.
+
+# The per-instance journal flag that ARMS the relaxation. Absent/unreadable/not
+# `on` reads as OFF (fail-safe: a missing file never opens the claim path), so
+# landing this code is a no-op until a maintainer runs set-kimi-fallback.sh on.
+: "${GARDEN_KIMI_FALLBACK_PATH:=config/kimi-takes-opus-work}"
+# Genuine (non-outage, non-productive) failure cycles kimi is given before the
+# reaper re-routes the job to the next fallback model. 1 = fall back on the first
+# real failure; raise to give kimi more attempts. The reaper's existing
+# productive/outage exemptions already keep progress and correlated transients
+# from counting, so this counts only real failures.
+: "${GARDEN_KIMI_FALLBACK_AFTER:=1}"
+
+# kimi_fallback_enabled [clone-dir] — 0 (true) iff the relaxation is armed for this
+# instance. Precedence mirrors the model-routing override read: an explicit env
+# override (tests), then the flag file in a caller-named clone (the reaper passes its
+# own $DIR, which it does not export), then any already-synced clone working tree (no
+# new clone/fetch), else OFF. The value must be exactly `on` (case/space-insensitive).
+kimi_fallback_enabled() {
+  local v="" d f
+  if [ -n "${GARDEN_KIMI_FALLBACK_ENABLED:-}" ]; then
+    v="$GARDEN_KIMI_FALLBACK_ENABLED"
+  else
+    for d in "${1:-}" "${GARDEN_GARDENER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
+             "${GARDEN_LEADER_CLONE:-}" "${GARDEN_REAPER_CLONE:-}" "$GARDEN_ROOT/journal"; do
+      [ -n "$d" ] || continue
+      f="$d/$GARDEN_KIMI_FALLBACK_PATH"
+      [ -s "$f" ] && { v="$(head -1 "$f" 2>/dev/null || true)"; break; }
+    done
+  fi
+  v="$(printf '%s' "$v" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+  [ "$v" = on ]
+}
+
+# reroute_job_model — on stdin a job BODY (leading YAML frontmatter + text as
+# clean_body produces it). If the frontmatter pins `model:` to a burnable value
+# AND carries a non-empty `fallback-model:` chain, ADVANCE the pin to the chain
+# head, POP that head, and append the burned model to `model-burned:`; print the
+# transformed body and return 0. Otherwise print the body UNCHANGED and return 1.
+# Pure text transform — no journal, no network — so the reaper (the single
+# requeue writer) can call it inline. The chain is comma- and/or space-separated;
+# entries stay verbatim (a short tier like `opus` resolves downstream exactly as a
+# hand-pinned model: does), so the re-routed job needs no new consumer: it now
+# classifies to the fallback provider and that kind claims it, while the original
+# provider's kind can no longer claim it (the ping-pong bound).
+reroute_job_model() {
+  awk '
+    function trim(s){ gsub(/^[ \t]+|[ \t]+$/, "", s); return s }
+    { line[NR]=$0 }
+    END {
+      # Find the leading frontmatter block: line 1 is "---", closed by the next "---".
+      fm_end=0
+      if (NR>=1 && line[1]=="---") {
+        for (i=2;i<=NR;i++) if (line[i]=="---") { fm_end=i; break }
+      }
+      if (fm_end==0) { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # no frontmatter -> no-op
+      # Read model:, fallback-model:, model-burned: from the frontmatter.
+      model=""; mi=0; chain=""; ci=0; burned=""; bi=0
+      for (i=2;i<fm_end;i++) {
+        l=line[i]
+        if (l ~ /^model:[ \t]*/)               { model=trim(substr(l, index(l,":")+1));  mi=i }
+        else if (l ~ /^fallback-model:[ \t]*/)  { chain=trim(substr(l, index(l,":")+1));  ci=i }
+        else if (l ~ /^model-burned:[ \t]*/)    { burned=trim(substr(l, index(l,":")+1)); bi=i }
+      }
+      if (model=="" || chain=="") { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # nothing to route
+      # Split the chain on comma/space; head is the next model, tail is the remainder.
+      n=split(chain, parts, /[ ,]+/)
+      next_model=""; rest=""
+      for (i=1;i<=n;i++) {
+        if (parts[i]=="") continue
+        if (next_model=="") next_model=parts[i]
+        else rest=(rest==""?parts[i]:rest" "parts[i])
+      }
+      if (next_model=="") { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # empty chain -> no-op
+      new_burned=(burned==""?model:burned" "model)
+      # Emit, rewriting model:/fallback-model:/model-burned:. When model-burned:
+      # was absent (bi==0) insert it immediately after the model: line so it lands
+      # inside the frontmatter block.
+      for (i=1;i<=NR;i++) {
+        if (i==mi)      { print "model: " next_model; if (bi==0) print "model-burned: " new_burned }
+        else if (i==ci) { print "fallback-model: " rest }
+        else if (i==bi) { print "model-burned: " new_burned }
+        else            { print line[i] }
+      }
+      exit 0
+    }
+  '
+}
+
 # --- orchestration-record metadata helpers ----------------------------------
 # An orchestration record (jobs/orch/<base>.md) carries leading YAML frontmatter:
 #   ---

@@ -62,13 +62,24 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" pinned="" m role
+  local jf="$1" pinned="" m role fb
   m="$(plan_field "$jf" model)"
   if [ "$KIND_PROVIDER" = moonshot ]; then
     [ "$m" = "kimi-k3" ] || return 1
     role="$(plan_role "$jf")"
     case "$role" in
-      designer|builder) return 1 ;; # explicit K3 is not a high-stakes route
+      # designer stays barred: a bad design has no automatic gate (only human
+      # review, hours-to-days later, high blast radius). Graduated relaxation —
+      # builder first — per designs/kimi-k3-takes-opus-work-with-opus-fallback.md.
+      designer) return 1 ;;
+      # builder is relaxed ONLY when the instance is ARMED (config/kimi-takes-opus-
+      # work=on) AND the job carries a non-empty `fallback-model:` chain — the
+      # automatic opus retry is what makes routing high-stakes work to kimi
+      # acceptable, so the safety net is mechanically REQUIRED before the bar lifts.
+      # Absent either, the historical bar stands (the ship-disabled default).
+      builder)
+        fb="$(plan_field "$jf" fallback-model)"
+        { kimi_fallback_enabled && [ -n "$fb" ]; } || return 1 ;;
     esac
   fi
   # Fireworks is an explicit-model-only lane.  Its `fireworks/<wire-id>` routing
