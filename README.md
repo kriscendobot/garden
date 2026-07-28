@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T12:59:51Z_
+_As of 2026-07-28T13:01:23Z_
 
 ## Latest
 
@@ -2662,7 +2662,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 53.7M | $712.87 _(notional, rate-card)_ | no quota set |
-| Codex | 361.7M _(+469.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 361.1M _(+469.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -2706,13 +2706,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3681)
+### tada (3682)
+- [`fix-ps23-claude-path-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-ps23-claude-path-outage.md) — orchestration fix-ps23-claude-path-outage — complete
 - [`requeue-ps23-stranded-claims`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/requeue-ps23-stranded-claims.md) — Report — requeue-ps23-stranded-claims
 - [`build-panel-run-record`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-panel-run-record.md) — Completion report
 - [`improve-journal-entry-duplicate-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-journal-entry-duplicate-suppression.md) — Report
 - [`audit-evaluator-gaming-baseline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/audit-evaluator-gaming-baseline.md) — Completed the dated, read-only evaluator-gaming baseline and posted it to [ga...
-- [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-clarify-drain-moratorium-vocabulary-1.md) — Report
-- … and 3676 more
+- … and 3677 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
