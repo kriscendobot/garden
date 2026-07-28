@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T12:25:47Z_
+_As of 2026-07-28T12:26:24Z_
 
 ## Latest
 
@@ -2341,11 +2341,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.6M | $692.46 _(notional, rate-card)_ | no quota set |
-| Codex | 369.0M _(+461.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 52.6M | $693.99 _(notional, rate-card)_ | no quota set |
+| Codex | 368.9M _(+461.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
-### todo (23)
+### todo (22)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
@@ -2354,7 +2354,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Fix CI on https://github.com/endojs/endo-but-for-bots/pull/825.
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
-- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
@@ -2375,6 +2374,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`design-post-verdict-addressee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-post-verdict-addressee.md) — The gap
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
+- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
@@ -2383,18 +2383,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
 - [`improve-journal-entry-duplicate-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
-- [`investigate-opencode-alternate-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-opencode-alternate-harness.md) — Investigate opencode as an alternate worker harness
 - [`issue-garden-62-jcorbin-cross-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-garden-62-jcorbin-cross-analysis.md) — Fold @jcorbin's devoker cross-analysis into the TerraLingua work (issue #62)
 - [`requeue-ps23-stranded-claims`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/requeue-ps23-stranded-claims.md) — Free the 52 claims stranded on ps23
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (3671)
+### tada (3672)
+- [`investigate-opencode-alternate-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-opencode-alternate-harness.md) — Completion report
 - [`fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1.md) — Removed both no-op watcher jobs from journal2/jobs/todo.
 - [`fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2.md) — Cost
 - [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gnome-backend-autotune-design.md) — Cost
 - [`fu-fix-identity-drift-guard-test-inbox-leak-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fix-identity-drift-guard-test-inbox-leak-2.md) — Cost
-- [`fu-fix-identity-drift-guard-test-inbox-leak-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fix-identity-drift-guard-test-inbox-leak-1.md) — Cost
-- … and 3666 more
+- … and 3667 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
