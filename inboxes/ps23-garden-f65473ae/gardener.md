@@ -210,3 +210,12 @@ Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87
 - Context: gardener-8 on ps23-garden-f65473ae: job 'fu-build-exo-google-sheets-facets-2' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T18:05:26Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7aa46954ae26004273188a125033ffead5b2da87
+- Context: gardener-4 on ps23-garden-f65473ae: job 'qwen-model-watch-20260728-180502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
