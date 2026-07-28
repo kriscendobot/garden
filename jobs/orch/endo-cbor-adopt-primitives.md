@@ -2,7 +2,7 @@
 order: serial
 children: endo-cbor-adopt-ocapn endo-cbor-adopt-daemon-envelope
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-07-28T21:10:02Z
 ---
