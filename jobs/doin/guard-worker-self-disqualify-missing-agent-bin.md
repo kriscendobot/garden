@@ -95,3 +95,10 @@ resolver alone still fails open on a host where the CLI is genuinely absent.
   as before. Include the check that proves this.
 - Pushed to `main2`; `tada` report states the invariant as landed and names the
   simulation used to verify it.
+
+---
+claim:
+  host: ps23
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:49:09Z
