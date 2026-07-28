@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T15:26:00Z_
+_As of 2026-07-28T15:29:11Z_
 
 ## Latest
 
@@ -2169,6 +2169,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > ===== LAST FAILURE SIGNATURE =====
 > <3>13:48:06 [follow-up-claude] FATAL: claude -p failed transiently (rc=1); stderr: <empty>; stdout: You've hit your session limit · resets 3:20pm (UTC) — failing the tick so follow-up.sh retries the digest
 
+- `20260728T152822Z-cf9ab4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T152822Z-cf9ab4.md)
+
+> The report for `deadmail-issue-comment-5105796865` says the pre-claim guard it landed protects no host until the fleet deploys past `7e525d50c6`. Deploy is a deliberate, drained, maintainer-attested operation — do you want the fleet advanced past that commit now, and on which hosts?
+
+- `20260728T152828Z-badd45` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T152828Z-badd45.md)
+
+> Same report: host `ps23` is currently down, and if it returns at 8 gardeners on its old (pre-`7e525d50c6`) deploy it can re-strand claims. Do you want ps23 held at 0 workers / drained until it is deployed past that commit, or is the re-stranding risk acceptable?
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2708,14 +2716,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $702.58 _(notional, rate-card)_ | no quota set |
+| Claude | 52.7M | $702.18 _(notional, rate-card)_ | no quota set |
 | Codex | 344.6M _(+469.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (43)
+### doin (44)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2741,6 +2749,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-130502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
+- [`fu-deadmail-issue-comment-5105796865-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-deadmail-issue-comment-5105796865-3.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
 - [`fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1.md) — In the garden's own repo (kriscendobot/garden, branch main2), the maintainer-...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
