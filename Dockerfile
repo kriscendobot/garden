@@ -85,10 +85,16 @@ RUN apt-get update && apt-get install -y \
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-# Node.js via NodeSource
-RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - \
-    && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+# Node.js from the official nodejs.org tarball (NodeSource's apt repo and
+# setup script both 403 as of 2026-07, so we no longer register it with apt —
+# same self-contained pattern as the Go toolchain below).
+RUN ARCH="$(dpkg --print-architecture)" \
+    && case "$ARCH" in amd64) NODE_ARCH=x64 ;; arm64) NODE_ARCH=arm64 ;; *) NODE_ARCH="$ARCH" ;; esac \
+    && NODE_TARBALL="$(curl -fsSL https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/ \
+        | grep -oE "node-v${NODE_MAJOR}\.[0-9]+\.[0-9]+-linux-${NODE_ARCH}\.tar\.gz" | head -1)" \
+    && test -n "$NODE_TARBALL" \
+    && curl -fsSL "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TARBALL}" \
+        | tar -C /usr/local --strip-components=1 -xz
 
 # Go toolchain
 RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-$(dpkg --print-architecture).tar.gz \
@@ -119,9 +125,10 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 
 # Claude Code CLI — the image-side half of the direct-exec contract. The
 # `garden` launcher enters with `bash -lc 'exec claude --dangerously-skip-permissions'`,
-# so `claude` MUST resolve on a bare login-shell PATH. NodeSource's npm prefix
-# is /usr, so the global `claude` bin lands in /usr/bin (already on the default
-# PATH and thus reachable from /etc/profile.d/garden.sh below). The trailing
+# so `claude` MUST resolve on a bare login-shell PATH. Node is unpacked into
+# /usr/local, so npm's prefix is /usr/local and the global `claude` bin lands in
+# /usr/local/bin (already on the default PATH and thus reachable from
+# /etc/profile.d/garden.sh below). The trailing
 # `command -v claude` asserts the exec contract at build time: a broken install
 # fails the build loudly rather than at first `./garden`.
 #
@@ -143,8 +150,8 @@ RUN for attempt in 1 2 3; do \
     done
 
 # Codex CLI (OpenAI) — installed globally alongside claude so the `codex` agent is
-# available for jobs that use it. Same NodeSource-prefix logic: the global bin lands
-# in /usr/bin (on the default PATH). The trailing `command -v codex` asserts the
+# available for jobs that use it. Same npm-prefix logic: the global bin lands
+# in /usr/local/bin (on the default PATH). The trailing `command -v codex` asserts the
 # install at build time, failing the build loudly rather than at first use.
 RUN for attempt in 1 2 3; do \
         npm install -g @openai/codex && command -v codex && exit 0; \
