@@ -64,6 +64,11 @@
 | [MemGPT queue management](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--main-context-and-queue-management.md) | MemGPT paper | Recall storage preserves evicted messages while summary retains a bounded trace. |
 | [MemGPT conversation evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--conversation-memory-evaluation.md) | MemGPT paper | Multi-session retrieval evaluation over retained history. |
 | [MemGPT retrieval evaluation](../sections/papers--packer-memgpt-towards-llms-as-operating-systems-2023--document-retrieval-and-multihop-evaluation.md) | MemGPT paper | Archival-store retrieval and repeated lookup evaluation. |
+| [atproto--specs-repository--self-certifying-repository](../sections/atproto--specs-repository--self-certifying-repository.md) | atproto specs/repository | A content-addressed Merkle tree of DRISL-CBOR objects, self-certifying, with the PDS as 'the authoritative location of an account's repository' declared in the DID document. |
+| [atproto--specs-repository--commit-objects-and-signing](../sections/atproto--specs-repository--commit-objects-and-signing.md) | atproto specs/repository | The six commit fields and the signing procedure; the signature covers a CID link, and 'with key rotation, verification of older commit signatures can become ambiguous'. |
+| [atproto--specs-repository--mst-structure](../sections/atproto--specs-repository--mst-structure.md) | atproto specs/repository | Key depth as leading-zero count of SHA-256 divided by two (fanout 4), prefix-compressed node entries, a shape deterministic from the current mapping, and key-mining as a denial-of-service vector. |
+| [atproto--specs-repository--car-export-and-diffs](../sections/atproto--specs-repository--car-export-and-diffs.md) | atproto specs/repository | CAR v1 full export and CAR-slice diffs; operation inversion recomputes the inverted MST root and checks it against the previous revision's data field. |
+| [atproto--specs-repository--paths-records-and-cid-formats](../sections/atproto--specs-repository--paths-records-and-cid-formats.md) | atproto specs/repository | Paths are <collection>/<record-key>; TID keys sort chronologically so appends beat random insertions; structural CID links must follow the blessed format or the structure is invalid. |
 
 ## See also
 
