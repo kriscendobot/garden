@@ -90,7 +90,9 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # DNS-TLS-reset) is ridden out under full-jitter backoff before the call gives up,
 # so a single GitHub flake no longer blanks an endpoint — and, on the structural
 # calls below, no longer produces the empty self-heal blob. A DEFINITIVE error
-# (404 / auth) is NOT retried; it fails through to the same degrade paths as before.
+# (404 / auth) is NOT retried; it fails through to the same degrade paths as before —
+# except a definitive REPO-level 404, which deactivates the watch (see the REPO-GONE
+# degrade at the tail) rather than failing every tick against a repo that is gone.
 #
 # Stderr policy below: gh's `2>/dev/null` suppresses EXPECTED-empty noise (404 on
 # an endpoint, an idle window) AND gh_api_retry's own retry/WARN lines on the
@@ -124,6 +126,11 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # (structural) — either way the cursor never advances past the un-enumerated comments,
 # so the next healthy tick re-polls them. gh_api_retry already rides out a genuine
 # blip under full-jitter backoff, so this fires only on a PERSISTENT failure.
+#
+# EXCEPTION — a DEFINITIVE repo-level 404 is not a lost fetch, it is a GONE repo.
+# See repo_is_definitively_gone() and the tail block below: freezing the cursor and
+# exiting nonzero can only ever be re-tried against a repo that no longer exists,
+# which is a permanent systemd failure loop, not a recoverable enumeration gap.
 fetch_failed=""
 note_fetch_failure() {  # note_fetch_failure <label> <errfile>
   fetch_failed=1
@@ -296,11 +303,60 @@ rm -f "$s2_err"
 
 rm -f "$prlist_err" "$rids_err" "$rev_err" "$s3out"
 
+# --- the REPO-GONE degrade (a 404 repo must DEACTIVATE, never crash-loop) -----
+# The LOST-FETCH invariant below is built for a RECOVERABLE gap: freeze the cursor,
+# fail the tick, re-poll when the surface comes back. A repo that no longer exists
+# (deleted, renamed, transferred, or access revoked) has no "comes back": EVERY
+# surface 404s, so fetch_failed is set on every tick forever, the source exits 1, the
+# watcher's structural branch dies loud, and the unit fails on a timer in perpetuity
+# — a permanent restart loop that pages nobody and fixes nothing. Observed on
+# kriscendobot/garden, whose stale bare clone auto-armed a comment watcher against a
+# repo that did not exist.
+#
+# So before honoring the invariant we ask ONE authoritative question — does the repo
+# itself still exist? — and treat a DEFINITIVE 404/403 on `repos/<repo>` as a
+# deactivation signal: log it, alert the maintainer ONCE (throttled per-slug, the
+# triager.sh dead-upstream shape), and exit 0. Exit 0 is correct: with no comments
+# emitted the watcher slides nothing and simply goes quiet, so the unit stays clean
+# while the maintainer's inbox carries the one actionable message (drop the arming
+# record, add the watch-optout tombstone). We deliberately do NOT auto-write the
+# journal tombstone from a watcher tick: watch-optout/<slug> only suppresses
+# fork-watch-provisioner AUTO-arming, so it would not stop a hand-armed watcher, and
+# a CAS push from a per-minute timer is a far heavier act than an alert.
+#
+# The probe runs ONLY on the already-failed path, so a healthy tick pays nothing.
+# It fires only on a DEFINITIVE verdict: a transient signature means "we could not
+# ask", not "it is gone", and falls through to the unchanged freeze-and-retry below.
+REPO_GONE_REASON=""
+repo_is_definitively_gone() {
+  local errf stderr
+  errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/comment-source-repo-probe.$$")"
+  if gh_api_retry "repos/$repo" --jq '.full_name' >/dev/null 2>"$errf"; then
+    rm -f "$errf"; return 1                      # the repo answers — a real lost fetch
+  fi
+  stderr="$(cat "$errf" 2>/dev/null || true)"
+  rm -f "$errf"
+  # "Could not ask" is never "gone" (never guess a state).
+  _gh_api_stderr_is_transient "$stderr" && return 1
+  case "$stderr" in
+    *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*|*"HTTP 403"*|*"Must have admin rights"*)
+      REPO_GONE_REASON="$stderr"; return 0 ;;
+  esac
+  return 1                                       # definitive but not repo-level — freeze
+}
+
 # The LOST-FETCH invariant (see fetch_failed above): if ANY surface failed to
 # enumerate this window, FAIL the tick so the watcher does NOT advance its cursor
 # past comments we never saw. The next healthy tick re-polls them; re-posting an
 # already-handled directive is an idempotent no-op (verify_posted + identity dedup).
 if [ -n "$fetch_failed" ]; then
+  if repo_is_definitively_gone; then
+    slug="${repo//\//-}"
+    log "REPO GONE: $repo returns a definitive repo-level error (${REPO_GONE_REASON:-<no stderr>}) — the repo does not exist or is no longer readable. Deactivating this watch gracefully (exit 0) instead of failing the tick forever."
+    alert_maintainer "comment-watch-repo-gone-${slug//[^A-Za-z0-9._-]/_}" \
+      "comment-watcher: $repo no longer exists (or is unreadable) on GitHub — gh api repos/$repo returns a definitive error: ${REPO_GONE_REASON:-<no stderr>}. The watcher is armed by journal comment-repos/$slug, so every tick would otherwise fail forever; it now exits 0 and watches nothing. To close this out: delete journal comment-repos/$slug (and any repos/$slug / ci-repos/$slug siblings), add a journal watch-optout/$slug tombstone so fork-watch-provisioner.sh never re-arms it, and remove the stale bare clone worktrees/$slug.git that likely triggered the arming. If instead the repo was RENAMED or TRANSFERRED, re-key the arming record to the new <owner>-<name> slug rather than dropping the watch."
+    exit 0
+  fi
   log "FETCH INCOMPLETE for $repo: one or more comment surfaces failed to enumerate — exiting nonzero so the watcher freezes the cursor and re-polls (never advance past un-enumerated comments)"
   exit 1
 fi

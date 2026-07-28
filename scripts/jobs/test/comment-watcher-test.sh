@@ -1338,6 +1338,80 @@ EOF
   grep -qiE 'HTTP 50[0-9]|503' "$RCF_ERR" && ok "the underlying transient gh signature reaches stderr (so the watcher classifies it transient → skip, not die)" || bad "transient signature not surfaced ($(cat "$RCF_ERR"))"
 fi
 
+# ============================================================================
+# GONE — SOURCE-level REPO-GONE degrade: when the REPO ITSELF is definitively 404,
+# every surface fails, so the LOST-FETCH invariant (RCF above) would exit nonzero on
+# EVERY tick forever — the watcher dies structurally, systemd re-runs it, and the unit
+# fails in perpetuity against a repo that will never come back (the kriscendobot/garden
+# crash-loop). A gone repo must DEACTIVATE gracefully instead: exit 0, log it, and
+# alert the maintainer ONCE. The narrowness matters as much as the degrade, so the
+# second half asserts a repo that still ANSWERS keeps the exit-1 freeze.
+hr; echo "GONE — a definitive repo-level 404 DEACTIVATES the watch (exit 0), never crash-loops"; hr
+command -v jq >/dev/null 2>&1 && have_jq_gone=1 || have_jq_gone=0
+if [ "$have_jq_gone" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHGONE="$TR/gh-gone"; mkdir -p "$GHGONE"
+  cat > "$GHGONE/gh" <<'EOF'
+#!/bin/bash
+# The repo does not exist: EVERY surface — and the repo probe itself — returns the
+# definitive gh 404 signature. GONE_PROBE_OK=1 flips ONLY the repo probe to success,
+# standing in for "the repo is fine, one surface is merely broken".
+args="$*"
+case "$args" in
+  *"--jq .full_name"*|*"--jq"*"full_name"*)
+    if [ "${GONE_PROBE_OK:-0}" = 1 ]; then printf 'endojs/endo-but-for-bots\n'; exit 0; fi
+    echo "gh: Not Found (HTTP 404)" >&2; exit 1;;
+esac
+echo "gh: Not Found (HTTP 404)" >&2; exit 1
+EOF
+  chmod +x "$GHGONE/gh"
+  GONE_ALERTS="$TR/gone-alerts.log"; : > "$GONE_ALERTS"
+  GONE_ALERT_CMD="$TR/gone-alert.sh"
+  cat > "$GONE_ALERT_CMD" <<EOF
+#!/bin/bash
+printf '%s\t%s\n' "\$1" "\$2" >> "$GONE_ALERTS"
+EOF
+  chmod +x "$GONE_ALERT_CMD"
+  GONE_OUT="$TR/gone.out"; GONE_ERR="$TR/gone.err"
+  set +e
+  env PATH="$GHGONE:$PATH" GARDEN_GH_API_ATTEMPTS=1 GARDEN_STATE="$TR/state-gone" \
+    GARDEN_ALERT_CMD="$GONE_ALERT_CMD" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$GONE_OUT" 2> "$GONE_ERR"
+  gone_rc=$?
+  set -e
+  [ "$gone_rc" -eq 0 ] && ok "a definitive repo-level 404 exits 0 (deactivated) — no systemd crash-loop" || bad "repo-level 404 exited $gone_rc (crash-loop regression: the unit fails every tick forever)"
+  [ ! -s "$GONE_OUT" ] && ok "the gone repo emits NO comment rows (the watcher simply goes quiet)" || bad "gone repo emitted rows ($(cat "$GONE_OUT"))"
+  grep -qi 'REPO GONE' "$GONE_ERR" && ok "the deactivation is LOGGED (diagnosable, not a silent no-op)" || bad "no REPO-GONE log ($(cat "$GONE_ERR"))"
+  grep -q 'comment-watch-repo-gone-endojs-endo-but-for-bots' "$GONE_ALERTS" && ok "the maintainer is alerted under the per-slug dedup key" || bad "no maintainer alert ($(cat "$GONE_ALERTS"))"
+
+  # Alert ONCE: a second tick against the same state must be throttled, so a
+  # per-minute timer cannot flood the inbox with the same dead repo.
+  set +e
+  env PATH="$GHGONE:$PATH" GARDEN_GH_API_ATTEMPTS=1 GARDEN_STATE="$TR/state-gone" \
+    GARDEN_ALERT_CMD="$GONE_ALERT_CMD" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    >/dev/null 2>&1
+  gone_rc2=$?
+  set -e
+  [ "$gone_rc2" -eq 0 ] && ok "a repeat tick on the gone repo still exits 0" || bad "repeat tick exited $gone_rc2"
+  [ "$(grep -c 'comment-watch-repo-gone' "$GONE_ALERTS")" -eq 1 ] && ok "the alert fires ONCE (throttled per slug), not every tick" || bad "alert not throttled ($(grep -c 'comment-watch-repo-gone' "$GONE_ALERTS") copies)"
+
+  # Narrowness: the repo ANSWERS, only the surfaces are broken → the LOST-FETCH
+  # invariant must still freeze the cursor (exit 1). The degrade must not become a
+  # blanket "any 404 is fine" that silently drops real comments.
+  set +e
+  env PATH="$GHGONE:$PATH" GONE_PROBE_OK=1 GARDEN_GH_API_ATTEMPTS=1 GARDEN_STATE="$TR/state-gone-live" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > /dev/null 2> "$TR/gone-live.err"
+  gone_live_rc=$?
+  set -e
+  [ "$gone_live_rc" -ne 0 ] && ok "a LIVE repo with failing surfaces still exits nonzero (cursor frozen, LOST-FETCH intact)" || bad "the repo-gone degrade swallowed a real lost fetch (silent-drop regression!)"
+  grep -qi 'FETCH INCOMPLETE' "$TR/gone-live.err" && ok "the live-repo path still logs FETCH INCOMPLETE" || bad "live-repo path lost its FETCH-INCOMPLETE log ($(cat "$TR/gone-live.err"))"
+fi
+
 # ----------------------------------------------------------------------------
 # RCF2 — WATCHER-level freeze-then-recover: a tick whose source fails (a surface
 # blip) must NOT advance the cursor; a subsequent HEALTHY tick then observes the
