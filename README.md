@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T12:23:53Z_
+_As of 2026-07-28T12:24:33Z_
 
 ## Latest
 
@@ -21,7 +21,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 10d)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 11d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 14d)
 
@@ -2341,11 +2341,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.1M | $684.88 _(notional, rate-card)_ | no quota set |
-| Codex | 369.3M _(+460.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 52.3M | $687.57 _(notional, rate-card)_ | no quota set |
+| Codex | 369.1M _(+461.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
-### todo (26)
+### todo (24)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`design-post-verdict-addressee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-post-verdict-addressee.md) — The gap
@@ -2366,8 +2366,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
 - [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
-- [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
 - [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
