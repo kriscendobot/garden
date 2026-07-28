@@ -39,3 +39,10 @@ Design ONLY (no implementation). Base: garden main2 (direct, no PR). Keep it tig
 and implementable.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:16:36Z
