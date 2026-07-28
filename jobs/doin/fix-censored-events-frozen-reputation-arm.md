@@ -95,3 +95,10 @@ the same problem; mystic is just where it shows first.
 - Pushed to `main2`; `tada` report quotes the corrected mystic arm.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:16:40Z
