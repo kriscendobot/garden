@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-28T08:23:35Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T08:23:35Z
+---
+
 # Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
 
 Repo: `endojs/endo-but-for-bots` (base branch `llm`).
@@ -52,10 +66,3 @@ submitter: kriscendobot
 ----- END ISSUE NOTE -----
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-28T07:35:22Z
