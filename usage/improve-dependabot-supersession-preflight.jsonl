@@ -1,0 +1,1 @@
+{"source":"result","num_turns":42,"elapsed_s":746,"input_tokens":77,"output_tokens":56251,"cache_creation_tokens":114308,"cache_read_tokens":3437983,"total_cost_usd":4.2687314999999995,"ts":"2026-07-28T12:33:24Z","base":"improve-dependabot-supersession-preflight","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
