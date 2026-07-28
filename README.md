@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:19:49Z_
+_As of 2026-07-28T07:20:23Z_
 
 ## Latest
 
@@ -6958,13 +6958,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.5M | $503.14 _(notional, rate-card)_ | no quota set |
-| Codex | 434.4M _(+411.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 42.5M | $505.13 _(notional, rate-card)_ | no quota set |
+| Codex | 434.4M _(+412.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
-### todo (14)
+### todo (13)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-survey`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-survey.md) — Survey Fireworks serving for GLM 5.2 and Kimi K3
@@ -6979,6 +6978,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
 ### doin (52)
+- [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`daily-progress-summary-20260728-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260728-070504.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5100277860`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5100277860.md) — Dead-lettered message — pick up its intent
@@ -6989,7 +6989,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-065010.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260728-065010.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr268-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #268
-- [`endojs-endo-but-for-bots-pr269-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr269-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #269
 - [`endojs-endo-but-for-bots-pr556-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr556-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #556
 - [`endojs-endo-but-for-bots-pr557-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr557-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #557
 - [`endojs-endo-but-for-bots-pr558-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr558-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #558
@@ -7032,13 +7031,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop.md) — The comment-watcher for kriscendobot/garden crash-loops (systemd restart fore...
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 
-### tada (3615)
+### tada (3616)
+- [`endojs-endo-but-for-bots-pr269-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr269-dependabot.md) — Verdict: MERGE-NOW (technical gate satisfied).
 - [`endo-sturdyref-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260728-004711.md) — SturdyRef press tick complete — a holding tick with one substantive act: the ...
 - [`deadmail-issue-comment-5100304929`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5100304929.md) — Completion report — deadmail-issue-comment-5100304929
 - [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — PR #877 is draft, MERGEABLE, and CLEAN. All 24 CI checks completed successful...
 - [`endo-vfs-parity-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-004711.md) — Verify-and-stand-down tick complete. All press PRs verified healthy, no actio...
-- [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-004711.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- … and 3610 more
+- … and 3611 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
