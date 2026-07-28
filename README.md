@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:14:31Z_
+_As of 2026-07-28T16:17:11Z_
 
 ## Latest
 
@@ -2716,14 +2716,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $707.57 _(notional, rate-card)_ | no quota set |
+| Claude | 53.4M | $709.57 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (47)
+### doin (48)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2766,6 +2766,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
 - [`staged-gauntlet-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/staged-gauntlet-build.md) — Build the staged gauntlet: deterministic per-PR driver + stage handlers
+- [`stagger-reaper-requeue-burst`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/stagger-reaper-requeue-burst.md) — Stagger the reaper's requeue so a burst of expiring claims does not land at once
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
 - [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
