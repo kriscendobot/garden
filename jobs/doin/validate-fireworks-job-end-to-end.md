@@ -95,3 +95,10 @@ that is a notable finding — it would be the first lane with real cost evidence
   journal entry, report, log, or commit.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T20:53:16Z
