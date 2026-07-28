@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 4
+deadline_overruns: 1
+poisoned_at: 2026-07-28T12:43:06Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T12:43:06Z
+---
+
 # fixer on endojs/endo-but-for-bots `llm`: close the form-data advisory in the dev toolchain
 
 Surfaced during the botany review of
@@ -64,13 +78,5 @@ here. Only the `^4.0.0` resolution is left for this job.
 Commenting on this repository is covered by the standing authorization
 (`journal/projects/endo-but-for-bots/README.md` § Standing authorizations).
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T12:32:41Z

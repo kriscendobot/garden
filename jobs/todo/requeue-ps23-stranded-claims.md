@@ -70,9 +70,4 @@ Confirm the guard is actually live before requeuing:
 - `tada` report gives the count freed, the count un-poisoned, and any job
   deliberately left alone with the reason.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T08:40:08Z
+<!-- garden-reaped: 1 -->
