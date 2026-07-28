@@ -86,3 +86,10 @@ self-assessment was silent on what a worker's exit costs — its architecture
 burst sessions live it. The machinery here turned out to be better than that
 critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:39:36Z
