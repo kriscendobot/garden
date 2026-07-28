@@ -22,6 +22,7 @@ Finally, garbage-collect the concrete instance: after the reconciler lands (or a
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
