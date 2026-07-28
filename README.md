@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T21:10:50Z_
+_As of 2026-07-28T21:11:43Z_
 
 ## Latest
 
@@ -3257,19 +3257,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.6M | $755.22 _(notional, rate-card)_ | no quota set |
-| Codex | 290.4M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 53.6M | $756.14 _(notional, rate-card)_ | no quota set |
+| Codex | 289.8M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (41)
+### doin (40)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
-- [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-primitives.md) — Adopt @endo/cbor at the existing CBOR call sites (ocapn and elsewhere)
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
 - [`endo-npm-cas-registry-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260728-130502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -3307,13 +3306,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3722)
+### tada (3723)
+- [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-primitives.md) — What I did
 - [`fireworks-canary-20260728-glm52`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fireworks-canary-20260728-glm52.md) — Cost
 - [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Completion report
 - [`fix-stale-bulletin-pages-url`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-stale-bulletin-pages-url.md) — Completion report
 - [`finbot-progress-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-192002.md) — Completion report — finbot progress cycle 20260728-192002
-- [`endo-git-integration-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-192002.md) — Press report — git-integration / M3 loop (dispatch 2026-07-28T19:20Z)
-- … and 3717 more
+- … and 3718 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
