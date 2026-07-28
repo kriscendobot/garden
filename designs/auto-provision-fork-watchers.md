@@ -62,8 +62,16 @@ Per tick:
 
 1. **Discover** (every host): scan `$GARDEN_WORKTREES/*.git` for slugs whose
    owner is listed in the journal's `config/fork-owners`; for each not
-   tombstoned (§4) and missing from `repos/` or `comment-repos/` at the
-   `origin/journal2` tip, CAS-land the missing arming record(s) in one commit
+   tombstoned (§4), confirm its upstream is live before arming a missing record.
+   Fully armed forks are rechecked too: a successful check writes a local,
+   per-host staleness stamp, so they are probed at most once every four hours
+   (`GARDEN_FORKWATCH_LIVENESS_INTERVAL`, default `14400`) rather than once per
+   one-minute tick. A 404 joins the existing durable tombstone path, removing
+   both arming records; an inconclusive check writes no stamp and never
+   tombstones, so it is retried on the next tick. The stamps are intentionally
+   untracked local state: they prevent API and journal-CAS churn across the
+   clone shelf while bounding dead-upstream recovery to four hours plus one
+   tick. A live missing membership CAS-lands the arming record(s) in one commit
    through the standard `sync_clone`/`commit_and_push` retry loop. Idempotent:
    a peer host landing first makes this host's attempt a staged-empty no-op.
 2. **Materialize** (leader only): `triager.sh` hard-requires a bare clone at

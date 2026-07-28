@@ -15,6 +15,9 @@
 #   F. a dashed fork-owners entry is skipped with a warning (never misparsed)
 #   G. a bare clone whose UPSTREAM 404s is NOT armed and IS auto-tombstoned
 #      (watch-optout/<slug>), while a live-upstream own fork still arms normally
+#   H. a FULLY armed fork whose upstream later 404s is tombstoned and disarmed
+#   I. an inconclusive liveness check leaves a fully armed fork untouched; a
+#      tombstone is never probed; a live fully armed fork stays untouched
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -75,10 +78,14 @@ git clone -q --bare "$srcrepo" "$GHBASE/kriscendobot/minion.town.git"
 # `gh api` call, which run_prov never reaches because it points
 # GARDEN_FORKWATCH_UPSTREAM_CHECK here.
 DEADLIST="$TR/dead-upstreams"; : > "$DEADLIST"
+UNKNOWNLIST="$TR/unknown-upstreams"; : > "$UNKNOWNLIST"
+PROBELOG="$TR/probes"; : > "$PROBELOG"
 CHECK="$TR/upstream-check.sh"
 cat > "$CHECK" <<'EOS'
 #!/bin/bash
 # args: <owner> <name>
+[ -n "${PROBELOG:-}" ] && printf '%s/%s\n' "$1" "$2" >> "$PROBELOG"
+[ -f "$UNKNOWNLIST" ] && grep -qxF "$1/$2" "$UNKNOWNLIST" && exit 2
 [ -f "$DEADLIST" ] && grep -qxF "$1/$2" "$DEADLIST" && exit 1
 exit 0
 EOS
@@ -90,6 +97,8 @@ run_prov() {  # run_prov [materialize] [logfile]
       GARDEN_FORK_CLONE_URL_BASE="$GHBASE" \
       GARDEN_FORKWATCH_MATERIALIZE="${1:-0}" \
       GARDEN_FORKWATCH_UPSTREAM_CHECK="$CHECK" DEADLIST="$DEADLIST" \
+      UNKNOWNLIST="$UNKNOWNLIST" PROBELOG="$PROBELOG" \
+      GARDEN_FORKWATCH_LIVENESS_INTERVAL="${GARDEN_FORKWATCH_LIVENESS_INTERVAL:-0}" \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/fork-watch-provisioner.sh" >/dev/null 2>"${2:-/dev/null}"
 }
@@ -184,6 +193,56 @@ jtip watch-optout/kriscendobot-deadfork | grep -qi '404' \
 n_g="$(jcommits)"
 run_prov
 [ "$(jcommits)" = "$n_g" ] && ok "tombstoned dead fork not re-armed on re-run" || bad "dead fork re-armed after tombstone"
+
+# ============================================================================
+hr; echo "H — fully armed fork later 404s → tombstoned and disarmed"; hr
+# minion.town has both records from B. Its later 404 must take the same DEAD[]
+# path as an unarmed candidate, which drops both records in the tombstone commit.
+echo "kriscendobot/minion.town" > "$DEADLIST"
+: > "$PROBELOG"
+run_prov
+[ -n "$(jtip watch-optout/kriscendobot-minion.town)" ] \
+  && ok "fully armed 404 fork auto-tombstoned" || bad "fully armed 404 fork was not tombstoned"
+[ -z "$(jtip repos/kriscendobot-minion.town)" ] && [ -z "$(jtip comment-repos/kriscendobot-minion.town)" ] \
+  && ok "fully armed 404 fork disarmed by removing both records" || bad "fully armed 404 fork retained an arming record"
+grep -qxF "kriscendobot/minion.town" "$PROBELOG" \
+  && ok "fully armed fork was liveness-probed" || bad "fully armed fork was not liveness-probed"
+
+# ============================================================================
+hr; echo "I — inconclusive/tombstoned/live liveness outcomes"; hr
+git init -q --bare "$WTS/kriscendobot-inconclusive.git"
+: > "$DEADLIST"; : > "$UNKNOWNLIST"
+run_prov                              # first arm the new live fork
+echo "kriscendobot/inconclusive" > "$UNKNOWNLIST"
+: > "$PROBELOG"
+n_i="$(jcommits)"
+run_prov
+[ -n "$(jtip repos/kriscendobot-inconclusive)" ] && [ -n "$(jtip comment-repos/kriscendobot-inconclusive)" ] \
+  && ok "inconclusive fully armed fork retains both arming records" || bad "inconclusive check removed an arming record"
+[ -z "$(jtip watch-optout/kriscendobot-inconclusive)" ] \
+  && ok "inconclusive check never tombstones" || bad "inconclusive check falsely tombstoned"
+[ "$(jcommits)" = "$n_i" ] && ok "inconclusive check lands no journal mutation" || bad "inconclusive check mutated the journal"
+
+# An existing tombstone is checked before the API seam, even when rate limiting
+# is disabled for this hermetic regression test.
+git init -q --bare "$WTS/kriscendobot-never-probe.git"
+jpush watch-optout/kriscendobot-never-probe "unwatched by test"
+: > "$PROBELOG"
+run_prov
+grep -qxF "kriscendobot/never-probe" "$PROBELOG" \
+  && bad "tombstoned slug was re-probed" || ok "tombstoned slug was never re-probed"
+
+# Once a liveness probe succeeds, the local four-hour stamp avoids further API
+# reads until stale. The live fork's records remain untouched in either case.
+: > "$UNKNOWNLIST"; : > "$PROBELOG"
+GARDEN_FORKWATCH_LIVENESS_INTERVAL=14400 run_prov
+n_live="$(jcommits)"
+: > "$PROBELOG"
+GARDEN_FORKWATCH_LIVENESS_INTERVAL=14400 run_prov
+[ ! -s "$PROBELOG" ] && ok "fresh successful liveness stamp rate-limits re-probes" || bad "fresh liveness stamp did not rate-limit probes"
+[ -n "$(jtip repos/kriscendobot-inconclusive)" ] && [ -n "$(jtip comment-repos/kriscendobot-inconclusive)" ] \
+  && ok "live fully armed fork remains armed" || bad "live fully armed fork changed"
+[ "$(jcommits)" = "$n_live" ] && ok "live liveness probe does not mutate the journal" || bad "live liveness probe mutated the journal"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

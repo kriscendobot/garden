@@ -84,6 +84,10 @@
 #   GARDEN_FORK_CLONE_URL_BASE    clone-URL base for materialization
 #                                 (default ssh://git@github.com)
 #   GARDEN_FORKWATCH_MATERIALIZE  1 force on, 0 force off, empty → is_main_host
+#   GARDEN_FORKWATCH_LIVENESS_INTERVAL
+#                                 seconds between liveness probes for an already
+#                                 fully armed fork (default 14400 / four hours;
+#                                 0 probes on every tick, useful to tests)
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -104,7 +108,15 @@ GARDEN_TAG="fork-watch"
 : "${GARDEN_REPOS:=$GARDEN_ROOT/worktrees}"
 : "${GARDEN_FORK_CLONE_URL_BASE:=ssh://git@github.com}"
 : "${GARDEN_FORKWATCH_MATERIALIZE:=}"
+: "${GARDEN_FORKWATCH_LIVENESS_INTERVAL:=14400}"
 AUTH_MSG="msgs/broadcast/20260709T225552Z-e61229.md"
+
+case "$GARDEN_FORKWATCH_LIVENESS_INTERVAL" in
+  ''|*[!0-9]*)
+    log "WARN: GARDEN_FORKWATCH_LIVENESS_INTERVAL must be a non-negative number of seconds; using 14400"
+    GARDEN_FORKWATCH_LIVENESS_INTERVAL=14400
+    ;;
+esac
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -152,9 +164,12 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # a stale worktrees/kriscendobot-garden.git did after kriscendobot/garden was
 # deleted. Before arming a NOT-yet-armed own fork we therefore confirm the upstream
 # still exists with a cheap read-only `gh api repos/<owner>/<name>` (bot identity,
-# via the fleet gh wrapper). Already-armed forks never reach this check (DISCOVER
-# only probes slugs missing from the sets), so the cost is one API call per NEW
-# candidate, not per fork per tick.
+# via the fleet gh wrapper). Fully armed forks also need that check: their upstream
+# can be deleted later. To avoid probing every clone on every one-minute tick, each
+# host records a successful probe in its local state and revisits a fully armed fork
+# only once per four hours. A 404 is therefore self-healed within four hours plus
+# one tick; an inconclusive probe deliberately leaves no stamp, so it retries rather
+# than silently extending the interval.
 #
 # upstream_exists <owner> <name> — exit 0 exists, 1 upstream 404s (dead fork),
 # 2 the check itself was inconclusive (network/auth/rate-limit) so the caller
@@ -177,6 +192,23 @@ upstream_exists() {
   esac
 }
 
+liveness_probe_due() {  # liveness_probe_due <slug>
+  # State is deliberately per-host and untracked: it rate-limits API reads without
+  # creating journal churn or a cross-host CAS for every healthy fork.
+  local slug="$1" stamp="$GARDEN_STATE/fork-watch/liveness/$1" now stamp_mtime
+  [ "$GARDEN_FORKWATCH_LIVENESS_INTERVAL" -eq 0 ] && return 0
+  [ -f "$stamp" ] || return 0
+  now="$(date +%s)"
+  stamp_mtime="$(stat -c %Y "$stamp" 2>/dev/null || printf 0)"
+  [ $((now - stamp_mtime)) -ge "$GARDEN_FORKWATCH_LIVENESS_INTERVAL" ]
+}
+
+mark_liveness_probe() {  # mark_liveness_probe <slug>
+  local stamp="$GARDEN_STATE/fork-watch/liveness/$1"
+  mkdir -p "${stamp%/*}"
+  touch "$stamp"
+}
+
 write_dead_tombstone() {  # write_dead_tombstone <out-path> <owner/name>
   {
     printf '# watch-optout tombstone (auto — dead upstream)\n'
@@ -193,7 +225,7 @@ write_dead_tombstone() {  # write_dead_tombstone <out-path> <owner/name>
   } > "$1"
 }
 
-# --- 1. DISCOVER: local own-fork bare clones missing from the watch sets ------
+# --- 1. DISCOVER: local own-fork bare clones and upstream liveness ------------
 declare -a NEW=()
 declare -a DEAD=()
 shopt -s nullglob
@@ -203,24 +235,32 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
   owner_listed "$(slug_owner_lc "$slug")" || continue  # own forks ONLY
   [ -f "$bare/HEAD" ] || continue                      # not actually a bare repo
   tip_has "watch-optout/$slug" && continue             # deliberately unwatched — never re-add
-  if ! tip_has "repos/$slug" || ! tip_has "comment-repos/$slug"; then
-    # Confirm the upstream still exists before arming: a leftover clone of a
-    # DELETED/renamed fork would otherwise arm watchers that only ever FATAL
-    # (the kriscendobot/garden 404-flap class). 404 → auto-tombstone; an
-    # inconclusive check → defer, neither arm nor tombstone.
-    owner="${slug%%-*}"; name="${slug#*-}"
-    # Guarded capture (NOT a bare `upstream_exists ...; ur=$?`): a function that
-    # returns non-zero in bare-command position is a `set -e` exit at the call
-    # itself, which would kill the tick before we could classify 404 vs unknown.
-    if upstream_exists "$owner" "$name"; then ur=0; else ur=$?; fi
-    if [ "$ur" -eq 1 ]; then
-      log "WARN: $slug upstream ($owner/$name) 404s — NOT arming; auto-tombstoning watch-optout/$slug"
-      DEAD+=("$slug")
-      continue
-    elif [ "$ur" -eq 2 ]; then
-      log "WARN: $slug upstream check inconclusive — deferring arm to a later tick"
-      continue
-    fi
+  armed=""
+  if tip_has "repos/$slug" && tip_has "comment-repos/$slug"; then
+    armed=1
+    liveness_probe_due "$slug" || continue
+  fi
+  # Confirm the upstream before arming, and periodically after full arming: a
+  # leftover clone of a DELETED/renamed fork would otherwise arm (or continue to
+  # run) watchers that only ever FATAL. 404 → auto-tombstone; an inconclusive
+  # check → defer, neither arm nor tombstone.
+  owner="${slug%%-*}"; name="${slug#*-}"
+  # Guarded capture (NOT a bare `upstream_exists ...; ur=$?`): a function that
+  # returns non-zero in bare-command position is a `set -e` exit at the call
+  # itself, which would kill the tick before we could classify 404 vs unknown.
+  if upstream_exists "$owner" "$name"; then ur=0; else ur=$?; fi
+  if [ "$ur" -eq 1 ]; then
+    log "WARN: $slug upstream ($owner/$name) 404s — auto-tombstoning watch-optout/$slug"
+    DEAD+=("$slug")
+    continue
+  elif [ "$ur" -eq 2 ]; then
+    if [ -n "$armed" ]; then action="liveness recheck"; else action="arm"; fi
+    log "WARN: $slug upstream check inconclusive — deferring $action to a later tick"
+    continue
+  fi
+  if [ -n "$armed" ]; then
+    mark_liveness_probe "$slug"
+  else
     NEW+=("$slug")
   fi
 done
