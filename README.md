@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T05:19:25Z_
+_As of 2026-07-28T05:26:44Z_
 
 ## Latest
 
@@ -6358,14 +6358,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.8M | $463.26 _(notional, rate-card)_ | no quota set |
+| Claude | 34.9M | $465.86 _(notional, rate-card)_ | no quota set |
 | Codex | 18.5M _(+464.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (48)
+### doin (49)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
@@ -6398,6 +6398,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`esheets-supervisor-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/esheets-supervisor-20260728-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`fix-identity-drift-guard-test-inbox-leak`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-identity-drift-guard-test-inbox-leak.md) — identity-drift-guard's test posts REAL maintainer-inbox reports; the hermetic
 - [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — On endojs/endo-but-for-bots, check the CI status of https://github.com/endojs...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
