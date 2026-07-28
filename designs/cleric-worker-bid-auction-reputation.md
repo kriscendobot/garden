@@ -594,7 +594,20 @@ reputation/arms/<kind>/<provider>/<model>/<thoughtfulness>/<work_class>@<target>
   accepted on un-poisoned tada plus, when contested, maintainer word.
 - **Cost-censored samples** (usage capture failed): count toward the
   acceptance rate, excluded from the dollar mean, flagged in the projection
-  (`censored: n`) so a systematically-censoring backend is visible.
+  (`censored: n`) so a systematically-censoring backend is visible. The two
+  measurements are independent, and the projection keeps them apart: `attempts`
+  / `accepts` count **every** event, while `mean_dollars` / `m2` summarize only
+  the `attempts - censored` **cost samples**. `mean_dollars` stays
+  cost-per-accepted by dividing the cost-observed per-attempt mean by the
+  full-population acceptance rate. The bid draw is gated on **cost** samples,
+  not attempts: an arm with fewer than `cold_n` of them is cold however many
+  attempts it has, so a never-priced arm draws the wide prior (amortized by its
+  measured acceptance rate) rather than reading its zeroed mean as a $0
+  posterior and winning every auction on price. Today that is nearly the whole
+  fleet — only the `claude -p` handler captures a provider-computed
+  `total_cost_usd`; codex, Kimi and Ollama runs are all cost-censored — so
+  keeping acceptance learnable under censoring is what the arms actually
+  measure until the ledger widens.
 
 ### 4.6 Bootstrapping
 

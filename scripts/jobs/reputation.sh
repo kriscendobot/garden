@@ -33,7 +33,7 @@ REP_VERDICTS="$REP_ROOT/verdicts"    # optional per-base acceptance override (a 
 # --- config (all env-overridable; the journal rate-card/auction config, when it
 # exists, is layered on top by the reducer, but the DEFAULTS live here so the
 # system is self-contained and testable without any journal config present) ----
-: "${GARDEN_AUCTION_COLD_N:=5}"          # attempts below which an arm draws from the cold prior
+: "${GARDEN_AUCTION_COLD_N:=5}"          # COST samples below which an arm draws from the cold prior
 : "${GARDEN_REP_COLD_MEAN:=10}"          # cold-start prior mean, aggregate $ to a merge-worthy artifact
 : "${GARDEN_REP_COLD_SD:=20}"            # cold-start prior sd — WIDE so a cold arm explores (§3.3)
 : "${GARDEN_REP_VAR_FLOOR:=0.25}"        # variance floor for a thin-but-warm arm (sd >= 0.5)
@@ -66,30 +66,53 @@ rep_seed_uniform() {
   awk -v d="$d" 'BEGIN{ printf "%.10f", (d+0.5)/4294967296.0 }'
 }
 
-# rep_thompson_draw <attempts> <mean_dollars> <m2> <accepts> <seed-string>
+# rep_thompson_draw <attempts> <mean_dollars> <m2> <accepts> <seed-string> [cost_samples]
 # One deterministic Thompson-sampling draw from an arm's aggregate-dollar posterior
-# (§3.2 step 1). A COLD arm — fewer than cold_n attempts, or never yet accepted —
-# draws from the WIDE cold-start prior so it still occasionally draws lowest and
+# (§3.2 step 1). A COLD arm — fewer than cold_n COST samples, or never yet accepted
+# — draws from the WIDE cold-start prior so it still occasionally draws lowest and
 # wins a measuring job (exploration; §3.3). A WARM arm draws from a normal centered
 # on its cost-per-accepted mean, with variance inflated by the acceptance rate
 # (delta method: cost/accepted = per-attempt/rate, so var scales ~1/rate²), floored
 # for thin arms. The lower the draw, the cheaper-to-merge this arm looks THIS time.
 # Prints the drawn aggregate-dollar figure (floored at min_draw; dollars are > 0).
+#
+# COST evidence is counted SEPARATELY from ACCEPTANCE evidence. <cost_samples> is
+# how many of the attempts carried a usable dollar measurement (attempts minus the
+# projection's `censored:` count — rep_cost_samples); it defaults to <attempts> for
+# a caller with no censoring, so the 5-argument form is unchanged. The warm branch
+# is gated on COST samples and its variance divisor is the COST sample count, never
+# `attempts`: an arm whose cost is entirely censored has NO cost posterior, and
+# reading its zeroed mean/m2 as "this arm merges for $0.00" would make it win every
+# auction on price — the exact inverse of the frozen-arm defect. Such an arm draws
+# from the configured prior instead (the honest posterior when no cost has been
+# observed), amortized by its MEASURED acceptance rate the same way the warm branch
+# is (cost per accepted = cost per attempt / rate), so acceptance evidence still
+# moves an all-censored arm: it can never bid BELOW the prior on missing data, and a
+# rejection-prone arm bids above it. The amortization engages only once there IS
+# acceptance evidence (>= cold_n attempts with at least one accept); a brand-new arm
+# draws exactly the configured prior, as before.
 rep_thompson_draw() {
   local att="${1:-0}" mean="${2:-0}" m2="${3:-0}" acc="${4:-0}" seed="${5:-}"
+  local csn="${6:-${1:-0}}"
   local u1 u2
   u1="$(rep_seed_uniform "$seed" 1)"
   u2="$(rep_seed_uniform "$seed" 2)"
   awk -v att="$att" -v mean="$mean" -v m2="$m2" -v acc="$acc" -v u1="$u1" -v u2="$u2" \
+      -v csn="$csn" \
       -v cn="$GARDEN_AUCTION_COLD_N" -v cm="$GARDEN_REP_COLD_MEAN" -v csd="$GARDEN_REP_COLD_SD" \
       -v vf="$GARDEN_REP_VAR_FLOOR" -v md="$GARDEN_REP_MIN_DRAW" 'BEGIN{
     pi = 3.141592653589793;
-    if ((att+0) < (cn+0) || (acc+0) < 1) {
-      mu = cm+0; sd = csd+0;                     # cold prior — wide, explores
+    csn = csn+0; if (csn > (att+0)) csn = att+0; if (csn < 0) csn = 0;
+    rate = ((att+0) > 0)? (acc+0)/(att+0) : 0;
+    if (csn < (cn+0) || (acc+0) < 1) {
+      # No usable cost posterior (too few COST samples, or never accepted): the
+      # configured wide prior, amortized by the measured acceptance rate when there
+      # is enough of it. rp == 1 reproduces the plain prior exactly.
+      rp = ((att+0) >= (cn+0) && rate > 0)? rate : 1;
+      mu = (cm+0)/rp; sd = (csd+0)/rp;           # cold prior — wide, explores
     } else {
       mu = mean+0;
-      rate = (acc+0)/(att+0);
-      if ((att+0) >= 2) va = (m2+0)/((att+0)-1); else va = 0;
+      if (csn >= 2) va = (m2+0)/(csn-1); else va = 0;
       v = va/(rate*rate);                        # inflate per-attempt var by 1/rate²
       if (v < (vf+0)) v = vf+0;
       sd = sqrt(v);
@@ -206,6 +229,19 @@ rep_read_projection() {
     cen="$(plan_field "$f" censored)"
   fi
   printf '%s %s %s %s %s\n' "${att:-0}" "${acc:-0}" "${mean:-0}" "${m2:-0}" "${cen:-0}"
+}
+
+# rep_cost_samples <attempts> <censored> — how many of an arm's attempts carried a
+# usable dollar measurement, i.e. the sample count behind mean_dollars/m2. Derived
+# rather than stored so it can never disagree with the projection it summarizes.
+# Clamped into [0, attempts] so a projection left by an older reducer (which counted
+# only the uncensored events as `attempts`) can never yield a negative.
+rep_cost_samples() {
+  local att cen
+  att="$(printf '%s' "${1:-0}" | tr -dc '0-9')"; att="${att:-0}"
+  cen="$(printf '%s' "${2:-0}" | tr -dc '0-9')"; cen="${cen:-0}"
+  local n=$(( att - cen )); [ "$n" -ge 0 ] || n=0
+  printf '%s\n' "$n"
 }
 
 # --- agentic-dollar rollup (§4.4) --------------------------------------------

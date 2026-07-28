@@ -20,7 +20,9 @@
 #      into the aggregate, then move the event pending/ -> events/.
 #   2. RECOMPUTE the arm projections from the full events/ set (Welford per arm), so
 #      arms/<kind>/<provider>/<model>/<thoughtfulness>/<wc>@<target>.md always
-#      reflects every finalized event. Recompute-from-events (not incremental fold)
+#      reflects every finalized event — EVERY event, including a cost-censored one,
+#      which still moves attempts/accepts and is excluded only from the dollar
+#      estimators (see recompute_arms). Recompute-from-events (not incremental fold)
 #      keeps the projection a pure function of the event log — reproducible and
 #      auditable — and idempotent (an unchanged projection is a no-op commit).
 #
@@ -113,13 +115,27 @@ recompute_arms() {
   for mf in "$work"/*.meta; do
     armhash="$(basename "$mf" .meta)"
     { read -r kind; read -r provider; read -r model; read -r tht; read -r wc; read -r tgt; read -r rel; } < "$mf"
+    # ACCEPTANCE terms fold EVERY event; COST terms fold only the cost-OBSERVED
+    # ones. A censored sample is a missing COST measurement (the usage ledger was
+    # absent — rep_agentic_dollars fails open), and that must never discard the
+    # event's independent ACCEPTANCE measurement: design §4.5 — "cost-censored
+    # samples count toward the acceptance rate, are excluded from the dollar mean,
+    # and are flagged in the projection (`censored: n`)".
+    # mean_dollars stays cost-PER-ACCEPTED (failed attempts amortized): the
+    # cost-observed per-attempt mean divided by the full-population acceptance rate.
+    # With nothing censored (n == att) that reduces to the historical sumd/acc, and
+    # the n==att branch computes it that way EXACTLY, so an uncensored arm's file is
+    # byte-identical to before this change (no churn, and idempotence preserved).
+    # m2 stays the Welford sum over the cost-observed samples only; its sample count
+    # is therefore (attempts - censored), which is what rep_thompson_draw uses.
     stats="$(awk '
       { af=$1; d=$2;
+        att++; if (af=="true") acc++;
         if (d=="CENSORED") { cen++; next }
-        att++; delta=d-mean; mean+=delta/att; m2+=delta*(d-mean); sumd+=d;
-        if (af=="true") acc++;
+        n++; delta=d-mean; mean+=delta/n; m2+=delta*(d-mean); sumd+=d;
       }
-      END{ md = (acc>0)? sumd/acc : 0;
+      END{ rate = (att>0)? acc/att : 0;
+           md = (acc>0 && n>0)? ((n==att)? sumd/acc : (sumd/n)/rate) : 0;
            printf "%d %d %d %.6f %.6f\n", att+0, acc+0, cen+0, md, m2+0; }' "$work/$armhash.dat")"
     read -r att acc cen mean m2 <<<"$stats"
     mkdir -p "$DIR/$(dirname "$rel")"

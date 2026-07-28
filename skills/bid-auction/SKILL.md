@@ -25,7 +25,8 @@ zero or one worker bids.
   review); finalized by the reducer.
 - `reputation/arms/<kind>/<provider>/<model>/<thoughtfulness>/<wc>@<target>.md` —
   the derived projection (`attempts accepts mean_dollars m2 censored`), recomputed
-  **only** by the reducer.
+  **only** by the reducer. `attempts`/`accepts` count **every** event; the dollar
+  estimators summarize only the `attempts - censored` cost samples.
 - `reputation/rate-card.md`, `config/auction.md` — optional journal config layered
   over the env-var defaults baked into `reputation.sh` / `auction.sh`.
 - `reputation/verdicts/<base>` — optional acceptance override (a maintainer/PR
@@ -59,16 +60,28 @@ zero or one worker bids.
   is absent), acceptance = `true` for an internal `main2` job, else `pending`.
 - **Reduce** (`reputation-reduce.sh`, leader-only `garden-reputation-reducer`
   timer): finalize pending events (verdict override > internal-tada > leave), fold
-  every event into the arm projections (Welford; cost-per-accepted amortizes failed
-  attempts), the SOLE writer of `arms/`. Deterministic, no LLM (reviewer text is
+  every event — censored included — into the arm projections (Welford over the cost
+  samples; cost-per-accepted amortizes failed attempts by the full-population
+  acceptance rate), the SOLE writer of `arms/`. Deterministic, no LLM (reviewer text is
   only COUNTED). Idempotent — an unchanged event set is a no-op.
 
 ## Notes
 
-- **Cold start / no starvation**: an arm with `< cold_n` (default 5) attempts, or
-  never yet accepted, draws from a WIDE cold prior so it still occasionally wins a
-  measuring job (Thompson exploration); a confidently-cheap arm draws low and wins
+- **Cold start / no starvation**: an arm with `< cold_n` (default 5) COST samples,
+  or never yet accepted, draws from a WIDE cold prior so it still occasionally wins
+  a measuring job (Thompson exploration); a confidently-cheap arm draws low and wins
   the majority (exploitation). New clerics start cold and are explored, not starved.
+- **Censoring splits cost from acceptance.** `censored` means the cost ledger was
+  absent (fail-open), never that the run was withheld, so a censored event still
+  moves `attempts`/`accepts` and is excluded only from the dollar estimators — a
+  missing COST measurement must not discard the independent ACCEPTANCE measurement.
+  The cold gate counts COST samples (`attempts - censored`), so an arm that is never
+  priced draws the configured prior — amortized by its measured acceptance rate, so
+  a rejection-prone arm bids above it and no arm can ever bid below it on missing
+  data. Reading a zeroed `mean_dollars` as a posterior would bid the `$0.01` floor
+  and win every auction on price; that is the inverse failure and is guarded. Today
+  only the `claude -p` handler reports a provider-computed `total_cost_usd`, so
+  codex/Kimi/Ollama arms are censored on every run and learn acceptance only.
 - **Thoughtfulness (§5)**: today a worker commits to the arm it would actually run
   (executed == committed), so the auction competes arms ACROSS workers/kinds.
   Enumerating a thoughtfulness LADDER per unpinned job so the market learns the

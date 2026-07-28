@@ -94,12 +94,15 @@ auction_bidder_id() { rep_sanitize "${1:?}-${GARDEN}-${2:?}"; }
 # so it is reproducible from the journal alone.
 auction_bid_dollars() {
   local dir="$1" base="$2" bidder="$3" provider="$4" model="$5" tht="$6" wc="$7" tgt="$8"
-  local rel proj att acc mean m2 seed
+  local rel proj att acc mean m2 cen seed
   rel="$(rep_arm_relpath "${bidder%%-*}" "$provider" "$model" "$tht" "$wc" "$tgt")"
   proj="$(rep_read_projection "$dir" "$rel")"
-  read -r att acc mean m2 _cen <<<"$proj"
+  read -r att acc mean m2 cen <<<"$proj"
   seed="$base|$bidder|$provider/$model/$tht"
-  rep_thompson_draw "$att" "$mean" "$m2" "$acc" "$seed"
+  # The censored count is NOT discarded: it is what separates this arm's COST
+  # evidence from its ACCEPTANCE evidence, so an arm whose dollars were never
+  # measured draws from the prior instead of from a zeroed mean (rep_thompson_draw).
+  rep_thompson_draw "$att" "$mean" "$m2" "$acc" "$seed" "$(rep_cost_samples "$att" "$cen")"
 }
 
 # auction_write_bid <dir> <base> — ensure THIS worker (GARDEN_WORKER_KIND / the id

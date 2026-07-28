@@ -11,6 +11,9 @@
 #                 (the completion push carries it; garden-internal main2 -> accepted).
 #   REDUCER     — the reducer folds events into arm projections (Welford: attempts,
 #                 accepts, mean cost-per-accepted, m2, censored) and is idempotent.
+#   CENSORED    — a cost-censored event still moves attempts/accepts (only the cost
+#                 estimators skip it), and an arm whose cost was NEVER measured
+#                 draws the prior rather than a $0 posterior.
 #   COLD-START  — a bidder with no history bids from the wide cold prior (no crash,
 #                 no rich-get-richer: it still wins a share of jobs).
 #   RACE-DEGEN  — a `market: bid` job with ONE bidder degenerates to a single claim;
@@ -172,6 +175,108 @@ env GARDEN=rh GARDEN_STATE="$TR/state2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=jo
     "$JOBS/reputation-reduce.sh" > "$TR/r2.log" 2>&1 || true
 V2="$TR/v2"; verify_clone "$BARE" "$V2"
 [ "$(git -C "$V2" rev-parse HEAD)" = "$before" ] && ok "reducer idempotent (no new commit on unchanged events)" || bad "reducer churned an unchanged event set"
+rm -rf "$TR"
+
+# ============================================================================
+hr; echo "CENSORED — a cost-censored event still moves acceptance; cost stays unknown"; hr
+# A censored sample is a missing COST measurement (the usage ledger was absent), not
+# a withheld acceptance. Design §4.5: it counts toward the acceptance rate, is
+# excluded from the dollar mean, and is flagged as `censored:`. Two arms:
+#   MIXED  — 5 events: 3 censored (2 accepted, 1 rejected) + $4 accepted + $10
+#            rejected. attempts=5 accepts=3 censored=3, cost samples=2.
+#            mean cost-per-accepted = (per-attempt (4+10)/2=7) / (rate 3/5=0.6) = 11.666667
+#   FROZEN — 6 events, ALL censored, ALL accepted (the shape of every live
+#            moonshot/kimi-k3 and openai/codex arm, whose CLIs emit no usage
+#            ledger). Before this fix it read attempts=0 accepts=0 rate 0.0000.
+TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-censor.XXXXXX")"
+BARE="$(seed_board "$TR" cenjob)"
+SEED="$TR/inj"; verify_clone "$BARE" "$SEED"
+mixed_rel="reputation/arms/gardener/anthropic/claude-opus-4-8/high/fix-m@main2.md"
+frozen_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/gardener-s@main2.md"
+mkcev() { # mkcev <base> <model> <thoughtfulness> <work_class> <kind> <provider> <accepted> <aggregate>
+  cat > "$SEED/reputation/events/$1.md" <<EOF
+---
+base: $1
+kind: $5
+provider: $6
+model: $2
+thoughtfulness: $3
+work_class: $4
+target: main2
+accepted: $7
+agentic_dollars: $8
+human_dollars: 0
+aggregate_dollars: $8
+attempts: 1
+source: live
+---
+injected
+EOF
+}
+mkcev m1 claude-opus-4-8 high fix:m gardener anthropic true censored
+mkcev m2 claude-opus-4-8 high fix:m gardener anthropic true censored
+mkcev m3 claude-opus-4-8 high fix:m gardener anthropic false censored
+mkcev m4 claude-opus-4-8 high fix:m gardener anthropic true 4
+mkcev m5 claude-opus-4-8 high fix:m gardener anthropic false 10
+for i in 1 2 3 4 5 6; do mkcev "k$i" kimi-k3 medium gardener:s mystic moonshot true censored; done
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m inject-censored; git -C "$SEED" push -q origin journal2
+env GARDEN=ch GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+    "$JOBS/reputation-reduce.sh" > "$TR/c.log" 2>&1 || true
+V="$TR/v"; verify_clone "$BARE" "$V"
+if [ -f "$V/$mixed_rel" ]; then
+  read -r att acc mean m2 cen <<<"$(rep_read_projection "$V" "$mixed_rel")"
+  [ "$att" = 5 ] && [ "$acc" = 3 ] && [ "$cen" = 3 ] \
+    && ok "mixed arm: censored events counted in attempts/accepts (att=5 acc=3 cen=3)" \
+    || bad "mixed arm attempts/accepts/censored wrong (att=$att acc=$acc cen=$cen)"
+  awk -v m="$mean" 'BEGIN{exit !(m>11.66 && m<11.67)}' \
+    && ok "mixed arm: cost-per-accepted \$11.666667 from the 2 COST samples only (\$14/2 divided by rate 0.6)" \
+    || bad "mixed arm mean wrong ($mean, expected 11.666667)"
+  [ "$(plan_field "$V/$mixed_rel" acceptance_rate)" = "0.6000" ] \
+    && ok "mixed arm: acceptance_rate 0.6000 over ALL 5 attempts" \
+    || bad "mixed arm acceptance_rate ($(plan_field "$V/$mixed_rel" acceptance_rate))"
+  [ "$(rep_cost_samples "$att" "$cen")" = 2 ] && ok "rep_cost_samples = attempts - censored = 2" || bad "rep_cost_samples wrong"
+else
+  bad "reducer wrote no mixed arm (c.log: $(tail -3 "$TR/c.log" | tr '\n' '|'))"
+fi
+if [ -f "$V/$frozen_rel" ]; then
+  read -r fatt facc fmean fm2 fcen <<<"$(rep_read_projection "$V" "$frozen_rel")"
+  { [ "$fatt" = 6 ] && [ "$facc" = 6 ] && [ "$fcen" = 6 ]; } \
+    && ok "all-censored arm UNFROZEN: att=6 acc=6 cen=6 (was att=0 acc=0)" \
+    || bad "all-censored arm still frozen (att=$fatt acc=$facc cen=$fcen)"
+  [ "$(plan_field "$V/$frozen_rel" acceptance_rate)" = "1.0000" ] \
+    && ok "all-censored arm: acceptance_rate 1.0000 reflects the real successes (was 0.0000)" \
+    || bad "all-censored acceptance_rate ($(plan_field "$V/$frozen_rel" acceptance_rate))"
+  awk -v m="$fmean" -v s="$fm2" 'BEGIN{exit !(m==0 && s==0)}' \
+    && ok "all-censored arm: cost estimators stay 0/unknown (no dollars were observed)" \
+    || bad "all-censored arm invented cost evidence (mean=$fmean m2=$fm2)"
+  # THE COST-SIDE GUARD: with 6 attempts and 6 accepts the arm is past cold_n on
+  # ACCEPTANCE, so reading its zeroed mean as a posterior would bid the $0.01 floor
+  # and win every auction on price. Cost samples = 0 must send it to the prior.
+  lo=1e9; hi=-1e9; sum=0; n=0
+  for s in a b c d e f g h i j k l m n o p; do
+    v="$(rep_thompson_draw "$fatt" "$fmean" "$fm2" "$facc" "cen$s" "$(rep_cost_samples "$fatt" "$fcen")")"
+    lo="$(awk -v a="$lo" -v b="$v" 'BEGIN{print (b<a)?b:a}')"
+    hi="$(awk -v a="$hi" -v b="$v" 'BEGIN{print (b>a)?b:a}')"
+    sum="$(awk -v a="$sum" -v b="$v" 'BEGIN{printf "%.6f", a+b}')"; n=$((n+1))
+  done
+  avg="$(awk -v s="$sum" -v n="$n" 'BEGIN{printf "%.4f", s/n}')"
+  awk -v a="$avg" -v hi="$hi" -v lo="$lo" 'BEGIN{exit !(a>3 && (hi-lo)>10)}' \
+    && ok "cost-unknown arm draws the WIDE prior (mean \$$avg, range \$$lo..\$$hi) — never a \$0 bid" \
+    || bad "cost-unknown arm draw collapsed (mean $avg range $lo..$hi)"
+  # and the unguarded reading (cost samples defaulted to attempts) really would.
+  naive="$(rep_thompson_draw "$fatt" "$fmean" "$fm2" "$facc" "cena")"
+  awk -v x="$naive" 'BEGIN{exit !(x<1)}' \
+    && ok "control: the same arm read WITHOUT the censored split bids \$$naive (the failure this guards)" \
+    || bad "control draw unexpectedly high ($naive)"
+else
+  bad "reducer wrote no all-censored arm"
+fi
+# still idempotent with censored events in the set.
+before="$(git -C "$V" rev-parse HEAD)"
+env GARDEN=ch GARDEN_STATE="$TR/state2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+    "$JOBS/reputation-reduce.sh" > "$TR/c2.log" 2>&1 || true
+V2="$TR/v2"; verify_clone "$BARE" "$V2"
+[ "$(git -C "$V2" rev-parse HEAD)" = "$before" ] && ok "reducer idempotent over a censored event set" || bad "reducer churned a censored event set"
 rm -rf "$TR"
 
 # finalize: a PENDING PR-target event is finalized by a verdict override, and the
