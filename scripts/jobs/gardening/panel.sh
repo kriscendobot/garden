@@ -116,6 +116,47 @@ case "$panel_kind" in
   *)            seats="$GARDEN_CODE_SEATS" ;;
 esac
 
+# --- durable panel-run record (best-effort; never fatal) --------------------
+# The panel's per-seat prose is scratch: GARDEN_PANEL_RUNDIR is torn down with the
+# job's worktree, so nothing durable records which seats reviewed which PR, how
+# many fix-loop rounds it took, or what the must-fix items were. On termination —
+# pass, the max-rounds bound, or any fail — we push ONE COMPACT record per run to
+# the journal via a separate DETERMINISTIC writer (no `claude -p`; the single-
+# writer discipline of reputation.sh / review-miss-record.sh). It is invoked
+# BEST-EFFORT: a failed journal push WARNs and never fails the panel or blocks an
+# un-draft. Set GARDEN_PANEL_RECORD=: to skip it (tests that do not want a push).
+PANEL_RECORD_WRITER="${GARDEN_PANEL_RECORD:-$HERE/../panel-run-record.sh}"
+PANEL_RECORD_REPO="${GARDEN_PANEL_REPO:-}"
+if [ -z "$PANEL_RECORD_REPO" ]; then
+  PANEL_RECORD_REPO="$(git -C "$wt" remote get-url origin 2>/dev/null \
+    | sed -E 's#^git@[^:]+:##; s#^https?://[^/]+/##; s#\.git$##')" || PANEL_RECORD_REPO=""
+  [ -n "$PANEL_RECORD_REPO" ] || PANEL_RECORD_REPO="$(basename "$wt")"
+fi
+PANEL_DISPOSITION=error            # overwritten at each terminal path (default: unexpected exit)
+PANEL_APPELLATE_RAN=0
+PANEL_APPELLATE_COUNT=0
+
+# emit_panel_record — assemble record-meta from the accumulated facts and invoke
+# the writer. Fully defensive: every step is guarded so this can never fail the
+# panel (it runs from an EXIT trap that restores the real exit code).
+emit_panel_record() {
+  [ -n "$PANEL_RECORD_WRITER" ] && [ "$PANEL_RECORD_WRITER" != ":" ] || return 0
+  [ -e "$PANEL_RECORD_WRITER" ] || return 0
+  {
+    echo "repo=$PANEL_RECORD_REPO"
+    echo "pr=$pr"
+    echo "panel_kind=${panel_kind%-panel}"
+    echo "base_ref=$base"
+    echo "disposition=$PANEL_DISPOSITION"
+    echo "appellate_ran=$PANEL_APPELLATE_RAN"
+    echo "appellate_count=$PANEL_APPELLATE_COUNT"
+  } > "$GARDEN_PANEL_RUNDIR/record-meta" 2>/dev/null || return 0
+  bash "$PANEL_RECORD_WRITER" emit "$GARDEN_PANEL_RUNDIR" >/dev/null 2>>"$GARDEN_PANEL_RUNDIR/record.log" || true
+  return 0
+}
+# shellcheck disable=SC2154   # rc IS assigned (rc=$?) inside the trap string
+trap 'rc=$?; emit_panel_record || true; exit $rc' EXIT
+
 # --- DECISION HOOK: a single juror seat's review ----------------------------
 # Shells one `claude -p` per seat, briefing it with the seat's AGENT.md and the
 # PR diff. Returns the seat's verdict block on stdout; the caller files it under
@@ -267,11 +308,16 @@ round=0
 while :; do
   round=$((round + 1))
   if [ "$round" -gt "$GARDEN_PANEL_MAX_ROUNDS" ]; then
+    PANEL_DISPOSITION="max-rounds-exceeded"
     fail "panel did not converge in $GARDEN_PANEL_MAX_ROUNDS rounds"
   fi
 
   agg="$GARDEN_PANEL_RUNDIR/round-$round.md"
   : > "$agg"
+  # Record the head sha under review THIS round for the durable panel-run record
+  # (the worktree HEAD moves as the fixer pushes, so it must be captured per round,
+  # not reconstructed after the fact). Best-effort; a non-git worktree leaves it empty.
+  git -C "$wt" rev-parse HEAD 2>/dev/null > "$GARDEN_PANEL_RUNDIR/round-$round.head" || true
   attempts="${GARDEN_PANEL_SEAT_ATTEMPTS:-3}"
 
   # FAN: launch up to GARDEN_PANEL_CONCURRENCY seats at a time. `wait -n` frees a
@@ -298,8 +344,8 @@ while :; do
     block="$GARDEN_PANEL_RUNDIR/round-$round.$seat.md"
     case "$(cat "$block.status" 2>/dev/null || true)" in
       ok)   ;;
-      fail) fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)" ;;
-      *)    fail "seat $seat (fan-out died before reporting a verdict; stderr in $block.stderr)" ;;
+      fail) PANEL_DISPOSITION="seat-error"; fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)" ;;
+      *)    PANEL_DISPOSITION="seat-error"; fail "seat $seat (fan-out died before reporting a verdict; stderr in $block.stderr)" ;;
     esac
     { echo "### $seat"; cat "$block"; echo; } >> "$agg"
   done
@@ -333,9 +379,18 @@ while :; do
     pass)
       # terminating round: appellate pass (advisory), then un-draft, then exit.
       appellate_pass "$agg" > "$GARDEN_PANEL_RUNDIR/appellate.md" || true
+      # Record whether the appellate actually ran (skipped when GARDEN_PANEL_APPELLATE
+      # is `:`), and a best-effort proposal count from its bullet/numbered lines.
+      if [ "${GARDEN_PANEL_APPELLATE:-}" != ":" ]; then
+        PANEL_APPELLATE_RAN=1
+        PANEL_APPELLATE_COUNT="$(grep -cE '^[[:space:]]*([-*]|[0-9]+[.)])[[:space:]]' \
+          "$GARDEN_PANEL_RUNDIR/appellate.md" 2>/dev/null || echo 0)"
+      fi
+      PANEL_DISPOSITION="passed"
       undraft
       break ;;
     *)
+      PANEL_DISPOSITION="decider-error"
       fail "disposition (decider returned neither 'must-fix' nor 'pass' twice)" ;;
   esac
 done

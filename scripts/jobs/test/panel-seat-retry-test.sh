@@ -63,6 +63,7 @@ run_panel() {  # run_panel <succeed-at> <rundir> <counter>  -> panel.sh exit cod
   GARDEN_PANEL_UNDRAFT="true" \
   GARDEN_PANEL_SEAT_ATTEMPTS=3 \
   GARDEN_PANEL_SEAT_BACKOFF=0 \
+  GARDEN_PANEL_RECORD=":" \
   GARDEN_PANEL_RUNDIR="$2" \
     bash "$PANEL" "$TR/wt" 999 HEAD~1
 }

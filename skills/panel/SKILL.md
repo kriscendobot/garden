@@ -57,6 +57,8 @@ runnable non-interactively):
 | `GARDEN_PANEL_FIXER` | pluggable: project fixer invocation on non-terminating rounds (default no-op `true`). |
 | `GARDEN_PANEL_UNDRAFT` | pluggable: the terminal un-draft call, e.g. `gh pr ready` (default no-op `true`). |
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
+| `GARDEN_PANEL_RECORD` | the durable-record writer (default `scripts/jobs/panel-run-record.sh`; set `:` to skip the journal push). |
+| `GARDEN_PANEL_REPO` | `<owner>/<repo>` for the record's store key (default: derived from the worktree's `origin`, else the worktree basename). |
 | `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); this is what makes the 28-seat panel fit a handler budget. |
 | `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
@@ -69,6 +71,23 @@ the script holds no cross-invocation state. Each run's per-seat verdicts and
 per-round aggregates land in `GARDEN_PANEL_RUNDIR` on disk; the supervisor reads
 that directory only when it wants detail. Quiet-on-success means the routine
 case never flows into the supervisor's window.
+
+**One durable artifact escapes the rundir: the compact panel-run record.** The
+rundir is scratch — torn down with the job's worktree — so on termination (pass,
+the max-rounds bound, or a fail) the script BEST-EFFORT pushes ONE compact record
+per run to `panel-runs/<owner>-<repo>-<pr>/<run-id>.md` on `journal2`, via a
+separate deterministic writer (`scripts/jobs/panel-run-record.sh`; no `claude -p`,
+single-writer CAS discipline like `reputation.sh`). The record carries only the
+`repo` / `pr` / `panel_kind` / `base_ref`, the round count and terminal
+disposition, per round the seat list with a **verdict class only** (never the
+seat's prose) and the must-fix item count with a **truncated** title per item
+(≤120 chars, ≤20/round), whether the appellate ran and its proposal count, and a
+reserved `epoch:` field for `designs/evaluation-epochs-panel-calibration.md`. It
+is deliberately compact so thousands of runs do not bloat `journal2`, and it is
+best-effort: a failed push WARNs and never fails the panel or blocks an un-draft.
+This is the substrate that lets the garden audit its own evaluator (how many
+rounds a PR takes, which must-fix items recur) from the journal — evidence that
+was previously deleted with the worktree.
 
 ## Procedure
 
@@ -112,6 +131,8 @@ case never flows into the supervisor's window.
 - **Failure:** a loud `panel #<N>: FAILED at <stage>` on stderr, non-zero exit.
 - **Detail (on disk, not stdout):** `GARDEN_PANEL_RUNDIR/round-<r>.md` aggregates,
   `round-<r>.<seat>.md` per-seat blocks, and `appellate.md` proposals.
+- **Durable (on `journal2`, not stdout):** one compact `panel-runs/<owner>-<repo>-<pr>/<run-id>.md`
+  record per run (see § State), pushed best-effort on termination.
 
 ## Mapping the v1 roles onto v2 stages
 
