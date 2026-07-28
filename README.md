@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:48:43Z_
+_As of 2026-07-28T07:49:06Z_
 
 ## Latest
 
@@ -1946,8 +1946,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.8M | $536.61 _(notional, rate-card)_ | no quota set |
-| Codex | 426.1M _(+423.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 43.9M | $538.10 _(notional, rate-card)_ | no quota set |
+| Codex | 425.9M _(+423.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (42)
@@ -2102,6 +2102,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
+- [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endor-debugger-cdp-devtools-investigation.md) — _normal_ · Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
 - [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
