@@ -3351,3 +3351,12 @@ Inspect via `git -C journal cat-file -p 775578d0411d012c3e156070ac449ffa9c36ef1e
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' exit-0-unsatisfying but elapsed near-constant (111,111s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p e36c34157f63603ae07a48bd4785ada1aeac9e1a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:53:06Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1eb7d1d2231589cc7c9c350b4860732ba3434526
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr882-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1eb7d1d2231589cc7c9c350b4860732ba3434526`.
