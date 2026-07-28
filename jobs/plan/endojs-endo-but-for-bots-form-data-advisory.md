@@ -79,4 +79,5 @@ Commenting on this repository is covered by the standing authorization
 (`journal/projects/endo-but-for-bots/README.md` § Standing authorizations).
 
 
-<!-- garden-deadline-overrun: 1 -->
+
+<!-- garden-unpoisoned: endojs-endo-but-for-bots-form-data-advisory; spurious elapsed-constancy self-sample poison (fixed in main2 4a87fc7729); no real deadline overrun ever occurred -->
