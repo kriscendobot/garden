@@ -462,3 +462,12 @@ Inspect via `git -C journal cat-file -p 935acd373f48faef7f877e16bf4a4085d449f233
 - Context: gardener-1 on ps23: job 'endo-git-integration-press-20260728-004711' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 0b9a29e74ed61c81072d807fe89339e35217ae73`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: da838c8853e3db2259410a07ec4347bda93b61fd
+- Context: gardener-5 on ps23: job 'ocapn-noise-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p da838c8853e3db2259410a07ec4347bda93b61fd`.
