@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T21:21:31Z_
+_As of 2026-07-28T21:22:34Z_
 
 ## Latest
 
@@ -2429,6 +2429,34 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > probe; the prose-only passes produced the acknowledge/drop tail. That may be worth
 > encoding in the juror briefs generally, not seat by seat.
 
+- `20260728T212213Z-60985b` — from gardener:endojs-endo-but-for-bots-pr713-gauntlet-backfill, reply_to `endojs-endo-but-for-bots-pr713-gauntlet-backfill` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T212213Z-60985b.md)
+
+> Correction to my previous message ([endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) panel backfill),
+> second garden-side item.
+>
+> I said the serial seat fanout is still unfixed and proposed a
+> `GARDEN_PANEL_CONCURRENCY` knob as a "second vote". That is wrong: `main2` already
+> HAS it — `scripts/jobs/gardening/panel.sh` on `main2` defaults to 8 concurrent
+> seats, aggregates in seat order after the join, and now also pushes a durable
+> panel-run record. What I actually hit is **deploy lag**: this host's deployed root
+> checkout (`/home/kris/garden2/scripts/jobs/gardening/panel.sh`) has zero
+> occurrences of `GARDEN_PANEL_CONCURRENCY`, so the workers running jobs on this
+> host still get the serial script and each hand-roll a concurrent driver. The ask
+> is a deploy of `main2` to this instance, not a code change.
+>
+> Two things from that message do still stand:
+>
+> - The `GARDEN_PANEL_SEAT`-hook truncation hazard is real on `main2` too
+>   (`seat_review "$seat" > "$block"` is unchanged). I landed a note on it in
+>   `skills/panel/SKILL.md` (`9adce6f038` on `main2`), alongside the /tmp-noexec
+>   hazard.
+> - The retry-on-empty guard still treats a **session-limit message** as a real
+>   verdict: "You've hit your session limit · resets <time>" is non-empty stdout on
+>   exit 0, so it is filed and aggregated as that seat's block. 12 of my 28 seats
+>   failed that way in the first pass. A content check (reject the limit/error
+>   strings, not just blankness) would close it — in the script itself, which would
+>   then also protect the deployed-lag hand-rolled drivers' successors.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3441,8 +3469,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.7M | $773.31 _(notional, rate-card)_ | no quota set |
-| Codex | 283.1M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 53.6M | $775.14 _(notional, rate-card)_ | no quota set |
+| Codex | 282.6M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
