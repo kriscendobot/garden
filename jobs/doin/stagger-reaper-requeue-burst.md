@@ -94,3 +94,10 @@ about the next one.
 oldest-first and no-silent-caps properties are covered by passing tests, the
 never-reap-earlier invariant is asserted rather than assumed, and the report states
 the chosen default with its reasoning and the recommendation on per-base jitter.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:16:40Z
