@@ -804,3 +804,12 @@ Inspect via `git -C journal cat-file -p 033e6398ecbf1b5dab1ed139b41bc91a67960e37
 - Context: gardener-6 on ps23: job 'migrate-garden-origins-to-kriscendobot' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 9ad2f846c0e92305349e119cfc82246455fd694e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:43:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 19f5a93795e6c3872c00cf7eaef157ba49349ecb
+- Context: gardener-6 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 19f5a93795e6c3872c00cf7eaef157ba49349ecb`.
