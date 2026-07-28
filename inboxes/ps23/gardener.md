@@ -480,3 +480,12 @@ Inspect via `git -C journal cat-file -p da838c8853e3db2259410a07ec4347bda93b61fd
 - Context: gardener-6 on ps23: job 'endo-byte-array-press-20260728-004711' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 69d6b732a58373a49835457405f62e77a1cf9da1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 172c1deeca345a7d17a6dd6b8b47ce48cd18950c
+- Context: gardener-5 on ps23: job 'endo-sturdyref-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 172c1deeca345a7d17a6dd6b8b47ce48cd18950c`.
