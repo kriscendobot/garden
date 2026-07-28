@@ -70,6 +70,7 @@ Commenting on this repository is covered by the standing authorization
 
 <!-- garden-unpoisoned: endojs-endo-but-for-bots-form-data-advisory; spurious elapsed-constancy self-sample poison (fixed in main2 4a87fc7729); no real deadline overrun ever occurred -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
