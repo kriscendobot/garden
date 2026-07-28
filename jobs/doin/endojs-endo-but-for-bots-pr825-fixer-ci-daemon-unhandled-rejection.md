@@ -7,3 +7,10 @@ Failure inventory:
 - Rerun job 90213778460: packages/daemon/test/ws-relay.test.js:361-425 reports an unhandled rejection `Timed out opening relay channel to dead...`; the asserted test passes, but AVA fails @endo/daemon#test. The ws-relay test is identical to parent origin/daemon-store-phase3-weak-ertp-74931b9, while this PR changes daemon collection-store code and tests.
 
 Investigate the macOS/Node 22 daemon-test interaction and apply a real fix. Do not suppress the test or bypass safety checks. CI evidence: https://github.com/endojs/endo-but-for-bots/actions/runs/30330210988/job/90213778460
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:21:09Z
