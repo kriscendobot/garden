@@ -300,3 +300,12 @@ Inspect via `git -C journal cat-file -p 29ba845638794955a1557e128edbc67f8c38360e
 - Context: gardener-5 on ps23-garden-f65473ae: job 'gnome-backend-autotune-build' transient-classified (rc=1) but elapsed near-constant (281,281s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 2455c1203465b7aab550fac76aa7b515e2a1fc1b`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-28T21:08:43Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 8ac8537fc88f00132439cd0e21806c95166529de
+- Context: gardener-8 on ps23-garden-f65473ae: job 'measure-requeue-exit-knowledge-loss' transient-classified (rc=1) but elapsed near-constant (299,299s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 8ac8537fc88f00132439cd0e21806c95166529de`.
