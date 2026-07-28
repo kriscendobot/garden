@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: fireworks-glm52-kimik3
-priority: normal
-posted_by: producer
-posted_at: 2026-07-28T07:15:28Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T07:25:08Z -->
 
 # Wire GLM 5.2 and Kimi K3 into the fireworker route
 
