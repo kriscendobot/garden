@@ -4,7 +4,12 @@ set -euo pipefail
 case "$(basename "$0")" in
   curl)
     echo "$*" >>"$OLLAMA_TEST_CTL/curl-calls"
-    [ -f "$OLLAMA_TEST_CTL/endpoint-up" ]
+    [ -f "$OLLAMA_TEST_CTL/endpoint-up" ] || exit 22
+    if [ -f "$OLLAMA_TEST_CTL/endpoint-empty" ]; then
+      printf '{"object":"list","data":[]}\n'
+    else
+      printf '{"object":"list","data":[{"id":"qwen3.6:latest"}]}\n'
+    fi
     ;;
   ollama)
     echo "$*" >>"$OLLAMA_TEST_CTL/ollama-calls"

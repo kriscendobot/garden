@@ -10,9 +10,10 @@
 # Seconds to poll a just-(re)started local endpoint for readiness before giving up.
 : "${GARDEN_OLLAMA_HEAL_TIMEOUT:=30}"
 
-# codex_local_endpoint_ready — one bounded probe of the local /v1/models endpoint.
-# True (0) when it answers. Isolated so the preflight and the self-heal poll agree.
-codex_local_endpoint_ready() {
+# codex_local_endpoint_responds — one bounded HTTP probe of the local /v1/models
+# endpoint. A response alone is not readiness because Ollama returns HTTP 200 with an
+# empty model list for an empty store.
+codex_local_endpoint_responds() {
   curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null 2>&1
 }
 
@@ -33,18 +34,24 @@ codex_local_model_present() {
   ' <<<"$models" >/dev/null
 }
 
+# codex_local_endpoint_ready <model> — readiness for a pinned local worker means its
+# requested model is present, not merely that an HTTP listener returned 200.
+codex_local_endpoint_ready() {
+  codex_local_model_present "${1:?model}"
+}
+
 # codex_local_self_heal <kind> <base> — recover an unreachable local endpoint: start
 # the supervised garden-ollama.service (Restart=always covers a crash BETWEEN jobs;
 # this covers "the endpoint was already down when a hermit job started", plus a
-# first-ever start), then poll /v1/models for readiness. Returns 0 as soon as the
-# endpoint answers, 1 if it is still down after GARDEN_OLLAMA_HEAL_TIMEOUT seconds.
+# first-ever start), then poll /v1/models for the pinned model. Returns 0 as soon as
+# the model is present, 1 if it remains unavailable after GARDEN_OLLAMA_HEAL_TIMEOUT.
 codex_local_self_heal() {
-  local kind="${1:?kind}" base="${2:?base}" waited=0
-  log "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL unreachable for $kind '$base'; starting garden-ollama.service and polling ~${GARDEN_OLLAMA_HEAL_TIMEOUT}s for readiness"
+  local kind="${1:?kind}" base="${2:?base}" model="${3:?model}" waited=0
+  log "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL does not serve '$model' for $kind '$base'; starting garden-ollama.service and polling ~${GARDEN_OLLAMA_HEAL_TIMEOUT}s for the pinned model"
   systemctl --user start garden-ollama.service >/dev/null 2>&1 || true
   while [ "$waited" -lt "$GARDEN_OLLAMA_HEAL_TIMEOUT" ]; do
-    if codex_local_endpoint_ready; then
-      log "local inference endpoint recovered after ~${waited}s of self-heal"
+    if codex_local_endpoint_ready "$model"; then
+      log "local inference endpoint recovered after ~${waited}s of self-heal with '$model'"
       return 0
     fi
     sleep 1; waited=$((waited + 1))
@@ -81,20 +88,12 @@ codex_provider_preflight() {
     # PER-JOB liveness (NOT the per-boot marker): probe now; self-heal only if the
     # caller requested it (a pinned hermit tick), else fail through for the caller
     # (the foreman) to try the next provider.
-    if codex_local_endpoint_ready; then
-      if codex_local_model_present "$model"; then
-        return 0
-      fi
-      printf "local endpoint reachable but model '%s' not pulled; run 'ollama pull %s' (see context/operations/local-inference-amd.md).\n" \
-        "$model" "$model" >&2
-      return 1
-    fi
-    if [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base"; then
-      if codex_local_model_present "$model"; then
-        return 0
-      fi
-      printf "local endpoint reachable but model '%s' not pulled; run 'ollama pull %s' (see context/operations/local-inference-amd.md).\n" \
-        "$model" "$model" >&2
+    if codex_local_endpoint_ready "$model"; then return 0; fi
+    if [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base" "$model"; then return 0; fi
+    if codex_local_endpoint_responds; then
+      local msg="local inference endpoint $GARDEN_LOCAL_OLLAMA_URL serves no $model; $kind cannot run '$base'. Ensure garden-ollama.service owns the port and pull $model into the bot user's store."
+      alert_maintainer "ollama-model-less-endpoint-${GARDEN}" "$msg"
+      printf '%s\n' "$msg" >&2
       return 1
     fi
     printf 'local inference endpoint %s not reachable%s; %s cannot run %q. Ensure garden-ollama.service is running (ollama on PATH, GPU group access — context/operations/local-inference-amd.md).\n' \

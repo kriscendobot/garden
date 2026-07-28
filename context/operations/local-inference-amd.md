@@ -171,7 +171,9 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 > Do **not** hand-run `ollama serve &` in production — the endpoint is now a
 > supervised systemd `--user` unit, `garden-ollama.service` (source
 > `scripts/systemd/garden-ollama.service`, wrapper `scripts/jobs/ollama-serve.sh`),
-> with `Restart=always` so a crash self-restarts. It is enabled **only on hosts that
+> with `Restart=always` so a crash self-restarts. It is the **only** unit permitted to
+> serve `:11434`: the installer-created system `ollama.service` remains disabled.
+> It is enabled **only on hosts that
 > declare hermits** (`hermits: N>0` in `hosts/<host>` → `install-units.sh scale
 > hermit N` enables it; a zero-hermit host never does) and derives its `OLLAMA_HOST`
 > from `GARDEN_LOCAL_OLLAMA_URL` (via `ollama_serve_host`, `common.sh`) so the served
@@ -179,7 +181,8 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 > additionally **self-heals** a down endpoint: its per-job preflight
 > (`codex-provider-common.sh`) starts this unit and polls `/v1/models` for readiness
 > before failing, so a pinned `model: qwen3.6` tick never strands on a crashed or
-> never-started endpoint (§ 6 Durability). The manual line below is the underlying
+> never-started endpoint (§ 6 Durability). A zero-hermit host enables neither unit and
+> serves no local inference at all. The manual line below is the underlying
 > invocation the unit runs, kept for a one-off smoke test:
 
 ```sh
@@ -550,7 +553,9 @@ endpoint is no longer a hand-run `OLLAMA_IGPU_ENABLE=1 ollama serve &`; it is a
 supervised systemd `--user` unit — `scripts/systemd/garden-ollama.service`, whose
 `ExecStart` is the thin wrapper `scripts/jobs/ollama-serve.sh` (sets the mandatory
 `OLLAMA_IGPU_ENABLE=1` and derives `OLLAMA_HOST` from `GARDEN_LOCAL_OLLAMA_URL` via
-`ollama_serve_host`, so the served and client endpoints cannot drift). `Restart=always`
+`ollama_serve_host`, so the served and client endpoints cannot drift). The image does
+**not** enable the installer-created system `ollama.service`: exactly one unit may own
+`:11434`, and it is `garden-ollama.service`. `Restart=always`
 self-restarts a crash. It is a **per-host** singleton (NOT leader-only: every host with
 its own hermits runs its own endpoint), enabled **only where `hermits: N>0`** —
 `install-units.sh scale hermit N` (the same hermit-count signal the scaler reads)
@@ -560,7 +565,8 @@ together: (1) `Restart=always` covers a crash **between** jobs; (2) the hermit h
 per-job preflight (`codex_provider_preflight` in `scripts/jobs/handlers/codex-provider-common.sh`,
 self-heal requested by `cleric-codex.sh`) covers "the endpoint was **already down** when
 a hermit job started" — it starts `garden-ollama.service` and polls `/v1/models` for
-~`GARDEN_OLLAMA_HEAL_TIMEOUT`s (default 30) before dying with the host-defect diagnostic.
+the pinned model (not merely HTTP 200) for ~`GARDEN_OLLAMA_HEAL_TIMEOUT`s (default 30)
+before dying with the host-defect diagnostic.
 That preflight is a **per-job** liveness check for the local provider (it does **not**
 use the once-per-boot auth marker the paid providers use), so a mid-life Ollama crash
 re-triggers self-heal on the very next hermit tick instead of being masked for the rest

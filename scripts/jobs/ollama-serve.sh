@@ -48,12 +48,21 @@ trap 'shutdown INT 130' INT
 export OLLAMA_IGPU_ENABLE=1
 OLLAMA_HOST="$(ollama_serve_host)"; export OLLAMA_HOST
 
-# A working endpoint means another Ollama has already bound this address. Starting
-# a second copy would only fail with address-in-use, so leave the existing endpoint
-# alone and hold this service off for a long interval.
-if curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" >/dev/null; then
+# A foreign listener is healthy only when it exposes a non-empty model list. An
+# empty Ollama store is the signature of the image-owned system unit: it has won the
+# port but cannot run a hermit job. Do not stand down for that listener. Starting
+# our supervised owner will fail loudly with address-in-use until an operator removes
+# the foreign owner, instead of silently preserving guaranteed 404s.
+endpoint_models=""
+if endpoint_models="$(curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models" 2>/dev/null)" \
+  && jq -e '.data | (type == "array" and length > 0)' <<<"$endpoint_models" >/dev/null 2>&1; then
   back_off "Ollama endpoint already answers at $GARDEN_LOCAL_OLLAMA_URL (another process owns $OLLAMA_HOST)"
   exit 0
+fi
+if [ -n "$endpoint_models" ]; then
+  msg="local inference endpoint $GARDEN_LOCAL_OLLAMA_URL answers but serves no models; refusing to stand down for the foreign listener on $OLLAMA_HOST"
+  log "$msg"
+  alert_maintainer "ollama-model-less-endpoint-${GARDEN}" "$msg"
 fi
 
 if ! command -v ollama >/dev/null 2>&1; then

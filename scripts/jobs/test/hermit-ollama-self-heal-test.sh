@@ -40,6 +40,8 @@ TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-hermit-heal.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 BIN="$TR/bin"; mkdir -p "$BIN"
 export GARDEN_STATE="$TR/state"; mkdir -p "$GARDEN_STATE"
+export GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh"
+export GARDEN_ALERT_RECORD="$TR/alerts"
 export GARDEN_LOCAL_OLLAMA_URL=http://127.0.0.1:11434/v1
 export GARDEN_OLLAMA_HEAL_TIMEOUT=2          # keep the give-up poll short
 # The mocks share this control dir (passed by env so the subprocesses see it).
@@ -83,9 +85,15 @@ called_systemctl && bad "systemctl start issued for a reachable endpoint" || ok 
 hr; echo "NO-MODEL — reachable endpoint with no pulled model → host-defect fail"; hr
 reset_ctl; : > "$HEAL_CTL/up"; : > "$HEAL_CTL/empty-models"
 err="$(codex_provider_preflight local hermit job-empty hermits 1 qwen3.6 2>&1)" && rc=0 || rc=$?
-[ "$rc" -ne 0 ] && grep -Fq "local endpoint reachable but model 'qwen3.6' not pulled; run 'ollama pull qwen3.6'" <<<"$err" \
-  && ok "empty model list fails with the pull diagnostic" \
-  || bad "empty model list did not produce the pull diagnostic: $err"
+[ "$rc" -ne 0 ] && grep -Fq "serves no qwen3.6" <<<"$err" \
+  && ok "empty model list rejects the absent pinned model" \
+  || bad "empty model list did not name the absent pinned model: $err"
+grep -q '^KEY=ollama-model-less-endpoint-' "$GARDEN_ALERT_RECORD" \
+  && ok "model-less endpoint raises a maintainer alert" || bad "model-less endpoint did not alert"
+before_alerts="$(grep -c '^KEY=ollama-model-less-endpoint-' "$GARDEN_ALERT_RECORD" 2>/dev/null || true)"
+codex_provider_preflight local hermit job-empty-again hermits 1 qwen3.6 >/dev/null 2>&1 || true
+after_alerts="$(grep -c '^KEY=ollama-model-less-endpoint-' "$GARDEN_ALERT_RECORD" 2>/dev/null || true)"
+[ "$before_alerts" = "$after_alerts" ] && ok "model-less alert is deduped" || bad "model-less alert was repeated"
 
 # ============================================================================
 hr; echo "RECOVER — down, self_heal=1, garden-ollama start brings it up"; hr
@@ -115,7 +123,7 @@ codex_provider_preflight local hermit job-d hermits 0 qwen3.6 >/dev/null 2>&1 &&
 after="$(date +%s)"
 [ "$rc" -ne 0 ] && ok "self_heal=0 down endpoint → immediate non-zero" || bad "self_heal=0 returned 0"
 called_systemctl && bad "self_heal=0 still started garden-ollama (should just advance)" || ok "self_heal=0 issues NO systemctl start (foreman advances providers)"
-[ "$(curl_call_count)" = 1 ] && ok "self_heal=0 probes exactly once (no poll loop)" || bad "self_heal=0 probed $(curl_call_count) times (expected 1)"
+[ "$(curl_call_count)" = 2 ] && ok "self_heal=0 probes model readiness then endpoint status (no poll loop)" || bad "self_heal=0 probed $(curl_call_count) times (expected 2)"
 [ $((after - before)) -lt "$GARDEN_OLLAMA_HEAL_TIMEOUT" ] && ok "self_heal=0 returns without waiting the heal window" || bad "self_heal=0 blocked on the heal poll"
 
 # ============================================================================

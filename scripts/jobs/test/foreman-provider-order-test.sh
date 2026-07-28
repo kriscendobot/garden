@@ -22,7 +22,7 @@ DIGEST="$TR/digest"; printf 'project: test\nboard: empty\n' > "$DIGEST"
 
 run_handler() { # <order> [environment assignments...]
   local order="$1"; shift
-  env PATH="$BIN:$PATH" HOME="$TR/home" GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state" \
+  env PATH="$BIN:$PATH" HOME="$TR/home" GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 \
     GARDEN_TOKEN_WEEKLY_QUOTA=0 GARDEN_FOREMAN_PROVIDER_ORDER="$order" "$@" "$HANDLER" "$DIGEST"
 }
 
@@ -38,8 +38,8 @@ if out="$(run_handler openai,local,anthropic \
 else
   bad "OpenAI failure did not advance to local"
 fi
-[ "$(tr '\n' ' ' < "$LOG1")" = "openai local-preflight local-preflight local " ] \
-  && ok "attempt order is OpenAI then local, with liveness and model probes" \
+[ "$(tr '\n' ' ' < "$LOG1")" = "openai local-preflight local " ] \
+  && ok "attempt order is OpenAI then local, with the pinned-model probe" \
   || bad "wrong provider attempt order: $(tr '\n' ' ' < "$LOG1")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
@@ -54,8 +54,8 @@ if out="$(run_handler openai,local,anthropic \
 else
   bad "availability failures did not advance to Claude"
 fi
-[ "$(tr '\n' ' ' < "$LOG2")" = "local-preflight anthropic " ] \
-  && ok "OpenAI auth failure skips its exec; local failure then reaches Claude" \
+[ "$(tr '\n' ' ' < "$LOG2")" = "local-preflight local-preflight anthropic " ] \
+  && ok "OpenAI auth failure skips its exec; local failure probes status then reaches Claude" \
   || bad "wrong fallback trace: $(tr '\n' ' ' < "$LOG2")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"

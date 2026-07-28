@@ -37,6 +37,14 @@ grep -q -- '--max-time 5 http://127.0.0.1:11434/v1/models' "$CTL/curl-calls" \
   && ok "endpoint preflight uses the bounded models probe" || bad "models probe arguments changed"
 
 rm -f "$CTL"/*
+: >"$CTL/endpoint-up"; : >"$CTL/endpoint-empty"
+if run_wrapper; then status=0; else status=$?; fi
+[ "$status" -ne 0 ] && ok "model-less endpoint does not stand down cleanly" || bad "model-less endpoint was treated as healthy"
+grep -qx 'serve' "$CTL/ollama-calls" && ok "model-less endpoint starts garden's Ollama owner" || bad "model-less endpoint did not start Ollama"
+grep -q 'serves no models; refusing to stand down' "$CTL/stderr" \
+  && ok "model-less endpoint is logged loudly" || bad "model-less endpoint diagnostic missing"
+
+rm -f "$CTL"/*
 if OLLAMA_TEST_SERVE_STATUS=0 run_wrapper; then status=0; else status=$?; fi
 [ "$status" -eq 0 ] && ok "an immediate successful ollama exit is returned after backoff" || bad "successful child status was $status"
 grep -qx 'serve' "$CTL/ollama-calls" && ok "wrapper runs ollama serve as a child" || bad "ollama serve was not invoked"

@@ -214,18 +214,6 @@ RUN for attempt in 1 2 3; do \
         sleep "$attempt"; \
     done
 
-# Auto-start the system ollama.service under the container's systemd (PID 1) and
-# enable the iGPU, so a rebuild serves /v1 on the GPU with NO manual step. The
-# GPU-group membership the `ollama` service user needs is granted host-adaptively at
-# container start by entrypoint.sh (the render gid is host-specific). `systemctl
-# enable` only manages symlinks (no bus needed at build); the drop-in sets
-# OLLAMA_IGPU_ENABLE=1 (integrated Radeon 8060S / gfx1151 -- guide § Container GPU
-# access) so the service uses the iGPU rather than falling back to CPU.
-RUN systemctl enable ollama.service 2>/dev/null || true \
-    && mkdir -p /etc/systemd/system/ollama.service.d \
-    && printf '[Service]\nEnvironment=OLLAMA_IGPU_ENABLE=1\n' \
-         > /etc/systemd/system/ollama.service.d/igpu.conf
-
 # Create the bot user matching the HOST user (name + uid, from --build-arg) so the
 # bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
 # 24.04 ships a default `ubuntu` user at uid 1000; remove it first so USER_UID
