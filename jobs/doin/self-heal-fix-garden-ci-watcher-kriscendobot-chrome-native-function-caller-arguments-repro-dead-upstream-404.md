@@ -28,3 +28,10 @@ Also, as the immediate unblock for this specific slug (independent of the code c
 Add a regression test alongside the existing provisioner fixtures: a slug armed in both sets whose `upstream_exists` stub returns 404 must end up tombstoned with both arming records removed; the same slug with an inconclusive (rc 2) stub must be left untouched.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:14:07Z
