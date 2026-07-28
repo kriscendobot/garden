@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 5
+worker_kind: gardener
+claimed_at: 2026-07-28T21:14:49Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr671-review-36ae135d
