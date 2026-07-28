@@ -1542,3 +1542,12 @@ Inspect via `git -C journal cat-file -p c3da067f0c7008a4deda9eaeb27013e096686481
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'endo-git-integration-press-20260728-004711' exit-0-unsatisfying but elapsed near-constant (334,334s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 0954f983743afc241693863ff68c587eb2c9f496`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T20:05:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0ee56cdbd76701374c93a40e35c982031a8eb6c6
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'endo-meeting-agenda-20260728-200501' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0ee56cdbd76701374c93a40e35c982031a8eb6c6`.
