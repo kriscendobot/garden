@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:13:14Z_
+_As of 2026-07-28T16:14:31Z_
 
 ## Latest
 
@@ -2716,7 +2716,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.2M | $706.07 _(notional, rate-card)_ | no quota set |
+| Claude | 53.3M | $707.57 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
@@ -2735,6 +2735,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr755-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots #755
+- [`endojs-endo-but-for-bots-pr755-review-ea305fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-ea305fae.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
 - [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Fix CI on https://github.com/endojs/endo-but-for-bots/pull/825.
 - [`endojs-endo-but-for-bots-pr825-review-18fde0da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-review-18fde0da.md) — Review directive on endojs/endo-but-for-bots PR #825
@@ -2764,7 +2765,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
 - [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
-- [`split-gauntlet-into-claim-sized-stages`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-gauntlet-into-claim-sized-stages.md) — The gauntlet does not fit one claim-scoped handler — split it into stages
 - [`staged-gauntlet-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/staged-gauntlet-build.md) — Build the staged gauntlet: deterministic per-PR driver + stage handlers
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
 - [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
@@ -2772,13 +2772,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3689)
+### tada (3690)
+- [`split-gauntlet-into-claim-sized-stages`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/split-gauntlet-into-claim-sized-stages.md) — Completion report: split the gauntlet into claim-sized stages
 - [`endojs-endo-but-for-bots-pr881-review-5111ec6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-review-5111ec6e.md) — Completion report — endojs-endo-but-for-bots-pr881-review-5111ec6e
 - [`botanist-directional-advisory-rule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/botanist-directional-advisory-rule.md) — Report
 - [`endojs-endo-but-for-bots-pr881-review-baf7087b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-review-baf7087b.md) — Completion report: endojs-endo-but-for-bots-pr881-review-baf7087b
 - [`fu-deadmail-issue-comment-5105796865-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadmail-issue-comment-5105796865-3.md) — Report
-- [`deadmail-issue-comment-5106045535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5106045535.md) — Report
-- … and 3684 more
+- … and 3685 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2912,6 +2912,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr825-review-18fde0da-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr825-review-18fde0da-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #825 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr881-review-5111ec6e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-5111ec6e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr881-review-baf7087b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-baf7087b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr755-review-ea305fae-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-ea305fae-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #755 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
