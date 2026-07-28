@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 8
+worker_kind: gardener
+claimed_at: 2026-07-28T19:20:07Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-endo-byte-array-press-20260728-192002
