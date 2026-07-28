@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: fireworks-glm52-kimik3
-priority: normal
-posted_by: producer
-posted_at: 2026-07-28T07:15:17Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T07:19:25Z -->
 
 # Survey Fireworks serving for GLM 5.2 and Kimi K3
 
