@@ -22,7 +22,54 @@ JOBS="$(cd "$HERE/.." && pwd)"
 NJOBS="${1:-12}"
 G="${2:-4}"
 BRANCH=journal2
-TR=/home/kris/.garden-test
+# --- private per-invocation test root ----------------------------------------
+# The root used to be a single shared path (/home/kris/.garden-test), which two
+# concurrent runs CLOBBER: the fleet runs ~20 gardeners per host and any two that
+# claim a `run-…` board job (or a maintainer running the suite by hand next to a
+# gardener) share one $TR — and the very first thing the harness does is
+# `rm -rf "$TR"`, deleting the other run's bare journal, clones and state mid-flight.
+# So each invocation gets its OWN root under $TMPDIR. The leaf component stays
+# literally `.garden-test` because common.sh's `_in_test_context` heuristic matches
+# GARDEN_STATE paths of the form `*/.garden-test/*` — the secondary backstop behind
+# the GARDEN_TEST=1 sentinel exported below.
+#
+# Overrides (read HERE, before the GARDEN_* scrub below strips them):
+#   GARDEN_TEST_ROOT=<dir>  use <dir> as the root (wiped first) instead of a
+#                           fresh temp dir — for inspecting a run at a fixed path.
+#   GARDEN_TEST_TMPDIR=<d>  first candidate base to mktemp the root under (then
+#                           $TMPDIR, /tmp, $HOME; see the exec probe below).
+#   GARDEN_TEST_KEEP=1      keep the root after a passing run (a failing run always
+#                           keeps it, and prints where).
+TR_KEEP="${GARDEN_TEST_KEEP:-0}"
+# The base filesystem must permit EXECUTION: several subtests write a fixture
+# script (a preflight gate, a fake `claude`/`gh`) and hand its path to a script
+# under test, and `[ -x … ]`/execve fail with EACCES on a `noexec` mount — this
+# container's /tmp is exactly that. Probe each candidate by running a throwaway
+# script there and take the first that works, ending at $HOME (the filesystem the
+# old shared root lived on, so the fallback is the historical behavior).
+tr_base=""
+for cand in "${GARDEN_TEST_TMPDIR:-}" "${TMPDIR:-}" /var/tmp /tmp "$HOME"; do
+  { [ -n "$cand" ] && [ -d "$cand" ] && [ -w "$cand" ]; } || continue
+  probe="$(mktemp -d "$cand/.garden-test-probe.XXXXXX" 2>/dev/null)" || continue
+  printf '#!/bin/sh\nexit 0\n' > "$probe/x"; chmod +x "$probe/x" 2>/dev/null || true
+  if [ -x "$probe/x" ] && "$probe/x" 2>/dev/null; then rm -rf "$probe"; tr_base="$cand"; break; fi
+  rm -rf "$probe"
+done
+[ -n "$tr_base" ] || tr_base="$HOME"
+if [ -n "${GARDEN_TEST_ROOT:-}" ]; then
+  TR="$GARDEN_TEST_ROOT"; TR_OWNED="$TR"
+else
+  # Dot-prefixed: on the $HOME fallback the garden root's .gitignore excludes
+  # every top-level dotfile (`/.[!.]*`), so a run never dirties `git status`.
+  TR_OWNED="$(mktemp -d "$tr_base/.garden-test-run.XXXXXXXX")"; TR="$TR_OWNED/.garden-test"
+fi
+tr_cleanup() {  # keep the evidence on failure; sweep the temp root on success
+  local rc=$?
+  if [ "$rc" -ne 0 ] || [ "$TR_KEEP" = 1 ]; then echo "  (test root kept: $TR)"
+  else rm -rf "$TR_OWNED"; fi
+  return "$rc"
+}
+trap tr_cleanup EXIT
 PASS=0; FAIL=0
 ok()   { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad()  { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
@@ -1611,8 +1658,11 @@ hr; echo "SUBTEST 14d — FOREMAN FILL-TO-TARGET: batch-promote deferred plans u
 # job already in doin/, a sustained under-subscribed tick batch-promotes the top
 # TWO deferred plan jobs (2 = target 3 − in-flight 1) in a SINGLE tick, by
 # priority, and STOPS at the target. go-ahead and blocked plan jobs are never
-# touched. Dedicated bare so the board is fully controllable; the default target
-# of 3 is used (no GARDEN_FOREMAN_ACTIVE_TARGET override) to prove the new default.
+# touched. Dedicated bare so the board is fully controllable. The target is PINNED
+# to 3 here (GARDEN_FOREMAN_ACTIVE_TARGET=3) so the batch arithmetic under test is
+# fixed: the SHIPPED default is a separate, maintainer-tunable policy number
+# (raised 3 → 5 on kriskowal's instruction, 2026-07-03, commit 90ec626131) and is
+# asserted on its own below — so re-tuning it never re-reds this fill logic.
 DFBARE="$TR/deferfill.git"; git init -q --bare "$DFBARE"
 DFSEED="$TR/deferfill-seed"; git init -q "$DFSEED"; git -C "$DFSEED" checkout -q -b "$BRANCH"
 ( cd "$DFSEED"
@@ -1627,12 +1677,17 @@ export GARDEN_STATE="$TR/state-deferfill" GARDEN=dffill
 DFCALLS="$TR/deferfill-calls"; : > "$DFCALLS"
 dfcount() { local v n; v="$(mktemp -d "$TR/dfv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$DFBARE" "$v" 2>/dev/null; n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"; }
 dfhas()   { local v r; v="$(mktemp -d "$TR/dfh.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$DFBARE" "$v" 2>/dev/null; [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r; }
-run_dffm() {  # run_dffm <now-epoch>  — DEFAULT target (3), so no override is set
+run_dffm() {  # run_dffm <now-epoch>  — target pinned to 3 (see the header)
   : > "$DFCALLS"
   env JOURNAL_REMOTE="$DFBARE" GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
       GARDEN_FOREMAN_STUB_CALLS="$DFCALLS" GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      GARDEN_FOREMAN_ACTIVE_TARGET=3 \
       "$JOBS/foreman.sh" >/dev/null 2>&1
 }
+# The shipped default, asserted in ONE place: foreman.sh's own parameter default.
+grep -qE '^: "\$\{GARDEN_FOREMAN_ACTIVE_TARGET:=\$\{GARDEN_FOREMAN_WIP:-5\}\}"' "$JOBS/foreman.sh" \
+  && ok "foreman ships active-job target default 5 (WIP alias preserved)" \
+  || bad "foreman active-job target default changed: $(grep -m1 'GARDEN_FOREMAN_ACTIVE_TARGET:=' "$JOBS/foreman.sh")"
 # Four deferred plans (distinct priorities → deterministic promotion order), one
 # go-ahead, one blocked. Top two by priority are urgent then high.
 echo 'urgent body' | env JOURNAL_REMOTE="$DFBARE" "$JOBS/post-plan.sh" --deferred --priority urgent df-urgent >/dev/null 2>&1
@@ -2508,7 +2563,13 @@ grep -q 'claim transiently offline' "$OFFLOG" \
 grep -q 'claim failed' "$OFFLOG" \
   && bad "gardener treated the outage as a fatal claim failure" \
   || ok "gardener did not escalate the outage to a fatal claim failure"
-unset JOURNAL_REMOTE
+# RESTORE the throwaway remote (not `unset`), for the same reason SUBTEST 14d
+# spells out: SUBTEST 24's corruption cases let sync_clone re-clone through
+# ensure_clone, which resolves journal_remote itself. With JOURNAL_REMOTE unset it
+# derived the REAL kriskowal/garden journal from $GARDEN_ROOT and re-cloned ~20s of
+# PRODUCTION history over the fixture — so the restored clone's tip was never the
+# fixture's seed sha and both cases failed. Re-export the throwaway $BARE.
+export JOURNAL_REMOTE="$BARE"
 
 # ============================================================================
 hr; echo "SUBTEST 23 — OFFLINE CLASSIFIER: transient signatures → EX_TEMPFAIL"; hr
@@ -2943,8 +3004,17 @@ cat > "$II_SRCSTUB" <<'EOF'
 cat "${II_FIXTURE:?set II_FIXTURE}"
 EOF
 chmod +x "$II_SRCSTUB"
-ii_row() {  # ii_row kind created id number author submitter state closed_by url body
-  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$@"
+# The source contract is ELEVEN columns (issue-inbox-watcher.sh § TSV columns):
+# kind created id number author submitter state closed_by closed_at url body.
+# closed_at was added after this helper was written and the fixtures were not
+# widened with it, so every row silently shifted left by one — `url` landed in
+# `closed_at` and the BODY landed in `url` (the issue note then carried the body
+# text as its issue_url). Keep the arity assertion here so a future column change
+# fails loudly at the fixture rather than shifting the fields under the tests.
+ii_row() {  # ii_row kind created id number author submitter state closed_by closed_at url body
+  # `bad` on STDERR: this function's stdout IS the fixture file.
+  [ "$#" -eq 11 ] || { bad "ii_row needs 11 columns, got $#: $*" >&2; return 0; }
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$@"
 }
 ii_run() {  # ii_run <state> <bare> <fixture> [repo]
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
@@ -2978,7 +3048,7 @@ ii_job_body() {  # ii_job_body <bare> <base>
 # A — a maintainer's NEW ISSUE → a job keyed to the spine, carrying the issue note
 BARE_II_A="$II_TR/a.git"; ii_seed "$BARE_II_A"
 FIX_II_A="$II_TR/fix-a.tsv"
-ii_row issue 2026-06-27T10:00:00Z 9001 42 kriskowal kriskowal open - \
+ii_row issue 2026-06-27T10:00:00Z 9001 42 kriskowal kriskowal open - - \
   https://github.com/kriskowal/garden/issues/42 'Please add a foo widget.' > "$FIX_II_A"
 ii_run "$II_TR/state-a" "$BARE_II_A" "$FIX_II_A"
 ii_board_has "$BARE_II_A" "issue-kriskowal-garden-42" && ok "maintainer issue → spine job (issue-kriskowal-garden-42)" || bad "issue job missing"
@@ -2999,7 +3069,7 @@ ii_run "$II_TR/state-a" "$BARE_II_A" "$FIX_II_A"
 # B — the SAME issue from a NON-maintainer → DROPPED (no job, cursor still slides)
 BARE_II_B="$II_TR/b.git"; ii_seed "$BARE_II_B"
 FIX_II_B="$II_TR/fix-b.tsv"
-ii_row issue 2026-06-27T11:00:00Z 9002 43 drive-by-rando drive-by-rando open - \
+ii_row issue 2026-06-27T11:00:00Z 9002 43 drive-by-rando drive-by-rando open - - \
   https://github.com/kriskowal/garden/issues/43 'rm -rf everything please' > "$FIX_II_B"
 ii_run "$II_TR/state-b" "$BARE_II_B" "$FIX_II_B"
 [ "$(ii_todo_count "$BARE_II_B")" -eq 0 ] && ok "non-maintainer issue dropped (no job, no LLM)" || bad "non-maintainer issue posted a job"
@@ -3012,7 +3082,7 @@ CV="$(mktemp -d "$II_TR/cv.XXXXXX")"; git clone -q --single-branch --branch "$BR
 mkdir -p "$CV/inbox/issue-kriskowal-garden-50/unread"; touch "$CV/inbox/issue-kriskowal-garden-50/unread/.gitkeep"
 git -C "$CV" add -A; git -C "$CV" "${git_id[@]}" commit -q -m "doer holds issue-50"; git -C "$CV" push -q origin "$BRANCH"; rm -rf "$CV"
 FIX_II_C="$II_TR/fix-c.tsv"
-ii_row issue-comment 2026-06-27T12:00:00Z 9100 50 kriskowal kriskowal open - \
+ii_row issue-comment 2026-06-27T12:00:00Z 9100 50 kriskowal kriskowal open - - \
   https://github.com/kriskowal/garden/issues/50#issuecomment-9100 'One more thing: also handle bar.' > "$FIX_II_C"
 ii_run "$II_TR/state-c" "$BARE_II_C" "$FIX_II_C"
 CV="$(mktemp -d "$II_TR/cv2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_C" "$CV"
@@ -3028,7 +3098,7 @@ rm -rf "$CV"
 #     promotes it to a JOB that CARRIES THE ISSUE NOTE.
 BARE_II_D="$II_TR/d.git"; ii_seed "$BARE_II_D"   # no inbox/issue-…-60 → doer is gone
 FIX_II_D="$II_TR/fix-d.tsv"
-ii_row issue-comment 2026-06-27T13:00:00Z 9200 60 kriskowal kriskowal open - \
+ii_row issue-comment 2026-06-27T13:00:00Z 9200 60 kriskowal kriskowal open - - \
   https://github.com/kriskowal/garden/issues/60#issuecomment-9200 'Following up on issue 60.' > "$FIX_II_D"
 ii_run "$II_TR/state-d" "$BARE_II_D" "$FIX_II_D"
 DV="$(mktemp -d "$II_TR/dv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_D" "$DV"
@@ -3046,7 +3116,7 @@ rm -rf "$DV"
 # E — an issue CLOSED BY THE SUBMITTER is terminal → dispatch nothing
 BARE_II_E="$II_TR/e.git"; ii_seed "$BARE_II_E"
 FIX_II_E="$II_TR/fix-e.tsv"
-ii_row issue 2026-06-27T14:00:00Z 9300 70 kriskowal kriskowal closed kriskowal \
+ii_row issue 2026-06-27T14:00:00Z 9300 70 kriskowal kriskowal closed kriskowal 2026-06-27T14:00:00Z \
   https://github.com/kriskowal/garden/issues/70 'Did the thing, closing.' > "$FIX_II_E"
 ii_run "$II_TR/state-e" "$BARE_II_E" "$FIX_II_E"
 [ "$(ii_todo_count "$BARE_II_E")" -eq 0 ] && ok "submitter-closed issue dispatches nothing (terminal)" || bad "posted a job for a submitter-closed issue"
@@ -3055,7 +3125,7 @@ ii_run "$II_TR/state-e" "$BARE_II_E" "$FIX_II_E"
 # F — INERT until configured: with NO config/garden-repo set, dispatch nothing
 BARE_II_F="$II_TR/f.git"; ii_seed "$BARE_II_F"
 FIX_II_F="$II_TR/fix-f.tsv"
-ii_row issue 2026-06-27T15:00:00Z 9400 80 kriskowal kriskowal open - \
+ii_row issue 2026-06-27T15:00:00Z 9400 80 kriskowal kriskowal open - - \
   https://github.com/kriskowal/garden/issues/80 'hello' > "$FIX_II_F"
 env GARDEN_STATE="$II_TR/state-f" JOURNAL_REMOTE="$BARE_II_F" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_MAINTAINERS_ALLOWLIST="$II_ALLOW" II_FIXTURE="$FIX_II_F" \
@@ -3078,7 +3148,7 @@ HV="$(mktemp -d "$II_TR/hv.XXXXXX")"; git clone -q --single-branch --branch "$BR
 mkdir -p "$HV/inbox/issue-kriskowal-garden-90/unread"; touch "$HV/inbox/issue-kriskowal-garden-90/unread/.gitkeep"
 git -C "$HV" add -A; git -C "$HV" "${git_id[@]}" commit -q -m "doer holds issue-90"; git -C "$HV" push -q origin "$BRANCH"; rm -rf "$HV"
 FIX_II_H="$II_TR/fix-h.tsv"
-ii_row issue-comment 2026-06-27T16:00:00Z 9500 90 kriskowal kriskowal open - \
+ii_row issue-comment 2026-06-27T16:00:00Z 9500 90 kriskowal kriskowal open - - \
   https://github.com/kriskowal/garden/issues/90#issuecomment-9500 'Re-poll me twice.' > "$FIX_II_H"
 ii_run "$II_TR/state-h1" "$BARE_II_H" "$FIX_II_H"     # first poll → delivers
 ii_run "$II_TR/state-h2" "$BARE_II_H" "$FIX_II_H"     # fresh state = reset cursor → re-poll
@@ -3094,7 +3164,7 @@ rm -rf "$HV"
 #      (the dead-letter was retired, so it is re-created) never adds a duplicate.
 BARE_II_H2="$II_TR/h2.git"; ii_seed "$BARE_II_H2"     # no inbox → the doer is gone
 FIX_II_H2="$II_TR/fix-h2.tsv"
-ii_row issue-comment 2026-06-27T17:00:00Z 9600 91 kriskowal kriskowal open - \
+ii_row issue-comment 2026-06-27T17:00:00Z 9600 91 kriskowal kriskowal open - - \
   https://github.com/kriskowal/garden/issues/91#issuecomment-9600 'Re-poll the dead path.' > "$FIX_II_H2"
 ii_run "$II_TR/state-h2a" "$BARE_II_H2" "$FIX_II_H2"  # poll 1 → dead-letter
 ii_run "$II_TR/state-h2b" "$BARE_II_H2" "$FIX_II_H2"  # poll 2 (reset cursor) → same path, no dup
@@ -3123,15 +3193,27 @@ if [ "$ii_have_jq" -eq 0 ]; then
   echo "  SKIP: no jq on host"
 else
   GHII="$II_TR/gh-g"; mkdir -p "$GHII"
-  cat > "$GHII/gh" <<'EOF'
+  # RELATIVE fixture timestamps. issue-source-gh.sh bounds its query window to the
+  # last 24h and then re-filters the payload on `created_at >= since`, so a fixture
+  # pinned to a literal date ROTS: once that date falls outside the window the
+  # handler emits nothing and every assertion here reads an empty file (which is
+  # how this case went red by default, ~a month after it was written). Anchor the
+  # rows a few hours back from now instead, and pass a `since` older than all of
+  # them but inside the floor.
+  G_SINCE="$(date -u -d '-4 hours'            +%FT%TZ)"
+  G_TS_I="$(date  -u -d '-3 hours'            +%FT%TZ)"
+  G_TS_PR="$(date -u -d '-2 hours -55 minutes' +%FT%TZ)"
+  G_TS_C="$(date  -u -d '-2 hours'            +%FT%TZ)"
+  G_TS_CPR="$(date -u -d '-1 hour -55 minutes' +%FT%TZ)"
+  cat > "$GHII/gh" <<EOF
 #!/bin/bash
 # minimal gh stub for the issue-source join test.
-args="$*"
-case "$args" in
+args="\$*"
+case "\$args" in
   *"/issues?state=all"*)   # the issues list: one real issue (#42) + one PR (#43)
-    printf '%s\n' '[{"id":1,"number":42,"state":"open","user":{"login":"kriskowal"},"created_at":"2026-06-27T10:00:00Z","html_url":"https://x/issues/42","body":"real issue"},{"id":2,"number":43,"state":"open","user":{"login":"kriskowal"},"created_at":"2026-06-27T10:05:00Z","html_url":"https://x/pull/43","body":"a PR","pull_request":{"url":"x"}}]'; exit 0;;
+    printf '%s\n' '[{"id":1,"number":42,"state":"open","user":{"login":"kriskowal"},"created_at":"$G_TS_I","html_url":"https://x/issues/42","body":"real issue"},{"id":2,"number":43,"state":"open","user":{"login":"kriskowal"},"created_at":"$G_TS_PR","html_url":"https://x/pull/43","body":"a PR","pull_request":{"url":"x"}}]'; exit 0;;
   *"/issues/comments?"*)   # repo-wide comment feed: one on issue #50, one on PR #43
-    printf '%s\n' '[{"id":91,"issue_url":"https://api/repos/o/r/issues/50","user":{"login":"kriskowal"},"created_at":"2026-06-27T12:00:00Z","html_url":"https://x/issues/50#c91","body":"comment on issue"},{"id":92,"issue_url":"https://api/repos/o/r/issues/43","user":{"login":"kriskowal"},"created_at":"2026-06-27T12:05:00Z","html_url":"https://x/pull/43#c92","body":"comment on PR"}]'; exit 0;;
+    printf '%s\n' '[{"id":91,"issue_url":"https://api/repos/o/r/issues/50","user":{"login":"kriskowal"},"created_at":"$G_TS_C","html_url":"https://x/issues/50#c91","body":"comment on issue"},{"id":92,"issue_url":"https://api/repos/o/r/issues/43","user":{"login":"kriskowal"},"created_at":"$G_TS_CPR","html_url":"https://x/pull/43#c92","body":"comment on PR"}]'; exit 0;;
   *"/issues/50")           printf '%s\n' '{"number":50,"state":"open","user":{"login":"kriskowal"}}'; exit 0;;
   *"/issues/43")           printf '%s\n' '{"number":43,"state":"open","user":{"login":"kriskowal"},"pull_request":{"url":"x"}}'; exit 0;;
 esac
@@ -3141,10 +3223,10 @@ EOF
   G_OUT="$II_TR/g.out"
   G_ERR="$II_TR/g.err"
   env PATH="$GHII:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$II_TR/state-g" \
-    "$JOBS/handlers/issue-source-gh.sh" o/r 2026-06-27T00:00:00Z > "$G_OUT" 2> "$G_ERR" || true
-  { grep -qP '^issue\t2026-06-27T10:00:00Z\t1\t42\t' "$G_OUT" && ! grep -qP '\t43\t' "$G_OUT"; } \
+    "$JOBS/handlers/issue-source-gh.sh" o/r "$G_SINCE" > "$G_OUT" 2> "$G_ERR" || true
+  { grep -qP "^issue\t$G_TS_I\t1\t42\t" "$G_OUT" && ! grep -qP '\t43\t' "$G_OUT"; } \
     && ok "source surfaces the real issue #42 and EXCLUDES the PR #43" || bad "source PR-exclusion wrong (out: $(cat "$G_OUT"))"
-  grep -qP '^issue-comment\t2026-06-27T12:00:00Z\t91\t50\tkriskowal\tkriskowal\topen\t-\t' "$G_OUT" \
+  grep -qP "^issue-comment\t$G_TS_C\t91\t50\tkriskowal\tkriskowal\topen\t-\t" "$G_OUT" \
     && ok "source emits the issue comment joined with parent-issue meta" || bad "comment row/join wrong (out: $(cat "$G_OUT"))"
   ! grep -q '#c92' "$G_OUT" \
     && ok "source drops the comment whose parent is a PR" || bad "PR comment leaked into the source output"

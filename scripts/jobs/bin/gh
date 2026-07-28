@@ -135,6 +135,9 @@ if [ -z "${GH_TOKEN:-}" ]; then
     # under the maintainer instead of @kriscendobot). Fail CLOSED: block the write
     # and surface it, so the calling role handles the gap instead of landing work
     # under the wrong identity.
+    # The backticked hint below is literal operator prose, not a command
+    # substitution — the whole format string is single-quoted on purpose.
+    # shellcheck disable=SC2016
     printf 'gh-wrapper: ERROR kind:error could not resolve token for identity=%s; REFUSING a state-changing gh call (%s %s …) rather than acting as the global active account. Fix: log %s in on this host (`gh auth login`), pre-set GH_TOKEN, or set GARDEN_GH_IDENTITY to an available identity.\n' \
       "$GARDEN_GH_IDENTITY" "${1:-}" "${2:-}" "$GARDEN_GH_IDENTITY" >&2
     exit 1
