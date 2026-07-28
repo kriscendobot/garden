@@ -903,3 +903,12 @@ Inspect via `git -C journal cat-file -p d8da219698830af2a872b61c174cdacb8bb05e64
 - Context: gardener-1 on ps23: job 'fu-clarify-drain-moratorium-vocabulary-1' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p aa7b992d03f6dac95c09bd6545befe85158f2a56`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:59:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8cd4c7e0ae09ee7c5fd9c8c6b709c8ff8d3fbbb2
+- Context: gardener-1 on ps23: job 'fu-endo-npm-cas-registry-press-20260727-053502-3' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8cd4c7e0ae09ee7c5fd9c8c6b709c8ff8d3fbbb2`.
