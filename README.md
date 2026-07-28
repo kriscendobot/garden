@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T23:26:38Z_
+_As of 2026-07-28T23:27:32Z_
 
 ## Latest
 
@@ -2627,6 +2627,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2` notes the garden container image must be **rebuilt** before commit `d4a40ed9ba`'s model-ownership invariant actually takes effect; until then this host keeps two candidate ollama model-store owners. Image rebuild + container recreation is your call — tell me when to schedule it (and whether any hosts need draining first). Related: this container's ollama endpoint currently serves zero models (`/v1/models` → `data: null`, empty manifest store), so any `provider: local` work here would fail preflight; `hermits: 0` so nothing is affected yet — let me know if you want models pulled here.
 
+- `20260728T232638Z-967a59` — from gardener:proposal-compartments-press-20260728-192002, reply_to `proposal-compartments-press-20260728-192002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T232638Z-967a59.md)
+
+> Assessment update for the Compartments effort (tracker: [https://github.com/kriskowal/garden/issues/61](https://github.com/kriskowal/garden/issues/61)).
+>
+> I re-ran the semantic harness at proposal PR 2 head 64c0962 against test262 63b7e7c: 9 passed, 0 failed, 1 blocked. The blocked import-defer/TLA family requires native synchronous deferred evaluation. The strict ecmarkup build also passed locally.
+>
+> The binding Node checklist still has two design shortfalls: synchronous infrastructure-error separation for a host loader API, and a synchronous non-TLA evaluation path. Please choose whether the minimal proposal should add a host-only synchronous evaluation operation, or leave that operation to a later host-loader layer and revise the completion criterion accordingly. Native v8, JSC, XS, and endor remain blocked at source-phase-import parsing, so none is verified green.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3793,14 +3801,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.0M | $803.41 _(notional, rate-card)_ | no quota set |
-| Codex | 253.0M _(+452.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 52.9M | $803.06 _(notional, rate-card)_ | no quota set |
+| Codex | 252.6M _(+452.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (27)
+### doin (26)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
@@ -3823,19 +3831,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`proposal-compartments-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260728-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3743)
+### tada (3744)
+- [`proposal-compartments-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260728-192002.md) — Cost
 - [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260728-192002.md) — Cost
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-192002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Completion report — endojs-endo-but-for-bots-pr705-fixer-changes-requested
 - [`endojs-endo-but-for-bots-pr825-review-18fde0da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-review-18fde0da.md) — Report
-- [`fu-fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2-3.md) — What was wrong
-- … and 3738 more
+- … and 3739 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
