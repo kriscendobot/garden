@@ -3315,3 +3315,12 @@ Inspect via `git -C journal cat-file -p 3681918e9acce45a196c0407f18bc70f84bc15ab
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'scholar-atproto-ucan-addressing-taxonomy' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p be8b6989643f39f0c20c7026d5dbd8436b79b7d3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:42:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: caa23672440ce237b3208b0e3e15c75c555086db
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr868-lint-fix' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p caa23672440ce237b3208b0e3e15c75c555086db`.
