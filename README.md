@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T17:25:49Z_
+_As of 2026-07-28T17:31:12Z_
 
 ## Latest
 
@@ -3002,16 +3002,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $724.01 _(notional, rate-card)_ | no quota set |
-| Codex | 331.1M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 54.6M | $727.06 _(notional, rate-card)_ | no quota set |
+| Codex | 329.2M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (35)
+### doin (34)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260728-130502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -3046,13 +3045,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3715)
+### tada (3716)
+- [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-google-sheets-facets.md) — Job report: build-exo-google-sheets-facets
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/suffix-github-comments-with-provenance.md) — Completion report
 - [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr868-lint-fix.md) — Completion report: endojs-endo-but-for-bots-pr868-lint-fix
 - [`finbot-progress-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-130502.md) — Completion report — finbot progress cycle 20260728-130502
 - [`endo-byte-array-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-130502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-atproto-ucan-addressing-taxonomy.md) — Completion report
-- … and 3710 more
+- … and 3711 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
