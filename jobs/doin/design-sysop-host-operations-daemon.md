@@ -92,6 +92,7 @@ role/skill files — the follow-on build job does that from this doc.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
