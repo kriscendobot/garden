@@ -39,3 +39,85 @@ worker.
 Note: these were removed by a producer-clone edit rather than `complete-job.sh`, so
 no `reputation/` events were recorded for them. That is deliberate — a reputation
 event for a job no worker ever ran would be noise.
+
+---
+
+## Sweep 2: the parked poison graveyard (51 more)
+
+Also retired: **51** parked dispatches of the same standing press, spanning
+`20260720-022510` → `20260727-095001`. Every one was a reaper POISON record (`poisoned: true`), not
+pending work — the reaper parks a dispatch here once it exhausts requeues or overruns
+its deadline. All carried the same charter; they differed only in `poisoned_at` /
+`posted_at` stamps and the pin of the day (50 × `qwen3.6`, 1 × `fable` from an
+earlier pinning of the press).
+
+The files are gone; their diagnostic signal is preserved here in aggregate:
+
+| measure | value |
+| --- | --- |
+| parked dispatches retired | 51 |
+| poison signature: requeue-exhausted | 29 |
+| poison signature: deadline-overrun | 22 |
+| total requeue cycles burned | 177 |
+| total deadline overruns | 22 |
+| poisoned on endolin-garden-ece02cb4 | 51 across both hosts |
+| window | 2026-07-20 → 2026-07-27 |
+
+**What those numbers say.** 177-odd requeue cycles and 22 deadline overruns in eight
+days is a press that never fit its handler budget: the job carried no
+`handler-timeout:`, so every dispatch was SIGTERM-killed at the 40-minute default,
+requeued, and killed again until the reaper poisoned it. The replacement bins each
+carry `handler-timeout: 10800`, which is the fix for that specific loop.
+
+Retired in this sweep:
+  - xs2rust-endor-press-20260720-022510
+  - xs2rust-endor-press-20260720-123515
+  - xs2rust-endor-press-20260720-145005
+  - xs2rust-endor-press-20260720-172003
+  - xs2rust-endor-press-20260720-192031
+  - xs2rust-endor-press-20260720-203502
+  - xs2rust-endor-press-20260720-215002
+  - xs2rust-endor-press-20260720-230516
+  - xs2rust-endor-press-20260721-002001
+  - xs2rust-endor-press-20260721-022003
+  - xs2rust-endor-press-20260721-043501
+  - xs2rust-endor-press-20260721-053503
+  - xs2rust-endor-press-20260721-063505
+  - xs2rust-endor-press-20260721-100501
+  - xs2rust-endor-press-20260721-122001
+  - xs2rust-endor-press-20260721-143501
+  - xs2rust-endor-press-20260721-165010
+  - xs2rust-endor-press-20260721-180501
+  - xs2rust-endor-press-20260721-202001
+  - xs2rust-endor-press-20260722-012002
+  - xs2rust-endor-press-20260722-033502
+  - xs2rust-endor-press-20260722-045001
+  - xs2rust-endor-press-20260722-055018
+  - xs2rust-endor-press-20260726-012007
+  - xs2rust-endor-press-20260726-023504
+  - xs2rust-endor-press-20260726-035002
+  - xs2rust-endor-press-20260726-045004
+  - xs2rust-endor-press-20260726-060501
+  - xs2rust-endor-press-20260726-070504
+  - xs2rust-endor-press-20260726-082003
+  - xs2rust-endor-press-20260726-093506
+  - xs2rust-endor-press-20260726-103521
+  - xs2rust-endor-press-20260726-115001
+  - xs2rust-endor-press-20260726-125016
+  - xs2rust-endor-press-20260726-140502
+  - xs2rust-endor-press-20260726-150502
+  - xs2rust-endor-press-20260726-160502
+  - xs2rust-endor-press-20260726-170508
+  - xs2rust-endor-press-20260726-180521
+  - xs2rust-endor-press-20260726-192001
+  - xs2rust-endor-press-20260726-202002
+  - xs2rust-endor-press-20260726-212016
+  - xs2rust-endor-press-20260726-223501
+  - xs2rust-endor-press-20260726-233502
+  - xs2rust-endor-press-20260727-003508
+  - xs2rust-endor-press-20260727-013518
+  - xs2rust-endor-press-20260727-025003
+  - xs2rust-endor-press-20260727-050502
+  - xs2rust-endor-press-20260727-072006
+  - xs2rust-endor-press-20260727-083507
+  - xs2rust-endor-press-20260727-095001
