@@ -1,0 +1,1 @@
+{"source":"result","num_turns":18,"elapsed_s":100,"input_tokens":22,"output_tokens":5819,"cache_creation_tokens":51176,"cache_read_tokens":608221,"total_cost_usd":0.9614554999999999,"ts":"2026-07-28T12:32:56Z","base":"endojs-endo-but-for-bots-pr874-gauntlet-retry","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
