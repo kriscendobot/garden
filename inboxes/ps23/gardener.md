@@ -534,3 +534,12 @@ Inspect via `git -C journal cat-file -p 1ac46f26c62f8ffdfe99396264aee41bad2bb109
 - Context: gardener-1 on ps23: job 'xs2rust-endor-s1-daemon-integration' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p a09062ab582e390630b5df5fc7ae0101615f3bcd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:03:40Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 59978fed22a34976333e8f1bd0186e65aa0ac4fe
+- Context: gardener-7 on ps23: job 'self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 59978fed22a34976333e8f1bd0186e65aa0ac4fe`.
