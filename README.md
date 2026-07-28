@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T22:50:34Z_
+_As of 2026-07-28T22:52:51Z_
 
 ## Latest
 
@@ -3785,14 +3785,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $814.28 _(notional, rate-card)_ | no quota set |
-| Codex | 255.1M _(+456.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 54.1M | $814.86 _(notional, rate-card)_ | no quota set |
+| Codex | 254.2M _(+456.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (33)
+### doin (32)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3824,16 +3824,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
-- [`xs-upstream-watch-20260728-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs-upstream-watch-20260728-225002.md) — WEEKLY XS-upstream watch → project engine-relevant changes to our Rust port (...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3736)
+### tada (3737)
+- [`xs-upstream-watch-20260728-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs-upstream-watch-20260728-225002.md) — Cost
 - [`fu-qwen-model-watch-20260728-180502-1-20260728-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-qwen-model-watch-20260728-180502-1-20260728-223502.md) — What I did
 - [`fu-qwen-model-watch-20260728-180502-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-qwen-model-watch-20260728-180502-3.md) — Report
 - [`endojs-endo-but-for-bots-pr882-review-4a754464`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-review-4a754464.md) — Completion report
 - [`local-verify-parity-endo-but-for-bots-warm-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/local-verify-parity-endo-but-for-bots-warm-cache.md) — Report
-- [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-form-data-advisory.md) — endojs/endo-but-for-bots #880 — form-data advisory closed
-- … and 3731 more
+- … and 3732 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
