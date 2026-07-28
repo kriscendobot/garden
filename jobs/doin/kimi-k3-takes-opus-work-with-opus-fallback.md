@@ -116,3 +116,10 @@ anything:
   design argues for.
 - A stated kill switch.
 - Pushed to `main2` (direct push, no PR).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:09:49Z
