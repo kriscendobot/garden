@@ -3000,3 +3000,12 @@ Inspect via `git -C journal cat-file -p fba12001f99779d4bc462da0ba6794cacf9458b2
 - Context: gardener-7 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr870-dependabot' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 6482529ae3b0648ef0831ff1cf7ef0b4d724d3ec`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T08:14:41Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: bb0b82d2a6f4c652b24c5ab915e6df5f3e91e0ba
+- Context: gardener-6 on endolin-garden2-5bcdff64: job 'fireworks-glm52-kimik3-build' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p bb0b82d2a6f4c652b24c5ab915e6df5f3e91e0ba`.
