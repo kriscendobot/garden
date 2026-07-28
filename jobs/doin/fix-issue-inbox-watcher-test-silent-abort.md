@@ -61,3 +61,10 @@ grep for unguarded handler invocations inside `set -e` test files would tell you
 The suite runs to the end, prints a summary, exits 0 with every section executed,
 and each assertion passes for the right reason. Re-run and paste the tail as
 evidence.
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:43:35Z
