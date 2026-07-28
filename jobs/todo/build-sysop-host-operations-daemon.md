@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: build-sysop-host-operations
-priority: normal
-posted_by: producer
-posted_at: 2026-07-28T01:17:39Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T07:37:12Z -->
 
 role: builder
 # Build the sysop: per-host daemon + host/<GARDEN> bus addressing, per designs/sysop.md
