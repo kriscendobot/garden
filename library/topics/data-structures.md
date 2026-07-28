@@ -82,6 +82,8 @@
 | [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | cask membertable-design | The member table as a parallel-array instance: swap-to-end allocator + keys + byKey hashtreetouint64 + trafficClasses uint8array; the session-table pattern minus expiry/data. |
 | [cask--cask-go--block-model-and-merkle-trees](../sections/cask--cask-go--block-model-and-merkle-trees.md) | cask cask.go | The package-header design rationale: 1KB blocks of links+bytes+height form Merkle trees; blobs are leaf-data trees, directories are name-ordered entry trees; arbitrary block types decouple semantics/storage/transport. |
 | [cask--cask-go--block-byte-layout-and-metadata-footer](../sections/cask--cask-go--block-byte-layout-and-metadata-footer.md) | cask cask.go | The concrete block byte layout: a 1024-byte body (links at the start, then bytes) plus a separate 12-byte metadata footer (height/numLinks/dataLen/reserved); 1036 total. |
+| [atproto--specs-repository--mst-structure](../sections/atproto--specs-repository--mst-structure.md) | atproto specs/repository | Key depth as leading-zero count of SHA-256 divided by two (fanout 4), prefix-compressed node entries, a shape deterministic from the current mapping, and key-mining as a denial-of-service vector. |
+| [atproto--specs-repository--paths-records-and-cid-formats](../sections/atproto--specs-repository--paths-records-and-cid-formats.md) | atproto specs/repository | Paths are <collection>/<record-key>; TID keys sort chronologically so appends beat random insertions; structural CID links must follow the blessed format or the structure is invalid. |
 
 ## See also
 
