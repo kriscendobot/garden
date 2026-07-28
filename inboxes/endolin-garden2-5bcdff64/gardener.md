@@ -3243,3 +3243,12 @@ Inspect via `git -C journal cat-file -p e777c8047f1c4ba9162824d1f81a336a97e57bbd
 - Context: gardener-7 on endolin-garden2-5bcdff64: job 'suffix-github-comments-with-provenance' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 0221a56490817a0c3b071288db8f782fb10b7e34`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:39:46Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 559d8df0d6a35fc6fae70e99fd4ed741b7841119
+- Context: gardener-8 on endolin-garden2-5bcdff64: job 'wallclock-cost-proxy-for-censored-arms' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 559d8df0d6a35fc6fae70e99fd4ed741b7841119`.
