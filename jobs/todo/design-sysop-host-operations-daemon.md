@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: build-sysop-host-operations
-priority: normal
-posted_by: producer
-posted_at: 2026-07-28T01:17:29Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T01:19:23Z -->
 
 role: designer
 # Design the sysop: a per-host daemon that receives and executes host-local
