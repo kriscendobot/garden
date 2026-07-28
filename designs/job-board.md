@@ -140,7 +140,14 @@ host where the CLI is genuinely absent. Covered by
 - **Stale `doin` claims** (a gardener died mid-job): the **reaper** requeues
   claims older than `GARDEN_CLAIM_TTL` back to `todo/`, removes `work/<base>`,
   and best-effort removes the orphaned worktree. (vigil's "idle-but-pending"
-  retargeted from systemd state to claim-file age.)
+  retargeted from systemd state to claim-file age.) A restart cycle can orphan
+  dozens of claims within minutes of each other, so the requeue is **staggered**:
+  one tick requeues at most `GARDEN_REAP_MAX_PER_TICK` (default 8) age-expired
+  claims, **oldest first**, draining a large burst over successive ticks rather
+  than dumping it into `todo/` at once (where the pool would re-claim it together
+  and the herd would re-form). The cap only ever *delays* a reap — it sits on top
+  of the age floor, so nothing is reaped earlier than `reap_age_threshold` already
+  requires; reap-now-hinted claims (known-dead) bypass the cap.
 - **Per-gardener worktrees.** Two same-host gardeners must not share one journal
   checkout (they'd stomp each other's working tree); each operates in its own
   clone under `GARDEN_STATE`. The push race serializes them.

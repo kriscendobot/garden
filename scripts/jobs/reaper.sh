@@ -68,6 +68,20 @@ GARDEN_TAG="reaper"
 : "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
 : "${GARDEN_REAP_POISON_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as poison, not requeued
+# STAGGER A BURST. A restart cycle can orphan dozens of claims within minutes of
+# each other; they then cross the age floor together and, uncapped, ONE tick would
+# dump the whole burst into todo/ at once — the pool re-claims them together and the
+# herd re-forms (the 42-claims-in-5-minutes evidence, kriskowal 2026-07-28). So bound
+# how many AGE-EXPIRED claims one tick requeues; the tick reaps the OLDEST this many
+# and defers the rest to later ticks (oldest-first, nothing dropped — § 1b below).
+# Default 8: at the 10-minute reaper cadence (garden-reaper.timer, OnCalendar=*:03/10)
+# a 42-job backlog drains over ~6 ticks ≈ 1h — small waves the pool picks up spread
+# out, versus one herd — while still clearing even a large backlog far inside the 4h
+# GARDEN_CLAIM_TTL window so nothing lingers. This can ONLY ever DELAY a reap by whole
+# ticks; it never reaps anything earlier than the age floor already required, so the
+# single-owner-per-worktree invariant is untouched. Reap-now-hinted claims BYPASS it
+# (they are known-dead and event-driven, not part of a TTL-synchronized burst).
+: "${GARDEN_REAP_MAX_PER_TICK:=8}"     # max age-expired claims one tick requeues (reap-now claims are exempt)
 # A job carrying the gardener's `<!-- garden-deadline-overrun: N -->` marker hit its
 # OWN handler wall-clock budget (rc=124, elapsed≈handler budget) — a DETERMINISTIC
 # overrun that will be killed identically on every requeue, so it is escalated to
@@ -500,6 +514,8 @@ drain_poison_spool
 # --- 1. detect the stale set -------------------------------------------------
 now="$(date -u +%s)"
 declare -a STALE=()
+declare -a STALE_AGE=()            # parallel to STALE: claim age in seconds (oldest-first cap ordering, § 1b)
+declare -a STALE_RN=()             # parallel to STALE: 1 iff reap-now-hinted (cap-exempt, § 1b)
 declare -a LIVE_KILL_TARGETS=()   # pids to SIGKILL after a grace: handlers still live past staleness
 live_deferred=0
 for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
@@ -507,6 +523,7 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   claimed_at="$(sed -n 's/^  claimed_at: //p' "$f" | head -1)"
   ts=0; [ -n "$claimed_at" ] && ts="$(date -u -d "$claimed_at" +%s 2>/dev/null || echo 0)"
   age=$(( now - ts ))
+  reap_now_flag=0
   # A gardener whose handler died a transient signal-kill stamps a reap-now hint on
   # its own still-in-doin claim (gardener.sh transient branch): it KNOWS the claim
   # is dead, so we requeue it on THIS tick instead of idling the full TTL. Checked
@@ -515,6 +532,7 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   # flows through the SAME requeue + poison-counter path below, so a job SIGTERM'd
   # every cycle still escalates as poison after the threshold (never loops forever).
   if has_reap_now_hint "$f"; then
+    reap_now_flag=1
     log "reap-now: '$base' carries a gardener reap-now hint (age ${age}s); requeueing before TTL"
   else
     # Age-based staleness, floored at the handler's maximum possible lifetime
@@ -552,6 +570,8 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   fi
 
   STALE+=("$base")
+  STALE_AGE+=("$age")
+  STALE_RN+=("$reap_now_flag")
 done
 
 # Escalate the deferred kills: give a SIGTERM-respecting handler a brief grace, then
@@ -570,6 +590,66 @@ if [ "${#STALE[@]}" -eq 0 ]; then
   log "no stale claims"
   exit 0
 fi
+
+# --- 1b. per-tick requeue cap (stagger a burst) ------------------------------
+#
+# Bound how many AGE-EXPIRED claims this tick requeues to GARDEN_REAP_MAX_PER_TICK,
+# so a restart-orphaned burst that crosses the age floor together drains over
+# several ticks instead of landing in todo/ at once (and re-forming the herd). This
+# is a pure DELAY layered on TOP of the age floor: a deferred claim just stays in
+# doin/ this tick exactly as if it had not yet aged, so nothing is ever reaped
+# EARLIER than reap_age_threshold already requires — the never-reap-earlier invariant
+# is preserved, not traded against.
+#
+# OLDEST FIRST so nothing starves: sort the expired set by claim age (descending;
+# base ascending as a deterministic, testable tie-break) and keep the oldest
+# GARDEN_REAP_MAX_PER_TICK. Every deferred claim is strictly younger than every one
+# reaped this tick and ages into a later tick's selection.
+#
+# REAP-NOW claims are CAP-EXEMPT: a gardener stamped that hint because it KNOWS the
+# claim is dead and deliberately bypasses the TTL, and such hints are event-driven
+# (a caught transient signal), not TTL-synchronized — they neither form the burst
+# this cap addresses nor benefit from being held back. They are always requeued this
+# tick, on top of (never counting against) the capped age-expired selection.
+#
+# POISON accounting is untouched: deferral leaves a claim's `garden-reaped: N` marker
+# in doin/ unread this tick, so when it is finally requeued the counter still
+# advances by exactly one — a deferred reap cannot skip or double a poison cycle, nor
+# let a poison job escape escalation (it is merely surfaced a tick or two later).
+cap="$GARDEN_REAP_MAX_PER_TICK"
+if ! [ "$cap" -ge 1 ] 2>/dev/null; then
+  log "WARNING: GARDEN_REAP_MAX_PER_TICK='$cap' is not a positive integer; using 8"
+  cap=8
+fi
+declare -a KEEP=()
+rn_kept=0
+for i in "${!STALE[@]}"; do
+  [ "${STALE_RN[$i]}" -eq 1 ] || continue
+  KEEP+=("${STALE[$i]}")
+  rn_kept=$(( rn_kept + 1 ))
+done
+declare -a AGED_SORTED=()
+while IFS=$'\t' read -r _a b; do
+  [ -n "$b" ] && AGED_SORTED+=("$b")
+done < <(
+  for i in "${!STALE[@]}"; do
+    [ "${STALE_RN[$i]}" -eq 1 ] && continue
+    printf '%s\t%s\n' "${STALE_AGE[$i]}" "${STALE[$i]}"
+  done | sort -k1,1nr -k2,2
+)
+aged_total=${#AGED_SORTED[@]}
+aged_kept=0
+for b in "${AGED_SORTED[@]}"; do
+  [ "$aged_kept" -lt "$cap" ] || break
+  KEEP+=("$b")
+  aged_kept=$(( aged_kept + 1 ))
+done
+deferred=$(( aged_total - aged_kept ))
+if [ "$deferred" -gt 0 ]; then
+  log "requeue cap: $aged_total age-expired claim(s) exceed GARDEN_REAP_MAX_PER_TICK=$cap; requeueing the $aged_kept oldest this tick, deferring $deferred younger claim(s) to a later tick (oldest-first, none dropped)"
+fi
+[ "$rn_kept" -gt 0 ] && log "requeue cap: $rn_kept reap-now-hinted claim(s) requeued this tick (cap-exempt: known-dead, bypass TTL)"
+STALE=("${KEEP[@]}")
 
 # --- 2. (REMOVED) per-requeue worktree cleanup -------------------------------
 # The old block here force-removed each stale claim's `worktree_dir:` path on
