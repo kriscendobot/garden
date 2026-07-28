@@ -84,6 +84,7 @@ gated `blocked` on this very PR, so **merging this PR is what releases it**.
 - The report notes the merge commit SHA, so the follow-up gardener promoted off
   `endo-cbor-adopt-primitives` can confirm `@endo/cbor` is on trunk.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: ps23-garden-f65473ae
