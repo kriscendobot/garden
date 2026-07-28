@@ -99,6 +99,7 @@ policy has not actually been met by the harness on warm worktrees.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: ps23-garden-f65473ae
