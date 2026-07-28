@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 6
+worker_kind: gardener
+claimed_at: 2026-07-28T17:03:56Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-xs2rust-endor-s1-daemon-integration
