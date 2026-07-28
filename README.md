@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:29:58Z_
+_As of 2026-07-28T01:31:32Z_
 
 ## Latest
 
@@ -6225,14 +6225,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.1M | $460.25 _(notional, rate-card)_ | no quota set |
+| Claude | 35.1M | $460.35 _(notional, rate-card)_ | no quota set |
 | Codex | 18.9M _(+469.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (49)
+### doin (48)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`dependabotany-recheck-endo-but-for-bots-20260728-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260728-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
@@ -6265,7 +6265,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-fork-watch-dead-upstream-armed-slug`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-fork-watch-dead-upstream-armed-slug.md) — fork-watch-provisioner never re-checks liveness for an ALREADY-ARMED slug, so a
-- [`fix-two-ollama-units-single-owner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-two-ollama-units-single-owner.md) — Fix the two-Ollama conflict: one owner for local inference, and liveness chec...
 - [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — On endojs/endo-but-for-bots, check the CI status of https://github.com/endojs...
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
@@ -6283,13 +6282,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260728-004711.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3597)
+### tada (3598)
+- [`fix-two-ollama-units-single-owner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-two-ollama-units-single-owner.md) — Implemented and pushed d4a40ed9ba to main2.
 - [`endojs-endo-but-for-bots-pr868-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr868-dependabot.md) — Botany review: endojs/endo-but-for-bots PR #868 — EMBARGO-2026-08-02
 - [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
 - [`endo-npm-cas-registry-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-004711.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28, 00:48Z)
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode.md) — Implemented and pushed 55feb33e49 to main2.
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch.md) — Completion report
-- … and 3592 more
+- … and 3593 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
