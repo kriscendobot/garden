@@ -70,3 +70,10 @@ emitting, not the guard reporting.
 
 Note: the three messages above are being archived separately by the liaison, so do
 not count on them still being unread; the journal history preserves them.
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:26:31Z
