@@ -171,6 +171,104 @@ run_guard
 unset GARDEN_DEPLOY_STALL_DAYS
 
 # ============================================================================
+hr; echo "CASE 7 — OBJECT STORE: tmp_pack garbage swept, gc.log cleared only on a gc that SUCCEEDS"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+export GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0   # no back-off between the cases below
+mkdir -p "$GD/objects/pack"
+# Aborted-repack leftovers: one old (sweepable), one fresh (an in-flight repack owns it).
+printf 'garbage' > "$GD/objects/pack/tmp_pack_OLD"
+touch -d '3 days ago' "$GD/objects/pack/tmp_pack_OLD"
+printf 'garbage' > "$GD/objects/pack/tmp_pack_FRESH"
+# A stale gc.log on the common dir AND on a worktree admin dir — each independently
+# keeps git's automatic cleanup disabled.
+printf 'fatal: unable to read deadbeef\nfatal: failed to run repack\n' > "$GD/gc.log"
+mkdir -p "$GD/worktrees/somejob"; cp "$GD/gc.log" "$GD/worktrees/somejob/gc.log"
+run_guard
+[ ! -e "$GD/objects/pack/tmp_pack_OLD" ] && ok "aged tmp_pack garbage swept" || bad "aged tmp_pack garbage left behind"
+[ -e "$GD/objects/pack/tmp_pack_FRESH" ] && ok "fresh tmp_pack left alone (an in-flight repack owns it)" || bad "fresh tmp_pack swept — could break a live repack"
+[ ! -e "$GD/gc.log" ] && ok "gc.log cleared after a gc that succeeded" || bad "gc.log survived a successful gc"
+[ ! -e "$GD/worktrees/somejob/gc.log" ] && ok "per-worktree gc.log cleared too (each one disables auto-gc on its own)" || bad "per-worktree gc.log survived"
+! alerted "root-repo-objstore" && ok "a repairable store does not page the maintainer" || bad "spurious objstore alert on a repairable store"
+
+# ============================================================================
+hr; echo "CASE 8 — HEALTHY STORE: no gc.log, few packs → no gc, no noise"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+run_guard
+[ ! -e "$GD/gc.log" ] && [ ! -s "$ALERTS" ] \
+  && ok "healthy store is a quiet no-op" || bad "healthy store alerted: $(tr '\n' '|' < "$ALERTS")"
+
+# ============================================================================
+hr; echo "CASE 9 — UNREPAIRABLE STORE: gc keeps failing → gc.log KEPT, alert once per window"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+printf 'fatal: unable to read deadbeef\nfatal: failed to run repack\n' > "$GD/gc.log"
+# Force every gc attempt to fail, without corrupting a real object store: a repo-local
+# gc.pruneExpire of an unparseable value makes `git gc` bail out.
+git -C "$GARDEN_ROOT" config gc.pruneExpire 'not-a-date'
+run_guard
+[ -e "$GD/gc.log" ] && ok "gc.log KEPT while gc still fails (the guard never hides the signal)" || bad "gc.log removed despite a failing gc"
+alerted "root-repo-objstore" && ok "unrepairable store alerts the maintainer" || bad "no objstore alert on an unrepairable store"
+[ -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ] && ok "breakage window marked (once-per-window)" || bad "no objstore-alerted flag"
+run_guard
+! alerted "root-repo-objstore" && ok "does not re-alert every tick (deduped for the window)" || bad "objstore re-alerted"
+# Repairing the store closes the window and clears the log.
+git -C "$GARDEN_ROOT" config --unset gc.pruneExpire
+run_guard
+{ [ ! -e "$GD/gc.log" ] && [ ! -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ]; } \
+  && ok "recovery clears gc.log and closes the breakage window" || bad "window/gc.log not cleared after recovery"
+
+# ============================================================================
+hr; echo "CASE 10 — DRAINING defers object-store maintenance (never fight a deploy)"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+printf 'fatal: failed to run repack\n' > "$GD/gc.log"
+: > "$GARDEN_STATE/draining"
+run_guard
+[ -e "$GD/gc.log" ] && ok "gc deferred while draining (gc.log untouched)" || bad "gc ran despite draining"
+rm -f "$GARDEN_STATE/draining"
+run_guard
+[ ! -e "$GD/gc.log" ] && ok "maintenance runs on the next tick once draining cleared" || bad "gc did not run after draining lifted"
+
+# ============================================================================
+hr; echo "CASE 11 — BACK-OFF: a failing store is not re-gc'd every tick"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+export GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=6
+rm -f "$GARDEN_STATE/root-repo-guard/maint-last"
+printf 'fatal: failed to run repack\n' > "$GD/gc.log"
+git -C "$GARDEN_ROOT" config gc.pruneExpire 'not-a-date'
+run_guard
+stamp1="$(cat "$GARDEN_STATE/root-repo-guard/maint-last" 2>/dev/null || echo missing)"
+[ "$stamp1" != missing ] && ok "first attempt stamps the maintenance window" || bad "no maint-last stamp"
+: > "$ALERTS"
+run_guard
+[ "$(cat "$GARDEN_STATE/root-repo-guard/maint-last" 2>/dev/null)" = "$stamp1" ] \
+  && ok "second tick inside the interval skips the gc (backed off)" || bad "gc re-attempted inside the back-off interval"
+git -C "$GARDEN_ROOT" config --unset gc.pruneExpire
+unset GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS
+
+# ============================================================================
+hr; echo "CASE 12 — LOST OBJECTS: gc fails, a non-destructive --refetch restores them, gc then succeeds"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+export GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0
+rm -f "$GARDEN_STATE/root-repo-guard/maint-last"
+# The real shape of the breakage this invariant was written for: objects that history
+# still references are gone from the local store (here: the packs that held them), so
+# `git gc` dies with "unable to read <sha>". A plain fetch cannot fix it — git believes
+# it already has those refs — which is exactly why the recovery uses --refetch.
+rm -f "$GD"/objects/pack/*.pack "$GD"/objects/pack/*.idx "$GD"/objects/pack/*.rev
+printf 'fatal: unable to read deadbeef\nfatal: failed to run repack\n' > "$GD/gc.log"
+run_guard
+[ ! -e "$GD/gc.log" ] && ok "--refetch restored the lost objects; gc then succeeded and the gc.log was cleared" || bad "store not recovered by --refetch (gc.log still present)"
+! alerted "root-repo-objstore" && ok "a recoverable store does not page the maintainer" || bad "objstore alert fired on a store --refetch could recover"
+git -C "$GARDEN_ROOT" cat-file -e "$UP^{commit}" 2>/dev/null \
+  && ok "main2 history readable again (recovery was additive, no ref dropped)" || bad "history still unreadable after recovery"
+unset GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS
+
+# ============================================================================
 hr; echo "RESULT"; hr
 echo "  PASS=$PASS FAIL=$FAIL"
 rm -rf "$TR"

@@ -47,6 +47,40 @@
 #      fleet NOT draining (a deploy in progress owns the tree) and on origin/main2
 #      being resolvable (never reset toward an unknown target).
 #
+#   C. The OBJECT STORE is healthy and MAINTAINABLE — i.e. `git gc` can still run.
+#      Nobody owned this: no script in the garden ever ran gc/repack/prune, and git's
+#      own automatic cleanup SILENTLY AND PERMANENTLY DISABLES ITSELF once a gc
+#      failure writes `.git/gc.log` ("Automatic cleanup will not be performed until
+#      the file is removed"). That failure is self-reinforcing: with auto-gc dead,
+#      packs and aborted-repack temp files accumulate unbounded, every git call in the
+#      repo — including EVERY journal sync, since journal/ is a worktree of this same
+#      repo — pays the multi-pack index scan, and each call prints the gc.log warning
+#      banner on stderr, exactly the unexpected-stderr noise the gardener's output
+#      classifiers read. Repairs, in the same bounded/lossless style as A and B:
+#        1. sweep `objects/pack/tmp_*` garbage older than a safe age. Aborted repacks
+#           leave these behind FOREVER — git reports them as "garbage found" and never
+#           reclaims them; on the first host audited they were 15 GB against a ~320 MB
+#           real store, so this alone is the bulk of the recovery.
+#        2. when a stale gc.log is present, or the pack/loose counts pass their
+#           ceilings, run a bounded `git gc` — and remove the gc.log(s) ONLY once gc
+#           actually SUCCEEDS, so the guard never merely hides the signal. Both the
+#           common gc.log and the per-worktree `.git/worktrees/*/gc.log` copies are
+#           cleared, since each one independently disables auto-gc for commands run
+#           from that worktree.
+#        3. if gc fails, prefer NON-DESTRUCTIVE recovery: `git fetch origin --refetch`
+#           from the canonical remote (additive only — it can restore objects that
+#           history references but the local store can no longer read; it never prunes
+#           and never drops a ref), then retry gc once.
+#        4. if gc STILL fails, alert ONCE per breakage window (like the stalled-deploy
+#           watch) with the missing-object count and a by-hand reconciliation recipe.
+#           The guard never repairs destructively on its own: dropping the refs that
+#           reach a missing object drops history, so that stays a human decision, and
+#           any ref that must move is backed up under `root-guard-backup/<ts>` first
+#           (invariant B's discipline).
+#      Deferred while the fleet is draining (a deploy owns the tree) and backed off to
+#      at most one attempt per GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS, so a store that
+#      cannot be repaired does not re-run a multi-minute gc every tick.
+#
 # Plus a STALLED-DEPLOY watch: when the recorded deployed sha lags origin/main2 for
 # longer than GARDEN_DEPLOY_STALL_DAYS, alert ONCE per breakage window (the incident
 # also noted deploys silently stalled since 07-17). Cleared automatically when the
@@ -73,6 +107,25 @@ ROOT="$GARDEN_ROOT_GUARD_REPO"
 GUARD_STATE="$GARDEN_STATE/root-repo-guard"
 BEHIND_SINCE="$GUARD_STATE/behind-since"
 STALL_ALERTED="$GUARD_STATE/stall-alerted"
+
+# --- invariant C knobs (object-store health) ---------------------------------
+# Aborted-repack temp files younger than this are left alone: a repack in flight owns
+# them, and no legitimate one lives for a day.
+: "${GARDEN_ROOT_GUARD_TMP_AGE_HOURS:=24}"
+# Ceilings past which the store is "needs maintenance" even with no gc.log. A healthy
+# gc'd repo sits at 1–2 packs; git's own auto-gc threshold is 50 packs / 6700 loose.
+: "${GARDEN_ROOT_GUARD_MAX_PACKS:=50}"
+: "${GARDEN_ROOT_GUARD_MAX_LOOSE:=10000}"
+# Back-off between maintenance attempts, so an unrepairable store does not re-run a
+# multi-minute gc on every ~30m tick.
+: "${GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS:=6}"
+# Per-step wall-clock budgets. Their worst-case sum (gc + refetch + gc + scan) must
+# stay under the unit's TimeoutStartSec.
+: "${GARDEN_ROOT_GUARD_GC_TIMEOUT:=420}"
+: "${GARDEN_ROOT_GUARD_REFETCH_TIMEOUT:=420}"
+: "${GARDEN_ROOT_GUARD_MISSING_SCAN_TIMEOUT:=180}"
+MAINT_LAST="$GUARD_STATE/maint-last"
+OBJSTORE_ALERTED="$GUARD_STATE/objstore-alerted"
 
 now_epoch() { date -u +%s 2>/dev/null || echo 0; }
 ts_utc()    { date -u +%Y%m%dT%H%M%SZ 2>/dev/null || echo unknown; }
@@ -194,6 +247,170 @@ guard_head() {
   return 1
 }
 
+# --- INVARIANT C: object store healthy and maintainable ----------------------
+# The root repo's git dir is SHARED — the journal/ worktree and every per-job
+# gardener-wt-* worktree hang off it — so its admin files live in the COMMON git dir,
+# not in any one worktree's. Resolve that once; every step below works from it.
+root_common_gitdir() {
+  local d
+  d="$(git -C "$ROOT" rev-parse --git-common-dir 2>/dev/null || true)"
+  [ -z "$d" ] && return 1
+  case "$d" in /*) ;; *) d="$ROOT/$d" ;; esac
+  ( cd "$d" 2>/dev/null && pwd ) || printf '%s\n' "$d"
+}
+
+# C.1 — sweep aborted-repack garbage. Cheap (one `find` over one directory) and run
+# EVERY tick regardless of whether the store otherwise needs maintenance, because it
+# is pure reclamation: git itself classifies these as "garbage found" and has no code
+# path that ever removes them. Age-gated so an in-flight repack's temp files are safe.
+sweep_pack_garbage() {
+  local packdir="$1/objects/pack"
+  [ -d "$packdir" ] || return 0
+  local mins=$(( GARDEN_ROOT_GUARD_TMP_AGE_HOURS * 60 ))
+  local sizes n bytes
+  sizes="$(find "$packdir" -maxdepth 1 -type f -name 'tmp_*' -mmin "+$mins" -printf '%s\n' 2>/dev/null || true)"
+  n="$(printf '%s\n' "$sizes" | grep -c . 2>/dev/null || true)"; [[ "$n" =~ ^[0-9]+$ ]] || n=0
+  [ "$n" -eq 0 ] && return 0
+  bytes="$(printf '%s\n' "$sizes" | awk '{s+=$1} END{printf "%d", s+0}' 2>/dev/null || echo 0)"
+  find "$packdir" -maxdepth 1 -type f -name 'tmp_*' -mmin "+$mins" -delete 2>/dev/null || true
+  log "OBJSTORE-SWEPT: removed $n aborted-repack temp file(s) (~$(( bytes / 1048576 )) MiB) from $packdir — leftovers from repacks that died, which git reports as garbage but never reclaims"
+}
+
+# Clear the stale gc.log(s) — the common one AND each worktree's own copy, since any
+# one of them keeps git's automatic cleanup disabled for commands run from there.
+# ONLY ever called after a gc has actually succeeded.
+clear_gc_logs() {
+  local gd="$1"
+  rm -f "$gd/gc.log" 2>/dev/null || true
+  [ -d "$gd/worktrees" ] && find "$gd/worktrees" -maxdepth 2 -type f -name gc.log -delete 2>/dev/null || true
+  return 0
+}
+
+count_gc_logs() {
+  local gd="$1" n=0
+  [ -f "$gd/gc.log" ] && n=1
+  if [ -d "$gd/worktrees" ]; then
+    local w; w="$(find "$gd/worktrees" -maxdepth 2 -type f -name gc.log 2>/dev/null | grep -c . || true)"
+    [[ "$w" =~ ^[0-9]+$ ]] && n=$(( n + w ))
+  fi
+  printf '%s\n' "$n"
+}
+
+# A bounded, worktree-safe gc. `gc.worktreePruneExpire=never` is deliberate: gc would
+# otherwise prune worktree admin entries, and a blanket worktree prune is exactly the
+# hazard journal-worktree-keeper.sh documents (under a garden-root RELOCATION the
+# gitdir back-pointers are stale, so a prune deletes LIVE entries). Deregistering a
+# worktree is the keeper's job, never a side effect of maintenance. Echoes git's own
+# diagnostics so a failure can be reported verbatim.
+attempt_root_gc() {
+  timeout --kill-after=30 "$GARDEN_ROOT_GUARD_GC_TIMEOUT" \
+    git -C "$ROOT" -c gc.worktreePruneExpire=never gc --quiet 2>&1
+}
+
+# <origin_ok> gates the --refetch recovery: never fetch from a remote invariant A
+# could not certify as canonical.
+guard_object_store() {
+  local origin_ok="$1"
+  local gd
+  if ! gd="$(root_common_gitdir)"; then
+    log "WARN: could not resolve the root repo's common git dir; skipping the object-store check"
+    return 0
+  fi
+  mkdir -p "$GUARD_STATE" 2>/dev/null || true
+
+  sweep_pack_garbage "$gd"
+
+  # Does the store need maintenance at all? Quiet no-op when it does not.
+  local gclogs packs loose reason=""
+  gclogs="$(count_gc_logs "$gd")"
+  packs="$(find "$gd/objects/pack" -maxdepth 1 -type f -name '*.pack' 2>/dev/null | grep -c . || true)"
+  [[ "$packs" =~ ^[0-9]+$ ]] || packs=0
+  loose="$(git -C "$ROOT" count-objects 2>/dev/null | awk '{print $1}' || true)"
+  [[ "$loose" =~ ^[0-9]+$ ]] || loose=0
+
+  [ "$gclogs" -gt 0 ] && reason="a stale gc.log is present (${gclogs} copy/copies), which keeps git's automatic cleanup PERMANENTLY disabled"
+  if [ "$packs" -gt "$GARDEN_ROOT_GUARD_MAX_PACKS" ]; then
+    reason="${reason:+$reason; }$packs packs (ceiling $GARDEN_ROOT_GUARD_MAX_PACKS)"
+  fi
+  if [ "$loose" -gt "$GARDEN_ROOT_GUARD_MAX_LOOSE" ]; then
+    reason="${reason:+$reason; }$loose loose objects (ceiling $GARDEN_ROOT_GUARD_MAX_LOOSE)"
+  fi
+  if [ -z "$reason" ]; then
+    # Healthy — close any open breakage window so a later failure alerts again.
+    rm -f "$OBJSTORE_ALERTED" 2>/dev/null || true
+    return 0
+  fi
+
+  # Never fight a deploy: deploy-garden.sh owns the tree under the draining marker.
+  if fleet_draining; then
+    log "OBJSTORE-DEFERRED: root repo $ROOT needs object-store maintenance ($reason) but the fleet is DRAINING (deploy in progress owns the tree); deferring to a later tick"
+    return 1
+  fi
+
+  # Back off: at most one gc attempt per interval, so an unrepairable store does not
+  # burn a multi-minute gc on every tick.
+  local now last
+  now="$(now_epoch)"
+  last="$(cat "$MAINT_LAST" 2>/dev/null || echo 0)"; [[ "$last" =~ ^[0-9]+$ ]] || last=0
+  if [ $(( now - last )) -lt $(( GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS * 3600 )) ]; then
+    return 1
+  fi
+  printf '%s\n' "$now" > "$MAINT_LAST" 2>/dev/null || true
+
+  log "OBJSTORE-MAINTENANCE: root repo $ROOT needs maintenance ($reason); running a bounded 'git gc'"
+  local out rc=0
+  out="$(attempt_root_gc)" || rc=$?
+  if [ "$rc" -eq 0 ]; then
+    clear_gc_logs "$gd"
+    log "OBJSTORE-REPAIRED: git gc succeeded on $ROOT (was: $reason); stale gc.log(s) cleared, so git's automatic cleanup is enabled again"
+    rm -f "$OBJSTORE_ALERTED" 2>/dev/null || true
+    return 0
+  fi
+
+  local first_err
+  first_err="$(printf '%s' "$out" | tr '\n' ' ' | cut -c1-300)"
+  log "OBJSTORE-GC-FAILED: 'git gc' on $ROOT failed (rc=$rc): ${first_err:-<no output>}"
+
+  # NON-DESTRUCTIVE recovery first. --refetch re-downloads the full history from the
+  # canonical remote without negotiation, so objects the local store can no longer
+  # read are restored from origin. It only ever ADDS objects — no prune, no ref moved.
+  if [ "$origin_ok" -eq 1 ]; then
+    log "OBJSTORE-RECOVERY: re-fetching full history from the canonical origin ('fetch --refetch', additive only) to restore unreadable objects"
+    local _ft="$GARDEN_FETCH_TIMEOUT" _fr="$GARDEN_FETCH_RETRIES"
+    GARDEN_FETCH_TIMEOUT="$GARDEN_ROOT_GUARD_REFETCH_TIMEOUT"; GARDEN_FETCH_RETRIES=1
+    bounded_fetch "$ROOT" origin --refetch \
+      || log "OBJSTORE-RECOVERY: the --refetch did not complete (offline, or larger than its budget); retrying gc anyway"
+    GARDEN_FETCH_TIMEOUT="$_ft"; GARDEN_FETCH_RETRIES="$_fr"
+
+    rc=0; out="$(attempt_root_gc)" || rc=$?
+    if [ "$rc" -eq 0 ]; then
+      clear_gc_logs "$gd"
+      log "OBJSTORE-REPAIRED: git gc succeeded on $ROOT after a --refetch recovery (was: $reason); stale gc.log(s) cleared"
+      rm -f "$OBJSTORE_ALERTED" 2>/dev/null || true
+      return 0
+    fi
+    first_err="$(printf '%s' "$out" | tr '\n' ' ' | cut -c1-300)"
+  fi
+
+  # Still broken. Diagnose (bounded) and alert ONCE per breakage window. We do NOT
+  # repair destructively: the objects git cannot read are reachable from real refs, so
+  # dropping those refs drops history — a human decision, not a timer's.
+  local missing n_missing sample
+  missing="$(timeout "$GARDEN_ROOT_GUARD_MISSING_SCAN_TIMEOUT" \
+    git -C "$ROOT" rev-list --objects --missing=print --all 2>/dev/null | grep '^?' || true)"
+  n_missing="$(printf '%s\n' "$missing" | grep -c . 2>/dev/null || true)"
+  [[ "$n_missing" =~ ^[0-9]+$ ]] || n_missing=0
+  sample="$(printf '%s\n' "$missing" | head -3 | tr '\n' ' ')"
+
+  if [ ! -f "$OBJSTORE_ALERTED" ]; then
+    local msg="root repo $ROOT object store is UNMAINTAINABLE: 'git gc' fails (${first_err:-unknown error}) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. ${n_missing} object(s) reachable from refs are missing locally${sample:+ (e.g. $sample)}. State: ${packs} packs, ${loose} loose objects, ${gclogs} stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C $ROOT rev-list --objects --missing=print --all | grep \"^?\"', find the refs that reach them, back each one up first ('git -C $ROOT branch root-guard-backup/\$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C $ROOT gc'. (host=$GARDEN)"
+    log "OBJSTORE-UNREPAIRABLE: $msg"
+    alert_maintainer "root-repo-objstore-$GARDEN" "$msg"
+    : > "$OBJSTORE_ALERTED" 2>/dev/null || true
+  fi
+  return 1
+}
+
 # --- stalled-deploy watch ----------------------------------------------------
 # When the recorded deployed sha is an ancestor of origin/main2 (a normal lag) for
 # longer than the threshold, alert ONCE per window. Cleared when caught up.
@@ -255,11 +472,16 @@ guard_root_repo() {
   local head_ok=0
   guard_head "$up" && head_ok=1
 
+  # C — object store healthy and maintainable (gc can still run). Last of the three:
+  # it is the slowest, and a drifted HEAD or origin is the more urgent repair.
+  local obj_ok=0
+  guard_object_store "$origin_ok" && obj_ok=1
+
   # Stalled-deploy watch (informational; never blocks the healthy path).
   guard_deploy_lag "$up"
 
-  if [ "$origin_ok" -eq 1 ] && [ "$head_ok" -eq 1 ]; then
-    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor"
+  if [ "$origin_ok" -eq 1 ] && [ "$head_ok" -eq 1 ] && [ "$obj_ok" -eq 1 ]; then
+    log "root repo healthy: origin canonical, HEAD detached at a $GARDEN_MAIN_BRANCH ancestor, object store maintainable"
   fi
   return 0
 }

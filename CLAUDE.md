@@ -221,8 +221,11 @@ Because the root checkout and the `journal/` worktree share ONE repo
 repository can corrupt it (2026-07-17/07-21: a HEAD moved onto a fixture branch; an
 origin rewritten to an unrelated remote — undetected for days). The
 **`garden-root-repo-guard`** timer (every host, ~30m) asserts the root's invariants
-— canonical origin, HEAD detached at a `main2` ancestor — and losslessly repairs +
-alerts on drift, plus watches for a stalled deploy; the worker spine also caps git's
+— canonical origin, HEAD detached at a `main2` ancestor, and an object store that is
+still **maintainable** (a failed `git gc` leaves a `gc.log` that disables git's
+automatic cleanup *permanently*, after which packs and aborted-repack garbage grow
+unbounded and every journal sync pays for it) — and losslessly repairs + alerts on
+drift, plus watches for a stalled deploy; the worker spine also caps git's
 ascent with `GIT_CEILING_DIRECTORIES=$GARDEN_ROOT` and every worker prompt forbids
 running git in `$GARDEN_ROOT`. Rationale:
 [`designs/root-repo-guard.md`](designs/root-repo-guard.md).

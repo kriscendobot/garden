@@ -1,6 +1,6 @@
 ---
 created: 2026-07-21
-updated: 2026-07-21
+updated: 2026-07-28
 author: gardener
 ---
 
@@ -77,6 +77,9 @@ Defense in depth, cheapest-first, each independently useful:
      (lossless). Deferred while the fleet is **draining** (a deploy owns the tree)
      and when `origin/main2` is unresolvable (never reset toward an unknown target).
 
+   - **Object store** must be **healthy and maintainable** — added 2026-07-28; see
+     § Invariant C below for the failure mode and the repair ladder.
+
    Plus a **stalled-deploy watch**: when `deployed_sha` lags `origin/main2` past
    `GARDEN_DEPLOY_STALL_DAYS` (default 3), it alerts **once per breakage window**
    (the incident also noted deploys silently stalled since 07-17), cleared
@@ -87,6 +90,100 @@ Defense in depth, cheapest-first, each independently useful:
    Failed. The guard deploys to every instance via the standard unit-derived
    enable-set (a non-template `*.timer` with `WantedBy=timers.target` is
    auto-enabled), so no host list needs editing.
+
+## Invariant C — the object store is healthy and maintainable (2026-07-28)
+
+Invariants A and B assert what the root repo *points at*. Nothing asserted anything
+about the store those pointers read from, and **no script anywhere in `scripts/` ever
+ran `git gc`, `git repack`, or `git prune`** — the responsibility was owned by nobody,
+on the assumption that git's own automatic cleanup covers it.
+
+It does not, and the way it stops covering it is silent and **self-reinforcing**:
+
+> A failed `gc` writes `.git/gc.log`, and while that file exists git refuses to run
+> automatic cleanup at all — *"Automatic cleanup will not be performed until the file
+> is removed."* Nothing in git ever removes it. One transient failure therefore
+> disables maintenance **permanently**, and the resulting growth makes the next manual
+> `gc` slower and likelier to fail.
+
+### What that produced on the first host audited (endolin-garden2, 2026-07-28)
+
+| Symptom | Measured |
+| --- | --- |
+| `git gc` | fails: `fatal: unable to read 9ad05cc3…` → `fatal: failed to run repack` |
+| stale `gc.log` | present in the common git dir **and 5 worktree admin dirs** (Jul 27) |
+| packs | **1301** (a gc'd repo sits at 1–2) |
+| objects | 511,993 in-pack + 10,459 loose, 136 prune-packable |
+| **aborted-repack garbage** | **139 `tmp_*` files, 15.4 GB** — against a real store of ~320 MB |
+| missing objects | 22, all reachable only from `journal2` (`origin/main2` and `main2` scan clean) |
+
+The garbage figure is the headline: git's own `count-objects -v` reports it as
+`size-garbage`, calls it "garbage found" on every invocation — and has **no code path
+that ever deletes it**. Each aborted repack left a partial pack behind, so the 48×
+disk overshoot was produced entirely by the failure loop, not by the repo.
+
+Fleet impact beyond disk and slowness: `journal/` is a **worktree of this same repo**,
+so every journal sync paid the 1301-pack index scan, and every git call in the root —
+a plain `git fetch` included — printed the gc.log banner on **stderr**, which is
+exactly the unexpected-stderr noise the gardener's output classifiers read.
+
+### The repair ladder
+
+Same bounded/lossless discipline as A and B, cheapest first, each step conditional on
+the previous one failing:
+
+1. **Sweep the garbage** (`objects/pack/tmp_*` older than
+   `GARDEN_ROOT_GUARD_TMP_AGE_HOURS`, default 24h). Unconditional, every tick, one
+   `find` — pure reclamation of files git has already classified as garbage. The age
+   gate is what keeps an **in-flight** repack's temp files safe.
+2. **Run a bounded `git gc`** when a `gc.log` is present or the pack/loose counts pass
+   their ceilings (`GARDEN_ROOT_GUARD_MAX_PACKS` 50, `..._MAX_LOOSE` 10000 — git's own
+   auto-gc thresholds). The gc.log(s) are removed **only once gc actually succeeds**,
+   so the guard can never merely hide the signal it was written to act on; both the
+   common copy and each `worktrees/*/gc.log` are cleared, since any one of them
+   independently disables auto-gc for commands run from that worktree.
+   `gc.worktreePruneExpire=never` is pinned: deregistering a worktree is
+   `journal-worktree-keeper`'s job under its own active-writer gating, never a side
+   effect of maintenance (a blanket worktree prune is the hazard that keeper
+   documents — under a garden-root relocation the back-pointers are stale, so a prune
+   deletes **live** entries).
+3. **Recover non-destructively** — `git fetch origin --refetch` from the canonical
+   remote (only when invariant A certified origin this tick). `--refetch` re-downloads
+   the full history without negotiation, which is the point: a plain fetch cannot heal
+   this, because git believes it already has those refs. It only ever **adds**
+   objects — no prune, no ref moved. Then gc is retried once.
+4. **Alert, do not amputate.** If gc still fails, alert **once per breakage window**
+   (`objstore-alerted`, cleared on recovery — the stalled-deploy watch's shape) with
+   the missing-object count, a sample, and a by-hand reconciliation recipe. The guard
+   never repairs destructively on its own: the refs that reach a missing object are
+   real history, so dropping them is a human decision, and any ref that must move gets
+   a `root-guard-backup/<ts>` first (invariant B's discipline).
+
+Deferred entirely while the fleet is **draining** (a deploy owns the tree), and backed
+off to one attempt per `GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS` (default 6) so a store
+that cannot be repaired does not burn a multi-minute gc on every ~30m tick. The
+per-step budgets (`..._GC_TIMEOUT` / `..._REFETCH_TIMEOUT` / `..._MISSING_SCAN_TIMEOUT`,
+420/420/180s) sum under the unit's `TimeoutStartSec`, raised to 1800 to fit them.
+
+### Where the damage came from — and what invariant C deliberately does not touch
+
+The audit traced two separate contributors, only one of which is the guard's to fix:
+
+- **The 07-21 project-work escape left permanent foreign refs.** The root repo carries
+  **1,948 tags, 1,739 of them `@endo/*`** (plus the `SES-v*` series) — the endo
+  monorepo's tags, fetched in when a job pointed the root's origin at
+  `endojs/endo-but-for-bots`. Invariant A repaired the origin URL; nothing reverted the
+  **fetch**. Those tags keep hundreds of MB of foreign objects permanently reachable,
+  so gc can never drop them, and they are 1,948 of the repo's ~1,991 refs. Deleting
+  1,739 refs is destructive by definition, so it stays a **human-gated one-time
+  cleanup**, not something a timer does. The `--refetch` recovery is safe alongside
+  them precisely because it is additive.
+- **Per-job worktrees are being left behind.** The root repo had **102 registered
+  worktrees** (101 `gardener-wt-*` plus `journal`), the oldest from Jul 10, all with
+  live working directories (0 prunable) totalling 23 GB of `scratch/`. Every one is a
+  gc root, and five carried their own stale `gc.log`. That is a **teardown leak, not a
+  registration leak** — `git worktree prune` would remove none of them — so it is
+  outside this guard and wants its own job against the gardener/reaper teardown path.
 
 ## Why not fold it into an existing keeper
 
@@ -106,3 +203,11 @@ alerts captured via `GARDEN_ALERT_CMD`): healthy no-op, origin-drift repair,
 HEAD-onto-a-branch repair with a lossless backup ref, non-ancestor-HEAD repair,
 draining-defer, and the stalled-deploy alert (fires once past threshold, dedupes,
 clears on catch-up).
+
+Invariant C adds: aged `tmp_pack` garbage swept while a **fresh** one is left alone;
+`gc.log` cleared after a gc that succeeds (common **and** per-worktree copies) but
+**kept** while gc still fails; a healthy store as a quiet no-op; the unrepairable-store
+alert firing once per window and clearing on recovery; the draining defer; the
+back-off; and the real end-to-end recovery — a root whose packs are gone, where gc
+fails, `--refetch` restores the objects from origin, and the retried gc then succeeds
+with no ref dropped.

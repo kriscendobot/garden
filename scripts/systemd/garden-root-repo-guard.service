@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden root-repo-guard (assert the deployed root repo's invariants — canonical origin, HEAD detached at a main2 ancestor — and repair + alert on drift, so a job that escapes into $GARDEN_ROOT/.git can no longer leave the fleet running a corrupted root for days; also watches for a stalled deploy)
+Description=Garden root-repo-guard (assert the deployed root repo's invariants — canonical origin, HEAD detached at a main2 ancestor, a healthy and gc-able object store — and repair + alert on drift, so a job that escapes into $GARDEN_ROOT/.git can no longer leave the fleet running a corrupted root for days; also watches for a stalled deploy)
 
 [Service]
 Type=oneshot
@@ -13,5 +13,8 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # can corrupt independently, so the guard runs everywhere — no ExecCondition.
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-root-repo-guard -- @GARDEN_ROOT@/scripts/jobs/root-repo-guard.sh
 # The self-heal responder runs synchronously on a failed tick before the wrapper
-# returns; give it headroom beyond the implicit 90s oneshot start timeout.
-TimeoutStartSec=900
+# returns; give it headroom beyond the implicit 90s oneshot start timeout. The budget
+# also has to cover invariant C's worst case — a bounded gc, a --refetch recovery, a
+# second gc and a missing-object scan (GARDEN_ROOT_GUARD_*_TIMEOUT, ~1440s in sum) —
+# on a tick that finds the object store broken.
+TimeoutStartSec=1800
