@@ -83,3 +83,10 @@ Include at least one worked example of that distinction.
   about careful communication that violates the existing style rules undercuts itself.
 - Direct push to `main2`. Report what you decided about the liaison and about the
   duplicate style sections.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:08:04Z
