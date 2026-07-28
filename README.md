@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:10:55Z_
+_As of 2026-07-28T01:11:42Z_
 
 ## Latest
 
@@ -6201,14 +6201,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.0M | $457.55 _(notional, rate-card)_ | no quota set |
+| Claude | 35.0M | $458.25 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+473.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (44)
+### doin (45)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-004711.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -6239,6 +6239,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`fix-fork-watch-dead-upstream-armed-slug`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-fork-watch-dead-upstream-armed-slug.md) — fork-watch-provisioner never re-checks liveness for an ALREADY-ARMED slug, so a
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
