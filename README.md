@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T19:35:48Z_
+_As of 2026-07-28T19:36:27Z_
 
 ## Latest
 
@@ -3206,14 +3206,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.0M | $729.67 _(notional, rate-card)_ | no quota set |
+| Claude | 53.0M | $729.59 _(notional, rate-card)_ | no quota set |
 | Codex | 309.6M _(+459.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (41)
+### doin (40)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3236,7 +3236,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr882-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr882-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #882
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-192002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-stale-bulletin-pages-url`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-stale-bulletin-pages-url.md) — The GitHub repo kriskowal/garden was transferred/renamed to kriscendobot/garden
 - [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
 - [`fu-build-exo-google-sheets-facets-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-build-exo-google-sheets-facets-2.md) — In the garden repo (kriscendobot/garden), fix skills/local-verify so its test...
@@ -3256,13 +3255,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3718)
+### tada (3719)
+- [`finbot-progress-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-192002.md) — Completion report — finbot progress cycle 20260728-192002
 - [`endo-git-integration-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-192002.md) — Press report — git-integration / M3 loop (dispatch 2026-07-28T19:20Z)
 - [`fu-build-exo-google-sheets-facets-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-build-exo-google-sheets-facets-1.md) — Cost
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-exo-google-sheets-facets.md) — Job report: build-exo-google-sheets-facets
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/suffix-github-comments-with-provenance.md) — Completion report
-- [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr868-lint-fix.md) — Completion report: endojs-endo-but-for-bots-pr868-lint-fix
-- … and 3713 more
+- … and 3714 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
