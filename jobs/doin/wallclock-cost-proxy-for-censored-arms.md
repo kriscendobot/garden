@@ -113,6 +113,7 @@ refinement is worth a follow-up.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23-garden-f65473ae
