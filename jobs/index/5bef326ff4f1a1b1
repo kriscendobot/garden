@@ -1,0 +1,2 @@
+base: improve-journal-entry-duplicate-suppression
+identity: mentor:scripts/jobs/journal-entry.sh
