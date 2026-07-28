@@ -24,6 +24,7 @@ Report the files changed and how a Claude-only gnome (ps23) vs an all-backend gn
 <!-- garden-reaped: 3 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
