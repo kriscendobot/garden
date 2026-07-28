@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:00:14Z_
+_As of 2026-07-28T07:05:29Z_
 
 ## Latest
 
@@ -6629,16 +6629,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.5M | $480.01 _(notional, rate-card)_ | no quota set |
-| Codex | 437.4M _(+407.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 41.8M | $491.88 _(notional, rate-card)_ | no quota set |
+| Codex | 437.2M _(+408.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (69)
+### doin (70)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
+- [`daily-progress-summary-20260728-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260728-070504.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5100277860`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5100277860.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-5100304929`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5100304929.md) — Dead-lettered message — pick up its intent
