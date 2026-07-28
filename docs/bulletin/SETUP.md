@@ -30,12 +30,20 @@ This is the default, no-backend path. The token stays in your browser's
 2. **Resource owner:** `kriscendobot`. **Repository access:** "Only select
    repositories" → `kriscendobot/garden`.
 
-   > The repo was **transferred** `kriskowal/garden` → `kriscendobot/garden` on
-   > 2026-07-28. A fine-grained token is scoped to a **resource owner**, and that
-   > scope does not follow a transfer, so a token minted under `kriskowal` can no
-   > longer write here even though the old URL redirects. Re-mint under
-   > `kriscendobot` — the account must grant the token, so this is a maintainer
-   > action, not something the fleet can do.
+   > **A fine-grained token is owner-scoped, and that scope does not follow a
+   > repo transfer.** The repo was **transferred** `kriskowal/garden` →
+   > `kriscendobot/garden` on 2026-07-28, so a token minted under `kriskowal` can
+   > no longer write here even though the old URL still redirects. **Any future
+   > transfer invalidates the token the same way** — always re-mint under the
+   > repo's *current* resource owner.
+   >
+   > **The symptom to recognize:** everything looks fine — the bulletin renders
+   > and the inbox lists, because *reads are unauthenticated on a public repo* —
+   > but **replies fail on save** (a 401/403/404 from the Contents API on the
+   > commit). If saves start failing while reads keep working, suspect a
+   > missing/expired token or one scoped to the wrong owner *first*. Re-minting
+   > requires the account holder, so this is a maintainer action, not something
+   > the fleet can do.
 3. **Permissions → Repository permissions → Contents: Read and write.** Leave
    everything else at "No access". (Contents write is what lets the page commit
    the reply to `journal2`.)

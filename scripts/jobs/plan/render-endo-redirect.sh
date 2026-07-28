@@ -84,7 +84,7 @@ cat <<EOF
 >
 > - Source of truth: garden journal \`plan/designs/${REPO_SLUG}/<slug>.md\`
 > - Generated aggregate roadmap: garden journal \`plan/README.md\`
-> - Generator: \`scripts/jobs/plan/render-endo-redirect.sh\` (kriskowal/garden)
+> - Generator: \`scripts/jobs/plan/render-endo-redirect.sh\` (kriscendobot/garden)
 > - Architecture: \`designs/plan-in-journal.md\` (garden#4)
 
 This index lists the **${total}** design(s) targeting this repository. The

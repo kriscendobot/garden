@@ -13,6 +13,27 @@ const el = (tag, attrs = {}, ...kids) => {
   return node;
 };
 
+// Map a failed WRITE to a legible message. Reads are unauthenticated on this
+// public repo, so a 401/403/404 only ever bites on the reply commit — and it
+// almost always means the token is missing, expired, or scoped to the wrong
+// resource owner. A fine-grained PAT is owner-scoped and does NOT survive a repo
+// transfer (see docs/bulletin/SETUP.md § 2), which is exactly the failure that
+// looks like "reads fine, saves fail". Surface that plainly instead of a raw
+// status. The token is never included in the message (or logged) — ever.
+function saveErrorMessage(e) {
+  if (e && (e.status === 401 || e.status === 403 || e.status === 404)) {
+    return (
+      `save rejected (HTTP ${e.status}). The token is missing, expired, or ` +
+      `scoped to the wrong resource owner. A fine-grained token is owner-scoped ` +
+      `and does NOT survive a repo transfer, so a token minted under a previous ` +
+      `owner can no longer write here even though reads still work. Re-mint a ` +
+      `token under this repo's current owner with Contents: read & write — see ` +
+      `docs/bulletin/SETUP.md § 2.`
+    );
+  }
+  return `failed: ${e.message}`;
+}
+
 // Parse the bus message format: leading `key: value` lines, a `---` fence, body.
 function parseMessage(text) {
   const lines = text.split('\n');
@@ -198,7 +219,7 @@ async function submitReply({ item, fm, textarea, statusEl, btn }) {
   } catch (e) {
     btn.disabled = false;
     statusEl.innerHTML = '';
-    statusEl.append(el('span', { class: 'err', text: `failed: ${e.message}` }));
+    statusEl.append(el('span', { class: 'err', text: saveErrorMessage(e) }));
   }
 }
 
@@ -247,7 +268,7 @@ async function submitThread({ textarea, statusEl, btn }) {
     );
   } catch (e) {
     statusEl.innerHTML = '';
-    statusEl.append(el('span', { class: 'err', text: `failed: ${e.message}` }));
+    statusEl.append(el('span', { class: 'err', text: saveErrorMessage(e) }));
   } finally {
     btn.disabled = false;
   }

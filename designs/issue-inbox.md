@@ -53,7 +53,7 @@ start a new garden — the repo identity and the maintainer set are **per-instan
 journal state**:
 
 - `config/garden-repo` — the instance's own `owner/name` (this instance:
-  `kriskowal/garden`). Set with `set-garden-repo.sh <owner/name>`.
+  `kriscendobot/garden`). Set with `set-garden-repo.sh <owner/name>`.
 - `maintainers/allowlist` — the maintainer set, one login per line (`#` comments
   and blanks ignored, case-insensitive). Append with `add-maintainer.sh <login>`.
 
@@ -175,7 +175,7 @@ journal with a stubbed source (and a stubbed `gh` for the source handler), asser
 Per host, once the journal is initialized:
 
 ```sh
-scripts/jobs/set-garden-repo.sh kriskowal/garden     # this instance's own repo
+scripts/jobs/set-garden-repo.sh kriscendobot/garden  # this instance's own repo
 scripts/jobs/add-maintainer.sh  kriskowal            # one per maintainer login
 scripts/jobs/install-units.sh   install              # render + reload units
 scripts/jobs/install-units.sh   enable-services      # auto-enables the timer

@@ -15,7 +15,7 @@
 #
 # The workflow defaults to `pages-build-deployment` — GitHub's built-in dynamic
 # "pages build and deployment" pipeline that fires on every push to the Pages source
-# branch (for kriskowal/garden that is main2/docs). Pass an explicit workflow name to
+# branch (for kriscendobot/garden that is main2/docs). Pass an explicit workflow name to
 # watch a custom Pages action instead.
 #
 # Monitoring safety: this handler reads only WORKFLOW-RUN metadata (id, status,

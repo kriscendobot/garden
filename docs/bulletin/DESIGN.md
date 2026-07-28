@@ -41,7 +41,9 @@ See SETUP.md for both.
 `journal2` is a large orphan branch and a live agent workspace; it must not be
 the Pages source. The static site is committed to **`main2` under `docs/`** and
 served by GitHub Pages "Deploy from a branch" → branch `main2`, folder `/docs`.
-The bulletin lands at `https://kriskowal.github.io/garden/bulletin/`. The page
+The bulletin lands at `https://kriscendobot.github.io/garden/bulletin/`
+(`https://<owner>.github.io/<repo>/bulletin/` in general — the URL is
+owner-derived and does **not** redirect across a repo transfer). The page
 holds no bulletin content of its own: at load it pulls the live
 `journal2:README.md` and the live `inbox/maintainer/unread/` listing through the
 GitHub Contents API (`?ref=journal2`), so "automatically posted" is satisfied
