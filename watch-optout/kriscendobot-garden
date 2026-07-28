@@ -1,11 +1,27 @@
-# watch-optout tombstone — durable unwatch of an auto-provisioned own fork.
+# watch-optout tombstone — suppresses AUTO-provisioning of this slug.
 #
-# Fork kriscendobot/garden no longer exists on GitHub (gh api repos/kriscendobot/garden
-# -> 404) but a stale bare clone worktrees/kriscendobot-garden.git kept
-# fork-watch-provisioner.sh re-arming it into repos/ + comment-repos/, so all three
-# per-repo watchers (garden-triager@, garden-comment-watcher@, garden-ci-watcher@)
-# FATAL-flapped against a 404 repo every tick. This tombstone is the design's
-# required durable-unwatch signal: the provisioner never re-adds a tombstoned slug.
-# See job self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch
-# and designs/auto-provision-fork-watchers.md.
-unwatched: kriscendobot/garden (dead fork, upstream 404)
+# SUPERSEDED REASON (2026-07-27): "dead fork, upstream 404". That was true when a
+# stale bare clone worktrees/kriscendobot-garden.git outlived a deleted fork and
+# made fork-watch-provisioner.sh re-arm watchers that only FATAL-flapped.
+#
+# CURRENT REASON (2026-07-28): the slug now names the garden's OWN repo, which was
+# TRANSFERRED kriskowal/garden -> kriscendobot/garden. gh api repos/kriscendobot/garden
+# returns 200, so the dead-fork rationale no longer holds — but the tombstone must
+# STAY, for a different reason:
+#
+#   * config/fork-owners lists kriscendobot, so the provisioner would now treat the
+#     garden's own repo as an own fork and auto-arm BOTH watch sets.
+#   * That would add repos/kriscendobot-garden — a COMMIT triager the garden's own
+#     repo has never had, which would post jobs off its own main2 commits.
+#   * It would also write a default comment-repos/ record, overwriting nothing but
+#     competing with the hand-written pr-only arming that keeps the comment-watcher
+#     and the issue-inbox from both dispatching on one comment.
+#
+# The comment surface IS watched, deliberately and by hand: comment-repos/kriscendobot-garden
+# (pr-only, sender-gated). repo-watcher.sh reconciles that record into units without
+# consulting this file, so this tombstone suppresses ONLY auto-provisioning.
+#
+# Removing this file would arm a commit triager on the garden's own repo. Do that
+# only deliberately. See designs/auto-provision-fork-watchers.md and
+# context/operations/repo-transfer.md.
+unwatched: kriscendobot/garden (auto-provisioning only — comment surface is hand-armed)
