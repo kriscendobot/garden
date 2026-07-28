@@ -10,3 +10,10 @@ Failure signature: `garden-comment-watcher@kriscendobot-chrome-native-function-c
 3. Immediately disarm this repo so the flap stops without waiting on the fix: race a journal commit adding `watch-optout/kriscendobot-chrome-native-function-caller-arguments-repro` (use `write_dead_tombstone`'s wording — `reason: upstream 404 (deleted or renamed fork)`) and removing `repos/kriscendobot-chrome-native-function-caller-arguments-repro` and `comment-repos/kriscendobot-chrome-native-function-caller-arguments-repro`. Then stop the templated units for that instance on this host. Optionally prune the stale bare clone `worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git`, but the tombstone is what makes the unwatch durable against the reconciler.
 
 4. Regression check: verify a slug that is armed in both sets *and* has a 404 upstream gets tombstoned and disarmed on the next `fork-watch-provisioner.sh` tick, and that a live fork with an inconclusive (non-404) `gh` error is left untouched.
+
+---
+claim:
+  host: ps23
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T01:01:40Z
