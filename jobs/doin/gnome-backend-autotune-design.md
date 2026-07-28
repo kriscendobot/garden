@@ -39,3 +39,10 @@ Design ONLY (no implementation). Base: garden main2 (direct, no PR). Keep it tig
 and implementable.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T02:23:07Z
