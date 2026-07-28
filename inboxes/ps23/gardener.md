@@ -489,3 +489,12 @@ Inspect via `git -C journal cat-file -p 69d6b732a58373a49835457405f62e77a1cf9da1
 - Context: gardener-5 on ps23: job 'endo-sturdyref-press-20260728-004711' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 172c1deeca345a7d17a6dd6b8b47ce48cd18950c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:48Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 83f23bce46a9e6d947a8bc8059a3f082d99f1858
+- Context: gardener-1 on ps23: job 'endo-vfs-parity-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 83f23bce46a9e6d947a8bc8059a3f082d99f1858`.
