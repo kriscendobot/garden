@@ -96,3 +96,10 @@ frozen as they are now — and the fleet is actively adding lanes (open jobs
 - Pushed to `main2` per the garden's own-repo convention (direct push, no PR).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T08:03:27Z
