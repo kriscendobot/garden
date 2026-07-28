@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-07-28T17:14:06Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-scholar-ingest-atproto-ucan-did-specs

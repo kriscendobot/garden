@@ -99,9 +99,4 @@ https://github.com/kriscendobot/garden/issues/34 saying which primary specs are
 now in the garden's library and where, so the maintainer knows the citation
 trail is durable. **Never close the issue**; the submitter closes it.
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T17:14:06Z
+<!-- garden-reaped: 1 -->
