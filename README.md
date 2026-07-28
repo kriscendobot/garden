@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:28:27Z_
+_As of 2026-07-28T01:29:00Z_
 
 ## Latest
 
@@ -1331,6 +1331,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T012812Z-a37cc0` — from watchdog:foreman-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T012812Z-a37cc0.md)
 
 > local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3.6; hermit cannot run 'foreman'. Ensure garden-ollama.service owns the port and pull qwen3.6 into the bot user's store.
+
+- `20260728T012848Z-d2f1de` — from watchdog:ollama-serve, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T012848Z-d2f1de.md)
+
+> local inference endpoint http://127.0.0.1:11434/v1 answers but serves no models; refusing to stand down for the foreign listener on 127.0.0.1:11434
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
