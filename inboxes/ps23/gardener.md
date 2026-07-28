@@ -975,3 +975,12 @@ Inspect via `git -C journal cat-file -p a8d4a6edfef100b2c5b909dcb52ae36033f3ff1e
 - Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr268-dependabot' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p a39e8fe2c227125fd999579feaea70597eadbf17`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 266920421c44b1322d762faa26ca6560c85ad65a
+- Context: gardener-1 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 266920421c44b1322d762faa26ca6560c85ad65a`.
