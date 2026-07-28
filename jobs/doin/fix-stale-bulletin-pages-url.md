@@ -17,3 +17,10 @@ about which references are meant to name the canonical repo (should update)
 vs. historical/quoted text (should not).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T20:53:13Z
