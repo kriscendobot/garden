@@ -309,3 +309,12 @@ Inspect via `git -C journal cat-file -p 2455c1203465b7aab550fac76aa7b515e2a1fc1b
 - Context: gardener-8 on ps23-garden-f65473ae: job 'measure-requeue-exit-knowledge-loss' transient-classified (rc=1) but elapsed near-constant (299,299s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 8ac8537fc88f00132439cd0e21806c95166529de`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T21:10:28Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 62ec6bcf1a205c133d954edcfdedca714c155ca0
+- Context: gardener-2 on ps23-garden-f65473ae: job 'endo-cbor-adopt-ocapn' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 62ec6bcf1a205c133d954edcfdedca714c155ca0`.
