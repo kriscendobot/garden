@@ -4,7 +4,7 @@
 # Usage: read-msgs.sh <seen-key> <address>...
 #   <seen-key>  a stable per-agent key (e.g. gardener-1); names the seen-marker.
 #   <address>   one or more bus addresses to watch, e.g. role/gardener job/abc
-#               broadcast.
+#               host/<GARDEN> broadcast.
 #
 # Prints each not-yet-seen message (newest-last) and records it as seen in a
 # marker kept OUTSIDE the journal (under GARDEN_STATE), so a `git reset --hard`
@@ -22,6 +22,27 @@ source "$HERE/common.sh"
 seen_key="${1:?usage: read-msgs.sh <seen-key> <address>...}"; shift
 [ "$#" -ge 1 ] || die "need at least one address to watch"
 GARDEN_TAG="monitor/$seen_key"
+
+# Validate each address with the SAME grammar send-msg.sh enforces: one of the
+# four kinds (role/<name>, job/<base>, host/<GARDEN>, broadcast), and after the
+# kind prefix exactly one path segment ([A-Za-z0-9._-]+, no leading dot, no
+# embedded slash). This is what keeps a relpath like host/../../x from escaping
+# msgs/ on the READ side too — we cat files under msgs/$addr, so an un-guarded
+# address is a path-traversal read. Reused verbatim from send-msg.sh so the send
+# and read grammars can never drift. broadcast has no segment.
+for addr in "$@"; do
+  case "$addr" in
+    role/?*|job/?*|host/?*|broadcast) :;;
+    *) die "illegal address '$addr' (use role/<name>, job/<base>, host/<GARDEN>, or broadcast)";;
+  esac
+  case "$addr" in
+    broadcast) :;;
+    *) seg="${addr#*/}"
+       case "$seg" in
+         *[!A-Za-z0-9._-]*|.*|'') die "illegal address segment '$seg' (one [A-Za-z0-9._-]+ segment, no leading dot)";;
+       esac;;
+  esac
+done
 
 DIR="${GARDEN_MSG_CLONE:-$GARDEN_STATE/monitors/$seen_key/journal}"
 SEEN="$GARDEN_STATE/seen/$seen_key"

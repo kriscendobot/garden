@@ -115,7 +115,7 @@ The constraint covers both **event-level** surveillance (the per-repo triager co
 
 The authoritative inventory is the `roles/` and `skills/` directories themselves — each role's `AGENT.md` and each skill's `SKILL.md` is the source of truth for what it does. This list is a regenerable name index (`ls roles/ skills/`), kept plain so it does not re-drift into prose.
 
-- **Roles** (`roles/<name>/AGENT.md`): `appellate`, `assayer`, `barrister`, `boatman`, `botanist`, `builder`, `cleaner`, `conductor`, `designer`, `fixer`, `foreman`, `gardener`, `journalist`, `judge`, `justice`, `liaison`, `librarian`, `mentor`, `monitor`, `orchestrator`, `pages-shepherd`, `prosecutor`, `proxy`, `researcher`, `scholar`, `shepherd`, `solicitor`, `triager`, `watchman`, `weaver`, `web-builder`, `web-designer`. Two are redirect stubs kept so old references resolve: `judge` → the split `solicitor`/`barrister`/`justice`, and `monitor` → its v2 successors `triager` (per-repo comment/CI watch) + `watchman` (`main2` evolution broadcast).
+- **Roles** (`roles/<name>/AGENT.md`): `appellate`, `assayer`, `barrister`, `boatman`, `botanist`, `builder`, `cleaner`, `conductor`, `designer`, `fixer`, `foreman`, `gardener`, `journalist`, `judge`, `justice`, `liaison`, `librarian`, `mentor`, `monitor`, `orchestrator`, `pages-shepherd`, `prosecutor`, `proxy`, `researcher`, `scholar`, `shepherd`, `solicitor`, `sysop`, `triager`, `watchman`, `weaver`, `web-builder`, `web-designer`. Three are non-postable stubs kept so old references resolve: `judge` → the split `solicitor`/`barrister`/`justice`; `monitor` → its v2 successors `triager` (per-repo comment/CI watch) + `watchman` (`main2` evolution broadcast); and `sysop` → the deterministic per-host daemon `scripts/jobs/sysop.sh` + `garden-sysop` unit (host-directed system ops off the bus; runs NO `claude`, claims no jobs — see [designs/sysop.md](designs/sysop.md) and § Job system, *the sysop*).
 - **Juror seats** (`roles/jurors/<seat>/AGENT.md`, dispatched only by the scripted panel): `archivist`, `assessor`, `benchmarker`, `breaker`, `changeset-auditor`, `copyeditor`, `corner-prober`, `coverage-auditor`, `critic`, `curator`, `decomplector`, `engine-realist`, `ergonomist`, `fast-checker`, `gateway`, `integrator`, `locksmith`, `migrator`, `novice`, `packager`, `pedant`, `prover`, `pruner`, `purist`, `releaser`, `saboteur`, `scribe`, `skeptic`, `spec-keeper`, `stylist`, `surfacer`, `transplanter`, `typist`, `warden`, `wire-watcher`.
 - **Skills** (`skills/<name>/SKILL.md`): `activity-feed-watcher`, `adversarial-tests`, `agoric-chain-snapshot`, `at-mention-surveillance`, `aws-administration`, `bid-auction`, `changeset-discipline`, `cherry-pick-followup`, `ci-failure-classification-loop`, `conflict-resolution`, `context-library`, `coverage-driven-testing`, `css-anchor-positioning-and-flip-fallbacks`, `css-design-tokens-and-theming`, `css-intrinsic-and-content-sizing`, `design-dependency-walk`, `design-to-pr-pipeline`, `dispatch-worktree`, `em-dash-style`, `emoji-favicon`, `frozen-base-branch`, `fully-qualified-github-urls`, `gap-revealing-build`, `gardener-inbox-error-reporting`, `github-activity-poll`, `gricean-maxims`, `issue-inbox`, `job-board`, `journalism`, `library-lookup`, `local-verify`, `mermaid-validation`, `message-bus`, `model-selection`, `native-customizable-form-control-styling`, `no-comment-banners`, `no-latin-shorthand`, `node-lts-window-watch`, `node-parity-test`, `oauth-use-case-patterns`, `orchestration`, `pages-build-shepherd`, `panel`, `panel-hints`, `panel-review`, `pr-ci-watch`, `pr-completion-summary-comment`, `pr-creation-flow`, `pr-dependency-graph`, `pr-dependency-topo-sort`, `pr-formation`, `pr-handoff`, `pr-review-thread-replies`, `pre-pr-checklist`, `pre-push-gates`, `prompt-on-failure-capture`, `reactji-acknowledgment`, `rebase-before-followup`, `rebase-hygiene-audit`, `regression-evidence`, `relative-paths`, `rename-discipline`, `restore`, `retcon`, `review-feedback-followup-commits`, `review-queue-poll`, `review-retrospective`, `saboteur-adversarial-review`, `schedule`, `self-healing-wrapper`, `self-improvement`, `slog-debugging`, `stacked-pr-build`, `supports-feature-query-progressive-enhancement`, `test-title-spec-spelling`, `typist-friendly-code-points`, `verify-upstream-state-before-pinning`, `worktree-per-pr`, `xs-debugging`, `yarn-lock-separate-commit`.
 
@@ -175,7 +175,36 @@ to the context page:
   the foreman, scheduler, bulletin, the watchers, the recovery services, and the
   liaison's maintainer-inbox and deploy-on-upgrade Monitors are leader-only,
   gated by `scripts/jobs/is-main-host.sh`. **Gardeners run on every host** and
-  race-claim safely via the job-board push CAS.
+  race-claim safely via the job-board push CAS. The **sysop** (below) also runs on
+  **every host**, the deliberate exception to the leader-only rule.
+
+#### The sysop — host-directed system operations on every host
+
+The **sysop** (`scripts/jobs/sysop.sh`, `garden-sysop.{service,timer}`;
+[designs/sysop.md](designs/sysop.md)) is a **deterministic, no-LLM per-host daemon**
+that receives host-directed system operations over the bus — addressed to a new
+`host/<GARDEN>` bus kind — and executes a **closed vocabulary** (`set-workers`,
+`drain`, `reset-failed`, `restore`, `unit`, `deploy`) on the host it runs on, each
+delegating to the existing hardened same-host tool. Its motivation is the
+**unattended follower**: today "throttle host Y" waits for a human to sit at Y
+(`set-workers.sh` correctly refuses cross-host writes); the sysop is the daemon that
+"sits at Y" and runs the command, driven by a message. It is therefore installed and
+enabled on **every** host by `install-units.sh` and is **NOT** gated by
+`is-main-host.sh` — and it deliberately **still ticks under drain**, so a drained
+host can always receive its own `drain off` (else the fleet is wedged undrainable
+from the bus). This is safe despite being un-gated because the sysop is host-scoped
+by construction: each host's sysop reads only `msgs/host/<its-own-GARDEN>` and only
+ever mutates its **own** host, so it preserves — never bypasses — `set-workers.sh`'s
+cross-host refusal (it satisfies the guard by running ON the target). It is **not a
+`roles/` posture** (runs no `claude`, claims no jobs; the `roles/sysop/AGENT.md` stub
+just redirects here). Trust is a deterministic gate before execution: an **issuer
+gate** confines *which* hosts may originate ops (journal `config/sysop-issuers`;
+default the leader), and the two **destructive** ops (`unit`, `deploy`) additionally
+require maintainer **attestation** (`authorized_by:` on `maintainers/allowlist`).
+Every op is idempotent, recorded to `sysop-log/<GARDEN>/<msgid>.md`, and acked so the
+sender can tell "done" from "never arrived". Send one with
+`scripts/jobs/send-host-op.sh <GARDEN> op=… key=…`. Ferry and any identity switch are
+**permanently out of the vocabulary**, never merely deferred.
 
 ### Deliberate deploy (the root checkout is a deployed version)
 

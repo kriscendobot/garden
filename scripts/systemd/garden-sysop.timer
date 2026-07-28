@@ -1,0 +1,18 @@
+[Unit]
+Description=Garden sysop timer (host-directed system operations)
+
+[Timer]
+# Absolute wall-clock schedule (every 20s, at seconds 0/20/40 of each minute), NOT
+# a relative OnUnitActiveSec: a relative first-elapse window larger than the fleet's
+# ~1-minute daemon-reload cadence can be re-armed before it fires and starve — the
+# lesson pinned in garden-orchestrate.timer / garden-library-source-drift-scan.timer.
+# Host ops are rare and reading an empty topic is nearly free (one journal fetch), so
+# a ~20s tick is an ample responsiveness-vs-churn tradeoff. Persistent=true catches
+# up a run missed across downtime.
+OnCalendar=*:*:00/20
+Persistent=true
+# Default accuracy is 1min; tighten so the cadence does not get batched late.
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

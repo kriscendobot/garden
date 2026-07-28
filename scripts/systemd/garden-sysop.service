@@ -1,0 +1,37 @@
+[Unit]
+Description=Garden sysop — per-host system-operations daemon (host-directed ops off the bus)
+# Consumer: read this host's host/<GARDEN> bus topic and execute a CLOSED set of
+# host-local system operations (set-workers, drain, reset-failed, restore, unit,
+# deploy) on the host it runs on. Deterministic, NO LLM anywhere in the path — a
+# maintainer-attestation + issuer trust gate runs in plain code before execution
+# (see sysop.sh). Driven by its .timer. designs/sysop.md.
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit,
+# not a failure. The self-heal wrapper normalizes 143/130 to 0; this is the
+# belt-and-suspenders so any future bypass of the wrapper still doesn't mark a
+# SIGTERM stop as Failed. (A `deploy` op restarts the fleet incl. this unit — as a
+# oneshot timer unit that restart just re-arms the next tick; the seen-cursor and
+# audit log are durable, and the deploy op acks BEFORE invoking the deploy.)
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+#
+# RUNS ON EVERY HOST — the deliberate exception to the leader-only-singleton rule.
+# There is intentionally NO `ExecCondition=is-main-host.sh`: the entire motivation
+# is to drive an UNATTENDED FOLLOWER by a message instead of a human. This is safe
+# because the sysop is host-scoped by construction — each host's sysop reads only
+# msgs/host/<its-own-GARDEN> and only ever mutates its OWN host, so two hosts' sysops
+# never contend and there is no double-act hazard that motivates leader-gating the
+# other singletons (designs/sysop.md §7).
+#
+# There is also intentionally NO fleet-draining guard: a DRAINED host must still tick
+# the sysop, or it could never receive its own `drain off` and the fleet would be
+# wedged undrainable from the bus. sysop.sh omits the `fleet_draining && exit` guard
+# the watchers carry, on purpose.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-sysop -- @GARDEN_ROOT@/scripts/jobs/sysop.sh
+# The self-heal responder runs synchronously on a failed tick before the wrapper
+# returns the failing rc; give it headroom beyond the implicit 90s oneshot start
+# timeout so a diagnosis is not cut off (responder itself is hard-bounded by
+# SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900

@@ -5,8 +5,17 @@
 #   <address> is one of:
 #     role/<role>     — every agent currently working in <role>
 #     job/<basename>  — whoever holds job <basename>
+#     host/<GARDEN>   — the addressed host's standing sysop daemon (host operations)
 #     broadcast       — everyone
 #   body is read from <body-file>, else stdin, else a placeholder.
+#
+# The host/<GARDEN> kind is a FAN-OUT TOPIC read by exactly one reader (the
+# addressed host's garden-sysop). It carries host-directed system operations off
+# the bus to a per-host daemon (scripts/jobs/sysop.sh; designs/sysop.md), most
+# importantly to an UNATTENDED FOLLOWER where no liaison is sitting. It reuses the
+# existing single-segment address guard below unchanged — a <GARDEN> identity
+# (<hostname>-<basename>-<hash8>) fits [A-Za-z0-9._-] by construction, so it adds
+# no new escape surface.
 #
 # The bus IS the journal branch (the same git-push serialization point as the
 # job board), so a message reaches agents on every host, not just this one —
@@ -39,7 +48,7 @@ case "$addr" in
     candidate="${candidate#"${candidate%%[![:space:]]*}"}"
     candidate="${candidate%"${candidate##*[![:space:]]}"}"
     case "$candidate" in
-      role/?*|job/?*|broadcast)
+      role/?*|job/?*|host/?*|broadcast)
         log "unwrapped angle-bracket-wrapped placeholder address '$addr' → '$candidate'"
         addr="$candidate"
         ;;
@@ -48,8 +57,8 @@ case "$addr" in
 esac
 
 case "$addr" in
-  role/?*|job/?*|broadcast) :;;
-  *) die "illegal address '$addr' (use role/<name>, job/<base>, or broadcast)";;
+  role/?*|job/?*|host/?*|broadcast) :;;
+  *) die "illegal address '$addr' (use role/<name>, job/<base>, host/<GARDEN>, or broadcast)";;
 esac
 # The prefix match above still admits nested slashes and dot segments; a
 # relpath like msgs/job/../../x would escape msgs/ (a stray write elsewhere in
