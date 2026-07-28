@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:11:27Z_
+_As of 2026-07-28T07:12:19Z_
 
 ## Latest
 
@@ -6917,14 +6917,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.0M | $491.64 _(notional, rate-card)_ | no quota set |
-| Codex | 434.8M _(+410.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 41.8M | $487.27 _(notional, rate-card)_ | no quota set |
+| Codex | 434.5M _(+410.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (69)
+### doin (68)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`daily-progress-summary-20260728-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260728-070504.md) — Daily midnight Pacific progress summary
@@ -6972,7 +6972,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
 - [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
 - [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — In endojs/endo-but-for-bots, assess whether https://github.com/endojs/endo-bu...
-- [`fu-endo-npm-cas-registry-press-20260727-113510-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260727-113510-2.md) — In endojs/endo-but-for-bots, write a design note (designer job, no code) on t...
 - [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — On endojs/endo-but-for-bots, check the CI status of https://github.com/endojs...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
 - [`fu-endojs-endo-but-for-bots-pr868-dependabot-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr868-dependabot-3.md) — Garden-infra change in kriskowal/garden main2: amend roles/botanist/AGENT.md ...
@@ -6995,13 +6994,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3609)
+### tada (3610)
+- [`fu-endo-npm-cas-registry-press-20260727-113510-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260727-113510-2.md) — Completion report
 - [`fix-bulletin-after-repo-transfer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-bulletin-after-repo-transfer.md) — Implemented and pushed 2a78688de5 to main2.
 - [`endo-npm-cas-registry-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-065010.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28, 06:51Z)
 - [`endo-git-integration-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-065010.md) — All green across the board. This dispatch is a clean assessment pass — nothin...
 - [`endo-byte-array-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260728-065010.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
-- … and 3604 more
+- … and 3605 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
