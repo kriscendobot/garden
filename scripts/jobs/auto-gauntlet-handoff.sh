@@ -39,9 +39,28 @@ pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body)"
 state="$(printf '%s' "$pr_json" | jq -r '.state // empty')"
 draft="$(printf '%s' "$pr_json" | jq -r '.isDraft // false')"
 
-if [ "$state" != OPEN ] || [ "$draft" != true ]; then
-  log "auto-gauntlet: build '$base' PR $pr_url is state=$state draft=$draft; no handoff needed"
+if [ "$state" != OPEN ]; then
+  log "auto-gauntlet: build '$base' PR $pr_url is state=$state; no handoff needed"
   exit 0
+fi
+
+# A non-draft PR is a DEFECT here, not a finished chain.  Treating draft=false as
+# "nothing owed" is precisely how endojs/endo-but-for-bots#874 (and three peers)
+# skipped panel review entirely: the builder opened ready-for-review against the
+# unconditional draft norm (roles/builder/AGENT.md), this hook read that as done,
+# and an unreviewed PR landed in the maintainer's queue until a human noticed
+# (dckc, 2026-07-27: "you skipped DRAFT stage").  The draft flag is what TRIGGERS
+# the gauntlet, so restore it deterministically and hand off anyway.  A failed
+# re-draft still hands off: the gauntlet can re-draft, whereas skipping the
+# handoff would resurrect the silent-skip this hook exists to prevent.
+redrafted=
+if [ "$draft" != true ]; then
+  if "$gh_bin" pr ready "$pr_url" --undo >/dev/null 2>&1; then
+    redrafted=yes
+    log "auto-gauntlet: build '$base' PR $pr_url was non-draft (norm violation); converted back to draft"
+  else
+    log "auto-gauntlet: WARNING build '$base' PR $pr_url is non-draft and could not be converted back to draft; handing off anyway"
+  fi
 fi
 
 # Probe builds intentionally remain draft.  Prefer the PR's durable annotation,
@@ -66,10 +85,16 @@ pr: $pr_url
 
 Automatic gauntlet handoff for completed feature build $base.
 
-The build opened $pr_url and it remains an OPEN draft PR. Run the full gardening
-state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
-the panel terminates cleanly. This handoff was posted by the build completion edge,
-not inferred by a watcher.
+The build opened $pr_url and it is an OPEN PR owed the bot-side chain. Run the full
+gardening state machine now: clean, panel, fixer loop as needed, CI, then un-draft
+only when the panel terminates cleanly. This handoff was posted by the build
+completion edge, not inferred by a watcher.
+${redrafted:+
+NOTE: this PR was found NON-DRAFT at the build completion edge, against the
+unconditional draft norm (roles/builder/AGENT.md), and this hook converted it back
+to draft so the chain can run. Nothing here has been panel-reviewed: treat it as a
+cold PR owed a full review, not as work that already passed and regressed.
+}
 EOF
 
 "$HERE/post-job.sh" "$gauntlet_base" "$body"
