@@ -3261,3 +3261,12 @@ Inspect via `git -C journal cat-file -p 559d8df0d6a35fc6fae70e99fd4ed741b7841119
 - Context: gardener-3 on endolin-garden2-5bcdff64: job 'measure-requeue-exit-knowledge-loss' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1e847e680e438d2bb3b176ce7fb4e7fd8663a52a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:40:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0f79a6e40bae0f5615d25068175bfb08ced706f9
+- Context: gardener-6 on endolin-garden2-5bcdff64: job 'arc-status-daily-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0f79a6e40bae0f5615d25068175bfb08ced706f9`.
