@@ -20,16 +20,15 @@ and `fs-interface-consolidation.md`.
 **Each dispatch (every 6h; be idempotent):** Assess, don't assume — read those two
 reconciliation designs plus `daemon-mount.md`, `agent-tools-mount-fs-tools.md`,
 `namehub-interface-unification.md`, and `endopi-edit-tool.md`, and the live PRs.
-State as of 2026-07-27 (post-05:40 tick): **#714** and **#643** MERGED;
+State as of 2026-07-28 (post-07:15 tick): **#714** and **#643** MERGED;
 **#658** closed (superseded). Open, review-blocked, ALL re-verified green and
-MERGEABLE/CLEAN at 2026-07-27 ~05:45 (all-SUCCESS check rollups, 23–24 each,
+MERGEABLE/CLEAN at 2026-07-28 ~07:20 (all-SUCCESS check rollups, 23–24 each,
 zero pending/failed; heads unchanged; no activity on any press PR since
-2026-07-18; three new commits on `llm` since the 07-26 17:35 poll — the
-merge of **#806** (ocapn-noise crossed-hello SYN fix, two commits,
-2026-07-26 17:35) and **#740** (design: endor in-process Git CAS bindings,
-f6d2efbbb9, 2026-07-26 19:24) — neither with parity-surface contact; the
-only other repo activity is new PR #874 (portable Google Sheets client),
-also no contact. Standing
+2026-07-18; one new commit on `llm` since the 07-27 05:45 tick — the merge
+of **#862** (endor registry maintenance CLI, 7f8c08d74f, 2026-07-27 05:46)
+— no parity-surface contact; the rest of the repo's activity is the endor
+npm/CAS stack, sturdyref, and dependabot PRs, none touching the parity
+surface. Standing
 NOTE: #833/#839/#840 changed the CI gate and #834 the lint config on `llm`
 AFTER the press heads' last runs; mergeStateStatus stays CLEAN so no forced
 re-weave, but expect the new TS-composite/tsd checks to run — and possibly
@@ -39,7 +38,7 @@ mount-adjacent (unchanged since 07-21) but does not touch the parity
 surface):
 **#656** (provideSubMount, head 76e6800ee5), **#655** (old non-delegated
 mount grep, head 741642e2ee — maintainer asked about closing as superseded
-by #713, still no reply as of 2026-07-27 05:45; msg 20260717T124846Z-815188;
+by #713, still no reply as of 2026-07-28 07:20; msg 20260717T124846Z-815188;
 do not re-ping), **#657** (mount JSON, head 89482d66ad),
 **#713** (mount glob+grep+glorp; full matrix confirmed green on 454b2b97db
 after one macOS `test (22.x)` flake — an unrelated @endo/agentry
