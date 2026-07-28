@@ -24,6 +24,9 @@
 # swallow text is a literal, no expansion wanted.
 # shellcheck disable=SC2015,SC2016
 set -uo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DET="$(cd "$HERE/../gardening" && pwd)/detect-catch-all-swallow.sh"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/dcas-test.XXXXXX")"

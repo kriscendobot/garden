@@ -24,6 +24,9 @@
 # assertion idiom is intended (SC2015, bad never fails the chain).
 # shellcheck disable=SC2015,SC2016
 set -uo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS_SRC="$(cd "$HERE/.." && pwd)"            # the scripts/jobs dir under test
 

@@ -32,6 +32,9 @@
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT="$(cd "$HERE/.." && pwd)/gardening/ci-wait-merge.sh"
 # Test root under $HOME: the sandbox refuses to exec stubs placed under /tmp.

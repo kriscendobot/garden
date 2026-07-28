@@ -7,6 +7,9 @@
 # erights-part-2 / pass-style.md mis-placement; job improve-sections-table-row-
 # insert-anchor).
 set -euo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT="$HERE/../insert-sections-table-row.sh"
 TR="$(mktemp -d /tmp/insert-sections-test.XXXXXX)"

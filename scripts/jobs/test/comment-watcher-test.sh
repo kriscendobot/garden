@@ -17,6 +17,9 @@
 #
 # Usage: comment-watcher-test.sh
 set -euo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2

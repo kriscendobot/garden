@@ -2,6 +2,9 @@
 # api-key-handoff-test.sh -- regression coverage for the tmpfs API-key bridge.
 
 set -euo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../../.." && pwd)"
 SEED="$ROOT/scripts/systemd/seed-api-key-handoff.sh"

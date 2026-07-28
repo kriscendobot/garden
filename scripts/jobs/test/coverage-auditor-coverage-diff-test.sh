@@ -26,6 +26,9 @@
 # The ok/bad idiom is the intended A && pass || fail (SC2015, safe: ok never fails).
 # shellcheck disable=SC2015
 set -uo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DIFF="$(cd "$HERE/../gardening" && pwd)/coverage-auditor-coverage-diff.sh"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/cacd-test.XXXXXX")"

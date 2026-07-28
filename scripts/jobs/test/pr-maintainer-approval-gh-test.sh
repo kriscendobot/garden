@@ -1,6 +1,9 @@
 #!/bin/bash
 # pr-maintainer-approval-gh-test.sh -- unit tests for the independent merge gate.
 set -euo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT="$(cd "$HERE/.." && pwd)/handlers/pr-maintainer-approval-gh.sh"
 TR="${HOME:-/home/kris}/.garden-approval-test"

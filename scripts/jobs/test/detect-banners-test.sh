@@ -22,6 +22,9 @@
 # fails). Deliberate.
 # shellcheck disable=SC2015
 set -uo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DET="$(cd "$HERE/../gardening" && pwd)/detect-banners.sh"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/dbn-test.XXXXXX")"

@@ -2,6 +2,9 @@
 # foreman-provider-order-test.sh — deterministic provider-order and safety tests
 # for the live foreman handler. No inference CLIs or network endpoints are used.
 set -euo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 ROOT="$(cd "$JOBS/../.." && pwd)"

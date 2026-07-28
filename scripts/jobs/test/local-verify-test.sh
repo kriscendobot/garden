@@ -24,6 +24,9 @@
 # because ok never fails). Both are deliberate throughout this test.
 # shellcheck disable=SC2015,SC2016
 set -uo pipefail
+# Explicit positive test-context sentinel: protects this standalone suite even when
+# invoked outside the test-tree entrypoint heuristic.
+export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LV="$(cd "$HERE/../gardening" && pwd)/local-verify.sh"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/lv-test.XXXXXX")"
