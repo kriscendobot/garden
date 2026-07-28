@@ -59,3 +59,10 @@ Posted from issue #62 follow-up (`issue-garden-62-jcorbin-cross-analysis`).
 evaluator-coupling prospectively without ever looking for it retrospectively.
 Recording it continuously as it is noticed is cheaper and more durable than an
 archaeological audit, and the garden already has the loop to hang it on.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:33:32Z
