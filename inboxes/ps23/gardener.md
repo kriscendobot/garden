@@ -741,3 +741,12 @@ Inspect via `git -C journal cat-file -p e9eb6f866f3006825c711dce76bce333655a40e3
 - Context: gardener-1 on ps23: job 'issue-kriskowal-garden-67' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p c1029dd4263d59a7ad5cbd197110590730bcb4a3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:33:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 58563f9f2b31e99b096539228eb4a54387509c7c
+- Context: gardener-2 on ps23: job 'improve-fork-watch-provisioner-armed-recheck' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 58563f9f2b31e99b096539228eb4a54387509c7c`.
