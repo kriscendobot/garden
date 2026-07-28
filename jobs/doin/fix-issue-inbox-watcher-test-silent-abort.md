@@ -63,3 +63,10 @@ and each assertion passes for the right reason. Re-run and paste the tail as
 evidence.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T12:17:20Z
