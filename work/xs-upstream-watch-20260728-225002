@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-07-28T22:50:13Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-xs-upstream-watch-20260728-225002
