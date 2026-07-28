@@ -66,6 +66,7 @@ Cite real command/CI output for every green claim.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
