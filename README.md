@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T15:50:11Z_
+_As of 2026-07-28T15:53:25Z_
 
 ## Latest
 
@@ -2716,14 +2716,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $717.56 _(notional, rate-card)_ | no quota set |
-| Codex | 342.5M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 53.1M | $703.98 _(notional, rate-card)_ | no quota set |
+| Codex | 341.2M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (46)
+### doin (45)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2751,7 +2751,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-130502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
-- [`fu-deadmail-issue-comment-5105796865-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-deadmail-issue-comment-5105796865-3.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
 - [`fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1.md) — In the garden's own repo (kriscendobot/garden, branch main2), the maintainer-...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
@@ -2771,13 +2770,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3685)
+### tada (3686)
+- [`fu-deadmail-issue-comment-5105796865-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadmail-issue-comment-5105796865-3.md) — Report
 - [`deadmail-issue-comment-5106045535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5106045535.md) — Report
 - [`deadmail-issue-comment-5105796865`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5105796865.md) — Report — deadmail-issue-comment-5105796865
 - [`endo-vfs-parity-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-130502.md) — Verify-and-stand-down tick — no changes anywhere on the parity surface, no ac...
 - [`fix-ps23-claude-path-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-ps23-claude-path-outage.md) — orchestration fix-ps23-claude-path-outage — complete
-- [`requeue-ps23-stranded-claims`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/requeue-ps23-stranded-claims.md) — Report — requeue-ps23-stranded-claims
-- … and 3680 more
+- … and 3681 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
