@@ -82,3 +82,10 @@ leave one open indefinitely.
 - Items 1, 2, and 4 are untouched — verify before editing that you are not
   re-landing them.
 - Pushed to `main2`; the `tada` report quotes the new step-5 wording verbatim.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:00:28Z
