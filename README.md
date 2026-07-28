@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T09:28:27Z_
+_As of 2026-07-28T10:23:01Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1h)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 2h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -2296,14 +2296,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.2M | $606.16 _(notional, rate-card)_ | no quota set |
-| Codex | 386.4M _(+437.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 46.1M | $603.63 _(notional, rate-card)_ | no quota set |
+| Codex | 380.9M _(+437.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (53)
+### doin (55)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2339,8 +2339,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
+- [`improve-follow-up-outage-retry-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-follow-up-outage-retry-budget.md) — scripts/jobs/follow-up.sh
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`improve-journal-entry-duplicate-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
+- [`improve-panel-parallel-seat-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-panel-parallel-seat-fanout.md) — scripts/jobs/gardening/panel.sh
 - [`investigate-opencode-alternate-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-opencode-alternate-harness.md) — Investigate opencode as an alternate worker harness
 - [`issue-garden-62-jcorbin-cross-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-garden-62-jcorbin-cross-analysis.md) — Fold @jcorbin's devoker cross-analysis into the TerraLingua work (issue #62)
 - [`issue-kriskowal-garden-67`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
