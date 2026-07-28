@@ -1,0 +1,1 @@
+{"source":"result","num_turns":50,"elapsed_s":764,"input_tokens":93,"output_tokens":32812,"cache_creation_tokens":114044,"cache_read_tokens":4519329,"total_cost_usd":4.223084500000001,"ts":"2026-07-28T10:35:49Z","base":"improve-follow-up-outage-retry-budget","host":"endolin-garden2-5bcdff64","outcome":"tada"}
