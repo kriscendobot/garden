@@ -50,3 +50,10 @@ issue_spine: issue-kriskowal-garden-51
 issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5100304929
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:35:22Z
