@@ -63,3 +63,10 @@ Both are closed such that `scripts/jobs/gardening/local-verify.sh` runs to a
 real verdict in a fresh warm-cache worktree of `endojs/endo-but-for-bots`, and
 the local-verify skill's field notes record each with its tell (the
 `_2026-07-28_` entries are the format to follow).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:51:59Z
