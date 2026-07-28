@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T08:41:02Z_
+_As of 2026-07-28T08:48:27Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 43m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 53m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -2174,6 +2174,15 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
+
+> provider quota/usage limit reached — the API is refusing calls fleet-wide (resets 10am (UTC) — the responder could NOT diagnose garden-follow-up (rc=1); its capture is blob b7a514900ae49ec23340aec5ff8f23bcc8777969 (git -C /home/kris/garden2/).
+> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
+> resumes on its own once the window resets (see skills/restore/SKILL.md for the
+> post-outage restore). Every unit that trips the limit folds into THIS one notice
+> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
+> usage limit reached while running garden-follow-up. Observed: You've hit your session limit · resets 10am (UTC) — the responder could NOT diagnose garden-follow-up (rc=1); its capture is blob b7a514900ae49ec23340aec5ff8f23bcc8777969 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p b7a514900ae49ec23340aec5ff8f23bcc8777969).
+
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-07-28T08:25:59Z, cleared 2026-07-28T08:25:59Z).
@@ -2269,7 +2278,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 46.5M | $609.11 _(notional, rate-card)_ | no quota set |
-| Codex | 412.2M _(+437.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Codex | 408.1M _(+437.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
