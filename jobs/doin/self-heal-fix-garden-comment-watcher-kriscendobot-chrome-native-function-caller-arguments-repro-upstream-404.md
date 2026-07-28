@@ -12,3 +12,10 @@ Failure signature: `garden-comment-watcher@kriscendobot-chrome-native-function-c
 4. Regression check: verify a slug that is armed in both sets *and* has a 404 upstream gets tombstoned and disarmed on the next `fork-watch-provisioner.sh` tick, and that a live fork with an inconclusive (non-404) `gh` error is left untouched.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:11:05Z
