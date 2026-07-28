@@ -22,6 +22,9 @@
 #      one-off 404 is absorbed by a confirm re-check, an all-armed-forks-404 tick
 #      is treated as a read-side failure and retires nothing, and a mixed tick
 #      still retires the genuinely dead ones
+#   K. END TO END through repo-watcher.sh: retiring an armed fork STOPS AND
+#      DISABLES all four per-repo unit families in the same tick (a tombstone
+#      that only silenced the journal record would leave the units flapping)
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -303,6 +306,76 @@ run_prov
   && ok "retired armed forks are disarmed in both sets" || bad "retired armed fork kept an arming record"
 [ -n "$(jtip repos/kriscendobot-inconclusive)" ] && [ -n "$(jtip repos/kriscendobot-flaky)" ] \
   && ok "the live armed forks in the same tick are untouched" || bad "a live armed fork was retired in a mixed tick"
+
+# ============================================================================
+hr; echo "K — end to end: a retirement disarms all four unit families"; hr
+# The journal half of a retirement (tombstone + both arming records dropped) is
+# only half the fix. What actually FATAL-flapped against the deleted upstream was
+# the per-repo systemd units, and those are reconciled by repo-watcher.sh, which
+# runs the provisioner at the top of its own tick. So drive the WHOLE path here —
+# one repo-watcher tick, real script, mocked systemctl — and assert the units for
+# a retired fork are stopped and disabled, not merely un-recorded. A reconciler
+# that only ever ADDED units would pass every assertion above and still leave the
+# four watchers flapping forever.
+RWXDG="$TR/xdg-repo-watcher"; mkdir -p "$RWXDG/systemd/user"
+UNIT_PREFIXES=(garden-triager garden-comment-watcher garden-ci-watcher garden-dependabot-watcher)
+# Pre-render the four templates so the reconcile takes the no-drift path (its
+# self-heal install is exercised by run-test.sh, not here).
+for p in "${UNIT_PREFIXES[@]}"; do touch "$RWXDG/systemd/user/$p@.service"; done
+MOCKSTATE="$TR/armed"; MOCKLOG="$TR/unitlog"; : > "$MOCKSTATE"; : > "$MOCKLOG"
+
+RWLOG="$TR/repo-watcher.log"
+run_rw() {  # run_rw — one repo-watcher tick (provisioner + reconcile), log to $RWLOG
+  env GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_WORKTREES="$WTS" GARDEN_REPOS="$TR/repos" \
+      GARDEN_FORK_CLONE_URL_BASE="$GHBASE" GARDEN_FORKWATCH_MATERIALIZE=0 \
+      GARDEN_FORKWATCH_UPSTREAM_CHECK="$CHECK" DEADLIST="$DEADLIST" \
+      UNKNOWNLIST="$UNKNOWNLIST" PROBELOG="$PROBELOG" \
+      FLAKYLIST="$FLAKYLIST" FLAKYSEEN="$FLAKYSEEN" \
+      GARDEN_FORKWATCH_LIVENESS_INTERVAL=0 GARDEN_NO_MAINTAINER_ALERT=1 \
+      XDG_CONFIG_HOME="$RWXDG" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" \
+      GARDEN_MOCK_STATE="$MOCKSTATE" GARDEN_MOCK_LOG="$MOCKLOG" \
+      GARDEN_INSTALL_UNITS=/bin/true \
+      "$JOBS/repo-watcher.sh" >/dev/null 2>"$RWLOG"
+}
+
+git init -q --bare "$WTS/kriscendobot-teardown.git"
+: > "$DEADLIST"; : > "$UNKNOWNLIST"; : > "$FLAKYLIST"
+run_rw
+armed_all=1
+for p in "${UNIT_PREFIXES[@]}"; do
+  grep -qxF "$p@kriscendobot-teardown.timer" "$MOCKSTATE" || { armed_all=0; break; }
+done
+[ "$armed_all" -eq 1 ] \
+  && ok "K fixture: one tick armed all four unit families for the live own fork" \
+  || bad "K fixture: not all four unit families armed ($(tr '\n' ' ' <"$MOCKSTATE"))"
+
+# The upstream is deleted. The SAME tick must retire it in the journal and tear
+# the units down: the provisioner runs before repo-watcher's own sync_clone, so
+# the reconcile sees the removal it just landed.
+echo "kriscendobot/teardown" > "$DEADLIST"
+: > "$MOCKLOG"
+run_rw
+[ -n "$(jtip watch-optout/kriscendobot-teardown)" ] \
+  && ok "retirement tombstoned through a repo-watcher tick" || bad "no tombstone from the repo-watcher tick"
+[ -z "$(jtip repos/kriscendobot-teardown)" ] && [ -z "$(jtip comment-repos/kriscendobot-teardown)" ] \
+  && ok "retirement dropped both arming records" || bad "retirement left an arming record"
+for p in "${UNIT_PREFIXES[@]}"; do
+  grep -qxF "$p@kriscendobot-teardown.timer" "$MOCKSTATE" \
+    && bad "$p@kriscendobot-teardown.timer still armed after retirement" \
+    || ok "$p@kriscendobot-teardown.timer disarmed by the retirement"
+  grep -qxF "systemctl --user disable --now $p@kriscendobot-teardown.timer" "$MOCKLOG" \
+    && ok "$p@kriscendobot-teardown issued disable --now (stopped, not just forgotten)" \
+    || bad "$p@kriscendobot-teardown never issued disable --now"
+done
+# The teardown is surgical: the live armed forks keep every unit in the same tick.
+still=1
+for p in "${UNIT_PREFIXES[@]}"; do
+  grep -qxF "$p@kriscendobot-flaky.timer" "$MOCKSTATE" || { still=0; break; }
+done
+[ "$still" -eq 1 ] \
+  && ok "the live own fork's four units survive the same tick" \
+  || bad "a live own fork lost units during another fork's retirement"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

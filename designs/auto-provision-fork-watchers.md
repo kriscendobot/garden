@@ -139,6 +139,21 @@ removing the tombstone re-enables auto-provisioning. Hand-armed repos
 (`endojs-endo-but-for-bots`, `kriskowal-garden`) are outside `config/fork-owners`
 and never touched either way.
 
+**Dropping the arming records is the whole disarm, not half of it.** What
+actually flapped when `kriscendobot/chrome-native-function-caller-arguments-repro`
+was deleted (2026-07-27/28) was not the journal record but the four per-repo
+systemd unit families FATAL-ing against a 404 every tick, so a retirement that
+only silenced the record would fix nothing. It does not have to: `repo-watcher.sh`
+runs the provisioner at the top of its own tick, *before* its `sync_clone`, and
+its `reconcile_set` is a two-way reconcile — it arms what the set wants and
+`disable --now`s any armed instance whose file is gone, over all four prefixes
+(`garden-triager` from `repos/`; `garden-comment-watcher`, `garden-ci-watcher`,
+`garden-dependabot-watcher` from `comment-repos/`). Removing both records
+therefore stops and disables all four families **in the same tick that retires
+the fork**. Case `K` of `fork-watch-provisioner-test.sh` pins the whole path end
+to end through the real `repo-watcher.sh` against a mocked `systemctl`, and fails
+8-for-8 if the disarm half of `reconcile_set` is removed.
+
 ## 5. The sender gate (the load-bearing part)
 
 Mirrors `mention-watcher.sh` and the issue-inbox: a **deterministic sender-trust
