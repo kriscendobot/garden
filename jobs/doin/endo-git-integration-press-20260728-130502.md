@@ -65,3 +65,10 @@ forward or post a designer sub-job rather than implementing ahead of the spec.
 Cite real command/CI output for every green claim.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T17:13:49Z
