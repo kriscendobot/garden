@@ -96,3 +96,10 @@ the same problem; mystic is just where it shows first.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:09:23Z
