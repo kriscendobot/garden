@@ -5,9 +5,4 @@ Confirmed live on 2026-07-28 by the hourly scholar cycle (job `scholar-library-c
 
 Fix, cheapest first (scholar's own ranking): give the refresh post a **directive identity keyed on `(slug, upstream-sha)`** — `post-job.sh` documents that with an identity, `tada/` no longer blocks, which is the exact silent-drop hazard the identity layer exists for; or scope `refresh_present()` to `todo/`+`doin/` only (drop the `$JOBS_TADA` arm); or carry the upstream sha in the basename so each distinct drift is a distinct job. Whichever is chosen, both guards must move together — fixing only `refresh_present()` leaves `post-job.sh` blocking.
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-28T17:23:33Z
+<!-- garden-reaped: 1 -->
