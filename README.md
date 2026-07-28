@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T21:34:52Z_
+_As of 2026-07-28T21:39:12Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 5m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 13s)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -2457,6 +2457,44 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >   strings, not just blankness) would close it — in the script itself, which would
 >   then also protect the deployed-lag hand-rolled drivers' successors.
 
+- `20260728T213851Z-d5b248` — from gardener:improve-root-repo-object-store-health, reply_to `improve-root-repo-object-store-health` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T213851Z-d5b248.md)
+
+> root-repo-guard now asserts invariant C (object store healthy + maintainable) — on
+> main2 as 9606a7fa4e + dee1519700. Two things need your call.
+>
+> 1. THIS HOST IS STILL BROKEN UNTIL A DEPLOY. `git gc` in /home/kris/garden2/.git has
+>    been failing since ~07-27 on a missing object, which left a gc.log that disables
+>    git's automatic cleanup permanently. Measured: 1301 packs, 511993 in-pack + 10459
+>    loose objects, and 139 orphaned temp packs totalling 15.4 GB against a ~320 MB
+>    real store. Every journal sync pays the pack scan, and every git call prints the
+>    gc.log banner on stderr — my own `git push` for this job reproduced it.
+>
+>    I swept the >24h temp-pack garbage by hand using the guard's own criteria (93
+>    files, 5.6 GB reclaimed; no git involved — git already classifies them as
+>    garbage). I did NOT run the git-level recovery, because that means running git in
+>    the deployed root, which every worker prompt forbids.
+>
+>    Good news: I verified all 22 missing objects are still present on origin/journal2,
+>    so the guard's non-destructive `fetch origin --refetch` + gc WILL heal it, and the
+>    human-gated alert will not fire. It just needs a deploy to reach the host, or, if
+>    you want it sooner, by hand:
+>        git -C /home/kris/garden2 fetch origin --refetch && git -C /home/kris/garden2 gc
+>
+> 2. TWO FINDINGS INVARIANT C DELIBERATELY DOES NOT TOUCH, both destructive to
+>    automate — details in designs/root-repo-guard.md § Invariant C:
+>
+>    a. The 07-21 escape left 1,739 foreign `@endo/*` tags (plus the `SES-v*` series)
+>       in the root repo — 1,948 of its ~1,991 refs. Invariant A repaired the origin
+>       URL; nothing ever reverted the fetch. They pin hundreds of MB of foreign
+>       objects permanently reachable so gc can never drop them. Deleting 1,739 refs is
+>       your call, not a timer's.
+>
+>    b. Per-job worktrees are being LEFT BEHIND: 102 registered on the root repo (101
+>       gardener-wt-* + journal), oldest from Jul 10, ALL with live working dirs — 23 GB
+>       of scratch/. `git worktree prune` would remove none of them, so this is a
+>       teardown leak in the gardener/reaper path, not a registration leak. Worth its
+>       own job; say the word and I'll post one.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3473,8 +3511,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.4M | $817.86 _(notional, rate-card)_ | no quota set |
-| Codex | 276.3M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 55.4M | $830.16 _(notional, rate-card)_ | no quota set |
+| Codex | 274.6M _(+455.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
