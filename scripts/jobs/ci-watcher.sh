@@ -115,7 +115,22 @@ repo="$owner/$name"
 # anything not provably a bot repo is skipped. A cleared comment-repos/ entry that is
 # NOT a bot repo (e.g. an upstream watched for comments but not bot-authored
 # PR-driven) exits cleanly here before any gh call.
+#
+# The garden's OWN repo is denied ahead of the bot-fork rule, and the ordering is
+# load-bearing. The garden runs no PR workflow on itself — main2 and journal2 are
+# pushed direct (CLAUDE.md § Conventions) — so its only open PRs are long-lived
+# review vessels a shepherd must never drive. That used to hold by accident: the
+# repo was kriskowal/garden, which simply is not bot-owned. The 2026-07-28 transfer
+# moved it to kriscendobot/garden, putting it INSIDE the "$GARDEN_BOT_LOGIN"/* arm
+# and making every auto-shepherd gate pass for PR #28 ("main2 review vessel —
+# feedback only, do not merge"). State the rule where it cannot be re-acquired by
+# accident, keyed to the canonical repo and its migration aliases so it follows any
+# future transfer.
 is_bot_repo() {  # is_bot_repo <owner/name>
+  local r
+  for r in "$GARDEN_PRODUCTION_JOURNAL_REPO" $GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES; do
+    [ "$1" = "$r" ] && return 1                 # the garden's own repo — never self-shepherd
+  done
   case "$1" in
     agoric/agoric-sdk|endojs/endo) return 1 ;;   # explicit out-of-scope upstreams
     endojs/endo-but-for-bots)      return 0 ;;   # the gated bot repo

@@ -14,6 +14,8 @@
 #   E. a bot PR with QUEUED/IN-PROGRESS CI → no shepherd (back off, no thrash)
 #   F. a bot PR whose head branch is NOT bot-pushable → no shepherd
 #   G. a NON-bot repo slug → the watcher exits at the is-bot-repo gate, no shepherd
+#   G2. the garden's OWN repo (bot-owned since the 2026-07-28 transfer, and its
+#      pre-transfer alias) → still denied, so the fleet never self-shepherds
 #   H. a repo with several PRs of mixed state → exactly the red bot PRs get one each
 #   I. a bot PR untouched beyond GARDEN_CI_ACTIVITY_WINDOW → skipped before its rollup
 #      read (activity-bound), while a fresh red PR in the same tick still shepherds
@@ -209,9 +211,30 @@ run_ci "$TR/state-f" "$BARE_F" "$FIX_F" "63=0"
 # ============================================================================
 hr; echo "G — a NON-bot repo slug → watcher exits at the is-bot-repo gate"; hr
 BARE_G="$TR/g.git"; seed_bare "$BARE_G"
-FIX_G="$TR/fix-g.tsv"; prline 1 kriscendobot "kriskowal/garden" > "$FIX_G"
-run_ci "$TR/state-g" "$BARE_G" "$FIX_G" "1=0" kriskowal-garden
+FIX_G="$TR/fix-g.tsv"; prline 1 kriscendobot "someupstream/someproject" > "$FIX_G"
+run_ci "$TR/state-g" "$BARE_G" "$FIX_G" "1=0" someupstream-someproject
 [ "$(todo_count "$BARE_G")" -eq 0 ] && ok "no shepherd on a non-bot repo (never autonomously drive upstream)" || bad "posted a shepherd on a non-bot repo"
+
+# ============================================================================
+hr; echo "G2 — the garden's OWN repo, under the BOT owner → still no shepherd"; hr
+# The garden runs no PR workflow on itself (CLAUDE.md § Conventions); its only open
+# PRs are long-lived review vessels ("main2 review vessel — feedback only, do not
+# merge") that a shepherd must never drive. Before the 2026-07-28 transfer that held
+# only by accident — kriskowal/garden is not bot-owned, so it fell out of the
+# "$GARDEN_BOT_LOGIN"/* arm. Once the repo became kriscendobot/garden every gate
+# passed. Pin the explicit denylist: the garden's own repo is refused even though it
+# now sits under the bot owner, and refused BEFORE the bot-fork arm can accept it.
+BARE_G2="$TR/g2.git"; seed_bare "$BARE_G2"
+FIX_G2="$TR/fix-g2.tsv"; prline 28 kriscendobot "kriscendobot/garden" > "$FIX_G2"
+run_ci "$TR/state-g2" "$BARE_G2" "$FIX_G2" "28=0" kriscendobot-garden
+[ "$(todo_count "$BARE_G2")" -eq 0 ] && ok "no self-shepherd on the garden's own repo (bot-owned yet denied)" || bad "posted a shepherd on the garden's OWN repo — the denylist is not ahead of the bot-fork arm"
+
+# The pre-transfer path must stay denied too, so a host still on the alias behaves
+# identically rather than self-shepherding for the duration of the migration.
+BARE_G3="$TR/g3.git"; seed_bare "$BARE_G3"
+FIX_G3="$TR/fix-g3.tsv"; prline 28 kriscendobot "kriskowal/garden" > "$FIX_G3"
+run_ci "$TR/state-g3" "$BARE_G3" "$FIX_G3" "28=0" kriskowal-garden
+[ "$(todo_count "$BARE_G3")" -eq 0 ] && ok "no self-shepherd via the pre-transfer alias either" || bad "posted a shepherd on the garden repo's migration alias"
 
 # ============================================================================
 hr; echo "H — mixed PR set → exactly the red bot PRs each get one shepherd"; hr
