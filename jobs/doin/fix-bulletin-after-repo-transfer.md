@@ -92,3 +92,10 @@ credential to the repo.
 - Verify the live page still loads at <https://kriscendobot.github.io/garden/bulletin/>
   after your change deploys, and that reads work with no token at all.
 - Run CI-equivalent checks locally before pushing. Direct push to `main2`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:46:28Z
