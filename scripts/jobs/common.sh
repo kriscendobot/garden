@@ -3711,6 +3711,20 @@ JOBS_INDEX="jobs/index"
 # skills/orchestration/SKILL.md.
 JOBS_ORCH="jobs/orch"
 
+# The GAUNTLET category sits ALONGSIDE the lifecycle (like plan/, index/, orch/)
+# and is NEVER claimed or reaped. Each entry `jobs/gauntlet/<g>.md` is a gauntlet
+# RECORD: a per-PR run of the clean → panel → fix-loop → un-draft chain, decomposed
+# into claim-sized STAGE jobs (`<g>-clean`, `<g>-panel-<k>`, `<g>-fix-<k>`,
+# `<g>-undraft`) that the deterministic gauntlet.sh driver posts ONE at a time,
+# advancing the record against each stage's completion marker. The record carries
+# the PR identity, the panel/fix loop counter, its give-up bound, and the stage
+# currently in flight; the driver writes tada/<g> when the PR un-drafts (or halts
+# on a stage failure / non-convergence). This is the per-PR analog of orchestrate.sh
+# over jobs/orch/ — same "deterministic leader-only watcher over a record outside the
+# claim lifecycle" shape, with a loop orchestrate.sh's fixed child list cannot express.
+# See scripts/jobs/gauntlet.sh and designs/staged-gauntlet.md.
+JOBS_GAUNTLET="jobs/gauntlet"
+
 # List job basenames in a lifecycle dir, sorted, excluding .gitkeep.
 list_jobs() {
   local dir="$1" sub="$2"
@@ -4210,6 +4224,35 @@ orch_failure_policy() {
 orch_state() {
   local s; s="$(plan_field "$1" state)"; printf '%s\n' "${s:-pending}"
 }
+
+# --- gauntlet-record metadata helpers ---------------------------------------
+# A gauntlet record (jobs/gauntlet/<g>.md) carries leading YAML frontmatter:
+#   ---
+#   pr: https://github.com/<owner>/<repo>/pull/<N>
+#   repo: <owner>/<repo>
+#   pr_number: <N>
+#   build_job: <build-base>            # provenance; empty for a run-the-gauntlet origin
+#   kind: feature | probe              # a probe NEVER un-drafts
+#   stage: clean | panel | fix | undraft | done | halted
+#   iteration: <k>                     # the panel/fix loop counter (0 during clean)
+#   max_iterations: 6                  # give-up bound for the loop
+#   current_child: <stage-job-base>    # the stage job currently in flight
+#   state: pending | running | done | halted
+#   created_by: <role>
+#   created_at: <iso8601>
+#   ---
+# All read via plan_field (a leading-frontmatter scalar reader). Defaults mirror
+# post-gauntlet.sh's own defaults so a hand-edited record still parses sanely.
+gauntlet_field() { plan_field "$1" "$2"; }
+gauntlet_kind() { local v; v="$(plan_field "$1" kind)"; printf '%s\n' "${v:-feature}"; }
+gauntlet_stage() { local v; v="$(plan_field "$1" stage)"; printf '%s\n' "${v:-clean}"; }
+gauntlet_iteration() { local v; v="$(plan_field "$1" iteration)"; printf '%s\n' "${v:-0}"; }
+gauntlet_max_iterations() { local v; v="$(plan_field "$1" max_iterations)"; printf '%s\n' "${v:-6}"; }
+gauntlet_current_child() { plan_field "$1" current_child; }
+gauntlet_state() { local v; v="$(plan_field "$1" state)"; printf '%s\n' "${v:-pending}"; }
+gauntlet_repo() { plan_field "$1" repo; }
+gauntlet_pr_number() { plan_field "$1" pr_number; }
+gauntlet_pr() { plan_field "$1" pr; }
 
 # Did a job's tada REPORT declare that the job completed WITHOUT achieving its
 # gated outcome? A job can reach tada/ (it finished, its worker exited cleanly)

@@ -197,6 +197,11 @@ GARDEN_TAG="comment-watcher/$slug"
 # indirection shape as the reactji poster so the test substitutes a deterministic stub.
 : "${GARDEN_COMMENT_REPLY:=$HERE/handlers/comment-reply-gh.sh}"
 : "${GARDEN_COMMENT_POST:=$HERE/post-job.sh}"
+# The `run the gauntlet` verb creates a staged-gauntlet RECORD (jobs/gauntlet/<g>.md,
+# the deterministic gauntlet.sh driver walks it stage by stage) rather than a
+# monolithic todo job whose handler must span the whole clean→panel→fix→un-draft chain
+# (designs/staged-gauntlet.md). Overridable so the test substitutes a stub.
+: "${GARDEN_GAUNTLET_POST:=$HERE/post-gauntlet.sh}"
 # Retrospective (second-loop) poster: the design's review-retrospective double loop
 # mints a DEFERRED plan job alongside a substantive-feedback primary, so the
 # prosecutor can judge whether the comment indicts the review process (design
@@ -392,6 +397,16 @@ base_live() {  # base_live <base>; job present in todo|doin (NOT tada)
   for sub in todo doin; do
     git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
+  return 1
+}
+# A staged-gauntlet RECORD (or its completed tada) is present for <base>. A gauntlet
+# lives in jobs/gauntlet/ (outside the claim lifecycle), so verify_posted/base_live —
+# which scan todo/doin/tada — never see it; this is its post-confirm and re-see guard.
+gauntlet_recorded() {  # gauntlet_recorded <base> [fresh]
+  local base="$1"
+  verify_fetch "${2:-}" || return 1
+  git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/gauntlet/$base.md" 2>/dev/null && return 0
+  git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/tada/$base.md" 2>/dev/null && return 0
   return 1
 }
 
@@ -1576,6 +1591,28 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # (which does count tada), so nothing re-posts on a true re-see.
   if base_live "$base"; then
     log "already actioned: live job $base on the board (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
+  fi
+
+  # `run the gauntlet` creates a staged-gauntlet RECORD, not a monolithic todo job
+  # (designs/staged-gauntlet.md). It lives in jobs/gauntlet/, so the generic
+  # post-job→verify_posted path below (which scans todo/doin/tada) does not apply;
+  # record it here and ack/slide inline. Idempotent by the deterministic base
+  # (post-gauntlet.sh no-ops if a record/tada already exists), so a re-poll re-acks.
+  if [ "$VERB" = gauntlet ] && [ "$pr" != 0 ]; then
+    if gauntlet_recorded "$base" fresh; then
+      ack_reactji "$surface" "$cid"
+      log "gauntlet already recorded: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
+    fi
+    if GARDEN_SENDER="comment-watcher:$slug" "$GARDEN_GAUNTLET_POST" --by comment-watcher "$base" "https://github.com/$repo/pull/$pr" >/dev/null 2>&1 \
+       && gauntlet_recorded "$base" fresh; then
+      ack_reactji "$surface" "$cid"
+      post_reply "$surface" "$cid" "$author" "$pr" \
+        "On it — I've recorded a staged gauntlet (\`$base\`); the driver walks it stage by stage and follows up here."
+      log "recorded gauntlet $base (#$pr) + acked"; acted=$((acted+1)); rm -f "$bf"; slide "$created"; continue
+    else
+      log "GAUNTLET RECORD LOST for $base — did not reach origin/$JOURNAL_BRANCH; freezing cursor at ${hw:-<coldstart>} to retry"
+      failed=1; [ -z "$fail_floor" ] && fail_floor="$created"; rm -f "$bf"; continue
+    fi
   fi
 
   # POST FIRST, then ACK — an ack must IMPLY a posted job (ack_reactji, above). The

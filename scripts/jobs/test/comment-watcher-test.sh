@@ -152,6 +152,18 @@ board_has_plan() {  # board_has_plan <bare> <base>  -> 0 if job parked in jobs/p
   local rc=1; [ -e "$v/jobs/plan/$2.md" ] && rc=0
   rm -rf "$v"; return $rc
 }
+board_has_gauntlet() {  # board_has_gauntlet <bare> <base>  -> 0 if a gauntlet RECORD exists
+  local v; v="$(mktemp -d "$TR/bg.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  local rc=1; [ -e "$v/jobs/gauntlet/$2.md" ] && rc=0
+  rm -rf "$v"; return $rc
+}
+gauntlet_record_body() {  # gauntlet_record_body <bare> <base>  -> prints the record
+  local v f; v="$(mktemp -d "$TR/gb.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  f="$v/jobs/gauntlet/$2.md"
+  [ -f "$f" ] && cat "$f"; rm -rf "$v"
+}
 plan_count() {  # plan_count <bare>  -> non-gitkeep entries in jobs/plan
   local v n; v="$(mktemp -d "$TR/pc.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
@@ -1768,7 +1780,11 @@ board_has "$BARE_MP2" "$SLUG-pr277-shepherd" && ok "bare 'Shepherd.' minted the 
 [ "$(todo_count "$BARE_MP2")" -eq 1 ] && ok "exactly one job for the bare directive" || bad "expected one job (todo=$(todo_count "$BARE_MP2"))"
 [ "$(cursor_seen "$TR/state-mp2" "$BARE_MP2")" = 2026-06-30T09:00:00Z ] && ok "cursor advanced past the actioned directive" || bad "cursor not advanced"
 
-hr; echo "MP2b — 'Run the gauntlet.' → a gauntlet job with the CI-sized handler budget"; hr
+hr; echo "MP2b — 'Run the gauntlet.' → a staged-gauntlet RECORD (not a monolithic job)"; hr
+# The gauntlet is now walked one claim-sized stage at a time by the deterministic
+# gauntlet.sh driver (designs/staged-gauntlet.md), so `run the gauntlet` creates a
+# gauntlet RECORD (jobs/gauntlet/<g>.md), NOT a monolithic todo job whose handler had
+# to span the whole clean→panel→fix→un-draft chain (nine deadline-overrun poisons).
 BARE_MP2B="$TR/mp2b.git"; seed_bare "$BARE_MP2B"
 FIX_MP2B="$TR/fix-mp2b.tsv"; RLOG_MP2B="$TR/react-mp2b.log"; : > "$RLOG_MP2B"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
@@ -1776,10 +1792,23 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   https://github.com/endojs/endo-but-for-bots/pull/278#issuecomment-4900000278 \
   'Run the gauntlet.' > "$FIX_MP2B"
 run_watcher "$TR/state-mp2b" "$BARE_MP2B" "$FIX_MP2B" "$RLOG_MP2B"
-board_has "$BARE_MP2B" "$SLUG-pr278-gauntlet" && ok "run-the-gauntlet minted the gauntlet job" || bad "run-the-gauntlet did not mint its job"
-printf '%s\n' "$(board_job_body "$BARE_MP2B" "$SLUG-pr278-gauntlet")" | grep -qx 'handler-timeout: 7200' \
-  && ok "gauntlet job carries the shared CI-sized handler timeout" \
-  || bad "gauntlet job missing the shared CI-sized handler timeout"
+board_has_gauntlet "$BARE_MP2B" "$SLUG-pr278-gauntlet" \
+  && ok "run-the-gauntlet recorded a staged gauntlet" \
+  || bad "run-the-gauntlet did not record a gauntlet"
+board_has "$BARE_MP2B" "$SLUG-pr278-gauntlet" \
+  && bad "a monolithic gauntlet todo job was minted (should be a record now)" \
+  || ok "no monolithic todo job — the record replaces it"
+GREC_MP2B="$(gauntlet_record_body "$BARE_MP2B" "$SLUG-pr278-gauntlet")"
+printf '%s\n' "$GREC_MP2B" | grep -qx 'pr_number: 278' \
+  && ok "the gauntlet record carries the PR number" \
+  || bad "the gauntlet record is missing pr_number: 278"
+printf '%s\n' "$GREC_MP2B" | grep -qx 'stage: clean' \
+  && ok "the gauntlet record starts at the clean stage" \
+  || bad "the gauntlet record does not start at stage: clean"
+# still acked the source comment (the 👀 receipt invariant holds for the record path)
+grep -q '4900000278' "$RLOG_MP2B" \
+  && ok "run-the-gauntlet still acks the source comment" \
+  || bad "run-the-gauntlet did not ack the source comment"
 
 hr; echo "MP3 — a future-tense/subject-matter 'refactor'/'rebase' (no @, no imperative pos) → STILL no verb job"; hr
 # The broadened gate must NOT reintroduce the #513 verb-as-subject-matter false

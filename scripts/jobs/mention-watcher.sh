@@ -56,6 +56,9 @@ GARDEN_TAG="mention-watcher"
 : "${GARDEN_MENTION_TRUST:=$HERE/handlers/mention-trust-gh.sh}"
 : "${GARDEN_MENTION_REACTJI:=$HERE/handlers/mention-reactji-gh.sh}"
 : "${GARDEN_MENTION_POST:=$HERE/post-job.sh}"
+# `run the gauntlet` creates a staged-gauntlet RECORD (the deterministic gauntlet.sh
+# driver walks it stage by stage), not a monolithic job (designs/staged-gauntlet.md).
+: "${GARDEN_MENTION_GAUNTLET_POST:=$HERE/post-gauntlet.sh}"
 : "${GARDEN_MENTION_VERIFY_CLONE:=$GARDEN_STATE/mention-watcher/verify}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
@@ -132,6 +135,17 @@ verify_posted() {
   for sub in todo doin tada; do
     git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
+  return 1
+}
+# A staged-gauntlet RECORD (or its completed tada) is present for <base>. A gauntlet
+# lives in jobs/gauntlet/ (outside the claim lifecycle), which verify_posted's
+# todo/doin/tada scan never sees; this is its post-confirm and re-see guard.
+gauntlet_recorded() {
+  local base="$1" dir="$VERIFY"
+  ensure_clone "$dir"
+  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+  git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/gauntlet/$base.md" 2>/dev/null && return 0
+  git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/tada/$base.md" 2>/dev/null && return 0
   return 1
 }
 
@@ -326,6 +340,25 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   # actioned (a re-poll across the inclusive since= boundary, or a prior tick).
   if verify_posted "$base"; then
     log "already actioned: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
+  fi
+
+  # `run the gauntlet` creates a staged-gauntlet RECORD (jobs/gauntlet/<g>.md), not a
+  # monolithic todo job (designs/staged-gauntlet.md). It lives outside the claim
+  # lifecycle, so the generic post-job→verify_posted path below does not apply; record
+  # it here and reactji/slide inline. Idempotent by the deterministic base.
+  if [ "$VERB" = gauntlet ] && [ "$number" != 0 ]; then
+    if gauntlet_recorded "$base"; then
+      log "gauntlet already recorded: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
+    fi
+    "$GARDEN_MENTION_REACTJI" "$repo" "$surface" "$cid" "$number" eyes \
+      || log "WARN: reactji failed on $surface/${cid:-$number} (continuing to record)"
+    if GARDEN_SENDER="mention-watcher:$slug" "$GARDEN_MENTION_GAUNTLET_POST" --by mention-watcher "$base" "https://github.com/$repo/pull/$number" >/dev/null 2>&1 \
+       && gauntlet_recorded "$base"; then
+      log "recorded gauntlet $base ($repo #$number from trusted $author) + acked"; acted=$((acted+1)); rm -f "$bf"; slide "$created"; continue
+    else
+      log "GAUNTLET RECORD LOST for $base — did not reach origin/$JOURNAL_BRANCH; freezing cursor at ${hw:-<coldstart>} to retry"
+      failed=1; [ -z "$fail_floor" ] && fail_floor="$created"; rm -f "$bf"; continue
+    fi
   fi
 
   # Reactji FIRST (the bot's "received and processing" signal), then post.

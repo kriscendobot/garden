@@ -1,0 +1,16 @@
+[Unit]
+Description=Garden staged-gauntlet driver timer
+
+[Timer]
+# Absolute wall-clock schedule (every 3 minutes at :02 past), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely (garden-orchestrate.timer starved this way for real on
+# 2026-07-03). Persistent=true catches up a run missed across downtime. Offset :02
+# from garden-orchestrate's :01 so the two leader-only watchers do not always fire
+# on the same second.
+OnCalendar=*:02/3
+Persistent=true
+
+[Install]
+WantedBy=timers.target

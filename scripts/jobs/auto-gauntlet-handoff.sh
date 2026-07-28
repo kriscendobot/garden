@@ -71,31 +71,18 @@ if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\\n")' | grep -qi '
   exit 0
 fi
 
+# Create a staged-gauntlet RECORD, not a monolithic job (designs/staged-gauntlet.md).
+# The old handoff posted ONE `<base>-gauntlet` job whose handler had to span the whole
+# clean → panel → fix-loop → un-draft chain — a sum that fits no handler budget (nine
+# jobs poisoned on deadline-overrun 2026-07-28). Instead we record a gauntlet the
+# deterministic gauntlet.sh driver walks one claim-sized stage at a time. A failed
+# record post is a failed handoff, exactly like the old failed job post: the caller
+# leaves the build in doin so the reaper retries it — completing the build without its
+# gauntlet would recreate the silent draft-PR stall this hook exists to prevent.
 gauntlet_base="$base-gauntlet"
-body="$(mktemp "${TMPDIR:-/tmp}/garden-auto-gauntlet.XXXXXX")"
-trap 'rm -f "$body"' EXIT
-cat >"$body" <<EOF
----
-role: gardener
-handler-timeout: $GARDEN_SHEPHERD_HANDLER_TIMEOUT
-auto_gauntlet: true
-build_job: $base
-pr: $pr_url
----
-
-Automatic gauntlet handoff for completed feature build $base.
-
-The build opened $pr_url and it is an OPEN PR owed the bot-side chain. Run the full
-gardening state machine now: clean, panel, fixer loop as needed, CI, then un-draft
-only when the panel terminates cleanly. This handoff was posted by the build
-completion edge, not inferred by a watcher.
-${redrafted:+
-NOTE: this PR was found NON-DRAFT at the build completion edge, against the
-unconditional draft norm (roles/builder/AGENT.md), and this hook converted it back
-to draft so the chain can run. Nothing here has been panel-reviewed: treat it as a
-cold PR owed a full review, not as work that already passed and regressed.
-}
-EOF
-
-"$HERE/post-job.sh" "$gauntlet_base" "$body"
-log "auto-gauntlet: build '$base' posted '$gauntlet_base' for draft PR $pr_url"
+"$HERE/post-gauntlet.sh" --build-job "$base" "$gauntlet_base" "$pr_url"
+if [ -n "$redrafted" ]; then
+  log "auto-gauntlet: build '$base' recorded gauntlet '$gauntlet_base' for draft PR $pr_url (PR was found NON-DRAFT and re-drafted; the staged panel reviews it cold)"
+else
+  log "auto-gauntlet: build '$base' recorded gauntlet '$gauntlet_base' for draft PR $pr_url"
+fi
