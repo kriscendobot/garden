@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T22:14:38Z_
+_As of 2026-07-28T22:18:25Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 9m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 8s)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -2495,6 +2495,84 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >       teardown leak in the gardener/reaper path, not a registration leak. Worth its
 >       own job; say the word and I'll post one.
 
+- `20260728T221804Z-0b4d16` — from gardener:qwen-model-watch-20260728-180502, reply_to `qwen-model-watch-20260728-180502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T221804Z-0b4d16.md)
+
+> # weekly Qwen watch (2026-07-28) — one real upgrade available, but not the one the job assumed
+>
+> ## Source caveat, up front
+> **I could not read `https://qwen.ai/blog` as data.** The page is a fully
+> client-rendered SPA (88 KB of shell, zero post text); its backing endpoint
+> `GET https://qwen.ai/api/v2/article/list` answers `{"success":true,"data":[]}`
+> for every param/locale/Referer combination I tried, and `/sitemap.xml` +
+> `/robots.txt` both serve the SPA shell rather than a document. `qwenlm.github.io/blog`
+> still exists but is stale (last post Sept 2025). So I grounded this week's watch in
+> sources that are machine-readable **and** are what actually decides harnessability:
+> the **ollama registry** (library pages + read-only manifest fetches, no pulls), the
+> **Qwen HF org**, and dated news coverage. Flagging this plainly rather than
+> inventing blog entries — and it's a standing problem worth fixing in the job spec.
+>
+> ## Premise correction — the hermit lane does NOT currently serve qwen3.6
+> The job says the lane serves `qwen3.6`. Probed on this box (`endolin-garden2-5bcdff64`):
+>
+> - `scripts/jobs/model-routing-defaults.tsv` → `local  qwen*  **qwen3:0.6b**` — a
+>   **0.6-billion-param dense** model, not the qwen3.6 family. (`qwen3.6` is a real
+>   ollama library name, which is likely how the two got conflated.)
+> - No journal override: `config/model-routing` does not exist, so that tracked row is live.
+> - `ollama list` is **empty** and `/v1/models` returns `data: null` — the endpoint is up
+>   but **no model is pulled at all**.
+> - `journal/hosts/endolin-garden2-5bcdff64` → **`hermits: 0`** — the lane isn't running.
+>
+> So the real baseline is "0.6B, and nothing actually loaded," which changes the answer.
+>
+> ## Newer than qwen3.6 — announced, but nothing harnessable
+> | Release | Date | What | Ollama tag? |
+> | --- | --- | --- | --- |
+> | **Qwen3.8-Max preview** | Jul 19 2026 (WAIC) | 2.4T-param sparse MoE, multimodal | **No** — `/library/qwen3.8`, `qwen3.8-max` → **404**. Closed preview endpoint (Token Plan / Qoder) only; no open weights. 2.4T total is far past this box regardless. |
+> | **Qwen3.7 VL Flash** | Jul 25 2026 | vision-language upgrade over 3.6-Flash | **No** — `/library/qwen3.7`, `qwen3.7-vl`, `qwen3.7-flash` → all **404**. No Qwen3.7 weights on the HF `Qwen` org either (newest there: `Qwen3-ASR-0.6B/1.7B-hf`, ~6 days ago — ASR, not a chat model). |
+>
+> **Verdict on "new this week": nothing new is harnessable.** Both post-3.6 releases are
+> API-only/no-weights today. → **watch, don't act.**
+>
+> ## But there IS an upgrade already sitting on the shelf
+> `qwen3.6` has been in the ollama library ~1 month (4.7M pulls) and is a large jump over
+> `qwen3:0.6b`. Manifest-verified (read-only `registry.ollama.ai/v2/.../manifests/...`, no pull):
+>
+> | Tag | Manifest size | Shape | Fits 50 GiB GTT? |
+> | --- | --- | --- | --- |
+> | **`qwen3.6:35b-a3b-q4_K_M`** (= `:latest`) | **22.3 GiB** | **MoE**, 35B total / ~3B active, 256K ctx, text+image | **Yes**, ~2.2× headroom — no `ttm.pages_limit` raise needed |
+> | `qwen3.6:27b-q4_K_M` | 16.2 GiB | **dense** 27B, 256K ctx | fits, but dense — see below |
+>
+> The MoE variant lands almost exactly on the ops-doc's measured Strix Halo row
+> (`Qwen ~35B-A3B (Q4) | MoE | ~20 GB | pp512 ~1100 | tg128 **~50 t/s**`), so ~50 tok/s
+> generation is a grounded expectation, not a guess. The dense 27B is the row to avoid —
+> `local-inference-amd.md` measures dense ~31B Q4 at **~10 t/s**, a 5× penalty for a
+> smaller memory saving.
+>
+> **Trap worth naming:** most of that tag list is unusable here. `-mlx`, `-mlx-bf16`,
+> `-mxfp8` are **Apple MLX**; `-nvfp4` is **NVIDIA FP4**. Neither runs on gfx1151/ROCm.
+> Only the plain GGUF `q4_K_M` / `q8_0` tags are candidates. (`q8_0` at 39 GiB also fits
+> but would run materially slower for little quality gain at this size.)
+>
+> ## Recommendation
+> 1. **Nothing to chase from the 3.7/3.8 news** — re-probe `ollama.com/library/qwen3.7`
+>    next week; that 404 flipping to 200 is the trigger.
+> 2. **If you want the hermit lane actually working**, the move is independent of this
+>    week's releases: `ollama pull qwen3.6:35b-a3b-q4_K_M` (22.3 GiB; 1.8 T free on
+>    `/home/kris/garden2`), then
+>    `scripts/jobs/set-model-routing.sh` to point the `local` default at it, then
+>    `scripts/jobs/set-hermits.sh N` to raise `hermits: 0`. **I did not do any of this** —
+>    a 22 GiB pull plus a fleet-wide routing change is your call, not a watch job's.
+> 3. **Worth a decision either way:** `qwen3:0.6b` as the local default is small enough
+>    that it's not obviously useful for real work. Either promote it to the 35B-A3B MoE,
+>    or accept that the lane stays at `hermits: 0` and drop the pretense.
+>
+> ## Follow-up for the job spec itself
+> Two fixes so next week's run is cleaner: (a) `qwen.ai/blog` is not fetchable as data —
+> point the spec at the ollama library + HF `Qwen` org as the primary harnessability
+> sources, with the blog as colour; (b) the spec's "currently serves qwen3.6" is wrong —
+> have it read the live `model-routing-defaults.tsv` / journal override + `ollama list`
+> instead of hardcoding a baseline, which is what caught this.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3607,7 +3685,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.2M | $883.52 _(notional, rate-card)_ | no quota set |
+| Claude | 55.3M | $890.46 _(notional, rate-card)_ | no quota set |
 | Codex | 264.0M _(+457.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
