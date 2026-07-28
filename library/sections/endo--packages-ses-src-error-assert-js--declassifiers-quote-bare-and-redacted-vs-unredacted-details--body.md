@@ -3,8 +3,8 @@ title: Body
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
-source_date: 2026-06-23
+source_commit: 0594e99fb7ecf2ff1ae64489125aea1da9e02ab2
+source_date: 2026-06-29
 source_authors: [Richard Gibson]
 source_lines: "1-212 (file header + declassifiers/quote/bare + hiddenDetailsMap + DetailsTokenProto + redactedDetails + unredactedDetails)"
 topics: [hardened-javascript, errors]
