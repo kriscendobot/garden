@@ -3216,3 +3216,12 @@ Inspect via `git -C journal cat-file -p e554789ab0b3a81dd42b2d04f47335aa2eabb9dd
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 1eb7d1d2231589cc7c9c350b4860732ba3434526`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:38:31Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6ec4321282ab98001ff83737507935836cb14101
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6ec4321282ab98001ff83737507935836cb14101`.
