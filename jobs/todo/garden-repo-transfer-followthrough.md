@@ -13,9 +13,4 @@ Once complete, preserve fleet continuity while doing the following in a safe ord
 
 Do not recreate or recommend recreating kriskowal/garden, because that would break the old-location redirect. Finish with an evidence-backed report listing commits/deployments, live configuration, verified surfaces, residual old-URL dependencies, cross-host status, and any maintainer-only action.
 
----
-claim:
-  host: ps23
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-27T22:03:47Z
+<!-- garden-reaped: 1 -->

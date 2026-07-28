@@ -1,5 +1,0 @@
-host: ps23
-gardener: 3
-worker_kind: gardener
-claimed_at: 2026-07-27T22:03:47Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-garden-repo-transfer-followthrough
