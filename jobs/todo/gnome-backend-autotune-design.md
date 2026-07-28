@@ -38,12 +38,4 @@ Produce `designs/gnome-backend-verified-autotune.md` covering:
 Design ONLY (no implementation). Base: garden main2 (direct, no PR). Keep it tight
 and implementable.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
----
-claim:
-  host: ps23
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T02:23:07Z
+<!-- garden-reaped: 0 -->
