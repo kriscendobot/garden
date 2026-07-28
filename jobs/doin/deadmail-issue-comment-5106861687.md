@@ -38,3 +38,10 @@ Comment: https://github.com/kriscendobot/garden/issues/68#issuecomment-510686168
 fixed. retired `ps23` host in favor of `ps23-garden-f65473ae`. smoke test: https://github.com/kriscendobot/garden/commit/368afeac44375e1dc9e10cc6530534610e51fd11 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:30:07Z
