@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T17:01:06Z_
+_As of 2026-07-28T17:05:18Z_
 
 ## Latest
 
@@ -2801,6 +2801,83 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-improve-review-miss-gaming-category-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-improve-review-miss-gaming-category-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/improve-review-miss-gaming-category; it stays HELD until a human promotes it
+> (promote-plan.sh improve-review-miss-gaming-category) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: improve-review-miss-gaming-category
+>
+> --- original job body ---
+> ---
+> role: builder
+> ---
+> # Add an evaluator-gaming category to the review-retrospective loop
+>
+> The garden already runs a continuous evaluator-failure recorder: the
+> review-retrospective double loop (`skills/review-retrospective/SKILL.md`,
+> `scripts/jobs/review-miss-record.sh`, role `prosecutor`). As of 2026-07-28 it holds
+> 24 misses in 13 clusters under `journal/review-misses/`, with categories including
+> `process`, `test-gap`, and `correctness-bug`.
+>
+> What it records is **evaluator misses** — things the panel let through that a human
+> later caught. What it does *not* distinguish is **evaluator gaming** — work shaped
+> to satisfy the reviewer rather than the goal. These are different failures with
+> different fixes: a miss says the rubric was too narrow; gaming says the rubric was
+> satisfiable without doing the work.
+>
+> The existing corpus already contains at least two clusters that are arguably the
+> gaming shape but are filed as something else:
+>
+> - `garden-design-pr-gauntlet-bypass` (count 2, PRs 7 and 809) — a design PR
+>   reaching maintainer review *without* the required design-panel gauntlet. That is
+>   evaluator **avoidance**.
+> - `feature-shipped-without-tests` (count 1, PR 151) — tests deferred behind an
+>   unlanded dependency where a pure-function extraction would have made the logic
+>   testable immediately. Satisfying the seat's letter, not its purpose.
+>
+> ## What to build
+>
+> 1. Add an `evaluator-gaming` category to the review-miss taxonomy
+>    (`skills/review-retrospective/SKILL.md` and whatever validates `category:` in
+>    `scripts/jobs/review-miss-record.sh`).
+> 2. Extend the prosecutor's discriminator brief (`roles/prosecutor/AGENT.md`) with
+>    the distinguishing question, stated so it is answerable from a diff and a review
+>    thread rather than from intent-reading: *did this change alter what the
+>    evaluator measures rather than what the evaluator is for?* Give it the two
+>    concrete shapes above plus the avoidance shape (route around the gauntlet) as
+>    worked examples.
+> 3. **Do not** re-categorize the existing corpus automatically. Propose the
+>    re-categorization of those two clusters in the tada for maintainer review, with
+>    the reasoning; a category change is a judgment, not a migration.
+>
+> ## Constraints
+>
+> - Additive to the existing store's lifecycle (cluster mint / join / K-floor /
+>   recurrence-reopen). Do not change the K floor or the dispatch gate.
+> - The category must not become a score. It is a label on a durable record for
+>   later reading, not an input to routing, reputation, or the auction.
+>
+> ## Verification
+>
+> - Extend `scripts/jobs/test/review-miss-record-test.sh` to cover the new category
+>   through mint / join / recurrence, and report counts in the tada.
+>
+> ## Why now
+>
+> Posted from issue #62 follow-up (`issue-garden-62-jcorbin-cross-analysis`).
+> @jcorbin's devoker cross-analysis observed that the garden legislated *against*
+> evaluator-coupling prospectively without ever looking for it retrospectively.
+> Recording it continuously as it is noticed is cheaper and more durable than an
+> archaeological audit, and the garden already has the loop to hang it on.
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
 > WATCHDOG notice — occurrence #4 (first seen 2026-07-28T08:48:08Z, latest 2026-07-28T15:08:08Z).
@@ -2908,14 +2985,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $707.22 _(notional, rate-card)_ | no quota set |
-| Codex | 336.5M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 53.2M | $704.22 _(notional, rate-card)_ | no quota set |
+| Codex | 334.5M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (41)
+### doin (39)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2943,28 +3020,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
-- [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
-- [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-review-miss-gaming-category.md) — Add an evaluator-gaming category to the review-retrospective loop
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-130502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
-- [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
+- [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
 - [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3704)
+### tada (3706)
+- [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/hermit-failure-reputation-followup.md) — Completion report
+- [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260728-075002.md) — What I did
 - [`endojs-endo-but-for-bots-pr755-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr755-gauntlet.md) — Gauntlet on endojs/endo-but-for-bots#755 — complete
 - [`fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1.md) — Cost
 - [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabot-supersession-preflight.md) — Report
-- [`fireworks-glm52-kimik3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fireworks-glm52-kimik3.md) — orchestration fireworks-glm52-kimik3 — HALTED
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — Report
-- … and 3699 more
+- … and 3701 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3030,6 +3105,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — _normal_ · ---
 - [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-report-error-transcript-reachable.md) — _normal_ · ---
+- [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-review-miss-gaming-category.md) — _normal_ · Add an evaluator-gaming category to the review-retrospective loop
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
