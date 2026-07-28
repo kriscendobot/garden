@@ -980,6 +980,41 @@ scratch_dir() {
   printf '%s\n' "$path"
 }
 
+# exec_tmpdir — echo a TMPDIR that is safe to execute from.
+#
+# The container mounts /tmp noexec. Yarn 4's portable shell materializes every
+# package-bin invocation as a temporary exec shim under $TMPDIR, so on a noexec
+# $TMPDIR any `yarn run <script>` that dispatches through a bin dies with
+# "permission denied: <bin>" (seen as `ses-ava` and `tsc` on
+# endojs/endo-but-for-bots) even though the same script is green on CI. That is
+# an environment-parity defect in the sense of skills/local-verify: the check
+# cannot run locally at all, so it is only ever discovered on CI.
+#
+# Echoes $TMPDIR unchanged when it is already exec-capable, else an exec-capable
+# directory under $GARDEN_SCRATCH. Never fails; falls back to the current
+# $TMPDIR (or /tmp) if the scratch dir cannot be made exec-capable either.
+exec_tmpdir() {
+  local cur probe rc alt
+  cur="${TMPDIR:-/tmp}"
+  probe="$cur/.garden-execprobe.$$"
+  rc=1
+  if printf '#!/bin/sh\nexit 0\n' >"$probe" 2>/dev/null && chmod +x "$probe" 2>/dev/null; then
+    "$probe" >/dev/null 2>&1 && rc=0
+  fi
+  rm -f "$probe" 2>/dev/null || true
+  if [ "$rc" -eq 0 ]; then printf '%s\n' "$cur"; return 0; fi
+
+  alt="$GARDEN_SCRATCH/tmpexec"
+  mkdir -p "$alt" 2>/dev/null || { printf '%s\n' "$cur"; return 0; }
+  probe="$alt/.garden-execprobe.$$"
+  rc=1
+  if printf '#!/bin/sh\nexit 0\n' >"$probe" 2>/dev/null && chmod +x "$probe" 2>/dev/null; then
+    "$probe" >/dev/null 2>&1 && rc=0
+  fi
+  rm -f "$probe" 2>/dev/null || true
+  if [ "$rc" -eq 0 ]; then printf '%s\n' "$alt"; else printf '%s\n' "$cur"; fi
+}
+
 # scratch_cleanup <dir> — remove a scratch dir created by scratch_dir. If <dir>
 # is a registered git worktree (of any repo whose admin dir can be located), it
 # is torn down with `git worktree remove --force` first so no stale worktree

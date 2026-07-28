@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-07-20
+updated: 2026-07-28
 author: gardener
 ---
 
@@ -302,3 +302,15 @@ and `shellcheck` clean.
   gap or an environment divergence to close (two-part fix: green + close the gap).
   Cross-linked from `roles/COMMON.md` § Reporting and
   [ci-failure-classification-loop](../ci-failure-classification-loop/SKILL.md).
+- _2026-07-28_: closed an environment divergence found while shepherding
+  endojs/endo-but-for-bots#865. The container mounts `/tmp` **noexec**, and yarn 4
+  materializes every package-bin call as a temporary exec shim under `$TMPDIR`, so
+  any step dispatching through a bin died locally with `permission denied: <bin>`
+  (observed as `ses-ava` for the `test` step and `tsc` for `lint:types`) while the
+  same script was green on CI. The affected checks therefore could not run locally
+  at all. `local-verify.sh` now exports an exec-capable `TMPDIR` via the new
+  `exec_tmpdir` helper in `scripts/jobs/common.sh` (probe `$TMPDIR`, fall back to
+  `$GARDEN_SCRATCH/tmpexec`), generalizing the defense
+  `scripts/jobs/ensure-project-worktree.sh` already applied to the dep install.
+  The tell is a "failure" whose message is `permission denied` rather than an
+  assertion: that is the environment, not the change.

@@ -65,6 +65,15 @@ wt="${1:-$PWD}"
 wt="$(cd "$wt" 2>/dev/null && pwd)" || { echo "local-verify: no such worktree: ${1:-$PWD}" >&2; exit 2; }
 pkg="$wt/package.json"
 
+# Parity guard: the container mounts /tmp noexec, and yarn 4 materializes every
+# package-bin call as a temporary exec shim under $TMPDIR, so a step that
+# dispatches through a bin (ses-ava, tsc, ...) dies with "permission denied"
+# locally while passing on CI. Point TMPDIR at an exec-capable directory so the
+# local step actually runs the check rather than reporting an environment
+# failure. See skills/local-verify § Parity is the contract.
+TMPDIR="$(exec_tmpdir)"
+export TMPDIR
+
 # The package runner: plain `yarn` is often absent in a fresh worktree, so fall
 # back to `npx corepack yarn` (see skills/pre-pr-checklist § Pitfalls). Override
 # with GARDEN_YARN for tests or a project that uses a different runner.
