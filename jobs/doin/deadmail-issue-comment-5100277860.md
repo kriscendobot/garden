@@ -38,3 +38,10 @@ Comment: https://github.com/kriscendobot/garden/issues/34#issuecomment-510027786
 We now have: - URLs, which are grounded in the location and authority to provide content - Magnet URNs, which are grounded in the content address, with hints about the locations that vend the content - OCap Locators, Iroh addresses, and Noise Protocol, which are grounded in the a
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: ps23
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:30:15Z
