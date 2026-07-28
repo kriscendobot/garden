@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T08:27:17Z_
+_As of 2026-07-28T08:38:28Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 31m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 43m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -2275,7 +2275,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (53)
+### doin (52)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2309,7 +2309,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1.md) — In the garden's own job board (journal2, jobs/todo/), drop the two now-no-op ...
 - [`fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2.md) — In the garden repo (kriskowal/garden, main2), audit scripts/jobs/ci-watcher.s...
 - [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
-- [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/guard-worker-self-disqualify-missing-agent-bin.md) — A worker that cannot resolve its agent binary must self-disqualify, not claim
 - [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
@@ -2330,13 +2329,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3652)
+### tada (3653)
+- [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/guard-worker-self-disqualify-missing-agent-bin.md) — Report — guard-worker-self-disqualify-missing-agent-bin
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-shepherd.md) — Shepherd escalated CI to fixer.
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr866-dependabot.md) — REJECT — reviewed PR #866, posted the structured verdict, and closed it. Scri...
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`build-sysop-host-operations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-host-operations.md) — orchestration build-sysop-host-operations — complete
-- [`build-sysop-host-operations-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-host-operations-daemon.md) — Completion report: build the sysop (per-host host-operations daemon)
-- … and 3647 more
+- … and 3648 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
