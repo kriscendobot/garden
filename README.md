@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T11:26:57Z_
+_As of 2026-07-28T11:27:34Z_
 
 ## Latest
 
@@ -1966,6 +1966,35 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > ===== LAST FAILURE SIGNATURE =====
 > <3>09:28:05 [follow-up-claude] FATAL: claude -p failed transiently (rc=1); stderr: <empty>; stdout: You've hit your session limit · resets 10am (UTC) — failing the tick so follow-up.sh retries the digest
 
+- `20260728T112717Z-27f7ee` — from gardener:finbot-progress-20260728-004711, reply_to `finbot-progress-20260728-004711` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T112717Z-27f7ee.md)
+
+> finbot progress cycle 20260728-004711 — one increment, governance intact.
+>
+> State: both open finbot PRs are DRAFT + CI-green + MERGEABLE, both blocked only on
+> the merge-governance gate (panel + Fable sign-off):
+> - [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) (SES compartments) — panel gate is
+>   ALREADY IN FLIGHT (gardener 7, claimed 08:15Z). Left untouched, no duplication.
+> - [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) (inference-driven OBSERVE dispatch)
+>   head e889a899, base==origin/main 877fa767, 8 ahead / 0 behind, green — its panel
+>   was NOT running; only a poisoned plan job existed.
+>
+> Increment this cycle: posted a fresh, un-poisoned panel job
+> `finbot-pr5-panel-20260728` for pull/5 (throttle has lifted from 2 to 8 gardeners,
+> so the "one panel at a time" constraint of prior cycles no longer applies). It runs
+> `panel.sh <wt> 5 origin/main`, requires non-empty per-seat verdicts, and on a pass
+> hands off to `finbot-pr5-fable-signoff` (role orchestrator, model claude-fable-5) —
+> never self-merge/un-draft. Confirmed present on origin/journal2.
+>
+> Note: a second progress driver `finbot-progress-20260728-065010` was alive
+> concurrently (6h scheduler overlap); I messaged it to take a different increment so
+> we don't double-post the pull/5 panel.
+>
+> Next unblocked step: nothing until the two panels run. Once pull/4 clears panel +
+> Fable sign-off and merges, and pull/5 likewise, the gate drains and the next design
+> increment (cap-attenuation / ensemble-forecasting / ymax-integration) becomes the
+> deepest unblocked build. No maintainer decision required — pipeline is self-draining
+> now that both panel gates are posted/in-flight and the fleet carries the panel fixes.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2296,7 +2325,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $606.71 _(notional, rate-card)_ | no quota set |
+| Claude | 46.3M | $607.79 _(notional, rate-card)_ | no quota set |
 | Codex | 369.2M _(+437.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
