@@ -88,3 +88,10 @@ critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 19
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:53:41Z

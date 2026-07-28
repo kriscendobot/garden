@@ -1,0 +1,5 @@
+host: ps23-garden-f65473ae
+gardener: 19
+worker_kind: gardener
+claimed_at: 2026-07-28T16:53:41Z
+worktree_dir: /home/dckc/garden/scratch/gardener-wt-measure-requeue-exit-knowledge-loss
