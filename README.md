@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:02:10Z_
+_As of 2026-07-28T01:07:32Z_
 
 ## Latest
 
@@ -6201,26 +6201,40 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.8M | $452.08 _(notional, rate-card)_ | no quota set |
+| Claude | 35.0M | $454.95 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+473.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (28)
+### doin (44)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
+- [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-004711.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260728-004711.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-004711.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260728-004711.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr268-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #268
+- [`endojs-endo-but-for-bots-pr269-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr269-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #269
+- [`endojs-endo-but-for-bots-pr556-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr556-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #556
+- [`endojs-endo-but-for-bots-pr557-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr557-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #557
+- [`endojs-endo-but-for-bots-pr558-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr558-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #558
+- [`endojs-endo-but-for-bots-pr560-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr560-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #560
+- [`endojs-endo-but-for-bots-pr561-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr561-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #561
+- [`endojs-endo-but-for-bots-pr562-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr562-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #562
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-8840fcdb.md) — attention directive on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
+- [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
+- [`endojs-endo-but-for-bots-pr868-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #868
+- [`endojs-endo-but-for-bots-pr869-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr869-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #869
+- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
 - [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
@@ -6231,9 +6245,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 - [`ocapn-noise-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-004711.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ollama-hermit-simple-job-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ollama-hermit-simple-job-capability.md) — Investigate whether Ollama (local hermit) can complete a SIMPLE job; fix obvi...
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop.md) — The comment-watcher for kriscendobot/garden crash-loops (systemd restart fore...
+- [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260728-004711.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
