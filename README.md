@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T15:29:11Z_
+_As of 2026-07-28T15:35:17Z_
 
 ## Latest
 
@@ -2716,7 +2716,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $702.18 _(notional, rate-card)_ | no quota set |
+| Claude | 53.2M | $706.22 _(notional, rate-card)_ | no quota set |
 | Codex | 344.6M _(+469.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
@@ -2924,3 +2924,4 @@ kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kris
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 8 gardeners
 - [ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23): 1 gardeners
+- [ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23-garden-f65473ae): 20 gardeners
