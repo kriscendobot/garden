@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-27T22:34:29Z_
+_As of 2026-07-28T01:02:10Z_
 
 ## Latest
 
@@ -14,18 +14,18 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3331](https://github.com/endojs/endo/pull/3331) — chore: fix release process (waiting 11h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 3d)
 - [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 8d)
-- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 9d)
+- [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/pull/671) — feat(daemon): EndoRegistry capability and required @registry host name (waiting 10d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 10d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 10d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 11d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 14d)
 
-_Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -1315,6 +1315,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T205427Z-491248` — from watchdog:triager/kriscendobot-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260727T205427Z-491248.md)
 
 > triager: fetch for kriscendobot-garden at /home/kris/garden/worktrees/kriscendobot-garden.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-garden cannot be triaged until it is restored.
+
+- `20260728T005942Z-b6ecc2` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T005942Z-b6ecc2.md)
+
+> triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6197,50 +6201,50 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.7M | $445.92 _(notional, rate-card)_ | no quota set |
-| Codex | 19.1M _(+474.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 34.8M | $452.08 _(notional, rate-card)_ | no quota set |
+| Codex | 19.0M _(+473.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (2)
-- [`xs2rust-endor-press-20260727-140502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260727-140502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+### todo (0)
+(none)
 
-### doin (27)
+### doin (28)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
+- [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-004711.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-npm-cas-registry-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260728-004711.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260728-004711.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260728-004711.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-8840fcdb.md) — attention directive on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
+- [`ocapn-noise-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-004711.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ollama-hermit-simple-job-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ollama-hermit-simple-job-capability.md) — Investigate whether Ollama (local hermit) can complete a SIMPLE job; fix obvi...
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop.md) — The comment-watcher for kriscendobot/garden crash-loops (systemd restart fore...
-- [`xs2rust-endor-press-20260727-035010`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-035010.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-062002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-062002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-105002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-105002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-115015`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-115015.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-125027`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-125027.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-150502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-150502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-160502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-160502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-170531`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-170531.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-192007`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-192007.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-202011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-202011.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260727-213502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-213502.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260728-004711.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3594)
+### tada (3595)
+- [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode.md) — Implemented and pushed 55feb33e49 to main2.
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch.md) — Completion report
 - [`proposal-compartments-press-20260727-190507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260727-190507.md) — Completion report — proposal-compartments-press-20260727-190507
 - [`endojs-endo-but-for-bots-pr825-83a474e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-83a474e1.md) — Completion report: attention directive on endojs/endo-but-for-bots #825
-- [`endojs-endo-but-for-bots-pr874-gauntlet`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-gauntlet.md) — The work done:
-- … and 3589 more
+- … and 3590 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6415,6 +6419,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr740-40e1dd8c-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-40e1dd8c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr836-review-3e0d6210-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-3e0d6210-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr874-review-e6cccb99-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-e6cccb99-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr755-review-a0778b2e-retro`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #755 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
@@ -6429,6 +6434,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-chrome-native-function-caller-arguments-repro kriscendobot-cosgov kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot kriscendobot-minion.town kriscendobot-moddable kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriskowal/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 gardeners
 - [ps23](https://github.com/kriskowal/garden/blob/journal2/hosts/ps23): 8 gardeners
