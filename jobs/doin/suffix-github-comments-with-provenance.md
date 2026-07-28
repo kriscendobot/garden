@@ -97,3 +97,10 @@ the repo URL survives the pending transfer. Direct push to `main2`. Report where
 enforced it and why, and the review-comment scope decision.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:38:55Z
