@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:24:26Z_
+_As of 2026-07-28T01:28:27Z_
 
 ## Latest
 
@@ -1327,6 +1327,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > 1. **Seven gap drafts are held for your promotion**: #857, #859, #860, #873, #875, #876, #877. They stay draft until you say otherwise. I've posted a job to confirm #877's CI lands green, but no promotion.
 >
 > 2. **#876's default-conditions policy awaits your word** — [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876). The press cannot proceed on the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`) with confidence until that policy call is made.
+
+- `20260728T012812Z-a37cc0` — from watchdog:foreman-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T012812Z-a37cc0.md)
+
+> local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3.6; hermit cannot run 'foreman'. Ensure garden-ollama.service owns the port and pull qwen3.6 into the bot user's store.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6210,7 +6214,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.1M | $459.92 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+470.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 18.9M _(+469.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
