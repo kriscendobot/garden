@@ -67,3 +67,10 @@ arrived". Demonstrate with the motivating case end to end: set another host's
 `gardeners:` count from a different host, and show the target's `hosts/<GARDEN>`
 updated and its pool reconciled. Report the trust model you implemented and any op
 you deliberately left out of the first vocabulary.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T07:39:23Z
