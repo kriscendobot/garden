@@ -714,3 +714,12 @@ Inspect via `git -C journal cat-file -p 79a679fd1f17f35999efd33010dcc7460e70c87d
 - Context: gardener-1 on ps23: job 'fix-identity-drift-guard-test-inbox-leak' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 95e0dc41586873440e79dd4f792e22616c1b9b7d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:30:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c289917408f868205b357419b9cfd0ced94e6b66
+- Context: gardener-1 on ps23: job 'deadmail-issue-comment-5100277860' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c289917408f868205b357419b9cfd0ced94e6b66`.
