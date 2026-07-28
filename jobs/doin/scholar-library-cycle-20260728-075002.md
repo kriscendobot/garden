@@ -31,3 +31,10 @@ specs keyed by cadence, not pre-computed per-fire event files. The v1 original
 is retained on `journal-v1` and `origin/journal`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:40:54Z
