@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+poisoned_at: 2026-07-28T08:13:39Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-28T08:13:39Z
+---
+
 # Review directive on endojs/endo-but-for-bots PR #755
 
 A trusted maintainer/contributor REVIEW on #755. Treat the WHOLE review
@@ -34,13 +48,5 @@ resolution. Exit 0 = proceed with the work. (Any other exit fails open →
 proceed; the push CAS is still the backstop.)
 
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-28T07:31:01Z

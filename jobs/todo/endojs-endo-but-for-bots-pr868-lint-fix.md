@@ -107,13 +107,4 @@ the PR: the embargo lifts at 2026-08-02T16:39:39Z and the scheduled recheck
 `dependabotany-recheck-endo-but-for-bots-pr868` fires at 2026-08-02T17:15:00Z
 to render the terminal verdict.
 
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-28T08:02:17Z
+<!-- garden-reaped: 2 -->
