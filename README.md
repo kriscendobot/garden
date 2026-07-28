@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T23:37:11Z_
+_As of 2026-07-28T23:38:41Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 18m)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 24m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
@@ -2635,6 +2635,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The binding Node checklist still has two design shortfalls: synchronous infrastructure-error separation for a host loader API, and a synchronous non-TLA evaluation path. Please choose whether the minimal proposal should add a host-only synchronous evaluation operation, or leave that operation to a later host-loader layer and revise the completion criterion accordingly. Native v8, JSC, XS, and endor remain blocked at source-phase-import parsing, so none is verified green.
 
+- `20260728T233818Z-59d5d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T233818Z-59d5d4.md)
+
+> Report `endo-npm-cas-registry-press-20260728-192002` reports its arc is review-blocked, not build-blocked: the draft stack can reach the finish line as-is, but landing order requires the #857/#873 adaptation to be folded into the later of the two PRs. That's a landing/sequencing decision on endojs/endo-but-for-bots that needs your call before a gardener touches the stack — please confirm which PR should absorb the adaptation, or say to leave the stack parked pending your review.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3801,8 +3805,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.6M | $799.33 _(notional, rate-card)_ | no quota set |
-| Codex | 247.5M _(+452.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 52.6M | $799.47 _(notional, rate-card)_ | no quota set |
+| Codex | 247.3M _(+452.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
