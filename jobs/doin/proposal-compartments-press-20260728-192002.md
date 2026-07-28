@@ -61,3 +61,10 @@ No bar is "verified"/"green" without real-execution evidence — cite the comman
 could not run a bar (a validation front, a spec render), report it "not verified" and why.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T23:23:14Z
