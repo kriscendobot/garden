@@ -264,3 +264,12 @@ Inspect via `git -C journal cat-file -p d0be3b1e7ad469e7874d8fd405e0a8b5b4037d4a
 - Context: gardener-8 on ps23-garden-f65473ae: job 'endo-vfs-parity-press-20260728-192002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 025c0a4d4649ba23bb1de9c34cdf13d8835cde7e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T20:53:31Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5a84fd204de6d601821991f8c3985737ab66a2db
+- Context: gardener-2 on ps23-garden-f65473ae: job 'arc-status-daily-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5a84fd204de6d601821991f8c3985737ab66a2db`.
