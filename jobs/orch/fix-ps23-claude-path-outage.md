@@ -2,7 +2,7 @@
 order: serial
 children: guard-worker-self-disqualify-missing-agent-bin requeue-ps23-stranded-claims
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-28T06:31:20Z
 ---
