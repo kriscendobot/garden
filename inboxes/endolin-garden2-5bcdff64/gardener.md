@@ -3252,3 +3252,12 @@ Inspect via `git -C journal cat-file -p 0221a56490817a0c3b071288db8f782fb10b7e34
 - Context: gardener-8 on endolin-garden2-5bcdff64: job 'wallclock-cost-proxy-for-censored-arms' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 559d8df0d6a35fc6fae70e99fd4ed741b7841119`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:40:04Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1e847e680e438d2bb3b176ce7fb4e7fd8663a52a
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'measure-requeue-exit-knowledge-loss' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1e847e680e438d2bb3b176ce7fb4e7fd8663a52a`.
