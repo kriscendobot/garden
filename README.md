@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:22:00Z_
+_As of 2026-07-28T16:27:12Z_
 
 ## Latest
 
@@ -2716,14 +2716,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $709.22 _(notional, rate-card)_ | no quota set |
+| Claude | 53.4M | $712.49 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (48)
+### doin (47)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2759,7 +2759,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-takes-opus-work-with-opus-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kimi-k3-takes-opus-work-with-opus-fallback.md) — Route opus work to kimi-k3 for evaluation, with automatic opus retry on failure
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
-- [`minion-town-agenda-review-20260728-162004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260728-162004.md) — Minion Town daily agenda review
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260728-130502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
@@ -2773,13 +2772,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3693)
+### tada (3694)
+- [`minion-town-agenda-review-20260728-162004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260728-162004.md) — Completion report
 - [`smoke-onboard-ps23-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/smoke-onboard-ps23-20260728.md) — Report
 - [`endojs-endo-but-for-bots-pr755-review-ea305fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr755-review-ea305fae.md) — Completion report
 - [`kriscendobot-agoric-sdk-pr18-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-agoric-sdk-pr18-shepherd.md) — Cost
 - [`split-gauntlet-into-claim-sized-stages`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/split-gauntlet-into-claim-sized-stages.md) — Completion report: split the gauntlet into claim-sized stages
-- [`endojs-endo-but-for-bots-pr881-review-5111ec6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-review-5111ec6e.md) — Completion report — endojs-endo-but-for-bots-pr881-review-5111ec6e
-- … and 3688 more
+- … and 3689 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
