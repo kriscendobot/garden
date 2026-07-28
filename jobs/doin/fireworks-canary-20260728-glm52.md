@@ -35,3 +35,10 @@ Write a short report stating:
 and include the line `CANARY-MARKER: fireworks-canary-glm52-ok` on its own line.
 
 Then emit the normal job completion marker as your final line.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: fireworker
+  claimed_at: 2026-07-28T21:05:27Z
