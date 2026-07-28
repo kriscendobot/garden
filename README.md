@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:14:47Z_
+_As of 2026-07-28T01:16:16Z_
 
 ## Latest
 
@@ -6201,8 +6201,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.1M | $460.21 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+473.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 35.1M | $461.07 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+472.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -6256,8 +6256,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
 ### tada (3596)
-- [`endo-npm-cas-registry-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-004711.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28, 00:48Z)
 - [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
+- [`endo-npm-cas-registry-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-004711.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28, 00:48Z)
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reconcile-disarm-deadcode.md) — Implemented and pushed 55feb33e49 to main2.
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-garden-dead-fork-404-unwatch.md) — Completion report
 - [`proposal-compartments-press-20260727-190507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260727-190507.md) — Completion report — proposal-compartments-press-20260727-190507
