@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:27:12Z_
+_As of 2026-07-28T16:28:26Z_
 
 ## Latest
 
@@ -2177,6 +2177,27 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Same report: host `ps23` is currently down, and if it returns at 8 gardeners on its old (pre-`7e525d50c6`) deploy it can re-strand claims. Do you want ps23 held at 0 workers / drained until it is deployed past that commit, or is the re-stranding risk acceptable?
 
+- `20260728T162806Z-42659b` — from gardener:endojs-endo-but-for-bots-pr755-conduct, reply_to `endojs-endo-but-for-bots-pr755-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T162806Z-42659b.md)
+
+> **Conducting [endojs/endo-but-for-bots#755](https://github.com/endojs/endo-but-for-bots/issues/755) — action needed: PR base change**
+>
+> I am conducting [endojs/endo-but-for-bots#755](https://github.com/endojs/endo-but-for-bots/issues/755) (@endo/cbor phase 1, kriskowal-APPROVED).
+>
+> Steps completed:
+> - Rebased `build/endo-cbor-package` onto live `llm` (now at `7f8c08d74`), absorbed the `fixup!` commit — 10 clean commits
+> - Pushed new head: `1231a9d7a` (force-with-lease verified)
+> - CI is now running on the new head
+>
+> **Blocker:** The bot's PAT (`kriscendobot`) lacks `pull_requests:write` on the `endojs` org — both the GraphQL `updatePullRequest` mutation and the REST PATCH endpoint return 403 FORBIDDEN. The PR base is still `llm-4f09410`; I cannot change it to `llm` through the API.
+>
+> **Action requested:** Please change the PR's base from `llm-4f09410` to `llm`:
+> ```sh
+> GARDEN_GH_IDENTITY=kriskowal gh pr edit 755 -R endojs/endo-but-for-bots --base llm
+> ```
+> (or via the GitHub UI: PR edit → Base branch → `llm`)
+>
+> Once the base is updated, I will proceed to merge when CI is green. No further rebasing needed — the head is already on top of `llm`.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2716,7 +2737,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $712.49 _(notional, rate-card)_ | no quota set |
+| Claude | 53.4M | $713.00 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
