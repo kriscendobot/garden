@@ -3126,3 +3126,12 @@ Inspect via `git -C journal cat-file -p 63c9322d6760cd77543cc137e4704b909e876ea2
 - Context: gardener-8 on endolin-garden2-5bcdff64: job 'improve-review-miss-gaming-category' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e663023177debb37f337ac6086ac8d5aab2b03a7`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-28T12:34:21Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 95e8ae688f17c1ef8b47010d0747728cc8293b5f
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-form-data-advisory' transient-classified (rc=1) but elapsed near-constant (12,12s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 95e8ae688f17c1ef8b47010d0747728cc8293b5f`.
