@@ -82,3 +82,10 @@ if you need more). At minimum:
 - Do NOT run git with `$GARDEN_ROOT` as the enclosing repo; work in your own worktree.
 - The running fleet does not pick this up until a deliberate deploy
   (`context/operations/deploy.md`), and the image not until `./garden build`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T01:24:07Z
