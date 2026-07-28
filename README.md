@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T04:59:40Z_
+_As of 2026-07-28T05:08:16Z_
 
 ## Latest
 
@@ -6262,14 +6262,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $460.27 _(notional, rate-card)_ | no quota set |
-| Codex | 18.6M _(+466.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 34.8M | $463.04 _(notional, rate-card)_ | no quota set |
+| Codex | 18.5M _(+465.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (48)
+### doin (49)
+- [`adopt-gricean-maxims-house-style`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/adopt-gricean-maxims-house-style.md) — Adopt Grice's maxims as a standing house-style norm for all fleet communication
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
