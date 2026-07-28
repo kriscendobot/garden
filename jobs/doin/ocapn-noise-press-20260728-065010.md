@@ -26,6 +26,7 @@ output for every "works" claim.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23-garden-f65473ae
