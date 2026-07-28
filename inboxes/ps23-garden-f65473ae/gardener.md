@@ -84,3 +84,12 @@ Inspect via `git -C journal cat-file -p 80682a7aa317d2405ed01b9b5065546b837b5084
 - Context: gardener-16 on ps23-garden-f65473ae: job 'wallclock-cost-proxy-for-censored-arms' transient-classified (rc=1) but elapsed near-constant (124,124s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 5181ed8b0e12cb03671923f6a8c59db3f36624ad`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T16:54:03Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 88df2b84b58bd872ebf8873ad37da2dbad891b1f
+- Context: gardener-18 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr713-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 88df2b84b58bd872ebf8873ad37da2dbad891b1f`.
