@@ -26,3 +26,10 @@ output for every "works" claim.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:10:55Z
