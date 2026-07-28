@@ -29,23 +29,23 @@ echo "=== test_maintainer_inbox_information_hiding ==="
 
 [ -x "$CHECK" ] || [ -f "$CHECK" ] || { echo "missing $CHECK"; exit 2; }
 
-# The allowlist baked into check.sh, mirrored here so the fixture can
-# reproduce a clean baseline. Kept in sync by hand; the real-tree test
-# below is the authoritative end-to-end check.
-ALLOWLIST=(
-  roles/README.md
-  roles/liaison/AGENT.md
-  roles/proxy/AGENT.md
-  roles/foreman/AGENT.md
-  roles/gardener/AGENT.md
-  roles/orchestrator/AGENT.md
-  skills/message-bus/SKILL.md
-  skills/at-mention-surveillance/SKILL.md
-  skills/activity-feed-watcher/SKILL.md
-  skills/self-healing-wrapper/SKILL.md
-  skills/orchestration/SKILL.md
-  skills/restore/SKILL.md
+# The allowlist baked into check.sh, READ FROM check.sh so the fixture's
+# clean baseline cannot drift from the gate it is testing.
+#
+# It was mirrored here by hand, and the hand-sync is a trap: widening the
+# allowlist is a deliberate, reviewed act (see the gate README), and every
+# such widening silently broke the clean-baseline case until someone
+# remembered to edit this copy too -- a failure with nothing to do with the
+# property under test, arriving exactly when attention is on the widening's
+# merits. Deriving it removes the whole class. Comment and blank lines
+# inside the array literal are skipped, so an entry may carry its audit
+# rationale beside it.
+mapfile -t ALLOWLIST < <(
+  sed -n '/^INBOX_ALLOWLIST=(/,/^)/p' "$CHECK" \
+    | sed -e '1d' -e '$d' -e 's/#.*$//' \
+    | tr -d ' \t' | grep -v '^$'
 )
+[ "${#ALLOWLIST[@]}" -gt 0 ] || { echo "could not read INBOX_ALLOWLIST from $CHECK"; exit 2; }
 
 # --- 1. the real tree is clean ---
 set +e
