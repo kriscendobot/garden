@@ -112,6 +112,12 @@ build_fixture() {
       mkdir -p entries/2026/07/01
       printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 0, elapsed=3s); left in doin\n' > entries/2026/07/01/010000Z-progress-gardener-a.md
       printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 1, elapsed=3s); left in doin\n' > entries/2026/07/01/020000Z-progress-gardener-b.md
+    elif [ "$seed_priors" = 2 ]; then
+      # VARIED priors: the prior cycles died at a wildly different elapsed than the
+      # stub's ~3s, so the trailing window is NOT near-constant and nothing may fire.
+      mkdir -p entries/2026/07/01
+      printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 0, elapsed=470s); left in doin\n' > entries/2026/07/01/010000Z-progress-gardener-a.md
+      printf 'job overrunjob handler exited rc=1 (…); transient handler outage (requeue cycle 1, elapsed=900s); left in doin\n' > entries/2026/07/01/020000Z-progress-gardener-b.md
     fi
     if [ "$seed_dedup" = 1 ]; then
       mkdir -p entries/2026/07/01
@@ -330,6 +336,79 @@ if [ -e "$CLONE8/inboxes/echost8/gardener.md" ]; then
   bad "inbox escalation created for a genuine sub-floor session cap (the 2026-07-17 misclassification)"
 else
   ok "no inbox escalation — genuine cap left for the reaper's requeue past the reset"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior notes must NOT confirm constancy"; hr
+# THE 2026-07-28 DEFECT. The check reads the prior cycles' elapsed out of $CLONE and
+# appends this cycle's elapsed itself. But this cycle's OWN progress note is written
+# (and pushed) BEFORE that read, and stamp_reap_now_hint's sync_clone then hard-resets
+# $CLONE onto the origin tip that now CONTAINS it — so the "prior" series ended with
+# THIS cycle's elapsed and the appended current value duplicated it. The window was
+# [current, current]: bit-identical by construction, so constancy was ALWAYS confirmed.
+# On 2026-07-28 that stamped the early-poison overrun counter on nine unrelated jobs in
+# eight minutes on one host — each reported as a perfect pair at a DIFFERENT value
+# (12,12s / 61,61s / 1403,1403s …) — and at GARDEN_REAP_OVERRUN_THRESHOLD=1 the reaper
+# poison-parked four of them, one of which had only ever run ONE cycle.
+#
+# This fixture is exactly that shape: the cycle floor is CLEARED (reap-count 2) but
+# there are NO prior notes at all, so a correct window can never be full. Nothing may
+# escalate, and — the damaging half — the early-poison counter must NOT be stamped.
+read -r TR9 BARE9 < <(build_fixture 2 0 0)
+trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9"' EXIT
+run_gardener "$BARE9" echost9 "$TR9" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
+CLONE9="$TR9/state/gardeners/1/journal"
+V9="$TR9/verify"; git clone -q --single-branch --branch journal2 "$BARE9" "$V9" 2>/dev/null
+# (a) the base transient classification is untouched.
+if grep -Eq "looks transient \(rc=1[,)]" "$TR9/gardener.log"; then
+  ok "handler failure still classified transient (rc=1)"
+else
+  bad "transient verdict not logged; log: $(grep -i 'transient\|constancy\|FAILED' "$TR9/gardener.log" | tail -3)"
+fi
+# (b) NO escalation: a single cycle cannot evidence a cross-cycle constant.
+if grep -q "elapsed-constancy early-escalation" "$TR9/gardener.log"; then
+  bad "SELF-SAMPLE: escalation fired with ZERO prior cycles (this cycle's own note counted as its own predecessor)"
+else
+  ok "no escalation with zero prior cycles (the window was never full)"
+fi
+# (c) the damaging half: NO early-poison overrun counter stamped.
+if [ -f "$V9/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V9/jobs/doin/overrunjob.md")" -ge 1 ]; then
+  bad "SELF-SAMPLE: early-poison overrun counter stamped with zero prior cycles — the reaper would poison this job at GARDEN_REAP_OVERRUN_THRESHOLD=1 on its FIRST run"
+else
+  ok "no early-poison overrun counter stamped (job cannot be poison-parked on its first cycle)"
+fi
+# (d) no inbox escalation either.
+if [ -e "$CLONE9/inboxes/echost9/gardener.md" ]; then
+  bad "inbox escalation created with zero prior cycles"
+else
+  ok "no gardener inbox escalation with zero prior cycles"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 10 — VARIED priors: a genuinely varied elapsed series must NOT confirm constancy"; hr
+# The complement of SUBTEST 2: same cleared cycle floor, but the prior cycles died at
+# 470s and 900s while this one dies at ~3s. A correct trailing window (900, 3) is
+# nowhere near constant, so neither the escalation nor the early-poison stamp may
+# fire. Under the self-sample defect the window was (3, 3) and BOTH did.
+read -r TR10 BARE10 < <(build_fixture 2 2 0)
+trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9" "$TR10"' EXIT
+run_gardener "$BARE10" echost10 "$TR10" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
+CLONE10="$TR10/state/gardeners/1/journal"
+V10="$TR10/verify"; git clone -q --single-branch --branch journal2 "$BARE10" "$V10" 2>/dev/null
+if grep -q "elapsed-constancy early-escalation" "$TR10/gardener.log"; then
+  bad "SELF-SAMPLE: escalation fired on a VARIED series (470,900 → 3s)"
+else
+  ok "no escalation on a varied elapsed series (470,900 → 3s)"
+fi
+if [ -f "$V10/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V10/jobs/doin/overrunjob.md")" -ge 1 ]; then
+  bad "SELF-SAMPLE: early-poison overrun counter stamped on a VARIED series"
+else
+  ok "no early-poison overrun counter stamped on a varied elapsed series"
+fi
+if [ -e "$CLONE10/inboxes/echost10/gardener.md" ]; then
+  bad "inbox escalation created on a varied elapsed series"
+else
+  ok "no gardener inbox escalation on a varied elapsed series"
 fi
 
 # ============================================================================

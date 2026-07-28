@@ -662,6 +662,21 @@ while :; do
     # flags ABOUT TO ESCALATE.
     poison_threshold="${GARDEN_REAP_POISON_THRESHOLD:-5}"
     case "$poison_threshold" in ''|*[!0-9]*) poison_threshold=5 ;; esac
+    # SNAPSHOT THE PRIOR SERIES *BEFORE* THIS CYCLE'S OWN NOTE IS WRITTEN.
+    # The constancy check below needs the elapsed of the PRIOR cycles; it appends
+    # this cycle's $elapsed itself. Reading the series after the note below is
+    # pushed — and after stamp_reap_now_hint's sync_clone hard-resets $CLONE to the
+    # origin tip that now CONTAINS that note — makes the series' last element THIS
+    # cycle's elapsed, which the check then appends a second time. The window is
+    # then [current, current]: bit-identical by construction, so constancy is
+    # ALWAYS "confirmed", on the very first cycle, for every job. That is not
+    # hypothetical: on 2026-07-28 it stamped the early-poison counter on nine
+    # unrelated jobs in eight minutes on one host, each reported as a perfectly
+    # constant pair at a different value (12,12s / 61,61s / 1403,1403s …) — and at
+    # GARDEN_REAP_OVERRUN_THRESHOLD=1 the reaper poison-parked four of them, one
+    # (fu-endojs-endo-but-for-bots-pr825-8840fcdb-2) on the only cycle it had ever
+    # run. Snapshotting here restores the invariant the check was written against.
+    prior_series0="$(prior_transient_elapsed_series "$CLONE" "$base")"
     if [ "$cycle" -ge 2 ]; then
       near_poison=""
       [ "$cycle" -ge "$(( poison_threshold - 1 ))" ] && near_poison=" — ABOUT TO ESCALATE as poison"
@@ -709,10 +724,11 @@ while :; do
     # self-resolve. Firing a wedge advisory then is a false alarm, so skip it while the
     # brake is engaged; the outage-cycle hint (below) already spares the poison counter.
     if [ "$constancy_n0" -ge 2 ] && [ "$cycle" -ge 2 ] && ! fleet_brake_engaged; then
-      # Prior cycles' elapsed (this clone was synced at claim time, so it holds the
-      # prior notes but NOT this cycle's) with the current elapsed appended, then the
+      # Prior cycles' elapsed (SNAPSHOTTED above, before this cycle's own note was
+      # written and before stamp_reap_now_hint re-synced $CLONE onto a tip carrying
+      # it — see the snapshot comment) with the current elapsed appended, then the
       # trailing N-cycle window; require a FULL window before judging constancy.
-      series0="$(prior_transient_elapsed_series "$CLONE" "$base"; printf '%s\n' "$elapsed")"
+      series0="$(printf '%s\n' "$prior_series0"; printf '%s\n' "$elapsed")"
       window0="$(printf '%s\n' "$series0" | grep -E '^[0-9]+$' | tail -n "$constancy_n0" || true)"
       count0="$(printf '%s\n' "$window0" | grep -cE '^[0-9]+$' || true)"
       # Fire at most ONCE per base: dedup on the marker the kind:error entry below
@@ -977,6 +993,12 @@ while :; do
       # (which no downstream check consumes) are quieted until poison is imminent.
       poison_threshold="${GARDEN_REAP_POISON_THRESHOLD:-5}"
       case "$poison_threshold" in ''|*[!0-9]*) poison_threshold=5 ;; esac
+      # SNAPSHOT THE PRIOR SERIES *BEFORE* THIS CYCLE'S OWN NOTE IS WRITTEN — same
+      # self-sample defect, and the same fix, as the exit-0 branch above (see the
+      # snapshot comment there for the 2026-07-28 incident this closes). Here the
+      # re-sync that pulls this cycle's note into $CLONE comes from
+      # stamp_reap_now_hint / stamp_deadline_overrun_hint below.
+      prior_series="$(prior_transient_elapsed_series "$CLONE" "$base")"
       constancy_n_g="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
       case "$constancy_n_g" in ''|*[!0-9]*) constancy_n_g=0 ;; esac
       constancy_applicable=0
@@ -1092,10 +1114,11 @@ while :; do
       if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 2 ] && [ -s "$capture" ] \
          && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" \
          && ! is_environmental_rc "$rc" && ! fleet_brake_engaged; then
-        # Prior cycles' elapsed (this clone was synced at claim time, so it holds the
-        # prior notes but NOT this cycle's) with the current elapsed appended, then
-        # the trailing N-cycle window; require a FULL window before judging constancy.
-        series="$(prior_transient_elapsed_series "$CLONE" "$base"; printf '%s\n' "$elapsed")"
+        # Prior cycles' elapsed (SNAPSHOTTED above, before this cycle's own note was
+        # written and before the stamp helpers re-synced $CLONE onto a tip carrying
+        # it) with the current elapsed appended, then the trailing N-cycle window;
+        # require a FULL window before judging constancy.
+        series="$(printf '%s\n' "$prior_series"; printf '%s\n' "$elapsed")"
         window="$(printf '%s\n' "$series" | grep -E '^[0-9]+$' | tail -n "$constancy_n" || true)"
         count="$(printf '%s\n' "$window" | grep -cE '^[0-9]+$' || true)"
         # Fire at most ONCE per base: dedup on the marker the kind:error entry below
