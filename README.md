@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:40:44Z_
+_As of 2026-07-28T07:42:40Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 16m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 21m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -1899,11 +1899,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.1M | $518.11 _(notional, rate-card)_ | no quota set |
-| Codex | 428.7M _(+418.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 43.1M | $518.31 _(notional, rate-card)_ | no quota set |
+| Codex | 428.1M _(+418.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (43)
+### todo (42)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #825
@@ -1912,7 +1912,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
 - [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
 - [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
-- [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`esheets-supervisor-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/esheets-supervisor-20260728-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-pr4-panel-20260728`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
@@ -1956,23 +1955,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
 - [`endojs-endo-but-for-bots-pr268-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr268-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #268
-- [`endojs-endo-but-for-bots-pr562-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr562-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #562
 - [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
 - [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr779-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-gauntlet-backfill.md) — Backfill: PR #779 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`endojs-endo-but-for-bots-pr869-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr869-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #869
+- [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 
-### tada (3637)
+### tada (3638)
+- [`endojs-endo-but-for-bots-pr562-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr562-dependabot.md) — Report
 - [`endojs-endo-but-for-bots-pr560-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr560-dependabot.md) — Botany review of endojs/endo-but-for-bots PR #560 — verdict: REJECT (supersed...
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/consolidate-maintainer-inbox-20260727.md) — Archived 77 redundant maintainer-inbox messages, mostly the requeue-exhausted...
 - [`deadmail-issue-comment-5100277860`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5100277860.md) — **Completion report — deadmail-issue-comment-5100277860**
 - [`endo-vfs-parity-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-065010.md) — Verify-and-stand-down tick, completed. Report follows.
-- [`endojs-endo-but-for-bots-pr556-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr556-dependabot.md) — botanist: endojs/endo-but-for-bots PR #556 — verdict MERGE-NOW
-- … and 3632 more
+- … and 3633 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
