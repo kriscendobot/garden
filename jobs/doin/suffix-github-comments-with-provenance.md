@@ -95,3 +95,10 @@ Every comment the fleet posts to GitHub carries the small-text provenance line;
 non-comment gh calls are unaffected; the deployed sha (not tip) is what is linked;
 the repo URL survives the pending transfer. Direct push to `main2`. Report where you
 enforced it and why, and the review-comment scope decision.
+
+---
+claim:
+  host: ps23
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:08:00Z
