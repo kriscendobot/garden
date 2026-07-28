@@ -69,3 +69,10 @@ now-inert `cursors/comments/kriskowal-garden` and `cursors/issues/kriskowal-gard
 left on the journal. That is a separate, later change — do NOT do it in this job,
 and do not do it while any host is unmigrated. Background:
 `context/operations/repo-transfer.md`.
+
+---
+claim:
+  host: ps23
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T06:42:28Z
