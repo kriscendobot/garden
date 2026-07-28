@@ -98,6 +98,7 @@ enforced it and why, and the review-comment scope decision.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: ps23-garden-f65473ae
