@@ -336,3 +336,12 @@ Inspect via `git -C journal cat-file -p 2af559d978016f01e92139b0f98d805b91b3b73a
 - Context: gardener-3 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e2823804a352ea574722cc924fe0fd67a1df1b1a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:23:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3ffb0a461e44b3ed721caaebbc2475e74315fe65
+- Context: gardener-6 on ps23: job 'improve-fork-watch-provisioner-armed-recheck' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3ffb0a461e44b3ed721caaebbc2475e74315fe65`.
