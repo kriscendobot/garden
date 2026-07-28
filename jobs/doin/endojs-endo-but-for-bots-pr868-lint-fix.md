@@ -109,6 +109,7 @@ to render the terminal verdict.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
