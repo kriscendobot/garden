@@ -3234,3 +3234,12 @@ Inspect via `git -C journal cat-file -p 6ec4321282ab98001ff83737507935836cb14101
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'fu-endojs-endo-but-for-bots-pr825-8840fcdb-2' transient-classified (rc=1) but elapsed near-constant (1403,1403s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p e777c8047f1c4ba9162824d1f81a336a97e57bbd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:39:18Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0221a56490817a0c3b071288db8f782fb10b7e34
+- Context: gardener-7 on endolin-garden2-5bcdff64: job 'suffix-github-comments-with-provenance' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0221a56490817a0c3b071288db8f782fb10b7e34`.
