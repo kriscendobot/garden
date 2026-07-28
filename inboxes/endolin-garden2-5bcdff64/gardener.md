@@ -3288,3 +3288,12 @@ Inspect via `git -C journal cat-file -p 49f2879f1095f5d97e01baa8f0dde70864846bca
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr713-gauntlet-backfill' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p f3b620ead839ac86509d1554ccad98f9c550641d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T12:41:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 9a0c0f5c0bc5c0449212836228fd5ec33932aaf7
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'xs2rust-endor-s1-daemon-integration' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 9a0c0f5c0bc5c0449212836228fd5ec33932aaf7`.
