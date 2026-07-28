@@ -282,3 +282,12 @@ Inspect via `git -C journal cat-file -p 5a84fd204de6d601821991f8c3985737ab66a2db
 - Context: gardener-4 on ps23-garden-f65473ae: job 'validate-fireworks-job-end-to-end' exit-0-unsatisfying but elapsed near-constant (548,548s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p edaffd351eb5cc2f343e56dcb0dcc6ee68213372`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-28T21:06:50Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 29ba845638794955a1557e128edbc67f8c38360e
+- Context: gardener-6 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr779-panel-remaining-seats' exit-0-unsatisfying but elapsed near-constant (184,184s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 29ba845638794955a1557e128edbc67f8c38360e`.
