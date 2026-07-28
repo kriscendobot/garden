@@ -1,5 +1,0 @@
-host: ps23-garden-f65473ae
-gardener: 10
-worker_kind: gardener
-claimed_at: 2026-07-28T16:21:19Z
-worktree_dir: /home/dckc/garden/scratch/gardener-wt-smoke-onboard-ps23-20260728
