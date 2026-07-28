@@ -261,6 +261,31 @@ if command -v timeout >/dev/null 2>&1; then
 else
   "$GARDEN_CI_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
+
+# A source failure normally must remain loud: proceeding with a partial or absent
+# PR list would silently stop CI surveillance.  A repository that has been deleted,
+# renamed, transferred, or made unreadable is the one exception.  It will fail the
+# source on every tick forever, so confirm that narrow condition with an authoritative
+# repo probe, alert once, and deactivate cleanly rather than crash-looping the unit.
+# This mirrors comment-source-gh.sh's repo-gone guard.  The probe is paid only after
+# a failed source; transient probe failures are never mistaken for a gone repository.
+REPO_GONE_REASON=""
+repo_is_definitively_gone() {
+  local probe_err stderr
+  probe_err="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/ci-watcher-repo-probe.$$")"
+  if gh_api_retry "repos/$repo" --jq '.full_name' >/dev/null 2>"$probe_err"; then
+    rm -f "$probe_err"; return 1                # repo answers: retain source failure
+  fi
+  stderr="$(cat "$probe_err" 2>/dev/null || true)"
+  rm -f "$probe_err"
+  _gh_api_stderr_is_transient "$stderr" && return 1
+  case "$stderr" in
+    *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*|*"HTTP 403"*|*"Must have admin rights"*)
+      REPO_GONE_REASON="$stderr"; return 0 ;;
+  esac
+  return 1
+}
+
 if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout)
@@ -281,6 +306,12 @@ if [ "$src_rc" -ne 0 ]; then
   # doesn't detonate the restart storm. A structural failure still dies loud below.
   if is_transient_gh_source_error "$ERRF"; then
     log "WARN: ci PR source hit a transient gh-api blip (5xx/HTML/rate-limit) — skipping tick (never guess)"
+    exit 0
+  fi
+  if repo_is_definitively_gone; then
+    log "REPO GONE: $repo returns a definitive repo-level error (${REPO_GONE_REASON:-<no stderr>}) — the repo does not exist or is no longer readable. Deactivating this watch gracefully (exit 0) instead of failing the tick forever."
+    alert_maintainer "ci-watch-repo-gone-${slug//[^A-Za-z0-9._-]/_}" \
+      "ci-watcher: $repo no longer exists (or is unreadable) on GitHub — gh api repos/$repo returns a definitive error: ${REPO_GONE_REASON:-<no stderr>}. The watcher is armed by journal comment-repos/$slug, so every tick would otherwise fail forever; it now exits 0 and watches nothing. To close this out: delete journal comment-repos/$slug (and any repos/$slug sibling), add a journal watch-optout/$slug tombstone so fork-watch-provisioner.sh never re-arms it, and remove the stale bare clone worktrees/$slug.git that likely triggered the arming. If instead the repo was RENAMED or TRANSFERRED, re-key the arming record to the new <owner>-<name> slug rather than dropping the watch."
     exit 0
   fi
   die "ci PR source failed for $repo (rc=$src_rc; see source stderr above)"

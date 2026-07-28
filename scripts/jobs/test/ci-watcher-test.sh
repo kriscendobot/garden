@@ -32,6 +32,9 @@
 #      REAL verdict (RED→0 shepherd trigger, GREEN→10), NOT a skip — the whole point
 #      of the retry (endojs-endo-but-for-bots#377's one-off TLS timeout must not drop
 #      a red PR for the tick)
+#   L2. a definitive repo-level 404 from the PR source is confirmed by an
+#      authoritative repo probe, alerts once, and exits 0 rather than crash-looping;
+#      a live repo with the same failed source still exits nonzero.
 #
 # Stale-shepherd re-validation sweep (the pr693 exit-0-unsatisfying loop):
 #   M. a shepherd minted from a point-in-time RED whose CI self-heals to GREEN before
@@ -169,6 +172,59 @@ run_ci_env() {  # run_ci_env <state> <bare> <fixture> <rollup-map> <slug> [KEY=V
       GARDEN_CI_POST="$JOBS/post-job.sh" \
       "$JOBS/ci-watcher.sh" "$slug" >/dev/null 2>&1
 }
+
+# ============================================================================
+hr; echo "GONE — a definitive repo-level 404 deactivates CI watch without a crash-loop"; hr
+GONE_SRC="$TR/gone-source.sh"
+cat > "$GONE_SRC" <<'EOF'
+#!/bin/bash
+echo 'gh: Not Found (HTTP 404)' >&2
+exit 1
+EOF
+chmod +x "$GONE_SRC"
+GONE_GH="$TR/gone-gh.sh"
+cat > "$GONE_GH" <<'EOF'
+#!/bin/bash
+if [ "${GONE_PROBE_OK:-0}" = 1 ]; then
+  printf '%s\n' 'endojs/endo-but-for-bots'
+  exit 0
+fi
+echo 'gh: Not Found (HTTP 404)' >&2
+exit 1
+EOF
+chmod +x "$GONE_GH"
+GONE_ALERTS="$TR/gone-alerts.log"; : > "$GONE_ALERTS"
+GONE_ALERT="$TR/gone-alert.sh"
+cat > "$GONE_ALERT" <<EOF
+#!/bin/bash
+printf '%s\t%s\n' "\$1" "\$2" >> "$GONE_ALERTS"
+EOF
+chmod +x "$GONE_ALERT"
+BARE_GONE="$TR/gone.git"; seed_bare "$BARE_GONE"
+GONE_FIX="$TR/gone.tsv"; : > "$GONE_FIX"
+set +e
+env GARDEN_STATE="$TR/state-gone" JOURNAL_REMOTE="$BARE_GONE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$GONE_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH="$GONE_GH" GARDEN_GH_API_ATTEMPTS=1 GARDEN_ALERT_CMD="$GONE_ALERT" \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/gone.err"
+gone_rc=$?
+set -e
+[ "$gone_rc" -eq 0 ] && ok "definitive repo-level 404 exits 0 — no CI-watcher crash-loop" || bad "repo-level 404 exited $gone_rc (crash-loop regression)"
+grep -qi 'REPO GONE' "$TR/gone.err" && ok "repo-gone deactivation is logged" || bad "no REPO-GONE log ($(cat "$TR/gone.err"))"
+grep -q 'ci-watch-repo-gone-endojs-endo-but-for-bots' "$GONE_ALERTS" && ok "repo-gone alert uses the per-slug dedup key" || bad "no repo-gone alert ($(cat "$GONE_ALERTS"))"
+
+# The probe's success proves the repository still exists, so the original source
+# failure remains loud.  This prevents the guard from swallowing a real lost fetch.
+set +e
+env GONE_PROBE_OK=1 GARDEN_STATE="$TR/state-gone-live" JOURNAL_REMOTE="$BARE_GONE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$GONE_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH="$GONE_GH" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/gone-live.err"
+gone_live_rc=$?
+set -e
+[ "$gone_live_rc" -ne 0 ] && ok "live repo with failed source remains nonzero (never guess a PR list)" || bad "live repo source failure was swallowed (rc=$gone_live_rc)"
 
 # ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr
