@@ -57,6 +57,8 @@ runnable non-interactively):
 | `GARDEN_PANEL_FIXER` | pluggable: project fixer invocation on non-terminating rounds (default no-op `true`). |
 | `GARDEN_PANEL_UNDRAFT` | pluggable: the terminal un-draft call, e.g. `gh pr ready` (default no-op `true`). |
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
+| `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); this is what makes the 28-seat panel fit a handler budget. |
+| `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
 | `GARDEN_TRACE` / `GARDEN_TRACE_LOG` | opt-in `set -x` diverted to a file via `BASH_XTRACEFD`. |
 
@@ -76,11 +78,20 @@ case never flows into the supervisor's window.
    **code panel** (28 seats). Any ambiguity (no base, git error, no changed
    files) falls to the code panel — the broader, safer panel, consistent with
    `sense.sh`'s bias toward over-reviewing.
-2. **Fan the seats.** For each seat in the matching list, the script shells one
-   `claude -p` (the `seat_review` hook), briefing it with that seat's
+2. **Fan the seats — concurrently, `GARDEN_PANEL_CONCURRENCY` (default 8) at a
+   time.** For each seat in the matching list, the script shells one `claude -p`
+   (the `seat_review` hook), briefing it with that seat's
    `roles/jurors/<seat>/AGENT.md` and the diff. Each seat returns one per-juror
-   block; the script files it under the run dir and appends it to the round's
-   aggregate.
+   block, which the script files under the run dir; an empty or blank block is
+   never legitimate signal, so the seat is retried with backoff and, once its
+   attempts are spent, fails the panel loudly. After the join, a **second pass
+   appends the blocks to the round aggregate in `$seats` order**, so the
+   aggregate is byte-identical however the seats happened to interleave.
+   Concurrency is what makes the panel fit a gardener's handler budget *by
+   construction*: sequentially, a 28-seat code panel over a ~1500-line diff ran
+   ~1.5–2.5 hours against a default `GARDEN_HANDLER_TIMEOUT` of 2400s, so every
+   auto-gauntlet and `run the gauntlet` job depended on a producer remembering to
+   stamp `handler-timeout:` — a header, not an invariant.
 3. **Decide the disposition.** The script shells one `claude -p` (the
    `decide_disposition` hook) over the aggregate and reads back exactly
    `must-fix` or `pass`.

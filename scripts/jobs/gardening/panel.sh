@@ -30,9 +30,10 @@
 #    plugs into.
 #
 # Usage: panel.sh <worktree> <pr-number> [base-ref]
-# Stages: sense panel kind (code vs design) → fan seats to `claude -p` →
-#         collect verdicts → DECIDE disposition → fixer-loop while must-fix →
-#         appellate pass → terminate by un-drafting (quiet) on a clean panel.
+# Stages: sense panel kind (code vs design) → fan seats to `claude -p`, up to
+#         GARDEN_PANEL_CONCURRENCY at once → join and aggregate in seat order →
+#         DECIDE disposition → fixer-loop while must-fix → appellate pass →
+#         terminate by un-drafting (quiet) on a clean panel.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -192,6 +193,71 @@ run_fixer() {  # run_fixer <aggregate-file>
 : "${GARDEN_PANEL_UNDRAFT:=true}"   # e.g. gh pr ready "$pr" -R <owner>/<repo>
 undraft() { "$GARDEN_PANEL_UNDRAFT" "$pr" || fail "un-draft"; }
 
+# --- one seat's whole retry-on-empty block, runnable CONCURRENTLY ------------
+# RETRY-ON-EMPTY SEAT. A seat's `claude -p` intermittently exits non-zero or
+# (worse) exits 0 with EMPTY stdout — a rate-limit / overload / truncation. The
+# old `seat_review > block || fail` handled only the non-zero case and, on a
+# 0-byte-but-exit-0 answer, SILENTLY aggregated an empty verdict the decider then
+# judged over (a seat with no signal, diluting the disposition); the non-zero case
+# failed the WHOLE panel on one transient blip, its stderr swallowed by
+# `2>/dev/null` so the cause was undiagnosable (the recurring 0-byte
+# round-1.typist.md / round-1.prover.md that jammed the finbot merge gate for days
+# — /tmp/garden-panel-finbot*/). So: capture the seat's stderr to disk, treat an
+# empty/blank block as a failure, retry with backoff, and only fail LOUDLY once the
+# attempts are spent. An empty seat verdict is never legitimate signal and must
+# never reach the aggregate.
+#
+# This runs in a BACKGROUND SUBSHELL (see the fan-out below), so it cannot `fail`
+# the panel directly — a subshell's `exit` kills only itself. It records its
+# outcome in `<block>.status` instead and the join pass turns that into the loud
+# failure, in deterministic seat order. The status is written `pending` UP FRONT so
+# a subshell that dies mid-flight (a `fail` from inside `seat_review` — an
+# unreadable brief — or a kill) is distinguishable from one that exhausted its
+# attempts, rather than looking identical to "no verdict".
+run_seat() {  # run_seat <seat> <block>  -> writes <block>, <block>.stderr, <block>.status
+  local seat="$1" block="$2" attempts try
+  attempts="${GARDEN_PANEL_SEAT_ATTEMPTS:-3}"
+  echo pending > "$block.status"
+  for try in $(seq 1 "$attempts"); do
+    if seat_review "$seat" > "$block" 2> "$block.stderr" \
+       && grep -q '[^[:space:]]' "$block"; then
+      echo ok > "$block.status"; return 0
+    fi
+    echo "panel #$pr: seat '$seat' returned no verdict (attempt $try/$attempts); retrying" >&2
+    [ "$try" -lt "$attempts" ] && sleep "$(( try * ${GARDEN_PANEL_SEAT_BACKOFF:-5} ))"
+  done
+  echo fail > "$block.status"
+  return 1
+}
+
+# --- bounded-concurrency knob for the seat fan-out --------------------------
+# The seat fan-out used to be a strictly SEQUENTIAL `for seat in $seats` loop,
+# which put the 28-seat code panel structurally OUTSIDE a gardener's default
+# handler budget: measured on this fleet, one seat reviewing a ~1500-line diff
+# takes over three minutes, so a full panel is ~1.5–2.5 hours against a
+# `GARDEN_HANDLER_TIMEOUT` of 2400s. Every build's auto-gauntlet and every
+# `run the gauntlet` job was therefore unrunnable in one claim unless whoever
+# posted it REMEMBERED to stamp `handler-timeout:` — correctness resting on a
+# header a human or agent had to write, with a reduced panel and a spillover job
+# as the fallback. Parallel fan-out moves that responsibility into the script:
+# the panel fits by construction.
+#
+# The loop body already parallelized cleanly — each seat owns its own
+# `round-$round.$seat.md` and `.stderr` and its retry/backoff is self-contained.
+# The ONLY order-dependent step was the `>> $agg` append, which is now a separate
+# deterministic second pass in `$seats` order after the join, so the aggregate is
+# byte-identical to what the sequential loop produced.
+#
+# Concurrency is bash background jobs + `wait -n`, deliberately NOT `xargs -P`:
+# `seat_review` is a shell FUNCTION closing over the whole run's environment and
+# hooks, so driving it through xargs would need a GENERATED helper script — which
+# on this host cannot live in /tmp at all, because /tmp is mounted `noexec` (a
+# `chmod 755` helper written there fails with `Permission denied`, visible only in
+# a redirected log). Background subshells need no helper file and no exec bit.
+: "${GARDEN_PANEL_CONCURRENCY:=8}"
+case "$GARDEN_PANEL_CONCURRENCY" in ''|*[!0-9]*) GARDEN_PANEL_CONCURRENCY=8 ;; esac
+[ "$GARDEN_PANEL_CONCURRENCY" -ge 1 ] || GARDEN_PANEL_CONCURRENCY=1
+
 # --- the panel / fixer loop -------------------------------------------------
 # One round per iteration: fan the seats, aggregate, decide. While the decision
 # is 'must-fix', invoke the fixer and re-run the panel against the new head. When
@@ -206,32 +272,35 @@ while :; do
 
   agg="$GARDEN_PANEL_RUNDIR/round-$round.md"
   : > "$agg"
+  attempts="${GARDEN_PANEL_SEAT_ATTEMPTS:-3}"
+
+  # FAN: launch up to GARDEN_PANEL_CONCURRENCY seats at a time. `wait -n` frees a
+  # slot as soon as ANY in-flight seat finishes, so one slow seat never idles the
+  # pool the way a batch-and-barrier would. `|| true` because a seat that
+  # exhausted its attempts returns non-zero and `set -e` would otherwise kill the
+  # panel here, BEFORE the join pass can name the seat and point at its stderr.
+  inflight=0
+  for seat in $seats; do
+    if [ "$inflight" -ge "$GARDEN_PANEL_CONCURRENCY" ]; then
+      wait -n || true; inflight=$((inflight - 1))
+    fi
+    run_seat "$seat" "$GARDEN_PANEL_RUNDIR/round-$round.$seat.md" &
+    inflight=$((inflight + 1))
+  done
+  wait || true   # JOIN: every seat has now written its .status
+
+  # AGGREGATE, in `$seats` order — the one order-dependent step, done as a second
+  # pass so the fan-out above can be concurrent and this file stays byte-stable
+  # regardless of which seat finished when. A seat that did not report `ok` fails
+  # the panel LOUDLY here, at the FIRST such seat in seat order (deterministic),
+  # pointing at its captured stderr.
   for seat in $seats; do
     block="$GARDEN_PANEL_RUNDIR/round-$round.$seat.md"
-    # RETRY-ON-EMPTY SEAT. A seat's `claude -p` intermittently exits non-zero or
-    # (worse) exits 0 with EMPTY stdout — a rate-limit / overload / truncation.
-    # The old `seat_review > block || fail` handled only the non-zero case and,
-    # on a 0-byte-but-exit-0 answer, SILENTLY aggregated an empty verdict the
-    # decider then judged over (a seat with no signal, diluting the disposition);
-    # the non-zero case failed the WHOLE panel on one transient blip, its stderr
-    # swallowed by `2>/dev/null` so the cause was undiagnosable (the recurring
-    # 0-byte round-1.typist.md / round-1.prover.md that jammed the finbot merge
-    # gate for days — /tmp/garden-panel-finbot*/). Now: capture the seat's stderr
-    # to disk, treat an empty/blank block as a failure, retry with backoff, and
-    # only fail LOUDLY (pointing at the captured stderr) once the attempts are
-    # spent. An empty seat verdict is never legitimate signal and must never
-    # reach the aggregate.
-    seat_ok=""
-    attempts="${GARDEN_PANEL_SEAT_ATTEMPTS:-3}"
-    for _seat_try in $(seq 1 "$attempts"); do
-      if seat_review "$seat" > "$block" 2> "$block.stderr" \
-         && grep -q '[^[:space:]]' "$block"; then
-        seat_ok=1; break
-      fi
-      echo "panel #$pr: seat '$seat' returned no verdict (attempt $_seat_try/$attempts); retrying" >&2
-      [ "$_seat_try" -lt "$attempts" ] && sleep "$(( _seat_try * ${GARDEN_PANEL_SEAT_BACKOFF:-5} ))"
-    done
-    [ -n "$seat_ok" ] || fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)"
+    case "$(cat "$block.status" 2>/dev/null || true)" in
+      ok)   ;;
+      fail) fail "seat $seat (empty verdict after $attempts attempts; stderr in $block.stderr)" ;;
+      *)    fail "seat $seat (fan-out died before reporting a verdict; stderr in $block.stderr)" ;;
+    esac
     { echo "### $seat"; cat "$block"; echo; } >> "$agg"
   done
 
