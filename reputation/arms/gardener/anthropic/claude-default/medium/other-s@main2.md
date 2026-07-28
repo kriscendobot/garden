@@ -6,7 +6,7 @@ work_class: other:s
 target: main2
 attempts: 8
 accepts: 8
-censored: 18
+censored: 19
 mean_dollars: 4.419071
 m2: 204.045037
 acceptance_rate: 1.0000
