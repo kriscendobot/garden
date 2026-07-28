@@ -10,7 +10,7 @@
 #                CURRENT reality: qwen* → local (hermit) ONLY, claude-* → anthropic
 #                ONLY, gpt-*/o[0-9]*/codex-* → openai ONLY, and a gpt-oss:* tag is
 #                UNPINNED (no provider) — no longer auto-local.
-#   DEFAULTS   — model_routing_default returns qwen3.6 (local), gpt-5.6-terra (openai),
+#   DEFAULTS   — model_routing_default returns qwen3:0.6b (local), gpt-5.6-terra (openai),
 #                empty (anthropic); role/fleet defaults ride the table.
 #   OVERRIDE   — a journal config/model-routing (or GARDEN_MODEL_ROUTING_FILE) takes
 #                precedence over the tracked default and CHANGES routing with no code.
@@ -40,10 +40,9 @@ source "$JOBS/common.sh"
 
 # ============================================================================
 hr; echo "CLASSIFY — the tracked default table routes the current (qwen) reality"; hr
-[ "$(resolve_model_tier local qwen3.6)" = "qwen3.6" ]        && ok "qwen3.6 → local" || bad "qwen3.6 not local"
-[ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ]  && ok "qwen3:0.6b (served tag) → local" || bad "qwen tag not local"
-[ -z "$(resolve_model_tier anthropic qwen3.6)" ]             && ok "qwen3.6 is NOT anthropic" || bad "qwen leaked to anthropic"
-[ -z "$(resolve_model_tier openai qwen3.6)" ]                && ok "qwen3.6 is NOT openai" || bad "qwen leaked to openai"
+[ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ] && ok "qwen3:0.6b (served tag) → local" || bad "qwen tag not local"
+[ -z "$(resolve_model_tier anthropic qwen3:0.6b)" ]          && ok "qwen3:0.6b is NOT anthropic" || bad "qwen leaked to anthropic"
+[ -z "$(resolve_model_tier openai qwen3:0.6b)" ]             && ok "qwen3:0.6b is NOT openai" || bad "qwen leaked to openai"
 [ "$(resolve_model_tier anthropic claude-opus-4-8)" = "claude-opus-4-8" ] && ok "claude-* → anthropic" || bad "claude not anthropic"
 [ "$(resolve_model_tier openai gpt-5.6)" = "gpt-5.6" ]       && ok "gpt-5.6 → openai" || bad "gpt-5.6 not openai"
 [ "$(resolve_model_tier openai o3)" = "o3" ]                 && ok "o3 → openai" || bad "o3 not openai"
@@ -61,11 +60,11 @@ hr; echo "CLASSIFY — the tracked default table routes the current (qwen) reali
 
 # ============================================================================
 hr; echo "DEFAULTS — fleet defaults ride the routing table"; hr
-[ "$(model_routing_default local)" = "qwen3.6" ]      && ok "local fleet default = qwen3.6" || bad "local default ($(model_routing_default local))"
+[ "$(model_routing_default local)" = "qwen3:0.6b" ]   && ok "local fleet default = qwen3:0.6b" || bad "local default ($(model_routing_default local))"
 [ "$(model_routing_default openai)" = "gpt-5.6-terra" ] && ok "openai fleet default = gpt-5.6-terra" || bad "openai default"
 [ -z "$(model_routing_default moonshot)" ] && ok "moonshot has no fleet default" || bad "moonshot default"
 [ -z "$(model_routing_default anthropic)" ]           && ok "anthropic default empty (sentinel decided in code)" || bad "anthropic default not empty"
-[ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder role default = qwen3.6 (from table)" || bad "hermit builder default"
+[ "$(role_default_model hermit builder)" = "qwen3:0.6b" ] && ok "hermit builder role default = qwen3:0.6b (from table)" || bad "hermit builder default"
 
 # ============================================================================
 hr; echo "OVERRIDE — an explicit table file changes routing with no code edit"; hr
@@ -74,7 +73,7 @@ printf 'local\tmistral*\tmistral-small\n' > "$OVR"
 (
   export GARDEN_MODEL_ROUTING_FILE="$OVR"
   [ "$(resolve_model_tier local mistral-small)" = "mistral-small" ] && echo OK1 || echo BAD1
-  [ -z "$(resolve_model_tier local qwen3.6)" ]                      && echo OK2 || echo BAD2
+  [ -z "$(resolve_model_tier local qwen3:0.6b)" ]                   && echo OK2 || echo BAD2
   [ "$(model_routing_default local)" = "mistral-small" ]           && echo OK3 || echo BAD3
 ) | {
   read a; [ "$a" = OK1 ] && ok "override reroutes local → mistral" || bad "override reroute"
@@ -88,13 +87,13 @@ hr; echo "FAIL-SAFE — no journal + unreadable tracked file → sane built-in";
 (
   export GARDEN_ROOT=/tmp/garden-nonexistent-$$   # tracked defaults file cannot be found
   export GARDEN_ALERT_CMD=/bin/true               # swallow the throttled warning
-  [ "$(resolve_model_tier local qwen3.6)" = "qwen3.6" ] && echo OK1 || echo BAD1
+  [ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ] && echo OK1 || echo BAD1
   [ -z "$(resolve_model_tier local gpt-oss:20b)" ]      && echo OK2 || echo BAD2
-  [ "$(model_routing_default local)" = "qwen3.6" ]      && echo OK3 || echo BAD3
+  [ "$(model_routing_default local)" = "qwen3:0.6b" ]   && echo OK3 || echo BAD3
 ) | {
   read a; [ "$a" = OK1 ] && ok "built-in fallback classifies qwen → local" || bad "fallback qwen"
   read a; [ "$a" = OK2 ] && ok "built-in fallback keeps gpt-oss unpinned" || bad "fallback gpt-oss"
-  read a; [ "$a" = OK3 ] && ok "built-in fallback default = qwen3.6" || bad "fallback default"
+  read a; [ "$a" = OK3 ] && ok "built-in fallback default = qwen3:0.6b" || bad "fallback default"
 }
 
 # ============================================================================
@@ -131,7 +130,7 @@ journal_show | grep -qE '^openai	' && bad "openai row still present after remove
 # an invalid edit is refused (duplicate handled by upsert; here: empty patterns).
 run_helper local '' 2>/dev/null && bad "empty-patterns edit was accepted" || ok "invalid (empty patterns) edit refused"
 # --validate on a good and a bad file.
-GF="$(mktemp)"; printf 'local\tqwen*\tqwen3.6\n' > "$GF"
+GF="$(mktemp)"; printf 'local\tqwen*\tqwen3:0.6b\n' > "$GF"
 run_helper --validate "$GF" >/dev/null 2>&1 && ok "--validate accepts a good table" || bad "--validate rejected a good table"
 BF="$(mktemp)"; printf 'local\tqwen*\tq\nlocal\tx*\ty\n' > "$BF"
 run_helper --validate "$BF" >/dev/null 2>&1 && bad "--validate accepted a duplicate-provider table" || ok "--validate rejects a duplicate-provider table"

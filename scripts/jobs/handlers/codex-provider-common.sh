@@ -21,8 +21,8 @@ codex_local_endpoint_responds() {
 # endpoint actually serves the requested model. A reachable Ollama with an empty
 # model store still returns HTTP 200 for /v1/models, so endpoint liveness alone is
 # not sufficient to dispatch a local Codex run. An unqualified request also accepts
-# Ollama's canonical `:latest` spelling: `ollama pull qwen3.6` serves both requests
-# as qwen3.6:latest.
+# Ollama's canonical `:latest` spelling applies only to an unqualified model name.
+# The local default is already the exact served tag, `qwen3:0.6b`.
 codex_local_model_present() {
   local model="${1:?model}" models
   models="$(curl -fsS --max-time 5 "$GARDEN_LOCAL_OLLAMA_URL/models")" || return 1
@@ -73,7 +73,7 @@ codex_local_self_heal() {
 # down. A HERMIT worker (cleric-codex.sh) sets it: the tick is PINNED local with no
 # fallback, so the preflight (re)starts garden-ollama.service and polls before dying —
 # the host-defect diagnostic only after recovery fails, and the hourly press cadence
-# retries next tick (no paid fallback: a model: qwen3.6 job stays local). The FOREMAN
+# retries next tick (no paid fallback: a model: qwen3:0.6b job stays local). The FOREMAN
 # leaves it off: it probes local only to decide provider order and has other providers
 # to fall through to, so an unreachable endpoint must advance immediately, not block
 # on a 30s heal it does not need.

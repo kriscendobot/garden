@@ -1,6 +1,6 @@
 ---
 created: 2026-07-15
-updated: 2026-07-15
+updated: 2026-07-28
 author: designer
 ---
 
@@ -173,7 +173,7 @@ never part of the fleet migration command.
 
 Add a hermetic fleet acceptance test using a throwaway journal and mocked
 systemd. Seed one Anthropic-pinned `model: opus`, one OpenAI-pinned `model:
-terra`, and one local-pinned `model: qwen3.6` job. Start a monk, cleric, and
+terra`, and one local-pinned `model: qwen3:0.6b` job. Start a monk, cleric, and
 hermit through the same worker spine with stub handlers. Assert that the monk
 alone claims and completes the Anthropic job with a v2
 `monk/anthropic/claude` claim; cleric alone claims the OpenAI job; hermit alone

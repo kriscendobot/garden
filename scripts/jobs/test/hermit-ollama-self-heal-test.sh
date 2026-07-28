@@ -1,7 +1,7 @@
 #!/bin/bash
 # hermit-ollama-self-heal-test.sh — the hermit (provider: local) preflight self-heal.
 #
-# A `model: qwen3.6` hermit tick must never fail merely because the on-box Ollama
+# A `model: qwen3:0.6b` hermit tick must never fail merely because the on-box Ollama
 # /v1 endpoint is down: codex_provider_preflight (codex-provider-common.sh), when the
 # caller requests self-heal, (re)starts garden-ollama.service and polls /v1/models for
 # readiness before dying. This test drives that branch with PATH-injected mock
@@ -78,27 +78,27 @@ hr; echo "HOST DERIVE — ollama_serve_host strips scheme + /v1 path"; hr
 # ============================================================================
 hr; echo "REACHABLE — endpoint up → return 0, no self-heal"; hr
 reset_ctl; : > "$HEAL_CTL/up"
-if codex_provider_preflight local hermit job-a hermits 1 qwen3.6 >/dev/null 2>&1; then ok "reachable endpoint → preflight 0"; else bad "reachable endpoint failed preflight"; fi
+if codex_provider_preflight local hermit job-a hermits 1 qwen3:0.6b >/dev/null 2>&1; then ok "reachable endpoint → preflight 0"; else bad "reachable endpoint failed preflight"; fi
 called_systemctl && bad "systemctl start issued for a reachable endpoint" || ok "no systemctl start when reachable (fast path)"
 
 # ============================================================================
 hr; echo "NO-MODEL — reachable endpoint with no pulled model → host-defect fail"; hr
 reset_ctl; : > "$HEAL_CTL/up"; : > "$HEAL_CTL/empty-models"
-err="$(codex_provider_preflight local hermit job-empty hermits 1 qwen3.6 2>&1)" && rc=0 || rc=$?
-[ "$rc" -ne 0 ] && grep -Fq "serves no qwen3.6" <<<"$err" \
+err="$(codex_provider_preflight local hermit job-empty hermits 1 qwen3:0.6b 2>&1)" && rc=0 || rc=$?
+[ "$rc" -ne 0 ] && grep -Fq "serves no qwen3:0.6b" <<<"$err" \
   && ok "empty model list rejects the absent pinned model" \
   || bad "empty model list did not name the absent pinned model: $err"
 grep -q '^KEY=ollama-model-less-endpoint-' "$GARDEN_ALERT_RECORD" \
   && ok "model-less endpoint raises a maintainer alert" || bad "model-less endpoint did not alert"
 before_alerts="$(grep -c '^KEY=ollama-model-less-endpoint-' "$GARDEN_ALERT_RECORD" 2>/dev/null || true)"
-codex_provider_preflight local hermit job-empty-again hermits 1 qwen3.6 >/dev/null 2>&1 || true
+codex_provider_preflight local hermit job-empty-again hermits 1 qwen3:0.6b >/dev/null 2>&1 || true
 after_alerts="$(grep -c '^KEY=ollama-model-less-endpoint-' "$GARDEN_ALERT_RECORD" 2>/dev/null || true)"
 [ "$before_alerts" = "$after_alerts" ] && ok "model-less alert is deduped" || bad "model-less alert was repeated"
 
 # ============================================================================
 hr; echo "RECOVER — down, self_heal=1, garden-ollama start brings it up"; hr
 reset_ctl                       # no 'up' file → down initially
-if GARDEN_TEST_HEAL_SUCCEEDS=1 codex_provider_preflight local hermit job-b hermits 1 qwen3.6 >/dev/null 2>&1; then
+if GARDEN_TEST_HEAL_SUCCEEDS=1 codex_provider_preflight local hermit job-b hermits 1 qwen3:0.6b >/dev/null 2>&1; then
   ok "self-heal recovered the endpoint → preflight 0"
 else
   bad "self-heal did not recover a startable endpoint"
@@ -109,7 +109,7 @@ grep -q 'start garden-ollama.service' "$HEAL_CTL/systemctl-calls" 2>/dev/null \
 # ============================================================================
 hr; echo "GIVE-UP — down, self_heal=1, start does not help → host-defect die"; hr
 reset_ctl                       # start will NOT create 'up' (GARDEN_TEST_HEAL_SUCCEEDS unset)
-err="$(codex_provider_preflight local hermit job-c hermits 1 qwen3.6 2>&1)" && rc=0 || rc=$?
+err="$(codex_provider_preflight local hermit job-c hermits 1 qwen3:0.6b 2>&1)" && rc=0 || rc=$?
 [ "$rc" -ne 0 ] && ok "unrecoverable endpoint → preflight non-zero (host defect)" || bad "give-up path returned 0"
 grep -q 'self-heal' <<<"$err" && grep -q 'garden-ollama.service' <<<"$err" \
   && ok "diagnostic names the failed self-heal + garden-ollama.service" || bad "diagnostic missing self-heal detail: $err"
@@ -119,7 +119,7 @@ called_systemctl && ok "systemctl start was attempted before giving up" || bad "
 hr; echo "NO-HEAL — down, self_heal=0 (foreman probe) → immediate fail, no start"; hr
 reset_ctl
 before="$(date +%s)"
-codex_provider_preflight local hermit job-d hermits 0 qwen3.6 >/dev/null 2>&1 && rc=0 || rc=$?
+codex_provider_preflight local hermit job-d hermits 0 qwen3:0.6b >/dev/null 2>&1 && rc=0 || rc=$?
 after="$(date +%s)"
 [ "$rc" -ne 0 ] && ok "self_heal=0 down endpoint → immediate non-zero" || bad "self_heal=0 returned 0"
 called_systemctl && bad "self_heal=0 still started garden-ollama (should just advance)" || ok "self_heal=0 issues NO systemctl start (foreman advances providers)"
@@ -129,7 +129,7 @@ called_systemctl && bad "self_heal=0 still started garden-ollama (should just ad
 # ============================================================================
 hr; echo "PER-JOB — local branch consults NO once-per-boot auth marker"; hr
 reset_ctl; : > "$HEAL_CTL/up"
-codex_provider_preflight local hermit job-e hermits 1 qwen3.6 >/dev/null 2>&1 || true
+codex_provider_preflight local hermit job-e hermits 1 qwen3:0.6b >/dev/null 2>&1 || true
 # The local branch must NOT have written an auth-ok-<boot> marker (that would mask a
 # later mid-life crash for the rest of the boot — the gap this change closes).
 if find "$GARDEN_STATE" -name 'auth-ok-*' 2>/dev/null | grep -q .; then
@@ -140,7 +140,7 @@ fi
 # Now the endpoint dies mid-boot: a fresh call must re-probe (self_heal=0, no recovery
 # so it simply reports down) rather than short-circuiting on a stale marker.
 reset_ctl                       # down again, no 'up'
-codex_provider_preflight local hermit job-f hermits 0 qwen3.6 >/dev/null 2>&1 && rc=0 || rc=$?
+codex_provider_preflight local hermit job-f hermits 0 qwen3:0.6b >/dev/null 2>&1 && rc=0 || rc=$?
 [ "$rc" -ne 0 ] && [ "$(curl_call_count)" -ge 1 ] \
   && ok "a later call re-probes the endpoint (mid-life crash re-triggers, not masked)" \
   || bad "later call did not re-probe (rc=$rc probes=$(curl_call_count))"

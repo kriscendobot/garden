@@ -173,7 +173,7 @@ foreman_codex_attempt() { # <openai|local> <prompt>
   # a successful Codex login must never make a later Ollama reachability check
   # appear healthy for the rest of the boot.
   model="$(model_routing_default "$provider" 2>/dev/null || true)"
-  [ -n "$model" ] || case "$provider" in local) model=qwen3.6 ;; *) model=gpt-5.6-terra ;; esac
+  [ -n "$model" ] || case "$provider" in local) model=qwen3:0.6b ;; *) model=gpt-5.6-terra ;; esac
   codex_provider_preflight "$provider" "$kind" foreman "foreman-$provider" 0 "$model" || return 10
   effort="$(codex_effort_for_model "$model" "$(role_default_effort "$kind" foreman)")"
   output="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-$provider-message.XXXXXX")"

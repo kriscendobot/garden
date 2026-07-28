@@ -8,7 +8,7 @@ case "$(basename "$0")" in
     if [ -f "$OLLAMA_TEST_CTL/endpoint-empty" ]; then
       printf '{"object":"list","data":[]}\n'
     else
-      printf '{"object":"list","data":[{"id":"qwen3.6:latest"}]}\n'
+      printf '{"object":"list","data":[{"id":"qwen3:0.6b"}]}\n'
     fi
     ;;
   ollama)

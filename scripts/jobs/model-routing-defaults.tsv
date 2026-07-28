@@ -28,13 +28,14 @@
 #             for anthropic: the headerless Claude default is not a knowable id here
 #             (the handler decides), so it is keyed by a sentinel in code instead.
 #
-# Current reality (2026-07-14): garden2's local box serves ONLY qwen (qwen3.6), so
-# hermits recognize the qwen family and default to qwen3.6 — the gpt-oss:* mapping
+# Current reality (2026-07-28): garden2's local box serves ONLY qwen
+# (`qwen3:0.6b`), so hermits recognize the qwen family and default to that exact
+# Ollama tag. The gpt-oss:* mapping
 # is retired (a gpt-oss job is now UNPINNED, not auto-local). Full doc + the edit
 # helper (set-model-routing.sh): skills/model-selection/SKILL.md.
 anthropic	claude-*
 openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra
-local	qwen*	qwen3.6
+local	qwen*	qwen3:0.6b
 # Moonshot has no fleet default. Mystic claims only exact `model: kimi-k3` jobs.
 moonshot	kimi-k3
 # Fireworks has no fleet default.  The stable garden routing namespace avoids

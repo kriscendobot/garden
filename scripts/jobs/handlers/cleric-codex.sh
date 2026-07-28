@@ -101,7 +101,7 @@ fi
 #   2. Absent that, the job's `role:` selects a per-role default (designer/builder
 #      or a classified mechanical role), else this kind's fleet default from the
 #      journal-backed routing table
-#      (model_routing_default: openai → gpt-5.6-terra; local → qwen3.6).
+#      (model_routing_default: openai → gpt-5.6-terra; local → qwen3:0.6b).
 # Thoughtfulness resolves from an optional `effort:` header, else the role default
 # (high for designer/builder, medium otherwise), then is normalized DOWN to the
 # model's nearest supported level and passed as -c model_reasoning_effort=.
@@ -113,7 +113,7 @@ fi
 fleet_default_model="$(model_routing_default "$provider" 2>/dev/null)"
 if [ -z "$fleet_default_model" ]; then
   case "$provider" in
-    local) fleet_default_model="qwen3.6" ;;
+    local) fleet_default_model="qwen3:0.6b" ;;
     fireworks) fleet_default_model="" ;; # explicit model only
     *)     fleet_default_model="gpt-5.6-terra" ;;
   esac

@@ -97,7 +97,6 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ -z "$(resolve_model_tier openai opus)" ] && ok "openai map rejects a claude tier (no cross-provider leak)" || bad "openai leaked a claude tier"
 # local provider — data-driven classification from the model-routing table (the
 # tracked default: qwen family). A gpt-oss tag is NO LONGER local (box serves qwen).
-[ "$(resolve_model_tier local qwen3.6)" = "qwen3.6" ] && ok "resolve_model_tier local qwen3.6 (table-classified)" || bad "local qwen3.6"
 [ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ] && ok "local served qwen tag passthrough" || bad "local qwen tag passthrough"
 [ -z "$(resolve_model_tier local gpt-oss:20b)" ] && ok "local map rejects gpt-oss (retired: box serves qwen only)" || bad "local still captured gpt-oss"
 [ -z "$(resolve_model_tier local llama3.2:3b)" ] && ok "local map rejects a non-qwen served tag" || bad "local captured a non-qwen tag"
@@ -121,9 +120,9 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ "$(role_default_model cleric cleaner)" = "gpt-5.4-mini" ] && ok "cleric cleaner → mini" || bad "cleric cleaner default"
 [ "$(role_default_model cleric weaver)" = "gpt-5.5" ] && ok "cleric weaver → frontier" || bad "cleric weaver default"
 [ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
-[ "$(role_default_model hermit builder)" = "qwen3.6" ] && ok "hermit builder → qwen3.6 (local fleet default from table)" || bad "hermit builder default ($(role_default_model hermit builder))"
-[ "$(role_default_model hermit cleaner)" = "qwen3.6" ] && ok "hermit cleaner → qwen3.6" || bad "hermit cleaner default"
-[ "$(role_default_model hermit weaver)" = "qwen3.6" ] && ok "hermit weaver → qwen3.6" || bad "hermit weaver default"
+[ "$(role_default_model hermit builder)" = "qwen3:0.6b" ] && ok "hermit builder → qwen3:0.6b (local fleet default from table)" || bad "hermit builder default ($(role_default_model hermit builder))"
+[ "$(role_default_model hermit cleaner)" = "qwen3:0.6b" ] && ok "hermit cleaner → qwen3:0.6b" || bad "hermit cleaner default"
+[ "$(role_default_model hermit weaver)" = "qwen3:0.6b" ] && ok "hermit weaver → qwen3:0.6b" || bad "hermit weaver default"
 [ -z "$(role_default_model hermit fixer)" ] && ok "hermit fixer unpinned (rides hermit fleet default)" || bad "hermit fixer default"
 [ -z "$(role_default_model mystic builder)" ] && ok "mystic builder has no high-stakes default" || bad "mystic builder default"
 [ -z "$(role_default_model fireworker fixer)" ] && ok "fireworker has no implicit model default" || bad "fireworker default"
@@ -204,7 +203,7 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
 }
 run_kind gardener gspine ghost "model: opus"
 run_kind cleric   cspine chost "model: terra"
-run_kind hermit   hspine hhost "model: qwen3.6"
+run_kind hermit   hspine hhost "model: qwen3:0.6b"
 run_kind mystic   mspine mihost "model: kimi-k3"
 run_kind fireworker fwspine fwhost "model: fireworks/accounts/fireworks/models/example"
 
@@ -240,13 +239,13 @@ elig_case gardener pinnedclaude2 "model: opus" claimed
 # table) or unpinned jobs; a qwen-pinned job is off-limits to the paid cleric and the
 # gardener. A gpt-oss:* tag is NO LONGER local — it matches no provider, so it is
 # UNPINNED and claimable by ANY kind (regression guard for "hermits only serve qwen").
-elig_case hermit   pinnedqwen   "model: qwen3.6"      claimed
+elig_case hermit   pinnedqwen   "model: qwen3:0.6b"   claimed
 elig_case hermit   pinnedqwen2  "model: qwen3:0.6b"   claimed
 elig_case hermit   pinnedcodex3 "model: terra"        left
 elig_case hermit   pinnedclaude3 "model: opus"        left
 elig_case hermit   unpinnedjob2 ""                    claimed
-elig_case cleric   pinnedqwen3  "model: qwen3.6"      left
-elig_case gardener pinnedqwen4  "model: qwen3.6"      left
+elig_case cleric   pinnedqwen3  "model: qwen3:0.6b"   left
+elig_case gardener pinnedqwen4  "model: qwen3:0.6b"   left
 elig_case mystic   pinnedkimi   "model: kimi-k3"      claimed
 elig_case cleric   pinnedkimi2  "model: kimi-k3"      left
 elig_case gardener pinnedkimi3  "model: kimi-k3"      left

@@ -10,7 +10,7 @@ echo probe >> "$HEAL_CTL/curl-calls"
   if [ -e "$HEAL_CTL/empty-models" ]; then
     printf '{"object":"list","data":null}\n'
   else
-    printf '{"object":"list","data":[{"id":"qwen3.6:latest"}]}\n'
+    printf '{"object":"list","data":[{"id":"qwen3:0.6b"}]}\n'
   fi
   exit 0
 }

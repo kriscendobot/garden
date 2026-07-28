@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-07-25
+updated: 2026-07-28
 author: gardener
 ---
 
@@ -49,7 +49,7 @@ classified as mechanical or low-judgment. `cleaner`, `retcon`, bounded
 they use Haiku. `weaver`, `conductor`, and `pages-shepherd` need limited conflict,
 state, or failure classification, so they use Sonnet. On the cleric/Codex backend
 the same split is `mini` / `frontier`; on a hermit every one of these roles resolves
-to the local Ollama fleet default (currently `qwen3.6`). This is a tier policy, not
+to the local Ollama fleet default (currently `qwen3:0.6b`). This is a tier policy, not
 a worker-kind change. `fixer`, `shepherd`, jurors, and all other roles remain
 unpinned unless separately classified: their work can require substantive judgment.
 
@@ -166,15 +166,16 @@ worker rides when a job names no `model:`). `resolve_model_tier` still **binds**
 short tier aliases to concrete ids in code (a version bump stays one edit); only the
 concrete-id **classification** and the **defaults** are data.
 
-**Current reality (2026-07-14):** garden2's box serves **only qwen** (qwen3.6), so
-the seeded table routes `qwen*` → `local` and defaults `local` → `qwen3.6`. The
+**Current reality (2026-07-28):** garden2's box serves **only qwen**
+(`qwen3:0.6b`), so the seeded table routes `qwen*` → `local` and defaults `local` →
+`qwen3:0.6b`. The
 former `gpt-oss:*` → local mapping is **retired**: a `gpt-oss:*` job now matches no
 provider (it is unpinned), *not* auto-local — "hermits only respond to qwen at this
 time." To change this (a new served tag, a renamed tier), edit the **journal table**
 via `set-model-routing.sh`, not the code:
 
 ```sh
-scripts/jobs/set-model-routing.sh local 'qwen* mistral*' qwen3.6   # add mistral to the hermit set
+scripts/jobs/set-model-routing.sh local 'qwen* mistral*' qwen3:0.6b # add mistral to the hermit set
 scripts/jobs/set-model-routing.sh --remove <provider>              # drop a provider row
 scripts/jobs/set-model-routing.sh --show                           # print the effective table
 scripts/jobs/set-model-routing.sh --validate [file]                # validate before/without committing
@@ -315,7 +316,7 @@ canonical for subsequent dispatches.
   model-routing table (tracked seed `scripts/jobs/model-routing-defaults.tsv` +
   per-instance `config/model-routing` override, edited via `set-model-routing.sh`).
   Seeded to the current reality: the `local`/hermit provider recognizes the **qwen**
-  family and defaults to **qwen3.6**, retiring the stale `gpt-oss:*` → local mapping
+  family and defaults to **qwen3:0.6b**, retiring the stale `gpt-oss:*` → local mapping
   (a gpt-oss job is now unpinned, not auto-local). Tests: `model-routing-test.sh`
   (classification, defaults, override, fail-safe, the edit helper) and the updated
   `worker-spine-kinds-test.sh` eligibility cases.

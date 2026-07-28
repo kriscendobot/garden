@@ -180,7 +180,7 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 > bind address and the hermit handler's client URL cannot drift. The hermit handler
 > additionally **self-heals** a down endpoint: its per-job preflight
 > (`codex-provider-common.sh`) starts this unit and polls `/v1/models` for readiness
-> before failing, so a pinned `model: qwen3.6` tick never strands on a crashed or
+> before failing, so a pinned `model: qwen3:0.6b` tick never strands on a crashed or
 > never-started endpoint (§ 6 Durability). A zero-hermit host enables neither unit and
 > serves no local inference at all. The manual line below is the underlying
 > invocation the unit runs, kept for a one-off smoke test:
@@ -570,7 +570,7 @@ before dying with the host-defect diagnostic.
 That preflight is a **per-job** liveness check for the local provider (it does **not**
 use the once-per-boot auth marker the paid providers use), so a mid-life Ollama crash
 re-triggers self-heal on the very next hermit tick instead of being masked for the rest
-of the boot. There is **no** paid-inference fallback — a `model: qwen3.6` job stays
+of the boot. There is **no** paid-inference fallback — a `model: qwen3:0.6b` job stays
 local; if self-heal genuinely fails the tick dies and the hourly press cadence retries.
 **Activation:** on the hermit host (leader `endolin-garden2`) this takes effect after a
 deliberate deploy of `main2` + `set-hermits.sh N` (which the scaler turns into `scale

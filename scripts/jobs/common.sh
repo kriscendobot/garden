@@ -3160,7 +3160,7 @@ _model_routing_table() {
   printf '%s\n' \
     'anthropic	claude-*	' \
     'openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra' \
-    'local	qwen*	qwen3.6' \
+    'local	qwen*	qwen3:0.6b' \
     'moonshot	kimi-k3' \
     'fireworks	fireworks/*	'
 }
@@ -3318,7 +3318,7 @@ role_default_model() {
       # The local codex-cleric. The box currently serves a single local family (qwen),
       # so every hermit role — including the heavier designer/builder — rides the
       # local fleet default from the routing table (model_routing_default local, e.g.
-      # qwen3.6) rather than pinning a separate flagship tag that is not served. An
+      # qwen3:0.6b) rather than pinning a separate flagship tag that is not served. An
       # explicit per-job `model:` always overrides. The bid auction (guide §5) — not
       # this default — is what keeps a local arm OFF high-stakes build/design on main,
       # via the human-review-$ term; this default only sets the model a hermit uses IF
