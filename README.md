@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:50:05Z_
+_As of 2026-07-28T16:56:47Z_
 
 ## Latest
 
@@ -2214,6 +2214,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The job will NOT be marked complete — it will be left for re-enqueueing once credentials are restored.
 
+- `20260728T165531Z-763738` — from orchestrator:fireworks-glm52-kimik3-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T165531Z-763738.md)
+
+> Orchestration fireworks-glm52-kimik3 HALTED: child fireworks-glm52-kimik3-build failed (serial, on-child-failure=halt). 1/3 done before halt; swept: fireworks-glm52-kimik3-canary
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2507,6 +2511,50 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-finbot-pr4-panel-20260728-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr4-panel-20260728-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/finbot-pr4-panel-20260728; it stays HELD until a human promotes it
+> (promote-plan.sh finbot-pr4-panel-20260728) or removes it, so nothing is lost.
+> Original job base: finbot-pr4-panel-20260728
+>
+> --- original job body ---
+> role: builder
+>
+> # Run the required merge-governance panel for kriscendobot/finbot PR #4
+>
+> PR: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) (DRAFT)
+> Head branch: `feat/harness-compartment-role-program` @ `a99c87b97a776dbba225514beeae46562f6ae5cb`
+> Base: `main` @ `877fa76769b4ff538916ac21afcac747409dc542`. CI: green (`test` pass).
+>
+> Increment: "run role programs in SES compartments" (the harness increment). This is
+> the merge-governance panel gate (maintainer directive 2026-07-22): finbot lands only
+> after BOTH a passing panel AND a Fable-orchestrator sign-off — even on our own fork.
+> The pre-deploy panel jobs for this PR were poisoned (deadline-overrun / requeue) on a
+> fleet root that lacked the panel fixes `010abbe299` (empty-seat retry) + `6963e506db`
+> (CI-sized handler budgets); the fleet is now deployed WITH both fixes, so a fresh
+> panel runs clean. This is that fresh post.
+>
+> ## Do
+>
+> 1. Get an isolated project worktree for the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh <your-base> kriscendobot/finbot feat/harness-compartment-role-program`
+> 2. Run the scripted code panel over the PR against base `origin/main`:
+>    `scripts/jobs/gardening/panel.sh <worktree> 4 origin/main` with the project
+>    fixer/un-draft hooks wired per skills/panel. REQUIRE non-empty formal per-seat
+>    verdicts — do NOT treat an empty/absent seat block as a pass (the earlier PR #4
+>    failure mode). Re-run any seat that produces no verdict.
+> 3. On a PASSING panel: DO NOT MERGE and DO NOT UN-DRAFT. Post the Fable sign-off job
+>    `finbot-pr4-fable-signoff` with `role: orchestrator` and `model: claude-fable-5`,
+>    handing it the panel outcome + PR link; the merge is that orchestrator's authority
+>    (or a conductor it directs), never the panel-runner's.
+> 4. On must-fix: run the fix-loop (fixer commits on the PR head) until the panel
+>    passes, then proceed to step 3. Keep the tree green.
+>
+> Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
+> Fable-orchestrator sign-off. Never self-merge.
+
 - `poison-finbot-pr5-panel-20260727-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr5-panel-20260727-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
@@ -2625,6 +2673,99 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >   not sprawl.
 > - If nothing is unblocked (everything waits on review/merge), say so in the report
 >   rather than manufacturing busywork.
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
+
+- `poison-fireworks-glm52-kimik3-build-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-fireworks-glm52-kimik3-build-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/fireworks-glm52-kimik3-build; it stays HELD until a human promotes it
+> (promote-plan.sh fireworks-glm52-kimik3-build) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: fireworks-glm52-kimik3-build
+>
+> --- original job body ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T07:25:08Z -->
+>
+> # Wire GLM 5.2 and Kimi K3 into the fireworker route
+>
+> Second child of orchestration `fireworks-glm52-kimik3`. Runs **after**
+> `fireworks-glm52-kimik3-survey`, which has landed. Read that job's `jobs/tada/`
+> report first.
+>
+> **Amended 2026-07-28T07:3xZ by the liaison, read this before you start.** The
+> survey's `tada/` report is a **thin summary**: it asserts that selectors and
+> citations were established but does **not** actually contain the wire model ids.
+> The substance it produced is in the ingested library sections, notably
+> `library/sections/web--fireworks-serverless-serving-paths--selectors-and-capacity-tradeoffs.md`
+> and `library/sections/web--fireworks-text-models--api-models-and-deployments.md`.
+> Those record the identifier shapes (base models as
+> `accounts/fireworks/models/<id>`, Fast routers as
+> `accounts/fireworks/routers/<id>`, dedicated deployments as
+> `accounts/<ACCOUNT_ID>/deployments/<DEPLOYMENT_ID>`) and name
+> `accounts/fireworks/routers/glm-5p2-fast` among the captured Fast router examples.
+>
+> **Do not take a captured example as a verified current id.** Note in particular
+> that the captured K3-adjacent router example reads `kimi-k2p6-fast`, which is
+> **K2.6, not K3**. Establish each id you are about to wire, and if you cannot
+> establish one, wire what you can and say plainly in your report which id remains
+> unestablished rather than guessing. An invented model id is worse than an
+> acknowledged gap.
+>
+> ## Task
+>
+> Make the two models reachable as first-class garden routes, following the shape the
+> survey proposed and the constraints the `fireworker` design already fixed:
+>
+> - The routing id is `fireworks/<wire-model-id>`, suffix passed through unchanged.
+> - The pool is **explicit-model-only** and starts at **zero**; it refuses unpinned
+>   work. Do not add a catalog default, and do not change that posture.
+> - Priority tier stays **disabled** — the Codex custom-provider surface has no
+>   verified per-request `service_tier` injection. Do not claim Priority support.
+>
+> Concretely, expect to touch: the model-routing/eligibility state
+> (`scripts/jobs/set-model-routing.sh` and the routing table it writes), the worker
+> spine's kind registry in `scripts/jobs/common.sh` if a new kind is warranted,
+> `skills/model-selection/SKILL.md` (the canonical role→tier map and provider
+> sections), and `context/operations/fireworks.md`. Add or extend coverage in
+> `scripts/jobs/test/fireworker-harness-test.sh` and
+> `scripts/jobs/test/worker-spine-kinds-test.sh` so the new routes are asserted, not
+> assumed. Take the survey's recommendation on whether GLM 5.2 and Fireworks-served
+> K3 share the `fireworker` kind or warrant separation.
+>
+> **Keep the Moonshot K3 path intact.** The `mystic` pool
+> (`handlers/mystic-kimi.sh`, `provider: moonshot`, `model: kimi-k3`) is a working,
+> canaried backend. A Fireworks-served K3 is an *additional* backend; adding it must
+> not re-route, degrade, or silently absorb the existing mystic lane, and the two
+> should not pool reputation unless the survey argued otherwise and you agree.
+>
+> ## Constraints
+>
+> - **No canary in this job** — activation is the next child's, under a key-bearing
+>   container. Leave the pool at zero.
+> - `FIREWORKS_API_KEY` is not required here. (Amended: the key **is** now present on
+>   `endolin-garden-ece02cb4` as of 2026-07-28T07:20Z, verified presence-only through
+>   the tmpfs handoff, the user manager, and running worker environments. The original
+>   "not present" note was written three minutes before the key landed.) You still do
+>   not need it: write the code so it degrades honestly without a key, so that a
+>   missing key fails with a clear configuration error, never a silent fallback to
+>   another provider. Do not read, print, or test against the key value here.
+> - **Never** print, log, or commit a key value, an `Authorization` header, or an API
+>   response body.
+> - Run the repo's local checks before pushing — a CI failure is an automation defect,
+>   not something to discover downstream ([skills/local-verify](../../skills/local-verify/SKILL.md),
+>   [skills/pre-push-gates](../../skills/pre-push-gates/SKILL.md)).
+>
+> ## Done when
+>
+> The routes exist and are covered by passing tests, the docs describe them
+> accurately, the pool is still at zero, the Moonshot K3 lane is demonstrably
+> unchanged, and the `jobs/tada/` report names exactly what a canary should post for
+> each of the two models.
 >
 >
 > <!-- garden-deadline-overrun: 1 -->
@@ -2753,14 +2894,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.0M | $701.77 _(notional, rate-card)_ | no quota set |
-| Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 53.2M | $705.12 _(notional, rate-card)_ | no quota set |
+| Codex | 338.1M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (45)
+### doin (42)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2781,18 +2922,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
 - [`endojs-endo-but-for-bots-pr882-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr882-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #882
-- [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-130502.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-stale-bulletin-pages-url`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-stale-bulletin-pages-url.md) — The GitHub repo kriskowal/garden was transferred/renamed to kriscendobot/garden
+- [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
-- [`fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1.md) — In the garden's own repo (kriscendobot/garden, branch main2), the maintainer-...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
-- [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
 - [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-review-miss-gaming-category.md) — Add an evaluator-gaming category to the review-retrospective loop
 - [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
@@ -2807,13 +2945,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3700)
+### tada (3703)
+- [`fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-fix-identity-drift-guard-test-inbox-leak-3-1.md) — Cost
+- [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabot-supersession-preflight.md) — Report
+- [`fireworks-glm52-kimik3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fireworks-glm52-kimik3.md) — orchestration fireworks-glm52-kimik3 — HALTED
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — Report
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Cost
-- [`staged-gauntlet-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/staged-gauntlet-build.md) — Completion report: staged-gauntlet-build
-- [`kimi-k3-takes-opus-work-with-opus-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kimi-k3-takes-opus-work-with-opus-fallback.md) — Completion report
-- [`deadmail-issue-comment-5106861687`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5106861687.md) — Report
-- … and 3695 more
+- … and 3698 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2867,9 +3005,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr867-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
+- [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
 - [`finbot-pr5-panel-20260727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260725-105007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
+- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fireworks-glm52-kimik3-build.md) — _normal_ · Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
@@ -2966,4 +3106,4 @@ kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kris
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 8 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 8 gardeners
 - [ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23): 1 gardeners
-- [ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23-garden-f65473ae): 20 gardeners
+- [ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23-garden-f65473ae): 8 gardeners
