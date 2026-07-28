@@ -795,3 +795,12 @@ Inspect via `git -C journal cat-file -p c5f313d55db4f3409a96cad7ee0a857c34e14e97
 - Context: gardener-7 on ps23: job 'wallclock-cost-proxy-for-censored-arms' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 033e6398ecbf1b5dab1ed139b41bc91a67960e37`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:42:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 9ad2f846c0e92305349e119cfc82246455fd694e
+- Context: gardener-6 on ps23: job 'migrate-garden-origins-to-kriscendobot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 9ad2f846c0e92305349e119cfc82246455fd694e`.
