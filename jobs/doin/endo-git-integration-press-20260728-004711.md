@@ -66,6 +66,7 @@ Cite real command/CI output for every green claim.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
