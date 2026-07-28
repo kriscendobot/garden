@@ -92,3 +92,10 @@ role/skill files — the follow-on build job does that from this doc.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:28:32Z
