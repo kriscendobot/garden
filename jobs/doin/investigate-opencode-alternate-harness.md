@@ -122,3 +122,10 @@ Verify each against opencode's actual capabilities rather than assuming.
   `hosts/<host>`), so it is inert — relevant prior art for how a lane gets added.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:19:16Z
