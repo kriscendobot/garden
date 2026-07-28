@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T12:22:55Z_
+_As of 2026-07-28T12:23:53Z_
 
 ## Latest
 
@@ -2341,64 +2341,63 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.0M | $683.66 _(notional, rate-card)_ | no quota set |
-| Codex | 369.5M _(+460.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 52.1M | $684.88 _(notional, rate-card)_ | no quota set |
+| Codex | 369.3M _(+460.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
-### todo (8)
+### todo (26)
+- [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
+- [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`design-post-verdict-addressee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-post-verdict-addressee.md) — The gap
+- [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
+- [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
+- [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr755-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr755-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots #755
+- [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Fix CI on https://github.com/endojs/endo-but-for-bots/pull/825.
+- [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
+- [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
+- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
+- [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
+- [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
+- [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
+- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
+- [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
 - [`scholar-library-cycle-20260728-075002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
 - [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
 - [`suffix-github-comments-with-provenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/suffix-github-comments-with-provenance.md) — Suffix every GitHub PR/issue comment with a small-text provenance line:
+- [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
+- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### doin (35)
-- [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
+### doin (16)
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
-- [`endojs-endo-but-for-bots-form-data-advisory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-form-data-advisory.md) — fixer on endojs/endo-but-for-bots llm: close the form-data advisory in the de...
-- [`endojs-endo-but-for-bots-pr705-fixer-changes-requested`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-fixer-changes-requested.md) — Backfill: PR #705 was opened non-draft, skipping the panel — address the pend...
-- [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
-- [`endojs-endo-but-for-bots-pr755-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr755-gauntlet.md) — Run the gauntlet on endojs/endo-but-for-bots #755
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
-- [`endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr825-fixer-ci-daemon-unhandled-rejection.md) — Fix CI on https://github.com/endojs/endo-but-for-bots/pull/825.
-- [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
-- [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
-- [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
-- [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
-- [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
 - [`fu-clarify-drain-moratorium-vocabulary-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-clarify-drain-moratorium-vocabulary-1.md) — In the garden's own repo (kriskowal/garden, main2), scripts/checks/maintainer...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/p...
 - [`fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404-1.md) — In the garden's own job board (journal2, jobs/todo/), drop the two now-no-op ...
 - [`fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop-2.md) — In the garden repo (kriskowal/garden, main2), audit scripts/jobs/ci-watcher.s...
-- [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
 - [`hermit-failure-reputation-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/hermit-failure-reputation-followup.md) — Refine the Ollama hermit gardener: on failure, check whether claude/codex would
 - [`improve-dependabot-supersession-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabot-supersession-preflight.md) — scripts/jobs/dependabot-watcher.sh
 - [`improve-journal-entry-duplicate-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-entry-duplicate-suppression.md) — scripts/jobs/journal-entry.sh
 - [`investigate-opencode-alternate-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-opencode-alternate-harness.md) — Investigate opencode as an alternate worker harness
 - [`issue-garden-62-jcorbin-cross-analysis`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-garden-62-jcorbin-cross-analysis.md) — Fold @jcorbin's devoker cross-analysis into the TerraLingua work (issue #62)
-- [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`requeue-ps23-stranded-claims`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/requeue-ps23-stranded-claims.md) — Free the 52 claims stranded on ps23
-- [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
-- [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-fireworks-job-end-to-end.md) — Validate a fireworks job end to end
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3668)
+### tada (3669)
+- [`gnome-backend-autotune-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gnome-backend-autotune-design.md) — Cost
 - [`fu-fix-identity-drift-guard-test-inbox-leak-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fix-identity-drift-guard-test-inbox-leak-2.md) — Cost
 - [`fu-fix-identity-drift-guard-test-inbox-leak-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fix-identity-drift-guard-test-inbox-leak-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr779-fix-namespace-order`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr779-fix-namespace-order.md) — Implemented and pushed b08607b85de414f1e266aa2930718b7f3fbc5c53.
 - [`fu-endo-npm-cas-registry-press-20260727-053502-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endo-npm-cas-registry-press-20260727-053502-3.md) — Report
-- [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-issue-inbox-watcher-test-silent-abort.md) — Cost
-- … and 3663 more
+- … and 3664 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
