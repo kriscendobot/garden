@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: xs2rust-endor-finish-line
-priority: normal
-posted_by: producer
-posted_at: 2026-07-27T23:37:38Z
+model: claude-opus-5
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T01:01:07Z -->
 
 ---
 model: claude-opus-5
