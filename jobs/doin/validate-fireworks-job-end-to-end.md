@@ -95,3 +95,10 @@ that is a notable finding — it would be the first lane with real cost evidence
   journal entry, report, log, or commit.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:38:04Z
