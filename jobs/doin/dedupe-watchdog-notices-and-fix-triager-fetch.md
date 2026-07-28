@@ -90,3 +90,10 @@ the *source* so the backlog does not immediately refill.
   genuinely-dead upstreams are disarmed rather than retried.
 - Pushed to `main2`; `tada` report gives before/after notice counts for a simulated
   repeated failure.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:09:18Z
