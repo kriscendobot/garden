@@ -633,3 +633,12 @@ Inspect via `git -C journal cat-file -p ed661227d758145e3d0fd772f21ea5c4abff9c62
 - Context: gardener-5 on ps23: job 'self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 2251f9ee83bd7a09d4a2b2a91c53ee90e25fea0c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:50Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 38207666bc6f23f6dc7e4cf21dee9ab7f25d1386
+- Context: gardener-7 on ps23: job 'endojs-endo-but-for-bots-pr268-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 38207666bc6f23f6dc7e4cf21dee9ab7f25d1386`.
