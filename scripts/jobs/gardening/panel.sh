@@ -372,6 +372,30 @@ while :; do
       *) echo "panel #$pr: unparseable disposition '$tok' (attempt $_decide_attempt); re-asking" >&2 ;;
     esac
   done
+  # SINGLE-ROUND MODE (the staged gauntlet). Run EXACTLY ONE round, emit the
+  # disposition, and STOP — do NOT run the fixer, the appellate, or the un-draft.
+  # This is the enabling primitive for designs/staged-gauntlet.md: the internal
+  # `while :` fixer loop below is a primary structural cause of the gauntlet
+  # overrunning one handler budget (an unbounded number of panel rounds inside one
+  # claim). In staged mode, one panel round is its own claim-sized stage; the
+  # deterministic gauntlet driver reads this disposition to decide the NEXT stage
+  # (a fix stage on `must-fix`, or the un-draft stage on `pass`). Inert unless
+  # GARDEN_PANEL_SINGLE_ROUND=1, so every existing caller keeps the in-handler
+  # loop below unchanged. Fail-closed on a decider that never produced a token,
+  # exactly like the classic `*` branch — never emit a guessed disposition. The
+  # terminal line's LAST token is the disposition, the same last-token contract
+  # the disposition and loop-decision parses already rely on.
+  if [ "${GARDEN_PANEL_SINGLE_ROUND:-0}" = 1 ]; then
+    case "$disposition" in
+      must-fix) PANEL_DISPOSITION="must-fix" ;;
+      pass)     PANEL_DISPOSITION="passed" ;;
+      *)        PANEL_DISPOSITION="decider-error"
+                fail "disposition (decider returned neither 'must-fix' nor 'pass' twice)" ;;
+    esac
+    echo "panel #$pr: $panel_kind single-round — $disposition"
+    exit 0
+  fi
+
   case "$disposition" in
     must-fix)
       run_fixer "$agg"      # non-terminating round; loop to re-review the delta
