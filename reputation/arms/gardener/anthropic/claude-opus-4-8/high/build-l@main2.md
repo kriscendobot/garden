@@ -4,9 +4,9 @@ model: claude-opus-4-8
 thoughtfulness: high
 work_class: build:l
 target: main2
-attempts: 3
-accepts: 3
+attempts: 5
+accepts: 5
 censored: 27
-mean_dollars: 6.173535
-m2: 90.688515
+mean_dollars: 5.328962
+m2: 108.765224
 acceptance_rate: 1.0000
