@@ -38,3 +38,10 @@ Comment: https://github.com/kriscendobot/garden/issues/68#issuecomment-510579686
 ## another consequence of postponed containerization I asked claude "how do other hosts find claude?" > Other hosts find it because they're containerized: the Dockerfile installs the Claude CLI via NodeSource's npm, whose global prefix is `/usr` — so claude lands in `/usr/bin/c
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-28T15:00:10Z
