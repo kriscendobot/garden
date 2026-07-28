@@ -66,3 +66,10 @@ Cite real command/CI output for every green claim.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T07:21:06Z
