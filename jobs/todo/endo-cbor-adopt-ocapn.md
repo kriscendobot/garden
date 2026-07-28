@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-cbor-adopt-primitives
-priority: normal
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-28T21:09:32Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T21:10:07Z -->
 
 # Adopt `@endo/cbor` in `packages/ocapn` (cbor-codec design, phase 2)
 
