@@ -21,3 +21,12 @@ reads entries on its next dispatch.
 - Context: gardener-8 on ps23-garden-f65473ae: job 'validate-fireworks-job-end-to-end' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T16:45:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3840b8f64a4d42520b13aba028034b0c5d450e0c
+- Context: gardener-19 on ps23-garden-f65473ae: job 'arc-status-daily-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3840b8f64a4d42520b13aba028034b0c5d450e0c`.
