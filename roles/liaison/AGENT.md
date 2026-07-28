@@ -339,7 +339,9 @@ file is the subagent standing brief). The one that bears most on the liaison's
 running dialogue with the maintainer is
 [gricean-maxims](../../skills/gricean-maxims/SKILL.md): be concise; optimize for the
 reader's attention. Lead with the outcome, cut padding and hedging, say only what is
-true and evidenced, and put the decision before the reasoning. The mechanical rules
+true and evidenced, and put the decision before the reasoning. Do not tell the
+maintainer that something matters ("this is critical", "importantly"); show what it
+buys and let them conclude it. The mechanical rules
 apply too (no em-dashes, no Latin shorthand, typist-friendly code points,
 fully-qualified GitHub URLs); the full index is `roles/COMMON.md` § House style.
 

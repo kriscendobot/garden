@@ -10,7 +10,10 @@ author: builder
 
 A standing house-style norm for every communication the fleet writes: `tada`
 completion reports, PR completion-summary comments, inline review replies, journal
-entry bodies, inbox and bus messages, and panel juror findings. The governing
+entry bodies, inbox and bus messages, panel juror findings, and the prose the fleet
+lands in a project repo (code comments, design documents, and commit bodies). That
+last group has the longest half-life: a report is read once, but a padded module
+comment is re-read by every maintainer who opens the file. The governing
 principle, from the source below, is **be concise; optimize for the reader's
 attention**. The reader is a maintainer or a peer agent with a full queue; every
 sentence they read that carries no new information is attention you spent on their
@@ -30,8 +33,9 @@ https://gist.github.com/dckc/7d477a99086a5e21d0979ecc919aaf76
 ## Inputs
 
 Any bot-authored text bound for a human or a peer agent. Read this skill before
-writing a completion report, a PR comment, a review reply, a journal body, or a bus
-message. It applies to the liaison's maintainer-facing prose as much as to a
+writing a completion report, a PR comment, a review reply, a journal body, a bus
+message, or a code comment, design document, or commit body destined for a project
+repo. It applies to the liaison's maintainer-facing prose as much as to a
 subagent's artifacts.
 
 ## The boundary that comes first: HOW, not WHETHER
@@ -102,6 +106,38 @@ had from a shorter message.
   45; crashes when `opts` is undefined." **Don't** append a paragraph restating what
   a null guard is.
 
+#### The sharpest instance: empty emphasis
+
+**Don't** tell the reader that something matters. Show what it buys them and let
+them conclude that it matters. Consider the phrases whose whole content is an
+importance claim: "and that is load-bearing rather than incidental", "this is
+critical", "note that this is subtle", "importantly", "it cannot be overstated
+that". Each is padding when the surrounding text already demonstrates the
+importance, and an unevidenced claim (a Quality failure, not merely a Quantity one)
+when it does not. Either way the phrase can be struck and nothing is lost.
+
+The tell is the **contrastive negation with no candidate**: "X rather than
+incidental", "a real constraint, not a stylistic one", "deliberate rather than
+accidental". If no reader was going to propose the alternative, denying it conveys
+nothing; it only signals that the author expected to be doubted.
+
+Worked example, from a module comment on endo-but-for-bots #825:
+
+> 2. The store's I/O is synchronous, **and that is load-bearing rather than
+>    incidental.** Entry rows move through the daemon's in-process
+>    `better-sqlite3` handle, so `collectWeakEntries` can delete the rows for a
+>    collected weak key ... before the collecting turn completes ...
+
+The bolded clause was struck. The sentences after it already carry the argument:
+they name what synchrony buys and why the asynchronous daemon boundary forecloses
+it. The clause therefore asked the reader to accept a label ahead of the evidence,
+and invited them to stop reading there.
+
+The rule is not a ban on the word "load-bearing" where it does real work (marking
+which of several premises an argument actually rests on, as this skill's own
+`§ The boundary that comes first` does). It is a ban on **asserting importance in
+place of establishing it**.
+
 ### Quality: only what is true and evidenced
 
 Say what you have evidence for, and do not say what you lack evidence for. The
@@ -156,8 +192,9 @@ or what to do.
 ## Output shape
 
 There is no artifact to produce. The output is every other communication, written to
-obey the maxims. When you finish a report, a comment, or a message, reread it once
-against the four failure modes: padding (Quantity), false or unevidenced claims
+obey the maxims. When you finish a report, a bus message, a review reply, a code
+comment, or a design document, reread it once against the four failure modes:
+padding (Quantity, including the empty emphasis above), false or unevidenced claims
 (Quality), irrelevant asides (Relation), buried decision (Manner). Cut what fails,
 but never cut a required disclosure (see § The boundary that comes first).
 
@@ -167,6 +204,11 @@ but never cut a required disclosure (see § The boundary that comes first).
   them in all communications going forward. The directive says "all communications",
   which includes the liaison's maintainer-facing prose, not only agent-authored
   artifacts.
+- Reviewer directive, 2026-07-28 (dckc, endo-but-for-bots #825): on a bot-authored
+  module comment, "what do those words contribute? strike them? never use them
+  again?" That review is the origin of § The sharpest instance and of the scope
+  extension to code comments and design prose. The fleet's padding was landing in a
+  project repo, not only in its reports.
 - This skill is indexed alongside the other standing-style skills in
   [COMMON.md](../../roles/COMMON.md) § House style, and pointed to from the liaison
   brief ([roles/liaison/AGENT.md](../../roles/liaison/AGENT.md)) because the liaison
