@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:11:42Z_
+_As of 2026-07-28T01:13:01Z_
 
 ## Latest
 
@@ -6201,14 +6201,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.0M | $458.25 _(notional, rate-card)_ | no quota set |
+| Claude | 35.0M | $458.84 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+473.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (45)
+### doin (46)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`endo-byte-array-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-004711.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -6233,6 +6233,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`endojs-endo-but-for-bots-pr868-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #868
+- [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
 - [`endojs-endo-but-for-bots-pr869-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr869-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #869
 - [`endojs-endo-but-for-bots-pr870-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #870
 - [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
