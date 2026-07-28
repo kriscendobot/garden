@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T04:58:58Z_
+_As of 2026-07-28T04:59:40Z_
 
 ## Latest
 
@@ -6262,14 +6262,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $461.48 _(notional, rate-card)_ | no quota set |
+| Claude | 34.6M | $460.27 _(notional, rate-card)_ | no quota set |
 | Codex | 18.6M _(+466.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (49)
+### doin (48)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
@@ -6317,16 +6317,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop.md) — The comment-watcher for kriscendobot/garden crash-loops (systemd restart fore...
 - [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
-- [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260728-004711.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3600)
+### tada (3601)
+- [`xs2rust-endor-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260728-004711.md) — The only match is my own claude -p handler — no endor-xst, no manager-node, n...
 - [`endojs-endo-but-for-bots-pr825-8840fcdb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-8840fcdb.md) — What the directive was
 - [`ollama-hermit-simple-job-capability`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ollama-hermit-simple-job-capability.md) — Verdict: report-only job succeeded end-to-end; simple filesystem transform fa...
 - [`fix-two-ollama-units-single-owner`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-two-ollama-units-single-owner.md) — Implemented and pushed d4a40ed9ba to main2.
 - [`endojs-endo-but-for-bots-pr868-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr868-dependabot.md) — Botany review: endojs/endo-but-for-bots PR #868 — EMBARGO-2026-08-02
-- [`xs2rust-endor-press-consolidation-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-consolidation-20260727.md) — Consolidation: ten redundant xs2rust press dispatches retired
-- … and 3595 more
+- … and 3596 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
