@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:49:49Z_
+_As of 2026-07-28T07:50:26Z_
 
 ## Latest
 
@@ -1946,11 +1946,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.8M | $538.36 _(notional, rate-card)_ | no quota set |
-| Codex | 425.4M _(+423.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 43.9M | $540.66 _(notional, rate-card)_ | no quota set |
+| Codex | 425.1M _(+424.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (41)
+### todo (42)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`deadmail-20260728T074052Z-b3c391`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-20260728T074052Z-b3c391.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
@@ -1984,6 +1984,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260728-065010.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-atproto-ucan-addressing-taxonomy`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-atproto-ucan-addressing-taxonomy.md) — Scholar: place ATProto and UCANs in the addressing/authentication taxonomy
+- [`scholar-library-cycle-20260728-075002`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260728-075002.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() builds its have (already-arm...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404.md) — Close the post-arming hole in the fork-watch dead-upstream guard, and disarm ...
 - [`self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm.md) — Close the dead-upstream gap for ALREADY-ARMED own forks, and disarm the concr...
