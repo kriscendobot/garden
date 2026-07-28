@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:23:50Z_
+_As of 2026-07-28T01:24:26Z_
 
 ## Latest
 
@@ -6210,13 +6210,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.1M | $459.92 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+470.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 18.9M _(+470.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (48)
+### doin (49)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`dependabotany-recheck-endo-but-for-bots-20260728-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260728-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
@@ -6249,6 +6249,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-fork-watch-dead-upstream-armed-slug`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-fork-watch-dead-upstream-armed-slug.md) — fork-watch-provisioner never re-checks liveness for an ALREADY-ARMED slug, so a
+- [`fix-two-ollama-units-single-owner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-two-ollama-units-single-owner.md) — Fix the two-Ollama conflict: one owner for local inference, and liveness chec...
 - [`fu-endo-npm-cas-registry-press-20260728-004711-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endo-npm-cas-registry-press-20260728-004711-1.md) — On endojs/endo-but-for-bots, check the CI status of https://github.com/endojs...
 - [`garden-repo-transfer-followthrough`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-repo-transfer-followthrough.md) — Complete the operational follow-through for the in-progress GitHub repository...
 - [`gnome-backend-autotune-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/gnome-backend-autotune-design.md) — Design: backend-verified worker provisioning + auth auto-tune for garden node...
