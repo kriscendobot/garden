@@ -189,10 +189,29 @@ fi
 claude_cli="$(claude_bin)" \
   || die_environmental "claude CLI not found on PATH nor in any known install location after ${GARDEN_AGENT_BIN_ATTEMPTS} probes; cannot run default gardener handler for '$base'"
 
+# The terminal JSON envelope is Claude's own cumulative accounting for exactly this
+# invocation.  Keep it outside the report: the report remains the agent's .result,
+# while the code-only handoff gives gardener.sh the immutable measurement.
+envelope="$(mktemp "${TMPDIR:-/tmp}/garden-claude-envelope-$base.XXXXXX")"
+rusage="$(mktemp "${TMPDIR:-/tmp}/garden-claude-rusage-$base.XXXXXX")"
 set +e
-( cd "$worktree" && "$claude_cli" -p --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$report"
+if [ -x /usr/bin/time ]; then
+  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+else
+  ( cd "$worktree" && "$claude_cli" -p --output-format json --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope"
+fi
 rc=$?
 set -e
+# A malformed/truncated envelope is an accounting miss, never a handler failure.
+# Preserve a useful report on provider errors, and otherwise extract .result
+# byte-for-byte enough for the existing completion-marker contract.
+if command -v jq >/dev/null 2>&1 && jq -er '.result' "$envelope" > "$report" 2>/dev/null; then
+  resolved_for_usage="${resolved_model:-}"
+  usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$(cat "$envelope")" || true
+  usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
+else
+  cp "$envelope" "$report" 2>/dev/null || : > "$report"
+fi
 
 # --- deterministic completion signal -----------------------------------------
 #
@@ -234,4 +253,5 @@ if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL
   # fresh session against its fresh worktree.
   rm -f "$proj_dir/$session_id.jsonl" "$proj_dir_alt/$session_id.jsonl" 2>/dev/null || true
 fi
+rm -f "$envelope" "$rusage" 2>/dev/null || true
 exit "$rc"

@@ -252,6 +252,19 @@ if [ -n "$sid" ]; then
   mkdir -p "$(dirname "$session_sidecar")" 2>/dev/null || true
   printf '%s\n' "$sid" > "$session_sidecar" 2>/dev/null || true
 fi
+# Codex's JSON stream carries its terminal `token_count` event.  It presently
+# exposes token classes but no provider-computed dollars, so this is a real token
+# measurement and deliberately remains unpriced for reputation.  Do not guess a
+# rate card here: a measured row must never masquerade as an invoice.
+if command -v jq >/dev/null 2>&1 && [ -n "${GARDEN_USAGE_FILE:-}" ]; then
+  codex_usage="$(jq -sce '
+    [ . | select(.payload.type? == "token_count") | .payload.info.last_token_usage ] | last // empty
+    | {source:"result", model:$model,
+       input_tokens: ((.input_tokens // 0) - (.cached_input_tokens // 0) | if . < 0 then 0 else . end),
+       output_tokens:(.output_tokens // 0), cache_read_tokens:(.cached_input_tokens // 0)}' \
+      --arg model "$model" "$json_capture" 2>/dev/null || true)"
+  [ -n "$codex_usage" ] && printf '%s\n' "$codex_usage" > "$GARDEN_USAGE_FILE" 2>/dev/null || true
+fi
 # The --json capture also carries any codex diagnostics; fold its tail onto the
 # report's stderr channel (the spine captures the handler's stdout+stderr for
 # failure hashing) so a codex failure is not silent. Keep it off the report body,

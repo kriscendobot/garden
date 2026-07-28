@@ -265,3 +265,127 @@ meter_claude() {
   result="$(printf '%s' "$json" | jq -r '.result // empty' 2>/dev/null || true)"
   printf '%s\n' "$result"
 }
+
+# --- per-engagement cost ledger ---------------------------------------------
+# The weekly meter above remains the quota gate.  These helpers are deliberately
+# separate: they record immutable, job-attributed measurements in journal2.
+
+# job_session_dirs <base> — print Claude project-log directories belonging to a
+# job's private garden/project worktrees.  This is intentionally not a time-window
+# scan: snapshots before and after one handler invocation form the engagement delta.
+job_session_dirs() {
+  local base="${1:?}" safe root p enc
+  safe="$(printf '%s' "$base" | tr -c 'A-Za-z0-9._-' '_')"
+  for root in "$GARDEN_SCRATCH/gardener-wt-$base" "$GARDEN_SCRATCH/project-wt-$safe"*; do
+    [ -n "$root" ] || continue
+    for enc in "$(printf '%s' "$root" | sed 's#/#-#g')" "$(printf '%s' "$root" | sed 's#[/.]#-#g')"; do
+      p="$GARDEN_CCUSAGE_LOGDIR/$enc"
+      printf '%s\n' "$p"
+    done
+  done | awk '!seen[$0]++'
+}
+
+# meter_job_session_usage <base> — four cumulative classes, tab-separated:
+# input, output, cache-creation, cache-read.  Dedupe by Claude message id across
+# all candidate job dirs.  Missing dirs are a genuine zero; an unreadable existing
+# dir or absent jq is unknown (return 1), so callers fail open rather than inventing
+# a zero measurement.
+meter_job_session_usage() {
+  local base="${1:?}" d files out
+  command -v jq >/dev/null 2>&1 || return 1
+  files=""
+  while IFS= read -r d; do
+    [ -e "$d" ] || continue
+    [ -r "$d" ] && [ -x "$d" ] || return 1
+    files+="$(find "$d" -type f -name '*.jsonl' -print 2>/dev/null)"$'\n'
+  done < <(job_session_dirs "$base")
+  [ -n "${files//$'\n'/}" ] || { printf '0\t0\t0\t0\n'; return 0; }
+  out="$(printf '%s' "$files" | tr '\n' '\0' | xargs -0 jq -Rr '
+      fromjson? // empty | select(.type=="assistant" and (.message.usage != null))
+      | [(.message.id // .uuid // "noid"), (.message.usage.input_tokens // 0),
+         (.message.usage.output_tokens // 0), (.message.usage.cache_creation_input_tokens // 0),
+         (.message.usage.cache_read_input_tokens // 0)] | @tsv' 2>/dev/null |
+    awk -F'\t' '!seen[$1]++ {i+=$2;o+=$3;c+=$4;r+=$5} END {printf "%d\\t%d\\t%d\\t%d\\n",i,o,c,r}')" || return 1
+  case "$out" in *$'\t'*$'\t'*$'\t'*) printf '%s\n' "$out" ;; *) return 1 ;; esac
+}
+
+meter_job_session_total() {
+  local u
+  u="$(meter_job_session_usage "$1")" || return 1
+  awk -F'\t' -v cr="${GARDEN_TOKEN_COUNT_CACHE_READ:-0}" '{print $1+$2+$3+((cr==1)?$4:0)}' <<<"$u"
+}
+
+# usage_capture_result <file> <model> <provider-envelope-json>
+# Store only the provider's terminal, cumulative fields.  The handoff is outside
+# the worktree and is never disclosed to the agent prompt.
+usage_capture_result() {
+  local file="$1" model="$2" envelope="$3" row
+  command -v jq >/dev/null 2>&1 || return 1
+  row="$(jq -ce --arg model "$model" '
+    {source:"result"}
+    + (if $model != "" then {model:$model} else {} end)
+    + (if .num_turns != null then {num_turns:.num_turns} else {} end)
+    + (if .duration_ms != null then {elapsed_s:(.duration_ms / 1000 | floor)} else {} end)
+    + (if .usage.input_tokens != null then {input_tokens:.usage.input_tokens} else {} end)
+    + (if .usage.output_tokens != null then {output_tokens:.usage.output_tokens} else {} end)
+    + (if .usage.cache_creation_input_tokens != null then {cache_creation_tokens:.usage.cache_creation_input_tokens} else {} end)
+    + (if .usage.cache_read_input_tokens != null then {cache_read_tokens:.usage.cache_read_input_tokens} else {} end)
+    + (if .total_cost_usd != null then {total_cost_usd:.total_cost_usd} else {} end)' <<<"$envelope" 2>/dev/null)" || return 1
+  printf '%s\n' "$row" > "$file" 2>/dev/null
+}
+
+# usage_capture_rusage <file> <time-output> — merge GNU time's user/sys seconds
+# and maximum resident set into an already captured provider result, best-effort.
+usage_capture_rusage() {
+  local file="$1" timefile="$2" u s rss
+  [ -s "$file" ] && [ -s "$timefile" ] && command -v jq >/dev/null 2>&1 || return 1
+  IFS=$'\t' read -r u s rss < "$timefile" || return 1
+  [[ "$u" =~ ^[0-9]+([.][0-9]+)?$ ]] && [[ "$s" =~ ^[0-9]+([.][0-9]+)?$ ]] && [[ "$rss" =~ ^[0-9]+$ ]] || return 1
+  jq --argjson u "$(awk -v n="$u" 'BEGIN{printf "%d",n*1000}')" \
+     --argjson s "$(awk -v n="$s" 'BEGIN{printf "%d",n*1000}')" --argjson rss "$rss" \
+     '. + {cpu_user_ms:$u,cpu_sys_ms:$s,peak_rss_kb:$rss}' "$file" > "$file.tmp" 2>/dev/null \
+    && mv "$file.tmp" "$file" || { rm -f "$file.tmp"; return 1; }
+}
+
+# usage_ledger_stage_row <clone> <base> <elapsed> <outcome> <measurement-json>
+# Stage one append-only CostRecord.  This is stage-only so a completion can carry
+# its row on the existing completion push while failures use usage-append.sh.
+usage_ledger_stage_row() {
+  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf role row
+  mkdir -p "$dir/usage" || return 1
+  jf="$dir/$JOBS_DOIN/$base.md"; [ -f "$jf" ] || jf="$dir/$JOBS_TADA/$base.md"
+  role="$(plan_role "$jf" 2>/dev/null || true)"
+  case "$elapsed" in ''|*[!0-9]*) elapsed=0 ;; esac
+  if command -v jq >/dev/null 2>&1 && [ -n "$measurement" ] && jq -e . >/dev/null 2>&1 <<<"$measurement"; then
+    row="$(jq -cn --arg ts "$(date -u +%FT%TZ)" --arg base "$base" --arg host "$GARDEN" \
+      --arg gardener "${GARDEN_GARDENER_ID:-}" --arg role "$role" --arg outcome "$outcome" --argjson elapsed "$elapsed" \
+      --argjson measurement "$measurement" '
+        $measurement + {ts:$ts,base:$base,host:$host,outcome:$outcome,elapsed_s:$elapsed}
+        + (if $gardener!="" then {gardener:($gardener|tonumber)} else {} end)
+        + (if $role!="" then {role:$role} else {} end)' 2>/dev/null)" || return 1
+  else
+    row="{\"ts\":\"$(date -u +%FT%TZ)\",\"base\":\"$base\",\"host\":\"$GARDEN\",\"outcome\":\"$outcome\",\"source\":\"none\",\"elapsed_s\":$elapsed}"
+  fi
+  printf '%s\n' "$row" >> "$dir/usage/$base.jsonl" || return 1
+  git -C "$dir" add "usage/$base.jsonl"
+}
+
+# usage_footer <clone> <base> — authoritative, strip-and-regenerate report view.
+usage_footer() {
+  local f="$1/usage/$2.jsonl" summary
+  [ -f "$f" ] || return 0
+  command -v jq >/dev/null 2>&1 || return 1
+  summary="$(jq -sce '
+    reduce .[] as $r ({eng:0, hosts:{}, unmetered:0, unpriced:0, i:0, o:0, cc:0, cr:0, cost:0, wall:0, cpuu:0, cpus:0, rss:0, models:{}};
+      .eng += 1 | .hosts[$r.host] = true |
+      .unmetered += (if (($r.input_tokens? // $r.output_tokens? // $r.cache_creation_tokens? // $r.cache_read_tokens?) == null) then 1 else 0 end) |
+      .unpriced += (if $r.total_cost_usd == null then 1 else 0 end) |
+      .i += ($r.input_tokens // 0) | .o += ($r.output_tokens // 0) | .cc += ($r.cache_creation_tokens // 0) | .cr += ($r.cache_read_tokens // 0) |
+      .cost += ($r.total_cost_usd // 0) | .wall += ($r.elapsed_s // 0) | .cpuu += ($r.cpu_user_ms // 0) | .cpus += ($r.cpu_sys_ms // 0) |
+      .rss = ([.rss, ($r.peak_rss_kb // 0)]|max) | if $r.model then .models[$r.model] = ((.models[$r.model] // 0)+1) else . end)' "$f" 2>/dev/null)" || return 1
+  printf '<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/%s.jsonl; not agent-authored — do not edit -->\n\n' "$2"
+  jq -r '"## Cost\n- Engagements: \(.eng) on \((.hosts|keys|length)) host(s)" + (if .unmetered>0 then " (\(.unmetered) unmetered)" else "" end) +
+    "\n- Input: \(.i) tokens (\(.cr) cached reads)\n- Output: \(.o) tokens\n- Cost: $\(.cost)" + (if .unpriced>0 then " (\(.unpriced) engagement(s) unpriced)" else "" end) +
+    "\n- Wall-clock: \(.wall)s" + (if (.models|length)>0 then "\n- Model(s): \(.models|to_entries|map(.key + " ×" + (.value|tostring))|join(", "))" else "" end)' <<<"$summary"
+  printf '\n<!-- garden-usage-end -->\n'
+}

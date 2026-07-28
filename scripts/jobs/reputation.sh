@@ -211,7 +211,7 @@ rep_read_projection() {
 # --- agentic-dollar rollup (§4.4) --------------------------------------------
 # rep_agentic_dollars <dir> <base> — sum notional dollars for every engagement of
 # <base> from usage/<base>.jsonl (the token-cost-ledger CostRecord; each line a
-# JSON object with a `dollars` number). Prints the summed dollars, or the literal
+# JSON object with a `total_cost_usd` number). Prints the summed dollars, or the literal
 # `censored` when the ledger is absent/unreadable/empty — fail-open, exactly as
 # §2.3 requires (absent usage never blocks completion; the sample is cost-censored
 # and excluded from the dollar mean but still counts toward the acceptance rate).
@@ -223,7 +223,7 @@ rep_agentic_dollars() {
   local dir="${1:?}" base="${2:?}" f="$1/usage/$2.jsonl" sum
   [ -f "$f" ] || { printf 'censored\n'; return 0; }
   sum="$(awk '
-    { if (match($0, /"dollars"[[:space:]]*:[[:space:]]*[0-9.]+/)) {
+    { if (match($0, /"(total_cost_usd|dollars)"[[:space:]]*:[[:space:]]*[0-9.]+/)) {
         s=substr($0,RSTART,RLENGTH); sub(/.*:[[:space:]]*/,"",s); tot+=s+0; n++ } }
     END{ if (n>0) printf "%.6f", tot; else printf "censored" }' "$f" 2>/dev/null)"
   printf '%s\n' "${sum:-censored}"

@@ -331,6 +331,12 @@ while :; do
   # cut mid-response, an unsatisfying run) is requeued, not recorded as done.
   completion_sentinel="$(mktemp "${TMPDIR:-/tmp}/garden-done-$base.XXXXXX")"
   rm -f "$completion_sentinel"
+  # A private code-only handoff from a provider handler.  The agent never sees
+  # this path.  The spine also snapshots the job's own session dirs so a killed
+  # handler (which cannot write the handoff) still gets a deterministic delta.
+  usage_file="$(mktemp "${TMPDIR:-/tmp}/garden-usage-$base.XXXXXX")"
+  rm -f "$usage_file"
+  usage_before="$(meter_job_session_usage "$base" 2>/dev/null || true)"
 
   # Silent-until-error is the default: the happy path emits no claim/complete
   # progress lines (across a ~100-gardener fleet these pairs were the dominant
@@ -447,7 +453,7 @@ while :; do
   # timeout's own group signal.
   set +e
   set -m
-  GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" \
+  GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" GARDEN_USAGE_FILE="$usage_file" \
     timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
     "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
   handler_pgid=$!
@@ -479,6 +485,25 @@ while :; do
   # only ever signals THIS job's own freshly-minted group id, never a peer's (see
   # common.sh). Subshell-guarded so a stray failure cannot abort the gardener loop.
   ( reap_process_group "$handler_pgid" "$GARDEN_HANDLER_REAP_GRACE" ) || true
+
+  # Resolve the capture ladder once, before any branch deletes the report or
+  # session transcript.  Provider terminal usage wins; otherwise subtract the
+  # per-base session snapshots.  A failure at every layer is explicitly recorded
+  # as source:none, never mistaken for a zero-token engagement.
+  elapsed_usage=$((SECONDS - handler_start))
+  if command -v jq >/dev/null 2>&1 && [ -s "$usage_file" ] && jq -e . >/dev/null 2>&1 < "$usage_file"; then
+    usage_measurement="$(cat "$usage_file")"
+  else
+    usage_after="$(meter_job_session_usage "$base" 2>/dev/null || true)"
+    if [[ "$usage_before" =~ ^[0-9]+$'\t'[0-9]+$'\t'[0-9]+$'\t'[0-9]+$ ]] && [[ "$usage_after" =~ ^[0-9]+$'\t'[0-9]+$'\t'[0-9]+$'\t'[0-9]+$ ]] && command -v jq >/dev/null 2>&1; then
+      usage_measurement="$(awk -F'\t' 'NR==1 {for(i=1;i<=4;i++) a[i]=$i} NR==2 {for(i=1;i<=4;i++){d=$i-a[i]; if(d<0)d=0; printf "%s%d", (i==1?"":","),d}}' <(printf '%s\n' "$usage_before") <(printf '%s\n' "$usage_after") | awk -F, '{printf "{\\\"source\\\":\\\"fallback\\\",\\\"input_tokens\\\":%s,\\\"output_tokens\\\":%s,\\\"cache_creation_tokens\\\":%s,\\\"cache_read_tokens\\\":%s}", $1,$2,$3,$4}')"
+    else
+      usage_measurement='{"source":"none"}'
+    fi
+  fi
+  append_usage() { # <tada|requeue|fail>; isolated by every caller
+    "$HERE/usage-append.sh" "$base" "$elapsed_usage" "$1" "$usage_measurement" >/dev/null 2>&1 || true
+  }
 
   # PRODUCTIVE-CYCLE detection. For any NON-completion outcome (the job is about to be
   # left in doin for the reaper to requeue), decide whether the handler made real
@@ -528,12 +553,13 @@ while :; do
     # doin and the reaper requeues it after GARDEN_CLAIM_TTL; the handler's work
     # is idempotent on re-claim. Any other non-zero is still a real failure.
     set +e
-    GARDEN_JOB_DURATION_SECS=$((SECONDS - handler_start)) \
+    GARDEN_JOB_DURATION_SECS=$elapsed_usage GARDEN_ENGAGEMENT_USAGE="$usage_measurement" \
       "$HERE/complete-job.sh" "$id" "$base" "$report"; crc=$?
     set -e
     if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+      append_usage requeue
       log "offline during completion of '$base' (rc=$crc); left in doin for TTL requeue"
-      rm -f "$report" "$capture" "$completion_sentinel"
+      rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
       idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
       continue
     fi
@@ -544,6 +570,7 @@ while :; do
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
     fi
   elif [ "$hrc" -eq 0 ]; then
+    append_usage requeue
     # EXIT-0-UNSATISFYING: the handler exited 0 but the completion sentinel is
     # absent — it NEVER signaled completion — a `claude` that exited cleanly
     # without finishing: quota/usage cut mid-response, an API error swallowed to a
@@ -674,7 +701,7 @@ while :; do
       fi
     fi
 
-    rm -f "$report" "$capture" "$completion_sentinel"
+    rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
     # Transient (quota/API/clean-but-unfinished): feed the SHARED fleet brake and
     # apply the PER-WORKER failure backoff so this just-failed worker does not
     # instantly re-claim and re-run against the same exhausted quota. Cadence only
@@ -856,6 +883,7 @@ while :; do
     fi
 
     if [ "$transient" -eq 1 ]; then
+      append_usage requeue
       # Fold the reaper's already-present requeue-cycle count (the
       # `<!-- garden-reaped: N -->` marker on $jobfile) into the note so a job that
       # dies the SAME transient way every cycle is greppable in the journal NOW,
@@ -1104,6 +1132,7 @@ while :; do
       fi
       idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
     else
+      append_usage fail
       # --- real failure: escalate the diagnostic output by hash -----------------
       # Defensive: $capture is non-empty here (the transient branch absorbed the
       # empty case), but keep the synthesize-if-empty guard so a future change to
@@ -1127,5 +1156,5 @@ while :; do
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
     fi
   fi
-  rm -f "$report" "$capture" "$completion_sentinel"
+  rm -f "$report" "$capture" "$completion_sentinel" "$usage_file"
 done

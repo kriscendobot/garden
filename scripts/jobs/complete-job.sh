@@ -106,6 +106,16 @@ for attempt in $(seq 1 100); do
   sync_clone "$DIR"
   mkdir -p "$DIR/$JOBS_TADA"
   cp "$report" "$DIR/$JOBS_TADA/$base.md"
+  # The final engagement rides this same completion CAS.  Only append while the
+  # doin claim exists: a retry after a successful transition must re-stamp the
+  # view but never duplicate a CostRecord.
+  if [ -e "$DIR/$JOBS_DOIN/$base.md" ] && [ -n "${GARDEN_ENGAGEMENT_USAGE:-}" ]; then
+    usage_ledger_stage_row "$DIR" "$base" "${GARDEN_JOB_DURATION_SECS:-0}" tada "$GARDEN_ENGAGEMENT_USAGE" || true
+  fi
+  # An agent can copy a stale/fake block into its report.  Strip it wholesale and
+  # derive the replacement exclusively from the external journal ledger.
+  sed -i '/<!-- garden-usage-begin:/,/<!-- garden-usage-end -->/d' "$DIR/$JOBS_TADA/$base.md"
+  usage_footer "$DIR" "$base" >> "$DIR/$JOBS_TADA/$base.md" 2>/dev/null || true
   git -C "$DIR" add "$JOBS_TADA/$base.md"
 
   # --- reputation event (design §4.5) -----------------------------------------
