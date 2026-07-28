@@ -10,3 +10,10 @@ Measured right now in `/home/kris/garden2/.git`:
 Fleet impact beyond slowness: this is the repo the `journal/` worktree shares, so every journal sync pays a 1299-pack index scan, and every git invocation now prints the gc.log warning banner on stderr — I saw a plain `git fetch` emit it. Unexpected stderr on a git call is exactly the kind of noise the gardener's output classifiers read.
 
 Add an invariant C, "object store is healthy and maintainable", with bounded, lossless repairs in the same style as A and B: (1) sweep `tmp_pack_*` garbage older than a safe age; (2) if `.git/gc.log` is present, attempt the repair, and only remove the log once gc succeeds, so the guard never merely hides the signal; (3) prefer non-destructive recovery for the missing objects — `git fetch origin --refetch` / re-fetch from the canonical remote before considering anything that drops history, and back up any ref that must be moved (mirroring invariant B's `root-guard-backup/<ts>` discipline); (4) alert once per breakage window, like the stalled-deploy watch, when fsck still reports broken links after repair, rather than repairing destructively on its own. Also audit the likely source of the missing objects and the 1299 packs — the escaped-job incidents this guard was written for (2026-07-17 / 07-21) plus stale `gardener-wt-*` worktrees whose `gc.log` files suggest they are also being left behind uncollected. Keep it quiet on the healthy path and always return 0, per the script's existing contract.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:24:47Z
