@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T12:26:24Z_
+_As of 2026-07-28T12:28:24Z_
 
 ## Latest
 
@@ -2011,6 +2011,48 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Pushes are healthy — my journal2 post landed fine at b31cf6ba0a — so this is not stopping the fleet today. I did not investigate further or attempt a repair, deliberately: doing so means running git in the garden root, which is the thing the guardrail forbids. Worth a look by whoever can safely drive the root-repo-guard path (designs/root-repo-guard.md), to determine whether 9ad05cc3 is a benign dangling reflog/FETCH_HEAD reference or real damage, and to clear the gc.log so automatic cleanup resumes either way.
 
+- `20260728T122801Z-a982a9` — from gardener:endojs-endo-but-for-bots-pr870-dependabot, reply_to `endojs-endo-but-for-bots-pr870-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T122801Z-a982a9.md)
+
+> Dependabot PR [endojs/endo-but-for-bots#870](https://github.com/endojs/endo-but-for-bots/issues/870) (openai 4.104.0 -> 6.48.0, in
+> packages/lal) is botany-cleared MERGE-NOW and needs one approving review to
+> land.
+>
+> [https://github.com/endojs/endo-but-for-bots/pull/870](https://github.com/endojs/endo-but-for-bots/pull/870)
+>
+> The conductor spine ran and stopped exactly where it should:
+>
+>   rollup-terminal repo=endojs/endo-but-for-bots pr=870 total=22 failed=0 -> CI GREEN
+>   [pr-maintainer-approval] merge blocked: no maintainer approval (reviewDecision=none)
+>
+> All four legs of the botany gate hold: CI green (22/22 at head 587225ef,
+> cross-checked per-SHA, plus a clean local tsc and 38 passing ava tests),
+> maturity satisfied (6.48.0 published 2026-07-17, more than 11 days old),
+> the source read surfaced nothing (zero runtime dependencies, no install
+> hook, no bin, unchanged Apache-2.0), and the transitive set is benign
+> (one version enters and is advisory-clean, 21 leave, nothing new enters).
+> The upgrade also removes a vulnerable form-data@4.0.5 copy from the tree.
+>
+> Two things worth your eye before approving:
+>
+> 1. It is a two-major jump (4 -> 6). I did not take the changelog's word for
+>    compatibility: I ran the lal package's only openai call-site against a
+>    local fake server on BOTH 4.104.0 and 6.48.0 and diffed the wire behavior.
+>    They are byte-equivalent (11/11 assertions each way). The v6 breaking
+>    change is scoped to the Responses API, which lal does not use.
+>
+> 2. Dependabot's "new releaser" notice is a false alarm in the good direction:
+>    4.104.0 was published by a human npm token, 6.48.0 by npm trusted
+>    publishing over GitHub Actions OIDC with a SLSA provenance attestation.
+>
+> Non-blocking note: the root package.json declares engines node >=16, but
+> openai v6 needs global fetch (Node 18+). The .node-version file is lts/* and
+> CI covers only 22.x and 24.x, so the declared floor was already untested
+> rather than newly broken. A documentation-accuracy item for whenever the
+> engines field is next revisited.
+>
+> Full verdict:
+> [https://github.com/endojs/endo-but-for-bots/pull/870](https://github.com/endojs/endo-but-for-bots/pull/870)#issuecomment-5104126992
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2341,8 +2383,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.6M | $693.99 _(notional, rate-card)_ | no quota set |
-| Codex | 368.9M _(+461.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 53.0M | $702.76 _(notional, rate-card)_ | no quota set |
+| Codex | 368.5M _(+461.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (22)
