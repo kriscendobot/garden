@@ -38,3 +38,10 @@ Comment: https://github.com/kriscendobot/garden/issues/67#issuecomment-510604553
 > no PR opened please do open a PR why didn't you open one in the first place? how do you expect design review to happen? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T15:20:07Z
