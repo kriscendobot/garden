@@ -372,3 +372,12 @@ Inspect via `git -C journal cat-file -p 6828e8c482376fe88dd0903acf9f20fabe2cbb36
 - Context: gardener-2 on ps23: job 'garden-repo-transfer-followthrough' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p f103de5ebad2fb5ee6087d96f00630a2b3895eab`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:23:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 89bce4f4a6a3f10f366c6a3bc27fb68d0315ae00
+- Context: gardener-1 on ps23: job 'gnome-backend-autotune-design' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 89bce4f4a6a3f10f366c6a3bc27fb68d0315ae00`.
