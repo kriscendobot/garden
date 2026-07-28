@@ -101,6 +101,7 @@ enforced it and why, and the review-comment scope decision.
 <!-- garden-productive-cycle -->
 <!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: ps23-garden-f65473ae
