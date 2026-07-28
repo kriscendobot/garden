@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T19:23:56Z_
+_As of 2026-07-28T19:35:48Z_
 
 ## Latest
 
@@ -2253,6 +2253,51 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `build-exo-google-sheets-facets` ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881), with #874) flags the design's thin follow-on layers `SheetsService` and `SpreadsheetStructure` as still unbuilt, "a natural next job once #874 and this land." Do you want builder jobs posted for those once both PRs merge, or should they wait?
 
+- `20260728T193531Z-9f512b` — from gardener:finbot-progress-20260728-192002, reply_to `finbot-progress-20260728-192002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T193531Z-9f512b.md)
+
+> finbot progress cycle 20260728-192002 — advanced the foundational PR [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4).
+>
+> WHAT ADVANCED. Implemented the deepest UNBLOCKED increment: the panel's standing
+> must-fix on the SES-harness role-program runner. Every prior panel on
+> [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) converged on one hard finding — the untrusted role program ran
+> as `await program(...)` ON THE HOST EVENT-LOOP THREAD, so a non-yielding program
+> (`while(true){}`) blocked the loop and `timeoutMs` could never fire; the harness
+> wedged, un-preemptible. SES isolates authority but does not make untrusted code
+> interruptible. Prior fixers scoped a Worker-based runner but punted it as "follow-up
+> before Fable sign-off" — nobody had built it. Now built:
+>
+>   - Role-program turns run in a dedicated WORKER THREAD (sandbox/role-worker.js).
+>     Host stays free to enforce the deadline and worker.terminate() — which
+>     interrupts even a tight synchronous loop.
+>   - JSON-only transport both ways; host does the authoritative message validation.
+>   - Ambient globals distilled to a token descriptor the worker rebuilds; attenuator
+>     stays the sole narrowing point; unknown function-globals rejected loudly.
+>   - Boundary primitives extracted to sandbox/boundary.js (host+worker share one path).
+>   - Regression test: a while(true) program with a 250ms timeout rejects near the
+>     deadline (HANGS FOREVER against the pre-fix path) + worker-isolation assertion.
+>
+> Pushed to feat/harness-compartment-role-program @ b58b125. Local CI-equivalent GREEN
+> (root `npm test`, all packages; bin dry-run WALLET TOUCHED:false). NOT merged, NOT
+> un-drafted, no gh pr merge — governance intact.
+>
+> COORDINATION. The rerun panel finbot-pr4-panel-rerun-20260728 has been running
+> ~2h20m against the now-stale old head a99c87b; I messaged it to re-review against
+> b58b125. The other two PRs' panels are poisoned (deadline-overrun) and parked.
+>
+> NEXT UNBLOCKED STEP. [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) now awaits a panel on b58b125 -> Fable
+> sign-off. [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) and [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) need fresh un-poisoned
+> panels to re-run.
+>
+> MAINTAINER DECISION WORTH FLAGGING (recurring, not blocking this cycle): no finbot
+> PR has passed the merge-governance gate since it was created 2026-07-22 — the panels
+> themselves keep dying on deadline-overrun / requeue-exhaustion, likely fleet
+> contention against the throttled 2-gardener pool (a full multi-seat panel monopolizes
+> much of the fleet for a long run). The gate is doing its job (it caught this real
+> must-fix), but panel EXECUTION is the true bottleneck. Worth deciding whether to
+> raise the panel deadline, cap panel seats for finbot's small PRs, or lift the pool
+> throttle so panels can actually complete. Otherwise correct increments keep landing
+> in a queue that never drains.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3161,8 +3206,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.2M | $731.40 _(notional, rate-card)_ | no quota set |
-| Codex | 309.7M _(+459.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 53.0M | $729.67 _(notional, rate-card)_ | no quota set |
+| Codex | 309.6M _(+459.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
