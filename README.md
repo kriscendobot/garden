@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T21:43:54Z_
+_As of 2026-07-28T21:47:47Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 13s)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool, with push force-with-lease (waiting 4m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -3599,14 +3599,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.4M | $842.34 _(notional, rate-card)_ | no quota set |
-| Codex | 272.7M _(+455.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 55.3M | $848.85 _(notional, rate-card)_ | no quota set |
+| Codex | 272.4M _(+457.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (37)
+### doin (36)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-192002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -3630,7 +3630,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
-- [`fu-build-exo-google-sheets-facets-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-build-exo-google-sheets-facets-2.md) — In the garden repo (kriscendobot/garden), fix skills/local-verify so its test...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
@@ -3645,13 +3644,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3727)
+### tada (3728)
+- [`fu-build-exo-google-sheets-facets-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-build-exo-google-sheets-facets-2.md) — Cost
 - [`improve-root-repo-object-store-health`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-root-repo-object-store-health.md) — Report
 - [`endo-npm-cas-registry-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-130502.md) — Press report — npm-via-CAS registry proxy (tick 2026-07-28 13:05Z, resumed po...
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Cost
 - [`validate-fireworks-job-end-to-end`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/validate-fireworks-job-end-to-end.md) — Report
-- [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-primitives.md) — What I did
-- … and 3722 more
+- … and 3723 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
