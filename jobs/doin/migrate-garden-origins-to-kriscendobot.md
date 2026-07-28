@@ -72,6 +72,7 @@ and do not do it while any host is unmigrated. Background:
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23-garden-f65473ae
