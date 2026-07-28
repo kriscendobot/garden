@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T01:31:32Z_
+_As of 2026-07-28T02:50:09Z_
 
 ## Latest
 
@@ -1343,6 +1343,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T012939Z-e8b935` — from watchdog:foreman-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T012939Z-e8b935.md)
 
 > local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3.6; hermit cannot run 'foreman'. Ensure garden-ollama.service owns the port and pull qwen3.6 into the bot user's store.
+
+- `20260728T024949Z-3486af` — from watchdog:ollama-serve, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T024949Z-3486af.md)
+
+> local inference endpoint http://127.0.0.1:11434/v1 answers but serves no models; refusing to stand down for the foreign listener on 127.0.0.1:11434
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6225,8 +6229,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.1M | $460.35 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+469.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 35.2M | $463.69 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+469.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
