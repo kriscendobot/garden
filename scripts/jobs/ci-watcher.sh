@@ -62,7 +62,7 @@
 # safety.
 #
 # The per-PR I/O is indirected so tests substitute deterministic stubs:
-#   GARDEN_CI_PR_SOURCE <owner/name> <bot-login>  -> TSV: number author head_repo updated_at
+#   GARDEN_CI_PR_SOURCE <owner/name> <bot-login>  -> TSV: number author head_repo updated_at title
 #   GARDEN_CI_ROLLUP    <owner/name> <pr>         -> exit 0 RED / 10 green / 11 none / 12 pending
 #   GARDEN_CI_POST      <basename> <body-file>    (post-job.sh)
 # The bot-author gate, the head-branch-pushable gate, and the is-bot-repo gate live
@@ -331,7 +331,10 @@ fi
 # activity-bound the sweep: a PR untouched beyond GARDEN_CI_ACTIVITY_WINDOW is skipped
 # BEFORE its (GraphQL-heavy) rollup read, so a tick reads a handful of recently-active
 # PRs rather than firing `gh pr view` at every open bot PR and tripping the rate limit.
-while IFS=$'\t' read -r pr author head updated; do
+# The source's trailing `title` column exists for the dependabot-watcher's supersession
+# preflight; read it into a throwaway so it can never be appended onto `updated` and
+# corrupt the activity-window comparison below.
+while IFS=$'\t' read -r pr author head updated _title; do
   [ -n "$pr" ] || continue
   open_prs=$((open_prs+1))
 
