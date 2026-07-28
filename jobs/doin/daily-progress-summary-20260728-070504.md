@@ -60,3 +60,10 @@ scheduler would treat the token as its weekly default.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-28T07:24:22Z
