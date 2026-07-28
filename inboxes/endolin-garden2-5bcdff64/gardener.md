@@ -2991,3 +2991,12 @@ Inspect via `git -C journal cat-file -p 71fc0226e58b4e7bf2c87f5682d9e852e7a18c99
 - Context: gardener-7 on endolin-garden2-5bcdff64: job 'hermit-failure-reputation-followup' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p fba12001f99779d4bc462da0ba6794cacf9458b2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T08:14:04Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6482529ae3b0648ef0831ff1cf7ef0b4d724d3ec
+- Context: gardener-7 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr870-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6482529ae3b0648ef0831ff1cf7ef0b4d724d3ec`.
