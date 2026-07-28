@@ -29,6 +29,7 @@ Add a regression test alongside the existing provisioner fixtures: a slug armed 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
