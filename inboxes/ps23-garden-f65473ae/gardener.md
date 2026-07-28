@@ -273,3 +273,12 @@ Inspect via `git -C journal cat-file -p 025c0a4d4649ba23bb1de9c34cdf13d8835cde7e
 - Context: gardener-2 on ps23-garden-f65473ae: job 'arc-status-daily-20260728-033502' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 5a84fd204de6d601821991f8c3985737ab66a2db`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-28T21:02:38Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: edaffd351eb5cc2f343e56dcb0dcc6ee68213372
+- Context: gardener-4 on ps23-garden-f65473ae: job 'validate-fireworks-job-end-to-end' exit-0-unsatisfying but elapsed near-constant (548,548s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p edaffd351eb5cc2f343e56dcb0dcc6ee68213372`.
