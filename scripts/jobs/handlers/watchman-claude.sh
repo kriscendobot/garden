@@ -39,12 +39,15 @@ $diff
 EOF
 )"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run watchman"
+# Resolve the CLI (PATH, then the known install locations) with a bounded retry,
+# and treat a genuine absence as ENVIRONMENTAL — common.sh § agent-CLI resolution.
+claude_cli="$(claude_bin)" \
+  || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run watchman"
 # --dangerously-skip-permissions: autonomous headless context, no human
 # approver; the default permission gate would deny every tool call. Bypass is
 # the intended fleet posture (operator pre-consents via
 # skipDangerousModePermissionPrompt in ~/.claude). Requires running as non-root.
-out="$(claude -p --dangerously-skip-permissions "$prompt")"
+out="$("$claude_cli" -p --dangerously-skip-permissions "$prompt")"
 
 sent=0; addr=""; body=""
 while IFS= read -r line; do

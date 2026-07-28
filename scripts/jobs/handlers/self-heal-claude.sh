@@ -71,12 +71,15 @@ EOF
 # Run the inner agent. Best-effort: a missing/failed claude must not error this
 # handler in a way that masks the diagnosis attempt.
 out=""
-if command -v claude >/dev/null 2>&1; then
+# Resolved through the shared resolver (PATH, then the known install locations —
+# common.sh § agent-CLI resolution). Single probe, no retry: the diagnosis is
+# best-effort and its absence is a soft skip.
+if claude_cli="$(claude_bin_now)"; then
   # --dangerously-skip-permissions: autonomous headless context, no human
   # approver; matches the rest of the fleet (mentor-claude.sh). Requires non-root.
-  out="$(claude -p --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
+  out="$("$claude_cli" -p --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
 else
-  log "claude not on PATH; cannot diagnose '$context' (blob $sha left for the mentor)"
+  log "claude not found on PATH nor in any known install location; cannot diagnose '$context' (blob $sha left for the mentor)"
   exit 0
 fi
 

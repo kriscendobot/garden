@@ -61,7 +61,10 @@ $changes
 EOF
 )"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot triage $slug"
+# Resolve the CLI (PATH, then the known install locations) with a bounded retry,
+# and treat a genuine absence as ENVIRONMENTAL — common.sh § agent-CLI resolution.
+claude_cli="$(claude_bin)" \
+  || die_environmental "claude CLI not found on PATH nor in any known install location; cannot triage $slug"
 # --dangerously-skip-permissions: autonomous headless context, no human
 # approver; the default permission gate would deny every tool call (the triager
 # needs gh especially). Bypass is the intended fleet posture (operator
@@ -95,7 +98,7 @@ while :; do
   # NB: capture rc in the `else` branch, not via `if ! ...; then rc=$?` — after a
   # `!`-negated pipeline `$?` is the logical negation (0), losing claude's real
   # exit code.
-  if out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$errfile")"; then
+  if out="$("$claude_cli" -p --dangerously-skip-permissions "$prompt" 2>"$errfile")"; then
     break
   else
     rc=$?

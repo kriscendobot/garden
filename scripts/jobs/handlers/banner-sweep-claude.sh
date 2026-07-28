@@ -62,14 +62,17 @@ you removed.
 EOF
 )"
 
-if ! command -v claude >/dev/null 2>&1; then
-  log "claude not on PATH; left banner rules for the archivist juror ($wt)"
+# Resolve the CLI through the shared resolver (PATH, then the known install
+# locations — common.sh § agent-CLI resolution). Single probe, no retry: this
+# pre-pass is best-effort and its absence is a soft skip, not a failure.
+if ! claude_cli="$(claude_bin_now)"; then
+  log "claude not found on PATH nor in any known install location; left banner rules for the archivist juror ($wt)"
   exit 0
 fi
 
 # --dangerously-skip-permissions: autonomous headless context, no human approver;
 # matches the rest of the fleet's *-claude.sh handlers. Best-effort.
-out="$(claude -p --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
+out="$("$claude_cli" -p --dangerously-skip-permissions "$prompt" 2>/dev/null || true)"
 if [ -n "$out" ]; then
   log "swept banner rules in $wt: $(printf '%s' "$out" | tail -n 1 | head -c 200)"
 else

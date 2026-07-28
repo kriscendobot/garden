@@ -799,6 +799,20 @@ while :; do
       if [ "$elapsed" -ge "$(( handler_budget - GARDEN_HANDLER_DEADLINE_EPSILON ))" ]; then
         deadline_overrun=1
       fi
+    elif is_environmental_rc "$rc"; then
+      # An ENVIRONMENTAL failure (rc=GARDEN_ENV_RC/GARDEN_OFFLINE_RC, EX_TEMPFAIL):
+      # the handler could not RUN — its agent CLI was absent from PATH and from every
+      # known install location after a bounded retry (die_environmental, common.sh
+      # § agent-CLI resolution), or the tick lost connectivity. Nothing about the
+      # CLAIMED JOB caused it, so — exactly like the signal-kills and the wall-clock
+      # timeout above — classify it transient BEFORE the capture-content split:
+      # die_environmental deliberately WRITES a diagnostic to the capture, and a
+      # well-explained environmental failure is still not a job defect. This is the
+      # ps23 fix: an in-place `npm install -g @anthropic-ai/claude-code` unlinked
+      # /usr/local/bin/claude for a few seconds and every job claimed in that window
+      # was escalated as a defect in itself. The reaper requeues after the TTL, by
+      # which time the relink has completed.
+      transient=1
     elif [ ! -s "$capture" ]; then
       # Empty output is transient ONLY when $rc is a signal/clean-shutdown code
       # or the offline rc (a `claude -p` killed mid-call). A non-signal,
@@ -885,7 +899,8 @@ while :; do
       case "$constancy_n_g" in ''|*[!0-9]*) constancy_n_g=0 ;; esac
       constancy_applicable=0
       if [ "$constancy_n_g" -ge 2 ] && [ -s "$capture" ] \
-         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc"; then
+         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" \
+         && ! is_environmental_rc "$rc"; then
         constancy_applicable=1
       fi
       # GATE OUT the deadline-overrun path: an rc=124 handler that hit its OWN wall
@@ -993,7 +1008,8 @@ while :; do
       # DEFEATING the outage-cycle poison-pause. So skip the whole early-escalation while the brake is
       # engaged; the outage-cycle hint (above) spares the requeue counter for these cycles.
       if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 2 ] && [ -s "$capture" ] \
-         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" && ! fleet_brake_engaged; then
+         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" \
+         && ! is_environmental_rc "$rc" && ! fleet_brake_engaged; then
         # Prior cycles' elapsed (this clone was synced at claim time, so it holds the
         # prior notes but NOT this cycle's) with the current elapsed appended, then
         # the trailing N-cycle window; require a FULL window before judging constancy.

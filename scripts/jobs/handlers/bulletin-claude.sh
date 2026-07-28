@@ -23,7 +23,10 @@ digest="${1:?usage: bulletin-claude.sh <digest-file>}"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
 role_brief="$GARDEN_ROOT/roles/journalist/AGENT.md"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run journalist"
+# Resolve the CLI (PATH, then the known install locations) with a bounded retry,
+# and treat a genuine absence as ENVIRONMENTAL — common.sh § agent-CLI resolution.
+claude_cli="$(claude_bin)" \
+  || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run journalist"
 
 prompt="$(cat <<EOF
 You are the garden journalist (standing instructions: $common_brief; role brief:
@@ -71,4 +74,4 @@ EOF
 model="$(role_default_model gardener journalist)"
 model_args=()
 [ -n "$model" ] && model_args=(--model "$model")
-claude -p --dangerously-skip-permissions "${model_args[@]}" "$prompt"
+"$claude_cli" -p --dangerously-skip-permissions "${model_args[@]}" "$prompt"

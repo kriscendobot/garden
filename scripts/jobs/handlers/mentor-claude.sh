@@ -63,9 +63,17 @@ EOF
 # follow-up-claude.sh — and a non-`claude`-named stub is required because the
 # fleet sandbox pins the literal `claude` binary, so a PATH shim named `claude`
 # cannot execute).
-: "${GARDEN_MENTOR_CLAUDE:=claude}"
-command -v "$GARDEN_MENTOR_CLAUDE" >/dev/null 2>&1 \
-  || die "$GARDEN_MENTOR_CLAUDE not on PATH; cannot run mentor"
+# An EXPLICIT injection is authoritative and probed as-is; the DEFAULT goes
+# through the shared resolver, which probes PATH then the known install locations
+# with a bounded retry and classifies a genuine absence as ENVIRONMENTAL rather
+# than as a defect in this tick (common.sh § agent-CLI resolution).
+if [ -n "${GARDEN_MENTOR_CLAUDE:-}" ]; then
+  command -v "$GARDEN_MENTOR_CLAUDE" >/dev/null 2>&1 \
+    || die "$GARDEN_MENTOR_CLAUDE not on PATH; cannot run mentor"
+else
+  GARDEN_MENTOR_CLAUDE="$(claude_bin)" \
+    || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run mentor"
+fi
 # --dangerously-skip-permissions: autonomous headless context, no human
 # approver; the default permission gate would deny every tool call. Bypass is
 # the intended fleet posture (operator pre-consents via

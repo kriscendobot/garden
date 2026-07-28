@@ -236,9 +236,15 @@ meter_quota_status() {
 #
 # Caveat: do not pass your own --output-format; meter_claude sets json itself.
 meter_claude() {
+  # Resolve the CLI through the shared resolver (PATH, then the known install
+  # locations — common.sh § agent-CLI resolution) rather than trusting the
+  # inherited PATH; a single probe, since every caller here already treats an
+  # unavailable provider as a soft skip. Falls back to the bare name if this file
+  # is ever sourced without common.sh.
+  local cli; cli="$(claude_bin_now 2>/dev/null || true)"; : "${cli:=claude}"
   if ! command -v jq >/dev/null 2>&1; then
     log "usage-meter: jq absent; running claude UNMETERED (fail-open)"
-    claude -p "$@"
+    "$cli" -p "$@"
     return $?
   fi
   local json rc toks result
@@ -246,7 +252,7 @@ meter_claude() {
   # THE ASSIGNMENT under a caller's `set -e` when claude exits non-zero, so the
   # documented pass-through-with-log branch below was dead code and the caller
   # (foreman-claude.sh) crashed with no output and no diagnostic instead.
-  if json="$(claude -p --output-format json "$@")"; then rc=0; else rc=$?; fi
+  if json="$("$cli" -p --output-format json "$@")"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
     log "usage-meter: claude exited rc=$rc; usage not recorded"
     printf '%s' "$json"

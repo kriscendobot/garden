@@ -93,10 +93,18 @@ EOF
 
 # The inner agent is `claude` by default; tests inject a deterministic stub via
 # GARDEN_FOLLOWUP_CLAUDE so the parse/dispatch/classification path can be driven
-# without a live model.
-: "${GARDEN_FOLLOWUP_CLAUDE:=claude}"
-command -v "$GARDEN_FOLLOWUP_CLAUDE" >/dev/null 2>&1 \
-  || die "$GARDEN_FOLLOWUP_CLAUDE not on PATH; cannot run follow-up"
+# without a live model. An EXPLICIT injection is authoritative and probed as-is
+# (a test stub is either there or the test is broken); the DEFAULT goes through
+# the shared resolver, which probes PATH then the known install locations with a
+# bounded retry and classifies a genuine absence as ENVIRONMENTAL rather than as
+# a defect in this tick (common.sh § agent-CLI resolution).
+if [ -n "${GARDEN_FOLLOWUP_CLAUDE:-}" ]; then
+  command -v "$GARDEN_FOLLOWUP_CLAUDE" >/dev/null 2>&1 \
+    || die "$GARDEN_FOLLOWUP_CLAUDE not on PATH; cannot run follow-up"
+else
+  GARDEN_FOLLOWUP_CLAUDE="$(claude_bin)" \
+    || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run follow-up"
+fi
 
 # Route a rejected/dropped block to the maintainer inbox so a deterministic
 # rejection (or a genuine inner-claude failure) is visible to a human rather than

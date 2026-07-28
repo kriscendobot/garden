@@ -285,6 +285,39 @@ case ":$PATH:" in
   *) export PATH="$GARDEN_BIN:$PATH" ;;
 esac
 
+# --- declare the fleet's PATH tail (the inherited-PATH half of the ps23 outage) -
+#
+# `systemd --user` carries no PATH of its own and no unit under scripts/systemd/
+# sets Environment=PATH, so every fleet worker and timer runs on whatever PATH the
+# user manager happened to inherit when the session started — NOT the login-shell
+# PATH /etc/profile.d/garden.sh builds (Dockerfile § login-shell env), which is
+# what the image's tooling assumes. A worker therefore could not see the go tools
+# or ~/bin, and its `claude` lookup rode on the same accident.
+#
+# APPEND the image's declared tool dirs (plus the two common user-local bin dirs)
+# when they are missing, rather than pinning Environment=PATH in the units: an
+# absolute unit-level pin would silently NARROW the PATH on any host whose session
+# legitimately carries something else (a nvm node, ~/.cargo/bin, /snap/bin) and
+# break the very builds the fleet runs. Appending can only ever ADD, it applies to
+# every fleet entry point that sources this file (workers, timers, watchers), it
+# needs no unit re-render or deploy, and it is EXPORTED so the `claude -p` children
+# and their Bash tool calls inherit it too. The dirs are appended at the TAIL so a
+# deliberately-prepended install still wins. The agent-CLI resolver below is the
+# other half: it probes the known install locations even when PATH misses entirely.
+# The ${HOME:-/nonexistent} default keeps an unset HOME from degenerating into the
+# bare "/bin" / "/go/bin" the plain ${HOME:-} form would produce.
+for _garden_path_dir in \
+    "${HOME:-/nonexistent}/bin" "${HOME:-/nonexistent}/.local/bin" "${HOME:-/nonexistent}/go/bin" \
+    /opt/go-tools/bin /usr/local/go/bin /usr/local/bin /usr/bin
+do
+  [ -n "$_garden_path_dir" ] && [ -d "$_garden_path_dir" ] || continue
+  case ":$PATH:" in
+    *":$_garden_path_dir:"*) : ;;                       # already present
+    *) export PATH="$PATH:$_garden_path_dir" ;;
+  esac
+done
+unset _garden_path_dir
+
 # --- small utilities ---------------------------------------------------------
 
 # log()/die() emit a leading systemd syslog-level prefix (`<N>`) on the stderr
@@ -641,6 +674,137 @@ require_tools() {
   alert_maintainer "missing-tools-${GARDEN}" "$msg"
   die "$msg"
 }
+
+# --- agent-CLI resolution (the ps23 `claude not on PATH` outage) --------------
+#
+# Every claude-driving handler used to open with a bare
+# `command -v claude >/dev/null || die` — a SINGLE probe of the INHERITED PATH,
+# with zero tolerance, whose failure `die`s rc=1 and reads to gardener.sh as a
+# deterministic defect in whatever job happened to be claimed at that instant.
+# Two independent things make that shape wrong:
+#
+#   1. THE PATH IS NOT DECLARED. The image installs the CLI at /usr/local/bin/claude
+#      (npm -g under the /usr/local prefix), but a `systemd --user` unit carries no
+#      Environment=PATH, so the fleet runs on whatever PATH the user manager
+#      happened to inherit at login. A native-installer or nvm/npm-prefix install
+#      lands somewhere else entirely ($HOME/.local/bin, $HOME/.claude/local). The
+#      resolver below therefore probes PATH FIRST (so a test stub or a deliberate
+#      operator install on PATH still wins) and then the KNOWN install locations.
+#   2. AN ABSENCE IS OFTEN MOMENTARY. An in-place `npm install -g
+#      @anthropic-ai/claude-code` (the image's CLAUDE_CODE_MIN floor upgrade, or an
+#      operator upgrading a live container) UNLINKS the global bin for a window of
+#      seconds. A single probe landing in that window is not evidence the CLI is
+#      gone. The resolver retries, bounded, before concluding absence.
+#
+# When it does conclude absence, the caller exits GARDEN_ENV_RC — an ENVIRONMENTAL
+# failure, not a job defect (see die_environmental / is_environmental_rc below).
+: "${GARDEN_AGENT_BIN_ATTEMPTS:=5}"   # bounded probes before declaring the CLI absent
+: "${GARDEN_AGENT_BIN_SLEEP:=3}"      # seconds between probes (the npm -g relink window)
+# EX_TEMPFAIL, the SAME code as GARDEN_OFFLINE_RC (an offline tick is one species of
+# environmental failure) — named separately so a handler's intent reads clearly at
+# the exit site and so the two can be tuned apart if that ever becomes necessary.
+: "${GARDEN_ENV_RC:=75}"
+
+# agent_bin_candidates <name> — the known install locations for an agent CLI,
+# probed IN ORDER after PATH. Every entry is a path a real install has been seen
+# at; an empty-prefix entry (e.g. NVM_BIN unset) is skipped by the probe.
+#   /usr/local/bin     the image's npm -g prefix (Dockerfile), the fleet's normal home
+#   /usr/bin           a distro/system-wide install
+#   ~/.local/bin       the native installer's default, and pipx/pip --user
+#   ~/.claude/local    Claude Code's own local-install location (`claude migrate-installer`)
+#   $NVM_BIN           an nvm-managed node whose global bin is version-scoped
+#   ~/.npm-global/bin, ~/.node/bin, ~/bin   common hand-set npm prefixes
+agent_bin_candidates() {
+  local name="${1:?agent_bin_candidates: name required}"
+  printf '%s\n' \
+    "/usr/local/bin/$name" \
+    "/usr/bin/$name" \
+    "${HOME:-}/.local/bin/$name" \
+    "${HOME:-}/.claude/local/$name" \
+    "${NVM_BIN:-}/$name" \
+    "${HOME:-}/.npm-global/bin/$name" \
+    "${HOME:-}/.node/bin/$name" \
+    "${HOME:-}/bin/$name"
+}
+
+# agent_bin_probe <name> — ONE resolution pass. Prints an absolute (or PATH-resolved)
+# command to stdout and returns 0; returns 1 if the CLI is nowhere to be found.
+# Order: explicit operator override (GARDEN_<NAME>_BIN, e.g. GARDEN_CLAUDE_BIN) →
+# PATH → the candidate list. No retry, no sleep — callers that can afford to wait
+# use agent_bin (below); a soft-skip caller uses this directly.
+agent_bin_probe() {
+  local name="${1:?agent_bin_probe: name required}" resolved cand override_var
+  # Built-in case conversion, NOT `printf | tr`: this function must resolve an
+  # agent CLI even when PATH is so broken that no external command runs at all.
+  override_var="GARDEN_${name^^}_BIN"
+  override_var="${override_var//-/_}"
+  resolved="${!override_var:-}"
+  if [ -n "$resolved" ]; then
+    # An override is AUTHORITATIVE and FAIL-CLOSED: honor it when it is runnable,
+    # and FAIL when it is not, rather than silently running a different binary than
+    # the operator named. A typo'd knob must surface as a loud environmental
+    # failure (transient requeue + this log line), never as work quietly done by
+    # the wrong agent. Note `[ -x ]` also correctly rejects a path on a noexec
+    # mount, which is exactly what the caller means by "runnable".
+    if [ -x "$resolved" ] || command -v "$resolved" >/dev/null 2>&1; then
+      printf '%s\n' "$resolved"; return 0
+    fi
+    log "$override_var=$resolved is not runnable; refusing to fall back to another binary"
+    return 1
+  fi
+  if resolved="$(command -v "$name" 2>/dev/null)" && [ -n "$resolved" ]; then
+    printf '%s\n' "$resolved"; return 0
+  fi
+  while IFS= read -r cand; do
+    case "$cand" in ''|/"$name") continue ;; esac   # skip an empty-prefix candidate
+    [ -x "$cand" ] || continue
+    printf '%s\n' "$cand"; return 0
+  done < <(agent_bin_candidates "$name")
+  return 1
+}
+
+# agent_bin <name> [attempts] [sleep-secs] — resolve with a BOUNDED retry, so a
+# momentary absence (an in-place `npm install -g` unlinking the global bin) is not
+# mistaken for a missing install. Prints the resolved command; returns 1 only after
+# every attempt has failed.
+agent_bin() {
+  local name="${1:?agent_bin: name required}"
+  local attempts="${2:-$GARDEN_AGENT_BIN_ATTEMPTS}" nap="${3:-$GARDEN_AGENT_BIN_SLEEP}"
+  local n=1 resolved
+  case "$attempts" in ''|*[!0-9]*) attempts=1 ;; esac
+  [ "$attempts" -lt 1 ] && attempts=1
+  case "$nap" in ''|*[!0-9]*) nap=0 ;; esac
+  while :; do
+    if resolved="$(agent_bin_probe "$name")"; then
+      [ "$n" -gt 1 ] && log "$name resolved to $resolved on probe $n/$attempts (the absence was momentary)"
+      printf '%s\n' "$resolved"
+      return 0
+    fi
+    [ "$n" -ge "$attempts" ] && break
+    log "$name not on PATH nor in any known install location; re-probing in ${nap}s ($n/$attempts)"
+    if [ "$nap" -gt 0 ]; then sleep "$nap"; fi
+    n=$((n + 1))
+  done
+  return 1
+}
+
+# claude_bin [attempts] [sleep-secs] — the agent CLI every claude handler drives.
+# Usage at a call site that CANNOT proceed without it:
+#     cli="$(claude_bin)" || die_environmental "cannot run <x>: the claude CLI …"
+# Note the command substitution: die_environmental must run in the PARENT shell,
+# so `exit` actually leaves the handler. A soft-skip caller uses claude_bin_now.
+claude_bin()     { agent_bin claude "$@"; }
+claude_bin_now() { agent_bin_probe claude; }
+
+# die_environmental <msg> — the handler cannot run because its ENVIRONMENT is
+# broken (the agent CLI is absent, a required runtime vanished), NOT because the
+# claimed job is defective. Exits GARDEN_ENV_RC (EX_TEMPFAIL) so:
+#   * gardener.sh classifies it TRANSIENT (is_environmental_rc) — one progress
+#     note, no kind:error against an innocent job, left in doin for the reaper;
+#   * a timer-driven handler under self-heal-run.sh exits CLEAN (that wrapper
+#     already normalizes EX_TEMPFAIL) and burns no self-heal responder.
+# The message still goes to the capture, so the environmental cause is diagnosable.
+die_environmental() { log "ENVIRONMENT: $*"; exit "${GARDEN_ENV_RC:-75}"; }
 
 # alert_maintainer <dedup-key> <message> — best-effort, THROTTLED escalation to
 # the maintainer inbox. Used by require_tools and the watchers' silent-output
@@ -2184,6 +2348,30 @@ is_external_kill_rc() {
 is_handler_timeout_rc() {
   case "$1" in
     124) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# Classify a handler exit code ($1) as an ENVIRONMENTAL failure: the handler could
+# not run because its ENVIRONMENT was broken — the agent CLI was absent from PATH
+# and from every known install location (die_environmental, common.sh § agent-CLI
+# resolution), or a tick lost connectivity (GARDEN_OFFLINE_RC). Returns 0 for
+# GARDEN_ENV_RC / GARDEN_OFFLINE_RC (both EX_TEMPFAIL 75 by default), 1 otherwise.
+#
+# This is the THIRD capture-content-INDEPENDENT transient class, alongside the
+# signal-kills (is_external_kill_rc) and the wall-clock timeout
+# (is_handler_timeout_rc), and for the same reason: nothing about the CLAIMED JOB
+# caused it, so it must never be escalated as a defect in the job that happened to
+# be claimed at that moment (the ps23 outage — an in-place `npm install -g` that
+# unlinked /usr/local/bin/claude for a few seconds `die`d rc=1 with a diagnostic in
+# the capture, which read as a real, job-specific failure). Capture content is
+# irrelevant precisely BECAUSE die_environmental writes a diagnostic: the whole
+# point is that a well-explained environmental failure is still not a job defect.
+# is_transient_empty_failure already covers the EMPTY-capture case for the same
+# code; this covers it regardless of output.
+is_environmental_rc() {
+  case "$1" in
+    "${GARDEN_ENV_RC:-75}"|"${GARDEN_OFFLINE_RC:-75}") return 0 ;;
     *) return 1 ;;
   esac
 }

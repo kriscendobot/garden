@@ -178,11 +178,19 @@ fi
 # The job runs with cwd = $worktree (a subshell `cd`), so every relative path the
 # gardener touches lands in its own worktree. The report path is absolute (gardener.sh
 # mktemp), so the redirect is unaffected by the cd.
-command -v claude >/dev/null 2>&1 \
-  || die "claude not on PATH; cannot run default gardener handler for '$base'"
+#
+# Resolve the CLI rather than trusting the inherited PATH, and treat a momentary
+# absence as environmental, not as a defect in this job: a `systemd --user` unit
+# carries no declared PATH, and an in-place `npm install -g` unlinks the global bin
+# for seconds (common.sh § agent-CLI resolution — claude_bin retries, probes the
+# known install locations, and die_environmental exits EX_TEMPFAIL so gardener.sh
+# requeues the job instead of escalating it). The substitution must stay OUTSIDE
+# die_environmental so its `exit` leaves the handler, not a subshell.
+claude_cli="$(claude_bin)" \
+  || die_environmental "claude CLI not found on PATH nor in any known install location after ${GARDEN_AGENT_BIN_ATTEMPTS} probes; cannot run default gardener handler for '$base'"
 
 set +e
-( cd "$worktree" && claude -p --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$report"
+( cd "$worktree" && "$claude_cli" -p --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$report"
 rc=$?
 set -e
 

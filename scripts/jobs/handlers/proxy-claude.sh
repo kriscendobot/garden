@@ -35,7 +35,10 @@ digest="${1:?usage: proxy-claude.sh <digest-file>}"
 role_brief="$GARDEN_ROOT/roles/proxy/AGENT.md"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run proxy"
+# Resolve the CLI (PATH, then the known install locations) with a bounded retry,
+# and treat a genuine absence as ENVIRONMENTAL — common.sh § agent-CLI resolution.
+claude_cli="$(claude_bin)" \
+  || die_environmental "claude CLI not found on PATH nor in any known install location; cannot run proxy"
 
 # A question whose text touches a maintainer-reserved topic is never proxied,
 # even if the inner agent is talked into it.
@@ -115,7 +118,7 @@ EOF
   # approver; the default permission gate would deny every tool call. Bypass is
   # the intended fleet posture (operator pre-consents via
   # skipDangerousModePermissionPrompt in ~/.claude). Requires running as non-root.
-  out="$(claude -p --dangerously-skip-permissions "$prompt")"
+  out="$("$claude_cli" -p --dangerously-skip-permissions "$prompt")"
   verdict="$(printf '%s\n' "$out" | grep -m1 -E '^(ANSWER|DEFER)$' || true)"
   if [ "$verdict" = "ANSWER" ]; then
     reply="$(printf '%s\n' "$out" | awk '/^ANSWER$/{f=1;next} /^ENDANSWER$/{f=0} f')"

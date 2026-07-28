@@ -201,7 +201,11 @@ foreman_anthropic_attempt() { # <prompt>
     log "foreman anthropic provider skipped: configured Claude quota is at its high-water mark"
     return 10
   fi
-  command -v claude >/dev/null 2>&1 || { log "foreman anthropic provider unavailable: claude not on PATH"; return 10; }
+  # Resolved through the shared resolver (PATH, then the known install locations —
+  # common.sh § agent-CLI resolution); single probe, since an unavailable provider
+  # is a soft skip that falls through to the next configured provider. meter_claude
+  # resolves the same way at its own call site.
+  claude_bin_now >/dev/null 2>&1 || { log "foreman anthropic provider unavailable: claude not found on PATH nor in any known install location"; return 10; }
   set +e
   meter_claude --dangerously-skip-permissions "$prompt"
   rc=$?
