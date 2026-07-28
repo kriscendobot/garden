@@ -19,9 +19,4 @@ obvious blunders in the hermit setup/harness that make even trivial jobs fail.
   (you may start ollama locally in your worktree) WITHOUT re-enabling fleet hermits.
 Deliverable: a clear verdict (simple job: succeeds/fails + why) + any blunder fixes on main2.
 
----
-claim:
-  host: ps23
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-27T22:33:47Z
+<!-- garden-reaped: 1 -->
