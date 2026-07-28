@@ -786,3 +786,12 @@ Inspect via `git -C journal cat-file -p 9b17d6f29eb60fb6ce81809095b6c8baae698a34
 - Context: gardener-6 on ps23: job 'fix-censored-events-frozen-reputation-arm' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p c5f313d55db4f3409a96cad7ee0a857c34e14e97`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:41:49Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 033e6398ecbf1b5dab1ed139b41bc91a67960e37
+- Context: gardener-7 on ps23: job 'wallclock-cost-proxy-for-censored-arms' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 033e6398ecbf1b5dab1ed139b41bc91a67960e37`.
