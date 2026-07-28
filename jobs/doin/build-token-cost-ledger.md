@@ -98,6 +98,7 @@ frozen as they are now — and the fleet is actively adding lanes (open jobs
 <!-- garden-reaped: 3 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
