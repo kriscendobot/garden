@@ -885,3 +885,12 @@ Inspect via `git -C journal cat-file -p 61c3eca02f00c2ed8923595f352397817c604af2
 - Context: gardener-1 on ps23: job 'finbot-progress-20260728-065010' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 5f569b69f3e43a33365f69ad91d6f31904b883c2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:52:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d8da219698830af2a872b61c174cdacb8bb05e64
+- Context: gardener-1 on ps23: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d8da219698830af2a872b61c174cdacb8bb05e64`.
