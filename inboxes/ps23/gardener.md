@@ -399,3 +399,12 @@ Inspect via `git -C journal cat-file -p 19a689b8f565a66e4fddd84d54e20a6283ad768d
 - Context: gardener-8 on ps23: job 'improve-gardener-claude-bin-resolution' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 628993aaae133d7391f8174e714ebcca12ae1c6f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T03:33:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 941795e78da3fd7dfa03de3bf1064718f07b69fd
+- Context: gardener-3 on ps23: job 'xs2rust-endor-press-20260727-182001' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 941795e78da3fd7dfa03de3bf1064718f07b69fd`.
