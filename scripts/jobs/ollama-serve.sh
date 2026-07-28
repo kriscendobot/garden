@@ -24,6 +24,14 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="ollama-serve"
 OLLAMA_RESTART_BACKOFF_SECONDS="${GARDEN_OLLAMA_RESTART_BACKOFF_SECONDS:-60}"
+# The Ollama binary, pinnable with GARDEN_<NAME>_BIN like every other fleet CLI
+# (common.sh § agent-CLI resolution). A pin is AUTHORITATIVE and FAIL-CLOSED: an
+# unrunnable pin backs off and exits rather than quietly serving with a different
+# binary than the operator named. The knob is also the ONLY way to stage the
+# "Ollama is not installed" precondition in a test — common.sh deliberately APPENDS
+# the image's tool dirs (/usr/local/bin, /usr/bin, …) to PATH, so no test PATH can
+# hide the real Ollama on the hermit hosts where this wrapper actually runs.
+OLLAMA_BIN="${GARDEN_OLLAMA_BIN:-ollama}"
 child_pid=""
 
 back_off() {
@@ -65,13 +73,13 @@ if [ -n "$endpoint_models" ]; then
   alert_maintainer "ollama-model-less-endpoint-${GARDEN}" "$msg"
 fi
 
-if ! command -v ollama >/dev/null 2>&1; then
-  back_off "ollama is not on PATH; a hermit host must ship it (Dockerfile ARG OLLAMA_VERSION) — see context/operations/local-inference-amd.md § 6"
+if ! command -v "$OLLAMA_BIN" >/dev/null 2>&1; then
+  back_off "$OLLAMA_BIN is not on PATH; a hermit host must ship it (Dockerfile ARG OLLAMA_VERSION) — see context/operations/local-inference-amd.md § 6"
   exit 1
 fi
 
 log "starting supervised Ollama endpoint on $OLLAMA_HOST (serves $GARDEN_LOCAL_OLLAMA_URL)"
-ollama serve &
+"$OLLAMA_BIN" serve &
 child_pid="$!"
 
 set +e

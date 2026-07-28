@@ -16,13 +16,6 @@ BIN="$TR/bin"; CTL="$TR/ctl"
 mkdir -p "$BIN" "$CTL"
 ln -s "$HERE/ollama-serve-fake-command.sh" "$BIN/curl"
 ln -s "$HERE/ollama-serve-fake-command.sh" "$BIN/ollama"
-# A missing-binary case uses this deliberately tiny PATH. The wrapper and its mock
-# only need these external commands; excluding every Ollama install directory makes
-# the precondition deterministic even on a host that has Ollama installed.
-ln -s /usr/bin/basename "$BIN/basename"
-ln -s /usr/bin/dirname "$BIN/dirname"
-ln -s /bin/date "$BIN/date"
-ln -s /bin/sleep "$BIN/sleep"
 
 run_wrapper() {
   env PATH="$BIN:$PATH" OLLAMA_TEST_CTL="$CTL" \
@@ -60,15 +53,19 @@ if OLLAMA_TEST_SERVE_STATUS=23 run_wrapper; then status=0; else status=$?; fi
 grep -q 'exited with status 23; waiting 0s' "$CTL/stderr" \
   && ok "failed child receives wrapper backoff" || bad "failed exit did not log backoff"
 
-rm -f "$CTL"/* "$BIN/ollama"
-if env PATH="$BIN" OLLAMA_TEST_CTL="$CTL" GARDEN_ROOT="$TR/root" \
-  GARDEN_LOCAL_OLLAMA_URL="http://127.0.0.1:11434/v1" \
-  GARDEN_OLLAMA_RESTART_BACKOFF_SECONDS=0 "$JOBS/ollama-serve.sh" \
-  >"$CTL/stdout" 2>"$CTL/stderr"; then status=0; else status=$?; fi
+# The "Ollama is not installed" precondition. It CANNOT be staged by narrowing PATH:
+# common.sh deliberately APPENDS the image's tool dirs (/usr/local/bin, /usr/bin, …)
+# to PATH — the ps23 inherited-PATH fix — so on the hermit hosts this wrapper runs on,
+# the host's real Ollama is back on PATH the moment the wrapper sources common.sh and
+# the case launches a REAL `ollama serve` instead. Pin the absence with
+# GARDEN_OLLAMA_BIN, leaving the mock on PATH so this also covers the pin's
+# fail-closed contract: an unrunnable pin must not fall back to another binary.
+rm -f "$CTL"/*
+if GARDEN_OLLAMA_BIN="$TR/no-such-ollama" run_wrapper; then status=0; else status=$?; fi
 [ "$status" -eq 1 ] && ok "missing ollama returns failure only after wrapper backoff" || bad "missing ollama status was $status"
 grep -q 'not on PATH.*waiting 0s' "$CTL/stderr" \
   && ok "missing ollama logs its wrapper backoff" || bad "missing ollama did not log backoff"
-ln -s "$HERE/ollama-serve-fake-command.sh" "$BIN/ollama"
+[ ! -e "$CTL/ollama-calls" ] && ok "an unrunnable ollama pin does not fall back to PATH" || bad "unrunnable pin fell back to another ollama"
 
 rm -f "$CTL"/*
 OLLAMA_TEST_SERVE_SLEEP=30 run_wrapper & wrapper_pid=$!

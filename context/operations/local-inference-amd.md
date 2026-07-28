@@ -593,7 +593,10 @@ endpoint is no longer a hand-run `OLLAMA_IGPU_ENABLE=1 ollama serve &`; it is a
 supervised systemd `--user` unit — `scripts/systemd/garden-ollama.service`, whose
 `ExecStart` is the thin wrapper `scripts/jobs/ollama-serve.sh` (sets the mandatory
 `OLLAMA_IGPU_ENABLE=1` and derives `OLLAMA_HOST` from `GARDEN_LOCAL_OLLAMA_URL` via
-`ollama_serve_host`, so the served and client endpoints cannot drift). Since
+`ollama_serve_host`, so the served and client endpoints cannot drift; the binary it
+execs is `ollama` on PATH unless an operator pins one with `GARDEN_OLLAMA_BIN`, which
+is authoritative and fail-closed — an unrunnable pin backs off and exits rather than
+quietly serving with a different binary). Since
 **2026-07-28** (`d4a40ed9ba`) the image no longer enables the installer-created system
 `ollama.service`, the intent being that exactly one unit owns `:11434` and it is
 `garden-ollama.service`. That is an **image-build-time** change, so it holds only for
