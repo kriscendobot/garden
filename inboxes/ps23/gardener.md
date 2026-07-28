@@ -165,3 +165,12 @@ Inspect via `git -C journal cat-file -p acbb372ce1f0a248b1a103d67341733d48b95d63
 - Context: gardener-6 on ps23: job 'endo-byte-array-press-20260728-004711' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 6155bbf6b4945253a716d88b33a8475e3d0d0100`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:48:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 835b09215e61c20ff51edfe1b3a5af25b6ab93ce
+- Context: gardener-1 on ps23: job 'finbot-progress-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 835b09215e61c20ff51edfe1b3a5af25b6ab93ce`.
