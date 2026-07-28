@@ -2,6 +2,7 @@ In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/pull
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
