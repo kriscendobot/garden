@@ -26,3 +26,10 @@ Also, as the immediate unblock for this specific slug (independent of the code c
 - and remove the now-dead bare clone `worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git` (the tombstone note says to remove the tombstone only after the upstream exists again AND the stale clone is gone).
 
 Add a regression test alongside the existing provisioner fixtures: a slug armed in both sets whose `upstream_exists` stub returns 404 must end up tombstoned with both arming records removed; the same slug with an inconclusive (rc 2) stub must be left untouched.
+
+---
+claim:
+  host: ps23
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T01:03:54Z
