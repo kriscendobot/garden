@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T11:27:34Z_
+_As of 2026-07-28T11:27:53Z_
 
 ## Latest
 
@@ -2325,14 +2325,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $607.79 _(notional, rate-card)_ | no quota set |
-| Codex | 369.2M _(+437.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 46.3M | $607.00 _(notional, rate-card)_ | no quota set |
+| Codex | 369.3M _(+437.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (54)
+### doin (53)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
@@ -2349,7 +2349,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
 - [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
-- [`finbot-progress-20260728-004711`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
@@ -2388,13 +2387,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3655)
+### tada (3656)
+- [`finbot-progress-20260728-004711`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-004711.md) — Completion report — finbot progress cycle 20260728-004711
 - [`improve-follow-up-outage-retry-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-follow-up-outage-retry-budget.md) — Report
 - [`improve-panel-parallel-seat-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-panel-parallel-seat-fanout.md) — Report
 - [`guard-worker-self-disqualify-missing-agent-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/guard-worker-self-disqualify-missing-agent-bin.md) — Report — guard-worker-self-disqualify-missing-agent-bin
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr825-shepherd.md) — Shepherd escalated CI to fixer.
-- [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr866-dependabot.md) — REJECT — reviewed PR #866, posted the structured verdict, and closed it. Scri...
-- … and 3650 more
+- … and 3651 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
