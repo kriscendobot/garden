@@ -831,3 +831,12 @@ Inspect via `git -C journal cat-file -p 083bd15d49e60fae962066406dfcb6e785f3fdd8
 - Context: gardener-6 on ps23: job 'fix-issue-inbox-watcher-test-silent-abort' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 15aba695e4292d56827a69c2733fa2a587727894`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:49:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b832fb17f349b2d63b00d9efcbfc8d1ba9c8e7d5
+- Context: gardener-8 on ps23: job 'guard-worker-self-disqualify-missing-agent-bin' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b832fb17f349b2d63b00d9efcbfc8d1ba9c8e7d5`.
