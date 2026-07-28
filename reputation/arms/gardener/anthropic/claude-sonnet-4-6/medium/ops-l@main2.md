@@ -1,12 +1,12 @@
 kind: gardener
 provider: anthropic
-model: claude-opus-4-8
-thoughtfulness: high
-work_class: build:m
+model: claude-sonnet-4-6
+thoughtfulness: medium
+work_class: ops:l
 target: main2
 attempts: 1
 accepts: 1
-censored: 26
-mean_dollars: 10.403363
+censored: 0
+mean_dollars: 1.510004
 m2: 0.000000
 acceptance_rate: 1.0000

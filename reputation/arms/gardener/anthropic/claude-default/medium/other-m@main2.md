@@ -4,9 +4,9 @@ model: claude-default
 thoughtfulness: medium
 work_class: other:m
 target: main2
-attempts: 13
-accepts: 13
+attempts: 14
+accepts: 14
 censored: 204
-mean_dollars: 4.016057
-m2: 72.270771
+mean_dollars: 4.235888
+m2: 81.066006
 acceptance_rate: 1.0000
