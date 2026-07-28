@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T16:00:51Z_
+_As of 2026-07-28T16:02:40Z_
 
 ## Latest
 
@@ -2716,16 +2716,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.2M | $708.64 _(notional, rate-card)_ | no quota set |
+| Claude | 53.2M | $709.78 _(notional, rate-card)_ | no quota set |
 | Codex | 339.3M _(+466.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (46)
+### doin (45)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`botanist-directional-advisory-rule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/botanist-directional-advisory-rule.md) — Botanist role: make the advisory rule directional, and add the one-open-PR pi...
 - [`build-exo-google-sheets-facets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-exo-google-sheets-facets.md) — build @endo/exo-google-sheets (Phase 2 facets) — STACKED on PR #874
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-byte-array-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260728-130502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -2771,13 +2770,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3687)
+### tada (3688)
+- [`botanist-directional-advisory-rule`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/botanist-directional-advisory-rule.md) — Report
 - [`endojs-endo-but-for-bots-pr881-review-baf7087b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-review-baf7087b.md) — Completion report: endojs-endo-but-for-bots-pr881-review-baf7087b
 - [`fu-deadmail-issue-comment-5105796865-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadmail-issue-comment-5105796865-3.md) — Report
 - [`deadmail-issue-comment-5106045535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5106045535.md) — Report
 - [`deadmail-issue-comment-5105796865`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5105796865.md) — Report — deadmail-issue-comment-5105796865
-- [`endo-vfs-parity-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-130502.md) — Verify-and-stand-down tick — no changes anywhere on the parity surface, no ac...
-- … and 3682 more
+- … and 3683 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
