@@ -237,3 +237,12 @@ Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87
 - Context: gardener-8 on ps23-garden-f65473ae: job 'endo-byte-array-press-20260728-192002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 4c2676379cde96f91802d19e629cb02c6074a0a8`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T19:21:00Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 874326ddf80240643cabf6744a48a8b2ffbb1c63
+- Context: gardener-8 on ps23-garden-f65473ae: job 'endo-sturdyref-press-20260728-192002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 874326ddf80240643cabf6744a48a8b2ffbb1c63`.
