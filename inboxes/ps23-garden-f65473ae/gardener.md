@@ -183,3 +183,12 @@ Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87
 - Context: gardener-3 on ps23-garden-f65473ae: job 'finbot-pr4-panel-rerun-20260728' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 60cf8413ea81b9f1fe0ce1531eb8927e798c9ce3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T17:23:58Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7aa46954ae26004273188a125033ffead5b2da87
+- Context: gardener-5 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr881-review-d23c8dbf' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
