@@ -129,3 +129,12 @@ Inspect via `git -C journal cat-file -p ec6157a2f07834292f2b2166624f663f33bf8c9c
 - Context: gardener-12 on ps23-garden-f65473ae: job 'fix-warm-cache-yarn-install-state' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T17:03:38Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7aa46954ae26004273188a125033ffead5b2da87
+- Context: gardener-3 on ps23-garden-f65473ae: job 'endojs-endo-but-for-bots-pr882-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7aa46954ae26004273188a125033ffead5b2da87`.
