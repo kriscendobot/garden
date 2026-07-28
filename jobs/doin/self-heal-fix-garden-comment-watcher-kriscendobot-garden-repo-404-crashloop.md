@@ -7,3 +7,10 @@ Two-part fix:
 2. **Durable guard against a repo-level 404 crash-loop.** In `scripts/jobs/handlers/comment-source-gh.sh`, distinguish a *definitive repo-level 404* (the repo doesn't exist / no access — every surface returns the "(definitive, ...); not retrying: gh: Not Found (HTTP 404)" signature) from a *transient enumeration failure*. When the repo itself is gone, the current behavior (`note_fetch_failure` → `FETCH INCOMPLETE` → `exit 1` at lines 303–306) is wrong: freezing the cursor and exiting nonzero produces a perpetual systemd restart loop. Instead, on a definitive repo-not-found verdict, the source should deactivate the target gracefully — log it, `alert_maintainer` **once** (idempotent key like `comment-watch-repo-gone-<slug>`, mirroring `triager.sh:133`), and exit **0** (or auto-write the `watch-optout/<slug>` tombstone) — never crash-loop. Apply the same repo-existence preflight in `scripts/jobs/fork-watch-provisioner.sh` (it currently maps any local bare clone with a listed owner into the watch set with **no** `gh api repos/<repo>` existence check — see grep: no `exist`/`404` guard before arming), so a bare clone whose `origin` 404s is skipped with a warning rather than arming a doomed watcher. Cover with a case in `scripts/jobs/test/comment-watcher-test.sh` asserting a repo-level 404 exits 0 (deactivated) rather than 1 (crash-loop).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: ps23
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-28T04:53:39Z
