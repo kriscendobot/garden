@@ -109,3 +109,10 @@ to render the terminal verdict.
 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-28T08:02:17Z
