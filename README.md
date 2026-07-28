@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T08:48:27Z_
+_As of 2026-07-28T09:28:27Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 53m)
+- [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/pull/705) — feat(agent-tools): git remote push tier — makeGitRemoteTool (fetch/pull/push) (waiting 1h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
@@ -1947,6 +1947,25 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'ebfb-reconcile-xsnap-pending-jobs-861-864' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `20260728T092805Z-68162d` — from follow-up:quarantine, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T092805Z-68162d.md)
+
+> The garden-follow-up handler failed 5 consecutive ticks on the SAME pending set of tada reports (ceiling GARDEN_FOLLOWUP_MAX_RETRIES=5). Quarantining them now (advancing the seen-marker) so they stop re-running `claude -p` every cadence and stop re-triggering the self-heal responder. Inspect the digest below and re-post the work manually if it is still wanted.
+>
+> ===== QUARANTINED REPORTS =====
+> jobs/tada/guard-worker-self-disqualify-missing-agent-bin.md
+>
+> ===== FOLLOW-UP DIGEST =====
+> ===== REPORT guard-worker-self-disqualify-missing-agent-bin =====
+>
+> 1. **`run-test.sh` has 30 pre-existing failures on `main2`.** They are environmental/unrelated (sandbox has no network for `github.com:kriskowal/garden.git`, so the sync_clone corruption-classifier block fails wholesale; a `shellcheck` wrapper subtest; a foreman fill-batch block). Worth a job — right now the suite is red by default, which means it cannot gate anything.
+> 2. **`run-test.sh` hardcodes `TR=/home/kris/.garden-test` and `rm -rf`s it at startup.** Two workers running it concurrently clobber each other. Keying it by PID or job base would fix it.
+> 3. The gate does not free jobs **already stranded in `doin/`** on a broken host — the reaper still owns that, on its TTL. If ps23's 52 claims are still held, they will requeue rather than be released early.
+> ===== END REPORT guard-worker-self-disqualify-missing-agent-bin =====
+>
+>
+> ===== LAST FAILURE SIGNATURE =====
+> <3>09:28:05 [follow-up-claude] FATAL: claude -p failed transiently (rc=1); stderr: <empty>; stdout: You've hit your session limit · resets 10am (UTC) — failing the tick so follow-up.sh retries the digest
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2277,8 +2296,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.5M | $609.11 _(notional, rate-card)_ | no quota set |
-| Codex | 408.1M _(+437.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 46.2M | $606.16 _(notional, rate-card)_ | no quota set |
+| Codex | 386.4M _(+437.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
