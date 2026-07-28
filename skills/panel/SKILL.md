@@ -64,6 +64,19 @@ runnable non-interactively):
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
 | `GARDEN_TRACE` / `GARDEN_TRACE_LOG` | opt-in `set -x` diverted to a file via `BASH_XTRACEFD`. |
 
+Two hook hazards, each paid for once:
+
+- **A `GARDEN_PANEL_SEAT` hook must not read its own block file.** The script runs
+  `seat_review "$seat" > "$block"`, so the shell **truncates** `$GARDEN_PANEL_RUNDIR/round-<r>.<seat>.md`
+  *before* the hook runs. A supervisor replaying already-collected blocks through
+  the real script — the way to get `panel.sh`'s own sensing / aggregation /
+  disposition over seats fanned out concurrently — must `cat` them from a separate
+  **archive** directory. A hook that cats the run dir's own path emits nothing, and
+  the block it was meant to replay is gone (endo-but-for-bots#713 backfill).
+- **Hooks must live under `$GARDEN_SCRATCH`, not `/tmp`.** `/tmp` is `noexec` on
+  the fleet's hosts, so a hook script placed there fails with exit 126
+  (endo-but-for-bots#848 backfill).
+
 ## State
 
 The panel/fixer loop is stateful within one invocation (it iterates rounds), but
