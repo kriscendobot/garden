@@ -15,19 +15,29 @@ and canary — follow it exactly.
 
 ## Hard precondition — check first, and stop if unmet
 
-This job **requires a container carrying `FIREWORKS_API_KEY`**. As of
-2026-07-28 that key was **absent** on `endolin-garden-ece02cb4` (the tmpfs handoff
-`/run/environment.d/60-garden-api-keys.conf` carried only `MOONSHOT_API_KEY`). The
-key can be supplied **only at container creation** — `./garden reset` then
-`FIREWORKS_API_KEY=... ./garden create` — which is a **maintainer act**. No agent
+This job **requires a container carrying `FIREWORKS_API_KEY`**.
+
+**Amended 2026-07-28T07:3xZ by the liaison.** The original text here said the key
+was **absent** on `endolin-garden-ece02cb4`. That was true at 07:15Z and is **no
+longer true**: the container was recreated with the key at 07:20Z, and the liaison
+verified presence-only at 07:3xZ through the tmpfs handoff
+(`/run/environment.d/60-garden-api-keys.conf` now carries both `MOONSHOT_API_KEY`
+and `FIREWORKS_API_KEY`), `systemctl --user show-environment`, and the environments
+of the running workers. So a key-bearing host exists.
+
+Two things this does **not** settle. First, key presence is confirmed on
+`endolin-garden-ece02cb4` **only**; the leader, `endolin-garden2-5bcdff64`, is
+**unverified**, and this job runs wherever a gardener claims it. Second, the key can
+still be supplied **only at container creation** (`./garden reset` then
+`FIREWORKS_API_KEY=... ./garden create`), which is a **maintainer act**. No agent
 may self-provision it, and nothing here should attempt to.
 
-So: verify the key is present on the host you are running on (presence only — never
-its value). If it is absent, **do not** improvise, do not switch providers, and do
-not mark this done. Report the gap to the maintainer inbox, mark the report
-`orchestration-failed: true` so the orchestration's halt policy engages, and stop.
-The survey child was asked to record which host, if any, carries the key — check
-its report.
+So the precondition stands as a **check, not a foregone conclusion**: verify the key
+is present on the host you are actually running on (presence only, never its value).
+If it is absent **there**, do **not** improvise, do not switch providers, and do not
+mark this done. Report the gap to the maintainer inbox naming which host you ran on,
+mark the report `orchestration-failed: true` so the orchestration's halt policy
+engages, and stop.
 
 ## Procedure
 

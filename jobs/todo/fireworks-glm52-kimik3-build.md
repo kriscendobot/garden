@@ -3,8 +3,27 @@
 # Wire GLM 5.2 and Kimi K3 into the fireworker route
 
 Second child of orchestration `fireworks-glm52-kimik3`. Runs **after**
-`fireworks-glm52-kimik3-survey` lands; read that job's `jobs/tada/` report first —
-it carries the wire model ids and the build proposal this job executes.
+`fireworks-glm52-kimik3-survey`, which has landed. Read that job's `jobs/tada/`
+report first.
+
+**Amended 2026-07-28T07:3xZ by the liaison, read this before you start.** The
+survey's `tada/` report is a **thin summary**: it asserts that selectors and
+citations were established but does **not** actually contain the wire model ids.
+The substance it produced is in the ingested library sections, notably
+`library/sections/web--fireworks-serverless-serving-paths--selectors-and-capacity-tradeoffs.md`
+and `library/sections/web--fireworks-text-models--api-models-and-deployments.md`.
+Those record the identifier shapes (base models as
+`accounts/fireworks/models/<id>`, Fast routers as
+`accounts/fireworks/routers/<id>`, dedicated deployments as
+`accounts/<ACCOUNT_ID>/deployments/<DEPLOYMENT_ID>`) and name
+`accounts/fireworks/routers/glm-5p2-fast` among the captured Fast router examples.
+
+**Do not take a captured example as a verified current id.** Note in particular
+that the captured K3-adjacent router example reads `kimi-k2p6-fast`, which is
+**K2.6, not K3**. Establish each id you are about to wire, and if you cannot
+establish one, wire what you can and say plainly in your report which id remains
+unestablished rather than guessing. An invented model id is worse than an
+acknowledged gap.
 
 ## Task
 
@@ -37,10 +56,13 @@ should not pool reputation unless the survey argued otherwise and you agree.
 
 - **No canary in this job** — activation is the next child's, under a key-bearing
   container. Leave the pool at zero.
-- `FIREWORKS_API_KEY` is not required here and is not present on
-  `endolin-garden-ece02cb4`. Write the code so it degrades honestly without a key:
-  a missing key must fail with a clear configuration error, never a silent fallback
-  to another provider.
+- `FIREWORKS_API_KEY` is not required here. (Amended: the key **is** now present on
+  `endolin-garden-ece02cb4` as of 2026-07-28T07:20Z, verified presence-only through
+  the tmpfs handoff, the user manager, and running worker environments. The original
+  "not present" note was written three minutes before the key landed.) You still do
+  not need it: write the code so it degrades honestly without a key, so that a
+  missing key fails with a clear configuration error, never a silent fallback to
+  another provider. Do not read, print, or test against the key value here.
 - **Never** print, log, or commit a key value, an `Authorization` header, or an API
   response body.
 - Run the repo's local checks before pushing — a CI failure is an automation defect,
