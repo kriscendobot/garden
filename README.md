@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:23:19Z_
+_As of 2026-07-28T07:24:47Z_
 
 ## Latest
 
@@ -2076,6 +2076,34 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T071906Z-9c5d90` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T071906Z-9c5d90.md)
 
 > Eight gap drafts from report `endo-npm-cas-registry-press-20260728-065010` are held in draft awaiting your promotion decision in `endojs/endo-but-for-bots`: #857, #859, #860, #873, #875, #876, #877, and the new #878. Separately, the default-conditions policy question on #876 still needs your word before the remaining web-global gaps (`crypto.subtle`, streaming/`fatal` `TextDecoder` fidelity, `encodeInto`) are worth pressing further.
+
+- `20260728T072431Z-c67da0` — from gardener:finbot-progress-20260727-175002, reply_to `finbot-progress-20260727-175002` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260728T072431Z-c67da0.md)
+
+> finbot progress cycle 20260727-175002 — panel gate now RUNNABLE, posted [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) panel
+>
+> State: the pipeline jam from prior cycles is CLEARED. The fleet root is deployed
+> (7e525d50c6) and now contains BOTH panel fixes — 010abbe299 (empty-seat retry) and
+> 6963e506db (CI-sized handler budgets) — that the pre-deploy fleet lacked. So fresh
+> panel jobs run clean instead of getting reaped.
+>
+> Open finbot work: two DRAFT + green + mergeable PRs waiting only on the merge-
+> governance panel gate:
+>   [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) feat(harness): run role programs in SES compartments — head a99c87b9, base main 877fa767
+>   [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) feat(pipeline): inference-driven OBSERVE stage dispatch  — head e889a899, base main 877fa767
+> (Both have advanced past the SHAs in the old poisoned plan jobs.)
+>
+> This cycle: posted ONE fresh un-poisoned panel job, finbot-pr4-panel-20260728, for the
+> deeper foundational harness increment ([kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4)). Did NOT post the
+> [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) panel this cycle on purpose: the gardener pool is throttled to 2
+> for the weekly quota, and two concurrent 28-seat panels would monopolize it. Governance
+> intact — nothing merged/un-drafted; on a passing panel the job hands off to
+> finbot-pr4-fable-signoff (orchestrator, claude-fable-5).
+>
+> Next unblocked step: after [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) clears its panel + Fable sign-off and
+> merges, post the [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) panel (rebasing it onto the new main first if
+> needed). No maintainer decision required — the pipeline is self-converging now that the
+> deploy landed. Only flag: if the quota throttle lifts, both panels could run in parallel
+> to drain the gate faster.
 
 - `poison-arc-status-daily-20260723-030512-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/poison-arc-status-daily-20260723-030512-requeue-exhausted.md)
 
@@ -6958,13 +6986,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.7M | $506.65 _(notional, rate-card)_ | no quota set |
-| Codex | 434.5M _(+412.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 42.8M | $510.73 _(notional, rate-card)_ | no quota set |
+| Codex | 434.5M _(+412.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
-### todo (49)
+### todo (48)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`daily-progress-summary-20260728-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/daily-progress-summary-20260728-070504.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5100277860`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5100277860.md) — Dead-lettered message — pick up its intent
 - [`dependabotany-recheck-endo-but-for-bots-20260728-012002`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260728-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`design-sysop-host-operations-daemon`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/design-sysop-host-operations-daemon.md) — Design the sysop: a per-host daemon that receives and executes host-local
@@ -6983,7 +7010,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr848-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr848-gauntlet-backfill.md) — Backfill: PR #848 was opened non-draft, skipping the panel entirely
-- [`endojs-endo-but-for-bots-pr865-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr865-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #865
 - [`endojs-endo-but-for-bots-pr866-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr866-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #866
 - [`endojs-endo-but-for-bots-pr868-lint-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr868-lint-fix.md) — fixer on endojs/endo-but-for-bots PR #868 (lint break from eslint-plugin-unic...
 - [`endojs-endo-but-for-bots-pr869-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr869-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #869
@@ -6991,6 +7017,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr874-8ed41495`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-8ed41495.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`esheets-supervisor-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/esheets-supervisor-20260728-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`finbot-pr4-panel-20260728`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-progress-20260728-065010`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-censored-events-frozen-reputation-arm`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fix-censored-events-frozen-reputation-arm.md) — Censored-cost events freeze an arm's acceptance statistics forever
 - [`fix-issue-inbox-watcher-test-silent-abort`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/fix-issue-inbox-watcher-test-silent-abort.md) — Symptom
@@ -7015,6 +7042,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (15)
 - [`consolidate-maintainer-inbox-20260727`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/consolidate-maintainer-inbox-20260727.md) — Consolidate the maintainer inbox (weedy: ~260 unread, ~57 poison)
+- [`daily-progress-summary-20260728-070504`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260728-070504.md) — Daily midnight Pacific progress summary
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`dedupe-watchdog-notices-and-fix-triager-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dedupe-watchdog-notices-and-fix-triager-fetch.md) — Watchdog notices flood the maintainer inbox: 147 unread, 94 for one condition
 - [`endo-git-integration-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-004711.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -7023,20 +7051,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`finbot-progress-20260727-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260727-175002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/finbot-progress-20260728-004711.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fireworks-glm52-kimik3-survey`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-survey.md) — Survey Fireworks serving for GLM 5.2 and Kimi K3
 - [`fix-identity-drift-guard-test-inbox-leak`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-identity-drift-guard-test-inbox-leak.md) — identity-drift-guard's test posts REAL maintainer-inbox reports; the hermetic
 - [`improve-fork-watch-provisioner-armed-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fork-watch-provisioner-armed-recheck.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`issue-kriskowal-garden-67`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-67.md) — Issue from dckc on kriskowal/garden #67
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404.md) — scripts/jobs/fork-watch-provisioner.sh
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-repo-404-crashloop.md) — The comment-watcher for kriscendobot/garden crash-loops (systemd restart fore...
 
-### tada (3618)
+### tada (3620)
+- [`fireworks-glm52-kimik3-survey`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fireworks-glm52-kimik3-survey.md) — Survey completed and recorded in jobs/tada/fireworks-glm52-kimik3-survey.
+- [`endojs-endo-but-for-bots-pr865-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr865-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`ocapn-noise-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260728-004711.md) — Completion report — ocapn-noise-press-20260728-004711 (dispatch 23)
 - [`improve-gardener-claude-bin-resolution`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-claude-bin-resolution.md) — Completion report — improve-gardener-claude-bin-resolution
 - [`endojs-endo-but-for-bots-pr269-dependabot`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr269-dependabot.md) — Verdict: MERGE-NOW (technical gate satisfied).
-- [`endo-sturdyref-press-20260728-004711`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260728-004711.md) — SturdyRef press tick complete — a holding tick with one substantive act: the ...
-- [`deadmail-issue-comment-5100304929`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5100304929.md) — Completion report — deadmail-issue-comment-5100304929
-- … and 3613 more
+- … and 3615 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
