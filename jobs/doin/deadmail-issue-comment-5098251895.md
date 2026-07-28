@@ -40,3 +40,10 @@ Comment: https://github.com/kriscendobot/garden/issues/9#issuecomment-5098251895
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T05:13:38Z
