@@ -2,6 +2,7 @@ On `endojs/endo-but-for-bots`, check the CI status of https://github.com/endojs/
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: ps23
