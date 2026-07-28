@@ -96,3 +96,10 @@ Every gardener that pushed after a warm-cache hit while relying on
 so this is a blind spot rather than a silent green -- but it means the
 maintainer's standing "run every lint and test locally before pushing"
 policy has not actually been met by the harness on warm worktrees.
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 12
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:55:49Z
