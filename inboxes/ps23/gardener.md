@@ -750,3 +750,12 @@ Inspect via `git -C journal cat-file -p c1029dd4263d59a7ad5cbd197110590730bcb4a3
 - Context: gardener-2 on ps23: job 'improve-fork-watch-provisioner-armed-recheck' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 58563f9f2b31e99b096539228eb4a54387509c7c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:08:14Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 252a79042f7d958e7d9954e92faeca2f6f859c25
+- Context: gardener-3 on ps23: job 'suffix-github-comments-with-provenance' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 252a79042f7d958e7d9954e92faeca2f6f859c25`.
