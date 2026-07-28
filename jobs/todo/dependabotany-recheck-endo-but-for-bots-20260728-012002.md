@@ -31,9 +31,4 @@ endo-but-for-bots rows, this schedule may be deleted; a future embargo verdict
 re-creates it idempotently per `roles/botanist/AGENT.md` § Autonomous
 disposition.
 
----
-claim:
-  host: ps23
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-28T01:20:20Z
+<!-- garden-reaped: 1 -->
