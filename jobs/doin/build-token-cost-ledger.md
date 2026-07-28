@@ -96,3 +96,10 @@ frozen as they are now — and the fleet is actively adding lanes (open jobs
 - Pushed to `main2` per the garden's own-repo convention (direct push, no PR).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-28T21:03:25Z
