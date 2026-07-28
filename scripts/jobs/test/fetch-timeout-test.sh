@@ -130,15 +130,24 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 5 — sync_clone heals a corrupt local journal clone in two tiers"; hr
-# A corrupt local clone is a repository failure, not an outage. sync_clone heals
-# in two escalating tiers: (1) a cheap in-place repair (rm gc.log + the corrupt
-# remote-tracking ref/reflog/packed-refs line, then re-fetch), and (2) a full
-# atomic re-clone if the repair's re-fetch still fails. Both use a REAL local
-# journal remote for the reset, proving the healed clone is usable. The injected
-# fetch mock reports the production corruption signature on its failing calls and,
-# on success, (re)creates the remote-tracking ref exactly as a real fetch would,
-# so the subsequent `reset --hard origin/journal2` resolves.
+hr; echo "SUBTEST 5 — sync_clone heals a corrupt local journal clone by re-cloning"; hr
+# A corrupt local clone is a repository failure, not an outage. sync_clone heals it
+# by REPLACING the clone through ensure_clone's atomic sibling-temp path, ONCE per
+# invocation: corruption that survives a fresh clone is an upstream problem and must
+# surface rather than spin a re-clone loop. It uses a REAL local journal remote for
+# the reset, proving the healed clone is usable. The injected fetch mock reports the
+# production corruption signature on its failing calls and, on success, (re)creates
+# the remote-tracking ref exactly as a real fetch would, so the subsequent
+# `reset --hard origin/journal2` resolves.
+#
+# HISTORY (why these cases were rewritten, 2026-07-28): this subtest used to assert a
+# TWO-TIER heal — a cheap in-place repair (rm gc.log + the corrupt tracking ref) with
+# a full re-clone only as fallback (7ccfe92e62, 2026-07-20). Later the same day the
+# implementation was deliberately simplified back to always-re-clone (6f8501d8db,
+# 4465b7d45a), and the richer corruption set in run-test.sh SUBTEST 24 was written
+# against THAT contract. Only this file was left asserting the superseded two-tier
+# behavior, so it stayed red. The two suites now agree; run-test.sh SUBTEST 24 is the
+# canonical corruption set (gc.log-only shape, bounded-once, repo-watcher shape).
 CB="$TR/corrupt-journal.git"; CS="$TR/corrupt-seed"; CC="$TR/corrupt-clone"
 git init -q --bare "$CB"
 git init -q "$CS"
@@ -149,10 +158,11 @@ git -C "$CS" -c user.name=test -c user.email=test@localhost commit -q -m seed
 git -C "$CS" remote add origin "$CB"
 git -C "$CS" push -q origin HEAD:journal2
 
-# --- Tier 1: cheap in-place repair (the gardener-6 signature) ----------------
-# fetch #1 fails with a wedged remote-tracking ref + failed-repack; the cheap
-# repair removes gc.log + the corrupt ref, and fetch #2 succeeds WITHOUT a wipe,
-# so the pre-existing poison file must SURVIVE (proving no re-clone ran).
+# --- the gardener-6 signature: one re-clone, then recover --------------------
+# fetch #1 fails with a wedged remote-tracking ref + failed-repack; sync_clone
+# replaces the clone and fetch #2 (against the fresh clone) succeeds. The
+# pre-existing poison file must be GONE — proof the clone was replaced, not
+# patched — and exactly 2 fetches ran.
 git clone -q --single-branch --branch journal2 "$CB" "$CC"
 touch "$CC/poisoned-before-reclone"
 printf 'bad gc\n' > "$CC/.git/gc.log"
@@ -177,17 +187,16 @@ rc=0
 ( export JOURNAL_REMOTE="$CB" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-then-good-fetch"
   sync_clone "$CC" ) >/dev/null 2>&1 || rc=$?
 if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT")" -eq 2 ] && [ -d "$CC/.git" ] \
-   && [ -e "$CC/poisoned-before-reclone" ] && [ ! -e "$CC/.git/gc.log" ]; then
-  ok "sync_clone TIER 1 cheap-repaired a corrupt clone in place (gc.log + ref removed, no re-clone)"
+   && [ ! -e "$CC/poisoned-before-reclone" ] && [ ! -e "$CC/.git/gc.log" ]; then
+  ok "sync_clone re-cloned the corrupt clone and recovered on its one post-reclone fetch"
 else
-  bad "sync_clone TIER 1 repair wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"), poison=$([ -e "$CC/poisoned-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$CC/.git/gc.log" ] && echo present || echo gone))"
+  bad "sync_clone corrupt-clone heal wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"), poison=$([ -e "$CC/poisoned-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$CC/.git/gc.log" ] && echo present || echo gone))"
 fi
 
-# --- Tier 2: full re-clone fallback (repair insufficient) --------------------
-# fetch #1 AND the cheap repair's re-fetch #2 both fail corrupt (a refs/heads +
-# reflog corruption the cheap repair cannot touch), so sync_clone escalates to a
-# full atomic re-clone; fetch #3 (after the fresh clone) succeeds. The pre-existing
-# poison file must be GONE (proving the wipe/re-clone ran), and exactly 3 fetches.
+# --- corruption that SURVIVES the re-clone is bounded to one attempt ---------
+# fetch #1 AND the post-re-clone fetch #2 both report corruption (an upstream or
+# unhealable shape). sync_clone must NOT spin: it re-clones exactly once and then
+# dies loudly. The poison file is gone (the wipe ran) and exactly 2 fetches happen.
 CB2="$TR/corrupt-journal2.git"; CC2="$TR/corrupt-clone2"
 git init -q --bare "$CB2"
 git -C "$CS" push -q "$CB2" HEAD:journal2
@@ -211,10 +220,10 @@ chmod +x "$TR/bin/corrupt-twice-then-good-fetch"
 rc=0
 ( export JOURNAL_REMOTE="$CB2" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-twice-then-good-fetch"
   sync_clone "$CC2" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT2")" -eq 3 ] && [ -d "$CC2/.git" ] && [ ! -e "$CC2/poisoned-before-reclone" ]; then
-  ok "sync_clone TIER 2 re-cloned once when the cheap repair's re-fetch still failed"
+if [ "$rc" -ne 0 ] && [ "$(cat "$CORRUPT_COUNT2")" -eq 2 ] && [ ! -e "$CC2/poisoned-before-reclone" ]; then
+  ok "sync_clone bounded the heal to ONE re-clone on unhealable corruption, then died loud"
 else
-  bad "sync_clone TIER 2 fallback wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT2"), poison=$([ -e "$CC2/poisoned-before-reclone" ] && echo kept || echo gone))"
+  bad "sync_clone re-clone bound wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT2"), poison=$([ -e "$CC2/poisoned-before-reclone" ] && echo kept || echo gone))"
 fi
 
 # A present `.git` is not proof of health. Seed the exact gardener/14 shape:

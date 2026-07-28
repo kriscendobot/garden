@@ -196,7 +196,12 @@ else
   bad "no early-poison overrun counter on the doin job (constancy path did not stamp it; count=$([ -f "$V2/jobs/doin/overrunjob.md" ] && deadline_overrun_count "$V2/jobs/doin/overrunjob.md" || echo n/a))"
 fi
 # (g) the commit reason distinguishes the constancy stamp from a plain wall-hit.
-if git -C "$V2" log --oneline -20 | grep -q "elapsed-constancy deterministic overrun"; then
+# Materialize the log FIRST: under `set -o pipefail` (line 45) a `git log | grep -q`
+# fails even on a match — grep -q exits at the first hit, git dies of SIGPIPE (141),
+# and pipefail promotes that to the pipeline's status. That is why this case read as
+# "commit reason missing" while the very log the failure message printed contained it.
+V2LOG="$TR2/verify-log"; git -C "$V2" log --oneline -20 > "$V2LOG"
+if grep -q "elapsed-constancy deterministic overrun" "$V2LOG"; then
   ok "early-poison stamp carried the elapsed-constancy commit reason (audit trail honest)"
 else
   bad "early-poison stamp commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"

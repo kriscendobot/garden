@@ -1244,6 +1244,32 @@ derive_clone_url() {
   printf '%s/%s/%s.git\n' "$GARDEN_CLONE_URL_BASE" "$owner" "$name"
 }
 
+# Bounded fetch in <dir>. The remaining arguments are passed to `git fetch`, so
+# callers can fetch a named remote/branch or refresh every configured remote.
+# Each attempt has a wall-clock deadline, retries with backoff, and returns the
+# last non-zero status only after the retry budget is spent. This is shared by
+# clone-keeper, the triager and root-repo-guard: a network blip must not leave a
+# timer running until systemd kills it.
+bounded_fetch() {
+  local dir="$1" attempt=1 rc=0
+  shift
+  while :; do
+    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+         git -C "$dir" fetch -q "$@" 2>/dev/null; then
+      return 0
+    else
+      rc=$?
+    fi
+    { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } \
+      && log "fetch $* in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
+    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
+      log "fetch $* in $dir failed after $attempt attempt(s) (last rc=$rc)"
+      return "$rc"
+    fi
+    backoff "$attempt"; attempt=$((attempt+1))
+  done
+}
+
 # Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
 # discipline (git has no IO timeout of its own). We NEVER clone straight into the
 # tracked path: git clone removes its own target on an internal error, but a
@@ -2225,8 +2251,41 @@ _sweep_stale_git_locks() {
 # Ensure a single-branch journal clone exists at $1 and is identity-pinned. The
 # clone + config write is serialized so concurrent producers don't race a cold
 # `git clone` into the same dir or collide on `.git/config`.
+# clone_is_corrupt <dir> -- a cheap local health probe for a present journal
+# clone. A checkout can retain a `.git` directory while its origin tracking ref
+# points at a missing object, so merely testing for `.git` is not enough. gc.log
+# is also an explicit poison marker: git leaves it after a failed maintenance
+# run and may refuse future repacks until it is removed. Re-cloning is safer than
+# trying to reason about the rest of that object database.
+clone_is_corrupt() {
+  local dir="$1"
+  [ -e "$dir/.git/gc.log" ] && return 0
+  git -C "$dir" rev-parse -q --verify "refs/remotes/origin/$JOURNAL_BRANCH^{commit}" >/dev/null 2>&1 || return 0
+  return 1
+}
+
+# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt clone
+# through a sibling temporary directory. The caller holds clone_lock, so the
+# remove/clone/rename sequence cannot race another producer using this clone.
+# The temp is a sibling (same parent, thus same filesystem) so the rename is
+# atomic: the destination only ever appears fully cloned or not at all, never
+# half-populated, so an interrupted clone leaves only a discardable temp behind.
+reclone_clone() {
+  local dir="$1" remote="$2" tmp
+  rm -rf "$dir"
+  mkdir -p "$(dirname "$dir")"
+  tmp="${dir}.tmp.$$"
+  rm -rf "$tmp"
+  if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
+    mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
+  else
+    rm -rf "$tmp"
+    die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
+  fi
+}
+
 ensure_clone() {
-  local dir="$1" remote tmp; remote="$(journal_remote)"
+  local dir="$1" remote; remote="$(journal_remote)"
   clone_lock "$dir"
   if [ ! -d "$dir/.git" ]; then
     # A destination that exists but lacks .git is a POISONED PARTIAL CLONE: a
@@ -2234,26 +2293,17 @@ ensure_clone() {
     # reset aborted mid-flight, a disk hiccup) and left $dir populated without a
     # repo. `git clone` refuses a non-empty destination, so a naive retry would
     # `die` here on EVERY tick forever (observed: 145 identical [unblock] FATALs
-    # over ~12h). Self-heal by clearing the poisoned dir. To ensure a future
-    # interruption can NEVER re-wedge us, clone into a sibling temp path first
-    # and atomically rename into place — the destination only ever appears
-    # fully cloned or not at all, never half-populated, so an interrupted clone
-    # leaves only a discardable temp behind. The temp is a sibling (same parent,
-    # thus same filesystem) so the rename is atomic; we hold clone_lock "$dir"
+    # over ~12h). Self-heal by re-cloning through reclone_clone, which clears the
+    # poisoned dir and lands the fresh clone via an atomic sibling-temp rename so
+    # a future interruption can NEVER re-wedge us; we hold clone_lock "$dir"
     # throughout, so no concurrent producer races the same destination.
     if [ -e "$dir" ]; then
       log "WARN: $dir exists without .git (poisoned partial clone); self-healing by re-cloning"
-      rm -rf "$dir"
     fi
-    mkdir -p "$(dirname "$dir")"
-    tmp="${dir}.tmp.$$"
-    rm -rf "$tmp"
-    if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
-      mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
-    else
-      rm -rf "$tmp"
-      die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
-    fi
+    reclone_clone "$dir" "$remote"
+  elif clone_is_corrupt "$dir"; then
+    log "WARN: $dir has a corrupt clone; self-healing by re-cloning"
+    reclone_clone "$dir" "$remote"
   fi
   _sweep_stale_git_locks "$dir"
   git -C "$dir" config user.name  "$(bot_name)"
@@ -2422,6 +2472,44 @@ journal_fetch() {
 # signature classifies regardless of how the producing tool cased it.
 _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
+}
+
+# Local repository corruption is distinct from a transient transport outage: a
+# retry against the same clone will deterministically fail, but a fresh clone
+# can recover a bad remote-tracking ref or damaged object database. Keep this
+# set separate from GARDEN_OFFLINE_SIGNATURES so an outage never causes an
+# unnecessary re-clone, and corruption never gets silently skipped as offline.
+# Matched case-insensitively for the same cross-version diagnostic variance as
+# the offline classifier above. `invalid sha1 pointer` / `bad ref for` / `broken
+# ref` / `invalid HEAD` / `does not point to a valid object` cover a damaged
+# REF/reflog specifically — both the garden-cleric item-7 remote-tracking case
+# (refs/remotes/origin/journal2 = the null sha 0000…0000 left by an interrupted
+# ref update) AND the repo-watcher local-ref case (a zero-byte loose
+# refs/heads/journal2 shadowing a valid packed-refs entry, with bad
+# .git/logs/{HEAD,refs/…} reflogs): fetch aborts `fatal: bad object refs/…` /
+# `bad ref for …` / `did not send all necessary objects`, and `git fsck` reports
+# `invalid sha1 pointer 0000...0000` / `invalid HEAD`. Either shape re-clones.
+#
+# A second cleric-item-7 shape observed later was a damaged OBJECT DB, not just a
+# ref: a stale `.git/gc.log` blocked every repack and gc, so fetch's implicit
+# maintenance failed with `fatal: failed to run repack` and git refused to gc
+# (`warning: … Please correct the root cause and remove .git/gc.log`). That state
+# emits NO `bad object` line on its own, so without `failed to run repack` /
+# `gc\.log` in the set it slips past the classifier and crash-loops the unit. The
+# re-clone subsumes removing gc.log. `unable to read` is kept generic (not just
+# tree/sha1/object) to catch any `unable to read <path>` the object DB throws;
+# the offline classifier runs FIRST, so a transport `Could not read from remote`
+# is claimed as offline before this set ever sees it.
+: "${GARDEN_CORRUPT_SIGNATURES:=bad object|invalid sha1 pointer|bad ref for|broken ref|invalid HEAD|does not point to a valid object|did not send all necessary objects|unable to read|object file .* is empty|loose object .* is corrupt|packfile .* cannot be accessed|invalid index-pack output|did not receive expected object|failed to run repack|gc\.log|fsck}"
+
+_fetch_stderr_is_corrupt() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_CORRUPT_SIGNATURES"
+}
+
+# Print the first matching corruption signature for an operator-useful repair
+# log. This deliberately shares the classifier's source of truth.
+_fetch_stderr_corrupt_signature() {
+  printf '%s\n' "$1" | grep -ioEm1 "$GARDEN_CORRUPT_SIGNATURES" || true
 }
 
 # Classify captured git-fetch stderr ($1) as a GONE/FORBIDDEN upstream — the
@@ -2634,6 +2722,31 @@ gh_pr_view_retry() {
 # blindly (the 2026-06-27 07:53–08:44 follow-up re-roll loop). Case-insensitive.
 is_transient_claude_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_CLAUDE_SIGNATURES"
+}
+
+# EXPLICIT-CAP subset of the transient signatures: the first-person Claude Code
+# session/usage-cap wordings ("You've hit your session limit …", "usage limit
+# reached", the "resets H:MMam (UTC)" clause). These are definitive statements the
+# CLI prints about ITS OWN quota state, not ambient error text a setup script might
+# echo, so they are trustworthy on CONTENT alone — gardener.sh exempts them from
+# the GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor. The floor's premise ("a genuine cap
+# cannot trip in a couple of seconds") is empirically FALSE for these: a cap
+# rejection is one fast API round trip — on 2026-07-17T00:43:48Z a real cap hit
+# died rc=1 after 2s with "You've hit your session limit · resets 2am (UTC)"
+# (capture blob ac1a1d97f4) and was misclassified a deterministic defect twice,
+# killing a review job and a press claim until the reaper's TTL. The AMBIGUOUS
+# overload-shaped alternatives (overloaded / 429 / 5xx / api error / connection
+# drops — the 2026-07-03 sub-2s echo batch the floor was built for) are NOT in
+# this subset and keep the floor. Matched case-insensitively.
+: "${GARDEN_EXPLICIT_CAP_SIGNATURES:=hit your (session|usage) limit|(session|usage|5-hour) limit (reached|reset)|resets [0-9].*\(utc\)}"
+
+# Classify a failed `claude -p`'s combined output ($1) as carrying an EXPLICIT
+# session/usage-cap statement (returns 0) — transient by content, regardless of
+# how fast the handler died. Callers use this to bypass elapsed-plausibility
+# heuristics; it is a SUBSET refinement of is_transient_claude_signature, never a
+# replacement (anything matching this also matches the transient set).
+is_explicit_cap_signature() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_EXPLICIT_CAP_SIGNATURES"
 }
 
 # Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),
@@ -3238,7 +3351,7 @@ job_cycle_productive() {
 # read-only caller that never pushes releases the lock at process exit (fd close)
 # or on its next sync_clone (clone_lock re-entry).
 sync_clone() {
-  local dir="$1" rc
+  local dir="$1" rc corrupt_sig
   clone_lock "$dir"
   _sweep_stale_git_locks "$dir"
   # `journal_fetch ...; rc=$?` would trip the caller's `set -e` at the call itself
@@ -3265,7 +3378,30 @@ sync_clone() {
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi
-    die "fetch failed in $dir after bounded retries"
+    # A corrupt LOCAL clone cannot recover by retrying unchanged. Replace it
+    # through ensure_clone's atomic sibling-temp clone path, while retaining the
+    # clone lock held by this sync. This branch is deliberately reached once: a
+    # corruption signature from the fresh clone is an upstream problem, not a
+    # reason to spin a re-clone loop.
+    if _fetch_stderr_is_corrupt "$GARDEN_FETCH_STDERR" || [ -e "$dir/.git/gc.log" ]; then
+      corrupt_sig="$(_fetch_stderr_corrupt_signature "$GARDEN_FETCH_STDERR")"
+      log "WARN: $dir corrupt (${corrupt_sig:-stale gc.log}); self-healing by re-cloning"
+      rm -rf "$dir"
+      # ensure_clone re-enters the inherited lock in a subshell and closes only
+      # that subshell's fd, so this sync_clone invocation remains serialized.
+      ( ensure_clone "$dir" )
+      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if [ "$rc" -ne 0 ]; then
+        if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+          log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+          exit "$GARDEN_OFFLINE_RC"
+        fi
+        die "fetch failed in $dir after re-cloning corrupt journal clone"
+      fi
+      log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-stale gc.log})"
+    else
+      die "fetch failed in $dir after bounded retries"
+    fi
   fi
   # The fetch above succeeded, but the hard reset can ITSELF exit 128 on a
   # momentary network/ref inconsistency (a blip racing the local ref update).
@@ -3977,6 +4113,25 @@ orch_failure_policy() {
 # The watcher-managed lifecycle state (pending default before the first tick).
 orch_state() {
   local s; s="$(plan_field "$1" state)"; printf '%s\n' "${s:-pending}"
+}
+
+# Did a job's tada REPORT declare that the job completed WITHOUT achieving its
+# gated outcome? A job can reach tada/ (it finished, its worker exited cleanly)
+# yet decline the very thing a downstream gate keys on — the canonical case is a
+# conductor whose `merge` job correctly REFUSES to merge (CI red, base frozen,
+# ferry-required) but still completes. Such a report carries an explicit failure
+# marker so a dependent is NOT satisfied by the mere completion:
+#   orchestration-failed: true|yes            (or: yes)
+#   orchestration-status: fail…               (halted / failed / fail)
+# Returns 0 when the marker is present, 1 otherwise. This is the SINGLE source of
+# truth for "completed-but-declined", honored by BOTH deterministic serial
+# primitives: the orchestrate watcher (a child that failed → on-child-failure
+# policy) and the unblock watcher (a blocked_on predecessor that declined → do
+# NOT promote; hold for the maintainer). Keep the two in lock-step by reading the
+# same marker here rather than re-spelling the grep in each.
+tada_failed() {
+  grep -qiE '^orchestration-(status:[[:space:]]*fail|failed:[[:space:]]*(true|yes))' \
+    "$1" 2>/dev/null
 }
 
 # Parse an artifact string as a GitHub pull-request reference. On a match prints
