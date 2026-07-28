@@ -37,3 +37,10 @@ only after BOTH a passing panel AND a Fable-orchestrator sign-off — even on ou
 
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-28T12:35:37Z
