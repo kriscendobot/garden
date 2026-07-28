@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-28T07:43:21Z_
+_As of 2026-07-28T07:45:44Z_
 
 ## Latest
 
@@ -1899,13 +1899,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.2M | $520.90 _(notional, rate-card)_ | no quota set |
-| Codex | 427.8M _(+418.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 43.6M | $531.34 _(notional, rate-card)_ | no quota set |
+| Codex | 427.2M _(+420.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (43)
+### todo (44)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
-- [`build-sysop-host-operations-daemon`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/build-sysop-host-operations-daemon.md) — Build the sysop: per-host daemon + host/<GARDEN> bus addressing, per designs/...
+- [`deadmail-20260728T074052Z-b3c391`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-20260728T074052Z-b3c391.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260728T074423Z-6bee53`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/deadmail-20260728T074423Z-6bee53.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr713-gauntlet-backfill`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr713-gauntlet-backfill.md) — Backfill: PR #713 was opened non-draft, skipping the panel entirely
 - [`endojs-endo-but-for-bots-pr825-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr825-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #825
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #836
@@ -1948,7 +1949,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-press-20260727-182001`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-press-20260727-182001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### doin (15)
+### doin (16)
+- [`build-sysop-host-operations-daemon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-sysop-host-operations-daemon.md) — Build the sysop: per-host daemon + host/<GARDEN> bus addressing, per designs/...
 - [`build-token-cost-ledger`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`deadmail-issue-comment-5098251895`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5098251895.md) — Dead-lettered message — pick up its intent
 - [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
