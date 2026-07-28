@@ -840,3 +840,12 @@ Inspect via `git -C journal cat-file -p 15aba695e4292d56827a69c2733fa2a587727894
 - Context: gardener-8 on ps23: job 'guard-worker-self-disqualify-missing-agent-bin' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b832fb17f349b2d63b00d9efcbfc8d1ba9c8e7d5`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:50:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5d46fa9f1b0593d32becf27a26a172e9fcc0e520
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr836-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5d46fa9f1b0593d32becf27a26a172e9fcc0e520`.
