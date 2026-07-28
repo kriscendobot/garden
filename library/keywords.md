@@ -33,3 +33,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - progressive disclosure, incremental context discovery, layer by layer understanding, self-managed context window → progressive-disclosure
 - structured note-taking, agentic memory, NOTES.md, memory tool, notes outside the context window → context-engineering
 - right altitude, Goldilocks prompt altitude, minimal system prompt, smallest set of high-signal tokens → context-engineering
+- atproto, at protocol, bluesky, at:// uri, merkle search tree, MST, DRISL, CAR file, signed commit, PDS, personal data server, subscribeRepos, firehose, operation inversion -> atproto-repository-mst
+- did, DID document, decentralized identifier, did:plc, did:web, did:key, did:webvh, service endpoint, serviceEndpoint, atproto_pds, alsoKnownAs, connection hint for DIDs, location hint -> did-document-service-endpoint
+- content address versus signature, hash versus signature, verify-on-load, what a hash authenticates, attestation by digest, xt, exact topic, magnet xt -> content-address-versus-signature
+- ucan 1.0, ucan/dlg, ucan/inv, powerline, principal alignment, attenuation, subject command policy, varsig, zdpu -> ucan-delegation
