@@ -25,3 +25,10 @@ this won't exercise until re-enabled — build it regardless; it is the measurem
 justifies re-enabling or retiring the local tier per job class.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-28T16:53:19Z
