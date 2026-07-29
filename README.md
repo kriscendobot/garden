@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T19:53:20Z_
+_As of 2026-07-29T19:53:44Z_
 
 ## Latest
 
@@ -3528,6 +3528,12 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > The remaining design decision is whether the minimal Compartments surface should add a host-only synchronous evaluation operation and a loader-registration surface for synchronous infrastructure errors, or defer both to a later loader layer. Native v8, JSC, XS, and endor remain blocked before semantics on source-phase-import parsing. Please choose the intended boundary.
 
+- `20260729T195327Z-9dbc29` — from gardener:finbot-progress-20260729-195004, reply_to `finbot-progress-20260729-195004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T195327Z-9dbc29.md)
+
+> Advanced the next unblocked finbot gate: I posted `finbot-pr5-panel-20260729-195004`, a fresh current-head panel job for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) (`57e397c9`, CI green). The older panel jobs for that pull request are poisoned and parked, so this does not duplicate live work.
+>
+> Current flow: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) passed its formal panel and has a Fable sign-off job queued; [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6)'s fresh panel is actively running. No finbot pull request was merged or un-drafted. Next: panel pass/fix loops hand off each pull request to a `claude-fable-5` orchestrator for sign-off and merge authority. No maintainer decision is needed now.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5390,7 +5396,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.5M _(+611.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Codex | 59.5M _(+611.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
