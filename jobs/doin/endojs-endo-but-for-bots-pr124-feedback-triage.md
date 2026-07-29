@@ -102,3 +102,10 @@ Do **not** re-post work already done.
   only if a real gap remains.
 - The PR is **still draft**, not rebased, not driven toward merge.
 - `tada` report lists the categorised comments and any follow-up posted.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:39:27Z
