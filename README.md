@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T10:06:53Z_
+_As of 2026-07-29T10:07:56Z_
 
 ## Latest
 
@@ -3297,6 +3297,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > endojs/endo-but-for-bots PR [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) is CI-green and mergeable at head b746656b538933e381e5de62f532a62ed671dc96, but the conductor gate found no current APPROVED review on that head. The only maintainer APPROVED review I can read is kriskowal review 4803487425 on prior head fc80e84c2e0e4b67febb803174369363ed51608c. Please add a fresh approval for b746656b538933e381e5de62f532a62ed671dc96, then requeue or promote the merge job.
 
+- `20260729T100717Z-0deea4` — from gardener:endojs-endo-but-for-bots-pr723-conduct, reply_to `endojs-endo-but-for-bots-pr723-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T100717Z-0deea4.md)
+
+> Rechecked [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) after the requeue. It is still CI-green and mergeable at head b746656b538933e381e5de62f532a62ed671dc96, but the current-maintainer-approval gate still fails: no APPROVED review exists on that head. The only maintainer APPROVED review remains kriskowal review 4803487425 on prior head fc80e84c2e0e4b67febb803174369363ed51608c. I cannot merge until a fresh approval lands on b746656b538933e381e5de62f532a62ed671dc96.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4821,7 +4825,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.1M | $805.09 _(notional, rate-card)_ | no quota set |
-| Codex | 71.0M _(+544.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 71.0M _(+544.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (26)
