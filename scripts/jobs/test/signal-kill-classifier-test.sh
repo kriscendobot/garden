@@ -31,6 +31,19 @@ ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 hr()  { echo "----------------------------------------------------------------"; }
 
+# The deliberate-deploy gate unpacks its candidate below /tmp, which is noexec on
+# garden hosts.  This integration test starts child scripts directly, so stage the
+# candidate's jobs tree under the executable per-user state area first.  This keeps
+# the test representative of the candidate without weakening the production
+# noexec mount discipline.
+EXEC_PARENT="${GARDEN_TEST_EXEC_PARENT:-$HOME/.garden-state/candidate-tests}"
+mkdir -p "$EXEC_PARENT"
+EXEC_ROOT="$(mktemp -d "$EXEC_PARENT/signal-kill.XXXXXX")"
+mkdir -p "$EXEC_ROOT/scripts/jobs"
+cp -a "$JOBS/." "$EXEC_ROOT/scripts/jobs/"
+JOBS="$EXEC_ROOT/scripts/jobs"
+HERE="$JOBS/test"
+
 # Scrub ambient fleet env (a live gardener running this test as a board job would
 # otherwise splice its own GARDEN_*/JOURNAL_*/SELF_HEAL_* state — clone, remote,
 # offline rc — underneath the fixture; see run-test.sh § hermetic baseline).
@@ -56,7 +69,7 @@ assert_nokill 0   "success is not a kill"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — integration: rc=143 with NON-EMPTY capture → transient, no escalation"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-signalkill.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
+TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-signalkill.XXXXXX")"; trap 'rm -rf "$TR" "$EXEC_ROOT"' EXIT
 BARE="$TR/journal.git"; BRANCH=journal2
 git_id=(-c user.name=test -c user.email=test@localhost)
 
