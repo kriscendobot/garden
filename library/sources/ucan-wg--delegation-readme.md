@@ -6,7 +6,7 @@ source_date: 2026-07-08
 source_authors: [Brooklyn Zelenka, Irakli Gozalishvili, Philipp Kruger]
 ingested: 2026-07-28
 ingested_by: scholar
-section_count: 4
+section_count: 6
 status: current
 notes: |
   README on `main` reads "Version 1.0.0"; the repository carries no git tags
@@ -25,7 +25,7 @@ notes: |
 | [subject-resource-and-powerline](../sections/ucan-wg--delegation-readme--subject-resource-and-powerline.md) | ucan-authorization, capability-security, identity | current |
 | [command-and-policy](../sections/ucan-wg--delegation-readme--command-and-policy.md) | ucan-authorization, capability-security, patterns | current |
 | [token-validation](../sections/ucan-wg--delegation-readme--token-validation.md) | ucan-authorization, capability-security | current |
-
-Deferred from this cycle, and named in the follow-on `scholar-ingest-ucan-atproto-remainder` job: the full Policy detail (selectors, glob matching, connectives, quantification, nested quantification, differences from jq, validation semantics) and the Semantic Conditions section.
+| [policy-language](../sections/ucan-wg--delegation-readme--policy-language.md) | ucan-authorization, capability-security, patterns | current |
+| [semantic-conditions](../sections/ucan-wg--delegation-readme--semantic-conditions.md) | ucan-authorization, capability-security | current |
 
 Source: [`README.md`](https://github.com/ucan-wg/delegation/blob/1cb32dbc9d4d15a23bf9844a02515d760b81e816/README.md) at commit `1cb32dbc`.
