@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:10:40Z_
+_As of 2026-07-29T01:11:44Z_
 
 ## Latest
 
@@ -3858,13 +3858,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 51.3M | $792.74 _(notional, rate-card)_ | no quota set |
-| Codex | 210.8M _(+446.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 210.5M _(+446.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (30)
+### doin (29)
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -3889,20 +3889,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
-- [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/job-host-requirements-gating.md) — Jobs declare host requirements; the claim path honours them — starting with AWS
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-line-citations.md) — Recompute the stale in-text line citations in the assert.js sections 1 and 3
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3755)
+### tada (3756)
+- [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/job-host-requirements-gating.md) — Cost
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260728-033502.md) — Cost
 - [`ocapn-noise-press-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260728-065010.md) — Completion report — ocapn-noise-press-20260728-065010 (dispatch of 2026-07-29...
 - [`xs2rust-endor-watchdog-20260729-005004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-watchdog-20260729-005004.md) — Cost
 - [`endojs-endo-but-for-bots-pr656-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #656
-- [`endojs-endo-but-for-bots-pr708-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-conduct.md) — Completion report
-- … and 3750 more
+- … and 3751 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
