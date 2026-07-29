@@ -97,3 +97,10 @@ A botany worktree is provisioned without running untrusted install scripts, the
 dep-cache still serves ordinary jobs correctly, a test proves scripts did not run,
 `roles/botanist/AGENT.md` describes the real mechanism, and the report quantifies
 the exposure window or explains why it cannot.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:41:10Z
