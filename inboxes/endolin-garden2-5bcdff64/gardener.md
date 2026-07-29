@@ -3513,3 +3513,12 @@ Inspect via `git -C journal cat-file -p 81c9603007997a8b7f46e4f54972dbbaffe25e70
 - Context: gardener-8 on endolin-garden2-5bcdff64: job 'endo-cbor-adopt-ocapn-gauntlet' exit-0-unsatisfying but elapsed near-constant (193,193s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p b4e2435b702259acffa0011898d877b23e7b7b0d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T02:43:45Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b7a840dbb20dfc0624d588c34511aeff590949fb
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr859-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b7a840dbb20dfc0624d588c34511aeff590949fb`.
