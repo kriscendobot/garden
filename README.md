@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T19:36:02Z_
+_As of 2026-07-29T19:40:28Z_
 
 ## Latest
 
@@ -16,9 +16,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12h)
 - [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 10h)
-- [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 9h)
+- [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 10h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 9h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 19h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 20h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 10d)
@@ -5390,7 +5390,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.4M _(+603.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 61% _(plan; codex-reported)_ |
+| Codex | 59.5M _(+605.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 63% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (7)
@@ -5402,19 +5402,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (4)
+### doin (3)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
-- [`scholar-library-cycle-20260729-193502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-193502.md) — Hourly scholar library cycle
 
-### tada (3903)
+### tada (3904)
+- [`scholar-library-cycle-20260729-193502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-193502.md) — Completed scholar library cycle: no actionable ingestion or writeback work. L...
 - [`kriscendobot-finbot-pr6-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-finbot-pr6-shepherd.md) — Cost
 - [`proposal-compartments-press-20260729-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260729-192002.md) — Cost
 - [`registry-immutable-byte-array-followup-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/registry-immutable-byte-array-followup-gauntlet.md) — gauntlet registry-immutable-byte-array-followup-gauntlet — HALTED
 - [`scholar-library-cycle-20260729-182004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-182004.md) — Cost
-- [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260729-070504.md) — Cost
-- … and 3898 more
+- … and 3899 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
