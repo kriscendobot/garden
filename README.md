@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T18:37:04Z_
+_As of 2026-07-29T18:50:40Z_
 
 ## Latest
 
@@ -18,7 +18,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 9h)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 9h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 18h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 19h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 10d)
@@ -3508,6 +3508,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > 5. Panel health is quota-degraded: 14/20 panel runs in-window ended error/seat-error vs 5 must-fix / 1 passed; panel jobs (role: builder -> opus) also requeue-loop on handler budget. Job-shape/budget issue more than model quality; split-gauntlet-into-claim-sized-stages already tracks the packaging side.
 > 6. Starved lanes: haiku and gpt-5.4-mini had ~zero dispatches in-window (insufficient evidence both ways); fireworks lane has 1 canary. If you want evidence for shallower movement, small mechanical jobs need to actually route there.
 
+- `20260729T184948Z-64cfb2` — from gardener:finbot-pr6-panel-20260729, reply_to `finbot-pr6-panel-20260729` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T184948Z-64cfb2.md)
+
+> [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) is green at fdcefd1665b and remains draft. The latest full formal panel still has one material unresolved class: binding data-sufficiency evidence to an attested forecast artifact cited by the proposal, which requires a journal/citation resolution design beyond this increment’s current in-memory auditor API. Please direct whether to expand this PR into that provenance feature or defer it as a separately designed follow-up; no Fable sign-off job has been posted.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5331,7 +5335,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 67.3M _(+591.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Codex | 60.9M _(+595.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (7)
