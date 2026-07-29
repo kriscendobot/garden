@@ -36,6 +36,23 @@ case_test 'approval for older commit refuses as stale' '{"reviewDecision":"APPRO
 case_test 'current maintainer approval allows' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 0
 case_test 'current non-maintainer approval refuses' '{"reviewDecision":"APPROVED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"drive-by-rando"}}]' 1
 
+# The reviewDecision rollup is a VETO, not the approval authority. GitHub sets it
+# only on repos whose branch protection REQUIRES a reviewer; everywhere else it
+# stays empty even with an approval on the head commit, which is why reading it as
+# the authority made the gate unsatisfiable on endojs/endo-but-for-bots (#656 sat
+# green and approved on head 76e6800e with an empty rollup; #708 and #755 hit the
+# same wall). These cases pin the empty-rollup branch so that never regresses --
+# and pin that letting it through does NOT weaken the individual-review check.
+case_test 'empty rollup with current maintainer approval allows' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 0
+case_test 'empty rollup with no review still refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[]' 1
+case_test 'empty rollup with stale approval still refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head1","user":{"login":"kriskowal"}}]' 1
+case_test 'empty rollup with non-maintainer approval still refuses' '{"reviewDecision":null,"headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"drive-by-rando"}}]' 1
+case_test 'changes-requested vetoes a current maintainer approval' '{"reviewDecision":"CHANGES_REQUESTED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
+case_test 'review-required vetoes a current maintainer approval' '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head2"}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
+# An unreadable head is refused whatever the rollup says: without a head SHA there
+# is nothing to pin the approval to, so staleness cannot be judged.
+case_test 'missing head refuses' '{"reviewDecision":"APPROVED","headRefOid":""}' '[{"state":"APPROVED","commit_id":"head2","user":{"login":"kriskowal"}}]' 1
+
 rm -rf "$TR"
 echo "pr-maintainer-approval: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]
