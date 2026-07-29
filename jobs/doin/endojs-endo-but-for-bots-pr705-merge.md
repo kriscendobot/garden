@@ -29,3 +29,10 @@ while and the base may have moved); rebase per the role's step 2 if behind.
 
 Bot repo — merging is authorized. Choose the merge shape per the conductor role;
 this job deliberately does not name one.
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-29T00:12:07Z
