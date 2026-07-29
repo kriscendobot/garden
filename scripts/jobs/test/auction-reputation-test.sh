@@ -14,11 +14,14 @@
 #   CENSORED    — a cost-censored event still moves attempts/accepts (only the cost
 #                 estimators skip it), and an arm whose cost was NEVER measured
 #                 draws the prior rather than a $0 posterior.
-#   WALLCLOCK   — a cost-censored event is priced by `duration_secs` x the rate card,
+#   WALLCLOCK   — a cost-censored event is priced by its wallclock x the rate card,
 #                 giving a censored arm a real cost posterior; the raw `censored:`
 #                 count survives beside a new `estimated:`; a ledger-priced arm is
 #                 numerically UNCHANGED; an unpriceable arm (rate 0, or no duration)
-#                 stays unpriced and bids the wide prior, never $0.
+#                 stays unpriced and bids the wide prior, never $0; and a REQUEUED
+#                 job's earlier attempts are recovered from the claim commits —
+#                 capped (a 4h dead claim is not 4h of work), attributed to the kind
+#                 that claimed them, and never conjured without a duration_secs.
 #   COLD-START  — a bidder with no history bids from the wide cold prior (no crash,
 #                 no rich-get-richer: it still wins a share of jobs).
 #   RACE-DEGEN  — a `market: bid` job with ONE bidder degenerates to a single claim;
