@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T03:47:29Z_
+_As of 2026-07-29T03:50:42Z_
 
 ## Latest
 
@@ -4664,18 +4664,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $885.24 _(notional, rate-card)_ | no quota set |
-| Codex | 167.9M _(+466.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 53.9M | $885.02 _(notional, rate-card)_ | no quota set |
+| Codex | 166.8M _(+466.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (51)
+### doin (50)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
-- [`endojs-endo-but-for-bots-agentry-conflict-rebase-rerere-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-agentry-conflict-rebase-rerere-parity.md) — Fix: conflict-rebase eval fixture inherits the host's git rerere config
 - [`endojs-endo-but-for-bots-pr241-review-b15e4ef6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr241-review-b15e4ef6.md) — Review directive on endojs/endo-but-for-bots PR #241
 - [`endojs-endo-but-for-bots-pr282-148f5c93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-148f5c93.md) — attention directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
@@ -4724,13 +4723,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3816)
+### tada (3817)
+- [`endojs-endo-but-for-bots-agentry-conflict-rebase-rerere-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-agentry-conflict-rebase-rerere-parity.md) — Cost
 - [`esheets-supervisor-20260729-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260729-033502.md) — Cost
 - [`arc-status-daily-20260729-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260729-033502.md) — Cost
 - [`garden-quota-routing-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-rollout.md) — orchestration garden-quota-routing-rollout — complete
 - [`garden-quota-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-deploy.md) — garden-quota-routing-deploy — BLOCKED, nothing deployed
-- [`garden-quota-routing-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-race.md) — Cost
-- … and 3811 more
+- … and 3812 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
