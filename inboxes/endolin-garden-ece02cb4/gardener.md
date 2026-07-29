@@ -1713,3 +1713,12 @@ Inspect via `git -C journal cat-file -p 75c42f144d294262d2825e5bf6e48bbaf0865ca3
 - Context: gardener-1 on endolin-garden-ece02cb4: job 'finbot-pr6-panel-20260728' exit-0-unsatisfying but elapsed near-constant (150,173s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p a8dabec3502eacc4ff4bf975c02fc9ef05e385a4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T02:20:11Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4a9fcc0201818c8ed786d375285fb049df575689
+- Context: gardener-8 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr241-review-b15e4ef6' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4a9fcc0201818c8ed786d375285fb049df575689`.
