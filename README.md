@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T08:57:38Z_
+_As of 2026-07-29T08:58:54Z_
 
 ## Latest
 
@@ -4816,18 +4816,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.9M | $819.40 _(notional, rate-card)_ | no quota set |
-| Codex | 70.0M _(+516.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 46.8M | $818.71 _(notional, rate-card)_ | no quota set |
+| Codex | 70.0M _(+516.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
-### todo (28)
+### todo (27)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-ocapn-multi-transport-design-pr684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-ocapn-multi-transport-design-pr684.md) — Design OCapN multi-transport connection hints before resuming PR 684
 - [`endo-sturdyref-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260729-072002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr723-review-b5ddd4da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr723-review-b5ddd4da.md) — Review directive on endojs/endo-but-for-bots PR #723
@@ -4851,15 +4850,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr684-review-67f8b51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr684-review-67f8b51a.md) — Review directive on endojs/endo-but-for-bots PR #684
+- [`endo-ocapn-multi-transport-design-pr684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ocapn-multi-transport-design-pr684.md) — Design OCapN multi-transport connection hints before resuming PR 684
 
-### tada (3853)
+### tada (3854)
+- [`endojs-endo-but-for-bots-pr684-review-67f8b51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr684-review-67f8b51a.md) — Cost
 - [`endojs-endo-but-for-bots-pr676-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr676-review-4939792d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-review-4939792d.md) — Cost
 - [`endojs-endo-but-for-bots-pr667-198c8d1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr667-198c8d1e.md) — Cost
 - [`endojs-endo-but-for-bots-pr671-review-9737517c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-9737517c.md) — Cost
-- [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-ocapn-gauntlet.md) — Cost
-- … and 3848 more
+- … and 3849 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
