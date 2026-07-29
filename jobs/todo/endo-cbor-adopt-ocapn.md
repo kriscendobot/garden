@@ -125,9 +125,4 @@ immutability conversion (`bytesToImmutable`), the OCapN tag constants
 - Sibling children of this orchestration: `endo-cbor-adopt-daemon-envelope`
   (runs after you), and the parked, PR-gated `endo-cbor-adopt-slots`.
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-28T21:10:11Z
+<!-- garden-reaped: 1 -->
