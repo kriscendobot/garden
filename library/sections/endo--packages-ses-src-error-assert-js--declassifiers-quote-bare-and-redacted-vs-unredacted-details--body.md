@@ -26,7 +26,7 @@ notes: |
   the text directly; otherwise it falls back to `quote`-with-
   bestEffortStringify. The §DetailsTokenProto is structurally a
   *frozen-marker-with-toString* — the `hiddenDetailsMap` WeakMap
-  pairs each token with its parts; the token itself carries no own
+  pairs each token with its `{ template, args }` record; the token itself carries no own
   properties, so it cannot leak its substitutions accidentally.
 parent: endo--packages-ses-src-error-assert-js--declassifiers-quote-bare-and-redacted-vs-unredacted-details
 ---
@@ -57,10 +57,9 @@ The §declassifiers WeakMap (lines 70-75):
 
 ```js
 /**
- * @type {WeakMap<object, any>} Maps the wrappers returned by `quote` and
- * `bare` back to the underlying value they wrap, used by the redacted
- * `details` template tag to decide whether a substitution should be
- * declassified into the logged message.
+ * Maps the result of a `quote` or `bare` call back to its input value.
+ *
+ * @type {WeakMap<Stringable, any>}
  */
 const declassifiers = new WeakMap();
 ```
@@ -93,7 +92,7 @@ The §spaces parameter is JSON-pretty-print width: `quote(obj, 2)` produces 2-sp
 The §canBeBare regex (line 87):
 
 ```js
-const canBeBare = freeze(/^[\w:-]( ?[\w:-])*$/);
+const canBeBare = freezeRegexp(/^[\w:-]( ?[\w:-])*$/);
 ```
 
 The §regex anatomy:
@@ -121,12 +120,14 @@ Examples that *don't* match:
 The §bare operator (lines 92-102):
 
 ```js
-const bare = (str, spaces = undefined) => {
-  if (typeof str !== 'string' || !regexpTest(canBeBare, str)) {
-    return quote(str, spaces);
+const bare = (text, spaces = undefined) => {
+  if (typeof text !== 'string' || regexpSearch(canBeBare, text) === -1) {
+    return quote(text, spaces);
   }
-  const result = freeze({ toString: freeze(() => str) });
-  weakmapSet(declassifiers, result, str);
+  const result = freeze({
+    toString: freeze(() => text),
+  });
+  weakmapSet(declassifiers, result, text);
   return result;
 };
 freeze(bare);
@@ -185,16 +186,11 @@ The §redactedDetails function (lines 182-189; the canonical `details` / `X` tag
 
 ```js
 const redactedDetails = (template, ...args) => {
-  // Keep in mind that the vast majority of `details` calls pass a
-  // template literal, so this argument can be a frozen array.
-  template = freeze(template);
-  const parts = [template[0]];
-  for (let i = 0; i < args.length; i += 1) {
-    parts.push(args[i], template[i + 1]);
-  }
-  const token = freeze({ __proto__: DetailsTokenProto });
-  weakmapSet(hiddenDetailsMap, token, parts);
-  return token;
+  // In case the result of this call is never used, perform as little processing
+  // as possible here to keep things fast.
+  const detailsToken = freeze({ __proto__: DetailsTokenProto });
+  weakmapSet(hiddenDetailsMap, detailsToken, { template, args });
+  return /** @type {DetailsToken} */ (/** @type {unknown} */ (detailsToken));
 };
 freeze(redactedDetails);
 ```
@@ -202,8 +198,9 @@ freeze(redactedDetails);
 The §structural picture:
 
 - **Inputs**: `template` is the array of literal-string parts (from the tagged template); `args` are the substitutions.
-- **Output**: a frozen token whose hidden details are the interleaved `parts` array (`[literal, sub, literal, sub, ..., literal]`).
+- **Output**: a frozen token whose hidden details are the original `{ template, args }` record.
 - **The token's identity is the only handle**. The substitutions are stored *outside* the token in `hiddenDetailsMap`; the token itself has no own properties.
+- **Rendering is deferred**. `getMessageString` interleaves literal parts and substitutions only when a token is rendered, avoiding work when an unused details token is discarded.
 
 The §canonical usage:
 
@@ -216,7 +213,7 @@ The §template-literal call produces:
 - `template = ['unexpected ', ' when expecting ', '']`
 - `args = [value, expected]`
 
-The §resulting token's hidden details are `['unexpected ', value, ' when expecting ', expected, '']`. When `error.message` is computed via `getMessageString`, each substitution is checked against `declassifiers`:
+The §resulting token's hidden details are `{ template, args }`. When `error.message` is computed via `getMessageString`, the function walks those arrays and each substitution is checked against `declassifiers`:
 
 - `value` not declassified → renders as `(an Object)` (or similar).
 - `expected` not declassified → renders as `(a string)` (or similar).
@@ -229,7 +226,6 @@ The §unredactedDetails function (lines 205-211):
 
 ```js
 const unredactedDetails = (template, ...args) => {
-  template = freeze(template);
   args = arrayMap(args, arg =>
     weakmapHas(declassifiers, arg) ? arg : quote(arg),
   );
