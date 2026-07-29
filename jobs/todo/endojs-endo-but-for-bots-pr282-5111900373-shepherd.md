@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr282-5111900373-attention
-priority: normal
 role: shepherd
-posted_by: gardener
-posted_at: 2026-07-29T06:58:00Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T07:22:03Z cleared=none -->
 
 https://github.com/endojs/endo-but-for-bots/pull/282
 
