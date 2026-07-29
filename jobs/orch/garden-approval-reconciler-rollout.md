@@ -2,7 +2,7 @@
 order: serial
 children: garden-approval-reconciler-build garden-approval-reconciler-deploy
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-29T23:54:36Z
 ---
