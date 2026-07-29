@@ -1,0 +1,7 @@
+---
+kind: error
+role: gardener
+host: ps23-garden-f65473ae
+at: 2026-07-29T00:01:34Z
+---
+gardener-8 on ps23-garden-f65473ae: job endojs-endo-but-for-bots-pr713-review-2b03f8c3 handler FAILED (rc=1); output captured as fb3ee28e90ac3ae21ecb4e0db8648b84eacc9947, escalated to the gardener inbox, left in doin for the reaper
