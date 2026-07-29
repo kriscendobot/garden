@@ -91,3 +91,10 @@ goes in the PR body, and if the supersession is confirmed, amend
 - Predecessor in this orchestration: `endo-cbor-adopt-ocapn` — read its merged PR
   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
   boundary) are precedent you should follow rather than re-litigate.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:42:39Z
