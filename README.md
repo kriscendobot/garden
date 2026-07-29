@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T17:21:21Z_
+_As of 2026-07-29T17:22:37Z_
 
 ## Latest
 
@@ -5173,7 +5173,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 70.8M _(+570.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Codex | 70.8M _(+569.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (21)
@@ -5199,23 +5199,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-172004.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (8)
+### doin (7)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
-- [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 - [`model-tier-effectiveness-review-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/model-tier-effectiveness-review-20260729-172004.md) — Weekly model-tier effectiveness review
 
-### tada (3881)
+### tada (3882)
+- [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-wallclock-cost-proxy-for-censored-arms-1.md) — Cost
 - [`garden-mentor-tier-kimi-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-mentor-tier-kimi-rollout.md) — orchestration garden-mentor-tier-kimi-rollout — HALTED
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-improve-promote-plan-poison-reset-3-1.md) — Report
 - [`finbot-pr4-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-panel-20260729.md) — Cost
 - [`endojs-endo-but-for-bots-pr874-review-fd62e60e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-review-fd62e60e.md) — Cost
-- [`endojs-endo-but-for-bots-pr874-review4810568121-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-review4810568121-fix.md) — Cost
-- … and 3876 more
+- … and 3877 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
