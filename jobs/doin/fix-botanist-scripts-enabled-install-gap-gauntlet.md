@@ -19,3 +19,10 @@ to draft so the chain can run. Nothing here has been panel-reviewed: treat it as
 cold PR owed a full review, not as work that already passed and regressed.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T16:50:08Z
