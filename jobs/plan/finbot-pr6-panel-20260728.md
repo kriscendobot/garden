@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+poisoned_at: 2026-07-29T14:23:03Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-29T14:23:03Z
+---
+
+---
 role: builder
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-29T01:35:05Z -->
@@ -43,13 +57,5 @@ only after BOTH a passing panel AND a Fable-orchestrator sign-off — even on ou
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  claimed_at: 2026-07-29T13:23:28Z
