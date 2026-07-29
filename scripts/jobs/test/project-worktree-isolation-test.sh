@@ -249,6 +249,17 @@ run_node_helper() {  # run_node_helper <base> <owner/repo> <branch>
     bash "$HELPER" "$1" "$2" "$3"
 }
 
+# The botanist must get a scripts-disabled installer and a cache it cannot share
+# with normal native-build-enabled jobs. The stub records the policy environment
+# instead of executing a package manager.
+BOTANIST_INSTALL='env | sort > install-policy; mkdir -p node_modules; echo botany > node_modules/marker'
+run_botanist_helper() {  # run_botanist_helper <base> <owner/repo> <branch>
+  GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_JOB_ROLE=botanist \
+    GARDEN_DEP_INSTALL_CMD="$BOTANIST_INSTALL" \
+    GARDEN_DEP_RECONCILE_CMD='env | sort > reconcile-policy' \
+    bash "$HELPER" "$1" "$2" "$3"
+}
+
 make_node_fork endojs warm-cache main
 # First fresh worktree: cold build → installer runs, node_modules snapshotted.
 W1="$(run_node_helper garden-warm-first endojs/warm-cache main)"
@@ -263,6 +274,26 @@ fi
 # The helper's stdout is STILL just the path — the installer's chatter never leaked.
 case "$W1" in *installing*|*NATIVE*) bad "installer output leaked onto the helper's stdout: $W1" ;;
               *) ok "installer output did not leak onto the helper's stdout" ;; esac
+
+BW1="$(run_botanist_helper garden-botanist-first endojs/warm-cache main)"
+[ -f "$BW1/install-policy" ] \
+  && grep -qx 'GARDEN_DEP_SCRIPTS_DISABLED=1' "$BW1/install-policy" \
+  && grep -qx 'npm_config_ignore_scripts=true' "$BW1/install-policy" \
+  && grep -qx 'pnpm_config_ignore_scripts=true' "$BW1/install-policy" \
+  && grep -qx 'YARN_ENABLE_SCRIPTS=false' "$BW1/install-policy" \
+  && ok "botanist cold install enables every scripts-disabled package-manager setting" \
+  || bad "botanist cold install did not receive the scripts-disabled policy"
+[ "$BW1/node_modules/marker" -ef "$W1/node_modules/marker" ] \
+  && bad "botanist reused the native-build-enabled warm cache" \
+  || ok "botanist uses a cache namespace separate from native-build-enabled jobs"
+BW2="$(run_botanist_helper garden-botanist-second endojs/warm-cache main)"
+[ -f "$BW2/reconcile-policy" ] \
+  && grep -qx 'GARDEN_DEP_SCRIPTS_DISABLED=1' "$BW2/reconcile-policy" \
+  && grep -qx 'npm_config_ignore_scripts=true' "$BW2/reconcile-policy" \
+  && grep -qx 'pnpm_config_ignore_scripts=true' "$BW2/reconcile-policy" \
+  && grep -qx 'YARN_ENABLE_SCRIPTS=false' "$BW2/reconcile-policy" \
+  && ok "botanist warm-cache reconcile retains the scripts-disabled policy" \
+  || bad "botanist warm-cache reconcile did not retain the scripts-disabled policy"
 
 # Second fresh worktree, SAME repo+branch (same lockfile hash) → warm HIT: it must
 # be populated from the cache WITHOUT re-running the installer, sharing inodes.

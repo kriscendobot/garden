@@ -51,7 +51,8 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   built once, hardlinked in) rather than leaving you an empty tree to
   `yarn install` by hand — so don't reflexively re-install. Read its stderr for
   the deterministic signal: `WARM-CACHE hit`/`built` means deps are ready;
-  `WARM-CACHE MISS+FAIL` (or `dep-cache skip`) means they are not — if a native
+  `WARM-CACHE MISS+FAIL` (or `dep-cache skip`) means they are not — except that a
+  `botanist` job receives a separate scripts-disabled cache/install path — if a native
   build fails on *every* host, that is a container-image toolchain gap
   (build-essential + python), which you should flag, not paper over. A resume
   re-uses your in-flight tree untouched (deps are not repopulated).

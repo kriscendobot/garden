@@ -152,6 +152,7 @@ fi
 # GitHub-comment provenance footer (scripts/jobs/comment-provenance.sh); the agent
 # and every gh call it makes inherit this environment.
 export GARDEN_JOB_MODEL="$model"
+export GARDEN_JOB_ROLE="$requested_role"
 
 # --- reachability + model-presence preflight ----------------------------------
 #

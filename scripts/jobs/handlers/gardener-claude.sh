@@ -174,6 +174,7 @@ fi
 # provenance footer (scripts/jobs/comment-provenance.sh). Empty when no --model is
 # passed (the fleet default) — the footer then omits the model field (fail-open).
 export GARDEN_JOB_MODEL="${resolved_model:-}"
+export GARDEN_JOB_ROLE="$requested_role"
 
 # --dangerously-skip-permissions: this is an autonomous, headless gardener with
 # no human approver, so the default permission gate would deny every Bash/tool

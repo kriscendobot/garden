@@ -45,7 +45,8 @@
 # visible only in agent prose (journal 054129Z / 054640Z). This script now
 # provisions node_modules itself, ONCE per lockfile per host, from a warm shared
 # cache: the first fresh worktree on a given lockfile runs the real installer
-# (native builds included) and SNAPSHOTS the resulting node_modules trees into a
+# (native builds included, except for botanist jobs) and SNAPSHOTS the resulting
+# node_modules trees into a
 # content-addressed cache keyed by <owner>-<repo>/<lockfile-hash>; every later
 # fresh worktree POPULATES from that cache with a hardlink copy (`cp -al`, the
 # pnpm-linker hardlink pattern the local-run recipe uses), so the compiled .node
@@ -107,6 +108,21 @@ name="${repo#*/}"
 : "${GARDEN_DEP_LOCK_WAIT:=600}"           # seconds a 2nd concurrent first-job waits for the builder
 : "${GARDEN_DEP_CACHE_TTL_DAYS:=14}"       # a sibling lockfile-hash cache idle this long is prunable
 
+# A botanist must inspect an unvetted dependency without giving its lifecycle
+# scripts a chance to execute first. Worker handlers pass the job role through
+# GARDEN_JOB_ROLE; all other callers retain the historic native-build-enabled
+# path. Keep the cache namespaces separate: a scripts-disabled botanist checkout
+# must never be populated from an enabled-script cache built by another role.
+if [ "${GARDEN_JOB_ROLE:-}" = botanist ]; then
+  dep_install_policy="scripts-disabled"
+  dep_install_env="GARDEN_DEP_SCRIPTS_DISABLED=1 npm_config_ignore_scripts=true pnpm_config_ignore_scripts=true YARN_ENABLE_SCRIPTS=false"
+  dep_install_log_label="scripts disabled"
+else
+  dep_install_policy="native-builds"
+  dep_install_env=""
+  dep_install_log_label="native builds included"
+fi
+
 # list_node_modules <root> — the OUTERMOST node_modules dirs (the root one plus
 # each workspace package's), one relative path per line. `-prune` stops descent
 # INTO a matched node_modules, so the pnpm linker's nested node_modules/.store/…
@@ -132,30 +148,33 @@ link_tree() {
 }
 
 # dep_install_cmd <wt> — echo the install command for the worktree's package
-# manager, or return 1 when none is usable. GARDEN_DEP_INSTALL_CMD overrides
-# everything (per-project/test escape hatch). yarn goes through corepack when a
+# manager, or return 1 when none is usable. For botanists it prefixes every
+# command (including the per-project/test escape hatch) with the npm, pnpm, and
+# Yarn scripts-disabled settings. GARDEN_DEP_INSTALL_CMD otherwise overrides
+# everything. yarn goes through corepack when a
 # bare `yarn` is absent (the fresh-worktree norm; see pre-pr-checklist § Pitfalls).
 #
 # NOTE for the warm-HIT reconcile below: use dep_reconcile_cmd, not this, so a
 # destructive `npm ci` never deletes the trees we just linked in.
 dep_install_cmd() {
-  local wt="$1"
-  [ -n "${GARDEN_DEP_INSTALL_CMD:-}" ] && { printf '%s\n' "$GARDEN_DEP_INSTALL_CMD"; return 0; }
-  if [ -f "$wt/yarn.lock" ]; then
-    command -v yarn     >/dev/null 2>&1 && { printf '%s\n' "yarn install --immutable"; return 0; }
-    command -v corepack >/dev/null 2>&1 && { printf '%s\n' "corepack yarn install --immutable"; return 0; }
+  local wt="$1" cmd=""
+  if [ -n "${GARDEN_DEP_INSTALL_CMD:-}" ]; then
+    cmd="$GARDEN_DEP_INSTALL_CMD"
+  elif [ -f "$wt/yarn.lock" ]; then
+    command -v yarn     >/dev/null 2>&1 && cmd="yarn install --immutable"
+    [ -n "$cmd" ] || { command -v corepack >/dev/null 2>&1 && cmd="corepack yarn install --immutable"; }
+  elif [ -f "$wt/pnpm-lock.yaml" ] && command -v pnpm >/dev/null 2>&1; then
+    cmd="pnpm install --frozen-lockfile"
+  elif [ -f "$wt/package-lock.json" ] || [ -f "$wt/npm-shrinkwrap.json" ]; then
+    command -v npm >/dev/null 2>&1 && cmd="npm ci"
+  elif [ -f "$wt/package.json" ]; then
+    command -v corepack >/dev/null 2>&1 && cmd="corepack yarn install"
+    [ -n "$cmd" ] || { command -v npm >/dev/null 2>&1 && cmd="npm install"; }
   fi
-  if [ -f "$wt/pnpm-lock.yaml" ] && command -v pnpm >/dev/null 2>&1; then
-    printf '%s\n' "pnpm install --frozen-lockfile"; return 0
-  fi
-  if [ -f "$wt/package-lock.json" ] || [ -f "$wt/npm-shrinkwrap.json" ]; then
-    command -v npm >/dev/null 2>&1 && { printf '%s\n' "npm ci"; return 0; }
-  fi
-  if [ -f "$wt/package.json" ]; then
-    command -v corepack >/dev/null 2>&1 && { printf '%s\n' "corepack yarn install"; return 0; }
-    command -v npm      >/dev/null 2>&1 && { printf '%s\n' "npm install"; return 0; }
-  fi
-  return 1
+  [ -n "$cmd" ] || return 1
+  [ -n "$dep_install_env" ] && cmd="$dep_install_env $cmd"
+  printf '%s\n' "$cmd"
+  return 0
 }
 
 # dep_reconcile_cmd <wt> — echo the install command to run in a worktree that has
@@ -167,10 +186,16 @@ dep_install_cmd() {
 # and `pnpm install --frozen-lockfile` are already additive/idempotent.
 dep_reconcile_cmd() {
   local wt="$1" cmd
-  [ -n "${GARDEN_DEP_RECONCILE_CMD:-}" ] && { printf '%s\n' "$GARDEN_DEP_RECONCILE_CMD"; return 0; }
+  if [ -n "${GARDEN_DEP_RECONCILE_CMD:-}" ]; then
+    cmd="$GARDEN_DEP_RECONCILE_CMD"
+    [ -n "$dep_install_env" ] && cmd="$dep_install_env $cmd"
+    printf '%s\n' "$cmd"
+    return 0
+  fi
   cmd="$(dep_install_cmd "$wt")" || return 1
   case "$cmd" in
     "npm ci") cmd="npm install" ;;
+    *" npm ci") cmd="${cmd% npm ci} npm install" ;;
   esac
   printf '%s\n' "$cmd"
 }
@@ -220,7 +245,8 @@ provision_deps() {
   [ -n "$lockhash" ] || { log "WARN: dep-cache skip: could not hash $wt/$lockfile"; return 0; }
 
   local slug_dir="$GARDEN_DEP_CACHE_ROOT/$slug"
-  local cache_dir="$slug_dir/$lockhash"
+  local cache_key="$lockhash-$dep_install_policy"
+  local cache_dir="$slug_dir/$cache_key"
   local complete="$cache_dir/.complete"
   local lock="$slug_dir/.lock"
   mkdir -p "$slug_dir" 2>/dev/null \
@@ -300,7 +326,7 @@ provision_deps() {
       fi
 
       t1="$(date +%s 2>/dev/null || echo 0)"; secs=$((t1 - t0))
-      log "WARM-CACHE hit: ${slug}@${lockhash:0:12} populated ${n} node_modules tree(s) into ${wt} in ${secs}s (of which ${rsecs}s link-state reconcile '${rrunner}' rc=${rrc}; ${coldnote})"
+      log "WARM-CACHE hit: ${slug}@${lockhash:0:12} [${dep_install_policy}] populated ${n} node_modules tree(s) into ${wt} in ${secs}s (of which ${rsecs}s link-state reconcile '${rrunner}' rc=${rrc}; ${coldnote})"
       exit 0
     fi
 
@@ -312,7 +338,7 @@ provision_deps() {
     }
     local out rc=0 i0 i1 isecs
     out="$(mktemp "$GARDEN_SCRATCH/dep-install.XXXXXX" 2>/dev/null)" || out=""
-    log "dep-cache: cold build ${slug}@${lockhash:0:12} — running '${runner}' in ${wt} (native builds included)"
+    log "dep-cache: cold build ${slug}@${lockhash:0:12} [${dep_install_policy}] — running '${runner}' in ${wt} (${dep_install_log_label})"
     i0="$(date +%s 2>/dev/null || echo 0)"
     if [ -n "$out" ]; then
       ( cd "$wt" && TMPDIR="$tmpexec" timeout --kill-after=30 "$GARDEN_DEP_INSTALL_TIMEOUT" bash -c "$runner" ) >"$out" 2>&1 || rc=$?
@@ -339,8 +365,8 @@ provision_deps() {
         # cold-vs-warm delta (§ Link-state reconcile) rather than assert it.
         printf '%s\n' "$isecs" > "$cache_dir/install-secs" 2>/dev/null || true
         : > "$complete" 2>/dev/null || true
-        log "WARM-CACHE built: ${slug}@${lockhash:0:12} installed + cached ${n} node_modules tree(s) in ${secs}s (install ${isecs}s)"
-        dep_cache_prune "$slug" "$lockhash"
+        log "WARM-CACHE built: ${slug}@${lockhash:0:12} [${dep_install_policy}] installed + cached ${n} node_modules tree(s) in ${secs}s (install ${isecs}s)"
+        dep_cache_prune "$slug" "$cache_key"
       else
         rm -rf "$cache_dir/trees" "$cache_dir/manifest.tmp" 2>/dev/null || true
         log "WARN: dep-cache: install succeeded but snapshot captured ${n} tree(s) (fail=${fail}) for ${slug}; not caching"
