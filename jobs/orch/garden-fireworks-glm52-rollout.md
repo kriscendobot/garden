@@ -1,4 +1,5 @@
 ---
+child-garden-fireworks-glm52-register-reap-count: 0
 order: serial
 children: garden-fireworks-glm52-register garden-fireworks-glm52-deploy garden-fireworks-glm52-activate-canary
 on-child-failure: halt
