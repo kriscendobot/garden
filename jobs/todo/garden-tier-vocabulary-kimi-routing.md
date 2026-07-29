@@ -1,3 +1,6 @@
+---
+model: gpt-5.6-terra
+---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T16:31:04Z cleared=none -->
 
 Repository: kriscendobot/garden (garden library itself; land directly on main2, no PR).
