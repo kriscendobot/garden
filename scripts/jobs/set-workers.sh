@@ -28,15 +28,14 @@ host="${3:-$GARDEN}"
 count_key="$(worker_kind_field "$kind" count_key)" || die "unknown worker kind '$kind' (known: $(worker_kinds | paste -sd'|' -))"
 [[ "$n" =~ ^[0-9]+$ ]] || die "count must be a non-negative integer"
 [ "$host" = "$GARDEN" ] || die "refusing to write hosts/$host from $GARDEN; a host may set only its own worker counts"
-[ "$kind" != "gardener" ] || [ "$n" -ge 1 ] || die "refusing gardeners: 0; every active host must retain at least one gardener (use drain-fleet.sh to pause work)"
 
 # Provisioning gate: a fresh gnome may declare a NON-gardener kind's count > 0 only
 # once that kind's backend probe passes on this host — so a Claude-only gnome (ps23)
 # simply cannot declare clerics/hermits/mystics, instead of standing up pools that
-# fail every claim. Gardener is EXEMPT (the baseline kind, floored at >= 1): a fresh
-# host declares gardeners as its target before the Claude device-login completes, and
-# the runtime effective cap — not this gate — keeps effective gardeners at 0 until the
-# Claude probe passes. GARDEN_FORCE_DECLARE=1 stages a declaration ahead of a
+# fail every claim. Gardener is EXEMPT because it may be declared before the Claude
+# device-login completes; the runtime effective cap keeps it at 0 until the probe
+# passes. Like every other kind, gardener may also be explicitly declared as 0.
+# GARDEN_FORCE_DECLARE=1 stages a positive non-gardener declaration ahead of a
 # credential; the runtime cap still holds it at effective 0, so the override is safe.
 # See designs/gnome-backend-verified-autotune.md § 3.
 if [ "$kind" != gardener ] && [ "$n" -gt 0 ] && [ "${GARDEN_FORCE_DECLARE:-0}" != 1 ]; then

@@ -12,9 +12,8 @@
 # read has three outcomes, all leaving the pool unchanged except a clean parse:
 # file-missing OR value-present-but-unparsable → misconfig, WARN; key-line simply
 # absent from an existing file → normal (this host does not declare the kind), quiet
-# DEBUG; only an explicit non-gardener `<count_key>: 0` scales that kind to zero.
-# Gardeners have a hard floor of one per active host. There is NO
-# second scaler service — the spine is one loop, one scaler.
+# DEBUG; an explicit `<count_key>: 0` scales any kind to zero. There is NO second
+# scaler service — the spine is one loop, one scaler.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -62,25 +61,20 @@ for kind in $(worker_kinds); do
   # read_desired_count (common.sh) distinguishes the three outcomes: a clean parse
   # (status 0) scales; a key-line simply absent from an existing file (status 2) is
   # a normal condition — this host does not declare this kind — so stay quiet; file
-  # missing or value unparsable (status 1) is a real misconfig → WARN. All three
-  # leave the pool unchanged except the clean parse; missing is never scale-to-0.
+# missing or value unparsable (status 1) is a real misconfig → WARN. All three
+# leave the pool unchanged except the clean parse; missing is never scale-to-0,
+# while an explicit zero is.
   if want="$(read_desired_count "$f" "$count_key")"; then
-    if [ "$kind" = gardener ] && [ "$want" -eq 0 ]; then
-      log "WARN host '$host' declares gardeners: 0; refusing to scale gardeners below 1 (use drain-fleet.sh to pause work)"
-    else
-      # `want` is the owner-declared journal target. The gardener floor above is
-      # checked on THAT (declared), never on the effective count below — an effective
-      # 0 from a failed Claude probe is intended (auth auto-tune, § 5). Compute the
-      # probe-gated EFFECTIVE count (0 while the kind's backend is unauthenticated/
-      # unavailable, ramping to declared once a real auth success is confirmed, with
-      # hysteresis so a transient blip does not tear the pool down) and scale to THAT.
-      # backend_effective_count keeps pure per-host runtime state and writes no
-      # journal, so it is invisible to leader/follower. See
-      # designs/gnome-backend-verified-autotune.md § 2.
-      effective="$(backend_effective_count "$kind" "$want")"
-      log "host '$host' desired $count_key: $want (effective $effective)"
-      "$HERE/install-units.sh" scale "$kind" "$effective"
-    fi
+    # `want` is the owner-declared journal target. Compute the probe-gated EFFECTIVE
+    # count (0 while the kind's backend is unauthenticated/unavailable, ramping to
+    # declared once a real auth success is confirmed, with hysteresis so a transient
+    # blip does not tear the pool down) and scale to THAT. An explicitly declared 0
+    # remains 0 for every kind. backend_effective_count keeps pure per-host runtime
+    # state and writes no journal, so it is invisible to leader/follower. See
+    # designs/gnome-backend-verified-autotune.md § 2.
+    effective="$(backend_effective_count "$kind" "$want")"
+    log "host '$host' desired $count_key: $want (effective $effective)"
+    "$HERE/install-units.sh" scale "$kind" "$effective"
   elif [ "$?" -eq 2 ]; then
     log "DEBUG host '$host' declares no $count_key line in hosts/$host; leaving $kind pool unchanged"
   else

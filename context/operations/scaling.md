@@ -24,6 +24,10 @@ agent can do. Tune per host by its capacity, not by core count. Adding hosts
 adds concurrency with no duplication — the job-board CAS dedups the work
 ([leader-follower.md](leader-follower.md)).
 
+Every worker variety, including gardeners, accepts an explicit count of zero.
+Zero is a durable per-kind capacity setting: it stops that pool while leaving
+the host and its other worker varieties active.
+
 ## Pausing: drain
 
 ```sh
@@ -56,8 +60,8 @@ outage — hung agents, dead letters, poison — is a different engagement: see
 
 - **Temporary pause** (deploy, handoff, maintenance) → **drain on/off**; the
   pool size is preserved.
-- **Durable capacity change** (this host should do more or less work
-  indefinitely) → **`set-gardeners`**.
+- **Durable capacity change** (this host should do more, less, or zero work of
+  one variety indefinitely) → **`set-gardeners`** or the corresponding
+  per-variety setter.
 - **Retiring a host** → drain, then hand off leadership if it was leader
-  ([leader-follower.md](leader-follower.md)). Keep its gardener floor intact
-  until the host is actually shut down.
+  ([leader-follower.md](leader-follower.md)).

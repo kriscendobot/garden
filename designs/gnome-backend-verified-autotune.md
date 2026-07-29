@@ -206,13 +206,12 @@ if [ "$kind" != gardener ] && [ "$n" -gt 0 ] && [ "${GARDEN_FORCE_DECLARE:-0}" !
 fi
 ```
 
-- **Gardener is exempt from the declare-gate.** It is the baseline kind and carries
-  a hard floor of ≥1 (`set-workers` refuses `gardeners: 0`; the scaler floors at
-  1). A fresh gnome should declare `gardeners: 1` as its *target* even before the
-  human finishes the Claude device-login, so the fleet auto-ramps the instant auth
-  lands. The **runtime cap** (§ 2/§ 4), not the declare-gate, keeps effective
-  gardeners at 0 until the Claude probe passes — this is precisely how "a gnome
-  with no Claude auth sits at 0" is honored without weakening the declared floor.
+- **Gardener is exempt from the positive declare-gate.** A fresh gnome may declare
+  `gardeners: 1` as its target before the human finishes the Claude device-login,
+  so the fleet auto-ramps the instant auth lands. The **runtime cap** (§ 2/§ 4)
+  keeps effective gardeners at 0 until the Claude probe passes. An operator may
+  also explicitly declare `gardeners: 0`, matching every other worker variety,
+  when the durable desired capacity is zero.
 - **`GARDEN_FORCE_DECLARE=1`** is the expert override for staging a declaration
   ahead of a credential (e.g. scripting a host before its key is seeded). The
   runtime cap still keeps it at effective 0 until the probe passes, so the override
