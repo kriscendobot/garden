@@ -44,3 +44,10 @@ Fable-orchestrator sign-off. Never self-merge; the press (progress driver) and t
 panel-runner never run `gh pr merge`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T16:41:24Z
