@@ -1,4 +1,5 @@
 ---
+child-garden-quota-routing-deploy-host: endolin-garden-ece02cb4
 child-garden-quota-routing-deploy-reap-count: 0
 child-garden-quota-routing-race-host: endolin-garden-ece02cb4
 order: serial
