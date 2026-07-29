@@ -146,6 +146,8 @@
 | [atproto--specs-sync--mechanisms-and-repository-revisions](../sections/atproto--specs-sync--mechanisms-and-repository-revisions.md) | atproto specs/sync | CAR export plus firehose as the two mechanisms, and the commit revision as a per-repository logical clock that must increase even across host migration; the Atproto-Repo-Rev read-your-writes header. |
 | [atproto--specs-sync--commit-and-sync-events](../sections/atproto--specs-sync--commit-and-sync-events.md) | atproto specs/sync | Full field sets for #commit (CAR-slice diff, ops, since, prevData 'effectively required for MST inversion') and #sync (commit object only), plus the deprecated-but-required fields and size limits. |
 | [atproto--specs-sync--inductive-verification-and-operation-inversion](../sections/atproto--specs-sync--inductive-verification-and-operation-inversion.md) | atproto specs/sync | Why a consumer need not hold the MST: invert the claimed ops against the diff and check the recomputed root against the previous commit's data field, keeping only a revision and a root per repository. |
+| [UCAN token resolution](../sections/ucan-wg--spec-readme--token-resolution.md) | ucan-authorization, content-addressed-storage | Transport defines CID retrieval; an unavailable required proof makes validation fail. |
+| [UCAN implementation recommendations](../sections/ucan-wg--spec-readme--implementation-recommendations.md) | ucan-authorization, capability-security, content-addressed-storage | CID stores, memoized validation, replay tracking, leaderless deployment, and the boundary of ACL wrapping. |
 
 ## See also
 
