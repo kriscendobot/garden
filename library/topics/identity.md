@@ -18,6 +18,11 @@
 | [ucan-wg--spec-readme--roles-subject-issuer-audience](../sections/ucan-wg--spec-readme--roles-subject-issuer-audience.md) | ucan-authorization, capability-security, identity | The ten UCAN roles; a Subject 'MUST be referenced by DID' for unforgeability; the audience binding that makes a UCAN not a bearer token. |
 | [ucan-wg--delegation-readme--subject-resource-and-powerline](../sections/ucan-wg--delegation-readme--subject-resource-and-powerline.md) | ucan-authorization, capability-security, identity | 'By default, the Resource of a capability is the Subject. This makes the delegation chain self-certifying'; Powerline (sub: null) forward-delegates all future authority, a Powerbox adapted to static tokens. |
 | [atproto--specs-sync--identity-and-account-events](../sections/atproto--specs-sync--identity-and-account-events.md) | decentralized-identifiers, identity, local-first-sync | #identity and #account events as best-effort cache-invalidation hints, not authoritative state; account status is explicitly hop-by-hop for hosts and mirrors. |
+| [w3c--did-core-1-0--introduction-and-design-goals](../sections/w3c--did-core-1-0--introduction-and-design-goals.md) | W3C DID Core 1.0 | A DID identifies a subject while its method governs the mutable document lifecycle. |
+| [w3c--did-core-1-0--identifiers-verification-methods-and-relationships](../sections/w3c--did-core-1-0--identifiers-verification-methods-and-relationships.md) | W3C DID Core 1.0 | Distinguishes identifier, controller, verification material, and purpose-bound authority. |
+| [w3c--did-core-1-0--services-and-also-known-as](../sections/w3c--did-core-1-0--services-and-also-known-as.md) | W3C DID Core 1.0 | A linked URI claim and a service endpoint are published assertions, not proofs. |
+| [w3c--did-core-1-0--method-operations-security-and-privacy](../sections/w3c--did-core-1-0--method-operations-security-and-privacy.md) | W3C DID Core 1.0 | DID lifecycle and correlatability are method-level identity concerns. |
+| [w3c--did-core-1-0--architectural-considerations](../sections/w3c--did-core-1-0--architectural-considerations.md) | W3C DID Core 1.0 | DID controller and DID subject can coincide or differ. |
 
 ## See also
 
