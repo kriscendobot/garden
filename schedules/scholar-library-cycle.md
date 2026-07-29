@@ -26,3 +26,10 @@ half-hour-offset schedule.
 
 The schedule has no end date. It fires every hour until the maintainer removes
 it.
+
+---
+Translated from v1 `schedule/garden/20260514T010000Z--72f1f4.md`
+(recurrence `hourly-at-00-UTC`, dispatch `scholar` / `library-cycle`).
+The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
+specs keyed by cadence, not pre-computed per-fire event files. The v1 original
+is retained on `journal-v1` and `origin/journal`.
