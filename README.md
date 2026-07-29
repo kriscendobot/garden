@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T10:50:28Z_
+_As of 2026-07-29T11:36:11Z_
 
 ## Latest
 
@@ -14,10 +14,10 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 3h)
-- [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 1h)
-- [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 1h)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23m)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 4h)
+- [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 2h)
+- [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 2h)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 1h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 11h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -4739,7 +4739,11 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr836-review-ee46b083` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr836-review-ee46b083.md)
 
-> gardener job 'endojs-endo-but-for-bots-pr836-review-ee46b083' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2411s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+> WATCHDOG notice — occurrence #2 (first seen 2026-07-29T02:46:44Z, latest 2026-07-29T11:35:47Z).
+> The SAME condition (`handler-budget-overrun-endojs-endo-but-for-bots-pr836-review-ee46b083`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> gardener job 'endojs-endo-but-for-bots-pr836-review-ee46b083' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=3064s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr848-panel-fixes` — from watchdog:gardener/6, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr848-panel-fixes.md)
 
@@ -4886,8 +4890,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.8M | $801.77 _(notional, rate-card)_ | no quota set |
-| Codex | 72.2M _(+563.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 44.6M | $800.23 _(notional, rate-card)_ | no quota set |
+| Codex | 72.3M _(+568.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (24)
