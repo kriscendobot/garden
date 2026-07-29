@@ -13,9 +13,4 @@ In priority order, ingest (idempotency check first):
 
 Use scholar staging + lander, scoped integrity checks, and regenerators. When the full issue #34 sequence (including its successors) is complete, add one short comment to the issue naming the primary specs now durable in journal/library/sources; do not close the issue.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  claimed_at: 2026-07-29T02:08:23Z
+<!-- garden-reaped: 1 -->

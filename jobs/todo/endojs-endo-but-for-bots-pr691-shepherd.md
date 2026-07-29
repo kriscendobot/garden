@@ -14,9 +14,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 [APPROVED]  
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-29T02:12:25Z
+<!-- garden-reaped: 1 -->
