@@ -5,3 +5,4 @@
 {"source":"none","ts":"2026-07-29T17:13:58Z","base":"fix-botanist-scripts-enabled-install-gap-gauntlet","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":70,"role":"gardener"}
 {"source":"none","ts":"2026-07-29T17:26:53Z","base":"fix-botanist-scripts-enabled-install-gap-gauntlet","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":16,"role":"gardener"}
 {"source":"none","ts":"2026-07-29T17:39:47Z","base":"fix-botanist-scripts-enabled-install-gap-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":19,"role":"gardener"}
+{"source":"none","ts":"2026-07-29T17:48:20Z","base":"fix-botanist-scripts-enabled-install-gap-gauntlet","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":13,"role":"gardener"}
