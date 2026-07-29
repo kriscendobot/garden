@@ -5,9 +5,4 @@ Evidence this is not hypothetical: `scripts/jobs/test/` holds 136 suites and **n
 
 Move that responsibility into the deploy script: after fetching the candidate `main2` and before the tree swap, run the suites under `scripts/jobs/test/` against the candidate tree with a per-suite timeout and a total wall-clock bound; on any failure, abort the deploy leaving the current tree in place, emit a `kind:error` naming the failing suites, and report to the maintainer inbox. Provide an explicit override env knob for a deliberate emergency deploy, but make abort the default. If running all 136 suites is too slow for the deploy window, start with a fast tier — `bash -n` over every `scripts/**/*.sh` plus the classifier suites — and record the tiering decision in the script's header comment so the narrowing is visible rather than silent. Related: `scripts/jobs/upgrade-monitor.sh`, which signals the deploy, and `skills/pre-push-gates/SKILL.md`, whose probe/driver pattern is the natural shape for the runner.
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-29T00:23:41Z
+<!-- garden-reaped: 1 -->
