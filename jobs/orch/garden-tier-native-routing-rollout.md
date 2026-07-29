@@ -1,4 +1,5 @@
 ---
+child-garden-tier-native-routing-reap-count: 0
 order: serial
 children: garden-tier-native-routing garden-tier-native-routing-deploy garden-tier-native-routing-migrate
 on-child-failure: halt
