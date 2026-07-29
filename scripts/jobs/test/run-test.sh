@@ -199,6 +199,12 @@ set -e
 # ============================================================================
 hr; echo "SUBTEST 4 — GARDENER-SCALER: reconcile pool to journal host count"; hr
 export GARDEN_STATE="$TR/state-scale" GARDEN=testhost
+# This subtest exercises SIZE reconciliation, not the backend auth auto-tune. Pin the
+# per-kind backend probe to always-pass (/bin/true ignores the kind arg, exits 0) so
+# the scaler's effective count equals the declared count and the size assertions below
+# are deterministic regardless of whether this test host has a live Claude/codex auth.
+# The auto-tune's own hysteresis is covered by backend-autotune-test.sh.
+export GARDEN_BACKEND_PROBE_CMD=/bin/true
 export GARDEN_MOCK_STATE="$TR/armed-g" GARDEN_MOCK_LOG="$TR/unitlog-g" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
 : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
 "$JOBS/set-gardeners.sh" 3 testhost >/dev/null
@@ -293,7 +299,7 @@ grep -q 'restart --no-block garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
 grep -q "gardener 3 identity 'otherhost' != host 'testhost' but mid-job; deferring" <<<"$idout" \
   && ok "deferral logged for the busy drifted worker" || bad "deferral not logged"
 rm -rf "$PROC" "$PIDS"; rm -f "$GARDEN_STATE/gardeners/3/busy"
-unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG
+unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG GARDEN_BACKEND_PROBE_CMD
 
 # ============================================================================
 hr; echo "SUBTEST 5 — INBOX: per-doer unread→read CAS + lifecycle"; hr

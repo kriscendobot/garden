@@ -68,8 +68,18 @@ for kind in $(worker_kinds); do
     if [ "$kind" = gardener ] && [ "$want" -eq 0 ]; then
       log "WARN host '$host' declares gardeners: 0; refusing to scale gardeners below 1 (use drain-fleet.sh to pause work)"
     else
-      log "host '$host' desired $count_key: $want"
-      "$HERE/install-units.sh" scale "$kind" "$want"
+      # `want` is the owner-declared journal target. The gardener floor above is
+      # checked on THAT (declared), never on the effective count below — an effective
+      # 0 from a failed Claude probe is intended (auth auto-tune, § 5). Compute the
+      # probe-gated EFFECTIVE count (0 while the kind's backend is unauthenticated/
+      # unavailable, ramping to declared once a real auth success is confirmed, with
+      # hysteresis so a transient blip does not tear the pool down) and scale to THAT.
+      # backend_effective_count keeps pure per-host runtime state and writes no
+      # journal, so it is invisible to leader/follower. See
+      # designs/gnome-backend-verified-autotune.md § 2.
+      effective="$(backend_effective_count "$kind" "$want")"
+      log "host '$host' desired $count_key: $want (effective $effective)"
+      "$HERE/install-units.sh" scale "$kind" "$effective"
     fi
   elif [ "$?" -eq 2 ]; then
     log "DEBUG host '$host' declares no $count_key line in hosts/$host; leaving $kind pool unchanged"

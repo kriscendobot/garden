@@ -63,6 +63,34 @@ proceed on a cross-host hostname collision.
    moment — sleeping is the cheapest thing an agent can do — so the count is
    sized for concurrency, not CPU. Sizing detail: [scaling.md](scaling.md).
 
+   **Backend-verified provisioning (the auth auto-tune).** Declaring gardeners is
+   always allowed — gardener is the baseline kind, so a fresh gnome should declare
+   its target *before* the Claude device-login (step 2 of
+   [auth.md](../first-run/auth.md)) even finishes. The gardener pool auto-ramps the
+   instant Claude auth lands: the scaler probes each tick and holds the **effective**
+   gardener count at 0 while `claude` is unauthenticated, ramping to the declared
+   target on the first confirmed pass (and back to 0 if a human later logs out) —
+   without ever rewriting the declared journal target. So a gnome installed ahead of
+   its login sits idle-but-ready, not spinning uselessly.
+
+   For each **additional** backend this host actually has, provision it first — then
+   declare its kind:
+
+   ```sh
+   # only after: codex installed + `codex login` (cleric), MOONSHOT_API_KEY exported
+   # (mystic), FIREWORKS_API_KEY exported (fireworker), ollama + a pulled model (hermit)
+   scripts/jobs/set-workers.sh cleric 4 "$(hostname -s)"
+   ```
+
+   `set-workers.sh` **refuses** a non-gardener kind's count > 0 until that kind's
+   backend probe passes on this host (credentials *and* software), naming the missing
+   piece — so a Claude-only gnome (e.g. **ps23**) simply cannot declare
+   `clerics`/`hermits`/`mystics`/`fireworkers` and stand up pools that fail every
+   claim. Stage a declaration ahead of a credential with `GARDEN_FORCE_DECLARE=1`
+   (the runtime effective cap still holds it at 0 until the probe passes, so the
+   override is safe). `set-workers.sh <kind> 0` (withdraw a kind) is always allowed.
+   Design: [gnome-backend-verified-autotune.md](../../designs/gnome-backend-verified-autotune.md).
+
 5. **Designate the leader** on a first/only host (single host: itself):
 
    ```sh

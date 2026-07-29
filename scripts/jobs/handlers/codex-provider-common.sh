@@ -163,10 +163,15 @@ codex_provider_preflight() {
     return
   fi
 
+  # GARDEN_PROBE_LIVE=1 (the scaler's backend probe) needs the OPPOSITE of the hot
+  # job path: a LIVE re-check every tick so it can ramp DOWN on a mid-boot logout.
+  # It skips both reading and writing the per-boot auth-ok marker (the marker stays
+  # for the hot path). See designs/gnome-backend-verified-autotune.md § 1.
+  local live="${GARDEN_PROBE_LIVE:-0}"
   local auth_boot auth_marker
   auth_boot="$(tr -dc 'a-f0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"
   auth_marker="$GARDEN_STATE/$state_ns/auth-ok-${auth_boot:-noboot}"
-  [ -e "$auth_marker" ] && return 0
+  [ "$live" != 1 ] && [ -e "$auth_marker" ] && return 0
 
   if ! codex login status >/dev/null 2>&1; then
     printf 'codex is not authenticated on this host; %s cannot run %q. Run codex login as the bot user.\n' \
@@ -174,8 +179,10 @@ codex_provider_preflight() {
     return 1
   fi
 
-  mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
-  : > "$auth_marker" 2>/dev/null || true
+  if [ "$live" != 1 ]; then
+    mkdir -p "$(dirname "$auth_marker")" 2>/dev/null || true
+    : > "$auth_marker" 2>/dev/null || true
+  fi
 }
 
 # Fireworks is a separately credentialed OpenAI-compatible service.  Probe only

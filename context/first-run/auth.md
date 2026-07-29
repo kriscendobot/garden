@@ -26,6 +26,17 @@ paste the code back. The credential lands in the bind-mounted home.
 Neither is a procedure the human runs by hand — the tool prompts for it. It is
 one sentence of residue: "have a Claude subscription or an API key."
 
+The credential this writes — a non-empty `~/.claude/.credentials.json` (the
+subscription login) or a non-empty `ANTHROPIC_API_KEY` — is exactly what the
+scaler's **gardener backend probe** (`claude_auth_ok`) checks each tick. Until it
+is present the host's **effective** gardener count is held at 0 even though
+`gardeners:` is declared; the pool auto-ramps to the declared target on the first
+confirmed pass and drops back to 0 if the credential is later removed (a human
+`claude` logout). So you may declare gardeners before finishing this login — the
+fleet waits for auth on its own. Detail:
+[gnome-backend-verified-autotune.md](../../designs/gnome-backend-verified-autotune.md),
+operator flow in [operations/starting.md](../operations/starting.md) § step 4.
+
 ## 2. Bot ssh key — liaison generates, human pastes
 
 The launcher deliberately does **not** forward your SSH agent: an

@@ -986,6 +986,201 @@ worker_health_gate() {
   return 1
 }
 
+# --- backend probe + effective count (auth auto-tune) -------------------------
+#
+# Layered ON TOP of the per-claim worker_health_gate above (see
+# designs/gnome-backend-verified-autotune.md § 0), this adds the two dimensions the
+# health gate deliberately does not carry: CREDENTIALS (the CLI can be on PATH yet
+# unauthenticated) and a SCALER-LAYER effective count / provisioning gate (ramp a
+# whole pool to 0 and back, and refuse to DECLARE a kind a host cannot back). Both
+# reuse the same registry (worker_kind_field), so a new kind is covered from one
+# place. The probe's software checks intentionally MIRROR the health gate's rather
+# than depend on it, because the probe runs in the scaler and in set-workers, not
+# only in the worker poll loop.
+
+# claude_auth_ok — the one NEW probe (the gardener handler today checks only that the
+# CLI is on PATH). Software: claude on PATH. Credentials: ANTHROPIC_API_KEY non-empty
+# OR a non-empty Claude Code OAuth credential file. PRESENCE, not freshness, is the
+# hard pass/fail: Claude Code refreshes an expired token from its stored refresh
+# token, so a past .claudeAiOauth.expiresAt is only a soft signal; a human logout
+# REMOVES the file, which is exactly the loss a tick must catch. No tokens spent.
+claude_auth_ok() {                         # -> 0 authed+installed, 1 otherwise
+  command -v claude >/dev/null 2>&1 || { echo "claude not on PATH" >&2; return 1; }
+  [ -n "${ANTHROPIC_API_KEY:-}" ] && return 0
+  local cred="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.credentials.json"
+  [ -s "$cred" ] || { echo "no ANTHROPIC_API_KEY and no Claude login credential ($cred)" >&2; return 1; }
+  return 0
+}
+
+# _probe_bounded <secs> <fn> [args...] — run one backend probe under a wall-clock
+# bound so a wedged backend (e.g. a hung `codex login status`) can never stall the
+# reconcile tick. A sidecar watchdog SIGTERMs the probe past the deadline; the
+# probe's stderr diagnostic still flows to the caller (capturable via command
+# substitution), and a killed probe returns non-zero (read as a failed probe).
+_probe_bounded() {
+  local secs="$1"; shift
+  local rc=0 pid wd
+  ( "$@" ) & pid=$!
+  ( sleep "$secs"; kill -TERM "$pid" 2>/dev/null ) 2>/dev/null & wd=$!
+  if wait "$pid" 2>/dev/null; then rc=0; else rc=$?; fi
+  kill -TERM "$wd" 2>/dev/null || true; wait "$wd" 2>/dev/null || true
+  return "$rc"
+}
+
+# _worker_backend_probe_dispatch <kind> <provider> — the provider-specific check.
+# Reuses the handlers' EXISTING preflights verbatim (lazily sourcing the handler
+# provider-common file), so the same code that gates a real job gates provisioning
+# and the two can never drift on what "authenticated" means. Only the anthropic
+# probe (claude_auth_ok) is new.
+_worker_backend_probe_dispatch() {
+  local kind="$1" provider="$2" handlers model
+  handlers="$(dirname "${BASH_SOURCE[0]}")/handlers"
+  case "$provider" in
+    anthropic)
+      claude_auth_ok ;;
+    openai)
+      declare -F codex_provider_preflight >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
+      # GARDEN_PROBE_LIVE=1 bypasses the per-boot auth-ok marker so a mid-boot logout
+      # is SEEN (the scaler needs the opposite of the hot path's cached auth).
+      GARDEN_PROBE_LIVE=1 codex_provider_preflight openai "$kind" scaler-probe \
+        "$(worker_kind_field "$kind" state_ns)" 0 ;;
+    local)
+      declare -F codex_local_endpoint_ready >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
+      command -v codex >/dev/null 2>&1 || { echo "codex not on PATH (hermit backend)" >&2; return 1; }
+      model="$(model_routing_default local 2>/dev/null || true)"; : "${model:=qwen3:0.6b}"
+      # READ-ONLY: endpoint reachable AND serving a usable model; does NOT self-heal
+      # (that starts garden-ollama.service per job — the scaler must stay cheap).
+      codex_local_endpoint_ready "$model" \
+        || { echo "local inference endpoint serves no usable model ($model)" >&2; return 1; } ;;
+    moonshot)
+      declare -F kimi_provider_preflight >/dev/null 2>&1 || source "$handlers/kimi-provider-common.sh"
+      kimi_provider_preflight scaler-probe ;;
+    fireworks)
+      declare -F fireworks_provider_preflight >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
+      fireworks_provider_preflight "$kind" scaler-probe ;;
+    *)
+      echo "worker_backend_probe: unhandled provider '$provider' for kind '$kind'" >&2; return 1 ;;
+  esac
+}
+
+# worker_backend_probe <kind> — 0 when this host has BOTH credentials and software
+# for the kind's backend, 1 otherwise, with a one-line actionable diagnostic on
+# stderr. Spends NO tokens (every check is a filesystem/env read, a login-status
+# subprocess, or a bounded curl) and is wrapped in a wall-clock bound.
+worker_backend_probe() {
+  local kind="${1:?worker_backend_probe: kind required}" provider bound
+  # Test/override seam: a deterministic stand-in for the whole probe so the
+  # effective-count hysteresis and the set-workers declare-gate can be driven
+  # without a real backend. Mirrors GARDEN_UNIT_CTL / GARDEN_PRESS_HEAD_CMD.
+  if [ -n "${GARDEN_BACKEND_PROBE_CMD:-}" ]; then
+    "$GARDEN_BACKEND_PROBE_CMD" "$kind"; return $?
+  fi
+  provider="$(worker_kind_field "$kind" provider)" \
+    || { echo "worker_backend_probe: unknown kind '$kind'" >&2; return 1; }
+  bound="${GARDEN_BACKEND_PROBE_TIMEOUT:-8}"
+  _probe_bounded "$bound" _worker_backend_probe_dispatch "$kind" "$provider"
+}
+
+# backend_effective_count <kind> <declared> — the RUNTIME cap the scaler applies in
+# place of the declared journal target. Probes the kind's backend live, updates a
+# tiny per-host record under $GARDEN_STATE/<state_ns>/backend/ ({ effective,
+# pass_streak, fail_streak, degraded_ticks }), and prints the effective count. NO
+# journal write (invisible to leader/follower and the owning-host-only-writes rule).
+#
+# Hysteresis (confirm-before-move, both directions):
+#   ramp UP   after GARDEN_RAMP_UP_CONFIRM   (default 1) consecutive PASSES → declared
+#   ramp DOWN after GARDEN_RAMP_DOWN_CONFIRM (default 2) consecutive FAILS   → 0
+#   hold      inside the band (streak below threshold) → effective unchanged
+# One confirmed pass is enough to ramp up (auth success is unambiguous); two failing
+# ticks are required to ramp down so a single transient blip (a 429, a restarting
+# Ollama) never tears the pool down. GARDEN_BACKEND_RAMP_STEP>0 raises effective by at
+# most N per tick on ramp-up (default 0 = one-step to declared).
+#
+# The scaler keeps the gardener floor on DECLARED, never on the value this returns:
+# an effective 0 from a failed Claude probe is INTENDED (§5), the mechanism by which
+# "a gnome with no Claude auth sits at 0" holds without declaring 0. Logs every
+# effective transition and, after GARDEN_BACKEND_DEGRADED_TICKS capped-below-declared
+# ticks, raises ONE deduped maintainer alert.
+backend_effective_count() {
+  local kind="${1:?backend_effective_count: kind required}" declared="${2:?backend_effective_count: declared required}"
+  local ns dir rec status count_key
+  ns="$(worker_kind_field "$kind" state_ns)" || ns="$kind"
+  count_key="$(worker_kind_field "$kind" count_key)" || count_key="$kind"
+  dir="$GARDEN_STATE/$ns/backend"
+  rec="$dir/state"; status="$dir/status"
+  local up_confirm down_confirm degraded_ticks ramp_step
+  up_confirm="${GARDEN_RAMP_UP_CONFIRM:-1}"
+  down_confirm="${GARDEN_RAMP_DOWN_CONFIRM:-2}"
+  degraded_ticks="${GARDEN_BACKEND_DEGRADED_TICKS:-10}"
+  ramp_step="${GARDEN_BACKEND_RAMP_STEP:-0}"
+  [[ "$declared" =~ ^[0-9]+$ ]] || declared=0
+
+  # Load the prior record (all fields default to 0 / sanitize to 0).
+  local eff=0 pass=0 fail=0 degraded=0 v
+  if [ -f "$rec" ]; then
+    v="$(sed -n 's/^effective=//p'      "$rec" | head -1)"; [[ "$v" =~ ^[0-9]+$ ]] && eff="$v"
+    v="$(sed -n 's/^pass_streak=//p'    "$rec" | head -1)"; [[ "$v" =~ ^[0-9]+$ ]] && pass="$v"
+    v="$(sed -n 's/^fail_streak=//p'    "$rec" | head -1)"; [[ "$v" =~ ^[0-9]+$ ]] && fail="$v"
+    v="$(sed -n 's/^degraded_ticks=//p' "$rec" | head -1)"; [[ "$v" =~ ^[0-9]+$ ]] && degraded="$v"
+  fi
+  local old_eff="$eff" probe=pass diag=""
+  if diag="$(worker_backend_probe "$kind" 2>&1 1>/dev/null)"; then probe=pass; else probe=fail; fi
+
+  if [ "$probe" = pass ]; then
+    pass=$((pass + 1)); fail=0
+    if [ "$pass" -ge "$up_confirm" ]; then
+      if [ "$ramp_step" -gt 0 ] && [ "$eff" -lt "$declared" ]; then
+        eff=$((eff + ramp_step)); [ "$eff" -gt "$declared" ] && eff="$declared"
+      else
+        eff="$declared"
+      fi
+    fi
+  else
+    fail=$((fail + 1)); pass=0
+    if [ "$fail" -ge "$down_confirm" ]; then eff=0; fi
+  fi
+
+  # Degraded = capped below the declared target while the owner declares > 0.
+  if [ "$declared" -gt 0 ] && [ "$eff" -lt "$declared" ]; then
+    degraded=$((degraded + 1))
+  else
+    degraded=0
+  fi
+
+  # Persist the runtime record + a cheap status sidecar (read-only, no journal).
+  mkdir -p "$dir" 2>/dev/null || true
+  if {
+    printf 'effective=%s\n'      "$eff"
+    printf 'pass_streak=%s\n'    "$pass"
+    printf 'fail_streak=%s\n'    "$fail"
+    printf 'degraded_ticks=%s\n' "$degraded"
+    printf 'declared=%s\n'       "$declared"
+    printf 'probe=%s\n'          "$probe"
+  } > "$rec.tmp" 2>/dev/null; then mv "$rec.tmp" "$rec" 2>/dev/null || true; fi
+  printf 'declared=%s effective=%s probe=%s degraded_ticks=%s\n' \
+    "$declared" "$eff" "$probe" "$degraded" > "$status.tmp" 2>/dev/null \
+    && mv "$status.tmp" "$status" 2>/dev/null || true
+
+  # Observability: log every effective transition (a hold is a quiet DEBUG).
+  local shown; [ "$probe" = pass ] && shown="$pass" || shown="$fail"
+  if [ "$eff" != "$old_eff" ]; then
+    log "auto-tune $kind: effective $old_eff->$eff (declared $declared; probe $probe streak $shown)"
+  else
+    log "DEBUG auto-tune $kind: hold effective $eff (declared $declared; probe $probe streak $shown)"
+  fi
+
+  # Surface a host that cannot run its declared kinds: ONE deduped alert once the
+  # cap has held ~GARDEN_BACKEND_DEGRADED_TICKS ticks; cleared on recovery.
+  local akey="backend-degraded-${GARDEN}-${kind}"
+  if [ "$degraded" -ge "$degraded_ticks" ] && [ "$degraded_ticks" -gt 0 ]; then
+    alert_maintainer "$akey" "host $GARDEN declares $count_key=$declared but its $kind backend probe has failed ~${degraded}m (effective 0). It cannot run its declared ${kind}s — ${diag:-backend unavailable}."
+  elif [ "$declared" -gt 0 ] && [ "$eff" -ge "$declared" ]; then
+    alert_maintainer_clear "$akey" "$kind backend on $GARDEN recovered; effective ramped to declared $declared."
+  fi
+
+  printf '%s\n' "$eff"
+}
+
 # --- watchdog notices: one entry per CONDITION, not one per occurrence --------
 #
 # Every `watchdog:*` maintainer message in the fleet is written by
