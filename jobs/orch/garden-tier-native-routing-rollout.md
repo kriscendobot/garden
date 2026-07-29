@@ -2,7 +2,7 @@
 order: serial
 children: garden-tier-native-routing garden-tier-native-routing-deploy garden-tier-native-routing-migrate
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-07-29T21:44:33Z
 ---
