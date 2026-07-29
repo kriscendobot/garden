@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-approval-reconciler-rollout
-priority: normal
-posted_by: producer
-posted_at: 2026-07-29T23:54:22Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T23:55:05Z cleared=none -->
 
 ---
 tier: mentor
