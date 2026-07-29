@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6737 (530 parent indexes + 6207 children).
+Total section files: 6740 (530 parent indexes + 6210 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8930,6 +8930,11 @@ Total section files: 6737 (530 parent indexes + 6207 children).
 - [tc39-module-harmony--import-attributes--semantics-interoperability-and-the-cache-key](tc39-module-harmony--import-attributes--semantics-interoperability-and-the-cache-key.md)
 - [tc39-module-harmony--import-attributes--synopsis-and-motivation](tc39-module-harmony--import-attributes--synopsis-and-motivation.md)
 
+### tc39-module-harmony--import-attributes-content-type-vs-file-extension
+
+- [tc39-module-harmony--import-attributes-content-type-vs-file-extension--analysis-cloudflare-content-type-measurements](tc39-module-harmony--import-attributes-content-type-vs-file-extension--analysis-cloudflare-content-type-measurements.md)
+- [tc39-module-harmony--import-attributes-content-type-vs-file-extension--overview-why-the-extension-is-not-the-type](tc39-module-harmony--import-attributes-content-type-vs-file-extension--overview-why-the-extension-is-not-the-type.md)
+
 ### tc39-module-harmony--import-defer
 
 - [tc39-module-harmony--import-defer--import-defer-semantics-and-namespace-exotic](tc39-module-harmony--import-defer--import-defer-semantics-and-namespace-exotic.md)
@@ -8944,6 +8949,10 @@ Total section files: 6737 (530 parent indexes + 6207 children).
 
 - [tc39-module-harmony--module-expressions--module-expression-syntax-and-semantics](tc39-module-harmony--module-expressions--module-expression-syntax-and-semantics.md)
 - [tc39-module-harmony--module-expressions--relationship-to-module-class-and-bundling](tc39-module-harmony--module-expressions--relationship-to-module-class-and-bundling.md)
+
+### tc39-module-harmony--shadowrealm-errors
+
+- [tc39-module-harmony--shadowrealm-errors--errors-crossing-the-callable-boundary](tc39-module-harmony--shadowrealm-errors--errors-crossing-the-callable-boundary.md)
 
 ### tc39-module-harmony--shadowrealm-explainer
 
