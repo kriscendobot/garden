@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:27:05Z_
+_As of 2026-07-29T01:30:01Z_
 
 ## Latest
 
@@ -2691,6 +2691,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > endojs/endo-but-for-bots 656` should return rc=0. If the head of [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) has moved by then,
 > the approval is stale by design and needs a re-approval.
 
+- `20260729T012855Z-9ed951` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T012855Z-9ed951.md)
+
+> Four dependabot PRs on endojs/endo-but-for-bots are blocked solely on your approval and cannot proceed autonomously: #556, #558, #869, #870. #869 is the urgent one — its upgrade closes GHSA-37j7-fg3j-429f (CRITICAL, VM escape to RCE), which the in-tree happy-dom 15.11.7 is exposed to. Source: report `dependabotany-recheck-endo-but-for-bots-20260729-012002`.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3882,14 +3886,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.7M | $804.06 _(notional, rate-card)_ | no quota set |
-| Codex | 208.6M _(+447.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 52.0M | $813.69 _(notional, rate-card)_ | no quota set |
+| Codex | 207.5M _(+448.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
 
-### doin (32)
+### doin (35)
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -3911,11 +3915,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260729-012002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
+- [`fu-dependabotany-recheck-endo-but-for-bots-20260729-012002-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-dependabotany-recheck-endo-but-for-bots-20260729-012002-2.md) — In the garden's own job board, promote the parked job endojs-endo-but-for-bot...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
+- [`fu-endojs-endo-but-for-bots-pr882-shepherd-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-2.md) — In the garden's own repo (kriscendobot/garden), investigate why the job endoj...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
 - [`improve-orchestrate-child-stall-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-orchestrate-child-stall-detection.md) — scripts/jobs/orchestrate.sh
+- [`investigate-pr721-review-false-peer-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-pr721-review-false-peer-resolution.md) — Investigate: a maintainer review directive was silently no-opped on a false p...
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260729-012002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
@@ -3923,13 +3930,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3761)
+### tada (3762)
+- [`endojs-endo-but-for-bots-pr883-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr883-conduct.md) — Conduct report — endojs/endo-but-for-bots #883
 - [`dependabotany-recheck-endo-but-for-bots-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260729-012002.md) — Sweep result: one open embargoed row, none due
 - [`endojs-endo-but-for-bots-pr882-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-shepherd.md) — Shepherd report — endojs/endo-but-for-bots#882
 - [`endo-vfs-parity-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260729-012002.md) — Cost
 - [`endo-sturdyref-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260729-012002.md) — Cost
-- [`endo-byte-array-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260729-012002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- … and 3756 more
+- … and 3757 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4027,6 +4034,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
 - [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-debugger-cdp-devtools-investigation.md) — _normal_ · Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
+- [`endo-reminder-integrate-chat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-reminder-integrate-chat.md) — _normal_ · Plan: integrate @endo/reminder into Chat
+- [`endo-reminder-integrate-familiar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-reminder-integrate-familiar.md) — _normal_ · Plan: integrate @endo/reminder into Familiar
+- [`endo-reminder-integrate-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-reminder-integrate-minion-town.md) — _normal_ · Plan: integrate @endo/reminder into minion.town
 - [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
