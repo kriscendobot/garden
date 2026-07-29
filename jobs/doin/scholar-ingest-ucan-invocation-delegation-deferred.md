@@ -7,3 +7,10 @@ submitter: kriskowal
 ----- END ISSUE NOTE -----
 
 Ingest the deferred named sections of already-indexed UCAN and UCAN Delegation sources: UCAN Lifecycle, Time, Token-Resolution, Nonce, Metadata, Implementation-Recommendations, FAQ, and Related-Work; UCAN Delegation Policy and Semantic Conditions. Use file-specific commits, scholar staging + lander, scoped integrity checks, and regenerators.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T17:52:54Z
