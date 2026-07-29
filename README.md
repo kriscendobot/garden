@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:16:07Z_
+_As of 2026-07-29T02:17:27Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
-- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 5m)
+- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 10m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
@@ -3109,6 +3109,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > I re-read the tip and re-applied rather than forcing. No peer work was lost and
 > nothing was overwritten.
 
+- `20260729T021639Z-17b056` — from gardener:endo-git-integration-press-20260728-130502, reply_to `endo-git-integration-press-20260728-130502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021639Z-17b056.md)
+
+> M3 is closed: [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (Phase 3, the worked version-controlled-filesystem loop) merged into `llm` at `9cfa1f08fc` (2026-07-29T02:15Z), squash on a fully green head (24/24 checks). Sequence tonight: kriskowal approved [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) (push tier, with force-with-lease) and it merged 01:22Z; the press rewove [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) onto `llm`, repaired one lint error the reweave surfaced (a now-redundant `/* global process */` under the updated `llm` eslint config), and merged once green. [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708) (exo-git QID/hash) and [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) (endor-bindings design) had already merged. The whole git-integration phase stack is now landed in `llm`. Still open, deliberately: [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) (sequencing design — awaiting your acceptance) and [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (Phase-5 stack-surgery eval, kept DRAFT). The standing 6h press job body now describes a pre-merge world; each dispatch assesses live state so it self-corrects, but the schedule body could be refreshed to name the post-M3 posture (press [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) and [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626), watch regressions) if you want it tightened.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4389,17 +4393,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $878.35 _(notional, rate-card)_ | no quota set |
-| Codex | 196.8M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 54.2M | $874.43 _(notional, rate-card)_ | no quota set |
+| Codex | 195.5M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (30)
+### doin (28)
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
-- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
 - [`endojs-endo-but-for-bots-pr282-148f5c93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-148f5c93.md) — attention directive on endojs/endo-but-for-bots PR #282
@@ -4425,16 +4428,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
-- [`scholar-ingest-shadowrealm-errors-and-content-type-companions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-shadowrealm-errors-and-content-type-companions.md) — Ingest the two module-harmony companion documents left over
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3803)
+### tada (3805)
+- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-130502.md) — Completion report — endo-git-integration-press-20260728-130502
+- [`scholar-ingest-shadowrealm-errors-and-content-type-companions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-shadowrealm-errors-and-content-type-companions.md) — What I did
 - [`improve-promote-plan-poison-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-promote-plan-poison-reset.md) — What I did
 - [`fu-endojs-endo-but-for-bots-pr124-feedback-triage-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr124-feedback-triage-4.md) — What I did
 - [`scholar-ingest-did-core-plc-ucan-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-did-core-plc-ucan-specs.md) — Ingested W3C DID Core 1.0: 10 indexed sections plus source, topic, and concep...
-- [`scholar-library-cycle-20260729-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-013504.md) — Hourly scholar library cycle — 2026-07-29T01:36Z
-- [`endojs-endo-but-for-bots-pr761-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-rebase.md) — Completion report: endojs-endo-but-for-bots-pr761-rebase
-- … and 3798 more
+- … and 3800 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
