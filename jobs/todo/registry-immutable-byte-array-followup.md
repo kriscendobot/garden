@@ -9,13 +9,4 @@ Replace the temporary string-only `RegistryInterface.resolve` argument with a Pa
 
 Promotion condition: the unblock watcher must promote this job automatically when https://github.com/endojs/endo-but-for-bots/pull/671 merges or closes, because this follow-up depends on the registry capability interface introduced there.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-29T02:43:12Z
+<!-- garden-reaped: 0 -->
