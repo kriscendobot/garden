@@ -7,8 +7,8 @@ kind: feature
 stage: clean
 iteration: 0
 max_iterations: 6
-current_child: 
-state: pending
+current_child: finbot-progress-20260729-195004-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-07-29T19:54:28Z
 ---
