@@ -1,1 +1,5 @@
-Ingested W3C DID Core 1.0 into journal/library as source `w3c--did-core-1-0` (content SHA-256 `5e443457`) with 10 sections, source/topic/concept indexes, and an honest DID Core 1.1 Candidate Recommendation Snapshot note. Source-scoped link integrity passed; sections and topic-count indexes regenerated. Posted and handed off successor `scholar-ingest-did-plc-ucan-invocation-revocation` for did:plc and the remaining UCAN work. Self-improvement: nothing this time.
+Ingested W3C DID Core 1.0: 10 indexed sections plus source, topic, and concept links. Integrity checks and regenerated indexes passed.
+
+Posted successor `scholar-ingest-did-plc-ucan-invocation-revocation` for did:plc and remaining UCAN work.
+
+Self-improvement: nothing this time.
