@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T14:10:51Z_
+_As of 2026-07-29T14:23:40Z_
 
 ## Latest
 
@@ -4350,6 +4350,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 - `poison-finbot-pr6-panel-20260728-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr6-panel-20260728-deadline-overrun.md)
 
+> POISON notice — occurrence #2 (first seen 2026-07-28T17:43:07Z, latest 2026-07-29T14:23:08Z).
+> This job has been poison-parked 2 times for the same condition (deadline-overrun);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
 > Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
 > this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
@@ -4360,6 +4364,11 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: finbot-pr6-panel-20260728
 >
 > --- original job body ---
+> ---
+> role: builder
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-29T01:35:05Z -->
+>
 > role: builder
 >
 > # Run the required merge-governance panel for kriscendobot/finbot PR #6
@@ -4951,7 +4960,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.0M | $779.82 _(notional, rate-card)_ | no quota set |
+| Claude | 41.7M | $776.68 _(notional, rate-card)_ | no quota set |
 | Codex | 72.4M _(+567.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
@@ -4988,10 +4997,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-140501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-140501.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr882-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr882-panel-2.md) — Panel round 2 for endojs/endo-but-for-bots PR #882
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 
 ### tada (3862)
 - [`endojs-endo-but-for-bots-pr882-panel-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-panel-fix-1.md) — Cost
@@ -5069,6 +5077,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
 - [`finbot-pr5-panel-20260727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #5
+- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`finbot-progress-20260725-105007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fireworks-glm52-kimik3-build.md) — _normal_ · Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
