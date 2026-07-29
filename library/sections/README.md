@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6740 (530 parent indexes + 6210 children).
+Total section files: 6743 (530 parent indexes + 6213 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -1212,6 +1212,10 @@ Total section files: 6740 (530 parent indexes + 6210 children).
 - [dialog-db--ts-dialog-experimental-session--query-and-selection](dialog-db--ts-dialog-experimental-session--query-and-selection.md)
 - [dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle](dialog-db--ts-dialog-experimental-session--revisions-and-lifecycle.md)
 - [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md)
+
+### did-method-plc--website-spec-v0-1-did-plc
+
+- [did-method-plc--website-spec-v0-1-did-plc--method-operations-recovery-and-trust](did-method-plc--website-spec-v0-1-did-plc--method-operations-recovery-and-trust.md)
 
 ### endo--agents
 
@@ -8990,6 +8994,14 @@ Total section files: 6740 (530 parent indexes + 6210 children).
 - [ucan-wg--delegation-readme--delegation-payload](ucan-wg--delegation-readme--delegation-payload.md)
 - [ucan-wg--delegation-readme--subject-resource-and-powerline](ucan-wg--delegation-readme--subject-resource-and-powerline.md)
 - [ucan-wg--delegation-readme--token-validation](ucan-wg--delegation-readme--token-validation.md)
+
+### ucan-wg--invocation-readme
+
+- [ucan-wg--invocation-readme--invocation-envelope-and-authorized-tasks](ucan-wg--invocation-readme--invocation-envelope-and-authorized-tasks.md)
+
+### ucan-wg--revocation-readme
+
+- [ucan-wg--revocation-readme--monotone-revocation-and-validation](ucan-wg--revocation-readme--monotone-revocation-and-validation.md)
 
 ### ucan-wg--spec-readme
 
