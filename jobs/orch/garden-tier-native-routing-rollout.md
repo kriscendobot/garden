@@ -1,4 +1,5 @@
 ---
+child-garden-tier-native-routing-deploy-reap-count: 0
 child-garden-tier-native-routing-host: endolin-garden-ece02cb4
 child-garden-tier-native-routing-reap-count: 0
 order: serial
