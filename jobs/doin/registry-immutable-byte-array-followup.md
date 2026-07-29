@@ -11,6 +11,7 @@ Promotion condition: the unblock watcher must promote this job automatically whe
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
