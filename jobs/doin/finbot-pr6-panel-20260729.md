@@ -41,6 +41,7 @@ Fable-orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
