@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:32:34Z_
+_As of 2026-07-29T01:34:16Z_
 
 ## Latest
 
@@ -2703,6 +2703,45 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 1. rust/endo at llm HEAD does NOT build standalone — the XS bootstrap bundle generators are missing; draft PR [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) (restore-xs-bootstrap-generators) restores them and its scripts are what made this build possible. Recommend prioritizing its review.
 > 2. The 9-PR npm gap family ([endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) [endojs/endo-but-for-bots#873](https://github.com/endojs/endo-but-for-bots/issues/873) [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) [endojs/endo-but-for-bots#878](https://github.com/endojs/endo-but-for-bots/issues/878) [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879)) is all green, mergeable, zero maintainer feedback yet, all DRAFT per the press job spec ("draft until the finish line"). The finish line is now evidenced — say the word and the press starts un-drafting for review.
 
+- `20260729T013243Z-2b7518` — from gardener:fix-warm-cache-yarn-install-state, reply_to `fix-warm-cache-yarn-install-state` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T013243Z-2b7518.md)
+
+> Host-health finding surfaced while pushing (NOT touched, NOT in this job's scope — reporting only).
+>
+> The shared root repo /home/kris/garden2/.git has a stale gc.log, the exact condition CLAUDE.md
+> § root-repo-guard says permanently disables git's automatic cleanup:
+>
+>     /home/kris/garden2/.git/gc.log  (Jul 28 23:52)
+>       fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
+>       fatal: failed to run repack
+>
+> Copies also exist under .git/worktrees/*/gc.log for 6 worktrees, including journal/. Every git
+> invocation in any worktree now prints the "Automatic cleanup will not be performed" warning.
+>
+> Two things look wrong with the guard rather than just the store:
+>
+> 1. garden-root-repo-guard IS firing every 30m (through 01:22 today) but has NEVER logged an
+>    OBJSTORE-NEEDS-MAINTENANCE / OBJSTORE-REPAIRED line, even though count_gc_logs() should see
+>    .git/gc.log. Its invariant-C repair path is not engaging.
+> 2. Every single tick since at least 19:52 logs "fetch of origin/main2 failed (offline?); using
+>    the last-known ref" — while my own push to origin/main2 from a worktree succeeded moments
+>    ago. So the guard's fetch is failing for a reason other than the network, and it has been
+>    validating HEAD against a stale last-known ref for hours.
+>
+> The missing object 9ad05cc3 is what makes repack abort; the guard's --refetch recovery is the
+> designed answer and does not appear to have run. Suggest a job to diagnose the guard (why
+> invariant C is silent and why its fetch fails) rather than a one-off manual gc, since a manual
+> gc would clear the evidence without fixing the guard.
+
+- `20260729T013334Z-5d108e` — from gardener:ocapn-noise-press-20260729-012002, reply_to `ocapn-noise-press-20260729-012002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T013334Z-5d108e.md)
+
+> OCapN press (dispatch 23): your two review actions tonight both landed.
+>
+> 1. [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (approved 00:09Z, all green) — I marked it READY FOR REVIEW (un-drafted). It's the stack bottom; say "merge [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340)" if you want a conductor to land it on llm now, and the press will re-target/restack [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) → [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) → [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) as it goes in.
+>
+> 2. Your "Authorized." on [endojs/endo-but-for-bots#683](https://github.com/endojs/endo-but-for-bots/issues/683)'s demo report (the live-host / security-group line) — executed. Opened tcp/8929 on minion.town's SG (rule sgr-0d9fc044a33568003, self-describing), deployed endo-ocapn-tcp-demo.service (docker, existing image, new ocapn-tcp-server.mjs bind-mounted), and a garden peer completed a live cross-host Noise IK capability round-trip over raw TCP+CBOR — the last unproven transport/topology cell. Cross-host is now proven over BOTH transports (wss via Caddy, and direct TCP). Artifacts + transcript on [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) (commit 803ef977f); evidence: [https://github.com/endojs/endo-but-for-bots/pull/693](https://github.com/endojs/endo-but-for-bots/pull/693)#issuecomment-5111714349. The TCP toy endpoint stays up (like the ws one) for reproducibility; the SG rule stays unless you want it closed after the demo — say the word and I'll revoke it.
+>
+> Optional next: daemon-level cross-host TCP (boot script currently gates only ws-listen-addr) — cheap to add if you want the full Pet-Daemon pairing over raw TCP too.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3894,36 +3933,33 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.2M | $820.80 _(notional, rate-card)_ | no quota set |
-| Codex | 206.3M _(+450.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 52.2M | $817.15 _(notional, rate-card)_ | no quota set |
+| Codex | 205.7M _(+450.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (3)
+- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
+- [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 
-### doin (35)
+### doin (29)
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
-- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
-- [`endo-npm-cas-registry-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260729-012002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
-- [`endojs-endo-but-for-bots-pr671-review-36ae135d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-36ae135d.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr683-review-84f0d6ef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr683-review-84f0d6ef.md) — Review directive on endojs/endo-but-for-bots PR #683
 - [`endojs-endo-but-for-bots-pr705-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-merge.md) — Merge endojs/endo-but-for-bots PR #705
 - [`endojs-endo-but-for-bots-pr713-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-panel-fixes.md) — Fixer: PR #713 panel must-fix + summary-fix bundle
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Review directive on endojs/endo-but-for-bots PR #713
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
-- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260728-065010.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260729-012002.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-warm-cache-yarn-install-state.md) — fixer: a warm-cache worktree has no yarn install state, so local-verify verif...
 - [`fu-endojs-endo-but-for-bots-pr825-8840fcdb-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr825-8840fcdb-2.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-28T1...
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-2.md) — In the garden's own repo (kriscendobot/garden), investigate why the job endoj...
@@ -3933,18 +3969,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`investigate-pr721-review-false-peer-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-pr721-review-false-peer-resolution.md) — Investigate: a maintainer review directive was silently no-opped on a false p...
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`ocapn-noise-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260729-012002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-refresh-assert-js-section1-code-blocks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-refresh-assert-js-section1-code-blocks.md) — Refresh the stale quoted code blocks in the assert.js section 1 body
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3765)
+### tada (3768)
+- [`fix-warm-cache-yarn-install-state`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-warm-cache-yarn-install-state.md) — Report
+- [`endojs-endo-but-for-bots-pr671-review-36ae135d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-review-36ae135d.md) — Cost
+- [`endo-npm-cas-registry-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260729-012002.md) — Completion report
 - [`scholar-refresh-assert-js-line-citations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-refresh-assert-js-line-citations.md) — What I did
 - [`improve-orchestrate-child-stall-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-orchestrate-child-stall-detection.md) — Cost
-- [`fu-dependabotany-recheck-endo-but-for-bots-20260729-012002-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-dependabotany-recheck-endo-but-for-bots-20260729-012002-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr883-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr883-conduct.md) — Conduct report — endojs/endo-but-for-bots #883
-- [`dependabotany-recheck-endo-but-for-bots-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260729-012002.md) — Sweep result: one open embargoed row, none due
-- … and 3760 more
+- … and 3763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
