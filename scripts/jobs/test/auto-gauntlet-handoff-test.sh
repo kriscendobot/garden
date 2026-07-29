@@ -82,4 +82,48 @@ export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/99
 "$JOBS/auto-gauntlet-handoff.sh" build-ready "$job" "$report"
 assert_recorded build-ready-gauntlet
 
-echo 'PASS: auto-gauntlet handoff records a staged gauntlet for an open draft feature PR and skips probes'
+# REGRESSION (2026-07-29, endojs/endo-but-for-bots#671): a PR URL that appears only
+# in the JOB FILE is a citation the producer wrote, never a PR the build opened — the
+# PR did not exist when the job was posted. The garden-`main2` build
+# `fix-pr-feedback-preflight-argv-e2big` opened no PR at all; its body merely cited the
+# PR whose preflight had crashed, and the hook force-drafted that live, ready-for-review
+# PR out from under a peer worker and posted a gauntlet to review it "cold". A job-file
+# citation must produce NO record and NO GitHub mutation whatsoever.
+cite_job="$TR/cite-build.md"; cite_report="$TR/cite-report.md"
+printf -- '---\nrole: builder\n---\nFix the preflight that crashed on\nhttps://github.com/endojs/endo-but-for-bots/pull/671 — see that PR for the payload.\n' >"$cite_job"
+printf 'Landed on main2 as abc1234. No PR: the garden does not use PRs on itself.\n' >"$cite_report"
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/671","isDraft":false,"state":"OPEN","title":"feat: someone else work","body":"unrelated"}'
+GARDEN_GH_CALL_LOG="$TR/gh-calls.log" "$JOBS/auto-gauntlet-handoff.sh" build-cited "$cite_job" "$cite_report"
+if assert_recorded build-cited-gauntlet; then
+  echo 'a PR merely CITED in the job file incorrectly received a gauntlet record' >&2
+  exit 1
+fi
+if [ -s "$TR/gh-calls.log" ]; then
+  echo 'a PR merely CITED in the job file was touched on GitHub:' >&2
+  cat "$TR/gh-calls.log" >&2
+  exit 1
+fi
+
+# The same citation must also not be reachable via the probe/ready branches: no PR at
+# all in either document is simply "no handoff required", not an error.
+: >"$TR/empty-report.md"
+printf -- '---\nrole: builder\n---\nGarden infrastructure work, no PR.\n' >"$TR/empty-job.md"
+GARDEN_GH_CALL_LOG="$TR/gh-calls-none.log" \
+  "$JOBS/auto-gauntlet-handoff.sh" build-nopr "$TR/empty-job.md" "$TR/empty-report.md"
+if assert_recorded build-nopr-gauntlet; then
+  echo 'a build with no PR anywhere incorrectly received a gauntlet record' >&2
+  exit 1
+fi
+[ ! -s "$TR/gh-calls-none.log" ]
+
+# A report that names several PRs still hands off on the first, but says so.
+multi_report="$TR/multi-report.md"
+printf 'Draft PR: https://github.com/endojs/endo-but-for-bots/pull/999\nSame shape as https://github.com/endojs/endo-but-for-bots/pull/671.\n' >"$multi_report"
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: feature","body":"normal feature"}'
+"$JOBS/auto-gauntlet-handoff.sh" build-multi "$job" "$multi_report" 2>"$TR/multi.log"
+assert_recorded build-multi-gauntlet
+grep -q 'pr: https://github.com/endojs/endo-but-for-bots/pull/999' \
+  "$TR/check-build-multi-gauntlet/jobs/gauntlet/build-multi-gauntlet.md"
+grep -q 'distinct PR URLs' "$TR/multi.log"
+
+echo 'PASS: auto-gauntlet handoff records a staged gauntlet for an open draft feature PR, skips probes, and never touches a PR merely cited in the job file'

@@ -88,6 +88,21 @@ A failed post leaves the build claim unfinished for requeue rather than silently
 stranding a draft PR. Probe builds are recognized from their gap-revealing PR/body
 annotation and deliberately skip this edge.
 
+**"Reported" is load-bearing: only the completion report may name the build's own
+PR.** A PR the build opened did not exist when the job was posted, so a GitHub PR
+URL in the **job file** is by construction a *citation* — a PR the producer told the
+build about — and never an artifact the build created. The hook originally scraped
+both documents and took the first match, which on 2026-07-29 let the garden-`main2`
+build `fix-pr-feedback-preflight-argv-e2big` (which opened no PR at all, and merely
+cited the PR whose preflight had crashed) force-draft endojs/endo-but-for-bots#671 —
+ready-for-review since 07-11, and under a live peer worker at that moment — and mint
+a gauntlet to review it "cold". The hook now reads the report only, and logs a
+job-file citation explicitly as a non-artifact. The deliberate trade: a builder that
+pushed to a pre-existing PR named only in its job file loses its automatic handoff.
+That is the right side to fail on — a missed handoff is still caught by the foreman
+and the watchers, whereas force-drafting a live PR corrupts another worker's
+in-flight work and nothing downstream can catch it.
+
 The scaffold wires the rebase/push mechanics as placeholders where a project
 plugs in its real commands; the `GARDEN_EVAL` gate now defaults to the
 `local-verify` harness rather than the original `true` no-op. The control flow,

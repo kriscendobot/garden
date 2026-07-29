@@ -21,13 +21,35 @@ if [ "$(plan_role "$jobfile")" != builder ]; then
   exit 0
 fi
 
-# A builder that did not open a PR is legitimate for garden-infrastructure work.
-# It has no PR lifecycle to hand off, but say so explicitly in the worker log so a
-# missing PR is visible rather than indistinguishable from a skipped handoff.
-pr_url="$(grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$report" "$jobfile" 2>/dev/null | head -1 || true)"
+# Only the COMPLETION REPORT may name the build's own pull request.  A PR the build
+# opened did not exist when the build was posted, so a URL in the JOB FILE is by
+# construction a CITATION — a PR the producer told the build about — never an
+# artifact the build created.  Scraping both and taking the first match is how
+# `fix-pr-feedback-preflight-argv-e2big` (a garden-`main2` fix that opened no PR at
+# all) got endojs/endo-but-for-bots#671 force-drafted on 2026-07-29: its job body
+# cited that PR six times as the one whose preflight had crashed, this hook read the
+# citation as the build's artifact, converted a PR that had been ready-for-review
+# since 07-11 back to draft under a live peer worker, and posted a gauntlet to
+# review it "cold".  The trade this makes deliberately: a builder that pushed to a
+# pre-existing PR named only in its job file no longer gets an automatic handoff.
+# That is the right side to fail on — a missed handoff is still caught by the
+# foreman and the watchers, whereas force-drafting a live PR corrupts someone
+# else's in-flight work and cannot be caught by anything.
+pr_urls="$(grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$report" 2>/dev/null | awk '!seen[$0]++' || true)"
+pr_url="$(printf '%s\n' "$pr_urls" | head -1)"
 if [ -z "$pr_url" ]; then
-  log "auto-gauntlet: build '$base' completed without a recognizable GitHub PR URL; no PR handoff required"
+  cited="$(grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$jobfile" 2>/dev/null | head -1 || true)"
+  if [ -n "$cited" ]; then
+    log "auto-gauntlet: build '$base' named no PR in its completion report; its job file cites $cited, which is a reference and NOT a build artifact — no handoff, and that PR is left untouched"
+  else
+    log "auto-gauntlet: build '$base' completed without a recognizable GitHub PR URL; no PR handoff required"
+  fi
   exit 0
+fi
+# Ambiguity is not resolvable here, but it must not be invisible: a report that
+# names several PRs is the remaining way this hook can pick the wrong one.
+if [ "$(printf '%s\n' "$pr_urls" | wc -l)" -gt 1 ]; then
+  log "auto-gauntlet: build '$base' report names $(printf '%s\n' "$pr_urls" | wc -l) distinct PR URLs ($(printf '%s' "$pr_urls" | tr '\n' ' ')); treating the first, $pr_url, as the build's own"
 fi
 
 gh_bin="${GARDEN_GH:-gh}"
