@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T00:35:22Z_
+_As of 2026-07-29T00:35:45Z_
 
 ## Latest
 
@@ -2638,6 +2638,58 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T233818Z-59d5d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T233818Z-59d5d4.md)
 
 > Report `endo-npm-cas-registry-press-20260728-192002` reports its arc is review-blocked, not build-blocked: the draft stack can reach the finish line as-is, but landing order requires the #857/#873 adaptation to be folded into the later of the two PRs. That's a landing/sequencing decision on endojs/endo-but-for-bots that needs your call before a gardener touches the stack — please confirm which PR should absorb the adaptation, or say to leave the stack parked pending your review.
+
+- `20260729T003528Z-fc6c03` — from gardener:endojs-endo-but-for-bots-pr656-shepherd, reply_to `endojs-endo-but-for-bots-pr656-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T003528Z-fc6c03.md)
+
+> # [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) is ready to merge; a garden gate is what's blocking it
+>
+> Shepherd job on [https://github.com/endojs/endo-but-for-bots/pull/656](https://github.com/endojs/endo-but-for-bots/pull/656) found nothing
+> to fix in CI — it is already green — but found the reason your approval did not
+> finalize into a merge.
+>
+> ## The PR
+>
+> - 24/24 check runs `completed`/`success` on head `76e6800ee54cf8108c917b81e7dcdfa7f29e5aaa`.
+> - OPEN, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, not draft.
+> - Your `APPROVED` review is on that exact head (2026-07-29T00:06:25Z).
+>
+> ## Why it did not merge
+>
+> `scripts/jobs/handlers/pr-maintainer-approval-gh.sh` required GitHub's
+> `reviewDecision` rollup to equal `APPROVED` before it would look at the reviews at
+> all. GitHub leaves that field **empty** on some PRs even with a real approval on
+> the head commit — it is empty on this one, and on
+> [https://github.com/endojs/endo-but-for-bots/pull/705](https://github.com/endojs/endo-but-for-bots/pull/705) and
+> [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282), while being `APPROVED` on
+> [https://github.com/endojs/endo-but-for-bots/pull/669](https://github.com/endojs/endo-but-for-bots/pull/669) and
+> [https://github.com/endojs/endo-but-for-bots/pull/707](https://github.com/endojs/endo-but-for-bots/pull/707). So the gate was
+> unsatisfiable exactly where it mattered. This is also what the
+> `endojs-endo-but-for-bots-pr755-conduct` job hit on 2026-07-28, where it read as a
+> stale-head problem.
+>
+> A peer landed the fix concurrently while I was diagnosing it — `c510ec1b4f` on
+> `main2` makes the rollup a **veto** (`CHANGES_REQUESTED` / `REVIEW_REQUIRED` still
+> refuse) rather than the approval authority; the load-bearing check remains an
+> `APPROVED` review from a journal maintainer on the current head, so absent,
+> dismissed, stale, and non-maintainer approvals are refused exactly as before. That
+> fix landed with no tests, so I added them (`0520ce88bc`, 7 cases, verified
+> load-bearing) plus a harness fix (`59982083f9`) that had the full suite red by cwd.
+> Suite is 367/0.
+>
+> ## What I need from you
+>
+> **A deliberate deploy of `main2`** (`context/operations/deploy.md`). The fix is on
+> `main2` but the deployed root still carries the old gate, so every approved PR
+> stays unmergeable until then.
+>
+> I parked the merge job rather than queueing it, so it cannot burn a claim stalling
+> on the un-deployed gate:
+>
+>     jobs/plan/endojs-endo-but-for-bots-pr656-conduct   (gate: go-ahead)
+>
+> Promote it after the deploy. Sanity check first — `scripts/jobs/handlers/pr-mergeable-gh.sh
+> endojs/endo-but-for-bots 656` should return rc=0. If the head of [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) has moved by then,
+> the approval is stale by design and needs a re-approval.
 
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
