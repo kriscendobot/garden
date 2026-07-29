@@ -1976,7 +1976,12 @@ default_id="$(env -i PATH="$gh_path" FAKE_GH_ACTIVE="$ACTIVE" gh api user)"
 # Static checks on the wrapper itself.
 bash -n "$GHWRAP_DIR/gh" && ok "wrapper: bash -n clean" || bad "wrapper: bash -n failed"
 if command -v shellcheck >/dev/null 2>&1; then
-  shellcheck -x "$GHWRAP_DIR/gh" >/dev/null 2>&1 && ok "wrapper: shellcheck clean" || bad "wrapper: shellcheck reported issues"
+  # -P SCRIPTDIR resolves the wrapper's `# shellcheck source=../comment-provenance.sh`
+  # directive relative to the WRAPPER, not the caller's cwd. Without it shellcheck
+  # 0.9.0 reads the path relative to cwd, so this check passed from scripts/jobs/bin
+  # and failed (SC1091) from the repo root -- a cwd-dependent red suite, not a
+  # wrapper defect.
+  shellcheck -x -P SCRIPTDIR "$GHWRAP_DIR/gh" >/dev/null 2>&1 && ok "wrapper: shellcheck clean" || bad "wrapper: shellcheck reported issues"
 else
   echo "  SKIP: shellcheck not installed"
 fi
