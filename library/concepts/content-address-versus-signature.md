@@ -16,6 +16,10 @@ Two verification primitives are routinely conflated and do different jobs. **A h
 | [atproto--specs-repository--self-certifying-repository](../sections/atproto--specs-repository--self-certifying-repository.md) | Self-certifying content plus an authoritative PDS location: what a hash can settle and what only an authority can assert (currency). |
 | [ucan-wg--spec-readme--canonicalization-envelope-and-cids](../sections/ucan-wg--spec-readme--canonicalization-envelope-and-cids.md) | A certificate that is itself content-addressed; did:key is required precisely to keep a resolver out of the signature-verification path. |
 | [atproto--specs-did--did-document-atproto-fields](../sections/atproto--specs-did--did-document-atproto-fields.md) | Resolving a DID proves the controller published the endpoint, not that the endpoint is honest; 'a valid URL doesn't mean the the PDS itself is currently functional'. |
+| [atproto--specs-data-model--nodes-blocks-and-links](../sections/atproto--specs-data-model--nodes-blocks-and-links.md) | 'Hash references do have the property of being self-certifying ... This makes it possible to redistribute content and trust copies even if coming from an untrusted party.' |
+| [atproto--specs-sync--event-stream-relays-and-self-certification](../sections/atproto--specs-sync--event-stream-relays-and-self-certification.md) | The deployed boundary: repository data verifies offline, identity and account data 'is not self-certifying', and wholesale filtering of a repository is undetectable. |
+| [atproto--specs-sync--inductive-verification-and-operation-inversion](../sections/atproto--specs-sync--inductive-verification-and-operation-inversion.md) | `since` and `prevData` 'are neither authenticated (signed) nor self-certifying' yet still carry the consistency chain: a third category between hash and signature. |
+| [atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat](../sections/atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat.md) | The mutable-name side of the same split: `at://` names a record, and the spec says outright it is not content-addressed. |
 
 ## See also
 
