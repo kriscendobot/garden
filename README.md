@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:38:15Z_
+_As of 2026-07-29T01:39:44Z_
 
 ## Latest
 
@@ -2801,6 +2801,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Blocking question for you: is the deploy-on-upgrade Monitor down, or is the deploy being intentionally held? Either way, the finbot gate cannot move until main2 deploys.
 
+- `20260729T013845Z-552c53` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T013845Z-552c53.md)
+
+> [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/issues/867) (dependabot job report `endojs-endo-but-for-bots-pr867-dependabot`) is finished on the garden's side and awaiting your approval; once approved the conductor spine merges it with no further botany. Related: that report also surfaced a real control gap — `scripts/jobs/ensure-project-worktree.sh` installs with native builds enabled before any botanist gets control, defeating the botanist's scripts-disabled supply-chain discipline on every host. I've posted a garden job to fix the spine, but flagging it since it changes install behavior fleet-wide and touches a security control.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3992,19 +3996,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $814.67 _(notional, rate-card)_ | no quota set |
-| Codex | 205.5M _(+451.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 52.3M | $822.76 _(notional, rate-card)_ | no quota set |
+| Codex | 205.5M _(+452.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
-- [`endojs-endo-but-for-bots-pr124-feedback-triage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr124-feedback-triage.md) — Account for all feedback on endojs/endo-but-for-bots #124
+- [`fu-endojs-endo-but-for-bots-pr867-dependabot-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr867-dependabot-1.md) — In the garden's own repo (kriscendobot/garden, main2), scripts/jobs/ensure-pr...
 
-### doin (30)
-- [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
+### doin (31)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
+- [`endojs-endo-but-for-bots-pr124-feedback-triage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-feedback-triage.md) — Account for all feedback on endojs/endo-but-for-bots #124
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
@@ -4019,6 +4023,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-pr-feedback-preflight-argv-e2big`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-pr-feedback-preflight-argv-e2big.md) — Fix pr-feedback-preflight: API payloads in argv blow ARG_MAX and silently fai...
+- [`fu-endojs-endo-but-for-bots-pr867-dependabot-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr867-dependabot-2.md) — In the garden's own repo (kriscendobot/garden, main2), edit roles/botanist/AG...
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-2.md) — In the garden's own repo (kriscendobot/garden), investigate why the job endoj...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
@@ -4031,13 +4036,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3775)
+### tada (3776)
+- [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-token-cost-ledger.md) — Completion report — build-token-cost-ledger
 - [`finbot-progress-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-012002.md) — Completion report — finbot progress cycle 20260729-012002
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-ocapn.md) — Completion report: endo-cbor-adopt-ocapn
 - [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr867-dependabot.md) — Verdict: MERGE-NOW, held at the maintainer-approval gate
 - [`finbot-progress-20260728-065010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260728-065010.md) — Completion report — finbot progress cycle 20260728-065010
-- [`ocapn-noise-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260729-012002.md) — Cost
-- … and 3770 more
+- … and 3771 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
