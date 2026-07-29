@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T18:02:48Z_
+_As of 2026-07-29T18:03:40Z_
 
 ## Latest
 
@@ -4483,6 +4483,65 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 > Fable-orchestrator sign-off. Never self-merge.
 
+- `poison-finbot-pr4-panel-rerun-20260728-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr4-panel-rerun-20260728-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/finbot-pr4-panel-rerun-20260728; it stays HELD until a human promotes it
+> (promote-plan.sh finbot-pr4-panel-rerun-20260728) or removes it, so nothing is lost.
+> Original job base: finbot-pr4-panel-rerun-20260728
+>
+> --- original job body ---
+> role: builder
+>
+> # Run the required merge-governance panel for kriscendobot/finbot PR #4
+>
+> PR: [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) (DRAFT)
+> Head branch: `feat/harness-compartment-role-program` @ `a99c87b97a77` (a99c87b97a77...)
+> Base: `main` @ `877fa76769b4ff538916ac21afcac747409dc542` (origin/main == this base).
+> Diff: 5 commits ahead, 0 behind; 7 files (harness sandbox/permissive.js, spawn.js,
+> schemas/spawn.js, index.js, README, cap-attenuation design, spawn.test.js). CI: green (`test` pass).
+>
+> Increment: "run role programs in SES compartments" — the foundational harness increment
+> (`designs/cap-attenuation.md`): a role program is spawned inside a hardened SES compartment
+> with an attenuated permissive endowment so a subagent gets only the capabilities its schema
+> grants. This is the deepest of the three open finbot PRs; #5 (pipeline OBSERVE-dispatch) and
+> #6 (forecast data-sufficiency) build in orthogonal packages.
+>
+> This is the merge-governance panel gate (maintainer directive 2026-07-22): finbot lands only
+> after BOTH a passing panel AND a Fable-orchestrator sign-off — even on our own fork.
+>
+> ## Why this re-post
+>
+> PR #4's prior panel jobs were **poisoned** — the most recent (`finbot-pr4-panel-20260728`)
+> hit `requeue-exhausted` (5 requeue cycles, 0 deadline overruns) on follower
+> `endolin-garden2-5bcdff64` at 2026-07-28T16:53Z, i.e. host churn / requeue-cap, not a
+> structural panel failure. The sibling panels for PR #5 (`finbot-pr5-panel-20260728`) and
+> PR #6 (`finbot-pr6-panel-20260728`) are running clean on the same fleet right now, so a
+> fresh, un-poisoned #4 panel should complete. The earlier PR #4 empty-seat-verdict failure
+> mode is covered by the deployed fixes `010abbe299` (empty-seat retry) + `6963e506db`
+> (CI-sized handler budgets).
+>
+> ## Do
+>
+> 1. Get an isolated project worktree for the PR head (key it to YOUR job base, never a
+>    hand-named per-PR checkout):
+>    `scripts/jobs/ensure-project-worktree.sh <your-base> kriscendobot/finbot feat/harness-compartment-role-program`
+> 2. Run the scripted code panel over the PR against base `origin/main`:
+>    `scripts/jobs/gardening/panel.sh <worktree> 4 origin/main` with the project fixer/un-draft
+>    hooks wired per skills/panel. REQUIRE non-empty formal per-seat verdicts — do NOT treat an
+>    empty/absent seat block as a pass (the earlier PR #4 failure mode). Re-run any seat that
+>    produces no verdict.
+> 3. On a PASSING panel: DO NOT MERGE and DO NOT UN-DRAFT. Post the Fable sign-off job
+>    `finbot-pr4-fable-signoff` with `role: orchestrator` and `model: claude-fable-5`, handing
+>    it the panel outcome + PR link; the merge is that orchestrator's authority (or a conductor
+>    it directs), never the panel-runner's.
+> 4. On must-fix: run the fix-loop (fixer commits on the PR head) until the panel passes, then
+>    proceed to step 3. Keep the tree green.
+>
+> Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
+> Fable-orchestrator sign-off. Never self-merge.
+
 - `poison-finbot-pr5-panel-20260727-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-finbot-pr5-panel-20260727-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
@@ -5272,7 +5331,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.2M _(+585.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Codex | 71.2M _(+586.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
@@ -5292,9 +5351,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-172004.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (5)
+### doin (4)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 - [`registry-immutable-byte-array-followup-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #888
@@ -5375,6 +5433,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
 - [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · ---
+- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260729.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #5
