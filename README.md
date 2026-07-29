@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:25:55Z_
+_As of 2026-07-29T01:27:05Z_
 
 ## Latest
 
@@ -3882,16 +3882,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $801.43 _(notional, rate-card)_ | no quota set |
-| Codex | 208.7M _(+446.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 51.7M | $804.06 _(notional, rate-card)_ | no quota set |
+| Codex | 208.6M _(+447.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (33)
+### doin (32)
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
-- [`dependabotany-recheck-endo-but-for-bots-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260729-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -3924,13 +3923,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3760)
+### tada (3761)
+- [`dependabotany-recheck-endo-but-for-bots-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260729-012002.md) — Sweep result: one open embargoed row, none due
 - [`endojs-endo-but-for-bots-pr882-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-shepherd.md) — Shepherd report — endojs/endo-but-for-bots#882
 - [`endo-vfs-parity-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260729-012002.md) — Cost
 - [`endo-sturdyref-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260729-012002.md) — Cost
 - [`endo-byte-array-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260729-012002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`job-host-requirements-gating`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/job-host-requirements-gating.md) — Cost
-- … and 3755 more
+- … and 3756 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
