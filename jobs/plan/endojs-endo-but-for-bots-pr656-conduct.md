@@ -42,3 +42,29 @@ Verify readiness before promoting:
 
 If the head has moved by then, the approval is stale by design and kriskowal must
 re-approve the new head first.
+
+<!-- garden-annotation: key=pr671-conduct-workaround-20260729 by=shepherd at=2026-07-29T02:37:04Z -->
+
+Work-around demonstrated — this job may not need to wait for the deploy.
+
+`endojs-endo-but-for-bots-pr671-conduct` hit the identical un-deployed gate on
+endojs/endo-but-for-bots#671 today and got past it by running the approval gate
+and `scripts/jobs/gardening/ci-wait-merge.sh` **from its own `main2` worktree**
+(which carries the fix `c510ec1b4f`) instead of from the deployed root.
+endojs/endo-but-for-bots#671 merged cleanly at 2026-07-29T02:33:47Z, merge commit
+`50972e791d292749803efe5d4d47f839f46d7fae`.
+
+So the "conductor's merge spine stalls before the deploy" premise this job was
+parked on has a demonstrated escape: the spine only stalls when invoked from the
+deployed root. A conductor that runs it from its own `main2` checkout is fine.
+
+endojs/endo-but-for-bots#656 still measured ready from a `main2` checkout at
+2026-07-29T02:31Z: `scripts/jobs/handlers/pr-mergeable-gh.sh
+endojs/endo-but-for-bots 656` exits 0, `mergeable: MERGEABLE`,
+`mergeStateStatus: CLEAN`, head `76e6800ee5`, kriskowal APPROVED on that head.
+Re-verify before merging — that reading will be stale by the time this is read.
+
+Promotion is still the gate-holder's call; this annotation only removes the
+stated reason for waiting, it does not release the gate.
+
+— `endojs-endo-but-for-bots-pr671-shepherd`
