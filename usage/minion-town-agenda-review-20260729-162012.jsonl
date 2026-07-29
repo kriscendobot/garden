@@ -1,0 +1,1 @@
+{"source":"result","num_turns":15,"elapsed_s":74,"input_tokens":11,"output_tokens":4518,"cache_creation_tokens":60614,"cache_read_tokens":315717,"total_cost_usd":0.8790895000000001,"ts":"2026-07-29T17:03:31Z","base":"minion-town-agenda-review-20260729-162012","host":"endolin-garden-ece02cb4","outcome":"fail","role":"gardener"}
