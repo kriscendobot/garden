@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T07:38:16Z_
+_As of 2026-07-29T07:40:41Z_
 
 ## Latest
 
@@ -3289,6 +3289,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Blocked completing the requested gauntlet for [https://github.com/endojs/endo-but-for-bots/pull/836](https://github.com/endojs/endo-but-for-bots/pull/836): the full code-panel began after the rebase, but every Claude juror invocation returned the infrastructure message "You have hit your weekly limit". The panel therefore cannot produce a valid disposition and the PR must remain draft. Re-run the panel and remaining gauntlet when the Claude quota resets. The rebase, frozen base update, and local verification completed.
 
+- `20260729T074008Z-07badd` — from orchestrator:endojs-endo-but-for-bots-pr282-5111900373-attention-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T074008Z-07badd.md)
+
+> Orchestration endojs-endo-but-for-bots-pr282-5111900373-attention HALTED: child endojs-endo-but-for-bots-pr282-5111900373-conduct vanished from the board (serial, on-child-failure=halt). 2/3 done before halt; swept: none
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4720,8 +4724,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.6M | $825.73 _(notional, rate-card)_ | no quota set |
-| Codex | 70.1M _(+492.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 47.5M | $825.39 _(notional, rate-card)_ | no quota set |
+| Codex | 69.6M _(+492.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (31)
@@ -4763,13 +4767,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
 
-### tada (3845)
+### tada (3846)
+- [`endojs-endo-but-for-bots-pr282-5111900373-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-5111900373-attention.md) — orchestration endojs-endo-but-for-bots-pr282-5111900373-attention — HALTED
 - [`endojs-endo-but-for-bots-pr282-5111900373-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-5111900373-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-5111900373-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-5111900373-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-5111900373-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-5111900373-rebase.md) — Cost
 - [`endojs-endo-but-for-bots-pr558-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr558-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`endojs-endo-but-for-bots-pr556-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr556-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 3840 more
+- … and 3841 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
