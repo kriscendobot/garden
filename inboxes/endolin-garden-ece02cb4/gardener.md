@@ -1875,3 +1875,12 @@ Inspect via `git -C journal cat-file -p 4a9fcc0201818c8ed786d375285fb049df575689
 - Context: gardener-7 on endolin-garden-ece02cb4: job 'fu-wallclock-cost-proxy-for-censored-arms-1' exit-0-unsatisfying but elapsed near-constant (924,860s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 908bab5e2a9e74a8d30eaaeae28543f29232c201`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T17:03:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b7a840dbb20dfc0624d588c34511aeff590949fb
+- Context: gardener-7 on endolin-garden-ece02cb4: job 'minion-town-agenda-review-20260729-162012' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b7a840dbb20dfc0624d588c34511aeff590949fb`.
