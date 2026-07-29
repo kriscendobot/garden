@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: garden-tier-native-routing-rollout
-priority: high
-posted_by: liaison
-posted_at: 2026-07-29T22:04:15Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-07-29T22:06:22Z cleared=none -->
 
 ---
 tier: mentor
