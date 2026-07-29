@@ -4,9 +4,9 @@ model: claude-fable-5
 thoughtfulness: medium
 work_class: other:l
 target: main2
-attempts: 4
-accepts: 4
+attempts: 5
+accepts: 5
 censored: 197
-mean_dollars: 2.278037
-m2: 4.645503
+mean_dollars: 2.625640
+m2: 7.062062
 acceptance_rate: 1.0000
