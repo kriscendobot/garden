@@ -40,9 +40,13 @@ setup_fixture() {
   git init -q --bare "$BARE"
   local SEED="$TR/seed"; git init -q "$SEED"
   git -C "$SEED" checkout -q -b main2
-  mkdir -p "$SEED/scripts/jobs"
+  mkdir -p "$SEED/scripts/jobs/test"
   printf '# placeholder\n' > "$SEED/README.md"
   printf 'echo old\n'      > "$SEED/scripts/jobs/worker-lib.sh"
+  # The production gate runs the candidate tree. This fixture carries a tiny,
+  # hermetic stand-in for the classifier tier; individual gate cases below replace
+  # it with a failing suite to prove the tree never swaps on a bad candidate.
+  printf '#!/bin/bash\nexit 0\n' > "$SEED/scripts/jobs/test/deploy-gate-probe.sh"
   git -C "$SEED" add -A
   git -C "$SEED" "${git_id[@]}" commit -q -m "seed"
   git -C "$SEED" remote add origin "$BARE"
@@ -69,6 +73,9 @@ run_deploy() {  # run_deploy [extra env assignments...] ; returns rc, fills $OUT
              GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" \
              GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/log" \
              GARDEN_DEPLOY_NO_BROADCAST=1 \
+             GARDEN_DEPLOY_TEST_SUITES=scripts/jobs/test/deploy-gate-probe.sh \
+             GARDEN_DEPLOY_TEST_SUITE_TIMEOUT=5 GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT=20 \
+             GARDEN_DEPLOY_REPORT_TIMEOUT=1 \
              XDG_CONFIG_HOME="$TR/config" \
              "$@" bash "$DEPLOY" 2>&1)"
   RC=$?
@@ -100,6 +107,19 @@ log_has "restart garden-gardener@1.service" && ok "gardener 1 restarted (re-exec
 log_has "restart garden-gardener@2.service" && ok "gardener 2 restarted (no busy-gate post-quiesce)" || bad "gardener 2 NOT restarted"
 log_has "restart garden-bulletin.service" && ok "bulletin restarted" || bad "bulletin NOT restarted"
 grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (no mid-job gardeners)" || bad "quiesce not logged"
+
+# ============================================================================
+hr; echo "CANDIDATE TEST GATE — a failing candidate suite aborts before drain or swap"; hr
+setup_fixture
+origin_commit scripts/jobs/test/deploy-gate-probe.sh "#!/bin/bash
+exit 1" "test: make candidate gate fail"
+before="$(root_head)"
+run_deploy
+[ "$RC" -ne 0 ] && ok "non-zero exit on a failing candidate suite" || bad "exit 0 despite a failing candidate suite"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced when candidate gate fails" || bad "root advanced despite failed candidate gate"
+draining && bad "drain engaged despite pre-drain candidate gate failure" || ok "candidate gate failed before engaging the drain"
+grep -q "deploy-gate-probe.sh(rc=1)" <<<"$OUT" && ok "failure names the failing suite" || bad "failing suite not named: $OUT"
+grep -q "kind:error" <<<"$OUT" && ok "kind:error reporting path is logged" || bad "kind:error reporting path not logged: $OUT"
 
 # ============================================================================
 hr; echo "NO-OP — origin == root: nothing to deploy, drain lifted, no restart"; hr

@@ -11,7 +11,18 @@
 # into the root in one deliberate, drained pass. See designs/deliberate-deploy.md.
 #
 # The pass is deterministic (no LLM) and ordered:
-#   0. DEFER CHECK. Before engaging the drain, sample the fleet's busy markers. A
+#   0. CANDIDATE GATE. Fetch the candidate and, before engaging the drain or
+#               swapping any live path, run the fast deterministic tier from an
+#               unpacked candidate tree: `bash -n` for every tracked
+#               `scripts/**/*.sh`, then the handler-classifier regression suites.
+#               This is intentionally a fast tier rather than all 136 job suites:
+#               the full suite is too slow and variable for a deliberate deploy
+#               window. Per-suite and total bounds keep this gate from becoming a
+#               fleet outage; a failed or timed-out suite aborts by default,
+#               writes a kind:error journal entry, and alerts the maintainer.
+#               Set GARDEN_DEPLOY_TEST_OVERRIDE=1 only for a deliberate emergency
+#               deploy; that exceptional bypass is logged loudly.
+#   1. DEFER CHECK. Before engaging the drain, sample the fleet's busy markers. A
 #               single gardener running a job longer than the drain budget (the
 #               ymax0 chain-state repros, the scholar LangChain/LangGraph ingests)
 #               can never quiesce within GARDEN_DEPLOY_DRAIN_TIMEOUT. Engaging the
@@ -26,7 +37,7 @@
 #               posture: a long job blocks the deploy regardless — half-old/half-new
 #               code is never allowed — so the only choice is whether to pause the
 #               fleet while it blocks; we choose not to).
-#   1. DRAIN.   Engage the draining marker so gardeners finish their in-flight
+#   2. DRAIN.   Engage the draining marker so gardeners finish their in-flight
 #               claim and take no new ones, then wait for the host to QUIESCE — no
 #               gardener busy marker remains ($GARDEN_STATE/gardeners/*/busy, the
 #               same host-local mid-job signal deploy-sync used). Bounded by
@@ -36,7 +47,7 @@
 #               wait: if a gardener we engaged the drain over crosses the threshold
 #               mid-drain, we lift the drain and defer rather than burn the rest of
 #               the budget paused.
-#   2. MERGE.   Advance the root tree to origin/$GARDEN_MAIN_BRANCH as a strict
+#   3. MERGE.   Advance the root tree to origin/$GARDEN_MAIN_BRANCH as a strict
 #               fast-forward, but ATOMICALLY per file (atomic_advance_tree in
 #               deploy-tree-swap.sh) rather than by an in-place `git merge`.
 #               Because development no longer happens in the root tree, the tree is
@@ -50,7 +61,7 @@
 #               filesystem: an opener sees the whole old or whole new file, never a
 #               partial one — so NO unit is stopped or masked and no singleton tick
 #               is dropped.
-#   3. RECORD + LIFT + RESTART. Record the new HEAD as the deployed sha, lift the
+#   4. RECORD + LIFT + RESTART. Record the new HEAD as the deployed sha, lift the
 #               drain, then restart the long-running services and the gardener
 #               fleet so they re-exec onto the new code. Lifting the drain BEFORE
 #               the restart is safe: the drained gardeners have already exited, so
@@ -74,6 +85,17 @@ GARDEN_TAG="deploy-garden"
 : "${GARDEN_DEPLOY_DRAIN_TIMEOUT:=600}"   # seconds to wait for the fleet to quiesce
 : "${GARDEN_DEPLOY_POLL:=5}"              # seconds between quiesce polls
 : "${GARDEN_DEPLOY_NO_BROADCAST:=0}"      # set 1 to skip the post-deploy reread broadcast (tests)
+: "${GARDEN_DEPLOY_TEST_OVERRIDE:=0}"     # set 1 only for a deliberate emergency bypass
+: "${GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:=60}" # max seconds for one candidate test suite
+: "${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT:=300}" # max seconds for the whole candidate gate
+: "${GARDEN_DEPLOY_REPORT_TIMEOUT:=30}"      # max seconds per failure-report sink
+# The two bounded classifier regressions directly protect the failure-reporting
+# helpers that previously let a deleted common.sh helper reach every host unnoticed.
+# The other classifier integrations deliberately exercise multi-minute reaper
+# timing, so they belong to the full suite rather than this deploy-window tier.
+# Keep the narrowing explicit; a test-only override lets deploy-garden-test.sh
+# supply its tiny hermetic probe without weakening the production default.
+: "${GARDEN_DEPLOY_TEST_SUITES:=scripts/jobs/test/empty-output-classifier-test.sh scripts/jobs/test/signal-kill-classifier-test.sh}"
 # A gardener already mid-job longer than this (its busy marker's age) is treated as
 # a long job that would not quiesce within the drain budget: the deploy DEFERS
 # rather than pause the fleet over it. Default is half the drain timeout — long
@@ -99,6 +121,80 @@ lift_drain_if_we_engaged() {
   we_drained=0
   "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || true
   log "drain lifted (deploy aborted; restored pre-deploy run state)"
+}
+
+report_candidate_gate_failure() { # <candidate-sha> <failed-suite>...
+  local candidate="$1"; shift
+  local failed joined body
+  joined="$(printf '%s, ' "$@")"; joined="${joined%, }"
+  body="kind: error
+
+# Deploy candidate test gate rejected main2
+
+candidate: \`$candidate\`
+failing suites: $joined
+
+The deployed tree was left in place. Set \`GARDEN_DEPLOY_TEST_OVERRIDE=1\` only
+for a deliberate emergency deploy after assessing this failure."
+  # Both sinks are deliberately best-effort: inability to reach the journal must
+  # never turn a rejected candidate into a deploy. The local log remains loud.
+  if printf '%s\n' "$body" | timeout "$GARDEN_DEPLOY_REPORT_TIMEOUT" env GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=deploy-garden "$HERE/inbox-send.sh" maintainer >/dev/null 2>&1; then
+    log "reported candidate gate kind:error to maintainer inbox"
+  else
+    log "WARN: could not report candidate gate failure to maintainer inbox"
+  fi
+  if printf '%s\n' "$body" | timeout "$GARDEN_DEPLOY_REPORT_TIMEOUT" env GARDEN_ROLE=deploy-garden "$HERE/journal-entry.sh" error >/dev/null 2>&1; then
+    log "emitted candidate gate kind:error journal entry"
+  else
+    log "WARN: could not emit candidate gate kind:error journal entry"
+  fi
+}
+
+run_candidate_gate() { # <candidate-sha>
+  local candidate="$1" gate_root suite path rc now deadline remaining limit
+  local -a failed=()
+  [ "$GARDEN_DEPLOY_TEST_OVERRIDE" = "1" ] && {
+    log "WARN: GARDEN_DEPLOY_TEST_OVERRIDE=1 — bypassing candidate test gate for $candidate"
+    return 0
+  }
+  case "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" in
+    *[!0-9:]*|0:*|*:0) log "FATAL: candidate gate timeouts must be positive integers"; return 1 ;;
+  esac
+  gate_root="$(mktemp -d "${TMPDIR:-/tmp}/garden-deploy-gate.XXXXXXXX")" || {
+    log "FATAL: could not create candidate gate directory"; return 1;
+  }
+  # archive, rather than the live worktree, is the crucial candidate-tree
+  # boundary: a new helper or a changed common.sh is what the suites exercise.
+  if ! git -C "$GARDEN_ROOT" archive "$candidate" | tar -x -C "$gate_root"; then
+    rm -rf "$gate_root"
+    log "FATAL: could not unpack candidate $candidate for its test gate"
+    return 1
+  fi
+  deadline=$(( $(date +%s) + GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT ))
+  while IFS= read -r -d '' path; do
+    now="$(date +%s)"
+    if [ "$now" -ge "$deadline" ]; then failed+=("total-wall-clock"); break; fi
+    if ! bash -n "$gate_root/$path"; then failed+=("bash-n:$path"); fi
+  done < <(git -C "$GARDEN_ROOT" ls-tree -r -z --name-only "$candidate" -- scripts | while IFS= read -r -d '' path; do case "$path" in *.sh) printf '%s\0' "$path";; esac; done)
+  if [ "${#failed[@]}" -eq 0 ]; then
+    for suite in $GARDEN_DEPLOY_TEST_SUITES; do
+      now="$(date +%s)"
+      if [ "$now" -ge "$deadline" ]; then failed+=("total-wall-clock"); break; fi
+      if [ ! -f "$gate_root/$suite" ]; then failed+=("missing:$suite"); continue; fi
+      remaining=$(( deadline - now )); limit="$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT"
+      [ "$remaining" -lt "$limit" ] && limit="$remaining"
+      timeout --kill-after=5 "$limit" env GARDEN_TEST=1 bash "$gate_root/$suite" >/dev/null 2>&1 || {
+        rc=$?; failed+=("$suite(rc=$rc)")
+      }
+    done
+  fi
+  rm -rf "$gate_root"
+  if [ "${#failed[@]}" -gt 0 ]; then
+    log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
+    report_candidate_gate_failure "$candidate" "${failed[@]}"
+    return 1
+  fi
+  log "candidate test gate passed for $candidate (bash -n + ${GARDEN_DEPLOY_TEST_SUITES})"
 }
 
 # BELT for the UNANTICIPATED abort: every foreseen failure path below calls
@@ -196,7 +292,21 @@ oldest_busy() {
   printf '%s %s %s\n' "$oldest" "$oldest_kind" "$oldest_idx"
 }
 
-# --- 0. DEFER CHECK ----------------------------------------------------------
+# --- 0. CANDIDATE FETCH + TEST GATE ------------------------------------------
+
+# Fetch before any drain: a bad candidate must not pause the fleet merely to learn
+# that its own deterministic regression suites fail. The candidate is unpacked and
+# tested above, never overlaid on the deployed root.
+git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
+  || { log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?); aborting deploy"; exit 1; }
+candidate_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || true)"
+[ -n "$candidate_sha" ] || { log "FATAL: cannot resolve fetched origin/$GARDEN_MAIN_BRANCH"; exit 1; }
+run_candidate_gate "$candidate_sha" || {
+  log "ABORTED: candidate test gate failed; root tree remains unchanged"
+  exit 1
+}
+
+# --- 1. DEFER CHECK ----------------------------------------------------------
 #
 # Decide whether to engage the drain at all. If a gardener has ALREADY been mid-job
 # longer than the long-job threshold, it will not quiesce within the drain budget;
@@ -215,7 +325,7 @@ if ! fleet_draining; then
   fi
 fi
 
-# --- 1. DRAIN ----------------------------------------------------------------
+# --- 2. DRAIN ----------------------------------------------------------------
 
 if fleet_draining; then
   log "fleet already draining (operator-engaged); proceeding to quiesce without lifting on abort"
@@ -256,14 +366,11 @@ while :; do
   sleep "$GARDEN_DEPLOY_POLL"
 done
 
-# --- 2. MERGE ----------------------------------------------------------------
-
-git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
-  || { log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?); aborting deploy"; lift_drain_if_we_engaged; exit 1; }
+# --- 3. MERGE ----------------------------------------------------------------
 
 old_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD || true)"
 [ -n "$old_sha" ] || { log "FATAL: cannot resolve HEAD in $GARDEN_ROOT"; lift_drain_if_we_engaged; exit 1; }
-up_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || echo "$old_sha")"
+up_sha="$candidate_sha"
 
 if [ "$up_sha" = "$old_sha" ]; then
   log "root already at origin/$GARDEN_MAIN_BRANCH ($old_sha); nothing to deploy"
@@ -314,7 +421,7 @@ fi
 new_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify HEAD)"
 log "advanced the root tree atomically (per-file rename): $old_sha -> $new_sha"
 
-# --- 3. RECORD + LIFT + RESTART ----------------------------------------------
+# --- 4. RECORD + LIFT + RESTART ----------------------------------------------
 
 record_deployed_sha "$new_sha"
 log "recorded deployed sha: $new_sha"
