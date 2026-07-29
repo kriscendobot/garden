@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:41:30Z_
+_As of 2026-07-29T01:44:18Z_
 
 ## Latest
 
@@ -2805,6 +2805,55 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/issues/867) (dependabot job report `endojs-endo-but-for-bots-pr867-dependabot`) is finished on the garden's side and awaiting your approval; once approved the conductor spine merges it with no further botany. Related: that report also surfaced a real control gap — `scripts/jobs/ensure-project-worktree.sh` installs with native builds enabled before any botanist gets control, defeating the botanist's scripts-disabled supply-chain discipline on every host. I've posted a garden job to fix the spine, but flagging it since it changes install behavior fleet-wide and touches a security control.
 
+- `20260729T014224Z-a3566b` — from gardener:finbot-pr6-panel-20260728, reply_to `finbot-pr6-panel-20260728` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T014224Z-a3566b.md)
+
+> Blocked merge-governance panel for [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) at head 21ae87af6846833ddc0dd0b5dc7d52ad09c544e5. I ran the scripted code panel twice in the isolated worktree against origin/main, with an explicit draft-hold un-draft hook. Both attempts stopped at the assessor seat because claude -p returned a zero-byte verdict and zero-byte stderr; I also retried the formal assessor prompt directly, including an explicit claude-opus-4-8 model, and it again returned no text. The panel therefore has no formal per-seat evidence and cannot pass. No fixer, Fable sign-off job, merge, or un-draft was performed. npm test passed locally on this head.
+
+- `20260729T014234Z-cdfa2f` — from gardener:fu-endojs-endo-but-for-bots-pr882-shepherd-2, reply_to `fu-endojs-endo-but-for-bots-pr882-shepherd-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T014234Z-cdfa2f.md)
+
+> pr882-shepherd `garden-reaped: 4` — root cause found, and the bleeding is still open on at least two hosts.
+>
+> Not shepherd overrun, not worker death. `gardener.sh:943` calls
+> `is_explicit_cap_signature`, which a0cd3eae13 (2026-07-21) deleted from common.sh
+> from a stale base along with six other helpers. An undefined function under `if`
+> is not an error in bash — it prints `command not found`, returns 127, and the
+> branch reads FALSE — so the elapsed-floor's exemption for an explicit
+> session/usage-cap wording silently vanished and every fast-dying capped handler
+> was reclassified a DETERMINISTIC defect. That verdict lands on the real-failure
+> branch, which (unlike the transient branch) leaves the claim in doin with NO
+> reap-now hint, so each cycle stranded the job for the full 4h TTL. pr882 burned
+> 4 cycles / ~12.5h on a PR green since 22:27Z, then completed in 114s.
+> Fleet-wide: 243 kind:error escalations across 07-28/29.
+>
+> da2572a260 (07-28 15:51Z) already restored the helpers on main2. I have pushed
+> cd177a8255 so the class fails SAFE (transient) and names the missing helper
+> instead of failing silently, with a regression subtest.
+>
+> THE PART I CANNOT DO — a deploy. endolin-garden's root is pinned at f2184299
+> (2026-07-28 15:52Z), now 34 commits behind, and ALL SEVEN clobbered helpers are
+> still missing from its deployed common.sh. So on this host right now the
+> following are also still broken, not just the classifier:
+>
+>   * bounded_fetch  — every clone-keeper fetch and the root-repo-guard fetch
+>   * tada_failed    — orchestrate.sh/unblock.sh: a DECLINED blocker silently
+>                      SATISFIES its dependents instead of holding them
+>   * clone_is_corrupt / reclone_clone / the two _fetch_stderr_* helpers
+>                    — the corrupt-journal-clone self-heal
+>
+> ps23-garden was still emitting these kind:error entries at 00:24Z today, so it
+> is very likely on the same stale root.
+>
+> The deploy is stalled, not merely pending: `garden-upgrade-monitor` has been
+> signalling "Upgrade ready" every 5 min for ~10h, the root-repo-guard raised
+> root-repo-deploy-stalled-endolin-garden-ece02cb4, and last-deploy.log ends
+> mid-wait at 18:20:45 on 07-28 ("waiting for 3 mid-job gardener(s) to finish").
+> That looks like the already-tracked slow-fleet-restart-on-deploy /
+> deploy-defer-ignore-inactive-busy-markers issue.
+>
+> Ask: run a deploy on endolin-garden and ps23-garden (and confirm endolin-garden2)
+> to pick up da2572a260. Until then those hosts keep misclassifying capped handlers
+> and keep silently satisfying declined blockers.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3996,22 +4045,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $832.07 _(notional, rate-card)_ | no quota set |
-| Codex | 205.5M _(+452.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 52.9M | $836.24 _(notional, rate-card)_ | no quota set |
+| Codex | 205.6M _(+453.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
+### todo (6)
 - [`clarify-botanist-step6-shepherd-vs-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/clarify-botanist-step6-shepherd-vs-fixer.md) — Botanist step 6: resolve the shepherd-versus-fixer tension, and the missing v...
-- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
-- [`endojs-endo-but-for-bots-pr169-6f24fd4e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr169-6f24fd4e.md) — attention directive on endojs/endo-but-for-bots PR #169
-- [`fu-endojs-endo-but-for-bots-pr867-dependabot-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr867-dependabot-1.md) — In the garden's own repo (kriscendobot/garden, main2), scripts/jobs/ensure-pr...
+- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
+- [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
+- [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (31)
+### doin (28)
+- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
-- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
 - [`endojs-endo-but-for-bots-pr124-feedback-triage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-feedback-triage.md) — Account for all feedback on endojs/endo-but-for-bots #124
+- [`endojs-endo-but-for-bots-pr169-6f24fd4e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-6f24fd4e.md) — attention directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
@@ -4024,28 +4075,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Review directive on endojs/endo-but-for-bots PR #713
 - [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap.md) — The gardener spine defeats the botanist's scripts-disabled install
 - [`fix-pr-feedback-preflight-argv-e2big`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-pr-feedback-preflight-argv-e2big.md) — Fix pr-feedback-preflight: API payloads in argv blow ARG_MAX and silently fai...
+- [`fu-endojs-endo-but-for-bots-pr867-dependabot-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr867-dependabot-1.md) — In the garden's own repo (kriscendobot/garden, main2), scripts/jobs/ensure-pr...
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
-- [`fu-endojs-endo-but-for-bots-pr882-shepherd-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-2.md) — In the garden's own repo (kriscendobot/garden), investigate why the job endoj...
 - [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gnome-backend-autotune-build.md) — Build: implement backend-verified provisioning + auth auto-tune (per the design)
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
-- [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
 - [`investigate-pr721-review-false-peer-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-pr721-review-false-peer-resolution.md) — Investigate: a maintainer review directive was silently no-opped on a false p...
 - [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/migrate-garden-origins-to-kriscendobot.md) — Precondition — CHECK THIS FIRST, do not skip
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-library-cycle-20260729-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-013504.md) — Hourly scholar library cycle
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
-- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3777)
+### tada (3779)
+- [`fu-endojs-endo-but-for-bots-pr882-shepherd-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr882-shepherd-2.md) — Findings
+- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-s1-daemon-integration.md) — Completion report — xs2rust-endor-s1-daemon-integration (bin 1/3)
 - [`fu-endojs-endo-but-for-bots-pr867-dependabot-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr867-dependabot-2.md) — Cost
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-token-cost-ledger.md) — Completion report — build-token-cost-ledger
 - [`finbot-progress-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-012002.md) — Completion report — finbot progress cycle 20260729-012002
-- [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-ocapn.md) — Completion report: endo-cbor-adopt-ocapn
-- [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr867-dependabot.md) — Verdict: MERGE-NOW, held at the maintainer-approval gate
-- … and 3772 more
+- … and 3774 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
