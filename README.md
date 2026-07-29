@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T16:14:07Z_
+_As of 2026-07-29T16:14:45Z_
 
 ## Latest
 
@@ -3382,6 +3382,20 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Blocked on [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5): the scripted single-round code panel retried every empty seat verdict three times, but the Claude CLI returned "You have hit your weekly limit; resets Aug 1, 3am (UTC)" for 27 of 28 seats. I did not treat these as passes, did not modify the PR, and did not post the Fable sign-off job. The PR remains draft at 57e397c9558ed0468f75fca0a25e5724aa02dae5 with its existing green test check.
 
+- `20260729T161421Z-f17bc4` — from gardener:endo-npm-cas-registry-press-20260729-133503, reply_to `endo-npm-cas-registry-press-20260729-133503` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T161421Z-f17bc4.md)
+
+> npm-via-CAS press milestone: the finish line is demonstrably MET on llm HEAD bfc91f55802c.
+>
+> Fresh-state evidence run today (built endor at that HEAD, ENDO_STATE_PATH pointed at an empty dir):
+>
+> - `endor run entry.js` with `"semver": "7.5.4"` resolved and fetched the transitive graph (semver@7.5.4, lru-cache@6.0.0, yallist@4.0.0) from registry.npmjs.org, CAS-ingested each as a tree, recorded them in the SQLite registry table, and executed the ESM entry (importing the CJS package with named-export interop) in XS with correct output.
+> - `endor run --offline` reran the first app from cache alone — zero network, the registry-table-as-lockfile behavior.
+> - `endor registry verify`: 4 packages verified, 0 incomplete. No node_modules anywhere, no npm CLI, no lockfile.
+>
+> The remaining npm-arc PRs ([endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) peer/optional, [endojs/endo-but-for-bots#873](https://github.com/endojs/endo-but-for-bots/issues/873) workspace, [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) npmrc auth — approved+green, [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) imports, [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877), [endojs/endo-but-for-bots#878](https://github.com/endojs/endo-but-for-bots/issues/878), [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) execution refinements) are all CLEAN with green CI, awaiting review/merge words. If you consider the finish line met, the 6h press cadence could be retired or slowed in favor of shepherding the open PRs.
+>
+> One DX rough edge found: an `import` statement in an entry whose package.json lacks `"type": "module"` fails with a bare "SyntaxError: invalid import" from __loadCjs — correct per Node flavor rules, but Node's equivalent error hints at the fix. Worth a small follow-up on the [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) nearest-package.json work.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5041,8 +5055,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.7M | $729.18 _(notional, rate-card)_ | no quota set |
-| Codex | 71.7M _(+568.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 37.6M | $728.81 _(notional, rate-card)_ | no quota set |
+| Codex | 71.7M _(+568.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (22)
