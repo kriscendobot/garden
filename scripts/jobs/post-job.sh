@@ -116,6 +116,15 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# This is the automatic producer choke point.  No watcher, scheduler, follow-up,
+# auction, or role-generated job can retain a Claude pin during the quota route.
+if [ "${GARDEN_MANUAL_DISPATCH:-}" = 1 ]; then
+  manual_model="$(printf '%s\n' "$BODY" | sed -n '2,/^---$/s/^model:[[:space:]]*//p' | head -1)"
+  case "$manual_model" in mentat|fable|claude-fable-5) :;; *) die "manual dispatch may select only mentat/Fable";; esac
+else
+  BODY="$(printf '%s\n' "$BODY" | automatic_route_body)"
+fi
+
 # --role: stamp the performing role into the body's leading YAML frontmatter so
 # the gardener handler can resolve a per-role default model. If the body already
 # opens with a `---` frontmatter block, insert the field just after it (unless a

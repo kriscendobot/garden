@@ -840,7 +840,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
       POISON_OVERRUN+=("$overrun"); POISON_SIG+=("$sig")
     else
-      # --- kimi-k3 -> opus re-route (the automatic fallback) -------------------
+      # --- kimi-k3 -> qualified non-Claude re-route -----------------------------
       # On a GENUINE failure (not an outage, not a productive cycle) of a job whose
       # `model:` pin is fallback-eligible AND that carries a `fallback-model:` chain,
       # advance the pin to the chain head so an opus gardener claims the SAME base
@@ -856,13 +856,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # and empties a single-entry chain, and the re-routed job is no longer kimi-k3-
       # pinned, so a mystic cannot re-claim it. Fully guarded — a failure anywhere
       # here leaves the ordinary requeue below to run.
-      if [ "$outage" -ne 1 ] && [ "$count" -ge "${GARDEN_KIMI_FALLBACK_AFTER:-1}" ] \
-         && kimi_fallback_enabled "$DIR"; then
+      if [ "$outage" -ne 1 ] && [ "$count" -ge "${GARDEN_KIMI_FALLBACK_AFTER:-1}" ]; then
         rerouted_body="$(printf '%s\n' "$body" | reroute_job_model)" && rerouted=1 || rerouted=0
         if [ "$rerouted" -eq 1 ]; then
           record_kimi_fallback_event "$f" "$spine" "$count" || true
           body="$rerouted_body"
-          log "kimi-fallback: '$base' failed $count cycle(s) on kimi-k3; re-routing model: to the fallback chain head (an opus gardener will claim it fresh), resetting reap counter"
+          log "kimi-fallback: '$base' failed $count cycle(s) on kimi-k3; re-routing to its qualified non-Claude fallback, resetting reap counter"
           count=0
         fi
       fi

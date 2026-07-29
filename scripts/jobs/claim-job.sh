@@ -64,23 +64,17 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 job_eligible_for_kind() {
   local jf="$1" pinned="" m role fb
   m="$(plan_field "$jf" model)"
+  # Anthropic is a manual-only escape hatch during the quota period: only Fable
+  # with an explicit manual marker is eligible, never an automatic Claude pin.
+  if [ "$KIND_PROVIDER" = anthropic ]; then
+    [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
+    [ "$(resolve_model_tier anthropic "$m")" = "claude-fable-5" ] || return 1
+  fi
   if [ "$KIND_PROVIDER" = moonshot ]; then
     [ "$m" = "kimi-k3" ] || return 1
-    role="$(plan_role "$jf")"
-    case "$role" in
-      # designer stays barred: a bad design has no automatic gate (only human
-      # review, hours-to-days later, high blast radius). Graduated relaxation —
-      # builder first — per designs/kimi-k3-takes-opus-work-with-opus-fallback.md.
-      designer) return 1 ;;
-      # builder is relaxed ONLY when the instance is ARMED (config/kimi-takes-opus-
-      # work=on) AND the job carries a non-empty `fallback-model:` chain — the
-      # automatic opus retry is what makes routing high-stakes work to kimi
-      # acceptable, so the safety net is mechanically REQUIRED before the bar lifts.
-      # Absent either, the historical bar stands (the ship-disabled default).
-      builder)
-        fb="$(plan_field "$jf" fallback-model)"
-        { kimi_fallback_enabled && [ -n "$fb" ]; } || return 1 ;;
-    esac
+    # Mentor is the highest automatic tier.  Kimi builder work is mechanically
+    # claimable without a Claude fallback; automatic producers add a qualified
+    # non-Claude fallback for requeue safety, not as an eligibility condition.
   fi
   # Fireworks is an explicit-model-only lane.  Its `fireworks/<wire-id>` routing
   # namespace preserves the live Serverless/Fast/deployment id without making an
@@ -88,7 +82,7 @@ job_eligible_for_kind() {
   if [ "$KIND_PROVIDER" = fireworks ]; then
     [[ "$m" == fireworks/* ]] && [ -n "${m#fireworks/}" ] || return 1
   fi
-  [ -n "$m" ] || return 0                        # no model: unpinned -> eligible
+  [ -n "$m" ] || return 1 # automatic jobs must carry the mentor pin
   if [ -n "$(resolve_model_tier anthropic "$m")" ]; then pinned=anthropic
   elif [ -n "$(resolve_model_tier local "$m")" ]; then pinned=local
   elif [ -n "$(resolve_model_tier openai "$m")" ]; then pinned=openai

@@ -183,6 +183,10 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# Parked work is still automatically produced; normalize before it can later be
+# promoted without revisiting its model header.
+BODY="$(printf '%s\n' "$BODY" | automatic_route_body)"
+
 # Clear the reaper/gardener cycle markers from the parked body (see the header). The
 # summary helper reads a FILE (it reuses the same reap_count/deadline_overrun_count/
 # has_*_hint accessors the reaper and promote-plan.sh use), so the body lands in a

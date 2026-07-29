@@ -1,7 +1,7 @@
 # Reference: cross-provider model catalog (Claude + Codex)
 
 | Created | 2026-07-13 |
-| Updated | 2026-07-23 |
+| Updated | 2026-07-29 |
 | Author  | gardener, gardener (scholar) |
 | Status  | Reference |
 
@@ -17,7 +17,17 @@ capability/cost, and intended use. It exists to ground two consumers:
   §3), which differentiates gardeners by *(role, model)* and keys reputation on a
   cost-per-acceptance estimate per model. The **cross-provider thoughtfulness axis**
   (§3 below) is the load-bearing output that lets a downstream reputation system key
-  uniformly on `(provider, model, thoughtfulness)` regardless of backend.
+uniformly on `(provider, model, thoughtfulness)` regardless of backend.
+
+## Dispatch vocabulary (current)
+
+The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
+Its tiers are: mentat = Fable (manual-only), mentor = Moonshot Kimi K3 (the
+automatic ceiling), minion = Opus and Codex, and myrmidon = the expedient
+Sonnet/Haiku/local/Fireworks models. Unknown ids are unclassified, not wildcarded.
+During the temporary Claude quota route all automatic producer output is Kimi with
+the qualified non-Claude `gpt-5.6-terra` fallback; only `post-manual-job.sh` may
+create a Fable job.
 
 **Provenance.** Every id below is transcribed from a live query, not from memory:
 

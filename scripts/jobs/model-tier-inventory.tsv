@@ -1,0 +1,22 @@
+# Canonical fleet model inventory.  Columns: provider, concrete garden model id,
+# dispatch tier.  Every selectable model is listed exactly once; a model absent
+# from this file is unclassified and must not be automatically dispatched.
+# mentat is intentionally manual-only.
+anthropic	claude-fable-5	mentat
+anthropic	claude-opus-4-8	minion
+anthropic	claude-opus-4-8[1m]	minion
+anthropic	claude-opus-4-7	minion
+anthropic	claude-sonnet-5	myrmidon
+anthropic	claude-sonnet-4-6	myrmidon
+anthropic	claude-haiku-4-5	myrmidon
+anthropic	claude-haiku-4-5-20251001	myrmidon
+anthropic	claude-mythos-5	mentat
+openai	gpt-5.6-terra	minion
+openai	gpt-5.6-luna	minion
+openai	gpt-5.5	minion
+openai	gpt-5.4-mini	minion
+moonshot	kimi-k3	mentor
+local	qwen3:0.6b	myrmidon
+# The configured Fireworks test/deployment selector.  Add a concrete selector
+# here before it becomes eligible; wildcard routing is deliberately forbidden.
+fireworks	fireworks/accounts/fireworks/models/example	myrmidon

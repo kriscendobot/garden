@@ -153,6 +153,10 @@ fi
 model_args=()
 requested_model="$(plan_field "$jobfile" model)"
 requested_role="$(plan_role "$jobfile")"
+if [ "$(plan_field "$jobfile" dispatch)" != manual ] \
+   || [ "$(resolve_model_tier anthropic "$requested_model")" != "claude-fable-5" ]; then
+  die "Claude handler accepts only explicit manual mentat/Fable jobs"
+fi
 if [ -n "$requested_model" ]; then
   resolved_model="$(resolve_model_tier "$requested_model")"
   if [ -n "$resolved_model" ]; then

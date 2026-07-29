@@ -4302,6 +4302,52 @@ job_requirements_missing() { # <job-file> [fresh] — comma-separated unavailabl
 : "${GARDEN_MODEL_ROUTING_PATH:=config/model-routing}"
 
 _model_routing_defaults_file() { printf '%s\n' "$GARDEN_ROOT/scripts/jobs/model-routing-defaults.tsv"; }
+_model_tier_inventory_file() {
+  local f="$GARDEN_ROOT/scripts/jobs/model-tier-inventory.tsv"
+  [ -f "$f" ] || f="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/model-tier-inventory.tsv"
+  printf '%s\n' "$f"
+}
+
+# model_dispatch_tier <provider> <concrete-id> -> mentat|mentor|minion|myrmidon.
+# This is deliberately an exact, closed inventory: new provider models are
+# unclassified until an explicit reviewed row is added, never silently eligible.
+model_dispatch_tier() {
+  local provider="$1" model="$2" p m tier
+  while IFS=$'\t' read -r p m tier; do
+    case "$p" in ''|\#*) continue;; esac
+    [ "$p" = "$provider" ] && [ "$m" = "$model" ] && { printf '%s\n' "$tier"; return 0; }
+  done < "$(_model_tier_inventory_file)"
+  return 1
+}
+
+model_is_claude() { [ "$(model_dispatch_tier anthropic "${1:-}" 2>/dev/null || true)" != "" ]; }
+
+# automatic_route_body rewrites a producer body into the quota-period automatic
+# ceiling: mentor/Kimi.  It is called by BOTH posting primitives, which covers
+# watchers, schedules, foreman, follow-ups, auctions, and agent-produced jobs.
+# A non-Claude fallback is present for mechanical requeue safety.  Manual dispatch
+# is a separate command and never calls this function.
+automatic_route_body() {
+  awk '
+    function trim(s){sub(/^[ \t]+/,"",s);sub(/[ \t]+$/, "",s);return s}
+    { line[++n]=$0 }
+    END {
+      if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
+      if (!end) { print "---"; print "model: kimi-k3"; print "fallback-model: gpt-5.6-terra"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
+      seenmodel=seenfallback=seendispatch=0
+      for(i=1;i<end;i++) {
+        if(i==1){print line[i]; continue}
+        if(line[i] ~ /^model:[ \t]*/) { print "model: kimi-k3"; seenmodel=1; continue }
+        if(line[i] ~ /^fallback-model:[ \t]*/) { print "fallback-model: gpt-5.6-terra"; seenfallback=1; continue }
+        if(line[i] ~ /^dispatch:[ \t]*/) { print "dispatch: automatic"; seendispatch=1; continue }
+        print line[i]
+      }
+      if (!seenmodel) print "model: kimi-k3"
+      if (!seenfallback) print "fallback-model: gpt-5.6-terra"
+      if (!seendispatch) print "dispatch: automatic"
+      for(i=end;i<=n;i++) print line[i]
+    }'
+}
 
 # Echo the effective routing table (TSV text). Resolution order above; warns once
 # per throttle window when it must drop to the inline built-in fallback.
@@ -4326,11 +4372,11 @@ _model_routing_table() {
   alert_maintainer "model-routing-fallback" \
     "model-routing table unresolved (no journal override, no $f); using inline built-in — routing may be stale" 2>/dev/null || true
   printf '%s\n' \
-    'anthropic	claude-*	' \
-    'openai	gpt-* o[0-9]* codex-* !gpt-oss*	gpt-5.6-terra' \
-    'local	qwen*	qwen3:0.6b' \
+    'anthropic	claude-fable-5 claude-opus-4-8 claude-opus-4-8[1m] claude-opus-4-7 claude-sonnet-5 claude-sonnet-4-6 claude-haiku-4-5 claude-haiku-4-5-20251001 claude-mythos-5	' \
+    'openai	gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra' \
+    'local	qwen3:0.6b	qwen3:0.6b' \
     'moonshot	kimi-k3' \
-    'fireworks	fireworks/*	'
+    'fireworks	fireworks/accounts/fireworks/models/example	'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
@@ -4339,6 +4385,9 @@ _model_routing_table() {
 _model_classify() {
   local provider="$1" id="$2" p pats def tok included=0 excluded=0
   [ -n "$id" ] || return 1
+  # Routing configuration may select among reviewed entries, but it cannot make a
+  # new id eligible. This closes the former wildcard/journal-override escape hatch.
+  model_dispatch_tier "$provider" "$id" >/dev/null 2>&1 || return 1
   while IFS=$'\t' read -r p pats def; do
     case "$p" in ''|\#*) continue;; esac
     [ "$p" = "$provider" ] || continue
@@ -4403,7 +4452,7 @@ resolve_model_tier() {
   case "$provider" in
     anthropic)
       case "$tier" in
-        fable)    printf '%s\n' "claude-fable-5" ;;      # short tier -> concrete id (BINDING, in code)
+        mentat|fable) printf '%s\n' "claude-fable-5" ;;  # manual-only tier -> concrete id
         opus)     printf '%s\n' "claude-opus-4-8" ;;
         sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
         haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
@@ -4446,10 +4495,8 @@ resolve_model_tier() {
 # leading kind is OPTIONAL and defaults to `gardener`, so every historical single-arg
 # caller (`role_default_model builder`) is unchanged.
 #
-# Gardener (claude) side: designer and builder run on the latest Opus. Mechanical
-# work is deliberately pinned to the cheapest adequate Claude tier: deterministic
-# text/lockfile work uses Haiku; rebase/merge and Pages recovery use Sonnet for the
-# small amount of judgment they require. All other roles ride the fleet default.
+# During the Claude quota period, automatic role defaults are mentor/Kimi.  The
+# Claude handler itself is manual-Fable-only, so no role can implicitly select it.
 #
 # Cleric (codex) side: designer/builder pin `gpt-5.6-terra`; mechanical roles use
 # the corresponding economical tiers (`mini` or `frontier`). The effort distinction
@@ -4464,12 +4511,11 @@ role_default_model() {
   case "$kind" in
     gardener)
       case "$role" in
-        designer) printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
-        builder)  printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
+        designer|builder) printf '%s\n' "kimi-k3" ;;
         cleaner|retcon|yarn-lock|journalist)
-                  printf '%s\n' "$(resolve_model_tier anthropic haiku)" ;;
+                  printf '%s\n' "kimi-k3" ;;
         weaver|conductor|pages-shepherd)
-                  printf '%s\n' "$(resolve_model_tier anthropic sonnet)" ;;
+                  printf '%s\n' "kimi-k3" ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     cleric)
@@ -4498,8 +4544,8 @@ role_default_model() {
         *)        printf '%s\n' "" ;;
       esac ;;
     mystic)
-      # Activation-only: no design/build or other role defaults can select K3.
-      printf '%s\n' "" ;;
+      # Mentor is the automatic ceiling, including mechanically claimable builds.
+      printf '%s\n' "kimi-k3" ;;
     fireworker)
       # Explicit model only.  There is no safe catalog default for a hosted,
       # changing Fireworks fleet.
@@ -4608,6 +4654,9 @@ reroute_job_model() {
         else rest=(rest==""?parts[i]:rest" "parts[i])
       }
       if (next_model=="") { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # empty chain -> no-op
+      # The reaper is automatic machinery.  A legacy Claude fallback must never
+      # reintroduce an automatic Claude pin during the quota route.
+      if (model=="kimi-k3" && (next_model=="mentat" || next_model=="fable" || next_model=="opus" || next_model=="sonnet" || next_model=="haiku" || next_model ~ /^claude-/)) next_model="gpt-5.6-terra"
       new_burned=(burned==""?model:burned" "model)
       # Emit, rewriting model:/fallback-model:/model-burned:. When model-burned:
       # was absent (bi==0) insert it immediately after the model: line so it lands
