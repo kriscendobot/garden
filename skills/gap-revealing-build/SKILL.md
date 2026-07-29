@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-06-24
+updated: 2026-07-29
 author: gardener
 ---
 
@@ -150,8 +150,12 @@ per § 2.
 
 ### 5. Open the DRAFT PR with the four-section body
 
-Open the PR with `gh pr create --draft` against the named base. The title is the
-project's conventional-commit shape with the probe nature annotated:
+Open the PR with `scripts/jobs/gardening/ensure-pr.sh <job-base> <owner/repo>
+<head-branch> <base-branch> --title '...' --body-file <file>` against the named
+base (draft by default). The script owns PR identity, so a probe job claimed
+twice adopts its existing draft instead of opening a second one; never
+`gh pr create` by hand. The title is the project's conventional-commit shape with
+the probe nature annotated:
 
 ```
 <type>(<scope>): <one-line summary> (gap-revealing prototype of #<design-PR>)

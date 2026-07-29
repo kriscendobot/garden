@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-07-28
+updated: 2026-07-29
 author: gardener
 ---
 
@@ -81,8 +81,13 @@ git checkout -b <head-branch> "$FROZEN_BASE"
 git add ... && git commit ...
 git push origin <head-branch>
 
-# 6. Open the PR. The `--base` is the frozen branch, not the upstream branch.
-gh pr create --draft --base "$FROZEN_BASE" --head <head-branch> --title ... --body ...
+# 6. Open the PR through ensure-pr.sh, which owns PR identity: it finds this
+#    job's existing PR (by head branch, or by the `<!-- garden-job: ... -->` marker
+#    a prior incarnation embedded) and creates one only when there is none. The
+#    `--base` is the frozen branch, not the upstream branch. Never `gh pr create`
+#    by hand — a re-claimed job would open a duplicate.
+scripts/jobs/gardening/ensure-pr.sh <job-base> <owner/repo> <head-branch> "$FROZEN_BASE" \
+  --title '...' --body-file /tmp/pr-body.md
 ```
 
 The frozen base lives in the fork's branches namespace; it never propagates to

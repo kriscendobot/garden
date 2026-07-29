@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-28
+updated: 2026-07-29
 author: gardener
 ---
 
@@ -57,10 +57,50 @@ to fork-side PRs only; an upstream PR (after a `ferry` job carries it upstream, 
 [`pr-handoff`](../pr-handoff/SKILL.md)) uses upstream's natural branch. Full
 procedure in [frozen-base-branch].
 
+## One job, one PR (find-or-create)
+
+The build stage does not run `gh pr create`. It runs
+[`scripts/jobs/gardening/ensure-pr.sh`](../../scripts/jobs/gardening/ensure-pr.sh),
+which owns the pairing of a job base to its pull request:
+
+```sh
+scripts/jobs/gardening/ensure-pr.sh <job-base> <owner/repo> <head-branch> <base-branch> \
+  --title '<title>' --body-file <body-file>     # after the head branch is pushed
+```
+
+It looks for the job's PR two independent ways — the **head branch**, and a
+`<!-- garden-job: <base> -->` **marker** it embeds in every body it writes — and
+then: adopts the one it finds (creating nothing, exit 0, number on stdout);
+creates one when there is none; or, finding **more than one**, prints them all and
+exits 3 for a human or a gardener to resolve. It never guesses and never adds a
+third. A discovery query that fails or may have been truncated is inconclusive
+(exit 4, nothing created): a retry is cheap, a duplicate PR is not.
+
+This exists because **a job can be claimed more than once** — a stranded worker,
+a reaper requeue, a resumed claim — and idempotence must not rest on an agent
+remembering. On 2026-07-28 `endo-sturdyref-agent-surface-build` was claimed four times:
+an early stranded run opened `endojs/endo-but-for-bots#865` on an in-repo branch,
+the completed run opened `#871` on the fork head, the two diverged (3 ahead /
+5 behind), #865 went red on all four test-matrix legs, drew auto-shepherd
+minting, and was closed by hand. The marker is what relates two incarnations that
+share nothing else — not even a head branch.
+
+It is the third of the deterministic guards around a re-claimed job's writes:
+[`safe-push-pr-head.sh`](../../scripts/jobs/gardening/safe-push-pr-head.sh) stops
+a stale worker from rewinding a peer's head, a claim fence stops a stranded one
+from pushing at all, and this stops a re-claimed one from opening a second PR.
+Push the head branch first; `gh pr create` needs the ref to exist.
+
+The resulting number is stamped into the job's journal `work/<base>` record
+(`pr_number:`), so a later call within the same claim resolves it with no GitHub
+query. That record does not survive a reaper requeue — across incarnations the
+durable converger is the marker, not the record.
+
 ## Draft discipline
 
-**Every new PR the garden opens MUST be created in draft state**
-(`gh pr create --draft`) — no exceptions, whatever opens it: a `build`, a `probe`,
+**Every new PR the garden opens MUST be created in draft state** —
+`ensure-pr.sh` is draft-by-default and only the ferry's *upstream* PR may pass
+`--no-draft` — no exceptions, whatever opens it: a `build`, a `probe`,
 a design PR, a stacked or initial-stub PR, or a maintainer-requested PR posted as a
 job. This is the single most load-bearing rule in this skill (reinforced by the
 maintainer, 2026-07-27): **opening a PR ready-for-review is a defect, because it
@@ -89,7 +129,7 @@ leave draft varies.
 ## Flow ordering
 
 ```
-build (opens draft PR)
+build (ensure-pr.sh: finds or opens THE draft PR)
    |
    |  in concert (default), or before, or after
    v
@@ -279,6 +319,12 @@ un-draft.
 
 ## Pitfalls
 
+- **A second PR for one job.** A `gh pr create` run by hand carries no memory of
+  what an earlier incarnation of the same job did, so a re-claimed job opens a
+  duplicate (#865/#871). Every PR-open goes through `ensure-pr.sh` per § One job,
+  one PR. On its exit 3 (ambiguous), resolve the duplicate — close or retarget the
+  strays so exactly one stays open — before advancing the chain; do not pick one
+  and carry on, because the other keeps burning CI and attracting shepherd jobs.
 - **A non-panel stage un-drafting** is a discipline violation. Only `panel.sh`
   un-drafts, and only after the loop declares done. A build stage that opens a PR
   ready-for-review (skipping draft) bypasses the whole chain; the first corrective
@@ -311,6 +357,10 @@ un-draft.
 
 ## Notes from the field
 
+- _2026-07-29_: PR find-or-create moved off the agent into
+  `scripts/jobs/gardening/ensure-pr.sh` (§ One job, one PR), after a job claimed
+  four times left two divergent PRs for one change (`endojs/endo-but-for-bots#865` and
+  `#871`) and a gardener closed the stray by hand.
 - _2026-06-24_: translated from v1 for the v2 garden. The v1 chain was an
   orchestrator (steward/liaison) dispatching one subagent per stage via the
   `Agent` tool; v2 makes the chain a shell state machine a gardener supervises

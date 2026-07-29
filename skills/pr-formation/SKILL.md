@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-07-29
 author: gardener
 ---
 
@@ -15,6 +15,21 @@ Canonical for any work that authors PR prose. The gardening state machine (`scri
 - Opening a new PR (the gardening script's PR-open step, ferry-opened upstream PRs, follow-up PRs).
 - Rewriting a PR body after a `CHANGES_REQUESTED` review that asks for a description redraft.
 - Scope grew enough that the original body no longer reflects the PR. Reset to the template, do not append.
+
+## The division of labor: prose is yours, identity is the script's
+
+You author the **title and body**. You do not decide **which PR** they belong to. Hand both to [`scripts/jobs/gardening/ensure-pr.sh`](../../scripts/jobs/gardening/ensure-pr.sh), which finds this job's existing PR or creates it:
+
+```sh
+scripts/jobs/gardening/ensure-pr.sh <job-base> <owner/repo> <head-branch> <base-branch> \
+  --title '<title>' --body-file /tmp/pr-body.md
+```
+
+A bare `gh pr create` is the wrong tool for a garden PR: a job that is claimed more than once opens a second PR with it, and did — `endojs/endo-but-for-bots#865` and `#871`, 2026-07-28, closed by hand. The script embeds a `<!-- garden-job: <base> -->` marker in every body it writes and matches on it (plus the head branch) before creating anything.
+
+That marker is a **deliberate exception** to § No methodology leak below, and the only one: it is an HTML comment, so it never renders in the maintainer's reading experience, and it names the job base only as an opaque identifier — no role, skill, inbox, or procedure. Everything you write in the visible prose stays subject to the rule.
+
+For a **body rewrite** on an existing PR, `ensure-pr.sh` is not involved at all; edit the PR you already have (`gh pr edit <N> --body-file ...`).
 
 ## The discipline
 
@@ -99,3 +114,4 @@ The directive was framed as relevant to PR formation in general. This skill is t
 
 - _2026-05-13_: extracted from kriskowal's #128 directive. The four-part body order (what / why / attend-to / out-of-scope) is the reusable core.
 - _2026-06-24_: migrated from v1. Rewired the cite sites (boatman/builder/fixer PR opens) to the v2 model: the gardening state machine's PR-open step and the `ferry` job consume this skill; producers no longer "dispatch" an authoring role.
+- _2026-07-29_: split identity from prose. PR *identity* moved out of the agent into `scripts/jobs/gardening/ensure-pr.sh` after a four-times-claimed job opened two PRs for one change (`endojs/endo-but-for-bots#865`/`#871`); this skill now owns only the title and body, and the script's `<!-- garden-job: ... -->` marker is named as the single sanctioned exception to § No methodology leak.
