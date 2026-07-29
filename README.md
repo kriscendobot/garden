@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:30:01Z_
+_As of 2026-07-29T01:30:35Z_
 
 ## Latest
 
@@ -3886,11 +3886,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.0M | $813.69 _(notional, rate-card)_ | no quota set |
-| Codex | 207.5M _(+448.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 52.0M | $815.71 _(notional, rate-card)_ | no quota set |
+| Codex | 207.2M _(+449.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
+### todo (2)
+- [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr867-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
 
 ### doin (35)
@@ -3990,7 +3991,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-build.md) — _normal_ · Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build.md) — _normal_ · Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-endo-but-for-bots-pr848-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr848-panel-fixes.md) — _normal_ · Fixer: address the backfilled panel verdict on endojs/endo-but-for-bots PR #848
-- [`endojs-endo-but-for-bots-pr867-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr867-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 - [`endojs-endo-but-for-bots-pr874-gauntlet-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-gauntlet-retry.md) — _normal_ · Retry: PR #874's prior gauntlet job produced a garbage report and never follo...
 - [`endojs-endo-but-for-bots-pr881-review-b8bb5665`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-b8bb5665.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #881
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
