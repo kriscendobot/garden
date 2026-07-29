@@ -13,6 +13,7 @@ gardening state machine now: clean, panel, fixer loop as needed, CI, then un-dra
 only when the panel terminates cleanly. This handoff was posted by the build
 completion edge, not inferred by a watcher.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
