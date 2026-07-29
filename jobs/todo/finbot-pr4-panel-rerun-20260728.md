@@ -48,11 +48,4 @@ mode is covered by the deployed fixes `010abbe299` (empty-seat retry) + `6963e50
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-28T21:23:23Z
+<!-- garden-reaped: 2 -->

@@ -64,10 +64,4 @@ on a shared branch; if the endor CAS bindings need design settling, press #740
 forward or post a designer sub-job rather than implementing ahead of the spec.
 Cite real command/CI output for every green claim.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-29T01:20:39Z
+<!-- garden-reaped: 1 -->
