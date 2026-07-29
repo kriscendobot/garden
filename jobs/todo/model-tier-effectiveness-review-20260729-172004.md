@@ -1,7 +1,3 @@
-cadence: weekly-at-Mon-09:00-UTC
-last_dispatched: 2026-07-27T09:00:00Z
-job_basename_prefix: model-tier-effectiveness-review
----
 ---
 role: assayer
 model: kimi-k3
