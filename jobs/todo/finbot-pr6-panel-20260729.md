@@ -39,12 +39,4 @@ panel is running productively under it. This is a fresh, un-poisoned post.
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  claimed_at: 2026-07-29T19:03:16Z
+<!-- garden-reaped: 2 -->
