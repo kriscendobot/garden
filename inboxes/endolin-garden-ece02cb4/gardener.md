@@ -1650,3 +1650,12 @@ Inspect via `git -C journal cat-file -p 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4
 - Context: gardener-3 on endolin-garden-ece02cb4: job 'endo-git-integration-press-20260729-012002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p e0610f3789691e8f3f9726b0a25d8a6218555e1c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T02:09:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4a9fcc0201818c8ed786d375285fb049df575689
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'scholar-ingest-did-plc-ucan-invocation-revocation' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4a9fcc0201818c8ed786d375285fb049df575689`.
