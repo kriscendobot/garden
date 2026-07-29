@@ -37,11 +37,38 @@
 #      whose repo has NO local bare clone (e.g. MetaMask/ocap-kernel) is skipped and
 #      logged — the scan never fails on a missing clone and never fetches one.
 #
-#   4. POST A REFRESH PER DRIFT. For each drifted source, idempotently post a
-#      `scholar-refresh-<source-slug>` job (low priority) via post-job.sh. post-job
-#      is idempotent across the whole lifecycle (todo/doin/tada), so an already-open
-#      or in-flight refresh for that slug is never duplicated; a cheap pre-check
-#      against the synced clone skips the post entirely when one is already present.
+#   4. POST A REFRESH PER DRIFT, ONCE PER DRIFT — NOT ONCE PER SOURCE. For each
+#      drifted source, post a `scholar-refresh-<source-slug>` job (low priority)
+#      via post-job.sh, carrying a DIRECTIVE IDENTITY keyed on the drift itself:
+#      (slug, recorded sha, upstream sha). The identity is what makes the scan
+#      durable, and it is not optional decoration:
+#
+#        Without an identity, post-job.sh's basename dedup counts `tada/` — so the
+#        FIRST refresh of a slug, once completed, sits in tada/ forever and
+#        silently swallows every LATER drift of that source. The scan then logs
+#        `DRIFT` and posts nothing, every tick, for the rest of time. That is not
+#        hypothetical: `endo--packages-ses-src-error-assert-js` was refreshed
+#        2026-06-27, drifted again 2026-06-29 (endojs/endo#3130, a behavioral
+#        change to makeError/sanitizeError), and every tick from then to 2026-07-28
+#        logged the drift and dropped it. Freshness for the whole pinned corpus
+#        degraded to first-drift-only.
+#
+#      With an identity, post-job.sh stops counting tada/ for the basename and
+#      defers to the `jobs/index/<hash>` map instead — which is keyed on the drift,
+#      so a NEW drift of an already-refreshed source is a NEW directive and posts.
+#      The two guards must move in lockstep, and do: refresh_live() below (the
+#      cheap local pre-check) counts only plan/todo/doin, exactly the set post-job
+#      still treats as blocking. Note the base is deliberately NOT made unique per
+#      drift: keeping the fixed `scholar-refresh-<slug>` base means post-job's own
+#      basename check remains the authoritative "at most ONE open refresh per
+#      source" guard, so a source that drifts twice while its refresh is still
+#      queued cannot spawn two agents re-ingesting the same slug.
+#
+#      A refresh for THIS EXACT drift that has already run to completion is
+#      reported (refresh_settled) rather than re-posted: post-job would dedup it to
+#      a silent no-op anyway, and naming it keeps `posted=` honest and surfaces the
+#      one case that genuinely warrants a human look — a refresh that finished
+#      without advancing the recorded file-commit.
 #
 # This does not widen scope: it only reads already-ingested upstream repos from
 # local bare clones (read-only) and posts jobs onto the board. No agoric-sdk, no
@@ -120,17 +147,47 @@ parse_rows() {
   ' "$README"
 }
 
-# Is a scholar-refresh job for <slug> already anywhere in the board lifecycle of
-# the synced clone? A cheap pre-check so we do not spawn post-job for a refresh
-# that is already open/in-flight/done; post-job's own cross-lifecycle idempotency
-# is the authoritative guard, this just avoids the noise.
-refresh_present() {
-  local base="scholar-refresh-$1"
-  [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]
+# The directive identity of ONE drift: the source plus the exact transition it
+# needs reconciled. Distinct drifts of the same source are distinct directives, so
+# post-job.sh's identity index — not the fixed basename — is the re-see guard, and
+# a COMPLETED refresh no longer suppresses the next drift (see § 4 above). Keying
+# on the recorded sha as well as the upstream one means a refresh that only
+# PARTIALLY advanced the row (recorded moves to some intermediate commit) yields a
+# fresh identity next tick and is re-posted rather than considered settled.
+drift_identity() {  # drift_identity <slug> <recorded> <upstream>
+  printf 'library-source-drift:%s:%s..%s\n' "$1" "$2" "${3:-absent}"
 }
 
-post_refresh() {  # post_refresh <slug> <repo> <path> <recorded> <upstream>
-  local slug="$1" repo="$2" path="$3" recorded="$4" upstream="$5"
+# Is a scholar-refresh job for <slug> already LIVE on the board of the synced
+# clone? A cheap pre-check so we do not spawn post-job for a refresh that is
+# already parked/open/in-flight. It counts plan/todo/doin and DELIBERATELY NOT
+# tada/: a completed refresh belongs to a PAST drift, and counting it is precisely
+# the once-ever suppression documented in § 4. This set must stay identical to the
+# one post-job.sh still treats as blocking for an identity-carrying post — the two
+# guards are a pair, and relaxing only one leaves the other silently dropping.
+refresh_live() {
+  local base="scholar-refresh-$1"
+  [ -e "$DIR/$JOBS_PLAN/$base.md" ] || [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ]
+}
+
+# Has a refresh for THIS EXACT drift already run to completion? Reads post-job's
+# own identity index in the synced clone: an entry for our identity whose owning
+# base has reached tada/. post-job would dedup such a re-post to a silent no-op
+# (its identity dedup counts tada/ as live), so detecting it here keeps the posted=
+# count honest and gives the condition a name — a refresh finished, yet the row
+# still records the old file-commit, which wants a human or a scholar to look.
+refresh_settled() {  # refresh_settled <identity>
+  local id="$1" entry owner
+  entry="$DIR/$JOBS_INDEX/$(job_id_hash "$id")"
+  [ -f "$entry" ] || return 1
+  # A hash collision between two distinct identities must never read as settled.
+  [ "$(sed -n 's/^identity:[[:space:]]*//p' "$entry" | head -1)" = "$id" ] || return 1
+  owner="$(sed -n 's/^base:[[:space:]]*//p' "$entry" | head -1)"
+  [ -n "$owner" ] && [ -e "$DIR/$JOBS_TADA/$owner.md" ]
+}
+
+post_refresh() {  # post_refresh <slug> <repo> <path> <recorded> <upstream> <identity>
+  local slug="$1" repo="$2" path="$3" recorded="$4" upstream="$5" identity="$6"
   local base="scholar-refresh-$slug"
   printf '%s\n' \
 "---
@@ -155,10 +212,10 @@ source has advanced past the recorded \`file-commit\`.
 Re-ingest / reconcile this source (refresh its section files, then update the
 recorded file-commit in library/sources/README.md and the slug file). Low
 priority: this is a freshness refresh, not a correctness gate." \
-    | "$POST_JOB" "$base"
+    | "$POST_JOB" --identity "$identity" "$base"
 }
 
-audited=0 current=0 drifted=0 posted=0 skipped_present=0 skipped_noclone=0 absent=0
+audited=0 current=0 drifted=0 posted=0 skipped_live=0 skipped_settled=0 skipped_noclone=0 absent=0
 declare -A SEEN_NOCLONE=()
 
 while IFS=$'\t' read -r slug repo path recorded; do
@@ -197,19 +254,25 @@ while IFS=$'\t' read -r slug repo path recorded; do
 
   [ "$DRYRUN" = 1 ] && continue
 
-  if refresh_present "$slug"; then
-    log "  refresh already in lifecycle for $slug; skipping post"
-    skipped_present=$((skipped_present+1))
+  if refresh_live "$slug"; then
+    log "  refresh already live (plan/todo/doin) for $slug; skipping post"
+    skipped_live=$((skipped_live+1))
     continue
   fi
-  if post_refresh "$slug" "$repo" "$path" "$recorded" "$upstream"; then
+  identity="$(drift_identity "$slug" "$recorded" "$upstream")"
+  if refresh_settled "$identity"; then
+    log "  a refresh for THIS drift ($slug ${recorded} -> ${upstream:-<path absent>}) already completed, yet the row still records ${recorded}; not re-posting (the completed refresh did not advance the recorded file-commit — wants a look)"
+    skipped_settled=$((skipped_settled+1))
+    continue
+  fi
+  if post_refresh "$slug" "$repo" "$path" "$recorded" "$upstream" "$identity"; then
     posted=$((posted+1))
   else
     log "  WARN: post of scholar-refresh-$slug failed; will retry next tick"
   fi
 done < <(parse_rows)
 
-log "audited=$audited current=$current drifted=$drifted (absent=$absent) posted=$posted refresh-already-present=$skipped_present no-local-clone=$skipped_noclone"
+log "audited=$audited current=$current drifted=$drifted (absent=$absent) posted=$posted refresh-already-live=$skipped_live refresh-already-completed=$skipped_settled no-local-clone=$skipped_noclone"
 
 if [ "$DRYRUN" = 1 ] && [ "$drifted" -gt 0 ]; then
   exit 1

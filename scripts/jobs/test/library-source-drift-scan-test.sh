@@ -60,10 +60,13 @@ build_upstream() {
 
 # Advance src/moving.js upstream AND fast-forward the local bare clone (as
 # clone-keeper would), so the recorded sha now drifts behind the bare clone tip.
-advance_moving() {
+# The optional argument is the new content: it must DIFFER from the current
+# content or there is nothing to commit and no drift, so a second call in one
+# run must pass its own.
+advance_moving() {  # advance_moving [content]
   local SEED="$TR/upseed2"; rm -rf "$SEED"
   git clone -q --branch master "$UP" "$SEED"
-  printf 'drift v2\n' > "$SEED/src/moving.js"
+  printf '%s\n' "${1:-drift v2}" > "$SEED/src/moving.js"
   git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c2
   git -C "$SEED" push -q origin master
   SHA_DRIFT_NEW="$(git -C "$SEED" log -1 --format=%H -- src/moving.js)"
@@ -154,7 +157,51 @@ before="$(board_todo | grep -c scholar-refresh || true)"
 run_scan
 after="$(board_todo | grep -c scholar-refresh || true)"
 [ "$before" = "$after" ] && ok "no duplicate refresh on re-run ($before == $after)" || bad "duplicated refresh job ($before -> $after)"
-grep -q "refresh already in lifecycle" <<<"$OUT" && ok "pre-check skipped the already-present refresh" || bad "did not report the idempotent skip: $OUT"
+grep -q "refresh already live" <<<"$OUT" && ok "pre-check skipped the already-live refresh" || bad "did not report the idempotent skip: $OUT"
+
+# ============================================================================
+hr; echo "SECOND DRIFT — a COMPLETED refresh must not suppress the next drift"; hr
+# The once-ever bug: the first refresh of a slug drains to tada/, and because both
+# refresh_present() and post-job.sh's basename dedup counted tada/, EVERY later
+# drift of that source logged DRIFT and posted nothing — forever (the 2026-07-28
+# endo--packages-ses-src-error-assert-js suppression). Simulate the drain, then
+# advance upstream a SECOND time: the scan must post again.
+# Guarded, so a regression that suppressed the post surfaces as a plain FAIL here
+# rather than aborting the suite on a missing fixture file.
+drain_to_tada() {  # drain_to_tada <base>
+  local W="$TR/drain"; rm -rf "$W"
+  git clone -q --branch journal2 "$BARE" "$W"
+  mkdir -p "$W/jobs/tada"
+  if [ ! -e "$W/jobs/todo/$1.md" ]; then
+    bad "drain fixture: no jobs/todo/$1.md to drain (nothing was posted)"
+    rm -rf "$W"; return 1
+  fi
+  git -C "$W" mv -f "jobs/todo/$1.md" "jobs/tada/$1.md"
+  git -C "$W" "${git_id[@]}" commit -q -m "tada($1)"
+  git -C "$W" push -q origin journal2
+  rm -rf "$W"
+}
+RBASE=scholar-refresh-acme--src-moving-js
+setup_fixture --drift
+run_scan                                   # first drift → posts
+board_todo | grep -qF "$RBASE.md" && ok "first drift posted" || bad "first drift did not post: $(board_todo)"
+drain_to_tada "$RBASE" || true                     # the scholar finished it
+[ -z "$(board_todo | grep -F "$RBASE" || true)" ] && ok "refresh drained out of todo/ into tada/" || bad "drain fixture failed"
+advance_moving 'drift v3'                  # upstream moves AGAIN, past the refresh
+run_scan
+board_todo | grep -qF "$RBASE.md" && ok "posted a refresh for the SECOND drift (tada no longer suppresses)" || bad "REGRESSION: completed refresh suppressed the second drift: $OUT"
+grep -q "posted=1" <<<"$OUT" && ok "counted the second post" || bad "second-drift post not counted: $OUT"
+
+# ============================================================================
+hr; echo "SETTLED — an identical drift whose refresh completed is named, not re-posted"; hr
+# Same drift (same recorded->upstream pair) as the job now sitting in tada/: the
+# identity index owns it, post-job would dedup it to a silent no-op, so the scan
+# reports it as a completed-but-unrecorded refresh instead of counting a post.
+drain_to_tada "$RBASE" || true
+run_scan
+grep -q "already completed, yet the row still records" <<<"$OUT" && ok "named the completed-but-unrecorded refresh" || bad "did not report the settled drift: $OUT"
+grep -q "refresh-already-completed=1" <<<"$OUT" && ok "counted it as already-completed, not posted" || bad "settled count wrong: $OUT"
+grep -q "posted=0" <<<"$OUT" && ok "posted nothing for the settled drift" || bad "posted count wrong: $OUT"
 
 # ============================================================================
 hr; echo "DRY-RUN — reports drift and exits 1, but posts nothing"; hr
