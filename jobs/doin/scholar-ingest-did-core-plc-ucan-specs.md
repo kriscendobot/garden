@@ -100,3 +100,10 @@ is complete (this job plus any successor it posts), add one short comment on
 https://github.com/kriscendobot/garden/issues/34 saying which primary specs are
 now in the garden's library and where, so the maintainer knows the citation
 trail is durable. **Never close the issue**; the submitter closes it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T01:58:40Z
