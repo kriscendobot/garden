@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T14:05:25Z_
+_As of 2026-07-29T14:10:51Z_
 
 ## Latest
 
@@ -4822,9 +4822,13 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'finbot-pr5-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `watchdog-handler-budget-overrun-finbot-pr6-panel-20260728` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-finbot-pr6-panel-20260728.md)
+- `watchdog-handler-budget-overrun-finbot-pr6-panel-20260728` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-finbot-pr6-panel-20260728.md)
 
-> gardener job 'finbot-pr6-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+> WATCHDOG notice — occurrence #2 (first seen 2026-07-28T17:34:07Z, latest 2026-07-29T14:10:27Z).
+> The SAME condition (`handler-budget-overrun-finbot-pr6-panel-20260728`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> gardener job 'finbot-pr6-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2413s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
@@ -4947,7 +4951,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.2M | $781.49 _(notional, rate-card)_ | no quota set |
+| Claude | 42.0M | $779.82 _(notional, rate-card)_ | no quota set |
 | Codex | 72.4M _(+567.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
