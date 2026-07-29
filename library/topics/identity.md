@@ -23,6 +23,7 @@
 | [w3c--did-core-1-0--services-and-also-known-as](../sections/w3c--did-core-1-0--services-and-also-known-as.md) | W3C DID Core 1.0 | A linked URI claim and a service endpoint are published assertions, not proofs. |
 | [w3c--did-core-1-0--method-operations-security-and-privacy](../sections/w3c--did-core-1-0--method-operations-security-and-privacy.md) | W3C DID Core 1.0 | DID lifecycle and correlatability are method-level identity concerns. |
 | [w3c--did-core-1-0--architectural-considerations](../sections/w3c--did-core-1-0--architectural-considerations.md) | W3C DID Core 1.0 | DID controller and DID subject can coincide or differ. |
+| [did:plc method, operations, recovery, and directory trust](../sections/did-method-plc--website-spec-v0-1-did-plc--method-operations-recovery-and-trust.md) | identity, decentralized-identifiers, capability-security | A hash-derived, self-certifying DID with priority key recovery and a directory trusted only for availability and fork ordering. |
 
 ## See also
 
