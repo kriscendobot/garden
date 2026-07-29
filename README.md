@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:28:12Z_
+_As of 2026-07-29T02:30:29Z_
 
 ## Latest
 
@@ -4405,14 +4405,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.0M | $890.14 _(notional, rate-card)_ | no quota set |
-| Codex | 187.5M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 55.1M | $892.48 _(notional, rate-card)_ | no quota set |
+| Codex | 185.8M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (34)
+### doin (37)
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -4426,6 +4426,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr647-review-ec3d282c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr647-review-ec3d282c.md) — Review directive on endojs/endo-but-for-bots PR #647
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
+- [`endojs-endo-but-for-bots-pr667-198c8d1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-198c8d1e.md) — attention directive on endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
 - [`endojs-endo-but-for-bots-pr671-review-9737517c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-9737517c.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr671-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #671
@@ -4443,6 +4444,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
 - [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — In the garden's own repo (kriscendobot/garden, branch main2, no PR workflow),...
+- [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
+- [`fu-fu-improve-promote-plan-poison-reset-3-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-2.md) — In the garden's own repo (kriscendobot/garden, main2), harden scripts/jobs/an...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
