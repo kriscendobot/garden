@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:52:45Z_
+_As of 2026-07-29T23:53:39Z_
 
 ## Latest
 
@@ -5581,7 +5581,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 54.8M _(+616.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Codex | 54.3M _(+616.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (26)
@@ -5599,10 +5599,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr676-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr676-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #676
 - [`endojs-endo-but-for-bots-pr721-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr721-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #721
 - [`endojs-endo-but-for-bots-pr836-review-03bd85ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-review-03bd85ff.md) — Review directive on endojs/endo-but-for-bots PR #836
+- [`endojs-endo-but-for-bots-pr857-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr857-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #857
 - [`endojs-endo-but-for-bots-pr859-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr859-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #859
 - [`endojs-endo-but-for-bots-pr860-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr860-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #860
 - [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
-- [`endojs-endo-but-for-bots-pr875-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr875-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #875
 - [`endojs-endo-but-for-bots-pr885-review-c5f39398`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-review-c5f39398.md) — Review directive on endojs/endo-but-for-bots PR #885
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — role: orchestrator
 - [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-fable-signoff.md) — Fable merge-governance sign-off for finbot PR #6
@@ -5616,13 +5616,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
 
-### tada (3922)
+### tada (3923)
+- [`endojs-endo-but-for-bots-pr875-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr875-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`garden-fireworks-glm52-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fireworks-glm52-rollout.md) — orchestration garden-fireworks-glm52-rollout — HALTED
 - [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr721-garden-response-comment.md) — Cost
 - [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/exo-git-follow-root-advancement-design.md) — Cost
 - [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing-deploy.md) — Cost
-- [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 3917 more
+- … and 3918 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
