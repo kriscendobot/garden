@@ -56,8 +56,11 @@ kinds, and both must be closed (never worked around with a one-off green push):
    Fix: restore parity. Example: running `endojs/endo-but-for-bots` package tests
    locally needs `yarn`/`ava`/`eslint` PATH shims because the sandbox blocks
    `node_modules/.bin` exec; without them the test step silently skips locally and
-   only CI runs it. The parity fix is to provide the shims (see the field notes),
-   not to accept the skip.
+   only CI runs it. The parity fix is to provide the shims with
+   `scripts/jobs/gardening/install-node-tool-shims.sh`, not to accept the skip.
+   Install them with that script rather than by hand: a hand-written shim naming
+   one job's worktree dies (or, worse, silently lints a peer's checkout) as soon
+   as that worktree is torn down. See the 2026-07-29 field note.
 
 Divergence in the **other** direction — local-fail, CI-pass — is the same defect
 and gets the same treatment. A gate that red-lights work CI would have accepted
@@ -530,3 +533,25 @@ environment fault. `bash -n` and `shellcheck` clean.
     identity is free evidence about whether the gate ran at all, and a gate that
     can tell it never ran should say so rather than emit N failures it knows are
     one.
+- _2026-07-29_: closed the environment divergence the Parity section already
+  warned about, found while working the review on
+  <https://github.com/endojs/endo-but-for-bots/pull/671>. The `yarn`/`ava`/
+  `eslint` PATH shims this skill prescribes were **hand-written by whichever job
+  first needed one**, each `exec node <that job's worktree>/node_modules/...`.
+  A per-job worktree is torn down when its job ends, so on this host all four
+  shims (`eslint`, `prettier`, `tsc`, `ava`) pointed into a
+  `project-wt-...-pr761-shepherd-...` deleted days earlier. Every lint, type, and
+  test step dispatching through them was broken host-wide. The second failure
+  mode is the dangerous one and is silent: while the pinned worktree still
+  exists, the shim **lints a peer's checkout**, so a green result says nothing
+  about the code about to be pushed, which is precisely the local-pass/CI-fail
+  discrepancy this skill exists to prevent. Fix:
+  `scripts/jobs/gardening/install-node-tool-shims.sh` generates shims that name
+  no tree at all, walking up from `$PWD` at invocation time to the nearest
+  enclosing `node_modules` holding the tool. That resolution is correct for every
+  worktree concurrently and needs no reinstall between jobs. Each tool carries
+  every entrypoint spelling we have seen (`ava/entrypoints/cli.mjs` and
+  `cli.js`), so a tool upgrade moving its entrypoint does not silently re-break
+  the shim. General lesson for the table: a shim that hard-codes an absolute path
+  into ephemeral per-job state is not a parity fix, it is a deferred parity bug,
+  and its quiet failure mode is worse than its loud one.
