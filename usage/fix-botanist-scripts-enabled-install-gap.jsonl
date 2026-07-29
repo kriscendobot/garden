@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":75,"elapsed_s":1231,"input_tokens":136,"output_tokens":83706,"cache_creation_tokens":202096,"cache_read_tokens":11378220,"total_cost_usd":9.806329,"ts":"2026-07-29T02:02:15Z","base":"fix-botanist-scripts-enabled-install-gap","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}
