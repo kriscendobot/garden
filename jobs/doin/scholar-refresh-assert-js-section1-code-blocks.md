@@ -45,3 +45,10 @@ frontmatter; both are current as of 2026-07-29.
 
 Low priority: navigation/fidelity polish, not a correctness gate. Land through
 `land-journal-edit.sh` and re-run the step-8 integrity gate as usual.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T01:31:37Z
