@@ -30,7 +30,7 @@ parent: endo--packages-ses-src-error-assert-js--makeAssert-and-the-assert-functi
 
 ### §makeAssert — the factory's two parameters
 
-The §makeAssert signature (line 484):
+The §makeAssert signature (line 529):
 
 ```js
 export const makeAssert = (optRaise = undefined, unredacted = false) => {
@@ -44,7 +44,7 @@ The §two parameters:
   - **Test-failure escalation**: a test framework can `makeAssert(err => testFailureRecord.push(err))` to capture all assert failures without relying on uncaught-exception handlers.
 - **`unredacted`** — a boolean that selects `unredactedDetails` (for `errorTaming: 'unsafe'` mode) over `redactedDetails`. The §discipline: when this assert is built under unsafe mode, every substitution in every template is automatically quoted, so the rendered messages show actual values.
 
-The §destructured binding (line 485):
+The §destructured binding (line 530):
 
 ```js
 const details = unredacted ? unredactedDetails : redactedDetails;
@@ -52,7 +52,7 @@ const details = unredacted ? unredactedDetails : redactedDetails;
 
 The §`details` symbol bound inside the factory captures which variant the templates will use. The factory's `Fail`, `fail`, `equal`, `assertTypeof` all reference `details`, so a single flag at factory-construction time controls all assertions' rendering.
 
-The §`assertFailedDetails` (line 486):
+The §`assertFailedDetails` (line 531):
 
 ```js
 const assertFailedDetails = details`Check failed`;
@@ -62,7 +62,7 @@ This is the *default details for an assert with no specific message*. The consta
 
 ### §fail — build, optionally raise, throw
 
-The §fail function (lines 488-500):
+The §fail function (lines 533-545):
 
 ```js
 const fail = (
@@ -89,7 +89,7 @@ The §two-step *raise-then-throw* discipline is the *honest-broadcast-before-pro
 
 ### §Fail — the one-line-throwing-template-literal shortcut
 
-The §Fail tag (line 503):
+The §Fail tag (line 548):
 
 ```js
 const Fail = (template, ...args) => fail(details(template, ...args));
@@ -118,7 +118,7 @@ The §choice between them: for hot paths where the message-template is non-trivi
 
 ### §The base assert function — the *||-fail* short-circuit
 
-The §assert function (lines 505-514):
+The §assert function (lines 550-559):
 
 ```js
 const assert = (
@@ -137,11 +137,11 @@ The §undefined-detail default: if no optDetails is provided, `fail` uses its ow
 
 The §design intent: the assert function is *callable like a function*, but the body uses the short-circuit idiom for performance. Reading the source: *assert(cond, msg)* is equivalent to *if (!cond) throw makeError(msg)*; the short-circuit form lets a JIT inline the cond check.
 
-The §non-export at this point (line 505 comment: *Don't freeze or export `assert` until we add methods*): the function is later augmented via `assign(assert, ...)` before being frozen and returned.
+The §non-export at this point (line 550 comment: *Don't freeze or export `assert` until we add methods*): the function is later augmented via `assign(assert, ...)` before being frozen and returned.
 
 ### §assert.equal — `Object.is` equality with `RangeError` default
 
-The §equal function (lines 516-531):
+The §equal function (lines 561-576):
 
 ```js
 const equal = (
@@ -171,7 +171,7 @@ The §maintainer's choice of `RangeError` over the default `Error` reflects the 
 
 ### §assertTypeof — typeof check with `an()` article agreement
 
-The §assertTypeof function (lines 533-550):
+The §assertTypeof function (lines 578-595):
 
 ```js
 const assertTypeof = (specimen, typename, optDetails) => {
@@ -199,11 +199,11 @@ The §constructor choice: `TypeError`. The standard's discipline: `TypeError` is
 
 The §rendered example: `assert.typeof(42, 'string')` throws `TypeError: (a number) must be a string` (with redacted substitution for `42`).
 
-The §recursive-assertion idiom (line 541) — `typeof typename === 'string' || Fail\`${quote(typename)} must be a string\`` — is itself an assert; if a caller writes `assert.typeof(x, 42)`, the recursive assert catches the broken call before the meaningless `typeof x === 42` check could falsely pass.
+The §recursive-assertion idiom (line 586) — `typeof typename === 'string' || Fail\`${quote(typename)} must be a string\`` — is itself an assert; if a caller writes `assert.typeof(x, 42)`, the recursive assert catches the broken call before the meaningless `typeof x === 42` check could falsely pass.
 
 ### §assertString — the one-line convenience
 
-The §assertString function (lines 552-554):
+The §assertString function (lines 597-599):
 
 ```js
 const assertString = (specimen, optDetails = undefined) =>
@@ -216,7 +216,7 @@ The §absence of `assert.number`, `assert.object`, etc.: the maintainer's choice
 
 ### §The finalizing assign-and-freeze pattern
 
-The §three bundles (lines 556-575):
+The §three bundles (lines 601-620):
 
 ```js
 const assertionFunctions = {
@@ -244,7 +244,7 @@ The §three-bag structure:
 - **`assertionUtilities`** — the methods that *build assert artifacts* without themselves throwing. Most users use `details` and `Fail` through these.
 - **`deprecated`** — `error` (was the old name for `makeError`) and `makeAssert` (mostly used internally; surfaced on assert for backward compatibility).
 
-The §assign-and-freeze (lines 577-583):
+The §assign-and-freeze (lines 622-628):
 
 ```js
 const finishedAssert = assign(assert, {
@@ -264,7 +264,7 @@ The §pattern:
 
 ### §The module-level `assert = makeAssert()` and re-exports
 
-The §module-level assert (lines 587-589):
+The §module-level assert (lines 632-634):
 
 ```js
 const assert = makeAssert();
@@ -273,7 +273,7 @@ export { assert };
 
 The §canonical assert: *no optRaise, redacted mode*. This is what every @endo and SES module imports. The §choice not to expose `optRaise` at module-level reflects the discipline: the canonical assert is *quiet* — failure throws, period, no escalation. Code that wants `optRaise` builds its own assert via `makeAssert(myRaise)`.
 
-The §re-exports (lines 591-604):
+The §re-exports (lines 640-649):
 
 ```js
 const assertEqual = assert.equal;
@@ -294,7 +294,7 @@ The §rename intents:
 - **`q`** — `quote`. The shortest possible name for the most-common substitution wrapper.
 - **`b`** — `bare`. Similarly short.
 - **`annotateError`** — `note`. The full-word version for code that prefers self-documenting names.
-- **`assertEqual`** — `assert.equal` as a direct binding. The §comment (lines 591-593):
+- **`assertEqual`** — `assert.equal` as a direct binding. The §comment (lines 636-637):
 
   > Internal, to obviate polymorphic dispatch, but may become rigorously consistent with `@endo/error`:
 
