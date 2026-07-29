@@ -300,6 +300,18 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-07-29_: on `endojs/endo-but-for-bots` the *Rebase* step 5 hits an
+  **autostash conflict** that is not yours. `ensure-project-worktree.sh`'s warm
+  dep-cache install runs `yarn install`, which reformats
+  `packages/hex-test/package.json`, so a freshly provisioned worktree is already
+  dirty. `git rebase` autostashes that edit, replays your commits, and then fails
+  to pop the stash ("Applying autostash resulted in conflicts"). The rebase itself
+  **succeeded**; check `git log` and `git diff origin/<base>...HEAD` before
+  believing the conflict. Clear it with
+  `git checkout HEAD -- packages/hex-test/package.json` (the edit is the
+  installer's, never the PR's) and push. Do not resolve it as a real conflict and
+  do not commit it: that would add an unrelated file to the PR's diff. Seen while
+  refreshing #331.
 - _2026-07-28_: first application to a **design** PR on `kriscendobot/agoric-sdk`
   (fork PR #18, base `master-70d307d`). That fork has no roadmap branch, so the
   frozen base is what gives a design PR a diff of exactly the design file rather
