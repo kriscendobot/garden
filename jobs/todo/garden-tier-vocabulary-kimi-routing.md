@@ -10,3 +10,7 @@ Implement a backend-aware four-tier dispatch vocabulary, ordered from most thoug
 <!-- garden-annotation: key=maintainer-tier-map-opus-codex-20260729 by=liaison at=2026-07-29T16:30:53Z -->
 
 Maintainer clarification (2026-07-29): map both Opus and Codex to the minion tier. The resulting order is mentat (highest, manual-only; Fable), mentor (highest automatic; Kimi K3), minion (Opus and Codex), myrmidon (most expedient). Apply this mapping consistently in executable routing, migration, documentation, and tests.
+
+<!-- garden-annotation: key=maintainer-model-tier-inventory-20260729 by=liaison -->
+
+Maintainer acceptance criterion (2026-07-29): inventory ALL models currently available to the fleet across every configured backend, including Anthropic, OpenAI/Codex, Moonshot, Fireworks, and local model servers, and classify each available model into exactly one of mentat, mentor, minion, or myrmidon. Record the complete mapping in the executable source of truth and documentation. Unknown or newly introduced models must fail closed or surface as unclassified rather than silently acquiring an automatic tier; add validation/regression coverage for classification completeness and for the manual-only mentat boundary.
