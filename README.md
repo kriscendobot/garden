@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:23:42Z_
+_As of 2026-07-29T23:24:53Z_
 
 ## Latest
 
@@ -5538,10 +5538,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.8M _(+614.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Codex | 59.8M _(+615.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
-### todo (19)
+### todo (20)
+- [`design-npm-dev-publisher-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-npm-dev-publisher-attenuation.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-195004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
