@@ -51,10 +51,30 @@ reviewer="${4:-}"
 : "${GARDEN_PREFLIGHT_COMMITS:=20}"
 : "${GARDEN_PREFLIGHT_EVIDENCE:=}"
 
-gather_evidence() {  # gather_evidence -> JSON evidence on stdout
+gather_evidence() {  # gather_evidence <reason_file> -> JSON evidence on stdout
+  # Emits the evidence JSON object on stdout on success. On ANY tool/transport
+  # failure it writes a human-readable reason — INCLUDING the failing command's
+  # captured stderr — to <reason_file> and returns nonzero, so the caller can tell
+  # a gather FAILURE (infrastructure) apart from a validly-gathered but empty
+  # corpus (a finding). A genuinely empty corpus is NOT a failure: it returns a
+  # valid document whose arrays are empty.
+  local reason_file="$1"
+  local errf; errf="$(mktemp)"
+  local -a tmps=("$errf")
+  # shellcheck disable=SC2064
+  trap 'rm -f "${tmps[@]}"' RETURN
+  _fail() {  # _fail <what> — record the reason (+ any captured stderr); returns 0
+    { printf 'evidence gathering failed: %s\n' "$1"
+      if [ -s "$errf" ]; then printf '%s\n' '--- captured stderr ---'; cat "$errf"; fi
+    } >"$reason_file" 2>/dev/null || true
+    return 0
+  }
+
   if [ -n "$GARDEN_PREFLIGHT_EVIDENCE" ]; then
-    "$GARDEN_PREFLIGHT_EVIDENCE" "$repo" "$pr"
-    return
+    if ! "$GARDEN_PREFLIGHT_EVIDENCE" "$repo" "$pr" 2>"$errf"; then
+      _fail "evidence hook $GARDEN_PREFLIGHT_EVIDENCE exited nonzero"; return 1
+    fi
+    return 0
   fi
   require_tools gh jq
 
@@ -62,76 +82,129 @@ gather_evidence() {  # gather_evidence -> JSON evidence on stdout
   # A feedback job may be keyed by either the enclosing review id or an inline
   # comment id. Resolve the target first: without its time and reviewed head, a
   # generic acknowledgement is deliberately unusable.
-  if target="$(gh api "repos/$repo/pulls/$pr/reviews/$cid" 2>/dev/null)"; then
+  if target="$(gh api "repos/$repo/pulls/$pr/reviews/$cid" 2>"$errf")"; then
     kind=review
-  elif target="$(gh api "repos/$repo/pulls/comments/$cid" 2>/dev/null)"; then
+  elif target="$(gh api "repos/$repo/pulls/comments/$cid" 2>>"$errf")"; then
     kind=comment
   else
-    return 1
+    _fail "could not resolve feedback target id $cid on $repo#$pr (neither a review nor an inline comment)"; return 1
   fi
-  pull="$(gh api "repos/$repo/pulls/$pr" 2>/dev/null)" || return 1
-  head_sha="$(jq -er '.head.sha | strings | select(length > 0)' <<<"$pull")" || return 1
-  commits="$(gh api "repos/$repo/commits?sha=$head_sha&per_page=$GARDEN_PREFLIGHT_COMMITS" 2>/dev/null)" || return 1
-  comments="$(gh api --paginate "repos/$repo/pulls/$pr/comments?per_page=100" 2>/dev/null | jq -s 'add // []')" || return 1
+  if ! pull="$(gh api "repos/$repo/pulls/$pr" 2>"$errf")"; then
+    _fail "could not fetch pull $repo#$pr"; return 1
+  fi
+  if ! head_sha="$(jq -er '.head.sha | strings | select(length > 0)' <<<"$pull" 2>"$errf")"; then
+    _fail "pull $repo#$pr has no usable head.sha"; return 1
+  fi
+  if ! commits="$(gh api "repos/$repo/commits?sha=$head_sha&per_page=$GARDEN_PREFLIGHT_COMMITS" 2>"$errf")"; then
+    _fail "could not fetch commits for $repo#$pr at $head_sha"; return 1
+  fi
+  if ! comments="$(gh api --paginate "repos/$repo/pulls/$pr/comments?per_page=100" 2>"$errf" | jq -s 'add // []' 2>>"$errf")"; then
+    _fail "could not fetch review comments for $repo#$pr"; return 1
+  fi
+
+  # Feed every unbounded payload (the target, the commit list, and above all the
+  # review-comment corpus) to jq through temp files via --slurpfile, NEVER as
+  # --argjson argv values. A busy PR's comment payload routinely exceeds
+  # MAX_ARG_STRLEN (131072 B) — the per-argument execve cap that is SEPARATE from
+  # the multi-megabyte ARG_MAX total — so an argv value there fails execve E2BIG on
+  # exactly the PRs that carry the most feedback. printf is a bash builtin, so
+  # writing a payload to a file does not itself pass through execve. --slurpfile
+  # binds each file's single top-level value as element [0] of an array.
+  local tf_target tf_commits tf_comments
+  tf_target="$(mktemp)"; tf_commits="$(mktemp)"; tf_comments="$(mktemp)"
+  tmps+=("$tf_target" "$tf_commits" "$tf_comments")
+  printf '%s' "$target"   >"$tf_target"
+  printf '%s' "$commits"  >"$tf_commits"
+  printf '%s' "$comments" >"$tf_comments"
 
   if [ "$kind" = review ]; then
-    jq -cn --argjson target "$target" --arg head "$head_sha" \
-      --argjson commits "$commits" --argjson comments "$comments" '
+    jq -cn --arg head "$head_sha" \
+      --slurpfile target "$tf_target" \
+      --slurpfile commits "$tf_commits" \
+      --slurpfile comments "$tf_comments" '
       {
         target: {
-          id: ($target.id | tostring),
-          created_at: $target.submitted_at,
-          reviewed_head_sha: $target.commit_id
+          id: ($target[0].id | tostring),
+          created_at: $target[0].submitted_at,
+          reviewed_head_sha: $target[0].commit_id
         },
         head: {sha: $head},
         commits: [
-          $commits[] | {
+          ($commits[0] // [])[] | {
             sha,
             timestamp: (.commit.committer.date // .commit.author.date),
             message: .commit.message
           }
         ],
         comments: [
-          $comments[] | {
+          ($comments[0] // [])[] | {
             id: (.id | tostring),
             in_reply_to_id: ((.in_reply_to_id // "") | tostring),
             created_at,
             body: (.body // "")
           }
         ]
-      }'
+      }' 2>"$errf" || { _fail "jq failed assembling the review evidence document"; return 1; }
   else
-    jq -cn --argjson target "$target" --arg head "$head_sha" \
-      --argjson commits "$commits" --argjson comments "$comments" '
+    jq -cn --arg head "$head_sha" \
+      --slurpfile target "$tf_target" \
+      --slurpfile commits "$tf_commits" \
+      --slurpfile comments "$tf_comments" '
       {
         target: {
-          id: ($target.id | tostring),
-          created_at: $target.created_at,
-          reviewed_head_sha: ($target.commit_id // $target.original_commit_id)
+          id: ($target[0].id | tostring),
+          created_at: $target[0].created_at,
+          reviewed_head_sha: ($target[0].commit_id // $target[0].original_commit_id)
         },
         head: {sha: $head},
         commits: [
-          $commits[] | {
+          ($commits[0] // [])[] | {
             sha,
             timestamp: (.commit.committer.date // .commit.author.date),
             message: .commit.message
           }
         ],
         comments: [
-          $comments[] | {
+          ($comments[0] // [])[] | {
             id: (.id | tostring),
             in_reply_to_id: ((.in_reply_to_id // "") | tostring),
             created_at,
             body: (.body // "")
           }
         ]
-      }'
+      }' 2>"$errf" || { _fail "jq failed assembling the inline-comment evidence document"; return 1; }
   fi
 }
 
-evidence="$(gather_evidence || true)"
-if [ -z "$evidence" ] || ! jq -e . >/dev/null 2>&1 <<<"$evidence"; then
-  log "no usable evidence for $repo#$pr (cid=$cid); proceeding (fail-open)"
+# Gather, distinguishing a FAILURE to gather (infrastructure/tool/transport) from a
+# validly-gathered but empty corpus (a finding). The two are DIFFERENT facts and
+# must not share a log line or a code path: a swallowed execve/network error read
+# as "no evidence" is exactly the silent fail-open that misfired on PR #671.
+reason_file="$(mktemp)"; trap 'rm -f "$reason_file"' EXIT
+if evidence="$(gather_evidence "$reason_file")" && [ -n "$evidence" ] \
+   && jq -e . >/dev/null 2>&1 <<<"$evidence"; then
+  :  # a valid evidence document was gathered (its corpus may legitimately be empty)
+else
+  reason="$(cat "$reason_file" 2>/dev/null || true)"
+  [ -n "$reason" ] || reason="evidence gathering produced empty or non-JSON output"
+  # Still fail open — proceeding beats no-oping real work off an uncorrelated
+  # partial corpus — but say so at a level the operator sees, and name it as an
+  # infrastructure failure, NOT the finding "this PR carries no resolving
+  # evidence". A STRUCTURAL failure additionally files a throttled, auditable
+  # maintainer alert; a transient network blip stays WARN-only (it self-heals).
+  # The full reason — including the failing command's CAPTURED stderr — goes to the
+  # log unconditionally, so the cause is never swallowed even for a transient
+  # failure that files no maintainer alert (the #671 failure only surfaced because
+  # jq's message happened to escape a 2>/dev/null).
+  log "WARN: evidence gathering FAILED for $repo#$pr (cid=$cid); proceeding (fail-open) — this is an infrastructure/tool failure, NOT an empty-evidence finding.
+$reason"
+  if ! is_transient_net_error "$reason"; then
+    alert_maintainer "preflight-gather-fail-${repo//\//-}" \
+      "pr-feedback-preflight could not gather evidence for $repo#$pr (cid=$cid) and failed open.
+This is a tool/transport failure, not a no-evidence finding — real feedback may
+have been processed WITHOUT the peer-resolution recheck. Reason:
+$reason"
+  fi
   exit 0
 fi
 
