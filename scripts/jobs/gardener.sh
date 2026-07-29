@@ -520,11 +520,16 @@ while :; do
   # timeout still enforces the wall on the direct handler (rc=124 unchanged); the
   # group-wide SIGTERM→SIGKILL escalation now comes from reap_process_group, not from
   # timeout's own group signal.
+  # Candidate-gate fixtures are unpacked beneath /tmp, which is noexec on garden
+  # hosts.  The explicit test seam lets such a fixture request Bash interpretation
+  # without changing the normal executable-handler production path.
+  handler_cmd=("$GARDEN_JOB_HANDLER")
+  [ "${GARDEN_JOB_HANDLER_BASH:-0}" = "1" ] && handler_cmd=(bash "$GARDEN_JOB_HANDLER")
   set +e
   set -m
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" GARDEN_USAGE_FILE="$usage_file" \
     timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
-    "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
+    "${handler_cmd[@]}" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
   handler_pgid=$!
   set +m
   # Wait for the handler, RESUMING across any trapped-signal interruption. A

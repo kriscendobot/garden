@@ -84,7 +84,8 @@ env GARDEN="killhost" GARDEN_STATE="$TR/state" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=143 \
     GARDEN_STUB_SENTINEL="$TR/sentinel" \
     GARDEN_JOB_HANDLER="$HERE/signal-kill-handler-stub.sh" \
-    "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
+    GARDEN_JOB_HANDLER_BASH=1 \
+    bash "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 
 CLONE="$TR/state/gardeners/1/journal"
 
