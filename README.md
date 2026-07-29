@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:32:55Z_
+_As of 2026-07-29T02:34:52Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
-- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 22m)
+- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 27m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
@@ -3125,6 +3125,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `improve-promote-plan-poison-reset`: the fix lives on `main2` and reaches the deployed root only through the deliberate, drained `scripts/jobs/deploy-garden.sh` — it will not arrive automatically. Confirm when you want me to run the deploy on the leader host (it drains the fleet first).
 
+- `20260729T023406Z-8e963a` — from orchestrator:endo-cbor-adopt-primitives-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023406Z-8e963a.md)
+
+> Orchestration endo-cbor-adopt-primitives HALTED: child endo-cbor-adopt-daemon-envelope failed (serial, on-child-failure=halt). 1/2 done before halt; swept: none
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3189,6 +3193,114 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > issue_url: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5100304929
 > submitter: kriscendobot
 > ----- END ISSUE NOTE -----
+>
+> <!-- garden-deadline-overrun: 1 -->
+
+- `poison-endo-cbor-adopt-daemon-envelope-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-endo-cbor-adopt-daemon-envelope-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/endo-cbor-adopt-daemon-envelope; it stays HELD until a human promotes it
+> (promote-plan.sh endo-cbor-adopt-daemon-envelope) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: endo-cbor-adopt-daemon-envelope
+>
+> --- original job body ---
+> ---
+> role: builder
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T01:40:06Z -->
+>
+> # Adopt `@endo/cbor` in `packages/daemon/src/envelope.js` (cbor-codec design, phase 4)
+>
+> Repo: **endojs/endo-but-for-bots**, base line **`llm`**.
+> Design of record: **`designs/cbor-codec.md`** (on `llm`) — § What moves, what stays
+> (the `packages/daemon/src/envelope.js` row) and § Migration Path item 4.
+>
+> Provenance: the "**and elsewhere**" half of kriskowal's 2026-07-28 directive in the
+> approving review of [https://github.com/endojs/endo-but-for-bots/pull/755](https://github.com/endojs/endo-but-for-bots/pull/755). Child 2 of
+> orchestration `endo-cbor-adopt-primitives` (serial; runs **after**
+> `endo-cbor-adopt-ocapn` lands).
+>
+> Phase 1 has landed: `@endo/cbor` at `packages/cbor/` on `llm` (merge commit
+> `3b21299`, PR #755). Cut a **frozen base branch** `llm-<short-sha>` at or after that
+> commit — see [frozen-base-branch](../../skills/frozen-base-branch/SKILL.md).
+>
+> ## The work
+>
+> `packages/daemon/src/envelope.js` (389 lines) hand-rolls ~130 of them as a **third
+> copy** of the same canonical head grammar. Point them at `@endo/cbor`:
+>
+> - write side: `cborAppendHead`, `cborAppendInt`, `cborAppendBytes`, `cborAppendText`
+>   over the local `CBOR_UINT` / `CBOR_NEGINT` / `CBOR_BYTES` / `CBOR_TEXT` /
+>   `CBOR_ARRAY` constants → `writeHead` / `writeInt` / `writeByteString` /
+>   `writeTextString` / `writeArrayHeader`;
+> - read side: `cborReadHead`, `cborReadInt`, `cborReadBytes`, `cborReadText`,
+>   `cborReadArrayHeader` over the local `makeCursor` → `readHead` / `readInt` /
+>   `readByteString` / `readTextString` / `readArrayHeader` over
+>   `makeCborReader(bytes, {name})`.
+>
+> **Stays behind:** the envelope framing (`encodeEnvelope` / `decodeEnvelope` /
+> `encodeFrame` / `decodeFrame` / `readFrameFromStream` / `writeFrameToStream`) and
+> the `[handle, verb, payload, nonce]` protocol shape.
+>
+> ### Two shape mismatches scouted in advance
+>
+> 1. **Accumulator.** `envelope.js` appends into a plain `number[]` (`buf`);
+>    `@endo/cbor` owns a growing `Uint8Array` behind `makeCborWriter()` /
+>    `cborWriterBytes(writer)`. Convert the encode paths to thread the writer record;
+>    don't reintroduce a boxed-byte accumulator.
+> 2. **Number domain.** `cborAppendInt` / `cborReadInt` work in `number`;
+>    `@endo/cbor`'s `writeInt` / `readInt` take and return **bigint** (head arguments
+>    are the full uint64 range), while counts — lengths, array element counts, tag
+>    numbers — stay `number` in `[0, 2**32)`. `env.handle` and `env.nonce` are the
+>    values that cross this line; decide at the envelope boundary whether they become
+>    bigints internally or are converted at the edge, and keep the *decoded* envelope's
+>    public field types unchanged unless every caller is updated with them.
+>
+> ## Acceptance — byte-identity is load-bearing across a language boundary
+>
+> These envelopes are exchanged with a **Rust** peer. Any encoding drift silently
+> breaks the cross-language bus. The riders to keep green:
+> `packages/daemon/src/bus-xs-core.js`, `bus-manager-rust-xs.js`,
+> `manager-go-powers.js`, `bus-manager-node-powers.js`.
+>
+> - **Capture encoder output before and after and diff it** — a green suite alone is
+>   not the evidence this job needs. Dump the hex of every envelope/frame fixture on
+>   the frozen base and on the branch; the diff must be empty. Report that in the PR.
+> - The daemon test suites and the **bus / XS CI lanes** stay green.
+> - `@endo/cbor`'s readers are **strict** (non-minimal heads rejected). The Rust peer
+>   is expected to write canonically, but confirm it — if any bus fixture or Rust
+>   encoder emits a non-minimal head that today's tolerant `cborReadHead` accepts,
+>   that is a real behaviour change on live traffic: **stop and ask the maintainer**
+>   (`scripts/jobs/message-user.sh <your-base>`) before proceeding.
+>
+> ## Standing caveat you must respect
+>
+> The design marks this adopter **optional**, and `designs/cbors.md` § Dependencies
+> carries an **older recorded decision** to duplicate head-parsing scaffolding *for
+> independent auditability* — a decision that predates a shared primitive package
+> existing. `designs/cbor-codec.md` leaves superseding it *"to the maintainer at
+> implementation time"*, and kriskowal's "**and elsewhere**" is the natural reading of
+> that authorization, so proceed. **But** if the migration turns out to cost the
+> auditability that old decision was protecting — e.g. it entrains a dependency the
+> daemon's audit surface was deliberately kept free of — **stop and ask the
+> maintainer** via `message-user.sh` rather than forcing it. Record whichever way it
+> goes in the PR body, and if the supersession is confirmed, amend
+> `designs/cbors.md` § Dependencies to point at the new decision.
+>
+> ## Norms
+>
+> - **One package per PR** per the repo's changeset discipline; include a
+>   `.changeset/` entry (patch bump for the daemon package).
+> - **Pure refactor**: no behaviour change, no wire-format change.
+> - Open the PR as a **draft**; it **auto-runs the gauntlet** under your supervising
+>   gardener. Do **not** post a separate gauntlet job.
+> - Predecessor in this orchestration: `endo-cbor-adopt-ocapn` — read its merged PR
+>   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
+>   boundary) are precedent you should follow rather than re-litigate.
 >
 > <!-- garden-deadline-overrun: 1 -->
 
@@ -4409,15 +4521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.2M | $896.50 _(notional, rate-card)_ | no quota set |
-| Codex | 184.7M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 55.3M | $900.15 _(notional, rate-card)_ | no quota set |
+| Codex | 183.6M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (38)
-- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
+### doin (36)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4431,7 +4542,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
 - [`endojs-endo-but-for-bots-pr667-198c8d1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr667-198c8d1e.md) — attention directive on endojs/endo-but-for-bots PR #667
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
-- [`endojs-endo-but-for-bots-pr671-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr671-review-9737517c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-9737517c.md) — Review directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr671-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #671
 - [`endojs-endo-but-for-bots-pr676-review-4939792d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr676-review-4939792d.md) — Review directive on endojs/endo-but-for-bots PR #676
@@ -4456,13 +4566,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3807)
+### tada (3808)
+- [`endojs-endo-but-for-bots-pr671-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-conduct.md) — Cost
+- [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-primitives.md) — orchestration endo-cbor-adopt-primitives — HALTED
 - [`endojs-endo-but-for-bots-pr331-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr331-refresh.md) — Job report: refresh endojs/endo-but-for-bots #331
 - [`fu-improve-promote-plan-poison-reset-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-improve-promote-plan-poison-reset-3.md) — What I did
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-130502.md) — Completion report — endo-git-integration-press-20260728-130502
-- [`scholar-ingest-shadowrealm-errors-and-content-type-companions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-shadowrealm-errors-and-content-type-companions.md) — What I did
-- [`improve-promote-plan-poison-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-promote-plan-poison-reset.md) — What I did
-- … and 3802 more
+- … and 3803 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4486,6 +4596,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-162019.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-223502.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260724-043515.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-daemon-envelope.md) — _normal_ · Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260722-095006.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-162019.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-223502.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
