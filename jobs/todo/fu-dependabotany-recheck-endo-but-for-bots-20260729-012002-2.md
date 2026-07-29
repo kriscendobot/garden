@@ -1,0 +1,1 @@
+In the garden's own job board, promote the parked job `endojs-endo-but-for-bots-pr867-dependabot` (currently in `jobs/plan/`) to `jobs/todo/` so a gardener renders a verdict on endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/867 (`@noble/curves` 1.9.0 → 2.2.0), which has no botanist verdict at all.
