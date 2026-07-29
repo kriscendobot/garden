@@ -22,3 +22,10 @@ Report the files changed and how a Claude-only gnome (ps23) vs an all-backend gn
 (garden/garden2) now behaves. This change reaches running hosts only via a later deploy.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:24:38Z
