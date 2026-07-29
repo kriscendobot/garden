@@ -93,3 +93,10 @@ distinguishably from a genuinely empty corpus. Run the local checks before pushi
 No unbounded payload reaches argv, a large-payload regression test passes, gather
 failures are distinguishable from empty results in both logs and job-visible state,
 and the report states what changed and how it relates to the sibling investigation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:35:41Z
