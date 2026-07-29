@@ -91,6 +91,7 @@
 | [web--miller-equality-object-sameness--overview](../sections/web--miller-equality-object-sameness--overview.md) | Object Sameness (Miller) | Selfish (PassByProxy default) vs Selfless (value identity) — the identity taxonomy that pairs with the passing taxonomy. |
 | [web--miller-equality-reference-sameness--overview](../sections/web--miller-equality-reference-sameness--overview.md) | Reference Sameness (Miller) | The `==` predicate and designational equivalence — the E ancestor of pass-invariant equality that lets a passed-and-returned reference stay comparable. |
 | [ucan-wg--spec-readme--canonicalization-envelope-and-cids](../sections/ucan-wg--spec-readme--canonicalization-envelope-and-cids.md) | ucan-wg/spec README.md | The required cryptosuite (did:key only), DAG-CBOR canonical encoding, the [Signature, {VarsigHeader, TokenPayload}] envelope, and CIDv1/base58btc/SHA-256/DAG-CBOR token addressing ('zdpu'). |
+| [UCAN metadata](../sections/ucan-wg--spec-readme--metadata.md) | ucan-authorization, marshal | Signed, externally verifiable metadata is not delegated authority. |
 
 - [`captp`](captp.md): consumer of marshal for capability transport.
 - [`ocapn`](ocapn.md): protocol family that combines marshal with transports.
