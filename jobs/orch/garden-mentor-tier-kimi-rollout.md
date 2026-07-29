@@ -1,4 +1,5 @@
 ---
+child-garden-tier-vocabulary-kimi-routing-reap-count: 0
 order: serial
 children: garden-tier-vocabulary-kimi-routing garden-tier-routing-deploy garden-repin-open-claude-to-kimi
 on-child-failure: halt
