@@ -17,6 +17,7 @@
 | [atproto--specs-did--public-key-representation](../sections/atproto--specs-did--public-key-representation.md) | decentralized-identifiers, identity | A verificationMethod of type Multikey whose publicKeyMultibase is 'the same encoding scheme as used with did:key, but without the did:key: prefix'. |
 | [ucan-wg--spec-readme--roles-subject-issuer-audience](../sections/ucan-wg--spec-readme--roles-subject-issuer-audience.md) | ucan-authorization, capability-security, identity | The ten UCAN roles; a Subject 'MUST be referenced by DID' for unforgeability; the audience binding that makes a UCAN not a bearer token. |
 | [ucan-wg--delegation-readme--subject-resource-and-powerline](../sections/ucan-wg--delegation-readme--subject-resource-and-powerline.md) | ucan-authorization, capability-security, identity | 'By default, the Resource of a capability is the Subject. This makes the delegation chain self-certifying'; Powerline (sub: null) forward-delegates all future authority, a Powerbox adapted to static tokens. |
+| [atproto--specs-sync--identity-and-account-events](../sections/atproto--specs-sync--identity-and-account-events.md) | decentralized-identifiers, identity, local-first-sync | #identity and #account events as best-effort cache-invalidation hints, not authoritative state; account status is explicitly hop-by-hop for hosts and mirrors. |
 
 ## See also
 
