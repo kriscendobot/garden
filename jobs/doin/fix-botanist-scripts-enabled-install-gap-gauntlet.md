@@ -18,6 +18,7 @@ unconditional draft norm (roles/builder/AGENT.md), and this hook converted it ba
 to draft so the chain can run. Nothing here has been panel-reviewed: treat it as a
 cold PR owed a full review, not as work that already passed and regressed.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
