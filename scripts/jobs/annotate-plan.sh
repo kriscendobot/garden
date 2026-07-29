@@ -36,6 +36,22 @@
 #   <basename>        the parked job's spine (extensionless).
 #   [body-file]       a file holding the annotation text.
 #
+# The note is producer-supplied text appended VERBATIM to a body that is PARKED,
+# so it is first stripped of the reaper/gardener cycle markers (common.sh § the
+# cycle-marker family). post-plan.sh strips those on the way INTO plan/ and
+# promote-plan.sh on the way OUT, so that a stale `<!-- garden-deadline-overrun:
+# N -->` can never re-poison a job on its first evaluation after promotion — but
+# an annotation is a THIRD way into a parked body, and a producer piping a live
+# job body as a note ("here is what the last cycle reported") re-introduces the
+# whole family behind both of those strips. promote-plan.sh's strip would still
+# clear it at the exit, but a parked body carrying counters the job never earned
+# is wrong before then and in its own right: it is what every reader of plan/
+# sees, it makes the promoter's `cleared=` provenance report a reset that never
+# happened, and any OTHER path that copies a parked body back into a live cycle
+# carries the counter to a reaper that trusts it. So all three writers into plan/
+# sanitize, using the same helpers — a marker-format change, or a sixth marker,
+# lands in one place and cannot half-apply.
+#
 # Deliberately NOT settable here: `gate:`, `blocked_on:`, `orchestrated_by:`.
 # Those carry the board's promotion invariants (who may promote this job, and
 # when), and re-gating a parked job is a different act with its own primitives —
@@ -151,6 +167,26 @@ elif [ ! -t 0 ];               then note="$(cat)"
 else note=""
 fi
 
+# Strip the cycle markers from the note before anything else sees it (see the
+# header). The summary helper reads a FILE — it reuses the same reap_count/
+# deadline_overrun_count/has_*_hint accessors the reaper, post-plan.sh and
+# promote-plan.sh use — so the note lands in a throwaway temp file first. Both it
+# and the strip come from common.sh, never re-spelled here. Done BEFORE the
+# default dedup key is computed, so the key content-addresses what actually lands
+# and two notes differing only in stale markers collapse to one annotation.
+note_cleared=none
+if [ -n "$note" ]; then
+  NOTE_TMP="$(mktemp "${TMPDIR:-/tmp}/garden-annotate-note.XXXXXX")"
+  trap 'rm -f "$NOTE_TMP"' EXIT
+  printf '%s\n' "$note" > "$NOTE_TMP"
+  note_cleared="$(cycle_marker_summary "$NOTE_TMP")"
+  if [ "$note_cleared" != "none" ]; then
+    note="$(strip_cycle_markers < "$NOTE_TMP")"
+    log "cleared stale cycle markers from the annotation note for '$base': $note_cleared"
+  fi
+  rm -f "$NOTE_TMP"; trap - EXIT
+fi
+
 # The metadata updates, as a newline-separated key=value list preserving the
 # frontmatter's own field order.
 fields=""
@@ -159,11 +195,19 @@ if [ -n "$roadmap" ];  then fields+="roadmap=$roadmap"$'\n';   fi
 if [ -n "$role" ];     then fields+="role=$role"$'\n';         fi
 
 if [ -z "$note" ] && [ -z "$fields" ]; then
+  if [ "$note_cleared" != "none" ]; then
+    die "the annotation note was entirely cycle markers ($note_cleared), which are stripped so they cannot re-poison the parked job; nothing left to annotate"
+  fi
   die "nothing to annotate: give a note (--note TEXT, a body-file, or stdin) and/or a --priority/--roadmap/--role change"
 fi
 
 # A one-line summary of the metadata change, for the marker and the commit message.
 fields_summary="$(printf '%s' "$fields" | tr '\n' ' ' | sed 's/ *$//')"
+
+# The provenance token for a sanitized note — empty (so an ordinary annotation's
+# marker is byte-for-byte what it always was) unless the strip cleared something.
+cleared_token=""
+if [ "$note_cleared" != none ]; then cleared_token=" cleared=$note_cleared"; fi
 
 # Default dedup identity: the content address of what this annotation SAYS. Two
 # identical annotations therefore collapse (the idempotency a re-run producer
@@ -256,9 +300,11 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     else
       apply_fields "$src"
     fi
-    printf '\n<!-- garden-annotation: key=%s by=%s at=%s%s -->\n' \
+    # `cleared=` is appended only when the note actually carried cycle markers, so
+    # an ordinary annotation's marker is byte-for-byte what it always was.
+    printf '\n<!-- garden-annotation: key=%s by=%s at=%s%s%s -->\n' \
       "$key" "$by" "$(date -u +%FT%TZ)" \
-      "${fields_summary:+ fields=$fields_summary}"
+      "${fields_summary:+ fields=$fields_summary}" "$cleared_token"
     if [ -n "$note" ]; then printf '\n%s\n' "$note"; fi
   } > "$tmp"
   chmod 644 "$tmp"          # mktemp is 0600; board files are world-readable

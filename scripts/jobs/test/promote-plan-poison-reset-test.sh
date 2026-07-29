@@ -46,6 +46,23 @@
 #             post-plan → promote → the job REQUEUES on its next stale cycle instead of
 #             being re-poisoned on its first evaluation.
 #
+# THE ANNOTATION HALF (fu-fu-improve-promote-plan-poison-reset, 2026-07-29). post-plan
+# and promote-plan bracket plan/ at both ends, but annotate-plan.sh is a THIRD writer
+# into a parked body — it appends producer-supplied note text verbatim, so a producer
+# piping a live job body as a note ("here is what the last cycle reported") re-introduced
+# the whole family behind both strips. The promotion strip would still clear it at the
+# exit, but the parked body meanwhile carries counters the job never earned: it is what
+# every reader of plan/ sees, and it makes the promoter's `cleared=` provenance report a
+# reset that never happened. annotate-plan.sh now performs the SAME strip on the note,
+# with the same common.sh helpers, recording it as a `cleared=` token on the
+# `<!-- garden-annotation: … -->` marker, emitted only when something actually was.
+#
+# SUBTEST 5 — annotate-plan strips the family from the appended note, keeps the note's
+#             prose / non-cycle comments / `---` rules and the parked body, records the
+#             cleared set on the annotation marker (and adds no token when there was
+#             nothing to clear), refuses a note that is ENTIRELY markers, and promotes to
+#             a `cleared=none` todo job rather than a laundered reset.
+#
 # Usage: promote-plan-poison-reset-test.sh
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -343,6 +360,100 @@ e2e4_ok=1
 [ "$e2e4_ok" -eq 1 ] \
   && ok "a body re-parked through post-plan gets a REAL requeue cycle after promotion" \
   || bad "a stale counter still survives the park→promote round trip"
+
+# ============================================================================
+hr; echo "SUBTEST 5 — annotate-plan clears the same family in the appended note (the annotation half)"; hr
+T5="$TR/annotate"; mkdir -p "$T5"
+BARE5="$(seed_board "$T5")"
+export JOURNAL_REMOTE="$BARE5" JOURNAL_BRANCH=journal2
+export GARDEN=annotatehost GARDEN_STATE="$T5/state" GARDEN_SCRATCH="$T5/scratch"
+export GARDEN_POST_ATTEMPTS=50
+mkdir -p "$GARDEN_SCRATCH"
+readback5() {
+  local v; v="$(mktemp -d "$T5/rb.XXXXXX")"
+  git clone -q --single-branch --branch journal2 "$BARE5" "$v" 2>/dev/null
+  cat "$v/$1" 2>/dev/null; rm -rf "$v"
+}
+
+printf '# annotated\n\nthe original work body for annotated\n' > "$T5/clean.md"
+"$JOBS/post-plan.sh" --go-ahead --role builder annotated "$T5/clean.md" > "$T5/post.log" 2>&1 \
+  || { echo "  (post-plan rc=$?)"; sed 's/^/    /' "$T5/post.log"; }
+
+# The note a producer pipes when it hands back what the last cycle reported: real
+# prose, the accumulated markers, plus a `---` rule and a non-cycle HTML comment.
+cat > "$T5/note.md" <<'EOF'
+the last cycle reported this, verbatim:
+
+---
+
+<!-- some-other-marker: keep me -->
+<!-- garden-reaped: 4 -->
+<!-- garden-deadline-overrun: 2 -->
+<!-- garden-reap-now -->
+<!-- garden-productive-cycle -->
+<!-- garden-outage-cycle -->
+EOF
+"$JOBS/annotate-plan.sh" annotated "$T5/note.md" > "$T5/ann.log" 2>&1 \
+  || { echo "  (annotate-plan rc=$?)"; sed 's/^/    /' "$T5/ann.log"; }
+parked5="$(readback5 jobs/plan/annotated.md)"
+
+strip5_ok=1
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+  printf '%s\n' "$parked5" | grep -q -- "$m" && { strip5_ok=0; echo "    marker survived the annotation: $m"; }
+done
+[ "$strip5_ok" -eq 1 ] \
+  && ok "every cycle marker is cleared from an appended annotation note" \
+  || bad "annotate-plan still smuggles cycle markers into a parked body"
+
+printf '%s\n' "$parked5" | grep -q 'the last cycle reported this, verbatim:' \
+  && ok "the note's prose survives the strip" || bad "the note's prose was lost"
+printf '%s\n' "$parked5" | grep -q 'the original work body for annotated' \
+  && ok "the parked work body is untouched" || bad "the annotation ate the parked body"
+printf '%s\n' "$parked5" | grep -q '<!-- some-other-marker: keep me -->' \
+  && ok "a non-cycle HTML comment in the note is untouched" || bad "the strip ate a non-cycle HTML comment"
+# frontmatter open + close, plus the note's own rule.
+[ "$(printf '%s\n' "$parked5" | grep -c '^---$')" -eq 3 ] \
+  && ok "the note's own '---' rule survives and the frontmatter stays one block" \
+  || bad "$(printf '%s\n' "$parked5" | grep -c '^---$') '---' lines (want 3)"
+printf '%s\n' "$parked5" \
+  | grep -q 'garden-annotation: .*cleared=reaped=4,deadline-overrun=2,reap-now,productive-cycle,outage-cycle' \
+  && ok "the annotation marker records what it cleared" \
+  || bad "annotate-plan did not record the cleared set ($(printf '%s\n' "$parked5" | grep -o 'garden-annotation: .*' || echo '<no marker>'))"
+
+# A marker-free note leaves the marker byte-for-byte what it always was.
+"$JOBS/annotate-plan.sh" --note 'an ordinary follow-up note' annotated > "$T5/ann2.log" 2>&1 \
+  || { echo "  (annotate-plan rc=$?)"; sed 's/^/    /' "$T5/ann2.log"; }
+printf '%s\n' "$(readback5 jobs/plan/annotated.md)" | grep -F 'an ordinary follow-up note' -B2 \
+  | grep -q 'cleared=' \
+  && bad "an ordinary annotation grew a spurious 'cleared=' token" \
+  || ok "an ordinary annotation's marker is unchanged (no 'cleared=' token)"
+
+# A note that is ENTIRELY cycle markers has nothing left to say: refuse it (rc 1)
+# rather than appending an empty annotation.
+before5="$(readback5 jobs/plan/annotated.md)"
+set +e
+out5="$("$JOBS/annotate-plan.sh" --note '<!-- garden-reap-now -->' annotated 2>&1)"; rc5=$?
+set -e
+[ "$rc5" -eq 1 ] && ok "a note that is entirely cycle markers is refused (rc 1)" \
+  || bad "marker-only note rc=$rc5 (want 1): $out5"
+grep -qi 'entirely cycle markers' <<<"$out5" \
+  && ok "the refusal names the sanitization" || bad "refusal message unclear: $out5"
+[ "$(readback5 jobs/plan/annotated.md)" = "$before5" ] \
+  && ok "the marker-only note left the parked body byte-identical" \
+  || bad "the refused annotation still mutated the parked body"
+
+# End-to-end: annotate → promote → the promoted body is marker-free and the
+# promotion's own provenance reports `cleared=none` (nothing to reset), rather
+# than laundering the annotation's counters into a fake reset record.
+"$JOBS/promote-plan.sh" annotated > "$T5/promote.log" 2>&1 \
+  || { echo "  (promote-plan rc=$?)"; sed 's/^/    /' "$T5/promote.log"; }
+todo5="$(readback5 jobs/todo/annotated.md)"
+printf '%s\n' "$todo5" | grep -q 'garden-promoted-from-plan:.* cleared=none' \
+  && ok "promotion of an annotated job reports cleared=none (no laundered counters)" \
+  || bad "promotion provenance: $(printf '%s\n' "$todo5" | grep -o 'garden-promoted-from-plan:.*' || echo '<none>')"
+printf '%s\n' "$todo5" | grep -q 'the last cycle reported this, verbatim:' \
+  && ok "the sanitized annotation still reaches the gardener's work body" \
+  || bad "the annotation was lost on promotion"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

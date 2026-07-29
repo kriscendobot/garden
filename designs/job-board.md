@@ -201,7 +201,10 @@ that loop once: it appends the note under a
 requeued producer never double-appends; the default key content-addresses the note),
 rewrites `priority`/`roadmap`/`role` in place while passing every other frontmatter
 key through (the `model:`/`handler-timeout:` execution pins survive), and refuses
-once the job has left `plan/` (exit 3, or a quiet skip under `--if-parked`). The
+once the job has left `plan/` (exit 3, or a quiet skip under `--if-parked`). Being
+a third writer into a parked body, it runs the note through the same cycle-marker
+strip as the park and the promotion (recorded as a `cleared=` token on the marker),
+so producer-supplied text cannot smuggle a stale counter back into `plan/`. The
 gate fields (`gate:`, `blocked_on:`, `orchestrated_by:`) are **not** settable
 through it: re-gating a parked job is a different act, owned by `promote-plan.sh`,
 `block-job.sh`, and `post-orchestration.sh`.

@@ -158,6 +158,13 @@ posted_at: <iso8601>
     within the leading frontmatter (inserted if absent); every other key passes
     through untouched, including the execution pins `model:` /
     `handler-timeout:` / `requires:`.
+  - **The note is sanitized.** The appended text goes through the same
+    cycle-marker strip as a park and a promotion, so a producer piping a live job
+    body as a note ("here is what the last cycle reported") cannot re-introduce a
+    stale `garden-deadline-overrun` counter into `plan/` behind both of those
+    strips. What it cleared is recorded as a `cleared=` token on the annotation
+    marker, emitted **only** when something actually was; a note that is
+    *entirely* cycle markers has nothing left to say and is refused (exit 1).
   - **Gate fields are NOT settable here.** `gate:`, `blocked_on:`, and
     `orchestrated_by:` carry the promotion invariants (who may promote this job,
     and when); re-gating is a different act with its own primitives

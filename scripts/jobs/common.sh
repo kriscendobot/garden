@@ -3552,8 +3552,11 @@ stamp_outage_cycle_hint() {
 # N -->` re-poisons on its FIRST evaluation, so promotion is a no-op the job can never
 # escape (the 07-26 endo-sturdyref-agent-surface-build-gauntlet park). promote-plan.sh
 # closed the PROMOTION half; post-plan.sh closes the PARKING half, so a producer that
-# re-parks a live job body cannot smuggle a stale counter into plan/ to begin with.
-# Both use these helpers rather than re-spelling the family, so a marker-format change
+# re-parks a live job body cannot smuggle a stale counter into plan/ to begin with; and
+# annotate-plan.sh closes the ANNOTATION half, the third write into a parked body —
+# it appends producer-supplied note text, so a producer piping a live job body as a
+# note would otherwise re-introduce the family behind both of the other strips.
+# All three use these helpers rather than re-spelling the family, so a marker-format change
 # — or a SIXTH marker — lands in one place and cannot half-apply.
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
