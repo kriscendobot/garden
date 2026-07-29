@@ -1,4 +1,5 @@
 ---
+child-garden-quota-routing-race-host: endolin-garden-ece02cb4
 order: serial
 children: garden-quota-routing-race garden-quota-routing-deploy
 on-child-failure: halt
