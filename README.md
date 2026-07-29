@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:30:29Z_
+_As of 2026-07-29T02:31:37Z_
 
 ## Latest
 
@@ -4266,6 +4266,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `watchdog-handler-budget-overrun-endo-cbor-adopt-daemon-envelope` — from watchdog:gardener/5, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endo-cbor-adopt-daemon-envelope.md)
+
+> gardener job 'endo-cbor-adopt-daemon-envelope' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2425s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-form-data-advisory` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-form-data-advisory.md)
 
 > gardener job 'endojs-endo-but-for-bots-form-data-advisory' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2406s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -4405,8 +4409,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.1M | $892.48 _(notional, rate-card)_ | no quota set |
-| Codex | 185.8M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 55.2M | $895.63 _(notional, rate-card)_ | no quota set |
+| Codex | 185.1M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4623,6 +4627,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr647-review-ec3d282c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr647-review-ec3d282c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #647 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr241-review-b15e4ef6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr241-review-b15e4ef6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #241 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr730-review-27278ba1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr730-review-27278ba1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #730 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr667-198c8d1e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr667-198c8d1e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
