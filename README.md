@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:57:13Z_
+_As of 2026-07-29T03:00:11Z_
 
 ## Latest
 
@@ -4599,13 +4599,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.3M | $888.69 _(notional, rate-card)_ | no quota set |
-| Codex | 175.0M _(+462.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Codex | 173.9M _(+462.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (45)
+### doin (46)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4633,6 +4633,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr857-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr857-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #857
 - [`endojs-endo-but-for-bots-pr859-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr859-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #859
 - [`endojs-endo-but-for-bots-pr860-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr860-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #860
+- [`endojs-endo-but-for-bots-pr867-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr867-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #867
 - [`endojs-endo-but-for-bots-pr869-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr869-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #869
 - [`endojs-endo-but-for-bots-pr870-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #870
 - [`endojs-endo-but-for-bots-pr873-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr873-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #873
