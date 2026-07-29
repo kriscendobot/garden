@@ -42,3 +42,10 @@ copies in `jobs/plan/` reference an older head `a99c87b9` and should be reaped).
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge; the press (progress driver) and the
 panel-runner never run `gh pr merge`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-29T16:21:51Z
