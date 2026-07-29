@@ -12,3 +12,10 @@ The build opened https://github.com/endojs/endo-but-for-bots/pull/885 and it is 
 gardening state machine now: clean, panel, fixer loop as needed, CI, then un-draft
 only when the panel terminates cleanly. This handoff was posted by the build
 completion edge, not inferred by a watcher.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:37:47Z
