@@ -18,6 +18,7 @@ The DID-shaped analogue of a locator's connection hints. A DID document's `servi
 | [atproto--specs-sync--identity-and-account-events](../sections/atproto--specs-sync--identity-and-account-events.md) | How a federation announces that a DID document may have changed: best-effort, non-authoritative, 'does not indicate what changed', re-resolution is the consumer's job. |
 | [atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat](../sections/atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat.md) | 'the authority part of an AT URI does not indicate a network location for the indicated resource' — the name is not the hint. |
 | [atproto--specs-sync--guidelines-security-and-future-work](../sections/atproto--specs-sync--guidelines-security-and-future-work.md) | The cost of resolvable hints: identity resolution on untrusted input is an SSRF and traffic-amplification surface for every firehose consumer. |
+| [w3c--did-core-1-0--services-and-also-known-as](../sections/w3c--did-core-1-0--services-and-also-known-as.md) | The primary normative definition of `service`, `serviceEndpoint`, and the non-proof status of `alsoKnownAs`. |
 
 ## See also
 
