@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T17:51:00Z_
+_As of 2026-07-29T17:53:36Z_
 
 ## Latest
 
@@ -4863,6 +4863,35 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-fix-botanist-scripts-enabled-install-gap-gauntlet-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-fix-botanist-scripts-enabled-install-gap-gauntlet-requeue-exhausted.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/fix-botanist-scripts-enabled-install-gap-gauntlet; it stays HELD until a human promotes it
+> (promote-plan.sh fix-botanist-scripts-enabled-install-gap-gauntlet) or removes it, so nothing is lost.
+> Original job base: fix-botanist-scripts-enabled-install-gap-gauntlet
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-timeout: 7200
+> auto_gauntlet: true
+> build_job: fix-botanist-scripts-enabled-install-gap
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/867](https://github.com/endojs/endo-but-for-bots/pull/867)
+> ---
+>
+> Automatic gauntlet handoff for completed feature build fix-botanist-scripts-enabled-install-gap.
+>
+> The build opened [https://github.com/endojs/endo-but-for-bots/pull/867](https://github.com/endojs/endo-but-for-bots/pull/867) and it is an OPEN PR owed the bot-side chain. Run the full
+> gardening state machine now: clean, panel, fixer loop as needed, CI, then un-draft
+> only when the panel terminates cleanly. This handoff was posted by the build
+> completion edge, not inferred by a watcher.
+>
+> NOTE: this PR was found NON-DRAFT at the build completion edge, against the
+> unconditional draft norm (roles/builder/AGENT.md), and this hook converted it back
+> to draft so the chain can run. Nothing here has been panel-reviewed: treat it as a
+> cold PR owed a full review, not as work that already passed and regressed.
+
 - `poison-fu-endojs-endo-but-for-bots-pr825-8840fcdb-2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-fu-endojs-endo-but-for-bots-pr825-8840fcdb-2-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5243,7 +5272,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.2M _(+583.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Codex | 71.3M _(+583.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (17)
@@ -5253,9 +5282,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — role: orchestrator
+- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
+- [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`registry-immutable-byte-array-followup-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #888
-- [`scholar-ingest-ucan-invocation-delegation-deferred`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-ucan-invocation-delegation-deferred.md) — Scholar: continue issue #34 source ingestion after did:plc, UCAN Invocation, ...
 - [`scholar-library-cycle-20260729-105002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-105002.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-120501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-120501.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-130501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-130501.md) — Hourly scholar library cycle
@@ -5265,22 +5294,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-172004.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (7)
+### doin (4)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
-- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
-- [`scholar-library-cycle-20260729-082004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-082004.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260729-093504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-093504.md) — Hourly scholar library cycle
+- [`registry-immutable-byte-array-followup-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #888
+- [`scholar-ingest-ucan-invocation-delegation-deferred`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-ucan-invocation-delegation-deferred.md) — Scholar: continue issue #34 source ingestion after did:plc, UCAN Invocation, ...
 
-### tada (3887)
+### tada (3889)
+- [`scholar-library-cycle-20260729-093504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-093504.md) — Cost
+- [`scholar-library-cycle-20260729-082004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-082004.md) — Cost
 - [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/registry-immutable-byte-array-followup.md) — Cost
 - [`model-tier-effectiveness-review-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/model-tier-effectiveness-review-20260729-172004.md) — Cost
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Cost
-- [`garden-tier-vocabulary-kimi-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-vocabulary-kimi-routing.md) — Cost
-- [`scholar-library-cycle-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-070504.md) — Registered scholar-library-cycle on journal2 as hourly with scholar-preflight...
-- … and 3882 more
+- … and 3884 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -5356,6 +5382,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-20260728.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`finbot-progress-20260725-105007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fireworks-glm52-kimik3-build.md) — _normal_ · Wire GLM 5.2 and Kimi K3 into the fireworker route
+- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
