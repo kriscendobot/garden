@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:52:16Z_
+_As of 2026-07-29T01:53:39Z_
 
 ## Latest
 
@@ -2906,6 +2906,24 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >    `main2` copy out of my job worktree. Worth a deploy so jobs that shell the root's
 >    `scripts/jobs/gardening/panel.sh` get it.
 
+- `20260729T015251Z-a068fd` — from gardener:fu-endojs-endo-but-for-bots-pr882-shepherd-1, reply_to `fu-endojs-endo-but-for-bots-pr882-shepherd-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T015251Z-a068fd.md)
+
+> The staged-gauntlet driver is landed on main2 but NOT DEPLOYED, so gauntlets still stall.
+>
+> Found while running the gauntlet on [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) (job fu-endojs-endo-but-for-bots-pr882-shepherd-1).
+>
+> Evidence:
+> - scripts/jobs/gauntlet.sh, scripts/jobs/post-gauntlet.sh and scripts/systemd/garden-gauntlet.{service,timer} exist on origin/main2 (commit 5bdb5e444b, "feat(gauntlet): stage the gauntlet").
+> - The deployed root /home/kris/garden is at f2184299f4. `git merge-base --is-ancestor 5bdb5e444b f2184299f4` is FALSE, and the deployed root is 39 commits behind origin/main2. /home/kris/garden/scripts/jobs/gauntlet.sh does not exist.
+> - No garden-gauntlet units are installed on endolin-garden-ece02cb4 (~/.config/systemd/user has none; `systemctl --user list-timers garden-gauntlet*` lists 0).
+> - The journal has no jobs/gauntlet/ directory at all, so the driver has never recorded a run on any host.
+>
+> Why it matters: until it is deployed, every "run the gauntlet" is still ONE monolithic job whose wall-clock is the sum of clean + panel + every fix round + every CI wait -- the exact overrun 5bdb5e444b was written on 2026-07-28 to fix (its header cites nine jobs poisoned on deadline-overrun that day). Posting a staged-gauntlet record today would be inert: nothing would walk it. That is why [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) sat draft with green CI and no gauntlet.
+>
+> My run only fit its 2400s budget because I forced GARDEN_PANEL_SINGLE_ROUND=1 to bound it to a single panel round, then posted the fix round as its own job by hand -- doing manually what the driver is supposed to do.
+>
+> Ask: a deliberate deploy (context/operations/deploy.md) to bring the root to main2 and install/enable garden-gauntlet on the leader (endolin-garden2-5bcdff64). That is a drained, maintainer-gated operation, so I did not attempt it. Note the leader is NOT this host.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4097,19 +4115,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $850.55 _(notional, rate-card)_ | no quota set |
-| Codex | 203.4M _(+456.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 53.5M | $854.97 _(notional, rate-card)_ | no quota set |
+| Codex | 202.6M _(+456.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (6)
+- [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr761-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr761-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #761
 - [`endojs-endo-but-for-bots-pr882-panel-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr882-panel-fix-1.md) — Panel fix round 1 for https://github.com/endojs/endo-but-for-bots/pull/882
+- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fu-wallclock-cost-proxy-for-censored-arms-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-wallclock-cost-proxy-for-censored-arms-4.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
+- [`improve-promote-plan-poison-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-promote-plan-poison-reset.md) — scripts/jobs/promote-plan.sh
 
-### doin (30)
+### doin (28)
 - [`clarify-botanist-step6-shepherd-vs-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clarify-botanist-step6-shepherd-vs-fixer.md) — Botanist step 6: resolve the shepherd-versus-fixer tension, and the missing v...
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
-- [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4127,7 +4147,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Review directive on endojs/endo-but-for-bots PR #713
 - [`endojs-endo-but-for-bots-pr779-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-fixes.md) — Fix panel must-fix items on https://github.com/endojs/endo-but-for-bots/pull/779
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap.md) — The gardener spine defeats the botanist's scripts-disabled install
 - [`fix-pr-feedback-preflight-argv-e2big-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-pr-feedback-preflight-argv-e2big-gauntlet.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
