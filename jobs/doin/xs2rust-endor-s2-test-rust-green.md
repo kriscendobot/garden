@@ -71,3 +71,10 @@ pushing to `xs2rust-endor`** — check `jobs/doin/` for a live pusher.
 Consolidated 2026-07-27 from ten redundant qwen3.6-pinned dispatches of the standing
 press (`schedules/xs2rust-endor-press.md`), all stale-claimed by a local hermit that
 stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:44:48Z
