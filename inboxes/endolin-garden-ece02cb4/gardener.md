@@ -1695,3 +1695,12 @@ Inspect via `git -C journal cat-file -p a659c9417d89cd516ec7a7ca6b69a4086036b61a
 - Context: gardener-5 on endolin-garden-ece02cb4: job 'fix-botanist-scripts-enabled-install-gap-gauntlet' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 5ba55646d6af14d08a26a7c975530f58bae09777`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T02:14:38Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 75c42f144d294262d2825e5bf6e48bbaf0865ca3
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'fu-wallclock-cost-proxy-for-censored-arms-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 75c42f144d294262d2825e5bf6e48bbaf0865ca3`.
