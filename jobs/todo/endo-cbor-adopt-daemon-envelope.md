@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-cbor-adopt-primitives
-priority: normal
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-28T21:09:46Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T01:40:06Z -->
 
 # Adopt `@endo/cbor` in `packages/daemon/src/envelope.js` (cbor-codec design, phase 4)
 
