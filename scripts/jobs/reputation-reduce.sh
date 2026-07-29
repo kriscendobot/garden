@@ -22,7 +22,9 @@
 #      arms/<kind>/<provider>/<model>/<thoughtfulness>/<wc>@<target>.md always
 #      reflects every finalized event — EVERY event, including a cost-censored one,
 #      which still moves attempts/accepts, and is priced from the WALLCLOCK PROXY
-#      (`duration_secs` x the rate card) when the ledger could not price it at all
+#      (its wallclock x the rate card — `duration_secs` for the attempt that reached
+#      tada, plus the capped claim-log spans of any earlier attempts) when the
+#      ledger could not price it at all
 #      (see recompute_arms). Recompute-from-events (not incremental fold)
 #      keeps the projection a pure function of the event log — reproducible and
 #      auditable — and idempotent (an unchanged projection is a no-op commit).
@@ -86,7 +88,14 @@ finalize_pending() {
 # --- 2. recompute arm projections from events/ -------------------------------
 recompute_arms() {
   local ef base kind provider model tht wc tgt accepted agg rel armhash dur hum estd
+  local earlier secs
   local work; work="$(mktemp -d "${TMPDIR:-/tmp}/rep-reduce.XXXXXX")"
+  # ONE pass over the journal log (~0.7s) yields the earlier-attempt seconds for
+  # every completed run — the wall time `duration_secs` cannot see, because it times
+  # only the attempt that reached tada (rep_attempt_index). Built per tick and never
+  # committed: like the rate card, it is an input the projection is re-derived FROM,
+  # so a better derivation re-prices all history without rewriting a single event.
+  rep_attempt_index "$DIR" > "$work/attempts.idx" 2>/dev/null || : > "$work/attempts.idx"
   shopt -s nullglob
   # Fold every event into a per-arm data file (accepted + aggregate dollars) plus a
   # per-arm meta file (the arm fields, from the first event seen for that arm).
@@ -118,7 +127,12 @@ recompute_arms() {
       ''|censored)
         dur="$(plan_field "$ef" duration_secs)"
         hum="$(plan_field "$ef" human_dollars)"
-        estd="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "${dur:-0}" "${hum:-0}")"
+        # duration_secs (the FINAL attempt, measured by its worker) + the earlier
+        # attempts the claim log knows about, each capped so a claim the reaper sat
+        # on for 4h is not billed as 4h of work. No duration -> no proxy, unchanged.
+        earlier="$(rep_attempt_lookup "$work/attempts.idx" "$base" "$kind")"
+        secs="$(rep_effective_secs "${dur:-0}" "${earlier:-0}")"
+        estd="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "$secs" "${hum:-0}")"
         case "$estd" in
           censored) printf '%s CENSORED none\n' "${accepted:-false}" >> "$work/$armhash.dat" ;;
           *)        printf '%s %s wallclock\n' "${accepted:-false}" "$estd" >> "$work/$armhash.dat" ;;

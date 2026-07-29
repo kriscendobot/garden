@@ -48,8 +48,16 @@ REP_VERDICTS="$REP_ROOT/verdicts"    # optional per-base acceptance override (a 
 # censored the way a provider-reported dollar figure is; multiplied by a per-arm
 # dollars-per-second rate it is a coarse but honest stand-in for the missing ledger.
 : "${GARDEN_REP_RATE_CARD:=reputation/rate-card.md}"  # journal-relative rate table
-: "${GARDEN_REP_DEFAULT_RATE_PER_SEC:=0.0072}"        # $/s for an arm with no row
+: "${GARDEN_REP_DEFAULT_RATE_PER_SEC:=0.0052}"        # $/s for an arm with no row
 : "${GARDEN_REP_ESTIMATE_SD_MULT:=2}"                 # sd inflation at 100% estimated cost
+# `duration_secs` times only the FINAL attempt (the one that reached tada), so a
+# requeued job's earlier attempts are wall time the proxy cannot see. The journal
+# commit log CAN see them (claim commit -> requeue commit), but a claim interval
+# measures how long the BOARD waited, not how long the worker RAN: a worker that
+# dies in 5s still holds the claim until the reaper's next tick (~10 min) or, with
+# no reap-now hint, the full GARDEN_CLAIM_TTL (4h). Each earlier attempt therefore
+# contributes min(interval, this cap) — see rep_attempt_index for the calibration.
+: "${GARDEN_REP_ATTEMPT_CAP_SECS:=120}"               # per-earlier-attempt ceiling
 
 # --- small deterministic primitives ------------------------------------------
 
@@ -377,6 +385,149 @@ rep_estimated_dollars() {
   rate="$(rep_rate_per_second "$dir" "$p" "$m" "$t")"
   [ -n "$rate" ] || { printf 'censored\n'; return 0; }
   awk -v s="$secs" -v r="$rate" -v h="$human" 'BEGIN{ printf "%.6f\n", (s+0)*(r+0) + (h+0) }'
+}
+
+# --- multi-attempt wallclock: the earlier attempts the proxy cannot see ------
+#
+# `duration_secs` is the worker's OWN measurement of the attempt that reached tada.
+# A requeued job burned earlier attempts too (`attempts: n` counts them, and the
+# design already holds that "a reaped/resumed job's sunk cost is real cost"), and
+# ~23% of events carry attempts > 1 — so for those the proxy is timing one attempt
+# and pricing all of them.
+#
+# The journal commit log is the only record of the earlier attempts that is (a)
+# complete for exactly the arms the ledger cannot reach and (b) measured by the
+# garden rather than reported by a provider, hence uncensorable like duration_secs:
+# a claim commit ADDS `jobs/doin/<base>.md`, the reaper's requeue REMOVES it, and
+# the tada commit adds `jobs/tada/<base>.md`. Claim -> requeue is one attempt.
+#
+# But a claim interval is NOT the attempt's runtime — it is how long the BOARD
+# waited. A worker that dies in 5s still holds its claim until the reaper's next
+# tick (~10 min), or, when nothing stamped a reap-now hint (the host vanished),
+# until the full GARDEN_CLAIM_TTL (4h). Measured on the 106 ledger-priced events,
+# against per-attempt truth from `usage/<base>.jsonl`'s `elapsed_s`:
+#
+#   * 206 earlier attempts account for only 10264s of real runtime (mean ~50s):
+#     an earlier attempt usually fails fast and then waits for the reaper.
+#   * summing raw claim intervals overstates real runtime ~28x, and as a DOLLAR
+#     predictor it is 7x worse than doing nothing (typical multiplicative error
+#     14.55x, vs 2.04x for `duration_secs` alone).
+#   * charging each earlier attempt min(interval, 120s) is the best estimator
+#     tested: error 1.59x, RMSE 2.68 (vs 2.04x / 3.12 for duration_secs alone;
+#     att x duration_secs scores 3.01x / 5.08). The optimum is flat over ~50-150s.
+#
+# So the log REFINES the measurement and never replaces it: effective seconds are
+# `duration_secs + SUM min(earlier interval, GARDEN_REP_ATTEMPT_CAP_SECS)`, and an
+# event with NO duration stays unpriced (rep_effective_secs prints 0 -> the arm
+# keeps bidding the wide prior). The rate card is measured on THIS basis
+# (scripts/jobs/rate-card-defaults.md), so changing the basis re-derived every row
+# rather than silently inflating every estimate by the ratio between them.
+#
+# Attribution is per WORKER KIND: only the intervals claimed by a worker of the
+# event's own kind are charged to its arm, so a kimi-fallback job does not bill an
+# opus arm for the mystic attempts that preceded it (the claim commit's subject,
+# `claim(<base>) <host>/<kind>-<id>`, carries the kind).
+
+# _rep_attempt_awk — the shared walk over `git log --reverse --diff-filter=AD
+# --name-status`. Emits ONE line per completed run:
+#   <base> <kind>:<secs>[,<kind>:<secs>...]      (or `<base> -` when there were none)
+# An interval is counted only once ANOTHER claim follows it, which is what makes it
+# an EARLIER attempt; the interval that ends at the tada is dropped, because
+# duration_secs measures that one exactly. A run's totals are flushed and reset at
+# its tada, so a re-posted base is scored on its own run and the LAST line wins.
+_rep_attempt_awk() {
+  cat <<'AWK'
+function emit(b,   kk, a, i, n, keys, out) {
+  n = 0
+  for (kk in earlier) { split(kk, a, SUBSEP); if (a[1] == b) keys[++n] = kk }
+  out = ""
+  for (i = 1; i <= n; i++) { split(keys[i], a, SUBSEP)
+    out = out (out == "" ? "" : ",") a[2] ":" earlier[keys[i]] }
+  for (i = 1; i <= n; i++) delete earlier[keys[i]]
+  printf "%s %s\n", b, (out == "" ? "-" : out)
+}
+/^C /{ ts = $2 + 0; subj = $0; sub(/^C [0-9]+ /, "", subj); next }
+{
+  if (NF < 2) next
+  st = $1; p = $2
+  if (p !~ /^jobs\/(doin|tada)\/[^\/]+\.md$/) next
+  b = p; sub(/^jobs\/(doin|tada)\//, "", b); sub(/\.md$/, "", b)
+  if (p ~ /^jobs\/doin\//) {
+    if (st == "A") {
+      # a NEW claim proves the held interval was an earlier attempt: bank it.
+      if (b in held) { earlier[b, heldk[b]] += held[b]; delete held[b] }
+      if (!(b in open)) {
+        open[b] = ts
+        k = "unknown"
+        if (subj ~ /^claim\(/ && subj ~ /\/[A-Za-z0-9]+-[0-9]+$/) {
+          k = subj; sub(/.*\//, "", k); sub(/-[0-9]+$/, "", k) }
+        okind[b] = k
+      }
+    } else if (b in open) {
+      d = ts - open[b]; if (d < 0) d = 0; if (d > cap) d = cap
+      held[b] = d; heldk[b] = okind[b]; delete open[b]
+    }
+  } else if (st == "A") {          # tada: the run completed
+    delete open[b]; delete held[b] # the final attempt is duration_secs' job
+    emit(b)
+  }
+}
+END {
+  # a run still in flight (claimed, no tada yet) — what complete-job.sh asks about.
+  for (kk in earlier) { split(kk, a, SUBSEP); pend[a[1]] = 1 }
+  for (bb in pend) emit(bb)
+}
+AWK
+}
+
+# rep_attempt_index <dir> [base] — the earlier-attempt index for every completed run
+# in the journal log (one pass, ~0.7s over 38k commits), or for ONE base when given.
+rep_attempt_index() {
+  local dir="${1:?}" base="${2:-}" prog
+  prog="$(_rep_attempt_awk)"
+  if [ -n "$base" ]; then
+    git -C "$dir" log --reverse --no-renames --diff-filter=AD --name-status \
+        --format='C %ct %s' -- "$JOBS_DOIN/$base.md" "$JOBS_TADA/$base.md" 2>/dev/null
+  else
+    git -C "$dir" log --reverse --no-renames --diff-filter=AD --name-status \
+        --format='C %ct %s' -- "$JOBS_DOIN" "$JOBS_TADA" 2>/dev/null
+  fi | awk -v cap="${GARDEN_REP_ATTEMPT_CAP_SECS:-120}" "$prog"
+}
+
+# rep_attempt_lookup <indexfile> <base> <kind> — earlier-attempt seconds charged to
+# <kind> on the LAST completed run of <base>. Prints 0 when unknown, so a missing
+# index (a shallow clone, a git failure) degrades to today's duration_secs proxy.
+rep_attempt_lookup() {
+  local idx="${1:-}" base="${2:-}" kind="${3:-}"
+  [ -f "$idx" ] || { printf '0\n'; return 0; }
+  awk -v b="$base" -v k="$kind" '
+    $1 == b { row = $2 }
+    END { n = split(row, p, ",")
+          for (i = 1; i <= n; i++) { split(p[i], q, ":"); if (q[1] == k) { printf "%d\n", q[2] + 0; exit } }
+          print 0 }' "$idx"
+}
+
+# rep_attempt_earlier_secs <dir> <base> <kind> — the same figure for ONE base, for a
+# caller that has no index in hand (complete-job.sh, mid-completion: its own run has
+# no tada commit yet, so every CLOSED interval is by definition an earlier attempt).
+rep_attempt_earlier_secs() {
+  local dir="${1:?}" base="${2:?}" kind="${3:-}" tmp secs
+  tmp="$(mktemp "${TMPDIR:-/tmp}/rep-attempt.XXXXXX")" || { printf '0\n'; return 0; }
+  rep_attempt_index "$dir" "$base" > "$tmp" 2>/dev/null || true
+  secs="$(rep_attempt_lookup "$tmp" "$base" "$kind")"
+  rm -f "$tmp"
+  printf '%s\n' "${secs:-0}"
+}
+
+# rep_effective_secs <duration_secs> <earlier_secs> — the wallclock the proxy prices.
+# ZERO when there is no positive duration: the log REFINES a measurement, it never
+# manufactures one, so "no duration" still means "no proxy" (never $0.00, never an
+# estimate conjured from claim timestamps alone).
+rep_effective_secs() {
+  local d="${1:-0}" e="${2:-0}"
+  case "$d" in ''|*[!0-9.]*) d=0 ;; esac
+  case "$e" in ''|*[!0-9.]*) e=0 ;; esac
+  awk -v d="$d" -v e="$e" 'BEGIN{ if ((d+0) <= 0) { print 0; exit } printf "%d\n", (d+0)+(e+0) }'
 }
 
 # --- human-review dollars (§4.4, inferred until measured) --------------------

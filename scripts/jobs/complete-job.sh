@@ -44,7 +44,7 @@ ensure_clone "$DIR"
 record_reputation_event() {
   local jf="$DIR/$JOBS_DOIN/$base.md" provider model tht wc tgt agentic
   local attempts duration awarded nbidders accepted human aggregate dest
-  local cost_source estimated
+  local cost_source estimated earlier span
   [ -f "$jf" ] || jf="$DIR/$JOBS_TADA/$base.md"   # fall back to the just-copied report/tada
   { read -r provider; read -r model; read -r tht; } < <(rep_resolve_arm "$KIND" "$jf")
   wc="$(rep_work_class "$jf")"; tgt="$(rep_target "$jf")"
@@ -53,6 +53,14 @@ record_reputation_event() {
   attempts="$(sed -n 's/.*garden-reaped:[[:space:]]*\([0-9]\+\).*/\1/p' "$jf" 2>/dev/null | tail -1)"
   attempts=$(( ${attempts:-0} + 1 ))
   duration="${GARDEN_JOB_DURATION_SECS:-}"
+  # WALLCLOCK the proxy prices: this attempt's measured duration plus the earlier
+  # attempts of a requeued job, which only the claim log remembers (this job file
+  # carries just the LATEST claim block — the reaper strips the rest). Each earlier
+  # attempt is capped, because a claim interval measures how long the board waited,
+  # not how long the worker ran (reputation.sh § multi-attempt wallclock). Guarded:
+  # a git hiccup here degrades to duration_secs, never to a stranded completion.
+  earlier="$(rep_attempt_earlier_secs "$DIR" "$base" "$KIND" 2>/dev/null || echo 0)"
+  span="$(rep_effective_secs "${duration:-0}" "${earlier:-0}")"
   awarded="$(sed -n 's/^[[:space:]]*awarded_bid:[[:space:]]*//p' "$jf" 2>/dev/null | head -1)"
   nbidders="$(auction_list_bidders "$DIR" "$base" | grep -c . || true)"
   # acceptance
@@ -67,14 +75,17 @@ record_reputation_event() {
   human=0
   # The RAW censored state is preserved verbatim: `agentic_dollars` / `aggregate_dollars`
   # say what the LEDGER knew, and nothing else is ever written into them. When the
-  # ledger knew nothing, the wallclock proxy (duration_secs x the rate card) supplies a
+  # ledger knew nothing, the wallclock proxy (span_secs x the rate card) supplies a
   # cost ESTIMATE in its own field, flagged by `cost_source:`, so an arm can always
-  # report how much of its cost evidence is real. Provenance only: the reducer
-  # RE-DERIVES the estimate from `duration_secs` and the rate card current at fold
-  # time, so a corrected rate re-prices history without rewriting a single event.
+  # report how much of its cost evidence is real. `duration_secs` (this attempt) and
+  # `span_secs` (it, plus the earlier attempts' capped claim spans) are both kept:
+  # one is a direct measurement, the other a derivation, and the difference is
+  # exactly what a requeue cost. Provenance only: the reducer RE-DERIVES the estimate
+  # from the raw duration, the claim log, and the rate card current at fold time, so
+  # a corrected rate re-prices history without rewriting a single event.
   if [ "$agentic" = censored ]; then
     aggregate=censored
-    estimated="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "${duration:-0}" "$human" 2>/dev/null || echo censored)"
+    estimated="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "${span:-0}" "$human" 2>/dev/null || echo censored)"
     case "$estimated" in censored|'') cost_source=none; estimated='' ;; *) cost_source=wallclock ;; esac
   else
     aggregate="$(awk -v a="$agentic" -v h="$human" 'BEGIN{printf "%.6f", a+h}')"
@@ -102,6 +113,7 @@ record_reputation_event() {
     if [ -n "$estimated" ]; then printf 'estimated_dollars: %s\n' "$estimated"; fi
     printf 'attempts: %s\n' "$attempts"
     printf 'duration_secs: %s\n' "$duration"
+    printf 'span_secs: %s\n' "$span"
     printf 'awarded_bid: %s\n' "$awarded"
     printf 'bidders: %s\n' "${nbidders:-0}"
     printf 'source: live\n'

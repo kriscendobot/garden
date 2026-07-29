@@ -65,7 +65,10 @@ zero or one worker bids.
   agentic dollars from `usage/<base>.jsonl` (fail-open → `censored` when the ledger
   is absent), acceptance = `true` for an internal `main2` job, else `pending`. A
   censored event also carries `cost_source: wallclock|none` and, where priceable, an
-  `estimated_dollars:` — provenance beside the untouched raw `censored`.
+  `estimated_dollars:` — provenance beside the untouched raw `censored`. Every event
+  records `span_secs:` (this attempt's `duration_secs` plus the earlier attempts'
+  capped claim spans) beside `duration_secs:`, so the difference a requeue made is
+  legible in the raw event.
 - **Reduce** (`reputation-reduce.sh`, leader-only `garden-reputation-reducer`
   timer): finalize pending events (verdict override > internal-tada > leave), fold
   every event — censored included, priced from the wallclock proxy where the ledger
@@ -90,10 +93,10 @@ zero or one worker bids.
   the `$0.01` floor and win every auction on price; that is the inverse failure and
   is guarded. Only the `claude -p` handler reports a provider-computed
   `total_cost_usd`, so codex/Kimi/Ollama arms are ledger-censored on every run.
-- **Wallclock is the cost proxy for a censored arm.** `duration_secs` is on **100%**
-  of events and is measured by the garden, not reported by a provider, so it is never
-  censored. Where the ledger priced nothing, the reducer prices the event at
-  `duration_secs x` the arm's rate card dollars-per-second, and those samples enter
+- **Wallclock is the cost proxy for a censored arm.** The garden measures every job's
+  wallclock itself, so unlike a provider-reported dollar figure it is never censored.
+  Where the ledger priced nothing, the reducer prices the event at that wallclock `x`
+  the arm's rate card dollars-per-second, and those samples enter
   `mean_dollars`/`m2` — so a Kimi/codex/Ollama arm finally has a cost posterior
   instead of a permanent cold prior. Four invariants keep an estimate from
   impersonating a measurement: (1) **the ledger always wins** where it exists, so no
@@ -103,8 +106,21 @@ zero or one worker bids.
   estimated fraction of the cost pool (`GARDEN_REP_ESTIMATE_SD_MULT`, x2 at 100%);
   (4) a **non-positive or absent rate means no proxy** — the event stays censored and
   the arm bids the wide prior. It never means `$0.00`. The reducer re-derives from
-  `duration_secs` and the **current** card every tick, so correcting a rate re-prices
-  all history as a journal data edit, with no deploy and no event rewritten.
+  the raw event, the claim log and the **current** card every tick, so correcting a
+  rate re-prices all history as a journal data edit, with no deploy and no event
+  rewritten.
+- **A requeued job's earlier attempts count too.** `duration_secs` times only the
+  attempt that reached tada, but the ledger (where there is one) bills every attempt,
+  and ~23% of events carry `attempts > 1`. The earlier attempts are recovered from the
+  **claim commits** in the journal log — claim adds `jobs/doin/<base>.md`, the requeue
+  removes it — and charged at `min(interval, GARDEN_REP_ATTEMPT_CAP_SECS)` each, to
+  the arm whose **kind** claimed them. The cap is load-bearing: a claim interval
+  measures how long the *board* waited, not how long the worker *ran* (a worker that
+  dies in 5s holds its claim until the reaper's tick, or the full 4h `CLAIM_TTL` if
+  nothing stamped a reap-now hint), so charging raw intervals overstates real runtime
+  ~28x and prices *worse* than doing nothing. An event with **no** `duration_secs`
+  stays unpriced regardless: the log refines a measurement, it never manufactures one.
+  The rate card is measured on this same basis — change one and re-measure the other.
 - **Thoughtfulness (§5)**: today a worker commits to the arm it would actually run
   (executed == committed), so the auction competes arms ACROSS workers/kinds.
   Enumerating a thoughtfulness LADDER per unpinned job so the market learns the
@@ -129,4 +145,6 @@ zero or one worker bids.
 event-on-completion, reducer projections + idempotency, race degeneration,
 open-window bidding, deterministic award, no-double-claim under concurrency,
 cold-start + starvation guard, wallclock cost proxy (censored arm priced, ledger arm
-numerically unchanged, unpriceable arm still bounded above `$0`).
+numerically unchanged, unpriceable arm still bounded above `$0`, a requeued job's
+earlier attempts recovered from the claim log — capped, kind-attributed, and never
+conjured where there is no `duration_secs`).
