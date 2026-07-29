@@ -21,8 +21,9 @@
 #   2. RECOMPUTE the arm projections from the full events/ set (Welford per arm), so
 #      arms/<kind>/<provider>/<model>/<thoughtfulness>/<wc>@<target>.md always
 #      reflects every finalized event — EVERY event, including a cost-censored one,
-#      which still moves attempts/accepts and is excluded only from the dollar
-#      estimators (see recompute_arms). Recompute-from-events (not incremental fold)
+#      which still moves attempts/accepts, and is priced from the WALLCLOCK PROXY
+#      (`duration_secs` x the rate card) when the ledger could not price it at all
+#      (see recompute_arms). Recompute-from-events (not incremental fold)
 #      keeps the projection a pure function of the event log — reproducible and
 #      auditable — and idempotent (an unchanged projection is a no-op commit).
 #
@@ -84,7 +85,7 @@ finalize_pending() {
 
 # --- 2. recompute arm projections from events/ -------------------------------
 recompute_arms() {
-  local ef base kind provider model tht wc tgt accepted agg rel armhash
+  local ef base kind provider model tht wc tgt accepted agg rel armhash dur hum estd
   local work; work="$(mktemp -d "${TMPDIR:-/tmp}/rep-reduce.XXXXXX")"
   shopt -s nullglob
   # Fold every event into a per-arm data file (accepted + aggregate dollars) plus a
@@ -104,13 +105,31 @@ recompute_arms() {
       printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' \
         "$kind" "$provider" "$model" "$tht" "$wc" "$tgt" "$rel" > "$work/$armhash.meta"
     fi
-    case "$agg" in ''|censored) agg=CENSORED ;; esac
-    printf '%s %s\n' "${accepted:-false}" "$agg" >> "$work/$armhash.dat"
+    # COST SOURCE per event: a real ledger figure, else the WALLCLOCK PROXY
+    # (duration_secs x the arm's rate-card dollars-per-second), else nothing.
+    # The ledger ALWAYS wins where it exists, so no arm gets a worse estimate as a
+    # consequence of the proxy — it only fills holes the ledger left. The proxy is
+    # re-derived HERE, from the event's raw duration and the CURRENT rate card,
+    # rather than read from the event's own `estimated_dollars:` (which
+    # complete-job.sh records as provenance): that keeps the projection a pure
+    # function of (events, rate card), so correcting a rate is a journal data edit
+    # that re-prices all history on the next tick, with no event ever rewritten.
+    case "$agg" in
+      ''|censored)
+        dur="$(plan_field "$ef" duration_secs)"
+        hum="$(plan_field "$ef" human_dollars)"
+        estd="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "${dur:-0}" "${hum:-0}")"
+        case "$estd" in
+          censored) printf '%s CENSORED none\n' "${accepted:-false}" >> "$work/$armhash.dat" ;;
+          *)        printf '%s %s wallclock\n' "${accepted:-false}" "$estd" >> "$work/$armhash.dat" ;;
+        esac ;;
+      *) printf '%s %s ledger\n' "${accepted:-false}" "$agg" >> "$work/$armhash.dat" ;;
+    esac
   done
   shopt -u nullglob
 
   # For each arm, compute the projection and write it (git no-ops an unchanged file).
-  local mf stats att acc cen mean m2
+  local mf stats att acc cen est mean m2
   shopt -s nullglob
   for mf in "$work"/*.meta; do
     armhash="$(basename "$mf" .meta)"
@@ -126,18 +145,29 @@ recompute_arms() {
     # With nothing censored (n == att) that reduces to the historical sumd/acc, and
     # the n==att branch computes it that way EXACTLY, so an uncensored arm's file is
     # byte-identical to before this change (no churn, and idempotence preserved).
-    # m2 stays the Welford sum over the cost-observed samples only; its sample count
-    # is therefore (attempts - censored), which is what rep_thompson_draw uses.
+    # m2 stays the Welford sum over the cost-priced samples only; its sample count is
+    # therefore (attempts - censored + estimated), which is what rep_cost_samples
+    # derives and rep_thompson_draw uses.
+    #
+    # `censored:` counts every event the LEDGER could not price and NEVER shrinks —
+    # it is the arm's honest report of how much of its cost evidence is real.
+    # `estimated:` is the subset of those the WALLCLOCK PROXY could price; those
+    # samples DO enter mean_dollars/m2, so a censored arm finally has a cost
+    # posterior, while the two counters together still say exactly how it was
+    # obtained. A wholly-unpriceable event (no duration, or an arm with no rate) is
+    # censored-and-not-estimated and contributes acceptance only, as before.
     stats="$(awk '
-      { af=$1; d=$2;
+      { af=$1; d=$2; src=$3;
         att++; if (af=="true") acc++;
-        if (d=="CENSORED") { cen++; next }
+        if (src!="ledger") cen++;
+        if (src=="wallclock") est++;
+        if (d=="CENSORED") next;
         n++; delta=d-mean; mean+=delta/n; m2+=delta*(d-mean); sumd+=d;
       }
       END{ rate = (att>0)? acc/att : 0;
            md = (acc>0 && n>0)? ((n==att)? sumd/acc : (sumd/n)/rate) : 0;
-           printf "%d %d %d %.6f %.6f\n", att+0, acc+0, cen+0, md, m2+0; }' "$work/$armhash.dat")"
-    read -r att acc cen mean m2 <<<"$stats"
+           printf "%d %d %d %d %.6f %.6f\n", att+0, acc+0, cen+0, est+0, md, m2+0; }' "$work/$armhash.dat")"
+    read -r att acc cen est mean m2 <<<"$stats"
     mkdir -p "$DIR/$(dirname "$rel")"
     {
       printf 'kind: %s\n' "$kind"
@@ -149,6 +179,7 @@ recompute_arms() {
       printf 'attempts: %s\n' "$att"
       printf 'accepts: %s\n' "$acc"
       printf 'censored: %s\n' "$cen"
+      printf 'estimated: %s\n' "$est"
       printf 'mean_dollars: %s\n' "$mean"
       printf 'm2: %s\n' "$m2"
       printf 'acceptance_rate: %s\n' "$(awk -v a="$acc" -v t="$att" 'BEGIN{printf "%.4f", (t>0)?a/t:0}')"

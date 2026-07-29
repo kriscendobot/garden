@@ -24,11 +24,13 @@ zero or one worker bids.
 - `reputation/pending/<base>.md` — completed-but-acceptance-unknown (a PR still in
   review); finalized by the reducer.
 - `reputation/arms/<kind>/<provider>/<model>/<thoughtfulness>/<wc>@<target>.md` —
-  the derived projection (`attempts accepts mean_dollars m2 censored`), recomputed
-  **only** by the reducer. `attempts`/`accepts` count **every** event; the dollar
-  estimators summarize only the `attempts - censored` cost samples.
-- `reputation/rate-card.md`, `config/auction.md` — optional journal config layered
-  over the env-var defaults baked into `reputation.sh` / `auction.sh`.
+  the derived projection (`attempts accepts mean_dollars m2 censored estimated`),
+  recomputed **only** by the reducer. `attempts`/`accepts` count **every** event; the
+  dollar estimators summarize the `attempts - censored + estimated` cost samples.
+- `reputation/rate-card.md` — the per-instance **wallclock rate card**
+  (dollars-per-second per `(provider, model, thoughtfulness)`), layered over the
+  tracked seed `scripts/jobs/rate-card-defaults.md` and then the env-var defaults in
+  `reputation.sh`. `config/auction.md` layers the same way over `auction.sh`.
 - `reputation/verdicts/<base>` — optional acceptance override (a maintainer/PR
   signal drop). `reputation/reviews/<base>` — optional review observables
   (`rounds`/`comment_words`) for the inferred human-review dollars.
@@ -57,13 +59,16 @@ zero or one worker bids.
   is an ordinary stale doin entry).
 - **Record** (`complete-job.sh`): write the reputation event keyed to the ran arm;
   agentic dollars from `usage/<base>.jsonl` (fail-open → `censored` when the ledger
-  is absent), acceptance = `true` for an internal `main2` job, else `pending`.
+  is absent), acceptance = `true` for an internal `main2` job, else `pending`. A
+  censored event also carries `cost_source: wallclock|none` and, where priceable, an
+  `estimated_dollars:` — provenance beside the untouched raw `censored`.
 - **Reduce** (`reputation-reduce.sh`, leader-only `garden-reputation-reducer`
   timer): finalize pending events (verdict override > internal-tada > leave), fold
-  every event — censored included — into the arm projections (Welford over the cost
-  samples; cost-per-accepted amortizes failed attempts by the full-population
-  acceptance rate), the SOLE writer of `arms/`. Deterministic, no LLM (reviewer text is
-  only COUNTED). Idempotent — an unchanged event set is a no-op.
+  every event — censored included, priced from the wallclock proxy where the ledger
+  could not price it — into the arm projections (Welford over the cost samples;
+  cost-per-accepted amortizes failed attempts by the full-population acceptance
+  rate), the SOLE writer of `arms/`. Deterministic, no LLM (reviewer text is only
+  COUNTED). Idempotent — an unchanged event set is a no-op.
 
 ## Notes
 
@@ -73,15 +78,29 @@ zero or one worker bids.
   the majority (exploitation). New clerics start cold and are explored, not starved.
 - **Censoring splits cost from acceptance.** `censored` means the cost ledger was
   absent (fail-open), never that the run was withheld, so a censored event still
-  moves `attempts`/`accepts` and is excluded only from the dollar estimators — a
-  missing COST measurement must not discard the independent ACCEPTANCE measurement.
-  The cold gate counts COST samples (`attempts - censored`), so an arm that is never
-  priced draws the configured prior — amortized by its measured acceptance rate, so
-  a rejection-prone arm bids above it and no arm can ever bid below it on missing
-  data. Reading a zeroed `mean_dollars` as a posterior would bid the `$0.01` floor
-  and win every auction on price; that is the inverse failure and is guarded. Today
-  only the `claude -p` handler reports a provider-computed `total_cost_usd`, so
-  codex/Kimi/Ollama arms are censored on every run and learn acceptance only.
+  moves `attempts`/`accepts` — a missing COST measurement must not discard the
+  independent ACCEPTANCE measurement. The cold gate counts COST samples, so an arm
+  with no cost evidence at all draws the configured prior — amortized by its measured
+  acceptance rate, so a rejection-prone arm bids above it and no arm can ever bid
+  below it on missing data. Reading a zeroed `mean_dollars` as a posterior would bid
+  the `$0.01` floor and win every auction on price; that is the inverse failure and
+  is guarded. Only the `claude -p` handler reports a provider-computed
+  `total_cost_usd`, so codex/Kimi/Ollama arms are ledger-censored on every run.
+- **Wallclock is the cost proxy for a censored arm.** `duration_secs` is on **100%**
+  of events and is measured by the garden, not reported by a provider, so it is never
+  censored. Where the ledger priced nothing, the reducer prices the event at
+  `duration_secs x` the arm's rate card dollars-per-second, and those samples enter
+  `mean_dollars`/`m2` — so a Kimi/codex/Ollama arm finally has a cost posterior
+  instead of a permanent cold prior. Four invariants keep an estimate from
+  impersonating a measurement: (1) **the ledger always wins** where it exists, so no
+  arm gets a worse estimate from this; (2) the raw `censored:` count **never shrinks**
+  and the new `estimated:` count sits beside it, so an arm reports how much of its
+  cost evidence is real; (3) the Thompson draw **widens** in proportion to the
+  estimated fraction of the cost pool (`GARDEN_REP_ESTIMATE_SD_MULT`, x2 at 100%);
+  (4) a **non-positive or absent rate means no proxy** — the event stays censored and
+  the arm bids the wide prior. It never means `$0.00`. The reducer re-derives from
+  `duration_secs` and the **current** card every tick, so correcting a rate re-prices
+  all history as a journal data edit, with no deploy and no event rewritten.
 - **Thoughtfulness (§5)**: today a worker commits to the arm it would actually run
   (executed == committed), so the auction competes arms ACROSS workers/kinds.
   Enumerating a thoughtfulness LADDER per unpinned job so the market learns the
@@ -100,4 +119,5 @@ zero or one worker bids.
 `scripts/jobs/test/auction-reputation-test.sh` — deterministic math, work-class,
 event-on-completion, reducer projections + idempotency, race degeneration,
 open-window bidding, deterministic award, no-double-claim under concurrency,
-cold-start + starvation guard.
+cold-start + starvation guard, wallclock cost proxy (censored arm priced, ledger arm
+numerically unchanged, unpriceable arm still bounded above `$0`).

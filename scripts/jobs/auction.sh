@@ -94,15 +94,19 @@ auction_bidder_id() { rep_sanitize "${1:?}-${GARDEN}-${2:?}"; }
 # so it is reproducible from the journal alone.
 auction_bid_dollars() {
   local dir="$1" base="$2" bidder="$3" provider="$4" model="$5" tht="$6" wc="$7" tgt="$8"
-  local rel proj att acc mean m2 cen seed
+  local rel proj att acc mean m2 cen est seed
   rel="$(rep_arm_relpath "${bidder%%-*}" "$provider" "$model" "$tht" "$wc" "$tgt")"
   proj="$(rep_read_projection "$dir" "$rel")"
-  read -r att acc mean m2 cen <<<"$proj"
+  read -r att acc mean m2 cen est <<<"$proj"
   seed="$base|$bidder|$provider/$model/$tht"
   # The censored count is NOT discarded: it is what separates this arm's COST
   # evidence from its ACCEPTANCE evidence, so an arm whose dollars were never
-  # measured draws from the prior instead of from a zeroed mean (rep_thompson_draw).
-  rep_thompson_draw "$att" "$mean" "$m2" "$acc" "$seed" "$(rep_cost_samples "$att" "$cen")"
+  # measured — and whose wallclock the rate card cannot price either — draws from
+  # the prior instead of from a zeroed mean (rep_thompson_draw). `estimated` is the
+  # censored subset the WALLCLOCK PROXY did price: those samples are back in the cost
+  # pool, and are passed on separately so the draw can widen for proxy evidence.
+  rep_thompson_draw "$att" "$mean" "$m2" "$acc" "$seed" \
+    "$(rep_cost_samples "$att" "$cen" "$est")" "$est"
 }
 
 # auction_write_bid <dir> <base> — ensure THIS worker (GARDEN_WORKER_KIND / the id
@@ -123,9 +127,9 @@ auction_write_bid() {
   { read -r provider; read -r model; read -r tht; } < <(rep_resolve_arm "$kind" "$jf")
   wc="$(rep_work_class "$jf")"; tgt="$(rep_target "$jf")"
   bid_dollars="$(auction_bid_dollars "$dir" "$base" "$bidder" "$provider" "$model" "$tht" "$wc" "$tgt")"
-  local rel proj att acc mean m2 cen
+  local rel proj att acc mean m2 cen est
   rel="$(rep_arm_relpath "$kind" "$provider" "$model" "$tht" "$wc" "$tgt")"
-  proj="$(rep_read_projection "$dir" "$rel")"; read -r att acc mean m2 cen <<<"$proj"
+  proj="$(rep_read_projection "$dir" "$rel")"; read -r att acc mean m2 cen est <<<"$proj"
   mkdir -p "$dir/$bdir"
   {
     printf -- '---\n'
@@ -141,6 +145,7 @@ auction_write_bid() {
     printf 'mean_dollars: %s\n' "$mean"
     printf 'm2: %s\n' "$m2"
     printf 'censored: %s\n' "$cen"
+    printf 'estimated: %s\n' "$est"
     printf 'bid_dollars: %s\n' "$bid_dollars"
     printf 'bid_at: %s\n' "$(date -u +%FT%TZ)"
     printf -- '---\n'

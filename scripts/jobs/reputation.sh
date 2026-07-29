@@ -43,6 +43,13 @@ REP_VERDICTS="$REP_ROOT/verdicts"    # optional per-base acceptance override (a 
 : "${GARDEN_REP_HOURLY_RATE:=125}"       # $/hr for inferred human-review time
 : "${GARDEN_REP_REVIEW_BASE_MIN:=5}"     # minutes of review per round, baseline
 : "${GARDEN_REP_REVIEW_WPM:=20}"         # words/min a reviewer WRITES (reads far more)
+# Wallclock cost proxy for a cost-CENSORED arm (§4.4, the wallclock-cost-proxy job).
+# `duration_secs` is on 100% of events and is measured BY THE GARDEN, so it is never
+# censored the way a provider-reported dollar figure is; multiplied by a per-arm
+# dollars-per-second rate it is a coarse but honest stand-in for the missing ledger.
+: "${GARDEN_REP_RATE_CARD:=reputation/rate-card.md}"  # journal-relative rate table
+: "${GARDEN_REP_DEFAULT_RATE_PER_SEC:=0.0072}"        # $/s for an arm with no row
+: "${GARDEN_REP_ESTIMATE_SD_MULT:=2}"                 # sd inflation at 100% estimated cost
 
 # --- small deterministic primitives ------------------------------------------
 
@@ -66,7 +73,7 @@ rep_seed_uniform() {
   awk -v d="$d" 'BEGIN{ printf "%.10f", (d+0.5)/4294967296.0 }'
 }
 
-# rep_thompson_draw <attempts> <mean_dollars> <m2> <accepts> <seed-string> [cost_samples]
+# rep_thompson_draw <attempts> <mean_dollars> <m2> <accepts> <seed-string> [cost_samples] [estimated_samples]
 # One deterministic Thompson-sampling draw from an arm's aggregate-dollar posterior
 # (§3.2 step 1). A COLD arm — fewer than cold_n COST samples, or never yet accepted
 # — draws from the WIDE cold-start prior so it still occasionally draws lowest and
@@ -91,18 +98,30 @@ rep_seed_uniform() {
 # rejection-prone arm bids above it. The amortization engages only once there IS
 # acceptance evidence (>= cold_n attempts with at least one accept); a brand-new arm
 # draws exactly the configured prior, as before.
+#
+# <estimated_samples> is how many of those <cost_samples> came from the WALLCLOCK
+# PROXY rather than a real dollar ledger (rep_estimated_dollars). An estimate is
+# evidence, but weaker evidence: `duration_secs x rate` is a coarse product of a
+# hand-maintained rate card, and its spread understates the true cost spread (three
+# 20-second canaries look far more certain than three priced runs ever would). So the
+# warm branch INFLATES sd in proportion to the estimated FRACTION of the cost pool —
+# no inflation at 0% estimated, x GARDEN_REP_ESTIMATE_SD_MULT at 100%. An arm priced
+# entirely by proxy therefore still explores; it just no longer bids the $0.01 floor
+# on a zeroed mean. Defaults to 0, so every existing 5- and 6-argument call is
+# byte-identical.
 rep_thompson_draw() {
   local att="${1:-0}" mean="${2:-0}" m2="${3:-0}" acc="${4:-0}" seed="${5:-}"
-  local csn="${6:-${1:-0}}"
+  local csn="${6:-${1:-0}}" esn="${7:-0}"
   local u1 u2
   u1="$(rep_seed_uniform "$seed" 1)"
   u2="$(rep_seed_uniform "$seed" 2)"
   awk -v att="$att" -v mean="$mean" -v m2="$m2" -v acc="$acc" -v u1="$u1" -v u2="$u2" \
-      -v csn="$csn" \
+      -v csn="$csn" -v esn="$esn" -v sm="$GARDEN_REP_ESTIMATE_SD_MULT" \
       -v cn="$GARDEN_AUCTION_COLD_N" -v cm="$GARDEN_REP_COLD_MEAN" -v csd="$GARDEN_REP_COLD_SD" \
       -v vf="$GARDEN_REP_VAR_FLOOR" -v md="$GARDEN_REP_MIN_DRAW" 'BEGIN{
     pi = 3.141592653589793;
     csn = csn+0; if (csn > (att+0)) csn = att+0; if (csn < 0) csn = 0;
+    esn = esn+0; if (esn > csn) esn = csn; if (esn < 0) esn = 0;
     rate = ((att+0) > 0)? (acc+0)/(att+0) : 0;
     if (csn < (cn+0) || (acc+0) < 1) {
       # No usable cost posterior (too few COST samples, or never accepted): the
@@ -116,6 +135,10 @@ rep_thompson_draw() {
       v = va/(rate*rate);                        # inflate per-attempt var by 1/rate²
       if (v < (vf+0)) v = vf+0;
       sd = sqrt(v);
+      if (csn > 0 && esn > 0) {                  # widen for proxy-derived evidence
+        ef = esn/csn; if (sm+0 < 1) sm = 1;
+        sd = sd * (1 + ((sm+0)-1)*ef);
+      }
     }
     z = sqrt(-2*log(u1)) * cos(2*pi*u2);         # Box–Muller standard normal
     d = mu + sd*z;
@@ -218,29 +241,39 @@ rep_arm_relpath() {
 }
 
 # rep_read_projection <dir> <arm-relpath> — read a committed arm projection, echo
-# five space-separated fields: attempts accepts mean_dollars m2 censored. A missing
-# projection reads as all-zero (a cold arm). Robust to a partially-written file
-# (missing fields default to 0). Reads from the working tree of <dir>.
+# six space-separated fields: attempts accepts mean_dollars m2 censored estimated. A
+# missing projection reads as all-zero (a cold arm). Robust to a partially-written
+# file (missing fields default to 0 — including `estimated`, absent from projections
+# written before the wallclock proxy, which then read as pure-ledger and behave
+# exactly as they did). Reads from the working tree of <dir>.
 rep_read_projection() {
-  local dir="${1:?}" rel="${2:?}" f="$1/$2" att acc mean m2 cen
+  local dir="${1:?}" rel="${2:?}" f="$1/$2" att acc mean m2 cen est
   if [ -f "$f" ]; then
     att="$(plan_field "$f" attempts)";     acc="$(plan_field "$f" accepts)"
     mean="$(plan_field "$f" mean_dollars)"; m2="$(plan_field "$f" m2)"
-    cen="$(plan_field "$f" censored)"
+    cen="$(plan_field "$f" censored)";     est="$(plan_field "$f" estimated)"
   fi
-  printf '%s %s %s %s %s\n' "${att:-0}" "${acc:-0}" "${mean:-0}" "${m2:-0}" "${cen:-0}"
+  printf '%s %s %s %s %s %s\n' "${att:-0}" "${acc:-0}" "${mean:-0}" "${m2:-0}" "${cen:-0}" "${est:-0}"
 }
 
-# rep_cost_samples <attempts> <censored> — how many of an arm's attempts carried a
-# usable dollar measurement, i.e. the sample count behind mean_dollars/m2. Derived
-# rather than stored so it can never disagree with the projection it summarizes.
-# Clamped into [0, attempts] so a projection left by an older reducer (which counted
-# only the uncensored events as `attempts`) can never yield a negative.
+# rep_cost_samples <attempts> <censored> [estimated] — how many of an arm's attempts
+# carried a usable dollar figure, i.e. the sample count behind mean_dollars/m2.
+# Derived rather than stored so it can never disagree with the projection it
+# summarizes. `estimated` is the subset of the CENSORED events the reducer was able
+# to price from the wallclock proxy, so they are back IN the cost pool even though
+# they remain counted in `censored:` — a raw `censored` count that never shrinks is
+# how an arm reports how much of its cost evidence is real. Clamped into
+# [0, attempts]: a projection left by an older reducer (which counted only the
+# uncensored events as `attempts`) can never yield a negative, and an `estimated`
+# larger than `censored` can never invent a sample.
 rep_cost_samples() {
-  local att cen
+  local att cen est
   att="$(printf '%s' "${1:-0}" | tr -dc '0-9')"; att="${att:-0}"
   cen="$(printf '%s' "${2:-0}" | tr -dc '0-9')"; cen="${cen:-0}"
-  local n=$(( att - cen )); [ "$n" -ge 0 ] || n=0
+  est="$(printf '%s' "${3:-0}" | tr -dc '0-9')"; est="${est:-0}"
+  [ "$est" -le "$cen" ] || est="$cen"
+  local n=$(( att - cen + est )); [ "$n" -ge 0 ] || n=0
+  [ "$n" -le "$att" ] || n="$att"
   printf '%s\n' "$n"
 }
 
@@ -263,6 +296,87 @@ rep_agentic_dollars() {
         s=substr($0,RSTART,RLENGTH); sub(/.*:[[:space:]]*/,"",s); tot+=s+0; n++ } }
     END{ if (n>0) printf "%.6f", tot; else printf "censored" }' "$f" 2>/dev/null)"
   printf '%s\n' "${sum:-censored}"
+}
+
+# --- wallclock cost proxy for a censored arm (§4.4) --------------------------
+# A provider CLI that reports no per-call dollars leaves rep_agentic_dollars to fail
+# open to `censored`, and a whole class of arms (moonshot/kimi-k3, the codex clerics,
+# the local hermits) is then priced by NOTHING. But the garden measures every job's
+# WALLCLOCK itself — `duration_secs` is present on 100% of events and is not a
+# provider report, so it cannot be censored. `duration_secs x dollars-per-second` is
+# therefore a complete, uncensored cost SIGNAL for exactly the arms the ledger cannot
+# reach. It is coarse: a rate card is a hand-maintained approximation, so an estimate
+# must never impersonate a measurement (see rep_thompson_draw's sd inflation, the
+# event's `cost_source:`, and the projection's separate `censored:`/`estimated:`).
+#
+# The rates live in JOURNAL state (reputation/rate-card.md), not code, precisely so a
+# wrong rate is corrected by a data edit and the next reducer tick re-derives every
+# historical event from the new number — no deploy, no event rewrite.
+
+# rep_rate_lookup <file> <provider> <model> <thoughtfulness> — the raw rate cell from
+# ONE rate table, or empty. The table is a markdown table whose first four columns are
+# provider | model | thoughtfulness | dollars_per_second; each key cell is either an
+# EXACT value or `*`, and the MOST SPECIFIC matching row wins (provider 4 > model 2 >
+# thoughtfulness 1), ties going to the first such row. Exact-or-`*` rather than globs:
+# there is no shell/awk pattern dialect to disagree about, so every host resolves the
+# same rate from the same table — the determinism invariant this whole file rests on.
+rep_rate_lookup() {
+  [ -f "${1:-}" ] || return 0
+  awk -F'|' -v p="${2:-}" -v m="${3:-}" -v t="${4:-}" '
+    function trim(s){ gsub(/^[ \t]+/,"",s); gsub(/[ \t]+$/,"",s); return s }
+    /^[ \t]*\|/ {
+      pr=trim($2); mo=trim($3); th=trim($4); rt=trim($5);
+      if (pr=="" || pr=="provider") next;            # header row
+      if (pr ~ /^:?-+:?$/) next;                     # separator row
+      if (rt !~ /^[0-9]*\.?[0-9]+$/) next;           # prose row / no numeric rate
+      sc=0;
+      if (pr!="*") { if (pr!=p) next; sc+=4 }
+      if (mo!="*") { if (mo!=m) next; sc+=2 }
+      if (th!="*") { if (th!=t) next; sc+=1 }
+      if (!have || sc>best) { have=1; best=sc; val=rt }
+    }
+    END{ if (have) printf "%s", val }' "$1" 2>/dev/null
+}
+
+# rep_rate_per_second <dir> <provider> <model> <thoughtfulness>
+# The arm's dollars-per-second, resolved in precedence order:
+#   1. the PER-INSTANCE journal card, reputation/rate-card.md — the correctable layer;
+#      a wrong rate is a journal data edit and the next reducer tick re-prices history,
+#      with no deploy and no event rewritten. This is the whole point of a coarse proxy.
+#   2. the TRACKED SEED, scripts/jobs/rate-card-defaults.md — same table format, on
+#      main2, so a FRESH instance with an empty journal still prices its arms sanely
+#      (pricing a local hermit at the paid-arm default would be ~90x wrong). Same
+#      shape as bot-identity-defaults.tsv / model-routing-defaults.tsv.
+#   3. GARDEN_REP_DEFAULT_RATE_PER_SEC — the last-resort constant, so the proxy is
+#      self-contained and testable with no config of any kind present.
+# Prints nothing when no POSITIVE rate resolves: a zero/absent/garbage rate means
+# "this arm has no wallclock proxy", which leaves its events censored and its bid on
+# the wide cold prior. That is the honest reading, and it is the one path that must
+# never silently become $0.00 — a $0 cost posterior wins every auction on price.
+rep_rate_per_second() {
+  local dir="${1:-}" p="${2:-}" m="${3:-}" t="${4:-}" r=""
+  [ -n "$dir" ] && r="$(rep_rate_lookup "$dir/$GARDEN_REP_RATE_CARD" "$p" "$m" "$t")"
+  [ -n "$r" ] || r="$(rep_rate_lookup "$(dirname "${BASH_SOURCE[0]}")/rate-card-defaults.md" "$p" "$m" "$t")"
+  case "$r" in ''|*[!0-9.]*) r="${GARDEN_REP_DEFAULT_RATE_PER_SEC:-0}" ;; esac
+  case "$r" in ''|*[!0-9.]*) r=0 ;; esac
+  awk -v r="$r" 'BEGIN{ if ((r+0) > 0) printf "%.9f", r+0 }'
+}
+
+# rep_estimated_dollars <dir> <provider> <model> <thoughtfulness> <duration_secs> [human_dollars]
+# The wallclock-derived aggregate-dollar estimate for ONE cost-censored event:
+# `duration_secs x rate + human_dollars` (human review is already a real inferred
+# figure and is not censored, so it rides along exactly as it does on the ledger
+# path). Prints the literal `censored` — never a number, and never 0 — when the event
+# carries no positive duration or the arm resolves no positive rate. Fail-open in the
+# same direction as rep_agentic_dollars: an absent input yields "unknown", not "free".
+rep_estimated_dollars() {
+  local dir="${1:-}" p="${2:-}" m="${3:-}" t="${4:-}" secs="${5:-0}" human="${6:-0}" rate
+  case "$secs"  in ''|*[!0-9.]*) secs=0  ;; esac
+  case "$human" in ''|*[!0-9.]*) human=0 ;; esac
+  awk -v s="$secs" 'BEGIN{ exit !((s+0) > 0) }' || { printf 'censored\n'; return 0; }
+  rate="$(rep_rate_per_second "$dir" "$p" "$m" "$t")"
+  [ -n "$rate" ] || { printf 'censored\n'; return 0; }
+  awk -v s="$secs" -v r="$rate" -v h="$human" 'BEGIN{ printf "%.6f\n", (s+0)*(r+0) + (h+0) }'
 }
 
 # --- human-review dollars (§4.4, inferred until measured) --------------------

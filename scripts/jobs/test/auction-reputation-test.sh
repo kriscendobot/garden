@@ -14,6 +14,11 @@
 #   CENSORED    — a cost-censored event still moves attempts/accepts (only the cost
 #                 estimators skip it), and an arm whose cost was NEVER measured
 #                 draws the prior rather than a $0 posterior.
+#   WALLCLOCK   — a cost-censored event is priced by `duration_secs` x the rate card,
+#                 giving a censored arm a real cost posterior; the raw `censored:`
+#                 count survives beside a new `estimated:`; a ledger-priced arm is
+#                 numerically UNCHANGED; an unpriceable arm (rate 0, or no duration)
+#                 stays unpriced and bids the wide prior, never $0.
 #   COLD-START  — a bidder with no history bids from the wide cold prior (no crash,
 #                 no rich-get-richer: it still wins a share of jobs).
 #   RACE-DEGEN  — a `market: bid` job with ONE bidder degenerates to a single claim;
@@ -120,6 +125,19 @@ if [ -f "$V/reputation/events/evt-job.md" ]; then
   [ "$(plan_field "$ef" work_class)" = build:s ] && ok "event work_class=build:s" || bad "event work_class ($(plan_field "$ef" work_class))"
   [ "$(plan_field "$ef" accepted)" = true ] && ok "internal main2 job accepted=true on tada" || bad "event accepted ($(plan_field "$ef" accepted))"
   [ "$(plan_field "$ef" agentic_dollars)" = censored ] && ok "agentic dollars censored (no usage ledger yet — fail-open)" || bad "agentic ($(plan_field "$ef" agentic_dollars))"
+  # The RAW censored state above is preserved; the derived figure lives in its OWN
+  # field so an estimate can never impersonate a measurement. Which of wallclock/none
+  # applies depends on whether the stub ran long enough to clock a whole second.
+  cs="$(plan_field "$ef" cost_source)"; edol="$(plan_field "$ef" estimated_dollars)"
+  case "$cs" in
+    wallclock) awk -v d="$edol" 'BEGIN{exit !(d>0)}' \
+                 && ok "censored event carries cost_source=wallclock + estimated_dollars=\$$edol (raw censored intact)" \
+                 || bad "cost_source=wallclock but estimated_dollars is not positive ($edol)" ;;
+    none)      [ -z "$edol" ] \
+                 && ok "sub-second job: cost_source=none, NO estimated_dollars invented" \
+                 || bad "cost_source=none but estimated_dollars present ($edol)" ;;
+    *)         bad "event cost_source neither wallclock nor none ($cs)" ;;
+  esac
 else
   bad "no reputation event written (w.log tail: $(tail -3 "$TR/w.log" | tr '\n' '|'))"
 fi
@@ -162,7 +180,7 @@ env GARDEN=rh GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=jou
 V="$TR/v"; verify_clone "$BARE" "$V"
 if [ -f "$V/$arm_rel" ]; then
   ok "arm projection written ($arm_rel)"
-  read -r att acc mean m2 cen <<<"$(rep_read_projection "$V" "$arm_rel")"
+  read -r att acc mean m2 cen est <<<"$(rep_read_projection "$V" "$arm_rel")"
   [ "$att" = 3 ] && ok "attempts=3" || bad "attempts=$att"
   [ "$acc" = 2 ] && ok "accepts=2" || bad "accepts=$acc"
   awk -v m="$mean" 'BEGIN{exit !(m>9.99 && m<10.01)}' && ok "mean cost-per-accepted=10.0 ((4+6+10)/2)" || bad "mean=$mean"
@@ -224,7 +242,7 @@ env GARDEN=ch GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=jou
     "$JOBS/reputation-reduce.sh" > "$TR/c.log" 2>&1 || true
 V="$TR/v"; verify_clone "$BARE" "$V"
 if [ -f "$V/$mixed_rel" ]; then
-  read -r att acc mean m2 cen <<<"$(rep_read_projection "$V" "$mixed_rel")"
+  read -r att acc mean m2 cen est <<<"$(rep_read_projection "$V" "$mixed_rel")"
   [ "$att" = 5 ] && [ "$acc" = 3 ] && [ "$cen" = 3 ] \
     && ok "mixed arm: censored events counted in attempts/accepts (att=5 acc=3 cen=3)" \
     || bad "mixed arm attempts/accepts/censored wrong (att=$att acc=$acc cen=$cen)"
@@ -239,7 +257,7 @@ else
   bad "reducer wrote no mixed arm (c.log: $(tail -3 "$TR/c.log" | tr '\n' '|'))"
 fi
 if [ -f "$V/$frozen_rel" ]; then
-  read -r fatt facc fmean fm2 fcen <<<"$(rep_read_projection "$V" "$frozen_rel")"
+  read -r fatt facc fmean fm2 fcen fest <<<"$(rep_read_projection "$V" "$frozen_rel")"
   { [ "$fatt" = 6 ] && [ "$facc" = 6 ] && [ "$fcen" = 6 ]; } \
     && ok "all-censored arm UNFROZEN: att=6 acc=6 cen=6 (was att=0 acc=0)" \
     || bad "all-censored arm still frozen (att=$fatt acc=$facc cen=$fcen)"
@@ -316,6 +334,149 @@ if [ -f "$V/reputation/events/prjob.md" ]; then
   agg="$(plan_field "$V/reputation/events/prjob.md" aggregate_dollars)"
   awk -v a="$agg" 'BEGIN{exit !(a>39.24 && a<39.26)}' && ok "aggregate = agentic \$8 + inferred human \$31.25 = \$39.25" || bad "aggregate wrong ($agg)"
 fi
+rm -rf "$TR"
+
+# ============================================================================
+hr; echo "WALLCLOCK — a censored arm is priced by duration_secs x the rate card"; hr
+# `duration_secs` is on 100% of events and is measured BY THE GARDEN, so it is never
+# censored the way a provider-reported dollar figure is. The proxy prices exactly the
+# events the ledger could not, and must do so WITHOUT (a) impersonating a
+# measurement, (b) touching an arm the ledger already priced, or (c) ever collapsing
+# to a $0 bid. Four arms in one reduce:
+#   KIMI    — 6 censored+accepted events with the REAL canary durations, arm
+#             mystic/moonshot/kimi-k3 (journal rate card: $0.005/s exactly).
+#   LEDGER  — 3 fully-priced events; must come out NUMERICALLY IDENTICAL.
+#   NORATE  — a censored arm the rate card prices at 0 (= "no proxy"); must stay
+#             unpriced and bid the wide prior, never $0.
+#   NODUR   — a censored arm with NO duration_secs at all; likewise unpriced.
+TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-wall.XXXXXX")"
+BARE="$(seed_board "$TR" walljob)"
+SEED="$TR/inj"; verify_clone "$BARE" "$SEED"
+kimi_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/gardener-s@main2.md"
+ledger_rel="reputation/arms/gardener/anthropic/claude-fable-5/medium/fix-m@main2.md"
+norate_rel="reputation/arms/hermit/local/qwen3.6/medium/other-s@main2.md"
+nodur_rel="reputation/arms/cleric/openai/gpt-5.6-terra/medium/doc-s@main2.md"
+# A PER-INSTANCE journal rate card. It must WIN over the tracked seed
+# (scripts/jobs/rate-card-defaults.md), which prices kimi at 0.004310 — proving a
+# rate is corrected by a journal data edit with no code change and no deploy.
+cat > "$SEED/reputation/rate-card.md" <<'EOF'
+# rate card (test)
+
+| provider | model | thoughtfulness | dollars_per_second | price_basis | source | measured_at |
+| --- | --- | --- | --- | --- | --- | --- |
+| moonshot | kimi-k3 | * | 0.005 | provisional | test fixture | 2026-07-29 |
+| local | * | * | 0 | none | test fixture: 0 means NO proxy, not free | 2026-07-29 |
+| * | * | * | 0.01 | provisional | test fixture default | 2026-07-29 |
+EOF
+mkwev() { # mkwev <base> <kind> <provider> <model> <tht> <wc> <accepted> <aggregate> [duration]
+  { printf -- '---\nbase: %s\nkind: %s\nprovider: %s\nmodel: %s\nthoughtfulness: %s\n' "$1" "$2" "$3" "$4" "$5"
+    printf 'work_class: %s\ntarget: main2\naccepted: %s\n' "$6" "$7"
+    printf 'agentic_dollars: %s\nhuman_dollars: 0\naggregate_dollars: %s\nattempts: 1\n' "$8" "$8"
+    if [ -n "${9:-}" ]; then printf 'duration_secs: %s\n' "$9"; fi
+    printf 'source: live\n---\ninjected\n'
+  } > "$SEED/reputation/events/$1.md"
+}
+# the three real kimi canary durations, doubled so the arm clears cold_n=5 on cost
+i=0; for d in 17 19 27 17 19 27; do i=$((i+1)); mkwev "wk$i" mystic moonshot kimi-k3 medium gardener:s true censored "$d"; done
+mkwev wl1 gardener anthropic claude-fable-5 medium fix:m true  4  600
+mkwev wl2 gardener anthropic claude-fable-5 medium fix:m true  6  600
+mkwev wl3 gardener anthropic claude-fable-5 medium fix:m false 10 600
+for i in 1 2 3 4 5 6; do mkwev "wn$i" hermit local qwen3.6 medium other:s true censored 300; done
+for i in 1 2 3 4 5 6; do mkwev "wd$i" cleric openai gpt-5.6-terra medium doc:s true censored; done
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m inject-wallclock; git -C "$SEED" push -q origin journal2
+env GARDEN=wh GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+    "$JOBS/reputation-reduce.sh" > "$TR/w.log" 2>&1 || true
+V="$TR/v"; verify_clone "$BARE" "$V"
+
+if [ -f "$V/$kimi_rel" ]; then
+  read -r katt kacc kmean km2 kcen kest <<<"$(rep_read_projection "$V" "$kimi_rel")"
+  { [ "$katt" = 6 ] && [ "$kacc" = 6 ] && [ "$kcen" = 6 ] && [ "$kest" = 6 ]; } \
+    && ok "kimi arm: censored:6 PRESERVED and estimated:6 alongside it (att=6 acc=6)" \
+    || bad "kimi arm counters wrong (att=$katt acc=$kacc cen=$kcen est=$kest)"
+  # 2x(17+19+27)=126s x $0.005/s = $0.63 over 6 accepted attempts = $0.105 each.
+  awk -v m="$kmean" 'BEGIN{exit !(m>0.1049 && m<0.1051)}' \
+    && ok "kimi arm: cost-per-accepted \$$kmean = 126s x \$0.005/s / 6 accepts (was \$0.000000)" \
+    || bad "kimi mean wrong ($kmean, expected 0.105000)"
+  awk -v s="$km2" 'BEGIN{exit !(s>0)}' \
+    && ok "kimi arm: m2=$km2 > 0 — a real cost SPREAD, not a point mass" || bad "kimi m2 zero ($km2)"
+  [ "$(rep_cost_samples "$katt" "$kcen" "$kest")" = 6 ] \
+    && ok "rep_cost_samples = attempts - censored + estimated = 6 (the arm is warm on cost)" \
+    || bad "rep_cost_samples wrong ($(rep_cost_samples "$katt" "$kcen" "$kest"))"
+  # the JOURNAL card won over the tracked seed's 0.004310 (which would give $0.0905).
+  awk -v m="$kmean" 'BEGIN{exit !(m>0.104)}' \
+    && ok "journal rate-card row overrides the tracked seed (data edit, no deploy)" \
+    || bad "journal rate card did not override the tracked seed ($kmean)"
+  # and the draw is now a real posterior around $0.105, bounded WELL below the prior.
+  klo=1e9; khi=-1e9
+  for s in a b c d e f g h; do
+    v="$(rep_thompson_draw "$katt" "$kmean" "$km2" "$kacc" "kimi$s" "$(rep_cost_samples "$katt" "$kcen" "$kest")" "$kest")"
+    klo="$(awk -v a="$klo" -v b="$v" 'BEGIN{print (b<a)?b:a}')"
+    khi="$(awk -v a="$khi" -v b="$v" 'BEGIN{print (b>a)?b:a}')"
+  done
+  awk -v lo="$klo" -v hi="$khi" 'BEGIN{exit !(hi<5 && lo>=0.01)}' \
+    && ok "kimi bids from its OWN cost posterior (\$$klo..\$$khi), not the \$10 prior" \
+    || bad "kimi draw not from its posterior ($klo..$khi)"
+else
+  bad "reducer wrote no kimi arm (w.log: $(tail -3 "$TR/w.log" | tr '\n' '|'))"
+fi
+
+# LEDGER arm: the proxy applies ONLY where the ledger is absent, so an arm the ledger
+# already priced must be numerically identical to what the pre-proxy reducer wrote.
+if [ -f "$V/$ledger_rel" ]; then
+  read -r latt lacc lmean lm2 lcen lest <<<"$(rep_read_projection "$V" "$ledger_rel")"
+  { [ "$latt" = 3 ] && [ "$lacc" = 2 ] && [ "$lcen" = 0 ] && [ "$lest" = 0 ]; } \
+    && ok "ledger arm untouched by the proxy (att=3 acc=2 censored=0 estimated=0)" \
+    || bad "ledger arm disturbed (att=$latt acc=$lacc cen=$lcen est=$lest)"
+  awk -v m="$lmean" 'BEGIN{exit !(m>9.99 && m<10.01)}' \
+    && ok "ledger arm: mean cost-per-accepted still \$10.000000 ((4+6+10)/2) — numerically unchanged" \
+    || bad "ledger arm mean changed ($lmean, expected 10.000000)"
+else
+  bad "reducer wrote no ledger arm"
+fi
+
+# NO RATE and NO DURATION: unpriceable stays unpriced. This is the fallback path the
+# job flagged as most likely to be wrong — it must bid the WIDE PRIOR, never $0.
+for pair in "$norate_rel|rate-card rate of 0 (explicitly no proxy)" "$nodur_rel|no duration_secs at all"; do
+  rel="${pair%%|*}"; why="${pair#*|}"
+  if [ -f "$V/$rel" ]; then
+    read -r natt nacc nmean nm2 ncen nest <<<"$(rep_read_projection "$V" "$rel")"
+    { [ "$ncen" = 6 ] && [ "$nest" = 0 ]; } \
+      && ok "unpriceable arm ($why): censored:6 estimated:0" \
+      || bad "unpriceable arm ($why) got an estimate (cen=$ncen est=$nest)"
+    awk -v m="$nmean" -v s="$nm2" 'BEGIN{exit !(m==0 && s==0)}' \
+      && ok "unpriceable arm ($why): invented NO cost evidence" \
+      || bad "unpriceable arm ($why) invented cost (mean=$nmean m2=$nm2)"
+    lo=1e9; hi=-1e9; sum=0; n=0
+    for s in a b c d e f g h i j k l m n o p; do
+      v="$(rep_thompson_draw "$natt" "$nmean" "$nm2" "$nacc" "nr$rel$s" "$(rep_cost_samples "$natt" "$ncen" "$nest")" "$nest")"
+      lo="$(awk -v a="$lo" -v b="$v" 'BEGIN{print (b<a)?b:a}')"
+      hi="$(awk -v a="$hi" -v b="$v" 'BEGIN{print (b>a)?b:a}')"
+      sum="$(awk -v a="$sum" -v b="$v" 'BEGIN{printf "%.6f", a+b}')"; n=$((n+1))
+    done
+    avg="$(awk -v s="$sum" -v n="$n" 'BEGIN{printf "%.4f", s/n}')"
+    awk -v a="$avg" -v hi="$hi" -v lo="$lo" 'BEGIN{exit !(a>3 && (hi-lo)>10)}' \
+      && ok "unpriceable arm ($why) bids the WIDE prior (mean \$$avg, \$$lo..\$$hi) — bounded, never \$0" \
+      || bad "unpriceable arm ($why) draw collapsed (mean $avg range $lo..$hi)"
+  else
+    bad "reducer wrote no arm for: $why"
+  fi
+done
+
+# an estimate must not impersonate a measurement: same posterior, all-estimated
+# evidence draws WIDER than all-ledger evidence.
+west="$(rep_thompson_draw 6 0.105 0.01 6 'sdcmp' 6 6)"
+wled="$(rep_thompson_draw 6 0.105 0.01 6 'sdcmp' 6 0)"
+awk -v e="$west" -v l="$wled" 'BEGIN{exit !((e-0.105)*(e-0.105) > (l-0.105)*(l-0.105))}' \
+  && ok "all-estimated evidence draws WIDER than all-ledger (\$$west vs \$$wled) — an estimate is weaker" \
+  || bad "estimate sd inflation absent (est=$west ledger=$wled)"
+
+before="$(git -C "$V" rev-parse HEAD)"
+env GARDEN=wh GARDEN_STATE="$TR/state2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+    "$JOBS/reputation-reduce.sh" > "$TR/w2.log" 2>&1 || true
+V2="$TR/v2"; verify_clone "$BARE" "$V2"
+[ "$(git -C "$V2" rev-parse HEAD)" = "$before" ] \
+  && ok "reducer idempotent over a wallclock-estimated event set" \
+  || bad "reducer churned a wallclock-estimated event set"
 rm -rf "$TR"
 
 # ============================================================================
