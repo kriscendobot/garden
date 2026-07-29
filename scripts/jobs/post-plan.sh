@@ -51,7 +51,32 @@
 #   <basename>               the spine: ties plan↔todo↔doin↔tada↔worktree.
 #   [body-file]              the work body; if omitted, read from stdin (or a
 #                            one-line placeholder). The body becomes the todo job
-#                            verbatim on promotion.
+#                            on promotion, minus the cycle markers stripped below.
+#
+# PARKING CLEARS THE REAPER'S CYCLE COUNTERS. The reaper's and the gardener's cycle
+# markers — `<!-- garden-reaped: N -->`, `<!-- garden-deadline-overrun: N -->`, and the
+# per-cycle reap-now / productive-cycle / outage-cycle hints — are a running account of
+# one job's failure history while it CYCLES through todo → doin → requeue. A job parked
+# in plan/ has stopped cycling, so those counts are stale the moment it is parked.
+#
+# post-plan.sh is the primitive a producer RE-PARKS through: it hands back a body it
+# read off the board (a doin/todo file, a deadmail promotion, a hand-assembled resume
+# body), and that body carries whatever markers the job had accumulated. Passing it
+# through verbatim smuggled a stale counter into plan/, where — at
+# GARDEN_REAP_OVERRUN_THRESHOLD=1 — a single surviving `garden-deadline-overrun` line
+# re-poisons the job on its FIRST evaluation after promotion, making promotion a no-op
+# the job cannot escape (the failure promote-plan.sh's own strip was written for; see
+# its header and the 07-26 endo-sturdyref-agent-surface-build-gauntlet park).
+#
+# So parking CLEARS the whole marker family with the same common.sh helper the promote
+# path uses, and records what it cleared in a `cleared:` frontmatter field so the reset
+# is auditable rather than silent (the field is emitted ONLY when something was actually
+# cleared, so an ordinary post's frontmatter is unchanged). The strip is idempotent — a
+# marker-free body passes through byte-identical — and it is a strip, not a
+# transformation: only whole cycle-marker lines are dropped, never a body's own `---`
+# rules or any other HTML comment. Nothing is lost that the job re-earns by construction:
+# the reaper's protection is intact, since a job that still fails deterministically
+# re-accumulates and re-poisons on its own.
 #
 # Idempotent on the basename, exactly like post-job.sh: if <basename> already
 # exists anywhere in the lifecycle (plan/todo/doin/tada) the post is a no-op
@@ -158,6 +183,21 @@ read_body() {
 }
 BODY="$(read_body)"
 
+# Clear the reaper/gardener cycle markers from the parked body (see the header). The
+# summary helper reads a FILE (it reuses the same reap_count/deadline_overrun_count/
+# has_*_hint accessors the reaper and promote-plan.sh use), so the body lands in a
+# throwaway temp file first; both it and the strip come from common.sh, never
+# re-spelled here.
+CLEARED_TMP="$(mktemp "${TMPDIR:-/tmp}/garden-post-plan-body.XXXXXX")"
+trap 'rm -f "$CLEARED_TMP"' EXIT
+printf '%s\n' "$BODY" > "$CLEARED_TMP"
+cleared="$(cycle_marker_summary "$CLEARED_TMP")"
+if [ "$cleared" != "none" ]; then
+  BODY="$(strip_cycle_markers < "$CLEARED_TMP")"
+  log "cleared stale cycle markers from the parked body of '$base': $cleared"
+fi
+rm -f "$CLEARED_TMP"; trap - EXIT
+
 # Assemble the plan job: frontmatter (gate/blocked_on/priority/roadmap/provenance)
 # then body.
 compose() {
@@ -170,6 +210,9 @@ compose() {
   [ -n "$role" ] && printf 'role: %s\n' "$role"
   printf 'posted_by: %s\n' "$by"
   printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
+  # Only when the park actually cleared something, so an ordinary post's frontmatter
+  # is byte-for-byte what it always was.
+  [ "$cleared" != "none" ] && printf 'cleared: %s\n' "$cleared"
   printf -- '---\n\n'
   printf '%s\n' "$BODY"
 }

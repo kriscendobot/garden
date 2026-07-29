@@ -3539,6 +3539,50 @@ stamp_outage_cycle_hint() {
   return 1
 }
 
+# --- the cycle-marker family, cleared on every plan-side transition ----------
+#
+# The five markers above (reap-count, deadline-overrun, and the per-cycle reap-now /
+# productive-cycle / outage-cycle hints) are the reaper's and the gardener's running
+# account of ONE job's failure history. They are meaningful only while the job is
+# cycling through todo -> doin -> requeue; a job that reaches jobs/plan/ has stopped
+# cycling, and its counters are stale the moment it is parked.
+#
+# Carrying them into (or out of) plan/ is what made a poisoned job inescapable: at
+# GARDEN_REAP_OVERRUN_THRESHOLD=1 a body still carrying `<!-- garden-deadline-overrun:
+# N -->` re-poisons on its FIRST evaluation, so promotion is a no-op the job can never
+# escape (the 07-26 endo-sturdyref-agent-surface-build-gauntlet park). promote-plan.sh
+# closed the PROMOTION half; post-plan.sh closes the PARKING half, so a producer that
+# re-parks a live job body cannot smuggle a stale counter into plan/ to begin with.
+# Both use these helpers rather than re-spelling the family, so a marker-format change
+# — or a SIXTH marker — lands in one place and cannot half-apply.
+
+# CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
+# spelling of "the family", so no caller enumerates the members itself.
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$REAP_NOW_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+
+# strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
+# Idempotent by construction: a body with no markers passes through byte-identical, and
+# a second pass over a stripped body is a no-op. Everything else — including a body's
+# own `---` rules and any HTML comment that is not a cycle marker — is preserved.
+strip_cycle_markers() {
+  grep -Ev "$CYCLE_MARKER_RE" \
+    || true   # grep exits 1 on an empty result; an empty body is not an error here
+}
+
+# cycle_marker_summary <file> — a compact, greppable record of which cycle markers
+# <file> carries, for the provenance a strip leaves behind. Prints `none` when the
+# body carries no markers (the common non-poison case), else a comma-joined list like
+# `reaped=4,deadline-overrun=2,reap-now`.
+cycle_marker_summary() {
+  local f="$1" out="" n
+  n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
+  n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
+  if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
+  if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi
+  if has_outage_cycle_hint "$f";     then out="${out:+$out,}outage-cycle"; fi
+  printf '%s\n' "${out:-none}"
+}
+
 # --- per-job progress detection (the productive-cycle signal source) ---------
 #
 # A job's real work lands in ISOLATED per-job git worktrees under GARDEN_SCRATCH: the

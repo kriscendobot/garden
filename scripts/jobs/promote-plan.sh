@@ -35,6 +35,10 @@
 # unchanged, since a job that still fails deterministically re-accumulates and
 # re-poisons on its own.
 #
+# This is the PROMOTION half of the reset. post-plan.sh performs the same strip on the
+# PARKING side, so a producer that re-parks a live job body cannot smuggle a stale
+# counter into plan/ in the first place; the two share common.sh's strip helpers.
+#
 # Idempotent: if <base> is already past plan/ (in todo/doin/tada) the promotion is
 # a no-op success. If <base> is nowhere, it is an error.
 
@@ -66,27 +70,10 @@ strip_frontmatter() {
   ' "$1"
 }
 
-# Drop every reaper/gardener CYCLE MARKER from the promoted body (stdin → stdout),
-# so a promoted job starts its next run with a clean counter. The regexes are the
-# ones common.sh defines and reaper.sh matches on — reused, never re-spelled, so a
-# marker format change lands in one place.
-strip_cycle_markers() {
-  grep -Ev "$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$REAP_NOW_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE" \
-    || true   # grep exits 1 on an empty result; an empty body is not an error here
-}
-
-# cleared_summary <planfile> — a compact, greppable record of which cycle markers
-# this promotion is about to clear, for the provenance comment (`none` when the
-# parked body carried no markers, the common non-poison case).
-cleared_summary() {
-  local f="$1" out="" n
-  n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
-  n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
-  if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
-  if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi
-  if has_outage_cycle_hint "$f";     then out="${out:+$out,}outage-cycle"; fi
-  printf '%s\n' "${out:-none}"
-}
+# The cycle-marker strip (`strip_cycle_markers`) and the record of what it cleared
+# (`cycle_marker_summary`) live in common.sh beside the marker regexes themselves,
+# shared with post-plan.sh's parking-side strip — one spelling of "the family", so a
+# marker-format change (or a sixth marker) cannot half-land.
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
@@ -112,7 +99,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   role="$(plan_field "$src" role)"
   model="$(plan_field "$src" model)"
   htimeout="$(plan_field "$src" handler-timeout)"
-  cleared="$(cleared_summary "$src")"
+  cleared="$(cycle_marker_summary "$src")"
   mkdir -p "$DIR/$JOBS_TODO"
   {
     if [ -n "$role$model$htimeout" ]; then

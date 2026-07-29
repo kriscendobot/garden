@@ -123,13 +123,20 @@ roadmap: <milestone/item>                    # optional; what it serves, for roa
 posted_by: <role>
 posted_at: <iso8601>
 ---
-<the work body — becomes the todo job verbatim on promotion>
+<the work body — becomes the todo job on promotion, minus cycle markers>
 ```
 
 - **Park** (`post-plan.sh [--go-ahead|--deferred] [--priority L] [--roadmap I]
   [--by R] <base> [body]`): write `jobs/plan/<base>.md`. Default gate `--deferred`.
   Idempotent on the basename (no-op if `<base>` is anywhere in plan/todo/doin/tada),
-  retry-with-backoff like `post-job.sh`.
+  retry-with-backoff like `post-job.sh`. It **clears the reaper/gardener cycle
+  markers** from the body it parks — the same family the promote path clears (below)
+  — because a producer that RE-PARKS a body it read off the board would otherwise
+  smuggle a stale `garden-deadline-overrun` counter into `plan/`, where it re-poisons
+  the job on its first evaluation after promotion. What it cleared is recorded in a
+  `cleared:` frontmatter field, emitted **only** when something actually was, so an
+  ordinary post's frontmatter is unchanged. The strip is idempotent and drops only
+  whole cycle-marker lines (a body's own `---` rules and other HTML comments survive).
 - **Annotate** (`annotate-plan.sh [--note TEXT] [--key K] [--priority L]
   [--roadmap I] [--role R] [--by R] [--if-parked] <base> [body-file]`): append a
   note to a job **already parked** in `plan/`, and/or retune its selection
@@ -167,6 +174,10 @@ posted_at: <iso8601>
   set in the `garden-promoted-from-plan` provenance comment, so a job the reaper
   POISON-PARKED gets a genuinely fresh run instead of being re-poisoned on its first
   cycle off the stale counter. No manual "clear it before promoting" step is needed.
+  (This is the **promotion** half; `post-plan.sh` above is the **parking** half. Both
+  call the same `strip_cycle_markers` / `cycle_marker_summary` helpers in
+  `scripts/jobs/common.sh`, so the family has one spelling. Coverage:
+  `scripts/jobs/test/promote-plan-poison-reset-test.sh`.)
   Touches only its own basename, so it retries with backoff like a completion. Two
   promotion paths:
   1. **maintainer go-ahead** — the **liaison** (or the **proxy** within its
