@@ -88,3 +88,10 @@ is ambiguous.
 Step 6 states the shepherd-versus-fixer boundary explicitly with its edge cases
 addressed, the migration path has a documented home in the verdict vocabulary, and
 the report says which formulation was chosen and what it deliberately excludes.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:49:51Z
