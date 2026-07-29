@@ -1074,8 +1074,11 @@ because the specs are repository READMEs.
 | [ATProto data model](atproto--specs-data-model.md) | https://atproto.com/specs/data-model | content SHA-256 `519f0d90` | 6 | current (retrieved 2026-07-29, fetched `direct`; the primary DRISL-versus-DAG-CBOR statement and the blessed CID formats the repository and blob specs cite second-hand) |
 | [ATProto data synchronization](atproto--specs-sync.md) | https://atproto.com/specs/sync | content SHA-256 `89ca2839` | 8 | current (retrieved 2026-07-29, fetched `direct`; firehose, `#commit`/`#sync` events, relays, and inductive verification by operation inversion; the published page carries no status marker) |
 | [W3C DID Core 1.0](w3c--did-core-1-0.md) | https://www.w3.org/TR/did-1.0/ | content SHA-256 `5e443457` | 10 | current (W3C Recommendation 2022-07-19; DID document core properties, services and `alsoKnownAs`, representations, resolution and method requirements; DID Core 1.1 remains a 2026-03-05 Candidate Recommendation Snapshot) |
+| [did:plc Method Specification v0.3.0](did-method-plc--website-spec-v0-1-did-plc.md) | did-method-plc/did-method-plc `website/spec/v0.1/did-plc.md` | commit `c11a0182` (2026-01-06) | 1 | current (genesis-hash DID derivation, ordered rotation keys and 72-hour recovery, publicly auditable PLC directory with bounded trust) |
 | [UCAN 1.0 specification](ucan-wg--spec-readme.md) | ucan-wg/spec `README.md` | commit `9955aa1f` (2026-07-08) | 5 | current (README on `main` reads "Version 1.0.0" while the latest git tag is `v1.0-rc.1`; pin the commit, not the version string) |
 | [UCAN Delegation 1.0 specification](ucan-wg--delegation-readme.md) | ucan-wg/delegation `README.md` | commit `1cb32dbc` (2026-07-08) | 4 | current (no tags or releases on the repository; the commit is the only reliable pin) |
+| [UCAN Invocation 1.0 specification](ucan-wg--invocation-readme.md) | ucan-wg/invocation `README.md` | commit `0f4c1132` (2026-07-08) | 1 | current (README reads Version 1.0.0; no repository tags or releases, so the file commit is the pin) |
+| [UCAN Revocation specification](ucan-wg--revocation-readme.md) | ucan-wg/revocation `README.md` | commit `1235679b` (2025-07-14) | 1 | current (self-describes v1.0.0-rc.1; no repository tags or releases, so the file commit is the pin) |
 
 ## Notes
 
