@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T03:30:23Z_
+_As of 2026-07-29T03:31:21Z_
 
 ## Latest
 
@@ -4714,13 +4714,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3813)
+### tada (3814)
+- [`garden-quota-routing-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-rollout.md) — orchestration garden-quota-routing-rollout — complete
 - [`garden-quota-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-deploy.md) — garden-quota-routing-deploy — BLOCKED, nothing deployed
 - [`garden-quota-routing-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-race.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr671-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr671-shepherd
-- [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — What I did
-- … and 3808 more
+- … and 3809 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
