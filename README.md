@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T20:54:04Z_
+_As of 2026-07-29T20:55:13Z_
 
 ## Latest
 
@@ -3542,6 +3542,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet finbot-progress-20260729-195004-gauntlet HALTED: stage 'finbot-progress-20260729-195004-gauntlet-panel-1' (panel) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260729T205417Z-37d089` — from gardener:finbot-pr5-panel-20260729-195004, reply_to `finbot-pr5-panel-20260729-195004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T205417Z-37d089.md)
+
+> Panel gate remains blocked: [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5)'s description says pipelineToolRegistry no longer vends observe_opportunities, but the compatibility fix at 468b774 restores it. Please authorize a PR-description correction, or direct whether to revert that compatibility change. I will not alter PR metadata without authorization.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5404,7 +5408,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.6M _(+609.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Codex | 59.6M _(+609.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
