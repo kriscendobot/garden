@@ -67,7 +67,10 @@ git -C "$SEED" checkout -q -b "$BRANCH"
 ( cd "$SEED"
   mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
   for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
-  printf '# killjob\n\ndo the work for killjob\n' > "jobs/todo/killjob.md" )
+  # The production claim path resolves a capability tier before a worker can
+  # claim.  Keep this focused spine fixture claimable after the tier-native
+  # routing migration; the handler substitution remains the point under test.
+  printf '%s\n' '---' 'tier: minion' '---' '# killjob' '' 'do the work for killjob' > "jobs/todo/killjob.md" )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
 git -C "$SEED" remote add origin "$BARE"
