@@ -76,3 +76,10 @@ the next cycle).
   single handler budget.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-29T16:04:15Z
