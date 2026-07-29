@@ -1,8 +1,6 @@
-Ingested did:plc, UCAN Invocation, and UCAN Revocation as file-commit-pinned journal library sources (three sections), covering genesis-hash derivation, ordered rotation keys and 72-hour recovery, bounded PLC-directory trust, Invocation 1.0.0, and Revocation v1.0.0-rc.1. Recorded that Invocation and Revocation have no tags/releases.
+Ingested did:plc, UCAN Invocation, and UCAN Revocation into the journal library with file-specific commit pins; scoped integrity checks passed and indexes were regenerated.
 
-Updated source/topic indexes and regenerated projections. Scoped link checks passed for all three source clusters; topic-count check passed. Posted `scholar-ingest-ucan-invocation-delegation-deferred` for the remaining named UCAN and Delegation sections.
-
-Self-improvement: no structural lesson.
+Posted follow-on `scholar-ingest-ucan-invocation-delegation-deferred` for the remaining specified sections.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/scholar-ingest-did-plc-ucan-invocation-revocation.jsonl; not agent-authored — do not edit -->
 
 ## Cost
