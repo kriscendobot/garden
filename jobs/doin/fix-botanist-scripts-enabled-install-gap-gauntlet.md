@@ -20,6 +20,7 @@ cold PR owed a full review, not as work that already passed and regressed.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
