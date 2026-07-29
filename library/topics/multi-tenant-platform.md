@@ -31,6 +31,7 @@ Abstract: Serverless **multi-tenant platform** hosting — running many end-cust
 | [API examples: deploy a user Worker, and deploy with bindings and tags](../sections/cloudflare-w4p--platform-examples--deploy-and-manage.md) | multi-tenant-platform | REST + TypeScript-SDK recipes to upload a user Worker (multipart, required for ES modules), and to attach per-Worker bindings and tags in the same upload. |
 | [API examples: deploy a user Worker with static assets (three-step upload)](../sections/cloudflare-w4p--platform-examples--static-assets.md) | multi-tenant-platform | The worked code for the three-step static-asset upload: manifest upload-session, base64 bucket upload under the JWT, then deploy with metadata.assets.jwt and an assets binding. |
 | [API examples: list Workers in a namespace, delete by tag, and delete a single Worker](../sections/cloudflare-w4p--platform-examples--list-and-delete.md) | multi-tenant-platform | Fleet management: list a namespace's Workers, bulk-delete by tag (customer offboarding), and delete one Worker by name, via REST and the TypeScript SDK. |
+| [atproto--specs-blob--usage-and-implementation-guidelines](../sections/atproto--specs-blob--usage-and-implementation-guidelines.md) | content-addressed-storage, multi-tenant-platform | Prefer account-wide quotas over per-blob size limits for interoperability, and allow hours of grace before garbage-collecting an un-referenced upload. |
 
 ## See also
 
