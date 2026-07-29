@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T03:35:43Z_
+_As of 2026-07-29T03:36:49Z_
 
 ## Latest
 
@@ -4656,15 +4656,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $886.78 _(notional, rate-card)_ | no quota set |
-| Codex | 171.2M _(+466.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 54.0M | $886.01 _(notional, rate-card)_ | no quota set |
+| Codex | 171.1M _(+466.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (51)
-- [`arc-status-daily-20260729-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260729-033502.md) — Daily status + change summary for the standing review arcs
+### doin (50)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4716,13 +4715,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3814)
+### tada (3815)
+- [`arc-status-daily-20260729-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260729-033502.md) — Cost
 - [`garden-quota-routing-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-rollout.md) — orchestration garden-quota-routing-rollout — complete
 - [`garden-quota-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-deploy.md) — garden-quota-routing-deploy — BLOCKED, nothing deployed
 - [`garden-quota-routing-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-race.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr671-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr671-shepherd
-- … and 3809 more
+- … and 3810 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
