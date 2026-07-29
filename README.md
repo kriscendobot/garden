@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T22:04:01Z_
+_As of 2026-07-29T22:04:42Z_
 
 ## Latest
 
@@ -3550,6 +3550,10 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 
 > Fleet deploy is blocked at the sysop issuer gate: this claimed job runs on follower endolin-garden-ece02cb4, while config/sysop-issuers is unset and therefore permits only leader endolin-garden2-5bcdff64 to originate deploy ops. I verified aed30a441971e71451d871b1a8615b8f5b50c642 is the landed tier-native revision and its two routing test suites pass. I sent the leader-facing liaison the authorized host rollout request (authorized_by: kriskowal) but it remains unread; no host operation or sysop ack has appeared. Please have the leader liaison originate deploy ops for endolin-garden2-5bcdff64, endolin-garden-ece02cb4, ps23, and ps23-garden-f65473ae, preserving drains, then reply to this job with acknowledgements and health evidence.
 
+- `20260729T220408Z-217b57` — from orchestrator:garden-tier-native-routing-rollout-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T220408Z-217b57.md)
+
+> Orchestration garden-tier-native-routing-rollout HALTED: child garden-tier-native-routing-deploy stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 1/3 done before halt; swept: garden-tier-native-routing-migrate
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5454,7 +5458,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.8M _(+613.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Codex | 59.8M _(+612.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
@@ -5477,13 +5481,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tier-native-routing-deploy.md) — Deploy tier-native routing fleet-wide
 
-### tada (3915)
+### tada (3916)
+- [`garden-tier-native-routing-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing-rollout.md) — orchestration garden-tier-native-routing-rollout — HALTED
 - [`garden-pr-review-sequence-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-pr-review-sequence-refresh.md) — Cost
 - [`scholar-library-cycle-20260729-215002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-215002.md) — Completed scholar library cycle: no actionable ingestion or writeback work. I...
 - [`garden-tier-native-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing.md) — Cost
 - [`garden-mentor-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-mentor-provider-fallback.md) — Cost
-- [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260729-162012.md) — Cost
-- … and 3910 more
+- … and 3911 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -5678,6 +5682,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
+- [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/exo-git-follow-root-advancement-design.md) — awaiting `garden-tier-native-routing-rollout` · Design a followable exo-git root advancement stream
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
