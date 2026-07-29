@@ -14,3 +14,10 @@ only when the panel terminates cleanly. This handoff was posted by the build
 completion edge, not inferred by a watcher.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:57:44Z
