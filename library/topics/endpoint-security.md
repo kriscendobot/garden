@@ -9,6 +9,10 @@ Apple's **EndpointSecurity** (ES) framework: the macOS system-extension API for 
 | [client creation and signature](../sections/web--apple-es-new-descendants-client--client-creation-and-signature.md) | endpoint-security, process-monitoring | The es_new_descendants_client signature, parameters, and return value; a descendant-scoped ES client constructor (macOS 27+). |
 | [descendant-monitoring semantics](../sections/web--apple-es-new-descendants-client--descendant-monitoring-semantics.md) | endpoint-security, process-monitoring | Notify events for the caller, auth+notify for the recursive descendant tree, all other processes invisible. |
 | [muting and client requirements](../sections/web--apple-es-new-descendants-client--muting-and-client-requirements.md) | endpoint-security, process-monitoring | Process muting unavailable (ES_RETURN_ERROR), path muting works; client entitlement but no root and no TCC. |
+| [atproto--specs-blob--security-considerations](../sections/atproto--specs-blob--security-considerations.md) | A Content Security Policy on getBlob is 'effectively mandatory', direct browser serving is 'effectively not supported', and PDS instances should not parse, resize, or transcode media. |
+| [atproto--specs-data-model--security-and-future-changes](../sections/atproto--specs-data-model--security-and-future-changes.md) | Untrusted CBOR parsing as a resource-exhaustion surface, and three open ends: floats may return, the legacy blob format may be removed, more hash types are likely. |
+| [atproto--specs-sync--message-validation-checklist](../sections/atproto--specs-sync--message-validation-checklist.md) | What a firehose consumer must check per message, with responsibility placed on the consumer; relays validate envelopes, not lexicons. |
+| [atproto--specs-sync--guidelines-security-and-future-work](../sections/atproto--specs-sync--guidelines-security-and-future-work.md) | In-order per account and concurrent across accounts, non-portable cursors, and the SSRF and traffic-amplification surface every identity-resolving firehose consumer inherits. |
 
 ## See also
 
