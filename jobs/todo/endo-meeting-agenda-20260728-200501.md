@@ -75,11 +75,4 @@ the next cycle).
 - Bound every `gh` call; do not enumerate unboundedly. Size the whole run to a
   single handler budget.
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 6
-  worker_kind: gardener
-  claimed_at: 2026-07-29T00:13:09Z
+<!-- garden-reaped: 2 -->
