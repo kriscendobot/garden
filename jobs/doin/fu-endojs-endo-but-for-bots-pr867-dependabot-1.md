@@ -1,1 +1,8 @@
 In the garden's own repo (kriscendobot/garden, `main2`), `scripts/jobs/ensure-project-worktree.sh` runs the dependency install with native build scripts ENABLED (its log says "native builds included") before a botanist job ever gets control, which silently defeats the scripts-disabled install discipline that `roles/botanist/AGENT.md` states three times as its primary supply-chain control — so a botanist reporting "installed with scripts disabled" at step 3 is reporting something untrue. Fix the spine so the botanist path (dependabot jobs) gets a scripts-disabled install, keeping current behavior for other roles unless a narrower change is clearly safer; document the resulting contract in the botanist role so the report matches reality.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T01:43:12Z
