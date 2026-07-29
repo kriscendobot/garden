@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T21:53:52Z_
+_As of 2026-07-29T21:56:00Z_
 
 ## Latest
 
@@ -5470,8 +5470,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (1)
+### doin (2)
 - [`garden-pr-review-sequence-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pr-review-sequence-refresh.md) — Refresh the garden PR review sequence
+- [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tier-native-routing-deploy.md) — Deploy tier-native routing fleet-wide
 
 ### tada (3914)
 - [`scholar-library-cycle-20260729-215002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-215002.md) — Completed scholar library cycle: no actionable ingestion or writeback work. I...
