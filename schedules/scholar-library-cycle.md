@@ -14,7 +14,7 @@ entry, exit.
 
 ## Why hourly
 
-The scholar's cadence wants 1800-3600s in idle mode and <=1800s in active mode.
+The scholar's cadence wants 1800-3600s in idle mode and ≤1800s in active mode.
 The closest supported recurrence is hourly. When the inbox is empty the cycle
 drains quickly and exits; when there is backlog the cycle processes its budget
 and defers the rest to the next fire.
