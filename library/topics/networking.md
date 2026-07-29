@@ -96,6 +96,8 @@
 | [atproto--specs-at-uri-scheme--generic-uri-compliance](../sections/atproto--specs-at-uri-scheme--generic-uri-compliance.md) | atproto specs/at-uri-scheme | Aligns with RFC-3986 but is not fully compliant: un-encoded colons in a DID authority break both RFC-3986 and the WHATWG URL Standard, so generic parsers split into two camps. |
 | [atproto--specs-sync--event-stream-relays-and-self-certification](../sections/atproto--specs-sync--event-stream-relays-and-self-certification.md) | atproto specs/sync | The subscribeRepos firehose and relays, and the boundary of self-certification: repository data verifies offline, identity and account data does not, and wholesale filtering of a repository is undetectable. |
 | [atproto--specs-sync--guidelines-security-and-future-work](../sections/atproto--specs-sync--guidelines-security-and-future-work.md) | atproto specs/sync | In-order per account and concurrent across accounts, non-portable cursors, and the SSRF and traffic-amplification surface every identity-resolving firehose consumer inherits. |
+| [w3c--did-core-1-0--services-and-also-known-as](../sections/w3c--did-core-1-0--services-and-also-known-as.md) | W3C DID Core 1.0 | A serviceEndpoint enables interaction but is neither a reachability nor truth claim. |
+| [w3c--did-core-1-0--resolution-dereferencing-and-metadata](../sections/w3c--did-core-1-0--resolution-dereferencing-and-metadata.md) | W3C DID Core 1.0 | Resolving a document and dereferencing a DID URL are distinct operations with typed metadata. |
 
 ## See also
 
