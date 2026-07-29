@@ -172,9 +172,4 @@ reorders to make that claim true. Point the reference there. (archivist, stylist
 - Re-run `local-verify` before pushing; CI on this PR was green at `55330da2` and greenness was
   demonstrably not evidence here (the 10-seat round's namespace-order regression shipped green).
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  claimed_at: 2026-07-29T01:48:50Z
+<!-- garden-reaped: 1 -->
