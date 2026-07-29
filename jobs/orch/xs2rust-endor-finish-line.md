@@ -1,4 +1,5 @@
 ---
+child-xs2rust-endor-s2-test-rust-green-host: endolin-garden-ece02cb4
 order: serial
 children: xs2rust-endor-s1-daemon-integration xs2rust-endor-s2-test-rust-green xs2rust-endor-s3-test262-parity
 on-child-failure: halt
