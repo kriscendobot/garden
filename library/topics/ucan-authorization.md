@@ -49,6 +49,8 @@
 | [ucan-wg--delegation-readme--subject-resource-and-powerline](../sections/ucan-wg--delegation-readme--subject-resource-and-powerline.md) | ucan-wg/delegation README.md | 'By default, the Resource of a capability is the Subject. This makes the delegation chain self-certifying'; Powerline (sub: null) forward-delegates all future authority, a Powerbox adapted to static tokens. |
 | [ucan-wg--delegation-readme--command-and-policy](../sections/ucan-wg--delegation-readme--command-and-policy.md) | ucan-wg/delegation README.md | The two in-band attenuation axes: cmd as a nested path, and pol as a small jq-selector predicate language over the eventual invocation's args. |
 | [ucan-wg--delegation-readme--token-validation](../sections/ucan-wg--delegation-readme--token-validation.md) | ucan-wg/delegation README.md | The three offline-checkable criteria: intersecting time bounds, principal alignment (every proof's aud matches the next iss, chaining back to the Subject, fragments excluded), and signature validation. |
+| [UCAN Invocation envelope and authorized tasks](../sections/ucan-wg--invocation-readme--invocation-envelope-and-authorized-tasks.md) | ucan-authorization, capability-security | Invocation 1.0.0 binds task execution to a signed envelope with delegation proofs, nonce, and expiry. |
+| [UCAN monotone revocation and validation](../sections/ucan-wg--revocation-readme--monotone-revocation-and-validation.md) | ucan-authorization, capability-security | Revocation rc.1 makes proof-CID invalidation immutable and cacheable across eventually consistent delivery. |
 
 ## See also
 
