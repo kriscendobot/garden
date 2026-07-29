@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T22:00:41Z_
+_As of 2026-07-29T22:01:25Z_
 
 ## Latest
 
@@ -5474,17 +5474,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (2)
-- [`garden-pr-review-sequence-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pr-review-sequence-refresh.md) — Refresh the garden PR review sequence
+### doin (1)
 - [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tier-native-routing-deploy.md) — Deploy tier-native routing fleet-wide
 
-### tada (3914)
+### tada (3915)
+- [`garden-pr-review-sequence-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-pr-review-sequence-refresh.md) — Cost
 - [`scholar-library-cycle-20260729-215002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-215002.md) — Completed scholar library cycle: no actionable ingestion or writeback work. I...
 - [`garden-tier-native-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing.md) — Cost
 - [`garden-mentor-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-mentor-provider-fallback.md) — Cost
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260729-162012.md) — Cost
-- [`scholar-library-cycle-20260729-205001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-205001.md) — Completed scholar library cycle with no new actionable ingestion or writeback...
-- … and 3909 more
+- … and 3910 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
