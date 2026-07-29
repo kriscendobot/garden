@@ -14,7 +14,7 @@ entry, exit.
 
 ## Why hourly
 
-The scholar's cadence wants 1800-3600s in idle mode and ≤1800s in active mode.
+The scholar's cadence wants 1800-3600s in idle mode and <=1800s in active mode.
 The closest supported recurrence is hourly. When the inbox is empty the cycle
 drains quickly and exits; when there is backlog the cycle processes its budget
 and defers the rest to the next fire.
@@ -26,10 +26,3 @@ half-hour-offset schedule.
 
 The schedule has no end date. It fires every hour until the maintainer removes
 it.
-
----
-Translated from v1 `schedule/garden/20260514T010000Z--72f1f4.md`
-(recurrence `hourly-at-00-UTC`, dispatch `scholar` / `library-cycle`).
-The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
-specs keyed by cadence, not pre-computed per-fire event files. The v1 original
-is retained on `journal-v1` and `origin/journal`.
