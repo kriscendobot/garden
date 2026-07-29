@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6727 (530 parent indexes + 6197 children).
+Total section files: 6737 (530 parent indexes + 6207 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9019,6 +9019,19 @@ Total section files: 6727 (530 parent indexes + 6197 children).
 ### vite--config-ssr-options
 
 - [vite--config-ssr-options--ssr-conditions-and-externalization](vite--config-ssr-options--ssr-conditions-and-externalization.md)
+
+### w3c--did-core-1-0
+
+- [w3c--did-core-1-0--architectural-considerations](w3c--did-core-1-0--architectural-considerations.md)
+- [w3c--did-core-1-0--data-model-and-extensibility](w3c--did-core-1-0--data-model-and-extensibility.md)
+- [w3c--did-core-1-0--did-and-did-url-syntax](w3c--did-core-1-0--did-and-did-url-syntax.md)
+- [w3c--did-core-1-0--identifiers-verification-methods-and-relationships](w3c--did-core-1-0--identifiers-verification-methods-and-relationships.md)
+- [w3c--did-core-1-0--introduction-and-design-goals](w3c--did-core-1-0--introduction-and-design-goals.md)
+- [w3c--did-core-1-0--method-operations-security-and-privacy](w3c--did-core-1-0--method-operations-security-and-privacy.md)
+- [w3c--did-core-1-0--representations-and-media-types](w3c--did-core-1-0--representations-and-media-types.md)
+- [w3c--did-core-1-0--resolution-dereferencing-and-metadata](w3c--did-core-1-0--resolution-dereferencing-and-metadata.md)
+- [w3c--did-core-1-0--services-and-also-known-as](w3c--did-core-1-0--services-and-also-known-as.md)
+- [w3c--did-core-1-0--terminology-and-conformance](w3c--did-core-1-0--terminology-and-conformance.md)
 
 ### web--acme-challenge-types
 
