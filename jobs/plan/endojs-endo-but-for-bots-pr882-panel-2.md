@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-29T16:43:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-29T16:43:04Z
+---
+
+---
 role: gardener
 handler-timeout: 10800
 ---
@@ -14,13 +28,3 @@ Invoke:
 `GARDEN_PANEL_SINGLE_ROUND=1 GARDEN_PANEL_CONCURRENCY=8 /home/kris/garden2/scripts/jobs/gardening/panel.sh <worktree> 882 3b2129924644c67afb80fd2d41b6822498f74168`
 
 Post the aggregate as the formal PR review prescribed by its disposition, record the stage result, and stop.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  claimed_at: 2026-07-29T16:40:30Z
