@@ -42,4 +42,6 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - import attributes, import assertions, `with { type: "json" }`, `assert { type: "json" }`, module type attribute, JSON modules, module cache key, attributes versus phases -> module-harmony-intersection-surface
 - asset references, `asset Foo from "foo"`, AssetReference, asset modules, require.resolve, require.resolveWeak, per-module asset authority, module identity without loading -> module-harmony-intersection-surface
 - ShadowRealm, incubator realm, callable boundary, wrapped function exotic object, identity discontinuity, importValue, distinct realm isolation, stack censoring -> module-harmony-intersection-surface
+- errors crossing the callable boundary, wrapped function threw, ShadowRealm error propagation, error replaced by TypeError, `[[ErrorData]]` slot, error message not nested, uncaught exception Object -> module-harmony-intersection-surface
+- Content-Type versus file extension, mimetype mismatch, misconfigured Content-Type header, MIME confusion, Cloudflare Content-Type distribution, extension is not the type, `.js` served as text/html, `.json` served as JavaScript -> module-harmony-intersection-surface
 - verifyPaymentProof, payment proof verification, resource ledger in gateway, PaymentProcessor -> monetization-gateway
