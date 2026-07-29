@@ -53,7 +53,7 @@ The §contrast with cycle 96's `console.js`: that module is *purely-receiving* �
 
 ### §The declassifiers WeakMap and the quote operator
 
-The §declassifiers WeakMap (lines 65-69):
+The §declassifiers WeakMap (lines 70-75):
 
 ```js
 /**
@@ -65,7 +65,7 @@ The §declassifiers WeakMap (lines 65-69):
 const declassifiers = new WeakMap();
 ```
 
-The §quote operator (lines 70-80):
+The §quote operator (lines 78-85):
 
 ```js
 const quote = (value, spaces = undefined) => {
@@ -90,7 +90,7 @@ The §spaces parameter is JSON-pretty-print width: `quote(obj, 2)` produces 2-sp
 
 ### §The bare operator and the canBeBare regex
 
-The §canBeBare regex (lines 83-84):
+The §canBeBare regex (line 87):
 
 ```js
 const canBeBare = freeze(/^[\w:-]( ?[\w:-])*$/);
@@ -118,7 +118,7 @@ Examples that *don't* match:
 - `foo*bar` (asterisk) — does not match.
 - `${interpolation}` (dollar-brace) — does not match.
 
-The §bare operator (lines 85-92):
+The §bare operator (lines 92-102):
 
 ```js
 const bare = (str, spaces = undefined) => {
@@ -143,7 +143,7 @@ The §typeof check (`typeof str !== 'string'`) is the input-validation gate: non
 
 ### §The hiddenDetailsMap and DetailsTokenProto
 
-The §hiddenDetailsMap WeakMap (line 95):
+The §hiddenDetailsMap WeakMap (line 122):
 
 ```js
 const hiddenDetailsMap = new WeakMap();
@@ -151,7 +151,7 @@ const hiddenDetailsMap = new WeakMap();
 
 The §rationale: a `DetailsToken` instance is structurally *just a frozen marker* — it carries no own properties that could leak. The actual literal-parts-and-substitutions of the template-tag invocation live in this hidden map, keyed by the token. Reading the token directly reveals nothing; the rendering logic looks up the hidden parts via this map.
 
-The §DetailsTokenProto (lines 111-127):
+The §DetailsTokenProto (lines 158-167):
 
 ```js
 const DetailsTokenProto = freeze({
@@ -171,7 +171,7 @@ The §two-branch toString:
 - **Token has hidden details** → return `getMessageString(hiddenDetails)` (the redacted rendering).
 - **Token has no hidden details** → return `[Not a DetailsToken]` as a fallback. This branch is reached if the prototype has been transplanted onto a non-token object (defensive programming).
 
-The §getMessageString function (lines 99-109; not shown here in full but called by the prototype's `toString`) walks the literal parts and substitutions; for each substitution it checks the `declassifiers` WeakMap to see if the substitution was intentionally exposed, and if so emits the underlying value; otherwise it emits a type-tag.
+The §getMessageString function (lines 131-146; not shown here in full but called by the prototype's `toString`) walks the literal parts and substitutions; for each substitution it checks the `declassifiers` WeakMap to see if the substitution was intentionally exposed, and if so emits the underlying value; otherwise it emits a type-tag.
 
 The §type-tag rendering examples:
 
@@ -181,7 +181,7 @@ The §type-tag rendering examples:
 
 ### §The redactedDetails template tag
 
-The §redactedDetails function (lines 144-178; the canonical `details` / `X` tag):
+The §redactedDetails function (lines 182-189; the canonical `details` / `X` tag):
 
 ```js
 const redactedDetails = (template, ...args) => {
@@ -225,7 +225,7 @@ The §message becomes `unexpected (an Object) when expecting (a string)` — *re
 
 ### §The unredactedDetails variant for `errorTaming: 'unsafe'`
 
-The §unredactedDetails function (lines 181-202):
+The §unredactedDetails function (lines 205-211):
 
 ```js
 const unredactedDetails = (template, ...args) => {
