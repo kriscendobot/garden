@@ -370,6 +370,15 @@ non-qualifying comments):
 - **One retro per review, ever.** The review-id fold and the `:retro` identity
   mean a review with N inline comments still yields one retro, and a re-poll
   or a peer producer collapses onto it.
+- **A later comment onto an already-parked retro ANNOTATES it.** The collapse
+  above is by basename, and `post-plan.sh` is idempotent-only, so a second
+  substantive comment folding onto the same primary base re-posted a retro that
+  already sat in `plan/` — a silent no-op that dropped the new comment from the
+  prosecutor's brief. The watcher now detects the parked retro and appends via
+  `annotate-plan.sh --key <retro-identity>` instead (the note carries verb,
+  surface, author, URL and identity, never an excerpt of the untrusted body). Still
+  best-effort: a failed annotation is the same loud WARN as a failed post and never
+  freezes the cursor. See `skills/job-board/SKILL.md` § Annotate.
 - **Deferred, not competing.** Retros are posted with `post-plan.sh` as
   `gate: deferred`, `priority: low` plan jobs. The foreman batch-promotes
   deferred work only when the fleet is under its active-job target, so the

@@ -166,6 +166,22 @@ posted_at: <iso8601>
     **3** ("no longer parked") rather than silently writing into a claimed job;
     `--if-parked` downgrades that to a quiet exit 0 for a producer that races the
     foreman. Coverage: `scripts/jobs/test/annotate-plan-test.sh`.
+  - **The comment-watcher is its first automated caller.** A watcher-derived base
+    is not comment-unique (the mechanical verbs key on `(PR,verb)`, a review on its
+    review id), so a follow-up comment can land on a base that is currently parked.
+    Both producer primitives no-op there by basename, which used to lose the
+    comment entirely — the primary path even misread the deliberate no-op as a lost
+    push and froze the cursor below that comment forever. `comment-watcher.sh` now
+    annotates instead, on both the primary and the retrospective (second-loop)
+    paths, `--key`ed on the **directive identity**
+    (`<repo>#<pr>:comment:<id>`, or `…:review:<id>[:retro]`) so a re-poll of the
+    same comment is a deduped no-op success while a genuinely new comment appends
+    once. The note carries only deterministic metadata (verb, surface, author, URL,
+    identity) and never an excerpt of the untrusted body. `mention-watcher.sh` has
+    the same branch on the same identities (the two watchers already share the
+    identity scheme so a doubly-observed comment collapses onto one job). Coverage:
+    the `PK`/`PKR` cases in `scripts/jobs/test/comment-watcher-test.sh` and `PK` in
+    `scripts/jobs/test/mention-watcher-test.sh`.
 - **Promote** (`promote-plan.sh <base>`): move `plan/<base>` → `todo/<base>`,
   stripping the plan frontmatter so the todo job is the clean work body; then a
   gardener claims it normally. It also **clears the reaper/gardener cycle markers**

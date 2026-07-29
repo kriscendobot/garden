@@ -15,6 +15,8 @@
 #      reaches the post handler; the cursor still slides past it
 #   D. re-polling an already-actioned mention → idempotent (no dup job/reactji)
 #   E. a post that did NOT land on origin/journal2 → cursor does NOT advance
+#   PK. a mention whose base is PARKED in plan/ annotates the parked job (keyed on
+#       the directive identity) instead of freezing the cursor on a phantom lost push
 #
 # Usage: mention-watcher-test.sh
 set -euo pipefail
@@ -260,6 +262,47 @@ MW_INDETERMINATE=maybecontributor run_watcher "$TR/state-h" "$BARE_H" "$FIX_H" "
 grep -q -- '-62-' "$PLOG_H" && bad "the indeterminate row (#62) reached the poster (should be held for retry)" || ok "the indeterminate row was NOT posted (held for retry)"
 grep -qx "mention-endojs-endo-but-for-bots-63-rebase" "$PLOG_H" && ok "the LATER trusted mention was still posted despite the earlier indeterminate row" || bad "later mention abandoned after an indeterminate row ($(cat "$PLOG_H"))"
 [ -z "$(cursor_seen "$TR/state-h" "$BARE_H")" ] && ok "cursor frozen at the indeterminate floor" || bad "cursor advanced past an indeterminate row ($(cursor_seen "$TR/state-h" "$BARE_H"))"
+
+# ============================================================================
+# PK — a mention whose (repo,number,verb) base is PARKED in plan/ must ANNOTATE the
+# parked job, not read post-job.sh's deliberate basename no-op as a lost push. The
+# old behaviour froze the cursor below that mention forever while the follow-up it
+# carried was recorded nowhere. Same fix, same primitive, same identity key as the
+# comment-watcher's PK case (designs/job-board.md).
+hr; echo "PK — a mention onto a PARKED base annotates it (no phantom lost push)"; hr
+BARE_PK="$TR/pk.git"; seed_bare "$BARE_PK"
+PK_BASE="mention-endojs-endo-but-for-bots-700-rebase"
+pkv="$TR/pk-seed"; git clone -q --single-branch --branch "$BRANCH" "$BARE_PK" "$pkv"
+mkdir -p "$pkv/jobs/plan"
+printf -- '---\nrole: weaver\nmodel: opus\n---\n\n# rebase #700 (parked)\n' > "$pkv/jobs/plan/$PK_BASE.md"
+git -C "$pkv" add -A; git -C "$pkv" "${git_id[@]}" commit -q -m "park a rebase job in plan/"
+git -C "$pkv" push -q origin "HEAD:$BRANCH"; rm -rf "$pkv"
+plan_body() {  # plan_body <bare> <base>  -> prints the parked job body
+  local v f; v="$(mktemp -d "$TR/pb.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  f="$v/jobs/plan/$2.md"; [ -f "$f" ] && cat "$f"; rm -rf "$v"
+}
+FIX_PK="$TR/fix-pk.tsv"; RLOG_PK="$TR/react-pk.log"; : > "$RLOG_PK"
+mkline 2026-07-29T09:00:00Z issue-comment 4990000700 endojs/endo-but-for-bots 700 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/700#issuecomment-4990000700 \
+  '@kriscendobot please rebase on #789' > "$FIX_PK"
+run_watcher "$TR/state-pk" "$BARE_PK" "$FIX_PK" "$RLOG_PK" ""
+[ "$(board_count "$BARE_PK")" -eq 0 ] && ok "no live job forked beside the parked one" || bad "a live job was minted (todo=$(board_count "$BARE_PK"))"
+PK_BODY="$(plan_body "$BARE_PK" "$PK_BASE")"
+printf '%s' "$PK_BODY" | grep -qF 'garden-annotation: key=endojs/endo-but-for-bots#700:comment:4990000700 ' \
+  && ok "the parked job carries the annotation keyed on the directive identity" || bad "no identity-keyed annotation on the parked job"
+printf '%s' "$PK_BODY" | grep -qF 'pull/700#issuecomment-4990000700' \
+  && ok "the annotation names the source mention" || bad "annotation does not cite the mention"
+printf '%s' "$PK_BODY" | grep -qF 'please rebase on #789' \
+  && bad "the annotation pasted the UNTRUSTED mention body into the plan file" || ok "no untrusted mention text reproduced in the plan file"
+printf '%s' "$PK_BODY" | grep -q '^model: opus$' && ok "the parked job's execution keys survived the annotation" || bad "annotation clobbered the plan frontmatter"
+[ "$(cursor_seen "$TR/state-pk" "$BARE_PK")" = 2026-07-29T09:00:00Z ] && ok "cursor advanced past the annotated mention (no head-of-line freeze)" || bad "cursor frozen ($(cursor_seen "$TR/state-pk" "$BARE_PK"))"
+
+hr; echo "PK2 — a re-poll appends nothing (the identity key dedups)"; hr
+run_watcher "$TR/state-pk" "$BARE_PK" "$FIX_PK" "$RLOG_PK" ""
+[ "$(printf '%s\n' "$(plan_body "$BARE_PK" "$PK_BASE")" | grep -c 'garden-annotation: key=')" -eq 1 ] \
+  && ok "still exactly one annotation after a re-poll" || bad "re-poll double-appended"
+[ "$(cursor_seen "$TR/state-pk" "$BARE_PK")" = 2026-07-29T09:00:00Z ] && ok "cursor stable on idempotent re-poll" || bad "cursor moved on re-poll"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

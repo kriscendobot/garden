@@ -206,6 +206,35 @@ gate fields (`gate:`, `blocked_on:`, `orchestrated_by:`) are **not** settable
 through it: re-gating a parked job is a different act, owned by `promote-plan.sh`,
 `block-job.sh`, and `post-orchestration.sh`.
 
+The **comment-watcher** is the annotator's first automated caller, and it shows why
+the primitive was missing rather than merely convenient. A watcher-derived base is
+not comment-unique — the mechanical verbs key on `(PR,verb)` and a review keys on
+its review id — so several distinct comments legitimately fold onto one base. When
+that base is **parked**, both producer primitives no-op on the basename, correctly:
+re-minting into `todo/` would run a job the proxy parked as blocked and let
+`promote-plan.sh` later clobber it with the stale plan body. But the follow-up
+comment then had nowhere to rest. On the primary path the watcher misread the
+deliberate no-op as a lost push and froze its cursor below that comment *forever*,
+re-polling a directive that could never post and blocking nothing behind it only
+because a later fix stopped it from `break`ing the batch; on the retrospective path
+the new comment simply vanished from the prosecutor's brief. Both now annotate,
+`--key`ed on the **directive identity** the watcher already computes for
+cross-producer dedup (`<repo>#<pr>:comment:<id>`, or `…:review:<id>[:retro]`), which
+makes the append idempotent for free: a re-poll of the same comment is a deduped
+no-op success, a genuinely new comment appends once. An annotation counts as a
+recorded job for the ack-implies-a-posted-job invariant, so the comment gets its 👀
+and a reply naming the parked base, and the cursor slides. Exit **3** (the job left
+`plan/` mid-write) is deliberately *not* swallowed with `--if-parked` there: the
+watcher freezes the cursor and re-polls, so the next tick takes the ordinary
+live-job dedup path instead of dropping the annotation on the floor.
+
+`mention-watcher.sh` carries the identical branch for the identical reason: its
+mechanical-verb base is keyed on `(repo,number,verb)`, it computes the *same*
+`<repo>#<n>:comment:<id>` identity (that is how the two watchers already collapse
+onto one job when both see a comment), and it had the same phantom-lost-push freeze.
+The two are the whole of the comment-driven triage path, so the wedge is closed on
+both sides rather than left to reappear from the other producer.
+
 **Promotion** (`promote-plan.sh <base>`) moves `plan/<base>` → `todo/<base>`,
 stripping the plan frontmatter so the todo body is the clean work spec the gardener
 acts on (a one-line `garden-promoted-from-plan` marker records provenance). It also

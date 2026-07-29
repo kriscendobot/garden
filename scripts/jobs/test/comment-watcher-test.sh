@@ -11,6 +11,10 @@
 #   B. a non-directive comment → no job, no reactji, cursor still slides past it
 #   C. re-polling an already-actioned comment → idempotent (no dup job/reactji)
 #   D. a post that did NOT land on origin/journal2 → NO reactji, cursor does NOT advance
+#   PK. a directive whose base is PARKED in plan/ annotates the parked job (keyed on
+#       the directive identity) instead of freezing the cursor on a phantom lost push
+#   PKR. a follow-up review whose retro is already parked annotates it rather than
+#       silently no-opping the re-post through post-plan.sh
 #   AK. a directive whose post keeps FAILING is never acked, no matter how many
 #       ticks re-poll it (ack-implies-posted; the endo-but-for-bots #600 five-acks-
 #       no-job regression), and the FIRST tick whose post lands acks exactly once
@@ -2113,6 +2117,111 @@ run_watcher "$TR/state-tada" "$BARE_TADA" "$FIX_TADA" "$RLOG_TADA"
 ndup=$(git clone -q --single-branch --branch "$BRANCH" "$BARE_TADA" "$TR/tada-dup" 2>/dev/null && { cat <(ls -1 "$TR/tada-dup/jobs/todo" 2>/dev/null) <(ls -1 "$TR/tada-dup/jobs/doin" 2>/dev/null) | grep -c "^$SLUG-pr671-shepherd.md$"; } || true); rm -rf "$TR/tada-dup"
 [ "${ndup:-0}" -le 1 ] && ok "no duplicate live job on re-poll (still exactly one)" || bad "re-poll duplicated the job (live copies=$ndup)"
 [ "$(cursor_seen "$TR/state-tada" "$BARE_TADA")" = 2026-07-15T05:40:00Z ] && ok "cursor stable on idempotent re-poll" || bad "cursor moved on re-poll"
+
+# ============================================================================
+hr; echo "PK — a directive whose base is PARKED in plan/ ANNOTATES it (no lost push, no lost comment)"; hr
+# A derived base is not comment-unique (the mechanical verbs key on (PR,verb)), so a
+# follow-up comment can land on a base that is currently PARKED in plan/ — the proxy
+# parked it as blocked, or a producer deferred it. post-job.sh is idempotent on the
+# basename and correctly no-ops there, and the watcher used to misread that deliberate
+# no-op as a lost push: cursor frozen below the comment forever, the follow-up never
+# recorded anywhere. It must instead annotate the parked job (annotate-plan.sh), ack,
+# and slide. (rebase is a branch-op verb → trust-independent, like case A.)
+BARE_PK="$TR/pk.git"; seed_bare "$BARE_PK"
+PK_BASE="$SLUG-pr700-rebase"
+pkv="$TR/pk-seed"; git clone -q --single-branch --branch "$BRANCH" "$BARE_PK" "$pkv"
+mkdir -p "$pkv/jobs/plan"
+printf -- '---\nrole: weaver\npriority: normal\nmodel: opus\n---\n\n# rebase #700 (parked)\n' \
+  > "$pkv/jobs/plan/$PK_BASE.md"
+git -C "$pkv" add -A; git -C "$pkv" "${git_id[@]}" commit -q -m "park a rebase job in plan/"
+git -C "$pkv" push -q origin "HEAD:$BRANCH"; rm -rf "$pkv"
+plan_body() {  # plan_body <bare> <base>  -> prints the parked job body
+  local v f; v="$(mktemp -d "$TR/pb.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  f="$v/jobs/plan/$2.md"; [ -f "$f" ] && cat "$f"; rm -rf "$v"
+}
+FIX_PK="$TR/fix-pk.tsv"; RLOG_PK="$TR/react-pk.log"; : > "$RLOG_PK"
+LOG_PK="$TR/log-pk.txt"; : > "$LOG_PK"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-29T09:00:00Z issue-comment 4990000700 700 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/700#issuecomment-4990000700 \
+  'Please rebase on #789' > "$FIX_PK"
+CW_LOG="$LOG_PK" run_watcher "$TR/state-pk" "$BARE_PK" "$FIX_PK" "$RLOG_PK"
+[ "$(todo_count "$BARE_PK")" -eq 0 ] && ok "no live job minted onto the parked base (post-job's no-op respected)" || bad "a live job was forked beside the parked one (todo=$(todo_count "$BARE_PK"))"
+[ "$(plan_count "$BARE_PK")" -eq 1 ] && ok "still exactly one parked entry (no fork)" || bad "plan/ count is $(plan_count "$BARE_PK")"
+PK_BODY="$(plan_body "$BARE_PK" "$PK_BASE")"
+printf '%s' "$PK_BODY" | grep -qF 'garden-annotation: key=endojs/endo-but-for-bots#700:comment:4990000700 ' \
+  && ok "the parked job carries the annotation keyed on the directive identity" || bad "no identity-keyed annotation marker on the parked job"
+printf '%s' "$PK_BODY" | grep -qF 'https://github.com/endojs/endo-but-for-bots/pull/700#issuecomment-4990000700' \
+  && ok "the annotation names the source comment URL" || bad "annotation does not cite the comment"
+printf '%s' "$PK_BODY" | grep -qF 'Please rebase on #789' \
+  && bad "the annotation pasted the UNTRUSTED comment body into the plan file" || ok "no untrusted comment text reproduced in the plan file"
+printf '%s' "$PK_BODY" | grep -q '^model: opus$' && ok "the parked job's execution keys survived the annotation" || bad "annotation clobbered the plan frontmatter"
+grep -qx "issue-comment 4990000700 eyes" "$RLOG_PK" && ok "the follow-up comment got its 👀 receipt (annotation counts as a recorded job)" || bad "no reactji ($(cat "$RLOG_PK"))"
+grep -q 'ANNOTATED parked job' "$LOG_PK" && ok "the annotate path is LOGGED (not mistaken for a lost push)" || bad "annotate not logged ($(cat "$LOG_PK"))"
+grep -q 'POST LOST' "$LOG_PK" && bad "the deliberate parked no-op was still misread as a lost push" || ok "no POST LOST for a correctly-deduped parked base"
+[ "$(cursor_seen "$TR/state-pk" "$BARE_PK")" = 2026-07-29T09:00:00Z ] && ok "cursor advanced past the annotated comment (no head-of-line freeze)" || bad "cursor frozen ($(cursor_seen "$TR/state-pk" "$BARE_PK"))"
+
+hr; echo "PK2 — a SECOND follow-up on the same parked base appends once more, keyed on ITS comment"; hr
+# The dedup identity is the comment, not the note text: a genuinely new comment
+# appends a second annotation, while a re-poll of either would be a no-op success.
+FIX_PK2="$TR/fix-pk2.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-29T10:00:00Z issue-comment 4990000701 700 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/700#issuecomment-4990000701 \
+  'Please rebase on #790 instead' > "$FIX_PK2"
+run_watcher "$TR/state-pk" "$BARE_PK" "$FIX_PK2" "$RLOG_PK"
+PK2_BODY="$(plan_body "$BARE_PK" "$PK_BASE")"
+[ "$(printf '%s\n' "$PK2_BODY" | grep -c 'garden-annotation: key=')" -eq 2 ] \
+  && ok "two annotations, one per comment" || bad "annotation count $(printf '%s\n' "$PK2_BODY" | grep -c 'garden-annotation: key=')"
+printf '%s' "$PK2_BODY" | grep -qF 'key=endojs/endo-but-for-bots#700:comment:4990000701 ' \
+  && ok "the second comment appended under its own key" || bad "second comment's annotation missing"
+[ "$(todo_count "$BARE_PK")" -eq 0 ] && ok "still no live job forked beside the parked one" || bad "second follow-up forked a live job"
+[ "$(cursor_seen "$TR/state-pk" "$BARE_PK")" = 2026-07-29T10:00:00Z ] && ok "cursor advanced past the second follow-up" || bad "cursor not advanced ($(cursor_seen "$TR/state-pk" "$BARE_PK"))"
+
+hr; echo "PK3 — re-poll of an annotated comment is idempotent (no third marker, no second ack)"; hr
+run_watcher "$TR/state-pk" "$BARE_PK" "$FIX_PK2" "$RLOG_PK"
+[ "$(printf '%s\n' "$(plan_body "$BARE_PK" "$PK_BASE")" | grep -c 'garden-annotation: key=')" -eq 2 ] \
+  && ok "re-poll appended nothing (still two annotations)" || bad "re-poll double-appended"
+[ "$(grep -c . "$RLOG_PK")" -eq 2 ] && ok "exactly two reactji across all three ticks (one per comment)" || bad "reactji count $(grep -c . "$RLOG_PK")"
+[ "$(cursor_seen "$TR/state-pk" "$BARE_PK")" = 2026-07-29T10:00:00Z ] && ok "cursor stable on idempotent re-poll" || bad "cursor moved on re-poll"
+
+# ============================================================================
+hr; echo "PKR — a follow-up review whose RETRO is already parked annotates it (second loop keeps the comment)"; hr
+# The retro base is derived from the PRIMARY base, so several comments fold onto one
+# retro. post-plan.sh is basename-idempotent, so re-posting an already-parked retro
+# silently dropped the new comment from the prosecutor's brief. It must annotate the
+# parked retro instead. Setup: the FIRST round's review job already completed into
+# tada/ and left its retro parked in plan/; a fresh review on the same PR then mints a
+# new primary (the #671 tada fix) and must ANNOTATE — not re-post — the parked retro.
+BARE_PKR="$TR/pkr.git"; seed_bare "$BARE_PKR"
+PKR_RID=4700000800
+PKR_BASE="$SLUG-pr800-review-$(printf '%s' "$PKR_RID" | sha1sum | cut -c1-8)"
+pkrv="$TR/pkr-seed"; git clone -q --single-branch --branch "$BRANCH" "$BARE_PKR" "$pkrv"
+mkdir -p "$pkrv/jobs/plan"
+printf '# review (completed)\n\ngarden-job-complete: true\n' > "$pkrv/jobs/tada/$PKR_BASE.md"
+printf -- '---\nrole: prosecutor\npriority: low\n---\n\n# Retrospective (parked)\n' \
+  > "$pkrv/jobs/plan/$PKR_BASE-retro.md"
+git -C "$pkrv" add -A; git -C "$pkrv" "${git_id[@]}" commit -q -m "seed a completed review + its parked retro"
+git -C "$pkrv" push -q origin "HEAD:$BRANCH"; rm -rf "$pkrv"
+FIX_PKR="$TR/fix-pkr.tsv"; RLOG_PKR="$TR/react-pkr.log"; : > "$RLOG_PKR"
+LOG_PKR="$TR/log-pkr.txt"; : > "$LOG_PKR"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-29T11:00:00Z pr-review-body "$PKR_RID" 800 kriskowal \
+  "https://github.com/endojs/endo-but-for-bots/pull/800#pullrequestreview-$PKR_RID" \
+  '[CHANGES_REQUESTED] Guard the empty-input boundary.' > "$FIX_PKR"
+run_directive "$TR/state-pkr" "$BARE_PKR" "$FIX_PKR" "$RLOG_PKR" "$LOG_PKR"
+[ "$(todo_count "$BARE_PKR")" -eq 1 ] && ok "the fresh review minted its primary job" || bad "primary missing (todo=$(todo_count "$BARE_PKR"))"
+[ "$(plan_count "$BARE_PKR")" -eq 1 ] && ok "no second retro forked (still exactly one parked)" || bad "plan/ count is $(plan_count "$BARE_PKR")"
+PKR_BODY="$(plan_body "$BARE_PKR" "$PKR_BASE-retro")"
+printf '%s' "$PKR_BODY" | grep -qF "garden-annotation: key=endojs/endo-but-for-bots#800:review:$PKR_RID:retro " \
+  && ok "the parked retro carries the follow-up annotation, keyed on the retro identity" || bad "parked retro not annotated"
+printf '%s' "$PKR_BODY" | grep -qF "pull/800#pullrequestreview-$PKR_RID" \
+  && ok "the retro annotation names the source review" || bad "retro annotation does not cite the review"
+printf '%s' "$PKR_BODY" | grep -qF 'Guard the empty-input boundary' \
+  && bad "the retro annotation pasted the UNTRUSTED review body" || ok "no untrusted review text reproduced in the parked retro"
+grep -qi 'annotated parked retro' "$LOG_PKR" && ok "the retro annotate path is LOGGED" || bad "retro annotate not logged ($(cat "$LOG_PKR"))"
+[ "$(cursor_seen "$TR/state-pkr" "$BARE_PKR")" = 2026-07-29T11:00:00Z ] && ok "cursor advanced past the review" || bad "cursor not advanced ($(cursor_seen "$TR/state-pkr" "$BARE_PKR"))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
