@@ -1884,3 +1884,12 @@ Inspect via `git -C journal cat-file -p 908bab5e2a9e74a8d30eaaeae28543f29232c201
 - Context: gardener-7 on endolin-garden-ece02cb4: job 'minion-town-agenda-review-20260729-162012' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b7a840dbb20dfc0624d588c34511aeff590949fb`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-29T17:25:59Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 050d68ae70a4a338767a74d179e968f62e87c5be
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'finbot-pr5-panel-20260729' exit-0-unsatisfying but elapsed near-constant (30,31s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 050d68ae70a4a338767a74d179e968f62e87c5be`.
