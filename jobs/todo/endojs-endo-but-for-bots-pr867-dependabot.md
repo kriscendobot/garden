@@ -1,16 +1,4 @@
----
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-poisoned_at: 2026-07-28T08:03:04Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-28T08:03:04Z
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-29T01:30:13Z -->
 
 # botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #867
 
