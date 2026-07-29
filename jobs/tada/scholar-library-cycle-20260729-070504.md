@@ -1,7 +1,5 @@
-Registered the indefinite `scholar-library-cycle` schedule on `journal2` with `cadence: hourly`, the `scholar-library-cycle` job prefix, and the executable `scholar-preflight.sh` gate. The existing `last_dispatched` timestamp was preserved.
+Registered `scholar-library-cycle` on `journal2` as hourly with `scholar-preflight.sh`; preserved its dispatch timestamp.
 
-Verification: `scripts/jobs/test/scholar-preflight-test.sh` passed all 10 checks; `scripts/jobs/test/scheduler-anchored-cadence-test.sh` passed all 13 checks; inspected the committed schedule in the producer clone.
+Verified: scholar preflight test (10/10) and scheduler cadence test (13/13) passed. Job completed on the board.
 
-Follow-up: add a second half-hour-offset schedule only if backlog begins accumulating faster than the hourly cycle drains.
-
-Self-improvement: None; the schedule setter and preflight validation made this a direct, race-safe update.
+Follow-up: add a half-hour-offset cycle only if backlog outpaces hourly draining.
