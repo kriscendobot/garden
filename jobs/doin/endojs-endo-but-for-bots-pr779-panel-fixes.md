@@ -173,3 +173,10 @@ reorders to make that claim true. Point the reference there. (archivist, stylist
   demonstrably not evidence here (the 10-seat round's namespace-order regression shipped green).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T05:53:38Z
