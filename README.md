@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T18:27:47Z_
+_As of 2026-07-29T18:28:08Z_
 
 ## Latest
 
@@ -5331,7 +5331,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 70.7M _(+590.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Codex | 70.7M _(+590.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (11)
@@ -5354,7 +5354,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-160503.md) — Hourly scholar library cycle
 
 ### tada (3896)
-- [`scholar-library-cycle-20260729-150501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-150501.md) — Scholar library cycle (2026-07-29 18:00 UTC): synced the journal, provisioned...
+- [`scholar-library-cycle-20260729-150501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-150501.md) — Completed idle scholar cycle: drained all required inbox/topic queues; no ing...
 - [`registry-immutable-byte-array-followup-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/registry-immutable-byte-array-followup-gauntlet-clean.md) — Cost
 - [`scholar-library-cycle-20260729-140501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-140501.md) — Completed hourly scholar cycle: no actionable scholar inbox/topic requests. I...
 - [`scholar-library-cycle-20260729-120501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-120501.md) — Completed hourly scholar cycle. No actionable ingest or writeback work; no li...
