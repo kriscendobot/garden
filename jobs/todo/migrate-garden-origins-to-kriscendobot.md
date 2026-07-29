@@ -70,11 +70,4 @@ left on the journal. That is a separate, later change — do NOT do it in this j
 and do not do it while any host is unmigrated. Background:
 `context/operations/repo-transfer.md`.
 
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-28T21:13:15Z
+<!-- garden-reaped: 3 -->

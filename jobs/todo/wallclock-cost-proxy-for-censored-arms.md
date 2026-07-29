@@ -111,11 +111,4 @@ refinement is worth a follow-up.
   after, and says plainly whether kimi-k3 can now accumulate auction-relevant
   evidence.
 
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 5
-  worker_kind: gardener
-  claimed_at: 2026-07-28T21:13:19Z
+<!-- garden-reaped: 3 -->
