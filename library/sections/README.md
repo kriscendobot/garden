@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6691 (530 parent indexes + 6161 children).
+Total section files: 6716 (530 parent indexes + 6186 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -259,6 +259,30 @@ Total section files: 6691 (530 parent indexes + 6161 children).
 - [athanor--readme--registry-and-stable-ports](athanor--readme--registry-and-stable-ports.md)
 - [athanor--readme--supervisor-and-observability](athanor--readme--supervisor-and-observability.md)
 
+### atproto--specs-at-uri-scheme
+
+- [atproto--specs-at-uri-scheme--full-and-restricted-syntax](atproto--specs-at-uri-scheme--full-and-restricted-syntax.md)
+- [atproto--specs-at-uri-scheme--generic-uri-compliance](atproto--specs-at-uri-scheme--generic-uri-compliance.md)
+- [atproto--specs-at-uri-scheme--normalization](atproto--specs-at-uri-scheme--normalization.md)
+- [atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat](atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat.md)
+- [atproto--specs-at-uri-scheme--usage-and-implementation-guidelines](atproto--specs-at-uri-scheme--usage-and-implementation-guidelines.md)
+
+### atproto--specs-blob
+
+- [atproto--specs-blob--blob-lifecycle](atproto--specs-blob--blob-lifecycle.md)
+- [atproto--specs-blob--content-addressed-media-and-metadata](atproto--specs-blob--content-addressed-media-and-metadata.md)
+- [atproto--specs-blob--security-considerations](atproto--specs-blob--security-considerations.md)
+- [atproto--specs-blob--usage-and-implementation-guidelines](atproto--specs-blob--usage-and-implementation-guidelines.md)
+
+### atproto--specs-data-model
+
+- [atproto--specs-data-model--blob-type](atproto--specs-data-model--blob-type.md)
+- [atproto--specs-data-model--data-types-and-no-floats](atproto--specs-data-model--data-types-and-no-floats.md)
+- [atproto--specs-data-model--json-representation](atproto--specs-data-model--json-representation.md)
+- [atproto--specs-data-model--link-and-cid-formats](atproto--specs-data-model--link-and-cid-formats.md)
+- [atproto--specs-data-model--nodes-blocks-and-links](atproto--specs-data-model--nodes-blocks-and-links.md)
+- [atproto--specs-data-model--security-and-future-changes](atproto--specs-data-model--security-and-future-changes.md)
+
 ### atproto--specs-did
 
 - [atproto--specs-did--blessed-did-methods](atproto--specs-did--blessed-did-methods.md)
@@ -273,6 +297,17 @@ Total section files: 6691 (530 parent indexes + 6161 children).
 - [atproto--specs-repository--mst-structure](atproto--specs-repository--mst-structure.md)
 - [atproto--specs-repository--paths-records-and-cid-formats](atproto--specs-repository--paths-records-and-cid-formats.md)
 - [atproto--specs-repository--self-certifying-repository](atproto--specs-repository--self-certifying-repository.md)
+
+### atproto--specs-sync
+
+- [atproto--specs-sync--commit-and-sync-events](atproto--specs-sync--commit-and-sync-events.md)
+- [atproto--specs-sync--event-stream-relays-and-self-certification](atproto--specs-sync--event-stream-relays-and-self-certification.md)
+- [atproto--specs-sync--guidelines-security-and-future-work](atproto--specs-sync--guidelines-security-and-future-work.md)
+- [atproto--specs-sync--identity-and-account-events](atproto--specs-sync--identity-and-account-events.md)
+- [atproto--specs-sync--inductive-verification-and-operation-inversion](atproto--specs-sync--inductive-verification-and-operation-inversion.md)
+- [atproto--specs-sync--mechanisms-and-repository-revisions](atproto--specs-sync--mechanisms-and-repository-revisions.md)
+- [atproto--specs-sync--message-validation-checklist](atproto--specs-sync--message-validation-checklist.md)
+- [atproto--specs-sync--record-level-synchronization](atproto--specs-sync--record-level-synchronization.md)
 
 ### blick--readme
 
@@ -8849,6 +8884,11 @@ Total section files: 6691 (530 parent indexes + 6161 children).
 - [tc39-module-harmony--compartments-compartment-motivating-examples](tc39-module-harmony--compartments-compartment-motivating-examples.md)
 - [tc39-module-harmony--compartments-compartment-thenable-and-design](tc39-module-harmony--compartments-compartment-thenable-and-design.md)
 - [tc39-module-harmony--compartments-compartment-virtual-modules](tc39-module-harmony--compartments-compartment-virtual-modules.md)
+
+### tc39-module-harmony--asset-references
+
+- [tc39-module-harmony--asset-references--alternatives-and-possible-additions](tc39-module-harmony--asset-references--alternatives-and-possible-additions.md)
+- [tc39-module-harmony--asset-references--asset-declaration-syntax-and-semantics](tc39-module-harmony--asset-references--asset-declaration-syntax-and-semantics.md)
 
 ### tc39-module-harmony--compartments-evaluator
 
