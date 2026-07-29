@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-5","num_turns":96,"elapsed_s":1684,"input_tokens":143,"output_tokens":30889,"cache_creation_tokens":112977,"cache_read_tokens":6688424,"total_cost_usd":5.249688000000001,"ts":"2026-07-29T02:13:25Z","base":"xs2rust-endor-s2-test-rust-green","host":"endolin-garden-ece02cb4","outcome":"requeue"}
