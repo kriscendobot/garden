@@ -267,15 +267,21 @@ autonomous background service.
 Some work should not auto-run: it needs the maintainer's **go-ahead**, or it is
 **deferred** behind higher-priority items. Such work is parked in the board's
 **`jobs/plan/`** category (`skills/job-board/SKILL.md` § Plan category), which
-gardeners never claim. You manage it with two primitives and this vocabulary:
+gardeners never claim. You manage it with three primitives and this vocabulary:
 
-- **"defer X" / "park X"** → `scripts/jobs/post-plan.sh --deferred [--priority L]
+- **"defer X" / "park X"** -> `scripts/jobs/post-plan.sh --deferred [--priority L]
   [--roadmap I] <base> [body]`. Parks a proposal/lower-priority item; the foreman
   may auto-promote the top deferred one when the board is idle.
-- **"hold X for go-ahead" / "park X needing authorization"** → `post-plan.sh
-  --go-ahead …`. Parks work that must NOT run until the maintainer authorizes it.
-- **"go ahead on X" / "promote X"** → `scripts/jobs/promote-plan.sh <base>`. Moves
-  `plan/<base>` → `todo/<base>` so a gardener claims it normally. **A go-ahead-gated
+- **"hold X for go-ahead" / "park X needing authorization"** -> `post-plan.sh
+  --go-ahead ...`. Parks work that must NOT run until the maintainer authorizes it.
+- **"also note Y on X" / "bump X to urgent"** -> `scripts/jobs/annotate-plan.sh
+  [--note TEXT] [--priority L] [--roadmap I] [--role R] <base> [body]`. Appends to
+  a job **already parked**, or retunes its selection metadata. Re-posting with
+  `post-plan.sh` would silently no-op (it is idempotent on the basename), so this
+  is the way to add late-arriving information to a parked item. Dedup is by
+  annotation key, so a repeat is harmless; gate fields are not settable through it.
+- **"go ahead on X" / "promote X"** -> `scripts/jobs/promote-plan.sh <base>`. Moves
+  `plan/<base>` -> `todo/<base>` so a gardener claims it normally. **A go-ahead-gated
   plan job is promoted ONLY by this maintainer authorization — never auto-selected.**
 
 The bulletin's **Plan queue** section surfaces go-ahead jobs awaiting your

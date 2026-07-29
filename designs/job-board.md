@@ -190,6 +190,22 @@ posted_at: <iso8601>
 [--roadmap I] <base> [body]` (default `--deferred`); like `post-job.sh` it is an
 ADD, idempotent on the basename, retry-on-contention.
 
+**Annotation** (`annotate-plan.sh [--note TEXT] [--key K] [--priority L]
+[--roadmap I] [--role R] [--if-parked] <base> [body]`) is the counterpart the
+idempotent post leaves out. `post-plan.sh` deliberately no-ops on a re-post, so a
+producer that learns something new about an already-parked item (a follow-up review
+comment, a narrowed scope, a priority bump) had no primitive and hand-rolled its own
+sync -> edit -> commit -> push loop against the shared producer clone. The annotator is
+that loop once: it appends the note under a
+`<!-- garden-annotation: key=... -->` marker (a key already present is a no-op, so a
+requeued producer never double-appends; the default key content-addresses the note),
+rewrites `priority`/`roadmap`/`role` in place while passing every other frontmatter
+key through (the `model:`/`handler-timeout:` execution pins survive), and refuses
+once the job has left `plan/` (exit 3, or a quiet skip under `--if-parked`). The
+gate fields (`gate:`, `blocked_on:`, `orchestrated_by:`) are **not** settable
+through it: re-gating a parked job is a different act, owned by `promote-plan.sh`,
+`block-job.sh`, and `post-orchestration.sh`.
+
 **Promotion** (`promote-plan.sh <base>`) moves `plan/<base>` → `todo/<base>`,
 stripping the plan frontmatter so the todo body is the clean work spec the gardener
 acts on (a one-line `garden-promoted-from-plan` marker records provenance). Like a
@@ -225,8 +241,9 @@ each with its gate reason — so the maintainer sees what needs a decision.
 | Reaper | `reaper.sh` | `garden-reaper.{service,timer}` | requeue stale `doin/` claims |
 | Watchman | `watchman.sh` | `garden-watchman.{service,timer}` | watch `main2`, broadcast role/skill evolution |
 
-Primitives shared by the above: `post-job.sh`, `post-plan.sh`/`promote-plan.sh`
-(the plan category, §2.5), `claim-job.sh`,
+Primitives shared by the above: `post-job.sh`,
+`post-plan.sh`/`annotate-plan.sh`/`promote-plan.sh` (the plan category, §2.5),
+`claim-job.sh`,
 `complete-job.sh`, `send-msg.sh`/`read-msgs.sh` (topic), `inbox-send.sh`/
 `inbox-read.sh` (directed), `journal-entry.sh` (narration), `set-gardeners.sh`,
 plus the maintainer-channel scripts (§5). `common.sh` holds the shared git-CAS

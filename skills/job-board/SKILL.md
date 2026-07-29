@@ -130,6 +130,35 @@ posted_at: <iso8601>
   [--by R] <base> [body]`): write `jobs/plan/<base>.md`. Default gate `--deferred`.
   Idempotent on the basename (no-op if `<base>` is anywhere in plan/todo/doin/tada),
   retry-with-backoff like `post-job.sh`.
+- **Annotate** (`annotate-plan.sh [--note TEXT] [--key K] [--priority L]
+  [--roadmap I] [--role R] [--by R] [--if-parked] <base> [body-file]`): append a
+  note to a job **already parked** in `plan/`, and/or retune its selection
+  metadata. `post-plan.sh` is **idempotent-only** (a re-post of the same basename
+  is a deliberate no-op, so a re-running producer can never fork a parked item),
+  so this is the sanctioned way to say "that parked job just learned
+  something new" (a follow-up review comment, a narrowed scope, a priority bump)
+  instead of hand-rolling a sync -> edit -> commit -> push CAS loop against the
+  shared producer clone. Same retry-with-backoff as the other own-basename
+  writes. Properties worth knowing:
+  - **Dedup by key.** Each annotation lands under a
+    `<!-- garden-annotation: key=... by=... at=... -->` marker; a key already present
+    in the file is a **no-op success**, so a requeued producer never
+    double-appends. The default key is a content hash of the note + metadata
+    change (identical re-annotation collapses for free); pass `--key` for a
+    stable external identity (a comment id) or to append the same text again
+    deliberately.
+  - **Field updates are in place.** `priority`/`roadmap`/`role` are rewritten
+    within the leading frontmatter (inserted if absent); every other key passes
+    through untouched, including the execution pins `model:` /
+    `handler-timeout:` / `requires:`.
+  - **Gate fields are NOT settable here.** `gate:`, `blocked_on:`, and
+    `orchestrated_by:` carry the promotion invariants (who may promote this job,
+    and when); re-gating is a different act with its own primitives
+    (`promote-plan.sh`, `block-job.sh`, `post-orchestration.sh`).
+  - **Plan-only, and loud about it.** A `<base>` that has left `plan/` exits
+    **3** ("no longer parked") rather than silently writing into a claimed job;
+    `--if-parked` downgrades that to a quiet exit 0 for a producer that races the
+    foreman. Coverage: `scripts/jobs/test/annotate-plan-test.sh`.
 - **Promote** (`promote-plan.sh <base>`): move `plan/<base>` → `todo/<base>`,
   stripping the plan frontmatter so the todo job is the clean work body; then a
   gardener claims it normally. Touches only its own basename, so it retries with
