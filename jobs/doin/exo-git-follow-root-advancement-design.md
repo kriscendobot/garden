@@ -19,3 +19,13 @@ Begin by reading the current exo-git implementation, interfaces, tests, existing
 Keep capability discipline explicit. Identify exactly which holder receives observation authority, prevent the observation facet from gaining mutation or ambient repository authority, specify what information updates disclose, and describe revocation or lifetime behavior. Address durable state and upgrade compatibility if the exo persists repository state. Give a concrete API sketch with passable guards/types, state transitions, invariants, and representative examples. Compare viable alternatives and record why the recommended shape best composes with exo-git.
 
 Define acceptance criteria and a testing strategy covering ordered multi-commit advancement, subscriber timing, concurrent/root replacement cases, cancellation, restart, authority attenuation, and failure recovery. This is a design-only job: do not implement package code. Land the design on the repository’s current design branch or appropriate design-document location, following its contribution conventions, and report the commit or pull request plus unresolved questions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-29T22:16:01Z
