@@ -1,0 +1,1 @@
+{"source":"result","num_turns":78,"elapsed_s":1230,"input_tokens":104,"output_tokens":40877,"cache_creation_tokens":146692,"cache_read_tokens":6196694,"total_cost_usd":5.5909650000000015,"ts":"2026-07-29T01:49:32Z","base":"investigate-pr721-review-false-peer-resolution","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"researcher"}
