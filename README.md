@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T20:25:51Z_
+_As of 2026-07-29T20:26:36Z_
 
 ## Latest
 
@@ -3538,6 +3538,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Merge-governance panel is blocked before a valid verdict: every Claude seat returned the quota message 'You've hit your weekly limit · resets Aug 1, 3am (UTC)'. I will not treat that as a formal verdict or a pass, and I did not post the Fable sign-off job. [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) remains DRAFT at 57e397c; GitHub CI test is green. The isolated worktree is retained for retry.
 
+- `20260729T202607Z-8a376e` — from gauntlet:finbot-progress-20260729-195004-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T202607Z-8a376e.md)
+
+> Gauntlet finbot-progress-20260729-195004-gauntlet HALTED: stage 'finbot-progress-20260729-195004-gauntlet-panel-1' (panel) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5424,13 +5428,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr5-panel-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729-195004.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 
-### tada (3908)
+### tada (3909)
+- [`finbot-progress-20260729-195004-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet.md) — gauntlet finbot-progress-20260729-195004-gauntlet — HALTED
 - [`finbot-progress-20260729-195004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet-panel-1.md) — Cost
 - [`finbot-progress-20260729-195004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet-clean.md) — Cost
 - [`finbot-progress-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004.md) — Cost
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-20260729.md) — Cost
-- [`scholar-library-cycle-20260729-193502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-193502.md) — Completed scholar library cycle: no actionable ingestion or writeback work. L...
-- … and 3903 more
+- … and 3904 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
