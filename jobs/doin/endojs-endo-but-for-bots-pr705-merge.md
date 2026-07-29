@@ -31,3 +31,10 @@ Bot repo — merging is authorized. Choose the merge shape per the conductor rol
 this job deliberately does not name one.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-29T04:13:23Z
