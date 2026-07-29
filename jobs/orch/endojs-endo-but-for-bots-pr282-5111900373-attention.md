@@ -1,0 +1,12 @@
+---
+order: serial
+children: endojs-endo-but-for-bots-pr282-5111900373-rebase endojs-endo-but-for-bots-pr282-5111900373-shepherd endojs-endo-but-for-bots-pr282-5111900373-conduct
+on-child-failure: halt
+state: pending
+created_by: gardener
+created_at: 2026-07-29T06:58:11Z
+---
+
+# orchestration endojs-endo-but-for-bots-pr282-5111900373-attention
+
+3 children (serial), on-child-failure=halt.
