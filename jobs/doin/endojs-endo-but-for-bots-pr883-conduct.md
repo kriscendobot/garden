@@ -45,3 +45,10 @@ and CI or reviews may have moved.
 
 The PR is merged, or a `jobs/tada/` report names exactly what blocked it and what
 the next action is.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:28:12Z
