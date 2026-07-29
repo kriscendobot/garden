@@ -4,10 +4,10 @@ repo: endojs/endo-but-for-bots
 pr_number: 888
 build_job: registry-immutable-byte-array-followup
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
-current_child: registry-immutable-byte-array-followup-gauntlet-clean
+current_child: registry-immutable-byte-array-followup-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-07-29T17:48:56Z
