@@ -1,5 +1,5 @@
 ---
-tier: mentor
+tier: minion
 role: journalist
 fallback-tier: minion
 dispatch: automatic
