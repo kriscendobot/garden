@@ -51,6 +51,16 @@
 | [ucan-wg--delegation-readme--token-validation](../sections/ucan-wg--delegation-readme--token-validation.md) | ucan-wg/delegation README.md | The three offline-checkable criteria: intersecting time bounds, principal alignment (every proof's aud matches the next iss, chaining back to the Subject, fragments excluded), and signature validation. |
 | [UCAN Invocation envelope and authorized tasks](../sections/ucan-wg--invocation-readme--invocation-envelope-and-authorized-tasks.md) | ucan-authorization, capability-security | Invocation 1.0.0 binds task execution to a signed envelope with delegation proofs, nonce, and expiry. |
 | [UCAN monotone revocation and validation](../sections/ucan-wg--revocation-readme--monotone-revocation-and-validation.md) | ucan-authorization, capability-security | Revocation rc.1 makes proof-CID invalidation immutable and cacheable across eventually consistent delivery. |
+| [UCAN lifecycle and time bounds](../sections/ucan-wg--spec-readme--lifecycle-and-time.md) | ucan-authorization, capability-security | UCAN separates delegation, invocation, promise, and revocation; validity is the intersection of chain time bounds and execution-time validation is mandatory. |
+| [UCAN token resolution](../sections/ucan-wg--spec-readme--token-resolution.md) | ucan-authorization, content-addressed-storage | Transport defines CID retrieval; an unavailable required proof makes validation fail. |
+| [UCAN nonce and token uniqueness](../sections/ucan-wg--spec-readme--nonce.md) | ucan-authorization, capability-security | Required nonce creates a unique CID and supports replay prevention. |
+| [UCAN metadata](../sections/ucan-wg--spec-readme--metadata.md) | ucan-authorization, marshal | Signed, externally verifiable metadata is not delegated authority. |
+| [UCAN implementation recommendations](../sections/ucan-wg--spec-readme--implementation-recommendations.md) | ucan-authorization, capability-security, content-addressed-storage | CID stores, memoized validation, replay tracking, leaderless deployment, and the boundary of ACL wrapping. |
+| [UCAN FAQ security boundaries](../sections/ucan-wg--spec-readme--faq-security-boundaries.md) | ucan-authorization, capability-security | Intended audience and invocation signatures do not replace secure transport or replay tracking. |
+| [UCAN related work and prior art](../sections/ucan-wg--spec-readme--related-work-and-prior-art.md) | ucan-authorization, capability-security | UCAN compared with SPKI/SDSI, ZCAP-LD, CACAO, Local-First Auth, Macaroons, Biscuit, and VCs. |
+| [UCAN Delegation policy language](../sections/ucan-wg--delegation-readme--policy-language.md) | ucan-authorization, capability-security, patterns | Deterministic predicate attenuation over invocation arguments, with bounded jq-inspired selectors. |
+| [UCAN semantic conditions](../sections/ucan-wg--delegation-readme--semantic-conditions.md) | ucan-authorization, capability-security | Ambient or side-effectful conditions are executor concerns, not policy syntax. |
+| [UCAN time and validity bounds](../sections/ucan-wg--spec-readme--time-bounds.md) | ucan-authorization, capability-security | A chain intersects nbf and exp bounds, with validation mandatory at execution time. |
 
 ## See also
 
