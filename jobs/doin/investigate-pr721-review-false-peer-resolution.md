@@ -105,3 +105,10 @@ The report names the precise mechanism that produced the false resolution (or
 proves the comment existed and was removed), states the blast radius with a count,
 and gives a concrete recommendation on the "positive evidence before closing as
 resolved" question and on the auto-conduct trigger.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:28:19Z
