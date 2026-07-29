@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:23:01Z_
+_As of 2026-07-29T23:23:42Z_
 
 ## Latest
 
@@ -5289,6 +5289,30 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-pr-ebfb-600-ironhorse-rename-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-pr-ebfb-600-ironhorse-rename-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/pr-ebfb-600-ironhorse-rename; it stays HELD until a human promotes it
+> (promote-plan.sh pr-ebfb-600-ironhorse-rename) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: pr-ebfb-600-ironhorse-rename
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> repo: endojs/endo-but-for-bots
+> PR: [https://github.com/endojs/endo-but-for-bots/pull/600](https://github.com/endojs/endo-but-for-bots/pull/600)
+> role: builder
+> Perform the full architectural rename on PR #600 (branch xs2rust-endor, base llm; keep DRAFT): the new Rust engine is Ironhorse, while Endor is the binding of an engine to a platform, and the existing engine is simply XS (never C-XS in current-facing prose). Rename the complete live code surface accordingly, including Rust crates/modules/types where they denote the engine, Cargo package/dependency names, engine selectors such as endor-rs, CLI help and diagnostics, test labels/fixtures, README/design terminology, generated references, and CI or scripts. Choose names that express the boundary: Ironhorse owns language execution; Endor owns platform binding/integration. Preserve historical job basenames, branch names, commit messages, quoted evidence, and immutable provenance where rewriting would be misleading, but explain any retained transitional identifiers. Update PR title/body to describe Ironhorse and the Endor binding. Use rename-aware moves, update all consumers atomically, prove no unintended live xs2rust/Rust-XS/C-XS/endor-vm naming remains with an explicit search audit, and run the affected Rust, daemon build, CLI smoke, and clean-checkout checks. Do not broaden into remaining test:rust or test262 completion work. Rebase and push with lease/CAS discipline, keep the PR draft, and report the exact before-to-after naming map plus verification.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-registry-immutable-byte-array-followup-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-registry-immutable-byte-array-followup-gauntlet-panel-1-requeue-exhausted.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -5538,10 +5562,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
-- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-600-ironhorse-rename.md) — ---
 
 ### tada (3921)
 - [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr721-garden-response-comment.md) — Cost
@@ -5651,6 +5674,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-223502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260724-043515.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
+- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr-ebfb-600-ironhorse-rename.md) — _normal_ · ---
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
