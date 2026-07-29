@@ -3,8 +3,12 @@
 #
 # Usage: pr-maintainer-approval-gh.sh <owner/name> <pr-number>
 #
-# Returns 0 only when GitHub's review rollup is APPROVED AND an APPROVED review
-# from a current journal maintainer was submitted for the current head commit.
+# Returns 0 only when an APPROVED review from a current journal maintainer was
+# submitted for the current head commit. On repos WITH required-reviewer branch
+# protection the GitHub reviewDecision rollup must not be CHANGES_REQUESTED or
+# REVIEW_REQUIRED; on repos WITHOUT required-reviewer branch protection the rollup
+# is always empty and that check is skipped — the individual-review gate (below)
+# still enforces maintainer approval on the exact head commit.
 # A review of an earlier head is deliberately stale: a push supersedes it even
 # when a repository has no branch protection configured to dismiss approvals.
 #
@@ -75,7 +79,12 @@ printf '%s' "$meta" | jq -e . >/dev/null 2>&1 \
   || { log "unparseable PR metadata for $repo#$pr -- no maintainer approval"; exit 1; }
 decision="$(printf '%s' "$meta" | jq -r '.reviewDecision // ""')"
 head="$(printf '%s' "$meta" | jq -r '.headRefOid // ""')"
-if [ "$decision" != APPROVED ] || [ -z "$head" ]; then
+# CHANGES_REQUESTED means a reviewer explicitly asked for changes.
+# REVIEW_REQUIRED means branch protection requires a review but none submitted.
+# Either is a hard block. An empty reviewDecision means the repo has no
+# required-reviewer branch protection; fall through to the individual-review
+# check below — that check still requires a maintainer APPROVED on the current head.
+if [ "$decision" = CHANGES_REQUESTED ] || [ "$decision" = REVIEW_REQUIRED ] || [ -z "$head" ]; then
   log "merge blocked: no maintainer approval (reviewDecision=${decision:-none})"
   exit 1
 fi
