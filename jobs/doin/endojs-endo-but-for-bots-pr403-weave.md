@@ -20,3 +20,10 @@ Conductor evidence:
 - `git merge-tree --write-tree origin/llm origin/feat/registry-capability` failed with conflicts in `.changeset/daemon-cas-extraction.md`, `.gitignore`, `packages/daemon-cas/*`, `packages/daemon/package.json`, `packages/daemon/src/manager-persistence-powers.js`, `tsconfig.composite.json`, and `yarn.lock`.
 
 Please weave/rebase PR #403 onto current `llm` using the frozen-base branch discipline, resolve conflicts per the weaver role, run affected verification, force-push with lease, and update the PR base to the new frozen base. After it is green again, a conductor can merge it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T07:37:29Z
