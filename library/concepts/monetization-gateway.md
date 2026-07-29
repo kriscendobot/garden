@@ -1,6 +1,6 @@
 ---
 id: monetization-gateway
-aliases: ["Monetization Gateway", "Cloudflare Monetization Gateway", "pay-per-request gateway", "payment gateway edge", "MCP tool monetization", "monetize MCP server"]
+aliases: ["Monetization Gateway", "Cloudflare Monetization Gateway", "pay-per-request gateway", "payment gateway edge", "MCP tool monetization", "monetize MCP server", "verifyPaymentProof", "payment proof verification", "resource ledger in gateway", "PaymentProcessor"]
 topics: [agent-payments, networking]
 ---
 
@@ -31,6 +31,7 @@ pay-per-call to weblets / MCP tools** with no buyer onboarding
 | [monetization-gateway-x402/overview](../sections/web--cloudflare-monetization-gateway-x402--overview.md) | What the Gateway is: one control plane, edge-enforced, MCP-tool monetization, settlement off the origin. |
 | [monetization-gateway-x402/gateway-rules-and-capabilities](../sections/web--cloudflare-monetization-gateway-x402--gateway-rules-and-capabilities.md) | The payment-rules API, expression syntax, the three planned rule kinds, Terraform-as-code, and edge enforcement. |
 | [monetization-gateway-x402/agent-identity-and-settlement-vision](../sections/web--cloudflare-monetization-gateway-x402--agent-identity-and-settlement-vision.md) | Verifying agent, applying rule, and checking payment inside one request before the origin sees the call. |
+| [endo-but-for-bots--llm-designs-gateway-package--ten-feature-decomposition-of-one-package-with-one-factory-many-configurations--resource-ledger-in-gateway-not-daemon-decision-8](../sections/endo-but-for-bots--llm-designs-gateway-package--ten-feature-decomposition-of-one-package-with-one-factory-many-configurations--resource-ledger-in-gateway-not-daemon-decision-8.md) | Decision 8: the resource ledger and `verifyPaymentProof` seam live in the gateway, not the daemon. |
 
 ## See also
 
