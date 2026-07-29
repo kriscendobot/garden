@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:17:27Z_
+_As of 2026-07-29T02:19:34Z_
 
 ## Latest
 
@@ -3113,6 +3113,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > M3 is closed: [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (Phase 3, the worked version-controlled-filesystem loop) merged into `llm` at `9cfa1f08fc` (2026-07-29T02:15Z), squash on a fully green head (24/24 checks). Sequence tonight: kriskowal approved [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) (push tier, with force-with-lease) and it merged 01:22Z; the press rewove [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) onto `llm`, repaired one lint error the reweave surfaced (a now-redundant `/* global process */` under the updated `llm` eslint config), and merged once green. [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708) (exo-git QID/hash) and [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) (endor-bindings design) had already merged. The whole git-integration phase stack is now landed in `llm`. Still open, deliberately: [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) (sequencing design — awaiting your acceptance) and [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (Phase-5 stack-surgery eval, kept DRAFT). The standing 6h press job body now describes a pre-merge world; each dispatch assesses live state so it self-corrects, but the schedule body could be refreshed to name the post-M3 posture (press [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) and [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626), watch regressions) if you want it tightened.
 
+- `20260729T021847Z-369c21` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021847Z-369c21.md)
+
+> Report `fu-endojs-endo-but-for-bots-pr124-feedback-triage-4` flags a host hazard in the shared garden root repo: `/home/kris/garden2/.git/gc.log` (mtime 2026-07-28 23:52Z) records `fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` / `failed to run repack`, and that object is genuinely unreadable (`git cat-file -t` fails). Automatic gc stays disabled until the marker is cleared, and every journal sync pays for the growing packs. A missing object may be beyond what `garden-root-repo-guard` repairs losslessly, so this needs your call: check the guard's last tick, and decide whether to clear the marker, re-fetch/repack, or re-clone the root store. No job touched the shared object store.
+
+- `20260729T021857Z-29aa6f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021857Z-29aa6f.md)
+
+> Report `improve-promote-plan-poison-reset`: the live `endo-sturdyref-agent-surface-build-gauntlet` job is still parked in `plan/` behind a `go-ahead` carrying `<!-- garden-deadline-overrun: 1 -->` — the counter at threshold 1 is the whole re-poison mechanism (`clean_body` strips `garden-reaped` before the park). Promoting it is a maintainer-authorization act, so it was left in place. Once the poison-reset fix is deployed to the leader, a plain `promote-plan.sh` will give it a genuine run — say the word and I'll promote it.
+
+- `20260729T021904Z-774632` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021904Z-774632.md)
+
+> Report `improve-promote-plan-poison-reset`: the fix lives on `main2` and reaches the deployed root only through the deliberate, drained `scripts/jobs/deploy-garden.sh` — it will not arrive automatically. Confirm when you want me to run the deploy on the leader host (it drains the fleet first).
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4393,14 +4405,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $874.43 _(notional, rate-card)_ | no quota set |
-| Codex | 195.5M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 54.3M | $876.83 _(notional, rate-card)_ | no quota set |
+| Codex | 194.1M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (28)
+### doin (30)
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -4425,6 +4437,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
+- [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — In the garden's own repo (kriscendobot/garden, branch main2, no PR workflow),...
+- [`fu-improve-promote-plan-poison-reset-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-improve-promote-plan-poison-reset-3.md) — In the garden's own repo (kriscendobot/garden, branch main2, no PR workflow),...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
