@@ -20,9 +20,4 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/669#pullrequestreview-4802868149
 
----
-claim:
-  host: ps23-garden-f65473ae
-  gardener: 8
-  worker_kind: gardener
-  claimed_at: 2026-07-29T00:04:02Z
+<!-- garden-reaped: 1 -->
