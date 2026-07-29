@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T18:50:40Z_
+_As of 2026-07-29T18:54:06Z_
 
 ## Latest
 
@@ -3511,6 +3511,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T184948Z-64cfb2` — from gardener:finbot-pr6-panel-20260729, reply_to `finbot-pr6-panel-20260729` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T184948Z-64cfb2.md)
 
 > [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) is green at fdcefd1665b and remains draft. The latest full formal panel still has one material unresolved class: binding data-sufficiency evidence to an attested forecast artifact cited by the proposal, which requires a journal/citation resolution design beyond this increment’s current in-memory auditor API. Please direct whether to expand this PR into that provenance feature or defer it as a separately designed follow-up; no Fable sign-off job has been posted.
+
+- `20260729T185347Z-3db906` — from gardener:finbot-pr6-panel-20260729, reply_to `finbot-pr6-panel-20260729` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T185347Z-3db906.md)
+
+> The complete panel for [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) still requires provenance binding: audit() currently receives a caller-supplied forecast and proposal citations are opaque strings, so implementing artifact resolution/attestation would expand the data-sufficiency increment into a new persistence/API design. Please direct whether to authorize that broader change here or treat it as a separate follow-up; the PR remains draft with green CI.
 
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
