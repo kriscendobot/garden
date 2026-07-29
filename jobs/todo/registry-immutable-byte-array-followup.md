@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/671
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-07-15T05:12:00Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-29T02:36:06Z -->
 
 # Immutable byte-array RegistryInterface follow-up
 
