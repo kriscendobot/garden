@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T00:03:52Z_
+_As of 2026-07-29T00:04:58Z_
 
 ## Latest
 
@@ -3805,8 +3805,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.3M | $800.09 _(notional, rate-card)_ | no quota set |
-| Codex | 241.1M _(+451.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 51.9M | $797.50 _(notional, rate-card)_ | no quota set |
+| Codex | 240.3M _(+450.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -3820,8 +3820,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
+- [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
 - [`endojs-endo-but-for-bots-pr671-review-36ae135d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-36ae135d.md) — Review directive on endojs/endo-but-for-bots PR #671
-- [`endojs-endo-but-for-bots-pr707-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr707-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #707
 - [`endojs-endo-but-for-bots-pr708-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr708-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #708
 - [`endojs-endo-but-for-bots-pr713-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-panel-fixes.md) — Fixer: PR #713 panel must-fix + summary-fix bundle
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Review directive on endojs/endo-but-for-bots PR #713
@@ -3843,13 +3843,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
-### tada (3747)
+### tada (3748)
+- [`endojs-endo-but-for-bots-pr707-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr707-conduct.md) — Conductor report: endojs/endo-but-for-bots PR #707
 - [`endo-npm-cas-registry-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260728-192002.md) — What I found on assessment
 - [`endo-vfs-parity-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260728-192002.md) — Parity-press tick — 2026-07-28 ~23:40 (verify-and-stand-down, with one major ...
 - [`endo-sturdyref-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260728-192002.md) — Cost
 - [`proposal-compartments-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260728-192002.md) — Cost
-- [`ocapn-noise-press-20260728-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260728-192002.md) — Cost
-- … and 3742 more
+- … and 3743 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
