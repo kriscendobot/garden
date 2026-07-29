@@ -4,9 +4,9 @@ model: claude-sonnet-4-6
 thoughtfulness: medium
 work_class: ops:m
 target: main2
-attempts: 1
-accepts: 1
+attempts: 2
+accepts: 2
 censored: 0
-mean_dollars: 0.757255
-m2: 0.000000
+mean_dollars: 1.363966
+m2: 0.736196
 acceptance_rate: 1.0000
