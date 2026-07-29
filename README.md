@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T04:38:33Z_
+_As of 2026-07-29T04:39:07Z_
 
 ## Latest
 
@@ -4703,13 +4703,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 52.3M | $873.61 _(notional, rate-card)_ | no quota set |
-| Codex | 142.4M _(+468.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 142.4M _(+469.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
 
-### doin (42)
+### doin (41)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endojs-endo-but-for-bots-pr241-review-b15e4ef6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr241-review-b15e4ef6.md) — Review directive on endojs/endo-but-for-bots PR #241
@@ -4748,18 +4748,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
-- [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3823)
+### tada (3824)
+- [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-gate-on-script-test-suites.md) — Cost
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Job report — endojs/endo-but-for-bots PR #713 review directive
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr657-conduct.md) — Completion report: endojs-endo-but-for-bots-pr657-conduct
 - [`endojs-endo-but-for-bots-pr705-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-merge.md) — Report
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr669-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 3818 more
+- … and 3819 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
