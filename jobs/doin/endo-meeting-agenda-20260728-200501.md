@@ -76,3 +76,10 @@ the next cycle).
   single handler budget.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: ps23-garden-f65473ae
+  gardener: 6
+  worker_kind: gardener
+  claimed_at: 2026-07-29T00:13:09Z
