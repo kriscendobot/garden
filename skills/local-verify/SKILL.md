@@ -210,7 +210,20 @@ each workspace independently. A failed package does not stop the loop; the
 captured test blob includes the package-labelled output for every failed
 workspace.
 
-After every step, the **codegen-then-clean gate** runs once: if
+Once every step has run, the **environment-fault check** runs: when two or more
+failing steps that dispatched **different** commands produced **byte-identical**
+output — the same capture blob — none of them reached a check, so the harness
+reports one `ENVIRONMENT FAULT` line instead of leaving N independent-looking
+verification failures. Distinct commands is the discriminator: two steps can
+legitimately resolve to the *same* script (`codegen` and `docs` both match
+`build:types` on a project with no dedicated generator), and that script failing
+twice is one honest failure reported twice. Where the shared output carries a
+recognizable runner-level signature (a not-installed usage error, `permission
+denied`, a missing runner) the line names the likely cause; an unrecognized
+environment fault is still reported, generically. The run still exits non-zero —
+this changes the diagnosis, never the verdict.
+
+After that, the **codegen-then-clean gate** runs once: if
 `git status --porcelain` reports the worktree dirty, a generator regenerated a
 stale checked-in artifact. The gate emits `STEP codegen left tree dirty:
 generated artifacts are stale — commit the regen` with a SHA-captured
@@ -224,6 +237,11 @@ stdout — and counts as a failure, so the run exits non-zero.
   proceeds to push with confidence.
 - Exit non-zero: one block per failing step (step name + blob SHA + one-line
   tail + inspect command). The caller hands the SHAs to a debugging agent.
+- Exit non-zero with a trailing `ENVIRONMENT FAULT:` line: the per-step blocks
+  above it are **not** N verification results. Several steps that ran different
+  commands failed with one identical output, so the runner or the environment
+  refused them all and no check ran. Fix the environment and re-run for a real
+  verdict; do not start debugging the change.
 
 The exit code is the harness's sole machine-readable signal; the per-failure
 blocks are the human/agent-readable surface.
@@ -295,7 +313,20 @@ the same failure hashes to the same SHA (determinism); and the codegen-then-clea
 gate fails (with a SHA-captured diff, no raw diff on stdout) when a generator
 staled an artifact but stays silent when the generator is up to date. It also
 proves two failing workspaces both appear in the captured test blob, without
-re-running the fail-fast root aggregator. `bash -n` and `shellcheck` clean.
+re-running the fail-fast root aggregator.
+
+Two later groups cover the environment-fault class. The **unit** cases prove
+identical output from different commands is reported as one `ENVIRONMENT FAULT`
+(with the not-installed cause named, and the per-step blocks retained), while
+distinct failing output — and one script matched by two steps — are *not*
+flagged. The **end-to-end** case drives the real
+`scripts/jobs/ensure-project-worktree.sh` through a cold build and then a warm
+cache HIT against a throwaway fork and a stubbed package manager that reproduces
+yarn 4's defining behavior (refuse every `run` without link state), and asserts
+the gate actually exercises its steps in the HIT worktree — silent, exit 0. Its
+negative control re-creates the pre-fix shape with `GARDEN_SKIP_DEP_RECONCILE=1`
+(deps linked in, no link state) and asserts the gate diagnoses it as an
+environment fault. `bash -n` and `shellcheck` clean.
 
 ## Pitfalls
 
@@ -319,7 +350,11 @@ re-running the fail-fast root aggregator. `bash -n` and `shellcheck` clean.
   when the message is a *usage* error from the package runner rather than an
   assertion — the harness never reached the project's checks at all. Fix the
   environment (see the warm-cache field note below), then re-run for a real
-  verdict; do not start fixing the code.
+  verdict; do not start fixing the code. The harness now makes this call itself
+  and says `ENVIRONMENT FAULT` (§ Output), so this pitfall is the reasoning
+  behind that line rather than a judgement left to the reader — but the
+  detection is deliberately conservative (identical output from *different*
+  commands), so a runner that varies its refusal per step still lands here.
 - **Confirm you are running the harness you think you are.** The deployed root
   checkout advances only by a deliberate drained deploy, so it can lag `main2` by
   days (CLAUDE.md § Deliberate deploy). A divergence whose fix is already
@@ -462,3 +497,36 @@ re-running the fail-fast root aggregator. `bash -n` and `shellcheck` clean.
   `endojs/endo-but-for-bots#883` (`rerere.enabled=false` in the fixture's own
   repository-local config) is still not on `llm`, so the harness-side defense is
   currently the only one in force.
+
+- _2026-07-29_: closed the remaining two halves of the warm-cache divergence
+  above (job `fix-warm-cache-yarn-install-state`), which was posted before the
+  link-state reconcile landed and outlived it by three requeues. The root cause
+  was already fixed, so what was left was **the regression** and **the
+  diagnosis**.
+  * *Regression.* `scripts/jobs/test/local-verify-test.sh` now drives the real
+    `ensure-project-worktree.sh` through a cold build and then a warm cache HIT
+    (throwaway fork + bare clone + a stubbed package manager that reproduces
+    yarn 4's defining behavior: refuse every `run` without link state) and
+    asserts the gate **exercises its steps** in the HIT worktree — silent, exit
+    0. The negative control re-creates the pre-fix shape exactly, with
+    `GARDEN_SKIP_DEP_RECONCILE=1`. Before this, the reconcile was covered only
+    from the provisioner's side (`project-worktree-isolation-test.sh` asserts
+    the link state gets written); nothing asserted the *gate* was runnable,
+    which is the property that actually failed.
+  * *Diagnosis.* `local-verify.sh` now distinguishes **"the runner is broken"**
+    from **"the check failed"** (§ Output): two or more failing steps that ran
+    **different** commands yet produced **byte-identical** output get one
+    trailing `ENVIRONMENT FAULT` line naming the shared blob and exonerating the
+    change, plus a cause hint for the recognizable signatures (not-installed,
+    `permission denied`, missing runner). Identical output is the crisp signal
+    here because the failure capture already content-addresses each step's
+    output, so "the same failure six times" is an exact blob-SHA match rather
+    than a fuzzy text comparison. The discriminator that keeps it honest is
+    *different commands*: `codegen` and `docs` both match `build:types` on a
+    project without a dedicated generator, and that one script failing twice is
+    an honest failure reported twice, not an environment fault. Verdict and exit
+    code are unchanged — only the diagnosis is. The general lesson for the
+    table: when a gate captures failures by content address, cross-step output
+    identity is free evidence about whether the gate ran at all, and a gate that
+    can tell it never ran should say so rather than emit N failures it knows are
+    one.

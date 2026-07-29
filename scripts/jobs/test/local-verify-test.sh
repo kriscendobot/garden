@@ -15,9 +15,19 @@
 #      leaves the tree dirty -> the gate fails with a `left tree dirty` message
 #      and a SHA-captured diff --stat (no raw diff on stdout); an up-to-date
 #      generator keeps the tree clean and the gate silent.
+#   9. Environment fault vs check failure: two or more steps that ran DIFFERENT
+#      commands failing with byte-IDENTICAL output are reported as ONE
+#      environment fault, not N verification failures — while distinct failing
+#      output, and one script matched by two steps, are NOT flagged.
+#  10. The gate is RUNNABLE in a warm-cache-populated worktree: a checkout
+#      provisioned through the real ensure-project-worktree.sh warm-cache HIT
+#      path exercises its steps (silent, exit 0), and the pre-fix shape (deps
+#      linked in, no package-manager link state) is diagnosed as an environment
+#      fault. This is the regression for job `fix-warm-cache-yarn-install-state`.
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
-# with a stubbed package runner (GARDEN_YARN).
+# with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
+# root, fork bare clone, and stubbed package manager driving the real provisioner.
 
 # The fixtures below are single-quoted stub bodies that must NOT expand (SC2016),
 # and the ok/bad assertion idiom is the intended A && pass || fail (SC2015, safe
@@ -212,6 +222,193 @@ printf '%s' "$b11" | grep -q 'workspace-b failed' \
   && ok "captures a later workspace failure" || bad "later workspace failure missing"
 printf '%s' "$b11" | grep -q 'root aggregator ran' \
   && bad "re-ran the fail-fast root aggregator" || ok "does not re-run the root aggregator"
+
+# --- 12: environment fault vs check failure ----------------------------------
+# Several steps that ran DIFFERENT commands failing with byte-IDENTICAL output
+# means not one of them reached a check: the runner refused them all. That is
+# ONE environment fault, and must be said so rather than left looking like N
+# independent verification failures (the warm-cache regression, where yarn
+# refused every `yarn run` with one usage error and all six steps "FAILED").
+R12="$TR/envfault"; mkdir -p "$R12"; git -C "$R12" init -q
+git -C "$R12" config user.email t@localhost; git -C "$R12" config user.name test
+cat > "$R12/package.json" <<'PKG'
+{ "name": "fixture", "scripts": {
+  "format:check": "fmt", "build": "build", "lint": "lint",
+  "codegen": "gen", "test": "test", "docs": "docs" } }
+PKG
+# The runner refuses EVERY script with one identical usage error, exactly as
+# yarn 4 does in a worktree with no link state. `workspaces list` is refused too,
+# so the test step falls back to the ordinary root script.
+printf '%s\n' '#!/bin/bash
+echo "Usage Error: The project in /w/package.json doesn'"'"'t seem to have been installed - running an install there might help"
+exit 1' > "$R12/yarn-stub.sh"
+git -C "$R12" add -A; git -C "$R12" commit -qm init >/dev/null
+o12="$(GARDEN_YARN="bash $R12/yarn-stub.sh" "$LV" "$R12" 2>&1)"; rc12=$?
+[ "$rc12" -ne 0 ] && ok "environment fault still exits non-zero (fails loud)" \
+  || bad "environment fault should not exit 0"
+printf '%s' "$o12" | grep -q 'ENVIRONMENT FAULT' \
+  && ok "identical output from different commands is called an environment fault" \
+  || bad "no ENVIRONMENT FAULT line (out=[$o12])"
+printf '%s' "$o12" | grep -q 'NOT the change' \
+  && ok "the fault line says the change is not the cause" || bad "fault line does not exonerate the change"
+printf '%s' "$o12" | grep -q 'NOT INSTALLED' \
+  && ok "names the not-installed cause for a package-manager usage error" \
+  || bad "missing the not-installed hint (out=[$o12])"
+# It supplements the per-step lines rather than replacing them: the blob is still
+# reachable, so a debugging agent can read the refusal verbatim.
+printf '%s' "$o12" | grep -q 'STEP format FAILED' \
+  && ok "per-step failure lines are retained" || bad "per-step lines disappeared"
+s12="$(printf '%s' "$o12" | grep -oE '[0-9a-f]{40}' | head -1)"
+git -C "$R12" cat-file -p "$s12" 2>/dev/null | grep -q "seem to have been installed" \
+  && ok "the shared blob holds the runner's refusal" || bad "blob missing the refusal text"
+
+# --- 13: the fault check does NOT fire on genuine failures -------------------
+# Two steps failing with DIFFERENT output is two honest results.
+R13="$TR/genuine"
+make_repo "$R13" '#!/bin/bash
+case "$2" in
+  format:check) echo "prettier: 3 files need formatting"; exit 1 ;;
+  lint)         echo "eslint: 7 problems"; exit 1 ;;
+  *)            exit 0 ;;
+esac'
+o13="$(GARDEN_YARN="bash $R13/yarn-stub.sh" "$LV" "$R13" 2>&1)"
+printf '%s' "$o13" | grep -q 'ENVIRONMENT FAULT' \
+  && bad "false positive: distinct failures flagged as an environment fault" \
+  || ok "distinct failing output is NOT an environment fault"
+
+# The discriminator is DISTINCT COMMANDS: two steps can legitimately resolve to
+# the SAME script (`codegen` and `docs` both match `build:types` where a project
+# has no dedicated generator), and one script failing twice is one honest
+# failure reported twice.
+R14="$TR/samescript"; mkdir -p "$R14"; git -C "$R14" init -q
+git -C "$R14" config user.email t@localhost; git -C "$R14" config user.name test
+cat > "$R14/package.json" <<'PKG'
+{ "name": "fixture", "scripts": { "build:types": "tsc --build" } }
+PKG
+printf '%s\n' '#!/bin/bash
+echo "tsc: error TS2307: cannot find module"; exit 1' > "$R14/yarn-stub.sh"
+git -C "$R14" add -A; git -C "$R14" commit -qm init >/dev/null
+o14="$(GARDEN_YARN="bash $R14/yarn-stub.sh" "$LV" "$R14" 2>&1)"
+printf '%s' "$o14" | grep -c 'STEP .* FAILED' | grep -q '^2$' \
+  && ok "one script matched by two steps fails twice (the fixture holds)" \
+  || bad "expected exactly 2 step failures from the shared script (out=[$o14])"
+printf '%s' "$o14" | grep -q 'ENVIRONMENT FAULT' \
+  && bad "false positive: the SAME command failing twice flagged as environment fault" \
+  || ok "the same command failing twice is NOT an environment fault"
+
+# --- 15: the gate is RUNNABLE in a warm-cache-populated worktree -------------
+# The end-to-end regression for job `fix-warm-cache-yarn-install-state`. A per-job
+# project checkout provisioned by a warm-cache HIT gets its node_modules
+# hardlinked in from the cache rather than installed. A package manager keeps its
+# "is this project installed?" state OUTSIDE node_modules (yarn 4:
+# .yarn/install-state.gz), which is gitignored and so absent from a fresh
+# `git worktree add` — so before the link-state reconcile landed, yarn refused
+# every `yarn run <script>` and this gate reported ALL SIX steps FAILED with one
+# usage error. The gate verified nothing on exactly the worktrees the cache is
+# for.
+#
+# This drives the REAL ensure-project-worktree.sh through a cold build and then a
+# warm hit, and asserts the gate actually runs its steps in the hit worktree.
+# The package manager is stubbed with yarn 4's defining behavior: it refuses
+# every `run` unless the project's link state is present.
+EPW="$(cd "$HERE/.." && pwd)/ensure-project-worktree.sh"
+if ! command -v flock >/dev/null 2>&1 || [ ! -f "$EPW" ]; then
+  echo "  SKIP: warm-cache end-to-end needs flock + ensure-project-worktree.sh"
+else
+  W="$TR/warm"; GROOT="$W/garden"
+  mkdir -p "$GROOT/worktrees"
+  git -C "$GROOT" init -q 2>/dev/null || { mkdir -p "$GROOT"; git -C "$GROOT" init -q; }
+  git -C "$GROOT" config user.name garden-bot; git -C "$GROOT" config user.email bot@localhost
+
+  # The stub package manager, at a path stable across worktrees. Invoked as
+  # `bash <stub> install` (the provisioner) and `bash <stub> run <script>` (the
+  # gate). Refuses every `run` without link state, like yarn 4.
+  STUB="$W/pm.sh"; mkdir -p "$W"
+  cat > "$STUB" <<'PMEOF'
+#!/bin/bash
+if [ "$1" = install ]; then
+  mkdir -p node_modules/.bin .yarn
+  echo dependency > node_modules/installed
+  echo state > .yarn/install-state
+  exit 0
+fi
+if [ ! -f "$PWD/.yarn/install-state" ]; then
+  echo "Usage Error: The project in $PWD/package.json doesn't seem to have been installed - running an install there might help"
+  exit 1
+fi
+[ "$1" = workspaces ] && exit 1     # not a discoverable workspace tree
+echo "ran $2 against $(cat node_modules/installed)"
+exit 0
+PMEOF
+
+  # The upstream fork + its standing bare clone, as a real garden fork.
+  UP="$W/upstream.git"; SEED="$W/seed"
+  git init -q --bare "$UP"; git init -q "$SEED"
+  cat > "$SEED/package.json" <<'PKG'
+{ "name": "warm", "scripts": {
+  "format:check": "fmt", "build": "build", "lint": "lint",
+  "codegen": "gen", "test": "test", "docs": "docs" } }
+PKG
+  printf 'lockfile v1\n' > "$SEED/yarn.lock"
+  printf 'node_modules/\n.yarn/\n' > "$SEED/.gitignore"
+  ( cd "$SEED" || exit 1
+    git -c user.name=t -c user.email=t@localhost add -A
+    git -c user.name=t -c user.email=t@localhost commit -qm seed
+    git branch -M llm
+    git remote add origin "$UP"
+    git push -q -u origin llm ) >/dev/null 2>&1
+  BARE="$GROOT/worktrees/endojs-warm.git"
+  git clone -q --bare "$UP" "$BARE"
+  git -C "$BARE" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+  git -C "$BARE" remote set-url origin "$UP"
+
+  provision() {  # provision <base> [extra env assignments...] → path on stdout
+    local b="$1"; shift
+    env GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$GROOT/scratch" \
+        GARDEN_DEP_INSTALL_CMD="bash $STUB install" "$@" \
+        bash "$EPW" "$b" endojs/warm llm 2>"$W/err-$b.txt"
+  }
+
+  COLD="$(provision cold-job)"
+  grep -q 'WARM-CACHE built' "$W/err-cold-job.txt" \
+    && ok "cold provision builds the dependency cache" \
+    || bad "no cold cache build (err=$(tr '\n' '|' <"$W/err-cold-job.txt"))"
+  # The cold path runs the real installer, so it has link state of its own — the
+  # reason the defect was invisible on the first worktree of every lockfile.
+  [ -n "$COLD" ] && [ -f "$COLD/.yarn/install-state" ] \
+    && ok "the cold worktree has link state (the installer wrote it)" \
+    || bad "cold worktree has no link state ('$COLD')"
+
+  HOT="$(provision hot-job)"
+  grep -q 'WARM-CACHE hit' "$W/err-hot-job.txt" \
+    && ok "second job provisions from the warm cache (a HIT)" \
+    || bad "no warm hit (err=$(tr '\n' '|' <"$W/err-hot-job.txt"))"
+  [ -n "$HOT" ] && [ -d "$HOT/node_modules" ] \
+    && ok "the warm hit populated node_modules" || bad "warm hit left no node_modules in '$HOT'"
+
+  # THE REGRESSION: the gate must exercise the real steps here, not report six
+  # identical bogus failures.
+  o15="$(GARDEN_YARN="bash $STUB" "$LV" "$HOT" 2>&1)"; rc15=$?
+  [ "$rc15" -eq 0 ] && [ -z "$o15" ] \
+    && ok "local-verify RUNS its steps in a warm-cache worktree (silent, exit 0)" \
+    || bad "the gate is unrunnable on a warm-cache worktree (rc=$rc15 out=[$o15])"
+  printf '%s' "$o15" | grep -q 'seem to have been installed' \
+    && bad "the package manager still reports the project as not installed" \
+    || ok "no not-installed refusal in a warm-cache worktree"
+
+  # And the negative control: suppress the reconcile to recreate the pre-fix
+  # worktree exactly, and confirm the gate now NAMES it as an environment fault
+  # instead of six verification failures.
+  BROKEN="$(provision broken-job GARDEN_SKIP_DEP_RECONCILE=1)"
+  [ -n "$BROKEN" ] && [ -d "$BROKEN/node_modules" ] && [ ! -f "$BROKEN/.yarn/install-state" ] \
+    && ok "the control worktree reproduces the defect (deps, no link state)" \
+    || bad "control worktree not in the pre-fix shape ('$BROKEN')"
+  o15b="$(GARDEN_YARN="bash $STUB" "$LV" "$BROKEN" 2>&1)"; rc15b=$?
+  [ "$rc15b" -ne 0 ] && ok "the pre-fix worktree still fails loud" || bad "pre-fix worktree passed silently"
+  printf '%s' "$o15b" | grep -q 'ENVIRONMENT FAULT' \
+    && ok "the pre-fix worktree is reported as an ENVIRONMENT FAULT, not N failed checks" \
+    || bad "six identical refusals not diagnosed as an environment fault (out=[$o15b])"
+fi
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"

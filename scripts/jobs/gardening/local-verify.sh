@@ -38,6 +38,13 @@
 #     suite: false positives (a wasted check) are fine, false negatives (a
 #     regression that slips to CI) are not. Steps are not sense-gated.
 #
+#   * "THE RUNNER IS BROKEN" IS NOT "THE CHECK FAILED". When two or more steps
+#     that ran DIFFERENT commands fail with byte-IDENTICAL output (the same
+#     capture blob), none of them actually ran a check — the package runner or
+#     the environment refused them all. That is an environment fault, and it is
+#     reported as ONE such line rather than left to look like N independent
+#     verification failures. See § Environment fault vs check failure below.
+#
 # Usage: local-verify.sh [<worktree>]
 #   <worktree> defaults to the current directory (the gardening project/ tree).
 #
@@ -162,6 +169,13 @@ discover() { discover_in "$pkg" "$1"; }
 
 failures=0
 
+# Per-failure ledger backing the environment-fault check below: for every failed
+# step, the command it ran and the SHA its captured output hashed to. Identical
+# output from DIFFERENT commands is the signature of a broken runner.
+fail_steps=()
+fail_cmds=()
+fail_shas=()
+
 run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
   local step="$1" cmd out sha lines tail
   cmd="$(discover "$step")"
@@ -182,6 +196,7 @@ run_step() {  # run_step <step> — run it; silent on pass; SHA-capture on fail
     "$step" "$sha" "$lines" "$wt" "$sha"
   [ -n "$tail" ] && printf '  %s\n' "$tail"
   rm -f "$out"
+  fail_steps+=("$step"); fail_cmds+=("$cmd"); fail_shas+=("$sha")
   failures=$((failures + 1))
   return 1
 }
@@ -242,6 +257,7 @@ run_workspace_tests() {  # Run every workspace test, even after one fails.
     "$sha" "$lines" "$wt" "$sha"
   [ -n "$tail" ] && printf '  %s\n' "$tail"
   rm -f "$out"
+  fail_steps+=(test); fail_cmds+=("<workspace tests>"); fail_shas+=("$sha")
   failures=$((failures + 1))
   return 1
 }
@@ -260,6 +276,60 @@ for step in $STEPS; do
     run_step "$step" || true                 # run all steps; aggregate failures
   fi
 done
+
+# ── Environment fault vs check failure ──────────────────────────────────────
+# N steps failing is normally N verification results. But when several steps that
+# ran DIFFERENT commands all fail with byte-IDENTICAL output — the same capture
+# blob — not one of them reached a check: something upstream of every command
+# refused it. That is ONE environment fault, and reporting it as N failed
+# verification steps sends the supervising agent hunting a defect in the change
+# that is not there.
+#
+# The observed case is the warm-cache worktree (job
+# `local-verify-parity-endo-but-for-bots-warm-cache`): a per-job checkout whose
+# node_modules were hardlinked in from the cache had no package-manager link
+# state, so yarn 4 refused every `yarn run <script>` with one usage error and all
+# six steps "FAILED" with the same three-line blob. The cause is fixed in
+# scripts/jobs/ensure-project-worktree.sh (§ Link-state reconcile), but the class
+# is wider than that one bug — a missing runner, a noexec $TMPDIR, an
+# unauthenticated registry, a corepack that cannot fetch — so the gate names the
+# shape rather than any single instance.
+#
+# DISTINCT commands is the discriminator that keeps this from false-positiving.
+# Two steps can legitimately resolve to the SAME script (`codegen` and `docs`
+# both match `build:types` on a project without a dedicated generator), and that
+# one script failing twice is one honest failure reported twice, not an
+# environment fault. Identical output from different commands has no such benign
+# reading.
+report_environment_fault() {
+  local n="${#fail_shas[@]}" uniq_shas uniq_cmds sha hint
+  [ "$n" -ge 2 ] || return 0
+  uniq_shas="$(printf '%s\n' "${fail_shas[@]}" | sort -u | wc -l | tr -d ' ')"
+  uniq_cmds="$(printf '%s\n' "${fail_cmds[@]}" | sort -u | wc -l | tr -d ' ')"
+  [ "$uniq_shas" = 1 ] && [ "$uniq_cmds" -ge 2 ] || return 0
+  sha="${fail_shas[0]}"
+
+  # Name the likeliest cause when the shared output carries a recognizable
+  # runner-level signature. These are hints on top of the generic finding, never
+  # the trigger for it: an unrecognized environment fault is still reported.
+  # Read only the head of the shared blob: a runner-level refusal announces
+  # itself immediately, and this must not pull a large log into memory.
+  hint=""
+  case "$(git -C "$wt" cat-file -p "$sha" 2>/dev/null | head -c 8192)" in
+    *"doesn't seem to have been installed"*|*"has not been installed"*)
+      hint="the package manager reports the project as NOT INSTALLED — this worktree has node_modules but no package-manager link state. A warm-cache checkout must run the link-state reconcile (scripts/jobs/ensure-project-worktree.sh § Link-state reconcile); re-run the install in the worktree to recover." ;;
+    *"ermission denied"*)
+      hint="a command was refused execution — the noexec \$TMPDIR divergence (skills/local-verify § Parity is the contract) or a lost +x bit, not a failing check." ;;
+    *"command not found"*|*"No such file or directory"*)
+      hint="the package runner itself is missing from PATH; set GARDEN_YARN or install the runner." ;;
+  esac
+
+  printf 'ENVIRONMENT FAULT: %s failing steps (%s) ran %s DIFFERENT commands yet produced IDENTICAL output (blob %s) — the runner or the environment is broken, NOT the change. inspect: git -C %s cat-file -p %s\n' \
+    "$n" "${fail_steps[*]}" "$uniq_cmds" "$sha" "$wt" "$sha"
+  [ -n "$hint" ] && printf '  %s\n' "$hint"
+  return 0
+}
+report_environment_fault
 
 # Codegen-then-clean gate: once every step has run (the codegen generators
 # above especially), a worktree that became dirty means a checked-in generated
