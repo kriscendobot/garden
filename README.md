@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:33:43Z_
+_As of 2026-07-29T23:34:37Z_
 
 ## Latest
 
@@ -3606,6 +3606,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Deployment evidence update: leader-originated, authorized sysop deploys were accepted for both reachable Endolin hosts, including a 22:12 UTC deploy to descendant 532584e0365697260e90f36d36e52474f7be0f52 (contains tier-native aed30a4419). This host now records that SHA, is not draining, has no failed garden units, gardeners: 0, and active cleric@1 plus mystic@1. ps23 and ps23-garden-f65473ae received authorized deploy messages but produced no sysop log or ack, so they are unreachable. I still lack a leader-host failed-unit and live-worker observation; please reply with that health evidence or authorize an appropriate remote status mechanism so the deployment job can close.
 
+- `20260729T233407Z-af2598` — from orchestrator:garden-fireworks-glm52-rollout-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T233407Z-af2598.md)
+
+> Orchestration garden-fireworks-glm52-rollout HALTED: child garden-fireworks-glm52-register poisoned and held in plan (serial, on-child-failure=halt). 0/3 done before halt; swept: garden-fireworks-glm52-deploy garden-fireworks-glm52-activate-canary
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5577,7 +5581,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.8M _(+616.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Codex | 59.7M _(+616.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (20)
@@ -5606,13 +5610,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
 
-### tada (3921)
+### tada (3922)
+- [`garden-fireworks-glm52-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fireworks-glm52-rollout.md) — orchestration garden-fireworks-glm52-rollout — HALTED
 - [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr721-garden-response-comment.md) — Cost
 - [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/exo-git-follow-root-advancement-design.md) — Cost
 - [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing-deploy.md) — Cost
 - [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`ebfb-pr600-footnote-model-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-footnote-model-harness.md) — Cost
-- … and 3916 more
+- … and 3917 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
