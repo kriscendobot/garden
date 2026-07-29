@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: garden-quota-routing-rollout
-priority: normal
-posted_by: producer
-posted_at: 2026-07-29T02:58:16Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T03:05:04Z -->
 
 Repository: kriscendobot/garden (garden library itself; land directly on main2, no PR).
 
