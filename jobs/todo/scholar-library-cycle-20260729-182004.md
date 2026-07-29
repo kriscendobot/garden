@@ -1,8 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-07-29T18:20:04Z
-job_basename_prefix: scholar-library-cycle
-preflight: scholar-preflight.sh
----
 # Hourly scholar library cycle
 
 A periodical scholar cycle that fires every UTC hour at :00. Dispatched into a
