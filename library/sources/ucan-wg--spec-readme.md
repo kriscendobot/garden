@@ -6,7 +6,7 @@ source_date: 2026-07-08
 source_authors: [Brooklyn Zelenka, Irakli Gozalishvili, Daniel Holmgren, Philipp Kruger]
 ingested: 2026-07-28
 ingested_by: scholar
-section_count: 5
+section_count: 13
 status: current
 notes: |
   Version status, observed 2026-07-28 and stated honestly because it is easy
@@ -35,7 +35,13 @@ notes: |
 | [roles-subject-issuer-audience](../sections/ucan-wg--spec-readme--roles-subject-issuer-audience.md) | ucan-authorization, capability-security, identity | current |
 | [capability-authority-command-attenuation](../sections/ucan-wg--spec-readme--capability-authority-command-attenuation.md) | ucan-authorization, capability-security | current |
 | [canonicalization-envelope-and-cids](../sections/ucan-wg--spec-readme--canonicalization-envelope-and-cids.md) | ucan-authorization, content-addressed-storage, marshal | current |
-
-Deferred from this cycle, and named in the follow-on `scholar-ingest-ucan-atproto-remainder` job: the Lifecycle / Time / Token-Resolution / Nonce / Metadata sections, the Implementation Recommendations (delegation store, memoized validation, replay-attack prevention, beyond-single-system-image, wrapping existing systems), the FAQ, and the Related Work section.
+| [lifecycle-and-time](../sections/ucan-wg--spec-readme--lifecycle-and-time.md) | ucan-authorization, capability-security | current |
+| [time-bounds](../sections/ucan-wg--spec-readme--time-bounds.md) | ucan-authorization, capability-security | current |
+| [token-resolution](../sections/ucan-wg--spec-readme--token-resolution.md) | ucan-authorization, content-addressed-storage | current |
+| [nonce](../sections/ucan-wg--spec-readme--nonce.md) | ucan-authorization, capability-security | current |
+| [metadata](../sections/ucan-wg--spec-readme--metadata.md) | ucan-authorization, marshal | current |
+| [implementation-recommendations](../sections/ucan-wg--spec-readme--implementation-recommendations.md) | ucan-authorization, capability-security, content-addressed-storage | current |
+| [faq-security-boundaries](../sections/ucan-wg--spec-readme--faq-security-boundaries.md) | ucan-authorization, capability-security | current |
+| [related-work-and-prior-art](../sections/ucan-wg--spec-readme--related-work-and-prior-art.md) | ucan-authorization, capability-security | current |
 
 Source: [`README.md`](https://github.com/ucan-wg/spec/blob/9955aa1fb7b32897f80b57651f4ee8b22ebf35a7/README.md) at commit `9955aa1f`.
