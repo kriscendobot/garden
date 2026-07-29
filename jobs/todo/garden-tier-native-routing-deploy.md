@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-tier-native-routing-rollout
-priority: normal
-posted_by: producer
-posted_at: 2026-07-29T21:44:22Z
+role: gardener
+model: gpt-5.6-terra
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T21:55:05Z cleared=none -->
 
 ---
 model: gpt-5.6-terra
