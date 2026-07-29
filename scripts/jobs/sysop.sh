@@ -334,6 +334,13 @@ for f in $(ls -1 "$d" 2>/dev/null | grep -v -x '.gitkeep' | sort); do
   if [ -f "$CLONE/sysop-log/$GARDEN/$msgid.md" ]; then mark_seen "$idline"; continue; fi
 
   MSGFILE="$d/$f"
+  # Acks are addressed back to the issuing host so an operator can observe them;
+  # they are not new operations.  In particular, an ack for `op: deploy` must
+  # never be parsed as a destructive deploy request and acked again.
+  if [ -n "$(field sysop_ack)" ]; then
+    mark_seen "$idline"
+    continue
+  fi
   from_host="$(field from_host)"
   op="$(field op)"
   reply_to="$(field reply_to)"
