@@ -15,6 +15,9 @@ The DID-shaped analogue of a locator's connection hints. A DID document's `servi
 | [atproto--specs-did--did-document-atproto-fields](../sections/atproto--specs-did--did-document-atproto-fields.md) | The #atproto_pds service entry: type AtprotoPersonalDataServer, an HTTPS origin with no path, and the explicit caution that a valid URL is not a liveness claim. |
 | [atproto--specs-did--blessed-did-methods](../sections/atproto--specs-did--blessed-did-methods.md) | Which DID methods carry a resolvable document at all, and why did:web's DNS grounding collapses the hint and the identity onto one authority. |
 | [atproto--specs-repository--self-certifying-repository](../sections/atproto--specs-repository--self-certifying-repository.md) | 'The authoritative location of an account's repository is the associated Personal Data Server. An account's current PDS location is declared in the DID Document.' |
+| [atproto--specs-sync--identity-and-account-events](../sections/atproto--specs-sync--identity-and-account-events.md) | How a federation announces that a DID document may have changed: best-effort, non-authoritative, 'does not indicate what changed', re-resolution is the consumer's job. |
+| [atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat](../sections/atproto--specs-at-uri-scheme--structure-and-strong-reference-caveat.md) | 'the authority part of an AT URI does not indicate a network location for the indicated resource' — the name is not the hint. |
+| [atproto--specs-sync--guidelines-security-and-future-work](../sections/atproto--specs-sync--guidelines-security-and-future-work.md) | The cost of resolvable hints: identity resolution on untrusted input is an SSRF and traffic-amplification surface for every firehose consumer. |
 
 ## See also
 
