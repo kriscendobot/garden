@@ -4,9 +4,16 @@ Dollars-per-second per `(provider, model, thoughtfulness)` arm, used by the
 **wallclock cost proxy**: when a provider CLI reports no per-call dollars,
 `rep_agentic_dollars` fails open to `censored` and the arm would be priced by
 nothing — so `reputation-reduce.sh` prices that event at `duration_secs x` the rate
-below instead. `duration_secs` is present on **100% of reputation events** and is
-measured by the garden rather than reported by a provider, so unlike a dollar figure
-it can never be censored.
+below instead. That wallclock is measured by the garden rather than reported by a
+provider, so unlike a dollar figure it can never be censored: `duration_secs`
+(present on **100% of reputation events**) times the attempt that reached tada, plus
+`min(interval, GARDEN_REP_ATTEMPT_CAP_SECS)` for each EARLIER attempt of a requeued
+job, read back from the claim commits in this journal's own log.
+
+**The rates below are measured on that basis**, not on `duration_secs` alone. The two
+differ by ~1.4x in aggregate (354 of 1545 events were requeued), so a row and its
+basis move together: re-measure, never rescale. Pricing the wider basis at the
+narrower basis's rate would inflate every censored arm by that ratio.
 
 **This file is journal data and outranks the tracked seed**
 (`scripts/jobs/rate-card-defaults.md` on `main2`). Correcting a rate here needs **no
@@ -35,31 +42,39 @@ proxy is weaker evidence than an invoice.
 
 | provider | model | thoughtfulness | dollars_per_second | price_basis | source | measured_at |
 | --- | --- | --- | --- | --- | --- | --- |
-| anthropic | claude-default | * | 0.007323 | measured | 49 ledger-priced fleet events, $230.49 over 31476s | 2026-07-29 |
-| anthropic | claude-fable-5 | * | 0.012069 | measured | 12 ledger-priced fleet events, $34.70 over 2875s | 2026-07-29 |
-| anthropic | claude-opus-4-8 | * | 0.007104 | measured | 12 ledger-priced fleet events, $65.52 over 9223s | 2026-07-29 |
-| anthropic | claude-sonnet-4-6 | * | 0.001611 | measured | 4 ledger-priced fleet events, $4.85 over 3009s | 2026-07-29 |
-| anthropic | * | * | 0.007203 | measured | pooled: 79 ledger-priced fleet events, $335.56 over 46583s | 2026-07-29 |
-| moonshot | kimi-k3 | * | 0.004310 | provisional | 0.6 x the measured claude-opus-4-8 rate, from Moonshot's provisional list price ratio (see Derivations) | 2026-07-29 |
+| anthropic | claude-default | * | 0.005139 | measured | 62 ledger-priced fleet events, $283.29 over 55124 wallclock s | 2026-07-29 |
+| anthropic | claude-fable-5 | * | 0.007661 | measured | 17 ledger-priced fleet events, $55.58 over 7254 wallclock s | 2026-07-29 |
+| anthropic | claude-opus-4-8 | * | 0.005003 | measured | 18 ledger-priced fleet events, $99.45 over 19877 wallclock s | 2026-07-29 |
+| anthropic | claude-sonnet-4-6 | * | 0.001549 | measured | 5 ledger-priced fleet events, $5.10 over 3290 wallclock s | 2026-07-29 |
+| anthropic | * | * | 0.005154 | measured | pooled: 103 ledger-priced fleet events, $451.54 over 87611 wallclock s | 2026-07-29 |
+| moonshot | kimi-k3 | * | 0.003002 | provisional | 0.6 x the measured claude-opus-4-8 rate, from Moonshot's provisional list price ratio (see Derivations) | 2026-07-29 |
 | local | * | * | 0.000081 | amortized | ~$0.29 per busy hour of the local box (hardware + power; see Derivations) | 2026-07-29 |
-| openai | * | * | 0.007203 | provisional | fleet default — no published gpt-5.x API price is recorded and the ChatGPT plan meters no per-token dollars (see Derivations) | 2026-07-29 |
-| fireworks | * | * | 0.007203 | provisional | fleet default — no Fireworks price recorded; one event of history | 2026-07-29 |
-| * | * | * | 0.007203 | measured | fleet default for an unknown arm = the pooled measured rate above | 2026-07-29 |
+| openai | * | * | 0.005154 | provisional | fleet default — no published gpt-5.x API price is recorded and the ChatGPT plan meters no per-token dollars (see Derivations) | 2026-07-29 |
+| fireworks | * | * | 0.005154 | provisional | fleet default — no Fireworks price recorded; one event of history | 2026-07-29 |
+| * | * | * | 0.005154 | measured | fleet default for an unknown arm = the pooled measured rate above | 2026-07-29 |
 
 ## Derivations
 
 **The measured Anthropic rows are the strongest evidence in this file.** They come
-from the only arms that carry a real dollar ledger: the 79 of 1514
+from the only arms that carry a real dollar ledger: the 103 of 1545
 `reputation/events/*.md` whose `agentic_dollars` is a number rather than `censored`,
-each divided into its own `duration_secs`. That is a direct measurement of exactly the
+each divided into its own proxy wallclock. That is a direct measurement of exactly the
 quantity this card supplies, taken on autonomous fleet workers doing real jobs.
+
+**Why these numbers moved down (2026-07-29).** They were first measured against
+`duration_secs` alone, which times only the attempt that reached tada — so a requeued
+job's dollars (the ledger sums every attempt) were divided by one attempt's seconds,
+and the rate came out high: $0.0072/s pooled. Charging the earlier attempts too
+restates the same $451.54 over 38% more seconds: $0.0052/s. Same dollars, wider
+denominator, both honest — what would be wrong is mixing them.
 
 **`moonshot` / `kimi-k3` — derived, not measured.** No kimi run has ever carried a
 dollar figure, so its rate is a *price ratio* applied to a measured arm.
 `designs/provider-model-catalog.md` §2.6 records Moonshot's provisional list price as
 $0.30 / $3.00 / $15.00 per MTok (cached input / fresh input / output); the Anthropic
 catalog §1 prices `claude-opus-4-8` at $5 / $25 per MTok. The ratio is 0.6 on both the
-input and the output leg, so `0.6 x 0.007184` (opus at `high`) `= 0.004310`. **This
+input and the output leg, so `0.6 x 0.005003` (the measured opus-4-8 row)
+`= 0.003002`. **This
 assumes kimi generates tokens at roughly opus's rate** — if kimi is materially faster
 or slower per token, its dollars-per-*second* scales with that and this row is wrong
 in that proportion. The underlying list price is itself marked `[provisional,
