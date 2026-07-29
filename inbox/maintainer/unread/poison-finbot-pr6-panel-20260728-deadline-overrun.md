@@ -1,12 +1,16 @@
 from_host: endolin-garden2-5bcdff64
 from: reaper:endolin-garden2-5bcdff64
-sent_at: 2026-07-28T17:43:07Z
+sent_at: 2026-07-29T14:23:08Z
 poison_base: finbot-pr6-panel-20260728
 poison_signature: deadline-overrun
-notice_count: 1
+notice_count: 2
 first_seen: 2026-07-28T17:43:07Z
-last_seen: 2026-07-28T17:43:07Z
+last_seen: 2026-07-29T14:23:08Z
 ---
+POISON notice — occurrence #2 (first seen 2026-07-28T17:43:07Z, latest 2026-07-29T14:23:08Z).
+This job has been poison-parked 2 times for the same condition (deadline-overrun);
+this is an AMENDED notice, not a new one. Latest detail:
+
 POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
 Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
 this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
@@ -17,6 +21,11 @@ for this work, or fix what makes it run long.
 Original job base: finbot-pr6-panel-20260728
 
 --- original job body ---
+---
+role: builder
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-29T01:35:05Z -->
+
 role: builder
 
 # Run the required merge-governance panel for kriscendobot/finbot PR #6
