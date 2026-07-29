@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T09:36:54Z_
+_As of 2026-07-29T09:37:30Z_
 
 ## Latest
 
@@ -4817,7 +4817,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.7M | $809.31 _(notional, rate-card)_ | no quota set |
-| Codex | 70.3M _(+532.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Codex | 70.4M _(+532.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (28)
@@ -4850,16 +4850,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-093504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-093504.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (1)
-- [`deadmail-20260729T090650Z-55857e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260729T090650Z-55857e.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (3856)
+### tada (3857)
+- [`deadmail-20260729T090650Z-55857e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260729T090650Z-55857e.md) — Cost
 - [`endojs-endo-but-for-bots-pr723-review-b5ddd4da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr723-review-b5ddd4da.md) — Cost
 - [`endo-ocapn-multi-transport-design-pr684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-ocapn-multi-transport-design-pr684.md) — Cost
 - [`endojs-endo-but-for-bots-pr684-review-67f8b51a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr684-review-67f8b51a.md) — Cost
 - [`endojs-endo-but-for-bots-pr676-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr676-review-4939792d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-review-4939792d.md) — Cost
-- … and 3851 more
+- … and 3852 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
