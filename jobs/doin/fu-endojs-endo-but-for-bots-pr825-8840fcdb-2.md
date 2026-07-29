@@ -7,3 +7,10 @@ In endojs/endo-but-for-bots, PR https://github.com/endojs/endo-but-for-bots/pull
 <!-- garden-unpoisoned: fu-endojs-endo-but-for-bots-pr825-8840fcdb-2; spurious elapsed-constancy self-sample poison (fixed in main2 4a87fc7729); no real deadline overrun ever occurred -->
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T01:33:42Z
