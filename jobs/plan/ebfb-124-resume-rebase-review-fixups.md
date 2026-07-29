@@ -48,3 +48,40 @@ fixes as one-concern-per-commit follow-ups (skills/review-feedback-followup-comm
 Then reply on each thread citing the fix SHA and post a top-level summary
 (skills/pr-review-thread-replies, pr-completion-summary-comment). Un-draft when
 green.
+
+## Triage note appended 2026-07-29 (job `endojs-endo-but-for-bots-pr124-feedback-triage`)
+
+Two findings the doer of this job must not rediscover the hard way.
+
+**1. Disambiguate "the sqlite bindings landed" before promoting.** The *raw* XS
+SQLite host bindings are NOT the blocker and never were: `rust/endo/xsnap/src/powers/sqlite.rs`
+(582 lines; `sqliteOpen`, `sqliteClose`, `sqliteExec`, `sqlitePrepare`, `sqliteStmtRun`,
+`sqliteStmtGet`, `sqliteStmtAll`, `sqliteStmtColumns`, `sqliteStmtFinalize`) landed on
+`endor` in `f5f0b1031` on 2026-05-02, is registered through `powers/mod.rs` and `lib.rs`,
+has Rust unit tests, carries no `todo!`/`unimplemented!`, and is byte-identical on `endor`,
+`llm`, and `slot-machine`. It predates kriskowal's 2026-07-09 pause review. The plausible
+referent is instead the **durable-store layer** on top of those bindings, and as of
+2026-07-29 every pull request in that line is still unmerged:
+https://github.com/endojs/endo-but-for-bots/pull/811 (draft),
+https://github.com/endojs/endo-but-for-bots/pull/819 (draft),
+https://github.com/endojs/endo-but-for-bots/pull/690 (draft), and
+https://github.com/endojs/endo-but-for-bots/pull/825 (not draft, but based on the frozen
+`daemon-store-phase3-weak-ertp-74931b9` branch, not `llm`). Asked on the pull request:
+https://github.com/endojs/endo-but-for-bots/pull/124#discussion_r3670370164
+
+**2. The rebase is no longer mechanical, and its target is in question.** `llm` is 1390
+commits ahead of `endor`, and `endor` has not moved since 2026-07-06 (`e0322c405`). In that
+span `llm` grew a new daemon persistence seam (`packages/daemon/src/manager-database.js`,
+`manager-persistence-powers.js`, `bus-manager-rust-xs-powers.js`) which **keeps**
+`packages/daemon/src/better-sqlite3-xs.js` under that name, while this branch **renames**
+that same file to `rust-xs-sqlite.js`. Reconcile the rename against the new seam, and settle
+with the maintainer whether the rebase target is still `endor` or has become `llm`, before
+starting.
+
+**3. A CBOR adoption may pre-empt part of this branch.** `@endo/cbor` phase 1 merged on
+`llm` (https://github.com/endojs/endo-but-for-bots/pull/755, 2026-07-28) and the parked job
+`endo-cbor-adopt-slots` is gated `blocked_on` this very pull request, to delete
+`packages/slots/src/cbor.js` in favour of the shared package. That job's own body offers a
+sequencing escape hatch: `packages/slots` may adopt `@endo/cbor` **in flight** on this
+branch instead. If you rebase onto `llm`, take the escape hatch and shed `src/cbor.js` here,
+then report so `endo-cbor-adopt-slots` reduces to verification.
