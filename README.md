@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:33:02Z_
+_As of 2026-07-29T23:33:43Z_
 
 ## Latest
 
@@ -5108,6 +5108,41 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-garden-fireworks-glm52-register-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-garden-fireworks-glm52-register-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/garden-fireworks-glm52-register; it stays HELD until a human promotes it
+> (promote-plan.sh garden-fireworks-glm52-register) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: garden-fireworks-glm52-register
+>
+> --- original job body ---
+> ---
+> role: gardener
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T22:46:04Z cleared=none -->
+>
+> ---
+> tier: mentor
+> role: gardener
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Register Fireworks GLM 5.2 as a mentor model
+>
+> Repository: https://github.com/kriscendobot/garden. Land directly on main2, no PR.
+>
+> Replace the placeholder Fireworks model inventory entry with the live, verified selector accounts/fireworks/models/glm-5p2, using the garden routing namespace required by the harness. Classify GLM 5.2 as mentor initially. The maintainer expects the weekly tier-effectiveness engagement to demote it to minion later if evidence shows that is the fastest and cheapest effective placement.
+>
+> Reconcile the closed model-tier inventory, model routing defaults, Fireworks operations guide, provider catalog, resolver behavior, and tests. The current operations guide records a successful 2026-07-28 canary but still describes wildcard classification that conflicts with the newer fail-closed inventory; make the current closed-inventory contract authoritative. Preserve the rule that automatic jobs express tier intent rather than concrete model pins.
+>
+> Add or verify a bounded operational mechanism for selecting the Fireworks provider during a canary while the job remains tier: mentor. A provider constraint may select the lane, but must not embed the concrete GLM model in the job body; claim-time resolution chooses the current Fireworks mentor model from the inventory. Unknown provider or tier combinations fail closed. Verify with hermetic tests, shell syntax, and a secret-safe live availability probe that emits only availability/status, never API response bodies or credentials. Report the landed main2 revision and exact deploy/activation steps.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-improve-review-miss-gaming-category-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-improve-review-miss-gaming-category-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5567,10 +5602,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (3)
+### doin (2)
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
-- [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 
 ### tada (3921)
 - [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr721-garden-response-comment.md) — Cost
@@ -5658,6 +5692,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fireworks-glm52-kimik3-build.md) — _normal_ · Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fireworks-glm52-register.md) — _normal_ · Register Fireworks GLM 5.2 as a mentor model
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — _normal_ · ---
