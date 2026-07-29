@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:35:52Z_
+_As of 2026-07-29T02:39:16Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
-- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 27m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 3h)
+- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 32m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
@@ -3129,6 +3129,75 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration endo-cbor-adopt-primitives HALTED: child endo-cbor-adopt-daemon-envelope failed (serial, on-child-failure=halt). 1/2 done before halt; swept: none
 
+- `20260729T023731Z-c3d995` — from gardener:endojs-endo-but-for-bots-pr671-shepherd, reply_to `endojs-endo-but-for-bots-pr671-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023731Z-c3d995.md)
+
+> # Deploy `main2` — the un-deployed approval gate is silently stranding every approved `llm` PR
+>
+> From the `endojs-endo-but-for-bots-pr671-shepherd` job. [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671)
+> is **merged** (2026-07-29T02:33:47Z, merge commit
+> `50972e791d292749803efe5d4d47f839f46d7fae`), but only because two jobs worked around
+> a fleet-wide gate that is fixed on `main2` and not yet deployed. Worth a deploy sooner
+> rather than later.
+>
+> ## What is happening
+>
+> The **deployed** `scripts/jobs/handlers/pr-maintainer-approval-gh.sh` requires
+> GitHub's `reviewDecision` rollup to equal `APPROVED`. The `endojs/endo-but-for-bots`
+> default branch `llm` carries a `pull_request` ruleset with
+> `required_approving_review_count: 0`, so GitHub reports `reviewDecision: ""` for
+> **every** `llm`-based PR. The deployed gate therefore false-negatives on all of them:
+>
+> ```
+> $ /home/kris/garden2/scripts/jobs/handlers/pr-mergeable-gh.sh endojs/endo-but-for-bots 671
+> merge blocked: no maintainer approval (reviewDecision=none)
+> rc=1
+> ```
+>
+> Two consequences, both observed today:
+>
+> 1. `comment-watcher.sh`'s APPROVAL → finalization path runs that probe. On a
+>    non-zero it falls back to `VERB=shepherd` and slides the cursor — so a clean
+>    approval mints a **shepherd instead of a conductor**, and nothing ever re-mints
+>    the conductor. That fallback is why this job existed at all.
+> 2. `scripts/jobs/gardening/ci-wait-merge.sh` calls the same handler (line 293), so
+>    the conductor's own merge spine blocks when run from the deployed root.
+>
+> The fix is already on `main2`: `c510ec1b4f` (2026-07-29T00:24:54Z) makes the rollup
+> a veto rather than the authority, keeping the strictly stronger check (an APPROVED
+> review from a journal maintainer on the exact current head).
+> `scripts/jobs/test/pr-maintainer-approval-gh-test.sh` passes 12/12 and pins the
+> empty-rollup case.
+>
+> ## Current blast radius
+>
+> Open, non-draft, approved, green, `llm`-based PRs affected right now:
+>
+> - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) — **merged**, via the work-around below.
+> - [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) — conduct job parked in `plan/` awaiting this deploy;
+>   I annotated it with the work-around.
+> - [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) — live shepherd job owns it; I messaged that peer.
+>
+> Each of the three exits 0 on `scripts/jobs/handlers/pr-mergeable-gh.sh` when run
+> from a `main2` checkout.
+>
+> ## The work-around, for anything that cannot wait
+>
+> Run the gate and `ci-wait-merge.sh` from the job's own `main2` worktree rather than
+> from the deployed root. That is exactly what `endojs-endo-but-for-bots-pr671-conduct`
+> did to land [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671).
+>
+> No action needed from you beyond authorizing the deploy
+> (`context/operations/deploy.md`) if you want the automatic
+> approval → conductor path working again.
+
+- `20260729T023815Z-67a944` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023815Z-67a944.md)
+
+> endojs/endo-but-for-bots PR #331 ([https://github.com/endojs/endo-but-for-bots/pull/331](https://github.com/endojs/endo-but-for-bots/pull/331)) — report `endojs-endo-but-for-bots-pr331-refresh` follow-up 1: the PR needs a reconciliation pass repositioning it as the credentials/attenuation layer over `@registry`. The offer is already posted on the PR and the gardener is holding for your word. Say go and I'll post the `fix` job; say drop and I'll close it out.
+
+- `20260729T023820Z-8e1c70` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023820Z-8e1c70.md)
+
+> endojs/endo-but-for-bots PRs #403, #563, #671 — report `endojs-endo-but-for-bots-pr331-refresh` follow-up 2: this trio needs a disposition from you (continue, retire, or fold into #331) before any weaver/builder effort is spent on them.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4521,14 +4590,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.2M | $898.24 _(notional, rate-card)_ | no quota set |
-| Codex | 183.5M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 55.0M | $894.08 _(notional, rate-card)_ | no quota set |
+| Codex | 181.7M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (35)
+### doin (37)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4550,28 +4619,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr691-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr691-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #691
 - [`endojs-endo-but-for-bots-pr705-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-merge.md) — Merge endojs/endo-but-for-bots PR #705
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Review directive on endojs/endo-but-for-bots PR #713
+- [`endojs-endo-but-for-bots-pr723-review-b5ddd4da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-review-b5ddd4da.md) — Review directive on endojs/endo-but-for-bots PR #723
 - [`endojs-endo-but-for-bots-pr730-review-27278ba1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-review-27278ba1.md) — Review directive on endojs/endo-but-for-bots PR #730
 - [`endojs-endo-but-for-bots-pr779-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-fixes.md) — Fix panel must-fix items on https://github.com/endojs/endo-but-for-bots/pull/779
 - [`endojs-endo-but-for-bots-pr836-review-ee46b083`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-review-ee46b083.md) — Review directive on endojs/endo-but-for-bots PR #836
+- [`endojs-endo-but-for-bots-pr857-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr857-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #857
 - [`endojs-endo-but-for-bots-pr882-panel-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr882-panel-fix-1.md) — Panel fix round 1 for https://github.com/endojs/endo-but-for-bots/pull/882
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
-- [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — In the garden's own repo (kriscendobot/garden, branch main2, no PR workflow),...
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
+- [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3809)
+### tada (3810)
+- [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — What I did
 - [`fu-fu-improve-promote-plan-poison-reset-3-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-improve-promote-plan-poison-reset-3-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr671-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-conduct.md) — Cost
 - [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-primitives.md) — orchestration endo-cbor-adopt-primitives — HALTED
 - [`endojs-endo-but-for-bots-pr331-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr331-refresh.md) — Job report: refresh endojs/endo-but-for-bots #331
-- [`fu-improve-promote-plan-poison-reset-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-improve-promote-plan-poison-reset-3.md) — What I did
-- … and 3804 more
+- … and 3805 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4740,6 +4811,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr730-review-27278ba1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr730-review-27278ba1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #730 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr667-198c8d1e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr667-198c8d1e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr676-review-4939792d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr676-review-4939792d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #676 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr723-review-b5ddd4da-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr723-review-b5ddd4da-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #723 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
@@ -4748,7 +4820,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
-- [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/671` · Immutable byte-array RegistryInterface follow-up
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
