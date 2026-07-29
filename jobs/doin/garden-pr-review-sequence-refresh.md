@@ -13,3 +13,10 @@ Refresh pr-review-sequence.md against current GitHub state. Read every issue, pu
 URL invariant: every issue or pull-request reference in the resulting document must be a fully qualified canonical URL such as https://github.com/owner/repo/issues/123 or https://github.com/owner/repo/pull/123. Replace bare #123, owner/repo#123, prose-only issue numbers, and relative links. Check both Markdown link targets and plain-text references. Do not invent links; verify owner, repository, artifact kind, and number.
 
 Land the edit directly on journal2 using an isolated producer clone and a compare-and-swap push. Do not edit or rebase the live journal worktree. Re-read the remote tip before composing and before landing so concurrent journal changes are preserved. Validate that no shorthand issue/PR references remain and report the landed journal2 commit plus a concise summary of status changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: mystic
+  claimed_at: 2026-07-29T21:41:59Z
