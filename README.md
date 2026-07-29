@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T21:51:08Z_
+_As of 2026-07-29T21:52:40Z_
 
 ## Latest
 
@@ -5450,7 +5450,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.9M _(+612.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Codex | 60.0M _(+612.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
@@ -5470,18 +5470,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (3)
+### doin (2)
 - [`garden-pr-review-sequence-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pr-review-sequence-refresh.md) — Refresh the garden PR review sequence
-- [`garden-tier-native-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tier-native-routing.md) — Make dispatch pins tier-native
 - [`scholar-library-cycle-20260729-215002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-215002.md) — Hourly scholar library cycle
 
-### tada (3912)
+### tada (3913)
+- [`garden-tier-native-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing.md) — Cost
 - [`garden-mentor-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-mentor-provider-fallback.md) — Cost
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260729-162012.md) — Cost
 - [`scholar-library-cycle-20260729-205001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-205001.md) — Completed scholar library cycle with no new actionable ingestion or writeback...
 - [`finbot-progress-20260729-195004-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet.md) — gauntlet finbot-progress-20260729-195004-gauntlet — HALTED
-- [`finbot-progress-20260729-195004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet-panel-1.md) — Cost
-- … and 3907 more
+- … and 3908 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
