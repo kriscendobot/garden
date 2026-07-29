@@ -10,6 +10,8 @@
 | [system--readme--usage-and-bootstrapping](../sections/system--readme--usage-and-bootstrapping.md) | system README | The three ways to run an app: Node `loadSystem`/`import`, browser `boot.js` script tag (with `data-package`), and a `sysjs`-built production bundle. |
 | [system--readme--extensions-translators-analyzers](../sections/system--readme--extensions-translators-analyzers.md) | system README | The extension model: `analyze`/`translate` plugins configured in `package.json`, package-scoped, with dependency `introduce`; how HTML modules become JavaScript on the fly or at build. |
 | [system--readme--history](../sections/system--readme--history.md) | system README | Lineage: Tom Robinson's C.js → Motorola Mobility's Montage Require (Mr) → Kris Kowal's promise-based npm loader → Stuart Knightley → System's more-focused iteration. |
+| [tc39-module-harmony--import-attributes--semantics-interoperability-and-the-cache-key](../sections/tc39-module-harmony--import-attributes--semantics-interoperability-and-the-cache-key.md) | tc39 import-attributes | The module cache key extends from (referrer, specifier) to (referrer, specifier, attributes), and unimplemented attributes should be rejected rather than ignored. |
+| [tc39-module-harmony--asset-references--asset-declaration-syntax-and-semantics](../sections/tc39-module-harmony--asset-references--asset-declaration-syntax-and-semantics.md) | tc39 asset-references | A reference that resolves like an import specifier but triggers no load, and that a host loader may use to test the cache, clear an entry, or hot-reload. |
 
 ## See also
 
