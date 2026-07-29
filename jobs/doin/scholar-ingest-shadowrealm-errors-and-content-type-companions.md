@@ -28,3 +28,10 @@ Standard procedure: `scripts/jobs/fetch-source.sh` for the bytes and the
 through `scripts/jobs/land-journal-edit.sh`, then run the step-8 gate and the
 two regenerators. Both are new sources, so the idempotency check is degenerate
 (no prior anchor to compare).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-29T02:06:07Z
