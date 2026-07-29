@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6716 (530 parent indexes + 6186 children).
+Total section files: 6727 (530 parent indexes + 6197 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8889,6 +8889,8 @@ Total section files: 6716 (530 parent indexes + 6186 children).
 
 - [tc39-module-harmony--asset-references--alternatives-and-possible-additions](tc39-module-harmony--asset-references--alternatives-and-possible-additions.md)
 - [tc39-module-harmony--asset-references--asset-declaration-syntax-and-semantics](tc39-module-harmony--asset-references--asset-declaration-syntax-and-semantics.md)
+- [tc39-module-harmony--asset-references--motivation-library-mediated-loading-and-per-module-authority](tc39-module-harmony--asset-references--motivation-library-mediated-loading-and-per-module-authority.md)
+- [tc39-module-harmony--asset-references--use-cases-node-react-and-deno](tc39-module-harmony--asset-references--use-cases-node-react-and-deno.md)
 
 ### tc39-module-harmony--compartments-evaluator
 
@@ -8921,6 +8923,13 @@ Total section files: 6716 (530 parent indexes + 6186 children).
 - [tc39-module-harmony--compartments-virtual-module-source--serializability-and-transmission-limits](tc39-module-harmony--compartments-virtual-module-source--serializability-and-transmission-limits.md)
 - [tc39-module-harmony--compartments-virtual-module-source--virtualization-examples-json-cjs-wasm-passthrough](tc39-module-harmony--compartments-virtual-module-source--virtualization-examples-json-cjs-wasm-passthrough.md)
 
+### tc39-module-harmony--import-attributes
+
+- [tc39-module-harmony--import-attributes--history-from-module-attributes-to-import-attributes](tc39-module-harmony--import-attributes--history-from-module-attributes-to-import-attributes.md)
+- [tc39-module-harmony--import-attributes--rationale-and-proposed-syntax](tc39-module-harmony--import-attributes--rationale-and-proposed-syntax.md)
+- [tc39-module-harmony--import-attributes--semantics-interoperability-and-the-cache-key](tc39-module-harmony--import-attributes--semantics-interoperability-and-the-cache-key.md)
+- [tc39-module-harmony--import-attributes--synopsis-and-motivation](tc39-module-harmony--import-attributes--synopsis-and-motivation.md)
+
 ### tc39-module-harmony--import-defer
 
 - [tc39-module-harmony--import-defer--import-defer-semantics-and-namespace-exotic](tc39-module-harmony--import-defer--import-defer-semantics-and-namespace-exotic.md)
@@ -8935,6 +8944,17 @@ Total section files: 6716 (530 parent indexes + 6186 children).
 
 - [tc39-module-harmony--module-expressions--module-expression-syntax-and-semantics](tc39-module-harmony--module-expressions--module-expression-syntax-and-semantics.md)
 - [tc39-module-harmony--module-expressions--relationship-to-module-class-and-bundling](tc39-module-harmony--module-expressions--relationship-to-module-class-and-bundling.md)
+
+### tc39-module-harmony--shadowrealm-explainer
+
+- [tc39-module-harmony--shadowrealm-explainer--api-motivations-and-non-goals](tc39-module-harmony--shadowrealm-explainer--api-motivations-and-non-goals.md)
+- [tc39-module-harmony--shadowrealm-explainer--clarifications-globals-csp-module-graph-and-compartments](tc39-module-harmony--shadowrealm-explainer--clarifications-globals-csp-module-graph-and-compartments.md)
+- [tc39-module-harmony--shadowrealm-explainer--security-integrity-yes-availability-no-confidentiality-partial](tc39-module-harmony--shadowrealm-explainer--security-integrity-yes-availability-no-confidentiality-partial.md)
+- [tc39-module-harmony--shadowrealm-explainer--use-cases-and-the-iframe-and-node-vm-status-quo](tc39-module-harmony--shadowrealm-explainer--use-cases-and-the-iframe-and-node-vm-status-quo.md)
+
+### tc39-module-harmony--shadowrealm-readme
+
+- [tc39-module-harmony--shadowrealm-readme--overview](tc39-module-harmony--shadowrealm-readme--overview.md)
 
 ### tc39-module-harmony--source-phase-imports
 
