@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:09:51Z_
+_As of 2026-07-29T02:11:25Z_
 
 ## Latest
 
@@ -4304,8 +4304,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $876.35 _(notional, rate-card)_ | no quota set |
-| Codex | 200.7M _(+462.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 54.3M | $878.80 _(notional, rate-card)_ | no quota set |
+| Codex | 199.6M _(+462.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4320,6 +4320,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr282-148f5c93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-148f5c93.md) — attention directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr647-review-ec3d282c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr647-review-ec3d282c.md) — Review directive on endojs/endo-but-for-bots PR #647
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
@@ -4340,18 +4341,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`improve-promote-plan-poison-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-promote-plan-poison-reset.md) — scripts/jobs/promote-plan.sh
-- [`scholar-ingest-did-core-plc-ucan-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-core-plc-ucan-specs.md) — Scholar: ingest W3C DID Core, did:plc, and the remaining UCAN specs
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`scholar-ingest-shadowrealm-errors-and-content-type-companions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-shadowrealm-errors-and-content-type-companions.md) — Ingest the two module-harmony companion documents left over
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3800)
+### tada (3801)
+- [`scholar-ingest-did-core-plc-ucan-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-did-core-plc-ucan-specs.md) — Ingested W3C DID Core 1.0: 10 indexed sections plus source, topic, and concep...
 - [`scholar-library-cycle-20260729-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-013504.md) — Hourly scholar library cycle — 2026-07-29T01:36Z
 - [`endojs-endo-but-for-bots-pr761-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-rebase.md) — Completion report: endojs-endo-but-for-bots-pr761-rebase
 - [`fix-botanist-scripts-enabled-install-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-botanist-scripts-enabled-install-gap.md) — Completion report: fix-botanist-scripts-enabled-install-gap
 - [`fu-wallclock-cost-proxy-for-censored-arms-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-wallclock-cost-proxy-for-censored-arms-4.md) — Cost
-- [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-atproto-ucan-did-specs.md) — Completion report
-- … and 3795 more
+- … and 3796 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4513,6 +4513,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr836-review-ee46b083-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-ee46b083-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr282-148f5c93-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-148f5c93-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #282 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr684-review-67f8b51a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr684-review-67f8b51a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #684 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr647-review-ec3d282c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr647-review-ec3d282c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #647 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
