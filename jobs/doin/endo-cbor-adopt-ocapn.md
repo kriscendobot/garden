@@ -126,3 +126,10 @@ immutability conversion (`bytesToImmutable`), the OCapN tag constants
   (runs after you), and the parked, PR-gated `endo-cbor-adopt-slots`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 7
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:13:09Z
