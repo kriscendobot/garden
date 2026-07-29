@@ -33,3 +33,10 @@ Scope: `packages/agentry` test fixtures only. Do not change scenario semantics.
 Verify by running the file with the host's global rerere left enabled:
 `yarn workspace @endo/agentry test` (or ava on
 `test/eval/conflict-rebase.test.js`) must pass without unsetting global config.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T03:47:04Z
