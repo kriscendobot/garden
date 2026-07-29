@@ -2,6 +2,7 @@ In the garden's own repo (kriscendobot/garden, branch `main2`, direct push — n
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
