@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-29T17:53:11Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-29T17:53:11Z
+---
+
+---
 role: gardener
 handler-timeout: 7200
 auto_gauntlet: true
@@ -17,13 +31,3 @@ NOTE: this PR was found NON-DRAFT at the build completion edge, against the
 unconditional draft norm (roles/builder/AGENT.md), and this hook converted it back
 to draft so the chain can run. Nothing here has been panel-reviewed: treat it as a
 cold PR owed a full review, not as work that already passed and regressed.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  claimed_at: 2026-07-29T17:47:59Z
