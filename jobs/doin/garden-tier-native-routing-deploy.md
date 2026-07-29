@@ -13,3 +13,10 @@ role: gardener
 After garden-tier-native-routing succeeds, deliberately deploy its landed main2 revision to every active garden host. Maintainer kriskowal explicitly authorized this fleet routing rollout on 2026-07-29; use authorized_by: kriskowal for sysop deploy operations. Verify every reachable host runs the tier-native revision, has no failed units, preserves intentional drain state, and retains a positively live non-Claude worker pool. Endolin hosts keep gardeners: 0. Do not deploy the earlier concrete-pin implementation by itself; the target must support tier: and fallback-tier: end to end.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T22:03:41Z
