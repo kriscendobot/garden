@@ -11,3 +11,10 @@ documents or 25 section writes). Update all affected library indexes, run the
 required integrity checks, regenerate projected indexes, and journal a `result`.
 Post a precisely scoped follow-on scholar job for any remaining backlog. If no
 actionable work is present, record that cleanly and complete the cycle.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T19:35:41Z
