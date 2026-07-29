@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-fireworks-glm52-rollout
-priority: normal
-posted_by: producer
-posted_at: 2026-07-29T22:45:33Z
+role: gardener
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T22:46:04Z cleared=none -->
 
 ---
 tier: mentor
