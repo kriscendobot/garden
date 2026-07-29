@@ -1,4 +1,5 @@
 ---
+child-garden-approval-reconciler-build-reap-count: 0
 order: serial
 children: garden-approval-reconciler-build garden-approval-reconciler-deploy
 on-child-failure: halt
