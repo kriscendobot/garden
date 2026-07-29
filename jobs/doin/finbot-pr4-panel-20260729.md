@@ -43,6 +43,7 @@ Per merge governance (2026-07-22), finbot lands only after BOTH the panel and th
 Fable-orchestrator sign-off. Never self-merge; the press (progress driver) and the
 panel-runner never run `gh pr merge`.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
