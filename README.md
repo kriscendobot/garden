@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T03:29:47Z_
+_As of 2026-07-29T03:30:23Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 3h)
-- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
+- [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 11d)
@@ -4663,7 +4663,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (50)
+### doin (49)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4709,19 +4709,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
-- [`garden-quota-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-quota-routing-deploy.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3812)
+### tada (3813)
+- [`garden-quota-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-deploy.md) — garden-quota-routing-deploy — BLOCKED, nothing deployed
 - [`garden-quota-routing-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-quota-routing-race.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr671-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr671-shepherd
 - [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — What I did
-- [`fu-fu-improve-promote-plan-poison-reset-3-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-improve-promote-plan-poison-reset-3-2.md) — Cost
-- … and 3807 more
+- … and 3808 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
