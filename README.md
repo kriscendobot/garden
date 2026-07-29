@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T05:20:30Z_
+_As of 2026-07-29T05:25:23Z_
 
 ## Latest
 
@@ -3281,6 +3281,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > stdout:
 > You've hit your weekly limit · resets Aug 1, 3am (UTC)
 
+- `20260729T052507Z-f645b4` — from orchestrator:xs2rust-endor-finish-line-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T052507Z-f645b4.md)
+
+> Orchestration xs2rust-endor-finish-line HALTED: child xs2rust-endor-s2-test-rust-green stalled in flight for 10901s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; swept: xs2rust-endor-s3-test262-parity
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4702,8 +4706,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.9M | $860.88 _(notional, rate-card)_ | no quota set |
-| Codex | 129.8M _(+467.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 50.8M | $859.96 _(notional, rate-card)_ | no quota set |
+| Codex | 129.6M _(+467.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
@@ -4751,13 +4755,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3825)
+### tada (3826)
+- [`xs2rust-endor-finish-line`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-finish-line.md) — orchestration xs2rust-endor-finish-line — HALTED
 - [`endojs-endo-but-for-bots-pr683-review-84f0d6ef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr683-review-84f0d6ef.md) — Report
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-deploy-gate-on-script-test-suites.md) — Cost
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Job report — endojs/endo-but-for-bots PR #713 review directive
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr657-conduct.md) — Completion report: endojs-endo-but-for-bots-pr657-conduct
-- [`endojs-endo-but-for-bots-pr705-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-merge.md) — Report
-- … and 3820 more
+- … and 3821 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
