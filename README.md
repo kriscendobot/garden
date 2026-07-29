@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T00:35:45Z_
+_As of 2026-07-29T00:36:28Z_
 
 ## Latest
 
@@ -3857,14 +3857,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.5M | $793.29 _(notional, rate-card)_ | no quota set |
+| Claude | 51.5M | $793.54 _(notional, rate-card)_ | no quota set |
 | Codex | 226.1M _(+446.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (33)
+### doin (32)
 - [`arc-status-daily-20260728-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260728-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-token-cost-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-token-cost-ledger.md) — Build the accepted token-cost ledger (unum's pattern) — the fleet has no cost...
 - [`endo-cbor-adopt-ocapn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn.md) — Adopt @endo/cbor in packages/ocapn (cbor-codec design, phase 2)
@@ -3873,7 +3873,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr655-0cb1a0bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr655-0cb1a0bc.md) — attention directive on endojs/endo-but-for-bots PR #655
-- [`endojs-endo-but-for-bots-pr656-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #656
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
 - [`endojs-endo-but-for-bots-pr671-review-36ae135d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-36ae135d.md) — Review directive on endojs/endo-but-for-bots PR #671
@@ -3900,11 +3899,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s1-daemon-integration.md) — xs2rust-endor bin 1/3 — wire the Rust engine into the endor daemon
 
 ### tada (3752)
+- [`endojs-endo-but-for-bots-pr656-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #656
 - [`endojs-endo-but-for-bots-pr708-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr708-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr705-review-c7f0268c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr705-review-c7f0268c.md) — Report
 - [`endojs-endo-but-for-bots-pr259-review-2a6e7b12`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr259-review-2a6e7b12.md) — Job: review directive on endojs/endo-but-for-bots#259
 - [`improve-ensure-pr-find-or-create`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-ensure-pr-find-or-create.md) — Cost
-- [`endojs-endo-but-for-bots-pr707-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr707-conduct.md) — Conductor report: endojs/endo-but-for-bots PR #707
 - … and 3747 more
 
 ## Plan queue (parked — not claimable until promoted)
