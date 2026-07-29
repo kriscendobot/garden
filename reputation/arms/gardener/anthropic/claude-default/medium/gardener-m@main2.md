@@ -4,9 +4,10 @@ model: claude-default
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
-attempts: 1
-accepts: 1
+attempts: 39
+accepts: 39
 censored: 38
-mean_dollars: 3.706565
-m2: 0.000000
+estimated: 38
+mean_dollars: 1.961842
+m2: 41.842742
 acceptance_rate: 1.0000

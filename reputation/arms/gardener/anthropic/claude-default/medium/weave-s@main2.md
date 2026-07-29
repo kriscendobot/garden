@@ -4,9 +4,10 @@ model: claude-default
 thoughtfulness: medium
 work_class: weave:s
 target: main2
-attempts: 0
-accepts: 0
+attempts: 4
+accepts: 4
 censored: 4
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 4
+mean_dollars: 3.851898
+m2: 12.154729
+acceptance_rate: 1.0000

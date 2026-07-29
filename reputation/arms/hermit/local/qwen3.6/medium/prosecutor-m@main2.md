@@ -4,9 +4,10 @@ model: qwen3.6
 thoughtfulness: medium
 work_class: prosecutor:m
 target: main2
-attempts: 0
-accepts: 0
+attempts: 2
+accepts: 2
 censored: 2
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 2
+mean_dollars: 0.036288
+m2: 0.000003
+acceptance_rate: 1.0000

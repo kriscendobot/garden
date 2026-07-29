@@ -4,9 +4,10 @@ model: gpt-5.6-terra
 thoughtfulness: medium
 work_class: shepherd:m
 target: main2
-attempts: 0
-accepts: 0
+attempts: 2
+accepts: 2
 censored: 2
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 2
+mean_dollars: 6.281016
+m2: 45.888104
+acceptance_rate: 1.0000

@@ -4,9 +4,10 @@ model: gpt-5.6-terra
 thoughtfulness: high
 work_class: design:l
 target: main2
-attempts: 1
-accepts: 1
+attempts: 5
+accepts: 5
 censored: 4
-mean_dollars: 0.000000
-m2: 0.000000
+estimated: 4
+mean_dollars: 2.139291
+m2: 8.315841
 acceptance_rate: 1.0000

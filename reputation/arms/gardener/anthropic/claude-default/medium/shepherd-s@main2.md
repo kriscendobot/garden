@@ -4,9 +4,10 @@ model: claude-default
 thoughtfulness: medium
 work_class: shepherd:s
 target: main2
-attempts: 0
-accepts: 0
+attempts: 2
+accepts: 2
 censored: 2
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 2
+mean_dollars: 7.784349
+m2: 108.112395
+acceptance_rate: 1.0000

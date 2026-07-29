@@ -4,9 +4,10 @@ model: gpt-5.6-terra
 thoughtfulness: low
 work_class: other:s
 target: main2
-attempts: 0
-accepts: 0
+attempts: 1
+accepts: 1
 censored: 1
-mean_dollars: 0.000000
+estimated: 1
+mean_dollars: 0.057624
 m2: 0.000000
-acceptance_rate: 0.0000
+acceptance_rate: 1.0000

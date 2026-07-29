@@ -4,9 +4,10 @@ model: qwen3.6
 thoughtfulness: medium
 work_class: other:l
 target: main2
-attempts: 0
-accepts: 0
+attempts: 18
+accepts: 18
 censored: 18
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 18
+mean_dollars: 0.113436
+m2: 0.035937
+acceptance_rate: 1.0000

@@ -4,9 +4,10 @@ model: claude-default
 thoughtfulness: medium
 work_class: prosecutor:m
 target: main2
-attempts: 0
-accepts: 0
+attempts: 44
+accepts: 44
 censored: 44
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 44
+mean_dollars: 1.495889
+m2: 24.406776
+acceptance_rate: 1.0000

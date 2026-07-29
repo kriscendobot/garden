@@ -4,9 +4,10 @@ model: gpt-5.6-terra
 thoughtfulness: medium
 work_class: prosecutor:m
 target: main2
-attempts: 0
-accepts: 0
+attempts: 21
+accepts: 21
 censored: 21
-mean_dollars: 0.000000
-m2: 0.000000
-acceptance_rate: 0.0000
+estimated: 21
+mean_dollars: 0.975149
+m2: 0.768440
+acceptance_rate: 1.0000
