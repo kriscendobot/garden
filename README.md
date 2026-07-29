@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T19:24:13Z_
+_As of 2026-07-29T19:24:56Z_
 
 ## Latest
 
@@ -3524,6 +3524,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260729T192421Z-4a2428` — from gardener:proposal-compartments-press-20260729-192002, reply_to `proposal-compartments-press-20260729-192002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T192421Z-4a2428.md)
+
+> The remaining design decision is whether the minimal Compartments surface should add a host-only synchronous evaluation operation and a loader-registration surface for synchronous infrastructure errors, or defer both to a later loader layer. Native v8, JSC, XS, and endor remain blocked before semantics on source-phase-import parsing. Please choose the intended boundary.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5386,7 +5390,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 61.0M _(+597.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Codex | 60.9M _(+597.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (7)
@@ -5398,19 +5402,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (4)
+### doin (3)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
-- [`proposal-compartments-press-20260729-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260729-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 
-### tada (3901)
+### tada (3902)
+- [`proposal-compartments-press-20260729-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-press-20260729-192002.md) — Cost
 - [`registry-immutable-byte-array-followup-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/registry-immutable-byte-array-followup-gauntlet.md) — gauntlet registry-immutable-byte-array-followup-gauntlet — HALTED
 - [`scholar-library-cycle-20260729-182004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-182004.md) — Cost
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260729-070504.md) — Cost
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-172004.md) — Cost
-- [`scholar-library-cycle-20260729-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-160503.md) — Registered the indefinite scholar-library-cycle schedule on journal2.
-- … and 3896 more
+- … and 3897 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
