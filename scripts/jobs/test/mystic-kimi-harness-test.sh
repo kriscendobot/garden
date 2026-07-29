@@ -51,6 +51,16 @@ fi
 [ "$KIMI_CODE_AGENT_SWARM_MAX_CONCURRENCY" = 1 ]
 [ "$KIMI_SUBAGENT_TIMEOUT_MS" = 600000 ]
 [ "$KIMI_MODEL_API_KEY" = "${MOONSHOT_API_KEY:?}" ]
+# Mimic Kimi Code's per-turn usage.record wire log so the handler's lane-specific
+# cost-ledger capture (meter_kimi_home_usage) has a real source to read. Format:
+# FAKE_KIMI_USAGE="inputOther,output,inputCacheCreation,inputCacheRead".
+if [ -n "${FAKE_KIMI_USAGE:-}" ]; then
+  IFS=, read -r fk_i fk_o fk_cc fk_cr <<<"$FAKE_KIMI_USAGE"
+  wire_dir="$KIMI_CODE_HOME/sessions/wd_fake/session_fake/agents/main"
+  mkdir -p "$wire_dir"
+  printf '{"type":"usage.record","model":"__kimi_env_model__","usage":{"inputOther":%d,"output":%d,"inputCacheCreation":%d,"inputCacheRead":%d},"usageScope":"turn","time":1}\n' \
+    "${fk_i:-0}" "${fk_o:-0}" "${fk_cc:-0}" "${fk_cr:-0}" >> "$wire_dir/wire.jsonl"
+fi
 bullet="$(printf '\342\200\242')"
 if [ "${FAKE_KIMI_COMPLETE:-0}" = 1 ]; then
   printf '%s %s\n' "$bullet" 'completed by fake Kimi'
@@ -197,12 +207,30 @@ env PATH="$BIN:$PATH" GARDEN_TEST=1 GARDEN="mystic-test" GARDEN_ROOT="$ROOT" \
   JOURNAL_REMOTE="$SPINE/journal.git" JOURNAL_BRANCH=journal2 \
   GARDEN_WORKER_KIND=mystic GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
   MOONSHOT_API_KEY='offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$SPINE/kimi" FAKE_KIMI_COMPLETE=1 \
+  FAKE_KIMI_USAGE='2000,34,7,18176' \
   "$JOBS/gardener.sh" 1 > "$SPINE/gardener.log" 2>&1
 spine_rc=$?
 set -e
 [ "$spine_rc" -eq 0 ] && ok "real gardener Mystic call path exited cleanly" || bad "real gardener Mystic call path exited rc=$spine_rc ($(tail -3 "$SPINE/gardener.log"))"
 git clone -q --single-branch --branch journal2 "$SPINE/journal.git" "$SPINE/verify"
 [ -f "$SPINE/verify/jobs/tada/mystic-spine.md" ] && ok "real gardener completed the Mystic canary to tada" || bad "real gardener did not complete Mystic canary (see $SPINE/gardener.log)"
+# The moonshot/kimi lane's cost-ledger capture: the completed engagement must carry
+# a REAL token row measured from the kimi wire log, not a censored/tokenless one.
+krow="$SPINE/verify/usage/mystic-spine.jsonl"
+if [ -s "$krow" ] && jq -e '.source=="result" and .model=="kimi-k3" and .input_tokens==2000 and .output_tokens==34 and .cache_creation_tokens==7 and .cache_read_tokens==18176 and .outcome=="tada"' "$krow" >/dev/null 2>&1; then
+  ok "kimi lane ledger row carries measured token classes (unpriced, no dollars)"
+else
+  bad "kimi lane ledger row missing/wrong: $(cat "$krow" 2>/dev/null || echo MISSING)"
+fi
+# Unpriced-but-metered: tokens present, no forged dollars.
+if [ -s "$krow" ] && jq -e '.total_cost_usd == null' "$krow" >/dev/null 2>&1; then
+  ok "kimi lane records no provider dollars (never a guessed rate)"
+else
+  bad "kimi lane row fabricated a dollar figure: $(cat "$krow" 2>/dev/null)"
+fi
+grep -q 'Output: 34 tokens' "$SPINE/verify/jobs/tada/mystic-spine.md" \
+  && ok "kimi lane tokens reach the tada ## Cost footer" \
+  || bad "kimi tokens absent from tada footer"
 if grep -q 'reap_process_group: command not found' "$SPINE/gardener.log"; then
   bad "real gardener could not find reap_process_group in the shared worker spine"
 else

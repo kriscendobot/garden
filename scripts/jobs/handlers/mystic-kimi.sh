@@ -63,10 +63,34 @@ diagnostic="$(mktemp "${TMPDIR:-/tmp}/garden-kimi-diagnostic-$base.XXXXXX")"
 # Kimi Code look for a persisted config.toml alias instead.
 kimi_args=(--prompt "$prompt" --output-format text)
 $resuming && kimi_args=(--continue "${kimi_args[@]}")
+# Cost-ledger capture (designs/token-cost-ledger.md): snapshot this lane's cumulative
+# per-turn token usage from KIMI_CODE_HOME before the invocation so the post-run delta
+# is exactly THIS invocation's turns — correct even when a persisted --continue home
+# already holds prior attempts' records. Best-effort; a failure to snapshot never
+# perturbs the run (the ledger just records source:none).
+usage_pre="$(meter_kimi_home_usage "$kimi_home" 2>/dev/null || true)"
 set +e
 ( cd "$worktree" && kimi_model_environment "$kimi_home" kimi-k3 kimi "${kimi_args[@]}" ) > "$report" 2> "$diagnostic"
 rc=$?
 set -e
+
+# Fold this invocation's kimi token delta into the engagement usage handoff the
+# gardener spine reads ($GARDEN_USAGE_FILE). Kimi reports no provider dollars, so the
+# row is measured-but-unpriced tokens (source:result), never a guessed rate — the
+# openai/codex lane records the same way. Written AFTER the run and OUTSIDE the
+# credential-stripped kimi environment, in plain code: the agent can neither author
+# nor destroy it. Entirely best-effort and fail-open: any gap leaves the spine to
+# record source:none, and it can never change the handler's exit code or report.
+usage_post="$(meter_kimi_home_usage "$kimi_home" 2>/dev/null || true)"
+if [ -n "${GARDEN_USAGE_FILE:-}" ] && command -v jq >/dev/null 2>&1 \
+   && [[ "$usage_pre" =~ ^[0-9]+$'\t'[0-9]+$'\t'[0-9]+$'\t'[0-9]+$ ]] \
+   && [[ "$usage_post" =~ ^[0-9]+$'\t'[0-9]+$'\t'[0-9]+$'\t'[0-9]+$ ]]; then
+  awk -F'\t' 'NR==1{for(i=1;i<=4;i++)a[i]=$i} NR==2{
+      i=$1-a[1]; o=$2-a[2]; c=$3-a[3]; r=$4-a[4];
+      if(i<0)i=0; if(o<0)o=0; if(c<0)c=0; if(r<0)r=0;
+      printf "{\"source\":\"result\",\"model\":\"kimi-k3\",\"input_tokens\":%d,\"output_tokens\":%d,\"cache_creation_tokens\":%d,\"cache_read_tokens\":%d}\n", i,o,c,r
+    }' <(printf '%s\n' "$usage_pre") <(printf '%s\n' "$usage_post") > "$GARDEN_USAGE_FILE" 2>/dev/null || true
+fi
 
 # Kimi Code 0.29.1 renders the first text line with a bullet, but indents
 # continuation lines (including the completion marker) with two spaces.
