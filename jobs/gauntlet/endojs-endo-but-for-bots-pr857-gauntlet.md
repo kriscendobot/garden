@@ -7,8 +7,8 @@ kind: feature
 stage: clean
 iteration: 0
 max_iterations: 6
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr857-gauntlet-clean
+state: running
 created_by: comment-watcher
 created_at: 2026-07-29T23:50:24Z
 ---
