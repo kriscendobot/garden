@@ -131,14 +131,12 @@ if [ -f "$V/reputation/events/evt-job.md" ]; then
   # The RAW censored state above is preserved; the derived figure lives in its OWN
   # field so an estimate can never impersonate a measurement. Which of wallclock/none
   # applies depends on whether the stub ran long enough to clock a whole second.
-  # span_secs is the wallclock the proxy prices: this attempt's measured duration plus
-  # the earlier attempts' capped claim spans. A first-attempt completion has none, so
-  # it equals duration_secs — but it is recorded either way, so an event can always
-  # say what a requeue cost it.
-  sp="$(plan_field "$ef" span_secs)"; du="$(plan_field "$ef" duration_secs)"
-  awk -v s="${sp:-x}" -v d="${du:-0}" 'BEGIN{exit !(s ~ /^[0-9]+$/ && (s+0) >= (d+0))}' \
-    && ok "event records span_secs=$sp >= duration_secs=$du (first attempt: equal)" \
-    || bad "event span_secs wrong (span=$sp duration=$du)"
+  # The event records its final-attempt measurement; the reducer derives the true
+  # claim-to-tada span once this completion is present in journal history.
+  du="$(plan_field "$ef" duration_secs)"
+  awk -v d="${du:-x}" 'BEGIN { exit !(d ~ /^[0-9]+$/) }' \
+    && ok "event records duration_secs=$du; reducer derives journal span later" \
+    || bad "event duration_secs wrong ($du)"
   cs="$(plan_field "$ef" cost_source)"; edol="$(plan_field "$ef" estimated_dollars)"
   case "$cs" in
     wallclock) awk -v d="$edol" 'BEGIN{exit !(d>0)}' \
@@ -357,14 +355,13 @@ hr; echo "WALLCLOCK — a censored arm is priced by its wallclock x the rate car
 #   KIMI    — 6 censored+accepted events with the REAL canary durations, arm
 #             mystic/moonshot/kimi-k3 (journal rate card: $0.005/s exactly). No claim
 #             history at all: the proxy falls back to duration_secs, unchanged.
-#   MULTI   — the same arm at a different work class, but every event REQUEUED: its
-#             `duration_secs` times only the final attempt, and the earlier ones are
-#             recovered from the claim commits (capped per attempt).
+#   MULTI   — the same arm at a different work class, but every event REQUEUED:
+#             claim-to-tada timestamps recover the whole engagement wallclock.
 #   LEDGER  — 3 fully-priced events; must come out NUMERICALLY IDENTICAL.
 #   NORATE  — a censored arm the rate card prices at 0 (= "no proxy"); must stay
 #             unpriced and bid the wide prior, never $0.
-#   NODUR   — a censored arm with NO duration_secs at all; likewise unpriced — the
-#             claim log REFINES a measurement, it never manufactures one.
+#   NOSPAN  — a censored arm with neither a completed span nor duration remains
+#             unpriced and bids the wide prior, never $0.
 TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-wall.XXXXXX")"
 BARE="$(seed_board "$TR" walljob)"
 SEED="$TR/inj"; verify_clone "$BARE" "$SEED"
@@ -372,7 +369,6 @@ kimi_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/gardener-s@main2.md"
 multi_rel="reputation/arms/mystic/moonshot/kimi-k3/medium/fix-s@main2.md"
 ledger_rel="reputation/arms/gardener/anthropic/claude-fable-5/medium/fix-m@main2.md"
 norate_rel="reputation/arms/hermit/local/qwen3.6/medium/other-s@main2.md"
-nodur_rel="reputation/arms/cleric/openai/gpt-5.6-terra/medium/doc-s@main2.md"
 # A PER-INSTANCE journal rate card. It must WIN over the tracked seed
 # (scripts/jobs/rate-card-defaults.md), which prices kimi at 0.004310 — proving a
 # rate is corrected by a journal data edit with no code change and no deploy.
@@ -396,8 +392,8 @@ mkwev() { # mkwev <base> <kind> <provider> <model> <tht> <wc> <accepted> <aggreg
 # fake_history <base> <start-epoch> <kind:secs>... — fabricate the board commits a
 # requeued job leaves behind: each spec is one attempt, claimed by a worker of <kind>
 # and held <secs> before the reaper requeued it. The LAST spec is the attempt that
-# reached tada (removing doin and adding tada in ONE commit, as complete-job.sh does),
-# so the proxy must NOT charge it — `duration_secs` already measures that one.
+# reached tada (removing doin and adding tada in ONE commit, as complete-job.sh does).
+# The first claim through that tada timestamp is the true engagement wallclock.
 fake_history() {
   local base="$1" t="$2" spec kind secs n i=0; shift 2; n=$#
   for spec in "$@"; do
@@ -425,20 +421,14 @@ mkwev wl1 gardener anthropic claude-fable-5 medium fix:m true  4  600
 mkwev wl2 gardener anthropic claude-fable-5 medium fix:m true  6  600
 mkwev wl3 gardener anthropic claude-fable-5 medium fix:m false 10 600
 for i in 1 2 3 4 5 6; do mkwev "wn$i" hermit local qwen3.6 medium other:s true censored 300; done
-for i in 1 2 3 4 5 6; do mkwev "wd$i" cleric openai gpt-5.6-terra medium doc:s true censored; done
-# MULTI: 6 requeued events, each 100s on its FINAL attempt but with three earlier
-# attempts behind it — a 30s one (a real, short failure), a 4h one (the reaper sitting
-# on a claim whose worker died: capped to 120s, NOT billed as 4h), and a 90s CLERIC
-# attempt that belongs to a different arm and must not be charged to this one.
-# Earlier seconds for mystic = 30 + 120 = 150, so each event prices 100+150 = 250s.
-for i in 1 2 3 4 5 6; do mkwev "wm$i" mystic moonshot kimi-k3 medium fix:s true censored 100 4; done
+# MULTI: 6 requeued events, each 19s on its final attempt. The claim-to-tada span
+# is 1s for the first attempt + 5s before the retry + 19s final = 25s. This is the
+# canary shape: the old final-attempt-only proxy would incorrectly price 19s.
+for i in 1 2 3 4 5 6; do mkwev "wm$i" mystic moonshot kimi-k3 medium fix:s true censored 19 2; done
 git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m inject-wallclock
 for i in 1 2 3 4 5 6; do
-  fake_history "wm$i" $(( 1785000000 + i * 100000 )) mystic:30 cleric:90 mystic:14400 mystic:100
+  fake_history "wm$i" $(( 1785000000 + i * 100000 )) mystic:1 mystic:19
 done
-# NODUR keeps a claim history too: an event with no duration_secs must stay unpriced
-# even though the log could name its earlier attempts.
-fake_history wd1 1785900000 cleric:30 cleric:100
 git -C "$SEED" push -q origin journal2
 env GARDEN=wh GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     "$JOBS/reputation-reduce.sh" > "$TR/w.log" 2>&1 || true
@@ -476,37 +466,32 @@ else
   bad "reducer wrote no kimi arm (w.log: $(tail -3 "$TR/w.log" | tr '\n' '|'))"
 fi
 
-# MULTI-ATTEMPT: `duration_secs` times only the attempt that reached tada, so a
-# requeued job's earlier attempts are wall time the event cannot see. They are read
-# back from the claim commits — capped, and only the ones claimed by this arm's kind.
-idx="$TR/attempts.idx"; rep_attempt_index "$V" > "$idx" 2>/dev/null || : > "$idx"
-[ "$(rep_attempt_lookup "$idx" wm1 mystic)" = 150 ] \
-  && ok "earlier attempts for wm1/mystic = 150s (30s as clocked + a 4h dead claim capped to 120s)" \
-  || bad "earlier mystic seconds wrong ($(rep_attempt_lookup "$idx" wm1 mystic), expected 150)"
-[ "$(rep_attempt_lookup "$idx" wm1 cleric)" = 90 ] \
-  && ok "the 90s CLERIC attempt is charged to the cleric arm, not to mystic's" \
-  || bad "cross-kind attribution wrong ($(rep_attempt_lookup "$idx" wm1 cleric), expected 90)"
-[ "$(rep_attempt_lookup "$idx" wk1 mystic)" = 0 ] \
-  && ok "a job with no claim history contributes 0 earlier seconds (proxy falls back to duration_secs)" \
-  || bad "invented earlier seconds for a job with no claim history ($(rep_attempt_lookup "$idx" wk1 mystic))"
-[ "$(rep_effective_secs 100 150)" = 250 ] \
-  && ok "effective wallclock = 100s measured + 150s earlier = 250s" \
-  || bad "rep_effective_secs 100 150 = $(rep_effective_secs 100 150), expected 250"
-[ "$(rep_effective_secs '' 150)" = 0 ] \
-  && ok "NO duration_secs => 0 effective seconds: the claim log refines a measurement, never manufactures one" \
-  || bad "rep_effective_secs manufactured seconds from the log alone ($(rep_effective_secs '' 150))"
+# MULTI-ATTEMPT: duration_secs clocks only the final attempt. The journal's first
+# claim -> tada timestamps instead yield the full, true engagement wallclock.
+idx="$TR/wallclock.idx"; rep_wallclock_index "$V" > "$idx" 2>/dev/null || : > "$idx"
+[ "$(rep_wallclock_lookup "$idx" wm1)" = 25 ] \
+  && ok "claim-to-tada span for wm1 is 25s, including its requeued attempt" \
+  || bad "wrong wm1 claim-to-tada span ($(rep_wallclock_lookup "$idx" wm1), expected 25)"
+[ -z "$(rep_wallclock_lookup "$idx" wk1)" ] \
+  && ok "a job with no claim history has no journal span and falls back to duration_secs" \
+  || bad "invented a journal span for wk1 ($(rep_wallclock_lookup "$idx" wk1))"
+[ "$(rep_proxy_secs 25 19)" = 25 ] \
+  && ok "proxy prefers the 25s journal span over the 19s final-attempt duration" \
+  || bad "rep_proxy_secs did not prefer journal span ($(rep_proxy_secs 25 19))"
+[ "$(rep_proxy_secs '' 100)" = 100 ] \
+  && ok "missing journal history falls back to duration_secs" \
+  || bad "rep_proxy_secs fallback wrong ($(rep_proxy_secs '' 100))"
 
 if [ -f "$V/$multi_rel" ]; then
   read -r matt macc mmean mm2 mcen mest <<<"$(rep_read_projection "$V" "$multi_rel")"
   { [ "$matt" = 6 ] && [ "$macc" = 6 ] && [ "$mcen" = 6 ] && [ "$mest" = 6 ]; } \
     && ok "multi-attempt arm: censored:6 estimated:6 (att=6 acc=6)" \
     || bad "multi-attempt arm counters wrong (att=$matt acc=$macc cen=$mcen est=$mest)"
-  # 250s x $0.005/s = $1.25 per event. Pricing the final attempt alone would say
-  # $0.50; pricing the RAW claim spans would say $72.65 (the 4h dead claim at face
-  # value) — the cap is what keeps a reaper artifact from becoming a cost signal.
-  awk -v m="$mmean" 'BEGIN{exit !(m>1.2499 && m<1.2501)}' \
-    && ok "multi-attempt arm: cost-per-accepted \$$mmean = 250s x \$0.005/s (\$0.50 on the final attempt alone)" \
-    || bad "multi-attempt mean wrong ($mmean, expected 1.250000)"
+  # 25s x $0.005/s = $0.125 per event. The old proxy priced only the 19s final
+  # attempt and would report $0.095, omitting the earlier attempt and retry delay.
+  awk -v m="$mmean" 'BEGIN{exit !(m>0.1249 && m<0.1251)}' \
+    && ok "multi-attempt arm: cost-per-accepted \$$mmean = 25s x \$0.005/s (not \$0.095 for the final attempt alone)" \
+    || bad "multi-attempt mean wrong ($mmean, expected 0.125000)"
 else
   bad "reducer wrote no multi-attempt arm"
 fi
@@ -525,10 +510,9 @@ else
   bad "reducer wrote no ledger arm"
 fi
 
-# NO RATE and NO DURATION: unpriceable stays unpriced. This is the fallback path the
+# NO RATE and NO SPAN: unpriceable stays unpriced. This is the fallback path the
 # job flagged as most likely to be wrong — it must bid the WIDE PRIOR, never $0.
-for pair in "$norate_rel|rate-card rate of 0 (explicitly no proxy)" "$nodur_rel|no duration_secs at all"; do
-  rel="${pair%%|*}"; why="${pair#*|}"
+rel="$norate_rel"; why="rate-card rate of 0 (explicitly no proxy)"
   if [ -f "$V/$rel" ]; then
     read -r natt nacc nmean nm2 ncen nest <<<"$(rep_read_projection "$V" "$rel")"
     { [ "$ncen" = 6 ] && [ "$nest" = 0 ]; } \
@@ -550,8 +534,7 @@ for pair in "$norate_rel|rate-card rate of 0 (explicitly no proxy)" "$nodur_rel|
       || bad "unpriceable arm ($why) draw collapsed (mean $avg range $lo..$hi)"
   else
     bad "reducer wrote no arm for: $why"
-  fi
-done
+fi
 
 # an estimate must not impersonate a measurement: same posterior, all-estimated
 # evidence draws WIDER than all-ledger evidence.
