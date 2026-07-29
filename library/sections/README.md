@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6743 (530 parent indexes + 6213 children).
+Total section files: 6753 (530 parent indexes + 6223 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8992,6 +8992,8 @@ Total section files: 6743 (530 parent indexes + 6213 children).
 
 - [ucan-wg--delegation-readme--command-and-policy](ucan-wg--delegation-readme--command-and-policy.md)
 - [ucan-wg--delegation-readme--delegation-payload](ucan-wg--delegation-readme--delegation-payload.md)
+- [ucan-wg--delegation-readme--policy-language](ucan-wg--delegation-readme--policy-language.md)
+- [ucan-wg--delegation-readme--semantic-conditions](ucan-wg--delegation-readme--semantic-conditions.md)
 - [ucan-wg--delegation-readme--subject-resource-and-powerline](ucan-wg--delegation-readme--subject-resource-and-powerline.md)
 - [ucan-wg--delegation-readme--token-validation](ucan-wg--delegation-readme--token-validation.md)
 
@@ -9007,9 +9009,17 @@ Total section files: 6743 (530 parent indexes + 6213 children).
 
 - [ucan-wg--spec-readme--canonicalization-envelope-and-cids](ucan-wg--spec-readme--canonicalization-envelope-and-cids.md)
 - [ucan-wg--spec-readme--capability-authority-command-attenuation](ucan-wg--spec-readme--capability-authority-command-attenuation.md)
+- [ucan-wg--spec-readme--faq-security-boundaries](ucan-wg--spec-readme--faq-security-boundaries.md)
+- [ucan-wg--spec-readme--implementation-recommendations](ucan-wg--spec-readme--implementation-recommendations.md)
 - [ucan-wg--spec-readme--inversion-of-control-and-security](ucan-wg--spec-readme--inversion-of-control-and-security.md)
+- [ucan-wg--spec-readme--lifecycle-and-time](ucan-wg--spec-readme--lifecycle-and-time.md)
+- [ucan-wg--spec-readme--metadata](ucan-wg--spec-readme--metadata.md)
 - [ucan-wg--spec-readme--motivation-and-auth-model-comparison](ucan-wg--spec-readme--motivation-and-auth-model-comparison.md)
+- [ucan-wg--spec-readme--nonce](ucan-wg--spec-readme--nonce.md)
+- [ucan-wg--spec-readme--related-work-and-prior-art](ucan-wg--spec-readme--related-work-and-prior-art.md)
 - [ucan-wg--spec-readme--roles-subject-issuer-audience](ucan-wg--spec-readme--roles-subject-issuer-audience.md)
+- [ucan-wg--spec-readme--time-bounds](ucan-wg--spec-readme--time-bounds.md)
+- [ucan-wg--spec-readme--token-resolution](ucan-wg--spec-readme--token-resolution.md)
 
 ### unum
 
