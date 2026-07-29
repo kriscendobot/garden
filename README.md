@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T19:13:47Z_
+_As of 2026-07-29T19:14:43Z_
 
 ## Latest
 
@@ -3516,6 +3516,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > The complete panel for [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) still requires provenance binding: audit() currently receives a caller-supplied forecast and proposal citations are opaque strings, so implementing artifact resolution/attestation would expand the data-sufficiency increment into a new persistence/API design. Please direct whether to authorize that broader change here or treat it as a separate follow-up; the PR remains draft with green CI.
 
+- `20260729T191406Z-948ee0` — from gauntlet:registry-immutable-byte-array-followup-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T191406Z-948ee0.md)
+
+> Gauntlet registry-immutable-byte-array-followup-gauntlet HALTED: stage 'registry-immutable-byte-array-followup-gauntlet-panel-1' (panel) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5378,7 +5382,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 60.9M _(+593.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 60.9M _(+594.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (7)
@@ -5395,13 +5399,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 
-### tada (3900)
+### tada (3901)
+- [`registry-immutable-byte-array-followup-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/registry-immutable-byte-array-followup-gauntlet.md) — gauntlet registry-immutable-byte-array-followup-gauntlet — HALTED
 - [`scholar-library-cycle-20260729-182004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-182004.md) — Cost
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260729-070504.md) — Cost
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-172004.md) — Cost
 - [`scholar-library-cycle-20260729-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-160503.md) — Registered the indefinite scholar-library-cycle schedule on journal2.
-- [`scholar-library-cycle-20260729-150501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-150501.md) — Completed idle scholar cycle: drained all required inbox/topic queues; no ing...
-- … and 3895 more
+- … and 3896 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
