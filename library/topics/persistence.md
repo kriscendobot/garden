@@ -69,6 +69,9 @@
 | [atproto--specs-repository--mst-structure](../sections/atproto--specs-repository--mst-structure.md) | atproto specs/repository | Key depth as leading-zero count of SHA-256 divided by two (fanout 4), prefix-compressed node entries, a shape deterministic from the current mapping, and key-mining as a denial-of-service vector. |
 | [atproto--specs-repository--car-export-and-diffs](../sections/atproto--specs-repository--car-export-and-diffs.md) | atproto specs/repository | CAR v1 full export and CAR-slice diffs; operation inversion recomputes the inverted MST root and checks it against the previous revision's data field. |
 | [atproto--specs-repository--paths-records-and-cid-formats](../sections/atproto--specs-repository--paths-records-and-cid-formats.md) | atproto specs/repository | Paths are <collection>/<record-key>; TID keys sort chronologically so appends beat random insertions; structural CID links must follow the blessed format or the structure is invalid. |
+| [atproto--specs-blob--content-addressed-media-and-metadata](../sections/atproto--specs-blob--content-addressed-media-and-metadata.md) | atproto specs/blob | Blobs are CID-addressed media outside the repository tree, but 'always referenced and managed in the context of an individual account (DID)'; blessed raw-codec CID plus size and MIME. |
+| [atproto--specs-blob--blob-lifecycle](../sections/atproto--specs-blob--blob-lifecycle.md) | atproto specs/blob | Upload to temporary storage, a referencing record makes the blob public, deleting the last reference in that repository deletes it; reference counting is per repository, not per hash. |
+| [atproto--specs-sync--record-level-synchronization](../sections/atproto--specs-sync--record-level-synchronization.md) | atproto specs/sync | The desynchronized / in-progress / synchronized pattern with a sorted record-state table and a re-sync worker pool that diffs a full CAR against the table. |
 
 ## See also
 
