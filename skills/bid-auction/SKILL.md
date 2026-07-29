@@ -39,7 +39,11 @@ zero or one worker bids.
 
 - **Opt in**: a producer stamps `market: bid` (and optionally `bid_window: <secs>`,
   default 120; and `posted_at:` for a shared deadline) on a job. Anything else is
-  the race.
+  the race. During the temporary Claude weekly-quota route, an
+  `endolin-garden*` worker treats this header as `race`: qualified workers make
+  the ordinary journal-CAS claim immediately, with no bid file or window. The
+  producer header is deliberately retained, so reverting the route restores the
+  auction without rewriting queued work; `ps23` remains on the auction.
 - **Bid** (in `claim-job.sh`, LLM-free): while `now < posted_at + bid_window` an
   eligible worker writes its own `jobs/bids/<base>/<kind>-<host>-<id>.md` (a seeded
   Thompson draw over the arm it would run) and pushes, then moves on WITHOUT
@@ -113,6 +117,11 @@ zero or one worker bids.
   accrue with no behavioral effect until producers stamp `market: bid`. `race`
   stays permanent for urgent/mechanical work and as every auction's degradation
   floor.
+- **Quota-route rollback**: the host-local default is `auto` (only
+  `endolin-garden*` races `market: bid` work). Set
+  `GARDEN_QUOTA_ROUTING=auction` in that host's worker-unit environment and
+  restart/reconcile its worker pool to restore bidding; `race` is an explicit
+  temporary override for another host. Unknown values fail closed to `auction`.
 
 ## Tests
 

@@ -492,6 +492,32 @@ V="$TR/v"; verify_clone "$BARE" "$V"
   || bad "race job: tada=$([ -f "$V/jobs/tada/raceonly.md" ] && echo y||echo n) bids=$([ -d "$V/jobs/bids/raceonly" ] && echo y||echo n)"
 rm -rf "$TR"
 
+# The weekly Claude-quota escape hatch changes only the selection mechanism for
+# a bid-marked job on endolin: it remains a normal provider/capability-qualified
+# claim, but takes the immediate CAS race and writes no bid. ps23 stays on the
+# auction, and the explicit override is the operational rollback.
+hr; echo "QUOTA ROUTING — endolin races bid jobs; ps23 keeps the auction; override rolls back"; hr
+TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-quota-route.XXXXXX")"
+BARE="$(seed_board "$TR" quota-route "role: fixer
+market: bid
+bid_window: 120
+posted_at: 2001-09-09T01:46:40Z")"
+export GARDEN_GARDENER_CLONE="$TR/s/gardeners/1/journal"
+env GARDEN=endolin-garden-ece02cb4 GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+    GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=1000000010 \
+    "$JOBS/claim-job.sh" 1 > "$TR/claim.log" 2>&1 && qrc=0 || qrc=$?
+V="$TR/v"; verify_clone "$BARE" "$V"
+{ [ "$qrc" -eq 0 ] && [ -f "$V/jobs/doin/quota-route.md" ] && ! [ -d "$V/jobs/bids/quota-route" ]; } \
+  && ok "endolin bid job races immediately through the CAS (no bid window/file)" \
+  || bad "endolin quota route wrong (rc=$qrc doin=$([ -f "$V/jobs/doin/quota-route.md" ] && echo y || echo n) bids=$([ -d "$V/jobs/bids/quota-route" ] && echo y || echo n))"
+ROUTE_JOB="$TR/route.md"; printf '%s\n' '---' 'market: bid' '---' > "$ROUTE_JOB"
+[ "$(GARDEN=ps23 auction_market_mode "$ROUTE_JOB")" = bid ] \
+  && ok "ps23 retains bid selection while it has Claude capacity" || bad "ps23 unexpectedly bypassed auction"
+[ "$(GARDEN=endolin-garden-ece02cb4 GARDEN_QUOTA_ROUTING=auction auction_market_mode "$ROUTE_JOB")" = bid ] \
+  && ok "GARDEN_QUOTA_ROUTING=auction explicitly rolls endolin back to bidding" || bad "quota-route rollback override ignored"
+unset GARDEN_GARDENER_CLONE
+rm -rf "$TR"
+
 # A single-bidder market:bid job: window OPEN -> the worker bids and does not claim;
 # window CLOSED -> the same worker (rank 1 by construction) claims.
 TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-1bid.XXXXXX")"

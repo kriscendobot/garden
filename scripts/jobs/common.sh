@@ -515,6 +515,49 @@ worker_kind_field() {
 # in exactly one place besides worker_kind_field: here.
 worker_kinds() { printf '%s\n' gardener cleric hermit mystic fireworker; }
 
+# quota_routing_mode — temporary, host-scoped escape hatch for an Anthropic
+# quota outage. `auto` is deliberately narrow: only endolin-garden instances
+# bypass bid selection for a `market: bid` job, leaving ps23's remaining Claude
+# capacity on the normal auction path. The worker still has to pass the usual
+# model/provider and host-capability gates before it can race the CAS.
+#
+# Set GARDEN_QUOTA_ROUTING=auction to roll this back on an endolin instance, or
+# =race to force the temporary route on a named test/recovery host. An unknown
+# value fails closed to `auction`, the established selection policy.
+quota_routing_mode() {
+  local mode="${GARDEN_QUOTA_ROUTING:-auto}"
+  case "$mode" in
+    auction|bid|off) printf '%s\n' auction ;;
+    race|on)          printf '%s\n' race ;;
+    auto)
+      case "$GARDEN" in
+        endolin-garden*) printf '%s\n' race ;;
+        *)               printf '%s\n' auction ;;
+      esac ;;
+    *) printf '%s\n' auction ;;
+  esac
+}
+
+# host_has_qualified_non_claude_worker <hosts-file> — succeeds only when this
+# host has declared a positive count for a non-Anthropic kind AND its backend
+# probe currently passes. This is the worker-floor safety predicate: a host may
+# retire gardeners only when another actually usable class remains to claim work.
+# It intentionally does not consult systemd state: the scaler is the component
+# that is about to start/reconcile that declared, probe-qualified pool.
+host_has_qualified_non_claude_worker() {
+  local hosts_file="${1:?host_has_qualified_non_claude_worker: hosts file required}"
+  local kind provider key want
+  for kind in $(worker_kinds); do
+    provider="$(worker_kind_field "$kind" provider)" || continue
+    [ "$provider" = anthropic ] && continue
+    key="$(worker_kind_field "$kind" count_key)" || continue
+    want="$(read_desired_count "$hosts_file" "$key" 2>/dev/null)" || continue
+    [ "$want" -gt 0 ] || continue
+    worker_backend_probe "$kind" >/dev/null 2>&1 && return 0
+  done
+  return 1
+}
+
 # read_desired_count <hosts-file> <count_key> — read one worker kind's declared
 # concurrency from a hosts/<host> file, distinguishing the THREE outcomes the pool
 # scaler must treat differently. On a clean read it prints the parsed non-negative

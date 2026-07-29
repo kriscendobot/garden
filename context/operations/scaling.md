@@ -24,9 +24,13 @@ agent can do. Tune per host by its capacity, not by core count. Adding hosts
 adds concurrency with no duplication — the job-board CAS dedups the work
 ([leader-follower.md](leader-follower.md)).
 
-Every worker variety, including gardeners, accepts an explicit count of zero.
-Zero is a durable per-kind capacity setting: it stops that pool while leaving
-the host and its other worker varieties active.
+Every non-gardener worker variety accepts an explicit count of zero. During the
+temporary Claude weekly-quota route, an endolin host may also set `gardeners: 0`
+only after it has declared a positive non-Claude pool whose backend probe passes
+(for example `clerics: 1`). The writer and scaler both require the active quota
+route and reject the change when no qualified non-Claude class remains, so a host
+cannot configure itself to zero claimers. Restore Claude capacity with
+`scripts/jobs/set-gardeners.sh <count>`.
 
 ## Pausing: drain
 

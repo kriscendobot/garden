@@ -49,6 +49,10 @@ host="$GARDEN"
 "$HERE/install-units.sh" reconcile-identity
 
 f="$DIR/hosts/$host"
+non_claude_qualified=0
+host_has_qualified_non_claude_worker "$f" && non_claude_qualified=1
+quota_route_active=0
+[ "$(quota_routing_mode)" = race ] && quota_route_active=1
 
 # Reconcile EACH worker kind independently from its own count line. A kind whose
 # desired count is structurally missing/unparsable is a NO-OP for THAT kind (leave
@@ -65,6 +69,10 @@ for kind in $(worker_kinds); do
 # leave the pool unchanged except the clean parse; missing is never scale-to-0,
 # while an explicit zero is.
   if want="$(read_desired_count "$f" "$count_key")"; then
+    if [ "$kind" = gardener ] && [ "$want" -eq 0 ] && { [ "$quota_route_active" -ne 1 ] || [ "$non_claude_qualified" -ne 1 ]; }; then
+      log "WARN host '$host' declares gardeners: 0 without the active quota route and a configured, probe-qualified non-Claude worker; refusing to leave zero qualified workers (use drain-fleet.sh to pause work)"
+      continue
+    fi
     # `want` is the owner-declared journal target. Compute the probe-gated EFFECTIVE
     # count (0 while the kind's backend is unauthenticated/unavailable, ramping to
     # declared once a real auth success is confirmed, with hysteresis so a transient

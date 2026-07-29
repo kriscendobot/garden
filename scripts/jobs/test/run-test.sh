@@ -228,22 +228,29 @@ git -C "$V" fetch -q origin "$BRANCH"; git -C "$V" reset -q --hard "origin/$BRAN
 { [ "$foreign_rc" -ne 0 ] && grep -q 'may set only its own worker counts' <<<"$foreign_out" && ! [ -e "$V/hosts/leaderhost" ]; } \
   && ok "foreign host worker write refused without creating hosts/leaderhost" \
   || bad "foreign host write guard failed (rc=$foreign_rc, output=$foreign_out)"
-{ [ "$zero_rc" -eq 0 ] && grep -q '^gardeners: 0$' "$V/hosts/testhost"; } \
-  && ok "gardeners: 0 writer request accepted" \
-  || bad "gardeners zero write failed (rc=$zero_rc, output=$zero_out)"
-# An explicit zero is a durable capacity setting and must tear down the gardener
-# pool just like zero for every other worker kind.
+{ [ "$zero_rc" -ne 0 ] && grep -q 'refusing gardeners: 0' <<<"$zero_out"; } \
+  && ok "gardeners: 0 writer request refused without a qualified alternative" \
+  || bad "gardeners zero floor failed (rc=$zero_rc, output=$zero_out)"
+push_change "hosts/testhost" $'gardeners: 0\nupdated_by: testhost' "seed invalid gardener zero"
 : > "$GARDEN_MOCK_LOG"
 zero_scale_out="$(GARDEN=testhost "$JOBS/gardener-scaler.sh" 2>&1)"
 zero_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
-zero_armed=$(grep -c '^garden-gardener@.*\\.service$' "$GARDEN_MOCK_STATE" || true)
-{ [ "$zero_disables" -gt 0 ] && [ "$zero_armed" -eq 0 ]; } \
-  && ok "gardeners: 0 scales the gardener pool to zero" \
-  || bad "gardener zero scale failed (armed=$zero_armed, disables=$zero_disables, output=$zero_scale_out)"
-# Re-arm one worker to establish the state that the missing-count no-op below
-# must preserve.
-"$JOBS/set-gardeners.sh" 1 testhost >/dev/null
-"$JOBS/gardener-scaler.sh" >/dev/null 2>&1
+{ grep -q "declares gardeners: 0.*refusing" <<<"$zero_scale_out" && [ "$zero_disables" -eq 0 ]; } \
+  && ok "legacy gardeners: 0 is refused by scaler without disabling the pool" \
+  || bad "scaler zero floor failed (disables=$zero_disables, output=$zero_scale_out)"
+GARDEN_QUOTA_ROUTING=race "$JOBS/set-workers.sh" cleric 1 testhost >/dev/null
+set +e
+qualified_zero_out="$(GARDEN=testhost GARDEN_QUOTA_ROUTING=race "$JOBS/set-gardeners.sh" 0 2>&1)"; qualified_zero_rc=$?
+set -e
+: > "$GARDEN_MOCK_LOG"
+GARDEN=testhost GARDEN_QUOTA_ROUTING=race "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
+qualified_gardeners=$(grep -c '^garden-gardener@.*\.service$' "$GARDEN_MOCK_STATE" || true)
+qualified_clerics=$(grep -c '^garden-cleric@1\.service$' "$GARDEN_MOCK_STATE" || true)
+{ [ "$qualified_zero_rc" -eq 0 ] && [ "$qualified_gardeners" -eq 0 ] && [ "$qualified_clerics" -eq 1 ]; } \
+  && ok "qualified cleric allows gardeners: 0 and scaler retains a live non-Claude pool" \
+  || bad "qualified zero-floor route failed (rc=$qualified_zero_rc gardeners=$qualified_gardeners clerics=$qualified_clerics output=$qualified_zero_out)"
+push_change "hosts/testhost" $'gardeners: 1\nupdated_by: testhost' "restore one-gardener fixture"
+GARDEN=testhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
 # A structurally-absent desired count (no hosts/<host> file) is a NO-OP, never a
 # scale-to-0: point the scaler at a host that was never declared and the gardener@1
 # pool above must survive untouched (no install-units.sh scale → zero disable calls).

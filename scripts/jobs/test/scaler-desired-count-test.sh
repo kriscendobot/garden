@@ -75,6 +75,23 @@ printf 'gardeners:   03\n' > "$TD/ws"
 printf 'clerics-max: 4\n' > "$TD/prefix"
 [ "$(rc "$TD/prefix" clerics)" = "2:" ] && ok "prefix-only line does not satisfy the key (anchored ^key:)" || bad "prefix match ($(rc "$TD/prefix" clerics))"
 
+# The gardener floor may be relaxed only when another worker class is both
+# configured and probe-qualified. The probe is stubbed so this remains hermetic.
+worker_backend_probe() { [ "$1" = cleric ]; }
+printf 'gardeners: 0\nclerics: 1\n' > "$TD/qualified-non-claude"
+host_has_qualified_non_claude_worker "$TD/qualified-non-claude" \
+  && ok "gardeners: 0 is safe with configured, live clerics" \
+  || bad "qualified non-Claude worker was not recognized"
+printf 'gardeners: 0\nclerics: 0\n' > "$TD/no-qualified-worker"
+host_has_qualified_non_claude_worker "$TD/no-qualified-worker" \
+  && bad "zero-count clerics must not satisfy the gardener floor" \
+  || ok "zero-count non-Claude class does not relax the gardener floor"
+printf 'gardeners: 0\nfireworkers: 1\n' > "$TD/failed-non-claude"
+host_has_qualified_non_claude_worker "$TD/failed-non-claude" \
+  && bad "failed backend probe must not satisfy the gardener floor" \
+  || ok "unhealthy non-Claude class does not relax the gardener floor"
+unset -f worker_backend_probe
+
 # ============================================================================
 hr; echo "gardener-scaler.sh — ABSENT emits DEBUG, MISCFG emits WARN (end-to-end)"; hr
 # Drive the real scaler with its external steps mocked to no-ops (a shim dir on

@@ -21,7 +21,9 @@
 #     doin/ entry, requeued on the same TTL.
 #
 # A job opts in with `market: bid`; anything else (including every `priority:
-# urgent` job) is claimed by the untouched race. See auction_market_mode.
+# urgent` job) is claimed by the untouched race. During the temporary endolin
+# Claude-quota route, bid jobs also use that same CAS race after all ordinary
+# qualification gates have passed. See auction_market_mode.
 
 [ -n "${GARDEN_AUCTION_SH_SOURCED:-}" ] && return 0
 GARDEN_AUCTION_SH_SOURCED=1
@@ -42,10 +44,18 @@ auction_bid_dir() { printf '%s/%s\n' "$JOBS_BIDS" "${1:?auction_bid_dir: base}";
 # --- window ------------------------------------------------------------------
 
 # auction_market_mode <jobfile> — `bid` iff the job opted into the auction with a
-# `market: bid` header; `race` otherwise (the default, and every urgent job).
+# `market: bid` header AND this host is not temporarily routed around Claude
+# quota; `race` otherwise (the default, and every urgent job). This sits after
+# claim-job's provider/capability predicates, so it changes only selection, never
+# which workers are qualified to run the job.
 auction_market_mode() {
   local m; m="$(plan_field "${1:?auction_market_mode: jobfile}" market)"
-  case "$m" in bid) printf 'bid\n' ;; *) printf 'race\n' ;; esac
+  case "$m" in
+    bid)
+      [ "$(quota_routing_mode)" = race ] && printf 'race\n' || printf 'bid\n'
+      ;;
+    *) printf 'race\n' ;;
+  esac
 }
 
 # auction_now — wall clock in epoch seconds (overridable for deterministic tests).

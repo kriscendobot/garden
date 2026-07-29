@@ -29,6 +29,11 @@ count_key="$(worker_kind_field "$kind" count_key)" || die "unknown worker kind '
 [[ "$n" =~ ^[0-9]+$ ]] || die "count must be a non-negative integer"
 [ "$host" = "$GARDEN" ] || die "refusing to write hosts/$host from $GARDEN; a host may set only its own worker counts"
 
+# The fleet generally permits an explicit zero for any kind. The temporary
+# endolin Claude-quota route makes one exception safety-sensitive: gardeners may
+# reach zero only while this host is routed around the auction and another
+# configured, probe-qualified non-Claude class can still claim work.
+
 # Provisioning gate: a fresh gnome may declare a NON-gardener kind's count > 0 only
 # once that kind's backend probe passes on this host — so a Claude-only gnome (ps23)
 # simply cannot declare clerics/hermits/mystics, instead of standing up pools that
@@ -50,6 +55,12 @@ for attempt in $(seq 1 50); do
   sync_clone "$DIR"
   mkdir -p "$DIR/hosts"
   f="$DIR/hosts/$host"
+  if [ "$kind" = gardener ] && [ "$n" -eq 0 ]; then
+    [ "$(quota_routing_mode)" = race ] \
+      || die "refusing gardeners: 0 outside the temporary quota route; retain one gardener or use drain-fleet.sh to pause work"
+    host_has_qualified_non_claude_worker "$f" \
+      || die "refusing gardeners: 0; retain at least one configured, probe-qualified non-Claude worker class (or use drain-fleet.sh to pause work)"
+  fi
   # Gather each kind's CURRENT declared count from the existing file, override the
   # target kind with N, and rewrite — so a sibling kind's count is preserved and an
   # undeclared sibling stays undeclared (never forced to 0).
