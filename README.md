@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T16:19:48Z_
+_As of 2026-07-29T16:20:50Z_
 
 ## Latest
 
@@ -5090,16 +5090,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.7M _(+567.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 71.8M _(+567.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
-### todo (19)
+### todo (21)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr874-review-fd62e60e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-review-fd62e60e.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr4-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
+- [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
@@ -5311,6 +5313,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr723-review-b5ddd4da-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr723-review-b5ddd4da-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #723 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr875-review-8e639c41-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr875-review-8e639c41-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #875 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr874-review-ce8e8195-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-ce8e8195-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr874-review-fd62e60e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-fd62e60e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
