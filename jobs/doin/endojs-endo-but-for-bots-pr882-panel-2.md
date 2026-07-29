@@ -15,6 +15,7 @@ Invoke:
 
 Post the aggregate as the formal PR review prescribed by its disposition, record the stage result, and stop.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
