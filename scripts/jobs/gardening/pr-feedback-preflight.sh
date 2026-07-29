@@ -13,6 +13,16 @@
 #   exit 0 = PROCEED  — no peer resolution found; do the work.
 #   exit 2 = NO-OP    — a peer's resolution citing THIS feedback is already on the
 #                       PR. Stop without touching the branch.
+#
+# Exit 2 is a HINT the caller must CORROBORATE, never an authority to close. This
+# script matches text; it cannot know what the directive asked for, so it can prove
+# only that correlated text exists — never that the ask was SATISFIED. A caller that
+# closes on exit 2 must first name the artifact resolving each ask (a commit, a
+# reply, a board job) and, when the deliverable is a board artifact, read the board.
+# endojs/endo-but-for-bots#721 is the cautionary case: a pre-correlation exit 2
+# matched an unrelated commit ("Addresses @kriskowal's review on #678", two days
+# OLDER than the review) and a maintainer directive sat unactioned for two weeks
+# behind a report that asserted a peer had done the work.
 # Any OTHER exit (a gh/network failure, an indeterminate fetch) is FAIL-OPEN —
 # treated by the caller as PROCEED — so a transient never silently skips real work;
 # at worst the push-time CAS catches the duplicate the way it did before this gate.
@@ -264,7 +274,7 @@ else
 fi
 
 if [ -n "$matched" ]; then
-  log "NO-OP: a peer's resolution is already present on $repo#$pr: $matched; skipping the edit (cid=$cid)"
+  log "NO-OP (HINT — corroborate before closing): a peer's resolution appears present on $repo#$pr: $matched; name the artifact resolving each ask before completing as a no-op (cid=$cid)"
   exit 2
 fi
 

@@ -221,9 +221,16 @@ preflight_instruction() {  # preflight_instruction <repo> <number> <comment-id> 
   printf 'A peer may have already resolved this. Run, from the garden root:\n\n'
   printf '  scripts/jobs/gardening/pr-feedback-preflight.sh %s %s %s %s\n\n' "$repo" "$number" "$cid" "$author"
   printf 'It inspects the PR branch HEAD commits and inline replies for a peer''s\n'
-  printf 'resolution citing this comment. Exit 2 = NO-OP (already resolved by a peer):\n'
-  printf 'do NOT edit or push — complete the job as a clean no-op. Exit 0 = proceed.\n'
+  printf 'resolution correlated to this comment. Exit 0 = proceed with the work.\n'
   printf '(Any other exit fails open → proceed; the push CAS is still the backstop.)\n\n'
+  printf 'Exit 2 is a HINT, not a licence to close. It proves only that correlated\n'
+  printf 'text exists somewhere on the PR — never that THIS directive was satisfied.\n'
+  printf 'Before you complete as a no-op you MUST corroborate, for EVERY ask: name the\n'
+  printf 'artifact that resolves it (commit SHA, reply id, PR/issue number, or\n'
+  printf 'job-board base) and state how it satisfies the ask; when the deliverable is a\n'
+  printf 'BOARD artifact, check the board itself rather than inferring it. If you\n'
+  printf 'cannot name the artifact for every ask, treat exit 2 as PROCEED and do the\n'
+  printf 'work. Never state in your report that a peer did work you did not verify.\n\n'
 }
 
 # Build the job body. The mention text is UNTRUSTED even though the SENDER is

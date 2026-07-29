@@ -744,6 +744,25 @@ printf '%s' "$RBODY" | grep -qi 'WHOLE review' && ok "review job frames the WHOL
 printf '%s' "$RBODY" | grep -qi 'gauntlet' && ok "review job notes the verb (gauntlet) as the primary action" || bad "review job dropped the verb action"
 printf '%s' "$RBODY" | grep -qi 'primary action' && ok "the verb is labelled PRIMARY (one item, not the whole job)" || bad "verb not labelled primary"
 printf '%s' "$RBODY" | grep -q 'pull_request_review_id' && ok "review job instructs enumerating ALL inline comments" || bad "review job missing inline-enumeration instruction"
+# The #721 false-peer no-op: a pre-correlation preflight exit 2 matched an unrelated
+# commit, the job closed as a "clean no-op" asserting a peer had done the work, and a
+# maintainer directive sat unactioned for two weeks. Exit 2 must therefore reach the
+# gardener as a HINT REQUIRING CORROBORATION, never as a licence to close.
+printf '%s' "$RBODY" | grep -qi 'Exit 2 is a HINT' \
+  && ok "the preflight instruction frames exit 2 as a hint, not an authority" \
+  || bad "exit 2 still reads as a licence to close (the #721 false-peer no-op)"
+printf '%s' "$RBODY" | grep -qi 'name the artifact that resolves it' \
+  && ok "exit 2 requires naming the resolving artifact per ask" \
+  || bad "exit 2 does not require positive evidence per ask"
+printf '%s' "$RBODY" | grep -qi 'check the board itself' \
+  && ok "a BOARD deliverable must be verified against the board, not inferred" \
+  || bad "board-artifact deliverables may still be inferred from the preflight"
+printf '%s' "$RBODY" | grep -qi 'treat exit 2 as PROCEED' \
+  && ok "an uncorroborated exit 2 falls back to PROCEED (fail toward doing the work)" \
+  || bad "an uncorroborated exit 2 does not fall back to PROCEED"
+printf '%s' "$RBODY" | grep -qi 'did not verify' \
+  && ok "the job is forbidden to report unverified peer work" \
+  || bad "nothing forbids asserting unverified peer completion"
 [ ! -s "$RLOG_R" ] && ok "no reactji on a review body (the job is the response)" || bad "reactji posted on a review body: $(cat "$RLOG_R")"
 [ "$(cursor_seen "$TR/state-r" "$BARE_R")" = 2026-06-25T15:00:00Z ] && ok "cursor advanced past the actioned review" || bad "cursor not advanced"
 # re-poll → idempotent (same review id → same base → no dup)
@@ -1907,6 +1926,15 @@ grep -q '^gate: deferred' "$RETROF" && ok "retro parked as gate: deferred" || ba
 grep -q '^role: prosecutor' "$RETROF" && ok "retro carries role: prosecutor" || bad "retro role wrong"
 grep -qi 'review-retrospective/SKILL.md' "$RETROF" && ok "retro body names the review-retrospective skill" || bad "retro body missing skill reference"
 grep -qi ':retro' "$RETROF" && ok "retro records the :retro directive identity" || bad "retro identity missing"
+# The #721 lesson: the retro must GROUND ITSELF IN THE WORLD, not restate the
+# primary's claims. The primary there asserted a peer had posted the requested plans
+# (it had not) and the retro repeated that premise verbatim, ratifying the miss.
+grep -qi 'not in the primary job report' "$RETROF" \
+  && ok "retro body forbids grounding in the primary's report" \
+  || bad "retro body does not require independent grounding (the #721 inherited-premise miss)"
+grep -qi 'deliverable actually EXISTS' "$RETROF" \
+  && ok "retro body requires confirming the deliverable exists behind a primary no-op" \
+  || bad "retro body does not require confirming a no-op primary's deliverable"
 rm -rf "$RRV"
 # re-poll → idempotent: still exactly one retro.
 run_directive "$TR/state-rr" "$BARE_RR" "$FIX_RR" "$RLOG_RR"

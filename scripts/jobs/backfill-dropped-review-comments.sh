@@ -153,7 +153,10 @@ write_review_body() {  # write_review_body <out> <pr> <author> <url> <review_id>
     printf '## BEFORE you edit — run the recheck preflight (deterministic)\n\n'
     printf 'A peer may have already resolved this feedback. Run, from the garden root:\n'
     printf '  scripts/jobs/gardening/pr-feedback-preflight.sh %s %s %s %s\n' "$REPO" "$pr" "$rid" "$author"
-    printf 'Exit 2 = NO-OP (already resolved): complete as a clean no-op. Exit 0 = proceed.\n'
+    printf 'Exit 0 = proceed. Exit 2 is a HINT, not a licence to close: it proves only\n'
+    printf 'that correlated text exists, never that THIS directive was satisfied. Name\n'
+    printf 'the artifact that resolves EVERY ask (commit SHA, reply id, or job-board\n'
+    printf 'base) before completing as a no-op; if you cannot, treat it as PROCEED.\n'
   } > "$out"
 }
 

@@ -866,10 +866,20 @@ preflight_instruction() {  # preflight_instruction <pr> <comment-id> <author>
   printf 'A peer may have already resolved this feedback. Run, from the garden root:\n\n'
   printf '  scripts/jobs/gardening/pr-feedback-preflight.sh %s %s %s %s\n\n' "$repo" "$pr" "$cid" "$author"
   printf 'It inspects the PR branch HEAD commits and inline replies for a peer''s\n'
-  printf 'resolution citing this comment. Exit 2 = NO-OP (already resolved by a peer):\n'
-  printf 'do NOT edit or push — complete the job as a clean no-op, noting the peer\n'
-  printf 'resolution. Exit 0 = proceed with the work. (Any other exit fails open →\n'
-  printf 'proceed; the push CAS is still the backstop.)\n\n'
+  printf 'resolution correlated to this feedback. Exit 0 = proceed with the work.\n'
+  printf '(Any other exit fails open → proceed; the push CAS is still the backstop.)\n\n'
+  printf 'Exit 2 is a HINT, not a licence to close. It proves only that correlated\n'
+  printf 'text exists somewhere on the PR — never that THIS directive was satisfied.\n'
+  printf 'Before you complete as a no-op you MUST corroborate, for EVERY ask in the\n'
+  printf 'directive:\n'
+  printf '  * name the artifact that resolves it (commit SHA, reply id, PR/issue\n'
+  printf '    number, or job-board base) and state in one line how it satisfies the ask;\n'
+  printf '  * when the deliverable is a BOARD artifact (a posted job, plan, or design),\n'
+  printf '    check the board itself (journal/jobs/{plan,todo,doin,tada}/) — do not\n'
+  printf '    infer its existence from the preflight;\n'
+  printf '  * if you cannot name the artifact for every ask, treat exit 2 as PROCEED\n'
+  printf '    and do the work.\n'
+  printf 'Never state in your report that a peer did work you did not verify.\n\n'
 }
 
 # Build the job body. The comment text is UNTRUSTED: name the URL so the claiming
@@ -991,6 +1001,12 @@ write_retro_body() {  # write_retro_body <out> <primary-base> <verb> <surface> <
     printf '  4. On a miss: cluster, threshold-evaluate the touched cluster, and past\n'
     printf '     the floor dispatch ONE review-improve-<slug> builder job (prevention\n'
     printf '     AND a durable review-cycle check) with the re-litigation test.\n\n'
+    printf 'Ground your judgment in the WORLD, not in the primary job report. The\n'
+    printf 'primary may assert a resolution it never checked (the #721 false-peer\n'
+    printf 'no-op): a second loop that repeats the first loop''s claims adds no signal.\n'
+    printf 'Re-fetch the PR and read the board yourself; if the primary closed as a\n'
+    printf 'no-op, confirm the directive''s deliverable actually EXISTS before you\n'
+    printf 'dismiss the case, and report the discrepancy when it does not.\n\n'
     printf 'Primary base: %s\n' "$pbase"
     printf 'Primary directive identity: %s\n' "$identity"
     printf 'Retrospective identity: %s:retro\n' "$identity"
