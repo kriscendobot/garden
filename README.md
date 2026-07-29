@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T06:53:43Z_
+_As of 2026-07-29T06:55:59Z_
 
 ## Latest
 
@@ -4710,15 +4710,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.4M | $843.65 _(notional, rate-card)_ | no quota set |
-| Codex | 82.5M _(+481.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 49.3M | $843.37 _(notional, rate-card)_ | no quota set |
+| Codex | 81.7M _(+482.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (24)
+### todo (23)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
-- [`endojs-endo-but-for-bots-pr282-148f5c93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-148f5c93.md) — attention directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr403-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr403-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr647-review-ec3d282c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr647-review-ec3d282c.md) — Review directive on endojs/endo-but-for-bots PR #647
 - [`endojs-endo-but-for-bots-pr667-198c8d1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-198c8d1e.md) — attention directive on endojs/endo-but-for-bots PR #667
@@ -4740,8 +4739,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (10)
+### doin (11)
 - [`endojs-endo-but-for-bots-pr241-review-b15e4ef6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr241-review-b15e4ef6.md) — Review directive on endojs/endo-but-for-bots PR #241
+- [`endojs-endo-but-for-bots-pr282-148f5c93`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-148f5c93.md) — attention directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr556-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr556-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #556
 - [`endojs-endo-but-for-bots-pr558-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr558-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #558
