@@ -45,3 +45,10 @@ Fable-orchestrator sign-off. Never self-merge.
 
 
 <!-- garden-deadline-overrun: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T01:35:23Z
