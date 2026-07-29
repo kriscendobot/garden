@@ -16,3 +16,10 @@ Apply tier expectations:
 For each model, report the current tier, evidence window, sample sizes, work mix, performance and acceptance measures, confidence, and one disposition: retain, promote deeper, demote shallower, or insufficient evidence. Prefer movement toward the fastest and cheapest shallower tier that still meets effectiveness and acceptance parameters for its assigned work. Recommend deeper movement when failures, review rejection, or fix-loop burden show the current tier is not effective. Do not mistake speed alone for success.
 
 Compare against the prior review through schedule carry-forward when available. Produce a complete proposed tier table and a concise list of changes with evidence. Do not silently alter routing on weak evidence. If a retier is well-supported, post a bounded garden follow-up job to update the executable mapping, documentation, and regression tests; otherwise surface the recommendation to the maintainer. Never widen automatic access to mentat.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: mystic
+  claimed_at: 2026-07-29T17:21:03Z
