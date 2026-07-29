@@ -11,3 +11,10 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please refresh and anchor the base branch on an llm-xxxx for hash branch. Please also check whether this is duplicated in another PR, whether open or closed. 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-29T02:21:14Z
