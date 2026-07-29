@@ -8,5 +8,5 @@ for arg in "$@"; do
     exit "${GARDEN_TEST_ANTHROPIC_RC:-0}"
   fi
 done
-printf 'JOB anthropic-step\nanthropic fallback body\nENDJOB\n'
+printf '%b' "${GARDEN_TEST_ANTHROPIC_OUTPUT:-JOB anthropic-step\\nanthropic fallback body\\nENDJOB\\n}"
 exit "${GARDEN_TEST_ANTHROPIC_RC:-0}"

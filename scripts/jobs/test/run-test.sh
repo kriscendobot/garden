@@ -1143,6 +1143,7 @@ seen_after_k="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
 mc_rc=0
 mc_out="$(env GARDEN_MENTOR_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_FAIL=1 \
   FAKE_CLAUDE_STDERR="API Error: Overloaded (529) — please retry" \
+  GARDEN_MENTOR_PROVIDER_ORDER=anthropic \
   GARDEN_ROOT="$JOBS/../.." "$JOBS/handlers/mentor-claude.sh" deadbeef "$TR" 2>&1)" || mc_rc=$?
 { [ "$mc_rc" -ne 0 ] && printf '%s' "$mc_out" | grep -q 'Overloaded (529)'; } \
   && ok "mentor-claude propagates transient claude failure (rc≠0, output re-emitted)" \
