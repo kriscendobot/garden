@@ -12,6 +12,7 @@ OS packaging and distribution of the Endo gateway node for marketplace deploymen
 | [ACME challenge types: HTTP-01, DNS-01, TLS-ALPN-01](../sections/web--acme-challenge-types--http01-dns01-tls-alpn01.md) | Challenge type constraints relevant to first-boot certificate provisioning. |
 | [TLS provisioning patterns for first-boot self-custodial nodes](../sections/web--tls-first-boot-patterns--vendor-delegated-and-tofu.md) | Four first-boot TLS patterns with trade-offs for marketplace-deployed appliances. |
 | [The Update Framework (TUF): overview](../sections/web--tuf-signed-update-framework--overview.md) | Signed update channel architecture for always-online nodes. |
+| [tc39-module-harmony--asset-references--use-cases-node-react-and-deno](../sections/tc39-module-harmony--asset-references--use-cases-node-react-and-deno.md) | Static asset declarations let Node stream a resource without loading it into JS memory and let Deno cache non-code assets at compile time instead of at runtime. |
 
 ## See also
 
