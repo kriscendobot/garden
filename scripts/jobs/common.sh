@@ -4304,6 +4304,8 @@ reroute_job_model() {
 #   children: a b c                    # space-separated child job basenames, in order
 #   on-child-failure: halt | continue  # policy when a child fails (default halt)
 #   state: pending | running | done | halted   # managed by orchestrate.sh
+#   child-<base>-reap-count: <N>      # watcher baseline at promotion
+#   child-<base>-host: <host>         # first claimant; diagnostic only
 #   created_by: <role>                 # optional provenance
 #   created_at: <iso8601>              # optional provenance
 #   ---

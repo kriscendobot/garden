@@ -13,6 +13,8 @@
 #                   maintainer — not a silent stall.
 #   4. CONTINUE   — the same failure with policy=continue proceeds to the next
 #                   child rather than halting.
+#   5. STALL       — a requeue observed across ticks, or an expired handler
+#                   budget, is a deterministic failed child (not endless active).
 #
 # Usage: orchestrate-test.sh
 
@@ -247,6 +249,69 @@ in_dir jobs/tada orch-poison || { pois_ok=0; echo "    halt summary not written"
 grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-poison.md" 2>/dev/null \
   && ok "poisoned-child halt summary marks orchestration-status: halted" \
   || bad "poison-park halt summary missing status marker"
+
+# ============================================================================
+hr; echo "SUBTEST 6 — STALL: a requeue rise across ticks halts with host-specific reason"; hr
+claim_child() {  # claim_child <base> <claimed-at>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" mv "jobs/todo/$1.md" "jobs/doin/$1.md"
+  {
+    printf '\n---\nclaim:\n'
+    printf '  host: stall-host\n  gardener: 1\n  claimed_at: %s\n' "$2"
+  } >> "$wt/jobs/doin/$1.md"
+  git -C "$wt" add "jobs/doin/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "claim($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+requeue_child() {  # requeue_child <base> <count>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" mv "jobs/doin/$1.md" "jobs/todo/$1.md"
+  printf '\n<!-- garden-reaped: %s -->\n' "$2" >> "$wt/jobs/todo/$1.md"
+  git -C "$wt" add "jobs/todo/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "requeue($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall r-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall r-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-stall r-a r-b >/dev/null
+tick                            # promotes r-a and snapshots reaps=0
+claim_child r-a "$(date -u +%FT%TZ)"
+tick                            # captures claim host for the later notice
+requeue_child r-a 1
+tick                            # requeue count rose 0 → 1: deterministic failure
+stall_ok=1
+in_dir jobs/tada orch-stall || stall_ok=0
+in_dir jobs/todo r-b && stall_ok=0
+grep -q 'stalled after 1 requeues on host stall-host' "$V/jobs/tada/orch-stall.md" 2>/dev/null || stall_ok=0
+grep -rqi 'stalled after 1 requeues on host stall-host' "$V/inbox/maintainer/unread" 2>/dev/null || stall_ok=0
+[ "$stall_ok" -eq 1 ] && ok "requeue rise is stalled, halts, and names its last host" \
+  || bad "requeue stall not surfaced correctly (tada=$(board jobs/tada), todo=$(board jobs/todo))"
+
+# ============================================================================
+hr; echo "SUBTEST 7 — STALL: handler-timeout bounds claimed in-flight work"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-time t-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-time t-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-time t-a t-b >/dev/null
+tick
+claim_child t-a "$(date -u -d '2 minutes ago' +%FT%TZ)"
+# The default timeout in this hermetic watcher is 2400s, so add a one-second
+# header after claim to isolate the elapsed-time rule from the requeue rule.
+wt="$(mktemp -d "$TR/edit.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+sed -i '1i handler-timeout: 1' "$wt/jobs/doin/t-a.md"
+git -C "$wt" add jobs/doin/t-a.md; git -C "$wt" "${git_id[@]}" commit -q -m "short-timeout(t-a)"
+git -C "$wt" push -q origin "HEAD:$BRANCH"; rm -rf "$wt"
+tick
+time_ok=1
+in_dir jobs/tada orch-time || time_ok=0
+in_dir jobs/todo t-b && time_ok=0
+grep -q 'stalled in flight' "$V/jobs/tada/orch-time.md" 2>/dev/null || time_ok=0
+[ "$time_ok" -eq 1 ] && ok "expired handler-timeout is a deterministic stalled child" \
+  || bad "handler-timeout stall not detected (tada=$(board jobs/tada), todo=$(board jobs/todo))"
 
 # ============================================================================
 hr

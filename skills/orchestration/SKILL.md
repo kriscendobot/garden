@@ -57,8 +57,9 @@ progress, and applies a failure policy rather than silently stalling.
    - **parallel** — promote ALL children at once, then watch them all.
    - **child state** is read purely from the board: `done` (in `tada/`), `active`
      (in `todo/`/`doin/`), `parked` (in `plan/`), or `failed` (in NONE of them —
-     it was promoted but vanished without a `tada/` report: the reaper
-     poisoned/dropped it, or its report carries `orchestration-failed: true`).
+     it was promoted but vanished without a `tada/` report; its report carries
+     `orchestration-failed: true`; or the watcher observes a requeue rise, an
+     excessive requeue count, or time in flight beyond its handler budget).
    - **on a child failure** it applies the policy — **halt** stops a serial run at
      the first failure (sweeping not-yet-run downstream children) and **surfaces
      the failure to the maintainer inbox**; **continue** proceeds to the next

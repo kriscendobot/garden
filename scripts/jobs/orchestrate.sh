@@ -25,7 +25,8 @@
 #
 # CHILD STATE is read purely from the board (child_state below):
 #   done   — jobs/tada/<child> exists (and carries no failure marker).
-#   active — jobs/todo or jobs/doin holds it (claimed / queued, in flight).
+#   active — jobs/todo or jobs/doin holds it (claimed / queued, in flight), unless
+#            its deterministic liveness bounds say it has stalled.
 #   parked — jobs/plan holds it (gate=orchestrated, not yet promoted) and it is
 #            NOT poisoned.
 #   failed — either it VANISHED without reaching tada (promoted, then removed), or
@@ -64,13 +65,109 @@ require_tools git
 
 fleet_draining && exit 0
 
+# A child that keeps being reaped and requeued can remain in todo/doin forever,
+# which used to look indistinguishable from healthy work to this watcher.  Keep a
+# small, persisted observation in the orchestration record and turn that churn
+# into the same failed state used for a vanished child.  The values are tunable
+# for unusually slow boards, but the shipped defaults deliberately fail early:
+# the reaper already gives a job several retries before poison-park, and an
+# orchestration must not wait through all of them.
+: "${GARDEN_HANDLER_TIMEOUT:=2400}"
+: "${GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER:=1}"
+: "${GARDEN_ORCH_STALL_REQUEUE_LIMIT:=2}"
+
 DIR="${GARDEN_ORCH_CLONE:-$GARDEN_STATE/orch/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
 # --- child state, read purely from the board --------------------------------
-child_state() {  # <child-base> → done|active|parked|failed
-  local c="$1"
+set_orch_field() {  # <base> <field> <value>; CAS-retried, leading frontmatter only
+  local base="$1" field="$2" value="$3" f rc attempt
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    f="$DIR/$JOBS_ORCH/$base.md"
+    [ -f "$f" ] || return 0
+    if grep -q "^${field}:" "$f"; then
+      sed -i "s|^${field}:.*|${field}: ${value}|" "$f"
+    else
+      sed -i "1a ${field}: ${value}" "$f"
+    fi
+    git -C "$DIR" add "$JOBS_ORCH/$base.md"
+    rc=0; commit_and_push "$DIR" "orch($base) observed $field=$value by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  return 1
+}
+
+child_reap_count() { reap_count "$1"; }
+child_claim_host() { sed -n 's/^  host:[[:space:]]*//p' "$1" | tail -1; }
+child_claimed_at() { sed -n 's/^  claimed_at:[[:space:]]*//p' "$1" | tail -1; }
+child_promoted_at() { sed -n 's/.*garden-promoted-from-plan:.* at=\([^ >]*\).*/\1/p' "$1" | tail -1; }
+child_handler_timeout() {
+  local n
+  n="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$1" | head -1 | tr -dc '0-9')"
+  printf '%s\n' "${n:-$GARDEN_HANDLER_TIMEOUT}"
+}
+
+set_orch_reap_baseline() {  # <orch-base> <child>; called immediately after promotion
+  local base="$1" c="$2" jf n
+  jf="$DIR/$JOBS_TODO/$c.md"; [ -f "$jf" ] || return 0
+  n="$(child_reap_count "$jf")"
+  set_orch_field "$base" "child-$c-reap-count" "$n"
+}
+
+set_orch_claim_host() {  # <orch-base> <child>; preserve the first claiming host
+  local base="$1" c="$2" f jf host known
+  f="$DIR/$JOBS_ORCH/$base.md"; [ -f "$f" ] || return 0
+  known="$(plan_field "$f" "child-$c-host")"; [ -n "$known" ] && return 0
+  jf="$DIR/$JOBS_DOIN/$c.md"; [ -f "$jf" ] || return 0
+  host="$(child_claim_host "$jf")"; [ -n "$host" ] || return 0
+  set_orch_field "$base" "child-$c-host" "$host"
+}
+
+# child_failure_detail mirrors child_state's deterministic checks for reports and
+# notices.  It is deliberately recomputed from the board rather than kept in
+# process globals (the caller receives child_state through command substitution).
+child_failure_detail() {  # <child> <orch-record>
+  local c="$1" orch="$2" jf="" n prev limit started now started_epoch age host
+  if [ -f "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
+  elif [ -f "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
+  else
+    if [ -f "$DIR/$JOBS_PLAN/$c.md" ] && grep -qx 'poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
+      printf 'poisoned and held in plan\n'
+    else
+      printf 'vanished from the board\n'
+    fi
+    return 0
+  fi
+  n="$(child_reap_count "$jf")"
+  prev="$(plan_field "$orch" "child-$c-reap-count")"
+  host="$(child_claim_host "$jf")"; [ -n "$host" ] || host="$(plan_field "$orch" "child-$c-host")"; [ -n "$host" ] || host=unknown
+  limit="$GARDEN_ORCH_STALL_REQUEUE_LIMIT"
+  if [ "$n" -gt "$limit" ] 2>/dev/null; then
+    printf 'stalled after %s requeues on host %s (limit %s)\n' "$n" "$host" "$limit"; return 0
+  fi
+  if [ -n "$prev" ] && [ "$n" -gt "$prev" ] 2>/dev/null; then
+    printf 'stalled after %s requeues on host %s (requeue count rose from %s)\n' "$n" "$host" "$prev"; return 0
+  fi
+  started="$(child_claimed_at "$jf")"; [ -n "$started" ] || started="$(child_promoted_at "$jf")"
+  if [ -n "$started" ]; then
+    now="$(date -u +%s)"; started_epoch="$(date -u -d "$started" +%s 2>/dev/null || true)"
+    if [ -n "$started_epoch" ]; then
+      age=$(( now - started_epoch )); limit=$(( $(child_handler_timeout "$jf") * GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER ))
+      if [ "$age" -gt "$limit" ]; then
+        printf 'stalled in flight for %ss on host %s (handler-timeout=%ss, multiplier=%s)\n' \
+          "$age" "$host" "$(child_handler_timeout "$jf")" "$GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER"; return 0
+      fi
+    fi
+  fi
+  printf 'failed / vanished from the board\n'
+}
+
+child_state() {  # <child-base> <orch-record> → done|active|parked|failed
+  local c="$1" orch="$2" jf="" n prev detail
   if [ -e "$DIR/$JOBS_TADA/$c.md" ]; then
     # A tada report can carry the "completed but declined its gated outcome"
     # marker (tada_failed, common.sh) — shared with the unblock watcher.
@@ -81,7 +178,22 @@ child_state() {  # <child-base> → done|active|parked|failed
     fi
     return 0
   fi
-  if [ -e "$DIR/$JOBS_TODO/$c.md" ] || [ -e "$DIR/$JOBS_DOIN/$c.md" ]; then
+  if [ -e "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
+  elif [ -e "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
+  fi
+  if [ -n "$jf" ]; then
+    n="$(child_reap_count "$jf")"
+    prev="$(plan_field "$orch" "child-$c-reap-count")"
+    # Promotion records the baseline in the orchestration record.  A later rise
+    # proves the child died and was requeued between watcher ticks.
+    if { [ -n "$prev" ] && [ "$n" -gt "$prev" ] 2>/dev/null; } \
+      || [ "$n" -gt "$GARDEN_ORCH_STALL_REQUEUE_LIMIT" ] 2>/dev/null; then
+      printf 'failed\n'; return 0
+    fi
+    # Claim metadata is stamped by claim-job.sh.  A queued child uses the promotion
+    # timestamp instead, so an unclaimable child cannot wait forever either.
+    detail="$(child_failure_detail "$c" "$orch")"
+    if [[ "$detail" == stalled\ in\ flight* ]]; then printf 'failed\n'; return 0; fi
     printf 'active\n'; return 0
   fi
   if [ -e "$DIR/$JOBS_PLAN/$c.md" ]; then
@@ -171,36 +283,39 @@ advance_serial() {  # <base> <policy> <child>...
   local failed=()
   for i in "${!kids[@]}"; do
     c="${kids[$i]}"
-    st="$(child_state "$c")"
+    st="$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")"
     case "$st" in
       done)
         done_count=$((done_count+1)); continue;;
       active)
+        set_orch_claim_host "$base" "$c" || true
         log "orchestration '$base': waiting on child $((i+1))/$total '$c' (in flight)"
         return 0;;
       parked)
         if "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1; then
           log "orchestration '$base': promoted child $((i+1))/$total '$c' (serial)"
           set_orch_state "$base" running || true
+          set_orch_reap_baseline "$base" "$c" || true
         else
           log "orchestration '$base': could not promote child '$c'; retrying next tick"
         fi
         return 0;;
       failed)
         failed+=("$c")
+        local detail; detail="$(child_failure_detail "$c" "$DIR/$JOBS_ORCH/$base.md")"
         if [ "$policy" = "halt" ]; then
           # HALT the serial run at the first failure. Sweep the downstream children
           # that are still parked so they never run.
           local sweep=() k
           for ((k=i+1; k<total; k++)); do
-            [ "$(child_state "${kids[$k]}")" = "parked" ] && sweep+=("${kids[$k]}")
+            [ "$(child_state "${kids[$k]}" "$DIR/$JOBS_ORCH/$base.md")" = "parked" ] && sweep+=("${kids[$k]}")
           done
           local sf; sf="$(mktemp "${TMPDIR:-/tmp}/orch-halt.XXXXXX")"
           {
             printf 'orchestration-status: halted\n'
             printf '# orchestration %s — HALTED\n\n' "$base"
-            printf 'Serial run halted at child %d/%d **%s** (failed / vanished from the board).\n' \
-              "$((i+1))" "$total" "$c"
+            printf 'Serial run halted at child %d/%d **%s**: %s.\n' \
+              "$((i+1))" "$total" "$c" "$detail"
             printf '%d/%d children completed before the failure.\n\n' "$done_count" "$total"
             if [ "${#sweep[@]}" -gt 0 ]; then
               printf 'Swept %d not-yet-run downstream child(ren): %s\n' "${#sweep[@]}" "${sweep[*]}"
@@ -208,8 +323,8 @@ advance_serial() {  # <base> <policy> <child>...
             printf '\non-child-failure policy: halt.\n'
           } > "$sf"
           finish_orch "$base" "$sf" "${sweep[@]}" || log "orchestration '$base': halt-finish failed; retrying next tick"
-          printf 'Orchestration %s HALTED: child %s failed (serial, on-child-failure=halt). %d/%d done before halt; swept: %s\n' \
-            "$base" "$c" "$done_count" "$total" "${sweep[*]:-none}" | orch_notify "$base-halted"
+          printf 'Orchestration %s HALTED: child %s %s (serial, on-child-failure=halt). %d/%d done before halt; swept: %s\n' \
+            "$base" "$c" "$detail" "$done_count" "$total" "${sweep[*]:-none}" | orch_notify "$base-halted"
           log "orchestration '$base': HALTED at failed child '$c' (policy=halt); swept ${#sweep[@]} downstream"
           rm -f "$sf"
           return 0
@@ -232,7 +347,11 @@ advance_parallel() {  # <base> <policy> <child>...
   if [ "$state" = "pending" ]; then
     local promoted=0 c
     for c in "${kids[@]}"; do
-      [ "$(child_state "$c")" = "parked" ] && "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1 && promoted=$((promoted+1))
+      if [ "$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")" = "parked" ] \
+        && "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1; then
+        set_orch_reap_baseline "$base" "$c" || true
+        promoted=$((promoted+1))
+      fi
     done
     log "orchestration '$base': promoted $promoted/$total children at once (parallel)"
     set_orch_state "$base" running || true
@@ -242,11 +361,11 @@ advance_parallel() {  # <base> <policy> <child>...
   local done_count=0 active=0 parked=0 c st
   local failed=()
   for c in "${kids[@]}"; do
-    st="$(child_state "$c")"
+    st="$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")"
     case "$st" in
       done)   done_count=$((done_count+1));;
       failed) failed+=("$c");;
-      active) active=$((active+1));;
+      active) active=$((active+1)); set_orch_claim_host "$base" "$c" || true;;
       parked) parked=$((parked+1)); "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1 || true;;
     esac
   done
