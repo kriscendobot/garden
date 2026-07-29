@@ -8,3 +8,10 @@ role: builder
 Replace the temporary string-only `RegistryInterface.resolve` argument with a Passable immutable byte-array shape. Specify the boundary conversion, update the host and caller paths, and add a CapTP-boundary regression test.
 
 Promotion condition: the unblock watcher must promote this job automatically when https://github.com/endojs/endo-but-for-bots/pull/671 merges or closes, because this follow-up depends on the registry capability interface introduced there.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  claimed_at: 2026-07-29T02:36:12Z
