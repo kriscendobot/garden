@@ -126,11 +126,10 @@ GARDEN_TAG="reaper"
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"   # must match gardener.sh: grace before the handler's SIGKILL
 : "${GARDEN_REAP_SAFETY_SLACK:=30}"    # extra seconds past the handler's max lifetime before its claim is reapable
 
-# Marker the reaper stamps into a requeued job body to count requeue cycles. It
-# is an HTML comment so it is invisible in rendered Markdown, and it survives both
-# the claim-block strip (it lives in the body, above the trailing claim block) and
-# a re-claim (claim-job appends its stamp BELOW the body).
-REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
+# The requeue-cycle marker regex (REAP_MARKER_RE, `<!-- garden-reaped: N -->`) is
+# defined in common.sh beside the rest of the cycle-marker family, because the
+# reaper is no longer its only reader — promote-plan.sh clears the family on
+# promotion. The reaper remains its only WRITER.
 
 # --- durable poison-notice spool (un-surfaced-alert recovery) -----------------
 #

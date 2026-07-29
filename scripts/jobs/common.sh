@@ -3144,6 +3144,18 @@ strip_completion_marker() {
   ' "$f" > "$f.stripmarker" && mv "$f.stripmarker" "$f"
 }
 
+# Marker the reaper stamps into a requeued job body to count requeue cycles. It
+# is an HTML comment so it is invisible in rendered Markdown, and it survives both
+# the claim-block strip (it lives in the body, above the trailing claim block) and
+# a re-claim (claim-job appends its stamp BELOW the body).
+#
+# It lives HERE, beside the other cycle-marker regexes (REAP_NOW_MARKER_RE,
+# DEADLINE_OVERRUN_MARKER_RE, PRODUCTIVE_MARKER_RE, OUTAGE_MARKER_RE), rather than
+# in reaper.sh, because the reaper is no longer its only reader: promote-plan.sh
+# CLEARS this whole marker family when it promotes a parked job back into todo/.
+# One spelling, sourced by both, so a format change cannot half-land.
+REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
+
 # reap_count <jobfile> — the reaper's requeue-cycle count carried on a job, read
 # from its `<!-- garden-reaped: N -->` marker (the marker reaper.sh writes; format
 # REAP_MARKER_RE). Echoes N, or 0 when the marker is absent (a first-pass job the

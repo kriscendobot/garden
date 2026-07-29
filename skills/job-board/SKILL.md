@@ -161,8 +161,14 @@ posted_at: <iso8601>
     foreman. Coverage: `scripts/jobs/test/annotate-plan-test.sh`.
 - **Promote** (`promote-plan.sh <base>`): move `plan/<base>` → `todo/<base>`,
   stripping the plan frontmatter so the todo job is the clean work body; then a
-  gardener claims it normally. Touches only its own basename, so it retries with
-  backoff like a completion. Two promotion paths:
+  gardener claims it normally. It also **clears the reaper/gardener cycle markers**
+  (`garden-reaped`, `garden-deadline-overrun`, and the per-cycle `garden-reap-now` /
+  `garden-productive-cycle` / `garden-outage-cycle` hints) and records the cleared
+  set in the `garden-promoted-from-plan` provenance comment, so a job the reaper
+  POISON-PARKED gets a genuinely fresh run instead of being re-poisoned on its first
+  cycle off the stale counter. No manual "clear it before promoting" step is needed.
+  Touches only its own basename, so it retries with backoff like a completion. Two
+  promotion paths:
   1. **maintainer go-ahead** — the **liaison** (or the **proxy** within its
      bounds) promotes a `go-ahead` job when the maintainer authorizes it. A
      `go-ahead` job is **only ever** promoted this way — never auto-selected.

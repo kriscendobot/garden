@@ -208,8 +208,19 @@ through it: re-gating a parked job is a different act, owned by `promote-plan.sh
 
 **Promotion** (`promote-plan.sh <base>`) moves `plan/<base>` → `todo/<base>`,
 stripping the plan frontmatter so the todo body is the clean work spec the gardener
-acts on (a one-line `garden-promoted-from-plan` marker records provenance). Like a
-completion it touches only its own basename, so it retries with backoff. Two paths:
+acts on (a one-line `garden-promoted-from-plan` marker records provenance). It also
+**clears the reaper/gardener cycle markers** from the body — the `garden-reaped`
+and `garden-deadline-overrun` counters and the per-cycle `garden-reap-now` /
+`garden-productive-cycle` / `garden-outage-cycle` hints — and records the cleared set
+in that same provenance marker (`cleared=deadline-overrun=1`, or `cleared=none`).
+Without that reset a job the reaper POISON-PARKED here carried its counter forward,
+and at `GARDEN_REAP_OVERRUN_THRESHOLD=1` the next reap cycle re-read the stale count
+and parked it straight back in `plan/` without ever granting it a requeue — promotion
+was a no-op the job could not escape. Promotion is a deliberate "run this again" act,
+so a clean counter is the right semantics; the reaper's protection is unchanged,
+since a job that still fails deterministically re-accumulates and re-poisons on its
+own. Like a completion it touches only its own basename, so it retries with backoff.
+Two paths:
 
 1. **Maintainer go-ahead.** The **liaison** (and the **proxy** within its bounds)
    promotes a `go-ahead`-gated plan job when the maintainer authorizes it ("go

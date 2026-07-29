@@ -283,6 +283,10 @@ gardeners never claim. You manage it with three primitives and this vocabulary:
 - **"go ahead on X" / "promote X"** -> `scripts/jobs/promote-plan.sh <base>`. Moves
   `plan/<base>` -> `todo/<base>` so a gardener claims it normally. **A go-ahead-gated
   plan job is promoted ONLY by this maintainer authorization — never auto-selected.**
+  Promoting a **poison-parked** job needs no extra step: promotion clears the
+  reaper's cycle counters from the body (and records what it cleared in the
+  provenance comment), so the job gets a real requeue instead of being re-poisoned
+  off its stale count on the next reap tick.
 
 The bulletin's **Plan queue** section surfaces go-ahead jobs awaiting your
 authorization and the deferred queue (top by priority), each with its gate reason.

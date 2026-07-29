@@ -17,6 +17,24 @@
 # only the job's own basename (rm plan + add todo), so — like a completion — it
 # RETRIES WITH BACKOFF until it lands, rather than backing off like a claim.
 #
+# PROMOTION RESETS THE REAPER'S CYCLE COUNTERS. When the reaper POISONS a job it
+# parks it here in plan/ (gate=go-ahead) with its cycle markers still in the body —
+# notably `<!-- garden-deadline-overrun: N -->`, which clean_body deliberately
+# preserves across a requeue so the count accumulates. Passing that body through
+# verbatim carried N forward into todo/, and at GARDEN_REAP_OVERRUN_THRESHOLD=1 the
+# next reap cycle re-read the stale count and parked the job straight back in plan/
+# WITHOUT ever granting it a requeue — promotion was a no-op the job could not
+# escape (the 07-26 endo-sturdyref-agent-surface-build-gauntlet park, which then sat
+# behind a go-ahead for days while the press tick advised that "a promoting liaison
+# should clear or requeue past it" — a manual step no promoter reliably performs).
+# So promotion CLEARS the whole marker family (reap-count, deadline-overrun, and the
+# per-cycle reap-now / productive-cycle / outage-cycle hints, which are re-earned
+# each cycle by construction) and records what it cleared in the provenance comment,
+# so the reset is auditable rather than silent. Promotion is a deliberate "run this
+# again" act, so a clean counter is the correct semantics; the reaper's protection is
+# unchanged, since a job that still fails deterministically re-accumulates and
+# re-poisons on its own.
+#
 # Idempotent: if <base> is already past plan/ (in todo/doin/tada) the promotion is
 # a no-op success. If <base> is nowhere, it is an error.
 
@@ -48,6 +66,28 @@ strip_frontmatter() {
   ' "$1"
 }
 
+# Drop every reaper/gardener CYCLE MARKER from the promoted body (stdin → stdout),
+# so a promoted job starts its next run with a clean counter. The regexes are the
+# ones common.sh defines and reaper.sh matches on — reused, never re-spelled, so a
+# marker format change lands in one place.
+strip_cycle_markers() {
+  grep -Ev "$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$REAP_NOW_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE" \
+    || true   # grep exits 1 on an empty result; an empty body is not an error here
+}
+
+# cleared_summary <planfile> — a compact, greppable record of which cycle markers
+# this promotion is about to clear, for the provenance comment (`none` when the
+# parked body carried no markers, the common non-poison case).
+cleared_summary() {
+  local f="$1" out="" n
+  n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
+  n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
+  if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
+  if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi
+  if has_outage_cycle_hint "$f";     then out="${out:+$out,}outage-cycle"; fi
+  printf '%s\n' "${out:-none}"
+}
+
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
 
@@ -72,6 +112,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   role="$(plan_field "$src" role)"
   model="$(plan_field "$src" model)"
   htimeout="$(plan_field "$src" handler-timeout)"
+  cleared="$(cleared_summary "$src")"
   mkdir -p "$DIR/$JOBS_TODO"
   {
     if [ -n "$role$model$htimeout" ]; then
@@ -81,15 +122,17 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"
       printf -- '---\n'
     fi
-    printf '<!-- garden-promoted-from-plan: gate=%s priority=%s at=%s -->\n\n' \
-      "$gate" "$priority" "$(date -u +%FT%TZ)"
-    strip_frontmatter "$src"
+    # `at=` stays the LAST timestamp-shaped field consumers key on (orchestrate.sh
+    # parses `at=<value>`); `cleared=` is appended after it as a further token.
+    printf '<!-- garden-promoted-from-plan: gate=%s priority=%s at=%s cleared=%s -->\n\n' \
+      "$gate" "$priority" "$(date -u +%FT%TZ)" "$cleared"
+    strip_frontmatter "$src" | strip_cycle_markers
   } > "$DIR/$JOBS_TODO/$base.md"
   git -C "$DIR" rm -q "$JOBS_PLAN/$base.md"
   git -C "$DIR" add "$JOBS_TODO/$base.md"
 
   if commit_and_push "$DIR" "promote($base) plan→todo [$gate/$priority] by $GARDEN"; then
-    log "promoted '$base' plan→todo (gate=$gate priority=$priority)"
+    log "promoted '$base' plan→todo (gate=$gate priority=$priority cleared=$cleared)"
     exit 0
   fi
   log "promote of '$base' lost a push race (attempt $attempt); re-syncing"
