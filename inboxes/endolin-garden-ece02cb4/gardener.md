@@ -1641,3 +1641,12 @@ Inspect via `git -C journal cat-file -p 3ade79d7dfdc0ebb65ff035b5803b469a3cd5574
 - Context: gardener-3 on endolin-garden-ece02cb4: job 'improve-drift-scan-refresh-once-per-source' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 8ef13e9d2f8d0b75bc7984dc66755bc0ed0318f4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T02:08:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e0610f3789691e8f3f9726b0a25d8a6218555e1c
+- Context: gardener-3 on endolin-garden-ece02cb4: job 'endo-git-integration-press-20260729-012002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e0610f3789691e8f3f9726b0a25d8a6218555e1c`.
