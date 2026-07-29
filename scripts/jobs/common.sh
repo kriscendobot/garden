@@ -3881,6 +3881,79 @@ plan_blocked_on() { plan_field "$1" blocked_on; }
 # name a model explicitly. Empty if absent.
 plan_role() { plan_field "$1" role; }
 
+# --- host capability requirements -------------------------------------------
+#
+# A job's optional `requires:` header is a comma-separated set of opaque,
+# lowercase capability tokens (for example `requires: aws`).  It is deliberately
+# separate from authorization headers such as identity_switch_authorized: true:
+# a requirement describes a fact the host can currently satisfy; it never grants
+# a permission.  Unknown tokens fail closed, which makes adding a new requirement
+# safe before every host has learned its probe.
+job_requirements() { # <job-file> — one normalized token per line
+  local raw token
+  raw="$(plan_field "$1" requires)"
+  [ -n "$raw" ] || return 0
+  IFS=',' read -r -a _job_requirements <<< "$raw"
+  for token in "${_job_requirements[@]}"; do
+    token="$(printf '%s' "$token" | tr -d '[:space:]')"
+    [ -n "$token" ] || continue
+    printf '%s\n' "$token"
+  done
+}
+
+job_requirements_valid() { # <job-file>
+  local token
+  while IFS= read -r token; do
+    [[ "$token" =~ ^[a-z][a-z0-9-]*$ ]] || return 1
+  done < <(job_requirements "$1")
+}
+
+# The cache is intentionally host-local, never journal state: journal2 is public
+# and publishing that a named host holds an AWS credential would be useful
+# targeting metadata.  A cache is keyed by boot id, so a reboot re-probes without
+# any operator cleanup.  The post-claim check below requests `fresh`, protecting
+# against a key/session expiring after a cached claim-time verdict.
+: "${GARDEN_CAPABILITY_CACHE_DIR:=$GARDEN_STATE/capabilities}"
+: "${GARDEN_AWS_VERIFY:=$GARDEN_ROOT/scripts/aws/verify.sh}"
+
+host_capability_probe() { # <token> — one authoritative, uncached probe
+  case "$1" in
+    aws) "$GARDEN_AWS_VERIFY" "$GARDEN_ROOT" >/dev/null 2>&1 ;;
+    *) return 1 ;;
+  esac
+}
+
+host_capability_available() { # <token> [fresh]
+  local token="$1" fresh="${2:-cached}" boot marker
+  case "$token" in aws) ;; *) return 1 ;; esac
+  if [ "$fresh" != fresh ]; then
+    boot="$(tr -dc 'A-Za-z0-9' < /proc/sys/kernel/random/boot_id 2>/dev/null || true)"
+    marker="$GARDEN_CAPABILITY_CACHE_DIR/$token-${boot:-noboot}"
+    case "$(cat "$marker" 2>/dev/null || true)" in yes) return 0 ;; no) return 1 ;; esac
+  fi
+  if host_capability_probe "$token"; then
+    if [ "$fresh" != fresh ]; then mkdir -p "$GARDEN_CAPABILITY_CACHE_DIR" 2>/dev/null || true; printf 'yes\n' > "$marker" 2>/dev/null || true; fi
+    return 0
+  fi
+  if [ "$fresh" != fresh ]; then mkdir -p "$GARDEN_CAPABILITY_CACHE_DIR" 2>/dev/null || true; printf 'no\n' > "$marker" 2>/dev/null || true; fi
+  return 1
+}
+
+job_requirements_available() { # <job-file> [fresh] — shared claim/runtime predicate
+  local file="$1" mode="${2:-cached}" token
+  job_requirements_valid "$file" || return 1
+  while IFS= read -r token; do host_capability_available "$token" "$mode" || return 1; done < <(job_requirements "$file")
+}
+
+job_requirements_missing() { # <job-file> [fresh] — comma-separated unavailable tokens
+  local file="$1" mode="${2:-cached}" token out=""
+  if ! job_requirements_valid "$file"; then printf 'invalid-requires-header\n'; return; fi
+  while IFS= read -r token; do
+    host_capability_available "$token" "$mode" || out="${out:+$out,}$token"
+  done < <(job_requirements "$file")
+  printf '%s\n' "$out"
+}
+
 # --- model routing table (data-driven, journal-backed) -----------------------
 # WHICH backend/provider may claim a `model:`-pinned job, and each provider's
 # fleet-default model, are DATA — not hardcoded case arms — so the set can change

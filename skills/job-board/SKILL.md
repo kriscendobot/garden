@@ -15,6 +15,13 @@ The journal branch `journal2` (directory `journal/`): `jobs/{todo,doin,tada}/`,
 `work/<base>`, and per-job `inbox/<base>/`. Per-instance journal clones live
 under `GARDEN_STATE` (never a shared worktree). Scripts under `scripts/jobs/`.
 
+An optional leading `requires:` header is a comma-separated host-capability token
+set (`requires: aws`). It is claim eligibility in addition to model/provider fit:
+workers without every capability skip the job, then the winning worker re-probes
+the same predicate after claim before running. It is capability, never authority;
+authorization fields such as `identity_switch_authorized: true` remain independent.
+See [`designs/host-requirements-gating.md`](../../designs/host-requirements-gating.md).
+
 ## Procedure
 
 Board files are markdown and carry `.md`; the **basename `<base>` is the

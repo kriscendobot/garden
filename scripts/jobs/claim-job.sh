@@ -125,6 +125,15 @@ for ((k=0; k<n; k++)); do
     continue
   fi
 
+  # Host requirements are an independent eligibility axis from model/provider
+  # fit.  The shared predicate is also re-run freshly after a successful claim by
+  # gardener.sh, because a credential can lapse between these two moments.
+  if ! job_requirements_available "$DIR/$JOBS_TODO/$base.md"; then
+    missing="$(job_requirements_missing "$DIR/$JOBS_TODO/$base.md")"
+    log "'$base' requires host capability ${missing:-invalid-requires-header}; skipping (host-requirements)"
+    continue
+  fi
+
   # --- bid auction (design §3) -------------------------------------------------
   # A `market: bid` job runs through the auction; everything else is the untouched
   # race below. The auction NEVER bypasses the push CAS: it only decides WHETHER

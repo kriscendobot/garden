@@ -373,6 +373,21 @@ while :; do
 
   jobfile="$CLONE/$JOBS_DOIN/$base.md"
   report="$(mktemp "${TMPDIR:-/tmp}/garden-report-$base.XXXXXX")"
+  # Claim-time eligibility is only an optimization. Re-probe freshly after the
+  # accepted claim so an AWS key/session that expired or rotated in the race is
+  # reported as a blocked completion instead of reaching the agent handler.
+  if ! job_requirements_available "$jobfile" fresh; then
+    missing="$(job_requirements_missing "$jobfile" fresh)"
+    {
+      printf '# blocked: host requirements\n\n'
+      printf 'Job %q was claimed on host %s, but its post-claim capability check failed: %s.\n' "$base" "$GARDEN" "${missing:-invalid-requires-header}"
+      printf 'The shared host-capability predicate was re-run fresh after claim; no handler was started.\n'
+    } > "$report"
+    log "post-claim host-requirements check failed for '$base': ${missing:-invalid-requires-header}; completing blocked"
+    "$HERE/complete-job.sh" "$id" "$base" "$report" || die "could not complete blocked requirements report for '$base'"
+    rm -f "$report"
+    continue
+  fi
   # divert the handler's combined stdout+stderr here so a failure can be captured
   # by hash instead of vanishing into this gardener's systemd journal.
   capture="$(mktemp "${TMPDIR:-/tmp}/garden-capture-$base.XXXXXX")"
