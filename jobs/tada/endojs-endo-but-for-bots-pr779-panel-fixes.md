@@ -1,1 +1,5 @@
-Implemented and pushed SES linker fixes for endojs/endo-but-for-bots#779 (`994f9fd946`): deferred notifier cycles now fail deterministically without stack overflow; absent reexports fail linking; deferred resolver kits are frozen; exports-sort deletes are checked; and release notes cover module-source/compartment-mapper compatibility plus pre-mjs archive rebuilds. Added regression tests for mutual deferral and missing reexports. Verified with `local-verify`, the targeted SES AVA suite (26 passed, 1 known failure), ESLint, Prettier, Changesets status, and `git diff --check`. Follow-up: CI should confirm the pushed commit.
+Implemented and pushed `994f9fd946` for endojs/endo-but-for-bots#779.
+
+Fixed deferred-cycle recursion, missing reexport diagnostics, frozen resolver kits, checked export reorder deletes, documentation, regression coverage, and release migration notes/version coordination.
+
+Verified: local-verify, targeted SES AVA suite (26 passed, 1 known failure), ESLint, Prettier, Changesets status, and diff check. CI follow-up remains.
