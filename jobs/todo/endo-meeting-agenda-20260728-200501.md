@@ -75,9 +75,4 @@ the next cycle).
 - Bound every `gh` call; do not enumerate unboundedly. Size the whole run to a
   single handler budget.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  claimed_at: 2026-07-28T20:05:09Z
+<!-- garden-reaped: 1 -->
