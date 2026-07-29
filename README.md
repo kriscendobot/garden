@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T17:38:25Z_
+_As of 2026-07-29T17:40:56Z_
 
 ## Latest
 
@@ -3495,6 +3495,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Blocked merge-governance panel for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5): 24/28 seats returned formal non-empty verdicts, but corner-prober, releaser, scribe, and transplanter each exhausted their three retries with "You've hit your weekly limit; resets Aug 1, 3am (UTC)". PR remains draft at 57e397c with CI test green. No panel pass, fixes, un-draft, Fable sign-off, or merge occurred.
 
+- `20260729T174012Z-e4a390` — from gardener:model-tier-effectiveness-review-20260729-172004, reply_to `model-tier-effectiveness-review-20260729-172004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T174012Z-e4a390.md)
+
+> Weekly model-tier effectiveness review (first run; window 2026-07-22→29) is complete; full table lands in jobs/tada/model-tier-effectiveness-review-20260729-172004.md.
+>
+> Headline: no evidence-supported retier beyond your already-parked garden-tier-vocabulary-kimi-routing directive, so I altered no routing. Findings:
+>
+> 1. Failure separation: 90/94 window fails were instant zero-token provider-side (quota-era) failures, not model quality. No model earned a demotion on quality grounds; no shallower move is supported either (each deeper tier's class is completing with zero defect signal).
+> 2. kimk-k3 evidence is still thin for the mentor mapping: 3 accepted canary-scale jobs (gardener:s, ~21s, $0.06) all-time, plus this review itself in flight on K3. The directive's fallback-gated graduation (kimi-takes-opus-work, flag still OFF) is the right mitigation; recommend keeping the fallback mandatory and feeding K3 bounded gardener:m/researcher:m trials before any automatic mentor routing at scale.
+> 3. qwen drift (ops, not tier): all hermit completions record model qwen3.6, but the routing seed/journal default still says qwen3:0.6b, and garden2's ollama units were in flux 07-28 (system unit serving an empty list; qwen3.6 in the bot store). Recommend a live probe (curl 127.0.0.1:11434/v1/models on garden2) then set-model-routing.sh to realign the local fleet-default id. Data edit, no deploy.
+> 4. The one real over-dispatch failure (qwen3.6 as recurring xs2rust press-driver, 51 requeue-exhausted poisons 07-20→27) was already remediated by the 07-27 consolidation into a sonnet watchdog + claude-opus-5 orchestration. Evidence stands: qwen effective on bounded small/medium classes, not unbounded press work.
+> 5. Panel health is quota-degraded: 14/20 panel runs in-window ended error/seat-error vs 5 must-fix / 1 passed; panel jobs (role: builder -> opus) also requeue-loop on handler budget. Job-shape/budget issue more than model quality; split-gauntlet-into-claim-sized-stages already tracks the packaging side.
+> 6. Starved lanes: haiku and gpt-5.4-mini had ~zero dispatches in-window (insufficient evidence both ways); fireworks lane has 1 canary. If you want evidence for shallower movement, small mechanical jobs need to actually route there.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5181,19 +5194,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.0M _(+576.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 71.1M _(+577.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
-### todo (20)
+### todo (18)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — role: orchestrator
-- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
 - [`scholar-ingest-ucan-invocation-delegation-deferred`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-ucan-invocation-delegation-deferred.md) — Scholar: continue issue #34 source ingestion after did:plc, UCAN Invocation, ...
 - [`scholar-library-cycle-20260729-082004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-082004.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-093504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-093504.md) — Hourly scholar library cycle
@@ -5206,22 +5217,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-172004.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (7)
+### doin (8)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
+- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 - [`model-tier-effectiveness-review-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/model-tier-effectiveness-review-20260729-172004.md) — Weekly model-tier effectiveness review
-- [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
+- [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
 
-### tada (3884)
+### tada (3885)
+- [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Cost
 - [`garden-tier-vocabulary-kimi-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-vocabulary-kimi-routing.md) — Cost
 - [`scholar-library-cycle-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-070504.md) — Registered scholar-library-cycle on journal2 as hourly with scholar-preflight...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-wallclock-cost-proxy-for-censored-arms-1.md) — Cost
 - [`garden-mentor-tier-kimi-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-mentor-tier-kimi-rollout.md) — orchestration garden-mentor-tier-kimi-rollout — HALTED
-- [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-improve-promote-plan-poison-reset-3-1.md) — Report
-- … and 3879 more
+- … and 3880 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
