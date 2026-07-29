@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T22:04:42Z_
+_As of 2026-07-29T22:36:44Z_
 
 ## Latest
 
@@ -14,11 +14,11 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 10s)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 26m)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15h)
 - [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 13h)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 12h)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 11h)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 12h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 22h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -3554,6 +3554,58 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration garden-tier-native-routing-rollout HALTED: child garden-tier-native-routing-deploy stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 1/3 done before halt; swept: garden-tier-native-routing-migrate
 
+- `20260729T220601Z-d1ea3a` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T220601Z-d1ea3a.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `aed30a441971e71451d871b1a8615b8f5b50c642`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260729T220607Z-b8d8d0` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T220607Z-b8d8d0.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `aed30a441971e71451d871b1a8615b8f5b50c642`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260729T220832Z-b5fcbe` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T220832Z-b5fcbe.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `1415a839e18f9ca1813f923cc14c618b4d478852`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260729T220836Z-254028` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T220836Z-254028.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `1415a839e18f9ca1813f923cc14c618b4d478852`
+> failing suites: scripts/jobs/test/signal-kill-classifier-test.sh(rc=1)
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260729T222714Z-c46889` — from gardener:garden-tier-native-routing-deploy, reply_to `garden-tier-native-routing-deploy` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T222714Z-c46889.md)
+
+> Deployment evidence update: leader-originated, authorized sysop deploys were accepted for both reachable Endolin hosts, including a 22:12 UTC deploy to descendant 532584e0365697260e90f36d36e52474f7be0f52 (contains tier-native aed30a4419). This host now records that SHA, is not draining, has no failed garden units, gardeners: 0, and active cleric@1 plus mystic@1. ps23 and ps23-garden-f65473ae received authorized deploy messages but produced no sysop log or ack, so they are unreachable. I still lack a leader-host failed-unit and live-worker observation; please reply with that health evidence or authorize an appropriate remote status mechanism so the deployment job can close.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5458,7 +5510,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.8M _(+612.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Codex | 59.9M _(+619.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
@@ -5478,16 +5530,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (1)
+### doin (2)
+- [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/exo-git-follow-root-advancement-design.md) — Design a followable exo-git root advancement stream
 - [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tier-native-routing-deploy.md) — Deploy tier-native routing fleet-wide
 
-### tada (3916)
+### tada (3918)
+- [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
+- [`ebfb-pr600-footnote-model-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-footnote-model-harness.md) — Cost
+- [`endojs-endo-but-for-bots-pr864-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr864-conduct.md) — Cost
 - [`garden-tier-native-routing-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing-rollout.md) — orchestration garden-tier-native-routing-rollout — HALTED
 - [`garden-pr-review-sequence-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-pr-review-sequence-refresh.md) — Cost
-- [`scholar-library-cycle-20260729-215002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-215002.md) — Completed scholar library cycle: no actionable ingestion or writeback work. I...
-- [`garden-tier-native-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing.md) — Cost
-- [`garden-mentor-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-mentor-provider-fallback.md) — Cost
-- … and 3911 more
+- … and 3913 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -5682,7 +5735,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
-- [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/exo-git-follow-root-advancement-design.md) — awaiting `garden-tier-native-routing-rollout` · Design a followable exo-git root advancement stream
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
