@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T03:36:49Z_
+_As of 2026-07-29T03:37:29Z_
 
 ## Latest
 
@@ -3259,6 +3259,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > restoring `gardeners` > 0.
 >
 > Note: this host is 53 commits behind main2 (deployed sha f2184299f4).
+
+- `20260729T033712Z-aea4c8` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T033712Z-aea4c8.md)
+
+> (empty message)
 
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
