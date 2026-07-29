@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:30:06Z_
+_As of 2026-07-29T23:33:02Z_
 
 ## Latest
 
@@ -5412,6 +5412,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > gardener job 'finbot-pr6-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2413s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-garden-fireworks-glm52-register` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-garden-fireworks-glm52-register.md)
+
+> gardener job 'garden-fireworks-glm52-register' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-pr-ebfb-600-ironhorse-rename` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-pr-ebfb-600-ironhorse-rename.md)
 
 > gardener job 'pr-ebfb-600-ironhorse-rename' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -5541,9 +5545,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 59.8M _(+616.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
-### todo (21)
+### todo (20)
 - [`design-npm-dev-publisher-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-npm-dev-publisher-attenuation.md) — ---
-- [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-195004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -5564,7 +5567,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (2)
+### doin (3)
+- [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 
