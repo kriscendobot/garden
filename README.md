@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T23:04:31Z_
+_As of 2026-07-29T23:06:01Z_
 
 ## Latest
 
@@ -5510,7 +5510,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.7M _(+615.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
+| Codex | 59.7M _(+614.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 79% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (17)
@@ -5532,18 +5532,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (3)
-- [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr721-garden-response-comment.md) — Record the garden response on PR #721
+### doin (2)
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-600-ironhorse-rename.md) — ---
 
-### tada (3920)
+### tada (3921)
+- [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr721-garden-response-comment.md) — Cost
 - [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/exo-git-follow-root-advancement-design.md) — Cost
 - [`garden-tier-native-routing-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tier-native-routing-deploy.md) — Cost
 - [`endojs-endo-but-for-bots-pr600-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`ebfb-pr600-footnote-model-harness`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-footnote-model-harness.md) — Cost
-- [`endojs-endo-but-for-bots-pr864-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr864-conduct.md) — Cost
-- … and 3915 more
+- … and 3916 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
