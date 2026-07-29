@@ -1,9 +1,9 @@
 Registered the indefinite `scholar-library-cycle` schedule on `journal2`.
 
-- Cadence: `hourly`; dispatch prefix: `scholar-library-cycle`.
-- Assigned the `scholar` role and its bounded ingest/index/integrity workflow.
-- Enabled `scholar-preflight.sh`; it verified actionable backlog is present via `scholar-library-cycle-20260729-172004` in `jobs/todo`.
+- Cadence: hourly; scholar role and bounded cycle workflow configured.
+- Enabled scholar preflight; it detected actionable queued work.
+- Completion recorded successfully.
 
-Follow-ups: none. The scheduler will dispatch on its next eligible hourly tick.
+Follow-ups: none.
 
 Self-improvement: nothing this time.
