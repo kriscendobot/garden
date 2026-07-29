@@ -165,6 +165,97 @@ else
   bad "job not left in doin (doin=$([ -f "$V/jobs/doin/capjob.md" ] && echo y || echo n) tada=$([ -f "$V/jobs/tada/capjob.md" ] && echo y || echo n))"
 fi
 
+# ============================================================================
+hr; echo "SUBTEST 3 — CLOBBER fail-safe: is_explicit_cap_signature UNDEFINED → still transient"; hr
+# Regression: a0cd3eae13 (2026-07-21) rewrote common.sh from a stale base and
+# deleted is_explicit_cap_signature outright (restored 2026-07-28 by da2572a260).
+# A call to an undefined function under `if` is not a crash — bash prints
+# `command not found`, returns 127, and the branch simply reads FALSE — so the
+# floor's cap EXEMPTION silently vanished and every fast-dying capped handler was
+# reclassified a DETERMINISTIC defect. That lands on the real-failure branch,
+# which (unlike the transient branch) leaves the claim in doin with NO reap-now
+# hint, so each cycle stranded the job for the full GARDEN_CLAIM_TTL (4h):
+# endojs-endo-but-for-bots-pr882-shepherd reached `garden-reaped: 4` and ~12.5h of
+# latency on an already-green PR, and the fleet emitted 243 kind:error escalations
+# over 2026-07-28/29. gardener.sh now probes the helper with `declare -F` and fails
+# SAFE to transient when it is absent. This subtest reproduces the clobber against
+# the REAL gardener.sh — a mirrored scripts/jobs/ whose common.sh has the function
+# stripped — with the elapsed floor LIVE, and pins the fail-safe.
+CR="$TR/clobber"; mkdir -p "$CR/root/scripts"
+# Mirror scripts/jobs/ by symlink so every sibling script is the real one, then
+# substitute a common.sh with is_explicit_cap_signature excised.
+mkdir -p "$CR/root/scripts/jobs"
+for p in "$JOBS"/* "$JOBS"/.[!.]*; do
+  [ -e "$p" ] || continue
+  [ "$(basename "$p")" = common.sh ] && continue
+  ln -s "$p" "$CR/root/scripts/jobs/$(basename "$p")"
+done
+ln -s "$(cd "$JOBS/../.." && pwd)/skills" "$CR/root/skills"
+# Excise the function body: from its `name() {` header to the closing `}` at
+# column 0 (the file's uniform style for top-level definitions).
+awk '/^is_explicit_cap_signature\(\)/ {skip=1} skip && /^\}/ {skip=0; next} !skip' \
+  "$JOBS/common.sh" > "$CR/root/scripts/jobs/common.sh"
+if grep -q '^is_explicit_cap_signature()' "$CR/root/scripts/jobs/common.sh"; then
+  bad "fixture setup: is_explicit_cap_signature was NOT stripped from the mirrored common.sh"
+else
+  ok "fixture: mirrored common.sh has is_explicit_cap_signature stripped (the a0cd3eae13 clobber)"
+fi
+
+# A second throwaway origin, same shape as SUBTEST 2's.
+CBARE="$CR/journal.git"; git init -q --bare "$CBARE"
+CSEED="$CR/seed"; git init -q "$CSEED"; git -C "$CSEED" checkout -q -b "$BRANCH"
+( cd "$CSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
+  for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+  printf '# clobberjob\n\ndo the work for clobberjob\n' > "jobs/todo/clobberjob.md" )
+git -C "$CSEED" add -A
+git -C "$CSEED" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
+git -C "$CSEED" remote add origin "$CBARE"
+git -C "$CSEED" push -q -u origin "$BRANCH"
+
+# The floor is LIVE here (unlike SUBTEST 2, which disables it): the stub exits in
+# well under 5s with an EXPLICIT cap wording, so the ONLY thing that can keep this
+# transient is the exemption — or, with the exemption's helper missing, the
+# fail-safe. Pre-fix this run classified real and escalated.
+env GARDEN="clobberhost" GARDEN_ROOT="$CR/root" GARDEN_STATE="$CR/state" \
+    JOURNAL_REMOTE="$CBARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 \
+    GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=5 \
+    GARDEN_JOB_HANDLER="$HERE/claude-session-limit-handler-stub.sh" \
+    "$CR/root/scripts/jobs/gardener.sh" 1 > "$CR/gardener.log" 2>&1 || true
+
+CCLONE="$CR/state/gardeners/1/journal"
+
+# (a) the fail-safe fired and NAMED the missing helper (greppable, not a bare
+# bash `command not found` buried in the unit log).
+if grep -q "is_explicit_cap_signature is UNDEFINED" "$CR/gardener.log"; then
+  ok "missing helper surfaced by name with the fail-safe verdict"
+else
+  bad "fail-safe line absent; log: $(grep -i 'transient\|UNDEFINED\|FAILED' "$CR/gardener.log" | tail -3)"
+fi
+
+# (b) THE REGRESSION: classified transient despite the sub-floor elapsed.
+if grep -Eq "looks transient \(rc=1[,)]" "$CR/gardener.log"; then
+  ok "clobbered common.sh still classifies a sub-floor cap as transient (fail-safe)"
+else
+  bad "clobbered common.sh reclassified a sub-floor cap as a REAL failure (the pr882 shape); log: $(grep -i 'transient\|DETERMINISTIC\|FAILED' "$CR/gardener.log" | tail -3)"
+fi
+
+# (c) no false lane-0 defect escalation (the 243-entry flood).
+if [ -e "$CCLONE/inboxes/clobberhost/gardener.md" ]; then
+  bad "gardener inbox escalation created — the missing helper still produces a false defect escalation"
+else
+  ok "no gardener inbox escalation under the clobber"
+fi
+
+# (d) the job stays in doin for the reaper, as every transient requeue does.
+CV="$CR/verify"; git clone -q --single-branch --branch "$BRANCH" "$CBARE" "$CV" 2>/dev/null
+if [ -f "$CV/jobs/doin/clobberjob.md" ] && [ ! -f "$CV/jobs/tada/clobberjob.md" ]; then
+  ok "job left in doin under the clobber (for reaper requeue), not completed to tada"
+else
+  bad "job not left in doin (doin=$([ -f "$CV/jobs/doin/clobberjob.md" ] && echo y || echo n) tada=$([ -f "$CV/jobs/tada/clobberjob.md" ] && echo y || echo n))"
+fi
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

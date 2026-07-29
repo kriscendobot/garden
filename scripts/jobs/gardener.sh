@@ -954,7 +954,30 @@ while :; do
       # was built for.
       floor="$GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS"
       case "$floor" in ''|*[!0-9]*) floor=0 ;; esac   # misconfigured → disabled, never crash the loop
-      if [ "$floor" -gt 0 ] && [ "$elapsed" -lt "$floor" ]; then
+      # FAIL SAFE IF THE EXEMPTION HELPER IS ABSENT. A call to an undefined shell
+      # function under `if` is not an error here — bash prints `command not found`
+      # to stderr, returns 127, and the branch simply reads FALSE. So a common.sh
+      # that has LOST is_explicit_cap_signature does not break the classifier
+      # loudly; it silently deletes the exemption and every capped handler falls
+      # into the else-branch as a DETERMINISTIC defect. That is not hypothetical:
+      # a0cd3eae13 (2026-07-21) clobbered this helper out of common.sh from a stale
+      # base and the fleet ran that way for a week (restored 2026-07-28 by
+      # da2572a260). The cost was paid on the REAL-FAILURE branch below, which —
+      # unlike the transient branch — leaves the claim in doin WITHOUT a reap-now
+      # hint, so each misclassified cycle stranded the job for the full
+      # GARDEN_CLAIM_TTL (4h) instead of requeueing on the next reaper tick:
+      # endojs-endo-but-for-bots-pr882-shepherd burned `garden-reaped: 4` and ~12.5h
+      # of latency on a PR whose CI had been green since the previous 22:27Z, then
+      # completed in 114s once a host with the helper claimed it (243 kind:error
+      # escalations fleet-wide across 2026-07-28/29). The exemption's whole purpose
+      # is to keep a cap TRANSIENT, so when it cannot be evaluated the conservative
+      # answer is transient (a bounded, poison-counted requeue on the next tick),
+      # never a 4h strand plus an inbox escalation. Log it as its own line so the
+      # missing helper is greppable instead of buried as a bare bash diagnostic.
+      if [ "$floor" -gt 0 ] && [ "$elapsed" -lt "$floor" ] && ! declare -F is_explicit_cap_signature >/dev/null 2>&1; then
+        log "handler for '$base' died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s) but the cap-exemption helper is_explicit_cap_signature is UNDEFINED (common.sh is missing it — check for a stale-base clobber, cf. a0cd3eae13/da2572a260); cannot evaluate the exemption, so failing SAFE and keeping transient (transient=1)"
+        transient=1
+      elif [ "$floor" -gt 0 ] && [ "$elapsed" -lt "$floor" ]; then
         if is_explicit_cap_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
           log "handler for '$base' died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s) but the capture carries an EXPLICIT session/usage-cap wording — a real cap rejection IS this fast; keeping transient (transient=1)"
           transient=1   # explicit cap statement: transient by content, elapsed irrelevant
