@@ -4,10 +4,10 @@ repo: kriscendobot/finbot
 pr_number: 5
 build_job: finbot-progress-20260729-195004
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
-current_child: finbot-progress-20260729-195004-gauntlet-clean
+current_child: finbot-progress-20260729-195004-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-07-29T19:54:28Z
