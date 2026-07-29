@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T16:24:12Z_
+_As of 2026-07-29T16:27:14Z_
 
 ## Latest
 
@@ -5090,16 +5090,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.8M _(+567.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 71.8M _(+568.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
-### todo (27)
+### todo (26)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr874-197d3094`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-197d3094.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-review-c58ec6c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-review-c58ec6c8.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-review-fd62e60e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-review-fd62e60e.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr882-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr882-panel-2.md) — Panel round 2 for endojs/endo-but-for-bots PR #882
@@ -5124,18 +5123,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (5)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr874-review-ce8e8195`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-ce8e8195.md) — Review directive on endojs/endo-but-for-bots PR #874
+- [`endojs-endo-but-for-bots-pr874-197d3094`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-197d3094.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`finbot-pr4-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 
-### tada (3873)
+### tada (3874)
+- [`endojs-endo-but-for-bots-pr874-review-ce8e8195`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-review-ce8e8195.md) — Cost
 - [`ocapn-noise-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260729-072002.md) — Press dispatch 24 — completion report (ocapn-noise-press-20260729-072002)
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260729-012002.md) — Press report — git-integration / M3 loop (dispatch 2026-07-29T01:20Z, resumed...
 - [`finbot-progress-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-133503.md) — Completion report — finbot progress cycle 20260729-133503
 - [`endo-git-integration-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260729-133503.md) — Press report — endo-git-integration-press-20260729-133503
-- [`endo-npm-cas-registry-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260729-133503.md) — Completion report — endo-npm-cas-registry-press-20260729-133503
-- … and 3868 more
+- … and 3869 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
