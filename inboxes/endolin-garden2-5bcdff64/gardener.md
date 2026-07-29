@@ -3558,3 +3558,12 @@ Inspect via `git -C journal cat-file -p b7a840dbb20dfc0624d588c34511aeff590949fb
 - Context: gardener-6 on endolin-garden2-5bcdff64: job 'registry-immutable-byte-array-followup' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p d2f0c4a70c70426374c4ccabf5fdc8512d38f1f1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-29T02:56:34Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b7a840dbb20dfc0624d588c34511aeff590949fb
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'endojs-endo-but-for-bots-pr869-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b7a840dbb20dfc0624d588c34511aeff590949fb`.
