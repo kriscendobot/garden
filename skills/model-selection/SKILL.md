@@ -33,6 +33,14 @@ the choke-point policy; the four-tier inventory remains unchanged.
 No automatic path may emit Fable/mentat or any other Claude pin. The gardener
 Claude handler and backend-fit predicate accept only `dispatch: manual` Fable.
 
+## Deployment migration
+
+After deploying this revision, run
+`scripts/jobs/migrate-model-tier-routing.sh` once on the leader. It CAS-rewrites
+existing `jobs/todo` and `jobs/plan` automatic entries to mentor/Kimi while leaving
+explicit `dispatch: manual` mentat jobs untouched. New jobs are normalized by the
+posting primitives, so the migration is idempotent and does not need to remain on.
+
 ## Adding or changing a model
 
 Add its exact provider/id/tier row to `model-tier-inventory.tsv`, add the same
