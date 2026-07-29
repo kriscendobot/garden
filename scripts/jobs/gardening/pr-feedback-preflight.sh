@@ -39,8 +39,12 @@
 #   "target": {"id", "created_at", "reviewed_head_sha"},
 #   "head": {"sha"},
 #   "commits": [{"sha", "timestamp", "message"}],
-#   "comments": [{"id", "in_reply_to_id", "created_at", "body"}]
+#   "comments": [{"id", "in_reply_to_id", "review_id", "created_at", "body"}]
 # }
+# "review_id" is the enclosing review a comment was left under (GitHub's
+# pull_request_review_id, "" when absent). It is what lets a REVIEW-keyed feedback
+# job see a peer's reply: replies thread to the INLINE COMMENT id, never to the
+# review id, so without it `in_reply_to_id == <review id>` can never match.
 # GARDEN_PREFLIGHT_EVIDENCE <repo> <pr> -> this object. The test substitutes
 # fixtures; match logic remains here rather than in the hook.
 
@@ -150,6 +154,7 @@ gather_evidence() {  # gather_evidence <reason_file> -> JSON evidence on stdout
           ($comments[0] // [])[] | {
             id: (.id | tostring),
             in_reply_to_id: ((.in_reply_to_id // "") | tostring),
+            review_id: ((.pull_request_review_id // "") | tostring),
             created_at,
             body: (.body // "")
           }
@@ -178,6 +183,7 @@ gather_evidence() {  # gather_evidence <reason_file> -> JSON evidence on stdout
           ($comments[0] // [])[] | {
             id: (.id | tostring),
             in_reply_to_id: ((.in_reply_to_id // "") | tostring),
+            review_id: ((.pull_request_review_id // "") | tostring),
             created_at,
             body: (.body // "")
           }
@@ -247,6 +253,24 @@ if jq -e --arg cid "$cid" --arg target_at "$target_at" '
     and (.created_at | type == "string" and . >= $target_at))
 ' >/dev/null <<<"$evidence"; then
   matched="reply on the same inline thread after the feedback (in_reply_to=$cid)"
+# A REVIEW-keyed job carries its asks in the review's inline comments, and a peer's
+# reply threads to the INLINE COMMENT id — never to the review id — so the check
+# above is structurally unable to see it. Recognise the review's own threads
+# instead, and only when EVERY one of them has a post-review reply: the unit of
+# work is the whole review, so one answered thread out of three is not a
+# resolution. (endojs/endo-but-for-bots#683: a peer answered the review's single
+# inline comment, yet this gate said PROCEED and a second gardener was dispatched.)
+elif jq -e --arg cid "$cid" --arg target_at "$target_at" '
+  (.comments // []) as $cs
+  | [$cs[]? | select(.review_id == $cid) | .id] as $threads
+  | ($threads | length > 0)
+    and all($threads[];
+      . as $t
+      | any($cs[]?;
+          (.in_reply_to_id == $t)
+          and (.created_at | type == "string" and . >= $target_at)))
+' >/dev/null <<<"$evidence"; then
+  matched="a post-review reply on every inline thread of review $cid"
 else
   cited="$({
     jq -r --arg target_at "$target_at" '

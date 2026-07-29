@@ -191,6 +191,13 @@ grep -q "advancing reviewed head" <<<"$OUT" && ok "logged reviewed-head correlat
 hr; echo "NO-OP — direct same-thread reply"; hr
 expect same-thread-reply.json 2 "post-feedback same-thread reply resolves feedback"
 
+hr; echo "NO-OP — review-keyed job, every inline thread answered"; hr
+expect review-inline-threads-answered.json 2 "replies on all of a review's inline threads resolve a review-keyed job"
+grep -q "every inline thread of review" <<<"$OUT" && ok "logged the review-thread correlation" || bad "missing review-thread correlation log ($OUT)"
+
+hr; echo "PROCEED — review-keyed job, only some inline threads answered"; hr
+expect review-inline-threads-partial.json 0 "a partially answered review is not a resolution"
+
 hr; echo "NO-OP — explicit feedback-id citation"; hr
 expect explicit-id-citation.json 2 "post-feedback id citation resolves feedback"
 
