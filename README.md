@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T07:43:42Z_
+_As of 2026-07-29T07:50:36Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 37m)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 45m)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8h)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9d)
@@ -4666,16 +4666,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-07-28T08:48:08Z, latest 2026-07-29T06:20:16Z).
-> The SAME condition (`provider-quota`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #12 (first seen 2026-07-28T08:48:08Z, latest 2026-07-29T07:50:13Z).
+> The SAME condition (`provider-quota`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
-> provider quota/usage limit reached — the API is refusing calls fleet-wide (resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 0b1ef89f95e21aad31507bfc5872e549ca94c36d (git -C /home/kris/garden2/).
+> provider quota/usage limit reached — the API is refusing calls fleet-wide (resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 01df35afb2bbe193b4de5dbe5de8702aa0f302ba (git -C /home/kris/garden2/).
 > This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
 > resumes on its own once the window resets (see skills/restore/SKILL.md for the
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-> usage limit reached while running garden-mentor. Observed: You've hit your weekly limit · resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 0b1ef89f95e21aad31507bfc5872e549ca94c36d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 0b1ef89f95e21aad31507bfc5872e549ca94c36d).
+> usage limit reached while running garden-mentor. Observed: You've hit your weekly limit · resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 01df35afb2bbe193b4de5dbe5de8702aa0f302ba (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 01df35afb2bbe193b4de5dbe5de8702aa0f302ba).
 
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
 
@@ -4771,8 +4771,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.4M | $824.52 _(notional, rate-card)_ | no quota set |
-| Codex | 69.1M _(+494.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 47.4M | $824.30 _(notional, rate-card)_ | no quota set |
+| Codex | 69.2M _(+498.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (32)
