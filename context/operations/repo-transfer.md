@@ -54,11 +54,48 @@ prefix — because the garden now shares an owner with the product forks:
 `kriscendobot/*` would disarm the poison guard entirely.
 
 Retire the alias once no live origin, per-host cache, or per-instance clone
-still names the old path — checked per host with:
+still names the old path. Check a host with one sweep over every git config
+under the garden root, **not** a glob over `.garden-state/*/journal`:
 
     git -C <garden-root> config --get remote.origin.url
     cat <garden-root>/.garden-state/config/journal-remote
-    git -C <garden-root>/.garden-state/*/journal config --get remote.origin.url
+    find <garden-root>/.garden-state -name config -path '*/.git/*' \
+      -exec grep -l 'kriskowal/garden' {} +
+
+The glob is the trap. Per-instance clones are **not** all one level deep:
+alongside the flat `.garden-state/<svc>/{journal,verify}` clones sit nested
+per-worker and per-inbox ones — `.garden-state/inbox/<key>/journal`,
+`.garden-state/{gardeners,monitors,clerics,mystics,hermits}/<n>/journal`. On
+`endolin-garden-ece02cb4` the flat shape was 44 clones and the nested shape
+2880, so the old glob inspected under 2% of them and would have reported a host
+clean while 2880 clones still named the old path.
+
+## Migration ledger
+
+Migrating one host is: the root origin, the per-host cache, then every clone the
+sweep above finds. The root and the journal worktree share one repo, so the root
+`remote set-url` covers both and is the **only** git command that may run in
+`$GARDEN_ROOT`; rewrite each clone with `git config --file <path>` so no command
+performs repository discovery.
+
+    git -C "$GARDEN_ROOT" remote set-url origin git@github.com:kriscendobot/garden.git
+    printf '%s\n' git@github.com:kriscendobot/garden.git \
+      > "$GARDEN_ROOT/.garden-state/config/journal-remote"
+    # then, for each config the sweep found:
+    git config --file <config> remote.origin.url git@github.com:kriscendobot/garden.git
+
+There is no remote-execution path for this: `post-job.sh` has no host-pinning
+flag and `claim-job.sh` only *records* the claiming host, so a job cannot be
+aimed at a host. The sysop bus reaches every host but its vocabulary is closed
+and deliberately excludes arbitrary git operations. Each host is therefore
+migrated by a worker **running on it**.
+
+| Host | Migrated |
+| --- | --- |
+| `endolin-garden-ece02cb4` | 2026-07-29 — root, cache, 2924 clones |
+| `endolin-garden2-5bcdff64` | not yet (leader) |
+| `ps23` | not yet |
+| `ps23-garden-f65473ae` | not yet |
 
 ## Order of operations
 
