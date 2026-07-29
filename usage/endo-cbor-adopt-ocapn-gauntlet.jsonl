@@ -7,3 +7,4 @@
 {"source":"none","ts":"2026-07-29T07:31:51Z","base":"endo-cbor-adopt-ocapn-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":24,"role":"gardener"}
 {"source":"none","ts":"2026-07-29T07:34:14Z","base":"endo-cbor-adopt-ocapn-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":27,"role":"gardener"}
 {"source":"none","ts":"2026-07-29T08:18:58Z","base":"endo-cbor-adopt-ocapn-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":21,"role":"gardener"}
+{"source":"none","ts":"2026-07-29T08:30:50Z","base":"endo-cbor-adopt-ocapn-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"tada","elapsed_s":116,"role":"gardener"}
