@@ -1,11 +1,12 @@
-PR #877 CI is green at `25ef304ce6552f2eb73b42920038b68d5ef51c73`: all 24 check runs completed successfully. No fix or push was needed. Maintainer approval was re-fetched and confirmed.
-<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr877-shepherd.jsonl; not agent-authored — do not edit -->
+# shepherd (auto) retired: CI recovered/settled before claim
 
-## Cost
-- Engagements: 1 on 1 host(s) (1 unmetered)
-- Input: 0 tokens (0 cached reads)
-- Output: 0 tokens
-- Cost: $0 (1 engagement(s) unpriced)
-- Wall-clock: 61s
+CI recovered/settled before claim — nothing to shepherd; ci-watcher retired
+this stale auto-shepherd. The CI-status watcher minted `endojs-endo-but-for-bots-pr877-shepherd`
+from a point-in-time RED rollup read; on a later tick the live rollup was
+green (no longer red), so this stale auto-shepherd was retired
+deterministically (todo -> tada) rather than left to be claimed, re-fetch a
+no-longer-red CI, and exit-0-unsatisfying.
 
-<!-- garden-usage-end -->
+Retired by: ci-watcher stale-shepherd re-validation sweep on endolin-garden2-5bcdff64.
+
+<<<GARDEN-JOB-COMPLETE>>>
