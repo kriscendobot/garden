@@ -72,8 +72,9 @@ strip_frontmatter() {
 
 # The cycle-marker strip (`strip_cycle_markers`) and the record of what it cleared
 # (`cycle_marker_summary`) live in common.sh beside the marker regexes themselves,
-# shared with post-plan.sh's parking-side strip — one spelling of "the family", so a
-# marker-format change (or a sixth marker) cannot half-land.
+# shared with post-plan.sh's parking-side strip and proxy.sh's blocked-job park — one
+# spelling of "the family", so a marker-format change (or a sixth marker) cannot
+# half-land.
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"

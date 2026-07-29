@@ -153,9 +153,16 @@ auto-clear), for each such message in ONE atomic move:
 1. **Parks the blocked job** as a `gate: blocked` plan job (`jobs/plan/<base>`)
    carrying `blocked_on: <artifact>`, moving it out of `todo/`/`doin/` (or, if it
    has already left the board, creating the plan from the notification body so the
-   intent survives). A blocked plan is **never claimed** by gardeners (it is in
-   `plan/`) and **never auto-promoted** by the foreman (`plan_deferred_ranked`
-   selects only `gate: deferred`) — it waits for its blocker.
+   intent survives). The lifted board file is **cleaned** on the way in — the
+   trailing `---`/`claim:` block cut and every reaper/gardener cycle marker
+   stripped (`cut_claim_block` + `strip_cycle_markers`, the shared `common.sh`
+   helpers `promote-plan.sh` uses) — because `promote-plan.sh`'s
+   `strip_frontmatter` removes only the *leading* plan block, so anything parked
+   verbatim rides all the way back into `todo/` when the blocker clears. A
+   block-park earns the same clean slate a promotion does. A blocked plan is
+   **never claimed** by gardeners (it is in `plan/`) and **never auto-promoted** by
+   the foreman (`plan_deferred_ranked` selects only `gate: deferred`) — it waits
+   for its blocker.
 2. **Leaves a note on the blocker.** The load-bearing record is the plan's
    `blocked_on:` field itself (the single source of truth the unblock watcher
    scans) — no separate dependency store. For a **PR** blocker the proxy

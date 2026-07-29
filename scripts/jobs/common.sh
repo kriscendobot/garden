@@ -3598,8 +3598,11 @@ stamp_outage_cycle_hint() {
 # re-parks a live job body cannot smuggle a stale counter into plan/ to begin with; and
 # annotate-plan.sh closes the ANNOTATION half, the third write into a parked body —
 # it appends producer-supplied note text, so a producer piping a live job body as a
-# note would otherwise re-introduce the family behind both of the other strips.
-# All three use these helpers rather than re-spelling the family, so a marker-format change
+# note would otherwise re-introduce the family behind both of the other strips. And
+# proxy.sh's blocked-job park closes the fourth: it lifts a LIVE board file straight
+# into plan/, so it carries not only the family but the trailing `---`/`claim:` block
+# a doin/ file ends with — hence cut_claim_block below, this section's companion.
+# All four use these helpers rather than re-spelling the family, so a marker-format change
 # — or a SIXTH marker — lands in one place and cannot half-apply.
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
@@ -3627,6 +3630,32 @@ cycle_marker_summary() {
   if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi
   if has_outage_cycle_hint "$f";     then out="${out:+$out,}outage-cycle"; fi
   printf '%s\n' "${out:-none}"
+}
+
+# cut_claim_block <file> — print the job body with the trailing `---`/`claim:` block
+# and any trailing blank lines removed. The block is anchored on the `---` line
+# IMMEDIATELY followed by `claim:` (the shape claim-job.sh appends), and only the LAST
+# such pair is the cut point — so a body that itself contains a `---` rule is preserved
+# intact. With no claim block the body comes back unchanged (never blindly truncated at
+# a stray `---`). Same anchor as reaper.sh's clean_body and the stamp_*_hint inserters.
+#
+# The companion of strip_cycle_markers for the FOURTH plan-side writer: proxy.sh's
+# blocked-job park lifts a LIVE board file, and a jobs/doin/ file carries the claim
+# block claim-job.sh appended. promote-plan.sh's strip_frontmatter removes only the
+# LEADING plan block, so a claim block parked verbatim rides all the way back into
+# todo/ when the blocker clears — a claim record for a run that already ended, reading
+# as live provenance to every consumer that greps for it.
+cut_claim_block() {
+  awk '
+    { line[NR] = $0 }
+    END {
+      cut = 0
+      for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+      end = (cut > 0) ? cut - 1 : NR
+      while (end > 0 && line[end] ~ /^[ \t]*$/) end--   # trim trailing blank lines
+      for (i = 1; i <= end; i++) print line[i]
+    }
+  ' "$1"
 }
 
 # --- per-job progress detection (the productive-cycle signal source) ---------

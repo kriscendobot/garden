@@ -125,7 +125,9 @@ clear_watchdog_messages() {
 #   1. PARKS the blocked job as a `gate: blocked` plan job carrying blocked_on=
 #      <artifact> — moving it out of todo/ or doin/ (or, if the job has already
 #      left the board, creating the plan from the notification body so the intent
-#      survives, deadmail-style). A blocked plan is never claimed (it is in plan/)
+#      survives, deadmail-style). The lifted body is cleaned first — the trailing
+#      claim block cut, the cycle markers stripped — so the park hands back the same
+#      clean slate a promotion does. A blocked plan is never claimed (it is in plan/)
 #      and never auto-promoted by the foreman (plan_deferred_ranked selects only
 #      gate=deferred) — it waits for its blocker.
 #   2. ARCHIVES the notification (unread→read), scrubbing the maintainer inbox —
@@ -162,11 +164,25 @@ park_blocked_jobs() {
 
       # Body to park: prefer the job's live board file (doin/ then todo/); else the
       # notification body (the gardener's own description of the block).
+      #
+      # A live board file is NOT parkable verbatim. A doin/ file carries the trailing
+      # `---`/`claim:` block claim-job.sh appends, and either may carry the reaper/
+      # gardener CYCLE MARKERS from earlier cycles. Parked as-is, both survive the
+      # round trip: promote-plan.sh's strip_frontmatter removes only the LEADING plan
+      # block, so the stale claim block would ride back into todo/ (a claim record for
+      # a run that ended, which reads as live provenance and confuses every consumer
+      # that greps for it), and the counters would ride back too — which is exactly the
+      # no-op-promotion trap promote-plan.sh's cycle-marker reset exists to close. A
+      # block-park is a "run this again once the blocker clears" act, the same clean
+      # slate a promotion grants, so cut the claim block and clear the whole marker
+      # family here, at the park. (The reaper's poison-park path is deliberately
+      # untouched: it parks a body whose deadline-overrun counter must PERSIST, and
+      # promote-plan.sh clears it at the promotion instead.)
       if   [ -f "$dir/$JOBS_DOIN/$base.md" ]; then src="$JOBS_DOIN/$base.md"
       elif [ -f "$dir/$JOBS_TODO/$base.md" ]; then src="$JOBS_TODO/$base.md"
       else src=""; fi
       if [ -n "$src" ]; then
-        body="$(cat "$dir/$src")"
+        body="$(cut_claim_block "$dir/$src" | strip_cycle_markers)"
         git -C "$dir" rm -q "$src"
       else
         # Strip the message frontmatter; the remainder is the work description.
