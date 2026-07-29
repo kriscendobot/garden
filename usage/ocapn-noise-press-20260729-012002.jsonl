@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":66,"elapsed_s":752,"input_tokens":103,"output_tokens":45103,"cache_creation_tokens":112412,"cache_read_tokens":4641270,"total_cost_usd":9.147960999999997,"ts":"2026-07-29T01:35:14Z","base":"ocapn-noise-press-20260729-012002","host":"endolin-garden-ece02cb4","outcome":"tada"}
