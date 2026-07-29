@@ -30,6 +30,30 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet env (this may run AS a board job under a live gardener).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_|AUCTION_)' || true) 2>/dev/null || true
 export GARDEN_TEST=1 GARDEN_ROOT="$ROOT" GARDEN_NO_MAINTAINER_ALERT=1
+
+# The whole throwaway tree must live on an EXEC-allowed filesystem: the probe
+# resolves the fake claude through GARDEN_CLAUDE_BIN, and that override is
+# AUTHORITATIVE + FAIL-CLOSED — `[ -x ]` honors a mount's noexec flag, so a fake
+# claude under the container's noexec /tmp reads as "named but not runnable" and
+# the probe correctly refuses to run ANY agent. Every subtest then measures
+# `claude=unavailable` instead of the behavior it means to assert (the SUCCESS
+# subtest silently degrades to a capable-fail). Probe for a base that can actually
+# exec, standard temp dirs first, then the garden scratch tree (exec-allowed AND
+# gitignored). Never $HOME itself: it is the garden repo root, and an untracked dir
+# there wedges the watchman fast-forward.
+pick_exec_base() {
+  local c probe rc
+  for c in "${TMPDIR:-}" /tmp /var/tmp "$GARDEN_ROOT/scratch"; do
+    [ -n "$c" ] && [ -d "$c" ] && [ -w "$c" ] || continue
+    probe="$(mktemp -d "$c/hcp-probe.XXXXXX" 2>/dev/null)" || continue
+    printf '#!/bin/sh\nexit 7\n' > "$probe/x"; chmod +x "$probe/x" 2>/dev/null
+    "$probe/x" >/dev/null 2>&1; rc=$?
+    rm -rf "$probe"
+    [ "$rc" -eq 7 ] && { printf '%s\n' "$c"; return 0; }
+  done
+  return 1
+}
+EXEC_BASE="$(pick_exec_base)" || { echo "  SKIP: no exec-allowed temp base (needed to run a fake claude)"; exit 0; }
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 # shellcheck source=../auction.sh
@@ -102,7 +126,7 @@ run_probe() {
 
 # ============================================================================
 hr; echo "SUCCESS — capable probe completes -> probe record + demerit"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/hcp-success.XXXXXX")"
+TR="$(mktemp -d "$EXEC_BASE/hcp-success.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
 FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
 JF="$TR/job.md"; printf -- '---\nrole: builder\ntarget: main2\n---\n# widget\n\nadd a widget\n' > "$JF"
@@ -132,7 +156,7 @@ rm -rf "$TR"
 
 # ============================================================================
 hr; echo "FAIL — capable probe does NOT complete -> probe record, NO demerit"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/hcp-fail.XXXXXX")"
+TR="$(mktemp -d "$EXEC_BASE/hcp-fail.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
 FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
 JF="$TR/job.md"; printf -- '---\nrole: builder\ntarget: main2\n---\n# hard\n\nimpossible\n' > "$JF"
@@ -151,7 +175,7 @@ rm -rf "$TR"
 
 # ============================================================================
 hr; echo "DEDUP — a second probe of the same base is a no-op"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/hcp-dedup.XXXXXX")"
+TR="$(mktemp -d "$EXEC_BASE/hcp-dedup.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
 FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
 JF="$TR/job.md"; printf -- '---\nrole: builder\ntarget: main2\n---\n# dd\n\nwork\n' > "$JF"
@@ -162,13 +186,16 @@ FAKE_MARKER=1 run_probe "$BARE" "$GR" "$FC" "$JF" dd-job > "$TR/p2.log" 2>&1 || 
 V2="$TR/v2"; verify_clone "$BARE" "$V2"
 n2="$(git -C "$V2" rev-list --count HEAD)"
 [ "$n1" = "$n2" ] && ok "second probe pushed no new commit (dedup; $n1==$n2)" || bad "second probe advanced the board ($n1 -> $n2)"
-c="$(ls "$V2"/reputation/events/dd-job.hermit-demerit.md 2>/dev/null | wc -l | tr -d ' ')"
+# `find`, not `ls | wc -l`: under `set -euo pipefail` a missing file makes the
+# pipeline fail (ls exits 2) and ABORTS the suite mid-run, so a regression here
+# would silently swallow every remaining subtest instead of reporting one FAIL.
+c="$(find "$V2/reputation/events" -maxdepth 1 -name 'dd-job.hermit-demerit.md' 2>/dev/null | wc -l | tr -d ' ')"
 [ "$c" = 1 ] && ok "exactly one demerit event after two probes" || bad "demerit count $c after dedup"
 rm -rf "$TR"
 
 # ============================================================================
 hr; echo "GUARDS — non-hermit worker and GARDEN_HERMIT_PROBE=0 both skip"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/hcp-guard.XXXXXX")"
+TR="$(mktemp -d "$EXEC_BASE/hcp-guard.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
 FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
 JF="$TR/job.md"; printf -- '---\nrole: builder\ntarget: main2\n---\n# g\n\nwork\n' > "$JF"
@@ -181,7 +208,7 @@ rm -rf "$TR"
 
 # ============================================================================
 hr; echo "REDUCER — demerit folds into the local arm (attempts>=1, accepts=0)"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/hcp-reduce.XXXXXX")"
+TR="$(mktemp -d "$EXEC_BASE/hcp-reduce.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
 FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
 JF="$TR/job.md"; printf -- '---\nrole: builder\ntarget: main2\n---\n# r\n\nwork\n' > "$JF"
