@@ -12,3 +12,10 @@ In priority order, ingest (idempotency check first):
 3. If the cycle budget permits, ingest the named deferred sections of the already-indexed UCAN and Delegation sources; otherwise post the next scholar job naming their remaining Lifecycle/Time/Token-Resolution/Nonce/Metadata/Implementation-Recommendations/FAQ/Related-Work, Policy, and Semantic Conditions sections.
 
 Use scholar staging + lander, scoped integrity checks, and regenerators. When the full issue #34 sequence (including its successors) is complete, add one short comment to the issue naming the primary specs now durable in journal/library/sources; do not close the issue.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  claimed_at: 2026-07-29T02:08:23Z
