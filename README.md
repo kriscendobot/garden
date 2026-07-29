@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T16:31:42Z_
+_As of 2026-07-29T16:34:08Z_
 
 ## Latest
 
@@ -3430,6 +3430,51 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Panel blocked before a formal verdict: the scripted code panel retried every seat three times, but 27/28 returned the Claude weekly-limit response (resets 2026-08-01 03:00 UTC) and one coverage seat returned only a comment-only coverage-report warning. Per the job, I did not treat those as verdicts, did not un-draft/merge, and did not post the Fable sign-off job. A fresh panel run requires available panel-model capacity.
 
+- `20260729T163219Z-9d7868` — from gardener:fu-wallclock-cost-proxy-for-censored-arms-1, reply_to `fu-wallclock-cost-proxy-for-censored-arms-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T163219Z-9d7868.md)
+
+> subject: wallclock proxy now prices requeued attempts — one deploy-timing note
+>
+> Landed on main2 (b6057502ce): the wallclock cost proxy now charges a requeued job's
+> EARLIER attempts, recovered from the journal's claim commits, each capped at
+> GARDEN_REP_ATTEMPT_CAP_SECS (120s).
+>
+> The one thing worth your attention is a DELIBERATE deviation from the job spec, with
+> the fleet's own data behind it. Taking claim -> tada as one span (as the job asked)
+> would have made the proxy MUCH worse, not better. A claim interval measures how long
+> the BOARD waited, not how long the worker RAN: a worker that dies in 5s still holds
+> its claim until the reaper's next tick (~10 min), or the full 4h CLAIM_TTL when
+> nothing stamped a reap-now hint. Calibrated on the 106 ledger-priced events, with
+> per-attempt truth from usage/<base>.jsonl's elapsed_s:
+>
+>   * 206 earlier attempts hold only 10264s of real runtime (mean ~50s each);
+>   * raw claim spans overstate runtime ~28x and predict DOLLARS 7x worse than doing
+>     nothing (typical multiplicative error 14.55x, vs 2.04x for duration_secs alone);
+>   * min(interval, 120s) per earlier attempt is the best estimator tested: 1.59x
+>     error, RMSE 2.68. The optimum is flat over 50-150s, so the knob is not perched
+>     on a cliff.
+>
+> Your canary observation was right — the span IS larger than duration_secs — it just
+> turns out most of the extra is reaper latency rather than work.
+>
+> DEPLOY TIMING (the only thing needing a decision): the rate card had to be
+> re-measured on the new basis, or every censored arm would price ~1.4x high. I updated
+> BOTH the tracked seed (main2) and the operative journal card (journal2 422cae0db,
+> $0.007203 -> $0.005154/s pooled). Until main2 deploys, the deployed reducer prices
+> the OLD narrow basis at the NEW rate — roughly 28% low on estimated arms only,
+> nothing else. It self-corrects on the first tick after the deploy (the reducer
+> recomputes from scratch every tick; no event is ever rewritten), so this is a "deploy
+> when convenient" note, not an incident.
+>
+> Verified against the live 1545-event set: pure-ledger arms byte-identical, median
+> estimated arm x1.00, and the requeue-heavy arms move where the evidence says —
+> mystic/moonshot/kimi-k3/medium/gardener-s@main2 $0.0905 -> $1.2973 (3 attempts, all
+> requeued).
+>
+> Also recorded but NOT adopted: three openai/gpt-5.6-terra events now carry a non-zero
+> ledger ($1.48 over 670s = $0.002215/s) — the first real evidence for a row that has
+> been carrying the fleet default. Worth a look at where those dollars came from before
+> adopting it.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5090,19 +5135,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.9M _(+569.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Codex | 71.8M _(+567.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
-### todo (25)
+### todo (26)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr882-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr882-panel-2.md) — Panel round 2 for endojs/endo-but-for-bots PR #882
-- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
+- [`finbot-pr4-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
+- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
 - [`garden-tier-vocabulary-kimi-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-tier-vocabulary-kimi-routing.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-...
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
@@ -5120,21 +5166,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-160503.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (6)
+### doin (5)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr874-review-c58ec6c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-c58ec6c8.md) — Review directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr874-review-fd62e60e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review-fd62e60e.md) — Review directive on endojs/endo-but-for-bots PR #874
-- [`finbot-pr4-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
-- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
+- [`endojs-endo-but-for-bots-pr874-review4810568121-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-review4810568121-fix.md) — ---
+- [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 
-### tada (3875)
+### tada (3876)
+- [`endojs-endo-but-for-bots-pr874-review-c58ec6c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-review-c58ec6c8.md) — Cost
 - [`endojs-endo-but-for-bots-pr874-197d3094`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-197d3094.md) — Cost
 - [`endojs-endo-but-for-bots-pr874-review-ce8e8195`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-review-ce8e8195.md) — Cost
 - [`ocapn-noise-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260729-072002.md) — Press dispatch 24 — completion report (ocapn-noise-press-20260729-072002)
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260729-012002.md) — Press report — git-integration / M3 loop (dispatch 2026-07-29T01:20Z, resumed...
-- [`finbot-progress-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-133503.md) — Completion report — finbot progress cycle 20260729-133503
-- … and 3870 more
+- … and 3871 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
