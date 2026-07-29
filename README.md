@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T20:24:03Z_
+_As of 2026-07-29T20:25:51Z_
 
 ## Latest
 
@@ -5400,7 +5400,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 59.6M _(+608.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
+| Codex | 59.6M _(+608.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (15)
@@ -5420,18 +5420,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (3)
+### doin (2)
 - [`finbot-pr5-panel-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729-195004.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
-- [`finbot-progress-20260729-195004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260729-195004-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 
-### tada (3907)
+### tada (3908)
+- [`finbot-progress-20260729-195004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet-panel-1.md) — Cost
 - [`finbot-progress-20260729-195004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004-gauntlet-clean.md) — Cost
 - [`finbot-progress-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260729-195004.md) — Cost
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-20260729.md) — Cost
 - [`scholar-library-cycle-20260729-193502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-193502.md) — Completed scholar library cycle: no actionable ingestion or writeback work. L...
-- [`kriscendobot-finbot-pr6-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-finbot-pr6-shepherd.md) — Cost
-- … and 3902 more
+- … and 3903 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
