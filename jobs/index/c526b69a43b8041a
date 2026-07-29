@@ -1,0 +1,2 @@
+base: improve-promote-plan-poison-reset
+identity: mentor:scripts/jobs/promote-plan.sh
