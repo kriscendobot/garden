@@ -1,0 +1,1 @@
+{"source":"result","num_turns":3,"elapsed_s":730,"input_tokens":6,"output_tokens":658,"cache_creation_tokens":1501,"cache_read_tokens":579902,"total_cost_usd":8.740880500000001,"ts":"2026-07-29T01:50:34Z","base":"endo-cbor-adopt-ocapn-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener"}
