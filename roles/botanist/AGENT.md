@@ -80,7 +80,13 @@ For a single Dependabot PR `#N`:
    - **REJECT (superseded)**: a newer open dependabot PR moves the same dependency against the same base (the step-1 supersession check), so this one cannot land whatever its merits. Say so in the verdict comment: name the successor, state plainly that this is **not** a finding against the upgrade, and invite a reopen if the successor does not land. A superseded-close that reads like a defect finding misleads the next reader.
 9. **Execute the disposition** per *Autonomous disposition* (on a bot-owned repo) or render it as a recommendation (on an upstream the bot does not own).
 10. **Post the verdict** as a single PR comment (when the job authorizes it) with the verdict, headline upgrade, full lockfile-transitive summary, the per-version advisory check, source-read paragraph, CI status, reasoning, and next-step line.
-11. **Update the dependabotany ledger** as a journal `message` entry tagged with the project slug.
+11. **Update the dependabotany ledger** as a journal `message` entry tagged with the project slug. The ledger has no index: it is *only* the set of entries a later sweep can grep back, so the entry must satisfy **both** halves of the recovery command — a `project: <slug>` line on its own line in the body, and a heading matching `# Dependabotany`. Recover the cumulative posture, and write new entries to be found by, this form:
+
+    ```sh
+    grep -rl '^project: <slug>$' journal/entries/ | xargs grep -il '^# *dependabotany'
+    ```
+
+    The `-i` is load-bearing and is not cosmetic tidying: entries written with a lowercase `# dependabotany …` heading are **invisible** to the case-sensitive form, and an invisible row is exactly the rot the backstop sweep exists to prevent. Precipitating evidence: 2026-07-29 on `endojs/endo-but-for-bots`, the case-sensitive grep recovered 25 of 27 ledger entries; the two it dropped (`2026/07/28/073334Z-…` for PR 556, `2026/07/28/073552Z-…` for PR 562) were both terminal, so nothing was lost that time, but an EMBARGO row hidden the same way would have left its PR relying on a one-shot the backstop could no longer verify.
 
 ## Autonomous disposition
 
