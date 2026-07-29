@@ -4,3 +4,10 @@ Promoting a poison-parked job re-poisons it immediately. When the reaper poisons
 This is live today: the sturdyref gauntlet `endo-sturdyref-agent-surface-build-gauntlet` sits in `plan/` behind `go-ahead` carrying poison metadata from the 07-26 overrun, and the press tick's guidance is that "a promoting liaison should clear or requeue past it" — a manual step no promoter is reliably going to perform, on a job that has already waited days for the promotion.
 
 Change: have `promote-plan.sh` strip the reaper's counter markers from the body as part of promotion (matching `REAP_MARKER_RE` and `DEADLINE_OVERRUN_MARKER_RE`, plus any stale `garden-reap-now` / `garden-productive-cycle` markers), and record what it cleared in the existing `<!-- garden-promoted-from-plan: … -->` provenance comment so the reset is auditable rather than silent. Promotion is a deliberate "run this again" act, so a clean counter is the correct semantics; the reaper's protection is unchanged, since a job that still fails deterministically re-accumulates and re-poisons on its own. Reuse the marker regexes from `common.sh` rather than re-spelling them. Related but out of scope: `post-plan.sh` re-parking paths.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-29T01:56:43Z
