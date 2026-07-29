@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:11:25Z_
+_As of 2026-07-29T02:11:53Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
-- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 53s)
+- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 5m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
@@ -4304,14 +4304,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $878.80 _(notional, rate-card)_ | no quota set |
-| Codex | 199.6M _(+462.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 54.1M | $874.46 _(notional, rate-card)_ | no quota set |
+| Codex | 199.2M _(+462.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (32)
+### doin (31)
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -4336,7 +4336,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
-- [`fu-endojs-endo-but-for-bots-pr124-feedback-triage-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr124-feedback-triage-4.md) — In the garden's own repo (kriscendobot/garden, branch main2), add scripts/job...
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
@@ -4345,13 +4344,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-ingest-shadowrealm-errors-and-content-type-companions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-shadowrealm-errors-and-content-type-companions.md) — Ingest the two module-harmony companion documents left over
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3801)
+### tada (3802)
+- [`fu-endojs-endo-but-for-bots-pr124-feedback-triage-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr124-feedback-triage-4.md) — What I did
 - [`scholar-ingest-did-core-plc-ucan-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-did-core-plc-ucan-specs.md) — Ingested W3C DID Core 1.0: 10 indexed sections plus source, topic, and concep...
 - [`scholar-library-cycle-20260729-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-013504.md) — Hourly scholar library cycle — 2026-07-29T01:36Z
 - [`endojs-endo-but-for-bots-pr761-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-rebase.md) — Completion report: endojs-endo-but-for-bots-pr761-rebase
 - [`fix-botanist-scripts-enabled-install-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-botanist-scripts-enabled-install-gap.md) — Completion report: fix-botanist-scripts-enabled-install-gap
-- [`fu-wallclock-cost-proxy-for-censored-arms-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-wallclock-cost-proxy-for-censored-arms-4.md) — Cost
-- … and 3796 more
+- … and 3797 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
