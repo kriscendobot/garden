@@ -24,9 +24,9 @@ state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || true)"
 
 # Mystic never supplies a fallback model. Keep the handler's direct invocation as
 # strict as claim-job.sh so an accidental manual invocation cannot bypass the
-# explicit-model-only routing policy.
-[ "$(plan_field "$jobfile" model)" = kimi-k3 ] \
-  || die "mystic only runs explicit model: kimi-k3 jobs (refusing '$base')"
+# mentor capability boundary.
+[ "$(job_tier "$jobfile" 2>/dev/null || true)" = mentor ] \
+  || die "mystic only runs tier: mentor jobs (refusing '$base')"
 kimi_provider_preflight "$base" || exit 1
 
 # Publish the resolved model so the fleet's gh wrapper can stamp it into the

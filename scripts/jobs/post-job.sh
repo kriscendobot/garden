@@ -119,8 +119,8 @@ BODY="$(read_body)"
 # This is the automatic producer choke point.  No watcher, scheduler, follow-up,
 # auction, or role-generated job can retain a Claude pin during the quota route.
 if [ "${GARDEN_MANUAL_DISPATCH:-}" = 1 ]; then
-  manual_model="$(printf '%s\n' "$BODY" | sed -n '2,/^---$/s/^model:[[:space:]]*//p' | head -1)"
-  case "$manual_model" in mentat|fable|claude-fable-5) :;; *) die "manual dispatch may select only mentat/Fable";; esac
+  manual_tier="$(printf '%s\n' "$BODY" | sed -n '2,/^---$/s/^tier:[[:space:]]*//p' | head -1)"
+  [ "$manual_tier" = mentat ] || die "manual dispatch may select only tier: mentat"
 else
   BODY="$(printf '%s\n' "$BODY" | automatic_route_body)"
 fi

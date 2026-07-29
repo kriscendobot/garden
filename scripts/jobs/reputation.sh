@@ -205,14 +205,12 @@ rep_target() {
 # Prints three lines: provider, model, thoughtfulness.
 rep_resolve_arm() {
   local kind="${1:?rep_resolve_arm: kind}" jf="${2:?rep_resolve_arm: jobfile}"
-  local provider="" model="" effort="" role="" req_model="" req_effort=""
+  local provider="" model="" effort="" role="" req_tier="" req_effort=""
   provider="$(worker_kind_field "$kind" provider 2>/dev/null || echo anthropic)"
   role="$(plan_role "$jf")"
-  req_model="$(plan_field "$jf" model)"
+  req_tier="$(job_tier "$jf" 2>/dev/null || true)"
   req_effort="$(plan_field "$jf" effort)"
-  if [ -n "$req_model" ]; then
-    model="$(resolve_model_tier "$provider" "$req_model")"
-  fi
+  [ -n "$req_tier" ] && model="$(tier_model_for_provider "$req_tier" "$provider")"
   [ -n "$model" ] || model="$(role_default_model "$kind" "$role")"
   # Fleet default when still unresolved: openai and local read their concrete
   # default from the journal-backed routing table (model_routing_default), so a

@@ -118,20 +118,17 @@ if [ -z "$fleet_default_model" ]; then
     *)     fleet_default_model="gpt-5.6-terra" ;;
   esac
 fi
-requested_model="$(plan_field "$jobfile" model)"
+requested_tier="$(job_tier "$jobfile" 2>/dev/null || true)"
 requested_role="$(plan_role "$jobfile")"
 requested_effort="$(plan_field "$jobfile" effort)"
 
 model=""
-if [ "$provider" = fireworks ]; then
-  [ -n "$requested_model" ] || die "fireworker only runs explicit model: fireworks/<wire-model-or-deployment-id> jobs (refusing '$base')"
-fi
-if [ -n "$requested_model" ]; then
-  model="$(resolve_model_tier "$provider" "$requested_model")"
+if [ -n "$requested_tier" ]; then
+  model="$(tier_model_for_provider "$requested_tier" "$provider")"
   if [ -n "$model" ]; then
-    log "job '$base' requested model '$requested_model' -> codex -m $model"
+    log "job '$base' resolved tier '$requested_tier' -> codex -m $model"
   else
-    log "job '$base' requested unknown $provider model '$requested_model'; falling back to the $KIND default $fleet_default_model"
+    die "job '$base' tier '$requested_tier' is unavailable to $provider"
   fi
 fi
 if [ -z "$model" ] && [ -n "$requested_role" ]; then
@@ -144,7 +141,7 @@ fi
 # wire identifier after `fireworks/`, which can be a Serverless, Fast-router, or
 # dedicated deployment id without a code/catalog release.
 if [ "$provider" = fireworks ]; then
-  [[ "$model" == fireworks/* ]] && [ -n "${model#fireworks/}" ] || die "invalid Fireworks model selector '$requested_model'"
+  [[ "$model" == fireworks/* ]] && [ -n "${model#fireworks/}" ] || die "invalid Fireworks model selector for tier '$requested_tier'"
   model="${model#fireworks/}"
 fi
 

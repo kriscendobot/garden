@@ -12,9 +12,13 @@ for attempt in $(seq 1 50); do
   for sub in "$JOBS_TODO" "$JOBS_PLAN"; do
     for f in "$DIR/$sub"/*.md; do
       [ -f "$f" ] || continue
-      [ "$(plan_field "$f" dispatch)" = manual ] && continue
       tmp="$(mktemp "${TMPDIR:-/tmp}/garden-tier-migrate.XXXXXX")"
-      automatic_route_body < "$f" > "$tmp"
+      if [ "$(plan_field "$f" dispatch)" = manual ]; then
+        # Deterministic legacy manual Fable conversion; reject other old manual ids.
+        if [ "$(job_tier "$f" 2>/dev/null || true)" = mentat ]; then
+          sed -E 's/^model:[[:space:]]*(claude-fable-5|mentat|fable)[[:space:]]*$/tier: mentat/' "$f" > "$tmp"
+        else cp "$f" "$tmp"; fi
+      else automatic_route_body < "$f" > "$tmp"; fi
       if ! cmp -s "$f" "$tmp"; then mv "$tmp" "$f"; git -C "$DIR" add "${f#"$DIR/"}"; changed=$((changed+1)); else rm -f "$tmp"; fi
     done
   done

@@ -17,15 +17,25 @@ bad() { echo "FAIL: $*"; fail=1; }
 model_dispatch_tier openai gpt-new >/dev/null 2>&1 && bad "unknown model classified" || ok "unknown model fails closed"
 
 auto="$(printf '%s\\n' '---' 'role: builder' 'model: opus' 'fallback-model: fable' '---' body | automatic_route_body)"
-printf '%s\\n' "$auto" | grep -qx 'model: kimi-k3' && ok "automatic Claude pin routes to mentor" || bad "automatic model route"
-printf '%s\\n' "$auto" | grep -qx 'fallback-model: gpt-5.6-terra' && ok "automatic fallback is qualified non-Claude" || bad "automatic fallback"
+printf '%s\\n' "$auto" | grep -qx 'tier: mentor' && ok "automatic output pins mentor capability" || bad "automatic tier route"
+printf '%s\\n' "$auto" | grep -qx 'fallback-tier: minion' && ok "automatic fallback is a capability tier" || bad "automatic fallback"
 printf '%s\\n' "$auto" | grep -qx 'dispatch: automatic' && ok "automatic marker" || bad "automatic marker"
-! printf '%s\\n' "$auto" | grep -Eq '^model: (fable|opus|claude-)' && ok "automatic output contains no Claude pin" || bad "automatic Claude leaked"
+! printf '%s\\n' "$auto" | grep -Eq '^(model|fallback-model):' && ok "automatic output contains no concrete model pin" || bad "automatic model leaked"
 
 [ "$(resolve_model_tier anthropic mentat)" = claude-fable-5 ] && ok "manual mentat binds Fable" || bad "mentat binding"
 [ "$(resolve_model_tier moonshot kimi-k3)" = kimi-k3 ] && ok "mentor Kimi binds" || bad "mentor binding"
+[ "$(tier_model_for_provider mentor moonshot)" = kimi-k3 ] && ok "mentor currently selects Kimi" || bad "mentor selection"
+[ "$(tier_model_for_provider minion anthropic)" = claude-opus-4-8 ] && ok "minion selects Opus when Anthropic is available" || bad "minion Opus selection"
+[ "$(tier_model_for_provider minion openai)" = gpt-5.6-terra ] && ok "minion selects Codex when OpenAI is available" || bad "minion Codex selection"
+[ -z "$(tier_model_for_provider mentat moonshot)" ] && ok "mentat is not available through automatic Moonshot routing" || bad "mentat boundary"
 [ "$(role_default_model gardener designer)" = kimi-k3 ] && ok "designer default is capped at mentor" || bad "designer default"
 [ "$(role_default_model gardener builder)" = kimi-k3 ] && ok "builder default is capped at mentor" || bad "builder default"
 [ "$(role_default_model mystic builder)" = kimi-k3 ] && ok "Kimi builder is mechanically defaultable" || bad "mystic builder default"
+
+legacy="$(mktemp)"; printf '%s\n' '---' 'model: kimi-k3' '---' > "$legacy"
+[ "$(job_tier "$legacy")" = mentor ] && ok "legacy concrete Kimi job migrates deterministically" || bad "legacy migration"
+printf '%s\n' '---' 'tier: minion' '---' > "$legacy"
+[ "$(job_tier "$legacy")" = minion ] && ok "tier intent survives a model assignment change" || bad "tier intent"
+rm -f "$legacy"
 
 exit "$fail"

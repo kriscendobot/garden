@@ -151,19 +151,18 @@ fi
 # NOT silently drop to the role default, since naming `model:` at all signals an
 # intent to override the role policy. A concrete `claude-*` id passes through.
 model_args=()
-requested_model="$(plan_field "$jobfile" model)"
+requested_tier="$(job_tier "$jobfile" 2>/dev/null || true)"
 requested_role="$(plan_role "$jobfile")"
 if [ "$(plan_field "$jobfile" dispatch)" != manual ] \
-   || [ "$(resolve_model_tier anthropic "$requested_model")" != "claude-fable-5" ]; then
+   || [ "$requested_tier" != mentat ]; then
   die "Claude handler accepts only explicit manual mentat/Fable jobs"
 fi
-if [ -n "$requested_model" ]; then
-  resolved_model="$(resolve_model_tier "$requested_model")"
+if [ -n "$requested_tier" ]; then
+  resolved_model="$(tier_model_for_provider "$requested_tier" anthropic)"
   if [ -n "$resolved_model" ]; then
-    model_args=(--model "$resolved_model")
-    log "job '$base' requested model '$requested_model' -> claude --model $resolved_model"
+    model_args=(--model "$resolved_model"); log "job '$base' resolved tier '$requested_tier' -> claude --model $resolved_model"
   else
-    log "job '$base' requested unknown model '$requested_model'; falling back to the default model (no --model)"
+    log "job '$base' requested unavailable tier '$requested_tier'; falling back to the default model (no --model)"
   fi
 elif [ -n "$requested_role" ]; then
   resolved_model="$(role_default_model "$requested_role")"

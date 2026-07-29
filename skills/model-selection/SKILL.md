@@ -22,8 +22,8 @@ unclassified and cannot acquire an automatic route.
 ## Current quota route
 
 `post-job.sh` and `post-plan.sh` are the automatic producer choke points. They
-rewrite every body — including an existing Claude pin or a role default — to
-`model: kimi-k3`, `fallback-model: gpt-5.6-terra`, and `dispatch: automatic`.
+rewrite every body to `tier: mentor`, `fallback-tier: minion`, and `dispatch:
+automatic`. They never pin a provider or concrete model.
 This covers schedules, watchers, foreman, follow-ups, auctions, and role-produced
 jobs. The Kimi claim predicate does not require a Claude fallback, so builder work
 is mechanically claimable. On a genuine Kimi failure the reaper advances only the
@@ -37,7 +37,7 @@ Claude handler and backend-fit predicate accept only `dispatch: manual` Fable.
 
 After deploying this revision, run
 `scripts/jobs/migrate-model-tier-routing.sh` once on the leader. It CAS-rewrites
-existing `jobs/todo` and `jobs/plan` automatic entries to mentor/Kimi while leaving
+existing `jobs/todo` and `jobs/plan` automatic entries to `tier: mentor` while leaving
 explicit `dispatch: manual` mentat jobs untouched. New jobs are normalized by the
 posting primitives, so the migration is idempotent and does not need to remain on.
 

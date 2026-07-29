@@ -4303,6 +4303,7 @@ job_requirements_missing() { # <job-file> [fresh] — comma-separated unavailabl
 
 _model_routing_defaults_file() { printf '%s\n' "$GARDEN_ROOT/scripts/jobs/model-routing-defaults.tsv"; }
 _model_tier_inventory_file() {
+  [ -n "${GARDEN_MODEL_TIER_INVENTORY_FILE:-}" ] && { printf '%s\n' "$GARDEN_MODEL_TIER_INVENTORY_FILE"; return; }
   local f="$GARDEN_ROOT/scripts/jobs/model-tier-inventory.tsv"
   [ -f "$f" ] || f="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/model-tier-inventory.tsv"
   printf '%s\n' "$f"
@@ -4322,28 +4323,60 @@ model_dispatch_tier() {
 
 model_is_claude() { [ "$(model_dispatch_tier anthropic "${1:-}" 2>/dev/null || true)" != "" ]; }
 
-# automatic_route_body rewrites a producer body into the quota-period automatic
-# ceiling: mentor/Kimi.  It is called by BOTH posting primitives, which covers
-# watchers, schedules, foreman, follow-ups, auctions, and agent-produced jobs.
-# A non-Claude fallback is present for mechanical requeue safety.  Manual dispatch
-# is a separate command and never calls this function.
+# job_tier returns the durable requested capability tier.  `model:` is deliberately
+# a bounded migration surface: old queued jobs are read as their inventory tier,
+# but no new producer writes it.  Unknown models fail closed.
+job_tier() {
+  local f="$1" tier model p m t
+  tier="$(plan_field "$f" tier)"
+  case "$tier" in mentat|mentor|minion|myrmidon) printf '%s\n' "$tier"; return 0;; esac
+  [ -n "$tier" ] && return 1
+  model="$(plan_field "$f" model)"; [ -n "$model" ] || return 1
+  # Previous releases accepted these selector aliases. Keep this finite migration
+  # vocabulary only; arbitrary provider/model strings never default.
+  case "$model" in
+    mentat|fable) printf '%s\n' mentat; return 0;;
+    opus|terra|luna|frontier|mini) printf '%s\n' minion; return 0;;
+    sonnet|haiku) printf '%s\n' myrmidon; return 0;;
+  esac
+  while IFS=$'\t' read -r p m t; do
+    case "$p" in ''|\#*) continue;; esac
+    [ "$m" = "$model" ] && { printf '%s\n' "$t"; return 0; }
+  done < "$(_model_tier_inventory_file)"
+  return 1
+}
+
+# tier_model_for_provider resolves a capability tier at claim/run time.  The
+# durable job intent remains the tier when this inventory assignment changes.
+tier_model_for_provider() {
+  local wanted="$1" provider="$2" p m t
+  while IFS=$'\t' read -r p m t; do
+    case "$p" in ''|\#*) continue;; esac
+    [ "$p" = "$provider" ] && [ "$t" = "$wanted" ] && _model_classify "$p" "$m" && { printf '%s\n' "$m"; return 0; }
+  done < "$(_model_tier_inventory_file)"
+  return 1
+}
+
+# automatic_route_body rewrites producer output to the quota-period capability
+# ceiling.  Concrete model ids must never become durable automatic job intent.
 automatic_route_body() {
   awk '
     function trim(s){sub(/^[ \t]+/,"",s);sub(/[ \t]+$/, "",s);return s}
     { line[++n]=$0 }
     END {
       if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
-      if (!end) { print "---"; print "model: kimi-k3"; print "fallback-model: gpt-5.6-terra"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
-      seenmodel=seenfallback=seendispatch=0
+      if (!end) { print "---"; print "tier: mentor"; print "fallback-tier: minion"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
+      seentier=seenfallback=seendispatch=0
       for(i=1;i<end;i++) {
         if(i==1){print line[i]; continue}
-        if(line[i] ~ /^model:[ \t]*/) { print "model: kimi-k3"; seenmodel=1; continue }
-        if(line[i] ~ /^fallback-model:[ \t]*/) { print "fallback-model: gpt-5.6-terra"; seenfallback=1; continue }
+        if(line[i] ~ /^(model|fallback-model):[ \t]*/) continue
+        if(line[i] ~ /^tier:[ \t]*/) { print "tier: mentor"; seentier=1; continue }
+        if(line[i] ~ /^fallback-tier:[ \t]*/) { print "fallback-tier: minion"; seenfallback=1; continue }
         if(line[i] ~ /^dispatch:[ \t]*/) { print "dispatch: automatic"; seendispatch=1; continue }
         print line[i]
       }
-      if (!seenmodel) print "model: kimi-k3"
-      if (!seenfallback) print "fallback-model: gpt-5.6-terra"
+      if (!seentier) print "tier: mentor"
+      if (!seenfallback) print "fallback-tier: minion"
       if (!seendispatch) print "dispatch: automatic"
       for(i=end;i<=n;i++) print line[i]
     }'
@@ -4554,6 +4587,11 @@ role_default_model() {
   esac
 }
 
+# role_default_tier is the producer-facing counterpart of role_default_model.
+# Automatic producers currently always request mentor; concrete worker choices are
+# resolved only at claim time.
+role_default_tier() { printf '%s\n' mentor; }
+
 # role_default_effort [kind] <role> -> the default thoughtfulness (reasoning-effort)
 # level a role runs at for a race/pre-auction job that names no explicit `effort:`
 # header (design §5): `high` for the design-heavy designer/builder roles, `medium`
@@ -4614,7 +4652,7 @@ kimi_fallback_enabled() {
   [ "$v" = on ]
 }
 
-# reroute_job_model — on stdin a job BODY (leading YAML frontmatter + text as
+# reroute_job_model — compatibility-named reaper transform on stdin a job BODY.
 # clean_body produces it). If the frontmatter pins `model:` to a burnable value
 # AND carries a non-empty `fallback-model:` chain, ADVANCE the pin to the chain
 # head, POP that head, and append the burned model to `model-burned:`; print the
@@ -4636,12 +4674,14 @@ reroute_job_model() {
         for (i=2;i<=NR;i++) if (line[i]=="---") { fm_end=i; break }
       }
       if (fm_end==0) { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # no frontmatter -> no-op
-      # Read model:, fallback-model:, model-burned: from the frontmatter.
+      # Prefer durable tier:/fallback-tier:.  model fields remain migration-only.
       model=""; mi=0; chain=""; ci=0; burned=""; bi=0
       for (i=2;i<fm_end;i++) {
         l=line[i]
-        if (l ~ /^model:[ \t]*/)               { model=trim(substr(l, index(l,":")+1));  mi=i }
-        else if (l ~ /^fallback-model:[ \t]*/)  { chain=trim(substr(l, index(l,":")+1));  ci=i }
+        if (l ~ /^tier:[ \t]*/)                { model=trim(substr(l, index(l,":")+1));  mi=i; tierkey=1 }
+        else if (l ~ /^fallback-tier:[ \t]*/)  { chain=trim(substr(l, index(l,":")+1));  ci=i; fallbackkey=1 }
+        else if (l ~ /^model:[ \t]*/ && !mi)   { model=trim(substr(l, index(l,":")+1));  mi=i }
+        else if (l ~ /^fallback-model:[ \t]*/ && !ci) { chain=trim(substr(l, index(l,":")+1)); ci=i }
         else if (l ~ /^model-burned:[ \t]*/)    { burned=trim(substr(l, index(l,":")+1)); bi=i }
       }
       if (model=="" || chain=="") { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # nothing to route
@@ -4656,14 +4696,14 @@ reroute_job_model() {
       if (next_model=="") { for (i=1;i<=NR;i++) print line[i]; exit 1 }  # empty chain -> no-op
       # The reaper is automatic machinery.  A legacy Claude fallback must never
       # reintroduce an automatic Claude pin during the quota route.
-      if (model=="kimi-k3" && (next_model=="mentat" || next_model=="fable" || next_model=="opus" || next_model=="sonnet" || next_model=="haiku" || next_model ~ /^claude-/)) next_model="gpt-5.6-terra"
+      if (model=="mentor" && next_model=="mentat") next_model="minion"
       new_burned=(burned==""?model:burned" "model)
       # Emit, rewriting model:/fallback-model:/model-burned:. When model-burned:
       # was absent (bi==0) insert it immediately after the model: line so it lands
       # inside the frontmatter block.
       for (i=1;i<=NR;i++) {
-        if (i==mi)      { print "model: " next_model; if (bi==0) print "model-burned: " new_burned }
-        else if (i==ci) { print "fallback-model: " rest }
+        if (i==mi)      { print (tierkey ? "tier: " : "model: ") next_model; if (bi==0) print "model-burned: " new_burned }
+        else if (i==ci) { print (fallbackkey ? "fallback-tier: " : "fallback-model: ") rest }
         else if (i==bi) { print "model-burned: " new_burned }
         else            { print line[i] }
       }

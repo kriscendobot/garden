@@ -44,8 +44,8 @@ hr; echo "CLASSIFY — the tracked default table routes the current (qwen) reali
 [ -z "$(resolve_model_tier anthropic qwen3:0.6b)" ]          && ok "qwen3:0.6b is NOT anthropic" || bad "qwen leaked to anthropic"
 [ -z "$(resolve_model_tier openai qwen3:0.6b)" ]             && ok "qwen3:0.6b is NOT openai" || bad "qwen leaked to openai"
 [ "$(resolve_model_tier anthropic claude-opus-4-8)" = "claude-opus-4-8" ] && ok "claude-* → anthropic" || bad "claude not anthropic"
-[ "$(resolve_model_tier openai gpt-5.6)" = "gpt-5.6" ]       && ok "gpt-5.6 → openai" || bad "gpt-5.6 not openai"
-[ "$(resolve_model_tier openai o3)" = "o3" ]                 && ok "o3 → openai" || bad "o3 not openai"
+[ "$(resolve_model_tier openai gpt-5.6-terra)" = "gpt-5.6-terra" ] && ok "gpt-5.6-terra → openai" || bad "terra not openai"
+[ -z "$(resolve_model_tier openai o3)" ]                     && ok "unknown o3 fails closed" || bad "o3 classified"
 [ -z "$(resolve_model_tier openai opus)" ]                   && ok "'opus' word not mis-captured by openai (o[0-9]* not o*)" || bad "openai captured opus"
 # gpt-oss is retired from local and excluded from openai → UNPINNED (no provider).
 [ -z "$(resolve_model_tier local gpt-oss:20b)" ]  && ok "gpt-oss:20b is NOT local" || bad "gpt-oss still local"
@@ -69,16 +69,16 @@ hr; echo "DEFAULTS — fleet defaults ride the routing table"; hr
 # ============================================================================
 hr; echo "OVERRIDE — an explicit table file changes routing with no code edit"; hr
 OVR="$(mktemp)"
-printf 'local\tmistral*\tmistral-small\n' > "$OVR"
+printf 'local\tqwen3:0.6b\tqwen3:0.6b\n' > "$OVR"
 (
   export GARDEN_MODEL_ROUTING_FILE="$OVR"
-  [ "$(resolve_model_tier local mistral-small)" = "mistral-small" ] && echo OK1 || echo BAD1
-  [ -z "$(resolve_model_tier local qwen3:0.6b)" ]                   && echo OK2 || echo BAD2
-  [ "$(model_routing_default local)" = "mistral-small" ]           && echo OK3 || echo BAD3
+  [ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ] && echo OK1 || echo BAD1
+  [ "$(model_routing_default local)" = "qwen3:0.6b" ]         && echo OK2 || echo BAD2
+  [ -z "$(resolve_model_tier local mistral-small)" ]            && echo OK3 || echo BAD3
 ) | {
-  read a; [ "$a" = OK1 ] && ok "override reroutes local → mistral" || bad "override reroute"
-  read a; [ "$a" = OK2 ] && ok "override drops qwen (complete-table replacement)" || bad "override qwen drop"
-  read a; [ "$a" = OK3 ] && ok "override default = mistral-small" || bad "override default"
+  read a; [ "$a" = OK1 ] && ok "override retains reviewed local model" || bad "override route"
+  read a; [ "$a" = OK2 ] && ok "override default is reviewed local model" || bad "override default"
+  read a; [ "$a" = OK3 ] && ok "override cannot enable unknown model" || bad "override closed inventory"
 }
 rm -f "$OVR"
 
@@ -114,16 +114,16 @@ run_helper() {  # run_helper <args...> — invoke set-model-routing.sh against $
 }
 journal_show() { git -C "$TR/journal.git" show "journal2:config/model-routing" 2>/dev/null; }
 
-run_helper local 'qwen* mistral*' mistral-small >/dev/null 2>&1 \
+run_helper local 'qwen3:0.6b' qwen3:0.6b >/dev/null 2>&1 \
   && ok "upsert local row committed" || bad "upsert failed"
-journal_show | grep -qE '^local	qwen\* mistral\*	mistral-small$' \
+journal_show | grep -qE '^local	qwen3:0.6b	qwen3:0.6b$' \
   && ok "journal row written verbatim" || bad "journal row wrong ($(journal_show | grep '^local'))"
 # a fresh gardener clone of the journal now reads the override via the read precedence.
 CLONE="$TR/state/gardeners/1/journal"; git clone -q --branch journal2 "$TR/journal.git" "$CLONE"
-( export GARDEN_GARDENER_CLONE="$CLONE"; [ "$(resolve_model_tier local mistral-small)" = "mistral-small" ] ) \
-  && ok "gardener clone reads journal override → mistral-small classifies local" || bad "clone did not read override"
+( export GARDEN_GARDENER_CLONE="$CLONE"; [ "$(resolve_model_tier local qwen3:0.6b)" = "qwen3:0.6b" ] ) \
+  && ok "gardener clone reads journal override for reviewed local model" || bad "clone did not read override"
 # other rows are seeded from the tracked defaults so the table stays COMPLETE.
-journal_show | grep -qE '^anthropic	claude-\*' && ok "seeded-from-default anthropic row present (complete table)" || bad "table not complete"
+journal_show | grep -qE '^anthropic	claude-fable-5' && ok "seeded-from-default anthropic row present (complete table)" || bad "table not complete"
 # remove a row.
 run_helper --remove openai >/dev/null 2>&1 && ok "remove openai committed" || bad "remove failed"
 journal_show | grep -qE '^openai	' && bad "openai row still present after remove" || ok "openai row gone after remove"
