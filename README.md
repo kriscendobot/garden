@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T01:45:18Z_
+_As of 2026-07-29T01:52:16Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
-- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 5m)
+- [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867) — chore: bump @noble/curves from 1.9.0 to 2.2.0 (waiting 15m)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 4d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 9d)
@@ -2854,6 +2854,58 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > to pick up da2572a260. Until then those hosts keep misclassifying capped handlers
 > and keep silently satisfying declined blockers.
 
+- `20260729T014905Z-e6bc8a` — from gardener:endojs-endo-but-for-bots-pr124-feedback-triage, reply_to `endojs-endo-but-for-bots-pr124-feedback-triage` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T014905Z-e6bc8a.md)
+
+> Two items from the [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) feedback triage that need a maintainer decision.
+>
+> 1. **Promote `garden-style-url-not-path`?** kriskowal asked on
+> [https://github.com/endojs/endo-but-for-bots/pull/124](https://github.com/endojs/endo-but-for-bots/pull/124)#discussion_r3548837460 for the
+> "prefer `new URL(...)` path math over importing node `path`" convention to be recorded
+> in the style guide and added to the reviewer pool. The job was posted 2026-07-09 but
+> has sat in `plan/` behind a `gate: go-ahead` ever since, so nothing is recorded yet.
+> Its sibling from the same review (`garden-style-typist-codepoints`) landed. A go-ahead
+> job is only ever promoted by maintainer authorization, so this needs the word.
+>
+> 2. **Which sense of "the XS sqlite bindings are ready" gates [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124)?** The raw host
+> bindings (`rust/endo/xsnap/src/powers/sqlite.rs`) landed 2026-05-02, before the pause
+> review, so they cannot be the blocker. The durable-store layer on top
+> (PRs 811, 819, 690, 825) is still entirely unmerged. Asked on the PR at
+> [https://github.com/endojs/endo-but-for-bots/pull/124](https://github.com/endojs/endo-but-for-bots/pull/124)#discussion_r3670370164 . [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124)
+> stays draft and unrebased until answered.
+
+- `20260729T014925Z-c513d0` — from gardener:endojs-endo-but-for-bots-pr779-panel-remaining-seats, reply_to `endojs-endo-but-for-bots-pr779-panel-remaining-seats` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T014925Z-c513d0.md)
+
+> Process note from the [endojs/endo-but-for-bots#779](https://github.com/endojs/endo-but-for-bots/issues/779) panel-completion job.
+>
+> The "reduced panel + spillover job" workaround is now obsolete, and job specs are still
+> being written on its premise. My job spec said `panel.sh` "fans its 28 code seats
+> SEQUENTIALLY" and sized a 10800s handler budget around that. That is no longer true on
+> `main2`: `panel.sh` fans seats in bounded parallel (`GARDEN_PANEL_CONCURRENCY`, default 8),
+> and it also has a `GARDEN_PANEL_SINGLE_ROUND=1` mode that runs exactly one round, prints the
+> disposition, and stops without running the fixer, appellate, or un-draft — which is exactly
+> what a review-only or backfill panel job wants, and is cleaner than the
+> `GARDEN_PANEL_MAX_ROUNDS=1` trick my spec suggested (that one exits non-zero via
+> "did not converge").
+>
+> Measured: 18 seats at concurrency 4 finished in about 20 minutes against a 1551-line,
+> 59-file diff — comfortably inside a default 2400s handler budget. A full 28-seat panel
+> should fit in one claim now.
+>
+> Two things follow:
+>
+> 1. Whoever writes panel/gauntlet jobs should stop splitting them into reduced panels with
+>    spillover follow-ups. Splitting has a real cost I hit here: the first 10 seats reviewed
+>    `55330da2`, the fixer then pushed `b08607b8`, and by the time I claimed the spillover the
+>    named head was superseded. I reviewed the new head instead (the old one no longer exists
+>    in any meaningful sense), but that meant two rounds reviewing two different trees, and
+>    two of the first round's must-fix items were still open and had to be re-verified and
+>    re-routed to a third job.
+>
+> 2. One deployment note: the deployed garden root has the concurrency knob but not
+>    `GARDEN_PANEL_SINGLE_ROUND` — that one is on `main2` and has not deployed yet. I ran the
+>    `main2` copy out of my job worktree. Worth a deploy so jobs that shell the root's
+>    `scripts/jobs/gardening/panel.sh` get it.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4045,21 +4097,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $832.06 _(notional, rate-card)_ | no quota set |
-| Codex | 205.6M _(+453.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 53.3M | $850.55 _(notional, rate-card)_ | no quota set |
+| Codex | 203.4M _(+456.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
-- [`clarify-botanist-step6-shepherd-vs-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/clarify-botanist-step6-shepherd-vs-fixer.md) — Botanist step 6: resolve the shepherd-versus-fixer tension, and the missing v...
-- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
+### todo (3)
+- [`endojs-endo-but-for-bots-pr761-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr761-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #761
+- [`endojs-endo-but-for-bots-pr882-panel-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr882-panel-fix-1.md) — Panel fix round 1 for https://github.com/endojs/endo-but-for-bots/pull/882
+- [`fu-wallclock-cost-proxy-for-censored-arms-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-wallclock-cost-proxy-for-censored-arms-4.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 
-### doin (28)
+### doin (30)
+- [`clarify-botanist-step6-shepherd-vs-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/clarify-botanist-step6-shepherd-vs-fixer.md) — Botanist step 6: resolve the shepherd-versus-fixer tension, and the missing v...
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
+- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260728-130502.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
+- [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
-- [`endojs-endo-but-for-bots-pr124-feedback-triage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-feedback-triage.md) — Account for all feedback on endojs/endo-but-for-bots #124
 - [`endojs-endo-but-for-bots-pr169-6f24fd4e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr169-6f24fd4e.md) — attention directive on endojs/endo-but-for-bots PR #169
 - [`endojs-endo-but-for-bots-pr282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #340
@@ -4067,31 +4120,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr657-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr657-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #657
 - [`endojs-endo-but-for-bots-pr669-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr669-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #669
 - [`endojs-endo-but-for-bots-pr671-review-9737517c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr671-review-9737517c.md) — Review directive on endojs/endo-but-for-bots PR #671
+- [`endojs-endo-but-for-bots-pr676-review-87b8c044`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr676-review-87b8c044.md) — Review directive on endojs/endo-but-for-bots PR #676
 - [`endojs-endo-but-for-bots-pr683-review-84f0d6ef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr683-review-84f0d6ef.md) — Review directive on endojs/endo-but-for-bots PR #683
 - [`endojs-endo-but-for-bots-pr705-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr705-merge.md) — Merge endojs/endo-but-for-bots PR #705
 - [`endojs-endo-but-for-bots-pr713-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-panel-fixes.md) — Fixer: PR #713 panel must-fix + summary-fix bundle
 - [`endojs-endo-but-for-bots-pr713-review-2b03f8c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-review-2b03f8c3.md) — Review directive on endojs/endo-but-for-bots PR #713
-- [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Full 28-seat code panel for https://github.com/endojs/endo-but-for-bots/pull/779
+- [`endojs-endo-but-for-bots-pr779-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr779-panel-fixes.md) — Fix panel must-fix items on https://github.com/endojs/endo-but-for-bots/pull/779
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap.md) — The gardener spine defeats the botanist's scripts-disabled install
-- [`fix-pr-feedback-preflight-argv-e2big`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-pr-feedback-preflight-argv-e2big.md) — Fix pr-feedback-preflight: API payloads in argv blow ARG_MAX and silently fai...
-- [`fu-endojs-endo-but-for-bots-pr867-dependabot-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr867-dependabot-1.md) — In the garden's own repo (kriscendobot/garden, main2), scripts/jobs/ensure-pr...
+- [`fix-pr-feedback-preflight-argv-e2big-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-pr-feedback-preflight-argv-e2big-gauntlet.md) — ---
 - [`fu-endojs-endo-but-for-bots-pr882-shepherd-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr882-shepherd-1.md) — endojs/endo-but-for-bots PR https://github.com/endojs/endo-but-for-bots/pull/...
+- [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
-- [`investigate-pr721-review-false-peer-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-pr721-review-false-peer-resolution.md) — Investigate: a maintainer review directive was silently no-opped on a false p...
+- [`improve-drift-scan-refresh-once-per-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-drift-scan-refresh-once-per-source.md) — scripts/jobs/library-source-drift-scan.sh
 - [`scholar-ingest-atproto-ucan-did-specs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-atproto-ucan-did-specs.md) — Scholar: ingest the remaining ATProto / UCAN / DID primary specs
 - [`scholar-library-cycle-20260729-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-013504.md) — Hourly scholar library cycle
-- [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/wallclock-cost-proxy-for-censored-arms.md) — Wallclock as a cost proxy for arms whose dollar ledger is censored
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3781)
-- [`migrate-garden-origins-to-kriscendobot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/migrate-garden-origins-to-kriscendobot.md) — Cost
-- [`gnome-backend-autotune-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gnome-backend-autotune-build.md) — Completion report
-- [`fu-endojs-endo-but-for-bots-pr882-shepherd-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr882-shepherd-2.md) — Findings
-- [`xs2rust-endor-s1-daemon-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-s1-daemon-integration.md) — Completion report — xs2rust-endor-s1-daemon-integration (bin 1/3)
-- [`fu-endojs-endo-but-for-bots-pr867-dependabot-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr867-dependabot-2.md) — Cost
-- … and 3776 more
+### tada (3788)
+- [`endojs-endo-but-for-bots-pr124-feedback-triage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-feedback-triage.md) — What I did
+- [`endojs-endo-but-for-bots-pr779-panel-remaining-seats`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr779-panel-remaining-seats.md) — Report
+- [`investigate-pr721-review-false-peer-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/investigate-pr721-review-false-peer-resolution.md) — Completion report — investigate-pr721-review-false-peer-resolution
+- [`wallclock-cost-proxy-for-censored-arms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/wallclock-cost-proxy-for-censored-arms.md) — What I did
+- [`fu-endojs-endo-but-for-bots-pr867-dependabot-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr867-dependabot-1.md) — Cost
+- … and 3783 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4107,7 +4160,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
-- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · ---
+- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
 - [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
@@ -4249,6 +4302,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr683-review-84f0d6ef-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr683-review-84f0d6ef-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #683 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr671-review-9737517c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-9737517c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr169-6f24fd4e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr169-6f24fd4e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #169 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr676-review-87b8c044-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr676-review-87b8c044-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #676 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
