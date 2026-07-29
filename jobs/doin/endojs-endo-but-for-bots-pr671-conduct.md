@@ -43,3 +43,10 @@ Evidence gathered 2026-07-29T02:30Z (all re-verifiable):
     so the approval is not stale.
   - `scripts/jobs/handlers/pr-mergeable-gh.sh endojs/endo-but-for-bots 671` run
     from a `main2` checkout (with the deployed fix) exits 0.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 8
+  worker_kind: gardener
+  claimed_at: 2026-07-29T02:32:13Z
