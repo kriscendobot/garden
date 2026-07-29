@@ -1704,3 +1704,12 @@ Inspect via `git -C journal cat-file -p 5ba55646d6af14d08a26a7c975530f58bae09777
 - Context: gardener-2 on endolin-garden-ece02cb4: job 'fu-wallclock-cost-proxy-for-censored-arms-1' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 75c42f144d294262d2825e5bf6e48bbaf0865ca3`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-29T02:17:00Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: a8dabec3502eacc4ff4bf975c02fc9ef05e385a4
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'finbot-pr6-panel-20260728' exit-0-unsatisfying but elapsed near-constant (150,173s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p a8dabec3502eacc4ff4bf975c02fc9ef05e385a4`.
