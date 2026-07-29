@@ -56,3 +56,10 @@ The leader-only `garden-orchestrate` watcher promotes them one at a time.
   hardcoded `/home/...` path will be wrong on some hosts.
 - Pinned to `sonnet` deliberately: this tick reads state and classifies it. The
   Opus 5 pin belongs on the bins that do the engineering.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  claimed_at: 2026-07-29T00:50:10Z
