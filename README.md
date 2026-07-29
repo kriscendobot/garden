@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T07:32:35Z_
+_As of 2026-07-29T07:34:46Z_
 
 ## Latest
 
@@ -4720,11 +4720,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.8M | $827.66 _(notional, rate-card)_ | no quota set |
-| Codex | 70.4M _(+491.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 47.7M | $826.74 _(notional, rate-card)_ | no quota set |
+| Codex | 70.4M _(+491.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
-### todo (32)
+### todo (33)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -4733,6 +4733,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260729-072002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr282-5111900373-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-5111900373-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
 - [`endojs-endo-but-for-bots-pr647-review-ec3d282c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr647-review-ec3d282c.md) — Review directive on endojs/endo-but-for-bots PR #647
 - [`endojs-endo-but-for-bots-pr667-198c8d1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr667-198c8d1e.md) — attention directive on endojs/endo-but-for-bots PR #667
