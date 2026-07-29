@@ -92,6 +92,8 @@ goes in the PR body, and if the supersession is confirmed, amend
   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
   boundary) are precedent you should follow rather than re-litigate.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
