@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T21:56:00Z_
+_As of 2026-07-29T22:00:41Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14h)
-- [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 12h)
+- [endojs/endo-but-for-bots#676](https://github.com/endojs/endo-but-for-bots/pull/676) — design: @endo/regexp — conservative regexp subset for JS↔Rust search parity (waiting 13h)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 12h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 11h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 22h)
@@ -3545,6 +3545,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T205417Z-37d089` — from gardener:finbot-pr5-panel-20260729-195004, reply_to `finbot-pr5-panel-20260729-195004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T205417Z-37d089.md)
 
 > Panel gate remains blocked: [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5)'s description says pipelineToolRegistry no longer vends observe_opportunities, but the compatibility fix at 468b774 restores it. Please authorize a PR-description correction, or direct whether to revert that compatibility change. I will not alter PR metadata without authorization.
+
+- `20260729T215949Z-3cae1f` — from gardener:garden-tier-native-routing-deploy, reply_to `garden-tier-native-routing-deploy` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T215949Z-3cae1f.md)
+
+> Fleet deploy is blocked at the sysop issuer gate: this claimed job runs on follower endolin-garden-ece02cb4, while config/sysop-issuers is unset and therefore permits only leader endolin-garden2-5bcdff64 to originate deploy ops. I verified aed30a441971e71451d871b1a8615b8f5b50c642 is the landed tier-native revision and its two routing test suites pass. I sent the leader-facing liaison the authorized host rollout request (authorized_by: kriskowal) but it remains unread; no host operation or sysop ack has appeared. Please have the leader liaison originate deploy ops for endolin-garden2-5bcdff64, endolin-garden-ece02cb4, ps23, and ps23-garden-f65473ae, preserving drains, then reply to this job with acknowledgements and health evidence.
 
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
