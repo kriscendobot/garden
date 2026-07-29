@@ -1,0 +1,1 @@
+{"source":"result","num_turns":60,"elapsed_s":545,"input_tokens":100,"output_tokens":30360,"cache_creation_tokens":89480,"cache_read_tokens":4100448,"total_cost_usd":3.7065650000000008,"ts":"2026-07-29T01:57:07Z","base":"fix-pr-feedback-preflight-argv-e2big-gauntlet","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}
