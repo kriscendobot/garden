@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T02:34:52Z_
+_As of 2026-07-29T02:35:52Z_
 
 ## Latest
 
@@ -4521,14 +4521,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.3M | $900.15 _(notional, rate-card)_ | no quota set |
-| Codex | 183.6M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 55.2M | $898.24 _(notional, rate-card)_ | no quota set |
+| Codex | 183.5M _(+462.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (36)
+### doin (35)
 - [`endo-cbor-adopt-ocapn-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-ocapn-gauntlet.md) — ---
 - [`endo-git-integration-press-20260729-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260729-012002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-meeting-agenda-20260728-200501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-meeting-agenda-20260728-200501.md) — Endo meeting agenda prep (weekly, Tuesday afternoon) — propose topics for the...
@@ -4560,19 +4560,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr169-6f24fd4e-1.md) — In endojs/endo-but-for-bots on the llm branch, designs/README.md states (149 ...
 - [`fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-endojs-endo-but-for-bots-pr124-feedback-triage-4-2.md) — In the garden's own repo (kriscendobot/garden, branch main2, no PR workflow),...
 - [`fu-fu-improve-promote-plan-poison-reset-3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-1.md) — In the garden's own repo (kriscendobot/garden, main2), fix scripts/jobs/proxy...
-- [`fu-fu-improve-promote-plan-poison-reset-3-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-fu-improve-promote-plan-poison-reset-3-2.md) — In the garden's own repo (kriscendobot/garden, main2), harden scripts/jobs/an...
 - [`fu-wallclock-cost-proxy-for-censored-arms-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-wallclock-cost-proxy-for-censored-arms-1.md) — In the garden's own repo (kriscendobot/garden, branch main2, direct push — no...
 - [`improve-deploy-gate-on-script-test-suites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deploy-gate-on-script-test-suites.md) — scripts/jobs/deploy-garden.sh
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3808)
+### tada (3809)
+- [`fu-fu-improve-promote-plan-poison-reset-3-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-fu-improve-promote-plan-poison-reset-3-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr671-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr671-conduct.md) — Cost
 - [`endo-cbor-adopt-primitives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-primitives.md) — orchestration endo-cbor-adopt-primitives — HALTED
 - [`endojs-endo-but-for-bots-pr331-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr331-refresh.md) — Job report: refresh endojs/endo-but-for-bots #331
 - [`fu-improve-promote-plan-poison-reset-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-improve-promote-plan-poison-reset-3.md) — What I did
-- [`endo-git-integration-press-20260728-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260728-130502.md) — Completion report — endo-git-integration-press-20260728-130502
-- … and 3803 more
+- … and 3804 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
