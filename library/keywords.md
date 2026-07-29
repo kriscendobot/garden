@@ -39,3 +39,7 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - ucan 1.0, ucan/dlg, ucan/inv, powerline, principal alignment, attenuation, subject command policy, varsig, zdpu -> ucan-delegation
 - at-uri scheme, at:// authority, AT URI normalization, not content-addressed, strong reference, handle-based URI, NSID, record key, rkey, DRISL-CBOR, $link, $bytes, blessed CID, cid-link, DASL, DASL-CID, atproto blob, uploadBlob, getBlob, listBlobs, AppView, atproto data model -> atproto-repository-mst
 - atproto firehose, subscribeRepos, #commit event, #sync event, #identity event, #account event, relay, full-network firehose, prevData, operation inversion, inductive verification, repo revision, Atproto-Repo-Rev, getRepo, CAR export, record-level synchronization, desynchronized -> atproto-repository-mst
+- import attributes, import assertions, `with { type: "json" }`, `assert { type: "json" }`, module type attribute, JSON modules, module cache key, attributes versus phases -> module-harmony-intersection-surface
+- asset references, `asset Foo from "foo"`, AssetReference, asset modules, require.resolve, require.resolveWeak, per-module asset authority, module identity without loading -> module-harmony-intersection-surface
+- ShadowRealm, incubator realm, callable boundary, wrapped function exotic object, identity discontinuity, importValue, distinct realm isolation, stack censoring -> module-harmony-intersection-surface
+- verifyPaymentProof, payment proof verification, resource ledger in gateway, PaymentProcessor -> monetization-gateway
