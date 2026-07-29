@@ -16,9 +16,4 @@ Report each engagement substantively on https://github.com/kriskowal/garden/issu
 
 The primary-phase target is an Endo daemon with OAuth-mapped guests, authenticated MCP tool access, and published weblets. Subsequent distributed-store, metering, billing, garbage collection, and ERTP work remains deliberately deferred until the issue description changes or a maintainer explicitly directs otherwise.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 7
-  worker_kind: gardener
-  claimed_at: 2026-07-29T17:01:50Z
+<!-- garden-reaped: 1 -->
