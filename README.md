@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T17:26:44Z_
+_As of 2026-07-29T17:27:56Z_
 
 ## Latest
 
@@ -3487,6 +3487,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration garden-mentor-tier-kimi-rollout HALTED: child garden-tier-vocabulary-kimi-routing stalled in flight for 2521s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; swept: garden-tier-routing-deploy garden-repin-open-claude-to-kimi
 
+- `20260729T172647Z-9ece40` — from gardener:finbot-pr6-panel-20260729, reply_to `finbot-pr6-panel-20260729` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T172647Z-9ece40.md)
+
+> [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) now includes three fix commits (residual-holding coverage, preserved gaps/journal evidence/CLI underflow validation, unreadable-threshold fail-closed handling); CI is green at 57199906edf. A fresh 28-seat formal panel still returned must-fix, chiefly requesting provenance binding of the descriptor to an attested cited artifact, plus several additional wiring/documentation findings. The PR remains draft; no Fable sign-off was posted.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5173,17 +5177,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 70.8M _(+572.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 70.8M _(+573.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
-### todo (20)
+### todo (19)
 - [`daily-progress-summary-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260729-070504.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-npm-cas-registry-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260729-072002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — role: orchestrator
-- [`garden-tier-vocabulary-kimi-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-tier-vocabulary-kimi-routing.md) — ---
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`scholar-ingest-did-plc-ucan-invocation-revocation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-did-plc-ucan-invocation-revocation.md) — Scholar: continue issue #34 source ingestion after W3C DID Core 1.0.
 - [`scholar-library-cycle-20260729-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-070504.md) — Hourly scholar library cycle
@@ -5198,12 +5201,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-172004.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (8)
+### doin (9)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
+- [`garden-tier-vocabulary-kimi-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tier-vocabulary-kimi-routing.md) — ---
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
 - [`model-tier-effectiveness-review-20260729-172004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/model-tier-effectiveness-review-20260729-172004.md) — Weekly model-tier effectiveness review
 - [`registry-immutable-byte-array-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup.md) — Immutable byte-array RegistryInterface follow-up
