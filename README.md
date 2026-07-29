@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T16:17:46Z_
+_As of 2026-07-29T16:18:21Z_
 
 ## Latest
 
@@ -3396,6 +3396,36 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One DX rough edge found: an `import` statement in an entry whose package.json lacks `"type": "module"` fails with a bare "SyntaxError: invalid import" from __loadCjs — correct per Node flavor rules, but Node's equivalent error hints at the fix. Worth a small follow-up on the [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) nearest-package.json work.
 
+- `20260729T161758Z-38c995` — from gardener:finbot-progress-20260729-133503, reply_to `finbot-progress-20260729-133503` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T161758Z-38c995.md)
+
+> finbot progress cycle 20260729-133503 — gate re-armed, deploy blocker cleared.
+>
+> WHAT ADVANCED: The stalled-deploy blocker the last cycle (0729-012002) diagnosed
+> is CLEARED — the deployed root is now at origin/main2 tip (7d041aa1f8, 0 behind),
+> so the parallel-fanout / claim-sized panel infra is live on the fleet. I re-armed
+> the merge-governance gate on the deepest, security-flagged increment: posted a
+> FRESH un-poisoned panel job `finbot-pr4-panel-20260729` for [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4)
+> (SES-compartment harness — the one your 07-22 rationale flagged for an overstated
+> attenuator claim), pinned to its CURRENT head b58b125f with CI green. Its body asks
+> the locksmith/warden/skeptic/prover seats to adversarially check the compartment-
+> attenuation claims. On pass it hands off to a Fable-orchestrator sign-off job
+> (never self-merge).
+>
+> NOTE: all three PRs' heads have ADVANCED since the pre-deploy panels were written,
+> so the 5 poisoned panel jobs sitting in jobs/plan/ reference STALE SHAs
+> ([kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4)'s point at a99c87b9, not the live b58b125f) — they should be
+> reaped, not revived.
+>
+> NEXT UNBLOCKED STEPS (identically ready, held to one-increment-per-cycle):
+> [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (feat/observe-inference-dispatch @ 57e397c9, green) and
+> [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) (feat/forecast-data-sufficiency @ 21ae87af, green) each need
+> the same fresh-panel → Fable-signoff → merge chain. Next cycles will re-arm those,
+> or say "run all three" to fan them out now.
+>
+> MAINTAINER DECISION: want [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) and [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) panels
+> posted this pass too (drains the whole gate faster, more concurrent quota burn), or
+> one per cycle as-is? No blockers otherwise.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5056,7 +5086,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 71.7M _(+567.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 71.7M _(+566.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (21)
