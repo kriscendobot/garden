@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-29T18:26:49Z_
+_As of 2026-07-29T18:27:47Z_
 
 ## Latest
 
@@ -5331,7 +5331,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 70.9M _(+590.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Codex | 70.7M _(+590.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (11)
@@ -5347,20 +5347,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-182004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-182004.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (5)
+### doin (4)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`finbot-pr6-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`minion-town-agenda-review-20260729-162012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-agenda-review-20260729-162012.md) — Minion Town daily agenda review
-- [`scholar-library-cycle-20260729-150501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-150501.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-160503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260729-160503.md) — Hourly scholar library cycle
 
-### tada (3895)
+### tada (3896)
+- [`scholar-library-cycle-20260729-150501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-150501.md) — Scholar library cycle (2026-07-29 18:00 UTC): synced the journal, provisioned...
 - [`registry-immutable-byte-array-followup-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/registry-immutable-byte-array-followup-gauntlet-clean.md) — Cost
 - [`scholar-library-cycle-20260729-140501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-140501.md) — Completed hourly scholar cycle: no actionable scholar inbox/topic requests. I...
 - [`scholar-library-cycle-20260729-120501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-120501.md) — Completed hourly scholar cycle. No actionable ingest or writeback work; no li...
 - [`scholar-library-cycle-20260729-130501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-130501.md) — Scholar cycle completed: no actionable inbox or topic requests; no library ch...
-- [`scholar-library-cycle-20260729-105002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260729-105002.md) — Cost
-- … and 3890 more
+- … and 3891 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
