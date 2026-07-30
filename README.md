@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:15:04Z_
+_As of 2026-07-30T00:17:19Z_
 
 ## Latest
 
@@ -5622,10 +5622,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 48.0M _(+619.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
+| Codex | 48.0M _(+620.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 80% _(plan; codex-reported)_ |
 
 ## Board
-### todo (36)
+### todo (38)
+- [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`design-npm-dev-publisher-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-npm-dev-publisher-attenuation.md) — ---
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-195004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -5637,8 +5638,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-195004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr652-fbc8cd33`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr652-fbc8cd33.md) — attention directive on endojs/endo-but-for-bots PR #652
 - [`endojs-endo-but-for-bots-pr836-review-03bd85ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-review-03bd85ff.md) — Review directive on endojs/endo-but-for-bots PR #836
+- [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd reconciliation
 - [`endojs-endo-but-for-bots-pr857-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr857-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #857
 - [`endojs-endo-but-for-bots-pr857-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr857-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #857
 - [`endojs-endo-but-for-bots-pr859-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr859-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #859
@@ -5650,6 +5651,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr876-review-ac5d6dfa.md) — Review directive on endojs/endo-but-for-bots PR #876
 - [`endojs-endo-but-for-bots-pr877-review-1eec395e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-review-1eec395e.md) — Review directive on endojs/endo-but-for-bots PR #877
 - [`endojs-endo-but-for-bots-pr878-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr878-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #878
+- [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr885-review-c5f39398`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-review-c5f39398.md) — Review directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr886-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr886-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #886
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — role: orchestrator
@@ -5668,16 +5670,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr403-ad7046e4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-ad7046e4.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr652-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #652
-- [`endojs-endo-but-for-bots-pr676-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr676-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #676
+- [`endojs-endo-but-for-bots-pr652-fbc8cd33`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-fbc8cd33.md) — attention directive on endojs/endo-but-for-bots PR #652
 - [`endojs-endo-but-for-bots-pr713-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #713
 - [`endojs-endo-but-for-bots-pr721-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr721-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #721
 
 ### tada (3923)
+- [`endojs-endo-but-for-bots-pr676-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr676-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endojs-endo-but-for-bots-pr875-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr875-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`garden-fireworks-glm52-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fireworks-glm52-rollout.md) — orchestration garden-fireworks-glm52-rollout — HALTED
 - [`ebfb-pr721-garden-response-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr721-garden-response-comment.md) — Cost
-- [`exo-git-follow-root-advancement-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/exo-git-follow-root-advancement-design.md) — Cost
 - … and 3918 more
 
 ## Plan queue (parked — not claimable until promoted)
@@ -5878,7 +5880,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
-- [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-regexp-conservative-subset.md) — awaiting `endojs/endo-but-for-bots#676` · Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
