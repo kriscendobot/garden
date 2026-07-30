@@ -4,7 +4,8 @@ job_basename_prefix: model-tier-effectiveness-review
 ---
 ---
 role: assayer
-model: kimi-k3
+tier: minion
+model: gpt-5.6-terra
 ---
 # Weekly model-tier effectiveness review
 
