@@ -1,8 +1,9 @@
 ---
 role: fixer
 priority: high
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -18,13 +19,4 @@ Determine concretely how each change relates, or does not relate, to PR #778. Po
 
 Record the posted comment URL and any commit SHA in the completion report.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-07-30T21:32:15Z
+<!-- garden-reaped: 0 -->
