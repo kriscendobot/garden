@@ -40,3 +40,13 @@ uses the deterministic canonical recompute and refuses unreconciled output.
 
 Per merge governance (2026-07-22), this increment lands only after both a passing
 panel and Fable-orchestrator sign-off. Never self-merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T05:08:28Z
