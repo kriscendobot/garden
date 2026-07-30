@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:49:18Z_
+_As of 2026-07-30T21:49:59Z_
 
 ## Latest
 
@@ -3820,12 +3820,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 32.9M _(+842.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 32.9M _(+843.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (67)
+### todo (66)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
-- [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr723-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr723-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
@@ -3894,20 +3893,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (7)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #893
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
 - [`endojs-endo-but-for-bots-pr713-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-panel-fixes.md) — Fixer: PR #713 panel must-fix + summary-fix bundle
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 
-### tada (4015)
+### tada (4016)
+- [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean.md) — Cost
 - [`deadmail-issue-comment-5136288718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5136288718.md) — Cost
 - [`endojs-endo-but-for-bots-pr857-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-gauntlet-panel-1.md) — Panel round 1 — endojs/endo-but-for-bots PR #857
 - [`endojs-endo-but-for-bots-pr730-review-27278ba1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr730-review-27278ba1.md) — Cost
 - [`endo-vfs-parity-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260730-143501.md) — Completion Report
-- [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-refresh.md) — Completion report — endojs/endo-but-for-bots PR #124 refresh
-- … and 4010 more
+- … and 4011 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
