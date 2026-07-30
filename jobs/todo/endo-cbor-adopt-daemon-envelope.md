@@ -1,20 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-poisoned_at: 2026-07-29T02:33:05Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-29T02:33:05Z
-tier: minion
+role: builder
 model: gpt-5.6-terra
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:15:35Z cleared=deadline-overrun=1 -->
 
 ---
 role: builder
@@ -110,4 +98,3 @@ goes in the PR body, and if the supersession is confirmed, amend
   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
   boundary) are precedent you should follow rather than re-litigate.
 
-<!-- garden-deadline-overrun: 1 -->
