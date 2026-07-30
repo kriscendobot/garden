@@ -1,7 +1,8 @@
 ---
-tier: mentor
+tier: minion
+model-burned: mentor
 model: kimi-k3
-fallback-tier: minion
+fallback-tier: 
 dispatch: automatic
 ---
 Carried-forward report(s) from prior ticks of this schedule, delivered
@@ -122,12 +123,4 @@ No bar is "verified"/"green" without real-execution evidence — cite the comman
 its observed output. When you could not run a bar, report it "not verified" and why.
 State the confinement property preserved in every report.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: mystic
-  tier: 
-  provider: moonshot
-  model: 
-  claimed_at: 2026-07-30T03:11:34Z
+<!-- garden-reaped: 0 -->

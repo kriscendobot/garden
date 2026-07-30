@@ -1,8 +1,9 @@
 ---
 role: builder
-tier: mentor
+tier: minion
+model-burned: mentor
 model: kimi-k3
-fallback-tier: minion
+fallback-tier: 
 dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-30T00:16:03Z cleared=none -->
@@ -72,12 +73,4 @@ linear matcher + parity corpus), is locally verified, and is ready for the
 gauntlet. The tada report notes the downstream layer-R (native `hostGrepFiles`)
 build that this package unblocks.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: mystic
-  tier: 
-  provider: moonshot
-  model: 
-  claimed_at: 2026-07-30T03:12:12Z
+<!-- garden-reaped: 0 -->
