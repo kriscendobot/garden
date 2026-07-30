@@ -26,6 +26,7 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/878#issuecomment-5124
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
