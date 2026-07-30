@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:57:43Z_
+_As of 2026-07-30T21:59:37Z_
 
 ## Latest
 
@@ -3843,7 +3843,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 33.0M _(+848.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 33.1M _(+848.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (65)
@@ -3913,7 +3913,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (8)
+### doin (7)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #893
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
@@ -3921,15 +3921,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
-- [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 
-### tada (4017)
+### tada (4018)
+- [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — Completion report — job endojs-endo-but-for-bots-pr836-06bbcc3d
 - [`endojs-endo-but-for-bots-pr713-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr713-panel-fixes.md) — Cost
 - [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean.md) — Cost
 - [`deadmail-issue-comment-5136288718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5136288718.md) — Cost
 - [`endojs-endo-but-for-bots-pr857-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-gauntlet-panel-1.md) — Panel round 1 — endojs/endo-but-for-bots PR #857
-- [`endojs-endo-but-for-bots-pr730-review-27278ba1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr730-review-27278ba1.md) — Cost
-- … and 4012 more
+- … and 4013 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
