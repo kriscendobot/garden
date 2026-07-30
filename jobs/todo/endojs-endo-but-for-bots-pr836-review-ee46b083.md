@@ -1,20 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 5
-deadline_overruns: 1
-poisoned_at: 2026-07-29T11:43:04Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-29T11:43:04Z
-tier: minion
 model: gpt-5.6-terra
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:16:21Z cleared=deadline-overrun=1 -->
 
 # Review directive on endojs/endo-but-for-bots PR #836
 
@@ -55,4 +42,3 @@ resolution. Exit 0 = proceed with the work. (Any other exit fails open →
 proceed; the push CAS is still the backstop.)
 
 
-<!-- garden-deadline-overrun: 1 -->
