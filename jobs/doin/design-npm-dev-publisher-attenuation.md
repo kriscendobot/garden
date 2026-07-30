@@ -10,3 +10,13 @@ Design a capability-secure npm publishing attenuation system, reconciled with th
 Design the proxy data plane and capability protocol; package/version immutability; tarball, manifest, integrity, signature/provenance, and subject binding; revocation and expiry; replay/idempotency; concurrency; audit records; rate and size limits; read behavior; and resistance to confused-deputy, tag-race, substitution, rollback, and dependency-confusion attacks. Keep the real upstream npm automation token isolated in a separate deterministic promotion service with no agent/LLM in its trusted path. That service wakes from a durable event log, webhook, or reconciled poll when an eligible new dev-* publication appears, independently revalidates package, version, tag, integrity, capability authority, and policy, and then publishes the exact artifact to the upstream npm registry with the narrowest available npm token and package scope. Specify crash-safe state transitions, at-least-once delivery, duplicate upstream publish handling, partial failure recovery, quarantine/manual review, token rotation, emergency stop, and a complete tamper-evident mapping from proxy event to upstream result. Never rebuild or modify the tarball between registries.
 
 Include a threat model and trust-boundary diagram; capability object/interface shapes; HTTP/npm CLI compatibility; storage and deployment components; DNS/TLS and operational design for a non-production demonstration at npm.minion.town; safe fixture packages/namespaces; observability without secret leakage; backup/recovery; cost; staged rollout; and explicit conditions before any real upstream publication is enabled. The demo subdomain is a design target, not authorization to provision infrastructure, alter DNS, create npm credentials, or publish packages. Compare building the minimum proxy against adapting an existing registry such as Verdaccio, and identify which security properties require a custom capability-aware front door or deterministic promoter. Deliver a design document, implementation decomposition, acceptance tests (including adversarial and failure-injection cases), and open decisions. No implementation, credential creation, DNS change, deployment, or upstream npm publication in this job.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-30T00:20:41Z
