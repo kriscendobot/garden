@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T04:24:03Z_
+_As of 2026-07-30T04:25:24Z_
 
 ## Latest
 
@@ -5825,12 +5825,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 25.9M _(+633.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Codex | 26.0M _(+633.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
-### todo (23)
+### todo (22)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
-- [`endo-npm-cas-registry-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260730-020502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260730-020502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -5853,10 +5852,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260730-042005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-042005.md) — Hourly scholar library cycle
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (20)
+### doin (21)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`endo-git-integration-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260730-020502.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260729-195004.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260730-020502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260729-195004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr403-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr652-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-weave.md) — weave (auto: shepherd escalation) on endojs/endo-but-for-bots PR #652
