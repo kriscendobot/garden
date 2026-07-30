@@ -4,10 +4,10 @@ model: fireworks/accounts/fireworks/models/glm-5p2
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
-attempts: 3
-accepts: 3
+attempts: 4
+accepts: 4
 censored: 3
 estimated: 3
-mean_dollars: 130.437432
-m2: 100853.551580
+mean_dollars: 98.301278
+m2: 113246.340500
 acceptance_rate: 1.0000
