@@ -7,8 +7,8 @@ kind: feature
 stage: clean
 iteration: 0
 max_iterations: 6
-current_child: 
-state: pending
+current_child: ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-07-30T21:25:20Z
 ---
