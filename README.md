@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T05:17:18Z_
+_As of 2026-07-30T05:19:19Z_
 
 ## Latest
 
@@ -5377,7 +5377,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 26.9M _(+646.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
+| Codex | 26.9M _(+646.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (18)
@@ -5419,13 +5419,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3973)
+### tada (3974)
+- [`garden-kimi-credit-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-kimi-credit-exhaustion.md) — orchestration garden-kimi-credit-exhaustion — complete
 - [`garden-kimi-64-dollar-accounting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-kimi-64-dollar-accounting.md) — Cost
 - [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260730-020502.md) — Cost
 - [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fable-signoff.md) — Cost
 - [`endojs-endo-but-for-bots-pr778-review-1d2c2074`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr778-review-1d2c2074.md) — Cost
-- [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-fable-signoff.md) — Cost
-- … and 3968 more
+- … and 3969 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
