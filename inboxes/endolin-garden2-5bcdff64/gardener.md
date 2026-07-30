@@ -3657,3 +3657,12 @@ Inspect via `git -C journal cat-file -p 6d99de3ffd800ae4169d1538f96a847fc0490268
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'scholar-library-cycle-20260729-225002' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 29e2ebe27b6895af1676f3af19b1387dc8e23a9a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-30T20:23:27Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3095d01493d869ad491323cac459d004f5004c34
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-endo-regexp-conservative-subset' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3095d01493d869ad491323cac459d004f5004c34`.
