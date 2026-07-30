@@ -71,3 +71,13 @@ PR #654's `rust/mount_parity` runner.
 linear matcher + parity corpus), is locally verified, and is ready for the
 gauntlet. The tada report notes the downstream layer-R (native `hostGrepFiles`)
 build that this package unblocks.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-30T03:12:12Z
