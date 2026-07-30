@@ -15,3 +15,13 @@ Produce a design PR for back-porting @endo/zone as a prerequisite. Research desi
 Authorization: after opening the design PR, reply on both review threads on PR #778 with the new design PR URL and a concise mapping: https://github.com/endojs/endo-but-for-bots/pull/778#discussion_r3679796366 and https://github.com/endojs/endo-but-for-bots/pull/778#discussion_r3679800383. Post a top-level PR #778 summary mapping both items to the design PR. This authorization comes from maintainer kriskowal review 4815067371.
 
 The design PR body should cite the originating review URL. Follow designer role requirements: research first, design under designs/, open a draft PR against the bot-fork roadmap branch, and report the PR URL.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T04:43:22Z
