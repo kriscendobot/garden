@@ -73,3 +73,13 @@ gauntlet. The tada report notes the downstream layer-R (native `hostGrepFiles`)
 build that this package unblocks.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T20:22:22Z
