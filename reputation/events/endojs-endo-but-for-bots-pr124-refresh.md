@@ -2,9 +2,9 @@
 base: endojs-endo-but-for-bots-pr124-refresh
 kind: fireworker
 provider: fireworks
-model: fireworks/accounts/fireworks/models/glm-5p2
+model: fireworks-unconfigured
 thoughtfulness: medium
-work_class: other:m
+work_class: other:l
 target: main2
 accepted: true
 agentic_dollars: censored
@@ -17,6 +17,6 @@ awarded_bid:
 bidders: 0
 source: live
 recorded_by: endolin-garden2-5bcdff64/fireworker-3
-recorded_at: 2026-07-30T21:28:31Z
+recorded_at: 2026-07-30T21:28:51Z
 ---
-reputation event for endojs-endo-but-for-bots-pr124-refresh: arm fireworks/fireworks/accounts/fireworks/models/glm-5p2/medium work_class other:m target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr124-refresh: arm fireworks/fireworks-unconfigured/medium work_class other:l target main2 accepted true
