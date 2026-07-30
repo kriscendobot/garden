@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T01:03:41Z_
+_As of 2026-07-30T01:05:37Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 4m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 5m)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 15h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 17h)
@@ -5717,7 +5717,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 48.1M _(+625.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
-### todo (35)
+### todo (37)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-195004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -5752,7 +5752,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-010501.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
+- [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### doin (5)
 - [`ebfb-doc-package-json-cross-tool-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics.md) — Build a package.json cross-tool semantics catalog
