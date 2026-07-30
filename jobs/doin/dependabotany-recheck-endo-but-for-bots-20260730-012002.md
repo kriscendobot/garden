@@ -44,3 +44,13 @@ tagged `project: endo-but-for-bots`. When the ledger holds no open embargoed
 endo-but-for-bots rows, this schedule may be deleted; a future embargo verdict
 re-creates it idempotently per `roles/botanist/AGENT.md` § Autonomous
 disposition.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T04:03:05Z
