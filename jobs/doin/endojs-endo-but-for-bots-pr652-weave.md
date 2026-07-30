@@ -64,3 +64,13 @@ After the force-push, confirm `mergeable_state` clears and CI dispatches on
 the new head; a later shepherd tick can drive any remaining red to green.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T05:26:19Z
