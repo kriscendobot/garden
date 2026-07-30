@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T07:19:15Z_
+_As of 2026-07-30T07:20:46Z_
 
 ## Latest
 
@@ -3270,6 +3270,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration worker-kind-rename HALTED: child monk-finish-gardener-rename stalled in flight for 2518s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; swept: lama-rename-hermit
 
+- `20260730T072028Z-00ba9f` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T072028Z-00ba9f.md)
+
+> (empty message)
+
 - `poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5381,7 +5385,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 27.9M _(+680.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
+| Codex | 28.0M _(+681.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (31)
