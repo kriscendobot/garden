@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:15:41Z_
+_As of 2026-07-30T21:17:41Z_
 
 ## Latest
 
@@ -3369,6 +3369,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > To unblock: submit an APPROVED review on `endojs/endo-but-for-bots#241` against head `ac71c0424b`. The next conductor tick (or a re-dispatch of this job) will then merge it via `gh pr merge --merge`. Reply here and the next tick will pick it up.
 
+- `20260730T211653Z-996985` — from gardener:endojs-endo-but-for-bots-pr403-ad7046e4, reply_to `endojs-endo-but-for-bots-pr403-ad7046e4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211653Z-996985.md)
+
+> Retcon + conduct status for [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403).
+>
+> Retcon (verified): all 27 commit messages on `feat/registry-capability` are free of any PR-403 reference (subjects and bodies). This was landed by a prior run of this job (PR comment id=5124816986); I re-verified the current branch HEAD `602b034b78` end-to-end — zero matches. Tree is intact; CI is fully green (all checks SUCCESS), merge state CLEAN.
+>
+> Conduct — blocked on your re-approval. The merge gate (pr-maintainer-approval-gh.sh) requires an APPROVED review whose commit_id is the current head. The only APPROVED on file is yours on `051baffb9e` (2026-07-29), which is the pre-retcon head — stale. The head has since moved to `602b034b78` (one post-retcon fix on top of the retcon tip `ae0b1a1d`).
+>
+> Could you re-approve on the current head `602b034b78`? Once that lands I'll carry the merge to completion. Nothing else is gating — CI is clean and the base is unfrozen onto `llm`.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3779,13 +3789,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 32.1M _(+797.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 32.2M _(+803.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (72)
+### todo (71)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`deadmail-issue-comment-5136288718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5136288718.md) — Dead-lettered message — pick up its intent
-- [`deadmail-issue-comment-5136303236`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5136303236.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-cbor-encode-decode-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-cbor-encode-decode-design.md) — Design follow-up: split @endo/cbor encode and decode entry points
 - [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
@@ -3858,21 +3867,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (8)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`deadmail-issue-comment-5136303236`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5136303236.md) — Dead-lettered message — pick up its intent
 - [`ebfb-doc-package-json-cross-tool-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics.md) — Build a package.json cross-tool semantics catalog
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-143501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
-- [`endojs-endo-but-for-bots-pr403-ad7046e4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-ad7046e4.md) — attention directive on endojs/endo-but-for-bots PR #403
 
-### tada (4006)
+### tada (4007)
+- [`endojs-endo-but-for-bots-pr403-ad7046e4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-ad7046e4.md) — Cost
 - [`endojs-endo-but-for-bots-pr241-review-b15e4ef6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr241-review-b15e4ef6.md) — Completion report — endojs/endo-but-for-bots PR #241 review #4803410792
 - [`endo-sturdyref-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260730-143501.md) — SturdyRef press tick endo-sturdyref-press-20260730-143501 — real-execution co...
 - [`endo-vfs-parity-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260730-203502.md) — Press VFS parity tick report — 2026-07-30T21:XXZ
 - [`cjs-module-lexer-upstream-20260730-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cjs-module-lexer-upstream-20260730-205004.md) — The completion script ran successfully (completed 'cjs-module-lexer-upstream-...
-- [`endo-sturdyref-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260730-203502.md) — Cost
-- … and 4001 more
+- … and 4002 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
