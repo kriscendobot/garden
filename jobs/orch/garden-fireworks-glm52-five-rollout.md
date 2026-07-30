@@ -1,4 +1,5 @@
 ---
+child-garden-fireworks-glm52-register-retry-host: endolin-garden-ece02cb4
 child-garden-fireworks-glm52-register-retry-reap-count: 0
 order: serial
 children: garden-fireworks-glm52-register-retry garden-fireworks-glm52-five-deploy garden-fireworks-glm52-five-activate
