@@ -30,3 +30,13 @@ verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-30T00:44:40Z
