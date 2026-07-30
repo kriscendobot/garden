@@ -31,3 +31,13 @@ Design the document for maintenance: use compact matrices where comparison helps
 Validate links, Markdown formatting, repository documentation conventions, and any generated table/check script added to keep coverage honest. If a complete useful first edition cannot fit one PR, still deliver a coherent foundational catalog covering the named tools, and include a precise checked backlog of uncovered primary references rather than claiming completeness.
 
 Open a draft pull request against the appropriate endo-but-for-bots base branch, with a substantive description of coverage, version policy, known gaps, and validation. This is a mergeable documentation build, so carry it through the garden’s automatic gauntlet: clean, panel review, fix loop, and un-draft only when clean. Report the PR URL and follow-ups.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-30T01:00:04Z
