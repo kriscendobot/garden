@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/44#issuecomment-513630323
 or [Google Cloud Run](https://cloud.google.com/run)? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T21:17:24Z
