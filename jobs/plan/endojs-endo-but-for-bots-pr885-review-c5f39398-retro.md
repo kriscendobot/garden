@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: deferred
 priority: low
 role: prosecutor
@@ -7,8 +9,7 @@ posted_at: 2026-07-29T23:29:42Z
 ---
 
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
 dispatch: automatic
 ---
 # Retrospective on endojs/endo-but-for-bots PR #885 (primary: endojs-endo-but-for-bots-pr885-review-c5f39398)

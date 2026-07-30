@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: blocked
 blocked_on: https://github.com/endojs/endo-but-for-bots/pull/836
 priority: normal
@@ -8,8 +10,7 @@ posted_at: 2026-07-30T00:25:29Z
 ---
 
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
 dispatch: automatic
 ---
 # Build: carve out `@endo/ascii` — XS-safe 7-bit-asserted ASCII text→bytes encoder

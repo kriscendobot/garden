@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: go-ahead
 priority: normal
 poisoned: true
@@ -18,9 +20,8 @@ role: gardener
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T22:46:04Z cleared=none -->
 
 ---
-tier: mentor
+tier: minion
 role: gardener
-fallback-tier: minion
 dispatch: automatic
 ---
 # Register Fireworks GLM 5.2 as a mentor model

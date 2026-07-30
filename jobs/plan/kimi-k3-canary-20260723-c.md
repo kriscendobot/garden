@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: go-ahead
 priority: normal
 poisoned: true
@@ -12,6 +14,6 @@ posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-07-25T14:13:04Z
 ---
 
-model: kimi-k3
+model: gpt-5.6-terra
 role: gardener
 Kimi K3 compatibility canary attempt 3. In the isolated per-job worktree only, use shell tools to create .kimi-k3-canary with a short marker, read it back, then remove it. Do not modify or push repository content and do not perform external side effects. Complete normally and report tool creation, readback, removal, and completion.

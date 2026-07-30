@@ -1,6 +1,6 @@
 ---
-tier: mentor
-fallback-tier: minion
+model: gpt-5.6-terra
+tier: minion
 dispatch: automatic
 ---
 # Review directive on endojs/endo-but-for-bots PR #778

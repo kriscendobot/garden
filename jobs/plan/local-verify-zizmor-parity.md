@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: deferred
 priority: low
 role: builder
@@ -7,8 +9,7 @@ posted_at: 2026-07-30T01:20:17Z
 ---
 
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
 dispatch: automatic
 ---
 # local-verify: cover the zizmor workflow audit (CI parity gap)

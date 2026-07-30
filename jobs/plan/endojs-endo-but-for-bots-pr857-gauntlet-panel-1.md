@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: go-ahead
 priority: normal
 poisoned: true
@@ -18,8 +20,7 @@ gauntlet: endojs-endo-but-for-bots-pr857-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 1
 pr: https://github.com/endojs/endo-but-for-bots/pull/857
-tier: mentor
-fallback-tier: minion
+tier: minion
 dispatch: automatic
 ---
 

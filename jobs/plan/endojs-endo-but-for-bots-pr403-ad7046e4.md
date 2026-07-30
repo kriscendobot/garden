@@ -1,4 +1,6 @@
 ---
+model: gpt-5.6-terra
+tier: minion
 gate: go-ahead
 priority: normal
 poisoned: true
@@ -13,8 +15,7 @@ posted_at: 2026-07-30T01:03:04Z
 ---
 
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
 dispatch: automatic
 ---
 # attention directive on endojs/endo-but-for-bots PR #403
