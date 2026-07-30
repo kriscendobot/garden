@@ -3,6 +3,10 @@ gate: go-ahead
 priority: normal
 posted_by: fixer
 posted_at: 2026-07-02T00:42:06Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-for-bots #132)

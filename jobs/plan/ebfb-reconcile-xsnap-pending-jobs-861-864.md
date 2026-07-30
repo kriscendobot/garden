@@ -10,6 +10,10 @@ poisoned_at: 2026-07-28T08:23:35Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-28T08:23:35Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861

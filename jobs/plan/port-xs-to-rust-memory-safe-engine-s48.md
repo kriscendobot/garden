@@ -4,6 +4,10 @@ blocked_on: xs2rust-endor-stage10p-fresh-env-sweep
 priority: normal
 posted_by: producer
 posted_at: 2026-07-20T11:07:47Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

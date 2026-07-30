@@ -1,5 +1,8 @@
 ---
-model: fable
+model: gpt-5.6-terra
+tier: minion
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throughout Endo agents, under Distributed Confinement
 

@@ -1,3 +1,9 @@
+---
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
+---
 # botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 
 Wear roles/botanist/AGENT.md. This is the **backstop** heartbeat over the

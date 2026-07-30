@@ -12,6 +12,8 @@ poisoned_at: 2026-07-29T23:23:07Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-29T23:23:07Z
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

@@ -1,5 +1,8 @@
 ---
-model: sonnet
+model: gpt-5.6-terra
+tier: minion
+fallback-tier: minion
+dispatch: automatic
 ---
 # xs2rust-endor watchdog — is the finish-line chain still moving?
 

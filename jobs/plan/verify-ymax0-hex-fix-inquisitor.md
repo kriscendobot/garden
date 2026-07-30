@@ -3,6 +3,10 @@ gate: go-ahead
 priority: normal
 posted_by: gardener
 posted_at: 2026-06-30T01:59:25Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibility on real chain state via inquisitor

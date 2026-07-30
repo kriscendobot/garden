@@ -4,6 +4,10 @@ blocked_on: endojs/endo-but-for-bots#715
 priority: normal
 posted_by: producer
 posted_at: 2026-07-12T17:12:51Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

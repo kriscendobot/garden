@@ -4,6 +4,10 @@ priority: low
 role: prosecutor
 posted_by: producer
 posted_at: 2026-07-29T00:13:13Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Retrospective on endojs/endo-but-for-bots PR #683 (primary: endojs-endo-but-for-bots-pr683-review-84f0d6ef)

@@ -10,6 +10,10 @@ poisoned_at: 2026-07-23T00:33:07Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-23T00:33:07Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Build @endo/sha256 from the approved platform-neutral hash design

@@ -4,6 +4,10 @@ priority: normal
 role: designer
 posted_by: gardener
 posted_at: 2026-07-09T18:42:09Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 garden-meta job (develop on main2, this garden's own library). Directive from

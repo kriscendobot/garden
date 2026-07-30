@@ -3,6 +3,10 @@ gate: go-ahead
 priority: normal
 posted_by: endojs-endo-but-for-bots-pr656-shepherd
 posted_at: 2026-07-29T00:35:06Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # conduct endojs/endo-but-for-bots PR #656

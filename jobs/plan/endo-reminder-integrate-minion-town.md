@@ -4,6 +4,10 @@ priority: normal
 role: designer
 posted_by: liaison
 posted_at: 2026-07-29T01:28:33Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Plan: integrate @endo/reminder into minion.town

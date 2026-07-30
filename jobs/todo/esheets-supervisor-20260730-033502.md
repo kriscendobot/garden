@@ -1,3 +1,9 @@
+---
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
+---
 # DAILY supervisor — drive `@endo/exo-google-sheets` from design to operational
 
 You are a gardener acting as a **supervisor** for the implementation of the

@@ -4,6 +4,10 @@ priority: normal
 role: builder
 posted_by: design-account-creation-open-signup-minion-town
 posted_at: 2026-07-08T00:47:02Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Build: open-signup gate flip for minion.town (Phase B — THE consequential change: minion.town opens to all authenticated users)

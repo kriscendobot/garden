@@ -1,3 +1,9 @@
+---
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
+---
 role: orchestrator
 model: claude-fable-5
 

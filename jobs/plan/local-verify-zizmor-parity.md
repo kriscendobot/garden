@@ -6,6 +6,8 @@ priority: low
 role: builder
 posted_by: shepherd
 posted_at: 2026-07-30T01:20:17Z
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

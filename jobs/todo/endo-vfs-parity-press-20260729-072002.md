@@ -1,5 +1,8 @@
 ---
-model: fable
+model: gpt-5.6-terra
+tier: minion
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base `llm`)
 

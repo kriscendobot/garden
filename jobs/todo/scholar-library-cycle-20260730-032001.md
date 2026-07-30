@@ -1,5 +1,9 @@
 ---
 role: scholar
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Hourly scholar library cycle

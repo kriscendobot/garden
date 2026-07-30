@@ -4,6 +4,10 @@ orchestrated_by: garden-kimi-credit-exhaustion
 priority: high
 posted_by: liaison
 posted_at: 2026-07-30T03:53:40Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

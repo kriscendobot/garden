@@ -3,6 +3,10 @@ gate: go-ahead
 priority: normal
 posted_by: liaison
 posted_at: 2026-06-27T16:40:35Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # PLAN: deterministic cross-host weekly token-spend aggregation for the foreman budget

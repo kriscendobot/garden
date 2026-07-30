@@ -1,6 +1,9 @@
 ---
 role: orchestrator
-model: claude-fable-5
+model: gpt-5.6-terra
+tier: minion
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Fable merge-governance sign-off for finbot PR #6

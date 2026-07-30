@@ -1,5 +1,8 @@
 ---
-model: fable
+model: gpt-5.6-terra
+tier: minion
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press git-integration / the M3 version-controlled-filesystem loop (endojs/endo-but-for-bots, base `llm`)
 

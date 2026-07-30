@@ -4,6 +4,10 @@ priority: normal
 role: fixer
 posted_by: gardener
 posted_at: 2026-07-09T18:42:14Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 fixer job (endojs/endo-but-for-bots), GATED — do NOT run until the XS sqlite

@@ -10,6 +10,10 @@ poisoned_at: 2026-07-25T23:33:03Z
 poisoned_on: endolin-garden-ece02cb4
 posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-07-25T23:33:03Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 skills/gardener-inbox-error-reporting/report-error.sh

@@ -10,6 +10,10 @@ poisoned_at: 2026-07-28T08:13:39Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-28T08:13:39Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Review directive on endojs/endo-but-for-bots PR #755

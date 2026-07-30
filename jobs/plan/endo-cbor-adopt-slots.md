@@ -5,6 +5,10 @@ priority: normal
 role: builder
 posted_by: orchestrator
 posted_at: 2026-07-28T21:09:54Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Adopt `@endo/cbor` in `packages/slots` (cbor-codec design, phase 3)

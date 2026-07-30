@@ -4,6 +4,10 @@ priority: normal
 role: designer
 posted_by: gardener
 posted_at: 2026-07-29T16:28:59Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 

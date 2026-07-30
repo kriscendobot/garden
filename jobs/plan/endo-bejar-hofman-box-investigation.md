@@ -4,6 +4,10 @@ priority: normal
 role: researcher
 posted_by: liaison
 posted_at: 2026-07-28T07:46:28Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring

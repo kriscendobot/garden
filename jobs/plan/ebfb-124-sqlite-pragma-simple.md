@@ -4,6 +4,10 @@ priority: normal
 role: designer
 posted_by: gardener
 posted_at: 2026-07-09T18:41:45Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 designer job (endojs/endo-but-for-bots). Follow-up to PR #124 review by

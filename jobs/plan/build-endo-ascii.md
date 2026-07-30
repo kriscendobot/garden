@@ -7,6 +7,8 @@ priority: normal
 role: builder
 posted_by: gardener:endojs-endo-but-for-bots-pr836-review-03bd85ff
 posted_at: 2026-07-30T00:25:29Z
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

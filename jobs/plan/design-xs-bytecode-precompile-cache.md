@@ -5,6 +5,10 @@ priority: normal
 role: designer
 posted_by: producer
 posted_at: 2026-07-25T06:12:13Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 Design: bytecode precompile & content-addressed cache for XS — C and Rust engines.

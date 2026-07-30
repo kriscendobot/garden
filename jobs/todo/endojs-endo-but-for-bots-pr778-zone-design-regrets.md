@@ -3,6 +3,7 @@ tier: minion
 model: gpt-5.6-terra
 dispatch: automatic
 role: designer
+fallback-tier: minion
 ---
 
 # Design @endo/zone prerequisite and design-regrets exercise for PR #778

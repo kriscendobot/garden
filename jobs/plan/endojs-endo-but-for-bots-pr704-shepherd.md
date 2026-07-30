@@ -10,6 +10,10 @@ poisoned_at: 2026-07-12T04:53:32Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-12T04:53:32Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #704

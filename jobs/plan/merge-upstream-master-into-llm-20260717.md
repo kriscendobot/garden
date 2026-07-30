@@ -10,6 +10,10 @@ poisoned_at: 2026-07-17T05:03:08Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-17T05:03:08Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Merge upstream master into the endo-but-for-bots `llm` branch (propose PR -> shepherd -> conduct)

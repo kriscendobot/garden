@@ -4,6 +4,10 @@ priority: low
 role: prosecutor
 posted_by: producer
 posted_at: 2026-07-23T09:01:28Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric-sdk-pr10-review-c28034ac)

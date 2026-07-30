@@ -12,6 +12,8 @@ poisoned_at: 2026-07-25T14:13:04Z
 poisoned_on: endolin-garden-ece02cb4
 posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-07-25T14:13:04Z
+fallback-tier: minion
+dispatch: automatic
 ---
 
 model: gpt-5.6-terra

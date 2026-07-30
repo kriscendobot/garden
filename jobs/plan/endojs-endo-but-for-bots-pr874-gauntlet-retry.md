@@ -10,6 +10,10 @@ poisoned_at: 2026-07-28T18:03:05Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-28T18:03:05Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Retry: PR #874's prior gauntlet job produced a garbage report and never followed up

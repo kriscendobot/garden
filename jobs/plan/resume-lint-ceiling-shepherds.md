@@ -4,6 +4,10 @@ blocked_on: https://github.com/endojs/endo-but-for-bots/pull/594
 priority: high
 posted_by: producer
 posted_at: 2026-07-02T03:49:13Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService ceiling

@@ -3,6 +3,10 @@ gate: go-ahead
 priority: normal
 posted_by: builder
 posted_at: 2026-07-26T01:20:35Z
+tier: minion
+model: gpt-5.6-terra
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---
