@@ -1,20 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-poisoned_at: 2026-07-29T08:23:04Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-29T08:23:04Z
-tier: minion
+role: weaver
 model: gpt-5.6-terra
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:15:58Z cleared=deadline-overrun=1 -->
 
 ---
 role: weaver
@@ -39,4 +27,3 @@ Conductor evidence:
 
 Please weave/rebase PR #403 onto current `llm` using the frozen-base branch discipline, resolve conflicts per the weaver role, run affected verification, force-push with lease, and update the PR base to the new frozen base. After it is green again, a conductor can merge it.
 
-<!-- garden-deadline-overrun: 1 -->
