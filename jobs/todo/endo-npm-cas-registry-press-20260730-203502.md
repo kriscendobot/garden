@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-30T20:35:02Z
-job_basename_prefix: endo-npm-cas-registry-press
----
 ---
 tier: mentor
 fallback-tier: minion
