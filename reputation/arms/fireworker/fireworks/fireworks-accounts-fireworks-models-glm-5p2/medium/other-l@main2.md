@@ -1,0 +1,13 @@
+kind: fireworker
+provider: fireworks
+model: fireworks/accounts/fireworks/models/glm-5p2
+thoughtfulness: medium
+work_class: other:l
+target: main2
+attempts: 5
+accepts: 5
+censored: 5
+estimated: 5
+mean_dollars: 1.244176
+m2: 1.294004
+acceptance_rate: 1.0000
