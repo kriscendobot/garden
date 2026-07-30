@@ -4,10 +4,10 @@ model: gpt-5.5
 thoughtfulness: medium
 work_class: ops:m
 target: main2
-attempts: 4
-accepts: 4
-censored: 3
-estimated: 3
-mean_dollars: 19.884132
-m2: 4482.312295
+attempts: 3
+accepts: 3
+censored: 2
+estimated: 2
+mean_dollars: 26.261348
+m2: 3994.285688
 acceptance_rate: 1.0000
