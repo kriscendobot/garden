@@ -124,3 +124,13 @@ its observed output. When you could not run a bar, report it "not verified" and 
 State the confinement property preserved in every report.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T07:18:54Z
