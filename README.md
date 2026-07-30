@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T05:07:20Z_
+_As of 2026-07-30T05:09:27Z_
 
 ## Latest
 
@@ -3634,6 +3634,14 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Google Sheets daily: designs are merged; dependency floor endo-fetch PR [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) is approved, clean, and 24/24 checks green, but its existing conductor job is parked go-ahead. OAuth design PR [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) remains clean/green but open after CHANGES_REQUESTED. Client PR [https://github.com/endojs/endo-but-for-bots/pull/874](https://github.com/endojs/endo-but-for-bots/pull/874) is draft, clean, and 24/24 green; stacked facets PR [https://github.com/endojs/endo-but-for-bots/pull/881](https://github.com/endojs/endo-but-for-bots/pull/881) is draft, dirty, with 22/23 green and an unrelated @endo/thixotrope coverage SIGINT. Existing parked conductor/gauntlet/shepherd jobs cover every actionable node, so I posted no duplicate today. Blocked on reviving/authorizing those parked jobs and maintainer merge/review decisions; webhooks remains deferred by design.
 
+- `20260730T050728Z-a8d687` — from gardener:finbot-pr6-fable-signoff, reply_to `finbot-pr6-fable-signoff` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T050728Z-a8d687.md)
+
+> Fable sign-off withheld for [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) at b663b4f6d68da777be49182e2633f324ba149eaa. CI test and 28 formal seat blocks are present, but the recorded one-round panel is internally inconsistent: it says passed while listing 15 must-fix findings, led by the unbound, caller-supplied dataSufficiency descriptor accepted by audit_proposal and the executor fire-time audit. I independently ran npm test (pass) and confirmed the descriptor is accepted from caller input without provenance binding. The PR remains draft and unmerged. Next: fix the binding/attestation defect and the executor integration case, then rerun the panel on the new head before another Fable sign-off.
+
+- `20260730T050749Z-092a73` — from gardener:finbot-progress-20260730-020502, reply_to `finbot-progress-20260730-020502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T050749Z-092a73.md)
+
+> Advanced this cycle: re-armed the required panel gate for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) with fresh job finbot-pr5-panel-20260730, pinned to current green head 468b774b. Earlier panel jobs for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) remain poisoned and parked after empty-seat failures; [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) and [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) already await their queued Fable sign-offs, so I did not duplicate them. Next unblocked step: the new panel for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) must pass, then it must dispatch a Fable-orchestrator sign-off. No finbot PR was merged or un-drafted; no maintainer decision is needed now.
+
 - `poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5833,18 +5841,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 26.7M _(+644.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
+| Codex | 26.8M _(+644.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 90% _(plan; codex-reported)_ |
 
 ## Board
-### todo (18)
+### todo (17)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr873-4e8841bd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-4e8841bd.md) — attention directive on endojs/endo-but-for-bots PR #873
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #885
-- [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260730.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
-- [`garden-kimi-64-dollar-accounting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-kimi-64-dollar-accounting.md) — Attribute exactly $64.00 of Kimi K3 spend and compare mentor-tier effectiveness
+- [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260730-020502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -5869,20 +5876,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr880-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr880-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr885-review-c5f39398`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-review-c5f39398.md) — Review directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr886-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr886-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #886
-- [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fable-signoff.md) — Fable merge-governance sign-off for finbot PR #6
-- [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260730.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register-retry.md) — Resume and finish Fireworks GLM 5.2 mentor registration
+- [`garden-kimi-64-dollar-accounting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-kimi-64-dollar-accounting.md) — Attribute exactly $64.00 of Kimi K3 spend and compare mentor-tier effectiveness
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3970)
+### tada (3972)
+- [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260730-020502.md) — Cost
+- [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fable-signoff.md) — Cost
 - [`endojs-endo-but-for-bots-pr778-review-1d2c2074`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr778-review-1d2c2074.md) — Cost
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-fable-signoff.md) — Cost
 - [`esheets-supervisor-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260730-033502.md) — Cost
-- [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260729-072002.md) — Cost
-- [`endojs-endo-but-for-bots-pr788-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr788-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 3965 more
+- … and 3967 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
