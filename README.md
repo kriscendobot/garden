@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:39:56Z_
+_As of 2026-07-30T00:41:07Z_
 
 ## Latest
 
@@ -5695,20 +5695,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (5)
+### doin (4)
 - [`design-npm-dev-publisher-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-dev-publisher-attenuation.md) — ---
 - [`endojs-endo-but-for-bots-pr403-ad7046e4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-ad7046e4.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr778-review-95a2b3a4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr778-review-95a2b3a4.md) — Review directive on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd reconciliation
-- [`endojs-endo-but-for-bots-pr857-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr857-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #857
 
-### tada (3935)
+### tada (3936)
+- [`endojs-endo-but-for-bots-pr857-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr857-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr848-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr848-conduct.md) — Cost
 - [`garden-approval-reconciler-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-approval-reconciler-rollout.md) — orchestration garden-approval-reconciler-rollout — HALTED
 - [`endojs-endo-but-for-bots-pr761-0ba46b9f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-0ba46b9f.md) — Cost
-- [`endojs-endo-but-for-bots-pr556-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr556-conduct.md) — Cost
-- … and 3930 more
+- … and 3931 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
