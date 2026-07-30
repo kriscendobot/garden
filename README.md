@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T07:20:46Z_
+_As of 2026-07-30T07:22:51Z_
 
 ## Latest
 
@@ -3274,6 +3274,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260730T072153Z-7fe5ee` — from gardener:endo-sturdyref-press-20260729-195004, reply_to `endo-sturdyref-press-20260729-195004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T072153Z-7fe5ee.md)
+
+> The SturdyRef line is stalled at the maintainer-gated [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) agent-surface gauntlet: it remains parked as gate: go-ahead and poisoned after a deadline overrun, with no live sturdyref worker. [https://github.com/endojs/endo-but-for-bots/pull/698](https://github.com/endojs/endo-but-for-bots/pull/698), [https://github.com/endojs/endo-but-for-bots/pull/700](https://github.com/endojs/endo-but-for-bots/pull/700), and [https://github.com/endojs/endo-but-for-bots/pull/541](https://github.com/endojs/endo-but-for-bots/pull/541) are still open draft stack elements and their current checks are green. Please authorize promotion/retry of that gauntlet, or give a different next cut. The binding Distributed Confinement bar remains: no guest locator or stable identity, and per-grant tokens must be unlinkable.
+
 - `poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5385,17 +5389,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 28.0M _(+681.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
+| Codex | 28.0M _(+681.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 93% _(plan; codex-reported)_ |
 
 ## Board
-### todo (31)
+### todo (30)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`daily-progress-summary-20260730-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260730-070501.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr873-4e8841bd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-4e8841bd.md) — attention directive on endojs/endo-but-for-bots PR #873
-- [`endojs-endo-but-for-bots-pr877-review-1eec395e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-review-1eec395e.md) — Review directive on endojs/endo-but-for-bots PR #877
 - [`endojs-endo-but-for-bots-pr880-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr880-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr885-review-c5f39398`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-review-c5f39398.md) — Review directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #885
@@ -5423,18 +5426,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (5)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`endo-sturdyref-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260729-195004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #876
+- [`endojs-endo-but-for-bots-pr877-review-1eec395e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-review-1eec395e.md) — Review directive on endojs/endo-but-for-bots PR #877
 - [`endojs-endo-but-for-bots-pr878-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr878-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #878
 
-### tada (3978)
+### tada (3979)
+- [`endo-sturdyref-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260729-195004.md) — Cost
 - [`endojs-endo-but-for-bots-pr652-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-weave.md) — Cost
 - [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-review-ac5d6dfa.md) — Cost
 - [`worker-kind-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/worker-kind-rename.md) — orchestration worker-kind-rename — HALTED
 - [`endojs-endo-but-for-bots-pr403-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-shepherd.md) — Cost
-- [`garden-kimi-credit-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-kimi-credit-exhaustion.md) — orchestration garden-kimi-credit-exhaustion — complete
-- … and 3973 more
+- … and 3974 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
