@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-07-30T10:13:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-30T10:13:04Z
+---
+
+---
 role: builder
 tier: minion
 model-burned: minion
@@ -41,16 +55,3 @@ uses the deterministic canonical recompute and refuses unreconciled output.
 
 Per merge governance (2026-07-22), this increment lands only after both a passing
 panel and Fable-orchestrator sign-off. Never self-merge.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-07-30T10:03:58Z
