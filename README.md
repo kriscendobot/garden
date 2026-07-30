@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:36:15Z_
+_As of 2026-07-30T00:37:27Z_
 
 ## Latest
 
@@ -3614,6 +3614,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) retcon done and pushed (head ae0b1a1d4, base unfrozen to llm, CI running). The conduct merge gate needs your fresh APPROVED review on the new head — the 07-29 approval was on the pre-retcon head. Please re-approve at [https://github.com/endojs/endo-but-for-bots/pull/403](https://github.com/endojs/endo-but-for-bots/pull/403) — I am watching and will carry the merge when CI is green and approval lands.
 
+- `20260730T003706Z-d2bd21` — from orchestrator:garden-approval-reconciler-rollout-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T003706Z-d2bd21.md)
+
+> Orchestration garden-approval-reconciler-rollout HALTED: child garden-approval-reconciler-build stalled in flight for 2516s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; swept: garden-approval-reconciler-deploy
+
 - `poison-ebfb-llm-lint-warnings-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-llm-lint-warnings-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5700,13 +5704,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr848-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr848-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr857-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr857-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #857
 
-### tada (3932)
+### tada (3933)
+- [`garden-approval-reconciler-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-approval-reconciler-rollout.md) — orchestration garden-approval-reconciler-rollout — HALTED
 - [`endojs-endo-but-for-bots-pr761-0ba46b9f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-0ba46b9f.md) — Cost
 - [`endojs-endo-but-for-bots-pr556-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr556-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr558-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr558-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr836-review-03bd85ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-review-03bd85ff.md) — Cost
-- [`endojs-endo-but-for-bots-pr652-fbc8cd33`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-fbc8cd33.md) — Cost
-- … and 3927 more
+- … and 3928 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
