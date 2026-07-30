@@ -4380,19 +4380,17 @@ automatic_route_body() {
     { line[++n]=$0 }
     END {
       if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
-      if (!end) { print "---"; print "tier: minion"; print "model: gpt-5.6-terra"; print "fallback-tier: minion"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
-      seentier=seenmodel=seenfallback=seendispatch=0
+      if (!end) { print "---"; print "tier: mentor"; print "fallback-tier: minion"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
+      seentier=seenfallback=seendispatch=0
       for(i=1;i<end;i++) {
         if(i==1){print line[i]; continue}
-        if(line[i] ~ /^fallback-model:[ \t]*/) continue
-        if(line[i] ~ /^model:[ \t]*/) { print "model: gpt-5.6-terra"; seenmodel=1; continue }
-        if(line[i] ~ /^tier:[ \t]*/) { print "tier: minion"; seentier=1; continue }
+        if(line[i] ~ /^(model|fallback-model):[ \t]*/) continue
+        if(line[i] ~ /^tier:[ \t]*/) { print "tier: mentor"; seentier=1; continue }
         if(line[i] ~ /^fallback-tier:[ \t]*/) { print "fallback-tier: minion"; seenfallback=1; continue }
         if(line[i] ~ /^dispatch:[ \t]*/) { print "dispatch: automatic"; seendispatch=1; continue }
         print line[i]
       }
-      if (!seentier) print "tier: minion"
-      if (!seenmodel) print "model: gpt-5.6-terra"
+      if (!seentier) print "tier: mentor"
       if (!seenfallback) print "fallback-tier: minion"
       if (!seendispatch) print "dispatch: automatic"
       for(i=end;i<=n;i++) print line[i]
@@ -4504,6 +4502,7 @@ resolve_model_tier() {
       case "$tier" in
         mentat|fable) printf '%s\n' "claude-fable-5" ;;  # manual-only tier -> concrete id
         opus)     printf '%s\n' "claude-opus-4-8" ;;
+        opus5)    printf '%s\n' "claude-opus-5" ;;
         sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
         haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
         # a concrete id passes through iff the table CLASSIFIES it as anthropic.
@@ -4512,6 +4511,7 @@ resolve_model_tier() {
     openai)
       case "$tier" in
         terra)    printf '%s\n' "gpt-5.6-terra" ;;   # effective codex default
+        sol)      printf '%s\n' "gpt-5.6-sol" ;;
         luna)     printf '%s\n' "gpt-5.6-luna" ;;
         frontier) printf '%s\n' "gpt-5.5" ;;
         mini)     printf '%s\n' "gpt-5.4-mini" ;;
