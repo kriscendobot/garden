@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-kimi-credit-exhaustion
-priority: urgent
-posted_by: liaison
-posted_at: 2026-07-30T03:53:35Z
+role: gardener
+model: gpt-5.6-terra
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-07-30T03:54:52Z cleared=none -->
 
 ---
 role: gardener
