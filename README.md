@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T04:44:31Z_
+_As of 2026-07-30T04:46:19Z_
 
 ## Latest
 
@@ -5832,9 +5832,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 26.2M _(+637.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
-### todo (19)
+### todo (20)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
+- [`endojs-endo-but-for-bots-pr788-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr788-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #788
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-conduct.md) — conductor reconciliation
 - [`esheets-supervisor-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/esheets-supervisor-20260730-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
