@@ -4,10 +4,10 @@ model: fireworks/accounts/fireworks/models/deepseek-v4-pro
 thoughtfulness: medium
 work_class: other:m
 target: main2
-attempts: 5
-accepts: 5
-censored: 3
-estimated: 3
-mean_dollars: 167.441653
-m2: 529692.230731
+attempts: 6
+accepts: 6
+censored: 4
+estimated: 4
+mean_dollars: 142.426104
+m2: 548465.560134
 acceptance_rate: 1.0000
