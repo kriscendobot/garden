@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T01:19:57Z_
+_As of 2026-07-30T01:20:40Z_
 
 ## Latest
 
@@ -5714,11 +5714,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 48.1M _(+625.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Codex | 48.2M _(+626.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
-### todo (36)
+### todo (37)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`dependabotany-recheck-endo-but-for-bots-20260730-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260730-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-195004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260729-072002.md) — Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
@@ -5968,6 +5969,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr877-review-1eec395e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-1eec395e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr403-ad7046e4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-ad7046e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #403 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr778-review-95a2b3a4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr778-review-95a2b3a4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #778 (primary: endojs-endo-but-f...
+- [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-ascii.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/836` · Build: carve out @endo/ascii — XS-safe 7-bit-asserted ASCII text→bytes encoder
