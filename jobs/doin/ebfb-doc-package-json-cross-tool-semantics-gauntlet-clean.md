@@ -40,3 +40,13 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T21:48:58Z
