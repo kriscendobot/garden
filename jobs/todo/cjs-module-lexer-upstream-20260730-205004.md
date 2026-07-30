@@ -1,7 +1,3 @@
-cadence: weekly
-last_dispatched: 2026-07-30T20:50:04Z
-job_basename_prefix: cjs-module-lexer-upstream
----
 ---
 tier: mentor
 fallback-tier: minion
