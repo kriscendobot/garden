@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T01:29:07Z_
+_As of 2026-07-30T01:30:04Z_
 
 ## Latest
 
@@ -5721,7 +5721,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 48.1M _(+624.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
-### todo (33)
+### todo (32)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`dependabotany-recheck-endo-but-for-bots-20260730-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260730-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -5734,7 +5734,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-195004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr876-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #876
 - [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr876-review-ac5d6dfa.md) — Review directive on endojs/endo-but-for-bots PR #876
 - [`endojs-endo-but-for-bots-pr877-review-1eec395e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-review-1eec395e.md) — Review directive on endojs/endo-but-for-bots PR #877
@@ -5761,16 +5760,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr403-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr652-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-weave.md) — weave (auto: shepherd escalation) on endojs/endo-but-for-bots PR #652
 - [`endojs-endo-but-for-bots-pr857-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr857-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #857
-- [`endojs-endo-but-for-bots-pr870-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr870-conduct.md) — conductor reconciliation
+- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`endojs-endo-but-for-bots-pr875-review-51bf66b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr875-review-51bf66b1.md) — Review directive on endojs/endo-but-for-bots PR #875
 
-### tada (3943)
+### tada (3944)
+- [`endojs-endo-but-for-bots-pr870-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr870-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr869-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr869-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr859-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr859-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr778-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr778-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr652-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-shepherd.md) — Cost
-- … and 3938 more
+- … and 3939 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
