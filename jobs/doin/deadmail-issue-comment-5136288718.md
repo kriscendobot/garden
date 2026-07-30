@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/44#issuecomment-513628871
 Is AMI the right widget? Or is a docker compose file better? Or a k8s thingy? something something terraform something? 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T21:25:35Z
