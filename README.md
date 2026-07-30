@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:17:41Z_
+_As of 2026-07-30T21:18:25Z_
 
 ## Latest
 
@@ -3379,6 +3379,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Could you re-approve on the current head `602b034b78`? Once that lands I'll carry the merge to completion. Nothing else is gating — CI is clean and the base is unfrozen onto `llm`.
 
+- `20260730T211806Z-c04218` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211806Z-c04218.md)
+
+> A garden-follow-up action block was REJECTED and dropped (not retried):
+>   inner claude -p failure (rc=1)
+>
+> Producer output:
+> rc=1
+> stderr:
+> <empty>
+>
+> stdout:
+> You've hit your weekly limit · resets Aug 1, 3am (UTC)
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3789,7 +3802,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 32.2M _(+803.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 32.2M _(+804.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (71)
