@@ -206,7 +206,7 @@ codex_args=(
 # config, and a reset would lose one). env_key names a var codex reads for the (
 # ignored-by-Ollama) API key; export a non-empty placeholder so codex does not refuse
 # for a missing key. codex additionally offers a native `--oss` shortcut for a local
-# Ollama at :11434; the explicit provider block is used here so a non-default
+# Ollama at its default port; the explicit provider block is used here so a non-default
 # GARDEN_LOCAL_OLLAMA_URL (another port/box) is honored.
 # LIVE-CLI PROVENANCE / TODO (extends the file-header caveat to the local path): the
 # `-c model_provider=…` inline-provider surface and the /v1 endpoint contract are

@@ -45,7 +45,7 @@ BIN="$TR/bin"; mkdir -p "$BIN"
 export GARDEN_STATE="$TR/state"; mkdir -p "$GARDEN_STATE"
 export GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh"
 export GARDEN_ALERT_RECORD="$TR/alerts"
-export GARDEN_LOCAL_OLLAMA_URL=http://127.0.0.1:11434/v1
+export GARDEN_LOCAL_OLLAMA_URL=http://127.0.0.1:11435/v1
 export GARDEN_OLLAMA_HEAL_TIMEOUT=2          # keep the give-up poll short
 # The mocks share this control dir (passed by env so the subprocesses see it).
 export HEAL_CTL="$TR/ctl"; mkdir -p "$HEAL_CTL"
@@ -76,10 +76,10 @@ curl_call_count() { [ -f "$HEAL_CTL/curl-calls" ] && wc -l < "$HEAL_CTL/curl-cal
 
 # ============================================================================
 hr; echo "HOST DERIVE — ollama_serve_host strips scheme + /v1 path"; hr
-[ "$(ollama_serve_host)" = "127.0.0.1:11434" ] && ok "default URL → 127.0.0.1:11434" || bad "default derive ($(ollama_serve_host))"
+[ "$(ollama_serve_host)" = "127.0.0.1:11435" ] && ok "default URL → 127.0.0.1:11435" || bad "default derive ($(ollama_serve_host))"
 ( export GARDEN_LOCAL_OLLAMA_URL=http://gpu-box.local:9999/v1; [ "$(ollama_serve_host)" = "gpu-box.local:9999" ] ) \
   && ok "non-default host:port derived (no drift)" || bad "non-default derive"
-( export GARDEN_LOCAL_OLLAMA_URL=http://127.0.0.1:11434/v1/; [ "$(ollama_serve_host)" = "127.0.0.1:11434" ] ) \
+( export GARDEN_LOCAL_OLLAMA_URL=http://127.0.0.1:11435/v1/; [ "$(ollama_serve_host)" = "127.0.0.1:11435" ] ) \
   && ok "trailing-slash path stripped" || bad "trailing slash derive"
 
 # ============================================================================
@@ -154,11 +154,10 @@ codex_provider_preflight local hermit job-f hermits 0 qwen3:0.6b >/dev/null 2>&1
 
 # ============================================================================
 hr; echo "UNIT HINT — the diagnostic names the unit that is ACTUALLY serving"; hr
-# Two units can serve the endpoint (the garden's `--user` garden-ollama.service, which
-# is hermit-count-gated and therefore DISABLED on a zero-hermit host, and the installer's
-# SYSTEM ollama.service, still enabled in any container built before 2026-07-28). Naming
-# one unconditionally walks an operator to a dead unit while the live endpoint is the
-# other, so the hint must follow the host, and must never start/enable/disable anything.
+# The garden unit (garden-ollama.service, :11435) and the installer's SYSTEM unit
+# (ollama.service, :11434) serve different ports. The hint must still name the unit
+# that is ACTUALLY running on this host (naming a dead one walks the operator to the
+# wrong journal), and must never start/enable/disable anything.
 reset_ctl; : > "$HEAL_CTL/unit-active-system"
 hint="$(codex_local_endpoint_unit_hint)"
 grep -q 'systemctl status ollama.service' <<<"$hint" && grep -q 'SYSTEM unit' <<<"$hint" \
@@ -173,8 +172,8 @@ grep -q 'systemctl --user status garden-ollama.service' <<<"$hint" \
 
 reset_ctl; : > "$HEAL_CTL/unit-active-garden"; : > "$HEAL_CTL/unit-active-system"
 hint="$(codex_local_endpoint_unit_hint)"
-grep -q 'garden-ollama.service' <<<"$hint" && grep -q 'address-in-use' <<<"$hint" \
-  && ok "both active → hint flags the port conflict instead of picking one" || bad "both-active hint: $hint"
+grep -q 'garden-ollama.service' <<<"$hint" && grep -q 'different ports' <<<"$hint" \
+  && ok "both active → hint notes they serve different ports, no conflict" || bad "both-active hint: $hint"
 
 reset_ctl
 hint="$(codex_local_endpoint_unit_hint)"

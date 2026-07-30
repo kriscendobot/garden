@@ -5,7 +5,7 @@
 
 # shellcheck shell=bash
 
-: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
+: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11435/v1}"
 
 # Seconds to poll a just-(re)started local endpoint for readiness before giving up.
 : "${GARDEN_OLLAMA_HEAL_TIMEOUT:=30}"
@@ -54,19 +54,20 @@ codex_unit_active() {
 }
 
 # codex_local_endpoint_unit_hint — name the unit an operator should ACTUALLY inspect on
-# THIS host.  Two different units can serve $GARDEN_LOCAL_OLLAMA_URL and the guidance
-# must not assume one, because naming the wrong one walks the reader to a dead unit
-# while the live endpoint is the other:
+# THIS host.  The garden unit (garden-ollama.service, port :11435) and the installer's
+# system unit (ollama.service, port :11434) serve DIFFERENT ports, so they no longer
+# race for the same bind address.  The hint exists for the transition window in which
+# either unit may be the one the operator needs to inspect:
 #
-#   * garden-ollama.service — the garden's supervised `systemctl --user` unit.  It is
-#     hermit-count-gated (install-units.sh reconcile_ollama_unit enables it only where
-#     `hermits: N>0`), so on a zero-hermit host it is installed-but-DISABLED.
-#   * ollama.service — the Ollama installer's SYSTEM unit, running as the `ollama` user.
-#     The Dockerfile stopped enabling it (2026-07-28, "make garden Ollama the sole
-#     endpoint owner"), but a container built from any earlier image still has it
-#     enabled and holding :11434, and it is then the endpoint local inference is really
-#     served from.  Observed live on endolin-garden2 (hermits: 0, garden-ollama
-#     disabled, system ollama.service active) — the case this hint exists for.
+#   * garden-ollama.service — the garden's supervised `systemctl --user` unit on
+#     :11435.  It is hermit-count-gated (install-units.sh reconcile_ollama_unit enables
+#     it only where `hermits: N>0`), so on a zero-hermit host it is
+#     installed-but-DISABLED.
+#   * ollama.service — the Ollama installer's SYSTEM unit on :11434, running as the
+#     `ollama` user.  The Dockerfile stopped enabling it (2026-07-28, "make garden
+#     Ollama the sole endpoint owner"), but a container built from any earlier image
+#     still has it enabled and holding :11434.  Observed live on endolin-garden2
+#     (hermits: 0, garden-ollama disabled, system ollama.service active).
 #
 # The probe is read-only; deciding which unit SHOULD own the port is an operator call,
 # not something a preflight may act on.
@@ -75,13 +76,13 @@ codex_local_endpoint_unit_hint() {
   codex_unit_active --user garden-ollama.service && garden=1
   codex_unit_active '' ollama.service && system=1
   if [ "$garden" = 1 ] && [ "$system" = 1 ]; then
-    printf 'Two units claim the endpoint here: the garden-supervised `systemctl --user status garden-ollama.service` and the installer system unit `systemctl status ollama.service`. Only one can hold the port, so the other is looping on address-in-use; read both journals before changing either.'
+    printf 'Both local-inference units are running: the garden-supervised `systemctl --user status garden-ollama.service` (port :11435) and the installer system unit `systemctl status ollama.service` (port :11434). They serve different ports, so neither is looping on address-in-use; the garden endpoint is at $GARDEN_LOCAL_OLLAMA_URL.'
   elif [ "$system" = 1 ]; then
-    printf 'On this host the live endpoint is the installer SYSTEM unit, not the garden one: check `systemctl status ollama.service` (runs as the `ollama` user, so root manages it). `garden-ollama.service` is `--user`-scoped and hermit-count-gated (`hermits: N>0`), so it is disabled here and starting it cannot displace the system unit.'
+    printf 'The installer SYSTEM unit is running on :11434: check `systemctl status ollama.service` (runs as the `ollama` user, so root manages it). The garden endpoint `garden-ollama.service` (port :11435) is `--user`-scoped and hermit-count-gated (`hermits: N>0`), so it is disabled here. The hermit handler dispatches to $GARDEN_LOCAL_OLLAMA_URL, not the system unit.'
   elif [ "$garden" = 1 ]; then
-    printf 'The live endpoint is the garden-supervised unit: check `systemctl --user status garden-ollama.service` and `journalctl --user -u garden-ollama.service`.'
+    printf 'The live garden endpoint is the garden-supervised unit on :11435: check `systemctl --user status garden-ollama.service` and `journalctl --user -u garden-ollama.service`.'
   else
-    printf 'No local-inference unit is running: neither `systemctl --user status garden-ollama.service` (the garden-supervised one, enabled only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit, run as the `ollama` user) is active. Bring up whichever this host is meant to serve with.'
+    printf 'No local-inference unit is running: neither `systemctl --user status garden-ollama.service` (the garden-supervised one on :11435, enabled only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers.'
   fi
 }
 

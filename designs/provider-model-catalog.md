@@ -140,7 +140,7 @@ whose models are outside this catalog.
 ### 2.5 Local (Ollama), the `provider: local` codex-cleric (`hermit`)
 
 The **local** provider is the paid-OpenAI codex driven against an **on-box Ollama
-`/v1` endpoint** (`http://127.0.0.1:11434/v1`) instead of ChatGPT — the `hermit`
+`/v1` endpoint** (`http://127.0.0.1:11435/v1`) instead of ChatGPT — the `hermit`
 worker kind (registry provider `local`, `resolve_model_tier local`). Model ids are the
 **served Ollama tags**, not paid slugs; the tier map's short names track the guide's
 two picks. Grounded in `context/operations/local-inference-amd.md` (host: AMD Ryzen AI
