@@ -1,7 +1,7 @@
-Assessed the byte-array front: design PR #572 and #475 establish that the frozen whole-buffer Uint8Array view fully supersedes the bare immutable-ArrayBuffer byteArray model. #475 remains the next implementation artifact, open with CHANGES_REQUESTED; its last head is 1b1dc75 and its recorded Node/XS CI check is successful. #503 remains an obsolete dual-shape implementation (bare buffer plus view) and is also CHANGES_REQUESTED. #602 remains a draft comparison spike.
+Assessed the byte-array front and recorded the observation. #475 is the view-only successor; #503 retains the obsolete bare-buffer arm. Three earlier byte-array press agents remain live, so I did not compete with them. #671 is merged; I did not start the watcher-owned registry follow-up.
 
-Did not take the wheel: inbox-list.sh reports three earlier byte-array press agents still live. I recorded this observation rather than competing with them. #671 is merged; I did not start the explicitly watcher-owned registry follow-up.
+Evidence: `gh pr view` reported all #475 checks SUCCESS, including `test-xs`; branch inspection confirmed the whole-buffer frozen `Uint8Array` rule.
 
-Execution evidence: `gh pr view ... --json statusCheckRollup` reported every #475 check SUCCESS, including `test-xs`; `git show origin/feat/narrow-bytearray-to-uint8:packages/pass-style/src/byteArray.js` shows the view-only admission and whole-buffer rule, while the #503 version still documents the raw immutable-buffer arm. No code changes or push were made.
+No code changes or push. Follow-up: active press driver should resolve #475 review work.
 
-Follow-up: let the active press driver resolve #475's review queue and then advance it through the PR workflow. Self-improvement: nothing this time.
+Self-improvement: nothing this time.
