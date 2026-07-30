@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T05:01:12Z_
+_As of 2026-07-30T05:02:46Z_
 
 ## Latest
 
@@ -3630,6 +3630,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > SturdyRef progress is stalled at the next artifact: draft [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) (agent provide/accept surface) remains 21/21 CI-success with zero reviews, but its automatic gauntlet job is still parked in plan/ as poisoned behind the go-ahead gate. The bridge stack ([https://github.com/endojs/endo-but-for-bots/pull/698](https://github.com/endojs/endo-but-for-bots/pull/698), [https://github.com/endojs/endo-but-for-bots/pull/700](https://github.com/endojs/endo-but-for-bots/pull/700), [https://github.com/endojs/endo-but-for-bots/pull/541](https://github.com/endojs/endo-but-for-bots/pull/541)) and designs [https://github.com/endojs/endo-but-for-bots/pull/511](https://github.com/endojs/endo-but-for-bots/pull/511) and [https://github.com/endojs/endo-but-for-bots/pull/539](https://github.com/endojs/endo-but-for-bots/pull/539) are unchanged and draft. May I reset/promote the gauntlet so its panel can run? No code was pushed.
 
+- `20260730T050147Z-de997b` — from gardener:esheets-supervisor-20260730-033502, reply_to `esheets-supervisor-20260730-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T050147Z-de997b.md)
+
+> Google Sheets daily: designs are merged; dependency floor endo-fetch PR [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) is approved, clean, and 24/24 checks green, but its existing conductor job is parked go-ahead. OAuth design PR [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) remains clean/green but open after CHANGES_REQUESTED. Client PR [https://github.com/endojs/endo-but-for-bots/pull/874](https://github.com/endojs/endo-but-for-bots/pull/874) is draft, clean, and 24/24 green; stacked facets PR [https://github.com/endojs/endo-but-for-bots/pull/881](https://github.com/endojs/endo-but-for-bots/pull/881) is draft, dirty, with 22/23 green and an unrelated @endo/thixotrope coverage SIGINT. Existing parked conductor/gauntlet/shepherd jobs cover every actionable node, so I posted no duplicate today. Blocked on reviving/authorizing those parked jobs and maintainer merge/review decisions; webhooks remains deferred by design.
+
 - `poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5829,15 +5833,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 26.6M _(+642.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Codex | 26.6M _(+642.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
-### todo (18)
+### todo (17)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr873-4e8841bd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-4e8841bd.md) — attention directive on endojs/endo-but-for-bots PR #873
-- [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — ---
 - [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-fable-signoff.md) — Fable merge-governance sign-off for finbot PR #6
 - [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`garden-kimi-64-dollar-accounting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-kimi-64-dollar-accounting.md) — Attribute exactly $64.00 of Kimi K3 spend and compare mentor-tier effectiveness
@@ -5866,19 +5869,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr880-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr880-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr885-review-c5f39398`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-review-c5f39398.md) — Review directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr886-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr886-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #886
-- [`esheets-supervisor-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/esheets-supervisor-20260730-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
+- [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-fable-signoff.md) — ---
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register-retry.md) — Resume and finish Fireworks GLM 5.2 mentor registration
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3967)
+### tada (3968)
+- [`esheets-supervisor-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260730-033502.md) — Cost
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260729-072002.md) — Cost
 - [`endojs-endo-but-for-bots-pr788-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr788-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr875-review-51bf66b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr875-review-51bf66b1.md) — Cost
-- [`endojs-endo-but-for-bots-pr778-zone-design-regrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr778-zone-design-regrets.md) — Cost
-- … and 3962 more
+- … and 3963 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
