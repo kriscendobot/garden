@@ -24,14 +24,4 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-comment by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/876#issuecomment-5124585691
 
-<!-- garden-reaped: 0 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-07-30T05:52:19Z
+<!-- garden-reaped: 1 -->
