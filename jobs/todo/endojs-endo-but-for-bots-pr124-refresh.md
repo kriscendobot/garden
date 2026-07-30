@@ -1,20 +1,7 @@
 ---
 model: gpt-5.6-terra
-tier: minion
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-poisoned_at: 2026-07-30T00:13:12Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-30T00:13:12Z
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:15:41Z cleared=deadline-overrun=1 -->
 
 ---
 tier: minion
@@ -34,4 +21,3 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Endor is now on the llm branch. I believe SQL bindings are as well. Please refresh this PR and resume. If sufficient SQL bindings are not available, do not stub them. Search for the relevant PR and park a job to wake this PR until it lands. 
 
-<!-- garden-deadline-overrun: 1 -->
