@@ -2010,3 +2010,12 @@ Inspect via `git -C journal cat-file -p a4d07c75bf35255c50d9b2813929adc7c2b993cd
 - Context: gardener-3 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr886-conduct' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p b881d57b7672c0806513d9d4c75f20970d59d55d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-30T01:46:39Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0260d565b3f5aa06ebdd6cf733ef7f41c73bbcac
+- Context: gardener-5 on endolin-garden-ece02cb4: job 'garden-approval-reconciler-build' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0260d565b3f5aa06ebdd6cf733ef7f41c73bbcac`.
