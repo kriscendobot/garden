@@ -3,3 +3,7 @@ gardener: 4
 worker_kind: fireworker
 claimed_at: 2026-07-30T20:22:57Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-cbor-adopt-daemon-envelope
+pr_number: 894
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/894
+pr_head: refactor/daemon-adopt-endo-cbor
