@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T05:03:28Z_
+_As of 2026-07-30T05:05:18Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 3h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 4h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21h)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 19h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18h)
@@ -5833,17 +5833,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 26.6M _(+642.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Codex | 26.6M _(+643.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
-### todo (18)
+### todo (16)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr873-4e8841bd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-4e8841bd.md) — attention directive on endojs/endo-but-for-bots PR #873
-- [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-fable-signoff.md) — Fable merge-governance sign-off for finbot PR #6
-- [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`garden-kimi-64-dollar-accounting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-kimi-64-dollar-accounting.md) — Attribute exactly $64.00 of Kimi K3 spend and compare mentor-tier effectiveness
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-133503.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260729-195004.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
@@ -5861,7 +5859,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260729-195004.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endojs-endo-but-for-bots-pr403-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr652-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-weave.md) — weave (auto: shepherd escalation) on endojs/endo-but-for-bots PR #652
-- [`endojs-endo-but-for-bots-pr778-review-1d2c2074`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr778-review-1d2c2074.md) — Review directive on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #876
 - [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-review-ac5d6dfa.md) — Review directive on endojs/endo-but-for-bots PR #876
@@ -5870,19 +5867,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr880-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr880-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr885-review-c5f39398`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-review-c5f39398.md) — Review directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr886-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr886-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #886
-- [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-fable-signoff.md) — ---
+- [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fable-signoff.md) — Fable merge-governance sign-off for finbot PR #6
+- [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register-retry.md) — Resume and finish Fireworks GLM 5.2 mentor registration
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3968)
+### tada (3970)
+- [`endojs-endo-but-for-bots-pr778-review-1d2c2074`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr778-review-1d2c2074.md) — Cost
+- [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-fable-signoff.md) — Cost
 - [`esheets-supervisor-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260730-033502.md) — Cost
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260729-072002.md) — Cost
 - [`endojs-endo-but-for-bots-pr788-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr788-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr875-review-51bf66b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr875-review-51bf66b1.md) — Cost
-- … and 3963 more
+- … and 3965 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
