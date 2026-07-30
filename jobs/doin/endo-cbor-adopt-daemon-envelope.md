@@ -100,3 +100,13 @@ goes in the PR body, and if the supersession is confirmed, amend
   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
   boundary) are precedent you should follow rather than re-litigate.
 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T20:22:57Z
