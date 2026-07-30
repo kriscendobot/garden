@@ -1,4 +1,5 @@
 ---
+child-monk-finish-gardener-rename-reap-count: 0
 order: serial
 children: monk-finish-gardener-rename lama-rename-hermit
 on-child-failure: halt
