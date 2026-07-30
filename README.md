@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T03:13:04Z_
+_As of 2026-07-30T03:20:24Z_
 
 ## Latest
 
@@ -5769,10 +5769,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 48.0M _(+622.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Codex | 45.7M _(+622.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
-### todo (26)
+### todo (27)
 - [`dependabotany-recheck-endo-but-for-bots-20260730-012002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260730-012002.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-195004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -5798,6 +5798,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-010501.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-020502.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260730-032001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-032001.md) — Hourly scholar library cycle
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### doin (19)
