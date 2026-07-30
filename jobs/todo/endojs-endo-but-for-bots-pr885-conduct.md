@@ -1,6 +1,7 @@
 ---
 role: conductor
 tier: minion
+model: gpt-5.6-terra
 model-burned: mentor
 fallback-tier: 
 dispatch: automatic
