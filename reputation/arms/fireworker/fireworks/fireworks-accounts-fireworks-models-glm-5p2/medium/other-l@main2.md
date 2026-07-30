@@ -4,10 +4,10 @@ model: fireworks/accounts/fireworks/models/glm-5p2
 thoughtfulness: medium
 work_class: other:l
 target: main2
-attempts: 7
-accepts: 7
-censored: 7
-estimated: 7
-mean_dollars: 1.865012
-m2: 9.666187
+attempts: 8
+accepts: 8
+censored: 8
+estimated: 8
+mean_dollars: 2.801199
+m2: 58.747199
 acceptance_rate: 1.0000

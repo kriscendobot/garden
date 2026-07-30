@@ -1,0 +1,13 @@
+kind: fireworker
+provider: fireworks
+model: fireworks/accounts/fireworks/models/deepseek-v4-pro
+thoughtfulness: medium
+work_class: other:m
+target: main2
+attempts: 1
+accepts: 1
+censored: 0
+estimated: 0
+mean_dollars: 0.000000
+m2: 0.000000
+acceptance_rate: 1.0000
