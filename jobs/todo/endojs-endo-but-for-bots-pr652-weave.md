@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # weave (auto: shepherd escalation) on endojs/endo-but-for-bots PR #652
@@ -62,12 +63,4 @@ actions/checkout hashes flagged by zizmor). They touch only
 After the force-push, confirm `mergeable_state` clears and CI dispatches on
 the new head; a later shepherd tick can drive any remaining red to green.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 5
-  worker_kind: mystic
-  tier: 
-  provider: moonshot
-  model: 
-  claimed_at: 2026-07-30T01:21:17Z
+<!-- garden-reaped: 0 -->
