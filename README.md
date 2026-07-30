@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:25:25Z_
+_As of 2026-07-30T00:25:44Z_
 
 ## Latest
 
@@ -5906,6 +5906,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr403-ad7046e4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-ad7046e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #403 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
+- [`build-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-ascii.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/836` · Build: carve out @endo/ascii — XS-safe 7-bit-asserted ASCII text→bytes encoder
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-xs-bytecode-precompile-cache.md) — awaiting `endojs/endo-but-for-bots#600` · ---
