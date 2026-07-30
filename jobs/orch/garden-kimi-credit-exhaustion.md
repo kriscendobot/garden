@@ -1,4 +1,5 @@
 ---
+child-garden-kimi-credit-exhaustion-routing-reap-count: 0
 order: serial
 children: garden-kimi-credit-exhaustion-routing garden-kimi-64-dollar-accounting
 on-child-failure: halt
