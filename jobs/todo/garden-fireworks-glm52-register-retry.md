@@ -1,16 +1,12 @@
 ---
 role: gardener
 handler-timeout: 7200
----
-<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-30T00:13:05Z cleared=none -->
-
----
 tier: mentor
-role: gardener
-handler-timeout: 7200
 fallback-tier: minion
 dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-30T00:13:05Z cleared=none -->
+
 # Resume and finish Fireworks GLM 5.2 mentor registration
 
 Repository: https://github.com/kriscendobot/garden. Land directly on main2, no PR.
