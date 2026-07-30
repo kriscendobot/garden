@@ -70,3 +70,13 @@ verify-and-stand-down tick.
 Do not open new surface while an open PR needs a weave or a CI fix. Be
 idempotent, defer to live workers on shared branches, and cite real execution
 evidence for any "works everywhere" claim.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T20:48:59Z
