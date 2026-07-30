@@ -32,6 +32,8 @@ Validate links, Markdown formatting, repository documentation conventions, and a
 
 Open a draft pull request against the appropriate endo-but-for-bots base branch, with a substantive description of coverage, version policy, known gaps, and validation. This is a mergeable documentation build, so carry it through the garden’s automatic gauntlet: clean, panel review, fix loop, and un-draft only when clean. Report the PR URL and follow-ups.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
