@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T20:53:09Z_
+_As of 2026-07-30T20:56:42Z_
 
 ## Latest
 
@@ -3332,6 +3332,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Standing by on [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) per whatever directive follows.
 
+- `20260730T205552Z-a3f194` — from gardener:endo-sturdyref-press-20260730-203502, reply_to `endo-sturdyref-press-20260730-203502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T205552Z-a3f194.md)
+
+> SturdyRef press tick 20260730-203502: rebased both stale design PRs onto current llm and updated their bases — [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539) (on-demand enlivenment design, head e1f5435722) and [endojs/endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/issues/511) (FinReg design, head 648a10e75a) are now MERGEABLE onto llm with all prior review feedback addressed. The code stack remains green and unmoved: [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) (21/21 CI), [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700), [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) (confinement suite 10/10), [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) (agent surface, 21/21 CI, zero reviews). The sole blocker is still the maintainer-gated [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) agent-surface gauntlet (jobs/plan/endo-sturdyref-agent-surface-build-gauntlet, gate: go-ahead, poisoned since 07-26, 4 days). Please authorize promotion/retry of that gauntlet so the panel can run, or give a different next cut. The binding Distributed Confinement bar stands: no guest locator or stable identity, per-grant tokens unlinkable, opaque and unforgeable.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3738,12 +3742,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 32.2M _(+783.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 31.9M _(+787.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
 
 ## Board
-### todo (76)
+### todo (75)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
-- [`cjs-module-lexer-upstream-20260730-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/cjs-module-lexer-upstream-20260730-205004.md) — ---
 - [`endo-sturdyref-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260730-143501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260730-143501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-cbor-encode-decode-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-cbor-encode-decode-design.md) — Design follow-up: split @endo/cbor encode and decode entry points
@@ -3821,20 +3824,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (7)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`cjs-module-lexer-upstream-20260730-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cjs-module-lexer-upstream-20260730-205004.md) — ---
 - [`ebfb-doc-package-json-cross-tool-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics.md) — Build a package.json cross-tool semantics catalog
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
-- [`endo-sturdyref-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260730-203502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-203502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4001)
+### tada (4002)
+- [`endo-sturdyref-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260730-203502.md) — Cost
 - [`endo-npm-cas-registry-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260730-203502.md) — Completion: endo-npm-cas-registry-press-20260730-203502
 - [`endo-sturdyref-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260730-082002.md) — Cost
 - [`endo-git-integration-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260730-143501.md) — Cost
 - [`endo-byte-array-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260730-203502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- [`endo-npm-cas-registry-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260730-143501.md) — Completion Report
-- … and 3996 more
+- … and 3997 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
