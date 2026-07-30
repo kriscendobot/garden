@@ -2,7 +2,7 @@
 order: serial
 children: monk-finish-gardener-rename lama-rename-hermit
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-07-30T05:40:05Z
 ---
