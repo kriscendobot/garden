@@ -2028,3 +2028,12 @@ Inspect via `git -C journal cat-file -p 0260d565b3f5aa06ebdd6cf733ef7f41c73bbcac
 - Context: gardener-4 on endolin-garden-ece02cb4: job 'garden-fireworks-glm52-register-retry' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 2c8a84af683d3313676af125d1eb01b4d93c2511`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-30T01:50:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8e05167cdf7bd26c8d5de45a617b6b2a7b4f67bf
+- Context: gardener-5 on endolin-garden-ece02cb4: job 'pr-ebfb-877-bundle-endo-base64' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8e05167cdf7bd26c8d5de45a617b6b2a7b4f67bf`.
