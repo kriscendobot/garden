@@ -1,5 +1,5 @@
 ---
-tier: mentor
+tier: minion
 role: conductor
 priority: urgent
 fallback-tier: minion
