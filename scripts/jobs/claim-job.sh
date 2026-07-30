@@ -62,7 +62,7 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" tier constrained_provider
+  local jf="$1" tier pin constrained_provider
   # Moonshot credits are exhausted. This belt-and-suspenders guard keeps an
   # already-running or accidentally reconfigured mystic unit from acquiring a
   # new claim while the worker-count and producer controls converge.
@@ -75,7 +75,19 @@ job_eligible_for_kind() {
   # Mentat is an authorization boundary, not merely a price point.
   [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
   [ "$tier" != mentat ] || [ "$KIND_PROVIDER" = anthropic ] || return 1
-  [ -n "$(tier_model_for_provider "$tier" "$KIND_PROVIDER")" ]
+  # A concrete `model:` pin binds the job to the provider that owns that model,
+  # so a multi-provider tier (mentor spans Opus 5 / Sol / Kimi) never lets a worker
+  # claim a job pinned to a foreign provider's model. resolve_model_tier resolves the
+  # pin (a short alias like `terra` or a concrete id like `kimi-k3`) to the concrete
+  # id AND fails closed (empty) when this provider does not own it, which is exactly
+  # the backend-fit filter. A tier-only job (no model pin) is claimable by any
+  # provider that has a model at that tier.
+  pin="$(plan_field "$jf" model)"
+  if [ -n "$pin" ]; then
+    [ -n "$(resolve_model_tier "$KIND_PROVIDER" "$pin")" ]
+  else
+    [ -n "$(tier_model_for_provider "$tier" "$KIND_PROVIDER")" ]
+  fi
 }
 
 DIR="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}"

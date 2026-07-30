@@ -22,13 +22,15 @@ uniformly on `(provider, model, thoughtfulness)` regardless of backend.
 ## Dispatch vocabulary (current)
 
 The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
-Its tiers are: mentat = Fable (manual-only), mentor = Moonshot Kimi K3 (disabled
-while its credits are exhausted) plus the provider-constrained Fireworks GLM 5.2
-canary, minion = Opus and Codex (the current automatic target), and myrmidon = the
-expedient Sonnet/Haiku/local models. Unknown ids are unclassified, not wildcarded.
-During the temporary Moonshot-credit exhaustion route all automatic producer output
-has durable `tier: minion` intent and a redundant compatible `gpt-5.6-terra` pin;
-only `post-manual-job.sh` may create a Fable job.
+Its tiers are: mentat = Fable (manual-only), mentor = Anthropic Opus 5, OpenAI
+Sol, Moonshot Kimi K3, and Fireworks Kimi K3 / GLM 5.2 (the multi-provider automatic
+ceiling), minion = Opus 4.x, the OpenAI/Codex models below Sol, and Fireworks Deepseek
+V4 Pro (the automatic fallback), and myrmidon = the expedient Sonnet/Haiku/local models
+plus Fireworks gpt-oss-120b. Unknown ids are unclassified, not wildcarded. All
+automatic producer output has durable `tier: mentor` intent with no concrete model pin,
+so a mentor job is claimable by whichever provider's worker is live (monk on Opus 5,
+cleric on Sol, mystic on Kimi, fireworker on Fireworks Kimi/GLM); only
+`post-manual-job.sh` may create a Fable job.
 
 **Provenance.** Every id below is transcribed from a live query, not from memory:
 
