@@ -1,20 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 4
-deadline_overruns: 1
-poisoned_at: 2026-07-28T16:53:05Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-28T16:53:05Z
-tier: minion
 model: gpt-5.6-terra
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:17:42Z cleared=deadline-overrun=1 -->
 
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-28T07:25:08Z -->
 
@@ -95,4 +82,3 @@ unchanged, and the `jobs/tada/` report names exactly what a canary should post f
 each of the two models.
 
 
-<!-- garden-deadline-overrun: 1 -->
