@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:41:46Z_
+_As of 2026-07-30T00:44:37Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 5m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 2m)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 15h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 17h)
@@ -5695,20 +5695,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (5)
+### doin (4)
 - [`design-npm-dev-publisher-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-dev-publisher-attenuation.md) — ---
 - [`endojs-endo-but-for-bots-pr403-ad7046e4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-ad7046e4.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr778-review-95a2b3a4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr778-review-95a2b3a4.md) — Review directive on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd reconciliation
-- [`endojs-endo-but-for-bots-pr860-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr860-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #860
 
-### tada (3936)
+### tada (3937)
+- [`endojs-endo-but-for-bots-pr860-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr860-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr857-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr857-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr848-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr848-conduct.md) — Cost
 - [`garden-approval-reconciler-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-approval-reconciler-rollout.md) — orchestration garden-approval-reconciler-rollout — HALTED
-- [`endojs-endo-but-for-bots-pr761-0ba46b9f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr761-0ba46b9f.md) — Cost
-- … and 3931 more
+- … and 3932 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
