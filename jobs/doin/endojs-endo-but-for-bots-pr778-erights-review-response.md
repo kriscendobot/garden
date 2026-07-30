@@ -18,6 +18,7 @@ Determine concretely how each change relates, or does not relate, to PR #778. Po
 
 Record the posted comment URL and any commit SHA in the completion report.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
