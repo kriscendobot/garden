@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T10:05:22Z_
+_As of 2026-07-30T10:06:15Z_
 
 ## Latest
 
@@ -5396,7 +5396,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 29.4M _(+707.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
 
 ## Board
-### todo (33)
+### todo (32)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`daily-progress-summary-20260730-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260730-070501.md) — Daily midnight Pacific progress summary
 - [`endo-byte-array-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260730-082002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -5416,7 +5416,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/monk-finish-gardener-rename.md) — Finish the gardener -> monk worker-kind rename
 - [`ocapn-noise-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260730-082002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-010501.md) — Hourly scholar library cycle
@@ -5431,9 +5430,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (2)
+### doin (3)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260730.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
+- [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 
 ### tada (3990)
 - [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-conduct.md) — Cost
