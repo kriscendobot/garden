@@ -29,15 +29,4 @@ Conductor evidence:
 
 Please weave/rebase PR #403 onto current `llm` using the frozen-base branch discipline, resolve conflicts per the weaver role, run affected verification, force-push with lease, and update the PR base to the new frozen base. After it is green again, a conductor can merge it.
 
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-07-30T21:30:23Z
+<!-- garden-reaped: 0 -->
