@@ -17,6 +17,10 @@ Apply tier expectations:
 - myrmidon and minion: small or mechanical jobs, low cost, short latency, reliable completion.
 - mentor and mentat: large, ambiguous, or high-risk jobs, strong verification, high acceptance and PR-approval rates.
 - mentat remains manual-only; automatic routing targets minion; Kimi is disabled while Moonshot credits are exhausted.
+- Carry forward `reports/kimi-k3-credit-exhaustion-20260730.md`: Kimi's complete
+  activation-to-exhaustion invoice is $64.00 across 28 token-bearing engagements;
+  analyze 4 token-bearing failures separately from 14 zero-token quota/outage
+  attempts, and do not treat the completion-censored sample as PR acceptance.
 
 For each model, report the current tier, evidence window, sample sizes, work mix, performance and acceptance measures, confidence, and one disposition: retain, promote deeper, demote shallower, or insufficient evidence. Prefer movement toward the fastest and cheapest shallower tier that still meets effectiveness and acceptance parameters for its assigned work. Recommend deeper movement when failures, review rejection, or fix-loop burden show the current tier is not effective. Do not mistake speed alone for success.
 
