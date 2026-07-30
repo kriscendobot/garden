@@ -4,10 +4,10 @@ repo: endojs/endo-but-for-bots
 pr_number: 893
 build_job: ebfb-doc-package-json-cross-tool-semantics
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
-current_child: ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean
+current_child: ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-07-30T21:25:20Z
