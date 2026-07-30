@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T04:43:48Z_
+_As of 2026-07-30T04:44:31Z_
 
 ## Latest
 
@@ -5832,9 +5832,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 26.2M _(+637.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
-### todo (18)
+### todo (19)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
+- [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-conduct.md) — conductor reconciliation
 - [`esheets-supervisor-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/esheets-supervisor-20260730-033502.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-pr4-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-fable-signoff.md) — ---
@@ -6084,6 +6085,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr600-cb3a204f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-cb3a204f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr836-06bbcc3d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-06bbcc3d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-ascii.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/836` · Build: carve out @endo/ascii — XS-safe 7-bit-asserted ASCII text→bytes encoder
