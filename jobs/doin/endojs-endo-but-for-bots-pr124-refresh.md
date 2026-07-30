@@ -23,3 +23,13 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Endor is now on the llm branch. I believe SQL bindings are as well. Please refresh this PR and resume. If sufficient SQL bindings are not available, do not stub them. Search for the relevant PR and park a job to wake this PR until it lands. 
 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T21:03:05Z
