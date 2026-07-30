@@ -27,12 +27,4 @@ Inspect the existing approval-trigger path in scripts/jobs/comment-watcher.sh, p
 
 Audit the approvals from 2026-07-28 as read-only regression evidence: identify which would have been recovered, while proving current manual conductor requests suppress duplicates. Add hermetic tests for missed events, stale approval after head movement, event/sweep race, existing manual job under a different basename, red CI, draft PR, untrusted approver, non-bot PR, and leader/follower gating. Add the systemd unit/timer or integrate with the existing appropriate watcher cadence, update operations documentation, and report the landed revision and rollout requirements.
 
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 5
-  worker_kind: mystic
-  tier: 
-  provider: moonshot
-  model: 
-  claimed_at: 2026-07-30T01:43:18Z
+<!-- garden-reaped: 1 -->
