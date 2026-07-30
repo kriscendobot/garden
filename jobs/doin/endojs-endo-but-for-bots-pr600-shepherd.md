@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please shepherd. Also update the title and description. Note that we have posted a job to narrow the scope of this PR so it can land and for the orchestration to proceed in follow-up changes, possibly in parallel. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T03:57:02Z
