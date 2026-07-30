@@ -1,7 +1,7 @@
 #!/bin/bash
 # post-job.sh — producer primitive: put a job onto the board's todo/.
 #
-# Usage: post-job.sh [--identity <key>] <basename> [<body-file>]
+# Usage: post-job.sh [--identity <key>] [--provider-canary <provider> <tier>] <basename> [<body-file>]
 #   <basename>   reserved job name; the spine that ties todo↔doin↔tada↔worktree.
 #                Must be filesystem- and git-ref-safe; keep it short.
 #   <body-file>  optional file whose contents become the job body. If omitted,
@@ -60,6 +60,10 @@ Usage: post-job.sh [--identity <key>] <basename> [<body-file>]
   --identity   optional stable directive identity (a key for the PR comment/
                review that triggered the work); collapses jobs from different
                producers onto ONE open job. Also via GARDEN_JOB_IDENTITY.
+  --provider-canary <provider> <tier>
+               post a bounded, provider-constrained tier canary. It writes
+               `provider:`, `tier:`, and `dispatch: canary`; its body must not
+               name a concrete `model:`. Ordinary automatic jobs stay minion.
 EOF
 }
 
@@ -74,12 +78,15 @@ case "${1:-}" in -h|--help) usage; exit 0;; esac
 # identity; both are optional and may appear in either order before the base.
 identity="${GARDEN_JOB_IDENTITY:-}"
 role=""
+canary_provider=""
+canary_tier=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --identity)   identity="${2:?--identity needs a value}"; shift 2;;
     --identity=*) identity="${1#--identity=}"; shift;;
     --role)       role="${2:?--role needs a value}"; shift 2;;
     --role=*)     role="${1#--role=}"; shift;;
+    --provider-canary) canary_provider="${2:?--provider-canary needs a provider}"; canary_tier="${3:?--provider-canary needs a tier}"; shift 3;;
     --)           shift; break;;
     -*)           die "unknown option: '$1' (usage: post-job.sh [--identity <key>] [--role <role>] <basename> [body-file])";;
     *)            break;;
@@ -118,7 +125,34 @@ BODY="$(read_body)"
 
 # This is the automatic producer choke point.  No watcher, scheduler, follow-up,
 # auction, or role-generated job can retain a Claude pin during the quota route.
-if [ "${GARDEN_MANUAL_DISPATCH:-}" = 1 ]; then
+if [ -n "$canary_provider" ]; then
+  case "$canary_provider" in anthropic|openai|local|moonshot|fireworks) ;; *) die "unknown canary provider '$canary_provider'";; esac
+  case "$canary_tier" in mentat|mentor|minion|myrmidon) ;; *) die "unknown canary tier '$canary_tier'";; esac
+  [ -n "$(tier_model_for_provider "$canary_tier" "$canary_provider")" ] \
+    || die "provider '$canary_provider' has no reviewed model in tier '$canary_tier'"
+  if printf '%s\n' "$BODY" | grep -q '^model:[[:space:]]'; then
+    die "provider canaries select a tier, not a concrete model: remove model: from the body"
+  fi
+  BODY="$(printf '%s\n' "$BODY" | awk -v provider="$canary_provider" -v tier="$canary_tier" '
+    function trim(s){sub(/^[ \t]+/,"",s);sub(/[ \t]+$/,"",s);return s}
+    { line[++n]=$0 }
+    END {
+      if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
+      if (!end) { print "---"; print "provider: " provider; print "tier: " tier; print "dispatch: canary"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
+      seenprovider=seentier=seendispatch=0
+      for(i=1;i<end;i++) {
+        if(i==1){print line[i]; continue}
+        if(line[i] ~ /^provider:[ \t]*/) { print "provider: " provider; seenprovider=1; continue }
+        if(line[i] ~ /^tier:[ \t]*/) { print "tier: " tier; seentier=1; continue }
+        if(line[i] ~ /^dispatch:[ \t]*/) { print "dispatch: canary"; seendispatch=1; continue }
+        print line[i]
+      }
+      if (!seenprovider) print "provider: " provider
+      if (!seentier) print "tier: " tier
+      if (!seendispatch) print "dispatch: canary"
+      for(i=end;i<=n;i++) print line[i]
+    }')"
+elif [ "${GARDEN_MANUAL_DISPATCH:-}" = 1 ]; then
   manual_tier="$(printf '%s\n' "$BODY" | sed -n '2,/^---$/s/^tier:[[:space:]]*//p' | head -1)"
   [ "$manual_tier" = mentat ] || die "manual dispatch may select only tier: mentat"
 else

@@ -27,6 +27,10 @@ state_ns="$(worker_kind_field "$KIND" state_ns 2>/dev/null || true)"
 # mentor capability boundary.
 [ "$(job_tier "$jobfile" 2>/dev/null || true)" = mentor ] \
   || die "mystic only runs tier: mentor jobs (refusing '$base')"
+if job_provider_is_constrained "$jobfile"; then
+  [ "$(job_provider_constraint "$jobfile" 2>/dev/null || true)" = moonshot ] \
+    || die "job '$base' is constrained to an unavailable or foreign provider"
+fi
 kimi_provider_preflight "$base" || exit 1
 
 # Publish the resolved model so the fleet's gh wrapper can stamp it into the

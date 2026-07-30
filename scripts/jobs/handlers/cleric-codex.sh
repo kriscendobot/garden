@@ -121,6 +121,11 @@ fi
 requested_tier="$(job_tier "$jobfile" 2>/dev/null || true)"
 requested_role="$(plan_role "$jobfile")"
 requested_effort="$(plan_field "$jobfile" effort)"
+if job_provider_is_constrained "$jobfile"; then
+  constrained_provider="$(job_provider_constraint "$jobfile" 2>/dev/null || true)"
+  [ "$constrained_provider" = "$provider" ] \
+    || die "job '$base' is constrained to an unavailable or foreign provider"
+fi
 
 model=""
 if [ -n "$requested_tier" ]; then

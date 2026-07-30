@@ -1,24 +1,23 @@
 ---
 created: 2026-07-25
-updated: 2026-07-28
+updated: 2026-07-30
 author: gardener
 ---
 
 # Bounded Fireworks worker activation
 
-`fireworker` is an explicit-model-only Fireworks AI pool. It uses Codex's custom
+`fireworker` is a provider-constrained, tier-pinned Fireworks AI pool. It uses Codex's custom
 OpenAI-compatible provider route to `https://api.fireworks.ai/inference/v1` and
 receives `FIREWORKS_API_KEY` only through the container's tmpfs systemd handoff.
 The key is never put in a unit, journal, worktree, report, or diagnostic. The pool
-starts at zero and refuses unpinned work.
+starts at zero and refuses unconstrained work.
 
-## Configure an explicit route
+## Registered route
 
-The board routing id is `fireworks/<wire-model-id>`. The suffix is passed unchanged
-to Fireworks, so it can be a current Serverless model, Fast router id, or dedicated
-deployment id. For example, select a current identifier from the Fireworks model
-library and post `model: fireworks/accounts/...`. Do not add a catalog default to
-the garden: availability, pricing, and deployment ids are provider data.
+The closed inventory registers `fireworks/accounts/fireworks/models/glm-5p2` as a
+`mentor` model. The garden namespace is removed before the request reaches
+Fireworks. New selectors fail closed until an inventory, routing-default, resolver,
+and test update lands; do not use a wildcard route.
 
 Standard is the documented default serving path. A Fast router is selected by its
 explicit wire model id. Priority requires Fireworks's `service_tier: "priority"`
@@ -55,10 +54,18 @@ On a successful status, enable one worker only:
 scripts/jobs/set-fireworkers.sh 1
 ```
 
-Post one harmless, isolated-worktree canary with an explicit Fireworks model route
-and no external action. Confirm the `jobs/tada/` report contains `worker_kind:
-fireworker` and provider `fireworks`, then return it to zero unless the maintainer
-authorizes a larger trial:
+Post one harmless, isolated-worktree canary with a Fireworks provider constraint
+and no external action. The canary names `provider: fireworks` and `tier: mentor`,
+but never a concrete `model:` in its body; the closed tier resolver selects GLM 5.2.
+Put the harmless task in `canary.md`, then post it with:
+
+```sh
+scripts/jobs/post-job.sh --provider-canary fireworks mentor fireworks-glm52-canary canary.md
+```
+
+Confirm the `jobs/tada/` report contains `worker_kind: fireworker`, provider
+`fireworks`, tier `mentor`, and the resolved GLM 5.2 model, then return it to zero
+unless the maintainer authorizes a larger trial:
 
 ```sh
 scripts/jobs/set-fireworkers.sh 0
@@ -74,22 +81,17 @@ reports or journal entries.
 The lane was exercised end to end on `endolin-garden2-5bcdff64` and returned to
 zero. What the run established, so a later operator need not rediscover it:
 
-**Resolving a wire id.** The routing table row is `fireworks	fireworks/*`, so
-`_model_classify` accepts any `fireworks/`-namespaced id — the table does not and
-should not police the catalog. The live set is whatever `GET $GARDEN_FIREWORKS_BASE_URL/models`
-returns for the account; on this date it listed five Serverless ids. Read that list
-for ids only (`jq -r '.data[].id'`) and never persist the body. The canary used
-`fireworks/accounts/fireworks/models/glm-5p2`, confirmed with
+**Resolving a wire id.** The canary used the reviewed
+`fireworks/accounts/fireworks/models/glm-5p2` selector. Confirm it with
 `resolve_model_tier fireworks fireworks/accounts/fireworks/models/glm-5p2`, which
-echoes the id back when it is accepted and an empty string when it is not. Run that
-check before posting: an id the resolver rejects is treated as unpinned and the
-canary will simply never be claimed.
+echoes the id back only when the exact inventory entry and routing row agree.
+Unknown selector/provider/tier combinations fail closed and cannot be claimed.
 
-**The explicit-model-only gate holds.** Observed directly in the logs: all eight
+**The provider-constraint gate holds.** Observed directly in the logs: all eight
 gardeners (anthropic), the cleric (openai), and the mystic (moonshot) each declined
 the canary with `pinned to a model this <kind> (<provider>) cannot honor; skipping
-(backend-fit)`. Only the fireworker claimed it. A pinned Fireworks job cannot wander
-onto another lane, and an unpinned job cannot wander onto Fireworks.
+(backend-fit)`. Only the fireworker claimed it. A Fireworks-constrained job cannot
+wander onto another lane, and an unconstrained job cannot wander onto Fireworks.
 
 **Reputation scoping is correct despite the shared handler.** `handlers/cleric-codex.sh`
 serves both the cleric (openai) and the fireworker, so mis-scoping would silently

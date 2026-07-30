@@ -62,12 +62,16 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" tier
+  local jf="$1" tier constrained_provider
   # Moonshot credits are exhausted. This belt-and-suspenders guard keeps an
   # already-running or accidentally reconfigured mystic unit from acquiring a
   # new claim while the worker-count and producer controls converge.
   [ "$KIND" != mystic ] || return 1
   tier="$(job_tier "$jf")" || return 1
+  if job_provider_is_constrained "$jf"; then
+    constrained_provider="$(job_provider_constraint "$jf")" || return 1
+    [ "$constrained_provider" = "$KIND_PROVIDER" ] || return 1
+  fi
   # Mentat is an authorization boundary, not merely a price point.
   [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
   [ "$tier" != mentat ] || [ "$KIND_PROVIDER" = anthropic ] || return 1

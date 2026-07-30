@@ -57,12 +57,17 @@ hr; echo "CLASSIFY — the tracked default table routes the current (qwen) reali
 [ -z "$(resolve_model_tier openai kimi-k3)" ] && ok "kimi-k3 is NOT openai" || bad "kimi leaked to openai"
 [ -z "$(resolve_model_tier anthropic kimi-k3)" ] && ok "kimi-k3 is NOT anthropic" || bad "kimi leaked to anthropic"
 [ -z "$(resolve_model_tier local kimi-k3)" ] && ok "kimi-k3 is NOT local" || bad "kimi leaked to local"
+# Fireworks is one exact reviewed selector, not a namespace wildcard.
+[ "$(resolve_model_tier fireworks fireworks/accounts/fireworks/models/glm-5p2)" = "fireworks/accounts/fireworks/models/glm-5p2" ] && ok "reviewed GLM 5.2 selector → Fireworks" || bad "GLM 5.2 not Fireworks"
+[ -z "$(resolve_model_tier fireworks fireworks/accounts/fireworks/models/other)" ] && ok "unknown Fireworks selector fails closed" || bad "Fireworks wildcard leaked"
+[ -z "$(resolve_model_tier openai fireworks/accounts/fireworks/models/glm-5p2)" ] && ok "GLM 5.2 is NOT OpenAI" || bad "GLM leaked to OpenAI"
 
 # ============================================================================
 hr; echo "DEFAULTS — fleet defaults ride the routing table"; hr
 [ "$(model_routing_default local)" = "qwen3:0.6b" ]   && ok "local fleet default = qwen3:0.6b" || bad "local default ($(model_routing_default local))"
 [ "$(model_routing_default openai)" = "gpt-5.6-terra" ] && ok "openai fleet default = gpt-5.6-terra" || bad "openai default"
 [ -z "$(model_routing_default moonshot)" ] && ok "moonshot has no fleet default" || bad "moonshot default"
+[ -z "$(model_routing_default fireworks)" ] && ok "Fireworks has no fleet default" || bad "Fireworks default"
 [ -z "$(model_routing_default anthropic)" ]           && ok "anthropic default empty (sentinel decided in code)" || bad "anthropic default not empty"
 [ "$(role_default_model hermit builder)" = "qwen3:0.6b" ] && ok "hermit builder role default = qwen3:0.6b (from table)" || bad "hermit builder default"
 

@@ -23,9 +23,9 @@ uniformly on `(provider, model, thoughtfulness)` regardless of backend.
 
 The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
 Its tiers are: mentat = Fable (manual-only), mentor = Moonshot Kimi K3 (disabled
-while its credits are exhausted), minion = Opus and Codex (the current automatic
-target), and myrmidon = the expedient
-Sonnet/Haiku/local/Fireworks models. Unknown ids are unclassified, not wildcarded.
+while its credits are exhausted) plus the provider-constrained Fireworks GLM 5.2
+canary, minion = Opus and Codex (the current automatic target), and myrmidon = the
+expedient Sonnet/Haiku/local models. Unknown ids are unclassified, not wildcarded.
 During the temporary Moonshot-credit exhaustion route all automatic producer output
 has durable `tier: minion` intent and a redundant compatible `gpt-5.6-terra` pin;
 only `post-manual-job.sh` may create a Fable job.
@@ -190,6 +190,21 @@ a bounded live canary before the pool is enabled. It must not become a default f
 design, build, or another high-stakes role.
 
 ---
+
+### 2.7 Fireworks GLM 5.2, through the Codex-compatible `fireworker`
+
+The closed inventory contains one reviewed Fireworks selector:
+`fireworks/accounts/fireworks/models/glm-5p2`, classified as `mentor`. It is not a
+fleet default and is reached only by a `--provider-canary fireworks mentor` job.
+That canary body records a provider and capability tier, never the concrete model;
+the resolver chooses this exact selector and the handler sends the wire id without
+the garden `fireworks/` prefix. Unknown Fireworks ids, unknown providers, and
+provider/tier pairs with no inventory row fail closed.
+
+The Fireworks lane is deliberately bounded: it starts at zero workers, needs a
+secret-safe authenticated availability probe, and is returned to zero after the
+canary. Its Codex-compatible harness currently has no reliable token accounting, so
+the reputation arm is censored rather than assigned a guessed cost.
 
 ## 3. Cross-provider thoughtfulness axis (the load-bearing mapping)
 

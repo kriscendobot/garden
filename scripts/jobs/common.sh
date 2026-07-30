@@ -4346,6 +4346,19 @@ job_tier() {
   return 1
 }
 
+# job_provider_constraint <job-file> -> a known provider, or non-zero when the
+# optional leading `provider:` field is absent/unknown.  A provider constraint is
+# a routing boundary for a tier-pinned canary, not a concrete model selector.
+# Unknown combinations fail closed at the caller.
+job_provider_constraint() {
+  local provider
+  provider="$(plan_field "$1" provider)"
+  [ -n "$provider" ] || return 1
+  case "$provider" in anthropic|openai|local|moonshot|fireworks) printf '%s\n' "$provider";; *) return 1;; esac
+}
+
+job_provider_is_constrained() { [ -n "$(plan_field "$1" provider)" ]; }
+
 # tier_model_for_provider resolves a capability tier at claim/run time.  The
 # durable job intent remains the tier when this inventory assignment changes.
 tier_model_for_provider() {
@@ -4413,7 +4426,7 @@ _model_routing_table() {
     'openai	gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra' \
     'local	qwen3:0.6b	qwen3:0.6b' \
     'moonshot	kimi-k3' \
-    'fireworks	fireworks/accounts/fireworks/models/example	'
+    'fireworks	fireworks/accounts/fireworks/models/glm-5p2	'
 }
 
 # _model_classify <provider> <model-id> -> rc 0 iff the id BELONGS to <provider>
@@ -4519,8 +4532,8 @@ resolve_model_tier() {
       # select it: only the concrete, explicit `model: kimi-k3` is valid.
       if [ "$tier" = "kimi-k3" ] && _model_classify moonshot "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     fireworks)
-      # Do not turn a changing Fireworks catalog into code.  A namespaced,
-      # explicit routing id carries the exact Serverless/Fast/deployment wire id.
+      # The namespace is required, but the closed inventory still decides whether
+      # this exact Fireworks selector is eligible.
       if [[ "$tier" == fireworks/* ]] && [ -n "${tier#fireworks/}" ] && _model_classify fireworks "$tier"; then printf '%s\n' "$tier"; else printf '%s\n' ""; fi ;;
     *) printf '%s\n' "" ;;
   esac

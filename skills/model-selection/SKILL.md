@@ -15,7 +15,7 @@ unclassified and cannot acquire an automatic route.
 | Tier | Fleet models | Dispatch boundary |
 | --- | --- | --- |
 | mentat | Claude Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. |
-| mentor | Moonshot Kimi K3 (`kimi-k3`) | Disabled while Moonshot credits are exhausted; retained only to classify/migrate historical claims. |
+| mentor | Moonshot Kimi K3 (`kimi-k3`) and Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) | Provider-constrained canaries only; Moonshot remains disabled while its credits are exhausted. |
 | minion | Anthropic Opus and every selectable OpenAI/Codex model | Current automatic-dispatch tier. New jobs redundantly carry `model: gpt-5.6-terra` during the fleet upgrade. |
 | myrmidon | Sonnet, Haiku, served local Qwen, and configured Fireworks selector | Expedient tier; not an automatic escalation path. |
 
@@ -50,5 +50,6 @@ migration is idempotent and does not need to remain on.
 Add its exact provider/id/tier row to `model-tier-inventory.tsv`, add the same
 exact id to `model-routing-defaults.tsv`, and extend regression coverage before
 enabling it. Do not add wildcard provider patterns: that would classify a newly
-introduced model silently. Update this document and
+introduced model silently. A provider-constrained canary names `provider:` and
+`tier:`, never a concrete `model:`. Update this document and
 [`designs/provider-model-catalog.md`](../../designs/provider-model-catalog.md).
