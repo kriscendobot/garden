@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-30T01:33:11Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-30T01:33:11Z
+---
+
+---
 role: gardener
 gauntlet: endojs-endo-but-for-bots-pr857-gauntlet
 gauntlet_stage: panel
@@ -32,13 +46,3 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=must-fix -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: mystic
-  tier: 
-  provider: moonshot
-  model: 
-  claimed_at: 2026-07-30T00:44:40Z
