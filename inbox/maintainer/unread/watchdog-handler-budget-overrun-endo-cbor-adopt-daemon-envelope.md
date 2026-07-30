@@ -1,9 +1,13 @@
 from_host: endolin-garden2-5bcdff64
-from: watchdog:gardener/5
-sent_at: 2026-07-29T02:29:43Z
+from: watchdog:fireworker/4
+sent_at: 2026-07-30T21:10:40Z
 watchdog_key: handler-budget-overrun-endo-cbor-adopt-daemon-envelope
-notice_count: 1
+notice_count: 2
 first_seen: 2026-07-29T02:29:11Z
-last_seen: 2026-07-29T02:29:43Z
+last_seen: 2026-07-30T21:10:40Z
 ---
-gardener job 'endo-cbor-adopt-daemon-envelope' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2425s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+WATCHDOG notice — occurrence #2 (first seen 2026-07-29T02:29:11Z, latest 2026-07-30T21:10:40Z).
+The SAME condition (`handler-budget-overrun-endo-cbor-adopt-daemon-envelope`) has now been observed 2 times; this is ONE
+coalesced notice that updates in place, not 2 messages. Latest detail:
+
+gardener job 'endo-cbor-adopt-daemon-envelope' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2544s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
