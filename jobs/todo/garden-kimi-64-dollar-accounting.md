@@ -1,14 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-kimi-credit-exhaustion
-priority: high
-posted_by: liaison
-posted_at: 2026-07-30T03:53:40Z
-tier: minion
+role: assayer
 model: gpt-5.6-terra
-fallback-tier: minion
-dispatch: automatic
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-07-30T04:04:03Z cleared=none -->
 
 ---
 role: assayer
