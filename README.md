@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T09:57:30Z_
+_As of 2026-07-30T10:03:31Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 8h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 9h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 1d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 23h)
@@ -5393,7 +5393,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 29.2M _(+705.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 29.3M _(+707.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (33)
@@ -5431,17 +5431,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (2)
+### doin (1)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #876
 
-### tada (3989)
+### tada (3990)
+- [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr873-conduct.md) — Cost
 - [`ocapn-noise-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260730-020502.md) — Cost
 - [`ocapn-noise-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260729-195004.md) — Cost
 - [`ocapn-noise-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260729-133503.md) — Cost
-- [`garden-fireworks-glm52-register-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fireworks-glm52-register-retry.md) — inspect jobs/tada, then:
-- … and 3984 more
+- … and 3985 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
