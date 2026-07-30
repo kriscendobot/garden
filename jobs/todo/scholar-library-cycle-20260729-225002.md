@@ -1,8 +1,9 @@
 ---
 role: scholar
 tier: minion
+model-burned: minion
 model: gpt-5.6-terra
-fallback-tier: minion
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -16,12 +17,4 @@ required integrity checks, regenerate projected indexes, and journal a `result`.
 Post a precisely scoped follow-on scholar job for any remaining backlog. If no
 actionable work is present, record that cleanly and complete the cycle.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-07-30T10:39:01Z
+<!-- garden-reaped: 0 -->
