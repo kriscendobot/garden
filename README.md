@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:14:23Z_
+_As of 2026-07-30T21:14:56Z_
 
 ## Latest
 
@@ -3743,9 +3743,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-07-29T06:56:25Z, latest 2026-07-30T00:14:18Z).
-> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-07-29T06:56:25Z, latest 2026-07-30T21:14:32Z).
+> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
 > pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) (cid=5124648430) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
@@ -3779,7 +3779,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 32.1M _(+793.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 32.1M _(+795.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (70)
