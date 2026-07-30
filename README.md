@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:31:32Z_
+_As of 2026-07-30T00:32:40Z_
 
 ## Latest
 
@@ -14,9 +14,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 1m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 7m)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 14h)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13h)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 17h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 5d)
@@ -5695,20 +5695,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### doin (5)
+### doin (4)
 - [`design-npm-dev-publisher-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-dev-publisher-attenuation.md) — ---
 - [`endojs-endo-but-for-bots-pr403-ad7046e4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-ad7046e4.md) — attention directive on endojs/endo-but-for-bots PR #403
-- [`endojs-endo-but-for-bots-pr556-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr556-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr761-0ba46b9f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr761-0ba46b9f.md) — attention directive on endojs/endo-but-for-bots PR #761
 - [`endojs-endo-but-for-bots-pr778-review-95a2b3a4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr778-review-95a2b3a4.md) — Review directive on endojs/endo-but-for-bots PR #778
 
-### tada (3930)
+### tada (3931)
+- [`endojs-endo-but-for-bots-pr556-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr556-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr558-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr558-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr836-review-03bd85ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr836-review-03bd85ff.md) — Cost
 - [`endojs-endo-but-for-bots-pr652-fbc8cd33`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-fbc8cd33.md) — Cost
 - [`endojs-endo-but-for-bots-pr652-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-conduct.md) — Cost
-- [`ebfb-approved-pr-conductor-reconcile-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-approved-pr-conductor-reconcile-20260730.md) — Cost
-- … and 3925 more
+- … and 3926 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
