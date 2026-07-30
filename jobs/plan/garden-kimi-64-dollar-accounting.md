@@ -8,9 +8,9 @@ posted_at: 2026-07-30T03:53:40Z
 
 ---
 role: assayer
-tier: mentor
+tier: minion
+model: gpt-5.6-terra
 handler-timeout: 10800
-fallback-tier: minion
 dispatch: automatic
 ---
 # Attribute exactly $64.00 of Kimi K3 spend and compare mentor-tier effectiveness

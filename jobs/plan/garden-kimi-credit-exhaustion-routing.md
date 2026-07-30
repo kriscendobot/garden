@@ -8,9 +8,9 @@ posted_at: 2026-07-30T03:53:35Z
 
 ---
 role: gardener
-tier: mentor
+tier: minion
+model: gpt-5.6-terra
 handler-timeout: 7200
-fallback-tier: minion
 dispatch: automatic
 ---
 # Route around exhausted Moonshot Kimi K3 credits
