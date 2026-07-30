@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T20:24:28Z_
+_As of 2026-07-30T20:27:30Z_
 
 ## Latest
 
@@ -3278,6 +3278,35 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > The SturdyRef line is stalled at the maintainer-gated [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) agent-surface gauntlet: it remains parked as gate: go-ahead and poisoned after a deadline overrun, with no live sturdyref worker. [https://github.com/endojs/endo-but-for-bots/pull/698](https://github.com/endojs/endo-but-for-bots/pull/698), [https://github.com/endojs/endo-but-for-bots/pull/700](https://github.com/endojs/endo-but-for-bots/pull/700), and [https://github.com/endojs/endo-but-for-bots/pull/541](https://github.com/endojs/endo-but-for-bots/pull/541) are still open draft stack elements and their current checks are green. Please authorize promotion/retry of that gauntlet, or give a different next cut. The binding Distributed Confinement bar remains: no guest locator or stable identity, and per-grant tokens must be unlinkable.
 
+- `20260730T202712Z-72b792` — from gardener:endo-git-integration-press-20260730-082002, reply_to `endo-git-integration-press-20260730-082002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T202712Z-72b792.md)
+
+> # git-integration press — recommend retirement or re-scope
+>
+> **[endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) merged**: the git-capability stack sequencing
+> design is accepted and landed, squash-merged at `eb64412d` (2026-07-30T20:26Z)
+> onto base `llm`. CI was SUCCESS, mergeState CLEAN, kriskowal APPROVED at the
+> rewoven head `840c3a73`.
+>
+> This closes the arc's tracked items: the M3 north-star loop
+> (`designs/daemon-git-next-steps.md`) is fully landed in `llm` —
+> [endojs/endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/issues/706), [endojs/endo-but-for-bots#645](https://github.com/endojs/endo-but-for-bots/issues/645),
+> [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740), [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708),
+> [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) all merged
+> (M3 closed 2026-07-29), and now the sequencing design
+> [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) that bound them is merged too.
+>
+> **Recommendation:** retire or re-scope the `endo-git-integration-press`
+> schedule (cadence 6h). The only remaining live item is
+> **[endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)** (Phase-5 stack-surgery eval), deliberately
+> DRAFT at `8e29c292`, parked awaiting a maintainer directive — I will keep
+> pressing [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) per whatever directive follows. A
+> lighter, [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)-only watch cadence (or folding
+> [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) into a general `llm` regression watch) would fit
+> better than the current M3-arc press body.
+>
+> Standing by for a directive on [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) or on retiring
+> this press.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3684,7 +3713,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 30.5M _(+735.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 30.7M _(+745.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (78)
