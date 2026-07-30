@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T16:18:38Z_
+_As of 2026-07-30T16:20:26Z_
 
 ## Latest
 
@@ -3684,10 +3684,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 30.1M _(+718.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 30.1M _(+719.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
 
 ## Board
-### todo (77)
+### todo (78)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daily-progress-summary-20260730-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260730-070501.md) — Daily midnight Pacific progress summary
@@ -3763,6 +3763,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260730-130502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-130502.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-142001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-142001.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-152002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-152002.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260730-162002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-162002.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
