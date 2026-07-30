@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T06:08:49Z_
+_As of 2026-07-30T06:25:39Z_
 
 ## Latest
 
@@ -3266,6 +3266,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Advanced this cycle: re-armed the required panel gate for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) with fresh job finbot-pr5-panel-20260730, pinned to current green head 468b774b. Earlier panel jobs for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) remain poisoned and parked after empty-seat failures; [https://github.com/kriscendobot/finbot/pull/4](https://github.com/kriscendobot/finbot/pull/4) and [https://github.com/kriscendobot/finbot/pull/6](https://github.com/kriscendobot/finbot/pull/6) already await their queued Fable sign-offs, so I did not duplicate them. Next unblocked step: the new panel for [https://github.com/kriscendobot/finbot/pull/5](https://github.com/kriscendobot/finbot/pull/5) must pass, then it must dispatch a Fable-orchestrator sign-off. No finbot PR was merged or un-drafted; no maintainer decision is needed now.
 
+- `20260730T062507Z-608bce` — from orchestrator:worker-kind-rename-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T062507Z-608bce.md)
+
+> Orchestration worker-kind-rename HALTED: child monk-finish-gardener-rename stalled in flight for 2518s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; swept: lama-rename-hermit
+
 - `poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-doc-package-json-cross-tool-semantics-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5377,7 +5381,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 27.3M _(+665.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 27.6M _(+669.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (29)
@@ -5420,13 +5424,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr876-review-ac5d6dfa.md) — Review directive on endojs/endo-but-for-bots PR #876
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3975)
+### tada (3976)
+- [`worker-kind-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/worker-kind-rename.md) — orchestration worker-kind-rename — HALTED
 - [`endojs-endo-but-for-bots-pr403-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-shepherd.md) — Cost
 - [`garden-kimi-credit-exhaustion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-kimi-credit-exhaustion.md) — orchestration garden-kimi-credit-exhaustion — complete
 - [`garden-kimi-64-dollar-accounting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-kimi-64-dollar-accounting.md) — Cost
 - [`finbot-progress-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260730-020502.md) — Cost
-- [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fable-signoff.md) — Cost
-- … and 3970 more
+- … and 3971 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
