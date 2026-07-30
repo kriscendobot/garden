@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-07-30T00:13:12Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-30T00:13:12Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -18,13 +32,3 @@ discipline. The excerpt below is for human context only:
 Endor is now on the llm branch. I believe SQL bindings are as well. Please refresh this PR and resume. If sufficient SQL bindings are not available, do not stub them. Search for the relevant PR and park a job to wake this PR until it lands. 
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: mystic
-  tier: 
-  provider: moonshot
-  model: 
-  claimed_at: 2026-07-29T23:22:44Z
