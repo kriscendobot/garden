@@ -1,12 +1,13 @@
-# shepherd (auto) retired: CI recovered/settled before claim
+Shepherded PR #600: fixed the two CI lint issues, updated its title/description, and posted the SHA-anchored status summary.
 
-CI recovered/settled before claim — nothing to shepherd; ci-watcher retired
-this stale auto-shepherd. The CI-status watcher minted `endojs-endo-but-for-bots-pr600-shepherd`
-from a point-in-time RED rollup read; on a later tick the live rollup was
-in progress/queued (settling) (no longer red), so this stale auto-shepherd was retired
-deterministically (todo -> tada) rather than left to be claimed, re-fetch a
-no-longer-red CI, and exit-0-unsatisfying.
+PR is now merge-conflicting, so CI cannot dispatch. Hand-off: `next: weaver` to rebase onto `llm`, then rerun CI.
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr600-shepherd.jsonl; not agent-authored — do not edit -->
 
-Retired by: ci-watcher stale-shepherd re-validation sweep on endolin-garden2-5bcdff64.
+## Cost
+- Engagements: 2 on 1 host(s) (2 unmetered)
+- Input: 0 tokens (0 cached reads)
+- Output: 0 tokens
+- Cost: $0 (2 engagement(s) unpriced)
+- Wall-clock: 1057s
 
-<<<GARDEN-JOB-COMPLETE>>>
+<!-- garden-usage-end -->
