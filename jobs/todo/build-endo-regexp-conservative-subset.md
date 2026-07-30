@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs/endo-but-for-bots#676
-priority: normal
-posted_by: producer
-posted_at: 2026-07-10T21:13:28Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-30T00:16:03Z cleared=none -->
 
 ---
 role: builder
