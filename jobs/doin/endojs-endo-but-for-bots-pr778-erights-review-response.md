@@ -20,3 +20,13 @@ Determine concretely how each change relates, or does not relate, to PR #778. Po
 Record the posted comment URL and any commit SHA in the completion report.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T22:14:26Z
