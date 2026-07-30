@@ -172,9 +172,10 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 > supervised systemd `--user` unit, `garden-ollama.service` (source
 > `scripts/systemd/garden-ollama.service`, wrapper `scripts/jobs/ollama-serve.sh`),
 > with `Restart=always` so a crash self-restarts. It is the **intended** sole owner of
-> `:11434` — but see § Which unit is actually serving, because on a container built
-> before 2026-07-28 the installer's system `ollama.service` is enabled and holds the
-> port instead, and that is then the endpoint you must go to.
+> `:11435` — but see § Which unit is actually serving, because on a container built
+> before 2026-07-28 the installer's system `ollama.service` may still be enabled on
+> `:11434`. The garden and system units now serve **different ports** (`:11435` vs
+> `:11434`), so they no longer race for the same bind address.
 > It is enabled **only on hosts that
 > declare hermits** (`hermits: N>0` in `hosts/<host>` → `install-units.sh scale
 > hermit N` enables it; a zero-hermit host never does) and derives its `OLLAMA_HOST`
@@ -194,16 +195,16 @@ it installs with `curl -fsSL https://ollama.com/install.sh | sh` and pulls
 # Serve (ONE-OFF smoke only; production uses garden-ollama.service — see above).
 # OLLAMA_IGPU_ENABLE=1 is mandatory or the iGPU is ignored.
 # Must run as a user in the video+render groups, or as root (see § Container GPU access).
-OLLAMA_IGPU_ENABLE=1 OLLAMA_HOST=127.0.0.1:11434 ollama serve &
+OLLAMA_IGPU_ENABLE=1 OLLAMA_HOST=127.0.0.1:11435 ollama serve &
 
 ollama pull llama3.2:3b            # small, ~2 GB — good first smoke model
                                   # or: ollama pull gpt-oss:20b  (~12 GB, the playbook's pick)
 
 # Native API:
-curl http://localhost:11434/api/generate -d '{"model":"llama3.2:3b","prompt":"hello","stream":false}'
+curl http://localhost:11435/api/generate -d '{"model":"llama3.2:3b","prompt":"hello","stream":false}'
 
 # OpenAI-compatible /v1 (this is the surface a worker backend targets):
-curl http://localhost:11434/v1/chat/completions \
+curl http://localhost:11435/v1/chat/completions \
   -H 'Content-Type: application/json' \
   -d '{"model":"llama3.2:3b","messages":[{"role":"user","content":"Say hi in five words."}]}'
 ```
@@ -213,7 +214,8 @@ Ollama exposes `/v1/chat/completions`, `/v1/completions`, `/v1/models`, and
 
 ### Which unit is actually serving (check this before diagnosing anything)
 
-**Two different units can own `:11434`, and which one does is per-host. Do not assume.**
+**The garden unit serves `:11435` and the installer's system unit serves `:11434`.**
+**They no longer race for the same port, but which one is up is still per-host. Do not assume.**
 
 | Unit | Scope | Runs as | When it is up |
 | --- | --- | --- | --- |
@@ -223,7 +225,7 @@ Ollama exposes `/v1/chat/completions`, `/v1/completions`, `/v1/models`, and
 ```sh
 systemctl --user is-active garden-ollama.service   # the garden-supervised endpoint
 systemctl is-active ollama.service                 # the installer's system endpoint
-curl -fsS http://127.0.0.1:11434/v1/models         # what is actually being served
+curl -fsS http://127.0.0.1:11435/v1/models         # what the garden endpoint serves
 ```
 
 Observed on `endolin-garden2` (2026-07-28): `hermits: 0` → `garden-ollama.service`
@@ -243,7 +245,7 @@ unit served nothing. Because `ollama pull` is a **client** call against `$OLLAMA
 running it while the endpoint is up always lands the model in the right store:
 
 ```sh
-ollama pull qwen3:0.6b        # goes to whichever daemon owns :11434
+ollama pull qwen3:0.6b        # goes to the garden daemon on :11435
 ```
 
 ### Path B — vLLM (production serving; now supports gfx1151)
@@ -411,7 +413,7 @@ to `~/.codex/config.toml` and selecting it with `-c model_provider=…`:
 # ~/.codex/config.toml
 [model_providers.local]
 name = "local-ollama"
-base_url = "http://127.0.0.1:11434/v1"
+base_url = "http://127.0.0.1:11435/v1"
 env_key = "OLLAMA_API_KEY"   # any non-empty value; Ollama ignores it
 ```
 
@@ -452,7 +454,7 @@ local worker and the right first move.
   ChatGPT `codex login` check (does a `/v1/models` reachability probe instead),
   defaults to `gpt-oss:20b`, and adds `-c model_provider=local` plus an **inline**
   `-c model_providers.local.{name,base_url,env_key}` block (endpoint from
-  `GARDEN_LOCAL_OLLAMA_URL`, default `http://127.0.0.1:11434/v1`) — so no
+  `GARDEN_LOCAL_OLLAMA_URL`, default `http://127.0.0.1:11435/v1`) — so no
   `~/.codex/config.toml` is required and the wiring is reset-proof. **Zero new
   handler file.**
 - Declare a host's count with `scripts/jobs/set-hermits.sh <N> [host]` (the
@@ -598,8 +600,8 @@ execs is `ollama` on PATH unless an operator pins one with `GARDEN_OLLAMA_BIN`, 
 is authoritative and fail-closed — an unrunnable pin backs off and exits rather than
 quietly serving with a different binary). Since
 **2026-07-28** (`d4a40ed9ba`) the image no longer enables the installer-created system
-`ollama.service`, the intent being that exactly one unit owns `:11434` and it is
-`garden-ollama.service`. That is an **image-build-time** change, so it holds only for
+`ollama.service`, so the garden unit (`garden-ollama.service`) owns `:11435` and
+the system unit (if still enabled) owns `:11434` — they no longer conflict. That is an **image-build-time** change, so it holds only for
 containers built after it — an older container still has the system unit enabled and
 serving, and § Which unit is actually serving is how you tell which world you are in
 before diagnosing. `Restart=always`

@@ -19,7 +19,7 @@ ln -s "$HERE/ollama-serve-fake-command.sh" "$BIN/ollama"
 
 run_wrapper() {
   env PATH="$BIN:$PATH" OLLAMA_TEST_CTL="$CTL" \
-    GARDEN_LOCAL_OLLAMA_URL="http://127.0.0.1:11434/v1" \
+    GARDEN_LOCAL_OLLAMA_URL="http://127.0.0.1:11435/v1" \
     GARDEN_OLLAMA_RESTART_BACKOFF_SECONDS=0 \
     "$JOBS/ollama-serve.sh" >"$CTL/stdout" 2>"$CTL/stderr"
 }
@@ -29,7 +29,7 @@ rm -f "$CTL"/*
 if run_wrapper; then status=0; else status=$?; fi
 [ "$status" -eq 0 ] && ok "reachable endpoint exits cleanly after its wrapper backoff" || bad "reachable endpoint status was $status"
 [ ! -e "$CTL/ollama-calls" ] && ok "reachable endpoint does not start a duplicate ollama" || bad "duplicate ollama was started"
-grep -q -- '--max-time 5 http://127.0.0.1:11434/v1/models' "$CTL/curl-calls" \
+grep -q -- '--max-time 5 http://127.0.0.1:11435/v1/models' "$CTL/curl-calls" \
   && ok "endpoint preflight uses the bounded models probe" || bad "models probe arguments changed"
 
 rm -f "$CTL"/*

@@ -162,7 +162,7 @@ export GARDEN
 # GARDEN_LOCAL_OLLAMA_URL is the OpenAI-compatible /v1 base URL the hermit (provider:
 # local) worker probes. The supervised endpoint derives its OLLAMA_HOST bind address
 # from the same URL, so the client and server cannot drift on a non-default port.
-: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11434/v1}"
+: "${GARDEN_LOCAL_OLLAMA_URL:=http://127.0.0.1:11435/v1}"
 
 # Fireworks is OpenAI-chat compatible.  The endpoint is deliberately a knob: a
 # deployment/model selection is live provider data, not a garden release fact.
@@ -586,12 +586,12 @@ read_desired_count() {
 }
 
 # ollama_serve_host — derive Ollama's host:port bind value from the shared client URL.
-# Strip the scheme and any path so http://127.0.0.1:11434/v1 becomes 127.0.0.1:11434.
+# Strip the scheme and any path so http://127.0.0.1:11435/v1 becomes 127.0.0.1:11435.
 ollama_serve_host() {
-  local u="${GARDEN_LOCAL_OLLAMA_URL:-http://127.0.0.1:11434/v1}"
+  local u="${GARDEN_LOCAL_OLLAMA_URL:-http://127.0.0.1:11435/v1}"
   u="${u#*://}"
   u="${u%%/*}"
-  printf '%s\n' "${u:-127.0.0.1:11434}"
+  printf '%s\n' "${u:-127.0.0.1:11435}"
 }
 
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
