@@ -11,3 +11,13 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/836
 Current approved head: eb1c3bf5428c4095129170601584fb22ea7143a0
 
 Drive CI for this approved, current-head PR to green per roles/shepherd/AGENT.md.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-30T00:39:18Z
