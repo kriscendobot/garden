@@ -43,3 +43,13 @@ Per merge governance (2026-07-22), this increment lands only after both a passin
 panel and Fable-orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T10:03:58Z
