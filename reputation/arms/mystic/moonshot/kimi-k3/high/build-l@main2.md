@@ -1,12 +1,12 @@
 kind: mystic
 provider: moonshot
 model: kimi-k3
-thoughtfulness: medium
-work_class: other:l
+thoughtfulness: high
+work_class: build:l
 target: main2
-attempts: 2
+attempts: 1
 accepts: 0
-censored: 2
+censored: 1
 estimated: 0
 mean_dollars: 0.000000
 m2: 0.000000
