@@ -7,7 +7,7 @@ target: main2
 attempts: 6
 accepts: 4
 censored: 6
-estimated: 4
-mean_dollars: 1.264217
-m2: 0.180715
+estimated: 0
+mean_dollars: 0.926250
+m2: 0.276275
 acceptance_rate: 0.6667
