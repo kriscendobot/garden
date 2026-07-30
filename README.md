@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T01:47:35Z_
+_As of 2026-07-30T01:51:34Z_
 
 ## Latest
 
@@ -5663,16 +5663,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> WATCHDOG notice — occurrence #17 (first seen 2026-07-28T08:48:08Z, latest 2026-07-30T00:21:09Z).
-> The SAME condition (`provider-quota`) has now been observed 17 times; this is ONE
-> coalesced notice that updates in place, not 17 messages. Latest detail:
+> WATCHDOG notice — occurrence #19 (first seen 2026-07-28T08:48:08Z, latest 2026-07-30T01:51:15Z).
+> The SAME condition (`provider-quota`) has now been observed 19 times; this is ONE
+> coalesced notice that updates in place, not 19 messages. Latest detail:
 >
-> provider quota/usage limit reached — the API is refusing calls fleet-wide (resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 3f56844e262d329df76b7ada71c9fd150c0c6d29 (git -C /home/kris/garden2/).
+> provider quota/usage limit reached — the API is refusing calls fleet-wide (resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 4c2ef0edc35e44312f8803401a2edb8095371cfc (git -C /home/kris/garden2/).
 > This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
 > resumes on its own once the window resets (see skills/restore/SKILL.md for the
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-> usage limit reached while running garden-mentor. Observed: You've hit your weekly limit · resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 3f56844e262d329df76b7ada71c9fd150c0c6d29 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3f56844e262d329df76b7ada71c9fd150c0c6d29).
+> usage limit reached while running garden-mentor. Observed: You've hit your weekly limit · resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 4c2ef0edc35e44312f8803401a2edb8095371cfc (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 4c2ef0edc35e44312f8803401a2edb8095371cfc).
 
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
 
@@ -5769,7 +5769,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 48.1M _(+624.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Codex | 48.2M _(+624.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (21)
