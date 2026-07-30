@@ -15,6 +15,7 @@ Merge endojs/endo-but-for-bots PR #723 after its current maintainer approval is 
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
