@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T22:35:39Z_
+_As of 2026-07-30T22:36:27Z_
 
 ## Latest
 
@@ -3847,14 +3847,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 33.7M _(+870.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 33.8M _(+870.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (57)
+### todo (58)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr881-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #881
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
+- [`endojs-endo-but-for-bots-pr898-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr898-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #898
 - [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
