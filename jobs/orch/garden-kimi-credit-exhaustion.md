@@ -2,7 +2,7 @@
 order: serial
 children: garden-kimi-credit-exhaustion-routing garden-kimi-64-dollar-accounting
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-07-30T03:53:45Z
 ---
