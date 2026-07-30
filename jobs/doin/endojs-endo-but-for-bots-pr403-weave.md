@@ -31,6 +31,7 @@ Please weave/rebase PR #403 onto current `llm` using the frozen-base branch disc
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
