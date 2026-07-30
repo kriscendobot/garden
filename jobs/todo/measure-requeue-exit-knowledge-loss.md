@@ -1,20 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 4
-deadline_overruns: 1
-poisoned_at: 2026-07-28T21:13:06Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-28T21:13:06Z
-tier: minion
+role: builder
 model: gpt-5.6-terra
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:18:04Z cleared=deadline-overrun=1 -->
 
 ---
 role: builder
@@ -106,4 +94,3 @@ critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
 
-<!-- garden-deadline-overrun: 1 -->
