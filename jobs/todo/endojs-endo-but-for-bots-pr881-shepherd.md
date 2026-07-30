@@ -1,6 +1,8 @@
 ---
-model: gpt-5.6-terra
 handler-timeout: 7200
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:16:55Z cleared=none -->
 

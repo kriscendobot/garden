@@ -1,5 +1,7 @@
 ---
-model: fable
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press git-integration / post-M3 (endojs/endo-but-for-bots, base `llm`)
 

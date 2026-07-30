@@ -4,8 +4,7 @@ priority: normal
 role: fixer
 posted_by: gardener
 posted_at: 2026-07-09T18:42:14Z
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

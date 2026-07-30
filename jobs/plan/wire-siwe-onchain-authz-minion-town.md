@@ -3,8 +3,7 @@ gate: go-ahead
 priority: normal
 posted_by: designer
 posted_at: 2026-07-07T22:57:47Z
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

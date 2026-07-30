@@ -1,6 +1,5 @@
 ---
-model: gpt-5.6-terra
-tier: minion
+tier: mentor
 gate: deferred
 priority: low
 role: builder

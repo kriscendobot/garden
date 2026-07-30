@@ -1,9 +1,8 @@
 ---
 role: builder
-tier: minion
+tier: mentor
 model-burned: mentor
-model: kimi-k3
-fallback-tier: 
+fallback-tier: minion
 dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-30T00:16:03Z cleared=none -->

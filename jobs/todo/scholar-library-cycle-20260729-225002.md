@@ -1,9 +1,8 @@
 ---
 role: scholar
-tier: minion
+tier: mentor
 model-burned: minion
-model: gpt-5.6-terra
-fallback-tier: 
+fallback-tier: minion
 dispatch: automatic
 ---
 

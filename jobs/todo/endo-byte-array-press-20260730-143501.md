@@ -1,5 +1,7 @@
 ---
-model: fable
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base `llm`)
 

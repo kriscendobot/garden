@@ -4,8 +4,7 @@ priority: normal
 role: builder
 posted_by: design-account-creation-open-signup-minion-town
 posted_at: 2026-07-08T00:47:02Z
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

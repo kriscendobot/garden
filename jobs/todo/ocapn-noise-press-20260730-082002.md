@@ -1,5 +1,7 @@
 ---
-model: fable
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base `llm`)
 

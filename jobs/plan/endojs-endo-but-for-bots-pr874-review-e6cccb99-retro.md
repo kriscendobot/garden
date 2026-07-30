@@ -4,8 +4,7 @@ priority: low
 role: prosecutor
 posted_by: producer
 posted_at: 2026-07-27T04:49:51Z
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

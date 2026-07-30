@@ -1,5 +1,8 @@
 ---
 role: builder
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-30T05:43:03Z cleared=none -->
 

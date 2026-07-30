@@ -1,3 +1,8 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
 role: gardener
 ---
 # Minion Town daily agenda review

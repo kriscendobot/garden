@@ -1,3 +1,8 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
 # Press the fresh Compartments proposal forward (daily) — spec, tests, explainer, validation
 
 You are the standing **daily press-driver** for a fresh, minimal `tc39/proposal-compartments`

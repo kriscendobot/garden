@@ -10,8 +10,7 @@ poisoned_at: 2026-07-17T12:33:09Z
 poisoned_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-07-17T12:33:09Z
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

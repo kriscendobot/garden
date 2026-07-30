@@ -1,6 +1,5 @@
 ---
-model: gpt-5.6-terra
-tier: minion
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

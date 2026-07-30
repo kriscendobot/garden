@@ -1,6 +1,5 @@
 ---
-model: gpt-5.6-terra
-tier: minion
+tier: mentor
 gate: blocked
 blocked_on: https://github.com/endojs/endo-but-for-bots/pull/836
 priority: normal

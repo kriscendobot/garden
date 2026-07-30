@@ -1,5 +1,7 @@
 ---
-model: fable
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throughout Endo agents, under Distributed Confinement
 

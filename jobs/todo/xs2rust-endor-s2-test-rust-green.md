@@ -1,6 +1,5 @@
 ---
 tier: mentor
-model: kimi-k3
 fallback-tier: minion
 dispatch: automatic
 handler-timeout: 10800

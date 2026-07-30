@@ -1,5 +1,7 @@
 ---
-model: fable
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base `llm`)
 

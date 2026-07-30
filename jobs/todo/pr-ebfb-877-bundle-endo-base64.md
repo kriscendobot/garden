@@ -1,7 +1,7 @@
 ---
-tier: minion
+tier: mentor
 model-burned: mentor
-fallback-tier: 
+fallback-tier: minion
 dispatch: automatic
 ---
 repo: endojs/endo-but-for-bots

@@ -1,7 +1,6 @@
 ---
 role: scholar
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

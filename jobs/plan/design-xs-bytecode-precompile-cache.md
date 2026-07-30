@@ -5,8 +5,7 @@ priority: normal
 role: designer
 posted_by: producer
 posted_at: 2026-07-25T06:12:13Z
-tier: minion
-model: gpt-5.6-terra
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---

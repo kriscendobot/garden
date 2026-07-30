@@ -1,3 +1,8 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
 Scheduled dispatch context (computed by the scheduler at fire time):
 
 - window_start: 2026-07-29T07:00:00Z (UTC, inclusive)

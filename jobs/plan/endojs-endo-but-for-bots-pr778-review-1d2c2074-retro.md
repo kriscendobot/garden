@@ -4,6 +4,9 @@ priority: low
 role: prosecutor
 posted_by: producer
 posted_at: 2026-07-30T04:54:17Z
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 
 ---

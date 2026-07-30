@@ -1,5 +1,8 @@
 ---
 role: scholar
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Hourly scholar library cycle
