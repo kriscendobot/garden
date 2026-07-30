@@ -15,3 +15,13 @@ Current approved head: ba03ca56fcf45d53438e6a9be329bb09557e80d2
 Conduct this approved, current-head PR to completion per roles/conductor/AGENT.md.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T04:55:51Z
