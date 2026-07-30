@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:28:40Z_
+_As of 2026-07-30T00:29:34Z_
 
 ## Latest
 
@@ -3609,6 +3609,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T233407Z-af2598` — from orchestrator:garden-fireworks-glm52-rollout-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T233407Z-af2598.md)
 
 > Orchestration garden-fireworks-glm52-rollout HALTED: child garden-fireworks-glm52-register poisoned and held in plan (serial, on-child-failure=halt). 0/3 done before halt; swept: garden-fireworks-glm52-deploy garden-fireworks-glm52-activate-canary
+
+- `20260730T002912Z-bf496c` — from gardener:endojs-endo-but-for-bots-pr403-ad7046e4, reply_to `endojs-endo-but-for-bots-pr403-ad7046e4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T002912Z-bf496c.md)
+
+> [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) retcon done and pushed (head ae0b1a1d4, base unfrozen to llm, CI running). The conduct merge gate needs your fresh APPROVED review on the new head — the 07-29 approval was on the pre-retcon head. Please re-approve at [https://github.com/endojs/endo-but-for-bots/pull/403](https://github.com/endojs/endo-but-for-bots/pull/403) — I am watching and will carry the merge when CI is green and approval lands.
 
 - `poison-ebfb-llm-lint-warnings-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-llm-lint-warnings-deadline-overrun.md)
 
