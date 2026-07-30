@@ -1,7 +1,8 @@
 ---
 model: gpt-5.6-terra
 tier: minion
-fallback-tier: minion
+model-burned: minion
+fallback-tier: 
 dispatch: automatic
 ---
 # Press git-integration / post-M3 (endojs/endo-but-for-bots, base `llm`)
@@ -58,13 +59,4 @@ schedule, `schedules/endo-git-integration-press`), then keep pressing only
 #626 per whatever directive follows. Respect any live peer worker on a shared
 branch; defer, never collide.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-07-30T04:15:39Z
+<!-- garden-reaped: 0 -->
