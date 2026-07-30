@@ -65,10 +65,10 @@ seed_board() {
   git init -q "$seed"; git -C "$seed" checkout -q -b "$branch"
   ( cd "$seed"
     mkdir -p jobs/todo jobs/doin jobs/tada jobs/bids work repos msgs hosts entries \
-             schedules cursors reputation/events reputation/pending reputation/arms \
+             schedules cursors reputation/events reputation/pending reputation/arms reputation/adjustments \
              reputation/verdicts reputation/reviews inbox/maintainer/unread inbox/maintainer/read
     for d in jobs/todo jobs/doin jobs/tada jobs/bids work repos msgs hosts entries \
-             schedules cursors reputation/events reputation/pending reputation/arms \
+             schedules cursors reputation/events reputation/pending reputation/arms reputation/adjustments \
              reputation/verdicts reputation/reviews; do touch "$d/.gitkeep"; done
     { [ -n "$front" ] && printf -- '---\n%s\n---\n' "$front"; printf '# %s\n\ndo the work for %s\n' "$base" "$base"; } > "jobs/todo/$base.md" )
   git -C "$seed" add -A
@@ -106,8 +106,8 @@ printf -- '---\nrole: builder\n---\nshort\n' > "$tmp"
 printf -- '---\nwork-class: fix:l\n---\nx\n' > "$tmp"
 [ "$(rep_work_class "$tmp")" = "fix:l" ] && ok "explicit work-class: override honored" || bad "explicit work-class not honored"
 printf -- '---\nrole: builder\n---\nx\n' > "$tmp"
-[ "$(rep_resolve_arm gardener "$tmp" | paste -sd/ -)" = "anthropic/claude-opus-4-8/high" ] \
-  && ok "gardener builder arm = anthropic/claude-opus-4-8/high" || bad "gardener arm wrong"
+[ "$(rep_resolve_arm gardener "$tmp" | paste -sd/ -)" = "anthropic/gpt-5.6-terra/high" ] \
+  && ok "gardener builder arm follows the exhausted-Kimi default = anthropic/gpt-5.6-terra/high" || bad "gardener arm wrong"
 [ "$(rep_resolve_arm cleric "$tmp" | paste -sd/ -)" = "openai/gpt-5.6-terra/high" ] \
   && ok "cleric builder arm = openai/gpt-5.6-terra/high" || bad "cleric arm wrong"
 rm -f "$tmp"
@@ -115,7 +115,7 @@ rm -f "$tmp"
 # ============================================================================
 hr; echo "EVENT — a completed job records ONE reputation event keyed to the arm"; hr
 TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-event.XXXXXX")"
-BARE="$(seed_board "$TR" evt-job "role: builder")"
+BARE="$(seed_board "$TR" evt-job $'role: builder\nmodel: claude-opus-4-8')"
 env GARDEN=eh GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     GARDEN_WORKER_KIND=gardener GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$TR/w.log" 2>&1 || true
@@ -465,6 +465,34 @@ if [ -f "$V/$kimi_rel" ]; then
 else
   bad "reducer wrote no kimi arm (w.log: $(tail -3 "$TR/w.log" | tr '\n' '|'))"
 fi
+
+# INVOICE BACKFILL: an append-only adjustment replaces a censored proxy in the
+# derived projection but never rewrites the raw event. A later ordered record
+# supersedes the earlier one deterministically.
+mkdir -p "$V/reputation/adjustments/wk1"
+cat > "$V/reputation/adjustments/wk1/20260730T000000Z-invoice.md" <<'EOF'
+---
+base: wk1
+agentic_dollars: 64.00
+source: test invoice
+---
+EOF
+git -C "$V" add reputation/adjustments/wk1
+git -C "$V" "${git_id[@]}" commit -q -m adjustment
+git -C "$V" push -q origin journal2
+env GARDEN=wh GARDEN_STATE="$TR/state-adjustment" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+    "$JOBS/reputation-reduce.sh" > "$TR/a.log" 2>&1 || true
+V2="$TR/v-adjustment"; verify_clone "$BARE" "$V2"
+read -r _ _ adjusted_mean _ adjusted_censored adjusted_estimated <<<"$(rep_read_projection "$V2" "$kimi_rel")"
+awk -v m="$adjusted_mean" 'BEGIN{exit !(m>10.7 && m<10.8)}' \
+  && ok "append-only invoice adjustment overrides wk1 proxy in the derived Kimi arm" \
+  || bad "invoice adjustment did not affect Kimi arm ($adjusted_mean)"
+[ "$(plan_field "$V2/reputation/events/wk1.md" agentic_dollars)" = censored ] \
+  && ok "invoice adjustment leaves raw censored event untouched" \
+  || bad "invoice adjustment rewrote raw event"
+[ "$adjusted_censored" = 6 ] && [ "$adjusted_estimated" = 5 ] \
+  && ok "invoice sample is ledger-classified while its five proxy siblings remain censored" \
+  || bad "invoice/proxy provenance counters wrong (censored=$adjusted_censored estimated=$adjusted_estimated)"
 
 # MULTI-ATTEMPT: duration_secs clocks only the final attempt. The journal's first
 # claim -> tada timestamps instead yield the full, true engagement wallclock.

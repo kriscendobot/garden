@@ -87,7 +87,7 @@ finalize_pending() {
 
 # --- 2. recompute arm projections from events/ -------------------------------
 recompute_arms() {
-  local ef base kind provider model tht wc tgt accepted agg rel armhash dur hum estd
+  local ef base kind provider model tht wc tgt accepted agg adjusted rel armhash dur hum estd
   local span secs
   local work; work="$(mktemp -d "${TMPDIR:-/tmp}/rep-reduce.XXXXXX")"
   # One log pass derives each completed engagement's true first-claim-to-tada span.
@@ -113,7 +113,9 @@ recompute_arms() {
       printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' \
         "$kind" "$provider" "$model" "$tht" "$wc" "$tgt" "$rel" > "$work/$armhash.meta"
     fi
-    # COST SOURCE per event: a real ledger figure, else the WALLCLOCK PROXY
+    # A sanctioned adjustment is a real invoice/backfill figure. It wins over
+    # the event's raw ledger/proxy value while preserving both source records.
+    # COST SOURCE per event: adjustment/ledger, else the WALLCLOCK PROXY
     # (duration_secs x the arm's rate-card dollars-per-second), else nothing.
     # The ledger ALWAYS wins where it exists, so no arm gets a worse estimate as a
     # consequence of the proxy — it only fills holes the ledger left. The proxy is
@@ -122,6 +124,11 @@ recompute_arms() {
     # complete-job.sh records as provenance): that keeps the projection a pure
     # function of (events, rate card), so correcting a rate is a journal data edit
     # that re-prices all history on the next tick, with no event ever rewritten.
+    adjusted="$(rep_adjusted_agentic_dollars "$DIR" "$base")"
+    case "$adjusted" in
+      '') ;;
+      *) printf '%s %s adjustment\n' "${accepted:-false}" "$adjusted" >> "$work/$armhash.dat"; continue ;;
+    esac
     case "$agg" in
       ''|censored)
         dur="$(plan_field "$ef" duration_secs)"

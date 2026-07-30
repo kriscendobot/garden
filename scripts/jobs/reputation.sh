@@ -29,6 +29,34 @@ REP_EVENTS="$REP_ROOT/events"        # one event per completed base (single-writ
 REP_PENDING="$REP_ROOT/pending"      # completed but acceptance not yet known (finalized by the reducer)
 REP_ARMS="$REP_ROOT/arms"            # derived projections — recomputed by the reducer ONLY
 REP_VERDICTS="$REP_ROOT/verdicts"    # optional per-base acceptance override (a maintainer/PR signal drop)
+REP_ADJUSTMENTS="$REP_ROOT/adjustments" # append-only, invoice/backfill cost corrections
+
+# rep_adjusted_agentic_dollars <journal-dir> <base> — print the most recent
+# sanctioned invoice/backfill value for an event, or nothing when there is none.
+#
+# Adjustments are append-only records at
+# reputation/adjustments/<base>/<ordered-id>.md.  The lexical ordering of the
+# id is the explicit correction order: a later correction supersedes an earlier
+# one without editing either the raw event or the earlier correction.  A record
+# must repeat its base and carry a non-negative decimal `agentic_dollars`; bad
+# records are ignored (fail-open to the raw event/proxy) rather than turning a
+# malformed journal edit into a free run.  The reducer is the only consumer; it
+# never rewrites events, so the evidence and its correction remain separately
+# auditable.
+rep_adjusted_agentic_dollars() {
+  local dir="${1:?}" base="${2:?}" f declared amount latest=""
+  [ -d "$dir/$REP_ADJUSTMENTS/$base" ] || return 0
+  shopt -s nullglob
+  for f in "$dir/$REP_ADJUSTMENTS/$base"/*.md; do
+    declared="$(plan_field "$f" base)"
+    amount="$(plan_field "$f" agentic_dollars)"
+    [ "$declared" = "$base" ] || continue
+    awk -v n="$amount" 'BEGIN { exit !(n ~ /^[0-9]+([.][0-9]+)?$/) }' || continue
+    latest="$amount"
+  done
+  shopt -u nullglob
+  [ -n "$latest" ] && printf '%s\n' "$latest"
+}
 
 # --- config (all env-overridable; the journal rate-card/auction config, when it
 # exists, is layered on top by the reducer, but the DEFAULTS live here so the
