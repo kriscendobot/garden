@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-07-30T01:05:01Z
-job_basename_prefix: xs2rust-endor-watchdog
----
 ---
 model: sonnet
 ---
