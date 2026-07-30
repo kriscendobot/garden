@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T03:48:39Z_
+_As of 2026-07-30T03:49:37Z_
 
 ## Latest
 
@@ -3622,6 +3622,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr857-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr857-gauntlet-panel-1' (panel) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260730T034907Z-b85b7c` — from orchestrator:garden-fireworks-glm52-five-rollout-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T034907Z-b85b7c.md)
+
+> Orchestration garden-fireworks-glm52-five-rollout HALTED: child garden-fireworks-glm52-register-retry stalled in flight for 7324s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; swept: garden-fireworks-glm52-five-deploy garden-fireworks-glm52-five-activate
+
 - `poison-ebfb-llm-lint-warnings-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-llm-lint-warnings-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5769,7 +5773,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 36.0M _(+622.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Codex | 35.4M _(+622.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (30)
@@ -5825,13 +5829,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (3945)
+### tada (3946)
+- [`garden-fireworks-glm52-five-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fireworks-glm52-five-rollout.md) — orchestration garden-fireworks-glm52-five-rollout — HALTED
 - [`endojs-endo-but-for-bots-pr857-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr857-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr857-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr870-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr870-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr869-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr869-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr859-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr859-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr778-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr778-shepherd.md) — Cost
-- … and 3940 more
+- … and 3941 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
