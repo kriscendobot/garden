@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T00:29:34Z_
+_As of 2026-07-30T00:30:19Z_
 
 ## Latest
 
@@ -5653,7 +5653,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 48.0M _(+625.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
-### todo (40)
+### todo (41)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`ebfb-doc-package-json-cross-tool-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-doc-package-json-cross-tool-semantics.md) — Build a package.json cross-tool semantics catalog
 - [`endo-byte-array-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260729-072002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
@@ -5666,6 +5666,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260729-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-072002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-133503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-133503.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260729-195004.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr778-review-95a2b3a4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-review-95a2b3a4.md) — Review directive on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-shepherd.md) — shepherd reconciliation
 - [`endojs-endo-but-for-bots-pr848-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr848-conduct.md) — conductor reconciliation
 - [`endojs-endo-but-for-bots-pr857-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr857-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #857
@@ -5906,6 +5907,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr876-review-ac5d6dfa-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #876 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr877-review-1eec395e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-1eec395e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr403-ad7046e4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-ad7046e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #403 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr778-review-95a2b3a4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr778-review-95a2b3a4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #778 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-ascii.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/836` · Build: carve out @endo/ascii — XS-safe 7-bit-asserted ASCII text→bytes encoder
