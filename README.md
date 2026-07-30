@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:32:32Z_
+_As of 2026-07-30T21:36:26Z_
 
 ## Latest
 
@@ -3396,6 +3396,20 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) (feat/mount-glorp-delegated) is already MERGED into llm (merge commit 61956e1d5a, merged 2026-07-30T00:16:05Z) and the head branch feat/mount-glorp-delegated is deleted. This fixer job was promoted/claimed ~21h AFTER the merge, so the fix-before-merge / push-to-PR-head premise no longer holds. I am verifying whether the 9 must-fix defects are real in the merged llm code. If they are, the natural resolution is a follow-up fix PR targeting llm. Default: open a follow-up fix PR off llm addressing the must-fix + summary-fix bundle unless you object.
 
+- `20260730T213515Z-cd54c3` — from gardener:endo-vfs-parity-press-20260730-143501, reply_to `endo-vfs-parity-press-20260730-143501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T213515Z-cd54c3.md)
+
+> VFS parity press tick: found and fixed a base-branch lint regression blocking all press PRs.
+>
+> Root cause: PR [endojs/endo-but-for-bots#721](https://github.com/endojs/endo-but-for-bots/issues/721) (@endo/reminder, merged 2026-07-30) introduced packages/reminder/test/plugin.test.js with a '/* global setTimeout */' directive that triggers ESLint 10's no-redeclare error ('setTimeout is already defined as a built-in global variable'). This error lands in an eslint-repo.sh bucket and fails the lint CI job on EVERY non-doc PR against llm. Confirmed on [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882), [endojs/endo-but-for-bots#894](https://github.com/endojs/endo-but-for-bots/issues/894), [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656), [endojs/endo-but-for-bots#788](https://github.com/endojs/endo-but-for-bots/issues/788).
+>
+> Fix: opened draft PR [endojs/endo-but-for-bots#895](https://github.com/endojs/endo-but-for-bots/issues/895) (fix/reminder-test-settimeout-lint) - removes the redundant /* global setTimeout */ comment (Node.js globals are already configured for test files in eslint.config.js). All 22 CI checks PASS (verified: lint 11m17s pass, sandbox-drivers pass, full matrix green).
+>
+> This unblocks: [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) (provideSubMount, your APPROVED review 2026-07-29) and [endojs/endo-but-for-bots#788](https://github.com/endojs/endo-but-for-bots/issues/788) (genie fs tool-surface parity), both currently lint-failed from this base-branch error. Once [endojs/endo-but-for-bots#895](https://github.com/endojs/endo-but-for-bots/issues/895) merges, re-weaving [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) and [endojs/endo-but-for-bots#788](https://github.com/endojs/endo-but-for-bots/issues/788) onto the updated llm should clear the lint gate.
+>
+> [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713) and [endojs/endo-but-for-bots#657](https://github.com/endojs/endo-but-for-bots/issues/657) MERGED since last tick. [endojs/endo-but-for-bots#655](https://github.com/endojs/endo-but-for-bots/issues/655) CLOSED (subsumed by [endojs/endo-but-for-bots#713](https://github.com/endojs/endo-but-for-bots/issues/713), confirmed). [endojs/endo-but-for-bots#790](https://github.com/endojs/endo-but-for-bots/issues/790) and [endojs/endo-but-for-bots#796](https://github.com/endojs/endo-but-for-bots/issues/796) remain all-green drafts (300+ commits behind llm, deliberately not re-weaved while the mount stack settles). [endojs/endo-but-for-bots#788](https://github.com/endojs/endo-but-for-bots/issues/788) sandbox-drivers fail is the known podman/crun 'unknown version specified' infra flake (same on [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882)).
+>
+> Standing blocker: [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) (provideSubMount) is the last open mount-stack PR, maintainer-approved, blocked only by the base-branch lint error that [endojs/endo-but-for-bots#895](https://github.com/endojs/endo-but-for-bots/issues/895) fixes. lal glob/grep and EndoMount.edit/endo edit CLI wiring remain blocked on the mount stack.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3806,11 +3820,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 32.6M _(+824.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 32.7M _(+829.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (63)
+### todo (66)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
+- [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
+- [`endojs-endo-but-for-bots-pr730-review-27278ba1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr730-review-27278ba1.md) — Review directive on endojs/endo-but-for-bots PR #730
 - [`endojs-endo-but-for-bots-pr836-review-ee46b083`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-review-ee46b083.md) — Review directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr848-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr848-panel-fixes.md) — Fixer: address the backfilled panel verdict on endojs/endo-but-for-bots PR #848
 - [`endojs-endo-but-for-bots-pr857-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr857-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #857
@@ -3871,10 +3887,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260730-183501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-183501.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-193501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-193501.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-203502.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260730-213505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260730-213505.md) — Hourly scholar library cycle
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (14)
+### doin (12)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`deadmail-issue-comment-5136288718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5136288718.md) — Dead-lettered message — pick up its intent
 - [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #893
@@ -3883,10 +3900,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-143501.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr403-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-weave.md) — Rebase/unfreeze endojs/endo-but-for-bots PR #403 before merge
-- [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
 - [`endojs-endo-but-for-bots-pr713-panel-fixes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr713-panel-fixes.md) — Fixer: PR #713 panel must-fix + summary-fix bundle
 - [`endojs-endo-but-for-bots-pr723-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr723-conduct.md) — ---
-- [`endojs-endo-but-for-bots-pr730-review-27278ba1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr730-review-27278ba1.md) — Review directive on endojs/endo-but-for-bots PR #730
 - [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 
