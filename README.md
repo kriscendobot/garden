@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T05:02:46Z_
+_As of 2026-07-30T05:03:28Z_
 
 ## Latest
 
@@ -5833,12 +5833,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 26.6M _(+642.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Codex | 26.6M _(+642.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
-### todo (17)
+### todo (18)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr600-cb3a204f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr600-cb3a204f.md) — attention directive on endojs/endo-but-for-bots PR #600
+- [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-06bbcc3d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-06bbcc3d.md) — attention directive on endojs/endo-but-for-bots PR #836
 - [`endojs-endo-but-for-bots-pr873-4e8841bd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-4e8841bd.md) — attention directive on endojs/endo-but-for-bots PR #873
 - [`finbot-pr6-fable-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-fable-signoff.md) — Fable merge-governance sign-off for finbot PR #6
