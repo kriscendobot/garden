@@ -25,3 +25,13 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/886#pullrequestreview-4814003703
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T07:47:04Z
