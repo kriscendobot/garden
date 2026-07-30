@@ -22,3 +22,13 @@ Guards (the watcher already enforced these; re-verify before merging):
 
 Source: pr-comment by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/876#issuecomment-5124585691
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: mystic
+  tier: 
+  provider: moonshot
+  model: 
+  claimed_at: 2026-07-30T01:34:53Z
