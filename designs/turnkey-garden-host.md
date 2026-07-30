@@ -1,7 +1,7 @@
 ---
 created: 2026-07-14
-updated: 2026-07-14
-author: gardener (job issue-kriskowal-garden-44)
+updated: 2026-07-30
+author: gardener (job issue-kriskowal-garden-44), gardener (issue #44 comment 5136303236)
 ---
 
 # Turnkey Amazon garden host
@@ -148,3 +148,105 @@ inert dead weight (the arm64 `ollama` binary from the installer is what runs, CP
 only). The turnkey image should skip the GPU overlay on non-amd64 to shrink the
 bake; tracked as a Dockerfile arch-guard follow-up rather than folded into this
 release, since it touches every host's build.
+
+## Alternatives considered (distribution widget)
+
+The question arose on the issue ([#44](https://github.com/kriscendobot/garden/issues/44)) of whether
+an AMI is the right delivery "widget" — vs a Docker Compose file, Kubernetes, a
+Terraform module, or Google Cloud Run. The analysis below grounds each in what the
+garden actually needs a host to run, then states where each lands.
+
+### What the garden needs on a host
+
+The garden is not a stateless request handler. `./garden` launches a **containerized
+systemd** host (`Dockerfile`: systemd as PID 1, privileged, `--cgroupns=host`,
+tmpfs `/run` and `/tmp`, `STOPSIGNAL SIGRTMIN+3`). Inside that container run many
+long-lived **user-mode systemd units** — `garden-gardener@N`, the repo watchers,
+the reaper, the comment/CI/dependabot watchers, the scheduler, the bulletin, the
+scaler, the mentor — each a timer or service managed with `systemctl --user`. A
+host also holds long-lived git state: per-job worktrees under `$GARDEN_SCRATCH`, a
+journal worktree on `journal2`, bare fork clones under `worktrees/`, and the bot's
+`gh`/ssh credentials in the bind-mounted home. Workers contribute local inference
+(an Ollama or OpenAI-compatible endpoint) and are pinned to capability tiers.
+
+So the distribution widget must deliver: a long-lived single-tenant host that runs
+systemd, holds persistent on-disk git state, runs background timers indefinitely,
+and accepts an interactive first-entry device-auth flow. None of those are
+request-scaled.
+
+### AMI + launch template (chosen)
+
+A private AMI bundles the OS, Docker, the reviewed garden checkout, and the
+prebuilt container image as one immutable, smoke-tested artifact. The launch
+template fixes the security posture (no inbound, SSM-only, encrypted gp3, IMDSv2)
+so a one-click launch is safe by construction. The operator enters over SSM and
+completes the interactive device-auth once. This is the closest thing to "push a
+button and get a garden host" that does not put a credential in the artifact.
+Rebuild on every release; a new build is a new AMI + new launch-template version.
+
+### Docker Compose file
+
+A `compose.yaml` can express the one container and is attractive for a contributor
+who already runs Docker. But the garden's launcher (`scripts/garden`, the `create`
+subcommand) already **is** a thin `docker run -d … --privileged --cgroupns=host`
+wrapper around the same container; a compose file would re-express exactly that and
+add a second source of truth for the privileged/systemd flags that must not drift.
+Compose does not solve distribution of the container *image* (it still needs a
+registry or a per-host `docker build`), it does not provide the launch posture
+(SSM, no-inbound SG, IMDSv2), and it does not provide the interactive entry path.
+A compose file is a reasonable **local developer** convenience on top of an
+existing Docker host — `./garden` already covers that — but it is not a one-click
+*host* delivery and adds a drift surface for the systemd-in-container flags. Not
+chosen as the distribution widget; the launcher remains the single wrapper.
+
+### Kubernetes
+
+A garden host is a single-tenant, stateful, systemd-inside-a-container workload
+with persistent on-disk git state and long-lived background timers. That is the
+opposite of the horizontally-scaled, request-routed, ephemeral-pod workload
+Kubernetes is built to schedule. Running it on k8s would mean one StatefulSet pod
+per host with a PersistentVolume for the git/journal/worktree state, a
+privileged/security-context-escaped container (systemd needs `--privileged`,
+`--cgroupns=host`, writable cgroup — the k8s equivalent fights the pod security
+model), and you would still enter the pod's shell interactively to do device-auth.
+You gain the k8s control plane and lose the simplicity of one EC2 host with SSM,
+for a workload that does not want to be scaled or restarted-on-liveness-probe. k8s
+is the wrong shape; the AMI keeps the single-host model explicit.
+
+### Terraform
+
+Terraform is not an alternative *widget* — it is an alternative *provisioning
+language* for the same AWS resources. The turnkey scripts (`scripts/aws/turnkey/`)
+already create the IAM role/profile, security groups, AMI, and launch template as
+shell; rewriting that in Terraform would express the same resources declaratively
+and add `terraform apply` as the "button." That is a real ergonomics win for an
+operator who lives in Terraform, and it is **complementary, not exclusive**: a
+Terraform module that wraps the AMI id + launch template (the outputs of the bake)
+would be a good later addition, consuming the same tested artifact. It does not
+replace the AMI as the artifact that carries the OS/Docker/checkout/image, and it
+does not change the host model. Tracked as a possible follow-up, not a fork.
+
+### Google Cloud Run
+
+Cloud Run runs stateless request-scaled containers that cold-start to zero and have
+no persistent local disk, no background timers, no systemd, and a request-timeout
+ceiling. A garden host is the opposite on every axis: it is a long-lived,
+stateful, timer-driven, single-tenant host that must stay up to run its watchers
+and workers and must hold git state on disk. There is no inbound HTTP request to
+scale on — the workload is the timers and the job board pollers. Cloud Run would
+force the garden into a request-handler shape it does not have, and it would
+externalize all the persistent git state the host keeps locally. Not a fit for the
+host; it could host an unrelated *frontend* one day, but not the garden fleet node.
+
+### Summary
+
+The garden needs a long-lived, stateful, systemd-running single-tenant host with
+persistent git state and background timers, plus an interactive first-entry
+device-auth. Of the candidates, only an AMI + launch template delivers that as a
+one-click artifact with a safe-by-construction launch posture and no credential in
+the image. Docker Compose and Terraform are **complementary** (a local-dev wrapper
+and a declarative provisioning layer respectively) and could be added later
+without forking the artifact; Kubernetes and Cloud Run are the **wrong shape**
+because they assume horizontal/request-scaled stateless workloads. The first
+release stays AMI + launch template; a Terraform module wrapping the baked AMI is
+the most natural follow-up if an operator wants `terraform apply` as the button.
