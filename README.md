@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T09:47:49Z_
+_As of 2026-07-30T09:52:43Z_
 
 ## Latest
 
@@ -5382,6 +5382,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
 > usage limit reached while running garden-mentor. Observed: You've hit your weekly limit · resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 4c2ef0edc35e44312f8803401a2edb8095371cfc (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 4c2ef0edc35e44312f8803401a2edb8095371cfc).
 
+- `watchdog-root-repo-objstore-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden2-5bcdff64.md)
+
+> root repo /home/kris/garden2 object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden2-5bcdff64' pid 1492663 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 67 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden2 rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden2 branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden2 gc'. (host=endolin-garden2-5bcdff64)
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
@@ -5389,7 +5393,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 29.1M _(+704.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 29.2M _(+705.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (33)
