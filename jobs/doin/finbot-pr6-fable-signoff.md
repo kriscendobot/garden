@@ -17,3 +17,13 @@ formal seat verdicts at head `b663b4f6d68da777be49182e2633f324ba149eaa` against
 Review the increment and provide the required Fable-orchestrator sign-off under
 the 2026-07-22 governance directive. Merge authority belongs to this sign-off
 workflow or a conductor it directs; the panel runner did not un-draft or merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T05:04:55Z
