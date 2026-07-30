@@ -12,3 +12,13 @@ Prepare a self-contained design in the project for a follow-up refactor that pro
 Originating approved review: https://github.com/endojs/endo-but-for-bots/pull/885#pullrequestreview-4813762886
 
 This is a design-stage follow-up. Do not modify PR 885 as part of this job. Follow the designer role requirements, including opening a draft design PR on the configured roadmap branch.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-30T21:21:18Z
