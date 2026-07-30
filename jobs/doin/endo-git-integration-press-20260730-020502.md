@@ -58,6 +58,7 @@ schedule, `schedules/endo-git-integration-press`), then keep pressing only
 #626 per whatever directive follows. Respect any live peer worker on a shared
 branch; defer, never collide.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
