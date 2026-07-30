@@ -1,4 +1,5 @@
 ---
+child-garden-kimi-64-dollar-accounting-reap-count: 0
 child-garden-kimi-credit-exhaustion-routing-host: endolin-garden2-5bcdff64
 child-garden-kimi-credit-exhaustion-routing-reap-count: 0
 order: serial
