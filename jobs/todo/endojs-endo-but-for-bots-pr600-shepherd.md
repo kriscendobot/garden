@@ -1,6 +1,6 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model: gpt-5.6-terra
 dispatch: automatic
 ---
 # shepherd directive on endojs/endo-but-for-bots PR #600

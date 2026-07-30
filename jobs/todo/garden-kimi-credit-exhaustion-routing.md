@@ -1,4 +1,5 @@
 ---
+tier: minion
 role: gardener
 model: gpt-5.6-terra
 handler-timeout: 7200
