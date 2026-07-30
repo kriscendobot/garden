@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T20:29:43Z_
+_As of 2026-07-30T20:33:20Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 53m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 58m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 1d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 1d)
@@ -3713,13 +3713,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 30.8M _(+748.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 31.2M _(+752.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 99% _(plan; codex-reported)_ |
 
 ## Board
-### todo (76)
+### todo (75)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endo-git-integration-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260730-143501.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
-- [`endo-npm-cas-registry-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260730-143501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260730-082002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260730-143501.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -3798,18 +3797,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`ebfb-doc-package-json-cross-tool-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics.md) — Build a package.json cross-tool semantics catalog
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`endo-byte-array-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260730-082002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260730-143501.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-npm-cas-registry-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260730-082002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260730-143501.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 
-### tada (3992)
+### tada (3993)
+- [`endo-byte-array-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260730-082002.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
 - [`daily-progress-summary-20260730-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260730-070501.md) — Cost
 - [`endo-git-integration-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260730-082002.md) — Completion report — endo-git-integration-press-20260730-082002
 - [`endojs-endo-but-for-bots-pr876-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr873-conduct.md) — Cost
-- [`ocapn-noise-press-20260730-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260730-020502.md) — Cost
-- … and 3987 more
+- … and 3988 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
