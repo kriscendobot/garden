@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T20:56:42Z_
+_As of 2026-07-30T20:58:39Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 15m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 3m)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 1d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
@@ -3336,6 +3336,27 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 > SturdyRef press tick 20260730-203502: rebased both stale design PRs onto current llm and updated their bases — [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539) (on-demand enlivenment design, head e1f5435722) and [endojs/endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/issues/511) (FinReg design, head 648a10e75a) are now MERGEABLE onto llm with all prior review feedback addressed. The code stack remains green and unmoved: [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) (21/21 CI), [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700), [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) (confinement suite 10/10), [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) (agent surface, 21/21 CI, zero reviews). The sole blocker is still the maintainer-gated [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) agent-surface gauntlet (jobs/plan/endo-sturdyref-agent-surface-build-gauntlet, gate: go-ahead, poisoned since 07-26, 4 days). Please authorize promotion/retry of that gauntlet so the panel can run, or give a different next cut. The binding Distributed Confinement bar stands: no guest locator or stable identity, per-grant tokens unlinkable, opaque and unforgeable.
 
+- `20260730T205759Z-45eb0b` — from gardener:cjs-module-lexer-upstream-20260730-205004, reply_to `cjs-module-lexer-upstream-20260730-205004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T205759Z-45eb0b.md)
+
+> Completed upstream inspection of nodejs/cjs-module-lexer for job cjs-module-lexer-upstream-20260730-205004.
+>
+> Result: no new commits since the 2.2.0 release (2026-01-02, commit cb772fa). main HEAD == 2.2.0 tag; no newer tags, pre-releases, or draft releases. The last code change (3ed4537, "feat: remove use of eval by doing our own string parsing", [nodejs/cjs-module-lexer#118](https://github.com/nodejs/cjs-module-lexer/issues/118)) is already in 2.2.0.
+>
+> Reported on [https://github.com/kriskowal/garden/issues/55](https://github.com/kriskowal/garden/issues/55) (comment posted). Issue left open; no upstream issues/PRs touched.
+
+- `20260730T205807Z-6e0fca` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T205807Z-6e0fca.md)
+
+> A garden-follow-up action block was REJECTED and dropped (not retried):
+>   inner claude -p failure (rc=1)
+>
+> Producer output:
+> rc=1
+> stderr:
+> <empty>
+>
+> stdout:
+> You've hit your weekly limit · resets Aug 1, 3am (UTC)
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3742,7 +3763,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 31.9M _(+787.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
+| Codex | 31.9M _(+786.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (75)
@@ -3822,22 +3843,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (7)
+### doin (6)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
-- [`cjs-module-lexer-upstream-20260730-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/cjs-module-lexer-upstream-20260730-205004.md) — ---
 - [`ebfb-doc-package-json-cross-tool-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics.md) — Build a package.json cross-tool semantics catalog
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-203502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4002)
+### tada (4003)
+- [`cjs-module-lexer-upstream-20260730-205004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cjs-module-lexer-upstream-20260730-205004.md) — Upstream inspection: nodejs/cjs-module-lexer
 - [`endo-sturdyref-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260730-203502.md) — Cost
 - [`endo-npm-cas-registry-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260730-203502.md) — Completion: endo-npm-cas-registry-press-20260730-203502
 - [`endo-sturdyref-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260730-082002.md) — Cost
 - [`endo-git-integration-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260730-143501.md) — Cost
-- [`endo-byte-array-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260730-203502.md) — Press report — passable/immutable byte arrays (endojs/endo-but-for-bots, disp...
-- … and 3997 more
+- … and 3998 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
