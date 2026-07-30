@@ -3639,3 +3639,12 @@ Inspect via `git -C journal cat-file -p a9b4defc13bf2cfbd3a92806b9319e18a45c743f
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'fix-botanist-scripts-enabled-install-gap-gauntlet' exit-0-unsatisfying but elapsed near-constant (29,25s) over 2 cycles — likely a wedged child, not a working one
 
 Inspect via `git -C journal cat-file -p 9d2c0ee8c7cc0f3a1ab1f4f728f9e575e355fd80`.
+
+## lane 0 -- elapsed-constancy-exit0-wedge-suspect failure at 2026-07-30T09:23:27Z
+
+- PR: (none)
+- State: elapsed-constancy-exit0-wedge-suspect
+- Transcript SHA: 6d99de3ffd800ae4169d1538f96a847fc0490268
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'finbot-pr5-panel-20260730' exit-0-unsatisfying but elapsed near-constant (15,19s) over 2 cycles — likely a wedged child, not a working one
+
+Inspect via `git -C journal cat-file -p 6d99de3ffd800ae4169d1538f96a847fc0490268`.
