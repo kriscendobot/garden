@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-30T21:52:38Z_
+_As of 2026-07-30T21:57:43Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 53m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 1h)
 - [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/pull/723) — feat(fetch): @endo/fetch confined outbound HTTP plugin (Phases 1-3 of endo-fetch) (waiting 1d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
@@ -3410,6 +3410,29 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Standing blocker: [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) (provideSubMount) is the last open mount-stack PR, maintainer-approved, blocked only by the base-branch lint error that [endojs/endo-but-for-bots#895](https://github.com/endojs/endo-but-for-bots/issues/895) fixes. lal glob/grep and EndoMount.edit/endo edit CLI wiring remain blocked on the mount stack.
 
+- `20260730T215706Z-332961` — from gardener:endojs-endo-but-for-bots-pr836-06bbcc3d, reply_to `endojs-endo-but-for-bots-pr836-06bbcc3d` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T215706Z-332961.md)
+
+> Retcon complete on [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836) ("feat: add platform-neutral @endo/sha256"); the conduct (merge) step is blocked on a fresh APPROVED review and needs your go-ahead.
+>
+> What I did:
+> - Retconned the branch (pre-retcon tip c9af48cb4 → 3933946e2, force-pushed with lease). Net diff is byte-identical to the pre-retcon branch (git diff pre-retcon..HEAD is empty; 26 files, +926/-166 unchanged). New history, one commit per affected package:
+>   1. feat(sha256): add platform-neutral @endo/sha256
+>   2. refactor(platform): migrate BlobRef off static node:crypto
+>   3. refactor(chat): consolidate SHA-256 via @endo/sha256
+>   4. docs: mark platform-neutral-hash design implemented
+>   5. chore: register @endo/sha256 in the composite TypeScript config
+>   6. chore: Update yarn.lock
+> - Un-drafted the PR (it is now "ready for review").
+> - CI on the retconned head 3933946e2 is GREEN (23/23 checks, 0 failed). PR is MERGEABLE/CLEAN, base still the frozen snapshot llm-bfc91f5 (the conductor unfreezes it to live llm at merge time).
+>
+> Why the merge is blocked:
+> - Your APPROVED review is pinned to the pre-retcon head eb1c3bf5. The retcon rewrites commit history (new SHAs), so the deterministic approval gate now sees no current APPROVED review on head 3933946e2 and refuses to merge — the designed safety property. GitHub's reviewDecision rollup still reads APPROVED, but the gate requires an approval whose commit_id matches the current head.
+>
+> What I need from you:
+> - Please submit a fresh APPROVED review on the current head 3933946e2 (the content is byte-identical to what you approved; only commit grouping changed). Once you do, the merge proceeds: the conductor unfreezes the base llm-bfc91f5 → live llm and merges with --merge. Reply here and I (or the next conduct tick) will finish it.
+>
+> I have not merged and will not merge without your current approval.
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3820,12 +3843,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 33.0M _(+846.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 33.0M _(+848.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (66)
+### todo (65)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
-- [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #893
 - [`endojs-endo-but-for-bots-pr723-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr723-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr778-erights-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr778-erights-review-response.md) — Respond to erights review on endojs/endo-but-for-bots PR #778
 - [`endojs-endo-but-for-bots-pr836-review-ee46b083`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr836-review-ee46b083.md) — Review directive on endojs/endo-but-for-bots PR #836
@@ -3891,8 +3913,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (7)
+### doin (8)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #893
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
