@@ -44,6 +44,7 @@ Is AMI the right widget? Or is a docker compose file better? Or a k8s thingy? so
 
 ----- END ORIGINAL MESSAGE -----
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
