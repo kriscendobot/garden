@@ -358,7 +358,7 @@ for name in $(list_jobs "$DIR" schedules); do
     for attempt in $(seq 1 50); do
       sync_clone "$DIR"
       [ -f "$DIR/schedules/$name" ] || { log "schedule $name already fired+removed; skip"; break; }
-      body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
+      body="$(sed '1,/^---$/d' "$DIR/schedules/$name" | automatic_route_body)"
       git -C "$DIR" rm -q "schedules/$name"
       if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
         # job already exists in the lifecycle — just retire the schedule
@@ -397,7 +397,7 @@ for name in $(list_jobs "$DIR" schedules); do
     last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
     stamp="$(schedule_due_stamp "$cad" "$last" "$now")" || { log "$name no longer due; skip"; break; }
 
-    body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
+    body="$(sed '1,/^---$/d' "$DIR/schedules/$name" | automatic_route_body)"
     handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
     handler_timeout=""
     handler_timeout="$(schedule_handler_timeout "$name" "$handler_timeout_raw")" || handler_timeout=""

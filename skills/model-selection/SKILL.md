@@ -15,20 +15,23 @@ unclassified and cannot acquire an automatic route.
 | Tier | Fleet models | Dispatch boundary |
 | --- | --- | --- |
 | mentat | Claude Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. |
-| mentor | Moonshot Kimi K3 (`kimi-k3`) | Highest tier automatic producers may emit. |
-| minion | Anthropic Opus and every selectable OpenAI/Codex model | Never selected by automatic dispatch during the Claude quota route. A Kimi retry may use the qualified Codex fallback `gpt-5.6-terra`. |
+| mentor | Moonshot Kimi K3 (`kimi-k3`) | Disabled while Moonshot credits are exhausted; retained only to classify/migrate historical claims. |
+| minion | Anthropic Opus and every selectable OpenAI/Codex model | Current automatic-dispatch tier. New jobs redundantly carry `model: gpt-5.6-terra` during the fleet upgrade. |
 | myrmidon | Sonnet, Haiku, served local Qwen, and configured Fireworks selector | Expedient tier; not an automatic escalation path. |
 
 ## Current quota route
 
 `post-job.sh` and `post-plan.sh` are the automatic producer choke points. They
-rewrite every body to `tier: mentor`, `fallback-tier: minion`, and `dispatch:
-automatic`. They never pin a provider or concrete model.
+rewrite every body to `tier: minion`, `model: gpt-5.6-terra`, `fallback-tier:
+minion`, and `dispatch: automatic`. `tier:` remains authoritative; the compatible
+concrete model pin is temporary deployment compatibility, never a replacement for
+durable tier intent.
 This covers schedules, watchers, foreman, follow-ups, auctions, and role-produced
-jobs. The Kimi claim predicate does not require a Claude fallback, so builder work
-is mechanically claimable. On a genuine Kimi failure the reaper advances only the
-qualified non-Claude fallback. This temporary routing is reversible by changing
-the choke-point policy; the four-tier inventory remains unchanged.
+jobs. Schedules receive the same transform at tick time, including an old schedule
+body that still carries a Kimi pin. Mystic workers remain at zero. A stale Kimi
+claim that exits for quota exhaustion is requeued on the minion/Codex route without
+touching a live claim. This temporary routing is reversible by changing the
+choke-point policy; the four-tier inventory remains unchanged.
 
 No automatic path may emit Fable/mentat or any other Claude pin. The gardener
 Claude handler and backend-fit predicate accept only `dispatch: manual` Fable.
@@ -37,9 +40,10 @@ Claude handler and backend-fit predicate accept only `dispatch: manual` Fable.
 
 After deploying this revision, run
 `scripts/jobs/migrate-model-tier-routing.sh` once on the leader. It CAS-rewrites
-existing `jobs/todo` and `jobs/plan` automatic entries to `tier: mentor` while leaving
-explicit `dispatch: manual` mentat jobs untouched. New jobs are normalized by the
-posting primitives, so the migration is idempotent and does not need to remain on.
+existing `jobs/todo` and `jobs/plan` automatic entries to `tier: minion` plus the
+compatible `gpt-5.6-terra` model pin, while leaving explicit `dispatch: manual`
+mentat jobs untouched. New jobs are normalized by the posting primitives, so the
+migration is idempotent and does not need to remain on.
 
 ## Adding or changing a model
 

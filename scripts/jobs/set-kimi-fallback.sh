@@ -23,7 +23,8 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="set-kimi-fallback"
 
-state="${1:?usage: set-kimi-fallback.sh on|off}"
+state="${1:?usage: set-kimi-fallback.sh off}"
+ [ "$state" = off ] || die "Kimi fallback is disabled while Moonshot credits are exhausted; only 'off' is allowed"
 case "$state" in
   on|off) : ;;
   *) die "illegal state '$state' (expected on|off)";;

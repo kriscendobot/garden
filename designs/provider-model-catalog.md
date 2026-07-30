@@ -22,12 +22,13 @@ uniformly on `(provider, model, thoughtfulness)` regardless of backend.
 ## Dispatch vocabulary (current)
 
 The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
-Its tiers are: mentat = Fable (manual-only), mentor = Moonshot Kimi K3 (the
-automatic ceiling), minion = Opus and Codex, and myrmidon = the expedient
+Its tiers are: mentat = Fable (manual-only), mentor = Moonshot Kimi K3 (disabled
+while its credits are exhausted), minion = Opus and Codex (the current automatic
+target), and myrmidon = the expedient
 Sonnet/Haiku/local/Fireworks models. Unknown ids are unclassified, not wildcarded.
-During the temporary Claude quota route all automatic producer output is Kimi with
-the qualified non-Claude `gpt-5.6-terra` fallback; only `post-manual-job.sh` may
-create a Fable job.
+During the temporary Moonshot-credit exhaustion route all automatic producer output
+has durable `tier: minion` intent and a redundant compatible `gpt-5.6-terra` pin;
+only `post-manual-job.sh` may create a Fable job.
 
 **Provenance.** Every id below is transcribed from a live query, not from memory:
 

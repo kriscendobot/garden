@@ -45,9 +45,9 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # provider anthropic), one pinned to a paid codex model is cleric-only (openai), one
 # pinned to a served LOCAL tag (the qwen family) is hermit-only (local), and an
 # UNPINNED job (no `model:`, or a value no provider's patterns match) is claimable by
-# any kind. Mystic is activation-only, so its pool accepts only the exact explicit
-# `model: kimi-k3` pin. Do not resolve a short alias here: a K3 job is deliberately
-# never a default-routing decision.
+# any kind. Mystic is disabled during the Moonshot-credit exhaustion posture, so it
+# accepts no claims even if a stale unit remains alive. K3 stays an exact historical
+# id for deterministic migration/requeue handling, never a default route.
 # This is a small deterministic predicate — no LLM, no auction — and it is
 # the seam the bid auction (build child 2) later replaces: under the auction, backend
 # fit is PRICED into the bid instead of hard-filtered.
@@ -63,6 +63,10 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
   local jf="$1" tier
+  # Moonshot credits are exhausted. This belt-and-suspenders guard keeps an
+  # already-running or accidentally reconfigured mystic unit from acquiring a
+  # new claim while the worker-count and producer controls converge.
+  [ "$KIND" != mystic ] || return 1
   tier="$(job_tier "$jf")" || return 1
   # Mentat is an authorization boundary, not merely a price point.
   [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1

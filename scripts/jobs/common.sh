@@ -4357,25 +4357,29 @@ tier_model_for_provider() {
   return 1
 }
 
-# automatic_route_body rewrites producer output to the quota-period capability
-# ceiling.  Concrete model ids must never become durable automatic job intent.
+# automatic_route_body rewrites producer output to the current quota-posture
+# capability ceiling. `tier:` is the durable intent; the concrete Codex pin is a
+# deliberately redundant compatibility bridge while every deployed worker catches
+# up with the fleet upgrade. Consumers MUST resolve from tier, not from this pin.
 automatic_route_body() {
   awk '
     function trim(s){sub(/^[ \t]+/,"",s);sub(/[ \t]+$/, "",s);return s}
     { line[++n]=$0 }
     END {
       if (n && line[1]=="---") for(i=2;i<=n;i++) if(line[i]=="---"){end=i;break}
-      if (!end) { print "---"; print "tier: mentor"; print "fallback-tier: minion"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
-      seentier=seenfallback=seendispatch=0
+      if (!end) { print "---"; print "tier: minion"; print "model: gpt-5.6-terra"; print "fallback-tier: minion"; print "dispatch: automatic"; print "---"; for(i=1;i<=n;i++) print line[i]; exit }
+      seentier=seenmodel=seenfallback=seendispatch=0
       for(i=1;i<end;i++) {
         if(i==1){print line[i]; continue}
-        if(line[i] ~ /^(model|fallback-model):[ \t]*/) continue
-        if(line[i] ~ /^tier:[ \t]*/) { print "tier: mentor"; seentier=1; continue }
+        if(line[i] ~ /^fallback-model:[ \t]*/) continue
+        if(line[i] ~ /^model:[ \t]*/) { print "model: gpt-5.6-terra"; seenmodel=1; continue }
+        if(line[i] ~ /^tier:[ \t]*/) { print "tier: minion"; seentier=1; continue }
         if(line[i] ~ /^fallback-tier:[ \t]*/) { print "fallback-tier: minion"; seenfallback=1; continue }
         if(line[i] ~ /^dispatch:[ \t]*/) { print "dispatch: automatic"; seendispatch=1; continue }
         print line[i]
       }
-      if (!seentier) print "tier: mentor"
+      if (!seentier) print "tier: minion"
+      if (!seenmodel) print "model: gpt-5.6-terra"
       if (!seenfallback) print "fallback-tier: minion"
       if (!seendispatch) print "dispatch: automatic"
       for(i=end;i<=n;i++) print line[i]
@@ -4528,8 +4532,9 @@ resolve_model_tier() {
 # leading kind is OPTIONAL and defaults to `gardener`, so every historical single-arg
 # caller (`role_default_model builder`) is unchanged.
 #
-# During the Claude quota period, automatic role defaults are mentor/Kimi.  The
-# Claude handler itself is manual-Fable-only, so no role can implicitly select it.
+# During the Moonshot-credit exhaustion period, automatic role defaults are
+# minion/Codex. The Claude handler itself is manual-Fable-only, and Mystics have
+# no default, so no role can implicitly select Kimi.
 #
 # Cleric (codex) side: designer/builder pin `gpt-5.6-terra`; mechanical roles use
 # the corresponding economical tiers (`mini` or `frontier`). The effort distinction
@@ -4544,11 +4549,11 @@ role_default_model() {
   case "$kind" in
     gardener)
       case "$role" in
-        designer|builder) printf '%s\n' "kimi-k3" ;;
+        designer|builder) printf '%s\n' "gpt-5.6-terra" ;;
         cleaner|retcon|yarn-lock|journalist)
-                  printf '%s\n' "kimi-k3" ;;
+                  printf '%s\n' "gpt-5.6-terra" ;;
         weaver|conductor|pages-shepherd)
-                  printf '%s\n' "kimi-k3" ;;
+                  printf '%s\n' "gpt-5.6-terra" ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     cleric)
@@ -4577,8 +4582,8 @@ role_default_model() {
         *)        printf '%s\n' "" ;;
       esac ;;
     mystic)
-      # Mentor is the automatic ceiling, including mechanically claimable builds.
-      printf '%s\n' "kimi-k3" ;;
+      # Kimi is explicitly disabled while Moonshot credits are exhausted.
+      printf '%s\n' "" ;;
     fireworker)
       # Explicit model only.  There is no safe catalog default for a hosted,
       # changing Fireworks fleet.
@@ -4588,9 +4593,9 @@ role_default_model() {
 }
 
 # role_default_tier is the producer-facing counterpart of role_default_model.
-# Automatic producers currently always request mentor; concrete worker choices are
-# resolved only at claim time.
-role_default_tier() { printf '%s\n' mentor; }
+# Automatic producers currently always request minion. The compatibility model pin
+# above is never authoritative over this durable tier intent.
+role_default_tier() { printf '%s\n' minion; }
 
 # role_default_effort [kind] <role> -> the default thoughtfulness (reasoning-effort)
 # level a role runs at for a race/pre-auction job that names no explicit `effort:`

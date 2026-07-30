@@ -840,7 +840,19 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
       POISON_OVERRUN+=("$overrun"); POISON_SIG+=("$sig")
     else
-      # --- kimi-k3 -> qualified non-Claude re-route -----------------------------
+      # A stale Moonshot claim is an already-running automatic job, not a new
+      # dispatch. Never touch a live doin claim before it reaches this reaper path;
+      # once its handler has exited (including quota exhaustion), rewrite its clean
+      # body to the current minion/Codex posture and let an eligible non-Kimi worker
+      # race-claim the same spine. This is deliberately before the historical
+      # Kimi-fallback experiment: quota exhaustion must not spend another Kimi cycle.
+      if grep -q '^  provider: moonshot[[:space:]]*$' "$f" \
+        || [ "$(plan_field "$f" model)" = kimi-k3 ]; then
+        body="$(printf '%s\n' "$body" | automatic_route_body)"
+        count=0
+        log "kimi quota posture: '$base' exited Moonshot; re-routing its requeue to minion/Codex"
+      else
+      # --- historical kimi-k3 -> qualified non-Claude re-route ------------------
       # On a GENUINE failure (not an outage, not a productive cycle) of a job whose
       # `model:` pin is fallback-eligible AND that carries a `fallback-model:` chain,
       # advance the pin to the chain head so an opus gardener claims the SAME base
@@ -864,6 +876,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           log "kimi-fallback: '$base' failed $count cycle(s) on kimi-k3; re-routing to its qualified non-Claude fallback, resetting reap counter"
           count=0
         fi
+      fi
       fi
       {
         printf '%s\n' "$body"

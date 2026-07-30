@@ -23,8 +23,8 @@ for attempt in $(seq 1 50); do
     done
   done
   [ "$changed" -gt 0 ] || { log "model-tier migration already current"; exit 0; }
-  rc=0; commit_and_push "$DIR" "migrate: route automatic jobs to mentor" || rc=$?
-  [ "$rc" -eq 0 ] && { log "migrated $changed queued automatic job(s)"; exit 0; }
+  rc=0; commit_and_push "$DIR" "migrate: route automatic jobs to minion Codex" || rc=$?
+  [ "$rc" -eq 0 ] && { log "migrated $changed queued or parked automatic job(s)"; exit 0; }
   log "migration lost push race (attempt $attempt); re-syncing"; backoff "$attempt"
 done
 die "could not migrate queued model routing"
