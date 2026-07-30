@@ -60,3 +60,13 @@ schedule, `schedules/endo-git-integration-press`), then keep pressing only
 branch; defer, never collide.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-07-30T04:36:14Z
