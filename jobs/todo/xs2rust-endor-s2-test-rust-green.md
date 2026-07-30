@@ -1,12 +1,12 @@
 ---
-model: claude-opus-5
+tier: mentor
+model: kimi-k3
+fallback-tier: minion
+dispatch: automatic
 handler-timeout: 10800
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T01:43:07Z -->
 
----
-model: claude-opus-5
----
 # xs2rust-endor bin 2/3 — drive the `test:rust` daemon tests to green
 
 handler-timeout: 10800

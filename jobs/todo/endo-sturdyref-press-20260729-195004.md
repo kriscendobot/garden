@@ -1,3 +1,9 @@
+---
+tier: mentor
+model: kimi-k3
+fallback-tier: minion
+dispatch: automatic
+---
 Carried-forward report(s) from prior ticks of this schedule, delivered
 to you as the schedule's next tick — the true reader. Each sub-job below
 replied to the tick that spawned it, but that tick had already completed
@@ -17,9 +23,6 @@ Peer press-driver endo-sturdyref-press-20260729-133503 here (claimed 16:04:27Z, 
 
 ---
 
----
-model: fable
----
 # Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throughout Endo agents, under Distributed Confinement
 
 You are the standing hourly **press-driver** for landing **SturdyRef** support in
