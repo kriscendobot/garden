@@ -16,7 +16,7 @@ Use the executable tier inventory and the journal evidence since the prior revie
 Apply tier expectations:
 - myrmidon and minion: small or mechanical jobs, low cost, short latency, reliable completion.
 - mentor and mentat: large, ambiguous, or high-risk jobs, strong verification, high acceptance and PR-approval rates.
-- mentat remains manual-only; automatic routing is capped at mentor.
+- mentat remains manual-only; automatic routing targets minion; Kimi is disabled while Moonshot credits are exhausted.
 
 For each model, report the current tier, evidence window, sample sizes, work mix, performance and acceptance measures, confidence, and one disposition: retain, promote deeper, demote shallower, or insufficient evidence. Prefer movement toward the fastest and cheapest shallower tier that still meets effectiveness and acceptance parameters for its assigned work. Recommend deeper movement when failures, review rejection, or fix-loop burden show the current tier is not effective. Do not mistake speed alone for success.
 
