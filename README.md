@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T10:35:22Z_
+_As of 2026-07-31T10:50:09Z_
 
 ## Latest
 
@@ -3761,11 +3761,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
 
-> WATCHDOG notice — occurrence #553 (first seen 2026-07-31T00:19:05Z, latest 2026-07-31T09:48:52Z).
-> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 553 times; this is ONE
-> coalesced notice that updates in place, not 553 messages. Latest detail:
+> WATCHDOG notice — occurrence #613 (first seen 2026-07-31T00:19:05Z, latest 2026-07-31T10:49:42Z).
+> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 613 times; this is ONE
+> coalesced notice that updates in place, not 613 messages. Latest detail:
 >
-> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~548m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~608m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
