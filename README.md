@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T00:10:55Z_
+_As of 2026-07-31T00:12:52Z_
 
 ## Latest
 
@@ -3893,14 +3893,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 37.7M _(+919.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 37.7M _(+919.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (53)
+### todo (52)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
 - [`finbot-pr5-panel-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260729-195004.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
-- [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
 - [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
 - [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
@@ -3951,7 +3950,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (8)
+### doin (9)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
@@ -3960,6 +3959,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
+- [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 
 ### tada (4033)
 - [`endojs-endo-but-for-bots-pr898-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-shepherd.md) — Shepherd complete: endojs/endo-but-for-bots PR #898
