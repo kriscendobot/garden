@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -16,12 +17,4 @@ Primary must-fix, independently confirmed by the sign-off review: the armed fore
 
 Also address the documented audit_proposal config-shape error and the CLI help visibility finding if they remain applicable after the binding design. Keep default behavior byte-identical where the gate is off. Run npm test before pushing. Then leave the PR draft and post a fresh full panel job on the new head; only a passing panel with no unresolved must-fix findings may receive a replacement Fable sign-off.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: fireworker
-  tier: 
-  provider: fireworks
-  model: 
-  claimed_at: 2026-07-31T00:34:31Z
+<!-- garden-reaped: 0 -->

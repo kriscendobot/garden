@@ -5,8 +5,9 @@ gauntlet: finbot-progress-20260730-020502-gauntlet
 gauntlet_stage: clean
 gauntlet_iteration: 0
 pr: https://github.com/kriscendobot/finbot/pull/5
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -38,12 +39,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: fireworker
-  tier: 
-  provider: fireworks
-  model: 
-  claimed_at: 2026-07-31T00:35:32Z
+<!-- garden-reaped: 0 -->

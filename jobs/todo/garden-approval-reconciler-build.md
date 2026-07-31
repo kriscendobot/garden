@@ -1,7 +1,8 @@
 ---
 role: builder
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-29T23:55:05Z cleared=none -->
@@ -30,14 +31,4 @@ Inspect the existing approval-trigger path in scripts/jobs/comment-watcher.sh, p
 
 Audit the approvals from 2026-07-28 as read-only regression evidence: identify which would have been recovered, while proving current manual conductor requests suppress duplicates. Add hermetic tests for missed events, stale approval after head movement, event/sweep race, existing manual job under a different basename, red CI, draft PR, untrusted approver, non-bot PR, and leader/follower gating. Add the systemd unit/timer or integrate with the existing appropriate watcher cadence, update operations documentation, and report the landed revision and rollout requirements.
 
-<!-- garden-reaped: 1 -->
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: fireworker
-  tier: 
-  provider: fireworks
-  model: 
-  claimed_at: 2026-07-31T00:35:36Z
+<!-- garden-reaped: 0 -->
