@@ -37,3 +37,13 @@ You are ONE stage of a staged gauntlet (finbot-progress-20260730-020502-gauntlet
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-31T00:35:32Z
