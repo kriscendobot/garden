@@ -84,3 +84,13 @@ unchanged, and the `jobs/tada/` report names exactly what a canary should post f
 each of the two models.
 
 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-31T00:37:17Z
