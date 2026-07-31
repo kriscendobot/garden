@@ -83,15 +83,4 @@ accurately, the pool is still at zero, the Moonshot K3 lane is demonstrably
 unchanged, and the `jobs/tada/` report names exactly what a canary should post for
 each of the two models.
 
-
-
-<!-- garden-productive-cycle -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: fireworker
-  tier: 
-  provider: fireworks
-  model: 
-  claimed_at: 2026-07-31T00:37:17Z
+<!-- garden-reaped: 0 -->
