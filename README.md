@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T03:23:27Z_
+_As of 2026-07-31T03:24:30Z_
 
 ## Latest
 
@@ -3912,7 +3912,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 37.1M _(+912.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (58)
+### todo (57)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`dependabotany-recheck-endo-but-for-bots-20260731-012004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260731-012004.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
@@ -3923,7 +3923,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260731-025002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260731-025002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
 - [`finbot-progress-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260731-025002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
@@ -3989,13 +3988,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 
-### tada (4033)
+### tada (4034)
+- [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endojs-endo-but-for-bots-pr898-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-shepherd.md) — Shepherd complete: endojs/endo-but-for-bots PR #898
 - [`endojs-endo-but-for-bots-pr882-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr894-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr881-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr881-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr873-4e8841bd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr873-4e8841bd.md) — Cost
-- … and 4028 more
+- … and 4029 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
