@@ -3720,3 +3720,12 @@ Inspect via `git -C journal cat-file -p a785f80572f65c692180ec821b5f5be57c003b03
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'finbot-pr6-panel-20260728' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 3b245bcdb5f47d64b861c08f8ca2374d0458598b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-31T00:34:11Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7d3c700b8a2e77858df709a2a235cccbb0c91f28
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'finbot-pr5-panel-20260729-195004' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7d3c700b8a2e77858df709a2a235cccbb0c91f28`.
