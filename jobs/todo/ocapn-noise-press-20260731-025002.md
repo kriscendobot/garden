@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-07-31T02:50:02Z
-job_basename_prefix: ocapn-noise-press
----
 ---
 tier: mentor
 fallback-tier: minion
