@@ -3765,3 +3765,12 @@ Inspect via `git -C journal cat-file -p ba62a23d57c8c2560578d5897ec7a996a1351dab
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'finbot-progress-20260730-020502-gauntlet-clean' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 373a76aabe174a14a289fab44010ce3a33cd9d0d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-31T00:36:16Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a31c37abac235cea4ae1c22844f974136a289c23
+- Context: gardener-3 on endolin-garden2-5bcdff64: job 'garden-approval-reconciler-build' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a31c37abac235cea4ae1c22844f974136a289c23`.
