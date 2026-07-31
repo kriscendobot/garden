@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T05:20:23Z_
+_As of 2026-07-31T05:22:49Z_
 
 ## Latest
 
@@ -3897,6 +3897,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
 > usage limit reached while running garden-mentor. Observed: You've hit your weekly limit · resets Aug 1, 3am (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob 2e75b55370892a32081e6a589e1804e1c54899f1 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 2e75b55370892a32081e6a589e1804e1c54899f1).
+
+- `watchdog-root-repo-objstore-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden-ece02cb4.md)
+
+> root repo /home/kris/garden object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden-ece02cb4' pid 3728245 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 8 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden gc'. (host=endolin-garden-ece02cb4)
 
 - `watchdog-root-repo-objstore-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden2-5bcdff64.md)
 
