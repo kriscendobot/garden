@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T18:54:31Z_
+_As of 2026-07-31T19:20:24Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 9h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 10h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 2d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 2d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
@@ -3917,10 +3917,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 36.4M _(+903.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 36.3M _(+903.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (105)
+### todo (106)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260731-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
@@ -3981,6 +3981,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-600-ironhorse-rename.md) — ---
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`proposal-compartments-press-20260730-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/proposal-compartments-press-20260730-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
+- [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/proposal-compartments-press-20260731-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`scholar-library-cycle-20260729-225002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-225002.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260729-235003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260729-235003.md) — Hourly scholar library cycle
