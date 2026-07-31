@@ -103,6 +103,7 @@ goes in the PR body, and if the supersession is confirmed, amend
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
