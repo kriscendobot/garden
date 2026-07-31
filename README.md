@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T04:50:43Z_
+_As of 2026-07-31T04:53:23Z_
 
 ## Latest
 
@@ -3912,7 +3912,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 36.9M _(+911.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (72)
+### todo (75)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260731-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
@@ -3937,7 +3937,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
 - [`finbot-progress-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-082002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-143501.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-progress-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-203502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260731-025002.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
+- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-review-miss-gaming-category.md) — Add an evaluator-gaming category to the review-retrospective loop
@@ -3986,10 +3989,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 - [`xs2rust-endor-watchdog-20260731-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260731-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (3)
-- [`finbot-progress-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-203502.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
-- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
+### doin (0)
+(none)
 
 ### tada (4034)
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
