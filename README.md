@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T06:47:45Z_
+_As of 2026-07-31T07:05:27Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 5h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 6h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 2d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 1d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
 - [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/pull/621) — design: refine endoclaw-oauth as the connector credential foundation (settle first-mint flow) (waiting 7d)
@@ -3916,10 +3916,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 36.9M _(+911.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (77)
+### todo (78)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260731-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
+- [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260731-070502.md) — Daily midnight Pacific progress summary
 - [`dependabotany-recheck-endo-but-for-bots-20260731-012004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260731-012004.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
 - [`endo-byte-array-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260731-025002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
