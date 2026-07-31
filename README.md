@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T02:45:35Z_
+_As of 2026-07-31T02:51:04Z_
 
 ## Latest
 
@@ -3865,9 +3865,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64` — from watchdog:mentor-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-07-28T22:56:20Z, latest 2026-07-31T01:20:13Z).
-> The SAME condition (`ollama-model-less-endpoint-endolin-garden2-5bcdff64`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-07-28T22:56:20Z, latest 2026-07-31T02:50:09Z).
+> The SAME condition (`ollama-model-less-endpoint-endolin-garden2-5bcdff64`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3:0.6b; hermit cannot run 'mentor'. Run `ollama pull qwen3:0.6b` against this endpoint (a client call, so it lands in the serving daemon's own store — a copy in another user's store is invisible here). No local-inference unit is running: neither `systemctl --user status garden-ollama.service` (the garden-supervised one, enabled only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit, run as the `ollama` user) is active. Bring up whichever this host is meant to serve with.
 
@@ -3912,13 +3912,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 37.1M _(+912.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (49)
+### todo (56)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`dependabotany-recheck-endo-but-for-bots-20260731-012004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260731-012004.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
+- [`endo-byte-array-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260731-025002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-git-integration-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260731-025002.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
+- [`endo-npm-cas-registry-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260731-025002.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-sturdyref-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260731-025002.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260731-025002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
+- [`finbot-progress-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260731-025002.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-review-miss-gaming-category.md) — Add an evaluator-gaming category to the review-retrospective loop
 - [`kriscendobot-garden-pr69-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr69-shepherd.md) — shepherd directive on kriscendobot/garden PR #69
@@ -3928,6 +3934,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ocapn-noise-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260730-082002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260730-143501.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260730-203502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260731-025002.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`pi-release-watch-20260730-190501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pi-release-watch-20260730-190501.md) — ---
 - [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-600-ironhorse-rename.md) — ---
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-877-bundle-endo-base64.md) — ---
