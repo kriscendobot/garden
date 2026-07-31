@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-07-31T19:20:02Z
-job_basename_prefix: proposal-compartments-press
----
 ---
 tier: mentor
 fallback-tier: minion
