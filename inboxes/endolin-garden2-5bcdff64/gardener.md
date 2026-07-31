@@ -3792,3 +3792,12 @@ Inspect via `git -C journal cat-file -p 1596572914dadeb1269dcb5d12ae5783e687b3ae
 - Context: gardener-4 on endolin-garden2-5bcdff64: job 'fireworks-glm52-kimik3-build' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 565a63434684c990e27c6892852a39efa145e3b5`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-31T00:38:19Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 08e81e84865f4bcdc712473ba10553b7069d71e3
+- Context: gardener-4 on endolin-garden2-5bcdff64: job 'fix-botanist-scripts-enabled-install-gap-gauntlet' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 08e81e84865f4bcdc712473ba10553b7069d71e3`.
