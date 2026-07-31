@@ -3666,3 +3666,12 @@ Inspect via `git -C journal cat-file -p 29e2ebe27b6895af1676f3af19b1387dc8e23a9a
 - Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-endo-regexp-conservative-subset' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 3095d01493d869ad491323cac459d004f5004c34`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-31T00:09:52Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 016358289bbaa07744411855bbf258c8d141231a
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'finbot-pr4-panel-rerun-20260728' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 016358289bbaa07744411855bbf258c8d141231a`.
