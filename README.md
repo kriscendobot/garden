@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T00:18:14Z_
+_As of 2026-07-31T00:19:26Z_
 
 ## Latest
 
@@ -3758,6 +3758,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Per merge governance (2026-07-22), this increment lands only after both a passing
 > panel and Fable-orchestrator sign-off. Never self-merge.
+
+- `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
+
+> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~10m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
