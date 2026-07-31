@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T12:51:14Z_
+_As of 2026-07-31T13:20:33Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 3h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 4h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 2d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 2d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
@@ -3865,9 +3865,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64` — from watchdog:mentor-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64.md)
 
-> WATCHDOG notice — occurrence #25 (first seen 2026-07-28T22:56:20Z, latest 2026-07-31T11:50:10Z).
-> The SAME condition (`ollama-model-less-endpoint-endolin-garden2-5bcdff64`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
+> WATCHDOG notice — occurrence #28 (first seen 2026-07-28T22:56:20Z, latest 2026-07-31T13:20:13Z).
+> The SAME condition (`ollama-model-less-endpoint-endolin-garden2-5bcdff64`) has now been observed 28 times; this is ONE
+> coalesced notice that updates in place, not 28 messages. Latest detail:
 >
 > local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3:0.6b; hermit cannot run 'mentor'. Run `ollama pull qwen3:0.6b` against this endpoint (a client call, so it lands in the serving daemon's own store — a copy in another user's store is invisible here). No local-inference unit is running: neither `systemctl --user status garden-ollama.service` (the garden-supervised one, enabled only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit, run as the `ollama` user) is active. Bring up whichever this host is meant to serve with.
 
