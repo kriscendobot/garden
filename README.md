@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-31T00:23:21Z_
+_As of 2026-07-31T00:36:54Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 10m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 7m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 1d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 1d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2d)
@@ -3761,7 +3761,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
 
-> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~10m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+> RECOVERED — the watchdog condition `backend-degraded-endolin-garden2-5bcdff64-fireworker` has CLEARED (first seen 2026-07-31T00:19:05Z, cleared 2026-07-31T00:33:09Z).
+> It was observed 14 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> fireworker backend on endolin-garden2-5bcdff64 recovered; effective ramped to declared 4.
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
@@ -3900,22 +3904,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 37.7M _(+919.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (55)
+### todo (46)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
-- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
-- [`finbot-pr5-panel-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260729-195004.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
-- [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
-- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
-- [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
-- [`finbot-progress-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-082002.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-143501.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-203502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
-- [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-review-miss-gaming-category.md) — Add an evaluator-gaming category to the review-retrospective loop
 - [`kriscendobot-garden-pr69-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr69-shepherd.md) — shepherd directive on kriscendobot/garden PR #69
@@ -3957,13 +3952,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (6)
+### doin (15)
+- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260730-082002.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #885
 - [`finbot-pr4-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr4-panel-rerun-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #4
 - [`finbot-pr5-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
+- [`finbot-pr5-panel-20260729-195004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729-195004.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr5-panel-20260729`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260729.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
+- [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
+- [`finbot-pr6-panel-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260728.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6
+- [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
+- [`finbot-progress-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-082002.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-progress-20260730-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-143501.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`finbot-progress-20260730-203502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-203502.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 
 ### tada (4033)
 - [`endojs-endo-but-for-bots-pr898-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-shepherd.md) — Shepherd complete: endojs/endo-but-for-bots PR #898
