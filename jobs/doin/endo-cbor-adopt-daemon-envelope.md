@@ -102,3 +102,13 @@ goes in the PR body, and if the supersession is confirmed, amend
   boundary) are precedent you should follow rather than re-litigate.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: fireworker
+  tier: 
+  provider: fireworks
+  model: 
+  claimed_at: 2026-07-31T00:33:21Z
