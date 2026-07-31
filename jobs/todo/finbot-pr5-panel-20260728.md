@@ -43,15 +43,4 @@ is now deployed WITH both fixes, so a fresh panel runs clean. This is that fresh
 Per merge governance (2026-07-22), finbot lands only after BOTH the panel and the
 Fable-orchestrator sign-off. Never self-merge.
 
-
-
-<!-- garden-productive-cycle -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: fireworker
-  tier: 
-  provider: fireworks
-  model: 
-  claimed_at: 2026-07-31T00:10:06Z
+<!-- garden-reaped: 0 -->
