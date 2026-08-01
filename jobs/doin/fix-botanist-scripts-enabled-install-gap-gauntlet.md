@@ -28,3 +28,13 @@ to draft so the chain can run. Nothing here has been panel-reviewed: treat it as
 cold PR owed a full review, not as work that already passed and regressed.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:02:26Z
