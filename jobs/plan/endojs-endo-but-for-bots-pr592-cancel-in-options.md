@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 1
+poisoned_at: 2026-08-01T11:53:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:53:04Z
+---
+
+---
 role: fixer
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:00:18Z cleared=deadline-overrun=1 -->
@@ -62,16 +76,5 @@ mount.test.js / endo.test.js pass (cite the counts); push to the PR head
 branch; then post inline replies to BOTH review comments (ids 3560627735 and
 3560633818) citing the resolving commit (skills/pr-review-thread-replies).
 
-<!-- garden-reaped: 4 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:44:24Z

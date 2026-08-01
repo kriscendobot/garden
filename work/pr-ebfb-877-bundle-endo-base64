@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-01T11:43:47Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-pr-ebfb-877-bundle-endo-base64

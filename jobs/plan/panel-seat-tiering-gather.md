@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-08-01T11:53:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:53:04Z
+---
+
+---
 role: assayer
 handler-timeout: 7200
 ---
@@ -80,16 +94,3 @@ purist (3), saboteur (2), prover (2), warden (1), breaker, corner-prober.
 with a per-seat table, the error-rate analysis, an explicit confidence grade per
 claim, and a clearly-marked list of questions the data CANNOT answer. Recommend
 nothing here.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:43:40Z

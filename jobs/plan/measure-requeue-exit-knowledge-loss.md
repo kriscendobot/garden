@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-08-01T11:53:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:53:04Z
+---
+
+---
 role: builder
 tier: minion
 model-burned: mentor
@@ -95,16 +109,3 @@ self-assessment was silent on what a worker's exit costs — its architecture
 burst sessions live it. The machinery here turned out to be better than that
 critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:43:15Z
