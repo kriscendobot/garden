@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 On it — I've posted a job (`endojs-endo-but-for-bots-pr700-rebase`) and will follow up here when it lands. <!-- garden-reply:1701 --> 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:27:49Z
