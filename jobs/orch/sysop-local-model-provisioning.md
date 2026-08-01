@@ -2,7 +2,7 @@
 order: serial
 children: design-sysop-local-model-op build-sysop-local-model-op
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-01T08:49:09Z
 ---
