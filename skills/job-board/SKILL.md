@@ -65,14 +65,28 @@ the paradigm case is a **cold `docker build`**, which can take a few hours — m
 declare its own budget or it is SIGTERM-killed at 40 min on **every** requeue and
 never completes (the docker build burns a gardener slot per cycle, then poisons).
 
-**The producer stamps the budget.** Put a `handler-timeout: <seconds>` line in the
-**job body** at post time (`post-job.sh <base> <body-with-header>`). The gardener
-reads it and runs the handler at that budget in place of the 40-min default; the
-reaper reads the same header so it never requeues the still-live long handler. There
-is no auto-classifier — **whoever posts a build-heavy job is responsible for the
-header** (the liaison for a `build`, an orchestration for a build child, a re-post of
-a poisoned docker job). Rule of thumb: any job that runs a container/image build, a
-full-from-scratch compile, or another step known to exceed ~40 min needs it.
+**A build role gets a larger budget automatically (2026-08-01).** `role: builder`
+and `role: web-builder` default to `GARDEN_BUILD_HANDLER_TIMEOUT` (**7200 s / 2 h**)
+instead of the 2400 s fleet default, resolved by `job_handler_budget_base`
+(`common.sh`) — which **both** `gardener.sh` and `reaper.sh` call, so the runner's
+wall and the staleness guard cannot drift apart. Every other role is unchanged.
+
+This exists because the header was previously the *only* remedy and the producer had
+to remember it. When they forgot, the failure was expensive: the handler is
+SIGTERM-killed at 2400 s on **every** requeue, makes no progress, and the reaper
+poisons it as a deterministic overrun after one cycle. That is exactly how
+`ebfb-pr882-bootstrap-generators` died (rc=124 at elapsed=2401 s, parked to `plan/`
+with two maintainer notices); its re-post then carried `handler-timeout: 7200`. The
+7200 s figure is where the fleet had already converged by hand — of the jobs then on
+the board carrying an explicit header, 16 said 7200, 11 said 10800, 1 said 14000.
+
+**The producer still stamps anything unusual.** A `handler-timeout: <seconds>` line
+in the **job body** at post time (`post-job.sh <base> <body-with-header>`) still
+wins, in either direction, over whatever the role defaults to. Reach for it when a
+job runs a container/image build, a full-from-scratch compile, or another step known
+to exceed the role default — a cold `docker build` still wants `10800`. A non-build
+role doing build-shaped work (a `fixer` that must run the full test suite, a staged
+gauntlet doing a clean build) gets **no** automatic boost and still needs the header.
 
 ```
 handler-timeout: 10800      # 3h — a cold docker image build

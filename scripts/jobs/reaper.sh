@@ -340,16 +340,22 @@ _proc_descendants() {
 # re-derives the gardener's single-owner invariant at reap time so a GARDEN_CLAIM_TTL
 # misconfigured below the handler wall can no longer requeue a still-live handler.
 reap_age_threshold() {
-  local f="$1" req budget budget_max floor
-  budget="$GARDEN_HANDLER_TIMEOUT"
+  local f="$1" req budget base budget_max floor
+  # The BASE is per-role, from the same helper gardener.sh uses
+  # (common.sh job_handler_budget_base): a build role defaults to
+  # GARDEN_BUILD_HANDLER_TIMEOUT, not the fleet default. If this diverged from the
+  # gardener's view, the reaper would judge a live 7200s build stale at 2400s and
+  # requeue the base onto a SECOND gardener while the first still runs.
+  base="$(job_handler_budget_base "$f")"
+  budget="$base"
   req="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" 2>/dev/null | head -1 | tr -dc '0-9')"
   if [ -n "$req" ] && [ "$req" -ge 1 ] 2>/dev/null; then
     budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
     if [ "$req" -le "$budget_max" ]; then budget="$req"; else budget="$budget_max"; fi
-    # The gardener never runs BELOW the default wall for a header job; keep the
-    # floor at least the default so a tiny budget_max (from a misconfigured TTL)
+    # The gardener never runs BELOW its base wall for a header job; keep the
+    # floor at least that base so a tiny budget_max (from a misconfigured TTL)
     # cannot shrink the guard under the real handler lifetime.
-    [ "$budget" -lt "$GARDEN_HANDLER_TIMEOUT" ] && budget="$GARDEN_HANDLER_TIMEOUT"
+    [ "$budget" -lt "$base" ] && budget="$base"
   fi
   floor=$(( budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_REAP_SAFETY_SLACK ))
   if [ "$GARDEN_CLAIM_TTL" -ge "$floor" ]; then printf '%s\n' "$GARDEN_CLAIM_TTL"; else printf '%s\n' "$floor"; fi

@@ -4635,6 +4635,62 @@ role_default_effort() {
   esac
 }
 
+# --- per-role default handler budget -----------------------------------------
+#
+# GARDEN_HANDLER_TIMEOUT (2400s / 40 min) is the right default for the ordinary
+# job: read a PR, make an edit, push. It is NOT the right default for a BUILD,
+# which routinely runs a full install + compile + test pass and blows through 40
+# minutes by construction. Until 2026-08-01 the only remedy was a per-job
+# `handler-timeout:` header the PRODUCER had to remember to stamp, with no
+# auto-classifier — and the failure mode when they forgot was expensive and
+# silent-ish: the handler is SIGTERM-killed at 2400s on EVERY requeue, makes no
+# progress, and the reaper poisons it as a deterministic overrun after one cycle
+# (ebfb-pr882-bootstrap-generators, rc=124 at elapsed=2401s, poisoned to plan/
+# with two maintainer notices; its re-post then carried handler-timeout: 7200).
+#
+# So the build roles now carry a LARGER DEFAULT. This is a default, not a cap: an
+# explicit `handler-timeout:` header still wins in either direction, and the
+# claim-scoping invariant (budget + KILL_AFTER < CLAIM_TTL) still clamps the
+# result at the call sites.
+#
+# 7200s (2h) is not a guess — it is where the fleet had already converged by hand:
+# of the jobs on the board carrying an explicit header, 16 said 7200, 11 said
+# 10800, 1 said 14000. 7200 covers the common build and leaves headroom under the
+# ~14339s claim ceiling for a genuinely heavy job (a cold `docker build`) to ask
+# for more explicitly.
+#
+# GARDEN_BUILD_HANDLER_TIMEOUT is the knob; set it to GARDEN_HANDLER_TIMEOUT to
+# retire the distinction entirely.
+: "${GARDEN_BUILD_HANDLER_TIMEOUT:=7200}"
+
+# role_default_handler_timeout <role> -> default handler budget in seconds for
+# that role. Empty role, or a role with no build character, yields the fleet
+# default. Kept beside role_default_model/effort so the three per-role policies
+# stay visibly one family.
+role_default_handler_timeout() {
+  local role="${1:-}"
+  case "$role" in
+    builder|web-builder) printf '%s\n' "${GARDEN_BUILD_HANDLER_TIMEOUT:-7200}" ;;
+    *)                   printf '%s\n' "${GARDEN_HANDLER_TIMEOUT:-2400}" ;;
+  esac
+}
+
+# job_handler_budget_base <jobfile> -> the budget a job gets BEFORE any explicit
+# `handler-timeout:` header is applied.
+#
+# SINGLE SOURCE OF TRUTH, DELIBERATELY. gardener.sh (which runs the handler under
+# `timeout`) and reaper.sh (which decides when a claim is stale) must compute the
+# SAME budget or the invariant breaks in the worst direction: a reaper that thinks
+# the budget is 2400s while the gardener is running a 7200s build would requeue
+# the base onto a SECOND gardener while the first still runs — duplicate concurrent
+# execution on one worktree, the exact hole the claim-scoping invariant closes.
+# Both call this; neither re-derives it.
+job_handler_budget_base() {
+  local jf="${1:-}" role=""
+  [ -n "$jf" ] && [ -r "$jf" ] && role="$(plan_role "$jf" 2>/dev/null || true)"
+  role_default_handler_timeout "$role"
+}
+
 # --- kimi-k3-takes-opus-work-with-opus-fallback ------------------------------
 # The directive (kriskowal 2026-07-28): route some opus-exclusive work (builder)
 # to kimi-k3 for evaluation, with an AUTOMATIC opus retry on failure. Opus's

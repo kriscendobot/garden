@@ -478,13 +478,22 @@ while :; do
   # claim-scoped handler at all and must run detached or be split into claim-sized
   # stages. A non-numeric or <1 header (0 would disable `timeout` entirely, breaking
   # the invariant) is ignored and the default budget stands.
-  handler_budget="$GARDEN_HANDLER_TIMEOUT"
+  # The BASE budget is per-role (common.sh job_handler_budget_base): a build role
+  # defaults to GARDEN_BUILD_HANDLER_TIMEOUT rather than the fleet default, because
+  # a build blows through 40 minutes by construction and the producer cannot be
+  # relied on to stamp a header. reaper.sh derives the SAME base from the SAME
+  # helper — they must agree or a live build gets requeued onto a second gardener.
+  base_budget="$(job_handler_budget_base "$jobfile")"
+  handler_budget="$base_budget"
+  if [ "$base_budget" != "$GARDEN_HANDLER_TIMEOUT" ]; then
+    log "job '$base' role '$(plan_role "$jobfile" 2>/dev/null || true)' -> default handler budget ${base_budget}s (fleet default ${GARDEN_HANDLER_TIMEOUT}s)"
+  fi
   requested_budget="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$jobfile" 2>/dev/null | head -1 | tr -dc '0-9')"
   if [ -n "$requested_budget" ] && [ "$requested_budget" -ge 1 ] 2>/dev/null; then
     budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
     if [ "$requested_budget" -le "$budget_max" ]; then
       handler_budget="$requested_budget"
-      log "job '$base' declared handler-timeout=${requested_budget}s (≤ claim budget max ${budget_max}s); honoring in place of default ${GARDEN_HANDLER_TIMEOUT}s"
+      log "job '$base' declared handler-timeout=${requested_budget}s (≤ claim budget max ${budget_max}s); honoring in place of default ${base_budget}s"
     else
       handler_budget="$budget_max"
       log "job '$base' declared handler-timeout=${requested_budget}s > claim budget max ${budget_max}s; clamping to max and escalating (cannot be a claim-scoped handler)"

@@ -64,7 +64,19 @@ seed_board() {
   ( cd "$seed"
     mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
     for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
-    printf '%s' "$body" > "jobs/todo/$job.md" )
+    # A job with NO `tier:` is unclaimable by ANY worker kind: job_tier fails on a
+    # headerless body, so job_eligible_for_kind (claim-job.sh) returns 1 and every
+    # gardener logs "pinned to a model this gardener cannot honor; skipping
+    # (backend-fit)". These fixtures were headerless, so the job was never claimed
+    # and every assertion below failed for a reason unrelated to handler budgets.
+    # Real producers always stamp a tier — automatic_route_body rewrites every
+    # automatic body to `tier: mentor` — so seed the claimable shape here, unless
+    # the caller's body already carries its own frontmatter.
+    if [ "${body%%$'\n'*}" = "---" ]; then
+      printf '%s' "$body" > "jobs/todo/$job.md"
+    else
+      { printf -- '---\ntier: mentor\ndispatch: automatic\n---\n'; printf '%s' "$body"; } > "jobs/todo/$job.md"
+    fi )
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
   git -C "$seed" remote add origin "$bare"
