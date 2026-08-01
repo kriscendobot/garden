@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: finbot-pr6-fix-panel-r3
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-01T19:18:02Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-01T19:46:05Z cleared=none -->
 
 ---
 role: builder
