@@ -68,6 +68,7 @@ ONLY (never inbox-send the parked supervisor); keep PR DRAFT; zero pushes.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
