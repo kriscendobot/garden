@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T08:52:50Z_
+_As of 2026-08-01T08:57:47Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 23h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 3d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 2d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 3d)
@@ -1407,10 +1407,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > have it read the live `model-routing-defaults.tsv` / journal override + `ollama list`
 > instead of hardcoding a baseline, which is what caught this.
 
-- `20260728T222831Z-868706` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T222831Z-868706.md)
-
-> Report `qwen-model-watch-20260728-180502` needs a call on the local Qwen lane's fate: either promote the local default to the 35B-A3B MoE, or accept `hermits: 0` and drop the lane's pretense (the current `qwen3:0.6b` is small enough that it isn't obviously useful). Both options change the local model routing default, so I'm not acting on it autonomously — which do you want?
-
 - `20260728T223932Z-07a3b0` — from gardener:fu-qwen-model-watch-20260728-180502-1-20260728-223502, reply_to `fu-qwen-model-watch-20260728-180502-1-20260728-223502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T223932Z-07a3b0.md)
 
 > Weekly Qwen model watch (2026-07-28) — no upstream release; one local-lane note.
@@ -1456,10 +1452,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T224921Z-ee1f4e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T224921Z-ee1f4e.md)
 
 > Report `fu-qwen-model-watch-20260728-180502-1-20260728-223502` (weekly Qwen model watch) leaves one decision to you: whether to re-enable the hermit lane on this host — `garden-ollama.service` is installed but disabled because the hermit worker count is 0, and the report also lays out a models-directory option. Both are consequential host/systemd operations outside a watch job's scope, so nothing was changed; say the word (or send a `host/<GARDEN>` sysop op) if you want the lane armed. I have posted a separate job for the unrelated naming discrepancy in the handler messaging, and follow-up 3 needs no action — `journal/schedules/qwen-model-watch.md` has already been refreshed to name no hardcoded model and to explicitly warn off `qwen.ai/blog`.
-
-- `20260728T225826Z-b71182` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T225826Z-b71182.md)
-
-> Report `fu-fu-qwen-model-watch-20260728-180502-1-20260728-223502-2` notes the garden container image must be **rebuilt** before commit `d4a40ed9ba`'s model-ownership invariant actually takes effect; until then this host keeps two candidate ollama model-store owners. Image rebuild + container recreation is your call — tell me when to schedule it (and whether any hosts need draining first). Related: this container's ollama endpoint currently serves zero models (`/v1/models` → `data: null`, empty manifest store), so any `provider: local` work here would fail preflight; `hermits: 0` so nothing is affected yet — let me know if you want models pulled here.
 
 - `20260728T232638Z-967a59` — from gardener:proposal-compartments-press-20260728-192002, reply_to `proposal-compartments-press-20260728-192002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T232638Z-967a59.md)
 
@@ -2055,19 +2047,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Google Sheets daily: all four designs are merged. The HTTP floor is merged as [endojs/endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/issues/566); open green PRs are [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) (network plugin), [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) (OAuth design), [https://github.com/endojs/endo-but-for-bots/pull/874](https://github.com/endojs/endo-but-for-bots/pull/874) (client, draft), and [https://github.com/endojs/endo-but-for-bots/pull/881](https://github.com/endojs/endo-but-for-bots/pull/881) (exo facets, draft/stacked). I posted endojs-endo-but-for-bots-pr881-gauntlet today. Blocker: maintainer merge decisions for [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) and [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621); the [https://github.com/endojs/endo-but-for-bots/pull/874](https://github.com/endojs/endo-but-for-bots/pull/874) retry is already parked awaiting go-ahead.
 
-- `20260729T043808Z-62e1bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T043808Z-62e1bc.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Aug 1, 3am (UTC)
-
 - `20260729T052507Z-f645b4` — from orchestrator:xs2rust-endor-finish-line-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T052507Z-f645b4.md)
 
 > Orchestration xs2rust-endor-finish-line HALTED: child xs2rust-endor-s2-test-rust-green stalled in flight for 10901s on host endolin-garden-ece02cb4 (handler-timeout=10800s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; swept: xs2rust-endor-s3-test262-parity
@@ -2499,19 +2478,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Reported on [https://github.com/kriskowal/garden/issues/55](https://github.com/kriskowal/garden/issues/55) (comment posted). Issue left open; no upstream issues/PRs touched.
 
-- `20260730T205807Z-6e0fca` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T205807Z-6e0fca.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Aug 1, 3am (UTC)
-
 - `20260730T211305Z-dda1ac` — from gardener:endojs-endo-but-for-bots-pr241-review-b15e4ef6, reply_to `endojs-endo-but-for-bots-pr241-review-b15e4ef6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211305Z-dda1ac.md)
 
 > endojs/endo-but-for-bots PR `endojs/endo-but-for-bots#241`, review `4803410792` — conduct step blocked: no maintainer APPROVED review on current head.
@@ -2533,19 +2499,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Conduct — blocked on your re-approval. The merge gate (pr-maintainer-approval-gh.sh) requires an APPROVED review whose commit_id is the current head. The only APPROVED on file is yours on `051baffb9e` (2026-07-29), which is the pre-retcon head — stale. The head has since moved to `602b034b78` (one post-retcon fix on top of the retcon tip `ae0b1a1d`).
 >
 > Could you re-approve on the current head `602b034b78`? Once that lands I'll carry the merge to completion. Nothing else is gating — CI is clean and the base is unfrozen onto `llm`.
-
-- `20260730T211806Z-c04218` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211806Z-c04218.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Aug 1, 3am (UTC)
 
 - `20260730T213135Z-d647f1` — from gardener:endojs-endo-but-for-bots-pr713-panel-fixes, reply_to `endojs-endo-but-for-bots-pr713-panel-fixes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T213135Z-d647f1.md)
 
@@ -2591,19 +2544,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260730T220211Z-a36d13` — from gauntlet:ebfb-doc-package-json-cross-tool-semantics-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T220211Z-a36d13.md)
 
 > Gauntlet ebfb-doc-package-json-cross-tool-semantics-gauntlet HALTED: stage 'ebfb-doc-package-json-cross-tool-semantics-gauntlet-panel-1' (panel) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260731T000808Z-1cbb5e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260731T000808Z-1cbb5e.md)
-
-> A garden-follow-up action block was REJECTED and dropped (not retried):
->   inner claude -p failure (rc=1)
->
-> Producer output:
-> rc=1
-> stderr:
-> <empty>
->
-> stdout:
-> You've hit your weekly limit · resets Aug 1, 3am (UTC)
 
 - `20260801T054230Z-416fa8` — from gardener:build-endo-regexp-conservative-subset, reply_to `build-endo-regexp-conservative-subset` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T054230Z-416fa8.md)
 
@@ -3125,7 +3065,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.7M | $676.94 _(notional, rate-card)_ | no quota set |
+| Claude | 32.7M | $678.45 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
