@@ -2,12 +2,12 @@ kind: gardener
 provider: anthropic
 model: claude-opus-5
 thoughtfulness: medium
-work_class: other:l
+work_class: gardener:m
 target: main2
-attempts: 6
-accepts: 6
+attempts: 2
+accepts: 2
 censored: 0
 estimated: 0
-mean_dollars: 3.712994
-m2: 74.490076
+mean_dollars: 3.283838
+m2: 4.856289
 acceptance_rate: 1.0000
