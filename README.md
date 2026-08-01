@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:24:30Z_
+_As of 2026-08-01T09:25:36Z_
 
 ## Latest
 
@@ -2813,15 +2813,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $688.11 _(notional, rate-card)_ | no quota set |
+| Claude | 32.8M | $688.88 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
-### todo (58)
+### todo (59)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-readableblob-range-attenuation.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
+- [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr873-lint-fix.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
