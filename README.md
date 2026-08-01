@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:33:55Z_
+_As of 2026-08-01T10:35:51Z_
 
 ## Latest
 
@@ -3104,8 +3104,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 39.3M | $801.52 _(notional, rate-card)_ | no quota set |
-| Codex | 31.7M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 39.9M | $811.75 _(notional, rate-card)_ | no quota set |
+| Codex | 31.7M _(+751.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (23)
@@ -3208,6 +3208,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
+- [`minion-town-weblet-gateway-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-weblet-gateway-design.md) — _normal_ · Design the minion.town wildcard weblet gateway (*.minion.town)
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-182002.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260719-003513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260719-003513.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
