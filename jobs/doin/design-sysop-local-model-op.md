@@ -83,3 +83,13 @@ model. Settle at least these questions; each is a real fork, not a formality:
 A design doc in `designs/` with a Decision section, the op's message shape, the state
 machine for the async case, the trust gate with its rationale, and the failure modes.
 Name explicitly anything you considered and rejected.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-01T09:16:24Z
