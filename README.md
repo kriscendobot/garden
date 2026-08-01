@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:20:19Z_
+_As of 2026-08-01T10:21:15Z_
 
 ## Latest
 
@@ -3104,16 +3104,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.9M | $741.80 _(notional, rate-card)_ | no quota set |
-| Codex | 31.8M _(+755.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 36.0M | $744.34 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+755.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (27)
+### todo (26)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
-- [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
-- [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-report-error-transcript-reachable.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
+- [`improve-panel-run-record-legacy-slug-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-panel-run-record-legacy-slug-migration.md) — ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
 - [`kriscendobot-endo-but-for-bots-pr3-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-endo-but-for-bots-pr3-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #3
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
@@ -3139,7 +3138,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (14)
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr875-review-response.md) — ---
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
@@ -3151,15 +3149,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
 - [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-widen-sysop-host-maintenance.md) — Widen the sysop to a host-directed MAINTENANCE op class
-- [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — ---
+- [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
+- [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 
-### tada (4082)
+### tada (4084)
+- [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr875-review-response.md) — Job ebfb-pr875-review-response — halted, escalated to maintainer
+- [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — Completion report — gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fireworks-glm52-kimik3-build.md) — Cost
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — Cost
 - [`improve-review-miss-gaming-category`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-review-miss-gaming-category.md) — Completion report
-- [`endo-npm-cas-arc-landing-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-arc-landing-2.md) — orchestration endo-npm-cas-arc-landing-2 — HALTED
-- [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-bind-coverage-evidence.md) — Completion report — finbot-pr6-bind-coverage-evidence
-- … and 4077 more
+- … and 4079 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
