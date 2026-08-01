@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:22:47Z_
+_As of 2026-08-01T10:23:23Z_
 
 ## Latest
 
@@ -3104,14 +3104,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.4M | $748.15 _(notional, rate-card)_ | no quota set |
-| Codex | 31.8M _(+754.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 36.7M | $752.17 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+753.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (24)
+### todo (27)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
+- [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
+- [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
+- [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
@@ -3134,17 +3137,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (14)
+### doin (11)
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
-- [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (curren...
-- [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
-- [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
 - [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-widen-sysop-host-maintenance.md) — Widen the sysop to a host-directed MAINTENANCE op class
 - [`improve-panel-run-record-legacy-slug-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-panel-run-record-legacy-slug-migration.md) — ---
 - [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
