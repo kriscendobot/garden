@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T01:05:35Z_
+_As of 2026-08-01T01:35:19Z_
 
 ## Latest
 
@@ -3917,15 +3917,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $728.42 _(notional, rate-card)_ | no quota set |
-| Codex | 34.7M _(+867.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 34.6M _(+867.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (121)
+### todo (122)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260731-033502.md) — Daily status + change summary for the standing review arcs
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-regexp-conservative-subset.md) — Build: implement @endo/regexp — the conservative-regexp-subset linear matcher
 - [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260731-070502.md) — Daily midnight Pacific progress summary
 - [`dependabotany-recheck-endo-but-for-bots-20260731-012004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260731-012004.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
+- [`dependabotany-recheck-endo-but-for-bots-20260801-013501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260801-013501.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
 - [`endo-byte-array-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260731-025002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260731-085002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260731-085002.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
