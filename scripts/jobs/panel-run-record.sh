@@ -41,6 +41,30 @@
 #     record, and CAS-push it. Re-emitting an identical run is an idempotent no-op
 #     (the run-id is derived from the run's identity + per-round head shas, so an
 #     unchanged re-run overwrites to byte-identical content and pushes nothing).
+#
+#   panel-run-record.sh migrate [--dry-run]
+#     Reunite the store's LEGACY-SLUG split. Before the origin-URL strip reduced
+#     every remote form to one `<owner>/<repo>` key (commit "reduce every origin-URL
+#     form to one record store key"), a worktree whose origin git reported as
+#     `ssh://git@github.com/<owner>/<repo>.git` (the fleet's actual form, via the
+#     hosts' `url.ssh://git@github.com/.insteadOf https://github.com/`) keyed its
+#     runs under a DIFFERENT directory, `panel-runs/ssh---git-github.com-<owner>-<repo>-<pr>/`,
+#     so one repository accumulated two disjoint archives and a query by repo saw
+#     half its history. That fix stopped the split WIDENING but left the already-split
+#     records where they lay. This subcommand moves each legacy directory's records
+#     into the canonical `panel-runs/<owner>-<repo>-<pr>/` (the legacy name with the
+#     fixed `ssh---git-github.com-` prefix stripped is exactly the canonical slug),
+#     as a git MV that preserves history and CAS-pushes one commit. It is:
+#       * IDEMPOTENT — a second run finds no legacy directory and pushes nothing.
+#       * COLLISION-SAFE — a legacy record whose filename already exists in the
+#         canonical directory with DIFFERING bytes is REFUSED (left in place, WARNed);
+#         an identical duplicate is deduped (the legacy copy git-removed). No record
+#         is ever overwritten or lost.
+#       * CAS-SAFE — the move is composed against a fresh sync and pushed under the
+#         same rebase-retry loop as `emit`, so it races other journal writers safely.
+#     `--dry-run` reports what it would move/dedupe/refuse and pushes nothing.
+#     Deterministic, no `claude -p`; a schedule or a one-shot invocation reunites the
+#     archive without an agent hand-editing journal2.
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -259,9 +283,136 @@ _panel_record_push() {
   )
 }
 
+# --- migrate ------------------------------------------------------------------
+#
+# The one legacy slug form that ever leaked. The scp form (`git@host:`) and the
+# `https://` form were always stripped; only `ssh://git@github.com/...` was missed,
+# and every affected repo is on github.com (the leak came from the hosts'
+# `url.ssh://git@github.com/.insteadOf https://github.com/` rewrite). So a single
+# FIXED prefix recognizes every split directory, and stripping it yields exactly the
+# canonical `<owner>-<repo>-<pr>` slug — because `sanitize` collapses both the
+# `owner/repo` slash and the `repo-pr` join to '-' identically in either form.
+LEGACY_PREFIX="ssh---git-github.com-"
+
+# canonical_slug_from_legacy <legacy-dirname> -> the canonical slug, or empty if the
+# name does not carry the legacy prefix (or would map onto itself).
+canonical_slug_from_legacy() {
+  local name="$1" slug
+  case "$name" in
+    "$LEGACY_PREFIX"?*) slug="${name#"$LEGACY_PREFIX"}" ;;
+    *)                  printf ''; return 0 ;;
+  esac
+  [ "$slug" != "$name" ] && printf '%s' "$slug" || printf ''
+}
+
+cmd_migrate() {
+  local dry=0
+  case "${1:-}" in
+    --dry-run) dry=1 ;;
+    '') ;;
+    *) log "WARN: migrate: unknown flag '$1' (only --dry-run); proceeding as a live migration" ;;
+  esac
+  if _panel_record_migrate "$dry"; then
+    return 0
+  fi
+  log "WARN: panel-run legacy-slug migration push failed after retries (best-effort); the split is unchanged"
+  return 0
+}
+
+# _panel_record_migrate <dry> — the CAS-safe migration, in a subshell so a `die`
+# inside ensure_clone/sync_clone cannot exit the parent. Returns 0 on a successful
+# push OR a no-op (nothing to migrate, or a dry run); non-zero only on a genuine
+# push failure after the retry budget.
+_panel_record_migrate() {
+  local dry="$1"
+  (
+    set -uo pipefail
+    shopt -s nullglob
+    ensure_clone "$DIR"
+    local attempt
+    for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-25}"); do
+      sync_clone "$DIR"
+      local moved=0 deduped=0 collided=0
+      local legacy canonname slug f base src reldest dest
+      for legacy in "$DIR/$STORE/$LEGACY_PREFIX"*/; do
+        [ -d "$legacy" ] || continue
+        canonname="$(basename "$legacy")"
+        slug="$(canonical_slug_from_legacy "$canonname")"
+        [ -n "$slug" ] || continue
+        for f in "$legacy"*; do
+          [ -f "$f" ] || continue                    # records are flat files; skip anything else
+          base="$(basename "$f")"
+          src="$STORE/$canonname/$base"
+          reldest="$STORE/$slug/$base"
+          dest="$DIR/$reldest"
+          if [ -e "$dest" ]; then
+            if cmp -s "$f" "$dest"; then
+              # Identical duplicate — the canonical record already carries these
+              # bytes; drop the legacy copy so the split closes without data loss.
+              deduped=$((deduped + 1))
+              if [ "$dry" = 1 ]; then
+                log "DRY: would dedupe $src (byte-identical to $reldest)"
+              else
+                git -C "$DIR" rm -q "$src" >/dev/null 2>&1 || rm -f "$f"
+              fi
+            else
+              # Differing content under the same run-id: REFUSE. Never overwrite a
+              # canonical record; leave the legacy copy in place for a human to
+              # reconcile. Idempotent — a re-run re-detects and re-refuses.
+              collided=$((collided + 1))
+              log "WARN: migrate collision — $src differs from existing $reldest; leaving the legacy copy untouched"
+            fi
+          else
+            # Clean move: git mv preserves rename history. Ensure the canonical dir
+            # exists (git mv creates leading dirs, but be explicit) then move.
+            moved=$((moved + 1))
+            if [ "$dry" = 1 ]; then
+              log "DRY: would move $src -> $reldest"
+            else
+              mkdir -p "$DIR/$STORE/$slug"
+              git -C "$DIR" mv "$src" "$reldest" 2>/dev/null || {
+                # Fallback if git mv balks (e.g. an untracked stray): move + restage.
+                mv -f "$f" "$dest"
+                git -C "$DIR" add "$reldest"
+                git -C "$DIR" rm -q --ignore-unmatch "$src" >/dev/null 2>&1 || true
+              }
+            fi
+          fi
+        done
+      done
+
+      if [ "$dry" = 1 ]; then
+        log "migrate --dry-run: would move $moved, dedupe $deduped, refuse $collided collision(s)"
+        exit 0
+      fi
+
+      # Nothing staged means the archive is already reunited (or only colliders
+      # remain, which we deliberately do not touch): an idempotent no-op.
+      if git -C "$DIR" diff --cached --quiet 2>/dev/null; then
+        if [ "$collided" -gt 0 ]; then
+          log "migrate: no changes to push; $collided collision(s) left in place for manual reconciliation"
+        else
+          log "migrate: no legacy-slug records to reunite; idempotent no-op"
+        fi
+        exit 0
+      fi
+
+      if commit_and_push "$DIR" \
+        "panel-run migrate: reunite legacy ssh-slug records ($moved moved, $deduped deduped, $collided collision(s)) by ${GARDEN:-?}"; then
+        log "migrate: reunited legacy panel-run records ($moved moved, $deduped deduped, $collided collision(s))"
+        exit 0
+      fi
+      log "migrate lost a push race (attempt $attempt); re-syncing"
+      backoff "$attempt"
+    done
+    exit 1
+  )
+}
+
 case "${1:-}" in
   -h|--help) usage; exit 0 ;;
   emit)      shift; cmd_emit "$@" ;;
+  migrate)   shift; cmd_migrate "$@" ;;
   '')        usage; exit 2 ;;
-  *)         log "WARN: unknown subcommand '$1' (emit; --help for usage)"; exit 0 ;;
+  *)         log "WARN: unknown subcommand '$1' (emit, migrate; --help for usage)"; exit 0 ;;
 esac
