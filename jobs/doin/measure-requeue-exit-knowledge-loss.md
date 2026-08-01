@@ -97,3 +97,13 @@ critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:33:19Z
