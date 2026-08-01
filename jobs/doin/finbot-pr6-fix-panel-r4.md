@@ -177,3 +177,13 @@ A fresh panel re-run job (`finbot-pr6-panel-r5`) is parked blocked on this job a
 automatically once this lands in `tada/`, continuing the panel→fixer loop until a clean panel; on
 a clean panel the orchestrator sign-off is posted. Per merge governance (2026-07-22, amended
 2026-08-01) this increment lands only after BOTH a passing panel and an orchestrator sign-off.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T20:37:02Z
