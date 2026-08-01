@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T15:11:37Z_
+_As of 2026-08-01T15:12:24Z_
 
 ## Latest
 
@@ -2747,6 +2747,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > HYGIENE: jobs/plan/finbot-pr4-panel-rerun-20260725 is fully obsolete ([kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) merged) — recommend dropping so it can't race. (Flagged in prior cycles too; still parked.)
 
+- `20260801T151149Z-d26350` — from gardener:endo-npm-cas-registry-press-20260801-150502, reply_to `endo-npm-cas-registry-press-20260801-150502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T151149Z-d26350.md)
+
+> npm-via-CAS registry proxy — press tick 2026-08-01. **Finish line is MET and demonstrated on fresh state** (no network cache): `endor run entry.js` where entry `require('is-odd')` fetched is-odd@3.0.1 + is-number@6.0.0 from the npm registry (cold resolve, registry.db built from scratch), stored them content-addressed in the CAS, executed in XS → `is-odd(3)=true / is-odd(4)=false`; `endor run --offline` replayed identical output with zero network; app dir had NO node_modules and NO lockfile; `endor registry list` showed both (name,version)→CAS-hash rows. All 5 design phases are landed in llm (fetch/CAS/MVS/assembly+execute/offline+.npmrc), plus process-shim ([endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859)), peer/optional deps ([endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857)), workspace-protocol resolution ([endojs/endo-but-for-bots#873](https://github.com/endojs/endo-but-for-bots/issues/873)).
+>
+> The frontier is now real-world package hardening, and it is **blocked on ONE maintainer ruling**: [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879) (design-only, no code, 3 ticks awaiting your call) asks *which runtime identity the endor archive claims when an npm package asks* — i.e. the default `exports` condition set + whether to endow a `Buffer` global. I reconfirmed the precipitating case live on current HEAD: `endor run` of `nanoid@5.1.16` (default build) dies with `import webcrypto not found` (it resolves to the `node:crypto` build; no builtin). [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879)'s Proposal: default set = flavor + `endo` + `default`; endow `Buffer`; run a corpus experiment before making `browser` a default. The dependent code PRs are in flight under live shepherds — [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) (`--conditions` flag + webcrypto, draft), [endojs/endo-but-for-bots#878](https://github.com/endojs/endo-but-for-bots/issues/878) (URL/URLSearchParams globals, draft), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) (dual-build execution, draft) — but their condition-default and builtin-shim choices cannot finalize until [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879) is ruled.
+>
+> Ask: please rule on [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879) (browser-opt-in vs browser-default; endow Buffer yes/no; adopt the `endo` condition). I can drive the corpus experiment [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879)'s test plan describes if you want empirical data to decide on. No action needed if you would rather I keep pressing the unblocked draft PRs.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4508,8 +4516,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.9M | $833.75 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+747.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 41.9M | $832.92 _(notional, rate-card)_ | no quota set |
+| Codex | 31.6M _(+747.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
@@ -4520,22 +4528,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (7)
+### doin (5)
 - [`endo-npm-cas-registry-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260801-150502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-150502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`finbot-pr6-panel-r3-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-r3-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (post-f...
-- [`finbot-progress-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-150502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`ocapn-noise-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-150502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4104)
+### tada (4106)
+- [`finbot-progress-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260801-150502.md) — Completion report — finbot progress cycle (15:05 dispatch)
+- [`endo-vfs-parity-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260801-150502.md) — Cost
 - [`endo-byte-array-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260801-150502.md) — Completion report — byteArray press, dispatch 2026-08-01T15:05Z
 - [`endo-git-integration-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-150502.md) — Completion report
 - [`finbot-pr6-fix-panel-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r2.md) — Completion report
-- [`finbot-pr6-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-20260801.md) — Completion report — finbot-pr6-panel-20260801
-- [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-widen-sysop-host-maintenance.md) — Completion report
-- … and 4099 more
+- … and 4101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
