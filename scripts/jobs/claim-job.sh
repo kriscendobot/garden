@@ -62,12 +62,15 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # NO provider → it is UNPINNED (claimable by any kind), no longer auto-local — the
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
-  local jf="$1" tier pin constrained_provider
-  # Moonshot credits are exhausted. This belt-and-suspenders guard keeps an
-  # already-running or accidentally reconfigured mystic unit from acquiring a
-  # new claim while the worker-count and producer controls converge.
-  [ "$KIND" != mystic ] || return 1
-  tier="$(job_tier "$jf")" || return 1
+  local jf="$1" tier pin constrained_provider role
+  tier="$(job_tier "$jf")" || {
+    # An absent or unclassified historical model pin is unpinned work for the
+    # established pools. Keep hosted pools opt-in: they require their explicit
+    # supported pin and never absorb this compatibility traffic.
+    [ "$KIND" != mystic ] && [ "$KIND" != fireworker ] \
+      && ! job_provider_is_constrained "$jf" && return 0
+    return 1
+  }
   if job_provider_is_constrained "$jf"; then
     constrained_provider="$(job_provider_constraint "$jf")" || return 1
     [ "$constrained_provider" = "$KIND_PROVIDER" ] || return 1
@@ -83,6 +86,15 @@ job_eligible_for_kind() {
   # the backend-fit filter. A tier-only job (no model pin) is claimable by any
   # provider that has a model at that tier.
   pin="$(plan_field "$jf" model)"
+  # Mystic is an opt-in canary lane: it never receives tier-only or unpinned
+  # work, and must not take high-stakes design/build routing.  Capacity is the
+  # operational kill switch; this predicate keeps an accidentally running unit
+  # constrained to an explicit, ordinary K3 job.
+  if [ "$KIND" = mystic ]; then
+    [ "$pin" = kimi-k3 ] || return 1
+    role="$(plan_field "$jf" role)"
+    case "$role" in builder|designer) return 1;; esac
+  fi
   if [ -n "$pin" ]; then
     [ -n "$(resolve_model_tier "$KIND_PROVIDER" "$pin")" ]
   else
