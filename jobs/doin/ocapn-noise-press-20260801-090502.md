@@ -28,3 +28,13 @@ idempotent and defer to any live worker on a shared branch. Cite real command
 output for every "works" claim.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:23:45Z
