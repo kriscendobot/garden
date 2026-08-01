@@ -193,6 +193,12 @@ fi
 # passed (the fleet default) — the footer then omits the model field (fail-open).
 export GARDEN_JOB_MODEL="${resolved_model:-}"
 export GARDEN_JOB_ROLE="$requested_role"
+# Publish the job base too, so per-job helpers (scholar-staging-clone.sh) can key
+# their isolated state by THIS job's unique base deterministically — a shared
+# staging tree destroyed a peer's edits when the default was one fixed path
+# (2026-07-29). The gardener still may pass --base explicitly; this is the
+# handler-side default so isolation holds even when it does not.
+export GARDEN_JOB_BASE="$base"
 
 # --dangerously-skip-permissions: this is an autonomous, headless gardener with
 # no human approver, so the default permission gate would deny every Bash/tool

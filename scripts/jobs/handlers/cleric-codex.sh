@@ -155,6 +155,9 @@ fi
 # and every gh call it makes inherit this environment.
 export GARDEN_JOB_MODEL="$model"
 export GARDEN_JOB_ROLE="$requested_role"
+# Publish the job base too (see gardener-claude.sh): per-job helpers key their
+# isolated state by THIS job's unique base, never one shared path.
+export GARDEN_JOB_BASE="$base"
 
 # --- reachability + model-presence preflight ----------------------------------
 #
