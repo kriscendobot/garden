@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T08:05:57Z_
+_As of 2026-08-01T08:11:31Z_
 
 ## Latest
 
@@ -4037,13 +4037,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $667.19 _(notional, rate-card)_ | no quota set |
+| Claude | 32.5M | $668.50 _(notional, rate-card)_ | no quota set |
 | Codex | 31.8M _(+758.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (31)
+### todo (30)
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260801-070501.md) — Daily midnight Pacific progress summary
-- [`endo-git-integration-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260801-030502.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260801-030502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-sturdyref-press-20260801-030502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -4076,15 +4075,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`endo-byte-array-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260801-030502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-git-integration-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260801-030502.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 
-### tada (4040)
+### tada (4041)
+- [`endo-byte-array-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260801-030502.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260801-013501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260801-013501.md) — Cost
 - [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260731-070502.md) — Cost
 - [`arc-status-daily-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260801-035001.md) — Cost
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260731-033502.md) — Cost
-- [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260730-082002.md) — Cost
-- … and 4035 more
+- … and 4036 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
