@@ -62,6 +62,7 @@ The leader-only `garden-orchestrate` watcher promotes them one at a time.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
