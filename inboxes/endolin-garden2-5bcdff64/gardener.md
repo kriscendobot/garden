@@ -3828,3 +3828,12 @@ Inspect via `git -C journal cat-file -p ae7093e049c1ed16905f4089fa5db25472813773
 - Context: gardener-5 on endolin-garden2-5bcdff64: job 'garden-widen-sysop-host-maintenance' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p f86cb463220f1ef33d8fd01f96badd5047e36f77`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-08-01T11:17:48Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: f97272a699b498346a97dc309affa95628a02b16
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'xs2rust-endor-watchdog-20260801-010501' transient-classified (rc=1) but elapsed near-constant (2,2s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p f97272a699b498346a97dc309affa95628a02b16`.
