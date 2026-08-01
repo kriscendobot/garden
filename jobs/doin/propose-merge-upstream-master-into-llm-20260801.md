@@ -17,6 +17,7 @@ Push the integration branch and open a DRAFT PR against `llm` titled `chore: mer
 <!-- garden-reaped: 1 -->
 
 <!-- garden-reap-now -->
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
