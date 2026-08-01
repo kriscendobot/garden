@@ -1,0 +1,1 @@
+{"source":"result","num_turns":64,"elapsed_s":586,"input_tokens":120,"output_tokens":27919,"cache_creation_tokens":272948,"cache_read_tokens":15899682,"total_cost_usd":11.377895999999998,"ts":"2026-08-01T14:13:30Z","base":"endojs-endo-but-for-bots-pr824-build","host":"endolin-garden-ece02cb4","outcome":"requeue"}
