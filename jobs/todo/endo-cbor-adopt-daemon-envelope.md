@@ -1,16 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-poisoned_at: 2026-08-01T06:33:06Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-01T06:33:06Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:35:51Z cleared=deadline-overrun=1 -->
 
 ---
 role: builder
@@ -116,4 +107,3 @@ goes in the PR body, and if the supersession is confirmed, amend
   boundary) are precedent you should follow rather than re-litigate.
 
 
-<!-- garden-deadline-overrun: 1 -->
