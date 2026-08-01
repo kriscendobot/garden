@@ -84,15 +84,44 @@ shell tracing, `docker inspect`, verbose curl, or commands that print environmen
 FIREWORKS_API_KEY='replace-with-secret' ./garden create
 ```
 
-Inside `./garden sh`, an optional authenticated probe prints only a status code:
+Inside `./garden sh`, an optional authenticated probe prints only a status code —
+never a body, header, or the key:
 
 ```sh
+# List endpoint (broad reachability + auth):
 curl -sS -o /dev/null -w '%{http_code}\n' \
   -H "Authorization: Bearer $FIREWORKS_API_KEY" \
   "$GARDEN_FIREWORKS_BASE_URL/models"
+
+# Per-model recognition (max_tokens:1, status only) — the discriminating probe:
+curl -sS -o /dev/null -w '%{http_code}\n' \
+  -H "Authorization: Bearer $FIREWORKS_API_KEY" -H 'Content-Type: application/json' \
+  -X POST "$GARDEN_FIREWORKS_BASE_URL/chat/completions" \
+  -d '{"model":"accounts/fireworks/models/glm-5p2","max_tokens":1,"messages":[{"role":"user","content":"ping"}]}'
 ```
 
-On a successful status, enable one worker only:
+Read the status, not a body: **200** serves; **404** means the wire selector is
+unrecognized (a real selector problem — re-check the inventory row); **401/403** is
+an auth/key failure; **412** means the selector is **recognized** but an
+account-level precondition (payment method, terms, or an on-demand deployment) is
+unmet — the id is live but the account cannot serve yet. **429/503** are transient
+capacity (the handler retries with backoff). A `zzz-does-not-exist` control selector
+returning **404** while the real id returns something else is the cheap way to prove
+the id itself is recognized.
+
+**Probe of record (2026-08-01, secret-safe, status only).** From
+`endolin-garden2-5bcdff64`: `GET /models` → **412**; `POST /chat/completions`
+`accounts/fireworks/models/glm-5p2` → **412**; a bogus control selector → **404**.
+Reading: the GLM 5.2 wire id is **recognized/live** (404 for bogus, not for GLM),
+auth is accepted (no 401/403), but the account has an **unmet precondition** so no
+completion is served yet. The pool therefore stays at zero and the live canary below
+is **blocked on clearing that account precondition** (add a payment method / accept
+terms in the Fireworks console), not on any garden-side selector or routing defect —
+those are verified (`resolve_model_tier`, `tier_model_for_provider`, and the hermetic
+tests all agree). Re-run the per-model probe after clearing it; a 200 unblocks the
+canary.
+
+On a successful (200) status, enable one worker only:
 
 ```sh
 scripts/jobs/set-fireworkers.sh 1

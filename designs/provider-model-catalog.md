@@ -195,13 +195,27 @@ design, build, or another high-stakes role.
 
 ### 2.7 Fireworks GLM 5.2, through the Codex-compatible `fireworker`
 
-The closed inventory contains one reviewed Fireworks selector:
-`fireworks/accounts/fireworks/models/glm-5p2`, classified as `mentor`. It is not a
-fleet default and is reached only by a `--provider-canary fireworks mentor` job.
-That canary body records a provider and capability tier, never the concrete model;
-the resolver chooses this exact selector and the handler sends the wire id without
+The closed inventory (`scripts/jobs/model-tier-inventory.tsv`) contains four
+reviewed Fireworks selectors, one per tier where a live fit was verified against the
+provider's own model page: `fireworks/accounts/fireworks/models/glm-5p2` (`mentor`),
+`fireworks/accounts/fireworks/models/kimi-k3` (`mentor`),
+`fireworks/accounts/fireworks/models/deepseek-v4-pro` (`minion`), and
+`fireworks/accounts/fireworks/models/gpt-oss-120b` (`myrmidon`). None is a fleet
+default; the mentor lane is reached only by a `--provider-canary fireworks mentor`
+job. That canary body records a provider and capability tier, never the concrete
+model; the resolver chooses the selector and the handler sends the wire id without
 the garden `fireworks/` prefix. Unknown Fireworks ids, unknown providers, and
 provider/tier pairs with no inventory row fail closed.
+
+GLM 5.2 and the Fireworks-served Kimi K3 sit at the **same** `mentor` tier, and the
+resolver is first-match (`tier_model_for_provider`), so a `provider: fireworks` +
+`tier: mentor` job resolves to **GLM 5.2** (the first mentor Fireworks row); the K3
+row is registered with a verified wire id but is not independently tier-selectable
+until the maintainer resolves the collision. This is deliberate — see
+[context/operations/fireworks.md](../context/operations/fireworks.md) §
+"The GLM 5.2 / K3 mentor-tier collision" for the three options and their costs. The
+Fireworks K3 lane stays strictly separate from the working Moonshot/mystic K3 lane
+(`provider: moonshot`, bare `model: kimi-k3`): no re-routing, no shared reputation.
 
 The Fireworks lane is deliberately bounded: it starts at zero workers, needs a
 secret-safe authenticated availability probe, and is returned to zero after the
