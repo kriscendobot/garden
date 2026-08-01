@@ -29,6 +29,7 @@ output for every "works" claim.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
