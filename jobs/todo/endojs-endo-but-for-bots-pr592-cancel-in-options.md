@@ -1,19 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: requeue-exhausted
-poison_count: 1
-requeue_cycles: 5
-deadline_overruns: 1
-poisoned_at: 2026-07-10T22:03:05Z
-poisoned_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-07-10T22:03:05Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
+role: fixer
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:00:18Z cleared=deadline-overrun=1 -->
 
 ---
 role: fixer
@@ -75,4 +63,3 @@ branch; then post inline replies to BOTH review comments (ids 3560627735 and
 3560633818) citing the resolving commit (skills/pr-review-thread-replies).
 
 
-<!-- garden-deadline-overrun: 1 -->
