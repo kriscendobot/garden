@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:56:56Z_
+_As of 2026-08-01T09:57:53Z_
 
 ## Latest
 
@@ -2942,7 +2942,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.1M | $697.78 _(notional, rate-card)_ | no quota set |
+| Claude | 33.1M | $697.96 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
@@ -2995,6 +2995,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (11)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
+- [`ebfb-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-conduct.md) — ---
 - [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr875-review-response.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
@@ -3002,16 +3003,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
-- [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
 - [`finbot-progress-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-090502.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (4064)
+### tada (4065)
+- [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260730-020502-gauntlet-clean.md) — Completion report
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260729T023454Z-34a94e.md) — Report
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-daemon-envelope.md) — Completion report
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr873-lint-fix.md) — Completion report — ebfb-pr873-lint-fix
 - [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — Completion report
-- [`sysop-local-model-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/sysop-local-model-provisioning.md) — orchestration sysop-local-model-provisioning — complete
-- … and 4059 more
+- … and 4060 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
