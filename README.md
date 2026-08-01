@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T04:58:00Z_
+_As of 2026-08-01T05:20:22Z_
 
 ## Latest
 
@@ -3911,11 +3911,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.4M | $680.12 _(notional, rate-card)_ | no quota set |
-| Codex | 32.8M _(+801.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 32.4M | $666.38 _(notional, rate-card)_ | no quota set |
+| Codex | 32.6M _(+797.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (135)
+### todo (136)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260731-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260801-035001.md) — Daily status + change summary for the standing review arcs
@@ -4046,6 +4046,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-library-cycle-20260801-020502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-020502.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-030502.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260801-040502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-040502.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260801-052001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-052001.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-watchdog-20260730-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260730-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
