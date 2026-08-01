@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:01:04Z_
+_As of 2026-08-01T10:02:03Z_
 
 ## Latest
 
@@ -2463,6 +2463,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > then re-panel [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) at its current head. [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) waits on
 > its in-flight fixer.
 
+- `20260801T100144Z-986647` — from gardener:finbot-pr4-signoff, reply_to `finbot-pr4-signoff` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T100144Z-986647.md)
+
+> [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) is MERGED. Verified at claim time head was still b70fb80 (unchanged since sign-off), CI `test` green, mergeable/CLEAN. Both governance gates (panel PASSED + orchestrator sign-off PASSED, both at b70fb80) held at the merged head. Un-drafted and merged with a merge commit (repo style, matching [kriscendobot/finbot#1](https://github.com/kriscendobot/finbot/issues/1) through [kriscendobot/finbot#3](https://github.com/kriscendobot/finbot/issues/3)); main now at b06cdacf9322, base green. This is the first finbot increment to land under the 2026-07-22 two-gate governance.
+>
+> Board hygiene: jobs/todo/finbot-pr4-panel-rerun-20260725.md is now fully obsolete — it targets stale head 63df8109 and asks to re-run a panel + dispatch a fable-signoff for a PR that is now merged. It was promoted mechanically on 08-01 without re-checking that the panel already ran/passed at b70fb80. I have no clean targeted-withdraw tool and must not run git in the journal worktree, so please drop it (or let it self-no-op when a gardener claims it and finds the PR merged/closed).
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2983,15 +2989,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.2M | $699.84 _(notional, rate-card)_ | no quota set |
+| Claude | 33.5M | $704.90 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (39)
+### todo (38)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr806-conduct.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
-- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fix-scholar-staging-per-job-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-scholar-staging-per-job-isolation.md) — Fix: scholar staging clone is a SHARED working tree — concurrent cycles destr...
@@ -3034,21 +3039,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr875-review-response.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
-- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
+- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`finbot-pr4-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-signoff.md) — Merge-governance sign-off + merge for kriscendobot/finbot PR #4
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`finbot-progress-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-030502.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (4069)
+### tada (4070)
+- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-fixer.md) — Completion report: fixer on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — Report: cascade child — PR #698 (bridge cut 1)
 - [`finbot-progress-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260801-090502.md) — Completion report
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260801-030502.md) — Cost
 - [`ebfb-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr873-conduct.md) — Cost
-- [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260730-020502-gauntlet-clean.md) — Completion report
-- … and 4064 more
+- … and 4065 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
