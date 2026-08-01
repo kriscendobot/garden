@@ -3873,3 +3873,12 @@ Inspect via `git -C journal cat-file -p a8b4b243a36639537e71657b438af97e6806a1ca
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'registry-immutable-byte-array-followup-gauntlet-panel-1' transient-classified (rc=1) but elapsed near-constant (2,2s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p d4a7ee27a798169fc556496974ef8919c716c256`.
+
+## lane 0 -- handler-nonzero failure at 2026-08-01T15:43:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 10634cf44187366ff9ca9cca7962ec9dc0c67717
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'finbot-pr6-panel-r3-20260801' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 10634cf44187366ff9ca9cca7962ec9dc0c67717`.
