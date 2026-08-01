@@ -78,15 +78,4 @@ Report what changed, the test results, and the cutover procedure for the maintai
 run on each host. This job changes neither a deployed checkout nor a live unit —
 hand the deploy/cutover back to the liaison.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:04:48Z
+<!-- garden-reaped: 1 -->

@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-08-01T11:13:05Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:13:05Z
+---
+
+---
 role: gardener
 gauntlet: finbot-progress-20260730-020502-gauntlet
 gauntlet_stage: panel
@@ -31,16 +45,3 @@ verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:03:16Z

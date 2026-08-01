@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-08-01T11:04:08Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-pr-ebfb-600-ironhorse-rename
