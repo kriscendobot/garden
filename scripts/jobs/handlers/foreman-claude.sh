@@ -126,44 +126,81 @@ provider_order() {
 # Validate the exact, single-block protocol before giving foreman.sh anything to
 # parse. A response with two candidate jobs, trailing prose, or a broken
 # terminator cannot become an accidental post or trigger a second provider's
-# alternate decision.
+# alternate decision. Kept aligned with mentor-claude.sh's validate_mentor_response:
+# blank lines and bare ``` fences at the start/end and around the single block are
+# skipped; leading/trailing whitespace on the keyword lines is tolerated; a reply
+# with NO block at all (a prose "no next step" refusal, or a lone trailing newline)
+# is the legitimate no-op — return 0 with empty output, WARN-logging any prose. The
+# dangerous shapes still fail closed (return 20 → the caller dies without fanning
+# out): a second opener/terminator, a missing body, a block that never terminates,
+# or any non-blank text trailing a complete block.
 validate_foreman_response() {
-  local f="${1:?response file}" line i=0 n kind="" role_seen=0 body_seen=0
-  local -a lines=()
-  mapfile -t lines < "$f"
-  n="${#lines[@]}"
-  [ "$n" -eq 0 ] && return 0
-  line="${lines[0]}"
-  if [[ "$line" =~ ^JOB[[:space:]]+([a-z0-9][a-z0-9-]*)$ ]]; then
-    kind=JOB
-  elif [ "$line" = MAINTAINER ]; then
-    kind=MAINTAINER
-  else
-    return 20
-  fi
-  for ((i = 1; i < n; i++)); do
-    line="${lines[i]}"
-    if [ "$kind" = JOB ] && [[ "$line" =~ ^ROLE[[:space:]]+([a-z][a-z0-9-]*)$ ]]; then
-      [ "$role_seen" -eq 0 ] && [ "$body_seen" -eq 0 ] || return 20
-      role_seen=1
+  local f="${1:?response file}" line kind="" role_seen=0 body_seen=0 done_block=0 nonblank=0
+  local -a out=()
+  while IFS= read -r line || [ -n "$line" ]; do
+    if [ "$done_block" -eq 1 ]; then
+      # Only blank lines and a closing ``` fence may follow a complete block;
+      # anything else is trailing junk (a second decision) and fails closed.
+      [[ "$line" =~ ^[[:space:]]*$ ]] && continue
+      [[ "$line" =~ ^[[:space:]]*\`\`\`+[A-Za-z0-9._-]*[[:space:]]*$ ]] && continue
+      return 20
+    fi
+    if [ -z "$kind" ]; then
+      # Before the opening keyword: skip blank lines and bare ``` fences.
+      [[ "$line" =~ ^[[:space:]]*$ ]] && continue
+      [[ "$line" =~ ^[[:space:]]*\`\`\`+[A-Za-z0-9._-]*[[:space:]]*$ ]] && continue
+      nonblank=1
+      if [[ "$line" =~ ^[[:space:]]*JOB[[:space:]]+([a-z0-9][a-z0-9-]*)[[:space:]]*$ ]]; then
+        kind=JOB; out+=("JOB ${BASH_REMATCH[1]}")
+      elif [[ "$line" =~ ^[[:space:]]*MAINTAINER[[:space:]]*$ ]]; then
+        kind=MAINTAINER; out+=("MAINTAINER")
+      fi
+      # A non-blank line that is neither opener is a prose preamble/refusal; skip it
+      # (a block may still follow — if none does the reply is a no-op).
       continue
     fi
-    if [ "$kind" = JOB ] && [ "$line" = ENDJOB ]; then
-      [ "$body_seen" -eq 1 ] && [ "$i" -eq $((n - 1)) ] || return 20
-      printf '%s\n' "${lines[@]}"
-      return 0
+    if [ "$kind" = JOB ] && [[ "$line" =~ ^[[:space:]]*ROLE[[:space:]]+([a-z][a-z0-9-]*)[[:space:]]*$ ]]; then
+      [ "$role_seen" -eq 0 ] && [ "$body_seen" -eq 0 ] || return 20
+      role_seen=1; out+=("ROLE ${BASH_REMATCH[1]}"); continue
     fi
-    if [ "$kind" = MAINTAINER ] && [ "$line" = ENDMAINTAINER ]; then
-      [ "$body_seen" -eq 1 ] && [ "$i" -eq $((n - 1)) ] || return 20
-      printf '%s\n' "${lines[@]}"
-      return 0
+    if [ "$kind" = JOB ] && [[ "$line" =~ ^[[:space:]]*ENDJOB[[:space:]]*$ ]]; then
+      [ "$body_seen" -eq 1 ] || return 20
+      out+=("ENDJOB"); done_block=1; continue
     fi
-    [[ "$line" =~ ^JOB[[:space:]] ]] && return 20
-    [ "$line" = MAINTAINER ] && return 20
-    { [ "$line" = ENDJOB ] || [ "$line" = ENDMAINTAINER ]; } && return 20
+    if [ "$kind" = MAINTAINER ] && [[ "$line" =~ ^[[:space:]]*ENDMAINTAINER[[:space:]]*$ ]]; then
+      [ "$body_seen" -eq 1 ] || return 20
+      out+=("ENDMAINTAINER"); done_block=1; continue
+    fi
+    # A second opener or a mismatched terminator inside the block is malformed.
+    [[ "$line" =~ ^[[:space:]]*JOB[[:space:]] ]] && return 20
+    [[ "$line" =~ ^[[:space:]]*MAINTAINER[[:space:]]*$ ]] && return 20
+    [[ "$line" =~ ^[[:space:]]*(ENDJOB|ENDMAINTAINER)[[:space:]]*$ ]] && return 20
     [ -n "$line" ] && body_seen=1
-  done
-  return 20
+    out+=("$line")
+  done < "$f"
+  if [ "$done_block" -eq 1 ]; then
+    printf '%s\n' "${out[@]}"
+    return 0
+  fi
+  # A block opened but never terminated is malformed.
+  [ -n "$kind" ] && return 20
+  # No block at all: a legitimate no-op. Surface any prose so a refusal is visible.
+  if [ "$nonblank" -eq 1 ]; then
+    log "WARN: foreman reply had no JOB/MAINTAINER block; treating as no-op (posting nothing). First 200 chars: $(head -c 200 "$f" | tr '\n' ' ')"
+  fi
+  return 0
+}
+
+# Persist a genuinely malformed provider reply so a recurring semantic rejection is
+# diagnosable after the fact (the raw temp file is otherwise removed by the EXIT trap).
+record_malformed_reply() { # <provider> <raw-file>
+  local provider="$1" raw="$2" dir="$GARDEN_STATE/foreman"
+  mkdir -p "$dir" 2>/dev/null || return 0
+  { printf '# %s malformed foreman reply from provider %s (first 500 bytes)\n' \
+      "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$provider"
+    head -c 500 "$raw" 2>/dev/null || true
+    printf '\n'; } > "$dir/last-malformed.txt" 2>/dev/null || true
+  log "WARN: provider '$provider' returned malformed output; first 500 bytes saved to $dir/last-malformed.txt: $(head -c 500 "$raw" 2>/dev/null | tr '\n' ' ')"
 }
 
 foreman_codex_attempt() { # <openai|local> <prompt>
@@ -234,6 +271,7 @@ for provider in $(provider_order); do
     cat "$canonical"
     exit 0
   fi
+  record_malformed_reply "$provider" "$raw"
   die "foreman provider '$provider' returned malformed semantic output; refusing fallback to avoid multiplying work"
 done
 die "no configured foreman inference provider was available"

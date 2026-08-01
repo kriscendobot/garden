@@ -80,28 +80,79 @@ provider_order() {
   printf '%s\n' "$out"
 }
 
-# The mentor may propose several independent improvements, but its entire output
-# must be a sequence of complete JOB blocks and every block must name one stable
-# script path first.  Canonicalizing before posting makes malformed/trailing prose
-# fail closed rather than being silently ignored by a permissive line scanner.
+# Normalize a candidate first-body line exactly as post_mentor_job (below) does:
+# drop surrounding whitespace and any leading list/quote/backtick decoration (and a
+# leading ``` fence, whose backticks are in the same class), so a path emitted as
+# `- \`scripts/jobs/a.sh\`` or fenced still resolves to its bare path for the check.
+_mentor_norm_line() { printf '%s' "$1" | sed -E 's/^[[:space:]]*[-*>`[:space:]]*//; s/[[:space:]`]*$//'; }
+
+# The mentor may propose several independent improvements, but the danger is
+# posting a partial/ambiguous block or fanning out to a second model after a good
+# reply. So we canonicalize into a sequence of COMPLETE JOB blocks and fail closed
+# only on the genuinely dangerous shapes:
+#   - a JOB opened but never closed by ENDJOB (return 20 → the caller dies), and
+#   - junk interleaved BETWEEN or trailing a complete block (return 20).
+# Everything benign is tolerated: blank lines and bare ``` fences between/around
+# blocks are skipped; a reply with NO complete block at all (a prose refusal such
+# as `No clear opportunities.`, or the lone trailing newline codex flushes) is the
+# legitimate no-op — return 0 with empty output, WARN-logging any prose so it stays
+# visible. The first body line of each block is normalized (decoration stripped)
+# before the path check, and the extension set matches already_fixed_pending_deploy.
 validate_mentor_response() {
-  local f="${1:?response file}" line base="" body="" first
+  local f="${1:?response file}" line base="" body="" first bl norm
+  local state=between emitted=0 nonblank=0
   while IFS= read -r line || [ -n "$line" ]; do
-    if [ -z "$base" ]; then
-      [[ "$line" =~ ^JOB[[:space:]]+([a-z0-9][a-z0-9-]*)$ ]] || return 20
-      base="${BASH_REMATCH[1]}"; body=""
-    elif [ "$line" = ENDJOB ]; then
-      [ -n "$body" ] || return 20
-      first="$(printf '%s\n' "$body" | grep -m1 -v '^[[:space:]]*$' || true)"
-      [[ "$first" =~ ^[A-Za-z0-9_./-]+\.(sh|py|js|ts)$ ]] || return 20
-      printf 'JOB %s\n%sENDJOB\n' "$base" "$body"
-      base=""; body=""
-    else
-      [[ "$line" =~ ^JOB[[:space:]] ]] && return 20
-      body+="$line"$'\n'
+    if [ "$state" = between ]; then
+      # Skip blank lines and bare ``` fences between/around blocks.
+      [[ "$line" =~ ^[[:space:]]*$ ]] && continue
+      [[ "$line" =~ ^[[:space:]]*\`\`\`+[A-Za-z0-9._-]*[[:space:]]*$ ]] && continue
+      nonblank=1
+      # A JOB header opens a block; leading/trailing whitespace is tolerated.
+      if [[ "$line" =~ ^[[:space:]]*JOB[[:space:]]+([a-z0-9][a-z0-9-]*)[[:space:]]*$ ]]; then
+        base="${BASH_REMATCH[1]}"; body=""; state=inblock; continue
+      fi
+      # Non-blank, non-JOB text between blocks. After a complete block this is the
+      # dangerous trailing/interleaved-junk case → reject. Before the first block it
+      # is a prose preamble/refusal → skip it (a block may still follow; if none
+      # does the reply is a no-op).
+      [ "$emitted" -gt 0 ] && return 20
+      continue
     fi
+    # state = inblock
+    if [ "$line" = ENDJOB ]; then
+      [ -n "$body" ] || return 20
+      first=""
+      while IFS= read -r bl; do
+        norm="$(_mentor_norm_line "$bl")"
+        [ -n "$norm" ] && { first="$norm"; break; }
+      done <<< "$body"
+      [[ "$first" =~ ^[A-Za-z0-9_./-]+\.(sh|py|js|ts|md|service|timer)$ ]] || return 20
+      printf 'JOB %s\n%sENDJOB\n' "$base" "$body"
+      emitted=$((emitted + 1)); base=""; body=""; state=between; continue
+    fi
+    # A second JOB header before ENDJOB means the block was never closed.
+    [[ "$line" =~ ^[[:space:]]*JOB[[:space:]] ]] && return 20
+    body+="$line"$'\n'
   done < "$f"
-  [ -z "$base" ] || return 20
+  # A block opened but not terminated at EOF is malformed.
+  [ "$state" = between ] || return 20
+  if [ "$emitted" -eq 0 ] && [ "$nonblank" -eq 1 ]; then
+    log "WARN: mentor reply had no JOB block; treating as no-op (posting nothing). First 200 chars: $(head -c 200 "$f" | tr '\n' ' ')"
+  fi
+  return 0
+}
+
+# Persist a genuinely malformed provider reply so a recurring semantic rejection is
+# diagnosable after the fact — the raw temp file is otherwise removed unseen by the
+# EXIT trap, which is what let this failure recur unexplained.
+record_malformed_reply() { # <provider> <raw-file>
+  local provider="$1" raw="$2" dir="$GARDEN_STATE/mentor"
+  mkdir -p "$dir" 2>/dev/null || return 0
+  { printf '# %s malformed mentor reply from provider %s (first 500 bytes)\n' \
+      "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$provider"
+    head -c 500 "$raw" 2>/dev/null || true
+    printf '\n'; } > "$dir/last-malformed.txt" 2>/dev/null || true
+  log "WARN: provider '$provider' returned malformed output; first 500 bytes saved to $dir/last-malformed.txt: $(head -c 500 "$raw" 2>/dev/null | tr '\n' ' ')"
 }
 
 mentor_codex_attempt() { # <openai|local> <prompt>
@@ -159,6 +210,7 @@ for provider in $(provider_order); do
   if [ "$rc" -eq 10 ]; then log "mentor provider '$provider' unavailable; trying the next configured provider"; continue; fi
   [ "$rc" -eq 0 ] || die "mentor provider '$provider' failed unexpectedly (rc=$rc)"
   if validate_mentor_response "$raw" > "$canonical"; then out="$(cat "$canonical")"; break; fi
+  record_malformed_reply "$provider" "$raw"
   die "mentor provider '$provider' returned malformed semantic output; refusing fallback to avoid conflicting improvement jobs"
 done
 [ -n "${out+x}" ] || die "no configured mentor inference provider was available"

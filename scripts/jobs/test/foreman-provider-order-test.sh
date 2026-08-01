@@ -114,6 +114,56 @@ else
 fi
 grep -q 'explicit-job-only' "$TR/moonshot.err" && ok "routing refusal explains policy" || bad "routing refusal lacks policy diagnostic"
 
+# The Anthropic fake replies through the JSON --output-format branch (a fixed
+# block), so drive these accepted-shape cases through the OpenAI/codex fake, which
+# emits GARDEN_TEST_OPENAI_OUTPUT verbatim — the same channel SUBTEST 3 uses.
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 6 — blank lines around the single block are tolerated"; hr
+if out="$(run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='\n\nJOB fs-a\nfallback body\nENDJOB\n\n')"; then
+  [ "$out" = $'JOB fs-a\nfallback body\nENDJOB' ] \
+    && ok "leading/trailing blank lines are stripped around the block" \
+    || bad "unexpected blank-tolerant output: '$out'"
+else bad "blank lines around the block FATALed"; fi
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 7 — a prose 'no next step' reply is a no-op, not a FATAL"; hr
+if out="$(run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='No unblocked next step right now.\n' 2>"$TR/noop.err")"; then
+  [ -z "$out" ] && ok "prose refusal yields empty no-op output" || bad "prose refusal emitted a block: '$out'"
+else bad "prose refusal FATALed"; fi
+grep -q 'WARN: foreman reply had no JOB/MAINTAINER block' "$TR/noop.err" && ok "prose refusal is surfaced at WARN" || bad "prose refusal was not WARN-logged"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 8 — whitespace-decorated keyword lines are tolerated"; hr
+if out="$(run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='  JOB fs-b  \n  ROLE builder  \nfallback body\n  ENDJOB  \n')"; then
+  [ "$out" = $'JOB fs-b\nROLE builder\nfallback body\nENDJOB' ] \
+    && ok "whitespace around JOB/ROLE/ENDJOB is normalized" \
+    || bad "unexpected whitespace-tolerant output: '$out'"
+else bad "whitespaced keyword lines FATALed"; fi
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo 'SUBTEST 9 — a code-fence wrapping the block is skipped'; hr
+if out="$(run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='```\nJOB fs-c\nfallback body\nENDJOB\n```\n')"; then
+  [ "$out" = $'JOB fs-c\nfallback body\nENDJOB' ] \
+    && ok "surrounding code fence is tolerated" \
+    || bad "unexpected fenced output: '$out'"
+else bad "fenced block FATALed"; fi
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 10 — a preamble before a MAINTAINER block is skipped"; hr
+if out="$(run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='Here is the situation.\n\nMAINTAINER\nneeds a decision\nENDMAINTAINER\n')"; then
+  [ "$out" = $'MAINTAINER\nneeds a decision\nENDMAINTAINER' ] \
+    && ok "preamble before a block is skipped" \
+    || bad "unexpected preamble output: '$out'"
+else bad "preamble + block FATALed"; fi
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 11 — malformed multi-job output records a diagnostic"; hr
+if run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='JOB one\nbody\nENDJOB\nJOB two\nbody\nENDJOB\n' \
+  >"$TR/fm.out" 2>"$TR/fm.err"; then
+  bad "malformed multi-job output was accepted"
+else ok "malformed multi-job output still FATALs (fail-closed)"; fi
+[ -s "$TR/state/foreman/last-malformed.txt" ] && ok "malformed reply is saved to foreman/last-malformed.txt" || bad "malformed diagnostic was not recorded"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

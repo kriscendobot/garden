@@ -74,5 +74,66 @@ VERIFY="$TR/verify"; git clone -q --branch journal2 "$BARE" "$VERIFY"
 [ "$(find "$VERIFY/jobs/todo" -name 'improve-injected.md' | wc -l)" -eq 1 ] \
   && ok "injected handler posts one stable mentor identity" || bad "injected handler duplicated a job"
 
+# --- Accepted-shape regression: well-formed replies the old validator wrongly
+# rejected (each FATALed a good mentor tick) must now be accepted. A JOB shape
+# posts its block; a no-op shape exits 0 and posts nothing. Paths are chosen to
+# NOT exist in origin/main2 so already_fixed_pending_deploy never suppresses them.
+shape_n=0
+run_shape() { # <anthropic-output-with-\n-escapes>  → handler exit code
+  shape_n=$((shape_n + 1))
+  env PATH="$BIN:$PATH" HOME="$TR/home" GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/shape-$shape_n" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_TOKEN_WEEKLY_QUOTA=0 \
+    GARDEN_MENTOR_PROVIDER_ORDER=anthropic GARDEN_MENTOR_CLAUDE=claude \
+    GARDEN_TEST_ANTHROPIC_OUTPUT="$1" "$HANDLER" "$SHA" "$TR/clone" 2>"$TR/shape-$shape_n.err"
+}
+posted() { # <slug>  → 0 if a job with that base is on the board
+  local slug="$1" v="$TR/vshape-$shape_n"
+  rm -rf "$v"; git clone -q --branch journal2 "$BARE" "$v"
+  find "$v/jobs" -name "$slug.md" 2>/dev/null | grep -q .
+}
+
+echo 'SUBTEST 6 — lone trailing newline (codex empty flush) is a no-op, not a FATAL'
+if run_shape '\n'; then ok "lone newline accepted as no-op"; else bad "lone newline FATALed"; fi
+
+echo 'SUBTEST 7 — prose refusal is a no-op and is WARN-logged, not a FATAL'
+if run_shape 'No clear opportunities.\n'; then ok "prose refusal accepted as no-op"; else bad "prose refusal FATALed"; fi
+grep -q 'WARN: mentor reply had no JOB block' "$TR/shape-$shape_n.err" && ok "prose refusal is surfaced at WARN" || bad "prose refusal was not WARN-logged"
+
+echo 'SUBTEST 8 — a valid block followed by a blank line is accepted and posted'
+if run_shape 'JOB improve-shape-a\nscripts/jobs/zzz-shape-a.sh\nreason\nENDJOB\n\n' && posted improve-shape-a; then
+  ok "trailing blank line after a complete block is tolerated"; else bad "valid block + blank line was rejected"; fi
+
+echo 'SUBTEST 9 — two blocks separated by a blank line are both posted'
+if run_shape 'JOB improve-shape-b\nscripts/jobs/zzz-shape-b.sh\nr\nENDJOB\n\nJOB improve-shape-c\nscripts/jobs/zzz-shape-c.sh\nr\nENDJOB\n' \
+  && posted improve-shape-b && posted improve-shape-c; then
+  ok "blank-separated blocks are both accepted"; else bad "blank-separated blocks were rejected"; fi
+
+echo 'SUBTEST 10 — a prose preamble before a block is skipped and the block posts'
+if run_shape 'Here is one clear opportunity.\n\nJOB improve-shape-d\nscripts/jobs/zzz-shape-d.sh\nr\nENDJOB\n' && posted improve-shape-d; then
+  ok "preamble sentence before a block is tolerated"; else bad "preamble + block was rejected"; fi
+
+echo 'SUBTEST 11 — a ``` fence wrapping the block is skipped and the block posts'
+if run_shape '```\nJOB improve-shape-e\nscripts/jobs/zzz-shape-e.sh\nr\nENDJOB\n```\n' && posted improve-shape-e; then
+  ok "surrounding code fence is tolerated"; else bad "fenced block was rejected"; fi
+
+echo 'SUBTEST 12 — a decorated first-line path (- `path`) is normalized and posts'
+if run_shape 'JOB improve-shape-f\n- `scripts/jobs/zzz-shape-f.sh`\nr\nENDJOB\n' && posted improve-shape-f; then
+  ok "list/backtick-decorated path is accepted"; else bad "decorated path was rejected"; fi
+
+echo 'SUBTEST 13 — a widened first-line extension (.service/.timer/.md) is accepted'
+if run_shape 'JOB improve-shape-g\nscripts/systemd/zzz-shape-g.service\nr\nENDJOB\n' && posted improve-shape-g; then
+  ok ".service first-line path is accepted"; else bad ".service path was rejected"; fi
+if run_shape 'JOB improve-shape-i\nroles/zzz-shape/AGENT.md\nr\nENDJOB\n' && posted improve-shape-i; then
+  ok ".md first-line path is accepted"; else bad ".md path was rejected"; fi
+
+echo 'SUBTEST 14 — leading/trailing whitespace on the JOB line is tolerated'
+if run_shape '  JOB improve-shape-h  \nscripts/jobs/zzz-shape-h.sh\nr\nENDJOB\n' && posted improve-shape-h; then
+  ok "whitespace around the JOB slug is tolerated"; else bad "whitespaced JOB line was rejected"; fi
+
+echo 'SUBTEST 15 — an unterminated block still fails closed and records a diagnostic'
+if run_shape 'JOB improve-broken\nscripts/jobs/zzz-broken.sh\nno ENDJOB here\n' >/dev/null 2>&1; then
+  bad "unterminated block was accepted"; else ok "unterminated block still FATALs (fail-closed)"; fi
+[ -s "$TR/shape-$shape_n/mentor/last-malformed.txt" ] && ok "malformed reply is saved to mentor/last-malformed.txt" || bad "malformed diagnostic was not recorded"
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
