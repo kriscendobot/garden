@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T22:23:02Z_
+_As of 2026-08-01T22:23:44Z_
 
 ## Latest
 
@@ -4564,8 +4564,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.4M | $1106.39 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+739.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 57.3M | $1106.09 _(notional, rate-card)_ | no quota set |
+| Codex | 31.5M _(+739.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
@@ -4576,7 +4576,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr826-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #910
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fix-panel-r5.md) — Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
 
 ### tada (4120)
