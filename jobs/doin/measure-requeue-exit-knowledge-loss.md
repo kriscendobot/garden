@@ -99,6 +99,7 @@ the worker when it fails.
 <!-- garden-reaped: 0 -->
 
 <!-- garden-reap-now -->
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
