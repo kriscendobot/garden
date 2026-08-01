@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T20:56:37Z_
+_As of 2026-08-01T20:59:53Z_
 
 ## Latest
 
@@ -4559,17 +4559,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #910
-- [`finbot-pr6-fix-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fix-panel-r4.md) — Fixer round 4 — clear the round-4 panel's must-fix bundle on kriscendobot/fin...
 
-### tada (4117)
+### tada (4118)
+- [`finbot-pr6-fix-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-clean.md) — Cost
 - [`finbot-pr6-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r4.md) — Completion report — finbot-pr6-panel-r4
 - [`self-heal-fix-garden-mentor-malformed-semantic-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-malformed-semantic-output.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build.md) — Cost
-- [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-shepherd.md) — Cost
-- … and 4112 more
+- … and 4113 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
