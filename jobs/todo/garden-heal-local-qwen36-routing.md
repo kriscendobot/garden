@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Repository: https://github.com/kriscendobot/garden. Land directly on main2, no PR
@@ -80,13 +81,4 @@ Name the landed `main2` revision and the exact deploy/activation steps. State ex
 whether any `qwen3:0.6b` occurrence remains and why. Note in your report that both hosts
 converge on this fix only at their next deliberate deploy.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:10:18Z
+<!-- garden-reaped: 0 -->
