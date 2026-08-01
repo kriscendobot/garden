@@ -18,3 +18,13 @@ fully green, and land the PR.
 
 Verify current state first — this PR was reported CONFLICTING on 2026-07-30 and MERGEABLE on
 2026-08-01, so rebase onto current `llm` if it has drifted again.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:26:27Z
