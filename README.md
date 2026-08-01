@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T08:27:29Z_
+_As of 2026-08-01T08:28:49Z_
 
 ## Latest
 
@@ -3397,12 +3397,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $671.75 _(notional, rate-card)_ | no quota set |
+| Claude | 32.5M | $671.93 _(notional, rate-card)_ | no quota set |
 | Codex | 31.8M _(+758.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
-### todo (30)
+### todo (31)
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260801-070501.md) — Daily midnight Pacific progress summary
+- [`ebfb-pr882-bootstrap-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr882-bootstrap-generators.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-...
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr700-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr700-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #700
 - [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-4b624b25.md) — attention directive on endojs/endo-but-for-bots PR #874
