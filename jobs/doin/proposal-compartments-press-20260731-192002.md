@@ -68,6 +68,7 @@ could not run a bar (a validation front, a spec render), report it "not verified
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
