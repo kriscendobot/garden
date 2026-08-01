@@ -67,10 +67,10 @@ Size to one 2400s invocation with the detached sweep carrying past it (requeue r
 ONLY (never inbox-send the parked supervisor); keep PR DRAFT; zero pushes.
 
 
-<!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-deadline-overrun: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
