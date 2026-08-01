@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:28:43Z_
+_As of 2026-08-01T09:31:12Z_
 
 ## Latest
 
@@ -2827,16 +2827,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $689.71 _(notional, rate-card)_ | no quota set |
+| Claude | 32.9M | $691.30 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
-### todo (58)
+### todo (52)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-readableblob-range-attenuation.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-sysop-local-model-op.md) — Build: the sysop local-model provisioning op
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
-- [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
@@ -2844,9 +2843,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr806-conduct.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
-- [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-4b624b25.md) — attention directive on endojs/endo-but-for-bots PR #874
-- [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
-- [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/esheets-supervisor-20260801-035001.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260725.md) — ---
 - [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260730.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
@@ -2884,29 +2880,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/proposal-compartments-press-20260731-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/propose-merge-upstream-master-into-llm-20260801.md) — Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
-- [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-072002.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-082005.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (7)
+### doin (8)
+- [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-lint-fix.md) — ---
 - [`endo-npm-cas-registry-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260801-090502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-090502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr700-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr700-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #700
-- [`endojs-endo-but-for-bots-pr882-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr882-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #882
+- [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-4b624b25.md) — attention directive on endojs/endo-but-for-bots PR #874
+- [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
+- [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/esheets-supervisor-20260801-035001.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 
-### tada (4052)
+### tada (4055)
+- [`endojs-endo-but-for-bots-pr700-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr700-rebase.md) — Cost
+- [`endojs-endo-but-for-bots-pr882-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-conduct.md) — Cost
+- [`endo-vfs-parity-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260801-090502.md) — Completion report — VFS parity press (tick 20260801-090502)
 - [`design-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-sysop-local-model-op.md) — Cost
 - [`endo-byte-array-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260801-090502.md) — Completion report — byteArray press, dispatch 2026-08-01
-- [`endo-sturdyref-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260801-090502.md) — Completion report — endo-sturdyref-press-20260801-090502
-- [`endo-git-integration-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-090502.md) — Cost
-- [`ebfb-pr882-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr882-land.md) — Completion report
-- … and 4047 more
+- … and 4050 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3073,6 +3068,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
+- [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-library-cycle-20260801-072002.md) — awaiting `fix-scholar-staging-per-job-isolation` · Hourly scholar library cycle
+- [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-library-cycle-20260801-082005.md) — awaiting `fix-scholar-staging-per-job-isolation` · Hourly scholar library cycle
 
 ## Watch set
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot kriscendobot-minion.town kriscendobot-moddable kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
