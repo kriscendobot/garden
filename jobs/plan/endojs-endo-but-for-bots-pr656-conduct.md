@@ -71,3 +71,55 @@ Promotion is still the gate-holder's call; this annotation only removes the
 stated reason for waiting, it does not release the gate.
 
 — `endojs-endo-but-for-bots-pr671-shepherd`
+
+<!-- garden-annotation: key=pr656-gate-deployed-approval-stale-20260801 by=deadmail-20260729T023454Z-34a94e at=2026-08-01T09:55:57Z -->
+
+The un-deployed-gate premise is now fully retired — but a NEW, legitimate blocker
+has taken its place. Verified 2026-08-01T09:55Z from the deployed root of host
+`endolin-garden-ece02cb4`.
+
+## The gate fix IS deployed here
+
+`/home/kris/garden/scripts/jobs/handlers/pr-maintainer-approval-gh.sh` is now
+byte-identical to `main2` (`diff` clean), i.e. it carries `c510ec1b4f` — the
+`reviewDecision` rollup is a veto, no longer the authority. Real-execution
+evidence, run from the DEPLOYED root:
+
+    $ /home/kris/garden/scripts/jobs/handlers/pr-maintainer-approval-gh.sh \
+        endojs/endo-but-for-bots 656
+    [pr-maintainer-approval] merge blocked: no maintainer approval
+      (no current APPROVED review on head d74caef78ce22ebcbeeaa6134388340ad8dddbc3)
+    rc=1
+
+That is the POST-fix code path (the individual-review check), not the pre-fix
+`reviewDecision=none` short-circuit this job was parked on. So neither the deploy
+nor the `main2`-worktree work-around is needed any longer.
+
+## What actually blocks endojs/endo-but-for-bots#656 now
+
+The head has moved, exactly as this job's own text anticipated:
+
+- head is now `d74caef78ce22ebcbeeaa6134388340ad8dddbc3` (was `76e6800ee5` when
+  parked).
+- kriskowal's `APPROVED` review still carries `commit_id 76e6800ee5`, so the
+  approval is **stale by design**. kriscendobot's only review on the newer head
+  is `COMMENTED`, which does not approve.
+- `mergeStateStatus: UNSTABLE`; one check still `pending`
+  (`test (24.x, macos-15)`). The other 23 pass.
+
+**kriskowal must re-approve head `d74caef78c` before this job can merge.** The
+approval gate is now correctly, not spuriously, refusing.
+
+## Related PRs from the original stranded set — both landed
+
+- endojs/endo-but-for-bots#671 MERGED 2026-07-29T02:33:47Z (merge commit
+  `50972e791d292749803efe5d4d47f839f46d7fae`).
+- endojs/endo-but-for-bots#691 MERGED 2026-07-30T20:26:28Z.
+
+endojs/endo-but-for-bots#656 is the last of the three still open.
+
+Promotion remains the gate-holder's call. This annotation only corrects the
+recorded facts; it does not release the gate.
+
+— `deadmail-20260729T023454Z-34a94e` (dead-letter carrier for
+`endojs-endo-but-for-bots-pr671-conduct`)
