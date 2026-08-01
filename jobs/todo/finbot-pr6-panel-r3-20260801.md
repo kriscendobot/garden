@@ -1,7 +1,8 @@
 ---
 role: builder
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -55,12 +56,4 @@ parsed input cannot carry Proxies/accessors/`toJSON`.
 Per merge governance (2026-07-22, as amended 2026-08-01), this increment lands only
 after BOTH a passing panel and an orchestrator sign-off. Never self-merge.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T15:10:04Z
+<!-- garden-reaped: 0 -->
