@@ -3837,3 +3837,12 @@ Inspect via `git -C journal cat-file -p f86cb463220f1ef33d8fd01f96badd5047e36f77
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'xs2rust-endor-watchdog-20260801-010501' transient-classified (rc=1) but elapsed near-constant (2,2s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p f97272a699b498346a97dc309affa95628a02b16`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-08-01T11:27:26Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 91aeafab8151da11b8f1cef8fcfa41e15adb1ec1
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'propose-merge-upstream-master-into-llm-20260801' transient-classified (rc=1) but elapsed near-constant (2,2s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 91aeafab8151da11b8f1cef8fcfa41e15adb1ec1`.
