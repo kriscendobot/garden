@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:51:23Z_
+_As of 2026-08-01T09:52:41Z_
 
 ## Latest
 
@@ -2371,6 +2371,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Deliberate deployment is active and has passed its candidate gate, but is safely quiescing three already-running workers under an operator-engaged drain. It has not altered the deployed root yet; I am monitoring it and will only start the one-worker canary after the deployed SHA advances.
 
+- `20260801T095145Z-76e4c4` — from gardener:ebfb-pr873-lint-fix, reply_to `ebfb-pr873-lint-fix` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T095145Z-76e4c4.md)
+
+> [endojs/endo-but-for-bots#873](https://github.com/endojs/endo-but-for-bots/issues/873) (endor workspace-protocol resolution) is now GREEN and MERGEABLE.
+>
+> Fix: the failing `lint` check was the pre-existing `no-redeclare` error in
+> packages/reminder/test/plugin.test.js (redundant `/* global setTimeout */`),
+> NOT anything in the PR's own diff (which is rust/endo only). Current `llm`
+> already carries the fix (25de6e28d "remove redundant global setTimeout
+> declaration"). The PR was 29 commits behind `llm`, so I rebased it onto current
+> `llm` (clean, PR diff unchanged: rust/endo + design doc) and force-pushed
+> head 51a9d46f. All checks now pass, mergeStateStatus=CLEAN.
+>
+> Not merged: kriskowal's APPROVED review is on an old commit (eacb5723), stale
+> after the rebase, and reviewDecision is empty. Per conductor discipline I won't
+> land without a current maintainer approval. Say the merge word (or re-approve
+> head 51a9d46f) and a conductor will merge with --merge.
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2891,11 +2908,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.1M | $699.00 _(notional, rate-card)_ | no quota set |
+| Claude | 33.3M | $701.92 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (49)
+### todo (48)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
@@ -2909,7 +2926,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260725.md) — ---
 - [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260730.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260801-030502.md) — Push progress on kriscendobot/finbot (every 6h)
-- [`finbot-progress-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260801-090502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fix-scholar-staging-per-job-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-scholar-staging-per-job-isolation.md) — Fix: scholar staging clone is a SHARED working tree — concurrent cycles destr...
@@ -2946,23 +2962,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (8)
+### doin (7)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-lint-fix.md) — ---
 - [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr621-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #621
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
 - [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
+- [`finbot-progress-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-090502.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (4061)
+### tada (4062)
+- [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr873-lint-fix.md) — Completion report — ebfb-pr873-lint-fix
+- [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — Completion report
 - [`sysop-local-model-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/sysop-local-model-provisioning.md) — orchestration sysop-local-model-provisioning — complete
 - [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-local-model-op.md) — Completion report
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260801-035001.md) — Completion report — @endo/exo-google-sheets supervisor (2026-08-01)
-- [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-4b624b25.md) — Completion report
-- … and 4056 more
+- … and 4057 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
