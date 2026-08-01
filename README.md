@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:06:58Z_
+_As of 2026-08-01T10:07:39Z_
 
 ## Latest
 
@@ -3053,16 +3053,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.7M | $727.56 _(notional, rate-card)_ | no quota set |
+| Claude | 34.7M | $728.32 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (36)
+### todo (35)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`fix-scholar-staging-per-job-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-scholar-staging-per-job-isolation.md) — Fix: scholar staging clone is a SHARED working tree — concurrent cycles destr...
-- [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
 - [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
@@ -3105,17 +3104,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-pr4-harness-doc-drift`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-harness-doc-drift.md) — ---
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
-- [`finbot-progress-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-030502.md) — Push progress on kriscendobot/finbot (every 6h)
 - [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
 - [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
+- [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 
-### tada (4073)
+### tada (4074)
+- [`finbot-progress-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260801-030502.md) — Completion report — finbot progress cycle (030502)
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr806-conduct.md) — Cost
 - [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daemon-store-phase4-sorted.md) — Completion report
 - [`finbot-pr4-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-signoff.md) — Completion report — finbot-pr4-signoff
 - [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr873-conduct.md) — Completion report
-- [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-fixer.md) — Completion report: fixer on endojs/endo-but-for-bots PR #160
-- … and 4068 more
+- … and 4069 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
