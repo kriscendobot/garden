@@ -17,6 +17,7 @@ Perform the full architectural rename on PR #600 (branch xs2rust-endor, base llm
 
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
