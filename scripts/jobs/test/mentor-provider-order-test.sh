@@ -135,5 +135,27 @@ if run_shape 'JOB improve-broken\nscripts/jobs/zzz-broken.sh\nno ENDJOB here\n' 
   bad "unterminated block was accepted"; else ok "unterminated block still FATALs (fail-closed)"; fi
 [ -s "$TR/shape-$shape_n/mentor/last-malformed.txt" ] && ok "malformed reply is saved to mentor/last-malformed.txt" || bad "malformed diagnostic was not recorded"
 
+echo 'SUBTEST 16 — three decorated first-line variants normalize to ONE identity (mentor:scripts/jobs/<path>)'
+# Backtick-wrapped, list-marker, and trailing-whitespace forms of the SAME path must
+# each normalize to `scripts/jobs/zzz-norm.sh`. Each is emitted under a DISTINCT JOB
+# slug but resolves to identity mentor:scripts/jobs/zzz-norm.sh, so post-job.sh's
+# directive dedup collapses all three onto ONE landed job — proving the shared
+# normalizer makes the poster agree with the validator on every decorated form.
+norm_ok=1
+run_shape 'JOB improve-norm-tick\n`scripts/jobs/zzz-norm.sh`\nr\nENDJOB\n'  || norm_ok=0
+run_shape 'JOB improve-norm-dash\n- scripts/jobs/zzz-norm.sh\nr\nENDJOB\n' || norm_ok=0
+run_shape 'JOB improve-norm-trail\nscripts/jobs/zzz-norm.sh \nr\nENDJOB\n' || norm_ok=0
+[ "$norm_ok" -eq 1 ] && ok "all three decorated variants were accepted (no FATAL)" || bad "a decorated variant FATALed"
+NV="$TR/vnorm"; rm -rf "$NV"; git clone -q --branch journal2 "$BARE" "$NV"
+landed="$(find "$NV/jobs" \( -name 'improve-norm-tick.md' -o -name 'improve-norm-dash.md' -o -name 'improve-norm-trail.md' \) 2>/dev/null | wc -l)"
+[ "$landed" -eq 1 ] && ok "three decorated variants collapse onto one mentor:scripts/jobs/zzz-norm.sh identity" || bad "expected 1 job for the shared identity, found $landed"
+
+echo 'SUBTEST 17 — the FATAL diagnostic names the reject reason and quotes an excerpt of the rejected output'
+run_shape 'JOB improve-diag\nscripts/jobs/zzz-diag.sh\nUNIQUEMARKERXYZ trailing garbage that is never closed\n' >/dev/null 2>&1 || true
+DIAG_ERR="$TR/shape-$shape_n.err"; DIAG_FILE="$TR/shape-$shape_n/mentor/last-malformed.txt"
+grep -qi 'unterminated block' "$DIAG_ERR" && ok "FATAL log names the validator reject reason" || bad "FATAL log lacks the reject reason"
+grep -q 'UNIQUEMARKERXYZ' "$DIAG_ERR" && ok "FATAL log quotes an excerpt of the rejected output" || bad "FATAL log lacks a raw-output excerpt"
+{ [ -s "$DIAG_FILE" ] && grep -q 'UNIQUEMARKERXYZ' "$DIAG_FILE"; } && ok "last-malformed.txt captures reason + excerpt" || bad "diagnostic file missing the excerpt"
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
