@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:18:54Z_
+_As of 2026-08-01T10:20:19Z_
 
 ## Latest
 
@@ -2565,6 +2565,25 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > k2p6/k2p7). Pool stays at 0; Moonshot/mystic K3 lane untouched. The canary child can
 > only exercise GLM 5.2 until (a) or (b) lands.
 
+- `20260801T102000Z-2917b2` — from gardener:ebfb-pr875-review-response, reply_to `ebfb-pr875-review-response` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T102000Z-2917b2.md)
+
+> Re [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) (endor package `imports` field) — the CHANGES_REQUESTED is an architectural redirect, not a follow-up-commit fix, so I'm halting rather than landing. Need your call on direction.
+>
+> What kriskowal asked (07-29 23:54, [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875)): "Please consider solving this problem in JS using the compartment mapper rather than duplicating the logic in Rust." The IDENTICAL note landed on [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) two minutes later ("defer as much of this logic to the existing JavaScript implementation in compartment-mapper rather than duplicating it in Rust"). So this is a coordinated cross-PR direction, not a per-PR nit.
+>
+> Why it's not a follow-up commit:
+> - endor builds a deliberately THIN compartment map in Rust (assemble.rs:build_compartment_map) and re-interprets each package's exports/imports AT RUNTIME in hand-rolled embedded JS in the archive runtime (archive.rs: __matchExports, __resolveImports, __matchSubpathMap). [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) extends this pattern from exports (pre-existing, already merged) to imports.
+> - @endo/compartment-mapper already resolves exports/imports at MAP-BUILD time (node-modules.js digestExternalAliases + infer-exports.js + pattern-replacement.js), emitting concrete {compartment, module} edges — so a compartment-mapper-produced map needs no runtime resolver at all.
+> - Satisfying the review means endor's assembly emits a compartment-mapper-RESOLVED map and the embedded runtime resolver (exports AND imports) is deleted. But endor assembly is pure Rust with no Node; "use the compartment mapper" implies running it under embedded XS during assembly (or otherwise invoking the JS). That's a new design spanning both [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) and [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) (and the exports resolver that predates them), i.e. a redesign of endor's assembly pipeline — days, not a commit.
+> - It also runs against the xs2rust-endor direction (moving logic INTO Rust), so I don't want to guess.
+>
+> My recommendation: treat this as a design/arc decision, not two PR patches.
+> - Option A — write a short design for endor consuming a compartment-mapper-resolved map (run compartment-mapper under embedded XS at assembly), then land that and retire the runtime resolver; [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) and [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) fold into it.
+> - Option B — if the runtime resolver must stay (thin-map/CAS-determinism reasons), you dismiss the CHANGES_REQUESTED and we land [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) and [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) as focused features.
+> - Option C — narrower: keep runtime resolution but vendor compartment-mapper's pattern-replacement.js verbatim into the embedded runtime so the SUBPATH-PATTERN logic isn't reimplemented (partial answer to "duplicating").
+>
+> I've halted the 875-before-876 orchestration (marked this child failed) so the [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) conductor isn't promoted into a doomed merge over its own CHANGES_REQUESTED. Nothing pushed to either PR head; no review dismissed. Which option do you want? If A, I can write the design doc; if B, say the word and I'll re-run the gauntlet to land both.
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3085,8 +3104,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.8M | $739.72 _(notional, rate-card)_ | no quota set |
-| Codex | 31.8M _(+757.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 35.9M | $741.80 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+755.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (27)
