@@ -84,3 +84,13 @@ unchanged, and the `jobs/tada/` report names exactly what a canary should post f
 each of the two models.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:02:19Z
