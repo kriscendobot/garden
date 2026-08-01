@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:05:48Z_
+_As of 2026-08-01T09:09:31Z_
 
 ## Latest
 
@@ -234,26 +234,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I also owe a confession: before noticing the discipline, I ran one `git pull --ff-only` inside journal/ (against the job brief's no-git-in-root rule). It surfaced the pre-existing gc.log above; I verified no .lock/gc.pid files were left behind and ran no further git there.
 
-- `20260725T172856Z-cd7cee` — from gardener:endo-sturdyref-press-20260725-170501, reply_to `endo-sturdyref-press-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T172856Z-cd7cee.md)
-
-> SturdyRef press (endo-sturdyref-press-20260725-170501): the CI-green cascade is one reaper tick from a FALSE halt, and the cause is fleet-level, not the PRs.
->
-> What's happening:
-> - The serial cascade orch endo-sturdyref-ci-green-737-704-20260725 has real progress: the [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) and [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) children completed, both PRs fully green.
-> - Its [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) child keeps being claimed by hermit workers that die rc=1 in ~30s: local Ollama on endolin-garden-ece02cb4 has ZERO models (curl 127.0.0.1:11434/api/tags returns an empty list), so every hermit dispatch 404s on model 'qwen3.6' (same signature on endolin-garden2 at 17:12Z — fleet-wide). PR [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) itself is 24/24 green; the child only needs a working claim to verify + comment.
-> - The child is at garden-reaped: 4 with a dead claim; the next reap hits the poison threshold (5) and the cascade halts on-child-failure.
->
-> Asks:
-> 1. Advance the deliberate deploy: main2 already carries the fix — a6899eda05 "fix: preflight local model presence" (today 15:16Z) — but the root checkout is at 18fe8d9da0 (2026-07-24), 9 commits behind. Until deployed, hermits keep claiming work they cannot run.
-> 2. Either pull the intended local model into Ollama or leave hermits stood down post-deploy.
-> 3. When the [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) child gets poisoned/parked (likely before you read this), promote it back once workers can run it — the job is healthy; the failures were environmental.
->
-> No sturdyref branch was touched this tick; confinement suites last verified green in the [endojs/endo-but-for-bots#737](https://github.com/endojs/endo-but-for-bots/issues/737) child (sturdyref 8 passed, OCapN sturdyref 7 passed).
-
-- `20260725T182507Z-d00a30` — from orchestrator:endo-sturdyref-ci-green-737-704-20260725-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T182507Z-d00a30.md)
-
-> Orchestration endo-sturdyref-ci-green-737-704-20260725 HALTED: child endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725 failed (serial, on-child-failure=halt). 2/8 done before halt; swept: endojs-endo-but-for-bots-pr700-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr701-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr702-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr703-ci-green-cascade-20260725 endojs-endo-but-for-bots-pr704-ci-green-cascade-20260725
-
 - `20260725T190612Z-1377ce` — from gardener:proposal-compartments-v8-validation-20260725, reply_to `proposal-compartments-v8-validation-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T190612Z-1377ce.md)
 
 > v8 validation front done (draft PR [kriscendobot/proposal-compartments#2](https://github.com/kriscendobot/proposal-compartments/issues/2)).
@@ -451,45 +431,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-vattr97 at /home/kris/garden/worktrees/kriscendobot-vattr97.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-vattr97 cannot be triaged until it is restored.
 
-- `20260726T234209Z-5dd69f` — from gardener:endo-sturdyref-press-20260726-233502, reply_to `endo-sturdyref-press-20260726-233502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T234209Z-5dd69f.md)
-
-> # SturdyRef press: whole stack CI-green; one go-ahead needed to run the agent-surface panel
->
-> Milestone first: **every open sturdyref PR is 100% CI-green** (verified this tick
-> via `gh pr view … statusCheckRollup`): [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) 24/24,
-> [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) 24/24, [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) 21/21,
-> [endojs/endo-but-for-bots#702](https://github.com/endojs/endo-but-for-bots/issues/702) 21/21, [endojs/endo-but-for-bots#703](https://github.com/endojs/endo-but-for-bots/issues/703) 22/22 (the macOS
-> token-autocomplete flake cleared on rerun, as suspected),
-> [endojs/endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/issues/704) 22/22 — so **bar 1, OCapN sturdyref support across
-> bridge cuts 1–6, is CI-complete end to end**. And the bar-2 build landed:
-> **[endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871)** (agent provide/accept surface, design
-> [endojs/endo-but-for-bots#695](https://github.com/endojs/endo-but-for-bots/issues/695) phases 2–3 — daemon method audit, per-turn opaque
-> escrow in @endo/agent-tools shared by Lal/Fae/Genie, with confinement tests) is
-> **21/21 green**, draft, awaiting review.
->
-> One thing is blocked on you: that PR's auto-gauntlet job
-> (`endo-sturdyref-agent-surface-build-gauntlet`) was poisoned after a single
-> deterministic deadline overrun (rc=124 at the 2400s handler budget) and parked in
-> `jobs/plan/` with `gate: go-ahead` — you already have the reaper's poison notice.
-> The overrun was benign, not a bug: the first cycle finished the CLEAN stage
-> (pushed `076318a0b` + `c3fa894c9`; the PR is green at that head) and ran out of
-> clock before the panel ever started (zero reviews on the PR).
->
-> I have amended the parked job so a retry cannot fail identically: it now carries
-> `handler-timeout: 14000` (~3.9h, within the 14339s claim-budget max) and a resume
-> note telling the next handler the clean stage is done and CI is green, so its
-> budget goes to the panel. To resume, say **"go ahead on
-> endo-sturdyref-agent-surface-build-gauntlet"** (the liaison runs
-> `promote-plan.sh endo-sturdyref-agent-surface-build-gauntlet`). I did not
-> self-promote: a go-ahead-gated job is maintainer-only by design.
->
-> Confinement status: no project code pushed this tick, so the invariants stand as
-> last exercised on the green heads — no-location (sturdyref is passStyleOf-opaque,
-> enliven mediated by the closely-held OCapN network capability), no-identification
-> (same locator mints unlinkable sturdyrefs), opaque-and-unforgeable (resolution
-> binding unforgeable); [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) adds the guard/escrow
-> regression tests for the agent surface.
-
 - `20260727T033826Z-0c1538` — from gardener:esheets-supervisor-20260727-033502, reply_to `esheets-supervisor-20260727-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T033826Z-0c1538.md)
 
 > esheets standup (2026-07-27): Foundations green + mergeable but awaiting your merge — [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) (@endo/fetch network floor, 24/24 checks green) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (endoclaw-oauth design refinement, green). Neither is merged into llm yet; both are the blocking maintainer decision. No sheets/oauth/fetch packages exist under packages/ on llm.
@@ -643,43 +584,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Posted once per distinct drift state by `scripts/jobs/identity-drift-guard.sh`
 > (gardener-scaler preflight). It will not repeat until the drift changes or clears.
-
-- `20260728T071714Z-2cdc32` — from gardener:endo-sturdyref-press-20260728-004711, reply_to `endo-sturdyref-press-20260728-004711` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T071714Z-2cdc32.md)
-
-> # ESCALATION — sturdyref finish line gated ~32h on one promotion: "go ahead on endo-sturdyref-agent-surface-build-gauntlet"
->
-> This is the planned one-time escalation for the go-ahead requested
-> 2026-07-26T23:42Z (inbox item `20260726T234209Z-5dd69f.md`, still unread). It is
-> ~8h later than the intended 24h mark because the two intervening press ticks
-> crashed on ps23 (rc=1, journal error entries 20260728T004916Z and 20260728T045459Z)
-> before they could send it.
->
-> **One action unblocks everything:** say **"go ahead on
-> endo-sturdyref-agent-surface-build-gauntlet"** — the liaison runs
-> `scripts/jobs/promote-plan.sh endo-sturdyref-agent-surface-build-gauntlet`. The
-> parked job already carries `handler-timeout: 14000` (~3.9h) and a resume note
-> (clean stage done, CI green, spend the budget on the panel), so a retry cannot
-> fail the way the original did (rc=124 at the 2400s default budget).
->
-> State re-verified live this tick, 2026-07-28T07:2xZ (`gh pr view … --json …`):
->
-> - [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) (agent provide/accept surface, bar 2): OPEN draft,
->   head `c3fa894c9`, statusCheckRollup **21/21 SUCCESS**, zero reviews, zero
->   comments — the panel has never run.
-> - Bridge-cut stack (bar 1): [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) (`c19fdd96c`),
->   [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) (`e0122dfd7`), [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541)
->   (`fd60a74b0`) all OPEN drafts on unchanged bases; no motion since 2026-07-25.
-> - Go-ahead-gated jobs are maintainer-only by design; no press tick will
->   self-promote, so without this promotion the effort stays frozen at
->   CI-green-but-unreviewed indefinitely.
->
-> Confinement status: no project code pushed since the last report, so the
-> invariants stand as last exercised on the green heads — **no-location**
-> (sturdyref is passStyleOf-opaque; enliven mediated by the closely-held OCapN
-> network capability, design [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539)), **no-identification**
-> (unlinkable per-guest mints), **opaque-and-unforgeable**;
-> [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) carries the agent-surface guard/escrow regression
-> tests, green inside the 21/21 rollup cited above.
 
 - `20260728T072431Z-c67da0` — from gardener:finbot-progress-20260727-175002, reply_to `finbot-progress-20260727-175002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T072431Z-c67da0.md)
 
@@ -1904,10 +1808,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `fu-endojs-endo-but-for-bots-pr124-feedback-triage-4` flags a host hazard in the shared garden root repo: `/home/kris/garden2/.git/gc.log` (mtime 2026-07-28 23:52Z) records `fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` / `failed to run repack`, and that object is genuinely unreadable (`git cat-file -t` fails). Automatic gc stays disabled until the marker is cleared, and every journal sync pays for the growing packs. A missing object may be beyond what `garden-root-repo-guard` repairs losslessly, so this needs your call: check the guard's last tick, and decide whether to clear the marker, re-fetch/repack, or re-clone the root store. No job touched the shared object store.
 
-- `20260729T021857Z-29aa6f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021857Z-29aa6f.md)
-
-> Report `improve-promote-plan-poison-reset`: the live `endo-sturdyref-agent-surface-build-gauntlet` job is still parked in `plan/` behind a `go-ahead` carrying `<!-- garden-deadline-overrun: 1 -->` — the counter at threshold 1 is the whole re-poison mechanism (`clean_body` strips `garden-reaped` before the park). Promoting it is a maintainer-authorization act, so it was left in place. Once the poison-reset fix is deployed to the leader, a plain `promote-plan.sh` will give it a genuine run — say the word and I'll promote it.
-
 - `20260729T021904Z-774632` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021904Z-774632.md)
 
 > Report `improve-promote-plan-poison-reset`: the fix lives on `main2` and reaches the deployed root only through the deliberate, drained `scripts/jobs/deploy-garden.sh` — it will not arrive automatically. Confirm when you want me to run the deploy on the leader host (it drains the fleet first).
@@ -2388,10 +2288,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration garden-fireworks-glm52-five-rollout HALTED: child garden-fireworks-glm52-register-retry stalled in flight for 7324s on host endolin-garden-ece02cb4 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; swept: garden-fireworks-glm52-five-deploy garden-fireworks-glm52-five-activate
 
-- `20260730T042959Z-d5a4e4` — from gardener:endo-sturdyref-press-20260730-020502, reply_to `endo-sturdyref-press-20260730-020502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T042959Z-d5a4e4.md)
-
-> SturdyRef progress is stalled at the next artifact: draft [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) (agent provide/accept surface) remains 21/21 CI-success with zero reviews, but its automatic gauntlet job is still parked in plan/ as poisoned behind the go-ahead gate. The bridge stack ([https://github.com/endojs/endo-but-for-bots/pull/698](https://github.com/endojs/endo-but-for-bots/pull/698), [https://github.com/endojs/endo-but-for-bots/pull/700](https://github.com/endojs/endo-but-for-bots/pull/700), [https://github.com/endojs/endo-but-for-bots/pull/541](https://github.com/endojs/endo-but-for-bots/pull/541)) and designs [https://github.com/endojs/endo-but-for-bots/pull/511](https://github.com/endojs/endo-but-for-bots/pull/511) and [https://github.com/endojs/endo-but-for-bots/pull/539](https://github.com/endojs/endo-but-for-bots/pull/539) are unchanged and draft. May I reset/promote the gauntlet so its panel can run? No code was pushed.
-
 - `20260730T050147Z-de997b` — from gardener:esheets-supervisor-20260730-033502, reply_to `esheets-supervisor-20260730-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T050147Z-de997b.md)
 
 > Google Sheets daily: designs are merged; dependency floor endo-fetch PR [https://github.com/endojs/endo-but-for-bots/pull/723](https://github.com/endojs/endo-but-for-bots/pull/723) is approved, clean, and 24/24 checks green, but its existing conductor job is parked go-ahead. OAuth design PR [https://github.com/endojs/endo-but-for-bots/pull/621](https://github.com/endojs/endo-but-for-bots/pull/621) remains clean/green but open after CHANGES_REQUESTED. Client PR [https://github.com/endojs/endo-but-for-bots/pull/874](https://github.com/endojs/endo-but-for-bots/pull/874) is draft, clean, and 24/24 green; stacked facets PR [https://github.com/endojs/endo-but-for-bots/pull/881](https://github.com/endojs/endo-but-for-bots/pull/881) is draft, dirty, with 22/23 green and an unrelated @endo/thixotrope coverage SIGINT. Existing parked conductor/gauntlet/shepherd jobs cover every actionable node, so I posted no duplicate today. Blocked on reviving/authorizing those parked jobs and maintainer merge/review decisions; webhooks remains deferred by design.
@@ -2407,10 +2303,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260730T062507Z-608bce` — from orchestrator:worker-kind-rename-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T062507Z-608bce.md)
 
 > Orchestration worker-kind-rename HALTED: child monk-finish-gardener-rename stalled in flight for 2518s on host unknown (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; swept: lama-rename-hermit
-
-- `20260730T072153Z-7fe5ee` — from gardener:endo-sturdyref-press-20260729-195004, reply_to `endo-sturdyref-press-20260729-195004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T072153Z-7fe5ee.md)
-
-> The SturdyRef line is stalled at the maintainer-gated [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) agent-surface gauntlet: it remains parked as gate: go-ahead and poisoned after a deadline overrun, with no live sturdyref worker. [https://github.com/endojs/endo-but-for-bots/pull/698](https://github.com/endojs/endo-but-for-bots/pull/698), [https://github.com/endojs/endo-but-for-bots/pull/700](https://github.com/endojs/endo-but-for-bots/pull/700), and [https://github.com/endojs/endo-but-for-bots/pull/541](https://github.com/endojs/endo-but-for-bots/pull/541) are still open draft stack elements and their current checks are green. Please authorize promotion/retry of that gauntlet, or give a different next cut. The binding Distributed Confinement bar remains: no guest locator or stable identity, and per-grant tokens must be unlinkable.
 
 - `20260730T202712Z-72b792` — from gardener:endo-git-integration-press-20260730-082002, reply_to `endo-git-integration-press-20260730-082002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T202712Z-72b792.md)
 
@@ -2465,10 +2357,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Recommendation: retire or re-scope this standing press (schedule `schedules/endo-git-integration-press`). The gating-driven standing-watch is no longer needed now that [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) is merged; the only live item ([endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)) is a parked draft awaiting an explicit directive, not an actively-pressed loop. If you'd like continued low-rate guarding of [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) plus the llm git-capability surface for regressions, re-scope the press to that narrower watch; otherwise retire it and reopen a fresh job when [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) is to be promoted or post-M3 work (e.g. endor CAS bindings implementation per the merged [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) design) is directed.
 >
 > Standing by on [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) per whatever directive follows.
-
-- `20260730T205552Z-a3f194` — from gardener:endo-sturdyref-press-20260730-203502, reply_to `endo-sturdyref-press-20260730-203502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T205552Z-a3f194.md)
-
-> SturdyRef press tick 20260730-203502: rebased both stale design PRs onto current llm and updated their bases — [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/issues/539) (on-demand enlivenment design, head e1f5435722) and [endojs/endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/issues/511) (FinReg design, head 648a10e75a) are now MERGEABLE onto llm with all prior review feedback addressed. The code stack remains green and unmoved: [endojs/endo-but-for-bots#698](https://github.com/endojs/endo-but-for-bots/issues/698) (21/21 CI), [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700), [endojs/endo-but-for-bots#541](https://github.com/endojs/endo-but-for-bots/issues/541) (confinement suite 10/10), [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) (agent surface, 21/21 CI, zero reviews). The sole blocker is still the maintainer-gated [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) agent-surface gauntlet (jobs/plan/endo-sturdyref-agent-surface-build-gauntlet, gate: go-ahead, poisoned since 07-26, 4 days). Please authorize promotion/retry of that gauntlet so the panel can run, or give a different next cut. The binding Distributed Confinement bar stands: no guest locator or stable identity, per-grant tokens unlinkable, opaque and unforgeable.
 
 - `20260730T205759Z-45eb0b` — from gardener:cjs-module-lexer-upstream-20260730-205004, reply_to `cjs-module-lexer-upstream-20260730-205004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T205759Z-45eb0b.md)
 
@@ -2549,9 +2437,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Self-improvement: pre-push-gates SKILL.md names scripts/jobs/gardening/pre-push-gates.sh, but that driver is absent; only probe scripts exist. Local verification passed, and I ran package lint/tests plus the Rust corpus test directly. Please repair or relocate the advertised driver so builders can run the required gate.
 
-- `20260801T082922Z-3968c7` — from gardener:endo-sturdyref-press-20260801-030502, reply_to `endo-sturdyref-press-20260801-030502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T082922Z-3968c7.md)
+- `20260801T090857Z-8e4a8a` — from gardener:ebfb-pr882-bootstrap-generators, reply_to `ebfb-pr882-bootstrap-generators` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T090857Z-8e4a8a.md)
 
-> SturdyRef press 2026-08-01: the implementation finish line is still blocked on the human-held promotion of jobs/plan/endo-sturdyref-agent-surface-build-gauntlet for [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871). Its head c3fa894c9 is current on [endojs/endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/issues/704) (compare: behind_by=0) and has 21 SUCCESS / 0 non-success checks; the panel never ran and there are still zero reviews. Please authorize "go ahead on endo-sturdyref-agent-surface-build-gauntlet" so the liaison can run promote-plan.sh, or name a different next cut. I did not touch [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) because endojs-endo-but-for-bots-pr700-rebase is already queued for a peer. Distributed Confinement remains binding: guest tokens expose no locator or stable identity, are fresh/unlinkable per grant, and are opaque/unforgeable.
+> [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) is fully green and ready, but GitHub blocks the requested landing on kriskowal’s stale July 28 CHANGES_REQUESTED review. I requested approval/dismissal on the PR: [https://github.com/endojs/endo-but-for-bots/pull/882](https://github.com/endojs/endo-but-for-bots/pull/882)#issuecomment-5150761426
 
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
@@ -2735,34 +2623,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
 >   boundary) are precedent you should follow rather than re-litigate.
 >
->
-> <!-- garden-deadline-overrun: 1 -->
-
-- `poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-endo-sturdyref-agent-surface-build-gauntlet-deadline-overrun.md)
-
-> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden-ece02cb4.
-> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
-> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
-> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
-> The work is preserved at jobs/plan/endo-sturdyref-agent-surface-build-gauntlet; it stays HELD until a human promotes it
-> (promote-plan.sh endo-sturdyref-agent-surface-build-gauntlet) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
-> for this work, or fix what makes it run long.
-> Original job base: endo-sturdyref-agent-surface-build-gauntlet
->
-> --- original job body ---
-> ---
-> role: gardener
-> auto_gauntlet: true
-> build_job: endo-sturdyref-agent-surface-build
-> pr: [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871)
-> ---
->
-> Automatic gauntlet handoff for completed feature build endo-sturdyref-agent-surface-build.
->
-> The build opened [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871) and it remains an OPEN draft PR. Run the full gardening
-> state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
-> the panel terminates cleanly. This handoff was posted by the build completion edge,
-> not inferred by a watcher.
 >
 > <!-- garden-deadline-overrun: 1 -->
 
@@ -3065,7 +2925,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $682.09 _(notional, rate-card)_ | no quota set |
+| Claude | 32.8M | $683.13 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
