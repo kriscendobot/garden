@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:36:33Z_
+_As of 2026-08-01T09:37:19Z_
 
 ## Latest
 
@@ -2362,6 +2362,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > 2. **[endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)** (endoclaw-oauth design refinement) — mergeable & green for ~1 week but its base is the **frozen `llm-28dffa9`**, not `llm`. It gates the Phase-3 OAuth *implementation* (the "operational" half). Needs a maintainer merge, likely after a rebase onto `llm`.
 >
 > Posted nothing new today — everything actionable is already in flight. Terminal condition not met; daily schedule retained.
+
+- `20260801T093658Z-d5e4a0` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T093658Z-d5e4a0.md)
+
+> Found and fixed a post-credit-exhaustion regression: the Mystic claim filter still rejected every job. main2 now has b6ae297a5c, which permits only explicit model: kimi-k3 ordinary jobs, rejects tier-only/unpinned and builder/designer jobs, and preserves legacy unclassified job compatibility for established pools. Focused offline Mystic harness passed 33/33 including real worker-spine completion, cleanup, resume, output/ledger capture, and credential redaction. Please deliberately deploy latest main2 before the one-worker canary.
 
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
