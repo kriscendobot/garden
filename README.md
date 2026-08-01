@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:12:37Z_
+_As of 2026-08-01T09:13:47Z_
 
 ## Latest
 
@@ -2441,6 +2441,50 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) is fully green and ready, but GitHub blocks the requested landing on kriskowal’s stale July 28 CHANGES_REQUESTED review. I requested approval/dismissal on the PR: [https://github.com/endojs/endo-but-for-bots/pull/882](https://github.com/endojs/endo-but-for-bots/pull/882)#issuecomment-5150761426
 
+- `20260801T091308Z-0019ad` — from orchestrator:endo-npm-cas-arc-landing-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T091308Z-0019ad.md)
+
+> Orchestration endo-npm-cas-arc-landing HALTED: child ebfb-pr882-bootstrap-generators stalled in flight for 2508s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/6 done before halt; swept: ebfb-pr873-lint-fix ebfb-pr875-review-response ebfb-pr876-conduct ebfb-pr877-rebase ebfb-pr878-rebase
+
+- `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/ebfb-pr882-bootstrap-generators; it stays HELD until a human promotes it
+> (promote-plan.sh ebfb-pr882-bootstrap-generators) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: ebfb-pr882-bootstrap-generators
+>
+> --- original job body ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-01T08:28:04Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Repo: endojs/endo-but-for-bots (base `llm`)
+> PR: [https://github.com/endojs/endo-but-for-bots/pull/882](https://github.com/endojs/endo-but-for-bots/pull/882) (DRAFT, restore-xs-bootstrap-generators)
+>
+> Land #882. It is load-bearing and blocks review of the whole npm-via-CAS gap family:
+> `rust/endo` does NOT build standalone at `llm` HEAD because the generated XS bootstraps
+> (`ses_boot.js`, `worker_bootstrap.js`) are missing, and their generators exist ONLY on this
+> branch. Two separate press ticks (2026-07-29, 2026-07-30) had to hand-generate stubs to build
+> at all. No CI job builds the xsnap crate, so this regresses silently.
+>
+> Task: rebase onto current `llm` if needed, drive CI green, un-draft, and land.
+>
+> Known gap recorded by the 07-30 press tick — report it, do not silently fix it beyond scope:
+> `daemon_bootstrap.js` still stubs because `bundle-bus-daemon-rust-xs.mjs` fails on Node-only
+> static imports (`@endo/git`, `@endo/host-spawner`); it needs the inject-backend treatment.
+> If that is out of scope for landing #882, say so in your report and leave it for a follow-up.
+>
+> Consider whether a CI job that builds the xsnap crate is worth proposing, since its absence is
+> what let this regress unnoticed.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2929,11 +2973,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $683.48 _(notional, rate-card)_ | no quota set |
+| Claude | 32.8M | $683.65 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
-### todo (63)
+### todo (64)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-readableblob-range-attenuation.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
@@ -2954,6 +2998,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr874-4b624b25.md) — attention directive on endojs/endo-but-for-bots PR #874
+- [`endojs-endo-but-for-bots-pr882-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr882-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #882
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
 - [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/esheets-supervisor-20260801-035001.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260725.md) — ---
@@ -2998,18 +3043,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (3)
+### doin (2)
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260801-070501.md) — Daily midnight Pacific progress summary
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`ebfb-pr882-bootstrap-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr882-bootstrap-generators.md) — <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-...
 
-### tada (4045)
+### tada (4046)
+- [`endo-npm-cas-arc-landing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-arc-landing.md) — orchestration endo-npm-cas-arc-landing — HALTED
 - [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr704-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endo-sturdyref-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260801-030502.md) — Cost
 - [`endo-npm-cas-registry-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-030502.md) — Cost
 - [`endo-git-integration-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-030502.md) — Cost
-- [`endo-byte-array-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260801-030502.md) — Cost
-- … and 4040 more
+- … and 4041 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3026,6 +3070,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
 - [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
+- [`ebfb-pr882-bootstrap-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-pr882-bootstrap-generators.md) — _normal_ · ---
 - [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — _normal_ · Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-162019.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-223502.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
