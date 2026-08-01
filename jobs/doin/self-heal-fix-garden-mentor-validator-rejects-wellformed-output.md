@@ -21,3 +21,13 @@ Also close the diagnostic gap that let this recur nine times unexplained: before
 Extend `scripts/jobs/test/mentor-provider-order-test.sh` with subtests for each accepted shape above, and keep existing SUBTEST 4 green (trailing prose *after* a complete block is still rejected without fanning out to another provider). Apply the same review to the parallel `validate_foreman_response` in `scripts/jobs/handlers/foreman-claude.sh` (same die at line 237) and its test, since the two handlers are deliberately kept aligned.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:24:20Z
