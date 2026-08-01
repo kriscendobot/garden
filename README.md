@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T18:03:42Z_
+_As of 2026-08-01T18:54:17Z_
 
 ## Latest
 
@@ -4495,16 +4495,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-07-28T08:48:08Z, latest 2026-08-01T11:20:57Z).
-> The SAME condition (`provider-quota`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-07-28T08:48:08Z, cleared 2026-08-01T18:53:55Z).
+> It was observed 22 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> provider quota/usage limit reached — the API is refusing calls fleet-wide (resets 1:20pm (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob a172bc4e7c993e56d9e40af119d0675bc5b2542a (git -C /home/kris/garden2/).
-> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
-> resumes on its own once the window resets (see skills/restore/SKILL.md for the
-> post-outage restore). Every unit that trips the limit folds into THIS one notice
-> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-> usage limit reached while running garden-mentor. Observed: You've hit your session limit · resets 1:20pm (UTC) — the responder could NOT diagnose garden-mentor (rc=1); its capture is blob a172bc4e7c993e56d9e40af119d0675bc5b2542a (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p a172bc4e7c993e56d9e40af119d0675bc5b2542a).
+> provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-mentor). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
 
 - `watchdog-root-repo-objstore-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden-ece02cb4.md)
 
@@ -4514,14 +4509,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > root repo /home/kris/garden2 object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden2-5bcdff64' pid 251982 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 135 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden2 rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden2 branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden2 gc'. (host=endolin-garden2-5bcdff64)
 
+- `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: d60fc6814bbc2d5d507020e4ef0d84a11c7bdbd7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p d60fc6814bbc2d5d507020e4ef0d84a11c7bdbd7). Diagnosis: ## Diagnosis: `garden-mentor` exit 1 — already-filed fix is poison-parked behind a go-ahead gate
+>
+> **Failure chain.** `mentor-claude.sh:162` dies with `mentor provider 'openai' returned malformed semantic output; refusing fallback…`, and `mentor.sh:145` then dies (`is_transient_claude_signature` / `_fetch_stderr_is_offline` correctly don't match, so it takes the real-defect branch). Not transient: it has fired on **every** tick that actually reached the provider — 11:20:56, 11:50:49, 18:50:53 today, and per the existing job body 9× since 2026-07-29. The intervening ticks all exited in ~5.7s at `mentor.sh:73` (empty digest), so the provider-reaching path is failing 100% of the time, not flaking.
+>
+> **Root cause (already established, not re-derived).** `validate_mentor_response` (`mentor
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.3M | $911.96 _(notional, rate-card)_ | no quota set |
-| Codex | 31.7M _(+747.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 46.4M | $913.03 _(notional, rate-card)_ | no quota set |
+| Codex | 31.6M _(+741.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
