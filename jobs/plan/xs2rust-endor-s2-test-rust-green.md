@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-08-01T12:03:03Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T12:03:03Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -71,16 +85,3 @@ pushing to `xs2rust-endor`** — check `jobs/doin/` for a live pusher.
 Consolidated 2026-07-27 from ten redundant qwen3.6-pinned dispatches of the standing
 press (`schedules/xs2rust-endor-press.md`), all stale-claimed by a local hermit that
 stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:53:20Z
