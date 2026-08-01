@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 3
+worker_kind: gardener
+claimed_at: 2026-08-01T11:15:39Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-propose-merge-upstream-master-into-llm-20260801
