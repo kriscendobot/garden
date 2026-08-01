@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T19:46:21Z_
+_As of 2026-08-01T19:46:41Z_
 
 ## Latest
 
@@ -4549,18 +4549,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 31.5M _(+739.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
-### todo (7)
+### todo (6)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
-- [`finbot-pr6-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr6-panel-r4.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #910
+- [`finbot-pr6-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-r4.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 
 ### tada (4112)
 - [`finbot-pr6-fix-panel-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r3.md) — Completion report
