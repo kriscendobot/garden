@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:25:05Z_
+_As of 2026-08-01T10:27:27Z_
 
 ## Latest
 
@@ -3104,8 +3104,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.0M | $758.61 _(notional, rate-card)_ | no quota set |
-| Codex | 31.8M _(+752.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Claude | 37.8M | $774.09 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (26)
@@ -3113,9 +3113,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
-- [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
-- [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 - [`minion-town-agenda-review-20260731-165001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-agenda-review-20260731-165001.md) — Minion Town daily agenda review
@@ -3131,12 +3129,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/proposal-compartments-press-20260731-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/propose-merge-upstream-master-into-llm-20260801.md) — Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
+- [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-072002.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-082005.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — ---
 - [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (12)
+### doin (14)
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
@@ -3145,10 +3145,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
+- [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
 - [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-widen-sysop-host-maintenance.md) — Widen the sysop to a host-directed MAINTENANCE op class
 - [`improve-panel-run-record-legacy-slug-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-panel-run-record-legacy-slug-migration.md) — ---
 - [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-report-error-transcript-reachable.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`kriscendobot-endo-but-for-bots-pr3-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr3-shepherd.md) — shepherd (auto: red CI) on kriscendobot/endo-but-for-bots PR #3
+- [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 
 ### tada (4086)
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — Cost
@@ -3324,8 +3326,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s48.md) — awaiting `xs2rust-endor-stage10p-fresh-env-sweep` · Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
-- [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-library-cycle-20260801-072002.md) — awaiting `fix-scholar-staging-per-job-isolation` · Hourly scholar library cycle
-- [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-library-cycle-20260801-082005.md) — awaiting `fix-scholar-staging-per-job-isolation` · Hourly scholar library cycle
 
 ## Watch set
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot kriscendobot-minion.town kriscendobot-moddable kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
