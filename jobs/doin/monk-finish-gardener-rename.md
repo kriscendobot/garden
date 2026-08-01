@@ -76,3 +76,13 @@ count/unit/state/claim-writer change in that stage. Then the per-host cutover pa
 Report what changed, the test results, and the cutover procedure for the maintainer to
 run on each host. This job changes neither a deployed checkout nor a live unit —
 hand the deploy/cutover back to the liaison.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:30:35Z
