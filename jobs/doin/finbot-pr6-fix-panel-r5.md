@@ -187,3 +187,13 @@ reuse the empty-bodied `fix(pipeline): address panel must-fix items on PR #6` su
 - Every must-fix above addressed with a reddening regression where it is a correctness finding.
 - CI `test` green; PR mergeable/CLEAN; PR left DRAFT (never self-merge).
 - The panel re-run `finbot-pr6-panel-r6` (blocked on this job) will re-verify at your new head.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T21:55:10Z
