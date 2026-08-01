@@ -32,11 +32,11 @@
 #
 #     | completed | result        | next                                            |
 #     | clean     | done          | panel-1                                         |
-#     | clean     | still-pending | re-post <g>-clean (fresh claim; CI not terminal)|
+#     | clean     | still-pending | re-post <g>-clean (bounded by max_resumes)      |
 #     | panel-k   | pass          | undraft (feature) / done (probe never un-drafts)|
 #     | panel-k   | must-fix      | fix-k                                           |
 #     | fix-k     | done          | panel-(k+1); if k+1 > max_iterations → HALT     |
-#     | fix-k     | still-pending | re-post <g>-fix-k (fresh claim)                 |
+#     | fix-k     | still-pending | re-post <g>-fix-k (bounded by max_resumes)      |
 #     | undraft   | done          | done — write jobs/tada/<g>, remove the record   |
 #
 # A `done` child with NO parseable marker (or an unexpected marker value) is a
@@ -45,6 +45,9 @@
 # non-terminal result: the CI-blocking stages (clean/fix) emit it when ci-wait-merge
 # hits its deadline with CI still pending, and the driver re-posts the SAME stage
 # base next tick (a fresh budget; a stable base resumes the stage's own session).
+# That re-post is BOUNDED by `max_resumes` (per stage), so CI that never goes terminal
+# — a checkless repo above all — halts loudly instead of looping forever (see
+# resume_stage).
 #
 # SELF-HEALING: a dead stage is simply requeued by the reaper; the driver re-observes
 # board state next tick and re-posts nothing it already posted (basename idempotence).
@@ -360,7 +363,9 @@ advance_stage() {  # <base> <rec-file> <newstage> <newiter> <child>
   body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-stage.XXXXXX")"
   compose_stage_body "$base" "$rec" "$nstage" "$niter" "$child" > "$body"
   if post_stage "$child" "$body"; then
-    if set_gauntlet_fields "$base" "stage=$nstage" "iteration=$niter" "current_child=$child" "state=running"; then
+    # resumes is reset here because the re-post bound is PER STAGE: a clean stage that
+    # spent five waits must not shorten the fix stage's own budget.
+    if set_gauntlet_fields "$base" "stage=$nstage" "iteration=$niter" "current_child=$child" "state=running" "resumes=0"; then
       log "gauntlet '$base': advanced to $nstage (child $child)"
     else
       log "gauntlet '$base': posted $child but record update failed; retrying next tick"
@@ -372,12 +377,31 @@ advance_stage() {  # <base> <rec-file> <newstage> <newiter> <child>
 }
 
 # re-post the same stage (still-pending): compose a fresh body and atomically swap.
-resume_stage() {  # <base> <rec-file> <stage> <iter> <child>
-  local base="$1" rec="$2" stage="$3" iter="$4" child="$5" body
+#
+# BOUNDED. `still-pending` is the one non-terminal stage result, and re-posting on it
+# used to be unconditional — so a PR whose CI never reaches a terminal state re-posted
+# the SAME stage forever, burning a whole GARDEN_GAUNTLET_CI_DEADLINE_SECS wait and one
+# gardener claim per round, silently, with no bound and no notice. The reachable case is
+# not a hung check but a CHECKLESS repo: ci-wait-merge treats an empty rollup as
+# not-green (correctly — right after a push the rollup is [] for ~a minute), so a repo
+# whose only workflow is push-triggered attaches NO check to a PR head, times out at
+# every deadline, and reports still-pending every single round. kriscendobot/minion.town
+# is exactly that shape (one `on: push: branches: [main]` deploy workflow, zero check
+# runs on a PR head). Spending the bound turns the silent forever-loop into the same
+# loud halt every other non-convergence takes, naming ci-wait-merge's own opt-out.
+resume_stage() {  # <base> <rec-file> <stage> <iter> <child> <resumes> <max-resumes>
+  local base="$1" rec="$2" stage="$3" iter="$4" child="$5" resumes="$6" maxres="$7" body next
+  next=$((resumes + 1))
+  if [ "$next" -gt "$maxres" ]; then
+    halt_gauntlet "$base" "stage '$child' ($stage) reported CI still-pending $resumes time(s) and has spent its re-post bound (max_resumes=$maxres). CI never reached a terminal state — most likely $(gauntlet_repo "$rec") attaches NO checks to a PR head (a push-only workflow set), which ci-wait-merge reports as a timeout rather than green. Re-run the stage with GARDEN_CI_ALLOW_NO_CHECKS=1 if the repo is genuinely checkless, or fix the CI trigger."
+    return 0
+  fi
   body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-stage.XXXXXX")"
   compose_stage_body "$base" "$rec" "$stage" "$iter" "$child" > "$body"
   if repost_stage "$child" "$body"; then
-    log "gauntlet '$base': CI still pending — re-posted stage $child (fresh budget)"
+    set_gauntlet_fields "$base" "resumes=$next" \
+      || log "gauntlet '$base': re-posted $child but the resume-count update failed; retrying next tick"
+    log "gauntlet '$base': CI still pending — re-posted stage $child (fresh budget; resume $next/$maxres)"
   else
     log "gauntlet '$base': could not re-post stage $child; retrying next tick"
   fi
@@ -398,6 +422,8 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   stage="$(gauntlet_stage "$f")"
   iter="$(gauntlet_iteration "$f")"
   maxit="$(gauntlet_max_iterations "$f")"
+  resumes="$(gauntlet_resumes "$f")"
+  maxres="$(gauntlet_max_resumes "$f")"
   child="$(gauntlet_current_child "$f")"
   repo="$(gauntlet_repo "$f")"
   prnum="$(gauntlet_pr_number "$f")"
@@ -445,7 +471,7 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
     clean)
       case "$mresult" in
         done)          advance_stage "$base" "$f" panel 1 "$base-panel-1";;
-        still-pending) resume_stage "$base" "$f" clean 0 "$child";;
+        still-pending) resume_stage "$base" "$f" clean 0 "$child" "$resumes" "$maxres";;
         *)             halt_gauntlet "$base" "clean stage reported unexpected result '$mresult'";;
       esac;;
     panel)
@@ -468,7 +494,7 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
           else
             advance_stage "$base" "$f" panel "$local_next" "$base-panel-$local_next"
           fi;;
-        still-pending) resume_stage "$base" "$f" fix "$iter" "$child";;
+        still-pending) resume_stage "$base" "$f" fix "$iter" "$child" "$resumes" "$maxres";;
         *)             halt_gauntlet "$base" "fix stage reported unexpected result '$mresult'";;
       esac;;
     undraft)

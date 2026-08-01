@@ -80,6 +80,8 @@ more of exactly this shape:
   stage: clean | panel | fix | undraft | done | halted
   iteration: <k>                     # the panel/fix loop counter
   max_iterations: 6                  # give-up bound for the loop
+  resumes: <n>                       # still-pending re-posts spent on the current stage
+  max_resumes: 6                     # give-up bound for the still-pending re-post
   current_child: <stage-job-base>    # the stage job currently in flight
   state: pending | running | done | halted
   created_by: <role>
@@ -123,6 +125,7 @@ The transition table the driver applies:
 | completed stage | result | next |
 | --- | --- | --- |
 | clean | done | `panel-1` |
+| clean / fix-k | still-pending | re-post the SAME stage; if it has already spent `max_resumes` re-posts → **halt** ("CI never reached a terminal state") |
 | panel-k | pass | `undraft` (feature) / `done` (probe) |
 | panel-k | must-fix | `fix-k` |
 | fix-k | done | `panel-(k+1)`; if `k+1 > max_iterations` → **halt** ("did not converge in N rounds") |
@@ -235,6 +238,18 @@ decider hooks and asserts exactly one round runs and no fixer/undraft hook fires
   handler block on CI indefinitely. rc=3 (CI red) fails the stage → halt. Because the
   stage base is stable, a re-posted CI-wait stage resumes its own session.
 
+  That re-post is **bounded** (`max_resumes`, counted per stage and reset on every
+  advance). Unbounded, a PR whose CI never goes terminal re-posted the same stage
+  forever — a whole CI deadline and one gardener claim per round, silently, with no
+  notice. The reachable case is not a hung check but a **checkless repo**:
+  `ci-wait-merge` treats an empty rollup as not-green (correctly — right after a push
+  the rollup is `[]` for about a minute), so a repo whose only workflow is
+  push-triggered attaches **no** check to a PR head, times out at every deadline, and
+  reports `still-pending` every round. `kriscendobot/minion.town` is exactly that
+  shape. Spending the bound turns the silent forever-loop into the same loud halt
+  every other non-convergence takes, naming `ci-wait-merge`'s own
+  `GARDEN_CI_ALLOW_NO_CHECKS=1` opt-out.
+
 - **Idempotence.** Re-running a completed stage is a no-op because each stage checks
   **live PR state** first: `undraft` no-ops if the PR is already ready; `clean`
   no-ops if coverage is already pushed and CI is green at the current head; a
@@ -247,7 +262,9 @@ decider hooks and asserts exactly one round runs and no fixer/undraft hook fires
 - **Failure policy.** Any stage that genuinely fails (its job vanishes without a
   `tada/` report, or reports `orchestration-failed: true`) **halts** the chain
   (`state: halted`) and surfaces to the maintainer inbox — never a silent strand.
-  Non-convergence at `max_iterations` halts the same way, with a distinct message.
+  Non-convergence at `max_iterations` halts the same way, with a distinct message, as
+  does a CI-blocking stage that spends `max_resumes` re-posts without CI ever going
+  terminal.
 
 ## Migration of the nine poisoned jobs
 

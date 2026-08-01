@@ -14,6 +14,7 @@
 #   6. STILLPEND  — a clean stage reporting `still-pending` re-posts the SAME stage.
 #   7. NOMARKER   — a `done` stage with NO parseable marker HALTS (fail-closed).
 #   8. IDEMPOTENT — a re-tick while a stage is in flight promotes nothing new.
+#   9. RESUMEBOUND— endless `still-pending` HALTS at max_resumes (a checkless repo).
 #
 # Usage: gauntlet-test.sh
 
@@ -283,6 +284,45 @@ after="$(board jobs/todo)"
 { [ "$before" = "$after" ] && ! in_dir jobs/todo g8-panel-1 && [ "$(record_field g8 current_child)" = g8-clean ]; } \
   && ok "re-tick while g8-clean is in flight promoted nothing new (idempotent wait)" \
   || bad "idempotent: before=[$before] after=[$after]"
+
+# ============================================================================
+hr; echo "SUBTEST 9 — RESUMEBOUND: endless still-pending halts at max_resumes"; hr
+# A repo whose PRs attach no checks at all reports still-pending EVERY round, so the
+# re-post is bounded; with --max-resumes 2 the third still-pending must halt.
+post_gauntlet --max-resumes 2 g9 https://github.com/testowner/testrepo/pull/9
+
+tick   # post g9-clean
+in_dir jobs/todo g9-clean || bad "resumebound: g9-clean not posted"
+complete_stage g9-clean clean=still-pending
+tick   # resume 1/2
+{ in_dir jobs/todo g9-clean && [ "$(record_field g9 resumes)" = 1 ]; } \
+  && ok "first still-pending re-posted g9-clean (resumes=1)" \
+  || bad "resumebound: todo=[$(board jobs/todo)] resumes=$(record_field g9 resumes)"
+complete_stage g9-clean clean=still-pending
+tick   # resume 2/2
+{ in_dir jobs/todo g9-clean && [ "$(record_field g9 resumes)" = 2 ]; } \
+  && ok "second still-pending re-posted g9-clean (resumes=2)" \
+  || bad "resumebound: todo=[$(board jobs/todo)] resumes=$(record_field g9 resumes)"
+complete_stage g9-clean clean=still-pending
+tick   # bound spent → HALT rather than re-post a third time
+{ in_dir jobs/tada g9 && ! in_dir jobs/gauntlet g9 && ! in_dir jobs/todo g9-clean; } \
+  && ok "the third still-pending halted the run instead of re-posting forever" \
+  || bad "resumebound: tada=[$(board jobs/tada)] gauntlet=[$(board jobs/gauntlet)] todo=[$(board jobs/todo)]"
+printf '%s' "$(tada_body g9)" | grep -qi 'max_resumes=2' \
+  && ok "the halt names the spent re-post bound" \
+  || bad "resumebound: halt summary does not name max_resumes"
+printf '%s' "$(tada_body g9)" | grep -qi 'GARDEN_CI_ALLOW_NO_CHECKS' \
+  && ok "the halt names the checkless-repo opt-out" \
+  || bad "resumebound: halt summary does not name the checkless-repo opt-out"
+
+# A stage that advances RESETS the count: the bound is per stage, not per gauntlet.
+post_gauntlet --max-resumes 2 g10 https://github.com/testowner/testrepo/pull/10
+tick
+complete_stage g10-clean clean=still-pending; tick     # resumes=1
+complete_stage g10-clean clean=done;          tick     # advance to panel-1
+[ "$(record_field g10 resumes)" = 0 ] \
+  && ok "advancing to a new stage reset the re-post count (per-stage bound)" \
+  || bad "resumebound: resumes=$(record_field g10 resumes) after advancing to panel-1"
 
 # ============================================================================
 hr

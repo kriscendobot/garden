@@ -4916,6 +4916,8 @@ orch_state() {
 #   stage: clean | panel | fix | undraft | done | halted
 #   iteration: <k>                     # the panel/fix loop counter (0 during clean)
 #   max_iterations: 6                  # give-up bound for the loop
+#   resumes: <n>                       # still-pending re-posts spent so far
+#   max_resumes: 6                     # give-up bound for the still-pending re-post
 #   current_child: <stage-job-base>    # the stage job currently in flight
 #   state: pending | running | done | halted
 #   created_by: <role>
@@ -4928,6 +4930,10 @@ gauntlet_kind() { local v; v="$(plan_field "$1" kind)"; printf '%s\n' "${v:-feat
 gauntlet_stage() { local v; v="$(plan_field "$1" stage)"; printf '%s\n' "${v:-clean}"; }
 gauntlet_iteration() { local v; v="$(plan_field "$1" iteration)"; printf '%s\n' "${v:-0}"; }
 gauntlet_max_iterations() { local v; v="$(plan_field "$1" max_iterations)"; printf '%s\n' "${v:-6}"; }
+# A record written before the resume bound existed carries neither field; both
+# default so an in-flight gauntlet keeps advancing under the new bound.
+gauntlet_resumes() { local v; v="$(plan_field "$1" resumes)"; printf '%s\n' "${v:-0}"; }
+gauntlet_max_resumes() { local v; v="$(plan_field "$1" max_resumes)"; printf '%s\n' "${v:-6}"; }
 gauntlet_current_child() { plan_field "$1" current_child; }
 gauntlet_state() { local v; v="$(plan_field "$1" state)"; printf '%s\n' "${v:-pending}"; }
 gauntlet_repo() { plan_field "$1" repo; }

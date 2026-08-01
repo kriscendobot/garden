@@ -24,6 +24,11 @@
 #   --probe            shorthand for --kind probe: a probe NEVER un-drafts (stays draft).
 #   --kind feature|probe   the run kind (default feature).
 #   --max-iterations N the panel/fix loop give-up bound (default 6).
+#   --max-resumes N    give-up bound on still-pending re-posts of a CI-blocking
+#                      stage (default 6). A repo whose PRs attach NO checks at all
+#                      (only push-triggered workflows) never goes terminal, so the
+#                      clean/fix stage would otherwise re-post forever, one whole
+#                      CI deadline per round. The bound turns that into a loud halt.
 #   --by ROLE          provenance for created_by (default $GARDEN_SENDER or producer).
 #
 # Idempotent on <g>: if the record (or a completed tada/<g>) already exists the post
@@ -43,7 +48,7 @@ post-gauntlet.sh — record a staged gauntlet run over a PR.
 
 Usage:
   post-gauntlet.sh [--build-job <base>] [--probe] [--kind feature|probe]
-                   [--max-iterations N] [--by ROLE] <g> <pr-url>
+                   [--max-iterations N] [--max-resumes N] [--by ROLE] <g> <pr-url>
 
   <g>                 the gauntlet base (deterministic, stable across re-triggers).
   <pr-url>            the PR (full …/pull/<N> URL or short <owner>/<repo>#<N>).
@@ -51,6 +56,7 @@ Usage:
   --probe             shorthand for --kind probe (a probe never un-drafts).
   --kind feature|probe   the run kind (default feature).
   --max-iterations N  panel/fix loop give-up bound (default 6).
+  --max-resumes N     give-up bound on still-pending re-posts of a stage (default 6).
   --by ROLE           created_by provenance (default $GARDEN_SENDER or producer).
 EOF
 }
@@ -58,6 +64,7 @@ EOF
 build_job=""
 kind="feature"
 max_iterations=6
+max_resumes=6
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -68,6 +75,8 @@ while [ $# -gt 0 ]; do
     --kind)           kind="${2:?--kind needs feature|probe}"; shift 2;;
     --kind=*)         kind="${1#--kind=}"; shift;;
     --max-iterations) max_iterations="${2:?--max-iterations needs a number}"; shift 2;;
+    --max-resumes)    max_resumes="${2:?--max-resumes needs a number}"; shift 2;;
+    --max-resumes=*)  max_resumes="${1#--max-resumes=}"; shift;;
     --by)             by="${2:?--by needs a value}"; shift 2;;
     --)               shift; break;;
     -*)               die "unknown option: '$1' (run --help for usage)";;
@@ -86,6 +95,9 @@ case "$kind" in feature|probe) :;; *) die "illegal kind: '$kind' (feature|probe)
 case "$max_iterations" in
   ''|*[!0-9]*) die "illegal --max-iterations: '$max_iterations' (want a positive integer)";;
   0)           die "illegal --max-iterations: 0 (the loop needs at least one round)";;
+esac
+case "$max_resumes" in
+  ''|*[!0-9]*) die "illegal --max-resumes: '$max_resumes' (want a non-negative integer)";;
 esac
 
 # Parse the PR reference into <owner>/<repo> + number. parse_pr_ref accepts both a
@@ -114,6 +126,8 @@ compose() {
   printf 'stage: clean\n'
   printf 'iteration: 0\n'
   printf 'max_iterations: %s\n' "$max_iterations"
+  printf 'resumes: 0\n'
+  printf 'max_resumes: %s\n' "$max_resumes"
   printf 'current_child: \n'
   printf 'state: pending\n'
   printf 'created_by: %s\n' "$by"
@@ -137,7 +151,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   compose > "$DIR/$JOBS_GAUNTLET/$base.md"
   git -C "$DIR" add "$JOBS_GAUNTLET/$base.md"
   if commit_and_push "$DIR" "gauntlet($base) recorded [$kind, pr #$pr_number] by $GARDEN"; then
-    log "recorded gauntlet '$base' ($kind, $repo#$pr_number, max_iterations=$max_iterations)"
+    log "recorded gauntlet '$base' ($kind, $repo#$pr_number, max_iterations=$max_iterations, max_resumes=$max_resumes)"
     exit 0
   fi
   log "post-gauntlet of '$base' lost a push race (attempt $attempt); re-syncing"
