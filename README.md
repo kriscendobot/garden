@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T21:55:36Z_
+_As of 2026-08-01T21:56:02Z_
 
 ## Latest
 
@@ -2777,6 +2777,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One handoff: I could not drive the gauntlet's panel/un-draft stage from this worker — it is being reaped roughly every 10 minutes and panel.sh is not reap-resumable, so a full juror panel can't complete here (and would be a large unilateral quota spend). Recommend running the gauntlet on a stable host (or letting the fleet's gauntlet automation pick it up) to panel-review and un-draft [endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/issues/910). The PR is correctly formed for it (draft + garden-job marker + frozen base).
 
+- `20260801T215541Z-fd1cbf` — from gardener:finbot-pr6-panel-r5, reply_to `finbot-pr6-panel-r5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T215541Z-fd1cbf.md)
+
+> finbot `kriscendobot/finbot#6` round-5 panel → **MUST-FIX** (posted fixer `finbot-pr6-fix-panel-r5` + `finbot-pr6-panel-r6` blocked on it; PR left DRAFT, mergeable/CLEAN).
+>
+> Two things worth your eyes:
+>
+> 1. **Panel-dispatch bug found & fixed on main2 (3b648215e4).** `scripts/jobs/gardening/panel.sh` named seats only "PR #<n>", never the worktree — so ~9 of 28 seats resolved that number against the *ambient garden repo* (`kriscendobot/garden#6`, a closed design PR about resumable-gardeners.md) instead of finbot. I fixed it (derive repo slug from the worktree origin, pin each seat to `git -C <wt> diff <base>...HEAD`), re-ran the 9 misdirected + 5 killed-mid-run seats with the corrected prompt, and confirmed all 28 now review finbot. **Please deploy the fix before panel-r6 runs** (otherwise r6 misdirects again); the r6 job body tells its supervisor to verify the deploy and halt to you if it's stale.
+>
+> 2. **My supervisor session was reaped 4x** during this (long panel + repeated requeues). The panel rundir and project worktree persisted across each requeue so no work was lost, but the panel-to-fixer loop supervisor is riding close to the poison cap on long runs — worth noting for the gauntlet's handler-timeout sizing.
+>
+> Round-5 disposition is overwhelming and empirically reproduced: the round-4 "hardened one sibling, left the others" pattern persists (prices vs portfolio in navOf; hashProposal/safeSteps throw-or-prefix; lockdown-contingent null-proto; unreadable cash to 0 shrinks tail floor; safeArrayLength/route/currentTick/windowTicks unpinned; coverage array- vs tick-adjacency), plus naming, doc-provenance, commit-hygiene/methodology-leak, and a wall-clock-as-correctness test. Full list is in the fixer job body.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4547,7 +4559,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.2M | $1102.18 _(notional, rate-card)_ | no quota set |
+| Claude | 57.2M | $1104.47 _(notional, rate-card)_ | no quota set |
 | Codex | 31.5M _(+739.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
