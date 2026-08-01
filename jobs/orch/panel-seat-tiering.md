@@ -2,7 +2,7 @@
 order: serial
 children: panel-seat-tiering-gather panel-seat-tiering-assess panel-seat-tiering-react
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-01T08:49:13Z
 ---
