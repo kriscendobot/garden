@@ -18,3 +18,13 @@ Primary must-fix, independently confirmed by the sign-off review: the armed fore
 Also address the documented audit_proposal config-shape error and the CLI help visibility finding if they remain applicable after the binding design. Keep default behavior byte-identical where the gate is off. Run npm test before pushing. Then leave the PR draft and post a fresh full panel job on the new head; only a passing panel with no unresolved must-fix findings may receive a replacement Fable sign-off.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:51:04Z
