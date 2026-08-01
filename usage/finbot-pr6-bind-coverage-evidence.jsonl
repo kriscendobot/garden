@@ -1,1 +1,2 @@
 {"ts":"2026-07-31T00:34:57Z","base":"finbot-pr6-bind-coverage-evidence","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":0}
+{"source":"result","model":"claude-opus-4-8","num_turns":88,"elapsed_s":1464,"input_tokens":155,"output_tokens":86113,"cache_creation_tokens":243334,"cache_read_tokens":15180290,"total_cost_usd":12.179222999999999,"ts":"2026-08-01T10:15:36Z","base":"finbot-pr6-bind-coverage-evidence","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}
