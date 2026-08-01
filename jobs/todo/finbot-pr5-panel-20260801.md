@@ -49,15 +49,3 @@ Per merge governance (2026-07-22, as amended 2026-08-01), this increment lands o
 after BOTH a passing panel and an orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
-<!-- garden-outage-cycle -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:53:26Z

@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 handler-timeout: 10800
 ---
@@ -72,14 +73,3 @@ press (`schedules/xs2rust-endor-press.md`), all stale-claimed by a local hermit 
 stopped at 22:06:57Z. The schedule itself has since been repointed to Claude.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:00:03Z

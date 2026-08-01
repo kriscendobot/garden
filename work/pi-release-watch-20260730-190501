@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 3
-worker_kind: gardener
-claimed_at: 2026-08-01T10:53:45Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-pi-release-watch-20260730-190501

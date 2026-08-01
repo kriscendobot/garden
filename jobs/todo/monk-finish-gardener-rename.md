@@ -79,15 +79,3 @@ run on each host. This job changes neither a deployed checkout nor a live unit â
 hand the deploy/cutover back to the liaison.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
-<!-- garden-outage-cycle -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:53:19Z
