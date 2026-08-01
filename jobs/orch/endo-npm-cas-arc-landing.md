@@ -1,4 +1,5 @@
 ---
+child-ebfb-pr882-bootstrap-generators-reap-count: 0
 order: serial
 children: ebfb-pr882-bootstrap-generators ebfb-pr873-lint-fix ebfb-pr875-review-response ebfb-pr876-conduct ebfb-pr877-rebase ebfb-pr878-rebase
 on-child-failure: halt
