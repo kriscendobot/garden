@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T15:12:24Z_
+_As of 2026-08-01T15:13:26Z_
 
 ## Latest
 
@@ -4516,8 +4516,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.9M | $832.92 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+747.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 42.0M | $835.79 _(notional, rate-card)_ | no quota set |
+| Codex | 31.6M _(+747.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
@@ -4528,20 +4528,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (5)
-- [`endo-npm-cas-registry-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260801-150502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`finbot-pr6-panel-r3-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-r3-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (post-f...
 - [`ocapn-noise-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-150502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4106)
+### tada (4107)
+- [`endo-npm-cas-registry-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-150502.md) — Completion report — endo-npm-cas-registry-press-20260801-150502
 - [`finbot-progress-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260801-150502.md) — Completion report — finbot progress cycle (15:05 dispatch)
 - [`endo-vfs-parity-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260801-150502.md) — Cost
 - [`endo-byte-array-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260801-150502.md) — Completion report — byteArray press, dispatch 2026-08-01T15:05Z
 - [`endo-git-integration-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-150502.md) — Completion report
-- [`finbot-pr6-fix-panel-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r2.md) — Completion report
-- … and 4101 more
+- … and 4102 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
