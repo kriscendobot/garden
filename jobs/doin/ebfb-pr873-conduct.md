@@ -29,3 +29,13 @@ do not merge on a stale approval. That discipline is why this PR is still open.
 
 This is bot-repo work on endojs/endo-but-for-bots and authorizes the merge action. It is NOT
 a ferry and requires no identity switch.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:57:31Z
