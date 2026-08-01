@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 4
+deadline_overruns: 2
+poisoned_at: 2026-08-01T11:43:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:43:04Z
+---
+
+---
 model: opus
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:02:13Z cleared=none -->
@@ -68,16 +82,5 @@ ONLY (never inbox-send the parked supervisor); keep PR DRAFT; zero pushes.
 
 
 
-<!-- garden-reaped: 3 -->
 
 <!-- garden-deadline-overrun: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:34:03Z

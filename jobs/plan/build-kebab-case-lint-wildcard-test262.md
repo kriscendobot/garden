@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 3
+deadline_overruns: 1
+poisoned_at: 2026-08-01T11:43:03Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:43:03Z
+---
+
+---
 role: builder
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:35:38Z cleared=deadline-overrun=1 -->
@@ -64,16 +78,5 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 `tada` report links #2947, quotes the resolved erights feedback, names the frozen-base sha, and shows
 the before/after exemptions line count.
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:35:57Z

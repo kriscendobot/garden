@@ -62,15 +62,4 @@ mount.test.js / endo.test.js pass (cite the counts); push to the PR head
 branch; then post inline replies to BOTH review comments (ids 3560627735 and
 3560633818) citing the resolving commit (skills/pr-review-thread-replies).
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:36:04Z
+<!-- garden-reaped: 4 -->
