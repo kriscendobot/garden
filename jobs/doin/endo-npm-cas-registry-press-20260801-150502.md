@@ -43,3 +43,13 @@ Selection** for version resolution. The CAS is the cache of the registry.
 4. No bar is "green" without **real-execution evidence** — e.g. an actual `endor run`
    of a program with a real npm dependency, fetched-then-cached, with the command and
    its output cited. Reading code is not proof.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T15:05:48Z
