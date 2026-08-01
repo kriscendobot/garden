@@ -153,8 +153,18 @@ fi
 PANEL_RECORD_WRITER="${GARDEN_PANEL_RECORD:-$HERE/../panel-run-record.sh}"
 PANEL_RECORD_REPO="${GARDEN_PANEL_REPO:-}"
 if [ -z "$PANEL_RECORD_REPO" ]; then
+  # Every remote-URL form git accepts must reduce to the SAME `<owner>/<repo>`,
+  # because that string is the record's store key: a form the strip misses keys
+  # the run under a different `panel-runs/<slug>-<pr>/` directory and silently
+  # FRAGMENTS the archive the record exists to build. The fleet's project
+  # worktrees carry `ssh://git@github.com/<owner>/<repo>.git` origins, which the
+  # scp-form and https patterns both miss, so one repo accumulated runs under two
+  # slugs (`ssh---git-github.com-endojs-endo-but-for-bots-<pr>` alongside
+  # `endojs-endo-but-for-bots-<pr>`, the latter only when a caller passed
+  # GARDEN_PANEL_REPO) and a query by repo saw half its history.
   PANEL_RECORD_REPO="$(git -C "$wt" remote get-url origin 2>/dev/null \
-    | sed -E 's#^git@[^:]+:##; s#^https?://[^/]+/##; s#\.git$##')" || PANEL_RECORD_REPO=""
+    | sed -E 's#^git@[^:]+:##; s#^ssh://[^/]+/##; s#^https?://[^/]+/##; s#\.git$##')" \
+    || PANEL_RECORD_REPO=""
   [ -n "$PANEL_RECORD_REPO" ] || PANEL_RECORD_REPO="$(basename "$wt")"
 fi
 PANEL_DISPOSITION=error            # overwritten at each terminal path (default: unexpected exit)
