@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T18:54:17Z_
+_As of 2026-08-01T18:55:50Z_
 
 ## Latest
 
@@ -4523,7 +4523,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.4M | $913.03 _(notional, rate-card)_ | no quota set |
+| Claude | 46.9M | $917.29 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+741.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4535,9 +4535,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`finbot-pr6-panel-r3-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-r3-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (post-f...
+- [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T1...
 
 ### tada (4109)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr824-build.md) — What changed
@@ -4623,7 +4624,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-press-20260731-192002.md) — _normal_ · Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
-- [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — _normal_ · ---
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
