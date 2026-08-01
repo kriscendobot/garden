@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":53,"elapsed_s":698,"input_tokens":92,"output_tokens":38125,"cache_creation_tokens":144114,"cache_read_tokens":5557079,"total_cost_usd":5.1759975,"ts":"2026-08-01T10:21:36Z","base":"fix-scholar-staging-per-job-isolation","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
