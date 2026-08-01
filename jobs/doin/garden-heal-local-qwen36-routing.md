@@ -82,3 +82,13 @@ whether any `qwen3:0.6b` occurrence remains and why. Note in your report that bo
 converge on this fix only at their next deliberate deploy.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:26:56Z
