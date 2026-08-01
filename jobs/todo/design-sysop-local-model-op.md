@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: sysop-local-model-provisioning
-priority: normal
-posted_by: producer
-posted_at: 2026-08-01T08:48:58Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-01T08:52:22Z cleared=none -->
 
 ---
 role: designer
