@@ -17,3 +17,13 @@ After B4, implement B5 from designs/mcp-daemon-guest-tools.md §7. Delete minion
 Validation required at deployed edge: a fresh tools/list has only guest_* tools, then rerun full E1-E4 sweep green. Report concrete command/run evidence.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:03:56Z
