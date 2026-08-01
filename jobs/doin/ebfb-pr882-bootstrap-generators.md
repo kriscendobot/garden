@@ -23,3 +23,13 @@ If that is out of scope for landing #882, say so in your report and leave it for
 
 Consider whether a CI job that builds the xsnap crate is worth proposing, since its absence is
 what let this regress unnoticed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-01T08:31:14Z
