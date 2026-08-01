@@ -1,0 +1,22 @@
+---
+gate: orchestrated
+orchestrated_by: endo-npm-cas-arc-landing
+priority: normal
+posted_by: producer
+posted_at: 2026-08-01T08:26:27Z
+---
+
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Repo: endojs/endo-but-for-bots (base `llm`)
+PR: https://github.com/endojs/endo-but-for-bots/pull/875 (OPEN, un-drafted, package imports field)
+
+#875 has all CI checks green but carries a CHANGES_REQUESTED review. Read the review threads,
+address the requested changes as follow-up commits (see skills/review-feedback-followup-commits),
+reply to each thread, get the review resolved, and land the PR.
+
+Ordering note: #875 and #876 both touch `EXPORTS_RESOLVER_JS`. This job runs BEFORE the #876
+conductor job in the orchestration, so land #875 first; #876 will take the rebase.
