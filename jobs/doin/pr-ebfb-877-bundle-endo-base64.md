@@ -11,3 +11,13 @@ role: fixer
 Address the inline CHANGES_REQUESTED feedback on rust/endo/xsnap/src/lib.rs: get substantially more leverage from the existing @endo/base64 implementation through bundling instead of duplicating base64 behavior in Rust. Inspect the surrounding dual-build execution and text-endowment boundary, choose a bundle/interface that preserves confinement, deterministic startup, error semantics, byte/text distinctions, and clean-checkout reproducibility, and minimize bespoke Rust codec logic. Reuse shared fixtures or parity assertions so @endo/base64 remains the behavioral oracle, including valid encodings, malformed input, padding/alphabet edge cases, and relevant SES/XS behavior. Rebase before an additive review-feedback commit, run affected Rust/JS tests and canonical lint, push with CAS discipline, reply in the inline thread with the change and evidence, update the PR completion summary, and keep the PR draft until its normal gauntlet completes.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:24:01Z
