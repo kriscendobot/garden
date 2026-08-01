@@ -81,6 +81,7 @@ with a per-seat table, the error-rate analysis, an explicit confidence grade per
 claim, and a clearly-marked list of questions the data CANNOT answer. Recommend
 nothing here.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
