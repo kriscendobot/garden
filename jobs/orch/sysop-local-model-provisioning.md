@@ -1,4 +1,5 @@
 ---
+child-design-sysop-local-model-op-host: endolin-garden-ece02cb4
 child-design-sysop-local-model-op-reap-count: 0
 order: serial
 children: design-sysop-local-model-op build-sysop-local-model-op
