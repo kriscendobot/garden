@@ -13,6 +13,7 @@ Wear roles/weaver/AGENT.md. In the isolated project worktree for this job, fetch
 
 Push the integration branch and open a DRAFT PR against `llm` titled `chore: merge upstream master into llm (2026-08-01)`. The PR body must summarize the upstream delta and every notable conflict resolution. Run proportionate local verification before pushing and report the exact commands/results plus the initial CI state. Do not merge or un-draft the PR in this job. Do not modify endojs/endo-but-for-bots#626; the review's TextDecoder observation is context for after the integration lands, not authorization to change the parked Phase-5 draft.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
