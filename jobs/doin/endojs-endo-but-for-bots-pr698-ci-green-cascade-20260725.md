@@ -30,3 +30,13 @@ and the zizmor pin comments. Do, in order:
 
 Done = this PR rebased on its predecessor, checks green (or sole residual
 documented with evidence), draft preserved.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:54:11Z
