@@ -1,4 +1,18 @@
 ---
+gate: deferred
+priority: normal
+posted_by: liaison
+posted_at: 2026-08-01T10:00:47Z
+---
+# HELD — stale, do not run as written
+
+STALE HEAD: this panel targets kriscendobot/finbot#5 at head 468b774b, but the live head is c1427a66. A governance panel run against a stale head yields a verdict on code that is not under review — worse than no verdict. Re-issue the panel at the CURRENT head if it is still wanted.
+
+Parked by the liaison 2026-08-01: promoted mechanically during the outage-recovery sweep without a freshness check against live PR state. Flagged by finbot-progress-20260801-090502.
+NOTE: the body below still embeds the OLD Fable-pinned sign-off instruction (dispatch finbot-prN-fable-signoff, model claude-fable-5). Per the 2026-08-01 directive that pin is removed; a passing panel should dispatch a plain role: orchestrator sign-off at tier mentor with no model pin. Fix that before any re-issue.
+
+---- original body ----
+---
 role: builder
 model: gpt-5.6-terra
 ---
