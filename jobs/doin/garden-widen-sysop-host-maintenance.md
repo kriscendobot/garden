@@ -86,3 +86,13 @@ edited script. Do NOT run a real `gc --force` against `$GARDEN_ROOT` from a test
 Name the landed main2 revision, the exact `send-host-op.sh` invocation an operator would
 run to repair `endolin-garden-ece02cb4`, and what still needs a human. State what you did
 about the overlapping parked orchestration.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:16:16Z
