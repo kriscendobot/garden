@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:22:25Z_
+_As of 2026-08-01T09:24:30Z_
 
 ## Latest
 
@@ -2813,18 +2813,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $687.64 _(notional, rate-card)_ | no quota set |
+| Claude | 32.8M | $688.11 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
-### todo (59)
+### todo (58)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-readableblob-range-attenuation.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
-- [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260801-090502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — cascade: rebase PR #698 onto its moved predecessor and drive its CI green
@@ -2848,6 +2846,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
 - [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-heal-local-qwen36-routing.md) — Heal the local-inference model pin: qwen3:0.6b is a phantom
+- [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-widen-sysop-host-maintenance.md) — Widen the sysop to a host-directed MAINTENANCE op class
 - [`gauntlet-endo-but-for-bots-pr661-agent-tools-http-client`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-endo-but-for-bots-pr661-agent-tools-http-client.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-endo-but-for-bots-pr694-daemon-docker-self-hosting.md) — ---
 - [`gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/gauntlet-endo-but-for-bots-pull-request-707-git-capability-worked-version-controlled-filesystem-loop.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
@@ -2881,19 +2880,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (7)
 - [`design-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-sysop-local-model-op.md) — Design: a host-addressed local-model provisioning op for the sysop
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`ebfb-pr882-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr882-land.md) — ---
 - [`endo-byte-array-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260801-090502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-git-integration-press-20260801-090502.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260801-090502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-press-20260801-090502.md) — Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
+- [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-090502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4047)
+### tada (4049)
+- [`endo-git-integration-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-090502.md) — Cost
+- [`ebfb-pr882-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr882-land.md) — Completion report
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260801-070501.md) — Cost
 - [`endo-npm-cas-arc-landing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-arc-landing.md) — orchestration endo-npm-cas-arc-landing — HALTED
 - [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr704-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`endo-sturdyref-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260801-030502.md) — Cost
-- [`endo-npm-cas-registry-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-030502.md) — Cost
-- … and 4042 more
+- … and 4044 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
