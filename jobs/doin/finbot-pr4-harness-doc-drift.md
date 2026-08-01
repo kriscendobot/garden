@@ -9,3 +9,13 @@ Task (fixer, small doc-only change on a fresh branch off `main`): `packages/harn
 - The Module map lists only `sandbox/permissive.js`. Two modules added in the merged range are missing: `sandbox/role-worker.js` (the per-turn worker that evaluates the program in a hardened Compartment) and `sandbox/boundary.js` (shared host/worker boundary primitives — `ensureLockdown`, `buildGlobalsFromTokens`, `copyJsonData` — extracted so the two sides cannot drift).
 - Also reflect that the attenuator is now the **sole** narrowing point for ambient globals as well as the tool slice (f5d1f91), and that a program's tool grants are denied when omitted (b70fb80).
 Keep it to README prose + module map; do not change harness behavior. `designs/cap-attenuation.md` was already updated in the same range — read it for the authoritative wording and stay consistent with it rather than inventing new terms. Verify locally per skills/local-verify before opening the PR.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:04:35Z
