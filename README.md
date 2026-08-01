@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T11:07:51Z_
+_As of 2026-08-01T11:09:45Z_
 
 ## Latest
 
@@ -2661,6 +2661,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >  (c) merge the stack first (B3 is draft) so CD deploys it, then validate.
 >
 > I've left the same summary as a comment on PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20). Holding here pending your call.
+
+- `20260801T110926Z-9f7599` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T110926Z-9f7599.md)
+
+> Closing out the B5 builder instance (not actively holding a worker anymore — the reaper kept requeuing it against a human gate, and the board has no park slot for a claimed job).
+>
+> Where B5 stands: code complete + locally green on PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20); the required deployed-edge validation is NOT done and is waiting on YOUR call (deploying the still-DRAFT B3->B4->B5 stack to the live 5-tenant box, plus federated user tokens / Gate-1 for E1-E4, plus live daemon restart (E3) and account suspension (E4) — none of which I'll do to production unilaterally).
+>
+> No action from me is pending. When you want it finished, pick a path from my earlier message (a: authorize me to SSM-deploy + mint/hand a token and I run tools/list + E1-E4; b: you validate at the edge; c: merge the stack so CD deploys, then validate) and re-post/promote the B5 job — a gardener will pick it up and run the deployed-edge sweep.
 
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
