@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T22:21:05Z_
+_As of 2026-08-01T22:23:02Z_
 
 ## Latest
 
@@ -4576,17 +4576,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #910
+### doin (1)
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fix-panel-r5.md) — Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
 
-### tada (4119)
+### tada (4120)
+- [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Cost
 - [`finbot-pr6-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r5.md) — Cost
 - [`finbot-pr6-fix-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-clean.md) — Cost
 - [`finbot-pr6-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r4.md) — Completion report — finbot-pr6-panel-r4
-- [`self-heal-fix-garden-mentor-malformed-semantic-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-malformed-semantic-output.md) — Completion report
-- … and 4114 more
+- … and 4115 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
