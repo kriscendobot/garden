@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T19:35:11Z_
+_As of 2026-08-01T19:45:58Z_
 
 ## Latest
 
@@ -4545,7 +4545,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.6M | $915.96 _(notional, rate-card)_ | no quota set |
+| Claude | 46.6M | $917.47 _(notional, rate-card)_ | no quota set |
 | Codex | 31.5M _(+739.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4557,18 +4557,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #910
-- [`finbot-pr6-fix-panel-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fix-panel-r3.md) — Fix the round-3 panel must-fix findings on kriscendobot/finbot PR #6
 
-### tada (4111)
+### tada (4112)
+- [`finbot-pr6-fix-panel-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r3.md) — Completion report
 - [`finbot-pr6-panel-r3-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r3-20260801.md) — Completion report — finbot-pr6-panel-r3-20260801
 - [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — Completion report
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr824-build.md) — What changed
 - [`ocapn-noise-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-noise-press-20260801-150502.md) — Completion report
-- [`endo-npm-cas-registry-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-150502.md) — Completion report — endo-npm-cas-registry-press-20260801-150502
-- … and 4106 more
+- … and 4107 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
