@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":9,"elapsed_s":353,"input_tokens":16,"output_tokens":21703,"cache_creation_tokens":31820,"cache_read_tokens":994216,"total_cost_usd":1.357963,"ts":"2026-08-01T11:09:57Z","base":"minion-town-mcp-b5-retire-toy-tools","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}
