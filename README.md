@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T08:25:57Z_
+_As of 2026-08-01T08:27:29Z_
 
 ## Latest
 
@@ -450,14 +450,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Follow-ups: the parked/poisoned jobs/plan/endojs-endo-but-for-bots-pr806-conduct.md is now moot and can be discarded. I posted the deferred weave for [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) (job endojs-endo-but-for-bots-pr340-weave) so the transport PR gets rebased onto llm with the merged fix's semantics; the stacked [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) / [endojs/endo-but-for-bots#688](https://github.com/endojs/endo-but-for-bots/issues/688) / [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) ride on that branch.
 
-- `20260726T174828Z-0105d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T174828Z-0105d4.md)
-
-> Report endo-npm-cas-registry-press-20260726-172007 flags **workspace-protocol resolution** (`workspace:*` ranges for monorepo members) as the one unaddressed known gap and the natural next feature increment on the endo npm CAS registry — no PR covers it yet. Want me to post a designer/builder (or probe) job to start it, or park it?
-
-- `20260726T174833Z-9a139c` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T174833Z-9a139c.md)
-
-> Report endo-npm-cas-registry-press-20260726-172007 notes four green gap drafts — endojs/endo-but-for-bots #857, #859, #860, #862 — ready whenever you want them run through the gauntlet. Say the word and I'll post the gauntlet jobs.
-
 - `20260726T191230Z-6b2ff0` — from gardener:proposal-compartments-press-20260726-190502, reply_to `proposal-compartments-press-20260726-190502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T191230Z-6b2ff0.md)
 
 > proposal-compartments daily press (2026-07-26): the effort has hit a strategic fork on the fifth finish-line bar (four-engine native agreement) that needs your call.
@@ -517,10 +509,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > binding unforgeable); [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) adds the guard/escrow
 > regression tests for the agent surface.
 
-- `20260726T235837Z-244282` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T235837Z-244282.md)
-
-> The endo npm/CAS-registry arc now has a PR for every actionable known gap — #857, #859, #860, #862, and #873 on endojs/endo-but-for-bots — and the remaining press work is landing them through the gauntlet, which is gated on your promotion. Please promote whichever of these you want run through the gauntlet next (the two deliberate non-goals, install scripts and native modules, need no action).
-
 - `20260727T033826Z-0c1538` — from gardener:esheets-supervisor-20260727-033502, reply_to `esheets-supervisor-20260727-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T033826Z-0c1538.md)
 
 > esheets standup (2026-07-27): Foundations green + mergeable but awaiting your merge — [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) (@endo/fetch network floor, 24/24 checks green) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) (endoclaw-oauth design refinement, green). Neither is merged into llm yet; both are the blocking maintainer decision. No sheets/oauth/fetch packages exist under packages/ on llm.
@@ -528,10 +516,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Today I pushed the deepest UNBLOCKED node forward: posted builder job build-endo-google-sheets-client for the plain @endo/google-sheets REST client (injected fetch, stub-tested) — independent of the unmerged foundations, so it can build/merge now. This splits a smaller scope after the combined build-exo-google-sheets job exhausted its requeues (now parked/poisoned in plan/, gate go-ahead).
 >
 > Blocking you: (1) merge [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) and [endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621) to unblock the OAuth implementation (still design-stage) and the exo layer; (2) whether to re-promote build-exo-google-sheets or let the exo layer wait for the plain client + OAuth impl. Webhooks/push stays deferred per design. Nothing else actionable until a merge or your call.
-
-- `20260727T055826Z-fe8913` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T055826Z-fe8913.md)
-
-> Report endo-npm-cas-registry-press-20260727-053502: four gap drafts in endojs/endo-but-for-bots are green and clean against the new HEAD but held draft awaiting your promotion — #857 (peer/optional deps), #859 (process shim), #860 (npmrc auth), #873 (workspace protocol). Do you want to promote any of these to land? (#862 CLI is already done.)
 
 - `20260727T062257Z-a870b5` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T062257Z-a870b5.md)
 
@@ -541,14 +525,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > triager: fetch for kriscendobot-proposal-compartments at /home/kris/garden/worktrees/kriscendobot-proposal-compartments.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-proposal-compartments cannot be triaged until it is restored.
 
-- `20260727T115833Z-39a22e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T115833Z-39a22e.md)
-
-> Report `endo-npm-cas-registry-press-20260727-113510` (endojs/endo-but-for-bots) has two items needing your call:
->
-> 1. Five gap drafts are held awaiting your promotion — #857, #859, #860, #873, and the new #875. Once you approve any of them, the plan is to land on the #862 pattern (verify on the exact merged tree, merge, provenance comment). Which, if any, should I promote?
->
-> 2. Two probe findings were recorded but not pressed, and the report flags a design note is wanted before any code: (a) nanoid's `node:crypto`/webcrypto — builtin-shim vs. browser-condition policy; and (b) missing `Intl` in XS compartments (engine arc's surface). Want me to post a designer job for a design note on either, or park them?
-
 - `20260727T133450Z-8754ba` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T133450Z-8754ba.md)
 
 > triager: fetch for kriscendobot-ocapn at /home/kris/garden/worktrees/kriscendobot-ocapn.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-ocapn cannot be triaged until it is restored.
@@ -556,14 +532,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260727T173549Z-172280` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T173549Z-172280.md)
 
 > triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
-
-- `20260727T180817Z-609184` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T180817Z-609184.md)
-
-> endo-npm-cas-registry press (report endo-npm-cas-registry-press-20260727-175002): six gap drafts on endojs/endo-but-for-bots are held awaiting your promotion — #857, #859, #860, #873, #875, and new #876 — to land on the #862 pattern. Heads-up: #875 and #876 both touch EXPORTS_RESOLVER_JS, so whichever you promote second takes a trivial rebase plus a one-line extra-conditions splice. Please say which to promote (and in what order).
-
-- `20260727T180823Z-d67dd9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T180823Z-d67dd9.md)
-
-> endo-npm-cas-registry press (same report): the default-condition-set policy for still-open web-global gaps — TextEncoder/TextDecoder, crypto.subtle, atob/btoa/URL (and Intl on the engine arc) — needs your word: browser-by-default vs opt-in vs node-shims. The gaps are recorded but blocked on this policy call before further drafts.
 
 - `20260727T191211Z-927bea` — from gardener:proposal-compartments-press-20260727-190507, reply_to `proposal-compartments-press-20260727-190507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T191211Z-927bea.md)
 
@@ -587,14 +555,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T005942Z-b6ecc2` — from watchdog:triager/kriscendobot-chrome-native-function-caller-arguments-repro, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T005942Z-b6ecc2.md)
 
 > triager: fetch for kriscendobot-chrome-native-function-caller-arguments-repro at /home/kris/garden/worktrees/kriscendobot-chrome-native-function-caller-arguments-repro.git failed (rc=128). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-chrome-native-function-caller-arguments-repro cannot be triaged until it is restored.
-
-- `20260728T011828Z-6af236` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T011828Z-6af236.md)
-
-> Two decisions from report `endo-npm-cas-registry-press-20260728-004711` (npm CAS registry press, endojs/endo-but-for-bots):
->
-> 1. **Seven gap drafts are held for your promotion**: #857, #859, #860, #873, #875, #876, #877. They stay draft until you say otherwise. I've posted a job to confirm #877's CI lands green, but no promotion.
->
-> 2. **#876's default-conditions policy awaits your word** — [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876). The press cannot proceed on the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`) with confidence until that policy call is made.
 
 - `20260728T064148Z-f821b9` — from gardener:garden-repo-transfer-followthrough, reply_to `garden-repo-transfer-followthrough` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T064148Z-f821b9.md)
 
@@ -666,10 +626,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T065717Z-7c3b61` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065717Z-7c3b61.md)
 
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
-
-- `20260728T065948Z-3a877e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065948Z-3a877e.md)
-
-> The npm-CAS-registry press arc has **seven** gap drafts sitting green, clean, and deliberately held in draft awaiting your promotion: endojs/endo-but-for-bots #857 (peer/optional deps), #859 (process shim), #860 (npmrc auth), #873 (workspace protocol), #875, #876, and #877. Reports `endo-npm-cas-registry-press-20260727-175002` and `-20260728-004711` note the promotion order matters slightly — #875/#876 both touch `EXPORTS_RESOLVER_JS` and #876/#877 both touch `__archiveEndowments`, so whichever lands second in each pair takes a trivial rebase. Do you want them run through the gauntlet (the #862 pattern: verify on the exact merged tree, merge, provenance comment), and in what order? Separately, #876 is blocked on your word on the **default-condition-set policy** — browser-by-default vs opt-in vs node-shims — which also governs the remaining web-global gaps (`URL`/`URLSearchParams`, `crypto.subtle`, streaming/`fatal` decoder fidelity, `encodeInto`). I have posted a job to write a design note on the `node:crypto`/webcrypto case to inform that call.
 
 - `20260728T065954Z-dce64f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065954Z-dce64f.md)
 
@@ -743,10 +699,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > (unlinkable per-guest mints), **opaque-and-unforgeable**;
 > [endojs/endo-but-for-bots#871](https://github.com/endojs/endo-but-for-bots/issues/871) carries the agent-surface guard/escrow regression
 > tests, green inside the 21/21 rollup cited above.
-
-- `20260728T071906Z-9c5d90` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T071906Z-9c5d90.md)
-
-> Eight gap drafts from report `endo-npm-cas-registry-press-20260728-065010` are held in draft awaiting your promotion decision in `endojs/endo-but-for-bots`: #857, #859, #860, #873, #875, #876, #877, and the new #878. Separately, the default-conditions policy question on #876 still needs your word before the remaining web-global gaps (`crypto.subtle`, streaming/`fatal` `TextDecoder` fidelity, `encodeInto`) are worth pressing further.
 
 - `20260728T072431Z-c67da0` — from gardener:finbot-progress-20260727-175002, reply_to `finbot-progress-20260727-175002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T072431Z-c67da0.md)
 
@@ -1722,10 +1674,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > I re-ran the semantic harness at proposal PR 2 head 64c0962 against test262 63b7e7c: 9 passed, 0 failed, 1 blocked. The blocked import-defer/TLA family requires native synchronous deferred evaluation. The strict ecmarkup build also passed locally.
 >
 > The binding Node checklist still has two design shortfalls: synchronous infrastructure-error separation for a host loader API, and a synchronous non-TLA evaluation path. Please choose whether the minimal proposal should add a host-only synchronous evaluation operation, or leave that operation to a later host-loader layer and revise the completion criterion accordingly. Native v8, JSC, XS, and endor remain blocked at source-phase-import parsing, so none is verified green.
-
-- `20260728T233818Z-59d5d4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T233818Z-59d5d4.md)
-
-> Report `endo-npm-cas-registry-press-20260728-192002` reports its arc is review-blocked, not build-blocked: the draft stack can reach the finish line as-is, but landing order requires the #857/#873 adaptation to be folded into the later of the two PRs. That's a landing/sequencing decision on endojs/endo-but-for-bots that needs your call before a gardener touches the stack — please confirm which PR should absorb the adaptation, or say to leave the stack parked pending your review.
 
 - `20260729T003528Z-fc6c03` — from gardener:endojs-endo-but-for-bots-pr656-shepherd, reply_to `endojs-endo-but-for-bots-pr656-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T003528Z-fc6c03.md)
 
@@ -3449,7 +3397,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $671.22 _(notional, rate-card)_ | no quota set |
+| Claude | 32.5M | $671.75 _(notional, rate-card)_ | no quota set |
 | Codex | 31.8M _(+758.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
