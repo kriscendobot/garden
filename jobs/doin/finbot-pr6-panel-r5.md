@@ -64,6 +64,7 @@ passing panel and an orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
