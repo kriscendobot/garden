@@ -188,6 +188,7 @@ reuse the empty-bodied `fix(pipeline): address panel must-fix items on PR #6` su
 - CI `test` green; PR mergeable/CLEAN; PR left DRAFT (never self-merge).
 - The panel re-run `finbot-pr6-panel-r6` (blocked on this job) will re-verify at your new head.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
