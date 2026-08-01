@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T07:54:14Z_
+_As of 2026-08-01T07:56:05Z_
 
 ## Latest
 
@@ -4041,9 +4041,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 31.8M _(+758.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (134)
+### todo (133)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
-- [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260731-070502.md) — Daily midnight Pacific progress summary
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260801-070501.md) — Daily midnight Pacific progress summary
 - [`dependabotany-recheck-endo-but-for-bots-20260731-012004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260731-012004.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`dependabotany-recheck-endo-but-for-bots-20260801-013501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260801-013501.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
@@ -4178,16 +4177,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### doin (2)
-- [`arc-status-daily-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/arc-status-daily-20260801-035001.md) — Daily status + change summary for the standing review arcs
+- [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260731-070502.md) — Daily midnight Pacific progress summary
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 
-### tada (4037)
+### tada (4038)
+- [`arc-status-daily-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260801-035001.md) — Cost
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260731-033502.md) — Cost
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260730-082002.md) — Cost
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-regexp-conservative-subset.md) — Cost
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`endojs-endo-but-for-bots-pr898-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-shepherd.md) — Shepherd complete: endojs/endo-but-for-bots PR #898
-- … and 4032 more
+- … and 4033 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
