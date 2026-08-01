@@ -29,13 +29,13 @@
 #             (the handler decides), so it is keyed by a sentinel in code instead.
 #
 # Current reality (2026-07-28): garden2's local box serves ONLY qwen
-# (`qwen3:0.6b`), so hermits recognize the qwen family and default to that exact
+# (`qwen3.6`), so hermits recognize the qwen family and default to that exact
 # Ollama tag. The gpt-oss:* mapping
 # is retired (a gpt-oss job is now UNPINNED, not auto-local). Full doc + the edit
 # helper (set-model-routing.sh): skills/model-selection/SKILL.md.
 anthropic	claude-fable-5 claude-opus-5 claude-opus-4-8 claude-opus-4-8[1m] claude-opus-4-7 claude-sonnet-5 claude-sonnet-4-6 claude-haiku-4-5 claude-haiku-4-5-20251001 claude-mythos-5
 openai	gpt-5.6-sol gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra
-local	qwen3:0.6b	qwen3:0.6b
+local	qwen3.6	qwen3.6
 # Moonshot has no fleet default. Mystic claims only exact `model: kimi-k3` jobs.
 moonshot	kimi-k3
 # Fireworks has no fleet default. A reviewed exact selector is required; a new

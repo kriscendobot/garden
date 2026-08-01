@@ -108,7 +108,7 @@ mentor_codex_attempt() { # <openai|local> <prompt>
   local provider="$1" prompt="$2" kind model effort output json_capture rc
   case "$provider" in openai) kind=cleric ;; local) kind=hermit ;; *) return 20 ;; esac
   model="$(model_routing_default "$provider" 2>/dev/null || true)"
-  [ -n "$model" ] || case "$provider" in local) model=qwen3:0.6b ;; *) model=gpt-5.6-terra ;; esac
+  [ -n "$model" ] || case "$provider" in local) model=qwen3.6 ;; *) model=gpt-5.6-terra ;; esac
   codex_provider_preflight "$provider" "$kind" mentor "mentor-$provider" 0 "$model" || return 10
   effort="$(codex_effort_for_model "$model" "$(role_default_effort "$kind" mentor)")"
   output="$(mktemp "${TMPDIR:-/tmp}/garden-mentor-$provider-message.XXXXXX")"

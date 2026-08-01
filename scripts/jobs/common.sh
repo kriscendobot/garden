@@ -1100,7 +1100,7 @@ _worker_backend_probe_dispatch() {
     local)
       declare -F codex_local_endpoint_ready >/dev/null 2>&1 || source "$handlers/codex-provider-common.sh"
       command -v codex >/dev/null 2>&1 || { echo "codex not on PATH (hermit backend)" >&2; return 1; }
-      model="$(model_routing_default local 2>/dev/null || true)"; : "${model:=qwen3:0.6b}"
+      model="$(model_routing_default local 2>/dev/null || true)"; : "${model:=qwen3.6}"
       # READ-ONLY: endpoint reachable AND serving a usable model; does NOT self-heal
       # (that starts garden-ollama.service per job — the scaler must stay cheap).
       codex_local_endpoint_ready "$model" \
@@ -4455,7 +4455,7 @@ _model_routing_table() {
   printf '%s\n' \
     'anthropic	claude-fable-5 claude-opus-4-8 claude-opus-4-8[1m] claude-opus-4-7 claude-sonnet-5 claude-sonnet-4-6 claude-haiku-4-5 claude-haiku-4-5-20251001 claude-mythos-5	' \
     'openai	gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra' \
-    'local	qwen3:0.6b	qwen3:0.6b' \
+    'local	qwen3.6	qwen3.6' \
     'moonshot	kimi-k3' \
     'fireworks	fireworks/accounts/fireworks/models/glm-5p2	'
 }
@@ -4622,7 +4622,7 @@ role_default_model() {
       # The local codex-cleric. The box currently serves a single local family (qwen),
       # so every hermit role — including the heavier designer/builder — rides the
       # local fleet default from the routing table (model_routing_default local, e.g.
-      # qwen3:0.6b) rather than pinning a separate flagship tag that is not served. An
+      # qwen3.6) rather than pinning a separate flagship tag that is not served. An
       # explicit per-job `model:` always overrides. The bid auction (guide §5) — not
       # this default — is what keeps a local arm OFF high-stakes build/design on main,
       # via the human-review-$ term; this default only sets the model a hermit uses IF

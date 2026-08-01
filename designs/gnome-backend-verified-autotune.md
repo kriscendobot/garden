@@ -106,7 +106,7 @@ today checks only that the CLI is on PATH).
   `GARDEN_LOCAL_OLLAMA_URL/models`: endpoint reachable **and** serving ≥1 usable
   model (an empty Ollama store returns 200 but cannot run a job — the existing
   helper already rejects it). `$model` = this host's local fleet default
-  (`model_routing_default local`, e.g. `qwen3:0.6b`). The scaler probe is
+  (`model_routing_default local`, e.g. `qwen3.6`). The scaler probe is
   **read-only** — it does *not* call `codex_local_self_heal` (that starts
   `garden-ollama.service` per job); the unit's own `Restart=always`
   (`ollama-serve.sh`) plus the per-job self-heal already cover recovery, and the

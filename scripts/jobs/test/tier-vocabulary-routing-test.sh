@@ -15,7 +15,7 @@ bad() { echo "FAIL: $*"; fail=1; }
 [ "$(model_dispatch_tier fireworks fireworks/accounts/fireworks/models/glm-5p2)" = mentor ] && ok "Fireworks GLM 5.2 is mentor" || bad "Fireworks GLM 5.2 tier"
 [ "$(model_dispatch_tier anthropic claude-opus-4-8)" = minion ] && ok "Opus is minion" || bad "Opus tier"
 [ "$(model_dispatch_tier openai gpt-5.6-terra)" = minion ] && ok "Codex is minion" || bad "Codex tier"
-[ "$(model_dispatch_tier local qwen3:0.6b)" = myrmidon ] && ok "local is myrmidon" || bad "local tier"
+[ "$(model_dispatch_tier local qwen3.6)" = myrmidon ] && ok "local is myrmidon" || bad "local tier"
 model_dispatch_tier openai gpt-new >/dev/null 2>&1 && bad "unknown model classified" || ok "unknown model fails closed"
 [ "$(model_dispatch_tier anthropic claude-opus-5)" = mentor ] && ok "Opus 5 is mentor" || bad "Opus 5 tier"
 [ "$(model_dispatch_tier openai gpt-5.6-sol)" = mentor ] && ok "Sol is mentor" || bad "Sol tier"

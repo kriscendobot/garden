@@ -7,7 +7,7 @@ follow-up). Maintainer directive 2026-07-27.
 
 The garden runs a **local inference tier** — the **hermit** worker kind, a codex
 harness pointed at an on-box Ollama `/v1` endpoint (provider `local`, e.g.
-`qwen3.6` / `qwen3:0.6b`; see `common.sh` § local inference and
+`qwen3.6` / `qwen3.6`; see `common.sh` § local inference and
 `worker_kind_field hermit`). Local inference is nearly free, so where it is
 *adequate* it should carry the work; where it is *unfit* it wastes a claim,
 requeues, and eventually poisons the job. We do not today know **which job
