@@ -191,6 +191,7 @@ reuse the empty-bodied `fix(pipeline): address panel must-fix items on PR #6` su
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
