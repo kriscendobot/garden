@@ -77,3 +77,13 @@ unless the maintainer directs otherwise.
 
 Verify locally: `yarn workspace @endo/exo-unzip test` and
 `yarn workspace @endo/exo-zip test` both green, then confirm the CI matrix.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:59:32Z
