@@ -63,3 +63,13 @@ Per merge governance (2026-07-22, amended 2026-08-01), this increment lands only
 passing panel and an orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T21:33:15Z
