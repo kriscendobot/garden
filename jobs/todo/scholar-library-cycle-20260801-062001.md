@@ -1,7 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-08-01T06:20:01Z
-job_basename_prefix: scholar-library-cycle
----
 ---
 role: scholar
 tier: mentor
