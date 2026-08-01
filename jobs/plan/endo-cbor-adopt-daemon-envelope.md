@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-08-01T06:33:06Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T06:33:06Z
+---
+
+---
 role: builder
 tier: minion
 model-burned: mentor
@@ -101,16 +115,5 @@ goes in the PR body, and if the supersession is confirmed, amend
   first; the bridging decisions it made (writer/reader state shape, bigint-vs-number
   boundary) are precedent you should follow rather than re-litigate.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-01T05:46:56Z
