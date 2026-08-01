@@ -76,3 +76,13 @@ Name the landed main2 revision and state explicitly whether the step-8 integrity
 should also be tightened to catch a topic page missing a row for an existing section —
 that gap is what made this silent, and closing it is arguably a separate job. Recommend,
 do not silently expand scope.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:09:31Z
