@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:54:37Z_
+_As of 2026-08-01T09:55:32Z_
 
 ## Latest
 
@@ -2908,13 +2908,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.4M | $704.54 _(notional, rate-card)_ | no quota set |
+| Claude | 33.4M | $705.93 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (43)
+### todo (44)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
+- [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr875-review-response.md) — ---
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr806-conduct.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
