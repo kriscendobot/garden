@@ -1,7 +1,7 @@
 ---
 role: scholar
 ---
-<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-01T10:26:06Z cleared=none -->
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-01T10:26:11Z cleared=none -->
 
 <!-- stopgap park: scholar-staging-clone.sh uses ONE shared staging tree and hard-resets it,
      so concurrent scholar-role jobs silently destroy each other's uncommitted library edits
@@ -24,13 +24,4 @@ required integrity checks, regenerate projected indexes, and journal a `result`.
 Post a precisely scoped follow-on scholar job for any remaining backlog. If no
 actionable work is present, record that cleanly and complete the cycle.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:51:34Z
+<!-- garden-reaped: 1 -->

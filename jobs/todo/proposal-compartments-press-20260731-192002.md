@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Press the fresh Compartments proposal forward (daily) — spec, tests, explainer, validation
@@ -65,13 +66,4 @@ proposals (source-phase imports, import defer, and the rest — see the library 
 No bar is "verified"/"green" without real-execution evidence — cite the command and its output. When you
 could not run a bar (a validation front, a spec render), report it "not verified" and why.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:48:31Z
+<!-- garden-reaped: 0 -->

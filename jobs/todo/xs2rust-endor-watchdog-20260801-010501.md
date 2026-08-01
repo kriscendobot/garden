@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # xs2rust-endor watchdog — is the finish-line chain still moving?
@@ -59,13 +60,4 @@ The leader-only `garden-orchestrate` watcher promotes them one at a time.
 - Pinned to `sonnet` deliberately: this tick reads state and classifies it. The
   Opus 5 pin belongs on the bins that do the engineering.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:49:21Z
+<!-- garden-reaped: 0 -->

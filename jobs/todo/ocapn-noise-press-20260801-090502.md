@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base `llm`)
@@ -26,13 +27,4 @@ scenarios by capturing logs/a repeatable script, never by reading code alone; be
 idempotent and defer to any live worker on a shared branch. Cite real command
 output for every "works" claim.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:42:30Z
+<!-- garden-reaped: 0 -->
