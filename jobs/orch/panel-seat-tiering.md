@@ -1,4 +1,5 @@
 ---
+child-panel-seat-tiering-gather-reap-count: 0
 order: serial
 children: panel-seat-tiering-gather panel-seat-tiering-assess panel-seat-tiering-react
 on-child-failure: halt
