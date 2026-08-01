@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T23:23:38Z_
+_As of 2026-08-01T23:26:35Z_
 
 ## Latest
 
@@ -2789,6 +2789,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Round-5 disposition is overwhelming and empirically reproduced: the round-4 "hardened one sibling, left the others" pattern persists (prices vs portfolio in navOf; hashProposal/safeSteps throw-or-prefix; lockdown-contingent null-proto; unreadable cash to 0 shrinks tail floor; safeArrayLength/route/currentTick/windowTicks unpinned; coverage array- vs tick-adjacency), plus naming, doc-provenance, commit-hygiene/methodology-leak, and a wall-clock-as-correctness test. Full list is in the fixer job body.
 
+- `20260801T232607Z-a2e120` — from gauntlet:endojs-endo-but-for-bots-pr826-build-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T232607Z-a2e120.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr826-build-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr826-build-gauntlet-fix-1' (fix) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4814,7 +4818,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.0M | $1087.14 _(notional, rate-card)_ | no quota set |
+| Claude | 57.0M | $1085.51 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+739.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4829,13 +4833,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (4120)
+### tada (4121)
+- [`endojs-endo-but-for-bots-pr826-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr826-build-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Cost
 - [`finbot-pr6-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r5.md) — Cost
 - [`finbot-pr6-fix-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-clean.md) — Cost
-- [`finbot-pr6-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r4.md) — Completion report — finbot-pr6-panel-r4
-- … and 4115 more
+- … and 4116 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
