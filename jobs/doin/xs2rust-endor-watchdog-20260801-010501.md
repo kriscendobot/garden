@@ -59,6 +59,7 @@ The leader-only `garden-orchestrate` watcher promotes them one at a time.
 - Pinned to `sonnet` deliberately: this tick reads state and classifies it. The
   Opus 5 pin belongs on the bins that do the engineering.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
