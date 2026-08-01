@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T14:03:40Z_
+_As of 2026-08-01T14:11:51Z_
 
 ## Latest
 
@@ -4554,6 +4554,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-debugger-cdp-devtools-investigation.md) — _normal_ · Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
 - [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-sha256-consistency-followups.md) — _normal_ · Consistency follow-ups deferred by the @endo/sha256 build
 - [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr169-6f24fd4e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr169-6f24fd4e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #169 (primary: endojs-endo-but-f...
