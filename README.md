@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:39:19Z_
+_As of 2026-08-01T09:41:41Z_
 
 ## Latest
 
@@ -2367,6 +2367,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Found and fixed a post-credit-exhaustion regression: the Mystic claim filter still rejected every job. main2 now has b6ae297a5c, which permits only explicit model: kimi-k3 ordinary jobs, rejects tier-only/unpinned and builder/designer jobs, and preserves legacy unclassified job compatibility for established pools. Focused offline Mystic harness passed 33/33 including real worker-spine completion, cleanup, resume, output/ledger capture, and credential redaction. Please deliberately deploy latest main2 before the one-worker canary.
 
+- `20260801T094120Z-2ecda2` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T094120Z-2ecda2.md)
+
+> Deliberate deployment is active and has passed its candidate gate, but is safely quiescing three already-running workers under an operator-engaged drain. It has not altered the deployed root yet; I am monitoring it and will only start the one-worker canary after the deployed SHA advances.
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2887,7 +2891,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $694.19 _(notional, rate-card)_ | no quota set |
+| Claude | 32.9M | $694.41 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
