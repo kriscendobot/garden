@@ -65,3 +65,13 @@ HOST-LOCAL SOFTWARE INSTALL of the s10e env (node_modules vintage / node binary 
 
 Size to one 2400s invocation with the detached sweep carrying past it (requeue resumes from TSV). Tada
 ONLY (never inbox-send the parked supervisor); keep PR DRAFT; zero pushes.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:48:59Z
