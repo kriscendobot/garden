@@ -53,6 +53,7 @@ re-runs the full panel at that head. This continues the panel→fixer loop until
 Per merge governance (2026-07-22, amended 2026-08-01), this increment lands only after BOTH a
 passing panel and an orchestrator sign-off. Never self-merge.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
