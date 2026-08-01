@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 3
+deadline_overruns: 1
+poisoned_at: 2026-08-01T11:33:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:33:04Z
+---
+
+---
 role: weaver
 tier: minion
 model-burned: mentor
@@ -14,16 +28,5 @@ Wear roles/weaver/AGENT.md. In the isolated project worktree for this job, fetch
 
 Push the integration branch and open a DRAFT PR against `llm` titled `chore: merge upstream master into llm (2026-08-01)`. The PR body must summarize the upstream delta and every notable conflict resolution. Run proportionate local verification before pushing and report the exact commands/results plus the initial CI state. Do not merge or un-draft the PR in this job. Do not modify endojs/endo-but-for-bots#626; the review's TextDecoder observation is context for after the integration lands, not authorization to change the parked Phase-5 draft.
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:26:09Z

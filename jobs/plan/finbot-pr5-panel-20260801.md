@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: requeue-exhausted
+poison_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+poisoned_at: 2026-08-01T11:33:04Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T11:33:04Z
+---
+
+---
 role: builder
 tier: minion
 model-burned: mentor
@@ -47,16 +61,3 @@ an incomplete/uncalled/unreconciled dispatch. Scope of the trust claim: the loop
 
 Per merge governance (2026-07-22, as amended 2026-08-01), this increment lands only
 after BOTH a passing panel and an orchestrator sign-off. Never self-merge.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:23:33Z
