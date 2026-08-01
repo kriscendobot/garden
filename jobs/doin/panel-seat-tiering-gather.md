@@ -82,3 +82,13 @@ claim, and a clearly-marked list of questions the data CANNOT answer. Recommend
 nothing here.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:23:41Z
