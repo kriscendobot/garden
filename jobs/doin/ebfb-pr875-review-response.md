@@ -19,6 +19,7 @@ reply to each thread, get the review resolved, and land the PR.
 Ordering note: #875 and #876 both touch `EXPORTS_RESOLVER_JS`. This job runs BEFORE the #876
 conductor job in the orchestration, so land #875 first; #876 will take the rebase.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
