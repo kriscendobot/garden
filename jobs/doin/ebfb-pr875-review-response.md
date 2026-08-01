@@ -20,3 +20,13 @@ Ordering note: #875 and #876 both touch `EXPORTS_RESOLVER_JS`. This job runs BEF
 conductor job in the orchestration, so land #875 first; #876 will take the rebase.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:13:17Z
