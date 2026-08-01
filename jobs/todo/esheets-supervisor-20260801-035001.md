@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-08-01T03:50:01Z
-job_basename_prefix: esheets-supervisor
----
 ---
 tier: mentor
 fallback-tier: minion
