@@ -1,7 +1,8 @@
 ---
 role: builder
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-30T05:43:03Z cleared=none -->
@@ -77,13 +78,4 @@ Report what changed, the test results, and the cutover procedure for the maintai
 run on each host. This job changes neither a deployed checkout nor a live unit —
 hand the deploy/cutover back to the liaison.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:30:35Z
+<!-- garden-reaped: 0 -->

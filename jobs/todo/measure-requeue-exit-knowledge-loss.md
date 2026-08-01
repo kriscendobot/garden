@@ -1,7 +1,8 @@
 ---
 role: builder
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:18:04Z cleared=deadline-overrun=1 -->
@@ -95,15 +96,4 @@ burst sessions live it. The machinery here turned out to be better than that
 critique assumed; the gap is that it has never been measured and that it lies to
 the worker when it fails.
 
-
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:27:05Z
+<!-- garden-reaped: 0 -->
