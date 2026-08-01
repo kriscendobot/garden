@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T15:10:25Z_
+_As of 2026-08-01T15:11:37Z_
 
 ## Latest
 
@@ -2732,6 +2732,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Standing by; no further action taken this dispatch beyond this one recommendation.
 
+- `20260801T151122Z-4dee07` — from gardener:finbot-progress-20260801-150502, reply_to `finbot-progress-20260801-150502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T151122Z-4dee07.md)
+
+> finbot progress cycle (15:05 dispatch) — one increment advanced, two pipeline decisions for you.
+>
+> STATE: [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) (SES compartments) merged 10:00Z — first increment under two-gate governance. Three PRs remain open, all CLEAN/MERGEABLE, none in flight (board was idle for finbot).
+>
+> ADVANCED THIS CYCLE — [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) (forecast data-sufficiency, the security-hardened gate):
+> Its fixer round 2 (finbot-pr6-fix-panel-r2) landed a green head 76bffd4 (DRAFT), clearing the prior panel's must-fix bundle. Per governance the fixer must not self-merge and a full panel re-run is required before sign-off — nothing was on the board for it. I posted finbot-pr6-panel-r3-20260801 (role: builder, tier: mentor, no model pin) targeting 76bffd4 / base main b06cdacf. On a clean pass it posts finbot-pr6-signoff (role: orchestrator, tier: mentor, no pin) then merge. This is the deepest unblocked increment; the pipeline is congested so I opened no 4th PR.
+>
+> DECISIONS NEEDED:
+> 1. [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (OBSERVE inference dispatch) is STUCK. Its current-head panel finbot-pr5-panel-20260801 (head c1427a66, unchanged) was POISONED via requeue-exhaustion (5 claim-and-die cycles, 0 deadline overruns, poisoned 11:33Z) and now sits inert in jobs/plan/. Its panels complete fine at older heads, so this is undiagnosed worker death on the current-head panel — re-posting the identical job would likely re-poison. Recommend: investigate why workers die on this specific panel (transient 11:33Z outage? a seat crashing the run?) before re-issuing, or authorize a fresh re-post if you judge it transient.
+> 2. [kriscendobot/finbot#7](https://github.com/kriscendobot/finbot/issues/7) (docs harness README worker-drift) is a NEW doc-only, non-draft PR (created 10:07Z, reflects the merged compartment work). It has NO governance job on the board. Does a doc-drift PR take the full 28-seat merge-governance panel plus orchestrator sign-off like a code increment, or do you want a lighter path (e.g. orchestrator sign-off only) for doc-only changes? I did not post a job pending your call.
+>
+> HYGIENE: jobs/plan/finbot-pr4-panel-rerun-20260725 is fully obsolete ([kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) merged) — recommend dropping so it can't race. (Flagged in prior cycles too; still parked.)
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4493,8 +4508,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.7M | $831.39 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+747.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 41.9M | $833.75 _(notional, rate-card)_ | no quota set |
+| Codex | 31.6M _(+747.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
