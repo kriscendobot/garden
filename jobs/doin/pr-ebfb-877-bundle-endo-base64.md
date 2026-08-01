@@ -12,6 +12,7 @@ Address the inline CHANGES_REQUESTED feedback on rust/endo/xsnap/src/lib.rs: get
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
