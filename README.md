@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T19:25:12Z_
+_As of 2026-08-01T19:35:11Z_
 
 ## Latest
 
@@ -2767,6 +2767,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Given the volume and security-criticality (and that this panel job already burned its mentor budget), I posted a properly-tiered fixer finbot-pr6-fix-panel-r3 (role fixer, tier mentor) with the full consolidated brief, and parked finbot-pr6-panel-r4 blocked on it to re-run the panel and continue the loop; on a clean panel it posts finbot-pr6-signoff. PR remains DRAFT; nothing merged or un-drafted. The increment does NOT proceed to sign-off until a clean panel plus orchestrator sign-off.
 
+- `20260801T193448Z-d63780` — from gardener:endojs-endo-but-for-bots-pr826-build, reply_to `endojs-endo-but-for-bots-pr826-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T193448Z-d63780.md)
+
+> Build of the approved ReadableBlob range-attenuation design (design PR [endojs/endo-but-for-bots#826](https://github.com/endojs/endo-but-for-bots/issues/826)) is complete: implementation draft PR is [endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/issues/910) (base: frozen llm-3ec5585).
+>
+> What landed: `range(start,end)` / `textRange(startLine,endLine)` attenuation replacing `fetch`/`rangeRead`/`rangeReadText` across every rich blob (platform LocalBlob + BlobRef, daemon EndoBlob + live EndoMountFile/view, Git blob), a shared `makeBlobRangeMethods` attenuator, cas/cached-fs consumers switched to streamBase64, help text + generated decls + design prose updated, and a full test matrix (new blob-range.test.js + migrated producer/consumer/conformance tests).
+>
+> Verification: tsc + eslint clean on platform/daemon/git/exo-git; local suites green (platform 325, git 3, exo-git 3, agent-tools 150, daemon mount 75 + conformance 20). CI on the PR drove out three legitimate API-migration test updates (prettier, cas/cached-fs wire transcripts, mount method-set conformance) — all fixed; the latest commit (4cedc1870) is passing so far with the final test legs still running.
+>
+> One handoff: I could not drive the gauntlet's panel/un-draft stage from this worker — it is being reaped roughly every 10 minutes and panel.sh is not reap-resumable, so a full juror panel can't complete here (and would be a large unilateral quota spend). Recommend running the gauntlet on a stable host (or letting the fleet's gauntlet automation pick it up) to panel-review and un-draft [endojs/endo-but-for-bots#910](https://github.com/endojs/endo-but-for-bots/issues/910). The PR is correctly formed for it (draft + garden-job marker + frozen base).
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4535,7 +4545,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.5M | $913.91 _(notional, rate-card)_ | no quota set |
+| Claude | 46.6M | $915.96 _(notional, rate-card)_ | no quota set |
 | Codex | 31.5M _(+739.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
