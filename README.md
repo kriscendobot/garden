@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:47:10Z_
+_As of 2026-08-01T09:48:49Z_
 
 ## Latest
 
@@ -2891,7 +2891,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $695.06 _(notional, rate-card)_ | no quota set |
+| Claude | 32.9M | $696.10 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
@@ -2951,19 +2951,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (4)
-- [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-sysop-local-model-op.md) — Build: the sysop local-model provisioning op
+### doin (3)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-lint-fix.md) — ---
 
-### tada (4059)
+### tada (4060)
+- [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-local-model-op.md) — Completion report
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260801-035001.md) — Completion report — @endo/exo-google-sheets supervisor (2026-08-01)
 - [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-4b624b25.md) — Completion report
 - [`endo-npm-cas-registry-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-090502.md) — Completion report
-- [`endojs-endo-but-for-bots-pr700-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr700-rebase.md) — Cost
-- … and 4054 more
+- … and 4055 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
