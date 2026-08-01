@@ -169,3 +169,13 @@ four surfaces (the design note names those exact four as where a new invariant m
 A fresh panel re-run job (`finbot-pr6-panel-r4`) is parked blocked on this job and will
 promote automatically once this lands in `tada/`, continuing the panel→fixer loop until a
 clean panel; on a clean panel the orchestrator sign-off is posted. This fixer NEVER merges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T19:17:37Z
