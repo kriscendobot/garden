@@ -50,6 +50,7 @@ after BOTH a passing panel and an orchestrator sign-off. Never self-merge.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
