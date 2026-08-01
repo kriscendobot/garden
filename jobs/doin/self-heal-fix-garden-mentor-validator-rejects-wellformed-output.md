@@ -23,6 +23,7 @@ Extend `scripts/jobs/test/mentor-provider-order-test.sh` with subtests for each 
 <!-- garden-reaped: 1 -->
 
 <!-- garden-reap-now -->
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
