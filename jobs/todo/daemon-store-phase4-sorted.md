@@ -1,19 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-poisoned_at: 2026-07-22T06:03:09Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-22T06:03:09Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:35:46Z cleared=deadline-overrun=1 -->
 
 ---
 role: builder
@@ -70,4 +58,3 @@ Design authority for the full detail and file:line grounding:
 READ THE RELEVANT PHASE SECTION FIRST. When the PR is green and un-drafted,
 comment the outcome (link the PR) on https://github.com/kriskowal/garden/issues/59.
 
-<!-- garden-deadline-overrun: 1 -->
