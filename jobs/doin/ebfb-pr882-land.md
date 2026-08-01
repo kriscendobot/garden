@@ -31,3 +31,13 @@ Known gap to report, not to fix here: `daemon_bootstrap.js` still stubs because
 `bundle-bus-daemon-rust-xs.mjs` fails on Node-only static imports (`@endo/git`,
 `@endo/host-spawner`). Also note no CI job builds the xsnap crate, which is why this
 regressed silently — worth a follow-up proposal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:21:41Z
