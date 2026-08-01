@@ -2,7 +2,7 @@
 order: serial
 children: ebfb-pr882-land ebfb-pr873-lint-fix ebfb-pr875-review-response ebfb-pr876-conduct ebfb-pr877-rebase ebfb-pr878-rebase
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-01T09:15:33Z
 ---
