@@ -17,6 +17,9 @@
 #                  drain artifact: stays closed, drain_reopen=1, no escalation.
 #   8. POST-FIX RECURRENCE — a miss whose review POSTDATES the improvement is a
 #                  genuine recurrence: reopens, recurrence=1.
+#   9. EVALUATOR-GAMING — the additive `evaluator-gaming` category rides the same
+#                  lifecycle: mint at count 1, join a distinct PR (count 2), then
+#                  recurrence-reopen after closure, with the category preserved.
 #
 # Usage: review-miss-record-test.sh
 
@@ -183,6 +186,29 @@ M8="$TR/m8.md"; mk_miss "$M8" endojs-ebfb-pr802-review-bb88 802 drain-input miss
 out8="$("$RMR" record "$M8")"
 [ "$(cfield review-misses/clusters/drain-input.md status)" = open ] && ok "post-improvement miss reopened cluster" || bad "cluster not reopened"
 echo "$out8" | grep -q 'recurrence=1 drain_reopen=0' && ok "recurrence=1, drain_reopen=0 in summary" || bad "flags wrong: $out8"
+
+# ============================================================================
+hr; echo "9 — EVALUATOR-GAMING: the new category through mint/join/recurrence"; hr
+# Additive: the category is a free-form label the writer stores and preserves; it
+# rides the identical mint / join / K-floor / recurrence-reopen lifecycle.
+G1="$TR/g1.md"; mk_miss "$G1" endojs-ebfb-pr900-review-gg11 900 gaming-pattern evaluator-gaming
+outg1="$("$RMR" record "$G1")"
+[ "$(cfield review-misses/clusters/gaming-pattern.md category)" = evaluator-gaming ] && ok "cluster minted with category evaluator-gaming" || bad "category wrong ($outg1)"
+[ "$(cfield review-misses/clusters/gaming-pattern.md count)" = 1 ] && ok "gaming cluster count 1" || bad "count not 1 ($outg1)"
+echo "$outg1" | grep -q 'count=1 status=open prs=900' && ok "gaming mint summary correct" || bad "summary wrong: $outg1"
+G2="$TR/g2.md"; mk_miss "$G2" endojs-ebfb-pr901-review-gg22 901 gaming-pattern evaluator-gaming
+outg2="$("$RMR" record "$G2")"
+[ "$(cfield review-misses/clusters/gaming-pattern.md count)" = 2 ] && ok "gaming cluster count 2 after join" || bad "count not 2 ($outg2)"
+echo "$outg2" | grep -q 'prs=900,901' && ok "two distinct prs on gaming cluster" || bad "prs wrong: $outg2"
+# Recurrence: dispatch + close, then a new miss with undeterminable timing reopens.
+"$RMR" cluster-status gaming-pattern improvement-dispatched --job review-improve-gaming-pattern >/dev/null
+"$RMR" cluster-status gaming-pattern closed --improved-by "roles/prosecutor/AGENT.md" >/dev/null
+[ "$(cfield review-misses/clusters/gaming-pattern.md status)" = closed ] && ok "gaming cluster closed" || bad "gaming cluster not closed"
+G3="$TR/g3.md"; mk_miss "$G3" endojs-ebfb-pr902-review-gg33 902 gaming-pattern evaluator-gaming
+outg3="$("$RMR" record "$G3")"
+[ "$(cfield review-misses/clusters/gaming-pattern.md status)" = open ] && ok "gaming cluster reopened on recurrence" || bad "not reopened ($outg3)"
+echo "$outg3" | grep -q 'recurrence=1' && ok "gaming recurrence flagged" || bad "recurrence not flagged: $outg3"
+[ "$(cfield review-misses/clusters/gaming-pattern.md category)" = evaluator-gaming ] && ok "category preserved across full lifecycle" || bad "category drifted"
 
 hr
 echo "review-miss-record: $PASS passed, $FAIL failed"

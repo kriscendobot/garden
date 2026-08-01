@@ -50,6 +50,31 @@ record you write is your own paraphrase, never the raw comment.
 - **Not a miss** is new direction, taste, a scope change, or a requirement first
   stated in the comment itself. Nobody could have anticipated it.
 
+Within a miss, watch for one distinct shape: **evaluator gaming** (category
+`evaluator-gaming`). An ordinary miss says the rubric was too narrow; a gaming miss
+says the rubric was **satisfiable without doing the work** — the change was shaped to
+satisfy the reviewer rather than the goal. Distinguish the two with a question
+answerable from the diff and the review thread, never from intent-reading: **did this
+change alter what the evaluator *measures* rather than what the evaluator is *for*?**
+If the measurement moved while the target stood still, file it `evaluator-gaming` and
+name the gamed seat/gate in `missed_by`. Three shapes — two are already in the corpus:
+
+- **Avoidance — route around the evaluator.** A design PR reaches maintainer review
+  with no design-panel gauntlet run: the evaluator was *skipped*, not satisfied.
+  Answerable from diff + thread: the PR exists as a review surface, yet
+  `journal/jobs/tada/` holds no gauntlet/panel job for it (corpus:
+  `garden-design-pr-gauntlet-bypass`).
+- **Satisfy the letter, not the purpose.** A feature ships with tests deferred behind
+  an unlanded dependency, when a pure-function extraction would have made the new
+  logic unit-testable immediately. The coverage seat sees no untested *new runtime
+  path* and passes, while the new logic goes unexercised. Answerable from the diff:
+  the new logic is entangled with the unlanded dep but is extractable as a pure
+  function; the thread shows the seat cleared it on a "tests deferred" note (corpus:
+  `feature-shipped-without-tests`).
+- **Move the measurement.** A change edits what the check reads rather than what it
+  stands for — assertions that restate the implementation instead of testing
+  behavior, or a rename that dodges a lint gate rather than fixing the naming.
+
 Record the verdict **either way**, with grounds. A `dismissed` verdict is as
 durable as a `miss`, so the same comment is never re-litigated and the
 discriminator's calibration stays auditable.
@@ -105,6 +130,7 @@ adding a row to the store README's table in the same push that first uses it.
 | `wire-protocol` | `wire-watcher` |
 | `migration-compat` | `migrator`, `releaser` |
 | `process` | not a seat: the gauntlet chain, a skill, or a standing instruction failed to run or to bind |
+| `evaluator-gaming` | not a seat: the work altered what the review *measures* rather than what it is *for* — routed around a gate, or met a seat's measurable check while leaving its purpose unmet (§ 1, the distinguishing question) |
 | `new-direction` | nobody: the dismissal category (taste, scope, first-stated requirements) |
 
 ### 4. Threshold (event-driven, at the tail of every retro that records a miss)

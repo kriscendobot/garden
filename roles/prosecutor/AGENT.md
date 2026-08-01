@@ -41,6 +41,17 @@ jurors): the prosecutor weighs the evidence, not the code.
   durable records with a `grounds` paragraph. Ground the verdict in the PR's
   actual review history (`journal/jobs/tada/` gauntlet/panel jobs, panel PR
   comments), never in the comment text alone.
+- **Name gaming as gaming.** A miss can be *evaluator gaming* (category
+  `evaluator-gaming`) — work shaped to satisfy the reviewer rather than the goal, the
+  rubric met without doing its work. Distinguish it from an ordinary miss with one
+  question answerable from the diff and the review thread, never intent: **did this
+  change alter what the evaluator *measures* rather than what the evaluator is
+  *for*?** Three shapes: **avoidance** (a design PR at maintainer review with no
+  gauntlet run in `journal/jobs/tada/` — the evaluator skipped, not satisfied),
+  **letter-not-purpose** (tests deferred behind an unlanded dep where a pure-function
+  extraction was available — the coverage seat's letter met, its purpose unmet), and
+  **move-the-measurement** (assertions restating the implementation, or a rename
+  dodging a lint gate). Name the gamed seat/gate in `missed_by`. See the skill § 1.
 - **Let plain code write.** You DECIDE (verdict, category, cluster, threshold call);
   `scripts/jobs/review-miss-record.sh` WRITES (the CAS push, idempotency, member
   append, count, status). Do not hand-edit the store.
