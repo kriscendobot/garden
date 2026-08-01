@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:17:54Z cleared=deadline-overrun=1 -->
@@ -26,13 +27,4 @@ Reconcile the closed model-tier inventory, model routing defaults, Fireworks ope
 
 Add or verify a bounded operational mechanism for selecting the Fireworks provider during a canary while the job remains tier: mentor. A provider constraint may select the lane, but must not embed the concrete GLM model in the job body; claim-time resolution chooses the current Fireworks mentor model from the inventory. Unknown provider or tier combinations fail closed. Verify with hermetic tests, shell syntax, and a secret-safe live availability probe that emits only availability/status, never API response bodies or credentials. Report the landed main2 revision and exact deploy/activation steps.
 
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:17:41Z
+<!-- garden-reaped: 0 -->

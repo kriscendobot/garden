@@ -1,8 +1,9 @@
 ---
 role: gardener
 handler-timeout: 7200
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Repository: https://github.com/kriscendobot/garden. Land on main2 (no PR — CLAUDE.md
@@ -87,12 +88,4 @@ Name the landed main2 revision, the exact `send-host-op.sh` invocation an operat
 run to repair `endolin-garden-ece02cb4`, and what still needs a human. State what you did
 about the overlapping parked orchestration.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T10:16:16Z
+<!-- garden-reaped: 0 -->
