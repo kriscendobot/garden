@@ -2073,3 +2073,12 @@ Inspect via `git -C journal cat-file -p 1f7bb61e0d0d6cf6e49f149ad8abd642706166cc
 - Context: gardener-4 on endolin-garden-ece02cb4: job 'build-endo-regexp-conservative-subset' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 9b1956fd9bc1e254015924c8395254a5b6d37ec2`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-08-01T11:27:59Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: 029711a5271941aa6c4cba6182e6a913446247d4
+- Context: gardener-5 on endolin-garden-ece02cb4: job 'xs2rust-endor-stage10p-fresh-env-sweep' transient-classified (rc=1) but elapsed near-constant (4,3s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p 029711a5271941aa6c4cba6182e6a913446247d4`.
