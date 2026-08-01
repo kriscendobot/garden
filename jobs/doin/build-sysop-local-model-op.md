@@ -42,3 +42,13 @@ syntax on every edited script. Do NOT trigger a real 22 GB pull from a test.
 Name the landed main2 revision and the exact command an operator runs to provision a
 named host, e.g. the `send-host-op.sh <GARDEN> op=... ` invocation for
 `endolin-garden-ece02cb4`. State what still needs a human.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:32:27Z
