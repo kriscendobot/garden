@@ -17,6 +17,7 @@ Wear the builder role. After the conductor has successfully merged design PR #82
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
