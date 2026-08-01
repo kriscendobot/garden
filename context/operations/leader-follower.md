@@ -22,9 +22,10 @@ bring-up is [starting.md](starting.md).
   leader-only set includes `garden-foreman`, `garden-scheduler`,
   `garden-bulletin`, `garden-deadmail`, `garden-reaper`, `garden-follow-up`,
   `garden-proxy`, `garden-mentor`, `garden-mirror-closer`, the
-  `garden-{comment,ci}-watcher@*` / `garden-triager@*` / `garden-mention-watcher`
-  / `garden-issue-inbox` watchers, `garden-orchestrate`, and the **liaison
-  maintainer-inbox and deploy-on-upgrade Monitors**.
+  `garden-{comment,ci}-watcher@*` / `garden-approval-reconciler@*` /
+  `garden-triager@*` / `garden-mention-watcher` / `garden-issue-inbox` watchers,
+  `garden-orchestrate`, and the **liaison maintainer-inbox and deploy-on-upgrade
+  Monitors**.
 - **Per-host local infra runs on every host** (not shared work):
   `garden-gardener@*`, `garden-gardener-scaler` (each host scales its own pool),
   `garden-upgrade-monitor`, `garden-clone-keeper`,
