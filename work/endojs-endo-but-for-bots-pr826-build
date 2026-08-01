@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-01T10:05:49Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr826-build
