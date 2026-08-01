@@ -169,15 +169,41 @@ validate_mentor_response() {
 
 # Persist a genuinely malformed provider reply so a recurring semantic rejection is
 # diagnosable after the fact — the raw temp file is otherwise removed unseen by the
-# EXIT trap, which is what let this failure recur unexplained.
+# EXIT trap, which is what let eight rejections recur leaving no artifact at all. Two
+# durable outputs, both under $GARDEN_STATE/mentor:
+#   - rejected/<utc-timestamp>-<provider>.txt : ONE byte-capped capture per failure,
+#     pruned to the most recent N, so successive rejections leave a trail instead of
+#     clobbering the prior evidence (a nanosecond-resolution timestamp keeps names
+#     unique and chronologically sortable);
+#   - last-malformed.txt : a stable "latest" pointer for a quick look and for tooling.
+# The LOGGED excerpt is deliberately tiny (first+last few lines, byte-capped) because
+# it lands in a supervisor's context; the full (capped) raw lives only in the file.
+: "${GARDEN_MENTOR_REJECTED_KEEP:=20}"
 record_malformed_reply() { # <provider> <raw-file> [reason]
-  local provider="$1" raw="$2" reason="${3:-unspecified}" dir="$GARDEN_STATE/mentor"
-  mkdir -p "$dir" 2>/dev/null || return 0
-  { printf '# %s malformed mentor reply from provider %s\n# reject reason: %s\n# first 800 bytes of raw output:\n' \
-      "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$provider" "$reason"
-    head -c 800 "$raw" 2>/dev/null || true
-    printf '\n'; } > "$dir/last-malformed.txt" 2>/dev/null || true
-  log "WARN: provider '$provider' returned malformed output ($reason); first 800 bytes saved to $dir/last-malformed.txt: $(head -c 800 "$raw" 2>/dev/null | tr '\n' ' ')"
+  local provider="$1" raw="$2" reason="${3:-unspecified}" dir="$GARDEN_STATE/mentor" rej ts cap excerpt f
+  rej="$dir/rejected"
+  mkdir -p "$rej" 2>/dev/null || { mkdir -p "$dir" 2>/dev/null || return 0; rej="$dir"; }
+  ts="$(date -u +%Y%m%dT%H%M%S.%NZ)"
+  cap="$rej/$ts-$provider.txt"
+  # One capture per failure (byte-capped so a pathological reply can't fill the disk).
+  { printf '# %s malformed mentor reply from provider %s\n# reject reason: %s\n# raw output (first 4000 bytes):\n' \
+      "$ts" "$provider" "$reason"
+    head -c 4000 "$raw" 2>/dev/null || true
+    printf '\n'; } > "$cap" 2>/dev/null || true
+  cp -f "$cap" "$dir/last-malformed.txt" 2>/dev/null || true
+  # Prune to the most recent N captures. Timestamp-prefixed names sort chronologically,
+  # and bash pathname expansion returns the glob already sorted, so the oldest are first.
+  local -a caps=()
+  for f in "$rej"/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]T*.txt; do
+    [ -e "$f" ] && caps+=("$f")
+  done
+  local excess=$(( ${#caps[@]} - GARDEN_MENTOR_REJECTED_KEEP ))
+  if [ "$excess" -gt 0 ]; then
+    local i
+    for ((i = 0; i < excess; i++)); do rm -f "${caps[i]}"; done
+  fi
+  excerpt="$( { head -n 3 "$raw"; printf '  …  '; tail -n 3 "$raw"; } 2>/dev/null | head -c 400 | tr '\n' ' ')"
+  log "WARN: provider '$provider' returned malformed output ($reason); capture saved to $cap: $excerpt"
 }
 
 mentor_codex_attempt() { # <openai|local> <prompt>

@@ -193,14 +193,32 @@ validate_foreman_response() {
 
 # Persist a genuinely malformed provider reply so a recurring semantic rejection is
 # diagnosable after the fact (the raw temp file is otherwise removed by the EXIT trap).
+# Mirrors mentor-claude.sh's record_malformed_reply: one byte-capped, pruned capture
+# per failure under rejected/<utc-timestamp>-<provider>.txt so successive rejections
+# leave a trail rather than clobbering the prior evidence, plus a stable
+# last-malformed.txt "latest" pointer; the logged excerpt is kept small.
+: "${GARDEN_FOREMAN_REJECTED_KEEP:=20}"
 record_malformed_reply() { # <provider> <raw-file>
-  local provider="$1" raw="$2" dir="$GARDEN_STATE/foreman"
-  mkdir -p "$dir" 2>/dev/null || return 0
-  { printf '# %s malformed foreman reply from provider %s (first 500 bytes)\n' \
-      "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$provider"
-    head -c 500 "$raw" 2>/dev/null || true
-    printf '\n'; } > "$dir/last-malformed.txt" 2>/dev/null || true
-  log "WARN: provider '$provider' returned malformed output; first 500 bytes saved to $dir/last-malformed.txt: $(head -c 500 "$raw" 2>/dev/null | tr '\n' ' ')"
+  local provider="$1" raw="$2" dir="$GARDEN_STATE/foreman" rej ts cap excerpt f
+  rej="$dir/rejected"
+  mkdir -p "$rej" 2>/dev/null || { mkdir -p "$dir" 2>/dev/null || return 0; rej="$dir"; }
+  ts="$(date -u +%Y%m%dT%H%M%S.%NZ)"
+  cap="$rej/$ts-$provider.txt"
+  { printf '# %s malformed foreman reply from provider %s (first 4000 bytes)\n' "$ts" "$provider"
+    head -c 4000 "$raw" 2>/dev/null || true
+    printf '\n'; } > "$cap" 2>/dev/null || true
+  cp -f "$cap" "$dir/last-malformed.txt" 2>/dev/null || true
+  local -a caps=()
+  for f in "$rej"/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]T*.txt; do
+    [ -e "$f" ] && caps+=("$f")
+  done
+  local excess=$(( ${#caps[@]} - GARDEN_FOREMAN_REJECTED_KEEP ))
+  if [ "$excess" -gt 0 ]; then
+    local i
+    for ((i = 0; i < excess; i++)); do rm -f "${caps[i]}"; done
+  fi
+  excerpt="$( { head -n 3 "$raw"; printf '  …  '; tail -n 3 "$raw"; } 2>/dev/null | head -c 400 | tr '\n' ' ')"
+  log "WARN: provider '$provider' returned malformed output; capture saved to $cap: $excerpt"
 }
 
 foreman_codex_attempt() { # <openai|local> <prompt>

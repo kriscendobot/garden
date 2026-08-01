@@ -163,6 +163,10 @@ if run_handler openai,anthropic GARDEN_TEST_OPENAI_OUTPUT='JOB one\nbody\nENDJOB
   bad "malformed multi-job output was accepted"
 else ok "malformed multi-job output still FATALs (fail-closed)"; fi
 [ -s "$TR/state/foreman/last-malformed.txt" ] && ok "malformed reply is saved to foreman/last-malformed.txt" || bad "malformed diagnostic was not recorded"
+FM_CAP="$(find "$TR/state/foreman/rejected" -name '*-openai.txt' 2>/dev/null | head -1)"
+{ [ -n "$FM_CAP" ] && grep -q 'JOB two' "$FM_CAP"; } \
+  && ok "malformed reply also saved as a per-failure capture under foreman/rejected/" \
+  || bad "durable rejected/ capture missing or lacking the raw output"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

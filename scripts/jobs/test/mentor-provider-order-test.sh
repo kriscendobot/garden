@@ -157,5 +157,23 @@ grep -qi 'unterminated block' "$DIAG_ERR" && ok "FATAL log names the validator r
 grep -q 'UNIQUEMARKERXYZ' "$DIAG_ERR" && ok "FATAL log quotes an excerpt of the rejected output" || bad "FATAL log lacks a raw-output excerpt"
 { [ -s "$DIAG_FILE" ] && grep -q 'UNIQUEMARKERXYZ' "$DIAG_FILE"; } && ok "last-malformed.txt captures reason + excerpt" || bad "diagnostic file missing the excerpt"
 
+echo 'SUBTEST 18 — a prose-only reply with no JOB line is a no-op that posts nothing'
+# Distinct from SUBTEST 7 (which asserts success + the WARN): here we prove the no-op
+# path posts NOTHING to the board, so a "no clear opportunities" tick can never mint a
+# job. Count job files before and after a fresh no-op run against the shared journal.
+count_jobs() { local v="$TR/vcount"; rm -rf "$v"; git clone -q --branch journal2 "$BARE" "$v"; find "$v/jobs" -name '*.md' 2>/dev/null | wc -l; }
+noop_before="$(count_jobs)"
+if run_shape 'No actionable opportunities this tick.\n'; then ok "prose-only reply succeeds as a no-op"; else bad "prose-only reply FATALed"; fi
+noop_after="$(count_jobs)"
+[ "$noop_before" = "$noop_after" ] && ok "prose-only no-op posted nothing (board unchanged at $noop_before)" || bad "prose-only no-op posted a job ($noop_before -> $noop_after)"
+
+echo 'SUBTEST 19 — a rejection writes a per-failure raw capture to the durable rejected/ path'
+run_shape 'JOB improve-durable\nscripts/jobs/zzz-durable.sh\nDURABLEMARKER unterminated capture\n' >/dev/null 2>&1 || true
+REJ_DIR="$TR/shape-$shape_n/mentor/rejected"
+DURABLE_CAP="$(find "$REJ_DIR" -name '*-anthropic.txt' 2>/dev/null | head -1)"
+{ [ -n "$DURABLE_CAP" ] && grep -q 'DURABLEMARKER' "$DURABLE_CAP"; } \
+  && ok "rejection saved a per-failure capture under rejected/ carrying the raw output" \
+  || bad "durable rejected/ capture missing or lacking the raw output"
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
