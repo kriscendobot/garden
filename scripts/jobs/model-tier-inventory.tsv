@@ -1,7 +1,16 @@
 # Canonical fleet model inventory.  Columns: provider, concrete garden model id,
-# dispatch tier.  Every selectable model is listed exactly once; a model absent
-# from this file is unclassified and must not be automatically dispatched.
-# mentat is intentionally manual-only.
+# dispatch tier, and an OPTIONAL fourth `pull_bytes` column.  Every selectable model
+# is listed exactly once; a model absent from this file is unclassified and must not
+# be automatically dispatched.  mentat is intentionally manual-only.
+#
+# pull_bytes (column 4) is the reviewed on-disk download size, in bytes, of a
+# LOCALLY-PROVISIONED model.  It is blank for every model that is not pulled onto a
+# host's Ollama store, and REQUIRED on the `local` routing default before the sysop
+# `local-model` provisioning op will pull it: a blank/missing size fails that op
+# closed before any network or disk activity (designs/sysop-local-model.md,
+# scripts/jobs/{sysop.sh,pull-local-model.sh}).  Column readers (model_dispatch_tier,
+# job_tier, tier_model_for_provider in common.sh) read a throwaway fourth field so
+# the size never leaks into the dispatch tier.
 anthropic	claude-fable-5	mentat
 anthropic	claude-opus-5	mentor
 anthropic	claude-opus-4-8	minion

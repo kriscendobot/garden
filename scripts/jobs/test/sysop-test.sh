@@ -129,7 +129,7 @@ from_bare() {  # from_bare <path>
 
 # ============================================================================
 hr; echo "STATIC — the scripts parse, and sysop.sh invokes no claude/LLM"; hr
-for s in sysop.sh send-host-op.sh send-msg.sh read-msgs.sh; do
+for s in sysop.sh send-host-op.sh pull-local-model.sh send-msg.sh read-msgs.sh; do
   bash -n "$JOBS/$s" && ok "$s parses" || bad "$s has a syntax error"
 done
 if grep -nE 'claude[ _-]?(-p|bin)|agent_bin|claude_bin|meter_claude' "$JOBS/sysop.sh" >/dev/null; then
@@ -322,6 +322,160 @@ grep -vE '^[[:space:]]*#' "$JOBS/sysop.sh" | grep -q 'fleet_draining' \
   && bad "sysop.sh has an executable fleet_draining guard (a drained host could not receive drain off)" \
   || ok "sysop.sh has no executable drain guard (ticks under drain, as required)"
 unset XDG_CONFIG_HOME GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG
+
+# ============================================================================
+hr; echo "LOCAL-MODEL — the async provisioning op's state machine (no real pull)"; hr
+# Fixtures: a tier inventory whose `local` rows carry the fourth pull_bytes column,
+# and a routing table whose `local` default names the target the op resolves. NOTHING
+# below pulls a real model, talks to a real Ollama, or enables a real unit — every
+# external effect is a seam stub.
+LM_INV="$TR/lm-inventory.tsv"
+{ printf 'local\ttestmodel:tiny\tmyrmidon\t1048576\n'
+  printf 'local\tothermodel:tiny\tmyrmidon\t2097152\n'; } > "$LM_INV"
+LM_INV_NOBYTES="$TR/lm-inventory-nobytes.tsv"
+printf 'local\ttestmodel:tiny\tmyrmidon\n' > "$LM_INV_NOBYTES"   # classified but no pull_bytes
+LM_ROUTE_A="$TR/lm-route-a.tsv"; printf 'local\ttestmodel*\ttestmodel:tiny\n'   > "$LM_ROUTE_A"
+LM_ROUTE_B="$TR/lm-route-b.tsv"; printf 'local\tothermodel*\tothermodel:tiny\n' > "$LM_ROUTE_B"
+
+cat > "$TR/lm-yes.sh"      <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+cat > "$TR/lm-no.sh"       <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+cat > "$TR/lm-free-big.sh" <<'EOF'
+#!/bin/bash
+echo 21474836480
+EOF
+cat > "$TR/lm-free-small.sh" <<'EOF'
+#!/bin/bash
+echo 1000
+EOF
+cat > "$TR/lm-active.sh"   <<'EOF'
+#!/bin/bash
+echo active
+EOF
+cat > "$TR/lm-inactive.sh" <<'EOF'
+#!/bin/bash
+echo inactive
+EOF
+cat > "$TR/lm-pull-start.sh" <<'EOF'
+#!/bin/bash
+printf 'pull-start\n' >> "$REC_LOG"
+EOF
+chmod +x "$TR"/lm-*.sh
+
+# Base seams shared by every local-model tick: inventory + routing fixtures, a present
+# ollama binary (/bin/true), a reachable endpoint, present=no, big disk, active unit,
+# recording pull-start. Individual tests override single tokens by APPENDING (env's
+# last assignment wins).
+LMBASE="GARDEN_MODEL_TIER_INVENTORY_FILE=$LM_INV GARDEN_MODEL_ROUTING_FILE=$LM_ROUTE_A \
+GARDEN_SYSOP_OLLAMA_BIN=/bin/true GARDEN_SYSOP_ENDPOINT_CMD=$TR/lm-yes.sh \
+GARDEN_SYSOP_PRESENT_CMD=$TR/lm-no.sh GARDEN_SYSOP_FREE_BYTES_CMD=$TR/lm-free-big.sh \
+GARDEN_SYSOP_PULL_START=$TR/lm-pull-start.sh GARDEN_SYSOP_PULL_ACTIVE_CMD=$TR/lm-inactive.sh"
+
+# --- trust gate: destructive tier refused without / with a bad authorized_by -------
+: > "$REC_LOG"; : > "$ACK_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-noauth" $LMBASE
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "local-model without authorized_by refused (no pull started)" || bad "local-model ran without attestation!"
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by=nobody
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-badauth" $LMBASE
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "local-model authorized_by not on allowlist refused (no pull started)" || bad "forged attestation accepted for local-model"
+
+# --- parse error: a model/tag/url field makes an arbitrary pull unrepresentable ----
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER" model=evil/registry:tag
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-extra" $LMBASE
+{ grep -q 'sysop_ack: parse-error' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "an extra 'model' field is a parse-error (no pull started)" || bad "local-model accepted an extra model field"
+
+# --- fail closed: the local target has no reviewed pull_bytes -----------------------
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-nobytes" $LMBASE GARDEN_MODEL_TIER_INVENTORY_FILE="$LM_INV_NOBYTES"
+{ grep -q 'sysop_ack: failed' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "a local target lacking pull_bytes fails closed before any pull" || bad "provisioned a target with no reviewed size"
+
+# --- ollama-absent precondition -----------------------------------------------------
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-noollama" $LMBASE GARDEN_SYSOP_OLLAMA_BIN=ollama-absent-xyz
+{ grep -q 'sysop_ack: failed' "$ACK_LOG" && grep -q 'not installed' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "ollama absent → failed precondition (no pull started)" || bad "local-model ran with ollama absent"
+
+# --- endpoint unreachable precondition ---------------------------------------------
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-noendpoint" $LMBASE GARDEN_SYSOP_ENDPOINT_CMD="$TR/lm-no.sh"
+{ grep -q 'sysop_ack: failed' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "unreachable garden endpoint → failed precondition (no pull started)" || bad "local-model started with no endpoint"
+
+# --- already-present clean no-op ----------------------------------------------------
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-present" $LMBASE GARDEN_SYSOP_PRESENT_CMD="$TR/lm-yes.sh"
+{ grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" && grep -q 'already present' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "an already-present target is a clean no-op (no pull, no egress)" || bad "already-present target still started a pull"
+
+# --- insufficient disk refusal (reports observed + required bytes) -----------------
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$TR/lm-nodisk" $LMBASE GARDEN_SYSOP_FREE_BYTES_CMD="$TR/lm-free-small.sh"
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && grep -qE 'free=1000 required=[0-9]+' "$ACK_LOG" && ! grep -qx pull-start "$REC_LOG"; } \
+  && ok "insufficient disk refused with observed+required bytes (no pull started)" || bad "local-model started with insufficient disk"
+
+# --- happy path: start (accepted-in-progress) then finalize (accepted-and-applied) --
+: > "$ACK_LOG"; : > "$REC_LOG"
+LMS="$TR/lm-run"; mkdir -p "$LMS"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# Tick 1: absent + big disk + start stub → freeze the execution record and start.
+# shellcheck disable=SC2086
+run_sysop "$LMS" $LMBASE GARDEN_SYSOP_PULL_ACTIVE_CMD="$TR/lm-active.sh"
+STDIR="$LMS/sysop/local-model"
+{ grep -q 'sysop_ack: accepted-in-progress' "$ACK_LOG" && [ "$(grep -c pull-start "$REC_LOG")" -eq 1 ] && [ -f "$STDIR/exec" ]; } \
+  && ok "tick 1: pull started, execution frozen, acked accepted-in-progress" \
+  || bad "tick 1 did not start the pull correctly (ack: $(cat "$ACK_LOG"); rec: $(cat "$REC_LOG"))"
+# Simulate the pull helper finishing successfully (it writes the terminal result).
+printf 'outcome: success\nexit: 0\ntail: pulled\nat: now\n' > "$STDIR/result"
+# Tick 2: same state dir; poll sees exec+result, re-verifies present=yes → finalize.
+: > "$ACK_LOG"
+# shellcheck disable=SC2086
+run_sysop "$LMS" $LMBASE GARDEN_SYSOP_PRESENT_CMD="$TR/lm-yes.sh"
+{ grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" && [ ! -f "$STDIR/exec" ]; } \
+  && ok "tick 2: pull verified present, finalized accepted-and-applied, execution cleared" \
+  || bad "tick 2 did not finalize the pull (ack: $(cat "$ACK_LOG"); exec present: $([ -f "$STDIR/exec" ] && echo yes || echo no))"
+# The pull unit is NEVER auto-enabled (no [Install] section).
+grep -q '^\[Install\]' "$SRC/garden-local-model-pull.service" \
+  && bad "garden-local-model-pull.service has an [Install] section (would be auto-enabled)" \
+  || ok "garden-local-model-pull.service carries no [Install] (started on demand only)"
+
+# --- a fast op (drain off) is still processed while a pull is in flight ------------
+: > "$ACK_LOG"
+LMS2="$TR/lm-run2"; mkdir -p "$LMS2"
+seed_op "$ISSUER" "$TARGET" op=local-model authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$LMS2" $LMBASE GARDEN_SYSOP_PULL_ACTIVE_CMD="$TR/lm-active.sh"   # start a pull (stays active, no result)
+: > "$ACK_LOG"
+seed_op "$ISSUER" "$TARGET" op=drain state=off
+# shellcheck disable=SC2086
+run_sysop "$LMS2" $LMBASE GARDEN_SYSOP_PULL_ACTIVE_CMD="$TR/lm-active.sh" GARDEN_SYSOP_DRAIN="$JOBS/drain-fleet.sh"
+grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
+  && ok "a fast op (drain off) is processed while the pull is still active (not starved)" \
+  || bad "a fast op was starved behind an in-flight pull (ack: $(cat "$ACK_LOG"))"
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"

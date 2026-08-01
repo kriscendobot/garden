@@ -594,6 +594,16 @@ ollama_serve_host() {
   printf '%s\n' "${u:-127.0.0.1:11435}"
 }
 
+# ollama_models_dir — the filesystem directory where the garden's supervised Ollama
+# stores model blobs. Ollama honors OLLAMA_MODELS when set; otherwise it defaults to
+# the serving user's `$HOME/.ollama/models`. The sysop local-model provisioning op
+# and its pull helper BOTH resolve the model store through this single helper so the
+# preflight free-space check and the actual pull can never disagree on which
+# filesystem the blobs land in (designs/sysop-local-model.md § Preconditions).
+ollama_models_dir() {
+  printf '%s\n' "${OLLAMA_MODELS:-$HOME/.ollama/models}"
+}
+
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
 # clears it the moment the job ends (and at the top of each loop), so a worker
 # instance is "busy" (mid-job) exactly while that marker exists. Both the
@@ -4312,11 +4322,34 @@ _model_tier_inventory_file() {
 # model_dispatch_tier <provider> <concrete-id> -> mentat|mentor|minion|myrmidon.
 # This is deliberately an exact, closed inventory: new provider models are
 # unclassified until an explicit reviewed row is added, never silently eligible.
+#
+# The inventory carries an OPTIONAL fourth `pull_bytes` column (blank for models
+# that are not locally provisioned; read by model_pull_bytes below for the sysop
+# local-model op). Every reader of the first three columns therefore reads a fourth
+# throwaway field so the added column can never be absorbed into `tier`
+# (designs/sysop-local-model.md § Message and target resolution).
 model_dispatch_tier() {
-  local provider="$1" model="$2" p m tier
-  while IFS=$'\t' read -r p m tier; do
+  local provider="$1" model="$2" p m tier _pb
+  while IFS=$'\t' read -r p m tier _pb; do
     case "$p" in ''|\#*) continue;; esac
     [ "$p" = "$provider" ] && [ "$m" = "$model" ] && { printf '%s\n' "$tier"; return 0; }
+  done < "$(_model_tier_inventory_file)"
+  return 1
+}
+
+# model_pull_bytes <provider> <concrete-id> -> the reviewed download size in bytes
+# from the inventory's optional fourth column, or non-zero when the row is absent or
+# carries no size. Used ONLY by the sysop local-model provisioning op's disk
+# preflight; a blank/missing value fails that op closed BEFORE any network or unit
+# activity (designs/sysop-local-model.md § Preconditions and guards).
+model_pull_bytes() {
+  local provider="$1" model="$2" p m _tier pb
+  while IFS=$'\t' read -r p m _tier pb; do
+    case "$p" in ''|\#*) continue;; esac
+    if [ "$p" = "$provider" ] && [ "$m" = "$model" ]; then
+      [ -n "$pb" ] || return 1        # row present but no reviewed size → fail closed
+      printf '%s\n' "$pb"; return 0
+    fi
   done < "$(_model_tier_inventory_file)"
   return 1
 }
@@ -4339,7 +4372,7 @@ job_tier() {
     opus|terra|luna|frontier|mini) printf '%s\n' minion; return 0;;
     sonnet|haiku) printf '%s\n' myrmidon; return 0;;
   esac
-  while IFS=$'\t' read -r p m t; do
+  while IFS=$'\t' read -r p m t _pb; do
     case "$p" in ''|\#*) continue;; esac
     [ "$m" = "$model" ] && { printf '%s\n' "$t"; return 0; }
   done < "$(_model_tier_inventory_file)"
@@ -4362,8 +4395,8 @@ job_provider_is_constrained() { [ -n "$(plan_field "$1" provider)" ]; }
 # tier_model_for_provider resolves a capability tier at claim/run time.  The
 # durable job intent remains the tier when this inventory assignment changes.
 tier_model_for_provider() {
-  local wanted="$1" provider="$2" p m t
-  while IFS=$'\t' read -r p m t; do
+  local wanted="$1" provider="$2" p m t _pb
+  while IFS=$'\t' read -r p m t _pb; do
     case "$p" in ''|\#*) continue;; esac
     [ "$p" = "$provider" ] && [ "$t" = "$wanted" ] && _model_classify "$p" "$m" && { printf '%s\n' "$m"; return 0; }
   done < "$(_model_tier_inventory_file)"

@@ -1,0 +1,37 @@
+[Unit]
+Description=Garden local-model pull — one attested Ollama model download for the sysop local-model op
+# The async worker of the sysop `local-model` provisioning op (designs/sysop-local-model.md).
+# The sysop validates + freezes the target and starts THIS unit with --no-block; the
+# helper reads the frozen target and runs one `ollama pull`, writing a terminal result
+# the sysop's next tick reads. Deliberately NON-ENABLED: it carries NO [Install]
+# section, so a routine unit install (install-units.sh) copies but never enables it —
+# it is started only by an accepted, attested request. A model pull is tens of
+# gigabytes, so this is a separate systemd-supervised unit rather than work inside the
+# sysop's 900s oneshot tick.
+After=default.target
+# A deploy window may advance the checkout mid-pull; disable the start-rate limiter so
+# a transient exec failure cannot wedge the unit past StartLimitBurst.
+StartLimitIntervalSec=0
+CollectMode=inactive-or-failed
+
+[Service]
+Type=oneshot
+Slice=background.slice
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# NO wall-clock limit: a large model legitimately pulls for a long time, and the sysop
+# never waits on it — it polls the helper's terminal result on later ticks.
+TimeoutStartSec=infinity
+# exec /bin/bash (always present) avoids a 203/EXEC burst if the script is momentarily
+# absent mid-deploy.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/pull-local-model.sh
+# A systemd stop mid-pull SIGTERMs the download; a signalled shutdown is a clean stop,
+# and the sysop treats an inactive-without-result unit as an interrupted failure.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+KillMode=mixed
+TimeoutStopSec=30
+# Account the download's memory footprint to this cgroup without a hard cap.
+MemoryAccounting=yes
+
+# INTENTIONALLY NO [Install] SECTION. This unit must never be auto-enabled; it is
+# started on demand by the sysop. install-units.sh's intended_units() enables a
+# sibling-less *.service only when it declares WantedBy=, which this omits.

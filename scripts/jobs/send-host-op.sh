@@ -19,11 +19,19 @@
 #   send-host-op.sh ps23-garden-abcd1234 op=restore
 #   send-host-op.sh ps23-garden-abcd1234 op=unit action=restart name=garden-foreman.timer authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=deploy authorized_by=<login>
+#   send-host-op.sh ps23-garden-abcd1234 op=local-model authorized_by=<login>
 #
-# The two destructive ops (deploy, unit) additionally require authorized_by=<login>
-# with <login> on the journal maintainers/allowlist (attestation, not auth — see
-# designs/sysop.md §6). The sysop's issuer gate additionally confines WHICH hosts
-# may originate ops (config/sysop-issuers; default: the leader).
+# The destructive ops (deploy, unit, local-model) additionally require
+# authorized_by=<login> with <login> on the journal maintainers/allowlist
+# (attestation, not auth — see designs/sysop.md §6). The sysop's issuer gate
+# additionally confines WHICH hosts may originate ops (config/sysop-issuers; default:
+# the leader).
+#
+# `local-model` provisions the ADDRESSED host's `local` routing default into its
+# garden Ollama store (designs/sysop-local-model.md). It takes NO model/tag/url field
+# — the target is resolved on the host from the deployed closed inventory, so an
+# arbitrary pull is unrepresentable — and it is ASYNC: the sysop acks
+# accepted-in-progress when the pull starts and a terminal done/failed on a later tick.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

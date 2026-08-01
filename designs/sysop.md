@@ -180,6 +180,7 @@ The ops, split into two trust tiers (§6):
 | --- | --- | --- | --- |
 | `deploy` | optional `to_sha: <40-hex>` (guard: refuse if it doesn't match `origin/main2` HEAD) | `deploy-garden.sh` (its own drain→quiesce→merge→record→lift→restart sequence) | run git in `$GARDEN_ROOT` itself; deploy a sha other than the current `origin/main2`; bypass the deploy script's own drain/quiesce safety |
 | `unit` | `action: start\|stop\|restart`, `name: <installed garden-* unit>` | `systemctl --user <action> <name>` after validating `name` is a currently-installed `garden-*.{service,timer}` | act on any unit not matching `garden-*` and not present in `~/.config/systemd/user/`; ever `enable`/`disable`/`mask`; stop `garden-sysop.*` itself (self-preservation guard — see §7 deploy note) |
+| `local-model` | *(none but `authorized_by`)* — the target is resolved on the host from the deployed `local` routing default; **no** `model`/`tag`/`url`/`registry` field (an arbitrary pull is unrepresentable) | starts the non-enabled `garden-local-model-pull.service` (`pull-local-model.sh` runs one `ollama pull` of the frozen target) — the sole **async** op; acks `accepted-in-progress` then a terminal `done`/`failed` on a later tick | carry a model/tag/url; enable or start `garden-ollama`; delete models/blobs to make room; retarget an active pull. Full design: [sysop-local-model.md](sysop-local-model.md) |
 
 Every op is **idempotent by nature** (set-workers to N, drain on/off, reset-failed,
 deploy-to-current-sha, unit start/stop to a target state), which combines with the
@@ -258,9 +259,9 @@ be heard" but two different questions:
    `from_host` is not on that list is **dropped, logged, and acked as refused**,
    before any execution. This makes a mis-addressed op from an unexpected host both
    inert and *visible*, rather than silently obeyed.
-2. **Attest destructive intent** (raises the bar for the irreversible tier). The two
-   destructive ops (`deploy`, `unit`) additionally require the message to carry
-   `authorized_by: <login>` with `<login>` on the journal `maintainers/allowlist`
+2. **Attest destructive intent** (raises the bar for the irreversible tier). The
+   destructive ops (`deploy`, `unit`, `local-model`) additionally require the message
+   to carry `authorized_by: <login>` with `<login>` on the journal `maintainers/allowlist`
    (the same driver-tier list the issue inbox uses). This is **attestation, not
    authentication** — a compromised issuer could forge it — and the doc says so
    plainly; its value is that the destructive tier cannot be triggered by an
