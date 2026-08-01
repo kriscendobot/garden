@@ -130,6 +130,25 @@ STALL_ALERTED="$GUARD_STATE/stall-alerted"
 MAINT_LAST="$GUARD_STATE/maint-last"
 OBJSTORE_ALERTED="$GUARD_STATE/objstore-alerted"
 
+# --- authorized gc-lock escalation (the sysop `maintain` op) ------------------
+# By DEFAULT the guard never breaks a `gc.pid` lock: a lock that MIGHT belong to a live
+# gc is a destructive ambiguity it refuses to resolve unattended (that refusal is the
+# whole point of the trigger case, designs/sysop-repo-maintenance.md). When the sysop's
+# attested `maintain` op runs the guard via root-maintenance.sh it sets this flag to 1,
+# authorizing ONE new behavior: remove a CONFIRMED-STALE gc.pid (holder dead or a
+# recycled non-git pid — gc_lock_holder_alive says so) and then run an ordinary gc. It
+# still never passes `git gc --force`, never clobbers a live gc, and never drops refs or
+# history — a store with genuinely missing objects still alerts a human (invariant C).
+: "${GARDEN_ROOT_GUARD_UNLOCK_STALE_GC:=0}"
+# When set, the escalation outcome is recorded here (one word) so root-maintenance.sh
+# can map it to a terminal sysop ack: noop-healthy | gc-ok | unlocked-gc-ok |
+# refused-live-gc | gc-failed.
+: "${GARDEN_ROOT_GUARD_ESCALATION_RESULT:=}"
+esc_result() {  # esc_result <word>
+  [ -n "$GARDEN_ROOT_GUARD_ESCALATION_RESULT" ] || return 0
+  printf '%s\n' "$1" > "$GARDEN_ROOT_GUARD_ESCALATION_RESULT" 2>/dev/null || true
+}
+
 now_epoch() { date -u +%s 2>/dev/null || echo 0; }
 ts_utc()    { date -u +%Y%m%dT%H%M%SZ 2>/dev/null || echo unknown; }
 
@@ -343,27 +362,56 @@ guard_object_store() {
   if [ "$loose" -gt "$GARDEN_ROOT_GUARD_MAX_LOOSE" ]; then
     reason="${reason:+$reason; }$loose loose objects (ceiling $GARDEN_ROOT_GUARD_MAX_LOOSE)"
   fi
+  # Under an authorized escalation (the `maintain` op), a present gc.pid lock is itself
+  # a reason to act — a stale lock blocks every future gc even when packs/loose are
+  # still under their ceilings, and the operator explicitly asked to clear it now.
+  local gc_pid_file="$gd/gc.pid"
+  if [ "$GARDEN_ROOT_GUARD_UNLOCK_STALE_GC" -eq 1 ] && [ -f "$gc_pid_file" ]; then
+    reason="${reason:+$reason; }a gc.pid lock is present (authorized maintain escalation)"
+  fi
   if [ -z "$reason" ]; then
     # Healthy — close any open breakage window so a later failure alerts again.
     rm -f "$OBJSTORE_ALERTED" 2>/dev/null || true
+    esc_result noop-healthy
     return 0
   fi
 
   # Never fight a deploy: deploy-garden.sh owns the tree under the draining marker.
   if fleet_draining; then
     log "OBJSTORE-DEFERRED: root repo $ROOT needs object-store maintenance ($reason) but the fleet is DRAINING (deploy in progress owns the tree); deferring to a later tick"
+    esc_result gc-failed   # a maintain escalation reports deferred-under-drain as non-terminal failure; retriable once the drain lifts
     return 1
   fi
 
   # Back off: at most one gc attempt per interval, so an unrepairable store does not
-  # burn a multi-minute gc on every tick.
-  local now last
-  now="$(now_epoch)"
-  last="$(cat "$MAINT_LAST" 2>/dev/null || echo 0)"; [[ "$last" =~ ^[0-9]+$ ]] || last=0
-  if [ $(( now - last )) -lt $(( GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS * 3600 )) ]; then
-    return 1
+  # burn a multi-minute gc on every tick. The authorized `maintain` escalation SKIPS the
+  # back-off — the operator deliberately asked for maintenance now.
+  if [ "$GARDEN_ROOT_GUARD_UNLOCK_STALE_GC" -ne 1 ]; then
+    local now last
+    now="$(now_epoch)"
+    last="$(cat "$MAINT_LAST" 2>/dev/null || echo 0)"; [[ "$last" =~ ^[0-9]+$ ]] || last=0
+    if [ $(( now - last )) -lt $(( GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS * 3600 )) ]; then
+      return 1
+    fi
+    printf '%s\n' "$now" > "$MAINT_LAST" 2>/dev/null || true
   fi
-  printf '%s\n' "$now" > "$MAINT_LAST" 2>/dev/null || true
+
+  # AUTHORIZED ESCALATION: break a CONFIRMED-STALE gc.pid so the gc below can acquire the
+  # lock. A lock held by a LIVE git gc is never touched — we refuse rather than clobber a
+  # running gc (and never pass `git gc --force`, which would ignore liveness).
+  local unlocked=0
+  if [ "$GARDEN_ROOT_GUARD_UNLOCK_STALE_GC" -eq 1 ] && [ -f "$gc_pid_file" ]; then
+    local lpid lhost
+    read -r lpid lhost _ < "$gc_pid_file" 2>/dev/null || true
+    if gc_lock_holder_alive "$lpid"; then
+      log "OBJSTORE-GC-LOCK-LIVE: refusing to break gc.pid on $ROOT — pid ${lpid:-?} (host ${lhost:-?}) is a LIVE git gc; not forcing. If it is genuinely wedged, kill it by hand and re-issue the maintain op."
+      esc_result refused-live-gc
+      return 1
+    fi
+    rm -f "$gc_pid_file" 2>/dev/null || true
+    unlocked=1
+    log "OBJSTORE-GC-UNLOCKED: removed a STALE gc.pid on $ROOT (recorded pid ${lpid:-?} host ${lhost:-?} is not a live gc — dead/killed/recycled). Authorized maintain escalation; running an ordinary bounded gc next."
+  fi
 
   log "OBJSTORE-MAINTENANCE: root repo $ROOT needs maintenance ($reason); running a bounded 'git gc'"
   local out rc=0
@@ -372,6 +420,7 @@ guard_object_store() {
     clear_gc_logs "$gd"
     log "OBJSTORE-REPAIRED: git gc succeeded on $ROOT (was: $reason); stale gc.log(s) cleared, so git's automatic cleanup is enabled again"
     rm -f "$OBJSTORE_ALERTED" 2>/dev/null || true
+    esc_result "$( [ "$unlocked" -eq 1 ] && echo unlocked-gc-ok || echo gc-ok )"
     return 0
   fi
 
@@ -395,6 +444,7 @@ guard_object_store() {
       clear_gc_logs "$gd"
       log "OBJSTORE-REPAIRED: git gc succeeded on $ROOT after a --refetch recovery (was: $reason); stale gc.log(s) cleared"
       rm -f "$OBJSTORE_ALERTED" 2>/dev/null || true
+      esc_result "$( [ "$unlocked" -eq 1 ] && echo unlocked-gc-ok || echo gc-ok )"
       return 0
     fi
     first_err="$(printf '%s' "$out" | tr '\n' ' ' | cut -c1-300)"
@@ -416,6 +466,7 @@ guard_object_store() {
     alert_maintainer "root-repo-objstore-$GARDEN" "$msg"
     : > "$OBJSTORE_ALERTED" 2>/dev/null || true
   fi
+  esc_result gc-failed
   return 1
 }
 

@@ -2424,6 +2424,48 @@ _clone_lock_is_stale() {
   return 1
 }
 
+# --- git gc lock liveness (sysop `maintain` op + root-repo-guard escalation) --
+# git's `gc.pid` lock (in a repo's common git dir) records "<pid> <hostname>". When a
+# gc dies without releasing it, the stale lock makes every later `git gc` fail at lock
+# acquisition ("gc is already running ... pid N (use --force if not)"). Breaking that
+# lock is only safe once the recorded holder is confirmed dead — otherwise we clobber a
+# running gc. These two helpers, shared by sysop.sh's synchronous precheck and
+# root-repo-guard.sh's authorized escalation, tell a STALE lock from a live one WITHOUT
+# ever passing `git gc --force` (which ignores liveness).
+
+# read_gc_lock <gitdir> — echo "<pid> <host>" from <gitdir>/gc.pid, empty if absent.
+read_gc_lock() {
+  local f="${1:-}/gc.pid" pid host
+  [ -f "$f" ] || return 0
+  read -r pid host _ < "$f" 2>/dev/null || return 0
+  printf '%s %s\n' "${pid:-}" "${host:-}"
+}
+
+# gc_lock_holder_alive <pid> — true (0) ONLY when <pid> is a LIVE git gc/repack process
+# (a real gc whose lock must be respected). False (1) when the pid is absent/unparseable,
+# dead, or alive-but-not-a-git-process (a recycled pid whose original gc is long gone —
+# the trigger case). A test seam GARDEN_GC_HOLDER_LIVE_CMD, when set, is the authority
+# (run as `$CMD <pid>`; its rc is the answer), so a harness drives all three states with
+# no real process games. On this single-user fleet `kill -0` is a reliable liveness probe.
+gc_lock_holder_alive() {
+  local pid="${1:-}"
+  if [ -n "${GARDEN_GC_HOLDER_LIVE_CMD:-}" ]; then
+    "$GARDEN_GC_HOLDER_LIVE_CMD" "$pid"; return $?
+  fi
+  case "$pid" in ''|*[!0-9]*) return 1 ;; esac           # no/garbled pid → not a live holder
+  kill -0 "$pid" 2>/dev/null || return 1                 # dead → stale → safe to unlock
+  local cmd=""
+  if [ -r "/proc/$pid/cmdline" ]; then
+    cmd="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null || true)"
+  elif command -v ps >/dev/null 2>&1; then
+    cmd="$(ps -o args= -p "$pid" 2>/dev/null || true)"
+  fi
+  case "$cmd" in
+    *git*gc*|*git*repack*|*git-gc*|*git-repack*) return 0 ;;  # a real gc → respect the lock
+    *) return 1 ;;                                            # recycled/unrelated pid → safe
+  esac
+}
+
 # A process-tree-stable env-var name marking that an ANCESTOR process already
 # holds this clone's lock. A nested same-clone child (e.g. maintainer-reply holds
 # the maintainer clone, then invokes maintainer-archive on the same clone) must

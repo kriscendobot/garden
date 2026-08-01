@@ -129,7 +129,7 @@ from_bare() {  # from_bare <path>
 
 # ============================================================================
 hr; echo "STATIC — the scripts parse, and sysop.sh invokes no claude/LLM"; hr
-for s in sysop.sh send-host-op.sh pull-local-model.sh send-msg.sh read-msgs.sh; do
+for s in sysop.sh send-host-op.sh pull-local-model.sh root-maintenance.sh send-msg.sh read-msgs.sh; do
   bash -n "$JOBS/$s" && ok "$s parses" || bad "$s has a syntax error"
 done
 if grep -nE 'claude[ _-]?(-p|bin)|agent_bin|claude_bin|meter_claude' "$JOBS/sysop.sh" >/dev/null; then
@@ -476,6 +476,91 @@ run_sysop "$LMS2" $LMBASE GARDEN_SYSOP_PULL_ACTIVE_CMD="$TR/lm-active.sh" GARDEN
 grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
   && ok "a fast op (drain off) is processed while the pull is still active (not starved)" \
   || bad "a fast op was starved behind an in-flight pull (ack: $(cat "$ACK_LOG"))"
+
+# ============================================================================
+hr; echo "MAINTAIN — the async root-repo gc-lock-escalation op (no real gc/systemd)"; hr
+# A recording start stub + a gitdir fixture. NOTHING below runs a real git gc, touches
+# $GARDEN_ROOT, or starts a real unit — every external effect is a seam stub.
+cat > "$TR/mt-start.sh" <<'EOF'
+#!/bin/bash
+printf 'maint-start\n' >> "$REC_LOG"
+EOF
+chmod +x "$TR/mt-start.sh"
+MTGD="$TR/mt-gd"; mkdir -p "$MTGD"; rm -f "$MTGD/gc.pid"
+# Base seams shared by every maintain tick: an empty gitdir (no lock), a present unit
+# (active), and a recording start stub. Individual tests override single tokens.
+MTBASE="GARDEN_SYSOP_ROOT_GITDIR=$MTGD GARDEN_SYSOP_MAINT_START=$TR/mt-start.sh \
+GARDEN_SYSOP_MAINT_ACTIVE_CMD=$TR/lm-active.sh"
+
+# --- trust gate: destructive tier refused without / with a bad authorized_by -------
+: > "$REC_LOG"; : > "$ACK_LOG"
+seed_op "$ISSUER" "$TARGET" op=maintain
+# shellcheck disable=SC2086
+run_sysop "$TR/mt-noauth" $MTBASE
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && ! grep -qx maint-start "$REC_LOG"; } \
+  && ok "maintain without authorized_by refused (no maintenance started)" || bad "maintain ran without attestation!"
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=maintain authorized_by=nobody
+# shellcheck disable=SC2086
+run_sysop "$TR/mt-badauth" $MTBASE
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && ! grep -qx maint-start "$REC_LOG"; } \
+  && ok "maintain authorized_by not on allowlist refused (no maintenance started)" || bad "forged attestation accepted for maintain"
+
+# --- parse error: an extra op field makes an arbitrary repo op unrepresentable -----
+: > "$ACK_LOG"; : > "$REC_LOG"
+seed_op "$ISSUER" "$TARGET" op=maintain authorized_by="$MAINTAINER" force=1
+# shellcheck disable=SC2086
+run_sysop "$TR/mt-extra" $MTBASE
+{ grep -q 'sysop_ack: parse-error' "$ACK_LOG" && ! grep -qx maint-start "$REC_LOG"; } \
+  && ok "an extra 'force' field is a parse-error (no maintenance started)" || bad "maintain accepted an extra field"
+
+# --- pid-still-alive refusal: a LIVE gc lock is refused synchronously, never started -
+: > "$ACK_LOG"; : > "$REC_LOG"
+printf '3728245 %s\n' "$TARGET" > "$MTGD/gc.pid"     # a lock naming a pid the seam calls LIVE
+seed_op "$ISSUER" "$TARGET" op=maintain authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$TR/mt-live" $MTBASE GARDEN_GC_HOLDER_LIVE_CMD="$TR/lm-yes.sh"
+{ grep -q 'sysop_ack: refused' "$ACK_LOG" && grep -q 'LIVE git gc' "$ACK_LOG" && ! grep -qx maint-start "$REC_LOG"; } \
+  && ok "a lock held by a LIVE git gc is refused synchronously (no unit started)" || bad "maintain clobbered / started against a live gc lock"
+rm -f "$MTGD/gc.pid"
+
+# --- happy path: start (accepted-in-progress) then finalize (accepted-and-applied) --
+: > "$ACK_LOG"; : > "$REC_LOG"
+MTS="$TR/mt-run"; mkdir -p "$MTS"
+seed_op "$ISSUER" "$TARGET" op=maintain authorized_by="$MAINTAINER"
+# Tick 1: no live lock + start stub → freeze the execution record and start the unit.
+# shellcheck disable=SC2086
+run_sysop "$MTS" $MTBASE
+MTDIR="$MTS/sysop/root-maintenance"
+{ grep -q 'sysop_ack: accepted-in-progress' "$ACK_LOG" && [ "$(grep -c maint-start "$REC_LOG")" -eq 1 ] && [ -f "$MTDIR/exec" ]; } \
+  && ok "tick 1: maintenance started, execution frozen, acked accepted-in-progress" \
+  || bad "tick 1 did not start maintenance correctly (ack: $(cat "$ACK_LOG"); rec: $(cat "$REC_LOG"))"
+# Simulate the async worker finishing (it writes the terminal result).
+printf 'outcome: applied\ndetail: removed a stale gc.pid lock; git gc then succeeded\nat: now\n' > "$MTDIR/result"
+: > "$ACK_LOG"
+# shellcheck disable=SC2086
+run_sysop "$MTS" $MTBASE
+{ grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" && [ ! -f "$MTDIR/exec" ]; } \
+  && ok "tick 2: worker result finalized accepted-and-applied, execution cleared" \
+  || bad "tick 2 did not finalize maintenance (ack: $(cat "$ACK_LOG"); exec present: $([ -f "$MTDIR/exec" ] && echo yes || echo no))"
+# The maintenance unit is NEVER auto-enabled (no [Install] section).
+grep -q '^\[Install\]' "$SRC/garden-root-maintenance.service" \
+  && bad "garden-root-maintenance.service has an [Install] section (would be auto-enabled)" \
+  || ok "garden-root-maintenance.service carries no [Install] (started on demand only)"
+
+# --- a fast op (drain off) is still processed while maintenance is in flight --------
+: > "$ACK_LOG"
+MTS2="$TR/mt-run2"; mkdir -p "$MTS2"
+seed_op "$ISSUER" "$TARGET" op=maintain authorized_by="$MAINTAINER"
+# shellcheck disable=SC2086
+run_sysop "$MTS2" $MTBASE                                  # start maintenance (stays active, no result)
+: > "$ACK_LOG"
+seed_op "$ISSUER" "$TARGET" op=drain state=off
+# shellcheck disable=SC2086
+run_sysop "$MTS2" $MTBASE GARDEN_SYSOP_DRAIN="$JOBS/drain-fleet.sh"
+grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
+  && ok "a fast op (drain off) is processed while maintenance is still active (not starved)" \
+  || bad "a fast op was starved behind in-flight maintenance (ack: $(cat "$ACK_LOG"))"
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"

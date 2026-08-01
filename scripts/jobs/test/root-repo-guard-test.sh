@@ -269,6 +269,47 @@ git -C "$GARDEN_ROOT" cat-file -e "$UP^{commit}" 2>/dev/null \
 unset GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS
 
 # ============================================================================
+hr; echo "CASE 13 — MAINTAIN ESCALATION: a STALE gc.pid is removed and gc then succeeds"; hr
+# The trigger case (2026-08-01): a stale gc.pid lock (holder dead/recycled, 0 missing
+# objects) makes every git gc fail. The default guard refuses to force it (CASE 15); the
+# sysop `maintain` op invokes the guard with GARDEN_ROOT_GUARD_UNLOCK_STALE_GC=1, which
+# removes the CONFIRMED-STALE lock and runs an ordinary gc. Liveness is decided by the
+# gc_lock_holder_alive seam so no real process is needed.
+fresh_root
+GD="$GARDEN_ROOT/.git"
+ESC="$TR/esc-result"; rm -f "$ESC"
+printf '3728245 %s\n' "$GARDEN" > "$GD/gc.pid"       # a lock naming a dead/recycled pid
+STALE="$TR/holder-stale.sh"; printf '#!/bin/bash\nexit 1\n' > "$STALE"; chmod +x "$STALE"   # rc1 = not a live gc → safe to unlock
+: > "$ALERTS"
+GARDEN_ROOT_GUARD_UNLOCK_STALE_GC=1 GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0 \
+  GARDEN_ROOT_GUARD_ESCALATION_RESULT="$ESC" GARDEN_GC_HOLDER_LIVE_CMD="$STALE" \
+  "$GUARD" >/dev/null 2>&1 || true
+[ ! -e "$GD/gc.pid" ] && ok "stale gc.pid removed under the authorized escalation" || bad "stale gc.pid survived the escalation"
+[ "$(cat "$ESC" 2>/dev/null)" = unlocked-gc-ok ] && ok "escalation result: unlocked-gc-ok (gc ran after the unlock)" || bad "escalation result was '$(cat "$ESC" 2>/dev/null)' (want unlocked-gc-ok)"
+! alerted "root-repo-objstore" && ok "a stale-lock unlock does not page the maintainer" || bad "spurious objstore alert on a stale-lock unlock"
+
+# ============================================================================
+hr; echo "CASE 14 — MAINTAIN ESCALATION: a LIVE gc lock is REFUSED, never clobbered"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+ESC="$TR/esc-result"; rm -f "$ESC"
+printf '3728245 %s\n' "$GARDEN" > "$GD/gc.pid"
+LIVE="$TR/holder-live.sh"; printf '#!/bin/bash\nexit 0\n' > "$LIVE"; chmod +x "$LIVE"    # rc0 = a live git gc → respect
+GARDEN_ROOT_GUARD_UNLOCK_STALE_GC=1 GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0 \
+  GARDEN_ROOT_GUARD_ESCALATION_RESULT="$ESC" GARDEN_GC_HOLDER_LIVE_CMD="$LIVE" \
+  "$GUARD" >/dev/null 2>&1 || true
+[ -e "$GD/gc.pid" ] && ok "a LIVE gc lock is left in place (never clobbered, no --force)" || bad "escalation clobbered a live gc lock"
+[ "$(cat "$ESC" 2>/dev/null)" = refused-live-gc ] && ok "escalation result: refused-live-gc" || bad "escalation result was '$(cat "$ESC" 2>/dev/null)' (want refused-live-gc)"
+
+# ============================================================================
+hr; echo "CASE 15 — DEFAULT (no escalation) never breaks a gc.pid lock"; hr
+fresh_root
+GD="$GARDEN_ROOT/.git"
+printf '3728245 %s\n' "$GARDEN" > "$GD/gc.pid"
+run_guard                                            # escalation flag unset → unattended refusal preserved
+[ -e "$GD/gc.pid" ] && ok "default guard leaves the gc.pid lock untouched (unattended refusal preserved)" || bad "default guard broke a gc.pid lock without authorization"
+
+# ============================================================================
 hr; echo "RESULT"; hr
 echo "  PASS=$PASS FAIL=$FAIL"
 rm -rf "$TR"

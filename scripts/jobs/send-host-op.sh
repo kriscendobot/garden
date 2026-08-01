@@ -20,8 +20,9 @@
 #   send-host-op.sh ps23-garden-abcd1234 op=unit action=restart name=garden-foreman.timer authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=deploy authorized_by=<login>
 #   send-host-op.sh ps23-garden-abcd1234 op=local-model authorized_by=<login>
+#   send-host-op.sh ps23-garden-abcd1234 op=maintain authorized_by=<login>
 #
-# The destructive ops (deploy, unit, local-model) additionally require
+# The destructive ops (deploy, unit, local-model, maintain) additionally require
 # authorized_by=<login> with <login> on the journal maintainers/allowlist
 # (attestation, not auth — see designs/sysop.md §6). The sysop's issuer gate
 # additionally confines WHICH hosts may originate ops (config/sysop-issuers; default:
@@ -32,6 +33,15 @@
 # — the target is resolved on the host from the deployed closed inventory, so an
 # arbitrary pull is unrepresentable — and it is ASYNC: the sysop acks
 # accepted-in-progress when the pull starts and a terminal done/failed on a later tick.
+#
+# `maintain` authorizes the ADDRESSED host to break a CONFIRMED-STALE git gc.pid lock and
+# run one bounded gc on its deployed root repo (designs/sysop-repo-maintenance.md), for
+# the case where root-repo-guard detects an unmaintainable object store (a stale lock,
+# not corruption) and correctly refuses to force it unattended. It takes NO path/ref/force
+# field — it targets exactly $GARDEN_ROOT and performs exactly that closed escalation, so
+# an arbitrary repo op is unrepresentable — and it is ASYNC (accepted-in-progress → a
+# terminal applied/refused/failed on a later tick). A lock held by a LIVE gc is refused,
+# never clobbered; nothing that drops refs or history is ever in scope.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

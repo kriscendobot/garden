@@ -6,7 +6,7 @@
 # A DETERMINISTIC, no-LLM consumer of host-directed system operations off the bus.
 # It reads this host's `host/<GARDEN>` topic, parses each message against a CLOSED
 # operation vocabulary (set-workers, drain, reset-failed, restore, unit, deploy,
-# local-model), applies a trust gate BEFORE execution, and delegates each op to the
+# local-model, maintain), applies a trust gate BEFORE execution, and delegates each op to the
 # EXISTING hardened same-host tool (set-workers.sh, drain-fleet.sh, …) — it adds
 # addressing + a gate, never new privileged mechanics. It runs on EVERY host (leader
 # and follower alike): the whole point is to drive an UNATTENDED FOLLOWER by a
@@ -26,6 +26,13 @@
 # ── Security invariants (designs/sysop.md §5; restated, never relaxed) ─────────
 #   1. NEVER execute an arbitrary command or a shell string from a message. There
 #      is no `op: shell`/`op: run`/passthrough; the §4 closed set is exhaustive.
+#   `maintain` is the second ASYNC op (designs/sysop-repo-maintenance.md): it authorizes
+#   root-repo-guard.sh to break a CONFIRMED-STALE git gc.pid lock and run one bounded gc
+#   on $GARDEN_ROOT/.git. The sysop does a cheap synchronous liveness precheck (refuse a
+#   LIVE gc), then starts the fixed non-enabled garden-root-maintenance.service --no-block
+#   and polls its host-local result on later ticks. It never runs git in $GARDEN_ROOT —
+#   the guard (the sanctioned root mover) does, via that unit — and never drops history.
+#
 #   2. NEVER run claude/an LLM on message content. All parsing + dispatch is plain
 #      bash — the gate is deterministic code, before execution, in the shape of the
 #      mention-watcher / issue-inbox sender gates. There is not even a downstream
@@ -47,7 +54,7 @@
 # self-asserted. On top of that boundary the sysop adds defense-in-depth:
 #   * ISSUER GATE (all ops): from_host must be on config/sysop-issuers (default:
 #     the leader identity). A stray op from an unexpected host is inert AND visible.
-#   * MAINTAINER ATTESTATION (destructive tier only — deploy, unit, local-model): the
+#   * MAINTAINER ATTESTATION (destructive tier only — deploy, unit, local-model, maintain): the
 #     message must carry authorized_by: <login> with <login> on maintainers/allowlist.
 #     Attestation, not authentication — its value is that the irreversible tier
 #     cannot be triggered by ACCIDENT, only by a message that names a maintainer.
@@ -99,6 +106,12 @@ GARDEN_TAG="sysop"
 : "${GARDEN_SYSOP_PULL_START:=}"                           # test seam: start the async pull unit (--no-block); rc0 = accepted
 : "${GARDEN_SYSOP_PULL_ACTIVE_CMD:=}"                      # test seam: echoes active|inactive for the pull unit
 : "${GARDEN_SYSOP_HEARTBEAT_SECONDS:=600}"                 # min seconds between in-progress heartbeat acks
+# --- maintain op seams (async root-repo gc-lock escalation; overridable for tests) ---
+: "${GARDEN_SYSOP_MAINT_STATE:=$GARDEN_STATE/sysop/root-maintenance}"  # host-local exec/result/attach record
+: "${GARDEN_SYSOP_MAINT_UNIT:=garden-root-maintenance.service}"        # the fixed, non-enabled async maintenance unit
+: "${GARDEN_SYSOP_ROOT_GITDIR:=$GARDEN_ROOT/.git}"                     # where the root repo's gc.pid lives (PLAIN FILE read; never git in $GARDEN_ROOT)
+: "${GARDEN_SYSOP_MAINT_START:=}"                                      # test seam: start the async maint unit (--no-block); rc0 = accepted
+: "${GARDEN_SYSOP_MAINT_ACTIVE_CMD:=}"                                 # test seam: echoes active|inactive for the maint unit
 
 CLONE="$GARDEN_SYSOP_CLONE"
 
@@ -394,6 +407,87 @@ poll_local_model() {
 }
 
 # =============================================================================
+# --- the async root-repo maintenance op (designs/sysop-repo-maintenance.md) ------
+# Same async shape as local-model: the sysop never runs gc inside its tick. It attests +
+# prechecks synchronously, starts a fixed non-enabled unit --no-block, and each later
+# tick polls the host-local result. root-maintenance.sh delegates to root-repo-guard.sh
+# with the authorized gc-lock escalation, so this op grows NO gc logic of its own.
+RM="$GARDEN_SYSOP_MAINT_STATE"
+
+maint_start() {  # start the async maint unit --no-block; rc0 = systemd accepted the start
+  if [ -n "$GARDEN_SYSOP_MAINT_START" ]; then "$GARDEN_SYSOP_MAINT_START"; return $?; fi
+  unit_ctl start --no-block "$GARDEN_SYSOP_MAINT_UNIT"
+}
+maint_active() {  # rc0 iff the maint unit is still active
+  local s
+  if [ -n "$GARDEN_SYSOP_MAINT_ACTIVE_CMD" ]; then s="$("$GARDEN_SYSOP_MAINT_ACTIVE_CMD" 2>/dev/null)";
+  else s="$(unit_ctl_bounded is-active "$GARDEN_SYSOP_MAINT_UNIT" 2>/dev/null || true)"; fi
+  [ "$s" = active ]
+}
+maint_exec_get() { sed -n "s/^$1:[[:space:]]*//p" "$RM/exec" 2>/dev/null | head -1; }
+
+rm_attach() {  # rm_attach <msgid> <from_host> <reply_to>
+  mkdir -p "$RM/attach" 2>/dev/null || true
+  { printf 'from_host: %s\n' "$2"; printf 'reply_to: %s\n' "$3"; } > "$RM/attach/$1"
+}
+
+# rm_finalize <outcome> <detail> — terminal transition: update every attached msgid's
+# sysop-log to <outcome> and send its terminal ack, then clear the execution record.
+rm_finalize() {
+  local outcome="$1" detail="$2" af m fh rt
+  for af in "$RM"/attach/*; do
+    [ -e "$af" ] || continue
+    m="$(basename "$af")"
+    fh="$(sed -n 's/^from_host:[[:space:]]*//p' "$af" | head -1)"
+    rt="$(sed -n 's/^reply_to:[[:space:]]*//p'  "$af" | head -1)"
+    update_sysop_log "$m" maintain "$fh" "$outcome" "$detail" || true
+    send_ack "$fh" "$rt" "$m" maintain "$outcome" "$detail"
+  done
+  rm -rf "$RM/exec" "$RM/result" "$RM/attach" "$RM/heartbeat_at" "$RM/guard-result" 2>/dev/null || true
+}
+
+# poll_root_maintenance — advance an in-flight maintenance run at the TOP of every tick,
+# before any new message is consumed, so a terminal ack lands the tick the run finishes
+# and a fast op (e.g. drain off) is not starved behind it.
+poll_root_maintenance() {
+  [ -f "$RM/exec" ] || return 0                 # no maintenance in flight
+  if [ -f "$RM/result" ]; then
+    local ro detail
+    ro="$(sed -n 's/^outcome:[[:space:]]*//p' "$RM/result" | head -1)"
+    detail="$(sed -n 's/^detail:[[:space:]]*//p' "$RM/result" | head -1)"
+    case "$ro" in
+      applied) log "maintain: completed — ${detail:-applied}"; rm_finalize accepted-and-applied "${detail:-maintenance applied}";;
+      refused) log "maintain: refused — ${detail:-refused}";   rm_finalize refused "${detail:-refused}";;
+      *)       log "maintain: failed — ${detail:-failed}";     rm_finalize failed "${detail:-maintenance failed}";;
+    esac
+    return 0
+  fi
+  # No terminal result yet. Active → optional throttled heartbeat. Inactive without a
+  # result → the unit died (reboot/kill): a terminal interrupted failure.
+  if maint_active; then
+    local now last started
+    now="$(date +%s 2>/dev/null || echo 0)"
+    started="$(maint_exec_get started_epoch)"; : "${started:=$now}"
+    last="$(cat "$RM/heartbeat_at" 2>/dev/null || echo 0)"
+    if [ "$((now - last))" -ge "$GARDEN_SYSOP_HEARTBEAT_SECONDS" ]; then
+      printf '%s\n' "$now" > "$RM/heartbeat_at"
+      local af m fh rt
+      for af in "$RM"/attach/*; do
+        [ -e "$af" ] || continue
+        m="$(basename "$af")"
+        fh="$(sed -n 's/^from_host:[[:space:]]*//p' "$af" | head -1)"
+        rt="$(sed -n 's/^reply_to:[[:space:]]*//p'  "$af" | head -1)"
+        send_ack "$fh" "$rt" "$m" maintain accepted-in-progress "root-repo maintenance running ($((now - started))s elapsed)"
+      done
+    fi
+  else
+    log "maintain: unit inactive without a result — interrupted"
+    rm_finalize failed "root-repo maintenance interrupted (unit inactive, no result)"
+  fi
+  return 0
+}
+
+# =============================================================================
 # --- the closed operation vocabulary (designs/sysop.md §4) ----------------------
 # Sets OUTCOME + DETAIL and (except deploy, which acks BEFORE self-restart) performs
 # the op. OUTCOME ∈ accepted-and-applied | accepted-in-progress | refused |
@@ -405,7 +499,7 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
 
   # Destructive tier requires maintainer attestation BEFORE any parse/execute.
   case "$op" in
-    deploy|unit|local-model)
+    deploy|unit|local-model|maintain)
       local ab; ab="$(field authorized_by)"
       if [ -z "$ab" ]; then OUTCOME="refused"; DETAIL="destructive op '$op' missing authorized_by"; return; fi
       if ! is_maintainer "$ab"; then OUTCOME="refused"; DETAIL="destructive op '$op' authorized_by '$ab' not on maintainers/allowlist"; return; fi
@@ -549,6 +643,52 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       fi
       flock -u 9
       ;;
+    maintain)
+      # ASYNC root-repo maintenance (designs/sysop-repo-maintenance.md). Attestation is
+      # already verified above. Delegates to root-repo-guard.sh's gc-lock escalation via
+      # the async unit; grows no gc logic of its own.
+      # 1. The message may carry NO operation field but authorized_by/reply_to.
+      LM_BAD_FIELD=""
+      if ! lm_body_has_only_allowed_fields; then
+        OUTCOME="parse-error"; DETAIL="maintain: unexpected field '${LM_BAD_FIELD}' (op takes only authorized_by; no path/ref/force — an arbitrary repo op is unrepresentable)"; return
+      fi
+      # 2. Synchronous cheap precheck: refuse immediately if a LIVE git gc holds the
+      #    root's gc.pid lock. Reads a PLAIN FILE ($GARDEN_ROOT/.git/gc.pid) — never runs
+      #    git in $GARDEN_ROOT (the guard, via the async unit, is the sanctioned actor).
+      local lockline lpid lhost
+      lockline="$(read_gc_lock "$GARDEN_SYSOP_ROOT_GITDIR")"
+      lpid="${lockline%% *}"; lhost="${lockline#* }"; [ "$lhost" = "$lpid" ] && lhost=""
+      if [ -n "$lpid" ] && gc_lock_holder_alive "$lpid"; then
+        OUTCOME="refused"; DETAIL="maintain: a LIVE git gc holds $GARDEN_SYSOP_ROOT_GITDIR/gc.pid (pid $lpid${lhost:+ host $lhost}); not clobbering it. If it is wedged, kill it by hand and re-issue."; return
+      fi
+      # 3. Serialize on a host-local lock: attach to an in-flight run (maintenance is
+      #    idempotent — no distinct target), else freeze the record and start the unit.
+      mkdir -p "$RM" 2>/dev/null || true
+      exec 8>"$RM/lock" || { OUTCOME="failed"; DETAIL="maintain: cannot open host-local lock"; return; }
+      flock 8
+      if [ -f "$RM/exec" ]; then
+        rm_attach "$msgid" "$fh" "$(field reply_to)"
+        OUTCOME="accepted-in-progress"; DETAIL="attached to an in-flight root-repo maintenance run"
+        flock -u 8; return
+      fi
+      local now
+      now="$(date +%s 2>/dev/null || echo 0)"
+      {
+        printf 'requested_at: %s\n'  "$(date -u +%FT%TZ)"
+        printf 'started_epoch: %s\n' "$now"
+        printf 'gitdir: %s\n'        "$GARDEN_SYSOP_ROOT_GITDIR"
+      } > "$RM/exec.tmp" && mv -f "$RM/exec.tmp" "$RM/exec"
+      rm -f "$RM/result" "$RM/guard-result" 2>/dev/null || true
+      rm_attach "$msgid" "$fh" "$(field reply_to)"
+      local rc=0; maint_start >/dev/null 2>&1 || rc=$?
+      if [ "$rc" -ne 0 ]; then
+        rm -rf "$RM/exec" "$RM/attach" 2>/dev/null || true
+        OUTCOME="failed"; DETAIL="maintain: systemd rejected the maintenance start (rc=$rc)"
+      else
+        OUTCOME="accepted-in-progress"; DETAIL="root-repo maintenance started (authorized gc-lock escalation)"
+      fi
+      flock -u 8
+      ;;
     deploy)
       local to_sha; to_sha="$(field to_sha)"
       if [ -n "$to_sha" ]; then
@@ -591,6 +731,9 @@ touch "$GARDEN_SYSOP_SEEN"
 # terminal ack lands the tick the pull finishes and a fast op (e.g. drain off) is not
 # starved behind it. Polling never waits for `ollama pull` (designs § Async execution).
 poll_local_model
+# Likewise advance an in-flight root-repo maintenance run (designs/sysop-repo-maintenance.md);
+# polling never waits for gc — it only reads the host-local terminal result.
+poll_root_maintenance
 
 d="$CLONE/msgs/host/$GARDEN"
 if [ ! -d "$d" ]; then

@@ -184,7 +184,7 @@ The **sysop** (`scripts/jobs/sysop.sh`, `garden-sysop.{service,timer}`;
 [designs/sysop.md](designs/sysop.md)) is a **deterministic, no-LLM per-host daemon**
 that receives host-directed system operations over the bus — addressed to a new
 `host/<GARDEN>` bus kind — and executes a **closed vocabulary** (`set-workers`,
-`drain`, `reset-failed`, `restore`, `unit`, `deploy`, `local-model`) on the host it
+`drain`, `reset-failed`, `restore`, `unit`, `deploy`, `local-model`, `maintain`) on the host it
 runs on, each delegating to the existing hardened same-host tool. Its motivation is the
 **unattended follower**: today "throttle host Y" waits for a human to sit at Y
 (`set-workers.sh` correctly refuses cross-host writes); the sysop is the daemon that
@@ -199,9 +199,10 @@ cross-host refusal (it satisfies the guard by running ON the target). It is **no
 `roles/` posture** (runs no `claude`, claims no jobs; the `roles/sysop/AGENT.md` stub
 just redirects here). Trust is a deterministic gate before execution: an **issuer
 gate** confines *which* hosts may originate ops (journal `config/sysop-issuers`;
-default the leader), and the **destructive** ops (`unit`, `deploy`, and `local-model`
-— a model pull is tens of GiB and can exhaust a follower's disk) additionally require
-maintainer **attestation** (`authorized_by:` on `maintainers/allowlist`).
+default the leader), and the **destructive** ops (`unit`, `deploy`, `local-model`
+— a model pull is tens of GiB and can exhaust a follower's disk — and `maintain`, which
+breaks a confirmed-stale git gc lock and repacks the host's shared root repo) additionally
+require maintainer **attestation** (`authorized_by:` on `maintainers/allowlist`).
 Every op is idempotent, recorded to `sysop-log/<GARDEN>/<msgid>.md`, and acked so the
 sender can tell "done" from "never arrived". Send one with
 `scripts/jobs/send-host-op.sh <GARDEN> op=… key=…`. Ferry and any identity switch are

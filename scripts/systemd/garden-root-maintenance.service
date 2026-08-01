@@ -1,0 +1,37 @@
+[Unit]
+Description=Garden root-repo maintenance — one attested gc-lock-break + bounded gc for the sysop maintain op
+# The async worker of the sysop `maintain` op (designs/sysop-repo-maintenance.md). The
+# sysop validates + attests the request and starts THIS unit with --no-block; the helper
+# invokes root-repo-guard.sh with the authorized gc-lock escalation and writes a terminal
+# result the sysop's next tick reads. Deliberately NON-ENABLED: it carries NO [Install]
+# section, so a routine unit install (install-units.sh) copies but never enables it — it
+# is started only by an accepted, attested request. A gc can be slow, so it runs as a
+# systemd-supervised unit rather than inside the sysop's 900s oneshot tick, keeping a
+# fast `drain off` from being starved.
+After=default.target
+# A deploy window may advance the checkout mid-run; disable the start-rate limiter so a
+# transient exec failure cannot wedge the unit past StartLimitBurst.
+StartLimitIntervalSec=0
+CollectMode=inactive-or-failed
+
+[Service]
+Type=oneshot
+Slice=background.slice
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# BOUNDED wall-clock ceiling: unlike the model-pull unit (a tens-of-GiB download →
+# TimeoutStartSec=infinity), maintenance is internally bounded by root-repo-guard's own
+# per-step timeouts (gc + refetch + gc + missing-scan). 1200s comfortably covers their
+# worst-case sum with slack; systemd is the backstop if a step hangs past its own timeout.
+TimeoutStartSec=1200
+# exec /bin/bash (always present) avoids a 203/EXEC burst if the script is momentarily
+# absent mid-deploy.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/root-maintenance.sh
+# A systemd stop mid-run SIGTERMs the work; a signalled shutdown is a clean stop, and the
+# sysop treats an inactive-without-result unit as an interrupted failure.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+KillMode=mixed
+TimeoutStopSec=30
+
+# INTENTIONALLY NO [Install] SECTION. This unit must never be auto-enabled; it is started
+# on demand by the sysop. install-units.sh's intended_units() enables a sibling-less
+# *.service only when it declares WantedBy=, which this omits.
