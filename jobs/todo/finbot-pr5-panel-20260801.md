@@ -48,15 +48,4 @@ an incomplete/uncalled/unreconciled dispatch. Scope of the trust claim: the loop
 Per merge governance (2026-07-22, as amended 2026-08-01), this increment lands only
 after BOTH a passing panel and an orchestrator sign-off. Never self-merge.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:13:24Z
+<!-- garden-reaped: 4 -->

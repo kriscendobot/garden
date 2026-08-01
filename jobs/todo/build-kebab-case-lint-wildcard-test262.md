@@ -64,14 +64,4 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 `tada` report links #2947, quotes the resolved erights feedback, names the frozen-base sha, and shows
 the before/after exemptions line count.
 
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T11:01:21Z
+<!-- garden-reaped: 1 -->
