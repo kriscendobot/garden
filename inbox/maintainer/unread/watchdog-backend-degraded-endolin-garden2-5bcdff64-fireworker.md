@@ -1,13 +1,13 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:gardener-scaler
-sent_at: 2026-08-01T03:57:31Z
+sent_at: 2026-08-01T04:57:42Z
 watchdog_key: backend-degraded-endolin-garden2-5bcdff64-fireworker
-notice_count: 1622
+notice_count: 1681
 first_seen: 2026-07-31T00:19:05Z
-last_seen: 2026-08-01T03:57:31Z
+last_seen: 2026-08-01T04:57:42Z
 ---
-WATCHDOG notice — occurrence #1622 (first seen 2026-07-31T00:19:05Z, latest 2026-08-01T03:57:31Z).
-The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 1622 times; this is ONE
-coalesced notice that updates in place, not 1622 messages. Latest detail:
+WATCHDOG notice — occurrence #1681 (first seen 2026-07-31T00:19:05Z, latest 2026-08-01T04:57:42Z).
+The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 1681 times; this is ONE
+coalesced notice that updates in place, not 1681 messages. Latest detail:
 
-host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~1617m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~1676m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
