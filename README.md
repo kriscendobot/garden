@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T08:28:49Z_
+_As of 2026-08-01T08:29:44Z_
 
 ## Latest
 
@@ -2849,6 +2849,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260801T054230Z-416fa8` — from gardener:build-endo-regexp-conservative-subset, reply_to `build-endo-regexp-conservative-subset` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T054230Z-416fa8.md)
 
 > Self-improvement: pre-push-gates SKILL.md names scripts/jobs/gardening/pre-push-gates.sh, but that driver is absent; only probe scripts exist. Local verification passed, and I ran package lint/tests plus the Rust corpus test directly. Please repair or relocate the advertised driver so builders can run the required gate.
+
+- `20260801T082922Z-3968c7` — from gardener:endo-sturdyref-press-20260801-030502, reply_to `endo-sturdyref-press-20260801-030502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T082922Z-3968c7.md)
+
+> SturdyRef press 2026-08-01: the implementation finish line is still blocked on the human-held promotion of jobs/plan/endo-sturdyref-agent-surface-build-gauntlet for [https://github.com/endojs/endo-but-for-bots/pull/871](https://github.com/endojs/endo-but-for-bots/pull/871). Its head c3fa894c9 is current on [endojs/endo-but-for-bots#704](https://github.com/endojs/endo-but-for-bots/issues/704) (compare: behind_by=0) and has 21 SUCCESS / 0 non-success checks; the panel never ran and there are still zero reviews. Please authorize "go ahead on endo-sturdyref-agent-surface-build-gauntlet" so the liaison can run promote-plan.sh, or name a different next cut. I did not touch [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) because endojs-endo-but-for-bots-pr700-rebase is already queued for a peer. Distributed Confinement remains binding: guest tokens expose no locator or stable identity, are fresh/unlinkable per grant, and are opaque/unforgeable.
 
 - `poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-reconcile-xsnap-pending-jobs-861-864-deadline-overrun.md)
 
