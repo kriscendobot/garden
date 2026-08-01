@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-06-24
+updated: 2026-08-01
 author: gardener
 ---
 
@@ -110,7 +110,25 @@ was previously deleted with the worktree.
    **code panel** (28 seats). Any ambiguity (no base, git error, no changed
    files) falls to the code panel — the broader, safer panel, consistent with
    `sense.sh`'s bias toward over-reviewing.
-2. **Fan the seats — concurrently, `GARDEN_PANEL_CONCURRENCY` (default 8) at a
+2. **Short-circuit when there is no review surface.** Before any seat is
+   dispatched, the script asks a deterministic question: is the diff against the
+   base *empty*? A diagnostic baseline PR whose head is an empty commit on a
+   frozen snapshot is the recurring shape (`endojs/endo-but-for-bots#847`,
+   `chore(ci): establish current master baseline`: 0 files, 0 lines). There is no
+   finding a seat could return over an empty diff, so the verdict is determined
+   without asking: no change, no must-fix, `pass`. The script runs zero rounds,
+   spends zero `claude -p`, skips the fixer and the appellate, and goes straight
+   to the un-draft hook; single-round mode emits the same `pass` last token the
+   staged-gauntlet driver reads. This is the seat-gate pattern the
+   `coverage-auditor` already uses (deterministic pre-pass first, spend an LLM
+   only when there is something to judge) raised to the whole panel. The gate is
+   **narrow and fail-closed**: it fires only when git *agrees* there is nothing
+   (the diff command exited 0, so a merge base exists, and both endpoints resolve
+   to commits). A git error, a missing base, or a non-git worktree leaves the
+   normal panel running: an empty diff we could not confirm is treated as a
+   diff, the same bias toward over-reviewing step 1 takes. Regression guard:
+   `scripts/jobs/test/panel-empty-diff-test.sh`.
+3. **Fan the seats — concurrently, `GARDEN_PANEL_CONCURRENCY` (default 8) at a
    time.** For each seat in the matching list, the script shells one `claude -p`
    (the `seat_review` hook), briefing it with that seat's
    `roles/jurors/<seat>/AGENT.md` and the diff. Each seat returns one per-juror
@@ -124,23 +142,25 @@ was previously deleted with the worktree.
    ~1.5–2.5 hours against a default `GARDEN_HANDLER_TIMEOUT` of 2400s, so every
    auto-gauntlet and `run the gauntlet` job depended on a producer remembering to
    stamp `handler-timeout:` — a header, not an invariant.
-3. **Decide the disposition.** The script shells one `claude -p` (the
+4. **Decide the disposition.** The script shells one `claude -p` (the
    `decide_disposition` hook) over the aggregate and reads back exactly
    `must-fix` or `pass`.
-4. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
+5. **Fixer loop.** On `must-fix`, the script invokes the project fixer hook with
    the must-fix items and re-runs the panel against the new head — the same loop
    v1 ran between a judge's request-changes verdict and the justice's re-review.
    The loop iterates until a `pass` (or the safety bound trips).
-5. **Appellate pass.** On `pass`, the script shells the appellate hook over the
+6. **Appellate pass.** On `pass`, the script shells the appellate hook over the
    passing aggregate; its conservative promotion proposals land in the run dir
    and are advisory (they do not block the un-draft).
-6. **Terminate by un-drafting.** The script calls the un-draft hook (v1's
+7. **Terminate by un-drafting.** The script calls the un-draft hook (v1's
    `gh pr ready <N>`) and prints one terminal line. That line — passed + un-
    drafted — is the only thing the supervisor normally sees.
 
 ## Output
 
 - **Quiet success:** one line, `panel #<N>: <kind> PASSED after <r> round(s); un-drafted.`
+  An empty-diff PR reads `PASSED after 0 round(s) (empty diff); un-drafted.`,
+  preceded on stderr by the one-line reason no seat was dispatched.
 - **Failure:** a loud `panel #<N>: FAILED at <stage>` on stderr, non-zero exit.
 - **Detail (on disk, not stdout):** `GARDEN_PANEL_RUNDIR/round-<r>.md` aggregates,
   `round-<r>.<seat>.md` per-seat blocks, and `appellate.md` proposals.
@@ -176,3 +196,10 @@ prompt and the diff base rather than by a distinct dispatched role.
 - **Panel-kind sensing is exact-match, like v1 panel-hints.** One source change
   among many design docs makes it a code-panel PR. There is no design-only-with-
   typo escape.
+- _2026-08-01_: the empty-diff short-circuit (Procedure step 2) was added while
+  running the gauntlet on `endojs/endo-but-for-bots#847`, a diagnostic baseline PR
+  whose head is an empty commit on a frozen snapshot. Without the gate that PR
+  dispatched all 28 code seats to review a zero-line diff. The gate's shape is
+  deliberately the `coverage-auditor` seat-gate's, promoted from one seat to the
+  whole panel: ask a deterministic question first, spend an LLM only on a real
+  answer.

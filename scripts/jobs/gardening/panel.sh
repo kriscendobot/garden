@@ -116,6 +116,31 @@ case "$panel_kind" in
   *)            seats="$GARDEN_CODE_SEATS" ;;
 esac
 
+# --- stage: is there a review surface at all? -------------------------------
+# A PR can carry a genuinely EMPTY diff against its base — a diagnostic baseline
+# PR whose head is an empty commit on a frozen snapshot is the recurring shape
+# (endojs/endo-but-for-bots#847: `chore(ci): establish current master baseline`,
+# 0 files / 0 lines). Dispatching the 28-seat code panel at that spends 28
+# `claude -p` calls to review nothing, and every seat's honest verdict is the same
+# vacuous approve. This is the seat-gate pattern the coverage-auditor already uses
+# (deterministic pre-pass first, spend an LLM only when there is something to
+# judge) raised to the whole panel.
+#
+# FAIL-CLOSED, deliberately narrow: the gate fires only when git AGREES there is
+# nothing, which means the diff command SUCCEEDED (rc 0, so a merge base exists)
+# and both endpoints resolve to real commits. A git error, a missing base, or a
+# non-git worktree leaves `no_review_surface` false and the normal panel runs —
+# the same bias toward over-reviewing sense_panel_kind takes on ambiguity. An
+# empty diff we could not confirm is treated as a diff.
+diff_rc=0
+surface_files="$(git -C "$wt" diff --name-only "$base...HEAD" 2>/dev/null)" || diff_rc=$?
+no_review_surface=false
+if [ "$diff_rc" -eq 0 ] && [ -z "$surface_files" ] \
+   && git -C "$wt" rev-parse --verify --quiet "$base^{commit}" >/dev/null 2>&1 \
+   && git -C "$wt" rev-parse --verify --quiet 'HEAD^{commit}' >/dev/null 2>&1; then
+  no_review_surface=true
+fi
+
 # --- durable panel-run record (best-effort; never fatal) --------------------
 # The panel's per-seat prose is scratch: GARDEN_PANEL_RUNDIR is torn down with the
 # job's worktree, so nothing durable records which seats reviewed which PR, how
@@ -298,6 +323,27 @@ run_seat() {  # run_seat <seat> <block>  -> writes <block>, <block>.stderr, <blo
 : "${GARDEN_PANEL_CONCURRENCY:=8}"
 case "$GARDEN_PANEL_CONCURRENCY" in ''|*[!0-9]*) GARDEN_PANEL_CONCURRENCY=8 ;; esac
 [ "$GARDEN_PANEL_CONCURRENCY" -ge 1 ] || GARDEN_PANEL_CONCURRENCY=1
+
+# --- SHORT-CIRCUIT: an empty diff has nothing for a jury to review ----------
+# Zero rounds, zero seats, zero `claude -p`. There is no finding a seat could
+# return over an empty diff, so the panel's verdict is determined without asking:
+# no change, no must-fix, pass. The fixer would have nothing to fix and the
+# appellate nothing to promote, so both are skipped; the un-draft hook still runs
+# (in classic mode) because the chain's terminal step is owed either way, and the
+# caller's hook is what decides whether this PR un-drafts at all (a probe wires a
+# no-op). Single-round mode emits the same `pass` last-token contract the staged
+# gauntlet driver reads, so a gauntlet advances to its un-draft stage normally.
+if [ "$no_review_surface" = true ]; then
+  PANEL_DISPOSITION="passed-no-review-surface"
+  echo "panel #$pr: no review surface — the diff against $base is empty; no seats dispatched." >&2
+  if [ "${GARDEN_PANEL_SINGLE_ROUND:-0}" = 1 ]; then
+    echo "panel #$pr: $panel_kind single-round — pass"
+    exit 0
+  fi
+  undraft
+  echo "panel #$pr: $panel_kind PASSED after 0 round(s) (empty diff); un-drafted."
+  exit 0
+fi
 
 # --- the panel / fixer loop -------------------------------------------------
 # One round per iteration: fan the seats, aggregate, decide. While the decision
