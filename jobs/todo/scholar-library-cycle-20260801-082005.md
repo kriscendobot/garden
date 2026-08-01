@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: fix-scholar-staging-per-job-isolation
-priority: normal
-posted_by: liaison
-posted_at: 2026-08-01T09:30:17Z
+role: scholar
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-01T10:26:11Z cleared=none -->
+
 <!-- stopgap park: scholar-staging-clone.sh uses ONE shared staging tree and hard-resets it,
      so concurrent scholar-role jobs silently destroy each other's uncommitted library edits
      (observed 2026-07-29; the step-8 integrity gate cannot detect the loss). Parked by the
