@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:56:34Z_
+_As of 2026-08-01T11:01:48Z_
 
 ## Latest
 
@@ -2643,6 +2643,25 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration panel-seat-tiering HALTED: child panel-seat-tiering-gather stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 0/3 done before halt; swept: panel-seat-tiering-assess panel-seat-tiering-react
 
+- `20260801T105902Z-37e161` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T105902Z-37e161.md)
+
+> B5 (retire toy MCP tools) — code done + locally green; deployed-edge validation needs your go-ahead.
+>
+> STATE
+> - Code lives on PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20) (feat/endo-daemon-guest-mcp-b5, @fa8667f), stacked on B4 [kriscendobot/minion.town#19](https://github.com/kriscendobot/minion.town/issues/19) (OPEN) → B3 [kriscendobot/minion.town#18](https://github.com/kriscendobot/minion.town/issues/18) (still DRAFT). I reviewed it against designs/mcp-daemon-guest-tools.md §7 B5: toy tools + Map + TOOL_SCOPES + MINIONS_* scopes deleted; guest tools mount unconditionally with a clean daemon-unavailable error; scopes trimmed to `mcp/tools mcp/guest`; README/DEPLOYMENT updated; deploy-cognito-guest-scope.sh added. Complete.
+> - Local validation THIS run: typecheck ok, build ok, `npm test` 135 passed / 3 skipped. (Prior PR-body's SIWE-blocked note no longer applies.)
+>
+> BLOCKER — the job's required "deployed-edge" validation (`tools/list` shows only guest_*, then E1-E4 green) cannot be done without production actions I won't take unilaterally:
+> 1) B5 isn't deployed. Deployed edge still advertises mcp/minions:read/write (PRM + Cognito resource server). Making tools/list guest-only requires deploying the B3->B4->B5 stack to the box (SSM to /opt/minion-town, same path B3/B4 got there) AND running deploy-cognito-guest-scope.sh — a change to the live service, with B3 still DRAFT.
+> 2) E1-E4 needs a REAL Cognito user token (Gate-1). The repo PKCE client only auto-approves against the local mock AS; real Cognito needs browser login or an admin-minted token.
+>
+> ASK: how do you want to close out B5's deployed-edge validation?
+>  (a) Authorize me to SSM-deploy the stack to the box + run the Cognito scope cleanup, and either you provide a real Cognito token or authorize me to admin-mint one from a test user — then I run tools/list + E1-E4 and report evidence; or
+>  (b) you'll deploy/validate at the edge yourself (you can also run Gate-1); or
+>  (c) merge the stack first (B3 is draft) so CD deploys it, then validate.
+>
+> I've left the same summary as a comment on PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20). Holding here pending your call.
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3049,11 +3068,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
 
-> WATCHDOG notice — occurrence #1977 (first seen 2026-07-31T00:19:05Z, latest 2026-08-01T09:59:34Z).
-> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 1977 times; this is ONE
-> coalesced notice that updates in place, not 1977 messages. Latest detail:
+> WATCHDOG notice — occurrence #2037 (first seen 2026-07-31T00:19:05Z, latest 2026-08-01T11:00:28Z).
+> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 2037 times; this is ONE
+> coalesced notice that updates in place, not 2037 messages. Latest detail:
 >
-> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~1972m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~2032m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
@@ -3167,43 +3186,43 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 31.7M _(+751.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (16)
-- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
+### todo (5)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
-- [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
-- [`ocapn-noise-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260801-030502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-600-ironhorse-rename.md) — ---
-- [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/propose-merge-upstream-master-into-llm-20260801.md) — Propose a fresh upstream-master into llm integration PR
-- [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-072002.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-082005.md) — Hourly scholar library cycle
-- [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — ---
-- [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
-- [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
-- [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (18)
+### doin (29)
+- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (curren...
+- [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-widen-sysop-host-maintenance.md) — Widen the sysop to a host-directed MAINTENANCE op class
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`minion-town-mcp-b5-retire-toy-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-b5-retire-toy-tools.md) — B5: retire toy tools
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/monk-finish-gardener-rename.md) — Finish the gardener -> monk worker-kind rename
+- [`ocapn-noise-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-030502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-090502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/panel-seat-tiering-gather.md) — Panel seat tiering — 1/3: GATHER the evidence
 - [`pi-release-watch-20260730-190501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pi-release-watch-20260730-190501.md) — ---
+- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-600-ironhorse-rename.md) — ---
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-press-20260731-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
+- [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/propose-merge-upstream-master-into-llm-20260801.md) — Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
+- [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260801-072002.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260801-082005.md) — Hourly scholar library cycle
+- [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — ---
+- [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
+- [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
+- [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### tada (4094)
 - [`panel-seat-tiering`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/panel-seat-tiering.md) — orchestration panel-seat-tiering — HALTED
