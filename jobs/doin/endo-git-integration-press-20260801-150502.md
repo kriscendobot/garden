@@ -56,3 +56,13 @@ ONE message recommending this press be retired or re-scoped (name the
 schedule, `schedules/endo-git-integration-press`), then keep pressing only
 #626 per whatever directive follows. Respect any live peer worker on a shared
 branch; defer, never collide.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T15:05:20Z
