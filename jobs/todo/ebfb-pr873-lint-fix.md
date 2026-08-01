@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-npm-cas-arc-landing-2
-priority: normal
-posted_by: producer
-posted_at: 2026-08-01T09:14:53Z
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-01T09:25:04Z cleared=none -->
 
 ---
 handler-timeout: 7200
