@@ -69,3 +69,13 @@ Recording it continuously as it is noticed is cheaper and more durable than an
 archaeological audit, and the garden already has the loop to hang it on.
 
 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:12:52Z
