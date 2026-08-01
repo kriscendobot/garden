@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T05:46:44Z_
+_As of 2026-08-01T05:47:10Z_
 
 ## Latest
 
@@ -3916,10 +3916,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.4M | $666.38 _(notional, rate-card)_ | no quota set |
-| Codex | 32.1M _(+771.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 32.1M _(+771.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
-### todo (135)
+### todo (134)
 - [`arc-status-daily-20260730-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260730-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260731-033502.md) — Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/arc-status-daily-20260801-035001.md) — Daily status + change summary for the standing review arcs
@@ -3932,7 +3932,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-byte-array-press-20260731-145004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260731-145004.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260731-210502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260731-210502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260801-030502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-git-integration-press-20260731-025002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260731-025002.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260731-085002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260731-085002.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-git-integration-press-20260731-145004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260731-145004.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
@@ -4056,8 +4055,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-watchdog-20260731-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260731-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (0)
-(none)
+### doin (1)
+- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 
 ### tada (4035)
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-regexp-conservative-subset.md) — Cost
