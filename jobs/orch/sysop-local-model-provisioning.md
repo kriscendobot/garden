@@ -1,4 +1,5 @@
 ---
+child-design-sysop-local-model-op-reap-count: 0
 order: serial
 children: design-sysop-local-model-op build-sysop-local-model-op
 on-child-failure: halt
