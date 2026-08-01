@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:33:20Z_
+_As of 2026-08-01T09:36:33Z_
 
 ## Latest
 
@@ -2346,6 +2346,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Mystic implementation is landed on origin/main2 (including the Kimi --prompt flag fix), and the host already has MOONSHOT_API_KEY in the user-systemd environment plus official Kimi Code 0.29.2. Please deliberately deploy main2 via the leader liaison (do not edit the root). Once deployed, I will run one reversible tool-using Mystic canary and immediately return capacity to zero.
 
+- `20260801T093536Z-9ba8ce` — from gardener:esheets-supervisor-20260801-035001, reply_to `esheets-supervisor-20260801-035001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T093536Z-9ba8ce.md)
+
+> **@endo/exo-google-sheets daily standup (2026-08-01)**
+>
+> Progress since last fire:
+> - **Network floor now landed:** [endojs/endo-but-for-bots#723](https://github.com/endojs/endo-but-for-bots/issues/723) (@endo/fetch confined HTTP plugin) **MERGED 07-30**, on top of [endojs/endo-but-for-bots#566](https://github.com/endojs/endo-but-for-bots/issues/566) (@endo/http-confine + exo-http, merged 07-08). The fetch/network-fetch dependency is operational.
+>
+> In flight:
+> - **[endojs/endo-but-for-bots#874](https://github.com/endojs/endo-but-for-bots/issues/874)** (Phase 1, `@endo/google-sheets` client) — DRAFT, MERGEABLE, 24/24 checks green. Iterating on review: dckc's `_Power`-suffix naming feedback (07-31) is being addressed by board job `endojs-endo-but-for-bots-pr874-4b624b25` (in todo). Deepest actionable node and it's moving.
+> - **[endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881)** (Phase 2, `@endo/exo-google-sheets` facets) — DRAFT, **CONFLICTING**, stacked on the [endojs/endo-but-for-bots#874](https://github.com/endojs/endo-but-for-bots/issues/874) head branch. Blocked until [endojs/endo-but-for-bots#874](https://github.com/endojs/endo-but-for-bots/issues/874) lands; will need a rebase then.
+>
+> Blocked / decisions needed:
+> 1. **Empty build job on the board:** `build-exo-google-sheets` was promoted plan->todo today (by the leader host, go-ahead gate) but its body is **empty** (poisoned by prior requeues). It's superseded by [endojs/endo-but-for-bots#874](https://github.com/endojs/endo-but-for-bots/issues/874) + [endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881) (the actual client+exo implementations, both in flight). As-is it can only misfire or spawn a duplicate. **Recommend cancelling it** (or, if intended, re-post with a real spec).
+> 2. **[endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)** (endoclaw-oauth design refinement) — mergeable & green for ~1 week but its base is the **frozen `llm-28dffa9`**, not `llm`. It gates the Phase-3 OAuth *implementation* (the "operational" half). Needs a maintainer merge, likely after a rebase onto `llm`.
+>
+> Posted nothing new today — everything actionable is already in flight. Terminal condition not met; daily schedule retained.
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2866,14 +2883,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $691.30 _(notional, rate-card)_ | no quota set |
+| Claude | 32.9M | $693.10 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
-### todo (52)
+### todo (55)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
+- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-readableblob-range-attenuation.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
+- [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
+- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
@@ -2924,31 +2944,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (7)
+### doin (5)
 - [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-sysop-local-model-op.md) — Build: the sysop local-model provisioning op
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-lint-fix.md) — ---
-- [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-4b624b25.md) — attention directive on endojs/endo-but-for-bots PR #874
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #897
-- [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/esheets-supervisor-20260801-035001.md) — DAILY supervisor — drive @endo/exo-google-sheets from design to operational
 
-### tada (4056)
+### tada (4058)
+- [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260801-035001.md) — Completion report — @endo/exo-google-sheets supervisor (2026-08-01)
+- [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-4b624b25.md) — Completion report
 - [`endo-npm-cas-registry-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-090502.md) — Completion report
 - [`endojs-endo-but-for-bots-pr700-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr700-rebase.md) — Cost
 - [`endojs-endo-but-for-bots-pr882-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr882-conduct.md) — Cost
-- [`endo-vfs-parity-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260801-090502.md) — Completion report — VFS parity press (tick 20260801-090502)
-- [`design-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-sysop-local-model-op.md) — Cost
-- … and 4051 more
+- … and 4053 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`arc-status-daily-20260723-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/arc-status-daily-20260723-030512.md) — _normal_ · Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260724-032002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/arc-status-daily-20260724-032002.md) — _normal_ · Daily status + change summary for the standing review arcs
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
-- [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-kebab-case-lint-wildcard-test262.md) — _normal_ · Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`consolidate-test262-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/consolidate-test262-fixtures.md) — _normal_ · Refactor: consolidate test262 fixtures (@endo/test262-runner + endor-vm cases...
-- [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-store-phase4-sorted.md) — _normal_ · Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/decommission-cxs-rust-default-xst-ci-parity.md) — _normal_ · End-state: decommission C-XS — drop c/moddable, remove the C-binding Endor, m...
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
@@ -2961,7 +2977,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-byte-array-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-162019.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-223502.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260724-043515.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-daemon-envelope.md) — _normal_ · Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
 - [`endo-git-integration-press-20260722-095006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260722-095006.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-162019.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-223502.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
