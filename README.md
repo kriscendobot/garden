@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:26:43Z_
+_As of 2026-08-01T09:27:18Z_
 
 ## Latest
 
@@ -2292,6 +2292,20 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260801T091308Z-0019ad` — from orchestrator:endo-npm-cas-arc-landing-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T091308Z-0019ad.md)
 
 > Orchestration endo-npm-cas-arc-landing HALTED: child ebfb-pr882-bootstrap-generators stalled in flight for 2508s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/6 done before halt; swept: ebfb-pr873-lint-fix ebfb-pr875-review-response ebfb-pr876-conduct ebfb-pr877-rebase ebfb-pr878-rebase
+
+- `20260801T092701Z-6b0b1f` — from gardener:endo-byte-array-press-20260801-090502, reply_to `endo-byte-array-press-20260801-090502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T092701Z-6b0b1f.md)
+
+> byteArray press — 2026-08-01 observation (no wheel taken; everything green + awaiting human re-review)
+>
+> Finish-line component 1 — byteArray = frozen Uint8Array view (design [endojs/endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/issues/572)):
+>   • [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) (base master-a7ff191): immutable-arraybuffer shim (freezable TypedArray emulation) + pass-style byteArray brand. All CI green, MERGEABLE/CLEAN. Only 2 unresolved threads, both OUTDATED/trivial.
+>   • [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (base master-2708cac): narrows byteArray to a plain frozen Uint8Array view + @endo/bytes helpers (shortlex compare, genuine-Uint8Array detection, hex codecs). All CI green (Node 22/24, XS, test262, hermes, guile), MERGEABLE/CLEAN. All 5 current review threads have fixes/answers pushed (genuine-Uint8Array rejection fixed 4f5192232; shim init-order test added 1b6df4a9b; shortlex confirmed w/ upstream evidence; version-bump moved to [endojs/endo-but-for-bots#584](https://github.com/endojs/endo-but-for-bots/issues/584); lexical-vs-shortlex resolved — erights "that makes sense to me, thanks").
+>   → These two are complementary layers (shared .changeset/freezable-typedarray-emulation.md), NOT competing: the view redesign REFINES, does not replace, the immutable-arraybuffer emulation (the shim is still the substrate; XS needs it). Blocker is purely maintainer RE-REVIEW to clear CHANGES_REQUESTED — no agent-actionable code left.
+>
+> Finish-line component 2 — RegistryInterface.resolve → immutable bytes:
+>   • [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/issues/888) (base llm-bfc91f5, DRAFT): auto-promoted after [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) merged 07-29. Accepts immutable UTF-8 package-JSON bytes, hex-backed CapData across the CapTP boundary, host-side conversion back to mutable bytes. All CI green, MERGEABLE/CLEAN, no review yet.
+>
+> Net: the whole byteArray program is complete-and-green and gated on human re-review ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503)) and finish-line un-draft/review ([endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/issues/888)). Follow-up when you're ready to land: those two sit on frozen snapshot bases and will need a restack onto current llm as part of the landing sequence. Nothing stalled in code; leaving PRs as-is per DRAFT-until-finish-line policy.
 
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
