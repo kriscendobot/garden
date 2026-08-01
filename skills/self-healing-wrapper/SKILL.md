@@ -133,13 +133,14 @@ The responder's output must reach a **human-or-agent-drainable** surface, not
 just the script's own stdout. Two routes, by how durable the escalation must be:
 
 - **Gardener inbox (committed, cross-host visible).** Append a failure section to
-  `journal/inboxes/<host>/gardener.md` naming the capture SHA — the v1
-  `report-error.sh` shape (port pending; see
-  [`gardener-inbox-error-reporting`](../gardener-inbox-error-reporting/SKILL.md)
-  once ported). This is the right route when a failure the *central mentor on
-  another host* must inspect: a committed inbox file carries the SHA across hosts
-  even though the blob itself is local until pushed. The removed driver used
-  exactly this shape (recoverable from git history).
+  `journal/inboxes/<host>/gardener.md` naming the capture SHA, *and commit the
+  capture itself* as `inboxes/<host>/captures/<sha>` — see
+  [`gardener-inbox-error-reporting`](../gardener-inbox-error-reporting/SKILL.md),
+  which does both. This is the right route when a failure the *central mentor on
+  another host* must inspect. Both halves are load-bearing: a section that only
+  names the SHA travels, but the loose blob does not, and the responder is left
+  holding an un-inspectable hash (the 2026-08-01 defect). The removed driver used
+  the section half of this shape (recoverable from git history).
 - **Self-improvement log (committed, per-service).** Append the responder's
   analysis to a `kind:`-tagged log the gardener picks up (the removed driver wrote
   a per-lane `*.improvements.md` log, recoverable from git history).

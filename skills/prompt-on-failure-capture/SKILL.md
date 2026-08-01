@@ -79,15 +79,23 @@ it is handed (each v2 service hashes into its own
 reader **on this host** but is **not** on origin and **not** visible
 to a responder on another host (the central mentor may run elsewhere).
 For a failure a different host must inspect, make the SHA reachable on
-the shared remote, in order of preference:
+the shared remote. **Naming the SHA in a committed file is not enough**
+— the text mentions the blob; nothing points at it, so the push leaves
+it behind and the responder gets a SHA it cannot `cat-file` (the
+2026-08-01 unreachable-transcript defect). In order of preference:
 
-1. Write the SHA into a *committed* board or inbox file (a job body,
-   an inbox-error report via
-   [`gardener-inbox-error-reporting`](../gardener-inbox-error-reporting/SKILL.md))
-   and push it the normal CAS way — the commit references the tree, so
-   `git push origin HEAD:journal2` carries the blob with it.
+1. Commit the *content* as a tracked, content-addressed file and push
+   it the normal CAS way — the blob is then in the pushed tree, so
+   `git push origin HEAD:journal2` carries it and a plain fetch
+   resolves the SHA anywhere. This is what
+   [`gardener-inbox-error-reporting`](../gardener-inbox-error-reporting/SKILL.md)
+   does (`inboxes/<host>/captures/<sha>`, committed alongside the inbox
+   section that names it).
 2. `anchor_blob` the loose blob under a ref and push that ref, when you
    want the capture available before/without a committed escalation.
+   Weaker: `refs/captures/*` is outside the default refspec, so an
+   ordinary `git fetch` does not retrieve it — the responder must ask
+   for the ref by name.
 
 A capture that only ever feeds a same-host responder needs neither.
 

@@ -3920,15 +3920,21 @@ commit_and_push() {
 #   the responder runs on the same host against the same clone.
 #
 #   For a failure that a DIFFERENT host must inspect, the SHA must be made
-#   reachable on the shared remote. Two durable options, in order of preference:
-#     1. Write the SHA into a *committed* board/inbox file (a job body, an
-#        inbox-error report) and push it the normal CAS way. The commit references
-#        the tree, not a loose blob, so `git push origin HEAD:journal2` carries the
-#        blob with it. This is what the v1 report-error.sh does and is the default
-#        for any capture that escalates off-host.
+#   reachable on the shared remote. Naming the SHA in a committed file is NOT
+#   enough — the text mentions the blob, nothing points AT it, so the push leaves
+#   it behind and the responder gets an un-inspectable SHA (the 2026-08-01
+#   unreachable-transcript defect). Two durable options, in order of preference:
+#     1. Commit the CONTENT itself as a tracked, content-addressed file (the SHA
+#        as the filename) and push it the normal CAS way. The blob is then in the
+#        pushed tree, so `git push origin HEAD:journal2` carries it and a plain
+#        fetch resolves the SHA anywhere. This is what report-error.sh does
+#        (`inboxes/<host>/captures/<sha>`, alongside the inbox section that names
+#        it) and is the default for any capture that escalates off-host.
 #     2. Anchor the loose blob under a ref and push that ref, when you want the
 #        capture available before/without a committed escalation:
 #          anchor_blob "$sha" "captures/$(basename ...)" "$dir"   # see below
+#        Weaker: `refs/captures/*` is outside the default refspec, so an ordinary
+#        `git fetch` does NOT retrieve it — the responder must ask for it by name.
 #   A capture that only ever feeds a same-host responder needs neither.
 
 # capture_blob <file> [<clone-dir>] -> prints the blob SHA on stdout.

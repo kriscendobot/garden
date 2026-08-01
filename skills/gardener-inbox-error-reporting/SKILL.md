@@ -1,6 +1,6 @@
 ---
 created: 2026-06-01
-updated: 2026-06-24
+updated: 2026-08-01
 author: builder
 ---
 
@@ -8,9 +8,11 @@ author: builder
 
 The uniform pattern for any job-board service or worker shell script to
 trap an unexpected error, capture the failure transcript via
-`git hash-object`, and append a message section to
-`journal/inboxes/<host>/gardener.md`. The gardener role reads that
-inbox on its next dispatch.
+`git hash-object`, commit it as a content-addressed file under
+`journal/inboxes/<host>/captures/<sha>` so the SHA is reachable to
+every off-host responder, and append a message section to
+`journal/inboxes/<host>/gardener.md` that names it. The gardener role
+reads that inbox on its next dispatch.
 
 This skill is the shared body that the job-board services, every
 per-role worker script, and the coalesced repo-activity watcher all
@@ -46,8 +48,11 @@ worktree is not reachable.
 
 ## State
 
-None. The transcript blob lands in the journal clone's object database;
-the appended inbox section lands at HEAD of the `journal2` branch.
+The transcript lands twice: as a blob in the journal clone's object
+database (`hash-object -w`, immediately, even with no network) and as a
+tracked file `inboxes/<host>/captures/<sha>` committed alongside the
+appended inbox section at HEAD of the `journal2` branch. The second is
+what carries it off-host.
 
 ## Procedure
 
@@ -61,13 +66,38 @@ the appended inbox section lands at HEAD of the `journal2` branch.
    TRANSCRIPT_SHA=$(git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$TRANSCRIPT")
    ```
 
-   The blob is unreferenced. Promotion to `refs/captures/...` is the
-   caller's call; this skill does not auto-promote. (The companion
+   An empty transcript is replaced by a synthetic self-describing line
+   (never escalate the zero-byte blob `e69de29b…`), and a transcript
+   over `GARDEN_REPORT_ERROR_MAX_BYTES` (default 64 KiB) is truncated
+   to its last that-many bytes *before* hashing — so the SHA always
+   names exactly the bytes a responder will read. The caller's file is
+   never mutated; both rewrites stage a temp copy.
+
+2b. **Commit the transcript as a content-addressed capture file.**
+
+   ```sh
+   cp "$TRANSCRIPT" "$GARDEN_JOURNAL/inboxes/$GARDEN/captures/$TRANSCRIPT_SHA"
+   ```
+
+   `hash-object -w` alone writes a **loose** blob: it lives in the local
+   clone's object DB and nothing in the pushed history points at it, so
+   `git push HEAD:journal2` does not carry it and every off-host
+   responder — the central mentor — gets an escalation naming a SHA it
+   cannot `cat-file`. Writing the same bytes to a tracked file named by
+   the SHA puts the blob in the pushed **tree**, so it rides the same
+   push as the inbox section and resolves after a plain `journal2`
+   fetch. The path *is* the SHA, so the write is idempotent and deduped
+   across repeated escalations of identical content.
+
+   (The companion
    [`prompt-on-failure-capture`](../prompt-on-failure-capture/SKILL.md)
    skill — and `capture_blob` / `anchor_blob` in `common.sh` — own the
    capture-and-anchor primitives; this skill is the inbox-append form,
-   which makes the blob reachable off-host by committing a file that
-   references it.)
+   and the committed capture file is what makes its SHA reachable
+   off-host. A caller using this skill does **not** additionally need
+   `anchor_blob`: `refs/captures/*` is not retrieved by an ordinary
+   fetch, so it is the weaker route, useful only as a fallback when this
+   escalation fails outright.)
 
 3. **Append a message section to the gardener inbox.** The inbox file
    lives at `journal/inboxes/<host>/gardener.md`. If it does not exist
@@ -82,11 +112,17 @@ the appended inbox section lands at HEAD of the `journal2` branch.
    - State: <state>
    - Transcript SHA: <transcript-sha>
    - Context: <one-line>
+   - Capture: inboxes/<host>/captures/<transcript-sha>
 
-   Inspect via `git -C journal cat-file -p <transcript-sha>`.
+   Inspect via `git -C journal cat-file -p <transcript-sha>` (or read
+   `journal/inboxes/<host>/captures/<transcript-sha>`) -- both work
+   off-host after a plain `journal2` fetch.
    ```
 
-4. **Commit and push.** Use the same retry-on-rejection loop as
+4. **Commit and push.** Stage **both** the inbox file and the capture
+   file (the section names the SHA; the capture is what makes that SHA
+   reachable — one commit, so a responder never reads a section whose
+   capture is missing), then use the same retry-on-rejection loop as
    `skills/journal-sync/SKILL.md`, pushing `HEAD:$JOURNAL_BRANCH`
    (`journal2` by default). The commit message is
    `inboxes(gardener): error from lane <n> state <state>`.
@@ -122,17 +158,39 @@ one section at a time.
   `msgs/role/gardener` ping on append) is a noted follow-up, not part
   of this port.
 
-- **Transcript size.** `git hash-object` happily ingests megabytes;
-  the journal repo's git gc cleans up unreferenced blobs after the
-  grace window. A failure transcript larger than ~10MB suggests the
-  caller is capturing too much (`set -x` on a loop with thousands of
-  iterations); trim before calling.
+- **Transcript size is capped, because the capture is permanent.**
+  A committed capture is not a loose blob git gc can reclaim: it is in
+  `journal2`'s history, and every host pays for it on every fetch.
+  `journal2` is deliberately *not* the transcript archive — that is the
+  `transcripts2` orphan branch, and the fleet-wide fetch cost is exactly
+  why ([`designs/transcript-journal-capture.md`](../../designs/transcript-journal-capture.md),
+  Decision 1). An escalation attachment is a bounded exception to that,
+  so the helper truncates to the **last**
+  `GARDEN_REPORT_ERROR_MAX_BYTES` (default `65536`; `0` disables the
+  cap) before hashing, prefixing a one-line truncation banner. 64 KiB is
+  not arbitrary: it is exactly the slice the fleet's capture readers
+  consume (`mentor.sh` and the gardener classifiers read
+  `tail -c 65536`), so the cap costs a responder nothing. At the
+  fleet's observed rate (~24 escalations/day across six hosts) the
+  worst case is ~1.5 MiB/day and the realistic case far less. A caller
+  that needs more can raise the cap for its invocation; a caller whose
+  transcript is routinely megabytes is capturing too much (`set -x` on
+  a loop with thousands of iterations) and should trim before
+  calling.
+
+- **Capture accumulation.** Captures are content-addressed and deduped,
+  so repeats are free, but distinct failures accumulate one file each
+  under `inboxes/<host>/captures/`. Deleting old capture files is safe
+  and shrinks the working tree (the history still carries the bytes);
+  no pruner exists yet — a noted follow-up, not a blocker at the
+  current failure rate and the 64 KiB cap.
 
 - **No-network fallback.** When the journal worktree's `origin` is
-  unreachable, the skill still hashes the transcript and writes the
-  inbox section to the local journal worktree; the push retry loop
-  will eventually succeed once connectivity returns. The transcript
-  blob is durable as soon as `hash-object -w` writes it.
+  unreachable, the skill still hashes the transcript, writes the
+  capture file, and appends the inbox section to the local journal
+  worktree; the push retry loop will eventually succeed once
+  connectivity returns, carrying both. The transcript blob is durable
+  as soon as `hash-object -w` writes it.
 
 - **Concurrent failures.** Two services failing simultaneously each
   append their own section. The journal-sync rebase loop linearizes

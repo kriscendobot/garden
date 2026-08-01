@@ -1274,12 +1274,17 @@ while :; do
                --transcript "$capture" --lane 0 --state handler-nonzero \
                --context "gardener-$id on $GARDEN: job '$base' handler exited rc=$rc" \
              2>/dev/null || true)"
-      # Fall back to a bare local hash if the inbox-append escalation itself failed,
-      # so the output is at least durable in this gardener's clone.
-      [ -n "$sha" ] || sha="$(capture_blob "$capture" "$CLONE" 2>/dev/null || echo unknown)"
-      # Anchor the capture under refs/captures so an off-host responder can fetch it
-      # even if the inbox-append push was lost; best-effort (blob stays local in $CLONE).
-      [ "$sha" = unknown ] || anchor_blob "$sha" "gardener/$id/$base" "$CLONE" 2>/dev/null || true
+      # When report-error.sh returns a SHA it has ALSO committed the capture as a
+      # tracked file (inboxes/<host>/captures/<sha>), so the blob rides the normal
+      # journal2 push and any responder resolves it after a plain fetch — no anchor
+      # needed. Only when that escalation failed outright do we fall back to a bare
+      # local hash, and then anchor it under refs/captures so an off-host responder
+      # has *some* route (a ref an ordinary fetch does not retrieve, but one that
+      # `git fetch origin refs/captures/*:refs/captures/*` can reach); best-effort.
+      if [ -z "$sha" ]; then
+        sha="$(capture_blob "$capture" "$CLONE" 2>/dev/null || echo unknown)"
+        [ "$sha" = unknown ] || anchor_blob "$sha" "gardener/$id/$base" "$CLONE" 2>/dev/null || true
+      fi
       printf 'gardener-%s on %s: job %s handler FAILED (rc=%s); output captured as %s, escalated to the gardener inbox, left in doin for the reaper\n' \
         "$id" "$GARDEN" "$base" "$rc" "$sha" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true

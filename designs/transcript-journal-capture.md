@@ -100,6 +100,20 @@ reset-to-origin, append-only per-host paths, push-CAS with verification (mirror
 (`capture_blob`/`anchor_blob`) stay what they are — one-off escalation attachments,
 not an archive.
 
+**Bounded exception (2026-08-01): failure-escalation captures.** A loose blob is
+unreachable to an off-host responder — `git hash-object -w` writes it into one
+clone's object DB and a push carries nothing that points at it, so every gardener
+inbox escalation reached the central mentor as an un-inspectable SHA. The fix is
+for [`report-error.sh`](../skills/gardener-inbox-error-reporting/report-error.sh)
+to commit the transcript itself as `inboxes/<host>/captures/<sha>` on `journal2`,
+where it rides the existing push. That does put transcript *bytes* on `journal2`,
+which this decision otherwise excludes, so it is deliberately bounded: content-
+addressed (identical failures dedup to one file) and truncated to the last 64 KiB
+— the slice `mentor.sh` and the gardener classifiers actually read — which is
+~1.5 MiB/day fleet-wide at worst against the hundreds-of-MB/year archive this
+decision was protecting the branch from. The session archive stays on
+`transcripts2`.
+
 **Which remote carries the branch is a separate, safety-weighted choice.** The
 garden's origin is public, and transcripts are the fleet's raw working memory:
 tokens that scrolled through a shell, maintainer email, private reasoning.
