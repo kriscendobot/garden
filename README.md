@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:48:49Z_
+_As of 2026-08-01T09:49:19Z_
 
 ## Latest
 
@@ -2956,13 +2956,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-lint-fix.md) — ---
 
-### tada (4060)
+### tada (4061)
+- [`sysop-local-model-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/sysop-local-model-provisioning.md) — orchestration sysop-local-model-provisioning — complete
 - [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-local-model-op.md) — Completion report
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`esheets-supervisor-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/esheets-supervisor-20260801-035001.md) — Completion report — @endo/exo-google-sheets supervisor (2026-08-01)
 - [`endojs-endo-but-for-bots-pr874-4b624b25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-4b624b25.md) — Completion report
-- [`endo-npm-cas-registry-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-090502.md) — Completion report
-- … and 4055 more
+- … and 4056 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
