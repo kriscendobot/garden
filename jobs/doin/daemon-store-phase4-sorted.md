@@ -58,3 +58,13 @@ Design authority for the full detail and file:line grounding:
 READ THE RELEVANT PHASE SECTION FIRST. When the PR is green and un-drafted,
 comment the outcome (link the PR) on https://github.com/kriskowal/garden/issues/59.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:00:27Z
