@@ -1,1 +1,2 @@
 {"source":"none","ts":"2026-08-01T10:36:11Z","base":"garden-widen-sysop-host-maintenance","host":"endolin-garden2-5bcdff64","outcome":"fail","elapsed_s":1171,"role":"gardener"}
+{"source":"result","model":"claude-opus-4-8","num_turns":4,"elapsed_s":71,"input_tokens":7,"output_tokens":3012,"cache_creation_tokens":209074,"cache_read_tokens":684517,"total_cost_usd":2.5083335,"ts":"2026-08-01T14:24:30Z","base":"garden-widen-sysop-host-maintenance","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
