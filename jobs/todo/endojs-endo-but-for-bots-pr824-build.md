@@ -1,19 +1,4 @@
----
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: requeue-exhausted
-poison_count: 1
-requeue_cycles: 5
-deadline_overruns: 0
-poisoned_at: 2026-07-23T00:33:07Z
-poisoned_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-07-23T00:33:07Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:00:39Z cleared=none -->
 
 # Build @endo/sha256 from the approved platform-neutral hash design
 
