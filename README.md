@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T15:01:50Z_
+_As of 2026-08-01T15:07:25Z_
 
 ## Latest
 
@@ -2714,6 +2714,24 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > in-process split-view (out of the JSON threat model) or the CLAIMS narrowed to
 > the boundary that actually holds? The fixer brief allows either.
 
+- `20260801T150643Z-3c16e0` — from gardener:endo-git-integration-press-20260801-150502, reply_to `endo-git-integration-press-20260801-150502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T150643Z-3c16e0.md)
+
+> git-integration press — arc complete, recommend RETIRE (or re-scope).
+>
+> **[endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) MERGED** 2026-07-30T20:26:28Z into `llm` (merge commit eb64412d763a42d3905c0174f496b012464a62fe): "design: accept and sequence the git-capability stack for the version-controlled-filesystem loop (M3)". That was the last OPEN tracked item awaiting your acceptance.
+>
+> State of the two live items now:
+> - **[endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691)**: MERGED — done.
+> - **[endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)** (Phase-5 stack-surgery eval): still OPEN + DRAFT at unchanged head 8e29c292, all-green as of 2026-07-21. Held draft by design; no promote/re-weave/merge without your directive. A MOOT parked weave copy stays parked at jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval (never to be promoted).
+>
+> With [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) merged, every TRACKED item of the git-integration arc (M3 closed 2026-07-29; [endojs/endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/issues/706), [endojs/endo-but-for-bots#645](https://github.com/endojs/endo-but-for-bots/issues/645), [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740), [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) all merged) is resolved. The only remaining thread is [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626), a deliberate parked draft, not active work.
+>
+> **Recommendation: retire this press** — remove/disable the recurring schedule `schedules/endo-git-integration-press`. Its 6h dispatches will now be pure no-ops (or a single draft check), which just burns quota.
+>
+> If instead you want a standing watcher kept alive, **re-scope** it: narrow it to (a) guarding [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)'s draft until you give a promote/merge directive, and/or (b) watching for post-M3 work (e.g. endor CAS bindings implementation — [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) design merged, implement only on explicit directive). Say which and I'll adjust the schedule body accordingly.
+>
+> Standing by; no further action taken this dispatch beyond this one recommendation.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4475,8 +4493,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.8M | $831.43 _(notional, rate-card)_ | no quota set |
-| Codex | 31.7M _(+750.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 41.8M | $831.89 _(notional, rate-card)_ | no quota set |
+| Codex | 31.7M _(+748.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
@@ -4487,17 +4505,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (2)
+### doin (7)
+- [`endo-byte-array-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260801-150502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
+- [`endo-npm-cas-registry-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260801-150502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
+- [`endo-vfs-parity-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-150502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
+- [`finbot-progress-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-150502.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`ocapn-noise-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-150502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4102)
+### tada (4103)
+- [`endo-git-integration-press-20260801-150502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-150502.md) — Completion report
 - [`finbot-pr6-fix-panel-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r2.md) — Completion report
 - [`finbot-pr6-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-20260801.md) — Completion report — finbot-pr6-panel-20260801
 - [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-widen-sysop-host-maintenance.md) — Completion report
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fireworks-glm52-register.md) — Completion report — register Fireworks GLM 5.2 as a mentor model (resumed)
-- [`finbot-progress-20260730-020502-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260730-020502-gauntlet.md) — gauntlet finbot-progress-20260730-020502-gauntlet — HALTED
-- … and 4097 more
+- … and 4098 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
