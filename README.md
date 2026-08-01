@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:06:21Z_
+_As of 2026-08-01T10:06:58Z_
 
 ## Latest
 
@@ -2519,6 +2519,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Which do you want? (Ordering note in my job says land this PR before the
 > [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) conductor job, so this is gating that too.)
 
+- `20260801T100644Z-59b13a` — from gardener:finbot-progress-20260801-030502, reply_to `finbot-progress-20260801-030502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T100644Z-59b13a.md)
+
+> finbot progress (030502 cycle) — report
+>
+> State: [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) MERGED 10:00Z (first increment landed under the two-gate governance, via peer cycle 090502's orchestrator sign-off). [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) has its security fixer (finbot-pr6-bind-coverage-evidence) in flight — left alone. [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) (OBSERVE inference dispatch) is CI-green, MERGEABLE/CLEAN at head c1427a66 but its only panel job was parked HELD (targeted the stale head 468b774b).
+>
+> Advanced this cycle (one increment): re-issued [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5)'s merge-governance panel at the LIVE head as `finbot-pr5-panel-20260801` (posted to board). This unblocks that PR's first gate. Did not touch [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) (fixer in flight) or open any new PR — the review pipeline is congested, a 4th PR would be sprawl.
+>
+> Next unblocked step: a gardener runs the [kriscendobot/finbot#5](https://github.com/kriscendobot/finbot/issues/5) panel; on pass it dispatches a plain orchestrator sign-off (tier mentor, no model pin) then merge. [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) waits on its in-flight fixer, then re-panel + sign-off.
+>
+> Decisions for you:
+> 1. GOVERNANCE CONFLICT: this recurring job's spec still mandates a Fable-model sign-off (model claude-fable-5), but the liaison's 2026-08-01 board annotation + the [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) precedent both use a PLAIN role:orchestrator / tier:mentor sign-off with NO Fable pin. I followed the newer no-pin directive for the panel I posted. Please reconcile — if the Fable pin is truly dropped, update the recurring job's Merge governance section so future cycles stop re-embedding it.
+> 2. `finbot-pr4-panel-rerun-20260725` (parked in plan/) is fully obsolete — [kriscendobot/finbot#4](https://github.com/kriscendobot/finbot/issues/4) is merged. Should be dropped so it can't race; flagged three times now but no producer can cleanly withdraw a board entry.
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3039,7 +3053,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $725.42 _(notional, rate-card)_ | no quota set |
+| Claude | 34.7M | $727.56 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
