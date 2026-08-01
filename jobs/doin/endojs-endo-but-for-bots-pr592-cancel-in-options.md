@@ -64,6 +64,7 @@ branch; then post inline replies to BOTH review comments (ids 3560627735 and
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
