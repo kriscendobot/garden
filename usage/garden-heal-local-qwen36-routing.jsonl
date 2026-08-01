@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":25,"elapsed_s":344,"input_tokens":47,"output_tokens":15580,"cache_creation_tokens":60074,"cache_read_tokens":1458139,"total_cost_usd":1.7227674999999996,"ts":"2026-08-01T10:16:28Z","base":"garden-heal-local-qwen36-routing","host":"endolin-garden-ece02cb4","outcome":"requeue"}
