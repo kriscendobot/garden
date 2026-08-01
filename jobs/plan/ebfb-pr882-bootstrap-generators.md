@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-08-01T09:13:09Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-01T09:13:09Z
+---
+
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-01T08:28:04Z cleared=none -->
 
 ---
@@ -25,13 +39,3 @@ Consider whether a CI job that builds the xsnap crate is worth proposing, since 
 what let this regress unnoticed.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-01T08:31:14Z
