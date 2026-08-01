@@ -16,3 +16,13 @@ Two scoped changes:
 Add subtests to `scripts/jobs/test/mentor-provider-order-test.sh` covering the three decorated-path variants above (each should post the job, with the identity resolving to the same normalized `mentor:scripts/jobs/foo.sh`) and one asserting the FATAL log now contains an excerpt of the rejected output.
 
 Secondary, worth noting while in the file: the validator restricts the path to `.sh|.py|.js|.ts`, so a mentor finding implicating a `.service`/`.timer` unit or a `.md` brief has no legal way to express itself — while `already_fixed_pending_deploy` (line 183) already scans for `md|service|timer` paths. Either widen the validator to match or make the prompt explicit that the first line must be an executable script; do not leave the two halves disagreeing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T19:52:18Z
