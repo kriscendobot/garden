@@ -26,3 +26,13 @@ automatically when #671 lands). If a front PR is actively being worked by a live
 agent, record a progress observation and complete; take the wheel only when idle or
 stalled. No bar is "green" without real-execution evidence — cite the command and
 its output.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T15:05:16Z
