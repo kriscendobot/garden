@@ -4,8 +4,11 @@ job_basename_prefix: xst-validation-orchestrator
 ---
 ---
 role: orchestrator
-model: claude-fable-5
 ---
+<!-- Do NOT add a `model:` pin here. This body carried `model: claude-fable-5`
+     until 2026-08-01; mentat/Fable is manual-dispatch only (post-manual-job.sh),
+     and an automatic schedule must never target it. The scheduler routes this
+     through automatic_route_body, which forces `tier: mentor`. -->
 # XS-validation orchestrator (hourly) — drive the agoric-sdk XS upgrade to validated
 
 You are the standing hourly orchestrator for the XS-upgrade validation effort the
