@@ -97,6 +97,7 @@ the worker when it fails.
 
 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
