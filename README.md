@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T20:39:22Z_
+_As of 2026-08-01T20:53:40Z_
 
 ## Latest
 
@@ -4533,11 +4533,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
 
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: d60fc6814bbc2d5d507020e4ef0d84a11c7bdbd7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p d60fc6814bbc2d5d507020e4ef0d84a11c7bdbd7). Diagnosis: ## Diagnosis: `garden-mentor` exit 1 — already-filed fix is poison-parked behind a go-ahead gate
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-01T18:54:01Z, latest 2026-08-01T20:53:06Z).
+> The SAME condition (`self-heal-garden-mentor`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> **Failure chain.** `mentor-claude.sh:162` dies with `mentor provider 'openai' returned malformed semantic output; refusing fallback…`, and `mentor.sh:145` then dies (`is_transient_claude_signature` / `_fetch_stderr_is_offline` correctly don't match, so it takes the real-defect branch). Not transient: it has fired on **every** tick that actually reached the provider — 11:20:56, 11:50:49, 18:50:53 today, and per the existing job body 9× since 2026-07-29. The intervening ticks all exited in ~5.7s at `mentor.sh:73` (empty digest), so the provider-reaching path is failing 100% of the time, not flaking.
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 213106c15d58d061a42ff148889b44edd74c8d8d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 213106c15d58d061a42ff148889b44edd74c8d8d). Diagnosis: ## Diagnosis: already fixed on `main2`, pending deploy — no job posted
 >
-> **Root cause (already established, not re-derived).** `validate_mentor_response` (`mentor
+> The blob holds only the two-line FATAL tail (`mentor provider 'openai' returned malformed semantic output` → `improve handler failed`), which is itself the first symptom: the deployed `scripts/jobs/handlers/mentor-claude.sh` discards `$raw` on its EXIT trap and logs no excerpt, so every recurrence is evidence-free. I reproduced the rejection directly against the deployed `validate_mentor_response`: it accepts *only* a file that is pure `JOB…ENDJOB` blocks or literally empty. A markdown code fence around the blocks, a preamble, a trailing "Summary: …" line, or a prose-only "no clear opportunities this tick" answer all return rc=20 → FATAL. `codex exec --output-last-message` against `gpt-5.6-terra` naturally em
 
 
 ## Spend & quota
@@ -4545,8 +4547,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.7M | $968.46 _(notional, rate-card)_ | no quota set |
-| Codex | 31.4M _(+739.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 49.7M | $969.45 _(notional, rate-card)_ | no quota set |
+| Codex | 31.5M _(+739.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
