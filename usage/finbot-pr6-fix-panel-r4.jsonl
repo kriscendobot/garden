@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":72,"elapsed_s":1322,"input_tokens":134,"output_tokens":84261,"cache_creation_tokens":163869,"cache_read_tokens":8756518,"total_cost_usd":8.130226,"ts":"2026-08-01T20:59:33Z","base":"finbot-pr6-fix-panel-r4","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer"}
