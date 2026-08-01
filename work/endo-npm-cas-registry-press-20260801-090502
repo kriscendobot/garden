@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 2
+worker_kind: gardener
+claimed_at: 2026-08-01T09:21:53Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-endo-npm-cas-registry-press-20260801-090502
