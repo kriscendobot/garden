@@ -3,10 +3,9 @@
 #
 # Usage: set-mystics.sh <N> [host]
 #
-# Moonshot Kimi K3 credits are exhausted. Keep this lane at zero until a future,
-# explicit quota-posture change lands; rejecting a nonzero request prevents an
-# accidental fleet action from reviving Kimi claims during this outage.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-[ "${1:-}" = 0 ] || { printf '%s\n' 'mystic workers are disabled while Moonshot Kimi credits are exhausted; only 0 is allowed' >&2; exit 2; }
+# Mystic is explicit-model-only in claim eligibility. Operators may scale it for
+# a bounded canary, but must return it to zero unless a maintainer authorizes a
+# larger trial; the count remains the immediate reversible kill switch.
 exec "$HERE/set-workers.sh" mystic "$@"
