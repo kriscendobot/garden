@@ -49,7 +49,7 @@ assert_not_todo() {
   [ ! -f "$clone/jobs/todo/$base.md" ]
 }
 
-export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: feature","body":"normal feature"}'
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: feature","body":"normal feature","author":{"login":"kriscendobot"}}'
 "$JOBS/auto-gauntlet-handoff.sh" build-feature "$job" "$report"
 assert_recorded build-feature-gauntlet
 assert_not_todo build-feature-gauntlet
@@ -69,7 +69,7 @@ count="$(git -C "$TR/check-build-feature-gauntlet" ls-tree -r --name-only origin
 
 # A probe stays draft by design: the AUTO handoff creates NO gauntlet for it (the
 # auto-gauntlet invariant is for mergeable-feature builds, not probes — CLAUDE.md).
-export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: probe","body":"gap-revealing prototype of #1"}'
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: probe","body":"gap-revealing prototype of #1","author":{"login":"kriscendobot"}}'
 "$JOBS/auto-gauntlet-handoff.sh" build-probe "$job" "$report"
 if assert_recorded build-probe-gauntlet; then
   echo 'probe incorrectly received a gauntlet record' >&2
@@ -78,7 +78,7 @@ fi
 
 # A PR already ready-for-review is re-drafted then handed off (a norm violation, not a
 # finished chain) — so it DOES get a record.
-export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":false,"state":"OPEN","title":"feat: ready","body":"normal feature"}'
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":false,"state":"OPEN","title":"feat: ready","body":"normal feature","author":{"login":"kriscendobot"}}'
 "$JOBS/auto-gauntlet-handoff.sh" build-ready "$job" "$report"
 assert_recorded build-ready-gauntlet
 
@@ -119,11 +119,35 @@ fi
 # A report that names several PRs still hands off on the first, but says so.
 multi_report="$TR/multi-report.md"
 printf 'Draft PR: https://github.com/endojs/endo-but-for-bots/pull/999\nSame shape as https://github.com/endojs/endo-but-for-bots/pull/671.\n' >"$multi_report"
-export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: feature","body":"normal feature"}'
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/999","isDraft":true,"state":"OPEN","title":"feat: feature","body":"normal feature","author":{"login":"kriscendobot"}}'
 "$JOBS/auto-gauntlet-handoff.sh" build-multi "$job" "$multi_report" 2>"$TR/multi.log"
 assert_recorded build-multi-gauntlet
 grep -q 'pr: https://github.com/endojs/endo-but-for-bots/pull/999' \
   "$TR/check-build-multi-gauntlet/jobs/gauntlet/build-multi-gauntlet.md"
 grep -q 'distinct PR URLs' "$TR/multi.log"
 
-echo 'PASS: auto-gauntlet handoff records a staged gauntlet for an open draft feature PR, skips probes, and never touches a PR merely cited in the job file'
+# REGRESSION (2026-07-29, endojs/endo-but-for-bots#867): a completion REPORT can cite
+# ANOTHER author's PR by FULL URL (a related-work link), which the report-only scrape
+# takes as the build's own. The build `fix-botanist-scripts-enabled-install-gap` (which
+# opened no PR of its own) named the live dependabot `@noble/curves` bump #867 as the
+# botany that surfaced its gap; the hook force-drafted that PR out of the maintainer's
+# MERGE-NOW queue, blocking its merge. A build opens its own PR under the BOT identity,
+# so a PR authored by anyone else cannot be a build artifact: NO record, and NO mutation
+# beyond the read-only `pr view`.
+dep_report="$TR/dep-report.md"
+printf 'Fixed on main2. Surfaced by the botany of\nhttps://github.com/endojs/endo-but-for-bots/pull/867 (a @noble/curves bump).\n' >"$dep_report"
+export FAKE_PR_JSON='{"url":"https://github.com/endojs/endo-but-for-bots/pull/867","isDraft":false,"state":"OPEN","title":"chore: bump @noble/curves","body":"dependabot","author":{"login":"app/dependabot"}}'
+GARDEN_GH_CALL_LOG="$TR/gh-dep.log" "$JOBS/auto-gauntlet-handoff.sh" build-dep "$job" "$dep_report"
+if assert_recorded build-dep-gauntlet; then
+  echo 'a PR authored by another user (dependabot) incorrectly received a gauntlet record' >&2
+  exit 1
+fi
+# The hook may READ the PR (pr view) to learn its author, but must make NO mutation —
+# above all no `pr ready --undo` that force-drafts a PR that is not the build's.
+if grep -q 'pr ready' "$TR/gh-dep.log"; then
+  echo 'a PR authored by another user was mutated (re-drafted) by the hook:' >&2
+  cat "$TR/gh-dep.log" >&2
+  exit 1
+fi
+
+echo 'PASS: auto-gauntlet handoff records a staged gauntlet for an open draft feature PR, skips probes, and never touches a PR merely cited in the job file or authored by another user'

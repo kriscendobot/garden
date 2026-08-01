@@ -57,9 +57,29 @@ case "$gh_bin" in
   */*) [ -x "$gh_bin" ] || die "auto-gauntlet: gh is required to inspect $pr_url" ;;
   *)   command -v "$gh_bin" >/dev/null 2>&1 || die "auto-gauntlet: gh is required to inspect $pr_url" ;;
 esac
-pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body)"
+pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body,author)"
 state="$(printf '%s' "$pr_json" | jq -r '.state // empty')"
 draft="$(printf '%s' "$pr_json" | jq -r '.isDraft // false')"
+author="$(printf '%s' "$pr_json" | jq -r '.author.login // empty')"
+
+# Second, independent artifact test — the AUTHOR IDENTITY.  A PR the build opened is
+# opened under the BOT identity (the fleet's gh wrapper pins every call to it), so a
+# PR authored by anyone else cannot be this build's artifact no matter which document
+# named it or in what form.  The report-only rule above closes the job-file path; this
+# closes the remaining one, a completion report that cites some OTHER author's PR by
+# full URL (a related-work link), which the report-only scrape would otherwise take as
+# the build's own and force-draft.  It is what stops a dependabot PR from being drafted
+# out from under the maintainer: on 2026-07-29 the build
+# `fix-botanist-scripts-enabled-install-gap` (a garden-`main2` fix that opened no PR)
+# cited endojs/endo-but-for-bots#867 — a live `@noble/curves` bump a botanist had just
+# cleared MERGE-NOW and that was waiting on the maintainer's approval — as the botany
+# that surfaced its gap, and the handoff force-drafted it, pulling it out of the
+# maintainer's queue and blocking its merge.  Check BEFORE any mutation and never
+# re-draft first, so a mis-identified PR is never touched at all.
+if [ -n "$author" ] && [ "$author" != "$GARDEN_BOT_LOGIN" ]; then
+  log "auto-gauntlet: build '$base' report names $pr_url, authored by '$author' and not by the bot '$GARDEN_BOT_LOGIN' — a build opens its own PR under the bot identity, so this is a citation and NOT a build artifact; no handoff, and that PR is left untouched"
+  exit 0
+fi
 
 if [ "$state" != OPEN ]; then
   log "auto-gauntlet: build '$base' PR $pr_url is state=$state; no handoff needed"

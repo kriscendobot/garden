@@ -103,6 +103,20 @@ That is the right side to fail on — a missed handoff is still caught by the fo
 and the watchers, whereas force-drafting a live PR corrupts another worker's
 in-flight work and nothing downstream can catch it.
 
+**Second artifact test: the PR author must be the bot.** The report-only rule closes
+the job-file path but not a completion report that cites *another author's* PR by full
+URL (a related-work link), which the report scrape would still take as the build's own.
+A build opens its PR under the bot identity (the fleet's `gh` wrapper pins every call
+to it), so a PR authored by anyone else cannot be a build artifact no matter which
+document named it. The hook now also queries `.author.login` and skips the handoff,
+untouched, when it is not the bot. This is what closes the sibling incident on
+2026-07-29: the build `fix-botanist-scripts-enabled-install-gap` (which opened no PR of
+its own) named the live dependabot `@noble/curves` bump endojs/endo-but-for-bots#867 —
+a PR a botanist had just cleared MERGE-NOW and that was waiting on the maintainer's
+approval — as the botany that surfaced its gap, and the hook force-drafted it out of the
+maintainer's queue, blocking its merge. The check runs before any mutation, so a
+mis-identified PR is never re-drafted first.
+
 The scaffold wires the rebase/push mechanics as placeholders where a project
 plugs in its real commands; the `GARDEN_EVAL` gate now defaults to the
 `local-verify` harness rather than the original `true` no-op. The control flow,
