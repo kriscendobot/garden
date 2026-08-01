@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T21:56:02Z_
+_As of 2026-08-01T21:57:01Z_
 
 ## Latest
 
@@ -4559,7 +4559,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.2M | $1104.47 _(notional, rate-card)_ | no quota set |
+| Claude | 57.4M | $1106.39 _(notional, rate-card)_ | no quota set |
 | Codex | 31.5M _(+739.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4571,18 +4571,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #910
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fix-panel-r5.md) — Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
-- [`finbot-pr6-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-r5.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 
-### tada (4118)
+### tada (4119)
+- [`finbot-pr6-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r5.md) — Cost
 - [`finbot-pr6-fix-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-clean.md) — Cost
 - [`finbot-pr6-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r4.md) — Completion report — finbot-pr6-panel-r4
 - [`self-heal-fix-garden-mentor-malformed-semantic-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-malformed-semantic-output.md) — Completion report
-- [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build.md) — Cost
-- … and 4113 more
+- … and 4114 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
