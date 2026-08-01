@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T14:32:16Z_
+_As of 2026-08-01T14:32:39Z_
 
 ## Latest
 
@@ -2674,6 +2674,46 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet finbot-progress-20260730-020502-gauntlet HALTED: stage 'finbot-progress-20260730-020502-gauntlet-panel-1' (panel) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260801T143216Z-a04370` — from gardener:finbot-pr6-panel-20260801, reply_to `finbot-pr6-panel-20260801` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T143216Z-a04370.md)
+
+> finbot [kriscendobot/finbot#6](https://github.com/kriscendobot/finbot/issues/6) governance re-run — panel disposition: MUST-FIX (sign-off WITHHELD).
+>
+> Re-ran the full 28-seat code panel at the current head bdc96c1 (single-round);
+> every seat returned a formal verdict (28/28 ok, no empty seats). Disposition:
+> must-fix — 21/28 request-changes. Durable record on journal2:
+> panel-runs/ssh---git-github.com-kriscendobot-finbot-6/22ff2eb30ec1.md.
+>
+> I did NOT force a pass and did NOT post the orchestrator sign-off — the panel did
+> not pass, and this job exists precisely because the prior run 4fb530557978 was
+> poisoned by a "passed" stamped over retained must-fix. PR left DRAFT.
+>
+> Closure check (what you asked me to verify):
+> - Primary provenance-binding must-fix IS closed at the JSON audit_proposal trust
+>   boundary (parsed JSON can't carry Proxy/accessor/toJSON, so readOwn and
+>   projectionId agree; binding sound). Disclosed residual is worded correctly
+>   (invariant-4's: a self-consistent self-cited artifact is measured, not
+>   disproven). No stronger claim made in the residual itself.
+> - Default-off byte-identity holds on the DEFAULT path (windowTicks undefined ->
+>   ?? 10 -> 10; CLI off==F=0 and auditor off==explicitZero tests pass), but is
+>   slightly over-stated: a lexicographic persistence tie-break (was map-order) can
+>   change gate-OFF forecast output on an exact GARCH-persistence tie.
+>
+> The new must-fix bundle is NOT a re-opening of the primary finding. It is
+> adversarial-hardening-vs-the-code's-own-over-stated-contract (unguarded
+> cited.length throw; ??-vs-|| malformed-window on the gate-off path; an in-process
+> split-view Proxy/toJSON binding residual the docstring over-claims to have closed;
+> config knobs failing open on accessor configs — all beyond the JSON threat
+> boundary) PLUS a ~10-seat doc/hygiene chorus (stale PR body claiming "passes
+> vacuously"/orthogonality that contradict the shipped fail-closed behavior; 5
+> duplicate commit messages; bundled CLAUDE.md governance rewrite; comment density).
+>
+> Dispatched fixer job finbot-pr6-fix-panel-r2 (role: fixer, tier: mentor) with a
+> deconflicted, per-item brief. A full panel re-run is REQUIRED after it lands a
+> green head; only a clean pass unlocks the sign-off. Judgment call worth your
+> input: for the substantive items, do you want the code HARDENED against the
+> in-process split-view (out of the JSON threat model) or the CLAIMS narrowed to
+> the boundary that actually holds? The fixer brief allows either.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4435,7 +4475,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.6M | $832.46 _(notional, rate-card)_ | no quota set |
+| Claude | 41.6M | $832.57 _(notional, rate-card)_ | no quota set |
 | Codex | 31.7M _(+750.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
