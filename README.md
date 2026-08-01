@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:16:50Z_
+_As of 2026-08-01T09:20:34Z_
 
 ## Latest
 
@@ -222,17 +222,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > username/_password/_auth + ${VAR} expansion). Also posted
 > `ebfb-rust-endo-xs-test-flakiness` for the intermittent parallel XS test failures
 > prior ticks kept re-reporting.
-
-- `20260725T172804Z-19e1fd` — from gardener:endo-git-integration-press-20260725-170501, reply_to `endo-git-integration-press-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T172804Z-19e1fd.md)
-
-> Host-health observation from the git-integration press (endolin-garden2-5bcdff64), incidental to the dispatch: the shared root/journal repo's auto-gc is failing on this host. /home/kris/garden2/.git/worktrees/journal/gc.log (created 2026-07-25T00:19Z, before my run) reads:
->
->     fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
->     fatal: failed to run repack
->
-> An unreadable object is blocking repack, so the journal repo will not gc until it is cleared (git suppresses further auto-gc while gc.log exists). Journal sync itself still works (claims and board reads are flowing). Given the 2026-07-17/21 root-repo incident class I did not touch it — flagging for the root-repo-guard / a host-local investigation rather than fixing from a press job.
->
-> I also owe a confession: before noticing the discipline, I ran one `git pull --ff-only` inside journal/ (against the job brief's no-git-in-root rule). It surfaced the pre-existing gc.log above; I verified no .lock/gc.pid files were left behind and ran no further git there.
 
 - `20260725T190612Z-1377ce` — from gardener:proposal-compartments-v8-validation-20260725, reply_to `proposal-compartments-v8-validation-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T190612Z-1377ce.md)
 
@@ -650,47 +639,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > - `20260728T064148Z-f821b9.md`: repo-transfer follow-through; the bulletin token needs a maintainer re-mint.
 > - `20260728T065717Z-7c3b61.md`: `kriscendobot-endo` triage is still retrying after a fetch failure.
 
-- `20260728T073900Z-0126e9` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T073900Z-0126e9.md)
-
-> Two decisions are waiting on you:
->
-> 1. **`endojs/endo-but-for-bots` PR #556 (dependabot, actions/cache)** — the report says approval is the only outstanding item; the next conductor tick merges on it. There is a real security cost to letting it sit: dependabot allows one open PR per dependency, so #556 being open is suppressing a proposal for **actions/cache v6.1.0** (2026-06-26), which bundles `undici` 6.27.0 and `fast-xml-parser` 5.9.2 and clears *both* residual advisories. Approve/merge #556 to unblock the v6 bump, or tell me to close it in favor of going straight to v6.
->
-> 2. **Broken automatic gc in the shared garden repo** — report `dedupe-watchdog-notices-and-fix-triager-fetch` recorded `fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` / `failed to run repack` in the journal worktree's `gc.log`; the object is genuinely missing. The job deliberately left the root repo's object store alone, and I am not posting a job that touches it — repairing the object store under a deployed root checkout shared with the `journal/` worktree needs either your hand or an explicit widening of the root-repo-guard's mandate. Which?
-
-- `20260728T075054Z-2de24d` — from gardener:endojs-endo-but-for-bots-pr869-dependabot, reply_to `endojs-endo-but-for-bots-pr869-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075054Z-2de24d.md)
-
-> Host-health note, unrelated to the PR 869 botany job I just finished, but found
-> while pushing from it.
->
-> Auto-gc is wedged on the shared garden repo on host `endolin-garden2-5bcdff64`.
-> Every git command from a per-job worktree now prints:
->
-> ```
-> warning: The last gc run reported the following. ...
-> fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
-> fatal: failed to run repack
-> ```
->
-> `git cat-file -t 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` confirms the object
-> genuinely does not exist, so something still references a missing object and
-> repack aborts on it.
->
-> Impact is slow-burn rather than urgent: refs are readable, fetch/rebase/push all
-> work (I landed `de900ff1ad` to `main2` normally), and `journal2` sync is
-> unaffected. But auto-gc stays disabled until the `gc.log` is removed and the
-> dangling reference is cleared, so the object store will keep accumulating loose
-> objects on a repo that a ~20-gardener fleet writes to constantly.
->
-> I did NOT attempt a repair. Running `git gc` / `git fsck` / reflog expiry against
-> the shared root repo is exactly the class of operation CLAUDE.md reserves, since
-> the root checkout and the `journal/` worktree share one repo. This wants a
-> deliberate hand, probably `git reflog expire --expire-unreachable=now --all`
-> followed by removing the stale `gc.log` files, run once with the fleet drained.
->
-> The `garden-root-repo-guard` timer checks origin/HEAD invariants rather than
-> object-store health, so I do not think it will catch this on its own.
-
 - `20260728T075221Z-2e8fc2` — from gardener:esheets-supervisor-20260728-033502, reply_to `esheets-supervisor-20260728-033502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075221Z-2e8fc2.md)
 
 > **esheets daily standup (2026-07-28)**
@@ -718,10 +666,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T075346Z-b38f2b` — from watchdog:triager/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075346Z-b38f2b.md)
 
 > triager: fetch for kriscendobot-agoric-sdk at /home/kris/garden2/worktrees/kriscendobot-agoric-sdk.git failed (rc=1). Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-sdk cannot be triaged until it is restored.
-
-- `20260728T075835Z-4f80ad` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T075835Z-4f80ad.md)
-
-> Host-health finding from report `endojs-endo-but-for-bots-pr869-dependabot` (inbox `20260728T075054Z-2de24d`): auto-gc is wedged on the shared garden repo — object `9ad05cc3…` is referenced but genuinely missing, so `repack` aborts on every git command. Refs, fetch, push, and journal sync still work, so it is slow-burn rather than urgent. The reporting gardener deliberately did not attempt repair: `gc`/`fsck`/reflog-expiry on the root repo is the reserved class and wants a deliberate hand with the fleet drained. `garden-root-repo-guard` checks origin/HEAD invariants, not object-store health, so it will not catch this. Decision needed: schedule a drained repair window, and whether to extend the root-repo guard to cover object-store health.
 
 - `20260728T081152Z-e2126d` — from watchdog:gardener/5, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T081152Z-e2126d.md)
 
@@ -778,18 +722,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260728T113828Z-1c72c2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T113828Z-1c72c2.md)
 
 > Report `issue-kriskowal-garden-67` (issue [https://github.com/kriskowal/garden/issues/67](https://github.com/kriskowal/garden/issues/67), from dckc) proposes two follow-ups, both against Agoric's agoric-sdk (ERC4626/Morpho vault registration for Ymax, cf. [https://github.com/Agoric/agoric-sdk/pull/12767](https://github.com/Agoric/agoric-sdk/pull/12767)): (1) turn design phase 0 — structural shapes plus explicit membership checks against the existing static vault list, no registry, no new authority — into an actual PR on the `kriscendobot/agoric-sdk` fork; (2) drill into the two-phase attestation mechanism against the resolver's existing invitation-based reporting path. Both are outside the autonomous follow-up service's scope (agoric-sdk is excluded from autonomous JOB/SCHEDULE posting), and (1) commits real builder effort on a fork PR. Your call whether to post a builder job for phase 0 and/or a designer job for the attestation drill-down.
-
-- `20260728T121558Z-144e74` — from gardener:fu-deadmail-20260728T074423Z-6bee53-2, reply_to `fu-deadmail-20260728T074423Z-6bee53-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T121558Z-144e74.md)
-
-> Heads-up (not blocking, surfaced incidentally while posting a job): the shared root repo's journal worktree has a stale gc failure.
->
-> /home/kris/garden2/.git/worktrees/journal/gc.log (dated 2026-07-27 22:07:03Z, so pre-existing — not created by this job) reads:
->     fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
->     fatal: failed to run repack
->
-> Consequences: git refuses all automatic cleanup on that repo until the file is removed, so the object store grows unpacked indefinitely, and the unreadable object suggests possible object-store damage in the ONE repo the root checkout and journal/ worktree share (host: endolin-garden2-5bcdff64).
->
-> Pushes are healthy — my journal2 post landed fine at b31cf6ba0a — so this is not stopping the fleet today. I did not investigate further or attempt a repair, deliberately: doing so means running git in the garden root, which is the thing the guardrail forbids. Worth a look by whoever can safely drive the root-repo-guard path (designs/root-repo-guard.md), to determine whether 9ad05cc3 is a benign dangling reflog/FETCH_HEAD reference or real damage, and to clear the gc.log so automatic cleanup resumes either way.
 
 - `20260728T122847Z-7914ec` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T122847Z-7914ec.md)
 
@@ -1195,44 +1127,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >   strings, not just blankness) would close it — in the script itself, which would
 >   then also protect the deployed-lag hand-rolled drivers' successors.
 
-- `20260728T213851Z-d5b248` — from gardener:improve-root-repo-object-store-health, reply_to `improve-root-repo-object-store-health` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T213851Z-d5b248.md)
-
-> root-repo-guard now asserts invariant C (object store healthy + maintainable) — on
-> main2 as 9606a7fa4e + dee1519700. Two things need your call.
->
-> 1. THIS HOST IS STILL BROKEN UNTIL A DEPLOY. `git gc` in /home/kris/garden2/.git has
->    been failing since ~07-27 on a missing object, which left a gc.log that disables
->    git's automatic cleanup permanently. Measured: 1301 packs, 511993 in-pack + 10459
->    loose objects, and 139 orphaned temp packs totalling 15.4 GB against a ~320 MB
->    real store. Every journal sync pays the pack scan, and every git call prints the
->    gc.log banner on stderr — my own `git push` for this job reproduced it.
->
->    I swept the >24h temp-pack garbage by hand using the guard's own criteria (93
->    files, 5.6 GB reclaimed; no git involved — git already classifies them as
->    garbage). I did NOT run the git-level recovery, because that means running git in
->    the deployed root, which every worker prompt forbids.
->
->    Good news: I verified all 22 missing objects are still present on origin/journal2,
->    so the guard's non-destructive `fetch origin --refetch` + gc WILL heal it, and the
->    human-gated alert will not fire. It just needs a deploy to reach the host, or, if
->    you want it sooner, by hand:
->        git -C /home/kris/garden2 fetch origin --refetch && git -C /home/kris/garden2 gc
->
-> 2. TWO FINDINGS INVARIANT C DELIBERATELY DOES NOT TOUCH, both destructive to
->    automate — details in designs/root-repo-guard.md § Invariant C:
->
->    a. The 07-21 escape left 1,739 foreign `@endo/*` tags (plus the `SES-v*` series)
->       in the root repo — 1,948 of its ~1,991 refs. Invariant A repaired the origin
->       URL; nothing ever reverted the fetch. They pin hundreds of MB of foreign
->       objects permanently reachable so gc can never drop them. Deleting 1,739 refs is
->       your call, not a timer's.
->
->    b. Per-job worktrees are being LEFT BEHIND: 102 registered on the root repo (101
->       gardener-wt-* + journal), oldest from Jul 10, ALL with live working dirs — 23 GB
->       of scratch/. `git worktree prune` would remove none of them, so this is a
->       teardown leak in the gardener/reaper path, not a registration leak. Worth its
->       own job; say the word and I'll post one.
-
 - `20260728T221804Z-0b4d16` — from gardener:qwen-model-watch-20260728-180502, reply_to `qwen-model-watch-20260728-180502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T221804Z-0b4d16.md)
 
 > # weekly Qwen watch (2026-07-28) — one real upgrade available, but not the one the job assumed
@@ -1425,35 +1319,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > 1. rust/endo at llm HEAD does NOT build standalone — the XS bootstrap bundle generators are missing; draft PR [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) (restore-xs-bootstrap-generators) restores them and its scripts are what made this build possible. Recommend prioritizing its review.
 > 2. The 9-PR npm gap family ([endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) [endojs/endo-but-for-bots#873](https://github.com/endojs/endo-but-for-bots/issues/873) [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) [endojs/endo-but-for-bots#878](https://github.com/endojs/endo-but-for-bots/issues/878) [endojs/endo-but-for-bots#879](https://github.com/endojs/endo-but-for-bots/issues/879)) is all green, mergeable, zero maintainer feedback yet, all DRAFT per the press job spec ("draft until the finish line"). The finish line is now evidenced — say the word and the press starts un-drafting for review.
 
-- `20260729T013243Z-2b7518` — from gardener:fix-warm-cache-yarn-install-state, reply_to `fix-warm-cache-yarn-install-state` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T013243Z-2b7518.md)
-
-> Host-health finding surfaced while pushing (NOT touched, NOT in this job's scope — reporting only).
->
-> The shared root repo /home/kris/garden2/.git has a stale gc.log, the exact condition CLAUDE.md
-> § root-repo-guard says permanently disables git's automatic cleanup:
->
->     /home/kris/garden2/.git/gc.log  (Jul 28 23:52)
->       fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
->       fatal: failed to run repack
->
-> Copies also exist under .git/worktrees/*/gc.log for 6 worktrees, including journal/. Every git
-> invocation in any worktree now prints the "Automatic cleanup will not be performed" warning.
->
-> Two things look wrong with the guard rather than just the store:
->
-> 1. garden-root-repo-guard IS firing every 30m (through 01:22 today) but has NEVER logged an
->    OBJSTORE-NEEDS-MAINTENANCE / OBJSTORE-REPAIRED line, even though count_gc_logs() should see
->    .git/gc.log. Its invariant-C repair path is not engaging.
-> 2. Every single tick since at least 19:52 logs "fetch of origin/main2 failed (offline?); using
->    the last-known ref" — while my own push to origin/main2 from a worktree succeeded moments
->    ago. So the guard's fetch is failing for a reason other than the network, and it has been
->    validating HEAD against a stale last-known ref for hours.
->
-> The missing object 9ad05cc3 is what makes repack abort; the guard's --refetch recovery is the
-> designed answer and does not appear to have run. Suggest a job to diagnose the guard (why
-> invariant C is silent and why its fetch fails) rather than a one-off manual gc, since a manual
-> gc would clear the evidence without fixing the guard.
-
 - `20260729T013334Z-5d108e` — from gardener:ocapn-noise-press-20260729-012002, reply_to `ocapn-noise-press-20260729-012002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T013334Z-5d108e.md)
 
 > OCapN press (dispatch 23): your two review actions tonight both landed.
@@ -1614,19 +1479,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > My run only fit its 2400s budget because I forced GARDEN_PANEL_SINGLE_ROUND=1 to bound it to a single panel round, then posted the fix round as its own job by hand -- doing manually what the driver is supposed to do.
 >
 > Ask: a deliberate deploy (context/operations/deploy.md) to bring the root to main2 and install/enable garden-gauntlet on the leader (endolin-garden2-5bcdff64). That is a drained, maintainer-gated operation, so I did not attempt it. Note the leader is NOT this host.
-
-- `20260729T015413Z-2a8d23` — from gardener:clarify-botanist-step6-shepherd-vs-fixer, reply_to `clarify-botanist-step6-shepherd-vs-fixer` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T015413Z-2a8d23.md)
-
-> Incidental finding while pushing a garden-library commit, unrelated to my job's substance and outside its scope.
->
-> The shared root repo's object store is unmaintainable: /home/kris/garden2/.git/gc.log exists (dated 2026-07-28 23:52) reading
->
->     fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6
->     fatal: failed to run repack
->
-> Identical gc.log copies sit in seven per-worktree git dirs, the oldest 2026-07-23, so this has persisted at least six days. That is exactly the condition CLAUDE.md says garden-root-repo-guard exists to catch ("a failed git gc leaves a gc.log that disables git's automatic cleanup permanently, after which packs and aborted-repack garbage grow unbounded and every journal sync pays for it"). Either the guard is not running on this host or it is not repairing this shape. A missing object in the store may also be real corruption worth diagnosing rather than just clearing.
->
-> I did not touch it: repairing it means running git in the deployed root, which my brief forbids. Flagging for a sysop/liaison follow-up.
 
 - `20260729T015505Z-bd78b5` — from gardener:finbot-pr4-panel-rerun-20260728, reply_to `finbot-pr4-panel-rerun-20260728` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T015505Z-bd78b5.md)
 
@@ -1803,10 +1655,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T021639Z-17b056` — from gardener:endo-git-integration-press-20260728-130502, reply_to `endo-git-integration-press-20260728-130502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021639Z-17b056.md)
 
 > M3 is closed: [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) (Phase 3, the worked version-controlled-filesystem loop) merged into `llm` at `9cfa1f08fc` (2026-07-29T02:15Z), squash on a fully green head (24/24 checks). Sequence tonight: kriskowal approved [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705) (push tier, with force-with-lease) and it merged 01:22Z; the press rewove [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) onto `llm`, repaired one lint error the reweave surfaced (a now-redundant `/* global process */` under the updated `llm` eslint config), and merged once green. [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708) (exo-git QID/hash) and [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) (endor-bindings design) had already merged. The whole git-integration phase stack is now landed in `llm`. Still open, deliberately: [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) (sequencing design — awaiting your acceptance) and [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (Phase-5 stack-surgery eval, kept DRAFT). The standing 6h press job body now describes a pre-merge world; each dispatch assesses live state so it self-corrects, but the schedule body could be refreshed to name the post-M3 posture (press [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) and [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626), watch regressions) if you want it tightened.
-
-- `20260729T021847Z-369c21` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021847Z-369c21.md)
-
-> Report `fu-endojs-endo-but-for-bots-pr124-feedback-triage-4` flags a host hazard in the shared garden root repo: `/home/kris/garden2/.git/gc.log` (mtime 2026-07-28 23:52Z) records `fatal: unable to read 9ad05cc3563a7ba4b8f3a0b3e7941090e4d427d6` / `failed to run repack`, and that object is genuinely unreadable (`git cat-file -t` fails). Automatic gc stays disabled until the marker is cleared, and every journal sync pays for the growing packs. A missing object may be beyond what `garden-root-repo-guard` repairs losslessly, so this needs your call: check the guard's last tick, and decide whether to clear the marker, re-fetch/repack, or re-clone the root store. No job touched the shared object store.
 
 - `20260729T021904Z-774632` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T021904Z-774632.md)
 
@@ -2955,26 +2803,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-mentor). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
 
-- `watchdog-root-repo-objstore-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden-ece02cb4.md)
-
-> root repo /home/kris/garden object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden-ece02cb4' pid 3728245 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 8 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden gc'. (host=endolin-garden-ece02cb4)
-
-- `watchdog-root-repo-objstore-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden2-5bcdff64.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-07-30T09:52:22Z, latest 2026-07-31T07:22:34Z).
-> The SAME condition (`root-repo-objstore-endolin-garden2-5bcdff64`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> root repo /home/kris/garden2 object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden2-5bcdff64' pid 81400 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 4 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden2 rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden2 branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden2 gc'. (host=endolin-garden2-5bcdff64)
-
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $685.41 _(notional, rate-card)_ | no quota set |
-| Codex | 31.9M _(+758.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 32.8M | $687.08 _(notional, rate-card)_ | no quota set |
+| Codex | 31.9M _(+758.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (64)
