@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: panel-seat-tiering
-priority: normal
 role: assayer
-posted_by: producer
-posted_at: 2026-08-01T08:48:43Z
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-01T08:52:06Z cleared=none -->
 
 ---
 tier: mentor
