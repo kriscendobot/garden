@@ -16,3 +16,13 @@ The build opened https://github.com/endojs/endo-but-for-bots/pull/847 and it rem
 state machine now: clean, panel, fixer loop as needed, CI, then un-draft only when
 the panel terminates cleanly. This handoff was posted by the build completion edge,
 not inferred by a watcher.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T09:53:51Z
