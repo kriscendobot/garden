@@ -45,18 +45,24 @@ attenuator" overstated what it did — exactly what a panel catches before landi
 1. **Panel review.** Each increment is a PR that must **clear a panel** (the
    scripted gauntlet / panel review, `skills/panel`) before it can merge. A red or
    changes-requested panel means fix-loop, not merge.
-2. **Fable-orchestrator sign-off.** After the panel passes, a **Fable-model
-   orchestrator** (role `orchestrator`, model `claude-fable-5`) must review the
-   increment + panel outcome and **sign off** before the merge executes. Dispatch
-   it as a job pinned to the Fable model — e.g. post
-   `finbot-<increment>-fable-signoff` with `role: orchestrator` and
-   `model: claude-fable-5`. The merge is that orchestrator's authority (or a
+2. **Orchestrator sign-off.** After the panel passes, an **orchestrator** (role
+   `orchestrator`) must review the increment + panel outcome and **sign off**
+   before the merge executes. Dispatch it as an ordinary automatic job — e.g. post
+   `finbot-<increment>-signoff` with `role: orchestrator` — and let the choke point
+   route it (`tier: mentor`). The merge is that orchestrator's authority (or a
    conductor it directs), **NOT** the press's.
 
+   **Do NOT pin this to Fable/mentat.** This step formerly required
+   `model: claude-fable-5`, dispatched via `post-manual-job.sh` — the one path that
+   bypasses `automatic_route_body` and reaches the manual-only mentat tier. That
+   pin was removed on 2026-08-01 (maintainer decision) to keep the gate while
+   dropping the mentat spend. The gate itself is unchanged: sign-off is still
+   required, and the press still never merges.
+
 The press (this builder) **NEVER runs `gh pr merge`** on a finbot change. Build the
-increment, open/advance the PR toward green, run the panel, hand off to the Fable
+increment, open/advance the PR toward green, run the panel, hand off to the
 orchestrator for sign-off + merge. If either gate is unmet at cycle end, report the
-PR as "awaiting panel / Fable sign-off" and stop — that is a correct, complete
+PR as "awaiting panel / orchestrator sign-off" and stop — that is a correct, complete
 cycle, not a stall.
 
 ## Guardrails
