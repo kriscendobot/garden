@@ -1,10 +1,4 @@
----
-gate: orchestrated
-orchestrated_by: endo-npm-cas-arc-landing
-priority: normal
-posted_by: producer
-posted_at: 2026-08-01T08:26:17Z
----
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-01T08:28:04Z cleared=none -->
 
 ---
 tier: mentor
