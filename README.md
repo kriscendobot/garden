@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:13:47Z_
+_As of 2026-08-01T09:16:50Z_
 
 ## Latest
 
@@ -2973,7 +2973,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.8M | $683.65 _(notional, rate-card)_ | no quota set |
+| Claude | 32.8M | $685.41 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
@@ -2981,8 +2981,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-exo-google-sheets.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-readableblob-range-attenuation.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
-- [`design-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-sysop-local-model-op.md) — Design: a host-addressed local-model provisioning op for the sysop
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
+- [`ebfb-pr882-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr882-land.md) — ---
 - [`endo-byte-array-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260801-090502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260801-090502.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
@@ -3044,16 +3044,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### doin (2)
-- [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260801-070501.md) — Daily midnight Pacific progress summary
+- [`design-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-sysop-local-model-op.md) — Design: a host-addressed local-model provisioning op for the sysop
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 
-### tada (4046)
+### tada (4047)
+- [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260801-070501.md) — Cost
 - [`endo-npm-cas-arc-landing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-arc-landing.md) — orchestration endo-npm-cas-arc-landing — HALTED
 - [`endojs-endo-but-for-bots-pr704-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr704-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endo-sturdyref-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260801-030502.md) — Cost
 - [`endo-npm-cas-registry-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-registry-press-20260801-030502.md) — Cost
-- [`endo-git-integration-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-030502.md) — Cost
-- … and 4041 more
+- … and 4042 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
