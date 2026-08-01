@@ -53,3 +53,13 @@ After the refresh lands, CI re-runs; if still red the CI watcher re-posts an
 auto-shepherd. A band-aid edit to the inherited reminder file on the head was
 deliberately NOT applied: it would pollute the feature diff and create a
 modify/delete conflict against llm's deletion — the refresh is the correct fix.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T10:32:56Z
