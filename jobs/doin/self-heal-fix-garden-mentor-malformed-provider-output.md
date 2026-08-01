@@ -15,3 +15,13 @@ Two changes, both in this file:
 Extend `scripts/jobs/test/mentor-provider-order-test.sh` accordingly: SUBTEST 4 must keep asserting that trailing prose *after a valid JOB block* is rejected and does not solicit a second model, and new subtests should cover (a) prose-only output with no `JOB` line succeeding as a no-op with nothing posted, and (b) a rejection writing the raw capture to the durable path.
 
 `scripts/jobs/handlers/foreman-claude.sh:237` has the identical validator shape and the same `trap`-destroys-evidence gap; apply the same treatment there if it is low-risk to do so in the same change, otherwise note it for a follow-up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T23:52:40Z
