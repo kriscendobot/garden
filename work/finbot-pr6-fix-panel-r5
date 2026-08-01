@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 3
-worker_kind: gardener
-claimed_at: 2026-08-01T22:33:08Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-finbot-pr6-fix-panel-r5
