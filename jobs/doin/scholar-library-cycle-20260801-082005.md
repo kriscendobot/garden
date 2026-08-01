@@ -24,6 +24,7 @@ required integrity checks, regenerate projected indexes, and journal a `result`.
 Post a precisely scoped follow-on scholar job for any remaining backlog. If no
 actionable work is present, record that cleanly and complete the cycle.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
