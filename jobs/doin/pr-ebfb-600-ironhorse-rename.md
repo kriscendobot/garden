@@ -18,6 +18,7 @@ Perform the full architectural rename on PR #600 (branch xs2rust-endor, base llm
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
