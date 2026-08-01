@@ -1,2 +1,3 @@
 {"source":"result","model":"kimi-k3","input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"ts":"2026-07-30T01:46:35Z","base":"garden-approval-reconciler-build","host":"endolin-garden-ece02cb4","outcome":"fail","elapsed_s":170,"role":"builder"}
 {"ts":"2026-07-31T00:36:12Z","base":"garden-approval-reconciler-build","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":1}
+{"source":"result","model":"claude-opus-4-8","num_turns":77,"elapsed_s":1361,"input_tokens":138,"output_tokens":71734,"cache_creation_tokens":169412,"cache_read_tokens":9379680,"total_cost_usd":8.180387000000001,"ts":"2026-08-01T10:30:11Z","base":"garden-approval-reconciler-build","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}
