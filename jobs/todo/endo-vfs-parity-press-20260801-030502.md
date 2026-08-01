@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base `llm`)
@@ -71,13 +72,4 @@ Do not open new surface while an open PR needs a weave or a CI fix. Be
 idempotent, defer to live workers on shared branches, and cite real execution
 evidence for any "works everywhere" claim.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-01T09:23:45Z
+<!-- garden-reaped: 0 -->
