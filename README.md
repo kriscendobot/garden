@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:37:30Z_
+_As of 2026-08-01T10:46:08Z_
 
 ## Latest
 
@@ -2584,6 +2584,61 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I've halted the 875-before-876 orchestration (marked this child failed) so the [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) conductor isn't promoted into a doomed merge over its own CHANGES_REQUESTED. Nothing pushed to either PR head; no review dismissed. Which option do you want? If A, I can write the design doc; if B, say the word and I'll re-run the gauntlet to land both.
 
+- `20260801T104125Z-f4eda2` — from gardener:kriscendobot-endo-but-for-bots-pr3-rebase, reply_to `kriscendobot-endo-but-for-bots-pr3-rebase` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T104125Z-f4eda2.md)
+
+> weaver on [https://github.com/kriscendobot/endo-but-for-bots/pull/3](https://github.com/kriscendobot/endo-but-for-bots/pull/3) (rebase job): the
+> stale-base refresh cannot be a clean weaver rebase. The mount stack premise no longer
+> holds on current llm, so I did NOT force it. The PR is untouched (no push, no base change).
+>
+> What the PR actually contains over its frozen base llm-b377b0e (net diff):
+>   1. packages/regexp -- the RFC 9485 conservative profile (the PR's real title/intent),
+>      self-contained.
+>   2. rust/mount_parity -- a Rust crate carried in by a `stack: merge` merge commit.
+>      This is [https://github.com/endojs/endo-but-for-bots/pull/654](https://github.com/endojs/endo-but-for-bots/pull/654) 's deliverable
+>      (the mount glob/grep parity runner), stack baggage, not the regexp PR's own work.
+> The merge discarded the daemon-side [https://github.com/endojs/endo-but-for-bots/pull/127](https://github.com/endojs/endo-but-for-bots/pull/127)
+> changes (net packages/daemon == base), so only the rust crate + Cargo/yarn.lock survive
+> into the net diff.
+>
+> Why a refresh onto current llm (67dfc18) breaks:
+>   - The crate's tests read case tables via contract_dir() = ../../packages/daemon/test.
+>     On llm those fixtures MOVED to packages/platform/test (mount-glob-cases.json,
+>     mount-grep-cases.json, mount-fixture-manifest.json). The old daemon/test path is gone,
+>     so mount_glob_parity.rs / mount_grep_parity.rs would not find their fixtures.
+>   - packages/daemon has no EndoMount.glob() in llm; the mount glob/grep feature relocated
+>     to a `platform` package.
+>   - Dependency PRs are stale: [https://github.com/endojs/endo-but-for-bots/pull/127](https://github.com/endojs/endo-but-for-bots/pull/127) (the
+>     daemon mount glob/grep feature) is CLOSED-not-merged;
+>     [https://github.com/endojs/endo-but-for-bots/pull/654](https://github.com/endojs/endo-but-for-bots/pull/654) (the rust parity runner) is still
+>     OPEN, stranded on the closed 127 branch.
+>   - Even repointing contract_dir to packages/platform/test would not be safe: llm's
+>     mount-grep-cases.json has DIVERGED from what the crate was written against, so grep
+>     parity could fail against the Rust mirror. (mount-glob and the fixture manifest are
+>     still byte-identical; only grep evolved.)
+>
+> Entanglement note: the regexp Rust parity test lives INSIDE the mount_parity crate
+> (rust/mount_parity/tests/i_regexp_profile_parity.rs plus regexp_contract_dir() and the
+> validator added to rust/mount_parity/src/lib.rs), so the regexp and mount work cannot be
+> split by a mechanical rebase.
+>
+> This is a fixer/scope decision, not a weaver one. Two paths:
+>   A. Treat the PR as regexp-only (matches its title). A fixer drops the mount_parity
+>      crate from the branch, moving the regexp Rust parity into its own crate (or dropping
+>      the Rust parity and keeping the JS package + JS parity), and lets
+>      [https://github.com/endojs/endo-but-for-bots/pull/654](https://github.com/endojs/endo-but-for-bots/pull/654) pursue its own rebase for the
+>      mount runner. Cleanest if the mount runner is not meant to ride in the regexp PR.
+>   B. Keep the mount_parity crate in the PR. A fixer repoints contract_dir to
+>      packages/platform/test AND reconciles the Rust glob/grep mirror against llm's evolved
+>      mount-grep-cases.json. Substantive, and duplicates the 654 content into the regexp PR.
+>
+> Recommendation: A. The PR is titled "feat(regexp): add RFC 9485 conservative profile"; the
+> mount runner is a separate PR's job. But the split is your call. Say the word and I will
+> post a fixer job for the chosen path.
+>
+> (The originally-reported lint failure on packages/reminder/test/plugin.test.js does clear
+> for free on any refresh -- llm deleted that file -- but the mount staleness blocks the
+> refresh, so the lint fix rides along with whichever fixer path you pick.)
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -3104,56 +3159,55 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.1M | $815.87 _(notional, rate-card)_ | no quota set |
+| Claude | 41.2M | $835.21 _(notional, rate-card)_ | no quota set |
 | Codex | 31.7M _(+751.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (21)
+### todo (16)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
+- [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 - [`minion-town-mcp-b5-retire-toy-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-mcp-b5-retire-toy-tools.md) — B5: retire toy tools
-- [`ocapn-noise-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocapn-noise-press-20260801-090502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/panel-seat-tiering-gather.md) — Panel seat tiering — 1/3: GATHER the evidence
-- [`pi-release-watch-20260730-190501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pi-release-watch-20260730-190501.md) — ---
-- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-600-ironhorse-rename.md) — ---
-- [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/proposal-compartments-press-20260731-192002.md) — Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/propose-merge-upstream-master-into-llm-20260801.md) — Propose a fresh upstream-master into llm integration PR
-- [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`scholar-library-cycle-20260801-072002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-072002.md) — Hourly scholar library cycle
 - [`scholar-library-cycle-20260801-082005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260801-082005.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-mentor-validator-rejects-wellformed-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-mentor-validator-rejects-wellformed-output.md) — ---
-- [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (14)
+### doin (18)
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
-- [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (curren...
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
 - [`garden-widen-sysop-host-maintenance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-widen-sysop-host-maintenance.md) — Widen the sysop to a host-directed MAINTENANCE op class
-- [`kriscendobot-endo-but-for-bots-pr3-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-endo-but-for-bots-pr3-rebase.md) — rebase (refresh stale frozen base) on kriscendobot/endo-but-for-bots PR #3
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/measure-requeue-exit-knowledge-loss.md) — Measure and close the cross-host gap in requeue session-resume
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — ---
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/monk-finish-gardener-rename.md) — Finish the gardener -> monk worker-kind rename
 - [`ocapn-noise-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-030502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`ocapn-noise-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-noise-press-20260801-090502.md) — Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
+- [`pi-release-watch-20260730-190501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pi-release-watch-20260730-190501.md) — ---
+- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-600-ironhorse-rename.md) — ---
+- [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
+- [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
+- [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-s2-test-rust-green.md) — xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
 
-### tada (4092)
+### tada (4093)
+- [`kriscendobot-endo-but-for-bots-pr3-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr3-rebase.md) — Completion report
 - [`minion-town-agenda-review-20260731-165001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-agenda-review-20260731-165001.md) — Completion report
 - [`improve-report-error-transcript-reachable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-report-error-transcript-reachable.md) — Cost
 - [`kriscendobot-endo-but-for-bots-pr3-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-endo-but-for-bots-pr3-shepherd.md) — Completion report
 - [`improve-panel-run-record-legacy-slug-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-panel-run-record-legacy-slug-migration.md) — Completion report
-- [`garden-heal-local-qwen36-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-heal-local-qwen36-routing.md) — Completion report — heal the local-inference model pin (qwen3:0.6b → qwen3.6)
-- … and 4087 more
+- … and 4088 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
