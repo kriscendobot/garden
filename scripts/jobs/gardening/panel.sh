@@ -47,6 +47,18 @@ wt="${1:?usage: panel.sh <worktree> <pr> [base]}"
 pr="${2:?pr number}"
 base="${3:-HEAD~1}"
 
+# The repo under review, derived from the worktree's own origin remote — NOT
+# from wherever panel.sh happens to be invoked. A seat is a bare `claude -p`
+# whose cwd is the caller's (typically the garden root), so a prompt that named
+# only "PR #$pr" let a seat resolve that number against the AMBIENT repo: on the
+# finbot r5 panel, six of twenty-one seats reviewed `kriscendobot/garden#6` (a
+# closed design PR) instead of the finbot worktree, because `gh pr view 6` in the
+# garden root answers garden#6. The seat prompt below pins the worktree path and
+# this slug so every seat reviews the SAME diff. Best-effort: a non-git or
+# remoteless worktree leaves it empty and the prompt falls back to the path alone.
+wt_repo="$(git -C "$wt" remote get-url origin 2>/dev/null \
+  | sed -E 's#(git@|ssh://git@|https://)github\.com[:/]+##; s#\.git$##; s#/$##' || true)"
+
 # Per-run scratch: per-seat verdicts and the aggregated body land here on disk,
 # OUT of the supervisor's context window. The supervisor reads this dir only when
 # it wants the detail; quiet-on-success means it usually does not.
@@ -213,8 +225,12 @@ seat_review() {  # seat_review <seat> -> prints that seat's per-juror block
   fi
   local brief="$JURORS_DIR/$seat/AGENT.md"
   [ -r "$brief" ] || fail "seat brief $brief"
-  claude -p --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr. Read your operating \
-brief, then review the diff and return ONE per-juror block: a Verdict \
+  claude -p --dangerously-skip-permissions "You are jury seat '$seat' reviewing PR #$pr\
+${wt_repo:+ of repository $wt_repo}. The checkout under review is the git worktree at \
+$wt; review ONLY that worktree's diff — run \`git -C $wt diff $base...HEAD\` (its HEAD is \
+the PR head, $base is the base). Do NOT resolve 'PR #$pr' against any other repository \
+(a bare \`gh pr view $pr\` from your cwd may answer a DIFFERENT repo's PR #$pr — ignore it). \
+Read your operating brief, then review that diff and return ONE per-juror block: a Verdict \
 (approve / request-changes / comment-only) and Findings, each finding citing a \
 standing rule [rule: <path>] or proposing one [proposed-rule: ...]. Brief: \
 $(cat "$brief"). Diff base: $base."
