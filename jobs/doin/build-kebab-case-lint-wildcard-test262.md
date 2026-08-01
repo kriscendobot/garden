@@ -65,6 +65,7 @@ tests+fixtures by wildcard, on a frozen `master-<sha>` base, gauntleted with loa
 the before/after exemptions line count.
 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
