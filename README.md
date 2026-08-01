@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T14:24:44Z_
+_As of 2026-08-01T14:32:16Z_
 
 ## Latest
 
@@ -4435,7 +4435,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.4M | $830.63 _(notional, rate-card)_ | no quota set |
+| Claude | 41.6M | $832.46 _(notional, rate-card)_ | no quota set |
 | Codex | 31.7M _(+750.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4447,9 +4447,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
+- [`finbot-pr6-fix-panel-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-fix-panel-r2.md) — Fixer round 2 on kriscendobot/finbot PR #6 — clear the re-run panel's must-fi...
 - [`finbot-pr6-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-panel-20260801.md) — Run the required merge-governance panel for kriscendobot/finbot PR #6 (curren...
 
 ### tada (4100)
