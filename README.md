@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T23:53:11Z_
+_As of 2026-08-01T23:59:50Z_
 
 ## Latest
 
@@ -4825,16 +4825,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (1)
-- [`self-heal-fix-garden-mentor-malformed-provider-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mentor-malformed-provider-output.md) — ---
+### doin (0)
+(none)
 
-### tada (4121)
+### tada (4122)
+- [`self-heal-fix-garden-mentor-malformed-provider-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-malformed-provider-output.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr826-build-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Cost
 - [`finbot-pr6-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-panel-r5.md) — Cost
 - [`finbot-pr6-fix-panel-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr6-fix-panel-r4.md) — Completion report
-- [`endojs-endo-but-for-bots-pr826-build-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-clean.md) — Cost
-- … and 4116 more
+- … and 4117 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
