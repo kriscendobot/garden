@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:55:32Z_
+_As of 2026-08-01T09:56:56Z_
 
 ## Latest
 
@@ -2388,6 +2388,40 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > land without a current maintainer approval. Say the merge word (or re-approve
 > head 51a9d46f) and a conductor will merge with --merge.
 
+- `20260801T095615Z-067488` — from gardener:deadmail-20260729T023454Z-34a94e, reply_to `deadmail-20260729T023454Z-34a94e` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T095615Z-067488.md)
+
+> # The "un-deployed approval gate" strand is closed — [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) now needs your re-approval
+>
+> Carrying forward a dead-lettered heads-up from 2026-07-29 about three approved,
+> green PRs stranded on the un-deployed `reviewDecision` gate. Re-verified today
+> (2026-08-01T09:55Z) on host `endolin-garden-ece02cb4`:
+>
+> **The gate is deployed.** `scripts/jobs/handlers/pr-maintainer-approval-gh.sh` in
+> the deployed root is byte-identical to `main2` (carries `c510ec1b4f`: the rollup
+> is a veto, not the authority). Running it from the deployed root now takes the
+> post-fix individual-review path, so no `main2`-worktree work-around is needed.
+>
+> **Two of the three PRs landed on their own:**
+> - [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) — MERGED 2026-07-29 (`50972e791d`)
+> - [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) — MERGED 2026-07-30
+>
+> **One needs you.** [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) (`feat(daemon): provideSubMount
+> sub-mount primitive (Phase 4)`) is still OPEN, and its head moved from
+> `76e6800ee5` to `d74caef78c`. Your APPROVED review still points at the old
+> commit, so the approval is stale by design and the gate correctly refuses:
+>
+>     merge blocked: no maintainer approval
+>       (no current APPROVED review on head d74caef78ce22ebcbeeaa6134388340ad8dddbc3)
+>
+> 23/24 checks pass; `test (24.x, macos-15)` is still pending.
+>
+> Its conduct job is parked at `jobs/plan/endojs-endo-but-for-bots-pr656-conduct.md`
+> with `gate: go-ahead`. I annotated it with the corrected facts but did **not**
+> promote it — promotion is yours. Once you re-approve `d74caef78c`, promoting that
+> parked job should merge cleanly.
+>
+> [https://github.com/endojs/endo-but-for-bots/pull/656](https://github.com/endojs/endo-but-for-bots/pull/656)
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2908,17 +2942,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.4M | $705.93 _(notional, rate-card)_ | no quota set |
+| Claude | 33.1M | $697.78 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (44)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
 - [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
-- [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr875-review-response.md) — ---
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr160-fixer.md) — fixer (shepherd→fixer auto-chain) on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr806-conduct.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
+- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr4-panel-rerun-20260725.md) — ---
 - [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260730.md) — Run the required merge-governance panel for kriscendobot/finbot PR #5
 - [`finbot-progress-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-progress-20260801-030502.md) — Push progress on kriscendobot/finbot (every 6h)
@@ -2958,11 +2992,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (12)
-- [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260729T023454Z-34a94e.md) — Dead-lettered message — pick up its intent
+### doin (11)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
-- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-cbor-adopt-daemon-envelope.md) — Adopt @endo/cbor in packages/daemon/src/envelope.js (cbor-codec design, phase 4)
+- [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr875-review-response.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
@@ -2972,13 +3005,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260730-020502-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/finbot PR #5
 - [`finbot-progress-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-090502.md) — Push progress on kriscendobot/finbot (every 6h)
 
-### tada (4062)
+### tada (4064)
+- [`deadmail-20260729T023454Z-34a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260729T023454Z-34a94e.md) — Report
+- [`endo-cbor-adopt-daemon-envelope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-daemon-envelope.md) — Completion report
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr873-lint-fix.md) — Completion report — ebfb-pr873-lint-fix
 - [`endojs-endo-but-for-bots-pr621-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr621-shepherd.md) — Completion report
 - [`sysop-local-model-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/sysop-local-model-provisioning.md) — orchestration sysop-local-model-provisioning — complete
-- [`build-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-sysop-local-model-op.md) — Completion report
-- [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 4057 more
+- … and 4059 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
