@@ -65,5 +65,18 @@ fireworks_retryable_failure "$TR/429" && ok "429 diagnostic retries" || bad "429
 fireworks_retryable_failure "$TR/503" && ok "503 diagnostic retries" || bad "503 retry classifier"
 fireworks_retryable_failure "$TR/400" && bad "400 diagnostic retried" || ok "400 diagnostic not retried"
 
+echo 'ROUTES — the reviewed GLM 5.2 and K3 selectors reach the wire unchanged'
+# The handler strips the garden-only `fireworks/` namespace before sending the wire
+# id (handlers/cleric-codex.sh, `model="${model#fireworks/}"`). These assert the
+# exact wire id each reviewed route sends, verified against the Fireworks model
+# pages (context/operations/fireworks.md § Registered routes). A change to either
+# resolved id — or to the strip contract — fails here rather than silently sending
+# a bogus model name that would 400 at the provider.
+source "$JOBS/common.sh"
+wire_of() { local resolved; resolved="$(resolve_model_tier fireworks "$1")"; [ -n "$resolved" ] || return 1; printf '%s\n' "${resolved#fireworks/}"; }
+[ "$(wire_of fireworks/accounts/fireworks/models/glm-5p2)" = "accounts/fireworks/models/glm-5p2" ] && ok "GLM 5.2 wire id = accounts/fireworks/models/glm-5p2" || bad "GLM 5.2 wire id"
+[ "$(wire_of fireworks/accounts/fireworks/models/kimi-k3)" = "accounts/fireworks/models/kimi-k3" ] && ok "K3 wire id = accounts/fireworks/models/kimi-k3" || bad "K3 wire id"
+wire_of fireworks/accounts/fireworks/models/example >/dev/null 2>&1 && bad "an unreviewed selector produced a wire id" || ok "unreviewed selector fails closed (no wire id)"
+
 echo "fireworker-harness-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

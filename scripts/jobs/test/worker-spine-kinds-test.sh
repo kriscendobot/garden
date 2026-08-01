@@ -110,6 +110,25 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
 [ "$(resolve_model_tier fireworks fireworks/accounts/fireworks/models/glm-5p2)" = "fireworks/accounts/fireworks/models/glm-5p2" ] && ok "reviewed Fireworks GLM selector binds" || bad "Fireworks GLM selector"
 [ -z "$(resolve_model_tier fireworks fireworks/accounts/fireworks/models/example)" ] && ok "unknown Fireworks selector fails closed" || bad "placeholder Fireworks selector accepted"
 [ -z "$(resolve_model_tier fireworks accounts/fireworks/models/glm-5p2)" ] && ok "Fireworks requires namespaced selector" || bad "Fireworks selector was implicit"
+# --- GLM 5.2 and Fireworks-served Kimi K3 as reviewed routes -----------------
+# Both wire ids were verified against first-party Fireworks documentation
+# (context/operations/fireworks.md § Registered routes): the model pages
+# fireworks.ai/models/fireworks/{glm-5p2,kimi-k3} both show "Available Serverless".
+# These assertions fail if a future inventory edit changes either verified id.
+[ "$(resolve_model_tier fireworks fireworks/accounts/fireworks/models/kimi-k3)" = "fireworks/accounts/fireworks/models/kimi-k3" ] && ok "reviewed Fireworks K3 selector binds" || bad "Fireworks K3 selector"
+[ "$(model_dispatch_tier fireworks fireworks/accounts/fireworks/models/glm-5p2)" = mentor ] && ok "Fireworks GLM 5.2 is a mentor-tier model" || bad "GLM 5.2 tier"
+[ "$(model_dispatch_tier fireworks fireworks/accounts/fireworks/models/kimi-k3)" = mentor ] && ok "Fireworks-served K3 is a mentor-tier model" || bad "Fireworks K3 tier"
+# KNOWN LIMITATION, asserted so it is never a silent surprise: GLM 5.2 and
+# Fireworks-served K3 share the mentor tier, and the resolver is tier-first-match,
+# so a plain `tier: mentor` Fireworks job resolves to GLM 5.2. K3 is registered
+# with a verified id but is NOT independently tier-selectable while it shares the
+# tier — a maintainer routing decision (fireworks.md § Registered routes).
+[ "$(tier_model_for_provider mentor fireworks)" = "fireworks/accounts/fireworks/models/glm-5p2" ] && ok "mentor fireworks resolves to GLM 5.2 (K3 shares the tier, documented)" || bad "mentor fireworks resolution ($(tier_model_for_provider mentor fireworks))"
+# The Moonshot/mystic K3 lane is a DIFFERENT backend, not re-routed or absorbed:
+# bare `kimi-k3` stays moonshot-only and never resolves under the fireworks provider,
+# and the namespaced Fireworks K3 id never resolves under moonshot.
+[ -z "$(resolve_model_tier fireworks kimi-k3)" ] && ok "bare kimi-k3 does NOT bind under fireworks (mystic lane intact)" || bad "fireworks captured the bare mystic K3 pin"
+[ -z "$(resolve_model_tier moonshot fireworks/accounts/fireworks/models/kimi-k3)" ] && ok "namespaced Fireworks K3 does NOT bind under moonshot" || bad "moonshot captured the Fireworks K3 route"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
 [ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
 [ "$(role_default_model gardener cleaner)" = "claude-haiku-4-5-20251001" ] && ok "gardener cleaner → Haiku" || bad "gardener cleaner default"
@@ -134,6 +153,17 @@ source "$JOBS/reputation.sh"
 mapfile -t mystic_arm < <(rep_resolve_arm mystic "$ARM_JOB")
 rm -f "$ARM_JOB"
 [ "${mystic_arm[*]}" = "moonshot kimi-k3 medium" ] && ok "mystic reputation arm retains kind/provider/model" || bad "mystic reputation arm (${mystic_arm[*]})"
+# A Fireworks mentor job earns its own arm (fireworker/fireworks/<wire id>), which
+# must NOT pool with the Moonshot/mystic K3 arm above: different kind, provider, and
+# model all key the arm, so the two K3 backends never share reputation.
+FW_ARM_JOB="$(mktemp "${TMPDIR:-/tmp}/garden-fw-arm.XXXXXX")"
+printf '%s\n' '---' 'provider: fireworks' 'tier: mentor' 'role: fixer' '---' > "$FW_ARM_JOB"
+mapfile -t fw_arm < <(rep_resolve_arm fireworker "$FW_ARM_JOB")
+rm -f "$FW_ARM_JOB"
+[ "${fw_arm[*]}" = "fireworks fireworks/accounts/fireworks/models/glm-5p2 medium" ] && ok "fireworker reputation arm is fireworks/<wire id>" || bad "fireworker reputation arm (${fw_arm[*]})"
+FW_ARM_PATH="$(rep_arm_relpath fireworker "${fw_arm[0]}" "${fw_arm[1]}" "${fw_arm[2]}" gardener:s main2 2>/dev/null || true)"
+MY_ARM_PATH="$(rep_arm_relpath mystic "${mystic_arm[0]}" "${mystic_arm[1]}" "${mystic_arm[2]}" gardener:s main2 2>/dev/null || true)"
+{ [ -n "$FW_ARM_PATH" ] && [ "$FW_ARM_PATH" != "$MY_ARM_PATH" ]; } && ok "Fireworks and Moonshot arms project to distinct journal paths (no pooling)" || bad "Fireworks/Moonshot arm paths collided ($FW_ARM_PATH / $MY_ARM_PATH)"
 [ "$(role_default_effort cleric builder)" = "high" ] && ok "cleric builder effort high" || bad "cleric builder effort"
 [ "$(role_default_effort cleric fixer)" = "medium" ] && ok "cleric fixer effort medium" || bad "cleric fixer effort"
 [ "$(role_default_effort hermit builder)" = "high" ] && ok "hermit builder effort high" || bad "hermit builder effort"
@@ -166,9 +196,13 @@ for r in designer builder fixer researcher scholar triager; do
   [ -z "$(role_default_model mystic "$r")" ] || bad "mystic role default must be empty (zero-default K3): role=$r"
 done
 ok "mystic zero-default across roles (K3 never an implicit choice)"
-# No non-mystic kind can even bind the K3 id via its provider tier map.
-{ [ -z "$(resolve_model_tier anthropic kimi-k3)" ] && [ -z "$(resolve_model_tier openai kimi-k3)" ] && [ -z "$(resolve_model_tier local kimi-k3)" ]; } \
-  && ok "kimi-k3 binds under NO non-moonshot provider (explicit K3 stays on the mystic lane)" || bad "kimi-k3 leaked to a non-moonshot provider"
+# No non-mystic kind can even bind the BARE k3 id via its provider tier map. The
+# fireworks provider is included: a Fireworks-served K3 is reached by its namespaced
+# `fireworks/accounts/fireworks/models/kimi-k3` id, never by the bare `kimi-k3` pin
+# that belongs to the Moonshot/mystic lane.
+{ [ -z "$(resolve_model_tier anthropic kimi-k3)" ] && [ -z "$(resolve_model_tier openai kimi-k3)" ] \
+  && [ -z "$(resolve_model_tier local kimi-k3)" ] && [ -z "$(resolve_model_tier fireworks kimi-k3)" ]; } \
+  && ok "bare kimi-k3 binds under NO non-moonshot provider (explicit K3 stays on the mystic lane)" || bad "bare kimi-k3 leaked to a non-moonshot provider"
 
 # ============================================================================
 hr; echo "ONE SPINE — the SAME gardener.sh completes a job as gardener AND as cleric"; hr

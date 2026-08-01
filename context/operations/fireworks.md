@@ -1,6 +1,6 @@
 ---
 created: 2026-07-25
-updated: 2026-07-30
+updated: 2026-08-01
 author: gardener
 ---
 
@@ -12,15 +12,59 @@ receives `FIREWORKS_API_KEY` only through the container's tmpfs systemd handoff.
 The key is never put in a unit, journal, worktree, report, or diagnostic. The pool
 starts at zero and refuses unconstrained work.
 
-## Registered route
+## Registered routes
 
-The closed inventory registers `fireworks/accounts/fireworks/models/glm-5p2` as a
-`mentor` model. The garden namespace is removed before the request reaches
-Fireworks. New selectors fail closed until an inventory, routing-default, resolver,
-and test update lands; do not use a wildcard route.
+The closed inventory (`scripts/jobs/model-tier-inventory.tsv`) registers two
+reviewed Fireworks routes, each verified against the provider's own model page. The
+garden-only `fireworks/` namespace is removed before the request reaches Fireworks;
+the wire id is passed through unchanged. New selectors fail closed until an
+inventory, routing-default, resolver, and test update lands; do not use a wildcard
+route.
 
-Standard is the documented default serving path. A Fast router is selected by its
-explicit wire model id. Priority requires Fireworks's `service_tier: "priority"`
+| Garden id (inventory) | Wire id sent to Fireworks | Tier | Provenance |
+| --- | --- | --- | --- |
+| `fireworks/accounts/fireworks/models/glm-5p2` | `accounts/fireworks/models/glm-5p2` | `mentor` | [model page](https://fireworks.ai/models/fireworks/glm-5p2) — Available Serverless, ~1,040k ctx |
+| `fireworks/accounts/fireworks/models/kimi-k3` | `accounts/fireworks/models/kimi-k3` | `mentor` | [model page](https://fireworks.ai/models/fireworks/kimi-k3) — serverless, ~1,040k ctx |
+
+Both wire ids are asserted by `scripts/jobs/test/fireworker-harness-test.sh`
+§ ROUTES and `scripts/jobs/test/worker-spine-kinds-test.sh`, so a change to either
+fails a test rather than silently sending a bogus model name.
+
+### The GLM 5.2 / K3 mentor-tier collision (a maintainer routing decision)
+
+Both models are frontier-class and sit at the **same** `mentor` tier, and the
+tier resolver is **first-match** (`tier_model_for_provider`, uniform across the
+handler, the claim path, and the reputation arm). So a plain `provider: fireworks`
++ `tier: mentor` job resolves to **GLM 5.2** (the first mentor Fireworks row), and
+**Fireworks-served K3 is registered with a verified id but is not independently
+tier-selectable while it shares the tier.**
+
+This is deliberate and left as a maintainer decision rather than guessed at, because
+each resolution has a real cost:
+
+- **Per-model selection for a provider-constrained job.** Honor an explicit reviewed
+  `model:` pin at resolution time (not just for eligibility). Reverts the tier
+  refactor's principle that `model:` is a bounded migration surface and no consumer
+  resolves from it; a coordinated change across the handler, `claim-job.sh` arm
+  stamping, and `rep_resolve_arm`.
+- **A distinct tier for K3.** Cleanly selectable, but misrepresents its capability
+  (K3 is not a minion/myrmidon-class model).
+- **Accept GLM 5.2 as the sole Fireworks mentor model** and treat the K3 row as
+  documentation-only (or remove it).
+
+Until that decision lands, a job that pins `model: fireworks/accounts/fireworks/models/kimi-k3`
+is eligible for the fireworker but **runs GLM 5.2** — the tier resolver ignores the
+pin. Do not post such a job expecting K3; use the canary GLM path below, and raise
+the collision with the maintainer if a first-class K3 route is wanted.
+
+Standard is the documented default serving path. A Fast router
+(`accounts/fireworks/routers/glm-5p2-fast`, verified present on the provider) is
+selected by its explicit wire model id; it is **not** registered here because it is
+the same model and tier as GLM 5.2 Standard, so the tier resolver has no slot to
+distinguish it — it becomes selectable only once the collision above is resolved.
+There is **no verified Kimi K3 Fast router**: the provider's serving-paths page
+lists `kimi-k2p6-fast` and `kimi-k2p7-code-fast` (K2.6/K2.7), so none is registered
+and none should be invented. Priority requires Fireworks's `service_tier: "priority"`
 JSON request field. The current Codex custom-provider surface has no verified
 per-request field injection, so this worker deliberately does not claim to select
 Priority. Keep Priority disabled until the maintainer chooses and validates an
@@ -64,12 +108,25 @@ scripts/jobs/post-job.sh --provider-canary fireworks mentor fireworks-glm52-cana
 ```
 
 Confirm the `jobs/tada/` report contains `worker_kind: fireworker`, provider
-`fireworks`, tier `mentor`, and the resolved GLM 5.2 model, then return it to zero
-unless the maintainer authorizes a larger trial:
+`fireworks`, tier `mentor`, and the resolved model
+`fireworks/accounts/fireworks/models/glm-5p2`, with **tool-verified** evidence the
+model did the work (a file create → readback → remove, reported with its tool
+output) rather than merely returning plausible text. Output with no tool result
+behind it is a failed canary. Then return the pool to zero unless the maintainer
+authorizes a larger trial:
 
 ```sh
 scripts/jobs/set-fireworkers.sh 0
 ```
+
+**A Kimi K3 canary is blocked on the mentor-tier collision above.** The
+`--provider-canary fireworks mentor` path resolves to GLM 5.2, so there is no way
+to exercise `accounts/fireworks/models/kimi-k3` until the maintainer picks a
+resolution. Once K3 is independently selectable, its canary should confirm the same
+field set with the resolved model `fireworks/accounts/fireworks/models/kimi-k3` and
+tool-verified evidence — and it must stay strictly separate from the working
+Moonshot/mystic K3 lane (`handlers/mystic-kimi.sh`, `provider: moonshot`, bare
+`model: kimi-k3`), which this route neither re-routes nor shares reputation with.
 
 HTTP 429 means adaptive per-account/model capacity and is retried with exponential
 backoff. HTTP 503 is load shedding and is also retried. Authentication errors and
