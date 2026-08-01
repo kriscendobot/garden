@@ -61,3 +61,13 @@ The leader-only `garden-orchestrate` watcher promotes them one at a time.
   Opus 5 pin belongs on the bins that do the engineering.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-01T11:10:18Z
