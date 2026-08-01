@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T09:27:18Z_
+_As of 2026-08-01T09:27:44Z_
 
 ## Latest
 
@@ -2892,22 +2892,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-stage10p-fresh-env-sweep.md) — Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
-### doin (7)
+### doin (6)
 - [`design-sysop-local-model-op`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-sysop-local-model-op.md) — Design: a host-addressed local-model provisioning op for the sysop
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr873-lint-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr873-lint-fix.md) — ---
-- [`endo-byte-array-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-byte-array-press-20260801-090502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-npm-cas-registry-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-npm-cas-registry-press-20260801-090502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-030502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-vfs-parity-press-20260801-090502.md) — Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 
-### tada (4050)
+### tada (4051)
+- [`endo-byte-array-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-byte-array-press-20260801-090502.md) — Completion report — byteArray press, dispatch 2026-08-01
 - [`endo-sturdyref-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sturdyref-press-20260801-090502.md) — Completion report — endo-sturdyref-press-20260801-090502
 - [`endo-git-integration-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-git-integration-press-20260801-090502.md) — Cost
 - [`ebfb-pr882-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr882-land.md) — Completion report
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260801-070501.md) — Cost
-- [`endo-npm-cas-arc-landing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-npm-cas-arc-landing.md) — orchestration endo-npm-cas-arc-landing — HALTED
-- … and 4045 more
+- … and 4046 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
