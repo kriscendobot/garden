@@ -1,19 +1,4 @@
----
-gate: go-ahead
-priority: normal
-poisoned: true
-poison_signature: requeue-exhausted
-poison_count: 1
-requeue_cycles: 5
-deadline_overruns: 0
-poisoned_at: 2026-07-25T18:23:03Z
-poisoned_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-07-25T18:23:03Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T09:00:24Z cleared=none -->
 
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-07-25T05:25:16Z -->
 
