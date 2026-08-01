@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":17,"elapsed_s":720,"input_tokens":30,"output_tokens":5057,"cache_creation_tokens":36081,"cache_read_tokens":666011,"total_cost_usd":0.8227145,"ts":"2026-08-01T10:12:30Z","base":"finbot-progress-20260730-020502-gauntlet-panel-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener"}
