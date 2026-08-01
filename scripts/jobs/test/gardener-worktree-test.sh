@@ -71,6 +71,12 @@ git -C "$GROOT" config user.email t@localhost
 git -C "$GROOT" config user.name test
 # Copy the real scripts the handler sources, plus the handler under test.
 cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$JOBS_SRC/quota-panel.sh" "$GROOT/scripts/jobs/"
+# The DATA common.sh reads, not just the code that reads it. Without these,
+# tier_model_for_provider silently resolves to empty (the inventory file is
+# absent), so every tier-resolution assertion below fails for a reason that has
+# nothing to do with the handler under test.
+cp "$JOBS_SRC/model-tier-inventory.tsv" "$JOBS_SRC/model-routing-defaults.tsv" \
+   "$JOBS_SRC/rate-card-defaults.md" "$GROOT/scripts/jobs/"
 cp "$JOBS_SRC/handlers/gardener-claude.sh" "$JOBS_SRC/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
 chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh"
 printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"
@@ -224,7 +230,12 @@ cwd2="$(cat "$TR/cwd.out" 2>/dev/null)"
 # short names are the same canonical set as skills/model-selection.
 MBASE="garden-infra-model"
 MJOB="$TR/$MBASE.job"          # leading YAML frontmatter carrying the model field
-printf -- '---\nmodel: fable\n---\nMap: build (garden infra). Run this one on Fable.\n' > "$MJOB"
+# `dispatch: manual` is REQUIRED for any Fable/mentat selection and is stamped by
+# post-manual-job.sh, the sole sanctioned mentat dispatch path (it emits
+# `tier: mentat` + `dispatch: manual`). A bare `model: fable` with no dispatch
+# field is not a shape any producer can post: mentat is an authorization
+# boundary, not a price point (skills/model-selection/SKILL.md).
+printf -- '---\nmodel: fable\ndispatch: manual\n---\nMap: build (garden infra). Run this one on Fable.\n' > "$MJOB"
 rm -f "$TR/model.out"
 run_handler "$MBASE" "$MJOB" "$REPORT"
 [ "$RC" -eq 0 ] && ok "model-selecting run exits 0" || bad "model run should exit 0 (got $RC)"
@@ -284,7 +295,7 @@ run_handler "$BRBASE" "$BRJOB" "$REPORT"
 # per-job model wins over the role's Opus default.
 ORBASE="garden-infra-role-override"
 ORJOB="$TR/$ORBASE.job"
-printf -- '---\nrole: designer\nmodel: fable\n---\nDesign X, but on Fable for this one.\n' > "$ORJOB"
+printf -- '---\nrole: designer\nmodel: fable\ndispatch: manual\n---\nDesign X, but on Fable for this one.\n' > "$ORJOB"
 rm -f "$TR/model.out"
 run_handler "$ORBASE" "$ORJOB" "$REPORT"
 [ "$RC" -eq 0 ] && ok "role+explicit-model run exits 0" || bad "override run should exit 0 (got $RC)"

@@ -153,12 +153,27 @@ fi
 model_args=()
 requested_tier="$(job_tier "$jobfile" 2>/dev/null || true)"
 requested_role="$(plan_role "$jobfile")"
-if [ "$(plan_field "$jobfile" dispatch)" != manual ] \
-   || [ "$requested_tier" != mentat ]; then
-  die "Claude handler accepts only explicit manual mentat/Fable jobs"
+# MENTAT IS AN AUTHORIZATION BOUNDARY, NOT A PRICE POINT. Fable/Mythos runs only
+# on an explicitly maintainer-dispatched job; no automatic producer may reach it
+# (skills/model-selection/SKILL.md). Everything else is a routine capability tier
+# this handler serves.
+if [ "$requested_tier" = mentat ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
+  die "Claude handler accepts tier: mentat only on an explicit manual dispatch"
 fi
 if [ -n "$requested_tier" ]; then
-  resolved_model="$(tier_model_for_provider "$requested_tier" anthropic)"
+  # ANTHROPIC MENTOR DOWNSHIFT (maintainer directive 2026-08-01). The closed
+  # inventory puts claude-opus-5 at mentor, but the standing cost ceiling for
+  # automatic fleet work is claude-opus-4-8. Rather than restate the inventory
+  # (which the auction, the claim predicate, and the rate card all read), the
+  # handler serves an AUTOMATIC mentor job at the minion model and says so.
+  # An explicit `dispatch: manual` mentor job is honoured at mentor: a human
+  # asking for Opus 5 by hand is not the automatic path this ceiling governs.
+  serve_tier="$requested_tier"
+  if [ "$requested_tier" = mentor ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
+    serve_tier=minion
+    log "job '$base' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)"
+  fi
+  resolved_model="$(tier_model_for_provider "$serve_tier" anthropic)"
   if [ -n "$resolved_model" ]; then
     model_args=(--model "$resolved_model"); log "job '$base' resolved tier '$requested_tier' -> claude --model $resolved_model"
   else

@@ -4561,12 +4561,18 @@ role_default_model() {
   esac
   case "$kind" in
     gardener)
+      # The gardener kind is ANTHROPIC. Every id here must be one `claude --model`
+      # accepts: these rows returned `gpt-5.6-terra` (an OpenAI id) until
+      # 2026-08-01, which the Claude CLI cannot run — latent because the tier
+      # branch in gardener-claude.sh wins whenever a job carries `tier:`, and
+      # automatic_route_body always stamps one. A role-only job reached it and
+      # died. Mirrors the cleric branch's shape: heavy / mechanical / ops.
       case "$role" in
-        designer|builder) printf '%s\n' "gpt-5.6-terra" ;;
+        designer|builder) printf '%s\n' "$(resolve_model_tier anthropic opus)" ;;
         cleaner|retcon|yarn-lock|journalist)
-                  printf '%s\n' "gpt-5.6-terra" ;;
+                  printf '%s\n' "$(resolve_model_tier anthropic haiku)" ;;
         weaver|conductor|pages-shepherd)
-                  printf '%s\n' "gpt-5.6-terra" ;;
+                  printf '%s\n' "$(resolve_model_tier anthropic sonnet)" ;;
         *)        printf '%s\n' "" ;;
       esac ;;
     cleric)

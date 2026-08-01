@@ -33,7 +33,31 @@ reversible by changing the choke-point policy; the four-tier inventory remains
 unchanged.
 
 No automatic path may emit Fable/mentat or any other manual-only pin. The gardener
-Claude handler and backend-fit predicate accept only `dispatch: manual` Fable.
+Claude handler and the backend-fit predicate (`job_eligible_for_kind`,
+`claim-job.sh`) both refuse `tier: mentat` unless the job carries
+`dispatch: manual`. **Mentat is the only tier they gate on** — the handler serves
+every other tier normally.
+
+That distinction is load-bearing. Until 2026-08-01 the handler refused *anything*
+that was not manual-mentat, while the predicate happily let an anthropic gardener
+CLAIM a `tier: mentor` job (Anthropic does have a model at mentor). Claim said
+yes, handler said no, and a host with `gardeners: N>0` would claim/die/requeue
+across the whole board in a hot loop. That is why both endolin hosts sat at
+`gardeners: 0`. The two are now consistent, and
+`test/gardener-claude-tier-serving-test.sh` asserts the agreement per tier.
+
+### The anthropic automatic-work cost ceiling
+
+The closed inventory puts `claude-opus-5` at mentor, but the standing ceiling for
+**automatic** fleet work is `claude-opus-4-8`. Rather than restate the inventory —
+which the auction, the claim predicate, and the rate card all read — the Claude
+handler **serves an automatic mentor job at the minion model** and logs that it
+did. An explicit `dispatch: manual` mentor job is still honoured at mentor: a
+human asking for Opus 5 by hand is not the automatic path this ceiling governs.
+
+Consequence for the other providers: a mentor job claimed by a cleric, mystic, or
+fireworker resolves at mentor as before. The downshift is anthropic-only, because
+the ceiling is about Claude spend.
 
 ## Deployment migration
 
