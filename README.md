@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T07:59:56Z_
+_As of 2026-08-01T08:02:53Z_
 
 ## Latest
 
@@ -4037,13 +4037,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $666.38 _(notional, rate-card)_ | no quota set |
+| Claude | 32.4M | $667.02 _(notional, rate-card)_ | no quota set |
 | Codex | 31.8M _(+758.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
-### todo (33)
+### todo (32)
 - [`daily-progress-summary-20260801-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260801-070501.md) — Daily midnight Pacific progress summary
-- [`dependabotany-recheck-endo-but-for-bots-20260801-013501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20260801-013501.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`endo-byte-array-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-byte-array-press-20260801-030502.md) — Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-git-integration-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-git-integration-press-20260801-030502.md) — Press git-integration / post-M3 (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-npm-cas-registry-press-20260801-030502.md) — Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
@@ -4077,16 +4076,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### doin (2)
-- [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260731-070502.md) — Daily midnight Pacific progress summary
+- [`dependabotany-recheck-endo-but-for-bots-20260801-013501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260801-013501.md) — botanist daily recheck sweep: endojs/endo-but-for-bots dependabotany ledger
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 
-### tada (4038)
+### tada (4039)
+- [`daily-progress-summary-20260731-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260731-070502.md) — Cost
 - [`arc-status-daily-20260801-035001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260801-035001.md) — Cost
 - [`arc-status-daily-20260731-033502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/arc-status-daily-20260731-033502.md) — Cost
 - [`endo-vfs-parity-press-20260730-082002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260730-082002.md) — Cost
 - [`build-endo-regexp-conservative-subset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-regexp-conservative-subset.md) — Cost
-- [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 4033 more
+- … and 4034 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
