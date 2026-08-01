@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T12:03:34Z_
+_As of 2026-08-01T13:01:21Z_
 
 ## Latest
 
@@ -21,7 +21,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 13d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 14d)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 14d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 15d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 15d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 18d)
 
@@ -4312,11 +4312,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
 
-> WATCHDOG notice — occurrence #2096 (first seen 2026-07-31T00:19:05Z, latest 2026-08-01T12:00:41Z).
-> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 2096 times; this is ONE
-> coalesced notice that updates in place, not 2096 messages. Latest detail:
+> WATCHDOG notice — occurrence #2156 (first seen 2026-07-31T00:19:05Z, latest 2026-08-01T13:01:03Z).
+> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 2156 times; this is ONE
+> coalesced notice that updates in place, not 2156 messages. Latest detail:
 >
-> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~2091m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~2151m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
@@ -4436,7 +4436,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 41.2M | $835.21 _(notional, rate-card)_ | no quota set |
-| Codex | 31.7M _(+750.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 31.7M _(+750.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
