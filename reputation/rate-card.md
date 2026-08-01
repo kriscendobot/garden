@@ -15,6 +15,24 @@ differ by ~1.4x in aggregate (354 of 1545 events were requeued), so a row and it
 basis move together: re-measure, never rescale. Pricing the wider basis at the
 narrower basis's rate would inflate every censored arm by that ratio.
 
+**EXCEPTION, 2026-08-01 — the two rows marked `[duration basis]`.** The
+`moonshot/kimi-k3` and `fireworks/*` rows are measured against **raw
+`duration_secs`**, not the proxy wallclock, and are therefore *not* on the same
+basis as the Anthropic rows. This is deliberate and is a workaround, not a
+correction: the documented `min(interval, GARDEN_REP_ATTEMPT_CAP_SECS)` cap on
+earlier attempts **is not implemented in code** — the string appears only in the
+prose of `scripts/jobs/rate-card-defaults.md`, and `rep_wallclock_index` /
+`rep_proxy_secs` take the uncapped first-claim-to-tada span. During the 2026-07-29
+board backlog that span swallowed days of *idle* queue time between requeues,
+inflating the proxy basis 11.6x (kimi) and 72.1x (fireworks) over compute time —
+e.g. `endojs-endo-but-for-bots-pr730-review-27278ba1`, 106 duration_secs against a
+155684 s span across four reap/reclaim cycles. Measuring the authoritative totals
+against that basis would have priced fireworks at $0.000026/s, ~200x below every
+other row, handing it a near-free cost posterior that wins every auction on price
+— the same trap the `openai` row documents below. The duration basis keeps both
+rows comparable to the measured Anthropic rows until the cap is implemented and
+ALL rows can be re-measured together. See Open follow-ups.
+
 **This file is journal data and outranks the tracked seed**
 (`scripts/jobs/rate-card-defaults.md` on `main2`). Correcting a rate here needs **no
 deploy and no code change**: the reducer re-reads this card every tick and
@@ -47,10 +65,10 @@ proxy is weaker evidence than an invoice.
 | anthropic | claude-opus-4-8 | * | 0.005003 | measured | 18 ledger-priced fleet events, $99.45 over 19877 wallclock s | 2026-07-29 |
 | anthropic | claude-sonnet-4-6 | * | 0.001549 | measured | 5 ledger-priced fleet events, $5.10 over 3290 wallclock s | 2026-07-29 |
 | anthropic | * | * | 0.005154 | measured | pooled: 103 ledger-priced fleet events, $451.54 over 87611 wallclock s | 2026-07-29 |
-| moonshot | kimi-k3 | * | 0.003002 | provisional | 0.6 x the measured claude-opus-4-8 rate, from Moonshot's provisional list price ratio (see Derivations) | 2026-07-29 |
+| moonshot | kimi-k3 | * | 0.002772 | measured [duration basis] | maintainer-authoritative $50.00 over 18036 duration_secs, 62 kimi-k3 engagements (see Derivations) | 2026-08-01 |
 | local | * | * | 0.000081 | amortized | ~$0.29 per busy hour of the local box (hardware + power; see Derivations) | 2026-07-29 |
 | openai | * | * | 0.005154 | provisional | fleet default — no published gpt-5.x API price is recorded and the ChatGPT plan meters no per-token dollars (see Derivations) | 2026-07-29 |
-| fireworks | * | * | 0.005154 | provisional | fleet default — no Fireworks price recorded; one event of history | 2026-07-29 |
+| fireworks | * | * | 0.001883 | measured [duration basis] | maintainer-authoritative $57.00 over 30271 duration_secs, 42 Fireworks engagements (see Derivations) | 2026-08-01 |
 | * | * | * | 0.005154 | measured | fleet default for an unknown arm = the pooled measured rate above | 2026-07-29 |
 
 ## Derivations
@@ -68,17 +86,34 @@ and the rate came out high: $0.0072/s pooled. Charging the earlier attempts too
 restates the same $451.54 over 38% more seconds: $0.0052/s. Same dollars, wider
 denominator, both honest — what would be wrong is mixing them.
 
-**`moonshot` / `kimi-k3` — derived, not measured.** No kimi run has ever carried a
-dollar figure, so its rate is a *price ratio* applied to a measured arm.
-`designs/provider-model-catalog.md` §2.6 records Moonshot's provisional list price as
-$0.30 / $3.00 / $15.00 per MTok (cached input / fresh input / output); the Anthropic
-catalog §1 prices `claude-opus-4-8` at $5 / $25 per MTok. The ratio is 0.6 on both the
-input and the output leg, so `0.6 x 0.005003` (the measured opus-4-8 row)
-`= 0.003002`. **This
-assumes kimi generates tokens at roughly opus's rate** — if kimi is materially faster
-or slower per token, its dollars-per-*second* scales with that and this row is wrong
-in that proportion. The underlying list price is itself marked `[provisional,
-unverified]` upstream. Replace this row the moment a kimi run carries a real ledger.
+**`moonshot` / `kimi-k3` — measured from a maintainer-authoritative total
+(2026-08-01).** This row was previously a *price ratio* (0.6 x the measured
+opus-4-8 rate) applied because no kimi run had ever carried a dollar figure. The
+maintainer has now supplied the collective cost of all Kimi work to date:
+**$50.00**. Across the 62 `kimi-k3` reputation events that figure covers, raw
+`duration_secs` totals **18036 s**, giving `50.00 / 18036 = $0.002772/s` — close to
+the retired 0.003002 provisional, which is a mild independent check on the old
+price-ratio derivation. The same $50.00 is allocated per-job, token-weighted, as
+the append-only `kimi-k3-total-correction-20260801` adjustment batch over the 27 of
+those engagements still present in `jobs/tada/`; that batch supersedes
+`kimi-k3-credit-exhaustion-20260730` ($58.84 across 24 bases) without rewriting it
+or any raw event. Note the basis exception above: this rate is per second of
+*compute*, not per second of proxy wallclock.
+
+**`fireworks` — measured from a maintainer-authoritative total (2026-08-01).**
+Previously the fleet default with "one event of history". The maintainer has
+supplied the collective cost of all completed Fireworks work to date: **$57.00**,
+covering all 42 Fireworks reputation events (24 `glm-5p2`, 10 `deepseek-v4-pro`, 8
+`fireworks-unconfigured`), every one of which is present in `jobs/tada/`. Raw
+`duration_secs` totals **30271 s**, giving `57.00 / 30271 = $0.001883/s`. This is a
+**pooled** provider-level row: the $57.00 is a single aggregate and cannot be split
+per model without further evidence, so no per-model Fireworks row is asserted. The
+correction is large — the prior fleet-default rate against the live proxy basis
+implied **$130.08** for the same work, more than double the truth — so Fireworks
+was being materially over-priced in its cost posterior. The same $57.00 is
+allocated per-job as the `fireworks-total-correction-20260801` batch, weighted by
+`duration_secs` (only 3 of the 42 carry usable token counts, so token weighting was
+not available).
 
 **`local` — amortized, not invoiced.** Local inference has no per-token invoice, only
 electricity and amortized hardware, and pricing it at literally $0 would make one
@@ -127,6 +162,20 @@ while remaining on record as the only measurement the garden has of a *liaison*
 session.
 
 ## Open follow-ups
+
+- **The attempt cap is documented but not implemented — this is the highest-value
+  fix in this file.** `rate-card-defaults.md` describes the proxy wallclock as the
+  final attempt "plus `min(interval, GARDEN_REP_ATTEMPT_CAP_SECS)` for each EARLIER
+  attempt", but that identifier exists nowhere in code: `rep_wallclock_index`
+  (`scripts/jobs/reputation.sh`) emits the raw first-claim-to-tada span and
+  `rep_proxy_secs` returns it unmodified. Every second a job spends idle in the
+  queue between reap and reclaim is therefore billed as engagement wallclock. On a
+  healthy board the error is small (the ~1.4x the header cites); during the
+  2026-07-29 backlog it reached **72x** for Fireworks. Because the reducer
+  multiplies EVERY censored arm's span by its rate, all proxy-priced arms are
+  currently over-estimated by whatever their share of queue idle was. Implementing
+  the cap and then re-measuring every row **together** would let the two
+  `[duration basis]` rows rejoin the proxy basis and retire the exception above.
 
 - **`duration_secs` records only the FINAL attempt.** 255 of 1514 events (~17%) have
   `attempts > 1`, so wallclock burned on requeued attempts is missing from the proxy,
