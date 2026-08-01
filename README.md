@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-01T10:02:03Z_
+_As of 2026-08-01T10:03:08Z_
 
 ## Latest
 
@@ -2469,6 +2469,56 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Board hygiene: jobs/todo/finbot-pr4-panel-rerun-20260725.md is now fully obsolete — it targets stale head 63df8109 and asks to re-run a panel + dispatch a fable-signoff for a PR that is now merged. It was promoted mechanically on 08-01 without re-checking that the panel already ran/passed at b70fb80. I have no clean targeted-withdraw tool and must not run git in the journal worktree, so please drop it (or let it self-no-op when a gardener claims it and finds the PR merged/closed).
 
+- `20260801T100213Z-8376e3` — from gardener:ebfb-pr875-review-response, reply_to `ebfb-pr875-review-response` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T100213Z-8376e3.md)
+
+> Re PR [endojs/endo-but-for-bots#875](https://github.com/endojs/endo-but-for-bots/issues/875) (endor package `imports` field). Its only blocker is
+> a CHANGES_REQUESTED from kriskowal (2026-07-29): "Please consider solving this problem in
+> JS using the compartment mapper rather than duplicating the logic in Rust." CI is green;
+> there are no inline threads. I need direction before acting, because this is an
+> architecture reversal, not a follow-up-commit-sized fix.
+>
+> What I found:
+> - `endor run` resolves subpath exports/imports at RUN TIME via hand-written JS embedded
+>   in Rust string constants (`EXPORTS_RESOLVER_JS`/`CJS_RUNTIME_JS` in
+>   rust/endo/xsnap/src/archive.rs), eval'd into the XS machine. The PR refactored the
+>   exports matcher to share a core (`__matchSubpathMap`) and added `__resolveImports`
+>   alongside it (+112 archive.rs JS; +231 execute.rs is ALL Rust tests, incl. a fixture
+>   shared with compartment-mapper to prove parity — that shared fixture was the prior
+>   APPROVED review's ask).
+> - endor's assemble step (rust/endo/src/assemble.rs) builds the compartment map in pure
+>   Rust and NEVER runs @endo/compartment-mapper JS. The JS mapper resolves exports/imports
+>   at MAP-BUILD time (infer-exports.js interpretExports/interpretImports +
+>   pattern-replacement.js) and bakes results into the map; endor's XS path keeps
+>   package.json raw and resolves at import time. Two independent implementations.
+> - This runtime-reimplementation is the SHIPPED, already-merged approach for exports
+>   ([endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802)) and CJS require linkage ([endojs/endo-but-for-bots#818](https://github.com/endojs/endo-but-for-bots/issues/818)).
+>   The imports PR just follows that precedent.
+> - Notably endor's own design doc (endor-npm-registry-proxy.md:397-406) originally
+>   envisioned an XS-hosted compartment mapper via moduleMapHook/importHook; the shipped
+>   code diverged. So "use the compartment mapper" reads as realigning with that intent.
+>
+> Why it's not a simple follow-up: faithfully satisfying the review means removing the
+> whole JS-in-Rust resolver family (exports + imports + CJS), rewiring endor to resolve
+> through the compartment mapper — which implicates already-merged
+> [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802) / [endojs/endo-but-for-bots#818](https://github.com/endojs/endo-but-for-bots/issues/818) and endor's Rust-only
+> assemble path. That's a design-sized arc, not a commit on this PR.
+>
+> Options (my recommendation: 3):
+> 1. Full realignment now on this PR: rework endor to bake subpath resolution via the JS
+>    mapper at assemble time and drop the XS runtime resolvers. Large, cross-cutting,
+>    blocks this PR (and thus [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876)) for a while, and reopens merged
+>    exports/CJS work.
+> 2. Bundle compartment-mapper's pattern-replacement.js source INTO the XS runtime so the
+>    wildcard-matching core is literally shared (not a copy), keeping condition/array/null
+>    glue thin. Partial dedup; smaller; doesn't fully move resolution to the mapper.
+> 3. Land this PR as-is under the shipped runtime-resolver approach (consistent with
+>    exports [endojs/endo-but-for-bots#802](https://github.com/endojs/endo-but-for-bots/issues/802)), and spin the "resolve via compartment-mapper"
+>    realignment out as a separate DESIGN job covering exports+imports+CJS together. I
+>    reply on the PR laying out the above and marking it a tracked follow-up.
+>
+> Which do you want? (Ordering note in my job says land this PR before the
+> [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/issues/876) conductor job, so this is gating that too.)
+
 - `poison-ebfb-pr882-bootstrap-generators-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-ebfb-pr882-bootstrap-generators-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -2989,16 +3039,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.5M | $704.90 _(notional, rate-card)_ | no quota set |
+| Claude | 33.9M | $710.54 _(notional, rate-card)_ | no quota set |
 | Codex | 31.9M _(+758.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
-### todo (38)
+### todo (35)
 - [`build-kebab-case-lint-wildcard-test262`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-kebab-case-lint-wildcard-test262.md) — Reconstruct the kebab-case file-name linter (endojs/endo#2947) with WILDCARD ...
-- [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr806-conduct.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`endojs-endo-but-for-bots-pr826-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr826-build.md) — Build the approved ReadableBlob range-attenuation design from PR #826
-- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
-- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 - [`fix-scholar-staging-per-job-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-scholar-staging-per-job-isolation.md) — Fix: scholar staging clone is a SHARED working tree — concurrent cycles destr...
 - [`garden-approval-reconciler-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-approval-reconciler-build.md) — Add a periodic approval-to-conductor reconciler
 - [`garden-fireworks-glm52-register`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fireworks-glm52-register.md) — Register Fireworks GLM 5.2 as a mentor model
@@ -3034,26 +3081,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-watchdog-20260801-010501.md) — xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### doin (12)
-- [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daemon-store-phase4-sorted.md) — Build Phase 4: sorted variants and range queries (design Phase 4)
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/drive-mystic-rollout-20260723.md) — ---
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-lint-warnings.md) — ---
 - [`ebfb-pr875-review-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr875-review-response.md) — ---
 - [`endo-master-fb9cef4-ci-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-master-fb9cef4-ci-build-gauntlet.md) — ---
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
+- [`endojs-endo-but-for-bots-pr806-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr806-conduct.md) — <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-01T0...
 - [`endojs-endo-but-for-bots-pr824-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr824-build.md) — Build @endo/sha256 from the approved platform-neutral hash design
-- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr873-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #873
-- [`finbot-pr4-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-signoff.md) — Merge-governance sign-off + merge for kriscendobot/finbot PR #4
 - [`finbot-pr6-bind-coverage-evidence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr6-bind-coverage-evidence.md) — Fix merge-governance must-fix findings for finbot PR #6
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260730-020502-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`finbot-progress-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-progress-20260801-030502.md) — Push progress on kriscendobot/finbot (every 6h)
+- [`fireworks-glm52-kimik3-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fireworks-glm52-kimik3-build.md) — Wire GLM 5.2 and Kimi K3 into the fireworker route
+- [`fix-botanist-scripts-enabled-install-gap-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-botanist-scripts-enabled-install-gap-gauntlet.md) — ---
 
-### tada (4070)
+### tada (4072)
+- [`daemon-store-phase4-sorted`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daemon-store-phase4-sorted.md) — Completion report
+- [`finbot-pr4-signoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-signoff.md) — Completion report — finbot-pr4-signoff
+- [`endojs-endo-but-for-bots-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr873-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr160-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr160-fixer.md) — Completion report: fixer on endojs/endo-but-for-bots PR #160
 - [`endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr698-ci-green-cascade-20260725.md) — Report: cascade child — PR #698 (bridge cut 1)
-- [`finbot-progress-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-progress-20260801-090502.md) — Completion report
-- [`endo-vfs-parity-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-vfs-parity-press-20260801-030502.md) — Cost
-- [`ebfb-pr873-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr873-conduct.md) — Cost
-- … and 4065 more
+- … and 4067 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
