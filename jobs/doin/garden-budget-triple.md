@@ -117,3 +117,13 @@ the evidence supports it, rather than optimizing the cheap side of the ledger.
 Prefer "insufficient evidence" to a number you cannot defend. Recall the usable
 quality signal is ~20 of 172 review-misses (134 are `new-direction`, not
 defects), and 31 of 54 panel runs bought no verdict at all.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T22:29:58Z
