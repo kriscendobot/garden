@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":55,"elapsed_s":1120,"input_tokens":94,"output_tokens":76373,"cache_creation_tokens":211052,"cache_read_tokens":8203070,"total_cost_usd":8.125060000000001,"ts":"2026-08-02T21:52:42Z","base":"garden-budget-ledger","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}
