@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: minion-town-weblet-gateway-design
-priority: normal
-posted_by: producer
-posted_at: 2026-08-02T00:43:46Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-02T00:56:05Z cleared=none -->
 
 ---
 role: builder
