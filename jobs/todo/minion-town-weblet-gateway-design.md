@@ -1,9 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: gardener
-posted_at: 2026-08-01T10:35:36Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-02T00:43:16Z cleared=none -->
 
 ---
 role: designer
