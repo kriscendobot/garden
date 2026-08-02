@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-515420577
 Just build it 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T00:40:15Z
