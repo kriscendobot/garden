@@ -148,10 +148,12 @@ the scaler logged `scaled gardener pool to N` yet the active count is 0 ⇒ susp
 a stale drain marker** (step 6) — the units were created but each gardener
 exited on the drain. Show the one-line counts.
 
-## The liaison's three Monitors
+## The liaison's four Monitors
 
 The liaison arms these as Claude Code **Monitor** tools in its own session. Two
-are singletons — leader-only, because two would double-act:
+are singletons — leader-only, because two would double-act. Arm them on any
+liaison bring-up that is not an explicitly interactive side session: a liaison
+that is standing the instance up owns these watches for the life of the session.
 
 - **Leader-marker watch** — **every host.** Watches the journal `leader` marker;
   when it comes to name this host's `GARDEN` identity, the liaison stands itself
@@ -166,22 +168,42 @@ are singletons — leader-only, because two would double-act:
   `cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null` (silent when up to
   date); on a signal, invoke `scripts/jobs/deploy-garden.sh` ([deploy.md](deploy.md)).
 
-**Also drain the liaison broadcast bus on bring-up** — on **every** host, leader
-and follower. Once the Monitors are armed (and again at natural checkpoints
-thereafter), the liaison reads its own bus addresses with
+- **Liaison-bus watch** — **every host**, leader and follower. A STANDING Monitor,
+  not a one-shot drain at bring-up. Command:
 
-```sh
-scripts/jobs/read-msgs.sh "liaison-$GARDEN" role/liaison broadcast
-```
+  ```sh
+  G="$(hostname -s)"; while true; do
+    scripts/jobs/read-msgs.sh "liaison-$G" "role/liaison" "broadcast" "host/$G" 2>/dev/null || true
+    sleep 120
+  done
+  ```
 
-(`$GARDEN` is this host's identity from `common.sh`; the per-host seen-key keeps
-each host's own read cursor). Surface anything unseen to the maintainer as a fleet
-notice; an empty drain is silent. Fold it into a standing Monitor you already run —
-no new daemon. See [roles/liaison/AGENT.md](../../roles/liaison/AGENT.md) § the
-broadcast-bus drain.
+  Watch all three addresses, and **especially `host/<GARDEN>`** — notes addressed
+  to *this host* have no other human-facing reader. (`host/<GARDEN>` is also the
+  sysop's fan-out topic, but `read-msgs.sh` keys its cursor on the FIRST argument
+  — `$GARDEN_STATE/seen/<seen-key>` — so a liaison reading with key
+  `liaison-$G` has its own cursor and cannot consume the sysop's messages.)
+
+  `read-msgs.sh` prints only *unseen* messages, so it is self-deduping: no
+  seen-set wrapper is needed, unlike `maintainer-watch.sh`, which re-lists every
+  unread message every tick and floods a short-interval Monitor.
+
+  **Why standing and not a bring-up drain.** The former guidance ("drain it on
+  bring-up, then again at natural checkpoints") failed in practice: on 2026-08-02
+  a liaison that drained once at bring-up went ~36h without re-reading, missed
+  four `deploy-garden` broadcasts, and did not see a peer liaison's direct request
+  until the maintainer pasted the commit URL by hand. Gardeners read `broadcast`
+  every loop (`gardener.sh`), but they exit before that read while the fleet is
+  draining — so on a drained host the liaison is the ONLY reader on the bus.
+  Surface anything unseen to the maintainer as a fleet notice; silence is normal.
+  See [roles/liaison/AGENT.md](../../roles/liaison/AGENT.md) § the broadcast-bus drain.
 
 Singleton rule in general: on the leader host only — foreman, scheduler,
-watchers, bulletin, and these Monitors. Followers run the gardener pool plus
+watchers, bulletin, and the two leader-only Monitors above (maintainer-inbox and
+deploy-on-upgrade). The **leader-marker** and **liaison-bus** watches are armed on
+EVERY host: the first is the follower's half of the leader/follower contract, and
+the second is the only human-facing reader of `host/<GARDEN>` and `broadcast` on a
+follower or a drained host. Followers run the gardener pool plus
 per-host local infra. The full inventory and rationale are
 [leader-follower.md](leader-follower.md) and
 `designs/multibot-leader-follower.md`.
