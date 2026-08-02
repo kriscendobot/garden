@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":101,"elapsed_s":1858,"input_tokens":179,"output_tokens":101927,"cache_creation_tokens":179948,"cache_read_tokens":12174534,"total_cost_usd":10.438953,"ts":"2026-08-02T22:27:26Z","base":"garden-budget-prs","host":"endolin-garden-ece02cb4","outcome":"tada","role":"assayer"}
