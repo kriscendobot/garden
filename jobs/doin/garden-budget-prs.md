@@ -110,3 +110,13 @@ correctly today — so this is latent, not active. But a fresh instance with no
 journal card, or a lost card, would silently price Anthropic ~75x too high. If it
 is cheap to correct while you are working, do it and say so; if not, leave it and
 report it. Do not let it expand your scope.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T21:56:04Z
