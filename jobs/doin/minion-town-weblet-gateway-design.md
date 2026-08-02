@@ -44,3 +44,13 @@ Distributed store, S3 scratch, DynamoDB-for-sqlite, endor worker, metering, bill
 ## Definition of done
 
 A reviewable `designs/weblet-gateway.md` decomposing the above into a buildable increment sequence (DNS/TLS → isolated static content origin → powers bootstrap → publish capability), each increment independently deployable and edge-verifiable (a fresh `<hash>.minion.town` GET / CSP / `/.well-known/ocapn-*` probe), with the `@endo/*` vs minion.town split called out per increment. No production change in this job — design only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T00:43:22Z
