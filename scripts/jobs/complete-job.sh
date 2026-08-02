@@ -73,7 +73,13 @@ record_reputation_event() {
   # the completed journal claim-to-tada span and the rate card, so the event's
   # immediate estimate is only provenance and a corrected rate or span re-prices
   # history without rewriting an event.
-  if [ "$agentic" = censored ]; then
+  # A FLAT-SUBSCRIPTION provider (Anthropic Max — rep_provider_is_flat) reports a
+  # per-call `total_cost_usd` that is NOTIONAL list-price, not money. Keep it in
+  # `agentic_dollars` as audit evidence (so the raw ledger reading is never lost), but
+  # censor the AGGREGATE the reducer folds so cost falls through to the true-costed
+  # wallclock proxy — the same treatment a natively-censored event gets. A metered
+  # provider (kimi/fireworks/openai paid) keeps its real ledger dollars.
+  if [ "$agentic" = censored ] || rep_provider_is_flat "$provider"; then
     aggregate=censored
     estimated="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "${duration:-0}" "$human" 2>/dev/null || echo censored)"
     case "$estimated" in censored|'') cost_source=none; estimated='' ;; *) cost_source=wallclock ;; esac

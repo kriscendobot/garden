@@ -48,6 +48,11 @@ hr()  { echo "----------------------------------------------------------------";
 # Scrub ambient fleet env (this may run AS a board job under a live gardener).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_|AUCTION_)' || true) 2>/dev/null || true
 export GARDEN_TEST=1 GARDEN_ROOT="$ROOT" GARDEN_NO_MAINTAINER_ALERT=1
+# This suite uses `anthropic` as a generic PRICED (metered) stand-in throughout its
+# ledger/reducer/wallclock math, which predates the flat-subscription policy. Pin the
+# flat-provider set EMPTY so those assertions keep testing the generic priced path;
+# the flat-subscription censoring itself is exercised by flat-provider-censor-test.sh.
+export GARDEN_REP_FLAT_PROVIDERS=
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 # shellcheck source=../auction.sh

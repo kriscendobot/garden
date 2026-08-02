@@ -380,6 +380,39 @@ provenance (§ Open questions).
   (the charge needs a spend measure to reason about). Recommended as a
   separate design job if the maintainer wants it; to be filed.
 
+## Flat-subscription cost censoring (built 2026-08-02, budget-attribution child 2)
+
+The ledger's `total_cost_usd` is the Claude CLI's price at **API list rates**, but the
+fleet bills through **flat Claude Max subscriptions** ($400/mo across two accounts, no
+overage). On a flat plan the marginal dollar of one more call is zero, so a per-call
+list-price figure is **notional, not money** — and feeding it to the bid auction
+(`cleric-worker-bid-auction-reputation.md`) prices Anthropic arms ~8.7x above their
+true subscription-amortized cost. The auction must instead price Anthropic through the
+**wallclock proxy** (the true-costed `reputation/rate-card.md`), exactly as it already
+does for a provider that reports no dollars at all.
+
+**Decision (option: reducer re-prices; raw events untouched; write-time honesty).**
+A provider is classified flat by `rep_provider_is_flat` (`reputation.sh`,
+`GARDEN_REP_FLAT_PROVIDERS`, default `anthropic`, `=`-not-`:=` so an explicit empty
+disables it). Then:
+
+- **`reputation-reduce.sh`** treats a flat provider's numeric `aggregate_dollars` as
+  **cost-censored** and folds it through the wallclock proxy. This re-prices the
+  **whole event log** — including the pre-policy Anthropic events that carry a raw
+  numeric aggregate copied from the notional ledger — as a pure function of `(events,
+  rate card, flat set)`. **No raw event is rewritten**; the notional figure stays in
+  the event and in `usage/<base>.jsonl` as audit evidence, and only the derived
+  projection changes. A sanctioned invoice **adjustment** still wins; a **demerit**
+  (which must fold a positive dollar) is never censored.
+- **`complete-job.sh`** writes new flat-provider events honestly: it keeps the notional
+  `agentic_dollars` as evidence but records `aggregate_dollars: censored` with a proxy
+  `cost_source`, so a fresh event never claims `ledger` for a figure that is not money.
+
+Metered providers (kimi, fireworks, openai paid) are unaffected — their per-call
+dollars are real money and keep pricing the auction. The generic auction-math tests
+that used `anthropic` as a *priced* stand-in pin `GARDEN_REP_FLAT_PROVIDERS=` empty;
+the policy itself is proven by `test/flat-provider-censor-test.sh`.
+
 ## Alternatives considered and rejected
 
 - **Gitignored per-host `costs.jsonl` plus a rollup shipper**: builds a second

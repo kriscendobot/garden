@@ -89,6 +89,19 @@ rep_adjusted_agentic_dollars() {
 # + safety slack (matches reaper.sh's headerless reap_age_threshold, 2400+60+30).
 # Longer intervals are reaper/queue latency, not worker engagement, and are clamped.
 : "${GARDEN_REP_ATTEMPT_CAP_SECS:=2490}"              # cap on each EARLIER attempt's proxy span
+# Providers billed by a FLAT SUBSCRIPTION rather than metered per call (the fleet's
+# Claude Max plans). A per-call `total_cost_usd` from such a provider is NOTIONAL
+# API list-price, not money: on a flat plan the marginal dollar of one more call is
+# zero, and the real cost basis is the subscription divided by throughput — which the
+# WALLCLOCK PROXY (rate card) expresses, not the CLI's per-call figure. So a flat
+# provider's ledger dollars must NOT price the auction: the reducer treats them as
+# cost-CENSORED and falls through to the proxy, exactly as for a provider that reports
+# no dollars at all. The RAW ledger figure is still captured (usage/<base>.jsonl and
+# the event's `agentic_dollars:`) as audit evidence — only the AGGREGATE the reducer
+# folds is censored, so evidence and correction stay separately auditable. Space/comma
+# list; env-overridable; EMPTY disables the policy (an all-metered fleet, or a test
+# that uses `anthropic` as a generic priced stand-in).
+: "${GARDEN_REP_FLAT_PROVIDERS=anthropic}"   # `=` not `:=`: an explicit EMPTY disables
 
 # --- small deterministic primitives ------------------------------------------
 
@@ -325,6 +338,21 @@ rep_cost_samples() {
 # sibling design not yet wired, so today this censors on nearly every real job; the
 # reducer's `censored:` counter surfaces that, and the auction runs pure-exploration
 # (cold priors) until the ledger lands, which is the correct shadow-phase behavior.
+# rep_provider_is_flat <provider> — return 0 (true) when <provider> is billed by a
+# flat subscription, so its per-call ledger dollars are NOTIONAL (list-price), not
+# money, and must not price the auction (GARDEN_REP_FLAT_PROVIDERS). Deterministic,
+# LLM-free, byte-identical on every host. Consumed by complete-job.sh (write time) and
+# reputation-reduce.sh (reduce time) so the SAME policy governs both fresh events and
+# the historical backlog.
+rep_provider_is_flat() {
+  local p="${1:-}" x
+  [ -n "$p" ] || return 1
+  for x in ${GARDEN_REP_FLAT_PROVIDERS//,/ }; do
+    [ "$x" = "$p" ] && return 0
+  done
+  return 1
+}
+
 rep_agentic_dollars() {
   local dir="${1:?}" base="${2:?}" f="$1/usage/$2.jsonl" sum
   [ -f "$f" ] || { printf 'censored\n'; return 0; }

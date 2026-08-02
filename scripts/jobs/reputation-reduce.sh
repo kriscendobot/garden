@@ -131,6 +131,20 @@ recompute_arms() {
       '') ;;
       *) printf '%s %s adjustment\n' "${accepted:-false}" "$adjusted" >> "$work/$armhash.dat"; continue ;;
     esac
+    # FLAT-SUBSCRIPTION censoring. A numeric ledger aggregate from a flat-subscription
+    # provider (Anthropic Max) is NOTIONAL API list-price, not money; drop it to the
+    # wallclock proxy (the true-costed rate card) exactly as a natively-censored event,
+    # so the auction posterior is fed real cost rather than list price. This re-prices
+    # the WHOLE event log — including the pre-policy Anthropic events that carry a raw
+    # numeric `aggregate_dollars` copied from the notional usage ledger — as a pure
+    # function of (events, rate card, flat-provider set); no raw event is ever
+    # rewritten (§ the reducer never edits events). A real invoice ADJUSTMENT (handled
+    # above) still wins, and a DEMERIT (which MUST fold a positive dollar to register
+    # as a counted attempt) is never censored.
+    if [ "$agg" != censored ] && rep_provider_is_flat "$provider" \
+       && [ -z "$(plan_field "$ef" demerit)" ]; then
+      agg=censored
+    fi
     case "$agg" in
       ''|censored)
         dur="$(plan_field "$ef" duration_secs)"
