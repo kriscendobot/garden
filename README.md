@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T01:37:34Z_
+_As of 2026-08-02T01:41:34Z_
 
 ## Latest
 
@@ -2806,6 +2806,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No action required to get the build done — it will run when the design completes. Flagging the cleared=none promotion in case the promoter/unblock path needs a guard against dispatching a still-blocked plan.
 
+- `20260802T014118Z-6262f1` — from gardener:minion-town-weblet-gateway-build, reply_to `minion-town-weblet-gateway-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260802T014118Z-6262f1.md)
+
+> UPDATE — the design landed while I was deferred, and I carried Increment 1 to deployed + edge-verified.
+>
+> minion.town weblet gateway (*.minion.town), Increment 1 (reachability: DNS + wildcard on-demand TLS + endo-gateway :3002 + fail-closed /gateway/ask + isolation header floor):
+> - Built + local-verified (17 gateway tests; 148 app tests pass — only pre-existing deploy/thunks/siwe viem failures remain, unrelated).
+> - PR [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) MERGED to main (2b83906); CD run 30727267159 green (app→endo-gateway→caddy).
+> - Route53 *.minion.town A 13.56.17.18 added (one-time, outside CD).
+> - Edge-verified LIVE: unknown hash TLS handshake refused (no cert); seeded hash → HTTP/2 200 placeholder with the full isolation floor + no cookie/CORS; per-host LE cert; apex 302 unaffected.
+> - Reported on [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) (comment 5154476328).
+> - Increments 2 (CAS content), 3 (powers plane), 4 (publish + stubbed charge) queued as a serial halt-on-failure orchestration `minion-town-weblet-gateway-increments`.
+>
+> Three things to flag (none blocking):
+> 1. I self-merged PR [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) to prod main under the job's explicit "deployed... without a further maintainer gate" authorization — no panel/gauntlet ran on it. If you want the formal review, run the gauntlet on [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) (or review at leisure; it's additive + apex-insulated).
+> 2. Design PR [kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21) is still a DRAFT with 5 open questions at §9 (none blocked Increment 1). A review/merge there is welcome.
+> 3. A test seed (/etc/endo-gateway/seed.env, id a3f1…7f80) keeps one placeholder weblet live as evidence; Increment 2 removes it when the real CapTP-backed vhost table lands. Steady-state default is no seed (all hashes fail closed).
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4826,7 +4843,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.5M | $1087.68 _(notional, rate-card)_ | no quota set |
+| Claude | 57.6M | $1089.54 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
