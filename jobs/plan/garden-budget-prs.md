@@ -59,3 +59,57 @@ cost of running the garden.
 A deterministic job→PR join with a measured coverage figure; per-merged-PR cost
 aggregation on the true-cost basis from child 1; an explicit unattributed bucket;
 a `tada/` report showing the top PRs by cost and stating join coverage plainly.
+
+
+---
+
+## AMENDED 2026-08-02 by the liaison — children 1 and 2 have landed
+
+Read `jobs/tada/garden-budget-ratecard.md` and `jobs/tada/garden-budget-ledger.md`
+before you start. What they changed for you:
+
+### You now have a read side — use it, don't rebuild it
+
+Child 2 built **`scripts/jobs/cost.sh`** with `--by job|role|model|day|host`,
+`--since`, `--job`, `--json`, and an always-printed coverage line. Aggregate
+through it rather than re-parsing `usage/*.jsonl` yourself. Per-record `host`
+attribution was already present, so the per-account split is available.
+
+### Coverage is better than the original brief said, and still the limiting factor
+
+- cumulative **456/4129 = 11.0%** (was 8.6%)
+- **recent 177 of the last 200 completions = 88.5%** — the wiring works now; the
+  gap is historical and unrecoverable
+
+**This bounds your whole result.** Merged PRs older than the ledger wiring cannot
+be costed from records that were never written. Say so per-PR rather than
+publishing a number assembled from a fraction of its contributing jobs. A PR
+costed from 3 of its 9 jobs must be labelled, not averaged.
+
+Also inherited: only three handlers (`gardener-claude`, `mystic-kimi`,
+`cleric-codex`) write priced records; the spine's session-delta fallback is
+producing **zero** rows in production, and standing services (foreman, triager,
+watchman, bulletin) never reach `complete-job.sh` at all. Those are known and
+out of your scope — but they mean "unattributed" is a real bucket, not a rounding
+error, and it must appear in your output.
+
+### Costs are now true, not notional
+
+The rate card is on one true basis (anthropic pooled **0.000069 $/s**, kimi
+0.001338, fireworks 0.000509) and child 2 made the reducer treat a flat-provider
+`total_cost_usd` as censored, so the whole event log re-prices through it.
+Verified live by the liaison: the reducer resolves anthropic → 0.000069.
+
+**Do not use `total_cost_usd` from `usage/*.jsonl` as money.** On a flat $400/mo
+subscription it is notional list price and overstates ~8.7x. If you need per-job
+cost, take it from the reducer's projection or from `cost.sh`, not the raw field.
+
+### One check worth making while you are in here
+
+The **tracked seed** `scripts/jobs/rate-card-defaults.md` on `main2` still
+carries the old notional per-model Anthropic rows (0.005139 / 0.007661 / 0.005003,
+dated 2026-07-29). It is fallback-only — the live journal card wins and resolves
+correctly today — so this is latent, not active. But a fresh instance with no
+journal card, or a lost card, would silently price Anthropic ~75x too high. If it
+is cheap to correct while you are working, do it and say so; if not, leave it and
+report it. Do not let it expand your scope.
