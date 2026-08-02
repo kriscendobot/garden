@@ -33,16 +33,12 @@ cold prior. It never means `$0.00`.
 
 | provider | model | thoughtfulness | dollars_per_second | price_basis | source | measured_at |
 | --- | --- | --- | --- | --- | --- | --- |
-| anthropic | claude-default | * | 0.005139 | measured | 62 ledger-priced fleet events, $283.29 over 55124 wallclock s | 2026-07-29 |
-| anthropic | claude-fable-5 | * | 0.007661 | measured | 17 ledger-priced fleet events, $55.58 over 7254 wallclock s | 2026-07-29 |
-| anthropic | claude-opus-4-8 | * | 0.005003 | measured | 18 ledger-priced fleet events, $99.45 over 19877 wallclock s | 2026-07-29 |
-| anthropic | claude-sonnet-4-6 | * | 0.001549 | measured | 5 ledger-priced fleet events, $5.10 over 3290 wallclock s | 2026-07-29 |
-| anthropic | * | * | 0.005154 | measured | pooled: 103 ledger-priced fleet events, $451.54 over 87611 wallclock s | 2026-07-29 |
+| anthropic | * | * | 0.000069 | measured (amortized fixed cost) | flat subscription, NOT metered — $400/mo (2 accounts x $200 Max 20x) amortized over measured capped-proxy Anthropic wallclock; see the journal card's Derivations (2026-08-02). Replaces the retired notional per-model rows (0.005139/0.007661/0.005003 etc.) which were `total_cost_usd` API list price, ~75x too high on a flat plan | 2026-08-02 |
 | moonshot | kimi-k3 | * | 0.003002 | provisional | 0.6 x the measured claude-opus-4-8 rate, from Moonshot's provisional list price ratio (see Derivations) | 2026-07-29 |
 | local | * | * | 0.000081 | amortized | ~$0.29 per busy hour of the local box (hardware + power; see Derivations) | 2026-07-29 |
 | openai | * | * | 0.005154 | provisional | fleet default — no published gpt-5.x API price is recorded and the ChatGPT plan meters no per-token dollars (see Derivations) | 2026-07-29 |
 | fireworks | * | * | 0.005154 | provisional | fleet default — no Fireworks price recorded; one event of history | 2026-07-29 |
-| * | * | * | 0.005154 | measured | fleet default for an unknown arm = the pooled measured rate above | 2026-07-29 |
+| * | * | * | 0.005154 | provisional | conservative fleet-default ceiling for an unknown arm (~Anthropic Opus API list price), deliberately high so a never-measured arm cannot win on false cheapness | 2026-08-02 |
 
 ## Derivations
 
