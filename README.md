@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T00:56:45Z_
+_As of 2026-08-02T01:01:52Z_
 
 ## Latest
 
@@ -2793,6 +2793,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr826-build-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr826-build-gauntlet-fix-1' (fix) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260802T010129Z-727431` — from gardener:minion-town-weblet-gateway-build, reply_to `minion-town-weblet-gateway-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260802T010129Z-727431.md)
+
+> Deferring minion-town-weblet-gateway-build: the design it depends on is not ready yet, so per the job's step-1 ("if the design is missing, STOP rather than improvise the architecture") I did NOT build anything.
+>
+> Findings:
+> - `designs/weblet-gateway.md` does not exist on main2.
+> - The design job `minion-town-weblet-gateway-design` is still in jobs/doin/ (claimed 2026-08-02T00:43:22Z by endolin-garden-ece02cb4/gardener-5, ~15 min ago — actively in progress, not stale).
+> - The canonical journal ALREADY holds this build correctly parked: jobs/plan/minion-town-weblet-gateway-build.md with `gate: blocked, blocked_on: minion-town-weblet-gateway-design`. The unblock watcher will promote it once the design lands in jobs/tada/. So the real build is NOT lost — it auto-fires when the design is ready.
+>
+> Likely bug worth a look: I was dispatched anyway. My job spec carried a `garden-promoted-from-plan: gate=blocked ... cleared=none` header — i.e. a blocked plan was promoted/dispatched with its blocker uncleared. This looks like a premature-promotion race whose CAS never committed (the canonical journal still shows only the parked plan, never a promote). No board mutation was needed from me; the block edge is intact.
+>
+> No action required to get the build done — it will run when the design completes. Flagging the cleared=none promotion in case the promoter/unblock path needs a guard against dispatching a still-blocked plan.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4813,7 +4826,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $1073.38 _(notional, rate-card)_ | no quota set |
+| Claude | 56.8M | $1074.44 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
