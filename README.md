@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T00:05:12Z_
+_As of 2026-08-02T00:40:42Z_
 
 ## Latest
 
@@ -4813,8 +4813,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.9M | $1074.87 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+740.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 56.7M | $1073.38 _(notional, rate-card)_ | no quota set |
+| Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
@@ -4825,8 +4825,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-5154205775`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5154205775.md) — Dead-lettered message — pick up its intent
 
 ### tada (4122)
 - [`self-heal-fix-garden-mentor-malformed-provider-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-malformed-provider-output.md) — Completion report
