@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T02:18:16Z_
+_As of 2026-08-02T02:23:30Z_
 
 ## Latest
 
@@ -3927,6 +3927,29 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `poison-minion-town-pr21-a96e97d-design-land-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-minion-town-pr21-a96e97d-design-land-deadline-overrun.md)
+
+> POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
+> Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=2400s):
+> this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,
+> so the reaper surfaced it after 1 overrun cycles (not the full 5-cycle poison threshold).
+> The work is preserved at jobs/plan/minion-town-pr21-a96e97d-design-land; it stays HELD until a human promotes it
+> (promote-plan.sh minion-town-pr21-a96e97d-design-land) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT
+> for this work, or fix what makes it run long.
+> Original job base: minion-town-pr21-a96e97d-design-land
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Repo: https://github.com/kriscendobot/minion.town. Design PR [https://github.com/kriscendobot/minion.town/pull/21](https://github.com/kriscendobot/minion.town/pull/21) ("design(weblet-gateway): the *.minion.town wildcard weblet gateway", `designs/weblet-gateway.md`) is still an **open draft**, yet its Increment 1 has already been implemented and merged as PR #22 (commit a96e97d, CD green).
+> Task: reconcile the design with what actually landed, then land the design. Read `designs/weblet-gateway.md` on the PR branch against the merged Increment-1 code (`src/endo/gateway/`, `deploy/aws/caddy/conf.d/weblet-gateway.caddy`, `deploy/aws/systemd/endo-gateway.service`, `deploy/aws/scripts/deploy-{endo-gateway,weblet-dns}.sh`, `DEPLOYMENT.md` § Weblet gateway) and update the design where the implementation diverged or where an open question (notably open question 5, the `@endo/*` lane vs the `src/endo` transplant seed) was settled by Increment 1. Rebase the branch on current `main` first.
+> Then run the gauntlet on #21 end to end (clean → panel review → fix-loop → un-draft) so the design merges ahead of Increments 2–4. If you conclude the design is deliberately being held draft as a living document until Increment 4, do not un-draft it — instead say so explicitly in a journal message to the maintainer with your reasoning, and leave the rebase + reconciliation commits on the branch.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-monk-finish-gardener-rename-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-monk-finish-gardener-rename-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4895,8 +4918,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.4M | $1081.37 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 57.4M | $1083.81 _(notional, rate-card)_ | no quota set |
+| Codex | 31.6M _(+738.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (6)
@@ -4907,8 +4930,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (2)
-- [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
+### doin (1)
 - [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-3.md) — Weblet gateway Increment 3 — the powers plane (OCapN/CapTP bootstrap)
 
 ### tada (4128)
@@ -4979,6 +5001,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
+- [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr21-a96e97d-design-land.md) — _normal_ · ---
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/monk-finish-gardener-rename.md) — _normal_ · Finish the gardener -> monk worker-kind rename
 - [`ocapn-noise-press-20260717-000503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260717-182002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-182002.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
