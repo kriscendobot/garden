@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T02:07:57Z_
+_As of 2026-08-02T02:11:02Z_
 
 ## Latest
 
@@ -4893,8 +4893,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (1)
+### doin (3)
+- [`deadmail-20260802T020536Z-23b964`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260802T020536Z-23b964.md) — Dead-lettered message — pick up its intent
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
+- [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-3.md) — Weblet gateway Increment 3 — the powers plane (OCapN/CapTP bootstrap)
 
 ### tada (4127)
 - [`minion-town-weblet-gateway-increment-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-2.md) — Completion report — minion-town-weblet-gateway-increment-2
