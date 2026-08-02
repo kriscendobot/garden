@@ -173,10 +173,23 @@ that is standing the instance up owns these watches for the life of the session.
 
   ```sh
   G="$(hostname -s)"; while true; do
-    scripts/jobs/read-msgs.sh "liaison-$G" "role/liaison" "broadcast" "host/$G" 2>/dev/null || true
+    scripts/jobs/read-msgs.sh "liaison-$G" "role/liaison" "broadcast" "host/$G" 2>/dev/null \
+    | awk -v me="$G" '
+        /^========== message /{ if(buf!="" && !(self && sent)) printf "%s", buf; buf=""; self=0; sent=0 }
+        { buf = buf $0 "\n"; if ($0 == "from_host: " me) self=1; if ($0 == "from: send") sent=1 }
+        END{ if(buf!="" && !(self && sent)) printf "%s", buf }' || true
     sleep 120
   done
   ```
+
+  **The `awk` is load-bearing: it suppresses SELF-ECHO.** `broadcast` is a
+  fan-out topic the liaison both writes to and reads from, so without the filter
+  every message this session sends is notified straight back — which trains the
+  reader to ignore the watch. The filter drops a block only when it is BOTH
+  `from_host: <this host>` AND `from: send` (i.e. this session's own
+  `send-msg.sh`); this host's *daemon* broadcasts (`deploy-garden` and friends)
+  still surface, because a deploy that fired without the liaison knowing is
+  exactly the kind of thing this Monitor exists to catch.
 
   Watch all three addresses, and **especially `host/<GARDEN>`** — notes addressed
   to *this host* have no other human-facing reader. (`host/<GARDEN>` is also the
