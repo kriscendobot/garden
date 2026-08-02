@@ -111,3 +111,13 @@ test failures on `main2` (`gardener arm wrong`, `reducer churned a
 wallclock-estimated event set`) — it verified they reproduce on unmodified
 `main2` and are unrelated. Do not attribute them to your change, and do not
 "fix" them blind; if your work touches that surface, say what you found.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T21:33:39Z
