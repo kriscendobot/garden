@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T01:43:36Z_
+_As of 2026-08-02T01:44:04Z_
 
 ## Latest
 
@@ -4843,7 +4843,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.6M | $1091.12 _(notional, rate-card)_ | no quota set |
+| Claude | 57.2M | $1077.81 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4855,19 +4855,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (4)
+### doin (3)
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
 - [`minion-town-pr22-a96e97d-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr22-a96e97d-edge-verify.md) — ---
-- [`minion-town-weblet-gateway-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-build.md) — Build the minion.town wildcard weblet gateway (*.minion.town) — carry it to d...
 - [`minion-town-weblet-gateway-increment-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-2.md) — Weblet gateway Increment 2 — the isolated static content origin (content plane)
 
-### tada (4124)
+### tada (4125)
+- [`minion-town-weblet-gateway-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-build.md) — Completion report — minion-town-weblet-gateway-build
 - [`minion-town-weblet-gateway-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-design.md) — Completion report
 - [`deadmail-issue-comment-5154205775`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5154205775.md) — Completion report
 - [`self-heal-fix-garden-mentor-malformed-provider-output`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-malformed-provider-output.md) — Completion report
 - [`endojs-endo-but-for-bots-pr826-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr826-build-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr826-build-gauntlet-panel-1.md) — Cost
-- … and 4119 more
+- … and 4120 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
