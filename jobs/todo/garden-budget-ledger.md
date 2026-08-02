@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-budget-attribution
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-02T21:05:30Z
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-02T21:33:27Z cleared=none -->
 
 ---
 tier: mentor
