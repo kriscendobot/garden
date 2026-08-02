@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+poisoned: true
+poison_signature: deadline-overrun
+poison_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+poisoned_at: 2026-08-02T02:23:03Z
+poisoned_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-02T02:23:03Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -8,13 +22,3 @@ Task: reconcile the design with what actually landed, then land the design. Read
 Then run the gauntlet on #21 end to end (clean → panel review → fix-loop → un-draft) so the design merges ahead of Increments 2–4. If you conclude the design is deliberately being held draft as a living document until Increment 4, do not un-draft it — instead say so explicitly in a journal message to the maintainer with your reasoning, and leave the rebase + reconciliation commits on the branch.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-02T01:37:06Z
