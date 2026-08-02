@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-weblet-gateway-increment-2 minion-town-weblet-gateway-increment-3 minion-town-weblet-gateway-increment-4
 on-child-failure: halt
-state: pending
+state: running
 created_by: builder
 created_at: 2026-08-02T01:40:07Z
 ---
