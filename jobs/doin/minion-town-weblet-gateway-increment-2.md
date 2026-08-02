@@ -29,3 +29,13 @@ Split: `@endo/gateway` owns the CAS content server + immutable caching + header 
 
 ## Procedure
 Read `designs/weblet-gateway.md` § 5 (authority). Build in the isolated checkout; local-verify (build/typecheck/vitest); open a PR against `kriscendobot/minion.town`; merge→CD deploy; **edge-verify (§ 5 DoD):** seed a fixture weblet out-of-band, `GET <hash>.minion.town/index.html` → correct bytes + `Content-Type` + `ETag`/`immutable`, `304` on re-GET; every isolation header present; a `fetch()` from `minion.town` to the weblet is CORS-blocked; no `Domain=.minion.town` cookie; no weblet auth cookie. Record concrete probe evidence. Then report on the issue thread (issue_url) with SHA/PR + probe evidence (mirror `pr-completion-summary-comment`); never close the issue.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T01:43:18Z
