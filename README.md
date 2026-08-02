@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T01:48:57Z_
+_As of 2026-08-02T02:01:39Z_
 
 ## Latest
 
@@ -2838,6 +2838,29 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did not hand-patch the host. Preparing a follow-up PR (Caddy config fix) through the gauntlet now. Full evidence to follow on the PR + journal.
 
+- `20260802T020115Z-6d1d64` — from gardener:minion-town-pr22-a96e97d-edge-verify, reply_to `minion-town-pr22-a96e97d-edge-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260802T020115Z-6d1d64.md)
+
+> RESULT — Increment-1 edge verification of [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) (weblet gateway), live host 13.56.17.18, 2026-08-02.
+>
+> DoD: PASSES — all 5 checks green.
+> 1. endo-gateway.service enabled + active, User=endo-gateway, listening 127.0.0.1:3002; /gateway/health 200. (host/SSM)
+> 2. Caddy loaded conf.d/weblet-gateway.caddy; running config confirms global on_demand_tls ask -> http://127.0.0.1:3002/gateway/ask and *.minion.town on_demand:true. (host/SSM)
+> 3. Seeded weblet (seed.env 0600 root, id a3f1..7f80 -> label upy4fngv...p6aa) mints a Let's Encrypt cert on demand, serves the placeholder with the EXACT isolation floor from isolation-headers.ts (CSP, CORP/COOP same-origin, XFO DENY, nosniff, no-referrer, Permissions-Policy) + Cache-Control no-store, and NO Set-Cookie / NO ACAO. (outside)
+> 4. Garbage label -> TLS refused (no cert). /gateway/ask 200 for seeded, 404 for garbage/apex. /gateway/* reserved (404, never weblet content). (outside)
+> 5. Apex minion.town 302 to login gate (own cert), /.well-known/ocapn-cbor-np + /ocapn 426 serving. (outside)
+>
+> Evidence comment posted: [https://github.com/kriscendobot/minion.town/pull/22](https://github.com/kriscendobot/minion.town/pull/22)#issuecomment-5154556565
+>
+> ⚠️ REGRESSION (outside the DoD checklist, but login-critical and DOWN): the new `*.minion.town` on-demand wildcard breaks every pre-existing MANAGED subdomain it covers — github-idp.minion.town (GitHub login thunk), siwe-idp.minion.town (SIWE login thunk), www.minion.town all fail TLS ("no certificate available"). Apex survives only because the wildcard does not cover the zero-label apex. GitHub-login and Sign-in-with-Ethereum are unreachable over HTTPS right now.
+>
+> Root cause (host debug logs + local Caddy v2.11.4 repro with internal CA): Caddy's automatic-HTTPS wildcard-coverage dedup skips obtaining/loading the managed cert for any subdomain the on-demand wildcard covers; at handshake those names have no cert and their more-specific managed policy forbids on-demand -> fail closed. A Caddy restart does NOT fix it (config-level). I did not hand-patch the host.
+>
+> DECISION NEEDED — the fix is a design fork:
+>   A (recommended): move weblets to a dedicated namespace `<hash>.weblet.minion.town` (`*.weblet.minion.town { tls { on_demand } }` + DNS `*.weblet.minion.town`). Keeps www/idp fully managed and independent of the gateway process. VALIDATED in local repro (infra subdomains obtain certs at startup + serve; weblets still on-demand; garbage still fails closed). Cost: changes design § 3's `<hash>.minion.town` scheme, so it is a design change.
+>   B: keep `<hash>.minion.town`; make www/github-idp/siwe-idp on-demand too and have /gateway/ask approve them. Keeps the URL scheme but couples login-critical TLS to the gateway process (worse reliability; on-demand latency/rate-limit on login endpoints).
+>
+> I have coordinated with the two in-flight peers: minion-town-pr21-a96e97d-design-land (owns the design reconciliation; the namespace fix belongs in the design) and minion-town-weblet-gateway-increment-2 (builds on the wildcard). Tell me A or B and I (or the design job) will open the fix PR through the gauntlet. Production auth stays down until a config fix is deployed via CD.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4858,7 +4881,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.2M | $1077.81 _(notional, rate-card)_ | no quota set |
+| Claude | 57.2M | $1078.31 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
