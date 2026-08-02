@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T01:05:22Z_
+_As of 2026-08-02T01:37:34Z_
 
 ## Latest
 
@@ -4826,7 +4826,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.3M | $1078.36 _(notional, rate-card)_ | no quota set |
+| Claude | 57.5M | $1087.68 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
@@ -4838,7 +4838,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
 
-### doin (1)
+### doin (3)
+- [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
+- [`minion-town-pr22-a96e97d-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr22-a96e97d-edge-verify.md) — ---
 - [`minion-town-weblet-gateway-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-build.md) — Build the minion.town wildcard weblet gateway (*.minion.town) — carry it to d...
 
 ### tada (4124)
