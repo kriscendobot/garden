@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T01:44:04Z_
+_As of 2026-08-02T01:48:57Z_
 
 ## Latest
 
@@ -2822,6 +2822,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 1. I self-merged PR [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) to prod main under the job's explicit "deployed... without a further maintainer gate" authorization — no panel/gauntlet ran on it. If you want the formal review, run the gauntlet on [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) (or review at leisure; it's additive + apex-insulated).
 > 2. Design PR [kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21) is still a DRAFT with 5 open questions at §9 (none blocked Increment 1). A review/merge there is welcome.
 > 3. A test seed (/etc/endo-gateway/seed.env, id a3f1…7f80) keeps one placeholder weblet live as evidence; Increment 2 removes it when the real CapTP-backed vhost table lands. Steady-state default is no seed (all hashes fail closed).
+
+- `20260802T014840Z-823e6d` — from gardener:minion-town-pr22-a96e97d-edge-verify, reply_to `minion-town-pr22-a96e97d-edge-verify` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260802T014840Z-823e6d.md)
+
+> ⚠️ [kriscendobot/minion.town#22](https://github.com/kriscendobot/minion.town/issues/22) verification found a PRODUCTION AUTH REGRESSION (the Increment-1 edge DoD itself PASSES).
+>
+> The new `*.minion.town` on-demand-TLS wildcard broke every pre-existing MANAGED subdomain it covers:
+> - github-idp.minion.town  (GitHub OIDC login thunk) — TLS handshake refused
+> - siwe-idp.minion.town     (SIWE/Ethereum login thunk) — TLS handshake refused
+> - www.minion.town          — TLS handshake refused
+>
+> Effect: GitHub-login and Sign-in-with-Ethereum are DOWN (their OIDC discovery/token endpoints are unreachable over HTTPS). The apex minion.town, /mcp, /ocapn*, and the weblet gateway itself are all fine.
+>
+> Cause: Caddy defers wildcard-covered subdomains to the on-demand `*.minion.town` policy, never loads their own managed certs; the more-specific managed policy then forbids on-demand -> fail closed. A clean Caddy restart does NOT fix it (config-level, not a cache flap).
+>
+> I did not hand-patch the host. Preparing a follow-up PR (Caddy config fix) through the gauntlet now. Full evidence to follow on the PR + journal.
 
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
