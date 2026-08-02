@@ -36,6 +36,7 @@ Distributed store, S3 scratch, DynamoDB-for-sqlite, endor worker, metering, actu
 ## Definition of done
 The wildcard weblet gateway is deployed and edge-verified on `minion.town` (at minimum the isolated content origin increment live and probe-verified), remaining increments queued as note-carrying follow-ons, and the issue thread updated with evidence.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
