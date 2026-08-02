@@ -81,3 +81,13 @@ follow-ups updated. A `tada/` report stating the new Anthropic figure, how it wa
 derived, and what it changes about relative arm ordering (a true Anthropic rate
 makes Anthropic **cheaper** than Kimi, reversing the card's current implication —
 confirm or refute that).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-02T21:07:54Z
