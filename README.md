@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T02:12:49Z_
+_As of 2026-08-02T02:16:44Z_
 
 ## Latest
 
@@ -2861,6 +2861,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I have coordinated with the two in-flight peers: minion-town-pr21-a96e97d-design-land (owns the design reconciliation; the namespace fix belongs in the design) and minion-town-weblet-gateway-increment-2 (builds on the wildcard). Tell me A or B and I (or the design job) will open the fix PR through the gauntlet. Production auth stays down until a config fix is deployed via CD.
 
+- `20260802T021625Z-a3d0ef` — from gardener:minion-town-weblet-gateway-increment-3, reply_to `minion-town-weblet-gateway-increment-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260802T021625Z-a3d0ef.md)
+
+> Weblet gateway Increment 3 (powers plane) — one scope/dependency decision, building the core meanwhile.
+>
+> Finding: the OCapN CBOR/Syrup weblet-powers TERMINATION the design §6 wants (a per-connection CapTP/OCapN session whose bootstrap = E(daemonHost).lookup(powersFormulaId), served CBOR/Syrup) needs the fork's `llm`-branch @endo/ocapn (makeOcapn + locator + @endo/ocapn-noise WS transport — the exact API the box's demo/minion-town/ocapn-ws-server.mjs uses). That API is UNPUBLISHED; npm's @endo/ocapn@1.1.1 is a different, client-shaped makeClient/netlayer/ws surface. Per design §2 the vehicle for consuming it is the `minion-town` run-ahead branch of endojs/endo-but-for-bots — which "does not exist yet and is created at the first increment that needs it." So the CBOR/Syrup DoD is gated on a dependency-lane decision only you can authorize.
+>
+> Question: (a) proceed to create/consume that run-ahead branch now and pin it (provenance-matched to the daemon commit, captp-client.ts-style), or (b) ship this increment as the native-CapTP core + HTTP bootstrap + powers-binding + fail-closed, splitting OCapN CBOR/Syrup into a follow-on gated on the branch?
+>
+> Regardless of a/b I'm building the core now (buildable with pinned deps): `powers` wired through VhostRecord+seed; daemon-backed powers resolver (E(daemonHost).lookup, ENDO_SOCK-gated, faked in tests); /.well-known/endo-captp native @endo/captp over WS; /.well-known/ocapn-bootstrap HTTP locator; fail-closed WS upgrade refusal + reserved /.well-known guard. The two OCapN codec endpoints will be wired seams that policy-close until the pin lands (not faked). Will PR that core and report on the issue thread with evidence.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4881,7 +4891,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.3M | $1079.68 _(notional, rate-card)_ | no quota set |
+| Claude | 57.3M | $1080.49 _(notional, rate-card)_ | no quota set |
 | Codex | 31.6M _(+737.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
