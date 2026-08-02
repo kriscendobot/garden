@@ -1,4 +1,14 @@
 ---
+gate: go-ahead
+priority: normal
+parked_at: 2026-08-02T21:03:45Z
+parked_by: liaison:endolin-garden-ece02cb4
+parked_reason: maintainer directive — board cleared so the fleet runs
+  ONLY the budget/cost-attribution orchestration. Restore with
+  promote-plan.sh when that work concludes.
+---
+
+---
 role: fixer
 model: gpt-5.6-terra
 ---
