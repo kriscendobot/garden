@@ -421,9 +421,11 @@ mkwev wl1 gardener anthropic claude-fable-5 medium fix:m true  4  600
 mkwev wl2 gardener anthropic claude-fable-5 medium fix:m true  6  600
 mkwev wl3 gardener anthropic claude-fable-5 medium fix:m false 10 600
 for i in 1 2 3 4 5 6; do mkwev "wn$i" hermit local qwen3.6 medium other:s true censored 300; done
-# MULTI: 6 requeued events, each 19s on its final attempt. The claim-to-tada span
-# is 1s for the first attempt + 5s before the retry + 19s final = 25s. This is the
-# canary shape: the old final-attempt-only proxy would incorrectly price 19s.
+# MULTI: 6 requeued events, each 19s on its final attempt. The proxy is the earlier
+# attempt (1s, under the cap) + the final attempt (19s) = 20s; the 5s the job sat
+# IDLE in the queue between the reap and the reclaim is NOT billed. The old
+# final-attempt-only proxy would price only 19s; a naive first-claim-to-tada span
+# would price 25s by swallowing that idle gap.
 for i in 1 2 3 4 5 6; do mkwev "wm$i" mystic moonshot kimi-k3 medium fix:s true censored 19 2; done
 git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m inject-wallclock
 for i in 1 2 3 4 5 6; do
@@ -494,12 +496,13 @@ awk -v m="$adjusted_mean" 'BEGIN{exit !(m>10.7 && m<10.8)}' \
   && ok "invoice sample is ledger-classified while its five proxy siblings remain censored" \
   || bad "invoice/proxy provenance counters wrong (censored=$adjusted_censored estimated=$adjusted_estimated)"
 
-# MULTI-ATTEMPT: duration_secs clocks only the final attempt. The journal's first
-# claim -> tada timestamps instead yield the full, true engagement wallclock.
+# MULTI-ATTEMPT: duration_secs clocks only the final attempt. The journal claim ->
+# tada timestamps instead recover the earlier attempt (capped) + the final attempt,
+# while EXCLUDING the idle queue gap between the reap and the reclaim.
 idx="$TR/wallclock.idx"; rep_wallclock_index "$V" > "$idx" 2>/dev/null || : > "$idx"
-[ "$(rep_wallclock_lookup "$idx" wm1)" = 25 ] \
-  && ok "claim-to-tada span for wm1 is 25s, including its requeued attempt" \
-  || bad "wrong wm1 claim-to-tada span ($(rep_wallclock_lookup "$idx" wm1), expected 25)"
+[ "$(rep_wallclock_lookup "$idx" wm1)" = 20 ] \
+  && ok "proxy span for wm1 is 20s (1s earlier attempt + 19s final; the 5s idle gap excluded)" \
+  || bad "wrong wm1 proxy span ($(rep_wallclock_lookup "$idx" wm1), expected 20)"
 [ -z "$(rep_wallclock_lookup "$idx" wk1)" ] \
   && ok "a job with no claim history has no journal span and falls back to duration_secs" \
   || bad "invented a journal span for wk1 ($(rep_wallclock_lookup "$idx" wk1))"
@@ -515,14 +518,43 @@ if [ -f "$V/$multi_rel" ]; then
   { [ "$matt" = 6 ] && [ "$macc" = 6 ] && [ "$mcen" = 6 ] && [ "$mest" = 6 ]; } \
     && ok "multi-attempt arm: censored:6 estimated:6 (att=6 acc=6)" \
     || bad "multi-attempt arm counters wrong (att=$matt acc=$macc cen=$mcen est=$mest)"
-  # 25s x $0.005/s = $0.125 per event. The old proxy priced only the 19s final
-  # attempt and would report $0.095, omitting the earlier attempt and retry delay.
-  awk -v m="$mmean" 'BEGIN{exit !(m>0.1249 && m<0.1251)}' \
-    && ok "multi-attempt arm: cost-per-accepted \$$mmean = 25s x \$0.005/s (not \$0.095 for the final attempt alone)" \
-    || bad "multi-attempt mean wrong ($mmean, expected 0.125000)"
+  # 20s x $0.005/s = $0.100 per event. The old final-attempt-only proxy would price
+  # only 19s ($0.095); an uncapped first-claim-to-tada span would price 25s ($0.125)
+  # by billing the 5s idle queue gap.
+  awk -v m="$mmean" 'BEGIN{exit !(m>0.0999 && m<0.1001)}' \
+    && ok "multi-attempt arm: cost-per-accepted \$$mmean = 20s x \$0.005/s (earlier attempt counted, idle gap excluded)" \
+    || bad "multi-attempt mean wrong ($mmean, expected 0.100000)"
 else
   bad "reducer wrote no multi-attempt arm"
 fi
+
+# ATTEMPT CAP: a requeued job whose earlier claims lingered for HOURS (a dead worker
+# whose claim the reaper only cleared at the age floor, or a base that sat idle in the
+# queue between reap and reclaim) must NOT bill that dead time as engagement. Each
+# EARLIER attempt is clamped to GARDEN_REP_ATTEMPT_CAP_SECS; the FINAL attempt (the
+# one that reached tada — real work that produced the artifact) is uncapped; and the
+# idle queue gap between a reap and the next claim is excluded entirely. This is the
+# 2026-07-29 backlog defect (one Fireworks base's proxy inflated 72x by uncapped idle
+# spans). Exercised directly on rep_wallclock_index with a small, crisp cap.
+fake_history wcap  1785700000 mystic:9000 mystic:9000 mystic:30   # two 9000s earlier attempts, 30s final
+fake_history wcap2 1785800000 mystic:50   mystic:9000             # 50s earlier attempt, 9000s FINAL attempt
+capidx="$TR/cap.idx"
+GARDEN_REP_ATTEMPT_CAP_SECS=100 rep_wallclock_index "$SEED" > "$capidx" 2>/dev/null || : > "$capidx"
+# wcap: min(9000,100) + min(9000,100) + 30 = 230. Naive first-claim-to-tada = 18040s.
+[ "$(rep_wallclock_lookup "$capidx" wcap)" = 230 ] \
+  && ok "earlier attempts clamped to the cap: 100+100+30=230s (naive span would be 18040s)" \
+  || bad "attempt cap not applied ($(rep_wallclock_lookup "$capidx" wcap), expected 230)"
+# wcap2: the FINAL attempt is uncapped even at 9000s: min(50,100) + 9000 = 9050.
+[ "$(rep_wallclock_lookup "$capidx" wcap2)" = 9050 ] \
+  && ok "final attempt is uncapped: 50+9000=9050s (only EARLIER attempts are clamped)" \
+  || bad "final attempt wrongly capped ($(rep_wallclock_lookup "$capidx" wcap2), expected 9050)"
+# With the cap disabled (0 = off), the earlier attempts bill in full but the idle
+# queue gaps stay excluded: 9000+9000+30 = 18030 (NOT the 18040s naive span, which
+# also swallows the two 5s reap->reclaim gaps).
+GARDEN_REP_ATTEMPT_CAP_SECS=0 rep_wallclock_index "$SEED" > "$capidx" 2>/dev/null || : > "$capidx"
+[ "$(rep_wallclock_lookup "$capidx" wcap)" = 18030 ] \
+  && ok "cap off (0): earlier attempts bill in full (18030s) but idle queue gaps still excluded" \
+  || bad "cap-off span wrong ($(rep_wallclock_lookup "$capidx" wcap), expected 18030)"
 
 # LEDGER arm: the proxy applies ONLY where the ledger is absent, so an arm the ledger
 # already priced must be numerically identical to what the pre-proxy reducer wrote.

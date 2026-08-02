@@ -78,6 +78,17 @@ rep_adjusted_agentic_dollars() {
 : "${GARDEN_REP_RATE_CARD:=reputation/rate-card.md}"  # journal-relative rate table
 : "${GARDEN_REP_DEFAULT_RATE_PER_SEC:=0.0052}"        # $/s for an arm with no row
 : "${GARDEN_REP_ESTIMATE_SD_MULT:=2}"                 # sd inflation at 100% estimated cost
+# Per-EARLIER-attempt wallclock cap for a requeued job (rep_wallclock_index). The
+# proxy wallclock is the FINAL attempt's claim->tada span (uncapped — real
+# engagement that produced the artifact) PLUS min(interval, this cap) for each
+# earlier reaped attempt. Without the cap, a job that sat IDLE in the queue between
+# a reap and its next claim bills that dead queue time as engagement wallclock —
+# the 2026-07-29 backlog inflated one Fireworks base's proxy 72x this way. The cap
+# bounds an earlier attempt at the longest a worker could have HELD the claim before
+# the reaper requeued it: the default reap floor = default handler wall + kill-after
+# + safety slack (matches reaper.sh's headerless reap_age_threshold, 2400+60+30).
+# Longer intervals are reaper/queue latency, not worker engagement, and are clamped.
+: "${GARDEN_REP_ATTEMPT_CAP_SECS:=2490}"              # cap on each EARLIER attempt's proxy span
 
 # --- small deterministic primitives ------------------------------------------
 
@@ -419,18 +430,39 @@ rep_estimated_dollars() {
 # the start after tada deliberately makes the final line the latest completed run.
 _rep_wallclock_awk() {
   cat <<'AWK'
+# Emit "<base> <proxy_secs>" per completed engagement. proxy_secs is the FINAL
+# attempt's claim->tada span (uncapped) PLUS min(interval, cap) for each EARLIER
+# reaped attempt, so idle queue time between a reap and the next claim is never
+# billed as engagement. State per base: claim[b] = open attempt's claim ts,
+# accum[b] = sum of capped earlier-attempt spans, reap[b] = a deferred doin-delete
+# whose fate (reap vs completion) is only known at the NEXT event for b.
 /^C /{ ts = $2 + 0; next }
 {
   if (NF < 2) next
   st = $1; p = $2
   if (p !~ /^jobs\/(doin|tada)\/[^\/]+\.md$/) next
   b = p; sub(/^jobs\/(doin|tada)\//, "", b); sub(/\.md$/, "", b)
-  if (p ~ /^jobs\/doin\// && st == "A") {
-    if (!(b in start)) start[b] = ts
-  } else if (p ~ /^jobs\/tada\// && st == "A" && b in start) {
-    d = ts - start[b]; if (d < 0) d = 0
-    printf "%s %d\n", b, d
-    delete start[b]
+  if (p ~ /^jobs\/doin\//) {
+    if (st == "A") {
+      # A new claim proves any deferred doin-delete was a REAP, not a completion:
+      # charge that earlier attempt, capped, then open this attempt.
+      if (b in reap) {
+        span = reap[b] - claim[b]; if (span < 0) span = 0
+        if (cap > 0 && span > cap) span = cap
+        accum[b] += span
+        delete reap[b]
+      }
+      claim[b] = ts
+    } else if (st == "D" && (b in claim)) {
+      # Defer: at completion the doin-delete pairs with the tada-add in ONE commit,
+      # so we cannot yet tell a reap from a completion. Resolve at the next event.
+      reap[b] = ts
+    }
+  } else if (p ~ /^jobs\/tada\// && st == "A" && (b in claim)) {
+    # Completion: the final (open) attempt is billed IN FULL, uncapped.
+    d = ts - claim[b]; if (d < 0) d = 0
+    printf "%s %d\n", b, accum[b] + d
+    delete claim[b]; delete reap[b]; delete accum[b]
   }
 }
 AWK
@@ -447,7 +479,7 @@ rep_wallclock_index() {
   else
     git -C "$dir" log --reverse --no-renames --diff-filter=AD --name-status \
         --format='C %ct %s' -- "$JOBS_DOIN" "$JOBS_TADA" 2>/dev/null
-  fi | awk "$prog"
+  fi | awk -v cap="${GARDEN_REP_ATTEMPT_CAP_SECS:-0}" "$prog"
 }
 
 # rep_wallclock_lookup <indexfile> <base> — latest completed span, blank when the

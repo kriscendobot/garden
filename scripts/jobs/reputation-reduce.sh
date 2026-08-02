@@ -90,10 +90,12 @@ recompute_arms() {
   local ef base kind provider model tht wc tgt accepted agg adjusted rel armhash dur hum estd
   local span secs
   local work; work="$(mktemp -d "${TMPDIR:-/tmp}/rep-reduce.XXXXXX")"
-  # One log pass derives each completed engagement's true first-claim-to-tada span.
-  # It includes requeues that duration_secs cannot see. Built per tick and never
-  # committed, so the projection stays a pure function of journal history and the
-  # rate card.
+  # One log pass derives each completed engagement's proxy wallclock: the final
+  # attempt's claim->tada span PLUS min(interval, GARDEN_REP_ATTEMPT_CAP_SECS) for
+  # each earlier reaped attempt (rep_wallclock_index). It counts requeue engagement
+  # that duration_secs cannot see, while the cap keeps idle queue time between a reap
+  # and the next claim out of the bill. Built per tick and never committed, so the
+  # projection stays a pure function of journal history and the rate card.
   rep_wallclock_index "$DIR" > "$work/wallclock.idx" 2>/dev/null || : > "$work/wallclock.idx"
   shopt -s nullglob
   # Fold every event into a per-arm data file (accepted + aggregate dollars) plus a
@@ -133,9 +135,10 @@ recompute_arms() {
       ''|censored)
         dur="$(plan_field "$ef" duration_secs)"
         hum="$(plan_field "$ef" human_dollars)"
-        # The journal's first claim -> tada commit timestamps are the engagement's
-        # true wallclock, including requeues. duration_secs clocks only the final
-        # worker attempt, so it is a fallback for old/incomplete log history.
+        # The journal's claim -> tada commit timestamps are the engagement's
+        # wallclock, counting earlier attempts capped at GARDEN_REP_ATTEMPT_CAP_SECS.
+        # duration_secs clocks only the final worker attempt, so it is a fallback for
+        # old/incomplete log history that yields no positive span.
         span="$(rep_wallclock_lookup "$work/wallclock.idx" "$base")"
         secs="$(rep_proxy_secs "${span:-}" "${dur:-0}")"
         estd="$(rep_estimated_dollars "$DIR" "$provider" "$model" "$tht" "$secs" "${hum:-0}")"
