@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-08-02T01:13:13Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-weblet-gateway-build
