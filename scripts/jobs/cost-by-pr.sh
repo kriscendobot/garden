@@ -174,7 +174,10 @@ pr_candidates() {
     kriscendobot/finbot)       printf '%s\n' "$b" | grep -oE 'finbot-[0-9]{2,6}' | grep -oE '[0-9]{2,6}$' ;;
   esac
 }
-if [ "${#PRSTATE[@]}" -gt 0 ]; then
+# NB: guard with the `+x` form, not `${#PRSTATE[@]}` — bash treats an EMPTY declared
+# associative array as unset under `set -u`, so `${#PRSTATE[@]}` traps when neither
+# --pr-cache nor gh populated it (the --no-fetch path).
+if [ -n "${PRSTATE[*]+x}" ]; then
   cut -f1 "$TMP/base_cost.tsv" | while read -r b; do
     [ -n "${B2PR[$b]:-}" ] && continue
     repo="$(repo_of_base "$b")"; [ -n "$repo" ] || continue

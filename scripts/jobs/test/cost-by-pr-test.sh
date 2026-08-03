@@ -107,5 +107,17 @@ echo "$out" | jq -e '[.prs[].pr] | index("endojs/endo-but-for-bots#20260101") | 
 tc="$(echo "$out" | jq -r '.totals.ceiling_usd')"
 awk -v v="$tc" 'BEGIN{exit !(v>2.06 && v<2.07)}' && ok "ceiling total is the openai event alone" || bad "ceiling total=$tc (want ~2.06)"
 
+# --no-fetch with NO --pr-cache: PRSTATE is an empty declared assoc array; guard must
+# not trap under `set -u` (bash treats an empty declared assoc array as unset). Only
+# jobs/index edges resolve offline, so feat-a -> #10 still joins; base-name edges need
+# the PR set and correctly do not fire.
+nf="$(GARDEN_STATE="$TR/state" bash "$JOBS/cost-by-pr.sh" --dir "$J" --no-fetch --json 2>&1)" \
+  && echo "$nf" | jq . >/dev/null 2>&1 \
+  && ok "--no-fetch without --pr-cache does not trap on empty PRSTATE" \
+  || bad "--no-fetch trapped or emitted invalid JSON: $nf"
+nfj="$(echo "$nf" | jq -r '.coverage.joined_bases' 2>/dev/null)"
+[ "$nfj" = 1 ] && ok "--no-fetch joins only the jobs/index edge (feat-a -> #10)" \
+  || bad "--no-fetch joined=$nfj (want 1: jobs/index only)"
+
 echo "cost-by-pr-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
