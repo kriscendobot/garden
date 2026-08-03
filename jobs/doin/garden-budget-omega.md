@@ -135,3 +135,13 @@ asymmetry matters.
 Design document only. **Change no dispatch behavior.** Stopping the foreman unit
 needs a sysop `unit` op with maintainer attestation (`authorized_by:` on
 `maintainers/allowlist`) — an agent may not originate it, and the liaison has not.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-03T02:40:25Z
