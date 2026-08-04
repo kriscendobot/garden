@@ -6,8 +6,8 @@ work_class: researcher:l
 target: main2
 attempts: 2
 accepts: 2
-censored: 0
-estimated: 0
-mean_dollars: 4.452611
-m2: 2.591697
+censored: 2
+estimated: 2
+mean_dollars: 0.149282
+m2: 0.007534
 acceptance_rate: 1.0000

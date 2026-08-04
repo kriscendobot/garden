@@ -6,8 +6,8 @@ work_class: other:l
 target: main2
 attempts: 9
 accepts: 9
-censored: 0
-estimated: 0
-mean_dollars: 2.891361
-m2: 87.801181
+censored: 9
+estimated: 9
+mean_dollars: 0.225783
+m2: 1.457152
 acceptance_rate: 1.0000

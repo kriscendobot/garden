@@ -6,8 +6,8 @@ work_class: build:l
 target: main2
 attempts: 12
 accepts: 12
-censored: 2
-estimated: 2
-mean_dollars: 5.268165
-m2: 243.315555
+censored: 12
+estimated: 12
+mean_dollars: 0.109940
+m2: 0.090573
 acceptance_rate: 1.0000

@@ -6,8 +6,8 @@ work_class: fix:l
 target: main2
 attempts: 4
 accepts: 4
-censored: 3
-estimated: 3
-mean_dollars: 1.153508
-m2: 10.552686
+censored: 4
+estimated: 4
+mean_dollars: 0.102810
+m2: 0.020822
 acceptance_rate: 1.0000

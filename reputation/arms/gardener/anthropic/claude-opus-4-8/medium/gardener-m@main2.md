@@ -6,8 +6,8 @@ work_class: gardener:m
 target: main2
 attempts: 5
 accepts: 5
-censored: 1
-estimated: 1
-mean_dollars: 2.969216
-m2: 22.175098
+censored: 5
+estimated: 5
+mean_dollars: 0.269293
+m2: 0.022897
 acceptance_rate: 1.0000

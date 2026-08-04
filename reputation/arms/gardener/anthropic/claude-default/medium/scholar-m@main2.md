@@ -6,8 +6,8 @@ work_class: scholar:m
 target: main2
 attempts: 7
 accepts: 7
-censored: 6
-estimated: 6
-mean_dollars: 0.604845
-m2: 5.333312
+censored: 7
+estimated: 7
+mean_dollars: 0.139952
+m2: 0.161723
 acceptance_rate: 1.0000

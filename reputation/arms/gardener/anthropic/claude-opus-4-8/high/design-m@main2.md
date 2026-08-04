@@ -6,8 +6,8 @@ work_class: design:m
 target: main2
 attempts: 6
 accepts: 6
-censored: 5
-estimated: 5
-mean_dollars: 0.952380
-m2: 5.296256
+censored: 6
+estimated: 6
+mean_dollars: 0.266754
+m2: 0.323098
 acceptance_rate: 1.0000
