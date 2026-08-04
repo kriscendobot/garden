@@ -115,3 +115,13 @@ containing:
 Plus a `tada/` report summarising the finding and naming every question left
 open. Prefer "insufficient evidence" to a number you cannot defend — the
 maintainer is setting a dispatch policy from this.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-04T05:32:46Z
