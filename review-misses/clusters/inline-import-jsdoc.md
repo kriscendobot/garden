@@ -1,14 +1,16 @@
 ---
 slug: inline-import-jsdoc
 category: style-convention
-status: closed
-count: 1
+status: open
+count: 2
 members:
   - endojs-endo-but-for-bots-pr721-review-56349e18
-prs: [721]
+  - endojs-endo-but-for-bots-pr792-review-91808a86
+prs: [721, 792]
 improvement_job: review-improve-inline-import-jsdoc
 improved_by: 0c569a64e4 gate: enforce no inline import JSDoc types; d0da42892a review: backstop inline import JSDoc in typist panel; scripts/jobs/gardening/pre-push-gates/probes/no-inline-import-jsdoc.sh; roles/{builder,fixer,jurors/typist}/AGENT.md; skills/{pre-push-gates,panel-hints}/
 ---
+
 
 
 
