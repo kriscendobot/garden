@@ -2,16 +2,18 @@
 slug: avoid-name-abbreviations
 category: naming
 status: open
-count: 4
+count: 5
 members:
   - endojs-endo-but-for-bots-pr650-review-35ff43ca
   - endojs-endo-but-for-bots-pr650-review-d4abc76c
   - endojs-endo-but-for-bots-pr609-review-4a711718
   - endojs-endo-but-for-bots-pr671-review-3fa7398f
-prs: [650, 609, 671]
+  - endojs-endo-but-for-bots-pr684-review-67f8b51a
+prs: [650, 609, 671, 684]
 improvement_job: review-improve-avoid-name-abbreviations
 improved_by: main2 aa2da527e5: scripts/jobs/gardening/pre-push-gates/probes/spell-out-identifiers.sh (tier-1 deterministic gate) + never-abbreviate directives in roles/builder,fixer/AGENT.md + mechanical never-abbreviate check in roles/jurors/stylist/AGENT.md + skills/pre-push-gates/SKILL.md probe row/note
 ---
+
 
 
 
