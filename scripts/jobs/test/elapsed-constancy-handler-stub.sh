@@ -8,7 +8,7 @@
 # drives the CLI to the same failure — so the handler dies at a near-CONSTANT
 # elapsed across requeue cycles. Used by elapsed-constancy-classifier-test.sh to
 # prove gardener.sh's elapsed-constancy early-escalation flags the misclassification
-# after ~2 cycles instead of waiting out the reaper's ~5-cycle poison threshold.
+# after ~2 cycles instead of waiting out the reaper's ~5-cycle doom threshold.
 set -uo pipefail
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report}"
 # Burn a controllable amount of wall-clock so gardener.sh's elapsed measurement

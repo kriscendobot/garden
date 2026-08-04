@@ -14,7 +14,7 @@
 # it and writes the completion sentinel (GARDEN_COMPLETION_SENTINEL); gardener.sh
 # completes the job ONLY if that sentinel is present. If the handler exits with ANY
 # code and the sentinel is ABSENT, gardener.sh requeues the job (via the reaper's
-# single-writer reap-now path) instead of completing it — bounded by the poison
+# single-writer reap-now path) instead of completing it — bounded by the doom
 # counter so a job that never completes escalates to the maintainer, never loops
 # forever.
 #
@@ -24,7 +24,7 @@
 #             with a reap-now hint; the reaper then requeues it doin→todo.
 # SUBTEST 4 — (c) each of the four named exit modes (API error / rate limit / quota
 #             / clean-but-unsatisfying exit-0) → requeue, NOT tada; and the requeue
-#             is BOUNDED by the poison threshold (a job that never completes is
+#             is BOUNDED by the doom threshold (a job that never completes is
 #             dropped from the board and surfaced to the maintainer, not requeued
 #             forever).
 #
@@ -144,12 +144,12 @@ R3="$T3/reaper-verify"; git clone -q --single-branch --branch journal2 "$BARE3" 
   && ok "reaper requeued the exit-0-unsatisfying job doin→todo" \
   || bad "reaper did not requeue (todo=$([ -f "$R3/jobs/todo/gapjob.md" ] && echo y || echo n) doin=$([ -e "$R3/jobs/doin/gapjob.md" ] && echo y || echo n))"
 [ -f "$R3/jobs/todo/gapjob.md" ] && grep -Eq '^<!-- garden-reaped: 1 -->$' "$R3/jobs/todo/gapjob.md" \
-  && ok "requeue stamped the poison-cycle counter (garden-reaped: 1)" \
-  || bad "poison-cycle counter not stamped (would bypass the poison bound)"
+  && ok "requeue stamped the doom-cycle counter (garden-reaped: 1)" \
+  || bad "doom-cycle counter not stamped (would bypass the doom bound)"
 rm -rf "$T3"
 
 # ============================================================================
-hr; echo "SUBTEST 4 — (c) all four exit modes → requeue, bounded by the poison threshold"; hr
+hr; echo "SUBTEST 4 — (c) all four exit modes → requeue, bounded by the doom threshold"; hr
 # Drive each named mode through the REAL gardener and assert it is requeued
 # (not completed to tada). API error / rate limit / quota are non-zero with a
 # transient claude signature in the capture; exit-0-unsatisfying is the new clean
@@ -183,41 +183,41 @@ run_mode "rate limit (rc=1, 429 signature)"       ratelim 1 0 "Error: rate limit
 run_mode "quota exhaustion (rc=1, usage-limit)"   quota   1 0 "You have hit your usage limit; resets 3pm (UTC)"
 run_mode "clean-but-unsatisfying exit-0"          unsat   0 0 ""
 
-# --- poison bound: a job that NEVER completes is dropped, not requeued forever --
-hr; echo "  poison bound — a never-completing job escalates after the threshold"; hr
-TP="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig-poison.XXXXXX")"
-BAREP="$(seed_board "$TP" poisonjob)"
+# --- doom bound: a job that NEVER completes is dropped, not requeued forever --
+hr; echo "  doom bound — a never-completing job escalates after the threshold"; hr
+TP="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig-doom.XXXXXX")"
+BAREP="$(seed_board "$TP" doomjob)"
 THRESH=3
 # Loop the gardener+reaper cycle: each round the gardener claims and exits-0-without-
-# signal (requeue), the reaper requeues doin→todo and increments the poison counter.
+# signal (requeue), the reaper requeues doin→todo and increments the doom counter.
 # After THRESH cycles the reaper must DROP the job (not requeue) and surface it to
 # the maintainer inbox.
 for cycle in $(seq 1 "$THRESH"); do
-  env GARDEN="poisonhost" GARDEN_STATE="$TP/state" JOURNAL_REMOTE="$BAREP" JOURNAL_BRANCH=journal2 \
+  env GARDEN="doomhost" GARDEN_STATE="$TP/state" JOURNAL_REMOTE="$BAREP" JOURNAL_BRANCH=journal2 \
       GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
       GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=0 \
       GARDEN_JOB_HANDLER="$STUB" \
       "$JOBS/gardener.sh" 1 > "$TP/gardener-$cycle.log" 2>&1 || true
-  env GARDEN="poisonreaper" GARDEN_STATE="$TP/reaper-state" GARDEN_CLAIM_TTL=3600 \
-      GARDEN_REAP_POISON_THRESHOLD="$THRESH" GARDEN_NO_MAINTAINER_ALERT= \
+  env GARDEN="doomreaper" GARDEN_STATE="$TP/reaper-state" GARDEN_CLAIM_TTL=3600 \
+      GARDEN_REAP_DOOM_THRESHOLD="$THRESH" GARDEN_NO_MAINTAINER_ALERT= \
       JOURNAL_REMOTE="$BAREP" JOURNAL_BRANCH=journal2 \
       "$JOBS/reaper.sh" > "$TP/reaper-$cycle.log" 2>&1 || true
 done
 VP="$TP/verify"; git clone -q --single-branch --branch journal2 "$BAREP" "$VP" 2>/dev/null
-# After the poison threshold the job is neither requeued (not in todo/doin) nor
+# After the doom threshold the job is neither requeued (not in todo/doin) nor
 # completed (not in tada) — it is PARKED in plan/ under a held gate so the work
 # survives for a human to resume, rather than being dropped from the board.
-{ [ ! -e "$VP/jobs/todo/poisonjob.md" ] && [ ! -e "$VP/jobs/doin/poisonjob.md" ] && [ ! -e "$VP/jobs/tada/poisonjob.md" ] \
-  && [ -f "$VP/jobs/plan/poisonjob.md" ]; } \
-  && ok "a job that never completes is PARKED in plan/ (held) after the poison threshold (not requeued, not in tada, not dropped)" \
-  || bad "never-completing job not parked in plan/ (todo=$([ -e "$VP/jobs/todo/poisonjob.md" ] && echo y || echo n) doin=$([ -e "$VP/jobs/doin/poisonjob.md" ] && echo y || echo n) tada=$([ -e "$VP/jobs/tada/poisonjob.md" ] && echo y || echo n) plan=$([ -f "$VP/jobs/plan/poisonjob.md" ] && echo y || echo n))"
-# The alert is surfaced to the maintainer via poison-notice.sh (an amend-or-post
+{ [ ! -e "$VP/jobs/todo/doomjob.md" ] && [ ! -e "$VP/jobs/doin/doomjob.md" ] && [ ! -e "$VP/jobs/tada/doomjob.md" ] \
+  && [ -f "$VP/jobs/plan/doomjob.md" ]; } \
+  && ok "a job that never completes is PARKED in plan/ (held) after the doom threshold (not requeued, not in tada, not dropped)" \
+  || bad "never-completing job not parked in plan/ (todo=$([ -e "$VP/jobs/todo/doomjob.md" ] && echo y || echo n) doin=$([ -e "$VP/jobs/doin/doomjob.md" ] && echo y || echo n) tada=$([ -e "$VP/jobs/tada/doomjob.md" ] && echo y || echo n) plan=$([ -f "$VP/jobs/plan/doomjob.md" ] && echo y || echo n))"
+# The alert is surfaced to the maintainer via doom-notice.sh (an amend-or-post
 # keyed sibling of inbox-send.sh): it lands in inbox/maintainer/unread. The intent
 # is preserved — "never silently lost" is the guarantee.
-pmsg="$(grep -rl 'poisonjob' "$VP/inbox" 2>/dev/null | head -1)"
-{ [ -n "$pmsg" ] && grep -qi 'POISON' "$pmsg"; } \
-  && ok "the never-completing job was surfaced to the maintainer as POISON (never silently lost)" \
-  || bad "no poison alert surfaced for the never-completing job (inbox tree: $(find "$VP/inbox" -type f 2>/dev/null | tr '\n' ' '))"
+pmsg="$(grep -rl 'doomjob' "$VP/inbox" 2>/dev/null | head -1)"
+{ [ -n "$pmsg" ] && grep -qi 'DOOM' "$pmsg"; } \
+  && ok "the never-completing job was surfaced to the maintainer as DOOM (never silently lost)" \
+  || bad "no doom alert surfaced for the never-completing job (inbox tree: $(find "$VP/inbox" -type f 2>/dev/null | tr '\n' ' '))"
 rm -rf "$TP"
 
 hr

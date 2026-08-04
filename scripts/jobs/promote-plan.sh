@@ -17,7 +17,7 @@
 # only the job's own basename (rm plan + add todo), so — like a completion — it
 # RETRIES WITH BACKOFF until it lands, rather than backing off like a claim.
 #
-# PROMOTION RESETS THE REAPER'S CYCLE COUNTERS. When the reaper POISONS a job it
+# PROMOTION RESETS THE REAPER'S CYCLE COUNTERS. When the reaper DOOMS a job it
 # parks it here in plan/ (gate=go-ahead) with its cycle markers still in the body —
 # notably `<!-- garden-deadline-overrun: N -->`, which clean_body deliberately
 # preserves across a requeue so the count accumulates. Passing that body through
@@ -33,7 +33,7 @@
 # so the reset is auditable rather than silent. Promotion is a deliberate "run this
 # again" act, so a clean counter is the correct semantics; the reaper's protection is
 # unchanged, since a job that still fails deterministically re-accumulates and
-# re-poisons on its own.
+# re-dooms on its own.
 #
 # This is the PROMOTION half of the reset. post-plan.sh performs the same strip on the
 # PARKING side, so a producer that re-parks a live job body cannot smuggle a stale

@@ -53,7 +53,7 @@
 #
 # Circuit breaker on a WEDGED campaign: the stall bar alone cannot see that the
 # driver it dispatches keeps OVERRUNNING (rc=124, `<!-- garden-deadline-overrun -->`,
-# reaper-poisoned) at its 2400s wall without ever moving HEAD — so each tick it
+# reaper-doomed) at its 2400s wall without ever moving HEAD — so each tick it
 # would re-arm the same doomed 2400s Fable driver forever (the "xs2rust-endor-press
 # wedge", gardener.sh:586 / reaper.sh:529). To break that loop we persist a per-host
 # `consecutive-stall-dispatches` counter beside `last-head`: it INCREMENTS on every
@@ -294,7 +294,7 @@ stall_count="$(read_stall_count)"
 if [ "$stall_count" -ge "$GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES" ]; then
   log "no work (CIRCUIT BREAKER): $GARDEN_PRESS_BRANCH stalled and $stall_count consecutive press-drivers overran without advancing HEAD ($cur); defer and escalate — needs a human, not another doomed Fable tick"
   alert_maintainer "xs2rust-endor-press-wedged-${GARDEN}" \
-    "xs2rust-endor press campaign is WEDGED: PR #$GARDEN_PRESS_PR branch $GARDEN_PRESS_BRANCH HEAD is stuck at $cur and the last $stall_count dispatched press-drivers each overran their handler budget (rc=124, reaper-poisoned) without advancing it. The stall-bar preflight has tripped its circuit breaker (GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES=$GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES) and STOPPED dispatching, so it is no longer burning a Fable budget every cadence. This needs a human: split the press into claim-sized build-stage children or run it detached (gardener.sh:391 doctrine) rather than as a repeatedly-doomed cadence tick. The breaker resets automatically once $GARDEN_PRESS_BRANCH HEAD advances or PR #$GARDEN_PRESS_PR reaches a terminal state."
+    "xs2rust-endor press campaign is WEDGED: PR #$GARDEN_PRESS_PR branch $GARDEN_PRESS_BRANCH HEAD is stuck at $cur and the last $stall_count dispatched press-drivers each overran their handler budget (rc=124, reaper-doomed) without advancing it. The stall-bar preflight has tripped its circuit breaker (GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES=$GARDEN_XS2RUST_PRESS_MAX_STALL_DISPATCHES) and STOPPED dispatching, so it is no longer burning a Fable budget every cadence. This needs a human: split the press into claim-sized build-stage children or run it detached (gardener.sh:391 doctrine) rather than as a repeatedly-doomed cadence tick. The breaker resets automatically once $GARDEN_PRESS_BRANCH HEAD advances or PR #$GARDEN_PRESS_PR reaches a terminal state."
   exit 2
 fi
 

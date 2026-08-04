@@ -540,7 +540,7 @@ dispatch_op() {  # dispatch_op <op> <from_host> <msgid>
       ;;
     restore)
       # The DETERMINISTIC recovery one-shots only (designs/sysop.md §4/§9): the
-      # liaison-judgement half (poison triage / redispatch) stays with a human.
+      # liaison-judgement half (doom triage / redispatch) stays with a human.
       local rc=0 steps=()
       unit_ctl reset-failed 'garden-*' >/dev/null 2>&1 && steps+=(reset-failed) || rc=1
       "$GARDEN_SYSOP_REAPER"   >/dev/null 2>&1 && steps+=(reaper)   || rc=1

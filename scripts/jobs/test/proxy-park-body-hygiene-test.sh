@@ -1,6 +1,6 @@
 #!/bin/bash
 # proxy-park-body-hygiene-test.sh — regression guard for the PROXY PARKS A CLEAN BODY
-# fix (improve-promote-plan-poison-reset follow-up, 2026-07-29).
+# fix (improve-promote-plan-doom-reset follow-up, 2026-07-29).
 #
 # THE GAP THIS CLOSES: proxy.sh's blocked-job parking pre-pass lifted the job's LIVE
 # board file (jobs/doin/ then jobs/todo/) and wrote it into jobs/plan/<base>.md
@@ -20,14 +20,14 @@
 # SHARED helpers now living in common.sh beside the marker regexes: cut_claim_block
 # (the same last-`---`-followed-by-`claim:` anchor clean_body uses) and
 # strip_cycle_markers (the filter promote-plan.sh already used). The reaper's
-# deliberate poison-park path is untouched: it parks a body whose deadline-overrun
+# deliberate doom-park path is untouched: it parks a body whose deadline-overrun
 # counter must PERSIST, and promote-plan.sh clears it at the promotion instead.
 #
 # SUBTEST 1 — the parked plan carries the work body with the claim block cut and every
 #             cycle marker cleared; a `---` rule INSIDE the body survives (the cut
 #             anchors on `---`+`claim:`, never a stray rule); a marker-free, claim-free
 #             todo/ job parks unchanged; and the promoted todo/ body is clean too.
-# SUBTEST 2 — the reaper's poison park is NOT affected: its parked body still carries
+# SUBTEST 2 — the reaper's doom park is NOT affected: its parked body still carries
 #             the deadline-overrun counter (which promote-plan.sh, not the park,
 #             clears).
 #
@@ -185,12 +185,12 @@ promoted="$(readback jobs/todo/dirty-job.md)"
   || bad "the promoted body still carries the claim block / counters"
 
 # ============================================================================
-hr; echo "SUBTEST 2 — the reaper's poison park is untouched (its counter must PERSIST)"; hr
-T2="$TR/poison"; mkdir -p "$T2"
+hr; echo "SUBTEST 2 — the reaper's doom park is untouched (its counter must PERSIST)"; hr
+T2="$TR/doom"; mkdir -p "$T2"
 BARE2="$(seed_board "$T2")"
 export JOURNAL_REMOTE="$BARE2" GARDEN=reaphost GARDEN_STATE="$T2/state" GARDEN_SCRATCH="$T2/scratch"
 export GARDEN_REAP_PUSH_ATTEMPTS=50 GARDEN_CLAIM_TTL=3600
-export GARDEN_REAP_POISON_THRESHOLD=5 GARDEN_REAP_OVERRUN_THRESHOLD=1
+export GARDEN_REAP_DOOM_THRESHOLD=5 GARDEN_REAP_OVERRUN_THRESHOLD=1
 mkdir -p "$GARDEN_SCRATCH"
 
 wt="$(mktemp -d "$T2/edit.XXXXXX")"
@@ -216,10 +216,10 @@ rm -rf "$wt"
 
 "$JOBS/reaper.sh" > "$T2/reap.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap.log"; }
 V="$T2/v"; rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE2" "$V"
-{ [ -f "$V/jobs/plan/ovrjob.md" ] && grep -q '^poisoned: true$' "$V/jobs/plan/ovrjob.md" \
+{ [ -f "$V/jobs/plan/ovrjob.md" ] && grep -q '^doomed: true$' "$V/jobs/plan/ovrjob.md" \
   && grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$V/jobs/plan/ovrjob.md"; } \
-  && ok "the reaper still poison-parks with its deadline-overrun counter in the body (cleared at promotion, not at the park)" \
-  || bad "the proxy's park hygiene leaked into the reaper's poison-park path"
+  && ok "the reaper still doom-parks with its deadline-overrun counter in the body (cleared at promotion, not at the park)" \
+  || bad "the proxy's park hygiene leaked into the reaper's doom-park path"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

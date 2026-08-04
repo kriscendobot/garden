@@ -172,7 +172,7 @@ The ops, split into two trust tiers (§6):
 | `set-workers` | `kind: <known worker kind>`, `count: <non-negative int>` | `set-workers.sh <kind> <count>` (this host) | scale gardeners to 0 (the script's floor-of-1 refusal stands); write another host's record (cross-host refusal stands); invent an unknown kind (`worker_kind_field` rejects it) |
 | `drain` | `state: on\|off`, optional `reason: <text, single line, logged only>` | `drain-fleet.sh on [reason]` / `drain-fleet.sh off` | interpret `reason` as anything but an opaque logged note; touch any host but its own |
 | `reset-failed` | *(none)* | `systemctl --user reset-failed 'garden-*'` | reset units outside the `garden-*` glob; `start`/`stop`/`enable` anything |
-| `restore` | *(none)* | the deterministic recovery one-shots only: `reset-failed` + `reaper.sh` + `deadmail.sh` | perform the liaison-judgement half of the [restore](../skills/restore/SKILL.md) skill (poison triage / redispatch); read or interpret maintainer-inbox prose |
+| `restore` | *(none)* | the deterministic recovery one-shots only: `reset-failed` + `reaper.sh` + `deadmail.sh` | perform the liaison-judgement half of the [restore](../skills/restore/SKILL.md) skill (doom triage / redispatch); read or interpret maintainer-inbox prose |
 
 ### Destructive tier (less reversible — stricter gate, §6)
 
@@ -417,7 +417,7 @@ Explicitly deferred, to keep the first cut small and its blast radius legible:
   token scheme (a per-host key the sysop verifies) is a possible future hardening,
   noted and not built.
 - **The liaison-judgement half of `restore`.** The `restore` op runs only the
-  deterministic recovery one-shots (§4); poison triage and redispatch stay with the
+  deterministic recovery one-shots (§4); doom triage and redispatch stay with the
   liaison/maintainer.
 - **Ferry and any identity switch — permanently out, not merely deferred** (§5.4).
 - **No role or skill file.** The sysop is a script + unit, not a `roles/` posture;

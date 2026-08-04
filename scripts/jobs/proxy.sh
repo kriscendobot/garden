@@ -175,7 +175,7 @@ park_blocked_jobs() {
       # no-op-promotion trap promote-plan.sh's cycle-marker reset exists to close. A
       # block-park is a "run this again once the blocker clears" act, the same clean
       # slate a promotion grants, so cut the claim block and clear the whole marker
-      # family here, at the park. (The reaper's poison-park path is deliberately
+      # family here, at the park. (The reaper's doom-park path is deliberately
       # untouched: it parks a body whose deadline-overrun counter must PERSIST, and
       # promote-plan.sh clears it at the promotion instead.)
       if   [ -f "$dir/$JOBS_DOIN/$base.md" ]; then src="$JOBS_DOIN/$base.md"

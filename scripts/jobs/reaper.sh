@@ -42,19 +42,19 @@
 #      embedded frontmatter) is not truncated.
 #   4. Counts requeue cycles per job (a `<!-- garden-reaped: N -->` marker carried
 #      in the body across cycles). A job whose handler fails every time would loop
-#      forever; after GARDEN_REAP_POISON_THRESHOLD cycles it is POISONED: rather
+#      forever; after GARDEN_REAP_DOOM_THRESHOLD cycles it is DOOMED: rather
 #      than being dropped from the board, it is PARKED in jobs/plan/ under a held
 #      `go-ahead` gate (no auto-promoter selects it) so the work survives and can be
 #      resumed, and a maintainer notice is AMEND-OR-POST deduped by <job-base> +
-#      <failure signature> (poison-notice.sh) so a restart that poisons dozens of
-#      jobs does not flood the inbox with near-identical messages. See the poison
-#      branch of the batch-requeue loop below and poison-notice.sh.
-#      Two gardener-stamped exemptions keep the counter from poisoning HEALTHY work:
+#      <failure signature> (doom-notice.sh) so a restart that dooms dozens of
+#      jobs does not flood the inbox with near-identical messages. See the doom
+#      branch of the batch-requeue loop below and doom-notice.sh.
+#      Two gardener-stamped exemptions keep the counter from dooming HEALTHY work:
 #      a PRODUCTIVE cycle (a per-job worktree HEAD advanced) RESETS it, and a
 #      SUSTAINED-OUTAGE cycle (the handler transient-failed while the shared fleet
 #      brake was engaged — a fleet-wide quota/API storm, not a defect in this job)
 #      PAUSES it (holds it steady). The outage exemption is what stops a correlated
-#      outage from mass-poisoning a dozen unrelated jobs (the 2026-07-01 incident);
+#      outage from mass-dooming a dozen unrelated jobs (the 2026-07-01 incident);
 #      see common.sh § outage-cycle hint and the has_outage_cycle_hint branch below.
 
 set -euo pipefail
@@ -72,7 +72,7 @@ GARDEN_TAG="reaper"
 : "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed
 : "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
-: "${GARDEN_REAP_POISON_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as poison, not requeued
+: "${GARDEN_REAP_DOOM_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as doom, not requeued
 # STAGGER A BURST. A restart cycle can orphan dozens of claims within minutes of
 # each other; they then cross the age floor together and, uncapped, ONE tick would
 # dump the whole burst into todo/ at once — the pool re-claims them together and the
@@ -90,20 +90,20 @@ GARDEN_TAG="reaper"
 # A job carrying the gardener's `<!-- garden-deadline-overrun: N -->` marker hit its
 # OWN handler wall-clock budget (rc=124, elapsed≈handler budget) — a DETERMINISTIC
 # overrun that will be killed identically on every requeue, so it is escalated to
-# POISON at this much LOWER threshold (default 1) rather than the full
-# GARDEN_REAP_POISON_THRESHOLD: a job that overruns its budget will overrun it again on
+# DOOM at this much LOWER threshold (default 1) rather than the full
+# GARDEN_REAP_DOOM_THRESHOLD: a job that overruns its budget will overrun it again on
 # every requeue, so ONE deadline hit is already conclusive — surfacing after the first
 # (not the fifth) stops it from burning ~5×the budget of gardener wall-clock before the
 # maintainer even hears about it. This case is safe to trip at 1 because a NON-defective
 # long job on the sanctioned resume treadmill (which hits its wall by design) earns the
 # PRODUCTIVE-cycle exemption below — a productive wall-hit RESETS this counter to 0 — so
-# only a job that hits its wall AND makes NO progress accumulates toward poison here. A
-# poisoned job is not dropped: it is PARKED (held, resumable) with a maintainer notice,
+# only a job that hits its wall AND makes NO progress accumulates toward doom here. A
+# doomed job is not dropped: it is PARKED (held, resumable) with a maintainer notice,
 # so a legitimately build-heavy job that simply needs a bigger budget is surfaced fast
 # for a human to re-post with a larger `handler-timeout:` rather than churned silently.
 # The gardener owns/increments the counter (common.sh § deadline-overrun); the reaper
 # only reads it to decide the threshold.
-: "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # deadline-overrun cycles after which a wall-hitting job is surfaced as poison
+: "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # deadline-overrun cycles after which a wall-hitting job is surfaced as doom
 
 # --- two-writers-in-one-worktree guard (data-corruption class) ----------------
 #
@@ -131,51 +131,51 @@ GARDEN_TAG="reaper"
 # reaper is no longer its only reader — promote-plan.sh clears the family on
 # promotion. The reaper remains its only WRITER.
 
-# --- durable poison-notice spool (un-surfaced-alert recovery) -----------------
+# --- durable doom-notice spool (un-surfaced-alert recovery) -----------------
 #
-# poison-notice.sh already retries its OWN push budget (GARDEN_POST_ATTEMPTS, 50)
+# doom-notice.sh already retries its OWN push budget (GARDEN_POST_ATTEMPTS, 50)
 # with backoff and `die`s LOUDLY when the maintainer inbox is genuinely
 # unreachable (the journal is down, its clone is broken, or it never won a push
 # race). Historically the reaper swallowed that die with `>/dev/null 2>&1` and only
 # logged a bare "WARNING: could not surface …", then fell through and `break`ed out
-# of the requeue loop — so the poison job stayed PARKED in jobs/plan/ (held) but the
+# of the requeue loop — so the doom job stayed PARKED in jobs/plan/ (held) but the
 # maintainer was NEVER told and the WARNING named no cause. A deterministically
 # overrunning job (the 00:15:19 `xs2rust-…-boot-surface-remainder` tail) thus
 # vanished from human view: the only signal it was stuck was permanently dropped.
 #
-# So the reaper no longer drops the alert. surface_poison() CAPTURES
-# poison-notice.sh's stderr and names the cause in the WARNING (a lost push race, an
+# So the reaper no longer drops the alert. surface_doom() CAPTURES
+# doom-notice.sh's stderr and names the cause in the WARNING (a lost push race, an
 # unreachable clone, a bad key), and on failure it SPOOLS the notice to a durable
-# directory. drain_poison_spool(), run at the top of every tick, re-attempts each
+# directory. drain_doom_spool(), run at the top of every tick, re-attempts each
 # spooled notice — so a transient inbox-unreachable window heals on a LATER tick
 # instead of losing the notice forever. The spool file is keyed by the same
-# <base>+<signature> dedup key poison-notice.sh uses, so a re-spool overwrites
+# <base>+<signature> dedup key doom-notice.sh uses, so a re-spool overwrites
 # (idempotent) rather than accreting, and a successful delivery clears it.
-: "${GARDEN_POISON_SPOOL:=$GARDEN_STATE/reaper/poison-spool}"
+: "${GARDEN_DOOM_SPOOL:=$GARDEN_STATE/reaper/doom-spool}"
 
-# poison_key <base> <signature> — the deterministic dedup/filesystem key, computed
-# the SAME way poison-notice.sh derives its maintainer-inbox filename, so the spool
+# doom_key <base> <signature> — the deterministic dedup/filesystem key, computed
+# the SAME way doom-notice.sh derives its maintainer-inbox filename, so the spool
 # entry and the notice it recovers share one identity.
-poison_key() {
+doom_key() {
   local key
-  key="$(printf 'poison-%s-%s' "$1" "$2" | tr -c 'A-Za-z0-9._-' '-')"
+  key="$(printf 'doomed-%s-%s' "$1" "$2" | tr -c 'A-Za-z0-9._-' '-')"
   printf '%s' "$key"
 }
 
-# spool_poison <base> <signature> <sender> <body> — persist an un-surfaced poison
-# notice under GARDEN_POISON_SPOOL so the next tick can re-drain it. Keyed by
-# poison_key so a re-spool of the same job+condition overwrites the prior entry
+# spool_doom <base> <signature> <sender> <body> — persist an un-surfaced doom
+# notice under GARDEN_DOOM_SPOOL so the next tick can re-drain it. Keyed by
+# doom_key so a re-spool of the same job+condition overwrites the prior entry
 # rather than accumulating duplicates. The small header carries everything
-# drain_poison_spool needs to re-invoke poison-notice.sh; the body follows the
+# drain_doom_spool needs to re-invoke doom-notice.sh; the body follows the
 # first `---` line (the body itself may contain `---`, so the split is first-only).
-spool_poison() {
+spool_doom() {
   local base="$1" signature="$2" sender="$3" body="$4" key dest
-  key="$(poison_key "$base" "$signature")"
-  if ! mkdir -p "$GARDEN_POISON_SPOOL" 2>/dev/null; then
-    log "WARNING: cannot create poison spool dir '$GARDEN_POISON_SPOOL'; poison alert for '$base' NOT durably recorded (will not survive this tick)"
+  key="$(doom_key "$base" "$signature")"
+  if ! mkdir -p "$GARDEN_DOOM_SPOOL" 2>/dev/null; then
+    log "WARNING: cannot create doom spool dir '$GARDEN_DOOM_SPOOL'; doom alert for '$base' NOT durably recorded (will not survive this tick)"
     return 1
   fi
-  dest="$GARDEN_POISON_SPOOL/$key.md"
+  dest="$GARDEN_DOOM_SPOOL/$key.md"
   {
     printf 'base: %s\n'       "$base"
     printf 'signature: %s\n'  "$signature"
@@ -184,24 +184,24 @@ spool_poison() {
     printf -- '---\n'
     printf '%s\n' "$body"
   } > "$dest" 2>/dev/null \
-    || { log "WARNING: could not write poison spool entry '$dest' for '$base'"; return 1; }
+    || { log "WARNING: could not write doom spool entry '$dest' for '$base'"; return 1; }
   return 0
 }
 
-# surface_poison <base> <signature> <sender> <body> — deliver ONE poison notice to
-# the maintainer inbox via poison-notice.sh, CAPTURING its stderr so a failure is
+# surface_doom <base> <signature> <sender> <body> — deliver ONE doom notice to
+# the maintainer inbox via doom-notice.sh, CAPTURING its stderr so a failure is
 # DIAGNOSABLE. On success, clear any spooled copy of the same notice and return 0.
 # On failure, log the captured cause (the FATAL die line, else the last stderr line)
 # AND spool the notice durably so the next tick re-drains it, then return 1 — the
 # alert is never permanently swallowed.
-surface_poison() {
+surface_doom() {
   local base="$1" signature="$2" sender="$3" body="$4" key err cause
-  key="$(poison_key "$base" "$signature")"
-  err="$(mktemp "${TMPDIR:-/tmp}/reaper-poison-notice.XXXXXX" 2>/dev/null)" || err=""
+  key="$(doom_key "$base" "$signature")"
+  err="$(mktemp "${TMPDIR:-/tmp}/reaper-doom-notice.XXXXXX" 2>/dev/null)" || err=""
   if printf '%s' "$body" | GARDEN_SENDER="$sender" \
-       "$HERE/poison-notice.sh" "$base" "$signature" >/dev/null 2>"${err:-/dev/null}"; then
+       "$HERE/doom-notice.sh" "$base" "$signature" >/dev/null 2>"${err:-/dev/null}"; then
     [ -n "$err" ] && rm -f "$err"
-    rm -f "$GARDEN_POISON_SPOOL/$key.md" 2>/dev/null || true
+    rm -f "$GARDEN_DOOM_SPOOL/$key.md" 2>/dev/null || true
     return 0
   fi
   cause=""
@@ -213,24 +213,24 @@ surface_poison() {
     cause="$(printf '%s' "$cause" | sed 's/^<[0-9]>//')"
     rm -f "$err"
   fi
-  [ -n "$cause" ] || cause="(poison-notice.sh failed; no stderr captured)"
-  log "WARNING: could not surface poison job '$base' ($signature) to maintainer inbox: $cause — spooling to '$GARDEN_POISON_SPOOL' for the next tick to re-drain"
-  spool_poison "$base" "$signature" "$sender" "$body" || true
+  [ -n "$cause" ] || cause="(doom-notice.sh failed; no stderr captured)"
+  log "WARNING: could not surface doom job '$base' ($signature) to maintainer inbox: $cause — spooling to '$GARDEN_DOOM_SPOOL' for the next tick to re-drain"
+  spool_doom "$base" "$signature" "$sender" "$body" || true
   return 1
 }
 
-# drain_poison_spool — at the top of every tick, re-attempt every spooled poison
+# drain_doom_spool — at the top of every tick, re-attempt every spooled doom
 # notice from a prior tick. A notice that now delivers is cleared from the spool
-# (surface_poison rm's it on success); one that still fails stays for a later tick.
-# Best-effort and independent of the reaper's own journal clone (poison-notice.sh
+# (surface_doom rm's it on success); one that still fails stays for a later tick.
+# Best-effort and independent of the reaper's own journal clone (doom-notice.sh
 # operates on the producer clone), so it never blocks or aborts the requeue path.
-drain_poison_spool() {
+drain_doom_spool() {
   local f base signature sender body
-  [ -d "$GARDEN_POISON_SPOOL" ] || return 0
+  [ -d "$GARDEN_DOOM_SPOOL" ] || return 0
   local entries=()
-  local e; for e in "$GARDEN_POISON_SPOOL"/*.md; do [ -e "$e" ] && entries+=("$e"); done
+  local e; for e in "$GARDEN_DOOM_SPOOL"/*.md; do [ -e "$e" ] && entries+=("$e"); done
   [ "${#entries[@]}" -gt 0 ] || return 0
-  log "draining ${#entries[@]} spooled poison notice(s) from a prior tick"
+  log "draining ${#entries[@]} spooled doom notice(s) from a prior tick"
   for f in "${entries[@]}"; do
     [ -f "$f" ] || continue
     base="$(sed -n 's/^base: *//p' "$f" | head -1)"
@@ -239,11 +239,11 @@ drain_poison_spool() {
     # Body is everything after the FIRST `---` line (the body may itself contain `---`).
     body="$(awk 'seen{print} /^---$/{if(!seen){seen=1}}' "$f")"
     if [ -z "$base" ] || [ -z "$signature" ]; then
-      log "WARNING: malformed poison spool entry '$f' (missing base/signature); leaving in place for inspection"
+      log "WARNING: malformed doom spool entry '$f' (missing base/signature); leaving in place for inspection"
       continue
     fi
     [ -n "$sender" ] || sender="reaper:$GARDEN"
-    surface_poison "$base" "$signature" "$sender" "$body" || true
+    surface_doom "$base" "$signature" "$sender" "$body" || true
   done
 }
 
@@ -339,13 +339,16 @@ _proc_descendants() {
 # GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 (never below the default). This
 # re-derives the gardener's single-owner invariant at reap time so a GARDEN_CLAIM_TTL
 # misconfigured below the handler wall can no longer requeue a still-live handler.
-reap_age_threshold() {
-  local f="$1" req budget base budget_max floor
-  # The BASE is per-role, from the same helper gardener.sh uses
-  # (common.sh job_handler_budget_base): a build role defaults to
-  # GARDEN_BUILD_HANDLER_TIMEOUT, not the fleet default. If this diverged from the
-  # gardener's view, the reaper would judge a live 7200s build stale at 2400s and
-  # requeue the base onto a SECOND gardener while the first still runs.
+# effective_handler_budget <doin-file> — echo the wall-clock budget (seconds) the
+# gardener actually runs this job's handler at: the per-role base
+# (job_handler_budget_base — a build role defaults to GARDEN_BUILD_HANDLER_TIMEOUT,
+# not the fleet default), overridden by a valid `handler-timeout:` header clamped to
+# GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 and never below the base. This is
+# the ACTUAL budget in force — used both to floor the reap age (reap_age_threshold)
+# and to name the real budget in a deadline-overrun doom notice (rather than the
+# literal 2400s default, which is wrong for a job declaring `handler-timeout: 7200`).
+effective_handler_budget() {
+  local f="$1" req budget base budget_max
   base="$(job_handler_budget_base "$f")"
   budget="$base"
   req="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" 2>/dev/null | head -1 | tr -dc '0-9')"
@@ -357,6 +360,17 @@ reap_age_threshold() {
     # cannot shrink the guard under the real handler lifetime.
     [ "$budget" -lt "$base" ] && budget="$base"
   fi
+  printf '%s\n' "$budget"
+}
+
+reap_age_threshold() {
+  local f="$1" budget floor
+  # The BASE is per-role, from the same helper gardener.sh uses
+  # (common.sh job_handler_budget_base): a build role defaults to
+  # GARDEN_BUILD_HANDLER_TIMEOUT, not the fleet default. If this diverged from the
+  # gardener's view, the reaper would judge a live 7200s build stale at 2400s and
+  # requeue the base onto a SECOND gardener while the first still runs.
+  budget="$(effective_handler_budget "$f")"
   floor=$(( budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_REAP_SAFETY_SLACK ))
   if [ "$GARDEN_CLAIM_TTL" -ge "$floor" ]; then printf '%s\n' "$GARDEN_CLAIM_TTL"; else printf '%s\n' "$floor"; fi
 }
@@ -555,12 +569,12 @@ sync_clone "$DIR"
 # inert — the stuck-fetch janitor above still runs first).
 gc_scratch
 
-# Re-drain any poison notices a PRIOR tick spooled because the maintainer inbox was
+# Re-drain any doom notices a PRIOR tick spooled because the maintainer inbox was
 # unreachable then. Runs UNCONDITIONALLY every tick — before the no-stale-claims
 # early exit below — so a transient inbox outage heals on a later tick instead of
 # permanently dropping the "this job is stuck" signal. Independent of the reaper's
-# clone (poison-notice.sh uses the producer clone), so this never blocks the requeue.
-drain_poison_spool
+# clone (doom-notice.sh uses the producer clone), so this never blocks the requeue.
+drain_doom_spool
 
 # --- 1. detect the stale set -------------------------------------------------
 now="$(date -u +%s)"
@@ -580,8 +594,8 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   # is dead, so we requeue it on THIS tick instead of idling the full TTL. Checked
   # BEFORE the ts==0 guard so the hint is authoritative even on an unparseable
   # claimed_at. The hint only promotes the claim into the stale set early — it then
-  # flows through the SAME requeue + poison-counter path below, so a job SIGTERM'd
-  # every cycle still escalates as poison after the threshold (never loops forever).
+  # flows through the SAME requeue + doom-counter path below, so a job SIGTERM'd
+  # every cycle still escalates as doom after the threshold (never loops forever).
   if has_reap_now_hint "$f"; then
     reap_now_flag=1
     log "reap-now: '$base' carries a gardener reap-now hint (age ${age}s); requeueing before TTL"
@@ -663,10 +677,10 @@ fi
 # this cap addresses nor benefit from being held back. They are always requeued this
 # tick, on top of (never counting against) the capped age-expired selection.
 #
-# POISON accounting is untouched: deferral leaves a claim's `garden-reaped: N` marker
+# DOOM accounting is untouched: deferral leaves a claim's `garden-reaped: N` marker
 # in doin/ unread this tick, so when it is finally requeued the counter still
-# advances by exactly one — a deferred reap cannot skip or double a poison cycle, nor
-# let a poison job escape escalation (it is merely surfaced a tick or two later).
+# advances by exactly one — a deferred reap cannot skip or double a doom cycle, nor
+# let a doom job escape escalation (it is merely surfaced a tick or two later).
 cap="$GARDEN_REAP_MAX_PER_TICK"
 if ! [ "$cap" -ge 1 ] 2>/dev/null; then
   log "WARNING: GARDEN_REAP_MAX_PER_TICK='$cap' is not a positive integer; using 8"
@@ -718,19 +732,19 @@ STALE=("${KEEP[@]}")
 #
 # Each attempt re-syncs (so we rebase onto the latest tip, the same way a lost
 # CAS forces), re-stages every still-present stale claim, and pushes the whole
-# batch as ONE commit. A poison job (too many requeue cycles) is removed from the
+# batch as ONE commit. A doom job (too many requeue cycles) is removed from the
 # board and queued for a maintainer alert flushed only after the board change
 # lands. sync_clone holds the per-clone lock through commit_and_push, which
 # releases it; on a non-final failed attempt we keep looping (sync_clone re-takes
 # the lock re-entrantly).
 reaped=0
-poisoned=0
+doomed=0
 staged=0
-declare -a POISON_BASE=() POISON_BODY=() POISON_COUNT=() POISON_OVERRUN=() POISON_SIG=()
+declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_SIG=() DOOM_BUDGET=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
-  POISON_BASE=(); POISON_BODY=(); POISON_COUNT=(); POISON_OVERRUN=(); POISON_SIG=()
+  DOOM_BASE=(); DOOM_BODY=(); DOOM_COUNT=(); DOOM_OVERRUN=(); DOOM_SIG=(); DOOM_BUDGET=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
@@ -742,29 +756,29 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # PRODUCTIVE cycle: the gardener stamped the productive marker because a per-job
     # worktree HEAD advanced this cycle — the handler pushed REAL WORK (the sanctioned
     # resume treadmill), NOT a handler that "fails every time". Do NOT count it toward
-    # poison: RESET the streak to 0 so only cycles with NO progress accumulate toward
-    # the drop. A job productive every cycle therefore never poisons; a job that truly
-    # fails every cycle never earns the marker and still poisons at the threshold. This
+    # doom: RESET the streak to 0 so only cycles with NO progress accumulate toward
+    # the drop. A job productive every cycle therefore never dooms; a job that truly
+    # fails every cycle never earns the marker and still dooms at the threshold. This
     # is the reaper half of the productive-cycle fix (common.sh § productive-cycle hint).
     outage=0
     if has_productive_cycle_hint "$f"; then
       productive=1
       count=0
-      log "productive: '$base' advanced a per-job worktree HEAD this cycle; resetting reap/poison counter (was $prev) — not counted toward poison"
+      log "productive: '$base' advanced a per-job worktree HEAD this cycle; resetting reap/doom counter (was $prev) — not counted toward doom"
     elif has_outage_cycle_hint "$f"; then
       # OUTAGE cycle: the gardener stamped this because the handler transient-failed
       # while the shared fleet brake was ENGAGED — a fleet-wide correlated outage (a
       # Claude quota/usage cut, an API-overload storm), not a defect in THIS job. PAUSE
-      # the poison counter: HOLD it at its prior value rather than incrementing, so an
-      # environmental storm cannot poison an otherwise-healthy job (the 2026-07-01
-      # dozen-job poisoning). Unlike a productive cycle it does NOT reset — the job made
+      # the doom counter: HOLD it at its prior value rather than incrementing, so an
+      # environmental storm cannot doom an otherwise-healthy job (the 2026-07-01
+      # dozen-job dooming). Unlike a productive cycle it does NOT reset — the job made
       # no progress, so genuine prior no-progress failures are preserved and the job
-      # still poisons on its own (non-outage) cycles once the outage clears. `outage=1`
-      # also guards the poison DECISION below so this cycle can never itself poison.
+      # still dooms on its own (non-outage) cycles once the outage clears. `outage=1`
+      # also guards the doom DECISION below so this cycle can never itself doom.
       productive=0
       outage=1
       count="$prev"
-      log "outage: '$base' transient-failed under an engaged fleet brake this cycle; PAUSING poison counter (held at $prev) — sustained environmental transient, not counted toward poison"
+      log "outage: '$base' transient-failed under an engaged fleet brake this cycle; PAUSING doom counter (held at $prev) — sustained environmental transient, not counted toward doom"
     else
       productive=0
       count=$(( prev + 1 ))
@@ -772,54 +786,58 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     body="$(clean_body "$f")"
     # A gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
     # hit its OWN wall-clock budget (rc=124 at the wall) — a DETERMINISTIC overrun that
-    # recurs identically every requeue. Such a job is poisoned at the much lower
-    # GARDEN_REAP_OVERRUN_THRESHOLD rather than the full GARDEN_REAP_POISON_THRESHOLD.
+    # recurs identically every requeue. Such a job is doomed at the much lower
+    # GARDEN_REAP_OVERRUN_THRESHOLD rather than the full GARDEN_REAP_DOOM_THRESHOLD.
     # clean_body preserves this marker across the requeue (it strips only the reap-count
     # and reap-now markers), so the count accumulates cycle over cycle.
     overrun="$(deadline_overrun_count "$f")"
     # PRODUCTIVE cycle also spares the deadline-overrun counter, symmetric to the reap
-    # counter above — and it is what makes the threshold-1 poison safe. A builder on the
+    # counter above — and it is what makes the threshold-1 doom safe. A builder on the
     # SANCTIONED resume treadmill hits its OWN handler wall (rc=124 at its budget) every
     # cycle BY DESIGN and gets garden-deadline-overrun stamped each time; at
-    # GARDEN_REAP_OVERRUN_THRESHOLD=1 it would false-poison after its FIRST productive
+    # GARDEN_REAP_OVERRUN_THRESHOLD=1 it would false-doom after its FIRST productive
     # wall-hit (and when it is an on-child-failure:halt orchestration child, that false
-    # poison halts the whole serial chain) without this reset. So on a productive cycle
+    # doom halts the whole serial chain) without this reset. So on a productive cycle
     # zero the count for the decision AND strip the preserved marker from the requeued
     # body: the overrun marker survives clean_body by design, so a productive cycle must
     # re-stamp it to 0 (not merely zero the local variable) or the next cycle re-reads the
     # stale N and re-accumulates. Only NON-productive wall-hits count toward the overrun
-    # poison — a genuinely deadlocked handler never earns the productive marker and still
-    # poisons at threshold 1, after its first no-progress overrun.
+    # doom — a genuinely deadlocked handler never earns the productive marker and still
+    # dooms at threshold 1, after its first no-progress overrun.
     if [ "$productive" -eq 1 ] && [ "$overrun" -ne 0 ]; then
-      log "productive: '$base' hit its handler wall on a productive cycle; resetting deadline-overrun counter (was $overrun) — not counted toward overrun poison"
+      log "productive: '$base' hit its handler wall on a productive cycle; resetting deadline-overrun counter (was $overrun) — not counted toward overrun doom"
       overrun=0
       body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
     fi
-    if [ "$outage" -ne 1 ] && { [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; }; then
-      # Poison: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
+    if [ "$outage" -ne 1 ] && { [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; }; then
+      # Doom: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
       # under a HELD gate so the work survives and can be resumed once the
       # underlying issue is cleared, rather than being lost until a human
       # reconstructs it (the resume-lint-ceiling-shepherds loss, kriskowal
       # 2026-07-02). The parked plan is gated `go-ahead`, which NO auto-promoter
       # selects: plan_deferred_ranked/the foreman take only `deferred`, the unblock
       # watcher only `blocked`, the orchestrate watcher only `orchestrated`. So a
-      # poisoned plan stays held until a human (via the liaison / promote-plan.sh)
+      # doomed plan stays held until a human (via the liaison / promote-plan.sh)
       # or a cleared blocker promotes it back into todo/ — it never silently
       # re-enters the queue.
       #
-      # The parked plan's basename is the ORIGINAL job spine, so a re-poison of the
+      # The parked plan's basename is the ORIGINAL job spine, so a re-doom of the
       # same job overwrites the SAME plan/<spine>.md (updating its provenance)
       # rather than spawning duplicates — mirroring the keyed maintainer-message
       # dedup below. The signature (deterministic-overrun vs generic requeue
       # exhaustion) keys both the plan provenance and the maintainer notice.
       if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then sig="deadline-overrun"; else sig="requeue-exhausted"; fi
-      # poison_count: how many times THIS job has been poison-parked. A re-poison
+      # doom_count: how many times THIS job has been doom-parked. A re-doom
       # bumps the prior value carried in the existing plan file (idempotent on the
-      # spine), so a job repeatedly promoted-and-re-poisoned accrues a visible count.
+      # spine), so a job repeatedly promoted-and-re-doomed accrues a visible count.
       pplan="$DIR/$JOBS_PLAN/$base"
       prevp=0
       if [ -f "$pplan" ]; then
-        prevp="$(sed -n 's/^poison_count: *//p' "$pplan" | head -1)"
+        # DUAL-READ: accept the new `doom_count:` and the legacy `poison_count:`
+        # (a plan a still-old peer host parked during the rollout window), so a
+        # re-doom preserves the accrued count across mixed-version hosts.
+        prevp="$(sed -n 's/^doom_count: *//p' "$pplan" | head -1)"
+        [ -n "${prevp:-}" ] || prevp="$(sed -n 's/^poison_count: *//p' "$pplan" | head -1)"
         [ -n "${prevp:-}" ] && [ "$prevp" -eq "$prevp" ] 2>/dev/null || prevp=0
       fi
       pcount=$(( prevp + 1 ))
@@ -827,13 +845,13 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         printf -- '---\n'
         printf 'gate: go-ahead\n'
         printf 'priority: normal\n'
-        printf 'poisoned: true\n'
-        printf 'poison_signature: %s\n' "$sig"
-        printf 'poison_count: %s\n'     "$pcount"
+        printf 'doomed: true\n'
+        printf 'doom_signature: %s\n' "$sig"
+        printf 'doom_count: %s\n'     "$pcount"
         printf 'requeue_cycles: %s\n'   "$count"
         printf 'deadline_overruns: %s\n' "$overrun"
-        printf 'poisoned_at: %s\n'      "$(date -u +%FT%TZ)"
-        printf 'poisoned_on: %s\n'      "$GARDEN"
+        printf 'doomed_at: %s\n'      "$(date -u +%FT%TZ)"
+        printf 'doomed_on: %s\n'      "$GARDEN"
         printf 'posted_by: reaper:%s\n' "$GARDEN"
         printf 'posted_at: %s\n'        "$(date -u +%FT%TZ)"
         printf -- '---\n\n'
@@ -843,8 +861,12 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
       [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
       git -C "$DIR" add "$JOBS_PLAN/$base"
-      POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
-      POISON_OVERRUN+=("$overrun"); POISON_SIG+=("$sig")
+      DOOM_BASE+=("$spine"); DOOM_BODY+=("$body"); DOOM_COUNT+=("$count")
+      DOOM_OVERRUN+=("$overrun"); DOOM_SIG+=("$sig")
+      # Capture the ACTUAL handler budget in force NOW, while the doin file still
+      # exists, so the deadline-overrun notice below names the real budget (e.g.
+      # 7200s for a `handler-timeout: 7200` job) rather than the literal default.
+      DOOM_BUDGET+=("$(effective_handler_budget "$f")")
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;
@@ -866,7 +888,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # journal flag (default off => no-op), on `outage -ne 1` (never re-route during
       # an environmental storm — that is not kimi's fault), and on the job having
       # reached GARDEN_KIMI_FALLBACK_AFTER genuine failure cycles. A re-route RESETS
-      # the reap counter (the fresh provider earns a fresh poison budget) and records
+      # the reap counter (the fresh provider earns a fresh doom budget) and records
       # the kimi arm as a failure so the evaluation stays honest. Session/worktree
       # freshness is by construction: the opus handler finds no Claude transcript for
       # this base (kimi wrote none) and resets the leftover worktree — see the design.
@@ -902,54 +924,66 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   fi
 
   if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN"; then
-    poisoned=${#POISON_BASE[@]}
-    reaped=$(( staged - poisoned ))
-    # Flush poison alerts only AFTER the board change has landed, so a maintainer
+    doomed=${#DOOM_BASE[@]}
+    reaped=$(( staged - doomed ))
+    # Flush doom alerts only AFTER the board change has landed, so a maintainer
     # is told only about jobs actually parked. Each alert is AMEND-OR-POST KEYED on
-    # <job-base>+<signature> via poison-notice.sh: a re-poison of the same job for
+    # <job-base>+<signature> via doom-notice.sh: a re-doom of the same job for
     # the same condition AMENDS the open notice (bumps its occurrence count) instead
     # of posting another near-identical message — the fix for the 37-identical-
     # messages restart flood (kriskowal 2026-07-02). A new message is posted only
     # when the condition is substantially different (a different job, or the same
     # job failing for a materially different reason — requeue-exhausted vs
     # deadline-overrun).
-    for i in "${!POISON_BASE[@]}"; do
-      pbase="${POISON_BASE[$i]}"
-      povr="${POISON_OVERRUN[$i]:-0}"
-      psig="${POISON_SIG[$i]:-requeue-exhausted}"
+    for i in "${!DOOM_BASE[@]}"; do
+      pbase="${DOOM_BASE[$i]}"
+      povr="${DOOM_OVERRUN[$i]:-0}"
+      psig="${DOOM_SIG[$i]:-requeue-exhausted}"
+      pbudget="${DOOM_BUDGET[$i]:-${GARDEN_HANDLER_TIMEOUT:-2400}}"
       if [ "$povr" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
-        # Deterministic-overrun poison: the handler hit its OWN wall-clock budget every
-        # cycle. Name the signature (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT) so the
-        # maintainer reads "this job exceeds the handler budget", not a generic
-        # "poison after N cycles".
-        log "POISON (deadline-overrun): '$pbase' hit the handler wall-clock budget ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
+        # Early-escalation doom (the gardener stamped the deadline-overrun counter).
+        # The counter is stamped from TWO gardener paths that the reaper cannot tell
+        # apart here — a GENUINE wall-clock overrun (rc=124 at the handler budget) and
+        # a FAST repeated failure the elapsed-constancy detector flags (e.g. a 1–2s
+        # usage-cap rejection that recurs with constant elapsed). The old notice
+        # asserted a wall-clock overrun as fixed boilerplate ("elapsed≈2400s") and gave
+        # budget-raising advice that is actively wrong for the fast-failure case, and it
+        # printed the literal 2400s default even for a job declaring a larger
+        # handler-timeout. So this notice names the ACTUAL budget in force ($pbudget,
+        # captured at park time) and presents BOTH shapes with how to tell them apart,
+        # instead of a single false claim.
+        log "DOOM (deadline-overrun): '$pbase' stamped the deadline-overrun counter ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}), budget=${pbudget}s; parked in plan/ (held), surfacing to maintainer"
         pbody="$(
-          printf 'POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after %s DEADLINE-OVERRUN cycles on %s.\n' \
+          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s early-escalation cycle(s) on %s.\n' \
                  "$povr" "$GARDEN"
-          printf 'Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=%ss):\n' \
-                 "${GARDEN_HANDLER_TIMEOUT:-2400}"
-          printf 'this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,\n'
-          printf 'so the reaper surfaced it after %s overrun cycles (not the full %s-cycle poison threshold).\n' \
-                 "$GARDEN_REAP_OVERRUN_THRESHOLD" "$GARDEN_REAP_POISON_THRESHOLD"
+          printf 'The gardener stamped the deadline-overrun counter, so the reaper surfaced it after %s\n' "$povr"
+          printf 'cycle(s) rather than the full %s-cycle doom threshold. The effective handler budget in\n' \
+                 "$GARDEN_REAP_DOOM_THRESHOLD"
+          printf 'force for this job is %ss. That counter is stamped for two DISTINCT shapes; check the\n' "$pbudget"
+          printf 'gardener log for the actual elapsed to tell which applies:\n'
+          printf '  (a) GENUINE wall-clock overrun — elapsed ≈ %ss (rc=124 at the wall). The job does not\n' "$pbudget"
+          printf '      fit one claim: SPLIT it into claim-sized stages, or raise its handler-timeout.\n'
+          printf '  (b) FAST repeated failure — elapsed far below %ss (e.g. a 1–2s usage-cap/API rejection)\n' "$pbudget"
+          printf '      flagged by elapsed-constancy. The budget is NOT the problem; read the handler log\n'
+          printf '      for the real cause (quota/usage cut, swallowed error) — raising the budget will not help.\n'
           printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
-          printf '(promote-plan.sh %s) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT\n' "$pbase"
-          printf 'for this work, or fix what makes it run long.\n'
+          printf '(promote-plan.sh %s) or removes it.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
-                 "$pbase" "${POISON_BODY[$i]}"
+                 "$pbase" "${DOOM_BODY[$i]}"
         )"
-        surface_poison "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       else
-        log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
+        log "DOOM: '$pbase' reaped ${DOOM_COUNT[$i]}× (≥ ${GARDEN_REAP_DOOM_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
         pbody="$(
-          printf 'POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
-                 "${POISON_COUNT[$i]}" "$GARDEN"
+          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
+                 "${DOOM_COUNT[$i]}" "$GARDEN"
           printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
           printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
           printf '(promote-plan.sh %s) or removes it, so nothing is lost.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
-                 "$pbase" "${POISON_BODY[$i]}"
+                 "$pbase" "${DOOM_BODY[$i]}"
         )"
-        surface_poison "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
       fi
     done
     break
@@ -958,8 +992,8 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   backoff "$attempt"
 done
 
-if [ "$reaped" -eq 0 ] && [ "$poisoned" -eq 0 ] && [ "$staged" -ne 0 ]; then
+if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$staged" -ne 0 ]; then
   log "FAILED to land requeue of ${#STALE[@]} stale claim(s) after $GARDEN_REAP_PUSH_ATTEMPTS attempts"
   exit 1
 fi
-log "reaped $reaped stale claim(s); poisoned $poisoned"
+log "reaped $reaped stale claim(s); doomed $doomed"

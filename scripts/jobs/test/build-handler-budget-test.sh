@@ -7,7 +7,7 @@
 # minutes by construction. The only remedy used to be a per-job `handler-timeout:`
 # header the producer had to remember; when they forgot, the handler was
 # SIGTERM-killed at 2400s on every requeue, made no progress, and the reaper
-# poisoned it as a deterministic overrun after one cycle
+# doomed it as a deterministic overrun after one cycle
 # (ebfb-pr882-bootstrap-generators, 2026-08-01). Build roles now default higher.
 #
 # THE DANGEROUS FAILURE is not a short budget — it is DISAGREEMENT. gardener.sh

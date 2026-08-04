@@ -35,7 +35,7 @@ ensure_clone "$DIR"
 # nothing if it can strand a finished job, so this is called under `|| true`.
 #
 # ACCEPTANCE at record time: a garden-internal job (target main2, no PR) is
-# ACCEPTED on its un-poisoned tada — it completed, so we record `accepted: true`
+# ACCEPTED on its un-doomed tada — it completed, so we record `accepted: true`
 # into events/. A job against a PR target has an outcome we do not yet know, so we
 # record `accepted: pending` into pending/ for the reducer to finalize from the
 # merge/un-draft/verdict signal. A committed verdict override (reputation/verdicts/

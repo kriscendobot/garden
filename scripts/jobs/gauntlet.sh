@@ -7,7 +7,7 @@
 #
 # THE PROBLEM (designs/staged-gauntlet.md): the gauntlet ran as ONE claimed job
 # whose wall-clock was the SUM of every stage, every fix-loop iteration, and every
-# CI wait — a sum that fits no handler budget. Nine jobs poisoned on deadline-overrun
+# CI wait — a sum that fits no handler budget. Nine jobs doomed on deadline-overrun
 # 2026-07-28, one already at a 14000s budget against the GARDEN_CLAIM_TTL ceiling.
 # The budget ladder is exhausted; splitting is the only move.
 #
@@ -22,8 +22,8 @@
 # PER TICK, per active record, read `current_child`'s board state (byte-for-byte the
 # read orchestrate.sh performs):
 #   active  — in jobs/todo/ or jobs/doin/            → wait (do nothing this tick).
-#   failed  — in NONE (promoted then vanished: the reaper poisoned it), or its tada
-#             report carries the orchestration-failed marker, or it was poison-parked
+#   failed  — in NONE (promoted then vanished: the reaper doomed it), or its tada
+#             report carries the orchestration-failed marker, or it was doom-parked
 #             in plan/                                → HALT (surface once, never a
 #             silent strand).
 #   done    — in jobs/tada/ → read its STAGE-RESULT MARKER and apply the transition:
@@ -77,7 +77,7 @@ sync_clone "$DIR"
 : "${GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT:=$GARDEN_SHEPHERD_HANDLER_TIMEOUT}"
 # CI-wait deadline for the clean/fix stages — comfortably UNDER the stage handler
 # budget so ci-wait-merge returns rc=4 (still-pending) and the stage re-posts CLEANLY
-# rather than the handler being killed mid-wait (which the reaper poisons after one
+# rather than the handler being killed mid-wait (which the reaper dooms after one
 # cycle). Headroom above it covers the coverage/fix work that runs before the wait.
 : "${GARDEN_GAUNTLET_CI_DEADLINE_SECS:=3600}"
 
@@ -93,13 +93,13 @@ child_state() {  # <stage-base> → done|active|failed
   if [ -e "$DIR/$JOBS_TODO/$c.md" ] || [ -e "$DIR/$JOBS_DOIN/$c.md" ]; then
     printf 'active\n'; return 0
   fi
-  # A stage the reaper poison-PARKED in plan/ (requeue budget exhausted) is a FAILURE,
+  # A stage the reaper doom-PARKED in plan/ (requeue budget exhausted) is a FAILURE,
   # not a fresh job — otherwise the driver would wait on it forever.
   if [ -e "$DIR/$JOBS_PLAN/$c.md" ]; then
     printf 'failed\n'; return 0
   fi
   # In none of tada/todo/doin/plan: promoted and vanished without a tada (an older
-  # poison drop, or a manual removal).
+  # doom drop, or a manual removal).
   printf 'failed\n'
 }
 
@@ -446,7 +446,7 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
       log "gauntlet '$base': waiting on stage '$child' ($stage, in flight)"
       continue;;
     failed)
-      halt_gauntlet "$base" "stage '$child' ($stage) failed or vanished from the board (poisoned/declined). A stranded PR mid-gauntlet halts loudly rather than stalling."
+      halt_gauntlet "$base" "stage '$child' ($stage) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling."
       advanced=$((advanced+1))
       continue;;
     done) ;;   # fall through to the transition table

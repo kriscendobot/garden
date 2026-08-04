@@ -57,7 +57,7 @@ re-sizing. Reach for it before a leadership handoff (the outgoing leader drains
 first, [leader-follower.md](leader-follower.md)) and as the first move of the
 deliberate deploy ([deploy.md](deploy.md), which drains, quiesces, merges, and
 lifts). Recovering a fleet that is stuck after an
-outage — hung agents, dead letters, poison — is a different engagement: see
+outage — hung agents, dead letters, doom — is a different engagement: see
 [health.md](health.md) and `skills/restore/SKILL.md`.
 
 ## Which to prefer

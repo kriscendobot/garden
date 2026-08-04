@@ -88,6 +88,25 @@ unset _garden_prod_repo_alt _garden_prod_repo
 # Kept OUTSIDE any reset-prone worktree on purpose.
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
 
+# --- deprecated env-knob aliases (the doom rename, 2026-08-04) ----------------
+# The reaper's doom-park knobs were renamed from GARDEN_*POISON* to GARDEN_*DOOM*
+# ("doomed" replaces "poisoned" as the job-state vocabulary). These knobs are an
+# OPERATOR-FACING contract (env / systemd unit overrides), so the OLD names are
+# honored as DEPRECATED ALIASES: if the new knob is unset but the old one is set,
+# adopt the old value and warn ONCE per process. Without this an existing override
+# would silently stop taking effect. RETIRE after every host's deployed sha carries
+# the new names (designs/job-board.md § the doom rename).
+if [ -z "${GARDEN_REAP_DOOM_THRESHOLD:-}" ] && [ -n "${GARDEN_REAP_POISON_THRESHOLD:-}" ]; then
+  GARDEN_REAP_DOOM_THRESHOLD="$GARDEN_REAP_POISON_THRESHOLD"; export GARDEN_REAP_DOOM_THRESHOLD
+  printf '<4>%s: GARDEN_REAP_POISON_THRESHOLD is deprecated; use GARDEN_REAP_DOOM_THRESHOLD (honoring old value %s this run)\n' \
+    "${GARDEN_TAG:-garden}" "$GARDEN_REAP_POISON_THRESHOLD" >&2
+fi
+if [ -z "${GARDEN_DOOM_SPOOL:-}" ] && [ -n "${GARDEN_POISON_SPOOL:-}" ]; then
+  GARDEN_DOOM_SPOOL="$GARDEN_POISON_SPOOL"; export GARDEN_DOOM_SPOOL
+  printf '<4>%s: GARDEN_POISON_SPOOL is deprecated; use GARDEN_DOOM_SPOOL (honoring old value %s this run)\n' \
+    "${GARDEN_TAG:-garden}" "$GARDEN_POISON_SPOOL" >&2
+fi
+
 # Per-host cache of the last successfully-resolved journal remote. Lives under
 # GARDEN_STATE (outside any reset-prone worktree, never committed) so a MOMENTARY
 # empty read of the journal worktree's origin — a config-lock race with the
@@ -916,8 +935,8 @@ is_nonattributable_rc() {
 # fails in about a second, which returns that worker to the poll loop far faster
 # than a healthy worker actually doing a job. A fast-failing host therefore WINS
 # CLAIM RACES DISPROPORTIONATELY: it drains the board into doin/, fails everything,
-# the reaper requeues, and the jobs poison — while every healthy host sits idle.
-# One misconfigured host can poison the whole fleet's board (ps23, 2026-07-27/28:
+# the reaper requeues, and the jobs doom — while every healthy host sits idle.
+# One misconfigured host can doom the whole fleet's board (ps23, 2026-07-27/28:
 # 249 journal entries, ZERO tada completions, all 52 doin/ claims held by ps23).
 #
 # AND IT CANNOT BE FIXED FROM OUTSIDE. `set-gardeners.sh 0 <host>` is refused by
@@ -990,7 +1009,7 @@ _worker_health_report() {
     msg="$(printf '%s\n' \
       "$kind workers on $GARDEN cannot resolve their agent CLI ($detail) — the pool has SELF-DISQUALIFIED and is claiming nothing." \
       "" \
-      "Every $kind on this host is parked in its poll loop, re-probing on a backoff; it resumes claiming by itself the moment the CLI resolves (no restart needed). This is deliberate: a worker whose handler dies in a second wins claim races against healthy workers doing real work, so it would drain the shared board into doin/ and poison it. Parking makes the host merely IDLE instead of a work SINK." \
+      "Every $kind on this host is parked in its poll loop, re-probing on a backoff; it resumes claiming by itself the moment the CLI resolves (no restart needed). This is deliberate: a worker whose handler dies in a second wins claim races against healthy workers doing real work, so it would drain the shared board into doin/ and doom it. Parking makes the host merely IDLE instead of a work SINK." \
       "" \
       "To fix: install or repair the CLI on $GARDEN (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, \$NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.")"
   else
@@ -1254,7 +1273,7 @@ backend_effective_count() {
 #
 #   1. COALESCE. Delivery goes through watchdog-notice.sh, which keeps ONE keyed
 #      inbox entry per open condition and AMENDS it (notice_count / first_seen /
-#      last_seen) instead of appending a new message — the reaper's poison-notice
+#      last_seen) instead of appending a new message — the reaper's doom-notice
 #      treatment, generalized. Occurrences suppressed by the throttle are COUNTED
 #      locally and folded into the next delivery, so notice_count is the true
 #      occurrence count, not the delivery count.
@@ -1609,7 +1628,7 @@ idle_backoff() {
 # many gardeners' handlers fail transiently AT ONCE. A per-worker backoff alone is
 # not enough: ~100 independently-backing-off workers still collectively hammer the
 # already-exhausted quota, amplifying the outage and churning todo<->doin (the
-# 2026-07-01 incident that poisoned a dozen unrelated jobs). The fleet brake is a
+# 2026-07-01 incident that doomed a dozen unrelated jobs). The fleet brake is a
 # SHARED circuit breaker across this host's pool: every gardener stamps ONE
 # timestamp into a host-local rolling ledger on each transient-classified handler
 # failure (record_transient_failure); before each claim every gardener reads that
@@ -3117,8 +3136,8 @@ is_external_kill_rc() {
 # for having done so). gardener.sh branches this into the SAME transient path as
 # is_external_kill_rc: ONE kind:progress note, NO gardener-inbox kind:error, left in
 # doin for the reaper. A genuinely DEADLOCKED handler still surfaces — it times out
-# every cycle, so the reaper's `<!-- garden-reaped: N -->` poison counter escalates it
-# as poison after GARDEN_REAP_POISON_THRESHOLD cycles, rather than spamming a
+# every cycle, so the reaper's `<!-- garden-reaped: N -->` doom counter escalates it
+# as doom after GARDEN_REAP_DOOM_THRESHOLD cycles, rather than spamming a
 # kind:error on every single requeue.
 is_handler_timeout_rc() {
   case "$1" in
@@ -3161,7 +3180,7 @@ is_environmental_rc() {
 # non-signal, non-offline non-zero rc with empty output is a DETERMINISTIC
 # failure — rc=127/126 (missing / non-executable external tool, the jq-outage
 # signature) or a bare rc=1/2 — and must surface to a human immediately rather
-# than be deferred to the reaper's multi-hour poison cycle. Mirrors the
+# than be deferred to the reaper's multi-hour doom cycle. Mirrors the
 # signal/offline discrimination in self-heal-run.sh.
 is_transient_empty_failure() {
   case "$1" in
@@ -3271,7 +3290,7 @@ REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 # the reaper already maintains; it never writes, advances, or CAS-races it. Used by
 # the gardener's transient-handler-failure note so a job dying the SAME transient
 # way every cycle is greppable in the journal NOW, not only after the reaper's
-# ~5×TTL poison threshold fires (~5h).
+# ~5×TTL doom threshold fires (~5h).
 reap_count() {
   local f="${1:-}" n
   [ -f "$f" ] || { printf '0\n'; return 0; }
@@ -3286,7 +3305,7 @@ reap_count() {
 # Code session/usage cap that trips at the same point every run, or a prompt that
 # always drives the CLI to the same failure) is classified transient by
 # gardener.sh's handler-failure classifier and requeued — burning all
-# GARDEN_REAP_POISON_THRESHOLD (default 5) cycles before the reaper's poison
+# GARDEN_REAP_DOOM_THRESHOLD (default 5) cycles before the reaper's doom
 # counter surfaces it (~5×TTL). Its TELL is a near-CONSTANT elapsed across requeue
 # cycles: a genuine deploy/drain/OOM blip is killed at a VARIED elapsed (and reads
 # as an external-kill/timeout rc), whereas a deterministic overrun dies at the same
@@ -3348,11 +3367,11 @@ elapsed_within_band() {
 # 1-hour TTL and would have idled ~56 min before any retry.
 #
 # The reaper stays the SINGLE writer of the requeue and the `<!-- garden-reaped: N
-# -->` poison counter. The hint only PROMOTES a claim into the reaper's stale set
+# -->` doom counter. The hint only PROMOTES a claim into the reaper's stale set
 # early (reaper.sh § detect the stale set); the claim then flows through the SAME
-# requeue + poison path, so a job that is SIGTERM'd every cycle (a genuinely wedged
-# fetch — the risk gardener.sh flags) still escalates to the maintainer as poison
-# after GARDEN_REAP_POISON_THRESHOLD cycles rather than requeueing forever. The
+# requeue + doom path, so a job that is SIGTERM'd every cycle (a genuinely wedged
+# fetch — the risk gardener.sh flags) still escalates to the maintainer as doom
+# after GARDEN_REAP_DOOM_THRESHOLD cycles rather than requeueing forever. The
 # gardener must NOT requeue doin→todo itself, which would bypass that counter.
 #
 # The marker lives in the job BODY (above the trailing claim block); clean_body
@@ -3414,14 +3433,14 @@ stamp_reap_now_hint() {
 # at an elapsed AT the wall — GARDEN_HANDLER_TIMEOUT ± GARDEN_HANDLER_KILL_AFTER —
 # rather than an external SIGTERM/OOM/drain that varies in elapsed. Such a handler
 # will be killed IDENTICALLY on every requeue: the job simply exceeds the handler
-# budget. Requeuing it the full GARDEN_REAP_POISON_THRESHOLD (5) cycles before the
+# budget. Requeuing it the full GARDEN_REAP_DOOM_THRESHOLD (5) cycles before the
 # reaper surfaces it burns ~5×the handler budget of gardener wall-clock for a verdict
 # that a single deadline hit already proves. So the gardener stamps a per-job COUNTER
-# here, and the reaper escalates a job carrying it to POISON after the much lower
+# here, and the reaper escalates a job carrying it to DOOM after the much lower
 # GARDEN_REAP_OVERRUN_THRESHOLD (1) instead — after the FIRST deterministic overrun.
 # A productive wall-hit (a per-job worktree HEAD advanced — the sanctioned resume
 # treadmill that hits its wall by design) is exempt: the reaper RESETS this counter on
-# a productive cycle, so only a wall-hit that made NO progress counts toward poison.
+# a productive cycle, so only a wall-hit that made NO progress counts toward doom.
 #
 # The marker is a COUNTER the GARDENER owns and increments (distinct from the
 # reaper-owned `<!-- garden-reaped: N -->` cycle counter): each wall-hit cycle the
@@ -3449,8 +3468,8 @@ deadline_overrun_count() {
 # overrun marker so the count never accumulates duplicates) AND stamp the reap-now
 # hint beside it, both just above the trailing claim block, then land it on the
 # board. The reaper then requeues the claim on its NEXT tick (via the reap-now hint)
-# and, once the counter reaches GARDEN_REAP_OVERRUN_THRESHOLD, poisons it early
-# instead of burning the full GARDEN_REAP_POISON_THRESHOLD cycles. Bounded CAS retry
+# and, once the counter reaches GARDEN_REAP_OVERRUN_THRESHOLD, dooms it early
+# instead of burning the full GARDEN_REAP_DOOM_THRESHOLD cycles. Bounded CAS retry
 # reusing sync_clone/commit_and_push; returns 0 once landed (or the claim is already
 # gone), non-zero only if it could not land (caller falls back to the TTL requeue).
 # Run in a SUBSHELL from a long-lived caller: sync_clone `exit`s on a connectivity
@@ -3460,9 +3479,9 @@ deadline_overrun_count() {
 # git log distinguishes the two callers that stamp this same counter: a handler
 # that hit its OWN wall-clock bound (rc=124 at the wall — the default reason) and
 # the elapsed-constancy path, which confirms a DETERMINISTIC overrun from a
-# near-constant elapsed across requeue cycles and reuses this early-poison counter
-# so the reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD rather than the full
-# poison threshold. The MARKER is identical either way (the reaper only knows the
+# near-constant elapsed across requeue cycles and reuses this early-doom counter
+# so the reaper dooms after GARDEN_REAP_OVERRUN_THRESHOLD rather than the full
+# doom threshold. The MARKER is identical either way (the reaper only knows the
 # one `garden-deadline-overrun` counter); only the audit-trail wording differs.
 stamp_deadline_overrun_hint() {
   local clone="$1" rel="$2" reason="${3:-handler wall-clock overrun}" attempt f rc prev new
@@ -3499,23 +3518,23 @@ stamp_deadline_overrun_hint() {
 
 # --- productive-cycle hint ---------------------------------------------------
 #
-# The reaper counts requeue cycles (`<!-- garden-reaped: N -->`) and POISONS a job
-# after GARDEN_REAP_POISON_THRESHOLD cycles on the assumption that a handler which
+# The reaper counts requeue cycles (`<!-- garden-reaped: N -->`) and DOOMS a job
+# after GARDEN_REAP_DOOM_THRESHOLD cycles on the assumption that a handler which
 # is requeued that many times "fails every time". But a long builder on the
 # SANCTIONED RESUME TREADMILL — push green commits each cycle, then exit WITHOUT the
 # completion signal before the handler wall, and RESUME on the next claim — trips the
 # SAME counter even though EVERY cycle lands real progress. xs2rust-endor-build-stage3
-# was false-poisoned exactly this way (2026-07-03): its tracked HEAD advanced across
+# was false-doomed exactly this way (2026-07-03): its tracked HEAD advanced across
 # the "failing" cycles, yet the counter climbed to the threshold and it was dropped.
 #
 # The fix: a cycle in which the handler made REAL PROGRESS (a per-job worktree HEAD
 # advanced — it committed / pushed work) is PRODUCTIVE and must NOT count toward
-# poison. The gardener DETECTS progress (it owns the worktree locally; see gardener.sh
+# doom. The gardener DETECTS progress (it owns the worktree locally; see gardener.sh
 # job_worktree_heads/job_cycle_productive around the handler call) and stamps THIS
 # marker on its still-in-doin claim; the reaper READS it and RESETS the reap-count
 # rather than incrementing, so only cycles with NO progress accumulate toward the
 # drop. A genuinely-failing job (no commits, hard error every cycle) never earns the
-# marker and still poisons at the threshold.
+# marker and still dooms at the threshold.
 #
 # The marker is a BOOLEAN hint present iff the LAST cycle was productive — unlike the
 # reaper-owned reap-count and the gardener-owned deadline-overrun COUNTER, it does not
@@ -3535,7 +3554,7 @@ has_productive_cycle_hint() {
 
 # stamp_productive_cycle_hint <clone> <doin-relpath> — insert the productive marker
 # into the BODY of a still-in-doin claim (just above the trailing claim block) and
-# land it on the board, so the reaper RESETS the poison counter for this cycle instead
+# land it on the board, so the reaper RESETS the doom counter for this cycle instead
 # of incrementing it. Idempotent: a claim already carrying the hint, or already moved
 # out of doin, is left as-is. Bounded CAS retry against journal push contention,
 # reusing sync_clone/commit_and_push. Returns 0 once the hint is on the board (or was
@@ -3571,14 +3590,14 @@ stamp_productive_cycle_hint() {
   return 1
 }
 
-# --- outage-cycle hint (the sustained-outage poison-pause) --------------------
+# --- outage-cycle hint (the sustained-outage doom-pause) --------------------
 #
 # A job's handler can transient-fail purely because the WHOLE FLEET is in a
 # correlated outage — a Claude quota/usage cut, an API-overload storm — that has
-# nothing to do with THIS job's content. Left alone, GARDEN_REAP_POISON_THRESHOLD
-# such cycles poison an otherwise-healthy job (park it held, page the maintainer)
+# nothing to do with THIS job's content. Left alone, GARDEN_REAP_DOOM_THRESHOLD
+# such cycles doom an otherwise-healthy job (park it held, page the maintainer)
 # even though every failure was environmental and self-resolving — the 2026-07-01
-# storm that poisoned a dozen unrelated jobs, and the case this marker exists to
+# storm that doomed a dozen unrelated jobs, and the case this marker exists to
 # prevent.
 #
 # The discriminator is the shared FLEET BRAKE: a per-job defect fails while its
@@ -3586,10 +3605,10 @@ stamp_productive_cycle_hint() {
 # exactly the correlated-transient DENSITY the brake already measures. So when a
 # gardener transient-fails AND fleet_brake_engaged is true (the same predicate that
 # PAUSES claiming), it stamps THIS marker on its still-in-doin claim; the reaper
-# READS it and PAUSES the poison counter for that cycle — HOLDS it steady, neither
+# READS it and PAUSES the doom counter for that cycle — HOLDS it steady, neither
 # incrementing toward the threshold nor resetting it — so cycles that failed only
-# because the fleet was down do not accrue toward poison, while a job that still
-# fails once the outage clears poisons on its own (non-outage) cycles.
+# because the fleet was down do not accrue toward doom, while a job that still
+# fails once the outage clears dooms on its own (non-outage) cycles.
 #
 # Distinct from the productive-cycle hint, which RESETS the counter on real
 # progress: an outage cycle made no progress, so it HOLDS rather than resets (a
@@ -3612,7 +3631,7 @@ has_outage_cycle_hint() {
 
 # stamp_outage_cycle_hint <clone> <doin-relpath> — insert the outage marker into the
 # BODY of a still-in-doin claim (just above the trailing claim block) and land it on
-# the board, so the reaper PAUSES the poison counter for this cycle. Idempotent (a
+# the board, so the reaper PAUSES the doom counter for this cycle. Idempotent (a
 # claim already carrying the hint, or already moved out of doin, is left as-is),
 # bounded CAS retry against journal push contention, subshell-safe — mirrors
 # stamp_productive_cycle_hint's contract exactly.
@@ -3653,9 +3672,9 @@ stamp_outage_cycle_hint() {
 # cycling through todo -> doin -> requeue; a job that reaches jobs/plan/ has stopped
 # cycling, and its counters are stale the moment it is parked.
 #
-# Carrying them into (or out of) plan/ is what made a poisoned job inescapable: at
+# Carrying them into (or out of) plan/ is what made a doomed job inescapable: at
 # GARDEN_REAP_OVERRUN_THRESHOLD=1 a body still carrying `<!-- garden-deadline-overrun:
-# N -->` re-poisons on its FIRST evaluation, so promotion is a no-op the job can never
+# N -->` re-dooms on its FIRST evaluation, so promotion is a no-op the job can never
 # escape (the 07-26 endo-sturdyref-agent-surface-build-gauntlet park). promote-plan.sh
 # closed the PROMOTION half; post-plan.sh closes the PARKING half, so a producer that
 # re-parks a live job body cannot smuggle a stale counter into plan/ to begin with; and
@@ -3683,7 +3702,7 @@ strip_cycle_markers() {
 
 # cycle_marker_summary <file> — a compact, greppable record of which cycle markers
 # <file> carries, for the provenance a strip leaves behind. Prints `none` when the
-# body carries no markers (the common non-poison case), else a comma-joined list like
+# body carries no markers (the common non-doom case), else a comma-joined list like
 # `reaped=4,deadline-overrun=2,reap-now`.
 cycle_marker_summary() {
   local f="$1" out="" n
@@ -4736,8 +4755,8 @@ role_default_effort() {
 # `handler-timeout:` header the PRODUCER had to remember to stamp, with no
 # auto-classifier — and the failure mode when they forgot was expensive and
 # silent-ish: the handler is SIGTERM-killed at 2400s on EVERY requeue, makes no
-# progress, and the reaper poisons it as a deterministic overrun after one cycle
-# (ebfb-pr882-bootstrap-generators, rc=124 at elapsed=2401s, poisoned to plan/
+# progress, and the reaper dooms it as a deterministic overrun after one cycle
+# (ebfb-pr882-bootstrap-generators, rc=124 at elapsed=2401s, doomed to plan/
 # with two maintainer notices; its re-post then carried handler-timeout: 7200).
 #
 # So the build roles now carry a LARGER DEFAULT. This is a default, not a cap: an

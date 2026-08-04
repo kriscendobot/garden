@@ -4,7 +4,7 @@ Checking that an instance is healthy, and recovering it when it is not. The
 garden is silent until an error and self-heals most failures on its own; this
 page is the operator's window into that — the failed-unit check, the **restore**
 engagement for recovering a fleet stuck after an outage, and the three
-self-healing services (reaper, deadmail, poison) an operator should recognize.
+self-healing services (reaper, deadmail, doom) an operator should recognize.
 The restore procedure itself is owned by `skills/restore/SKILL.md`, which this
 page routes to. If your question is "is the fleet OK," "why can't this host's
 workers find `claude`," "recover after an API or quota outage," or "what
@@ -53,7 +53,7 @@ bin. A genuine absence exits `GARDEN_ENV_RC` (75) as an *environmental* failure,
 never as a defect in whatever job happened to be claimed. The **pre-claim health
 gate** then keeps an unhealthy worker from claiming at all: it parks and
 re-polls, reporting once per health transition, so a host that cannot run jobs
-can no longer win claim races and drain the shared board into poison (the ps23
+can no longer win claim races and drain the shared board into doom (the ps23
 outage, kriscendobot/garden#68).
 
 The operator's remaining lever, for a CLI the candidate list does not cover, is
@@ -66,9 +66,9 @@ further.
 ## Recovering after an outage: restore
 
 After an API or quota outage, workers may be hung, messages may be dead-lettered,
-and poison jobs may be stuck. **Restore** is the engagement that recovers the
+and doom jobs may be stuck. **Restore** is the engagement that recovers the
 fleet: reactivate hung agents, forward dead letters, and acknowledge + redispatch
-poison. The liaison runs it on the verb **restore** (or "recover the fleet"). The
+doom. The liaison runs it on the verb **restore** (or "recover the fleet"). The
 full procedure is `skills/restore/SKILL.md` — read and follow it; this page only
 tells you *when* to reach for it.
 
@@ -80,13 +80,13 @@ its name shows up:
 - **Reaper** — requeues jobs whose claimant died. The **same job base resumes the
   same session**, so in-flight work survives its worker rather than restarting
   from scratch. A job that vanished from the board without a `tada/` report was
-  reaper-poisoned.
+  reaper-doomed.
 - **Deadmail** — promotes a message sent to a **departed** agent into a fresh
   job, so intent is never dropped on the floor when its recipient has already
   finished.
-- **Poison** — a job that keeps failing is quarantined rather than retried
+- **Doom** — a job that keeps failing is quarantined rather than retried
   forever; restore acknowledges and redispatches it as part of outage recovery
-  (above), so a poisoned job is not lost, just held until a human-triggered
+  (above), so a doomed job is not lost, just held until a human-triggered
   recovery clears it.
 
 Related self-improvement machinery (the mentor's improvement jobs, the watchman's

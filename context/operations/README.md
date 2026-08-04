@@ -42,7 +42,7 @@ schedule). The conversational first-run tour is the sibling tree,
   Recurring and one-shot schedules. Routes to `skills/schedule/SKILL.md`.
 
 - **[health.md](health.md)** — *"a unit failed" / "claude not on PATH" /
-  "recover after an outage" / "what are the reaper, deadmail, poison."*
+  "recover after an outage" / "what are the reaper, deadmail, doom."*
   Failed-unit checks, where the agent CLI lives and how a worker resolves it,
   the restore engagement (routes to `skills/restore/SKILL.md`), and the
   self-healing services in one paragraph each.

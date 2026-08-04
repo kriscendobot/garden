@@ -176,7 +176,9 @@ def parse(rel, text):
         "role": (fm.get("role") or "").strip().lower(),
         "gate": (fm.get("gate") or "").strip().lower(),
         "orchestrated_by": (fm.get("orchestrated_by") or "").strip(),
-        "poisoned": (fm.get("poisoned") or "").strip().lower() == "true",
+        # DUAL-READ: the new `doomed:` and the legacy `poisoned:` (a plan an
+        # old peer host parked during the rollout window) both mark a doomed job.
+        "doomed": (fm.get("doomed") or fm.get("poisoned") or "").strip().lower() == "true",
         "title": title or "",
         "body": text,
     }
@@ -322,13 +324,13 @@ def _gate_breakdown(rows):
 def report_slice(root, rev, sl, show_members=True):
     t, rows = triple(root, rev, sl)
     label = rev or "working tree"
-    poisoned = sum(1 for _, _, x in rows if x["poisoned"])
+    doomed = sum(1 for _, _, x in rows if x["doomed"])
     print(f"## {sl} backlog — {label}")
     print(f"   (r2, r1, r0) = {t}   CNF = {cnf(t)}   n={sum(t)} jobs")
     if sl in ("total", "plan"):
         print(f"   plan gates: {_gate_breakdown([r for r in rows if r[2]['board']=='plan'])}")
-    if poisoned:
-        print(f"   NOTE: {poisoned} of these are poisoned (parked failures), "
+    if doomed:
+        print(f"   NOTE: {doomed} of these are doomed (parked failures), "
               f"not healthy backlog — see the caveat in the tada report.")
     if show_members:
         for want in (2, 1, 0):
@@ -350,7 +352,7 @@ def report(root, rev, slices, show_members, as_json):
             t, rows = triple(root, rev, sl)
             out[sl] = {
                 "triple": list(t), "cnf": cnf(t), "n": sum(t),
-                "poisoned": sum(1 for _, _, x in rows if x["poisoned"]),
+                "doomed": sum(1 for _, _, x in rows if x["doomed"]),
                 "members": [
                     {"base": x["base"], "board": x["board"], "gate": x["gate"],
                      "rank": r, "why": w}

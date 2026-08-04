@@ -6,7 +6,7 @@
 #
 # The gauntlet ran as ONE claimed job whose wall-clock was the SUM of every stage,
 # every fix-loop iteration, and every CI wait — a sum that fits no handler budget
-# (nine jobs poisoned on deadline-overrun 2026-07-28, one already at a 14000s budget
+# (nine jobs doomed on deadline-overrun 2026-07-28, one already at a 14000s budget
 # against the GARDEN_CLAIM_TTL ceiling). This records the run as a RECORD outside the
 # claim lifecycle; the driver posts each stage as its own fresh-budget job and advances
 # the record against each stage's completion marker. This is the per-PR analog of

@@ -25,13 +25,13 @@ and the outage may have stalled the singletons themselves:
   to a claim whose worker vanished *silently* (host crash, hard SIGKILL).
 - **Dead letters.** A reply sent to a doer whose inbox tore down as the message was
   in flight lands in `inbox/dead/`; it becomes work only on a deadmail tick.
-- **Poisoned jobs.** A job that failed every requeue cycle (often *because* every
-  attempt hit the outage) is surfaced to the maintainer inbox as a POISON message
+- **Doomed jobs.** A job that failed every requeue cycle (often *because* every
+  attempt hit the outage) is surfaced to the maintainer inbox as a DOOM message
   and dropped from the board — now recoverable, since the cause was transient.
 
 **Restore is the immediate, in-session, human-triggered form of that recovery.**
 Rather than wait out the cadences, the liaison runs the recovery services once now,
-reactivates the worker pool, and clears the poison the outage produced. It is a
+reactivates the worker pool, and clears the doom the outage produced. It is a
 fleet operation the liaison performs directly (like *stand up* / *stand down* /
 *drain*), not work posted to the board.
 
@@ -41,11 +41,11 @@ No arguments. Reads and writes existing fleet state:
 
 - `jobs/doin/` — stale/orphaned claims (requeued by the reaper to `jobs/todo/`).
 - `inbox/dead/` — dead letters (forwarded to jobs by deadmail).
-- `inbox/maintainer/unread/` — POISON messages to ack + redispatch.
+- `inbox/maintainer/unread/` — DOOM messages to ack + redispatch.
 - the `garden-gardener@*` units — the worker pool to reactivate.
 
 Env knobs honored by the underlying tools: `GARDEN_CLAIM_TTL` (claim staleness
-threshold), `GARDEN_REAP_POISON_THRESHOLD` (requeue cycles before poison).
+threshold), `GARDEN_REAP_DOOM_THRESHOLD` (requeue cycles before doom).
 
 ## Procedure
 
@@ -78,7 +78,7 @@ suspected.
    that exited cleanly at the wall may have left a `reap-now` hint so its claim is
    requeued before the TTL elapses.
    ```sh
-   bash scripts/jobs/reaper.sh          # logs "reaped N stale claim(s); poisoned M"
+   bash scripts/jobs/reaper.sh          # logs "reaped N stale claim(s); doomed M"
    ```
    The reaper batches the tick into one push and retries within the tick, so a
    requeue lands even under board contention. Confirm the requeued bases reappear
@@ -92,17 +92,17 @@ suspected.
    bash scripts/jobs/deadmail.sh
    ```
 
-4. **Ack and redispatch poison.** Read the maintainer inbox; for each POISON
+4. **Ack and redispatch doom.** Read the maintainer inbox; for each DOOM
    message (a `from: reaper` / `watchdog:*` report naming a job that exhausted its
    requeue cycles and was dropped):
    - **Redispatch** the job now that the transient cause is gone — re-post it under
-     its original basename with the body the poison message quoted:
+     its original basename with the body the doom message quoted:
      ```sh
      scripts/jobs/post-job.sh <original-base> <body-file>   # idempotent by basename
      ```
-     A poison whose repeated failure was NOT the outage (a genuinely stuck job)
+     A doom whose repeated failure was NOT the outage (a genuinely stuck job)
      should not be blindly re-posted — surface it to the maintainer instead.
-   - **Ack** (archive) the poison message once redispatched or triaged:
+   - **Ack** (archive) the doom message once redispatched or triaged:
      ```sh
      scripts/jobs/maintainer-archive.sh <msgid>
      ```
@@ -122,7 +122,7 @@ A short recovery tally to the maintainer, e.g.:
 
 > **Restore complete.** Pool: 20 gardeners running. Reaper: requeued 1 orphaned
 > claim (`xs2rust-endor-build-stage3b-binary`, re-claimed by gardener 5, session
-> resumed); poisoned 0. Deadmail: 0 dead letters. Inbox: 0 poison to redispatch.
+> resumed); doomed 0. Deadmail: 0 dead letters. Inbox: 0 doom to redispatch.
 
 ## Notes
 

@@ -131,7 +131,7 @@ by shape several belong at R1. This is not a rule bug but a **producer gap**: th
 watchers that post them stamp no role. The derivation-not-declaration fix is for
 the producer to stamp them (`role: watchman`/`role: triager` for the status
 drivers), after which the rule reads them correctly with no change here. Also
-note **61 of the 192 plan jobs are `poisoned:`** (requeue-exhausted /
+note **61 of the 192 plan jobs are `doomed:`** (requeue-exhausted /
 deadline-overrun parked failures): they are counted as backlog but flagged,
 because a large share of both the omega- and finite-terms is stuck-failed work,
 not healthy planning — which the bare triple would otherwise hide.

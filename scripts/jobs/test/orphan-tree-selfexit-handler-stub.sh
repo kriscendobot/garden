@@ -2,7 +2,7 @@
 # orphan-tree-selfexit-handler-stub.sh — a gardener job handler that SPAWNS A
 # DESCENDANT TREE and then EXITS ON ITS OWN with a non-zero, non-timeout code
 # (emulating a `claude -p` that crashed / hit a quota cut mid-run and returned,
-# leaving its endor/endor-xst/node tree running). This is the POISON / requeue-
+# leaving its endor/endor-xst/node tree running). This is the DOOM / requeue-
 # exhaustion path of the 2026-07-20/21 leak: NO `timeout` kill fires (the handler
 # returned before the wall), so the OLD gardener never touched the spawned tree and
 # it survived headless. gardener.sh's post-return process-group sweep now reaps it.

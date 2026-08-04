@@ -19,9 +19,9 @@ for two structural reasons:
 2. **CI waits are unbounded.** `ci-wait-merge.sh` polls GitHub CI, which can take
    tens of minutes per push, several times over a run.
 
-On 2026-07-28 nine jobs poisoned on `deadline-overrun`. The decisive one —
+On 2026-07-28 nine jobs doomed on `deadline-overrun`. The decisive one —
 `endo-sturdyref-agent-surface-build-gauntlet` — declared `handler-timeout: 14000`
-and poisoned anyway.
+and doomed anyway.
 
 ### Why raising the budget cannot be the answer
 
@@ -34,7 +34,7 @@ GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL   (default
 A handler budget of 14000s is already pressed against the ceiling; there is no
 headroom without also raising `GARDEN_CLAIM_TTL`, and raising *that* degrades the
 reaper's ability to recover genuinely dead claims (the failure that stranded 62
-jobs on a broken host the same day). The reaper also poisons a deadline overrun
+jobs on a broken host the same day). The reaper also dooms a deadline overrun
 after **one** cycle, not the usual five (`GARDEN_REAP_OVERRUN_THRESHOLD=1`),
 precisely because a job that exceeds its budget "would be killed identically on
 every requeue." **The budget ladder is exhausted. Splitting is the only remaining
@@ -96,7 +96,7 @@ more of exactly this shape:
 
   1. Read `current_child`'s board state: `done` (in `jobs/tada/`), `active` (in
      `todo/`/`doin/`), or `failed` (in NONE — promoted but vanished without a
-     `tada/` report: the reaper poisoned it, or its report carries
+     `tada/` report: the reaper doomed it, or its report carries
      `orchestration-failed: true`). This is byte-for-byte the state read
      `orchestrate.sh` already performs.
   2. `active` → wait (do nothing this tick).
@@ -266,7 +266,7 @@ decider hooks and asserts exactly one round runs and no fixer/undraft hook fires
   does a CI-blocking stage that spends `max_resumes` re-posts without CI ever going
   terminal.
 
-## Migration of the nine poisoned jobs
+## Migration of the nine doomed jobs
 
 The nine are **not** all gauntlets, and the honest migration treats them by shape.
 
@@ -300,11 +300,11 @@ promoted):**
 - The remaining named jobs that are already **absent** from `jobs/plan/`
   (`…-form-data-advisory`, `…-pr705-fixer-changes-requested`,
   `finbot-progress-20260728-065010`, `fu-…-pr825-8840fcdb-2`) were promoted,
-  re-poisoned under a different key, or renamed since the report; re-triage each by
+  re-doomed under a different key, or renamed since the report; re-triage each by
   shape when it resurfaces.
 
 The migration is **executed by the build child** (below), not by this design doc:
-each gauntlet-shaped poisoned job is re-posted as a gauntlet record once the driver
+each gauntlet-shaped doomed job is re-posted as a gauntlet record once the driver
 is live, and each non-gauntlet job is left parked with a one-line maintainer note
 that it needs its own decomposition.
 
@@ -332,7 +332,7 @@ This design is large enough that it lands with an **enabling primitive** and an
      path to create a record instead of a monolithic job;
    - demonstrate end-to-end on one real PR (each stage inside 2400s, chain reaches
      un-draft);
-   - execute the migration of the gauntlet-shaped poisoned jobs.
+   - execute the migration of the gauntlet-shaped doomed jobs.
 
 ## Notes
 

@@ -13,7 +13,7 @@
 #      whose acceptance was unknown at completion (a PR still in gauntlet/review).
 #      Finalize it from, in precedence order: a committed verdict override
 #      (reputation/verdicts/<base>) > a garden-internal main2 job (accepted on its
-#      un-poisoned tada) > leave pending (a PR outcome not yet known — a follow-on
+#      un-doomed tada) > leave pending (a PR outcome not yet known — a follow-on
 #      gh/merge-signal reader, deferred, will drop a verdict file). On finalize,
 #      compute the inferred human-review dollars from any committed review
 #      observables (reputation/reviews/<base>: rounds/comment_words) and fold them

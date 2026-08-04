@@ -99,13 +99,13 @@ complete_stage_nomarker() {  # complete_stage_nomarker <base>
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
-# A stage FAILING: the reaper poisoned/dropped it — it vanishes WITHOUT a tada report.
+# A stage FAILING: the reaper doomed/dropped it — it vanishes WITHOUT a tada report.
 fail_stage() {  # fail_stage <base>
   local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
-  git -C "$wt" "${git_id[@]}" commit -q -m "poison-drop($1)"
+  git -C "$wt" "${git_id[@]}" commit -q -m "doom-drop($1)"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -205,7 +205,7 @@ post_gauntlet g4 https://github.com/testowner/testrepo/pull/4
 
 tick   # post g4-clean
 in_dir jobs/todo g4-clean || bad "stagefail: g4-clean not posted"
-fail_stage g4-clean   # vanishes without a tada report (reaper poisoned it)
+fail_stage g4-clean   # vanishes without a tada report (reaper doomed it)
 tick   # detect failure → HALT
 { in_dir jobs/tada g4 && ! in_dir jobs/gauntlet g4; } \
   && ok "a vanished stage halted the run and closed the record" \

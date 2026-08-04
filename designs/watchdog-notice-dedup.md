@@ -31,7 +31,7 @@ throttled per dedup key (1h) and then posted a **fresh** message through
    **environmental** condition that every unit trips at once, so ~40 distinct keys
    reported the same sentence.
 
-The garden had already solved shape (1) once, for the reaper: `poison-notice.sh`
+The garden had already solved shape (1) once, for the reaper: `doom-notice.sh`
 keeps ONE keyed message per open condition and amends it (`notice_count`,
 `first_seen`, `last_seen`). That treatment simply never reached the watchdog path.
 
@@ -43,10 +43,10 @@ the sole producer of `watchdog:*` mail, so fixing it fixes every watchdog path
 journal-worktree keeper, the root-repo guard, `require_tools`) at once.
 
 1. **Coalesce.** Delivery routes through the new `scripts/jobs/watchdog-notice.sh`
-   — `poison-notice.sh` generalized from job+signature keys to condition keys. It
+   — `doom-notice.sh` generalized from job+signature keys to condition keys. It
    amends `inbox/maintainer/unread/watchdog-<key>.md` in place: `notice_count`
    rises, `first_seen` is preserved, `last_seen` refreshes, the body carries the
-   latest detail. Archive interaction follows the poison sibling: dedup applies
+   latest detail. Archive interaction follows the doom sibling: dedup applies
    only while the entry is UNREAD, so a re-occurrence after the maintainer (or the
    proxy's watchdog auto-clear) handled the prior one is seen again.
 2. **Count what the throttle suppresses.** Occurrences inside the throttle window

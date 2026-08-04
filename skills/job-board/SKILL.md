@@ -63,7 +63,7 @@ A gardener kills its handler at the default wall-clock budget
 `GARDEN_HANDLER_TIMEOUT` (2400 s = **40 min**). A job that legitimately runs longer —
 the paradigm case is a **cold `docker build`**, which can take a few hours — must
 declare its own budget or it is SIGTERM-killed at 40 min on **every** requeue and
-never completes (the docker build burns a gardener slot per cycle, then poisons).
+never completes (the docker build burns a gardener slot per cycle, then dooms).
 
 **A build role gets a larger budget automatically (2026-08-01).** `role: builder`
 and `role: web-builder` default to `GARDEN_BUILD_HANDLER_TIMEOUT` (**7200 s / 2 h**)
@@ -74,7 +74,7 @@ wall and the staleness guard cannot drift apart. Every other role is unchanged.
 This exists because the header was previously the *only* remedy and the producer had
 to remember it. When they forgot, the failure was expensive: the handler is
 SIGTERM-killed at 2400 s on **every** requeue, makes no progress, and the reaper
-poisons it as a deterministic overrun after one cycle. That is exactly how
+dooms it as a deterministic overrun after one cycle. That is exactly how
 `ebfb-pr882-bootstrap-generators` died (rc=124 at elapsed=2401 s, parked to `plan/`
 with two maintainer notices); its re-post then carried `handler-timeout: 7200`. The
 7200 s figure is where the fleet had already converged by hand — of the jobs then on
@@ -103,10 +103,10 @@ be split into claim-sized stages). To raise the ceiling, raise `GARDEN_CLAIM_TTL
 
 **Deterministic overrun surfaces fast.** A job that hits its wall with **no
 progress** is a deterministic overrun (it will overrun identically on every requeue);
-the reaper poisons it after **one** such cycle (`GARDEN_REAP_OVERRUN_THRESHOLD=1`),
+the reaper dooms it after **one** such cycle (`GARDEN_REAP_OVERRUN_THRESHOLD=1`),
 parking it held with a maintainer notice rather than churning ~5× the budget. A
 long job that makes progress each cycle (a per-job worktree HEAD advances — the
-sanctioned resume treadmill) is exempt and never poisons on that basis.
+sanctioned resume treadmill) is exempt and never dooms on that basis.
 
 ## Plan category — parked work, not claimable until promoted
 
@@ -146,7 +146,7 @@ posted_at: <iso8601>
   retry-with-backoff like `post-job.sh`. It **clears the reaper/gardener cycle
   markers** from the body it parks — the same family the promote path clears (below)
   — because a producer that RE-PARKS a body it read off the board would otherwise
-  smuggle a stale `garden-deadline-overrun` counter into `plan/`, where it re-poisons
+  smuggle a stale `garden-deadline-overrun` counter into `plan/`, where it re-dooms
   the job on its first evaluation after promotion. What it cleared is recorded in a
   `cleared:` frontmatter field, emitted **only** when something actually was, so an
   ordinary post's frontmatter is unchanged. The strip is idempotent and drops only
@@ -209,12 +209,12 @@ posted_at: <iso8601>
   (`garden-reaped`, `garden-deadline-overrun`, and the per-cycle `garden-reap-now` /
   `garden-productive-cycle` / `garden-outage-cycle` hints) and records the cleared
   set in the `garden-promoted-from-plan` provenance comment, so a job the reaper
-  POISON-PARKED gets a genuinely fresh run instead of being re-poisoned on its first
+  DOOM-PARKED gets a genuinely fresh run instead of being re-doomed on its first
   cycle off the stale counter. No manual "clear it before promoting" step is needed.
   (This is the **promotion** half; `post-plan.sh` above is the **parking** half. Both
   call the same `strip_cycle_markers` / `cycle_marker_summary` helpers in
   `scripts/jobs/common.sh`, so the family has one spelling. Coverage:
-  `scripts/jobs/test/promote-plan-poison-reset-test.sh`.)
+  `scripts/jobs/test/promote-plan-doom-reset-test.sh`.)
   Touches only its own basename, so it retries with backoff like a completion. Two
   promotion paths:
   1. **maintainer go-ahead** — the **liaison** (or the **proxy** within its

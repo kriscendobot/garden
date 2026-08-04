@@ -60,7 +60,7 @@ resolution is a **graduated, fallback-gated relaxation** of that bar.
    builder first*.
 
 3. **On failure, re-route rather than merely requeue.** The reaper — already the
-   single writer of the requeue and the poison counter — advances a failed kimi
+   single writer of the requeue and the doom counter — advances a failed kimi
    job's `model:` pin to the head of its `fallback-model:` chain, so an opus
    gardener claims the *same base* next. This is the fallback that does not exist
    today (§ *The fallback and requeue*).
@@ -77,7 +77,7 @@ flowchart TD
   P[builder job pinned model: kimi-k3<br/>fallback-model: opus] -->|flag on + chain present| M[mystic claims it]
   M -->|genuine failure x N| R{reaper requeue}
   R -->|chain has an entry| RR[re-route: model:=opus<br/>burn kimi-k3<br/>reset reap counter<br/>record kimi arm accepted:false]
-  R -->|chain empty| RQ[normal requeue / poison]
+  R -->|chain empty| RQ[normal requeue / doom]
   RR --> O[opus gardener claims same base<br/>FRESH session + FRESH worktree]
   O -->|success| DONE[tada]
   O -->|failure| RQ
@@ -137,7 +137,7 @@ re-route reuses it rather than inventing a parallel notion of failure:
 | completed but bad (panel reject / CI red / fix-loop stalls) | *no board edge exists today* | **phase 2** (§ Open questions) |
 
 So the re-route fires on a **genuine, non-environmental failure** — exactly the
-cycles the reaper already increments the poison counter on — once the count
+cycles the reaper already increments the doom counter on — once the count
 reaches `GARDEN_KIMI_FALLBACK_AFTER` (default `1`: fall back on the first genuine
 failure; the outage/productive exemptions already keep transients and progress
 from counting). The knob lets an operator give kimi more attempts before the hop.
@@ -166,7 +166,7 @@ markers, never frontmatter):
 burnable pin and `fallback-model:` is non-empty, it sets `model:` to the chain
 head, pops that head, and appends the old model to `model-burned:`. The reaper
 calls it in the requeue branch; when it re-routes it **resets the reap counter
-to 0** (a fresh provider earns a fresh poison budget) and logs the hop. Rewriting
+to 0** (a fresh provider earns a fresh doom budget) and logs the hop. Rewriting
 `model:` (rather than a side header) is deliberate: it is the one value
 `job_eligible_for_kind`, the handlers, and `rep_resolve_arm` all already read, so
 a re-routed job needs no new consumer — the opus gardener claims it because
@@ -202,7 +202,7 @@ not a `--resume`).
 
 One hop, not a cycle: the chain is finite, each hop pops one entry into
 `model-burned:`, and once `model:` is opus a mystic is ineligible. When the chain
-empties, the job requeues normally and poisons at the usual threshold if opus
+empties, the job requeues normally and dooms at the usual threshold if opus
 also fails — bounded total attempts (kimi's budget + opus's budget), never
 infinite, never back to kimi.
 
@@ -279,7 +279,7 @@ this evaluation rides on.
 ## Open questions
 
 - Should `GARDEN_KIMI_FALLBACK_AFTER` default to `1` (fall back on the first
-  genuine failure — conserves the poison budget, fastest evaluation signal) or
+  genuine failure — conserves the doom budget, fastest evaluation signal) or
   `2` (give kimi one free non-outage transient — e.g. a lone host death — before
   the hop)? Phase 1 ships `1`; revisit once real failure-mode data exists.
 - What is the exact "completed-but-bad" signal for phase 2 — a committed
@@ -310,6 +310,6 @@ this evaluation rides on.
    `gardener` (not a mystic) claims it, and its handler is launched with
    `--session-id` (fresh), never `--resume`.
 4. **Bound:** the re-routed opus job, failing again, requeues normally (no second
-   hop back to kimi) and poisons at the usual threshold.
+   hop back to kimi) and dooms at the usual threshold.
 5. **Evaluation honesty:** the re-route wrote a `reputation/events/*` entry for
    the `moonshot/kimi-k3` arm with `accepted: false`.

@@ -366,7 +366,7 @@ context/
     schedules.md                recurring and one-shot schedules (routes to
                                 skills/schedule).
     health.md                   failed units, the restore engagement (routes
-                                to skills/restore), reaper/deadmail/poison in
+                                to skills/restore), reaper/deadmail/doom in
                                 one operator paragraph each.
 ```
 

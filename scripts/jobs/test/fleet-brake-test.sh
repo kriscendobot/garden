@@ -2,12 +2,12 @@
 # fleet-brake-test.sh — unit guard for the shared fleet brake and the per-worker
 # transient-failure backoff (gardener.sh + common.sh).
 #
-# Motivation (the 2026-07-01 quota-storm poisoning): on a correlated Claude
+# Motivation (the 2026-07-01 quota-storm dooming): on a correlated Claude
 # quota/usage outage every gardener's handler failed transiently, but the loop
 # applied NO delay on either transient path — a just-failed worker fell straight
 # back to the claim head and re-ran the next job against the already-exhausted
 # quota, and ~100 workers doing so in lockstep amplified the outage and churned
-# todo<->doin until the reaper poisoned a dozen unrelated jobs. The fix adds
+# todo<->doin until the reaper doomed a dozen unrelated jobs. The fix adds
 #   (a) a per-worker exponential+jittered backoff (idle_backoff("$fail_attempt"))
 #       after any transient-classified handler failure, and
 #   (b) a SHARED host-local fleet brake: every gardener stamps a rolling ledger on

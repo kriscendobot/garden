@@ -8,7 +8,7 @@
 # board. A host without the CLI therefore failed every job in about a second and
 # returned to its poll loop far faster than a healthy worker doing real work, so it
 # WON CLAIM RACES DISPROPORTIONATELY: it drained the fleet's board into doin/,
-# failed everything, and the reaper requeued each job until it poisoned. Evidence:
+# failed everything, and the reaper requeued each job until it doomed. Evidence:
 # 249 journal entries mentioning ps23, ZERO tada completions, and all 52 claims in
 # jobs/doin/ held by ps23 while every other host sat idle. Nor could a peer stop it —
 # set-gardeners.sh refuses a cross-host write and drain-fleet.sh's marker is

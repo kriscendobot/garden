@@ -226,11 +226,11 @@ handler_new_sha="$(cut -f3 "$CALLS" | head -1)"
 [ "$(cursor_field "activity/$SLUG" last_sha)" = "$HEADSHA" ] && ok "activity cursor advanced to the clean sha" || bad "cursor = $(cursor_field "activity/$SLUG" last_sha) (want $HEADSHA)"
 
 # ============================================================================
-hr; echo "F — poisoned multi-line new_sha trips the ^[0-9a-f]{40}$ guard (dies loudly, no handler)"; hr
+hr; echo "F — doomed multi-line new_sha trips the ^[0-9a-f]{40}$ guard (dies loudly, no handler)"; hr
 # Defense-in-depth for the fix in E: if a future edit ever reintroduces a two-line
 # new_sha (e.g. a dropped `-q` gluing 'refs/remotes/origin/<ref>\n<sha>' together),
 # the guard must FAIL LOUDLY at the source, not pass a bad revision to the handler.
-# We reproduce that exact poisoning with a scoped `git` shim: it emits the corrupted
+# We reproduce that exact dooming with a scoped `git` shim: it emits the corrupted
 # two-line output for ONLY the primary `rev-parse … refs/remotes/origin/<ref>` call
 # and passes every other git invocation through to the real binary.
 rm -rf "$TR/state5"; STATE="$TR/state5"
@@ -240,7 +240,7 @@ REAL_GIT="$(command -v git)"
 SHIMDIR="$TR/shimbin"; mkdir -p "$SHIMDIR"
 cat > "$SHIMDIR/git" <<EOF
 #!/bin/bash
-# poison ONLY the triager's primary verify-rev-parse of refs/remotes/origin/$REF;
+# doom ONLY the triager's primary verify-rev-parse of refs/remotes/origin/$REF;
 # pass everything else (fallback, symbolic-ref, fetch, cursor clones) to real git.
 # The triager peels with ^{commit}, so the primary arg is refs/remotes/origin/<ref>^{commit}.
 for _a in "\$@"; do [ "\$_a" = rev-parse ] && _rp=1; done
@@ -264,8 +264,8 @@ rc=$?
 set -e
 [ "$rc" -ne 0 ] && ok "tick dies non-zero on a malformed new_sha (guard fired)" || bad "tick exit = $rc (want non-zero: the guard must reject a multi-line new_sha)"
 # CALLS is zero-size iff the handler never ran (calls() doubles "0" on an empty log).
-[ ! -s "$CALLS" ] && ok "handler never invoked (guard fails before the triage handoff)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a poisoned revision must not reach the handler)"
-[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced past the poisoned change" || bad "cursor advanced to $(cursor_field "activity/$SLUG" last_sha) (want empty; a bad sha must not be committed)"
+[ ! -s "$CALLS" ] && ok "handler never invoked (guard fails before the triage handoff)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a doomed revision must not reach the handler)"
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced past the doomed change" || bad "cursor advanced to $(cursor_field "activity/$SLUG" last_sha) (want empty; a bad sha must not be committed)"
 
 # ============================================================================
 hr; echo "G — cold-start, ref DERIVED from HEAD (no GARDEN_WATCH_REF): remote-tracking ref absent, local heads/master present"; hr

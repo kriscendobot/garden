@@ -64,7 +64,7 @@
 # body), and that body carries whatever markers the job had accumulated. Passing it
 # through verbatim smuggled a stale counter into plan/, where — at
 # GARDEN_REAP_OVERRUN_THRESHOLD=1 — a single surviving `garden-deadline-overrun` line
-# re-poisons the job on its FIRST evaluation after promotion, making promotion a no-op
+# re-dooms the job on its FIRST evaluation after promotion, making promotion a no-op
 # the job cannot escape (the failure promote-plan.sh's own strip was written for; see
 # its header and the 07-26 endo-sturdyref-agent-surface-build-gauntlet park).
 #
@@ -76,7 +76,7 @@
 # transformation: only whole cycle-marker lines are dropped, never a body's own `---`
 # rules or any other HTML comment. Nothing is lost that the job re-earns by construction:
 # the reaper's protection is intact, since a job that still fails deterministically
-# re-accumulates and re-poisons on its own.
+# re-accumulates and re-dooms on its own.
 #
 # Idempotent on the basename, exactly like post-job.sh: if <basename> already
 # exists anywhere in the lifecycle (plan/todo/doin/tada) the post is a no-op

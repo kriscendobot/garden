@@ -1,22 +1,22 @@
 #!/bin/bash
-# outage-poison-pause-test.sh — regression guard for the SUSTAINED-OUTAGE poison
-# pause (fu-investigate-poisoned-garden-infra-jobs-2, 2026-07-05).
+# outage-doom-pause-test.sh — regression guard for the SUSTAINED-OUTAGE doom
+# pause (fu-investigate-doomed-garden-infra-jobs-2, 2026-07-05).
 #
-# THE GAP THIS CLOSES: the reaper poisons a job after GARDEN_REAP_POISON_THRESHOLD
+# THE GAP THIS CLOSES: the reaper dooms a job after GARDEN_REAP_DOOM_THRESHOLD
 # requeue cycles on the assumption that a handler requeued that many times "fails
 # every time". But during a fleet-wide correlated outage (a Claude quota/usage cut,
 # an API-overload storm) MANY handlers transient-fail at once for reasons that have
 # nothing to do with any one job's content. Left alone, a healthy job racks up the
-# full poison threshold of purely-environmental cycles and is parked + paged — the
-# 2026-07-01 storm that poisoned a dozen unrelated jobs.
+# full doom threshold of purely-environmental cycles and is parked + paged — the
+# 2026-07-01 storm that doomed a dozen unrelated jobs.
 #
 # THE FIX: the shared FLEET BRAKE already distinguishes a correlated storm (many
 # transient failures across the pool) from a one-off blip. When a gardener transient-
 # fails while the brake is ENGAGED it stamps `<!-- garden-outage-cycle -->` on its
-# still-in-doin claim; the reaper READS it and PAUSES the poison counter for that
+# still-in-doin claim; the reaper READS it and PAUSES the doom counter for that
 # cycle — HOLDS it at the prior value (neither incrementing toward the threshold nor
-# resetting it), and never poisons on an outage cycle. Once the outage clears the
-# gardener stops stamping the marker and a still-failing job poisons on its own
+# resetting it), and never dooms on an outage cycle. Once the outage clears the
+# gardener stops stamping the marker and a still-failing job dooms on its own
 # non-outage cycles. The marker is re-earned each cycle (clean_body strips it).
 #
 # SUBTEST 1 — pure helpers has_outage_cycle_hint / stamp_outage_cycle_hint: the
@@ -26,11 +26,11 @@
 #             engaged → the gardener stamps the outage-cycle marker on its doin claim;
 #             the same failure with the brake DISENGAGED does NOT.
 # SUBTEST 3 — reaper: a stale claim flagged outage is REQUEUED with the counter HELD
-#             (not incremented, not reset) and NOT poisoned even at/over threshold,
-#             while an identical NON-outage claim POISONS at the same threshold — the
-#             environmental-storm false-poison is gone, the genuine-failure case kept.
+#             (not incremented, not reset) and NOT doomed even at/over threshold,
+#             while an identical NON-outage claim DOOMS at the same threshold — the
+#             environmental-storm false-doom is gone, the genuine-failure case kept.
 #
-# Usage: outage-poison-pause-test.sh
+# Usage: outage-doom-pause-test.sh
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
@@ -160,13 +160,13 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 3 — reaper: outage claim HOLDS the counter (not poisoned); non-outage poisons"; hr
+hr; echo "SUBTEST 3 — reaper: outage claim HOLDS the counter (not doomed); non-outage dooms"; hr
 T3="$TR/reaper"; mkdir -p "$T3"
 BARE3="$(seed_board "$T3" xjob)"   # board structure (job body reused as fixtures below)
 export JOURNAL_REMOTE="$BARE3" JOURNAL_BRANCH=journal2
 export GARDEN=reaphost GARDEN_STATE="$T3/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
-export GARDEN_REAP_POISON_THRESHOLD=3 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_CLAIM_TTL=3600
+export GARDEN_REAP_DOOM_THRESHOLD=3 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_CLAIM_TTL=3600
 
 # place_stale <base> <outage:0|1> [reaped:N] — a STALE claim in doin (claimed_at past
 # TTL), optionally carrying the outage marker and/or a prior reap-count marker
@@ -188,38 +188,38 @@ place_stale() {
 }
 resync3() { rm -rf "$T3/v"; git clone -q --single-branch --branch journal2 "$BARE3" "$T3/v"; }
 
-# An OUTAGE stale claim already AT the poison threshold (reaped:3, threshold 3) must
-# NOT poison: it requeues to todo with the counter HELD at 3 (not incremented to 4,
+# An OUTAGE stale claim already AT the doom threshold (reaped:3, threshold 3) must
+# NOT doom: it requeues to todo with the counter HELD at 3 (not incremented to 4,
 # not reset to 0) and the outage marker stripped (re-earned next cycle).
 place_stale outjob 1 3
 "$JOBS/reaper.sh" > "$T3/reap-out.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-out.log"; }
 resync3
 out_ok=1
 [ -f "$T3/v/jobs/todo/outjob.md" ] || { out_ok=0; echo "    outjob not requeued to todo/"; }
-[ -f "$T3/v/jobs/plan/outjob.md" ] && { out_ok=0; echo "    outjob was POISONED (parked in plan/) despite the outage pause"; }
+[ -f "$T3/v/jobs/plan/outjob.md" ] && { out_ok=0; echo "    outjob was DOOMED (parked in plan/) despite the outage pause"; }
 [ -f "$T3/v/jobs/doin/outjob.md" ] && { out_ok=0; echo "    outjob still in doin/"; }
 if [ -f "$T3/v/jobs/todo/outjob.md" ]; then
   grep -Eq '^<!-- garden-reaped: 3 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    reap counter not HELD at 3 ($(grep -o 'garden-reaped: [0-9]*' "$T3/v/jobs/todo/outjob.md" | head -1))"; }
   grep -Eq '^<!-- garden-outage-cycle -->$' "$T3/v/jobs/todo/outjob.md" && { out_ok=0; echo "    outage marker not stripped on requeue"; }
 fi
 [ "$out_ok" -eq 1 ] \
-  && ok "an OUTAGE cycle AT threshold 3 → requeued to todo (counter HELD at 3, marker stripped), NOT poisoned" \
+  && ok "an OUTAGE cycle AT threshold 3 → requeued to todo (counter HELD at 3, marker stripped), NOT doomed" \
   || bad "outage-cycle pause failed (todo=$([ -f "$T3/v/jobs/todo/outjob.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/outjob.md" ] && echo y || echo n))"
 
 # The genuine-failure case is preserved: a NON-outage stale claim at the same reaped
-# count increments to threshold and POISONS — parked in plan/ (held), gone from doin,
+# count increments to threshold and DOOMS — parked in plan/ (held), gone from doin,
 # not in todo.
-place_stale failjob 0 2   # reaped 2, +1 this cycle = 3 = threshold → poison
+place_stale failjob 0 2   # reaped 2, +1 this cycle = 3 = threshold → doom
 "$JOBS/reaper.sh" > "$T3/reap-fail.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-fail.log"; }
 resync3
 fail_ok=1
-[ -f "$T3/v/jobs/plan/failjob.md" ] || { fail_ok=0; echo "    failjob not poisoned/parked in plan/"; }
-[ -f "$T3/v/jobs/todo/failjob.md" ] && { fail_ok=0; echo "    failjob leaked into todo/ (should have poisoned)"; }
+[ -f "$T3/v/jobs/plan/failjob.md" ] || { fail_ok=0; echo "    failjob not doomed/parked in plan/"; }
+[ -f "$T3/v/jobs/todo/failjob.md" ] && { fail_ok=0; echo "    failjob leaked into todo/ (should have doomed)"; }
 [ -f "$T3/v/jobs/doin/failjob.md" ] && { fail_ok=0; echo "    failjob still in doin/"; }
-[ -f "$T3/v/jobs/plan/failjob.md" ] && { grep -q '^poisoned: true$' "$T3/v/jobs/plan/failjob.md" || { fail_ok=0; echo "    plan entry missing poisoned provenance"; }; }
+[ -f "$T3/v/jobs/plan/failjob.md" ] && { grep -q '^doomed: true$' "$T3/v/jobs/plan/failjob.md" || { fail_ok=0; echo "    plan entry missing doomed provenance"; }; }
 [ "$fail_ok" -eq 1 ] \
-  && ok "a NON-outage cycle still increments and POISONS at the threshold (parked in plan/, held) — genuine-failure case preserved" \
-  || bad "non-outage poison broke (plan=$([ -f "$T3/v/jobs/plan/failjob.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failjob.md" ] && echo y || echo n))"
+  && ok "a NON-outage cycle still increments and DOOMS at the threshold (parked in plan/, held) — genuine-failure case preserved" \
+  || bad "non-outage doom broke (plan=$([ -f "$T3/v/jobs/plan/failjob.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failjob.md" ] && echo y || echo n))"
 
 # An OUTAGE cycle also HOLDS (does not reset) a partial count: reaped 2 + outage →
 # requeued holding 2 (a reset would erase legitimate prior no-progress failures).

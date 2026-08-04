@@ -11,7 +11,7 @@
 # econnreset|etimedout), so each fell through to the real-failure branch
 # (gardener.sh:357), was escalated to the gardener inbox as a lane-0
 # handler-nonzero defect, and left in doin — where the reaper requeues it to
-# re-fail identically until the cap resets, poison-counting toward a FALSE
+# re-fail identically until the cap resets, doom-counting toward a FALSE
 # maintainer escalation. A Claude Code session/usage cap that names its own reset
 # time is the definitive self-resolving transient: requeuing past the reset
 # succeeds. The fix extends the canonical GARDEN_TRANSIENT_CLAUDE_SIGNATURES set

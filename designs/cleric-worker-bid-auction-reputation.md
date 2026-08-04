@@ -589,9 +589,9 @@ reputation/arms/<kind>/<provider>/<model>/<thoughtfulness>/<work_class>@<target>
   self-asserted posterior is verified against it (§3.2).
 - **Acceptance signals**, in precedence order: maintainer override (a journal
   message naming the base/PR) > merge/un-draft of the PR at its target >
-  gauntlet/panel verdict > reap-poisoned/abandoned (counts as rejected, with
+  gauntlet/panel verdict > reap-doomed/abandoned (counts as rejected, with
   its sunk cost). A garden-internal job with no PR (like this design) is
-  accepted on un-poisoned tada plus, when contested, maintainer word.
+  accepted on un-doomed tada plus, when contested, maintainer word.
 - **Cost-censored samples** (usage capture failed): count toward the
   acceptance rate, excluded from the dollar mean, flagged in the projection
   (`censored: n`) so a systematically-censoring backend is visible. The two
@@ -660,7 +660,7 @@ Phased, additive, race-preserving — the market design's §6 discipline:
    work and as the degradation floor of every auction (§3.2 liveness).
 
 Safety properties preserved at every phase: the push CAS is the only
-serialization point; the reaper's requeue/poison machinery is untouched (an
+serialization point; the reaper's requeue/doom machinery is untouched (an
 awarded claim is an ordinary claim); a wedged auction degrades to the race in
 `bid_window + 3·grace`; reputation is append-only data that is harmless if
 ignored.
@@ -682,7 +682,7 @@ proceed on the recommended defaults unless overridden.
   exploration → rich-get-richer).
 - **D3 — Reputation acceptance signal.** *Recommend the §4.5 precedence:
   maintainer override > merge/un-draft per target > gauntlet verdict >
-  poison/abandon = rejected.* Alternative: gauntlet-only (cleaner but blind to
+  doom/abandon = rejected.* Alternative: gauntlet-only (cleaner but blind to
   post-gauntlet review cost, which is exactly the human-dollar signal).
 - **D4 — Human-review inference constants.** *Recommend base 5 min/round +
   words/20 wpm at $125/hr, all in `reputation/rate-card.md`.* These are

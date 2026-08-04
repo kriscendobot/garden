@@ -112,7 +112,7 @@ directly into board data.
   board: each stage posts its own continuation (`-s2`, `-s3`, ... `-s18`)
   parked `--blocked --blocked-on` the stage before it, so the unblock watcher
   revives the supervisor the moment its predecessor completes. No idle
-  polling, no long-blocked claim for the reaper to poison; by stage 18 the
+  polling, no long-blocked claim for the reaper to doom; by stage 18 the
   handoff header narrates quantitative acceptance bars (60 CESU-8 divergences
   remaining) and a kill criterion checked each round
   (`journal/jobs/tada/port-xs-to-rust-memory-safe-engine.md`,

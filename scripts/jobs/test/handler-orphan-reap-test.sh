@@ -2,7 +2,7 @@
 # handler-orphan-reap-test.sh — the structural backstop for the 2026-07-20/21
 # incident: the xs2rust-endor-press leaked 356 orphaned processes (four `endor-xst`
 # pegging full cores plus a 344-proc `endor`/`manager-node.js` daemon tree) because
-# a claim-scoped handler that overran / poisoned left the OS process tree it spawned
+# a claim-scoped handler that overran / doomed left the OS process tree it spawned
 # running headless, reparented to `systemd --user` with no agent watching.
 #
 # The fix: gardener.sh launches every handler in its OWN process group (job control,
@@ -140,10 +140,10 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 3 — integration: a handler that SELF-EXITS (poison path, no timeout kill) also leaves ZERO orphans"; hr
+hr; echo "SUBTEST 3 — integration: a handler that SELF-EXITS (doom path, no timeout kill) also leaves ZERO orphans"; hr
 # The true incident discriminator. On rc=124 the OLD `timeout` already group-killed
 # a non-detaching tree, but when the handler RETURNS ON ITS OWN (a `claude -p` that
-# crashed / hit a quota cut, then requeue-exhausts into poison) NO timeout kill fires
+# crashed / hit a quota cut, then requeue-exhausts into doom) NO timeout kill fires
 # and the OLD gardener never touched the spawned tree — it survived headless. The
 # unconditional post-return sweep now reaps it. Same seeded board, a stub that spawns
 # a tree then `exit 7` (non-124, non-signal).
@@ -179,12 +179,12 @@ fi
 if grep -Eq "rc=124" "$TR2/gardener.log"; then
   bad "unexpected rc=124 — the self-exit path must NOT trip the timeout wall (budget was 30s, handler self-exits at ~1s)"
 else
-  ok "handler self-exited (no timeout kill fired — this is the poison path, not the wall)"
+  ok "handler self-exited (no timeout kill fired — this is the doom path, not the wall)"
 fi
 sleep 0.5
 if [ "${#tree_pids2[@]}" -ge 1 ] && any_alive "${tree_pids2[@]}"; then
   survivors2="$(ps -o pid,ppid,pgid,cmd -p "$(IFS=,; echo "${tree_pids2[*]}")" 2>/dev/null | tail -n +2)"
-  bad "ORPHANS SURVIVED a self-exit — the poison-path leak is NOT fixed:"
+  bad "ORPHANS SURVIVED a self-exit — the doom-path leak is NOT fixed:"
   echo "$survivors2" | sed 's/^/        /'
   for p in "${tree_pids2[@]}"; do kill -KILL "$p" 2>/dev/null || true; done
 else

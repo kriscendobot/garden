@@ -8,8 +8,8 @@
 # Claude Code session/usage cap tripping at the same point every run — the
 # 2026-07-01 incident — or a prompt that always drives the CLI to the same failure)
 # is classified TRANSIENT by gardener.sh's handler-failure classifier and requeued
-# UNCHANGED through all GARDEN_REAP_POISON_THRESHOLD (default 5) cycles before the
-# reaper's poison counter surfaces it (~5×TTL). Its tell is a near-CONSTANT elapsed
+# UNCHANGED through all GARDEN_REAP_DOOM_THRESHOLD (default 5) cycles before the
+# reaper's doom counter surfaces it (~5×TTL). Its tell is a near-CONSTANT elapsed
 # across requeue cycles: a genuine deploy/drain/OOM blip is killed at a VARIED
 # elapsed (and reads as an external-kill/timeout rc), whereas a deterministic
 # overrun dies at the same wall-time every cycle.
@@ -26,8 +26,8 @@
 # SUBTEST 1 drives the pure helpers directly. SUBTEST 2 is the integration case: a
 # job on its 3rd requeue cycle (reap-count 2) with two constant-elapsed prior notes
 # seeded, failing again transiently at the same elapsed — the escalation must fire
-# (inbox + kind:error), the EARLY-POISON overrun counter must be stamped (so the
-# reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD, not the full poison threshold),
+# (inbox + kind:error), the EARLY-DOOM overrun counter must be stamped (so the
+# reaper dooms after GARDEN_REAP_OVERRUN_THRESHOLD, not the full doom threshold),
 # and the job STAYS in doin (requeue ownership unchanged).
 # SUBTEST 3 is the disable gate (GARDEN_ELAPSED_CONSTANCY_CYCLES=0 → no escalation).
 # SUBTEST 4 is the dedup guard: a prior escalation entry for the base suppresses a
@@ -164,7 +164,7 @@ else
 fi
 # (b) the elapsed-constancy escalation fired (the new behavior).
 if grep -q "elapsed-constancy early-escalation for 'overrunjob'" "$TR2/gardener.log"; then
-  ok "elapsed-constancy early-escalation fired at cycle 2 (before the ~5-cycle poison threshold)"
+  ok "elapsed-constancy early-escalation fired at cycle 2 (before the ~5-cycle doom threshold)"
 else
   bad "escalation did NOT fire; log: $(grep -i 'constancy\|transient\|cycle' "$TR2/gardener.log" | tail -5)"
 fi
@@ -186,14 +186,14 @@ if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ ! -f "$V2/jobs/tada/overrunjob.md" 
 else
   bad "job not left in doin (doin=$([ -f "$V2/jobs/doin/overrunjob.md" ] && echo y || echo n) tada=$([ -f "$V2/jobs/tada/overrunjob.md" ] && echo y || echo n))"
 fi
-# (f) the EARLY-POISON hint was stamped: the confirming cycle stamps the SAME
-# deadline-overrun counter the rc=124 wall-hit path uses, so the reaper poisons this
-# job after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle rather than the full poison
+# (f) the EARLY-DOOM hint was stamped: the confirming cycle stamps the SAME
+# deadline-overrun counter the rc=124 wall-hit path uses, so the reaper dooms this
+# job after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle rather than the full doom
 # threshold. deadline_overrun_count reads the counter that landed on the doin body.
 if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")" -ge 1 ]; then
-  ok "early-poison overrun counter stamped on the doin job (deadline_overrun_count=$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")) — reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD, not the full threshold"
+  ok "early-doom overrun counter stamped on the doin job (deadline_overrun_count=$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")) — reaper dooms after GARDEN_REAP_OVERRUN_THRESHOLD, not the full threshold"
 else
-  bad "no early-poison overrun counter on the doin job (constancy path did not stamp it; count=$([ -f "$V2/jobs/doin/overrunjob.md" ] && deadline_overrun_count "$V2/jobs/doin/overrunjob.md" || echo n/a))"
+  bad "no early-doom overrun counter on the doin job (constancy path did not stamp it; count=$([ -f "$V2/jobs/doin/overrunjob.md" ] && deadline_overrun_count "$V2/jobs/doin/overrunjob.md" || echo n/a))"
 fi
 # (g) the commit reason distinguishes the constancy stamp from a plain wall-hit.
 # Materialize the log FIRST: under `set -o pipefail` (line 45) a `git log | grep -q`
@@ -202,9 +202,9 @@ fi
 # "commit reason missing" while the very log the failure message printed contained it.
 V2LOG="$TR2/verify-log"; git -C "$V2" log --oneline -20 > "$V2LOG"
 if grep -q "elapsed-constancy deterministic overrun" "$V2LOG"; then
-  ok "early-poison stamp carried the elapsed-constancy commit reason (audit trail honest)"
+  ok "early-doom stamp carried the elapsed-constancy commit reason (audit trail honest)"
 else
-  bad "early-poison stamp commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"
+  bad "early-doom stamp commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"
 fi
 
 # ============================================================================
@@ -294,7 +294,7 @@ else
 fi
 # (c) a REAL-failure inbox escalation WAS created (surfaces the setup/spec defect now).
 if [ -e "$CLONE6/inboxes/echost6/gardener.md" ] && grep -q "handler-nonzero" "$CLONE6/inboxes/echost6/gardener.md"; then
-  ok "real-failure escalation created (handler-nonzero) — the defect surfaces immediately, not after the poison cycle"
+  ok "real-failure escalation created (handler-nonzero) — the defect surfaces immediately, not after the doom cycle"
 else
   bad "no real-failure inbox escalation for the sub-floor signature (file=$([ -e "$CLONE6/inboxes/echost6/gardener.md" ] && echo y || echo n))"
 fi
@@ -351,14 +351,14 @@ hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior notes
 # $CLONE onto the origin tip that now CONTAINS it — so the "prior" series ended with
 # THIS cycle's elapsed and the appended current value duplicated it. The window was
 # [current, current]: bit-identical by construction, so constancy was ALWAYS confirmed.
-# On 2026-07-28 that stamped the early-poison overrun counter on nine unrelated jobs in
+# On 2026-07-28 that stamped the early-doom overrun counter on nine unrelated jobs in
 # eight minutes on one host — each reported as a perfect pair at a DIFFERENT value
 # (12,12s / 61,61s / 1403,1403s …) — and at GARDEN_REAP_OVERRUN_THRESHOLD=1 the reaper
-# poison-parked four of them, one of which had only ever run ONE cycle.
+# doom-parked four of them, one of which had only ever run ONE cycle.
 #
 # This fixture is exactly that shape: the cycle floor is CLEARED (reap-count 2) but
 # there are NO prior notes at all, so a correct window can never be full. Nothing may
-# escalate, and — the damaging half — the early-poison counter must NOT be stamped.
+# escalate, and — the damaging half — the early-doom counter must NOT be stamped.
 read -r TR9 BARE9 < <(build_fixture 2 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9"' EXIT
 run_gardener "$BARE9" echost9 "$TR9" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
@@ -376,11 +376,11 @@ if grep -q "elapsed-constancy early-escalation" "$TR9/gardener.log"; then
 else
   ok "no escalation with zero prior cycles (the window was never full)"
 fi
-# (c) the damaging half: NO early-poison overrun counter stamped.
+# (c) the damaging half: NO early-doom overrun counter stamped.
 if [ -f "$V9/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V9/jobs/doin/overrunjob.md")" -ge 1 ]; then
-  bad "SELF-SAMPLE: early-poison overrun counter stamped with zero prior cycles — the reaper would poison this job at GARDEN_REAP_OVERRUN_THRESHOLD=1 on its FIRST run"
+  bad "SELF-SAMPLE: early-doom overrun counter stamped with zero prior cycles — the reaper would doom this job at GARDEN_REAP_OVERRUN_THRESHOLD=1 on its FIRST run"
 else
-  ok "no early-poison overrun counter stamped (job cannot be poison-parked on its first cycle)"
+  ok "no early-doom overrun counter stamped (job cannot be doom-parked on its first cycle)"
 fi
 # (d) no inbox escalation either.
 if [ -e "$CLONE9/inboxes/echost9/gardener.md" ]; then
@@ -393,7 +393,7 @@ fi
 hr; echo "SUBTEST 10 — VARIED priors: a genuinely varied elapsed series must NOT confirm constancy"; hr
 # The complement of SUBTEST 2: same cleared cycle floor, but the prior cycles died at
 # 470s and 900s while this one dies at ~3s. A correct trailing window (900, 3) is
-# nowhere near constant, so neither the escalation nor the early-poison stamp may
+# nowhere near constant, so neither the escalation nor the early-doom stamp may
 # fire. Under the self-sample defect the window was (3, 3) and BOTH did.
 read -r TR10 BARE10 < <(build_fixture 2 2 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9" "$TR10"' EXIT
@@ -406,9 +406,9 @@ else
   ok "no escalation on a varied elapsed series (470,900 → 3s)"
 fi
 if [ -f "$V10/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V10/jobs/doin/overrunjob.md")" -ge 1 ]; then
-  bad "SELF-SAMPLE: early-poison overrun counter stamped on a VARIED series"
+  bad "SELF-SAMPLE: early-doom overrun counter stamped on a VARIED series"
 else
-  ok "no early-poison overrun counter stamped on a varied elapsed series"
+  ok "no early-doom overrun counter stamped on a varied elapsed series"
 fi
 if [ -e "$CLONE10/inboxes/echost10/gardener.md" ]; then
   bad "inbox escalation created on a varied elapsed series"

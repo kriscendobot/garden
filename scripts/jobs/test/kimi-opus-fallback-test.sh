@@ -131,7 +131,7 @@ seed_and_reap() {  # seed_and_reap <label> <flag> <model> <chain> <burned>
   env GARDEN=reaphost GARDEN_STATE="$root/state" \
       JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$branch" \
       GARDEN_HANDLER_TIMEOUT=5 GARDEN_HANDLER_KILL_AFTER=1 GARDEN_REAP_SAFETY_SLACK=1 \
-      GARDEN_CLAIM_TTL=10 GARDEN_KIMI_FALLBACK_AFTER=1 GARDEN_REAP_POISON_THRESHOLD=5 \
+      GARDEN_CLAIM_TTL=10 GARDEN_KIMI_FALLBACK_AFTER=1 GARDEN_REAP_DOOM_THRESHOLD=5 \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/reaper.sh" > "$root/reap.log" 2>&1 || echo "    (reaper rc=$? — see $root/reap.log)"
   local v="$root/verify"; git clone -q --single-branch --branch "$branch" "$bare" "$v" 2>/dev/null

@@ -257,7 +257,7 @@ The deterministic **`orchestrate.sh`** watcher (the leader-only
 `garden-orchestrate` timer, **no `claude -p`**) then drives it: serial promotes one
 child at a time, watching each reach `jobs/tada/` before the next; parallel
 promotes all at once; a **child failure** (a child that vanished from the board
-without a `tada/` report — the reaper poisoned it — or a report marked
+without a `tada/` report — the reaper doomed it — or a report marked
 `orchestration-failed: true`) triggers the policy (**halt** a serial run + surface
 to the maintainer, or **continue**) rather than a silent stall. It is built ON the
 same deterministic promote-when-the-board-reaches-a-state substrate as

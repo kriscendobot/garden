@@ -2,7 +2,7 @@
 # botany-worktree-scripts-disabled-test.sh — prove, with a REAL package manager and
 # a REAL lifecycle-script sentinel, that a botanist worktree is provisioned WITHOUT
 # running the untrusted new version's install scripts, and that doing so does not
-# poison the native-build cache ordinary jobs reuse.
+# doom the native-build cache ordinary jobs reuse.
 #
 # The gap this regresses (reported 2026-07-29 from the botany of
 # endojs/endo-but-for-bots#867): roles/botanist/AGENT.md mandates a scripts-disabled
@@ -30,7 +30,7 @@
 #      regression — sentinel absent, proven against a real npm).
 #   3. The two policies keep DISJOINT caches: the botanist tree is keyed
 #      `<lockhash>-scripts-disabled`, the ordinary one `<lockhash>-native-builds`, and
-#      a later ordinary job on the SAME lockfile still runs scripts (no poison).
+#      a later ordinary job on the SAME lockfile still runs scripts (no doom).
 #
 # Needs a real `npm` (an independent authority on the scripts-disabled env); SKIPs
 # cleanly when absent. Hermetic otherwise: throwaway bare "fork" clone + throwaway
@@ -144,7 +144,7 @@ P_BOT="$(run garden-botany-review GARDEN_JOB_ROLE=botanist)"
   && ok "botanist job does NOT run install scripts (sentinel absent against real npm — the fix holds)" \
   || bad "botanist job RAN install scripts (sentinel present at $P_BOT/LIFECYCLE_RAN) — the supply-chain gap is OPEN"
 
-# === 3: the two policies keep DISJOINT caches (no poisoning) ==================
+# === 3: the two policies keep DISJOINT caches (no dooming) ==================
 [ -d "$CACHE/$LOCKHASH-native-builds" ] \
   && ok "the ordinary cache is keyed <lockhash>-native-builds" \
   || bad "no native-builds cache dir at $CACHE/$LOCKHASH-native-builds"
@@ -152,11 +152,11 @@ P_BOT="$(run garden-botany-review GARDEN_JOB_ROLE=botanist)"
   && ok "the botanist cache is keyed <lockhash>-scripts-disabled (disjoint namespace)" \
   || bad "no scripts-disabled cache dir at $CACHE/$LOCKHASH-scripts-disabled"
 # A SECOND ordinary job on the SAME lockfile must still get scripts run — i.e. the
-# scripts-disabled cache did not poison the native-build key it shares a slug with.
+# scripts-disabled cache did not doom the native-build key it shares a slug with.
 P_ORD2="$(run garden-ordinary-build-2)"
 [ -f "$P_ORD2/LIFECYCLE_RAN" ] \
-  && ok "a later ordinary job on the same lockfile still runs scripts (scripts-disabled cache did not poison it)" \
-  || bad "a later ordinary job got a scripts-disabled tree — the scripts-disabled cache POISONED the native-build key"
+  && ok "a later ordinary job on the same lockfile still runs scripts (scripts-disabled cache did not doom it)" \
+  || bad "a later ordinary job got a scripts-disabled tree — the scripts-disabled cache DOOMED the native-build key"
 
 echo "----------------------------------------------------------------"
 echo "botany-worktree-scripts-disabled: $PASS passed, $FAIL failed"

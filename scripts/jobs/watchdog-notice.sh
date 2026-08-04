@@ -24,18 +24,18 @@
 # orchestrations, and an access request underneath it. 94 messages for one fact is
 # a reporting defect, not 94 events.
 #
-# The garden already solved this shape once, in the reaper's poison notices
-# (poison-notice.sh): keep ONE keyed message per open condition and AMEND it —
+# The garden already solved this shape once, in the reaper's doom notices
+# (doom-notice.sh): keep ONE keyed message per open condition and AMEND it —
 # bumping `notice_count`, preserving `first_seen`, refreshing `last_seen` — rather
 # than appending a new one. This helper is that mechanism generalized to every
-# watchdog path, and poison-notice.sh remains its job-scoped sibling (its key is
+# watchdog path, and doom-notice.sh remains its job-scoped sibling (its key is
 # job+signature; this one's key is the condition).
 #
 # THE DEDUP KEY is realized as a DETERMINISTIC filename in the maintainer inbox
 # (inbox/maintainer/unread/watchdog-<key>.md), so amend-or-post is a plain
 # file-exists test: present-and-unread ⇒ amend; absent ⇒ post fresh.
 #
-# ARCHIVE INTERACTION (same rule as poison-notice.sh). The notice is deduped only
+# ARCHIVE INTERACTION (same rule as doom-notice.sh). The notice is deduped only
 # while it is still UNREAD. Once the maintainer (or the proxy's watchdog
 # auto-clear) has archived it, the unread file is gone and the next occurrence
 # posts a FRESH notice — a re-occurrence after the prior one was handled deserves
@@ -48,7 +48,7 @@
 # into the key.
 #
 # Posting is add-only / rewrite-in-place; a rejected push just re-syncs and retries
-# under backoff, exactly like inbox-send.sh and poison-notice.sh.
+# under backoff, exactly like inbox-send.sh and doom-notice.sh.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -76,7 +76,7 @@ body_src="${2:-}"
 [ "$count" -lt 1 ] && count=1
 
 # Sanitize into a single ref/filesystem-safe token, matching the charset
-# poison-notice.sh uses. A watchdog key is normally already kebab-case (it carries
+# doom-notice.sh uses. A watchdog key is normally already kebab-case (it carries
 # a unit name or a repo slug), so this is usually a no-op; the tr is the guard that
 # keeps the key from escaping the inbox directory.
 skey="$(printf 'watchdog-%s' "$key" | tr -c 'A-Za-z0-9._-' '-')"

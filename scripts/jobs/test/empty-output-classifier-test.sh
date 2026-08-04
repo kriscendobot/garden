@@ -7,7 +7,7 @@
 # That silently requeued DETERMINISTIC failures — notably rc=127/126 (missing /
 # non-executable external tool, the 2026-06-24/25 jq-outage signature) and bare
 # rc=1/2 — as if they were self-resolving, deferring human escalation to the
-# reaper's multi-hour poison cycle. The fix gates the empty-capture `transient=1`
+# reaper's multi-hour doom cycle. The fix gates the empty-capture `transient=1`
 # on the exit code being a genuine signal/clean-shutdown (143 SIGTERM, 130 SIGINT,
 # 137 SIGKILL) or the offline rc (GARDEN_OFFLINE_RC), mirroring the discrimination
 # in self-heal-run.sh:121. The decision lives in the pure helper
@@ -72,7 +72,7 @@ GARDEN_OFFLINE_RC=64 assert_escalate 75 "old default 75 escalates once offline r
 hr; echo "SUBTEST 4 — the transient progress line carries the reaper's requeue-cycle count"; hr
 # A transiently-failing job looks identical on its 1st and 5th requeue, so a job
 # that dies the SAME way every cycle (a wedged fetch, an OOM) stays invisible until
-# the reaper's ~5×TTL poison threshold (~5h). The gardener now folds the reaper's
+# the reaper's ~5×TTL doom threshold (~5h). The gardener now folds the reaper's
 # already-present `<!-- garden-reaped: N -->` marker (read-only, defaulting to 0)
 # into the transient note so the cycle is greppable in the journal immediately.
 # reap_count does the extraction; assert it AND that the count surfaces in the line

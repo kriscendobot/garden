@@ -155,12 +155,12 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 3 — reaper honors the reap-now hint before TTL, still counts poison"; hr
+hr; echo "SUBTEST 3 — reaper honors the reap-now hint before TTL, still counts doom"; hr
 # The job is in doin, claimed SECONDS ago (age ≪ TTL=3600), carrying the reap-now
 # hint SUBTEST 2's gardener stamped. Run the REAL reaper: it must requeue the job
-# doin→todo on THIS tick — driven by the HINT, not age — AND stamp the poison-cycle
+# doin→todo on THIS tick — driven by the HINT, not age — AND stamp the doom-cycle
 # counter (garden-reaped: 1), so a job killed the same way every cycle still
-# escalates as poison after the threshold rather than requeueing forever. The hint
+# escalates as doom after the threshold rather than requeueing forever. The hint
 # itself must NOT survive into the requeued job, or a healthy re-claim would be
 # reaped instantly.
 env GARDEN="reaphost" GARDEN_STATE="$TR/reaper-state" \
@@ -177,9 +177,9 @@ else
 fi
 
 if [ -f "$R/jobs/todo/killjob.md" ] && grep -Eq '^<!-- garden-reaped: 1 -->$' "$R/jobs/todo/killjob.md"; then
-  ok "reaper stamped the poison-cycle counter (garden-reaped: 1) on the requeued job"
+  ok "reaper stamped the doom-cycle counter (garden-reaped: 1) on the requeued job"
 else
-  bad "poison-cycle counter NOT stamped on the requeued hinted job (would bypass the poison threshold)"
+  bad "doom-cycle counter NOT stamped on the requeued hinted job (would bypass the doom threshold)"
 fi
 
 if [ -f "$R/jobs/todo/killjob.md" ] && grep -Eq '^<!-- garden-reap-now -->$' "$R/jobs/todo/killjob.md"; then

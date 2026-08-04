@@ -52,7 +52,7 @@ having *failed*, only of it *reaching* `tada/`).
   - **parallel:** promote all children at once, then watch them all.
   - **child state** from the board: `done` (`tada/`), `active` (`todo`/`doin`),
     `parked` (`plan`), or `failed` (in NONE — promoted then vanished without a
-    `tada/`: the reaper poisoned it after repeated handler failures; or the report
+    `tada/`: the reaper doomed it after repeated handler failures; or the report
     carries `orchestration-failed: true`).
   - **failure:** `halt` stops a serial run at the first failure, sweeps not-yet-run
     downstream children, surfaces to the maintainer inbox; `continue` proceeds.

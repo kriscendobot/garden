@@ -34,7 +34,7 @@ to completion — so a follow-up is never forgotten.
   serial run at the first failed child, sweeps the not-yet-run downstream
   children, and surfaces the failure to the maintainer; `continue` proceeds. A
   child "fails" when it vanishes from the board without reaching `tada/` (the
-  reaper poisoned it) or its report marks `orchestration-failed: true`. **Never a
+  reaper doomed it) or its report marks `orchestration-failed: true`. **Never a
   silent stall** — that is the whole point of the watch.
 - **Relate to `blocked_on`, don't duplicate it.** For a plain linear two-step
   dependency with no parallelism, progress report, or failure policy,

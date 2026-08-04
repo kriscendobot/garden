@@ -2076,8 +2076,8 @@ set -e
   || bad "give-up not loud (rc=$nl_rc log: $(tr '\n' '|' <"$TR/logs/never-lands.log"))"
 
 # ============================================================================
-hr; echo "SUBTEST 19 — REAPER: requeue lands under contention, claim-strip safe, poison"; hr
-# Dedicated bare so the reaped/poisoned counts are fully controllable.
+hr; echo "SUBTEST 19 — REAPER: requeue lands under contention, claim-strip safe, doom"; hr
+# Dedicated bare so the reaped/doomed counts are fully controllable.
 RBARE="$TR/reaper.git"; git init -q --bare "$RBARE"
 RSEED="$TR/reaper-seed"; git init -q "$RSEED"; git -C "$RSEED" checkout -q -b "$BRANCH"
 ( cd "$RSEED"
@@ -2091,12 +2091,12 @@ RSEED="$TR/reaper-seed"; git init -q "$RSEED"; git -C "$RSEED" checkout -q -b "$
     printf '\n---\nclaim:\n  host: deadhost\n  gardener: 99\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > jobs/doin/reap-strip.md
   printf 'host: deadhost\ngardener: 99\nclaimed_at: 2020-01-01T00:00:00Z\nworktree_dir: /nonexistent/reap-strip\n' > work/reap-strip
-  # (b) a stale claim already requeued twice (poison once count reaches threshold 3).
+  # (b) a stale claim already requeued twice (doom once count reaches threshold 3).
   {
-    printf '# reap-poison\n\nThis handler fails every time.\n\n<!-- garden-reaped: 2 -->\n'
+    printf '# reap-doom\n\nThis handler fails every time.\n\n<!-- garden-reaped: 2 -->\n'
     printf '\n---\nclaim:\n  host: deadhost\n  gardener: 98\n  claimed_at: 2020-01-01T00:00:00Z\n'
-  } > jobs/doin/reap-poison.md
-  printf 'host: deadhost\ngardener: 98\nclaimed_at: 2020-01-01T00:00:00Z\nworktree_dir: /nonexistent/reap-poison\n' > work/reap-poison )
+  } > jobs/doin/reap-doom.md
+  printf 'host: deadhost\ngardener: 98\nclaimed_at: 2020-01-01T00:00:00Z\nworktree_dir: /nonexistent/reap-doom\n' > work/reap-doom )
 git -C "$RSEED" add -A; git -C "$RSEED" "${git_id[@]}" commit -q -m "seed reaper board (2 stale claims)"
 git -C "$RSEED" remote add origin "$RBARE"; git -C "$RSEED" push -q -u origin "$BRANCH"
 
@@ -2125,7 +2125,7 @@ EOF
 chmod +x "$RPUSH"
 
 set +e
-env JOURNAL_REMOTE="$RBARE" GARDEN_REAP_POISON_THRESHOLD=3 GARDEN_PUSH_CMD="$RPUSH" \
+env JOURNAL_REMOTE="$RBARE" GARDEN_REAP_DOOM_THRESHOLD=3 GARDEN_PUSH_CMD="$RPUSH" \
     "$JOBS/reaper.sh" >"$TR/logs/reaper.log" 2>&1
 reap_rc=$?
 set -e
@@ -2151,20 +2151,20 @@ fi
 # batching: both stale claims moved in ONE commit
 git -C "$RV" log --pretty=%s | grep -q 'reaped 2 stale claim' \
   && ok "both stale claims reaped in a single batched commit" || bad "reaps not batched into one commit"
-# (b) reap-poison: PARKED in plan/ under a held go-ahead gate (not requeued, not
+# (b) reap-doom: PARKED in plan/ under a held go-ahead gate (not requeued, not
 # dropped), surfaced to maintainer. The work survives for a human to resume; the
 # held gate keeps any auto-promoter from re-running it.
-{ [ ! -e "$RV/jobs/todo/reap-poison.md" ] && [ ! -e "$RV/jobs/doin/reap-poison.md" ] \
-  && [ -f "$RV/jobs/plan/reap-poison.md" ]; } \
-  && ok "poison job 'reap-poison' parked in plan/ (held, not requeued, not dropped)" \
-  || bad "reap-poison not parked in plan/ (todo=$([ -e "$RV/jobs/todo/reap-poison.md" ] && echo y || echo n) doin=$([ -e "$RV/jobs/doin/reap-poison.md" ] && echo y || echo n) plan=$([ -f "$RV/jobs/plan/reap-poison.md" ] && echo y || echo n))"
-{ [ -f "$RV/jobs/plan/reap-poison.md" ] && grep -qx 'gate: go-ahead' "$RV/jobs/plan/reap-poison.md" \
-  && grep -qx 'poisoned: true' "$RV/jobs/plan/reap-poison.md"; } \
-  && ok "parked poison plan carries a held go-ahead gate and poison provenance" \
-  || bad "parked poison plan missing held gate / provenance"
-pmsg=$(grep -rl 'reap-poison' "$RV/inbox/maintainer/unread" 2>/dev/null | head -1)
-{ [ -n "$pmsg" ] && grep -qi 'POISON' "$pmsg"; } \
-  && ok "poison job surfaced to the maintainer inbox with its body" || bad "no poison alert to maintainer"
+{ [ ! -e "$RV/jobs/todo/reap-doom.md" ] && [ ! -e "$RV/jobs/doin/reap-doom.md" ] \
+  && [ -f "$RV/jobs/plan/reap-doom.md" ]; } \
+  && ok "doom job 'reap-doom' parked in plan/ (held, not requeued, not dropped)" \
+  || bad "reap-doom not parked in plan/ (todo=$([ -e "$RV/jobs/todo/reap-doom.md" ] && echo y || echo n) doin=$([ -e "$RV/jobs/doin/reap-doom.md" ] && echo y || echo n) plan=$([ -f "$RV/jobs/plan/reap-doom.md" ] && echo y || echo n))"
+{ [ -f "$RV/jobs/plan/reap-doom.md" ] && grep -qx 'gate: go-ahead' "$RV/jobs/plan/reap-doom.md" \
+  && grep -qx 'doomed: true' "$RV/jobs/plan/reap-doom.md"; } \
+  && ok "parked doom plan carries a held go-ahead gate and doom provenance" \
+  || bad "parked doom plan missing held gate / provenance"
+pmsg=$(grep -rl 'reap-doom' "$RV/inbox/maintainer/unread" 2>/dev/null | head -1)
+{ [ -n "$pmsg" ] && grep -qi 'DOOM' "$pmsg"; } \
+  && ok "doom job surfaced to the maintainer inbox with its body" || bad "no doom alert to maintainer"
 rm -rf "$RV"
 unset JOURNAL_REMOTE
 

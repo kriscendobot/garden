@@ -162,7 +162,7 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 4 — a DEFAULT-budget job that DETERMINISTICALLY overruns (rc=124 at the wall) alerts the maintainer ONCE with split/detached guidance, deduped across the two pre-poison overrun cycles"; hr
+hr; echo "SUBTEST 4 — a DEFAULT-budget job that DETERMINISTICALLY overruns (rc=124 at the wall) alerts the maintainer ONCE with split/detached guidance, deduped across the two pre-doom overrun cycles"; hr
 D4="$TR/s4"; mkdir -p "$D4"
 # NO handler-timeout header (default budget stands). Default budget 1s; stub sleeps
 # 3s → SIGTERM-killed at the 1s wall (rc=124, elapsed≈1 ≥ budget−epsilon) → a
@@ -209,7 +209,7 @@ else
   bad "expected exactly one alert on cycle 1. record: $(cat "$REC4")"
 fi
 if grep -qi "DETERMINISTICALLY overran" "$REC4" && grep -qi "detached" "$REC4" && grep -qi "split" "$REC4"; then
-  ok "alert carries the actionable split/detached diagnosis the reaper's generic poison report omits"
+  ok "alert carries the actionable split/detached diagnosis the reaper's generic doom report omits"
 else
   bad "alert missing the split/detached diagnosis. record: $(cat "$REC4")"
 fi
@@ -218,16 +218,16 @@ fi
 # again against the SAME GARDEN_STATE (so the throttle marker persists). Both
 # surfaces of the one root cause share the `handler-budget-overrun-<base>` key, so
 # the alert must be DEDUPED — the record still holds exactly ONE entry across both
-# cycles, confirming the throttle collapses the two pre-poison overrun cycles.
+# cycles, confirming the throttle collapses the two pre-doom overrun cycles.
 requeue_doin_to_todo
 run_overrun_cycle "$D4/gardener2.log"
 if grep -Eq "deterministic deadline overrun" "$D4/gardener2.log"; then
-  ok "second cycle also overran deterministically (the same root cause repeats before poison)"
+  ok "second cycle also overran deterministically (the same root cause repeats before doom)"
 else
   bad "second cycle did not re-overrun. log: $(grep -i 'deadline\|overrun\|rc=124' "$D4/gardener2.log" | tail -3)"
 fi
 if [ "$(grep -c '^KEY=handler-budget-overrun-overrunjob$' "$REC4")" = 1 ]; then
-  ok "alert deduped across the two pre-poison overrun cycles (the shared throttle key collapsed them to one)"
+  ok "alert deduped across the two pre-doom overrun cycles (the shared throttle key collapsed them to one)"
 else
   bad "expected the alert to stay deduped at one entry across both cycles. record: $(cat "$REC4")"
 fi

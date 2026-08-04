@@ -51,8 +51,8 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
-# Never poison during this test — we exercise the requeue/defer decision, not poison.
-export GARDEN_REAP_POISON_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=99
+# Never doom during this test — we exercise the requeue/defer decision, not doom.
+export GARDEN_REAP_DOOM_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=99
 # The handler wall the reaper's floor derives from.
 export GARDEN_HANDLER_TIMEOUT=2400 GARDEN_HANDLER_KILL_AFTER=60 GARDEN_REAP_SAFETY_SLACK=30
 # The safe floor is therefore 2400+60+30 = 2490s, regardless of GARDEN_CLAIM_TTL.

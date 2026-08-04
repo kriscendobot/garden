@@ -116,7 +116,7 @@ fi
 # Create a staged-gauntlet RECORD, not a monolithic job (designs/staged-gauntlet.md).
 # The old handoff posted ONE `<base>-gauntlet` job whose handler had to span the whole
 # clean → panel → fix-loop → un-draft chain — a sum that fits no handler budget (nine
-# jobs poisoned on deadline-overrun 2026-07-28). Instead we record a gauntlet the
+# jobs doomed on deadline-overrun 2026-07-28). Instead we record a gauntlet the
 # deterministic gauntlet.sh driver walks one claim-sized stage at a time. A failed
 # record post is a failed handoff, exactly like the old failed job post: the caller
 # leaves the build in doin so the reaper retries it — completing the build without its

@@ -6,7 +6,7 @@
 # THE INCIDENT. A worker misused the DEPLOYED root checkout as an
 # endojs/endo-but-for-bots project working tree and left the root's
 # remote.origin.url rewritten to the FORK. Because a linked worktree SHARES repo
-# config with its root, that single rewrite poisoned every source journal_remote
+# config with its root, that single rewrite doomed every source journal_remote
 # reads — the journal-worktree origin, the $GARDEN_ROOT origin fallback, and (once
 # resolved and cached) the per-host cache — so journal_remote handed a FORK url to
 # every FRESH doer clone, which then cloned the wrong repo and pushed the job-board
@@ -16,11 +16,11 @@
 # journal_remote REFUSES to return any resolved remote that is a FOREIGN github
 # repo (_is_foreign_github_remote: a github.com repo that is not the canonical
 # garden repo or one of its migration aliases)
-# — the exact poison signature. A poisoned source is skipped with a loud REFUSED
+# — the exact doom signature. A doomed source is skipped with a loud REFUSED
 # log; journal_remote falls through to a clean source, and from a non-shared clean
 # source (cache / per-instance clone) re-asserts the correct root origin
-# (_reheal_root_origin) so the poison is repaired at the source. If EVERY source is
-# poisoned it dies loudly naming the repair, never returning a fork url. A local
+# (_reheal_root_origin) so the doom is repaired at the source. If EVERY source is
+# doomed it dies loudly naming the repair, never returning a fork url. A local
 # throwaway test upstream / operator JOURNAL_REMOTE bare repo is NOT github-shaped,
 # so it flows through untouched (proven here and by journal-worktree-relink-test).
 #
@@ -32,7 +32,7 @@
 #     did not widen the guard to every kriscendobot repo)
 #   * root origin rewritten to a fork, cache holds the garden url -> REFUSED on the
 #     shared config, self-heals FROM the cache, and REPAIRS the root origin back to
-#     garden (the poison is gone after one resolution)
+#     garden (the doom is gone after one resolution)
 #   * EVERY source is a fork (root/worktree + cache, no clean clone) -> die loudly,
 #     message names the foreign-github diagnosis + the restore command
 #   * a clean garden origin is returned unchanged (the guard never rejects the real
@@ -61,7 +61,7 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 UP="$TR/upstream.git"      # the shared origin (a LOCAL bare repo — legit, not github)
 GR="$TR/gr"                # stands in for $GARDEN_ROOT
 JW="$GR/journal"           # the linked journal worktree
-FORK="git@github.com:endojs/endo-but-for-bots.git"   # the poison
+FORK="git@github.com:endojs/endo-but-for-bots.git"   # the doom
 GARDEN_URL="git@github.com:kriscendobot/garden.git"  # the canonical garden remote
 # The pre-transfer path (kriskowal/garden -> kriscendobot/garden, 2026-07-28). Still
 # accepted as a MIGRATION ALIAS so a host whose origin has not been migrated is not
@@ -105,7 +105,7 @@ hr; echo "STATIC — common.sh parses (bash -n)"; hr
 bash -n "$JOBS/common.sh" && ok "common.sh parses" || bad "syntax error"
 
 # ============================================================================
-hr; echo "UNIT — _is_foreign_github_remote classifies the poison signature"; hr
+hr; echo "UNIT — _is_foreign_github_remote classifies the doom signature"; hr
 _is_foreign_github_remote "$FORK"                         && ok "fork (scp-ssh) -> foreign" || bad "fork (scp-ssh) not flagged"
 _is_foreign_github_remote "https://github.com/endojs/endo-but-for-bots.git" && ok "fork (https) -> foreign" || bad "fork (https) not flagged"
 _is_foreign_github_remote "https://github.com/kriscendobot/endo-but-for-bots.git" && ok "sibling repo under the garden's OWN owner -> foreign" || bad "kriscendobot sibling repo not flagged (the guard was widened to a bare owner prefix)"
@@ -120,11 +120,11 @@ _is_foreign_github_remote "https://github.com/kriscendobot/garden-transcripts.gi
 # ============================================================================
 hr; echo "REFUSE+SELF-HEAL — root origin rewritten to a fork, cache holds garden"; hr
 # The exact incident shape: the root (and thus the shared-config worktree read) is
-# a fork; the per-host cache still holds the real garden url from before the poison.
+# a fork; the per-host cache still holds the real garden url from before the doom.
 # journal_remote must REFUSE the fork, self-heal from the cache, and REPAIR the root
-# origin back to the garden url so the poison does not recur next tick.
+# origin back to the garden url so the doom does not recur next tick.
 setup_fixture
-git -C "$GR" remote set-url origin "$FORK"               # poison the root (shared config)
+git -C "$GR" remote set-url origin "$FORK"               # doom the root (shared config)
 mkdir -p "$(dirname "$CACHE")"; printf '%s\n' "$GARDEN_URL" > "$CACHE"   # clean cached value
 run_journal_remote
 [ "$JR_RC" -eq 0 ] && ok "journal_remote did NOT die (self-healed from the cache)" || bad "journal_remote died (rc=$JR_RC)"
@@ -133,13 +133,13 @@ grep -qF "REFUSED" <<<"$JR_ERR" && ok "a REFUSED was logged for the fork source"
 grep -qF "$FORK" <<<"$JR_ERR" && ok "the REFUSED log names the offending fork url" || bad "REFUSED log does not name the fork: $JR_ERR"
 [ "$(git -C "$GR" config --get remote.origin.url)" = "$GARDEN_URL" ] \
   && ok "root origin REPAIRED back to the garden remote" \
-  || bad "root origin still poisoned ($(git -C "$GR" config --get remote.origin.url))"
+  || bad "root origin still doomed ($(git -C "$GR" config --get remote.origin.url))"
 grep -qF "REPAIRED" <<<"$JR_ERR" && ok "the repair was logged" || bad "no REPAIRED log: $JR_ERR"
 
 # Idempotence: a second call now reads the repaired origin straight through.
 run_journal_remote
 [ "$JR_RC" -eq 0 ] && [ "$JR_OUT" = "$GARDEN_URL" ] && ok "second call returns the repaired origin cleanly" || bad "second call rc=$JR_RC out='$JR_OUT'"
-grep -qF "REFUSED" <<<"$JR_ERR" && bad "second call still refuses (repair did not take)" || ok "second call logs no REFUSED (poison gone)"
+grep -qF "REFUSED" <<<"$JR_ERR" && bad "second call still refuses (repair did not take)" || ok "second call logs no REFUSED (doom gone)"
 
 # ============================================================================
 hr; echo "DIE — EVERY source is a fork: die loudly, never return a fork url"; hr
@@ -167,7 +167,7 @@ grep -qF "REFUSED" <<<"$JR_ERR" && bad "clean garden origin wrongly refused: $JR
 # ============================================================================
 hr; echo "PASS-THROUGH — a local (non-github) upstream is returned unchanged"; hr
 # Proves the guard targets ONLY foreign github repos: the hermetic local bare
-# upstream (the shape every OTHER test uses) is never mistaken for the poison.
+# upstream (the shape every OTHER test uses) is never mistaken for the doom.
 setup_fixture
 run_journal_remote   # origin is $UP, a local bare repo
 [ "$JR_RC" -eq 0 ] && [ "$JR_OUT" = "$UP" ] && ok "local upstream returned unchanged" || bad "local upstream not returned (rc=$JR_RC out='$JR_OUT')"

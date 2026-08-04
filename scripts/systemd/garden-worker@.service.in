@@ -39,7 +39,7 @@ RestartSec=5
 # the WHOLE cgroup the instant systemd stops this unit — including the in-flight
 # handler subtree (the `timeout … claude -p`/`codex exec` doing the job) — so any
 # stop (manual, leader-promotion fleet restart, deploy edge, or the busy-gate TOCTOU
-# race) kills the handler mid-job (rc=143) → the job requeues and burns a poison
+# race) kills the handler mid-job (rc=143) → the job requeues and burns a doom
 # cycle, with the work thrown away. KillMode=mixed sends the initial SIGTERM ONLY to
 # the main worker process (self-heal-run.sh, which forwards it to gardener.sh's
 # loop); the handler subtree is left running. gardener.sh traps that SIGTERM as a
@@ -58,7 +58,7 @@ TimeoutStopSec=2700
 # victim across every process — it once caught gardener-8 (self-restarts, tolerable),
 # but the same unconfined pressure can instead snipe a leader-only singleton
 # (foreman/scheduler/watchers, which double nothing but simply die) or a mid-job peer
-# whose SIGKILLed handler then requeues and burns a poison TTL cycle — the very
+# whose SIGKILLed handler then requeues and burns a doom TTL cycle — the very
 # rc=143/requeue outage class the KillMode=mixed/TimeoutStopSec block above already
 # guards on the stop/restart path but leaves open on the OOM path. Accounting + a
 # per-worker cgroup limit contain the eventual kill to the offending worker so it

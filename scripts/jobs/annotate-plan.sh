@@ -40,7 +40,7 @@
 # so it is first stripped of the reaper/gardener cycle markers (common.sh § the
 # cycle-marker family). post-plan.sh strips those on the way INTO plan/ and
 # promote-plan.sh on the way OUT, so that a stale `<!-- garden-deadline-overrun:
-# N -->` can never re-poison a job on its first evaluation after promotion — but
+# N -->` can never re-doom a job on its first evaluation after promotion — but
 # an annotation is a THIRD way into a parked body, and a producer piping a live
 # job body as a note ("here is what the last cycle reported") re-introduces the
 # whole family behind both of those strips. promote-plan.sh's strip would still
@@ -196,7 +196,7 @@ if [ -n "$role" ];     then fields+="role=$role"$'\n';         fi
 
 if [ -z "$note" ] && [ -z "$fields" ]; then
   if [ "$note_cleared" != "none" ]; then
-    die "the annotation note was entirely cycle markers ($note_cleared), which are stripped so they cannot re-poison the parked job; nothing left to annotate"
+    die "the annotation note was entirely cycle markers ($note_cleared), which are stripped so they cannot re-doom the parked job; nothing left to annotate"
   fi
   die "nothing to annotate: give a note (--note TEXT, a body-file, or stdin) and/or a --priority/--roadmap/--role change"
 fi

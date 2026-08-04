@@ -91,8 +91,8 @@ job from `todo/`. A host whose CLI is unresolvable therefore fails every job in
 about a second and returns to its poll loop far faster than a healthy worker
 doing real work, so it **wins claim races disproportionately**: it drains the
 shared board into `doin/`, fails everything, and the reaper requeues each job
-until it poisons — while every healthy host sits idle. One misconfigured host
-poisons the whole fleet's board (host `ps23`, 2026-07-27/28: 249 journal entries,
+until it dooms — while every healthy host sits idle. One misconfigured host
+dooms the whole fleet's board (host `ps23`, 2026-07-27/28: 249 journal entries,
 zero `tada` completions, all 52 `doin/` claims held by that one host).
 
 Nor can a peer intervene: `set-gardeners.sh` refuses a cross-host write ("a host
@@ -245,13 +245,35 @@ acts on (a one-line `garden-promoted-from-plan` marker records provenance). It a
 and `garden-deadline-overrun` counters and the per-cycle `garden-reap-now` /
 `garden-productive-cycle` / `garden-outage-cycle` hints — and records the cleared set
 in that same provenance marker (`cleared=deadline-overrun=1`, or `cleared=none`).
-Without that reset a job the reaper POISON-PARKED here carried its counter forward,
+Without that reset a job the reaper DOOM-PARKED here carried its counter forward,
 and at `GARDEN_REAP_OVERRUN_THRESHOLD=1` the next reap cycle re-read the stale count
 and parked it straight back in `plan/` without ever granting it a requeue — promotion
 was a no-op the job could not escape. Promotion is a deliberate "run this again" act,
 so a clean counter is the right semantics; the reaper's protection is unchanged,
-since a job that still fails deterministically re-accumulates and re-poisons on its
+since a job that still fails deterministically re-accumulates and re-dooms on its
 own. Like a completion it touches only its own basename, so it retries with backoff.
+
+> **The doom rename (2026-08-04).** This state was renamed from *poison* to
+> *doomed* — "doomed" states what the reaper actually detects (a job that will fail
+> identically on every requeue, i.e. deterministic future failure), where "poison"
+> did not; "wedged" was rejected because the garden already uses it for the wedged
+> auto-gc. The rename is holistic (code, docs, the reaper's parked-plan frontmatter
+> `doomed:` / `doom_signature:` / `doom_count:` / `doomed_at:` / `doomed_on:`, and
+> the notice-filename prefix `doomed-<base>-<signature>.md`), and the operator env
+> knobs `GARDEN_REAP_POISON_THRESHOLD` / `GARDEN_POISON_SPOOL` became
+> `GARDEN_REAP_DOOM_THRESHOLD` / `GARDEN_DOOM_SPOOL`.
+>
+> Because hosts deploy independently, the rollout is **dual-read**: every reader
+> accepts BOTH spellings (the readers of `doomed:`/`poisoned:` in `orchestrate.sh`
+> and `cnf-backlog-triple.py`, the `doom_count`/`poison_count` re-doom accumulator
+> in `reaper.sh`) while only writers switched to the new spelling; the two env knobs
+> keep their old names as deprecated aliases (`common.sh`, logged once per process).
+> The 38 jobs parked under the old field names were migrated to the new ones in one
+> `journal2` commit. **Retire the compatibility shims** — the dual-read fallbacks and
+> the env-knob aliases — once every host's deployed sha includes this change (no host
+> can still write the old spelling). History (completed `tada/` reports, past
+> notices, entries) is deliberately left in the old vocabulary.
+
 Two paths:
 
 1. **Maintainer go-ahead.** The **liaison** (and the **proxy** within its bounds)

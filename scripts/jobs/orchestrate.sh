@@ -28,13 +28,13 @@
 #   active — jobs/todo or jobs/doin holds it (claimed / queued, in flight), unless
 #            its deterministic liveness bounds say it has stalled.
 #   parked — jobs/plan holds it (gate=orchestrated, not yet promoted) and it is
-#            NOT poisoned.
+#            NOT doomed.
 #   failed — either it VANISHED without reaching tada (promoted, then removed), or
 #            its tada report marks `orchestration-failed: true`, or it is parked in
-#            jobs/plan carrying `poisoned: true` (the reaper exhausted its requeue
+#            jobs/plan carrying `doomed: true` (the reaper exhausted its requeue
 #            budget and parked the work under a held gate rather than dropping it —
-#            reaper.sh poison branch). A failed child triggers the on-child-failure
-#            policy rather than a silent stall (or, for a poisoned child, rather
+#            reaper.sh doom branch). A failed child triggers the on-child-failure
+#            policy rather than a silent stall (or, for a doomed child, rather
 #            than an endless re-promote loop).
 #
 # On completion the watcher writes tada/<base> (a progress/outcome summary) and
@@ -70,7 +70,7 @@ fleet_draining && exit 0
 # small, persisted observation in the orchestration record and turn that churn
 # into the same failed state used for a vanished child.  The values are tunable
 # for unusually slow boards, but the shipped defaults deliberately fail early:
-# the reaper already gives a job several retries before poison-park, and an
+# the reaper already gives a job several retries before doom-park, and an
 # orchestration must not wait through all of them.
 : "${GARDEN_HANDLER_TIMEOUT:=2400}"
 : "${GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER:=1}"
@@ -135,8 +135,8 @@ child_failure_detail() {  # <child> <orch-record>
   if [ -f "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
   elif [ -f "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
   else
-    if [ -f "$DIR/$JOBS_PLAN/$c.md" ] && grep -qx 'poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
-      printf 'poisoned and held in plan\n'
+    if [ -f "$DIR/$JOBS_PLAN/$c.md" ] && grep -qxE 'doomed: true|poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
+      printf 'doomed and held in plan\n'
     else
       printf 'vanished from the board\n'
     fi
@@ -197,21 +197,22 @@ child_state() {  # <child-base> <orch-record> → done|active|parked|failed
     printf 'active\n'; return 0
   fi
   if [ -e "$DIR/$JOBS_PLAN/$c.md" ]; then
-    # A plan carrying `poisoned: true` is a poisoned-and-PARKED child: the reaper
+    # A plan carrying `doomed: true` (or the legacy `poisoned: true`, dual-read
+    # for the rollout window) is a doomed-and-PARKED child: the reaper
     # exhausted its requeue budget and parked the work under a held gate for a human
-    # (reaper.sh poison branch / poison-notice.sh) instead of dropping it. For
+    # (reaper.sh doom branch / doom-notice.sh) instead of dropping it. For
     # orchestration this is a FAILURE, not a fresh parked child to promote —
     # otherwise the watcher would re-promote (promote-plan.sh strips the gate) and
     # re-run a job that fails every time, forever. The work still survives in plan/
     # (held) for a human to resume; the orchestration merely stops waiting on it and
     # applies its on-child-failure policy.
-    if grep -qx 'poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
+    if grep -qxE 'doomed: true|poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
       printf 'failed\n'; return 0
     fi
     printf 'parked\n'; return 0
   fi
   # In none of tada/todo/doin/plan: it was promoted and vanished without a tada
-  # (an older-style poison drop, or a manual removal).
+  # (an older-style doom drop, or a manual removal).
   printf 'failed\n'
 }
 

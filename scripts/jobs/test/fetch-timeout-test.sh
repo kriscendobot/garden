@@ -161,10 +161,10 @@ git -C "$CS" push -q origin HEAD:journal2
 # --- the gardener-6 signature: one re-clone, then recover --------------------
 # fetch #1 fails with a wedged remote-tracking ref + failed-repack; sync_clone
 # replaces the clone and fetch #2 (against the fresh clone) succeeds. The
-# pre-existing poison file must be GONE — proof the clone was replaced, not
+# pre-existing doom file must be GONE — proof the clone was replaced, not
 # patched — and exactly 2 fetches ran.
 git clone -q --single-branch --branch journal2 "$CB" "$CC"
-touch "$CC/poisoned-before-reclone"
+touch "$CC/doomed-before-reclone"
 printf 'bad gc\n' > "$CC/.git/gc.log"
 mkdir -p "$CC/.git/refs/remotes/origin"
 : > "$CC/.git/refs/remotes/origin/journal2"
@@ -187,21 +187,21 @@ rc=0
 ( export JOURNAL_REMOTE="$CB" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-then-good-fetch"
   sync_clone "$CC" ) >/dev/null 2>&1 || rc=$?
 if [ "$rc" -eq 0 ] && [ "$(cat "$CORRUPT_COUNT")" -eq 2 ] && [ -d "$CC/.git" ] \
-   && [ ! -e "$CC/poisoned-before-reclone" ] && [ ! -e "$CC/.git/gc.log" ]; then
+   && [ ! -e "$CC/doomed-before-reclone" ] && [ ! -e "$CC/.git/gc.log" ]; then
   ok "sync_clone re-cloned the corrupt clone and recovered on its one post-reclone fetch"
 else
-  bad "sync_clone corrupt-clone heal wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"), poison=$([ -e "$CC/poisoned-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$CC/.git/gc.log" ] && echo present || echo gone))"
+  bad "sync_clone corrupt-clone heal wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT"), doom=$([ -e "$CC/doomed-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$CC/.git/gc.log" ] && echo present || echo gone))"
 fi
 
 # --- corruption that SURVIVES the re-clone is bounded to one attempt ---------
 # fetch #1 AND the post-re-clone fetch #2 both report corruption (an upstream or
 # unhealable shape). sync_clone must NOT spin: it re-clones exactly once and then
-# dies loudly. The poison file is gone (the wipe ran) and exactly 2 fetches happen.
+# dies loudly. The doom file is gone (the wipe ran) and exactly 2 fetches happen.
 CB2="$TR/corrupt-journal2.git"; CC2="$TR/corrupt-clone2"
 git init -q --bare "$CB2"
 git -C "$CS" push -q "$CB2" HEAD:journal2
 git clone -q --single-branch --branch journal2 "$CB2" "$CC2"
-touch "$CC2/poisoned-before-reclone"
+touch "$CC2/doomed-before-reclone"
 printf 'bad gc\n' > "$CC2/.git/gc.log"
 CORRUPT_COUNT2="$TR/corrupt-fetch-count2"; echo 0 > "$CORRUPT_COUNT2"
 cat > "$TR/bin/corrupt-twice-then-good-fetch" <<EOF
@@ -220,10 +220,10 @@ chmod +x "$TR/bin/corrupt-twice-then-good-fetch"
 rc=0
 ( export JOURNAL_REMOTE="$CB2" GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/corrupt-twice-then-good-fetch"
   sync_clone "$CC2" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -ne 0 ] && [ "$(cat "$CORRUPT_COUNT2")" -eq 2 ] && [ ! -e "$CC2/poisoned-before-reclone" ]; then
+if [ "$rc" -ne 0 ] && [ "$(cat "$CORRUPT_COUNT2")" -eq 2 ] && [ ! -e "$CC2/doomed-before-reclone" ]; then
   ok "sync_clone bounded the heal to ONE re-clone on unhealable corruption, then died loud"
 else
-  bad "sync_clone re-clone bound wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT2"), poison=$([ -e "$CC2/poisoned-before-reclone" ] && echo kept || echo gone))"
+  bad "sync_clone re-clone bound wrong (rc=$rc, fetches=$(cat "$CORRUPT_COUNT2"), doom=$([ -e "$CC2/doomed-before-reclone" ] && echo kept || echo gone))"
 fi
 
 # A present `.git` is not proof of health. Seed the exact gardener/14 shape:
@@ -231,19 +231,19 @@ fi
 # normal sync, so it must replace this clone atomically before a fetch can die.
 EC="$TR/ensure-corrupt-clone"
 git clone -q --single-branch --branch journal2 "$CB" "$EC"
-touch "$EC/poisoned-before-reclone"
+touch "$EC/doomed-before-reclone"
 mkdir -p "$EC/.git/refs/remotes/origin"
 printf '%040d\n' 0 > "$EC/.git/refs/remotes/origin/journal2"
 printf 'failed gc\n' > "$EC/.git/gc.log"
 rc=0
 ( export JOURNAL_REMOTE="$CB"
   ensure_clone "$EC" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -eq 0 ] && [ -d "$EC/.git" ] && [ ! -e "$EC/poisoned-before-reclone" ] \
+if [ "$rc" -eq 0 ] && [ -d "$EC/.git" ] && [ ! -e "$EC/doomed-before-reclone" ] \
    && [ ! -e "$EC/.git/gc.log" ] \
    && git -C "$EC" rev-parse -q --verify "refs/remotes/origin/journal2^{commit}" >/dev/null 2>&1; then
   ok "ensure_clone re-cloned a present corrupt clone (bad origin ref + gc.log)"
 else
-  bad "ensure_clone did not re-clone the present corrupt clone (rc=$rc, poison=$([ -e "$EC/poisoned-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$EC/.git/gc.log" ] && echo present || echo gone))"
+  bad "ensure_clone did not re-clone the present corrupt clone (rc=$rc, doom=$([ -e "$EC/doomed-before-reclone" ] && echo kept || echo gone), gc.log=$([ -e "$EC/.git/gc.log" ] && echo present || echo gone))"
 fi
 
 # Guard the EXACT reported repo-watcher signature (a zero-byte loose

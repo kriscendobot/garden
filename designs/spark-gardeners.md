@@ -81,7 +81,7 @@ claim path, one reaper, one board.
 - Pro: the claim stays harness-agnostic (the git-push CAS never inspects the
   job), so no claim filter, no second pool, no scaler change, no new unit
   template. A Spark job rides every existing lifecycle guarantee: requeue,
-  poison counters, deadline overrun, drain, deploy gates.
+  doom counters, deadline overrun, drain, deploy gates.
 - Pro: the seam is exactly where model selection already happens, so the
   precedent (frontmatter field, resolved at run time, typo-safe fallback) is
   established and tested.
@@ -266,7 +266,7 @@ Concretely:
   they run wherever gardeners run, on every host, gated only by per-host
   arming. No new singleton exists (there is no Spark watcher or Spark
   scheduler), so the leader/follower machinery is untouched.
-- **Requeue and reaping.** The sentinel protocol, poison counters, and deadline
+- **Requeue and reaping.** The sentinel protocol, doom counters, and deadline
   overrun all key on handler behavior, not handler identity, and the Spark
   handler honors the same sentinel contract, so the whole failure lifecycle
   carries over without modification.

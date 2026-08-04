@@ -10,7 +10,7 @@ harness pointed at an on-box Ollama `/v1` endpoint (provider `local`, e.g.
 `qwen3.6` / `qwen3.6`; see `common.sh` § local inference and
 `worker_kind_field hermit`). Local inference is nearly free, so where it is
 *adequate* it should carry the work; where it is *unfit* it wastes a claim,
-requeues, and eventually poisons the job. We do not today know **which job
+requeues, and eventually dooms the job. We do not today know **which job
 classes local inference is fit for** — so hermits are currently disabled
 fleet-wide (`hermits:0`) pending exactly this evidence.
 

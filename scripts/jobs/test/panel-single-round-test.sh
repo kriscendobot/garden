@@ -6,7 +6,7 @@
 # THE PROBLEM: the gauntlet ran as ONE claimed job whose handler had to span the
 # WHOLE clean → panel → fix-loop → un-draft chain, including an UNBOUNDED number of
 # panel rounds (panel.sh's internal `while :` up to GARDEN_PANEL_MAX_ROUNDS, with a
-# fixer between rounds). No handler budget fits an unbounded loop; nine jobs poisoned
+# fixer between rounds). No handler budget fits an unbounded loop; nine jobs doomed
 # on deadline-overrun on 2026-07-28, one with a 14000s budget already at the
 # GARDEN_CLAIM_TTL ceiling. The fix splits the gauntlet into claim-sized stages; one
 # panel ROUND becomes its own stage.

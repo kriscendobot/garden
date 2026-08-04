@@ -1,23 +1,23 @@
 #!/bin/bash
-# reaper-poison-park-test.sh — validate the reaper's POISON path (kriskowal
+# reaper-doom-park-test.sh — validate the reaper's DOOM path (kriskowal
 # 2026-07-02): on exhausting a job's requeue budget the reaper must (a) PARK the
 # job in jobs/plan/ under a HELD gate (never dropped, never auto-promoted) and
 # (b) AMEND an existing keyed maintainer notice for the same job+condition rather
 # than posting a near-identical new message.
 #
 # Subtests (all hermetic; no systemd, no network — a local bare journal):
-#   1. PARK       — a poisoned job lands in jobs/plan/ gated `go-ahead`, carrying
-#                   poison provenance, with its original body preserved; it is gone
+#   1. PARK       — a doomed job lands in jobs/plan/ gated `go-ahead`, carrying
+#                   doom provenance, with its original body preserved; it is gone
 #                   from doin/ and NOT in todo/. plan_deferred_ranked excludes it,
 #                   so no auto-promoter will re-run it.
-#   2. DEDUP      — poisoning the SAME job for the SAME condition a second time
+#   2. DEDUP      — dooming the SAME job for the SAME condition a second time
 #                   updates the SAME plan entry (no duplicate) and AMENDS the SAME
 #                   maintainer notice (notice_count bumps) — ONE parked plan, ONE
 #                   message, not two of each. (The 37-identical-messages fix.)
-#   3. DIFFERENT  — poisoning the same job for a MATERIALLY DIFFERENT reason
+#   3. DIFFERENT  — dooming the same job for a MATERIALLY DIFFERENT reason
 #                   (deadline-overrun vs requeue-exhausted) posts a NEW message
 #                   (distinct key), not an amend.
-#   4. SPOOL      — when the maintainer inbox is UNREACHABLE (poison-notice.sh
+#   4. SPOOL      — when the maintainer inbox is UNREACHABLE (doom-notice.sh
 #                   exhausts its push budget and dies), the reap still lands but the
 #                   alert is DIAGNOSED (a WARNING naming the cause) and SPOOLED to a
 #                   durable dir — NOT silently dropped (the bug this test guards).
@@ -25,13 +25,13 @@
 #                   (even with no new stale claims): the notice is delivered and the
 #                   spool cleared, so a transient failure recovers on a later tick.
 #
-# Usage: reaper-poison-park-test.sh
+# Usage: reaper-doom-park-test.sh
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
-TR=/home/kris/.garden-reaper-poison-test
+TR=/home/kris/.garden-reaper-doom-test
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
@@ -64,11 +64,11 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
-# Poison on the FIRST reap so the test is deterministic; pin the overrun threshold at
+# Doom on the FIRST reap so the test is deterministic; pin the overrun threshold at
 # 2 (independent of the shipped default, which is 1) so a deadline-overrun marker of 2
 # trips the distinct signature. Pinned explicitly rather than relying on the default so
 # this fixture is stable if that default changes.
-export GARDEN_REAP_POISON_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=2
+export GARDEN_REAP_DOOM_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=2
 export GARDEN_CLAIM_TTL=3600
 
 # --- board inspection helpers (fresh clone each call) -----------------------
@@ -100,7 +100,7 @@ place_stale() {
 run_reaper() { "$JOBS/reaper.sh" >"$TR/reap.log" 2>&1 || { echo "  (reaper.sh rc=$? — see below)"; sed 's/^/    /' "$TR/reap.log"; }; }
 
 # ============================================================================
-hr; echo "SUBTEST 1 — PARK: a poisoned job is parked in plan/ (held), not dropped"; hr
+hr; echo "SUBTEST 1 — PARK: a doomed job is parked in plan/ (held), not dropped"; hr
 place_stale boom
 run_reaper
 resync
@@ -112,12 +112,12 @@ park_ok=1
 [ -f "$V/jobs/todo/boom.md" ] && { park_ok=0; echo "    boom leaked into todo/"; }
 if [ -f "$plan_file" ]; then
   grep -q '^gate: go-ahead$'      "$plan_file" || { park_ok=0; echo "    gate is not go-ahead"; }
-  grep -q '^poisoned: true$'      "$plan_file" || { park_ok=0; echo "    poisoned marker missing"; }
-  grep -q '^poison_signature: requeue-exhausted$' "$plan_file" || { park_ok=0; echo "    signature wrong"; }
+  grep -q '^doomed: true$'      "$plan_file" || { park_ok=0; echo "    doomed marker missing"; }
+  grep -q '^doom_signature: requeue-exhausted$' "$plan_file" || { park_ok=0; echo "    signature wrong"; }
   grep -q 'the original work body for boom' "$plan_file" || { park_ok=0; echo "    original body not preserved"; }
 fi
 [ "$park_ok" -eq 1 ] \
-  && ok "poisoned 'boom' parked in plan/ (gate=go-ahead, provenance + original body), gone from doin/, not in todo/" \
+  && ok "doomed 'boom' parked in plan/ (gate=go-ahead, provenance + original body), gone from doin/, not in todo/" \
   || bad "park: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] doin=[$(ls "$V/jobs/doin" 2>/dev/null)] todo=[$(ls "$V/jobs/todo" 2>/dev/null)]"
 
 # The held gate must be invisible to the auto-promoters: plan_deferred_ranked
@@ -126,15 +126,15 @@ fi
   ranked="$(plan_deferred_ranked "$V" | tr '\n' ' ')"
   case " $ranked " in *" boom "*) exit 1;; *) exit 0;; esac )
 [ $? -eq 0 ] \
-  && ok "held poison plan is excluded from plan_deferred_ranked (foreman will not auto-promote it)" \
-  || bad "held poison plan 'boom' appeared in the foreman's deferred pick list"
+  && ok "held doom plan is excluded from plan_deferred_ranked (foreman will not auto-promote it)" \
+  || bad "held doom plan 'boom' appeared in the foreman's deferred pick list"
 
 [ "$(count_unread)" -eq 1 ] \
-  && ok "exactly one maintainer notice posted for the first poison" \
+  && ok "exactly one maintainer notice posted for the first doom" \
   || bad "expected 1 maintainer notice, found $(count_unread)"
 
 # ============================================================================
-hr; echo "SUBTEST 2 — DEDUP: re-poisoning the same job amends, not duplicates"; hr
+hr; echo "SUBTEST 2 — DEDUP: re-dooming the same job amends, not duplicates"; hr
 # Simulate the job being re-claimed (a human promoted it, a gardener claimed and
 # died again) by placing a fresh stale claim under the same base.
 place_stale boom
@@ -146,7 +146,7 @@ nplan="$(ls -1 "$V/jobs/plan" | grep -v -x '.gitkeep' | grep -c 'boom' || true)"
 [ "$nplan" -eq 1 ] || { dedup_ok=0; echo "    expected 1 plan entry for boom, found $nplan"; }
 nunread="$(count_unread)"
 [ "$nunread" -eq 1 ] || { dedup_ok=0; echo "    expected 1 maintainer notice, found $nunread"; }
-notice="$V/inbox/maintainer/unread/poison-boom-requeue-exhausted.md"
+notice="$V/inbox/maintainer/unread/doomed-boom-requeue-exhausted.md"
 if [ -f "$notice" ]; then
   grep -q '^notice_count: 2$' "$notice" || { dedup_ok=0; echo "    notice_count did not bump to 2"; }
   grep -qi 'occurrence #2' "$notice"    || { dedup_ok=0; echo "    amended body missing occurrence marker"; }
@@ -154,7 +154,7 @@ else
   dedup_ok=0; echo "    keyed notice file missing"
 fi
 [ "$dedup_ok" -eq 1 ] \
-  && ok "second poison of the same job+condition: ONE plan entry, ONE notice amended to #2 (not two of each)" \
+  && ok "second doom of the same job+condition: ONE plan entry, ONE notice amended to #2 (not two of each)" \
   || bad "dedup: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
 
 # ============================================================================
@@ -168,16 +168,16 @@ resync
 diff_ok=1
 nunread="$(count_unread)"
 [ "$nunread" -eq 2 ] || { diff_ok=0; echo "    expected 2 distinct notices, found $nunread"; }
-[ -f "$V/inbox/maintainer/unread/poison-boom-requeue-exhausted.md" ] \
+[ -f "$V/inbox/maintainer/unread/doomed-boom-requeue-exhausted.md" ] \
   || { diff_ok=0; echo "    original requeue-exhausted notice vanished"; }
-overrun_notice="$V/inbox/maintainer/unread/poison-boom-deadline-overrun.md"
+overrun_notice="$V/inbox/maintainer/unread/doomed-boom-deadline-overrun.md"
 if [ -f "$overrun_notice" ]; then
   grep -q '^notice_count: 1$' "$overrun_notice" || { diff_ok=0; echo "    new overrun notice count != 1"; }
   grep -qi 'DEADLINE-OVERRUN' "$overrun_notice"  || { diff_ok=0; echo "    overrun notice missing signature wording"; }
 else
   diff_ok=0; echo "    new deadline-overrun notice missing"
 fi
-grep -q '^poison_signature: deadline-overrun$' "$V/jobs/plan/boom.md" \
+grep -q '^doom_signature: deadline-overrun$' "$V/jobs/plan/boom.md" \
   || { diff_ok=0; echo "    plan entry not updated to the overrun signature"; }
 [ "$diff_ok" -eq 1 ] \
   && ok "same job, different reason: a NEW keyed notice posted (2 total), plan updated in place" \
@@ -187,11 +187,11 @@ grep -q '^poison_signature: deadline-overrun$' "$V/jobs/plan/boom.md" \
 hr; echo "SUBTEST 4 — SPOOL: an unreachable maintainer inbox is diagnosed + spooled, not dropped"; hr
 # Simulate the maintainer inbox being unreachable while the reap itself still lands:
 # a pre-receive hook on the shared origin REJECTS any push that touches
-# inbox/maintainer/ (poison-notice.sh's destination) but ACCEPTS the reap batch
-# (which touches only jobs/ + the reaped job's own inbox). poison-notice.sh thus
+# inbox/maintainer/ (doom-notice.sh's destination) but ACCEPTS the reap batch
+# (which touches only jobs/ + the reaped job's own inbox). doom-notice.sh thus
 # exhausts its push budget and dies; the reaper must (a) log a DIAGNOSABLE WARNING
 # naming the cause and (b) SPOOL the notice durably rather than swallowing it — the
-# exact "poison alert permanently dropped" bug this job fixes.
+# exact "doom alert permanently dropped" bug this job fixes.
 HOOK="$BARE/hooks/pre-receive"
 cat > "$HOOK" <<'EOF'
 #!/bin/sh
@@ -205,11 +205,11 @@ exit 0
 EOF
 chmod +x "$HOOK"
 
-SPOOL_DIR="$TR/state/reaper/poison-spool"
-spool_file="$SPOOL_DIR/poison-stuck-requeue-exhausted.md"
+SPOOL_DIR="$TR/state/reaper/doom-spool"
+spool_file="$SPOOL_DIR/doomed-stuck-requeue-exhausted.md"
 rm -f "$spool_file"
 place_stale stuck
-# GARDEN_POST_ATTEMPTS=2 (+ a tiny backoff cap) keeps poison-notice.sh's doomed
+# GARDEN_POST_ATTEMPTS=2 (+ a tiny backoff cap) keeps doom-notice.sh's doomed
 # push loop fast; the reap's OWN budget (GARDEN_REAP_PUSH_ATTEMPTS) is untouched.
 env GARDEN_POST_ATTEMPTS=2 GARDEN_BACKOFF_CAP_MS=20 \
     "$JOBS/reaper.sh" >"$TR/reap-spool.log" 2>&1 || true
@@ -220,7 +220,7 @@ spool_ok=1
 [ -f "$V/jobs/plan/stuck.md" ] || { spool_ok=0; echo "    plan/stuck.md missing (reap did not land)"; }
 [ -f "$V/jobs/doin/stuck.md" ] && { spool_ok=0; echo "    doin/stuck.md still present"; }
 # the maintainer notice did NOT get through (the inbox push was blocked)
-[ -f "$V/inbox/maintainer/unread/poison-stuck-requeue-exhausted.md" ] \
+[ -f "$V/inbox/maintainer/unread/doomed-stuck-requeue-exhausted.md" ] \
   && { spool_ok=0; echo "    notice unexpectedly delivered despite the block"; }
 # it was SPOOLED durably instead, carrying everything needed to re-deliver
 [ -f "$spool_file" ] || { spool_ok=0; echo "    spool file $spool_file missing"; }
@@ -230,7 +230,7 @@ if [ -f "$spool_file" ]; then
   grep -q 'the original work body for stuck' "$spool_file" || { spool_ok=0; echo "    spool entry body not preserved"; }
 fi
 # the WARNING both NAMES a cause and says it spooled (diagnosable, not the bare old message)
-grep -qi "could not surface poison job 'stuck'" "$TR/reap-spool.log" || { spool_ok=0; echo "    no surface-failure WARNING logged"; }
+grep -qi "could not surface doom job 'stuck'" "$TR/reap-spool.log" || { spool_ok=0; echo "    no surface-failure WARNING logged"; }
 grep -qi 'spooling'                             "$TR/reap-spool.log" || { spool_ok=0; echo "    WARNING did not mention spooling"; }
 grep -qiE 'FATAL|could not deliver'             "$TR/reap-spool.log" || { spool_ok=0; echo "    WARNING did not carry a diagnosable cause"; }
 [ "$spool_ok" -eq 1 ] \
@@ -249,9 +249,9 @@ resync
 
 drain_ok=1
 [ -f "$spool_file" ] && { drain_ok=0; echo "    spool file still present after drain"; }
-[ -f "$V/inbox/maintainer/unread/poison-stuck-requeue-exhausted.md" ] \
+[ -f "$V/inbox/maintainer/unread/doomed-stuck-requeue-exhausted.md" ] \
   || { drain_ok=0; echo "    notice not delivered on drain"; }
-grep -qi 'draining .* spooled poison notice' "$TR/reap-drain.log" || { drain_ok=0; echo "    drain not logged"; }
+grep -qi 'draining .* spooled doom notice' "$TR/reap-drain.log" || { drain_ok=0; echo "    drain not logged"; }
 [ "$drain_ok" -eq 1 ] \
   && ok "next tick re-drained the spool: notice delivered, spool cleared (transient failure recovered)" \
   || bad "drain: spool=[$(ls "$SPOOL_DIR" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)] log=[$(tr '\n' '|' <"$TR/reap-drain.log")]"

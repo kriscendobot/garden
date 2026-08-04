@@ -37,7 +37,7 @@ rm -rf "$peek"
 
 env GARDEN=testhost GARDEN_STATE="$TR/reaper-state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$branch" \
   GARDEN_REAPER_CLONE="$TR/reaper-state/reaper/journal" GARDEN_NO_MAINTAINER_ALERT=1 \
-  GARDEN_REAP_POISON_THRESHOLD=9 "$JOBS/reaper.sh" >/dev/null
+  GARDEN_REAP_DOOM_THRESHOLD=9 "$JOBS/reaper.sh" >/dev/null
 git clone -q --branch "$branch" "$bare" "$peek"
 grep -qx 'tier: minion' "$peek/jobs/todo/live-kimi.md" && grep -qx 'model: gpt-5.6-terra' "$peek/jobs/todo/live-kimi.md" \
   && ok "exited Kimi claim safely requeues to minion/Codex" || bad "reaper did not reroute Kimi claim"

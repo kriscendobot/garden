@@ -36,7 +36,7 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   `GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER − 1`). There is no auto-classifier —
   the producer owns the header. See `skills/job-board/SKILL.md` § Per-job handler
   budget. A build-heavy job that omits it and overruns is now surfaced fast (the
-  reaper poisons a no-progress deadline overrun after **one** cycle, parking it held
+  reaper dooms a no-progress deadline overrun after **one** cycle, parking it held
   with a notice) so you can re-post it with the header rather than watch it churn.
 - **A `build` job auto-runs the gauntlet. Never tell the maintainer to gauntlet a
   build-produced PR by hand.** A `build` (and a `design`-then-`build`) is the
@@ -253,7 +253,7 @@ autonomous background service.
   a gardener that died mid-outage leaves its claim stranded in `jobs/doin/`;
   requeuing preserves the basename so the re-claiming gardener `--resume`s the
   interrupted session, (3) runs deadmail one-shot to **forward dead letters** into
-  jobs, and (4) **acks and redispatches poison** from the maintainer inbox (a job
+  jobs, and (4) **acks and redispatches doom** from the maintainer inbox (a job
   the outage forced past its requeue-cycle limit, now safe to retry). It is a fleet
   operation the liaison performs directly, like stand up / stand down / drain, and
   the recovery singletons (`garden-reaper`, `garden-deadmail`, `garden-proxy`) are
@@ -283,9 +283,9 @@ gardeners never claim. You manage it with three primitives and this vocabulary:
 - **"go ahead on X" / "promote X"** -> `scripts/jobs/promote-plan.sh <base>`. Moves
   `plan/<base>` -> `todo/<base>` so a gardener claims it normally. **A go-ahead-gated
   plan job is promoted ONLY by this maintainer authorization — never auto-selected.**
-  Promoting a **poison-parked** job needs no extra step: promotion clears the
+  Promoting a **doom-parked** job needs no extra step: promotion clears the
   reaper's cycle counters from the body (and records what it cleared in the
-  provenance comment), so the job gets a real requeue instead of being re-poisoned
+  provenance comment), so the job gets a real requeue instead of being re-doomed
   off its stale count on the next reap tick.
 
 The bulletin's **Plan queue** section surfaces go-ahead jobs awaiting your

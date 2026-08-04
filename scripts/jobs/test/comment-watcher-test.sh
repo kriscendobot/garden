@@ -309,17 +309,17 @@ BARE_HOL="$TR/hol.git"; seed_bare "$BARE_HOL"
 FIX_HOL="$TR/fix-dd.tsv"; RLOG_HOL="$TR/react-dd.log"; : > "$RLOG_HOL"; LOG_HOL="$TR/log-dd.txt"; : > "$LOG_HOL"
 ALLOW_HOL="$TR/allow-dd"; printf 'kriskowal\n' > "$ALLOW_HOL"
 # A post stub that LIES (never lands) for the earlier #59 shepherd job — the
-# head-of-line poison — but delegates to the REAL post-job.sh for everything else,
+# head-of-line doom — but delegates to the REAL post-job.sh for everything else,
 # so the later review genuinely lands on the board.
-POISON_HOL="$TR/poison-post-hol.sh"
-cat > "$POISON_HOL" <<EOF
+DOOM_HOL="$TR/doom-post-hol.sh"
+cat > "$DOOM_HOL" <<EOF
 #!/bin/bash
 case "\$1" in
   *pr59-shepherd*) echo "posted (lie)"; exit 0 ;;
   *) exec "$JOBS/post-job.sh" "\$@" ;;
 esac
 EOF
-chmod +x "$POISON_HOL"
+chmod +x "$DOOM_HOL"
 # Batch (emitted unsorted; the watcher sorts ascending by created_at): the earlier
 # #59 shepherd comment (05:00:00Z, will POST-LOSE) then kriskowal's later #594
 # CHANGES_REQUESTED review body (10:14:32Z, must still be detected + posted).
@@ -339,13 +339,13 @@ env GARDEN_STATE="$TR/state-hol" JOURNAL_REMOTE="$BARE_HOL" JOURNAL_BRANCH="$BRA
     GARDEN_COMMENT_SOURCE="$SRCSTUB" \
     GARDEN_COMMENT_REACTJI="$REACTSTUB" \
     GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG=/dev/null \
-    GARDEN_COMMENT_POST="$POISON_HOL" \
+    GARDEN_COMMENT_POST="$DOOM_HOL" \
     GARDEN_COMMENT_TRUST=/bin/false \
     GARDEN_TRUSTED_ALLOWLIST="$ALLOW_HOL" \
     GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
     "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$LOG_HOL"
-# The poison #59 job is (correctly) NOT on the board — its push was lost.
-board_has "$BARE_HOL" "$SLUG-pr59-shepherd" && bad "poison #59 job somehow landed" || ok "poison #59 job correctly absent (push lost)"
+# The doom #59 job is (correctly) NOT on the board — its push was lost.
+board_has "$BARE_HOL" "$SLUG-pr59-shepherd" && bad "doom #59 job somehow landed" || ok "doom #59 job correctly absent (push lost)"
 # The KEY assertion: the later #594 review was still detected and posted despite the
 # earlier lost post — the head-of-line block is gone.
 review_posted_hol() {
@@ -1807,7 +1807,7 @@ hr; echo "MP2b — 'Run the gauntlet.' → a staged-gauntlet RECORD (not a monol
 # The gauntlet is now walked one claim-sized stage at a time by the deterministic
 # gauntlet.sh driver (designs/staged-gauntlet.md), so `run the gauntlet` creates a
 # gauntlet RECORD (jobs/gauntlet/<g>.md), NOT a monolithic todo job whose handler had
-# to span the whole clean→panel→fix→un-draft chain (nine deadline-overrun poisons).
+# to span the whole clean→panel→fix→un-draft chain (nine deadline-overrun dooms).
 BARE_MP2B="$TR/mp2b.git"; seed_bare "$BARE_MP2B"
 FIX_MP2B="$TR/fix-mp2b.tsv"; RLOG_MP2B="$TR/react-mp2b.log"; : > "$RLOG_MP2B"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
