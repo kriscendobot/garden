@@ -2,13 +2,15 @@
 slug: merge-base-pinning
 category: process
 status: open
-count: 3
+count: 4
 members:
   - endojs-endo-but-for-bots-pr719-review-9fcf7da1
   - endojs-endo-but-for-bots-pr831-14cde530
   - endojs-endo-but-for-bots-pr831-cfde756b
-prs: [719, 831]
+  - endojs-endo-but-for-bots-pr836-review-ee46b083
+prs: [719, 831, 836]
 ---
+
 
 
 
