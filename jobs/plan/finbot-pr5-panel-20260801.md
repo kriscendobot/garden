@@ -1,13 +1,13 @@
 ---
 gate: go-ahead
 priority: normal
-poisoned: true
-poison_signature: requeue-exhausted
-poison_count: 1
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
 requeue_cycles: 5
 deadline_overruns: 0
-poisoned_at: 2026-08-01T11:33:04Z
-poisoned_on: endolin-garden2-5bcdff64
+doomed_at: 2026-08-01T11:33:04Z
+doomed_on: endolin-garden2-5bcdff64
 posted_by: reaper:endolin-garden2-5bcdff64
 posted_at: 2026-08-01T11:33:04Z
 ---

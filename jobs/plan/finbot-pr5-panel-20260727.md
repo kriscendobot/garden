@@ -1,13 +1,13 @@
 ---
 gate: go-ahead
 priority: normal
-poisoned: true
-poison_signature: deadline-overrun
-poison_count: 1
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
 requeue_cycles: 2
 deadline_overruns: 1
-poisoned_at: 2026-07-27T08:53:17Z
-poisoned_on: endolin-garden-ece02cb4
+doomed_at: 2026-07-27T08:53:17Z
+doomed_on: endolin-garden-ece02cb4
 posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-07-27T08:53:17Z
 tier: mentor
