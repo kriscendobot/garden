@@ -129,3 +129,13 @@ justification, the storage/cadence/retention model, the surfacing plan, the resp
 ladder with thresholds, and an explicit non-goals section. Name what you considered
 and rejected. If the work is larger than one design, say so and propose the split
 rather than producing something too thin to implement.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-04T05:50:16Z
