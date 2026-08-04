@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-02T02:23:30Z_
+_As of 2026-08-04T18:29:20Z_
 
 ## Latest
 
@@ -14,16 +14,16 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 1d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 3d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 3d)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 4d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 13d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 15d)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 15d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 16d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 19d)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 4d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 6d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 6d)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 6d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 15d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 16d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 18d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 18d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 21d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -2871,6 +2871,65 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Regardless of a/b I'm building the core now (buildable with pinned deps): `powers` wired through VhostRecord+seed; daemon-backed powers resolver (E(daemonHost).lookup, ENDO_SOCK-gated, faked in tests); /.well-known/endo-captp native @endo/captp over WS; /.well-known/ocapn-bootstrap HTTP locator; fail-closed WS upgrade refusal + reserved /.well-known guard. The two OCapN codec endpoints will be wired seams that policy-close until the pin lands (not faked). Will PR that core and report on the issue thread with evidence.
 
+- `20260803T024348Z-ebba81` — from gardener:garden-budget-omega, reply_to `garden-budget-omega` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260803T024348Z-ebba81.md)
+
+> Budget 5/5 (omega) — one grounding question before this design can be acted on.
+>
+> You asked me to "look at what Josh Corbin's Unum is doing to classify tasks by
+> their omega notation ... the task's rank in a tree of plans." I read all 15
+> `library/sections/unum--*` sections, grepped the whole library, and fetched the
+> live unum repo overview + a web search. **No omega notation, task-rank scheme, or
+> "tree of plans" ranking exists in anything I can reach.** The ingested unum
+> material is pinned to early-July commits (per-persona-model-tiers, vigil-charge,
+> claim-lifecycle, the cost ledger) and predates whatever you saw. The only `omega`
+> hits in the garden are econometrics (Diebold-Mariano, HAR-RV).
+>
+> So I have written the design with a *reconstructed* interpretation, clearly
+> labelled as MINE and provisional — omega as a lower-bound rank = depth in a plan
+> tree; lowest rank (leaves) worked first; a task too big for its time window
+> creates a plan and promotes its own rank (which the garden's orchestration jobs
+> already half-implement). I did NOT invent priorities or reorder anything.
+>
+> Two asks for @jcorbin (on the maintainers allowlist), whenever convenient — an
+> unanswered question is fine, I have flagged the gap in the design rather than
+> guessing:
+>
+> 1. Point me at unum's actual omega/rank definition (a PLAN/ or LORE/ doc, or a
+>    commit) so I can ground the scheme instead of reconstructing it.
+> 2. Confirm or correct the reconstruction: is "lowest omega" the leaf (do-first)
+>    or the root, and is "promote itself in the tree" the same move as the garden
+>    posting an orchestration job with parked children?
+>
+> Design landed at `designs/omega-task-rank-and-foreman-retirement.md` (Status:
+> Proposed, changes no dispatch behavior). No rush.
+
+- `20260804T052828Z-2bba29` — from gardener:review-retrospective-consolidated-20260804, reply_to `review-retrospective-consolidated-20260804` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260804T052828Z-2bba29.md)
+
+> Consolidated review-retrospective pass (85 events) — done. Two escalations that
+> need your eyes, both about improvements that already shipped yet recurred:
+>
+> 1. RECURRENCE — cluster `inline-import-jsdoc` (was closed). The no-inline-import-jsdoc
+>    gate + typist backstop landed on main2 2026-07-16 (0c569a64e4 / d0da42892a). Yet on
+>    [endojs/endo-but-for-bots#792](https://github.com/endojs/endo-but-for-bots/issues/792) (review 2026-07-22) you wrote "Prefer @import. Should
+>    have been caught in review." The writer flagged recurrence=1 and reopened the cluster.
+>    CAVEAT: 07-22 is only days after the 07-16 commit, so the fleet may not have DEPLOYED
+>    the fix when that PR's code was authored (a deploy-lag artifact, not a true failure of
+>    the gate). I did NOT auto-start a second improvement round. If it predates the deploy,
+>    no action; if not, the gate/probe is under-covering @import in some tag position.
+>
+> 2. GATE UNDER-COVERAGE — cluster `avoid-name-abbreviations`. The deterministic
+>    spell-out-identifiers pre-push gate landed 2026-07-11 (aa2da527e5), but two later
+>    PRs still drew abbreviation asks: [endojs/endo-but-for-bots#806](https://github.com/endojs/endo-but-for-bots/issues/806) (07-22, network.js) and
+>    [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/issues/684) (07-29, "Addr is Address" in a test file). The cluster was
+>    never marked `closed`, so no auto-recurrence fired. Likely gaps: the probe skips test
+>    files, or its dictionary misses `Addr`. Recommend widening the spell-out-identifiers
+>    probe scope+dictionary (a builder job).
+>
+> Landed this pass (main2 37b04ec909): prefer-@endo-primitives and
+> capability-hardening-attenuation review checks (builder directives + purist/locksmith
+> seats). Dispatched: review-improve-merge-base-pinning (deferred builder). Full report in
+> the job completion.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4782,11 +4841,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
 
-> WATCHDOG notice — occurrence #2927 (first seen 2026-07-31T00:19:05Z, latest 2026-08-02T02:05:33Z).
-> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 2927 times; this is ONE
-> coalesced notice that updates in place, not 2927 messages. Latest detail:
+> WATCHDOG notice — occurrence #5887 (first seen 2026-07-31T00:19:05Z, latest 2026-08-04T05:23:03Z).
+> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 5887 times; this is ONE
+> coalesced notice that updates in place, not 5887 messages. Latest detail:
 >
-> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~2922m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~5882m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
@@ -4894,6 +4953,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > provider quota/usage limit CLEARED — a `claude -p` call completed normally on endolin-garden2-5bcdff64 (unit: garden-mentor). The fleet is serving again; see skills/restore/SKILL.md if workers need a restore.
 
+- `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
+
+> root repo /home/kris/garden2 deploy has been STALLED for ~3d: deployed sha dc18efaf50770e81bb0bd4b1a381e1cad03eaed3 is 33 commit(s) behind origin/main2 (dd30716f03fa71a59988ccd21467b84a3d465314) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
+
 - `watchdog-root-repo-objstore-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden-ece02cb4' pid 3728245 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 8 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden gc'. (host=endolin-garden-ece02cb4)
@@ -4918,32 +4981,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.4M | $1083.81 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+738.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 40.1M | $769.71 _(notional, rate-card)_ | no quota set |
+| Codex | 27.7M _(+614.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
-### todo (6)
-- [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/drive-mystic-rollout-20260723.md) — ---
-- [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-llm-lint-warnings.md) — ---
-- [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-fix-mystic-canary-runtime-20260724.md) — ---
-- [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kimi-k3-canary-20260723-c.md) — ---
-- [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-npm.md) — ---
-- [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/migrate-endo-but-for-bots-master-to-pnpm.md) — ---
+### todo (0)
+(none)
 
-### doin (1)
-- [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-3.md) — Weblet gateway Increment 3 — the powers plane (OCapN/CapTP bootstrap)
+### doin (0)
+(none)
 
-### tada (4128)
-- [`deadmail-20260802T020536Z-23b964`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260802T020536Z-23b964.md) — Completion report
-- [`minion-town-weblet-gateway-increment-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-2.md) — Completion report — minion-town-weblet-gateway-increment-2
-- [`minion-town-pr22-a96e97d-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr22-a96e97d-edge-verify.md) — Completion report
-- [`minion-town-weblet-gateway-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-build.md) — Completion report — minion-town-weblet-gateway-build
-- [`minion-town-weblet-gateway-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-design.md) — Completion report
-- … and 4123 more
+### tada (4139)
+- [`review-retrospective-consolidated-20260804`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-retrospective-consolidated-20260804.md) — Consolidated review retrospective — 85 events, one cross-cutting pass
+- [`garden-review-rounds-correlation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-review-rounds-correlation.md) — Completion report — garden-review-rounds-correlation (step 2 of 4)
+- [`garden-rename-poison-to-doomed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-rename-poison-to-doomed.md) — Completion report
+- [`garden-clear-degraded-notice-on-zero`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-clear-degraded-notice-on-zero.md) — Completion report
+- [`garden-budget-triple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-triple.md) — Completion report — garden-budget-triple (Budget 4/5)
+- … and 4134 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- [`arc-status-daily-20260723-030512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/arc-status-daily-20260723-030512.md) — _normal_ · Daily status + change summary for the standing review arcs
 - [`arc-status-daily-20260724-032002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/arc-status-daily-20260724-032002.md) — _normal_ · Daily status + change summary for the standing review arcs
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
@@ -4953,38 +5010,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/decommission-cxs-rust-default-xst-ci-parity.md) — _normal_ · End-state: decommission C-XS — drop c/moddable, remove the C-binding Endor, m...
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
+- [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _normal_ · ---
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-resume-rebase-review-fixups.md) — _normal_ · Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-iterate-streaming.md) — _normal_ · ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-pragma-simple.md) — _normal_ · ---
 - [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-124-sqlite-shutdown-checkpoint.md) — _normal_ · ---
+- [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
 - [`ebfb-pr882-bootstrap-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-pr882-bootstrap-generators.md) — _normal_ · ---
 - [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — _normal_ · Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
-- [`endo-byte-array-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-162019.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-byte-array-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260723-223502.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
 - [`endo-byte-array-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-byte-array-press-20260724-043515.md) — _normal_ · Press passable/immutable byte arrays forward (endojs/endo-but-for-bots, base ...
-- [`endo-git-integration-press-20260722-095006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260722-095006.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-162019.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-git-integration-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260723-223502.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
 - [`endo-git-integration-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-git-integration-press-20260724-043515.md) — _normal_ · Press git-integration / the M3 version-controlled-filesystem loop (endojs/end...
-- [`endo-npm-cas-registry-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-162019.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
-- [`endo-npm-cas-registry-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260723-223502.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-npm-cas-registry-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-npm-cas-registry-press-20260724-043515.md) — _normal_ · Press npm-via-CAS registry-proxy forward (endojs/endo-but-for-bots, base llm)
 - [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-build-gauntlet.md) — _normal_ · ---
-- [`endo-sturdyref-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-162019.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`endo-sturdyref-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260723-223502.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-sturdyref-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260724-043515.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
-- [`endo-vfs-parity-press-20260717-182002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260717-182002.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260723-162019.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
-- [`endo-vfs-parity-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260723-223502.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260724-043515.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr656-conduct.md) — _normal_ · conduct endojs/endo-but-for-bots PR #656
-- [`endojs-endo-but-for-bots-pr755-review-a0778b2e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #755
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
-- [`endojs-endo-but-for-bots-pr809-review-2f33af27`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-2f33af27.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #809
-- [`endojs-endo-but-for-bots-pr826-build-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-build-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #910
 - [`endojs-endo-but-for-bots-pr874-live-google-sheets-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-live-google-sheets-integration.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-gauntlet.md) — _normal_ · Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
@@ -4996,20 +5040,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260725-105007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
+- [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
+- [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
+- [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr21-a96e97d-design-land.md) — _normal_ · ---
+- [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-weblet-gateway-increment-3.md) — _normal_ · Weblet gateway Increment 3 — the powers plane (OCapN/CapTP bootstrap)
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/monk-finish-gardener-rename.md) — _normal_ · Finish the gardener -> monk worker-kind rename
-- [`ocapn-noise-press-20260717-000503`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-000503.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260717-182002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260717-182002.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260719-003513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260719-003513.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260723-162019`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-162019.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260723-223502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260723-223502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260724-043515.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
-- [`ocapn-noise-press-20260801-030502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260801-030502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`ocapn-noise-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260801-090502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
@@ -5035,91 +5077,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
 - [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-sha256-consistency-followups.md) — _normal_ · Consistency follow-ups deferred by the @endo/sha256 build
-- [`endojs-endo-but-for-bots-pr160-review-85ea7a37-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-85ea7a37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr160-review-b7e466e9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr160-review-b7e466e9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #160 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr169-6f24fd4e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr169-6f24fd4e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #169 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr241-review-b15e4ef6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr241-review-b15e4ef6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #241 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr259-review-2a6e7b12-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr259-review-2a6e7b12-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #259 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr282-148f5c93-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-148f5c93-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #282 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr357-623fe9bc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-623fe9bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #357 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr403-ad7046e4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-ad7046e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #403 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr600-cb3a204f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr600-cb3a204f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr647-review-ec3d282c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr647-review-ec3d282c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #647 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr655-0cb1a0bc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr655-0cb1a0bc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #655 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr667-198c8d1e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr667-198c8d1e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #667 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr671-review-36ae135d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-36ae135d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr671-review-9737517c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr671-review-9737517c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #671 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr676-review-4939792d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr676-review-4939792d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #676 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr676-review-87b8c044-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr676-review-87b8c044-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #676 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr683-review-84f0d6ef-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr683-review-84f0d6ef-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #683 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr684-review-67f8b51a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr684-review-67f8b51a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #684 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr705-review-207112c7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr705-review-207112c7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #705 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr705-review-c7f0268c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr705-review-c7f0268c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #705 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr713-review-2b03f8c3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr713-review-2b03f8c3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #713 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr719-1a882a7d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-1a882a7d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr719-ade4a938-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-ade4a938-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr719-review-9fcf7da1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #719 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr723-review-b5ddd4da-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr723-review-b5ddd4da-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #723 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr730-review-27278ba1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr730-review-27278ba1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #730 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr740-40e1dd8c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-40e1dd8c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr740-review-15d45e11-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-15d45e11-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr740-review-6ca53b57-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr740-review-6ca53b57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #740 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr755-review-a0778b2e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-a0778b2e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #755 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr755-review-ea305fae-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr755-review-ea305fae-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #755 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr778-review-1d2c2074-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr778-review-1d2c2074-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #778 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr778-review-95a2b3a4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr778-review-95a2b3a4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #778 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr778-review-b48bc106-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr778-review-b48bc106-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #778 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr786-28d1e1d7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr786-28d1e1d7-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #786 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr792-review-91808a86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr792-review-91808a86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #792 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr804-47b714b2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-47b714b2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr804-review-8df7f3e2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-review-8df7f3e2-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr806-review-aebac5fc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr806-review-aebac5fc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #806 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr807-5e6eb4e5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-5e6eb4e5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #807 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr807-c55523fb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr807-c55523fb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #807 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-39ff950a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-39ff950a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-3fb4c8b9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-3fb4c8b9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-69e51cb3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-69e51cb3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-722e1113-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-722e1113-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-784e5f86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-784e5f86-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr809-review-e892a99c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr809-review-e892a99c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #809 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr824-review-e4950d9b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr824-review-e4950d9b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #824 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr825-review-18fde0da-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr825-review-18fde0da-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #825 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr826-448995f1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-448995f1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr826-review-0ea51177-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-0ea51177-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr826-review-1756c24f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr826-review-1756c24f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #826 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr827-569ae9f5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr827-569ae9f5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #827 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr831-14cde530-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-14cde530-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr831-cfde756b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr831-cfde756b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #831 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-06bbcc3d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-06bbcc3d-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-review-03bd85ff-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-03bd85ff-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-review-3e0d6210-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-3e0d6210-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-review-eda700a0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-eda700a0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr836-review-ee46b083-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr836-review-ee46b083-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #836 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr852-d502e7a9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-d502e7a9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr852-review-a9f2d553-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-a9f2d553-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr852-review-c981d05c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr852-review-c981d05c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #852 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr853-review-37004cbc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr853-review-37004cbc-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #853 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr855-df7988e4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr855-df7988e4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #855 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr856-review-6cfb0803-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr856-review-6cfb0803-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #856 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr873-4e8841bd-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr873-4e8841bd-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #873 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr874-review-c58ec6c8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-c58ec6c8-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr874-review-ce8e8195-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-ce8e8195-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr874-review-e6cccb99-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-e6cccb99-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr874-review-fd62e60e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr874-review-fd62e60e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #874 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr875-review-51bf66b1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr875-review-51bf66b1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #875 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr875-review-8e639c41-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr875-review-8e639c41-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #875 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr876-review-ac5d6dfa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr876-review-ac5d6dfa-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #876 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr877-review-1eec395e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-1eec395e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr881-review-5111ec6e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-5111ec6e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr881-review-b8bb5665-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-b8bb5665-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr881-review-baf7087b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-baf7087b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr881-review-d23c8dbf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-review-d23c8dbf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #881 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr882-review-4a754464-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr882-review-4a754464-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #882 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr885-review-c5f39398-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr885-review-c5f39398-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #885 (primary: endojs-endo-but-f...
-- [`kriscendobot-agoric-sdk-pr10-review-14260266-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-14260266-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
-- [`kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-a7bcbe21-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
-- [`kriscendobot-agoric-sdk-pr10-review-c28034ac-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr10-review-c28034ac-retro.md) — _low_ · Retrospective on kriscendobot/agoric-sdk PR #10 (primary: kriscendobot-agoric...
-- [`kriscendobot-minion.town-pr12-a3def291-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr12-a3def291-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #12 (primary: kriscendobot-minio...
+- [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
@@ -5136,7 +5094,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 kriscendobot-agoric-3-proposals kriscendobot-agoric-sdk kriscendobot-cosgov kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot kriscendobot-minion.town kriscendobot-moddable kriscendobot-ocapn kriscendobot-proposal-compartments kriscendobot-test262 kriscendobot-vattr97 kriscendobot-ymax-e2e kriscendobot-ymax-stdio-mcp
 
 ## Hosts
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 5 gardeners
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 gardeners
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 5 gardeners
 - [ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23): 1 gardeners
 - [ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/ps23-garden-f65473ae): 8 gardeners
