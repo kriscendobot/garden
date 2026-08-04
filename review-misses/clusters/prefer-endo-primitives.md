@@ -2,15 +2,17 @@
 slug: prefer-endo-primitives
 category: style-convention
 status: open
-count: 5
+count: 6
 members:
   - endojs-endo-but-for-bots-pr671-review-9737517c
   - endojs-endo-but-for-bots-pr755-review-a0778b2e
   - endojs-endo-but-for-bots-pr824-review-e4950d9b
   - endojs-endo-but-for-bots-pr836-review-3e0d6210
   - endojs-endo-but-for-bots-pr877-review-1eec395e
-prs: [671, 755, 824, 836, 877]
+  - endojs-endo-but-for-bots-pr882-review-4a754464
+prs: [671, 755, 824, 836, 877, 882]
 ---
+
 
 
 
