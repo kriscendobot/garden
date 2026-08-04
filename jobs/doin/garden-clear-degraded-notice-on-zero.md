@@ -114,3 +114,13 @@ The clear-on-zero fix landed on `main2`, the four regression cases green, the
 existing suites still green, and a `tada/` report stating what changed, that the
 notice remains outstanding until garden2's fireworker count is actually changed,
 and whether `alert_maintainer_clear` needed a guard.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-04T05:44:41Z
