@@ -110,3 +110,13 @@ path must clear the new names).
 Name the landed main2 revision, the count of files changed, the count of parked jobs
 migrated, and state explicitly which compatibility shims you left and what condition
 retires them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-04T05:30:25Z
