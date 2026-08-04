@@ -2,14 +2,16 @@
 slug: capability-hardening-attenuation
 category: security-hardening
 status: open
-count: 4
+count: 5
 members:
   - endojs-endo-but-for-bots-pr874-review-fd62e60e
   - endojs-endo-but-for-bots-pr881-review-5111ec6e
   - endojs-endo-but-for-bots-pr881-review-b8bb5665
   - endojs-endo-but-for-bots-pr881-review-baf7087b
+  - endojs-endo-but-for-bots-pr881-review-d23c8dbf
 prs: [874, 881]
 ---
+
 
 
 
