@@ -1227,7 +1227,18 @@ backend_effective_count() {
   local akey="backend-degraded-${GARDEN}-${kind}"
   if [ "$degraded" -ge "$degraded_ticks" ] && [ "$degraded_ticks" -gt 0 ]; then
     alert_maintainer "$akey" "host $GARDEN declares $count_key=$declared but its $kind backend probe has failed ~${degraded}m (effective 0). It cannot run its declared ${kind}s — ${diag:-backend unavailable}."
-  elif [ "$declared" -gt 0 ] && [ "$eff" -ge "$declared" ]; then
+  elif [ "$declared" -eq 0 ]; then
+    # Stood DOWN to zero — a legitimate resolution of "cannot run its declared
+    # workers": there are none to run, so the notice must CLEAR, not merely fall
+    # silent-but-outstanding (the else-branch above resets $degraded, so the alert
+    # branch never fires again AND the recovery branch below — gated eff>=declared
+    # with declared>0 — can never retire it either; the notice would sit forever).
+    # Distinct wording: stood down, NOT a backend recovery — the inbox must not
+    # conflate the two facts. alert_maintainer_clear is a no-op when nothing is
+    # outstanding, so throttling an already-quiet class to zero makes no spurious
+    # clear. General across worker kinds; fireworker is only the motivating case.
+    alert_maintainer_clear "$akey" "$kind on $GARDEN stood down to $count_key=0; the backend-degraded notice is retired. The class was throttled to zero (nothing left to run) — this is a stand-down, not a backend recovery."
+  elif [ "$eff" -ge "$declared" ]; then
     alert_maintainer_clear "$akey" "$kind backend on $GARDEN recovered; effective ramped to declared $declared."
   fi
 

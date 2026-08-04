@@ -177,6 +177,64 @@ GARDEN_BACKEND_PROBE_CMD="$STUB" PROBE_CTL="$CTL" backend_effective_count cleric
 unset GARDEN_ALERT_CMD GARDEN_ALERT_LOG
 
 # ============================================================================
+hr; echo "3d. clear-on-zero — a class throttled to zero RETIRES the notice"; hr
+# The degraded notice is CORRECT while declared>0 and the backend is down. But
+# when the class is stood DOWN to declared=0 there is nothing left to run, so the
+# outstanding notice must CLEAR (a recorded resolution) rather than fall silent-
+# but-outstanding — the $degraded reset stops the alert branch firing, and the
+# recovery clear (gated eff>=declared with declared>0) can never retire it either,
+# so the notice would sit forever. Regression for the clear-on-zero fix, on the
+# worker-kind abstraction (mystic here; fireworker is only the motivating case).
+export GARDEN_ALERT_CMD="$TD/alert3d.sh" GARDEN_ALERT_LOG="$TD/alerts3d.log"; : > "$GARDEN_ALERT_LOG"
+cat > "$TD/alert3d.sh" <<'EOF'
+#!/bin/bash
+# key then message on one line. A clear prefixes its message with "RECOVERED:".
+printf '%s %s\n' "$1" "$2" >> "$GARDEN_ALERT_LOG"
+EOF
+chmod +x "$TD/alert3d.sh"
+akey='backend-degraded-testhost-mystic'
+z() { # z <declared> — one auto-tune tick, ramp-down and degraded threshold at 1.
+  GARDEN_RAMP_DOWN_CONFIRM=1 GARDEN_BACKEND_DEGRADED_TICKS=1 \
+  GARDEN_BACKEND_PROBE_CMD="$STUB" PROBE_CTL="$CTL" \
+    backend_effective_count mystic "$1" >/dev/null 2>&1
+}
+
+# Case 1: declared>0, backend failing, ticks exceeded → alert fires (unchanged).
+rm -rf "$GARDEN_STATE/mystics/backend" "$GARDEN_STATE/alerts"; : > "$GARDEN_ALERT_LOG"
+echo fail > "$CTL"; z 2
+grep -qF "host testhost declares mystics=2" "$GARDEN_ALERT_LOG" \
+  && ok "case 1: declared>0 + backend down → alert fires" || bad "case 1: alert did not fire"
+[ -f "$GARDEN_STATE/alerts/$akey.last" ] && ok "case 1: alert marker outstanding" || bad "case 1: no marker"
+
+# Case 2: declared>0, backend recovers → clear fires, recovery wording (unchanged).
+: > "$GARDEN_ALERT_LOG"; echo pass > "$CTL"; z 2
+grep -qF "RECOVERED: mystic backend on testhost recovered" "$GARDEN_ALERT_LOG" \
+  && ok "case 2: backend recovers → clear fires (recovery wording)" || bad "case 2: recovery clear did not fire"
+[ ! -f "$GARDEN_STATE/alerts/$akey.last" ] && ok "case 2: marker cleared on recovery" || bad "case 2: marker not cleared"
+
+# Case 3 (THE BUG): declared drops to 0 with an alert outstanding → clear fires,
+# stand-down wording (distinct from recovery). Goes RED without the fix.
+rm -rf "$GARDEN_STATE/mystics/backend" "$GARDEN_STATE/alerts"; : > "$GARDEN_ALERT_LOG"
+echo fail > "$CTL"; z 2                        # raise the alert (declared 2, down)
+[ -f "$GARDEN_STATE/alerts/$akey.last" ] || bad "case 3 setup: alert not raised"
+: > "$GARDEN_ALERT_LOG"; z 0                    # stand the class down to zero
+grep -qF "RECOVERED: mystic on testhost stood down to mystics=0" "$GARDEN_ALERT_LOG" \
+  && ok "case 3: declared→0 with alert outstanding → clear fires (stand-down wording)" \
+  || bad "case 3: clear-on-zero did NOT fire (the bug)"
+grep -qiF "recovered" "$GARDEN_ALERT_LOG" && ! grep -qF "backend on testhost recovered" "$GARDEN_ALERT_LOG" \
+  && ok "case 3: wording is stand-down, NOT a backend recovery (facts not conflated)" \
+  || bad "case 3: wording conflated stand-down with recovery"
+[ ! -f "$GARDEN_STATE/alerts/$akey.last" ] && ok "case 3: marker retired after stand-down" || bad "case 3: marker still outstanding"
+
+# Case 4: declared==0 with nothing outstanding → no alert, no spurious clear.
+rm -rf "$GARDEN_STATE/mystics/backend" "$GARDEN_STATE/alerts"; : > "$GARDEN_ALERT_LOG"
+echo fail > "$CTL"; z 0
+[ ! -s "$GARDEN_ALERT_LOG" ] \
+  && ok "case 4: declared==0, nothing outstanding → no alert, no spurious clear" \
+  || bad "case 4: spurious inbox activity: $(cat "$GARDEN_ALERT_LOG")"
+unset GARDEN_ALERT_CMD GARDEN_ALERT_LOG
+
+# ============================================================================
 hr; echo "4. set-workers declare-gate"; hr
 # Stand up a throwaway journal so the ALLOW path fully succeeds (a push).
 BARE="$TD/journal.git"; git init -q --bare "$BARE"
