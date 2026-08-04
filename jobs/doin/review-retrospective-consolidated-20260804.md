@@ -139,3 +139,13 @@ the review process, but no PR action follows from them.
 | #10 | ? | `kriscendobot-agoric-sdk-pr10-review-a7bcbe21` | `kriscendobot/agoric-sdk#10:review:4746555282` |
 | #10 | ? | `kriscendobot-agoric-sdk-pr10-review-c28034ac` | `kriscendobot/agoric-sdk#10:review:4762450059` |
 | #12 | ? | `kriscendobot-minion.town-pr12-a3def291` | `kriscendobot/minion.town#12:comment:5040251719` |
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-04T04:59:22Z
