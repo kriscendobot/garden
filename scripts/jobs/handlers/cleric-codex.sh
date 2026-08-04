@@ -81,12 +81,20 @@ fi
 kill_stale_worktree_handlers "$worktree"
 worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 
-# The prompt is built by the shared spine helper (fresh vs resume framing), so the
-# claude and codex handlers stay byte-identical on the completion contract, the
-# worktree note, and injection hygiene. External text (the job body) is data.
+# The prompt framing (fresh/resume/fallback) is built by the shared spine helper, so
+# the claude and codex handlers stay byte-identical on the completion contract, the
+# worktree note, and injection hygiene. External text (the job body) is data. The
+# mode is chosen honestly: a requeue whose sidecar session did NOT survive to this
+# host (no sidecar, or claimed elsewhere) recreated a fresh worktree and lost its
+# in-progress state, so it gets the `fallback` framing rather than the plain `fresh`
+# one that would hide the requeue (issue #62 follow-up: cross-host requeue loses
+# both transcript and worktree; do not imply otherwise).
 if $resuming; then
   log "resuming codex session $resume_sid for requeued job '$base' in worktree $worktree"
   prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" resume)"
+elif [ "$(reap_count "$jobfile")" -gt 0 ]; then
+  log "requeued job '$base' has no local codex sidecar on $GARDEN; prior session and worktree were lost — starting fresh with lost-state framing"
+  prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" fallback)"
 else
   prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" fresh)"
 fi

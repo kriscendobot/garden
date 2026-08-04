@@ -89,10 +89,28 @@ fi
 kill_stale_worktree_handlers "$worktree"
 worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 
-# The prompt (fresh framing) is built by the shared spine helper so the claude and
-# codex handlers stay byte-identical on the completion contract, the worktree note,
-# and injection hygiene (design §2.2). A resume overrides it below.
-prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" fresh)"
+# The prompt framing is built by the shared spine helper so the claude and codex
+# handlers stay byte-identical on the completion contract, the worktree note, and
+# injection hygiene (design §2.2). The framing MODE is chosen honestly from the
+# actual starting state, so the worker is never told it is resuming a session it
+# does not have (issue #62 follow-up: a cross-host requeue loses transcript AND
+# worktree, yet the old code emitted the plain fresh framing that hid the requeue):
+#   * resuming        -> resume   (transcript present on THIS host; --resume attaches)
+#   * requeue, no xcpt -> fallback (reaped >=1 but no local transcript: state was
+#                                   lost cross-host/pruned; worktree recreated fresh)
+#   * first claim      -> fresh    (no prior attempt)
+# reap_count reads the reaper's `<!-- garden-reaped: N -->` marker (common.sh); N>0
+# means a prior attempt existed even though its session/worktree did not survive to
+# here. The session id is pinned the same either way so the NEXT death stays
+# resumable.
+if $resuming; then
+  prompt_mode=resume
+elif [ "$(reap_count "$jobfile")" -gt 0 ]; then
+  prompt_mode=fallback
+else
+  prompt_mode=fresh
+fi
+prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" "$prompt_mode")"
 
 # --- session continuity across a reaper requeue ------------------------------
 #
@@ -119,14 +137,17 @@ prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" fresh)
 # requeue is claimed on another host (or the transcript was pruned) $resuming is
 # false above, ensure_worktree recreated a fresh worktree, and we fall back to a
 # fresh session pinned to the same id so the NEXT death stays resumable.
+# The prompt framing (fresh/resume/fallback) was already chosen above from the same
+# $resuming signal; here we only pick the CLI's session flag to match.
 session_args=()
 if [ -n "$session_id" ]; then
   if $resuming; then
     session_args=(--resume "$session_id")
     log "resuming session $session_id for requeued job '$base' in worktree $worktree"
-    prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" resume)"
   else
     session_args=(--session-id "$session_id")
+    [ "$prompt_mode" = fallback ] && \
+      log "requeued job '$base' has no local transcript on $GARDEN; prior session and worktree were lost — starting FRESH session $session_id with lost-state framing"
   fi
 fi
 

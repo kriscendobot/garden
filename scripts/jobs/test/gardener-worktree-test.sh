@@ -114,6 +114,9 @@ done
 pwd > "$FAKE_CWD_OUT"
 printf '%s\n' "$mode" > "$FAKE_MODE_OUT"
 printf '%s\n' "$model" > "${FAKE_MODEL_OUT:-/dev/null}"
+# The prompt is the last positional argument the handler passes; capture it so the
+# test can assert the resume/fresh/fallback framing the worker actually receives.
+printf '%s' "${@: -1}" > "${FAKE_PROMPT_OUT:-/dev/null}"
 [ -z "${GARDEN_USAGE_FILE+x}" ] && printf '%s\n' absent > "${FAKE_USAGE_OUT:-/dev/null}" || printf '%s\n' present > "${FAKE_USAGE_OUT:-/dev/null}"
 # Mimic Claude writing its session transcript into the launch cwd's project dir.
 if [ -n "$sid" ]; then
@@ -157,6 +160,7 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/usage.json" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_USAGE_OUT="$TR/usage.out" \
+    FAKE_PROMPT_OUT="$TR/prompt.out" \
     bash "$HANDLER" "$1" "$2" "$3"
   RC=$?
 }
@@ -177,6 +181,13 @@ cwd1="$(cat "$TR/cwd.out" 2>/dev/null)"
   || bad "claude ran in the root tree '$GROOT'"
 [ "$(cat "$TR/mode.out" 2>/dev/null)" = "fresh" ] && ok "fresh claim starts a fresh session" \
   || bad "fresh claim should start a fresh session, not resume"
+# The fresh framing neither claims a resume nor warns of lost state (there is none).
+grep -q 'carried forward to you intact' "$TR/prompt.out" 2>/dev/null \
+  && bad "fresh prompt falsely claims a carried-forward resume" \
+  || ok "fresh prompt makes no resume claim"
+grep -q 'BOTH LOST' "$TR/prompt.out" 2>/dev/null \
+  && bad "fresh prompt falsely warns of lost prior state on a first claim" \
+  || ok "fresh prompt makes no lost-state warning"
 [ "$(cat "$TR/usage.out" 2>/dev/null)" = absent ] && ok "Claude cannot see the private usage handoff" \
   || bad "Claude inherited GARDEN_USAGE_FILE and could forge accounting"
 # The marker-signaled completion wrote the sentinel gardener.sh gates doin→tada on.
@@ -217,12 +228,54 @@ cwd2="$(cat "$TR/cwd.out" 2>/dev/null)"
   || bad "requeue cwd was '$cwd2', expected '$WT'"
 [ "$(cat "$TR/mode.out" 2>/dev/null)" = "resume" ] && ok "requeue RESUMES the deterministic session" \
   || bad "requeue should resume the session (mode='$(cat "$TR/mode.out" 2>/dev/null)')"
+# A TRUE resume (transcript present, same host) keeps the "carried forward intact"
+# framing — the prior session and its uncommitted worktree really did survive.
+grep -q 'carried forward to you intact' "$TR/prompt.out" 2>/dev/null \
+  && ok "a true resume tells the worker its session was carried forward intact" \
+  || bad "resume prompt dropped the carried-forward framing"
+grep -q 'BOTH LOST' "$TR/prompt.out" 2>/dev/null \
+  && bad "a true resume must not warn of lost state (nothing was lost)" \
+  || ok "a true resume makes no lost-state warning"
 # The teardown-on-success removed the worktree, so the sentinel must be gone now —
 # but it had to exist WHEN the resumed claude ran. The fake records cwd, and the
 # resume-mode proves the same-path transcript was found, which is only possible if
 # the sentinel'd worktree was the one entered. Belt: it is torn down again now.
 [ ! -e "$WT" ] && ok "the resumed run tears the worktree down on its completion" \
   || bad "worktree survived the resumed run's completion: $WT"
+
+# === 5b: a requeue with NO local transcript (cross-host / pruned) gets the =====
+# HONEST "fallback" framing, not the false "carried forward intact" resume text.
+# This is the issue-#62 gap: a reaped job (garden-reaped marker present) re-claimed
+# where its session transcript does not exist recreated a FRESH worktree and lost
+# its in-progress state, so the worker must be told plainly rather than told to
+# trust a memory and hunt for uncommitted edits that are gone. A fresh $HOME (no
+# transcript anywhere) + a reap marker on the job reproduces the cross-host case.
+FBASE="garden-fallback-demo"
+FWT="$SCRATCH/gardener-wt-$FBASE"
+FJOB="$TR/$FBASE.job"
+printf 'Map: build (garden infra), branch main2. Do a thing.\n\n<!-- garden-reaped: 2 -->\n' > "$FJOB"
+rm -f "$TR/cwd.out" "$TR/mode.out" "$TR/prompt.out"
+run_handler "$FBASE" "$FJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "lost-transcript requeue completes (exit 0)" \
+  || bad "lost-transcript requeue should exit 0 (got $RC)"
+# No transcript existed, so the handler pins a FRESH session (never --resume).
+[ "$(cat "$TR/mode.out" 2>/dev/null)" = "fresh" ] && ok "lost-transcript requeue starts a fresh session (no false --resume)" \
+  || bad "lost-transcript requeue should start fresh, not resume (mode='$(cat "$TR/mode.out" 2>/dev/null)')"
+# It must NOT assert the resume it does not have...
+grep -q 'carried forward to you intact' "$TR/prompt.out" 2>/dev/null \
+  && bad "fallback prompt falsely claims a carried-forward resume" \
+  || ok "fallback prompt does NOT claim a carried-forward resume"
+# ...and it MUST tell the worker its prior state was lost and to re-derive.
+grep -q 'BOTH LOST' "$TR/prompt.out" 2>/dev/null \
+  && ok "fallback prompt states the prior session and worktree were lost" \
+  || bad "fallback prompt failed to warn that prior state was lost"
+grep -qi 're-derive' "$TR/prompt.out" 2>/dev/null \
+  && ok "fallback prompt tells the worker to re-derive state from committed work" \
+  || bad "fallback prompt did not instruct the worker to re-derive state"
+# The two framings are genuinely different text on the resume vs fallback path.
+[ -e "$FWT" ] && scratch_leftover=1 || scratch_leftover=0   # completed => torn down
+[ "$scratch_leftover" -eq 0 ] && ok "completed lost-transcript run tears its fresh worktree down" \
+  || bad "fallback run left its worktree behind: $FWT"
 
 # === 6: a job with `model: fable` threads --model claude-fable-5 ==============
 # A per-job `model:` frontmatter field is honored: the short tier name is mapped

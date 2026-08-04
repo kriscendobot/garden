@@ -93,11 +93,27 @@ EOF
 }
 
 # worker_job_prompt <base> <jobfile> <worktree> <main-branch> <mode> — the full
-# prompt a handler feeds its CLI. mode=fresh|resume selects the framing; both carry
-# the SAME completion-signal contract, worktree note, messaging discipline, and
-# verbatim job spec, so the two backends can never drift on injection hygiene or the
-# completion contract. External text (the job body) is data on both paths. The role
-# brief is the gardener brief for every kind — a cleric is a codex-backed gardener.
+# prompt a handler feeds its CLI. mode=fresh|resume|fallback selects the framing;
+# all three carry the SAME completion-signal contract, worktree note, messaging
+# discipline, and verbatim job spec, so the two backends can never drift on
+# injection hygiene or the completion contract. External text (the job body) is
+# data on every path. The role brief is the gardener brief for every kind — a
+# cleric is a codex-backed gardener.
+#
+# The three modes answer three genuinely different starting states, and MUST NOT be
+# conflated — a resumed worker that is lied to about its state wastes the run:
+#   * fresh    — a first claim: no prior attempt, nothing to carry, nothing lost.
+#   * resume   — a requeue re-claimed on the SAME host WITH its session transcript
+#                present: `--resume` attached, so the prior reasoning AND the
+#                uncommitted work in this same worktree really were carried forward.
+#   * fallback — a requeue re-claimed on a DIFFERENT host (or after the transcript
+#                was pruned): `--resume` could NOT attach and ensure_worktree
+#                recreated a FRESH worktree, so the prior session's memory and its
+#                uncommitted working tree are BOTH gone. Only committed/pushed work
+#                and the journal survive. Asserting a "carried forward intact"
+#                resume here would be false and would push the worker to trust a
+#                memory and hunt for uncommitted edits that do not exist (the gap
+#                measured in issue #62 follow-up: cross-host requeue loses both).
 worker_job_prompt() {
   local base="${1:?}" jobfile="${2:?}" worktree="${3:?}" main_branch="${4:?}" mode="${5:-fresh}"
   local role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
@@ -112,6 +128,35 @@ already done — including any uncommitted work still in this worktree — and
 CONTINUE from where you left off, driving the job to completion. Re-read the job
 spec below in case anything changed, then finish and write ONLY the concise
 completion report (what you did, what changed, any follow-ups) to stdout.
+
+COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
+the exact line
+    $GARDEN_COMPLETION_MARKER
+as the very LAST line of your report, on its own line, as your final act. If you
+still did NOT finish, do NOT emit that line — the job will be requeued and
+resumed again rather than falsely recorded as done.
+
+$note
+
+----- JOB $base -----
+$(cat "$jobfile")
+----- END JOB -----
+EOF
+  elif [ "$mode" = fallback ]; then
+    cat <<EOF
+You are RE-RUNNING garden job '$base' after a reaper requeue, but the prior
+attempt's session could NOT be carried forward to you: it was re-claimed on a
+different host (or its transcript was pruned), so the earlier session's memory and
+its working tree were BOTH LOST. Do NOT trust any recollection of prior work and do
+NOT expect uncommitted edits — your cwd is a FRESH worktree checked out off
+origin/$main_branch and holds none of the previous attempt's in-progress changes.
+
+Only work a prior attempt COMMITTED and pushed (to $main_branch, or to a project PR
+branch) and whatever it recorded in the journal survives. Treat this as a clean
+start that must RE-DERIVE where the job stands: inspect committed history, any PR,
+and the journal to see what is already done before redoing it, then drive the job
+to completion. Re-read the job spec below and write ONLY the concise completion
+report (what you did, what changed, any follow-ups) to stdout.
 
 COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
 the exact line
