@@ -101,3 +101,13 @@ still green; and a `tada/` report naming where you put the fix, why there rather
 than the alternatives, whether it needs a units reconcile or a deploy to take
 effect, and any other `~/.local/bin` tool that was silently unreachable for the
 same reason.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-05T06:04:06Z
