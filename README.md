@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:58:03Z_
+_As of 2026-08-05T16:00:25Z_
 
 ## Latest
 
@@ -5033,24 +5033,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $568.28 _(notional, rate-card)_ | no quota set |
-| Codex | 22.3M _(+485.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 32.4M | $563.54 _(notional, rate-card)_ | no quota set |
+| Codex | 22.3M _(+485.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
+- [`deadmail-20260805T155844Z-5882ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260805T155844Z-5882ba.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr923-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
-- [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-powers-plane-arm.md) — ---
 
-### tada (4161)
+### tada (4162)
+- [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-0bdfc2c-powers-plane-arm.md) — Completion report: arm the Increment-3 powers plane on live minion.town
 - [`endojs-endo-but-for-bots-pr914-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr914-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr919-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr919-dependabot.md) — Cost
 - [`minion-town-weblet-gateway-increments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increments.md) — orchestration minion-town-weblet-gateway-increments — complete
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-4.md) — Completion report
-- [`fu-review-retrospective-consolidated-20260804-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-review-retrospective-consolidated-20260804-3.md) — Cost
-- … and 4156 more
+- … and 4157 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
