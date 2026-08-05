@@ -242,7 +242,11 @@ USER root
 # the wiring the launcher's `bash -lc 'exec claude ...'` relies on:
 #   - PATH: prepends the garden/go tool dirs while preserving the default PATH
 #     (which already contains /usr/bin, where the global `claude` bin lives), so
-#     `claude` resolves on a bare enter.
+#     `claude` resolves on a bare enter. `$HOME/.local/bin` is on the list because
+#     the native installers land there (the AWS CLI v2 symlinks `aws` into it —
+#     scripts/aws/install-aws-cli.sh), so a login shell (`bash -lc`, a tool that
+#     re-execs one) can reach those tools too; without it only common.sh's runtime
+#     PATH append covered them, which a login-shell re-derivation of PATH drops.
 #   - USER / XDG_RUNTIME_DIR / DBUS: what `systemctl --user` needs to reach the
 #     user bus. A `docker exec` (even `-l`) gets no PAM session, so these are unset
 #     otherwise and every `systemctl --user` — the liaison's and its subprocesses'
@@ -250,13 +254,13 @@ USER root
 #     `${VAR:-…}`) retires that self-heal for every login shell; fleet scripts are
 #     covered in parallel by common.sh's source-time systemd_user_env.
 RUN printf '%s\n' \
-    'export PATH="$HOME/bin:$HOME/go/bin:/opt/go-tools/bin:/usr/local/go/bin:$PATH"' \
+    'export PATH="$HOME/bin:$HOME/.local/bin:$HOME/go/bin:/opt/go-tools/bin:/usr/local/go/bin:$PATH"' \
     'export USER="${USER:-$(id -un)}"' \
     'export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"' \
     'export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"' \
     > /etc/profile.d/garden.sh
 
-ENV PATH="/home/${USERNAME}/bin:/home/${USERNAME}/go/bin:${PATH}"
+ENV PATH="/home/${USERNAME}/bin:/home/${USERNAME}/.local/bin:/home/${USERNAME}/go/bin:${PATH}"
 
 # Mask systemd units that don't make sense in a container (they would
 # otherwise fail noisily on boot).
