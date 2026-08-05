@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:54:03Z_
+_As of 2026-08-05T15:55:18Z_
 
 ## Latest
 
@@ -5033,8 +5033,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $567.18 _(notional, rate-card)_ | no quota set |
-| Codex | 22.1M _(+482.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 32.5M | $567.57 _(notional, rate-card)_ | no quota set |
+| Codex | 22.2M _(+483.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -5046,13 +5046,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr923-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
 - [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-powers-plane-arm.md) — ---
 
-### tada (4158)
+### tada (4159)
+- [`minion-town-weblet-gateway-increments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increments.md) — orchestration minion-town-weblet-gateway-increments — complete
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-4.md) — Completion report
 - [`fu-review-retrospective-consolidated-20260804-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-review-retrospective-consolidated-20260804-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr912-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr912-dependabot.md) — Completion report: botanist review of endojs/endo-but-for-bots PR #912
 - [`fu-review-retrospective-consolidated-20260804-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-review-retrospective-consolidated-20260804-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr913-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr913-dependabot.md) — Cost
-- … and 4153 more
+- … and 4154 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
