@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T17:48:48Z_
+_As of 2026-08-05T17:49:16Z_
 
 ## Latest
 
@@ -5059,14 +5059,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-07-29T06:56:25Z, latest 2026-08-01T09:31:38Z).
-> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> WATCHDOG notice — occurrence #12 (first seen 2026-07-29T06:56:25Z, latest 2026-08-05T17:49:04Z).
+> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
-> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#874](https://github.com/endojs/endo-but-for-bots/issues/874) (cid=5145448917) and failed open.
+> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#895](https://github.com/endojs/endo-but-for-bots/issues/895) (cid=5195278312) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5145448917 on [endojs/endo-but-for-bots#874](https://github.com/endojs/endo-but-for-bots/issues/874) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5195278312 on [endojs/endo-but-for-bots#895](https://github.com/endojs/endo-but-for-bots/issues/895) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
@@ -5107,8 +5107,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $565.35 _(notional, rate-card)_ | no quota set |
-| Codex | 20.7M _(+447.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 32.4M | $565.52 _(notional, rate-card)_ | no quota set |
+| Codex | 20.7M _(+446.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
