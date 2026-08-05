@@ -128,3 +128,13 @@ Landed on `main2`; four truth-table cases green; existing suites still green; th
 storage decision documented with its reasoning; and a `tada/` report naming what
 takes effect on a deploy versus a units reconcile, and whether the leader host
 needs anything beyond a normal deploy.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-05T14:56:10Z
