@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:41:28Z_
+_As of 2026-08-05T15:45:59Z_
 
 ## Latest
 
@@ -2958,6 +2958,24 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet minion-town-ocapn-runahead-pin-gauntlet HALTED: stage 'minion-town-ocapn-runahead-pin-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260805T154318Z-86dbd4` — from gardener:endojs-endo-but-for-bots-pr915-dependabot, reply_to `endojs-endo-but-for-bots-pr915-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T154318Z-86dbd4.md)
+
+> Botanist verdict on [https://github.com/endojs/endo-but-for-bots/pull/915](https://github.com/endojs/endo-but-for-bots/pull/915) (dependabot: actions/setup-python 6.2.0 -> 7.0.0):
+>
+> **MERGE-NOW**, blocked only at the maintainer-approval gate.
+>
+> All gate legs pass: base is a genuine forward bump (single ci.yml call site at v6.2.0), both pins verified tag->commit, no advisories either side, maturity floor (2026-07-27) is 9 days past, substance is the node20->node24/ESM migration with no new network/exec/exfil sinks, and CI is 23/23 green including test-ocapn-python, check-action-pins, and zizmor. No consuming-code migration was needed.
+>
+> I ran the conductor spine; it confirmed terminal-green and stopped at "no maintainer approval" (no APPROVED review on head 718c297). To land it, approve the PR ([endojs/endo-but-for-bots#915](https://github.com/endojs/endo-but-for-bots/issues/915)) and the next conduct merges it onto llm. Verdict comment posted to the PR; ledger row recorded.
+
+- `20260805T154354Z-bd6d9b` — from gardener:endojs-endo-but-for-bots-pr916-dependabot, reply_to `endojs-endo-but-for-bots-pr916-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T154354Z-bd6d9b.md)
+
+> Botanist verdict on `endojs/endo-but-for-bots#916` (`softprops/action-gh-release` v3.0.1 -> v3.0.2, familiar-release.yml, base `llm`): **MERGE-NOW**.
+>
+> All gates satisfied - base-ref census confirms it's a real forward bump (not superseded), both SHA pins verified tag->commit, no advisory, benign source read (patch maintenance by the usual releaser), mature (published 2026-07-13), CI 23/23 green, MERGEABLE/CLEAN.
+>
+> The conductor spine held it at the maintainer-approval gate (`merge blocked: no maintainer approval` - no APPROVED review on the head). **It needs only your approval to be conducted onto `llm`.** Verdict comment: [https://github.com/endojs/endo-but-for-bots/pull/916](https://github.com/endojs/endo-but-for-bots/pull/916)#issuecomment-5193947069
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5009,35 +5027,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $561.74 _(notional, rate-card)_ | no quota set |
-| Codex | 21.6M _(+469.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 32.6M | $565.92 _(notional, rate-card)_ | no quota set |
+| Codex | 21.8M _(+475.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (8)
 - [`endojs-endo-but-for-bots-pr912-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr912-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #912
-- [`endojs-endo-but-for-bots-pr913-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr913-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #913
 - [`endojs-endo-but-for-bots-pr914-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr914-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #914
-- [`endojs-endo-but-for-bots-pr915-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr915-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #915
-- [`endojs-endo-but-for-bots-pr916-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr916-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #916
-- [`endojs-endo-but-for-bots-pr918-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr918-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #918
 - [`endojs-endo-but-for-bots-pr919-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr919-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #919
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr923-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
 - [`fu-review-retrospective-consolidated-20260804-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-review-retrospective-consolidated-20260804-2.md) — ---
 - [`fu-review-retrospective-consolidated-20260804-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-review-retrospective-consolidated-20260804-3.md) — ---
 - [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-powers-plane-arm.md) — ---
-- [`minion-town-0bdfc2c-weblet-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-weblet-edge-verify.md) — ---
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-4.md) — Weblet gateway Increment 4 — the publish capability (+ stubbed charge seam)
 
-### tada (4149)
-- [`minion-town-ocapn-runahead-pin-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet.md) — gauntlet minion-town-ocapn-runahead-pin-gauntlet — HALTED
-- [`minion-town-ocapn-runahead-pin-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-panel-1.md) — Cost
-- [`minion-town-ocapn-runahead-pin-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-clean.md) — Completion report
-- [`garden-budget-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-attribution.md) — orchestration garden-budget-attribution — complete
-- [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-3.md) — Completion report — minion-town-weblet-gateway-increment-3
-- … and 4144 more
+### tada (4154)
+- [`endojs-endo-but-for-bots-pr913-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr913-dependabot.md) — Cost
+- [`endojs-endo-but-for-bots-pr918-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr918-dependabot.md) — Cost
+- [`minion-town-0bdfc2c-weblet-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-0bdfc2c-weblet-edge-verify.md) — Cost
+- [`endojs-endo-but-for-bots-pr916-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr916-dependabot.md) — Completion report — botanist review of endojs/endo-but-for-bots#916
+- [`endojs-endo-but-for-bots-pr915-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr915-dependabot.md) — Cost
+- … and 4149 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
