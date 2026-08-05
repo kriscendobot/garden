@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:40:26Z_
+_As of 2026-08-05T15:41:28Z_
 
 ## Latest
 
@@ -2954,6 +2954,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > The 2026-08-04 consolidated review retrospective (`review-retrospective-consolidated-20260804`) names its highest-leverage fix as narrowing `retro_eligible` in `scripts/jobs/comment-watcher.sh`, so that a `review`/`attention` comment whose only actionable content is a pipeline-op verb (conduct/rebase/shepherd/retcon/weave/merge/close), or an empty-body approval with zero inline comments, mints **no** retrospective — cutting the ~85% dismissal flood at its source. The retrospective explicitly declined to act because it reverses your deliberate err-toward-minting choice and edits the comment-watcher's tested hot path. Do you want a builder job posted to narrow the gate as described, or should the watcher keep erring toward minting?
 
+- `20260805T154107Z-84ce45` — from gauntlet:minion-town-ocapn-runahead-pin-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T154107Z-84ce45.md)
+
+> Gauntlet minion-town-ocapn-runahead-pin-gauntlet HALTED: stage 'minion-town-ocapn-runahead-pin-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5005,8 +5009,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $560.22 _(notional, rate-card)_ | no quota set |
-| Codex | 21.5M _(+467.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 32.5M | $561.74 _(notional, rate-card)_ | no quota set |
+| Codex | 21.6M _(+469.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -5027,13 +5031,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-0bdfc2c-weblet-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-weblet-edge-verify.md) — ---
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-4.md) — Weblet gateway Increment 4 — the publish capability (+ stubbed charge seam)
 
-### tada (4148)
+### tada (4149)
+- [`minion-town-ocapn-runahead-pin-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet.md) — gauntlet minion-town-ocapn-runahead-pin-gauntlet — HALTED
 - [`minion-town-ocapn-runahead-pin-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-panel-1.md) — Cost
 - [`minion-town-ocapn-runahead-pin-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-clean.md) — Completion report
 - [`garden-budget-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-attribution.md) — orchestration garden-budget-attribution — complete
 - [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-3.md) — Completion report — minion-town-weblet-gateway-increment-3
-- [`minion-town-ocapn-runahead-pin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin.md) — Cost
-- … and 4143 more
+- … and 4144 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
