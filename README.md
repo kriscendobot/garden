@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:35:38Z_
+_As of 2026-08-05T15:35:58Z_
 
 ## Latest
 
@@ -5001,24 +5001,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $556.26 _(notional, rate-card)_ | no quota set |
+| Claude | 32.2M | $556.61 _(notional, rate-card)_ | no quota set |
 | Codex | 21.3M _(+466.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`minion-town-ocapn-runahead-pin-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-runahead-pin-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #24
+### doin (1)
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-4.md) — Weblet gateway Increment 4 — the publish capability (+ stubbed charge seam)
 
-### tada (4146)
+### tada (4147)
+- [`minion-town-ocapn-runahead-pin-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-clean.md) — Completion report
 - [`garden-budget-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-attribution.md) — orchestration garden-budget-attribution — complete
 - [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-3.md) — Completion report — minion-town-weblet-gateway-increment-3
 - [`minion-town-ocapn-runahead-pin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin.md) — Cost
 - [`minion-town-namespace-a-restore-auth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-namespace-a-restore-auth.md) — Cost
-- [`garden-worker-path-local-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-worker-path-local-bin.md) — Completion report
-- … and 4141 more
+- … and 4142 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
