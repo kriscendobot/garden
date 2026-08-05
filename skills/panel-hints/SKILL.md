@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-07-20
+updated: 2026-08-05
 author: gardener
 ---
 
@@ -89,7 +89,7 @@ Every `fire` line collects into the recommended set.
 
 ### 5. Content-regex-triggered seats (7)
 
-For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The `spec-keeper` probe additionally fires on an added `M.any()` or broad `M.record()` in a changed `.ts`/`.js` exo or `M.interface(...)` guard, so the seat can decide whether a documented compatibility exception justifies it. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
+For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The `purist` probe includes recognizable reimplementations of Endo primitives (SHA-256, byte/text codecs, base64, hex, ASCII, `insist`, and Rust base64), routing ambiguous cases to judgment while the narrower pre-push probe blocks unambiguous JavaScript/TypeScript shapes. The `spec-keeper` probe additionally fires on an added `M.any()` or broad `M.record()` in a changed `.ts`/`.js` exo or `M.interface(...)` guard, so the seat can decide whether a documented compatibility exception justifies it. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
 
 ### 6. Design-panel routing
 
@@ -149,4 +149,5 @@ When the gardener adds a seat, the corresponding probe is added in the same comm
 ## Notes from the field
 
 - _2026-06-24_: migrated to v2. The helper `panel-hints.sh` and the `probes/` directory are pure diff-scanners with no v1 coordination dependency, so both are reproduced verbatim alongside this skill. The only wording change is the consumer: v1's three judges consulted the script at top-of-dispatch; v2's supervised panel run (`scripts/jobs/gardening/panel.sh`) consults it at its seat-selection step. The seat-subset logic could alternatively be folded into the gardening `sense.sh`; until then the sibling helper is the source of truth.
+- _2026-08-05_: widened `C-purist.sh` with the deterministic signature catalog from the consolidated `prefer-endo-primitives` review-miss cluster. It now fires the purist on added hand-rolled SHA-256, byte/text encoding, base64, hex, ASCII, `insist`, and Rust base64 shapes; `scripts/jobs/test/review-convention-probes-test.sh` relitigates the signatures and verifies the Rust review-only route.
 - _2026-05-22_: initial bootstrap. Always-on core expanded from 8 to 9 with `corner-prober`. `breaker` moved from always-on candidate to path-triggered (its lens needs `M.interface(` / `makeExo` / `^## Invariants` present). `fast-checker` moved from always-fire to path-triggered (the test-file path trigger is sharp enough).

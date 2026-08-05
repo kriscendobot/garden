@@ -22,6 +22,8 @@
 #     the review-retrospective floor at count=3 across 2 PRs.
 #   * earlier confirmations: #592 `Arg` -> `pathComponent`/`segment`; #127
 #     `subDir` -> spelled out.
+#   * consolidated 2026-08-04 recurrence: #684 `listenAddr` ->
+#     `listenAddress`; #806 `pendingIdx` was already covered by `idx`.
 #
 # HOW IT WORKS: for each ADDED line of a changed source file the probe strips
 # string literals and comments (a char scanner that skips `//`, `/* */`, and
@@ -70,7 +72,7 @@ classify() {
       # from the observed set plus obvious siblings; keep it documented and
       # low-false-positive. Add here (and to the SKILL table) when a new
       # abbreviation trips a review.
-      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request", pairs, " ")
+      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address", pairs, " ")
       for (p in pairs) { split(pairs[p], kv, ":"); BLOCK[kv[1]] = kv[2] }
       findings = 0
       sq = sprintf("%c", 39); bt = sprintf("%c", 96)
