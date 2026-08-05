@@ -1,12 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-parked_at: 2026-08-02T21:03:45Z
-parked_by: liaison:endolin-garden-ece02cb4
-parked_reason: maintainer directive — board cleared so the fleet runs
-  ONLY the budget/cost-attribution orchestration. Restore with
-  promote-plan.sh when that work concludes.
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-05T06:34:13Z cleared=reaped=1 -->
 
 ---
 role: builder
@@ -40,4 +35,3 @@ Split: `@endo/gateway` owns the OCapN/CapTP termination + bootstrap routing; min
 ## Procedure
 Read `designs/weblet-gateway.md` § 6 (authority). Build in the isolated checkout; local-verify; PR; merge→CD; **edge-verify (§ 6 DoD):** against a fixture weblet, an `@endo/captp` WS client to `/.well-known/endo-captp` gets a bootstrap whose surface matches the granted powers; an OCapN CBOR client likewise; `GET /.well-known/ocapn-bootstrap` returns the locator; an unknown hash's upgrade is refused. Record probe evidence. Report on the issue thread (issue_url) with SHA/PR + evidence; never close the issue.
 
-<!-- garden-reaped: 1 -->
