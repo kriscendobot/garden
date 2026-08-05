@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 24
 build_job: minion-town-ocapn-runahead-pin
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: minion-town-ocapn-runahead-pin-gauntlet-clean
+current_child: minion-town-ocapn-runahead-pin-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-05T15:06:17Z
