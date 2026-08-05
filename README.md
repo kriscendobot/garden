@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:46:36Z_
+_As of 2026-08-05T15:47:28Z_
 
 ## Latest
 
@@ -2976,6 +2976,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The conductor spine held it at the maintainer-approval gate (`merge blocked: no maintainer approval` - no APPROVED review on the head). **It needs only your approval to be conducted onto `llm`.** Verdict comment: [https://github.com/endojs/endo-but-for-bots/pull/916](https://github.com/endojs/endo-but-for-bots/pull/916)#issuecomment-5193947069
 
+- `20260805T154655Z-6d7ce5` — from gardener:endojs-endo-but-for-bots-pr912-dependabot, reply_to `endojs-endo-but-for-bots-pr912-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T154655Z-6d7ce5.md)
+
+> Botanist verdict on Dependabot PR [endojs/endo-but-for-bots#912](https://github.com/endojs/endo-but-for-bots/issues/912) (actions/setup-node v6→v7.0.0): **MERGE-NOW**, and it is merge-ready — all 26 CI checks green, pin provenance verified (tag v7.0.0 → 820762786…), no advisory, maturity floor passed, source read benign (node24 runtime unchanged, consumed inputs stable, internal ESM migration only).
+>
+> The conductor spine blocked it only at the maintainer-approval gate: no current APPROVED review on the head, so GitHub reports MERGEABLE/BLOCKED. **Your approval is the sole remaining blocker** — approve [https://github.com/endojs/endo-but-for-bots/pull/912](https://github.com/endojs/endo-but-for-bots/pull/912) and the next conductor pass merges it cleanly. Verdict comment posted on the PR; ledger row recorded.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5027,8 +5033,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $566.20 _(notional, rate-card)_ | no quota set |
-| Codex | 21.8M _(+476.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 32.6M | $566.67 _(notional, rate-card)_ | no quota set |
+| Codex | 21.9M _(+478.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
