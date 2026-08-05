@@ -92,11 +92,19 @@ GARDEN_TAG="foreman"
 # At/over the high-water mark the foreman pumps NOTHING this tick and emits at most
 # one throttled maintainer note; a broken/unreadable meter fails OPEN (pumps, warns).
 
-fleet_draining && exit 0
-
 DIR="${GARDEN_FOREMAN_CLONE:-$GARDEN_STATE/foreman/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
+
+# The foreman has its OWN brake, independent of the fleet drain (job
+# garden-foreman-independent-brake). foreman_braked is true when EITHER the fleet
+# is draining (the drain keeps stopping the foreman, unchanged) OR the journal-
+# backed foreman brake (GARDEN_FOREMAN_BRAKE_PATH) is set — which stops ONLY the
+# foreman, so gardeners keep claiming while the pump is silenced. This is the sole
+# call site that changed from fleet_draining; the brake is read from the clone we
+# just synced, and sync_clone has already exited the tick if the journal was
+# unreadable, so the pump never fires on a journal it could not read (fail-safe).
+foreman_braked "$DIR" && exit 0
 
 STATE="$GARDEN_STATE/foreman"
 mkdir -p "$STATE"

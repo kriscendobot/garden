@@ -215,6 +215,20 @@ export GARDEN
 # the old marker, is never stranded. Remove once no host carries a NOPE marker.
 : "${GARDEN_KILLSWITCH:=$GARDEN_STATE/NOPE}"
 
+# Foreman brake path — the FOREMAN-ONLY throttle, independent of the fleet drain.
+# Unlike the draining marker above (a host-local FILE under $GARDEN_STATE that
+# stops EVERY worker), the brake is JOURNAL-BACKED: a flag committed to journal2
+# at this path. Journal-backed because the foreman is a leader-only singleton — a
+# host-local brake would be left behind when the leader marker moves and the new
+# leader's foreman would start pumping immediately, whereas a journal flag is fleet
+# policy in fleet state: it follows the leader across a handoff, is reachable from
+# any host without a new sysop op, and is auditable in git. Its EXISTENCE is the
+# signal (like the drain marker); its CONTENTS are a prose reason (written by
+# brake-foreman.sh). foreman_braked reads it from an ALREADY-SYNCED journal clone,
+# so an unreadable/offline journal makes sync_clone exit the tick BEFORE the read —
+# the pump never fires on a journal it could not read (fail-safe toward braked).
+: "${GARDEN_FOREMAN_BRAKE_PATH:=config/foreman-brake}"
+
 # --- transcript capture (designs/transcript-journal-capture.md) ---------------
 #
 # The garden captures every host's finished session transcripts into a dedicated
@@ -434,6 +448,26 @@ is_transient_gh_source_error() {
 fleet_draining() { [ -e "$GARDEN_DRAINING_MARKER" ] || [ -e "$GARDEN_KILLSWITCH" ]; }
 # Deprecated alias retained so any not-yet-updated caller keeps working.
 killswitch_engaged() { fleet_draining; }
+
+# True when the FOREMAN must not pump this tick: either the whole fleet is
+# draining (fleet_draining — the drain keeps its meaning and keeps stopping the
+# foreman, the first row of the truth table) OR the foreman-only brake is set.
+# This is the ONLY predicate the foreman's guard changes; every other worker keeps
+# calling fleet_draining, so a brake with the drain OFF stops the foreman alone and
+# gardeners keep claiming.
+#
+# The brake is journal-backed (GARDEN_FOREMAN_BRAKE_PATH on journal2). Its presence
+# is read from an ALREADY-SYNCED journal clone passed as $1 — never a fresh fetch
+# here — so the read cost is one stat on a clone the foreman synced anyway. EXISTENCE
+# is the signal, mirroring the drain marker: a present-but-garbage flag still brakes,
+# so a corrupt brake cannot silently unbrake. The caller must sync the clone before
+# calling this; sync_clone exits the tick on an offline/unreadable journal, so the
+# pump never fires on a journal that could not be read — fail-safe toward braked.
+foreman_braked() {
+  local clone="${1:?foreman_braked: journal clone dir required}"
+  fleet_draining && return 0
+  [ -e "$clone/$GARDEN_FOREMAN_BRAKE_PATH" ]
+}
 
 # --- gardener mid-job (busy) marker — the single definition of "do not disturb" -
 #

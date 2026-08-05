@@ -208,6 +208,40 @@ sender can tell "done" from "never arrived". Send one with
 `scripts/jobs/send-host-op.sh <GARDEN> op=… key=…`. Ferry and any identity switch are
 **permanently out of the vocabulary**, never merely deferred.
 
+### The foreman brake (quiet the pump without draining the fleet)
+
+The fleet drain (`scripts/jobs/drain-fleet.sh on|off`) is all-or-nothing: it stops
+**every** worker, foreman included. That made silencing the foreman's autonomous pump
+require draining the whole fleet — which actively blocked work (the
+`garden-budget-attribution` chain had to be promoted by hand because the leader had to
+stay drained purely to keep the foreman quiet). The **foreman brake** decouples the
+two: it stops **only** the foreman. Set / clear / report it with
+`scripts/jobs/brake-foreman.sh on|off|status` (mirroring `drain-fleet.sh`; the marker
+carries a prose reason). The truth table:
+
+| fleet drain | foreman brake | gardeners claim? | foreman pumps? |
+|---|---|---|---|
+| on  | either | no  | no |
+| off | on     | **yes** | no |
+| off | off    | yes | yes |
+
+The drain keeps its meaning and keeps stopping the foreman; the brake is the extra,
+foreman-only lever. Mechanically it is a **journal-backed** flag (`config/foreman-brake`
+on `journal2`) read by the new `foreman_braked` predicate (`common.sh`), which the
+foreman's guard calls in place of `fleet_draining` — the **only** call site that
+changed; every other worker still guards on `fleet_draining`, so the brake never
+touches a gardener's claim. Journal-backed (not a host-local marker like the drain)
+because the foreman is a **leader-only singleton**: a journal flag follows the `leader`
+marker across a handoff, is reachable from any host without a new sysop op, and is
+auditable in git; a host-local brake would be left behind on the old leader and the new
+leader's foreman would pump immediately. It fails **safe** toward braked — the brake is
+read from the journal clone the foreman already syncs each tick, and `sync_clone` exits
+the tick on an unreadable/offline journal *before* the read, so the pump never fires on
+a journal it could not read; existence is the signal, so even a corrupt flag still
+brakes. It takes effect on the next foreman tick with **no deploy or units reconcile**
+— it is pure journal state (design intent: mechanical precursor to the foreman split in
+[designs/omega-task-rank-and-foreman-retirement.md](designs/omega-task-rank-and-foreman-retirement.md)).
+
 ### Deliberate deploy (the root checkout is a deployed version)
 
 The root checkout (`<garden-root>`) is a **deployed version** of the garden, not a

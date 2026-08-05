@@ -223,6 +223,25 @@ sysop `unit` op carrying maintainer attestation (`authorized_by:`); the soft for
 config write the maintainer authorizes. **Recommendation:** do the soft form first,
 watch one full quota week, then take the hard form once Stage 2 exists.
 
+**Landed 2026-08-05 — the foreman brake (mechanical precursor to this stage; job
+`garden-foreman-independent-brake`).** The maintainer asked for a lever that silences
+*only* the foreman, independent of the fleet drain. It is a journal-backed flag
+(`config/foreman-brake` on `journal2`), set/cleared/reported by
+`scripts/jobs/brake-foreman.sh on|off|status` and honored by the new `foreman_braked`
+predicate (`common.sh`) that the foreman's guard now calls in place of
+`fleet_draining`. Truth table: drain on ⇒ nothing claims and the foreman is stopped
+(unchanged); drain off + brake on ⇒ **gardeners keep claiming while the foreman pumps
+nothing**; drain off + brake off ⇒ normal. This changes **no** promotion logic, rank
+ordering, or target — it is purely the on/off lever this design's Stage 1 assumed. It
+directly unblocks the failure the design cites (the `garden-budget-attribution`
+orchestration chain had to be promoted by hand because the leader had to stay *drained*
+purely to keep the foreman quiet). Journal-backed rather than a host-local marker so it
+follows the leader marker across a handoff — a host-local brake would be left behind and
+the new leader's foreman would pump immediately. When Stage 1's soft/hard form lands,
+this brake remains the everyday "quiet the pump but keep the fleet working" control.
+Regression: `scripts/jobs/test/foreman-brake-test.sh` pins all four truth-table rows,
+the set→clear resume, and the corrupt-flag fail-safe.
+
 ### Stage 2 — A standalone deterministic promoter (`garden-promoter`)
 
 Extract the foreman's step (1) into its own leader-only, drain-gated, **no-`claude`**
