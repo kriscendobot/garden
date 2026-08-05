@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":2,"elapsed_s":14,"input_tokens":4,"output_tokens":650,"cache_creation_tokens":24245,"cache_read_tokens":54325,"total_cost_usd":0.28841550000000005,"ts":"2026-08-05T15:35:45Z","base":"minion-town-ocapn-runahead-pin-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
