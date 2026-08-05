@@ -124,3 +124,13 @@ its code reference or explicitly refuted in the `tada/` report; the
 foreman-brake status (landed or pending) reflected; no duplication across homes;
 and a report naming which claims you had to correct and any further
 control-surface gap you found while auditing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-05T15:00:48Z
