@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T16:14:54Z_
+_As of 2026-08-05T16:15:28Z_
 
 ## Latest
 
@@ -5043,24 +5043,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.5M | $566.23 _(notional, rate-card)_ | no quota set |
-| Codex | 22.1M _(+486.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 32.4M | $563.54 _(notional, rate-card)_ | no quota set |
+| Codex | 22.1M _(+486.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`dependabotany-recheck-endo-but-for-bots-20260805-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260805-160502.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (1)
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr923-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
 
-### tada (4163)
+### tada (4164)
+- [`dependabotany-recheck-endo-but-for-bots-20260805-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260805-160502.md) — Completion report
 - [`deadmail-20260805T155844Z-5882ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260805T155844Z-5882ba.md) — Cost
 - [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-0bdfc2c-powers-plane-arm.md) — Completion report: arm the Increment-3 powers plane on live minion.town
 - [`endojs-endo-but-for-bots-pr914-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr914-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr919-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr919-dependabot.md) — Cost
-- [`minion-town-weblet-gateway-increments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increments.md) — orchestration minion-town-weblet-gateway-increments — complete
-- … and 4158 more
+- … and 4159 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
