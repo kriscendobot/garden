@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: gardener
+claimed_at: 2026-08-05T16:05:13Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-dependabotany-recheck-endo-but-for-bots-20260805-160502
