@@ -35,3 +35,13 @@ Split: `@endo/gateway` owns the OCapN/CapTP termination + bootstrap routing; min
 ## Procedure
 Read `designs/weblet-gateway.md` § 6 (authority). Build in the isolated checkout; local-verify; PR; merge→CD; **edge-verify (§ 6 DoD):** against a fixture weblet, an `@endo/captp` WS client to `/.well-known/endo-captp` gets a bootstrap whose surface matches the granted powers; an OCapN CBOR client likewise; `GET /.well-known/ocapn-bootstrap` returns the locator; an unknown hash's upgrade is refused. Record probe evidence. Report on the issue thread (issue_url) with SHA/PR + evidence; never close the issue.
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-05T06:34:19Z
