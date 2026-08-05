@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-weblet-gateway-increments
-priority: normal
-posted_by: builder
-posted_at: 2026-08-02T01:39:52Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-05T15:34:11Z cleared=none -->
 
 ---
 role: builder
