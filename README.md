@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T16:02:02Z_
+_As of 2026-08-05T16:05:36Z_
 
 ## Latest
 
@@ -5034,13 +5034,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.4M | $563.54 _(notional, rate-card)_ | no quota set |
-| Codex | 22.3M _(+486.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 22.2M _(+486.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`dependabotany-recheck-endo-but-for-bots-20260805-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260805-160502.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr923-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
 
 ### tada (4163)
