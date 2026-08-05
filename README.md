@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T16:05:36Z_
+_As of 2026-08-05T16:14:54Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 11h)
-- [endojs/endo-but-for-bots#908](https://github.com/endojs/endo-but-for-bots/pull/908) — fix(iroh): preserve live peer connections (waiting 16h)
+- [endojs/endo-but-for-bots#908](https://github.com/endojs/endo-but-for-bots/pull/908) — fix(iroh): preserve live peer connections (waiting 17h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 7d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 7d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 7d)
@@ -2982,6 +2982,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The conductor spine blocked it only at the maintainer-approval gate: no current APPROVED review on the head, so GitHub reports MERGEABLE/BLOCKED. **Your approval is the sole remaining blocker** — approve [https://github.com/endojs/endo-but-for-bots/pull/912](https://github.com/endojs/endo-but-for-bots/pull/912) and the next conductor pass merges it cleanly. Verdict comment posted on the PR; ledger row recorded.
 
+- `20260805T161438Z-4980a4` — from gardener:dependabotany-recheck-endo-but-for-bots-20260805-160502, reply_to `dependabotany-recheck-endo-but-for-bots-20260805-160502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T161438Z-4980a4.md)
+
+> Daily dependabotany backstop for endojs/endo-but-for-bots — one action needed + one operational flag.
+>
+> TERMINAL MERGE-NOW, waiting only on your approval (embargo matured, CI 24/24 green, migration disclosed):
+>   • [endojs/endo-but-for-bots#868](https://github.com/endojs/endo-but-for-bots/issues/868)  eslint-plugin-unicorn 56.0.1 → 72.0.0  (verdict comment: [https://github.com/endojs/endo-but-for-bots/pull/868](https://github.com/endojs/endo-but-for-bots/pull/868)#issuecomment-5194294557)
+> Also still queued behind an approval from prior runs: [endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/issues/867) (@noble/curves), [endojs/endo-but-for-bots#915](https://github.com/endojs/endo-but-for-bots/issues/915) (setup-python), [endojs/endo-but-for-bots#916](https://github.com/endojs/endo-but-for-bots/issues/916) (action-gh-release). Each is green + mergeable; the conductor's approval gate is holding all four. An APPROVED review on any head lets it conduct onto `llm` automatically.
+>
+> OPERATIONAL FLAG: both dependabotany recheck schedules are currently in `paused-schedules/` — the daily backstop (last dispatched 2026-08-01) and [endojs/endo-but-for-bots#868](https://github.com/endojs/endo-but-for-bots/issues/868)'s precise one-shot (was due 2026-08-02T17:15Z, never fired). This sweep ran manually and caught [endojs/endo-but-for-bots#868](https://github.com/endojs/endo-but-for-bots/issues/868), but if the pause was unintended the rechecks are not firing on cadence. The embargoed set is now empty, so no recheck is currently owed regardless.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5033,8 +5043,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $563.54 _(notional, rate-card)_ | no quota set |
-| Codex | 22.2M _(+486.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 32.5M | $566.23 _(notional, rate-card)_ | no quota set |
+| Codex | 22.1M _(+486.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
