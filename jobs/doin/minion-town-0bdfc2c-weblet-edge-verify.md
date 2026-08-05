@@ -9,3 +9,13 @@ Work in a per-job worktree of `worktrees/kriscendobot-minion.town`. Read `design
 2. Assert the § 5.2 invariants on a live weblet response: no `Set-Cookie`, no `Access-Control-Allow-Origin`, and the oauth2-proxy session cookie still host-scoped to `minion.town` (never `.minion.town`).
 3. Confirm the deployed `endo-gateway.service` on the box matches the repo unit after the namespace rename (`MINION_TOWN_DOMAIN=weblet.minion.town`, `GATEWAY_STORE_DIR` provisioned, the retired `seed.env`/`GATEWAY_SEED_WEBLETS` actually gone), and that the apex, `www`, `github-idp` and `siwe-idp` hosts still hold their own managed certs outside wildcard coverage.
 Report findings as a PR comment or a follow-up PR if reconciliation is needed; do not widen any cookie scope or DNS wildcard.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-05T15:38:56Z
