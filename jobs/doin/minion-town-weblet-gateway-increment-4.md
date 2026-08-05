@@ -31,3 +31,13 @@ Split: `@endo/gateway` owns `publishWeblet` + vhost registration + CAS intern/pi
 
 ## Procedure
 Read `designs/weblet-gateway.md` § 7 (authority). Build in the isolated checkout; local-verify; PR; merge→CD; **edge-verify (§ 7 DoD):** via the repo's PKCE MCP client against `https://minion.town/mcp`: `weblet_publish({content,powers})` → a live `<hash>.minion.town` (serves content via Increment-2 path; `endo-captp` WS bootstraps the granted powers via Increment-3 path); a SECOND identity's `weblet_unpublish` of the first's hash is refused (owner-gated); the app log shows the stubbed zero-cost charge. Record probe evidence. Report on the issue thread (issue_url) with SHA/PR + evidence; **never close the issue — the submitter (kriskowal) closes it.**
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-05T15:34:15Z
