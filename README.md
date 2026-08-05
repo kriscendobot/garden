@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:35:58Z_
+_As of 2026-08-05T15:39:58Z_
 
 ## Latest
 
@@ -2950,6 +2950,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > OCapN run-ahead blocker: I opened endojs/endo-but-for-bots branch minion-town at current llm f8c1ca6a63319ec7051a61105bc6188681f1681e, then verified the unpublished API cannot meet design section 6 as written. makeOcapn hard-codes export slot 0 to its own Bootstrap fetch/deposit-gift/withdraw-gift object; it has no option for the weblet granted-powers object, so the remote bootstrap method surface cannot equal the granted powers. The demo proves locator.fetch(secret), not direct powers bootstrap. Per the job stop condition I am stopping rather than pinning a misleading implementation; PR 24 remains unchanged.
 
+- `20260805T153923Z-75062e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T153923Z-75062e.md)
+
+> The 2026-08-04 consolidated review retrospective (`review-retrospective-consolidated-20260804`) names its highest-leverage fix as narrowing `retro_eligible` in `scripts/jobs/comment-watcher.sh`, so that a `review`/`attention` comment whose only actionable content is a pipeline-op verb (conduct/rebase/shepherd/retcon/weave/merge/close), or an empty-body approval with zero inline comments, mints **no** retrospective — cutting the ~85% dismissal flood at its source. The retrospective explicitly declined to act because it reverses your deliberate err-toward-minting choice and edits the comment-watcher's tested hot path. Do you want a builder job posted to narrow the gate as described, or should the watcher keep erring toward minting?
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5001,14 +5005,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $556.61 _(notional, rate-card)_ | no quota set |
-| Codex | 21.3M _(+466.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 32.4M | $559.60 _(notional, rate-card)_ | no quota set |
+| Codex | 21.4M _(+467.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (14)
+- [`endojs-endo-but-for-bots-pr912-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr912-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #912
+- [`endojs-endo-but-for-bots-pr913-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr913-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #913
+- [`endojs-endo-but-for-bots-pr914-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr914-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #914
+- [`endojs-endo-but-for-bots-pr915-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr915-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #915
+- [`endojs-endo-but-for-bots-pr916-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr916-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #916
+- [`endojs-endo-but-for-bots-pr918-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr918-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #918
+- [`endojs-endo-but-for-bots-pr919-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr919-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #919
+- [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr923-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
+- [`fu-review-retrospective-consolidated-20260804-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-review-retrospective-consolidated-20260804-2.md) — ---
+- [`fu-review-retrospective-consolidated-20260804-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-review-retrospective-consolidated-20260804-3.md) — ---
+- [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-powers-plane-arm.md) — ---
+- [`minion-town-0bdfc2c-weblet-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-weblet-edge-verify.md) — ---
+- [`minion-town-ocapn-runahead-pin-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-runahead-pin-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #24
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-4.md) — Weblet gateway Increment 4 — the publish capability (+ stubbed charge seam)
 
 ### tada (4147)
