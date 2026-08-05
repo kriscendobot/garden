@@ -32,6 +32,11 @@ route and reject the change when no qualified non-Claude class remains, so a hos
 cannot configure itself to zero claimers. Restore Claude capacity with
 `scripts/jobs/set-gardeners.sh <count>`.
 
+The setter is deliberately local-only: its optional `[host]` must equal this
+host's `GARDEN`. To change an unattended follower, do not edit `hosts/<host>`
+from here; send `op=set-workers` to the target's standing sysop as described in
+[host-operations.md](host-operations.md).
+
 ## Pausing: drain
 
 ```sh
@@ -60,12 +65,32 @@ lifts). Recovering a fleet that is stuck after an
 outage — hung agents, dead letters, doom — is a different engagement: see
 [health.md](health.md) and `skills/restore/SKILL.md`.
 
+### What drain does not stop
+
+Drain is a **claim moratorium**, not a global write lock. On a drained leader,
+the direct job-producing watchers and `orchestrate.sh` see the marker and exit,
+but the scheduler has no drain guard and can still dispatch due schedules into
+`todo/`. `repo-watcher.sh` continues reconciling watcher units, the self-heal
+wrapper may post a scoped repair after a service failure, and the sysop must keep
+ticking so it can receive `drain off`. Those producers can therefore grow queued
+work while no gardener on the drained host will claim it; gardeners on other,
+undrained hosts can still claim it.
+
+If the intent is only to stop autonomous foreman pumping, do not drain the
+leader. The shipped `garden-foreman.service` sets
+`GARDEN_FOREMAN_ACTIVE_TARGET=0`, which independently prevents both deferred
+promotion and newly generated foreman work while leaving orchestration,
+schedules, watchers, and claiming untouched. Raising that target re-enables the
+foreman. A proposed separate brake has not landed in the current code; the active
+target is the live foreman-specific control.
+
 ## Which to prefer
 
 - **Temporary pause** (deploy, handoff, maintenance) → **drain on/off**; the
   pool size is preserved.
 - **Durable capacity change** (this host should do more, less, or zero work of
   one variety indefinitely) → **`set-gardeners`** or the corresponding
-  per-variety setter.
+  per-variety setter. `gardeners=0` is normally refused; use it only for the
+  probe-qualified temporary quota-route exception described above.
 - **Retiring a host** → drain, then hand off leadership if it was leader
   ([leader-follower.md](leader-follower.md)).

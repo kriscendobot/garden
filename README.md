@@ -98,13 +98,51 @@ deterministically. `#N` is a pull-request number.
 
 ## 2. Control surfaces
 
-Five planes, one job board. Everything below becomes a job that a worker
-claims; the surfaces differ only in where you're standing.
+Five planes, one job board. Work requests below become jobs that a worker
+claims; host-operation levers such as drain, scaling, and sysop messages instead
+mutate bounded fleet state. The conversational surfaces differ primarily in
+where you're standing.
 
 To learn the levers by example instead, the
 [control-surface gallery](context/control-surface-gallery.md) narrates about
 forty real maintainer dispatches: each one a lever pulled in a novel or
 instructive way, cited back to the journal entry that records it.
+
+### Lever semantics: what each control does not reach
+
+**A parked `gate: go-ahead` job will never start by itself.** The gate means
+that the job is *awaiting* maintainer authorization; it is not an authorization
+or a schedule. Only an explicit `promote-plan.sh <job>` moves it from `plan/` to
+`todo/`. The foreman selects only `gate: deferred` jobs
+([`foreman.sh`](scripts/jobs/foreman.sh)); no timer turns a `go-ahead` record
+into a promotion. This is the first thing to check when apparently ready work
+has stayed parked.
+
+The other levers have similarly narrow boundaries. This table is the reference;
+follow its operation link for commands and recovery procedure, or the
+[gallery](context/control-surface-gallery.md) for worked cases.
+
+| Lever | What it does | What it does **not** reach | Interacting lever to check |
+| --- | --- | --- | --- |
+| `promote-plan.sh <job>` / “go ahead on X” | Moves one parked job to `todo/`; for a `go-ahead` gate, the maintainer's explicit direction is the authorization. | Merely writing `gate: go-ahead` does not authorize, schedule, or auto-promote anything. The foreman auto-promotes only `deferred`. | Inspect `jobs/plan/<job>.md`, then promote explicitly ([plan-queue procedure](context/operations/plan-queue.md)). |
+| `drain-fleet.sh on` | Stops this host from taking new claims while its in-flight work finishes. | It is not a producer freeze: the leader scheduler still dispatches due schedules; `repo-watcher.sh` still reconciles watcher units; `self-heal-run.sh` may post a scoped repair; and the host sysop deliberately still runs. Direct job-producing watchers are drain-gated. | Use the control that owns the producer, and distinguish a drain from capacity zero ([scaling](context/operations/scaling.md)). |
+| Foreman active target | `GARDEN_FOREMAN_ACTIVE_TARGET=0` in the shipped foreman unit independently stops both deferred promotion and new-work pumping. | It does not pause gardeners, the scheduler, watchers, or orchestration. Conversely, draining to stop the foreman also stops drain-gated `orchestrate.sh` and direct watchers. | Prefer the foreman-specific target when only the foreman must stop; use drain only for claim moratorium semantics. |
+| `set-workers.sh <kind> <N> [host]` | Declares one worker kind's capacity on the host where the command runs. | It refuses to write another host's record. It also refuses `gardeners=0` unless the temporary quota route is active and a configured, probe-qualified non-Claude class remains. | Address an unattended host through its sysop; use drain for a temporary pause ([host operations](context/operations/host-operations.md), [scaling](context/operations/scaling.md)). |
+| `config/sysop-issuers` | Replaces the set of host identities allowed to originate sysop messages. | A non-empty file does not add to the default. It silently removes the default leader unless the leader is listed too; absent or empty defaults to the leader. | List **every** intended issuer, including the leader ([host operations](context/operations/host-operations.md)). |
+| Sysop benign tier | Applies host-scoped `set-workers`, `drain`, `reset-failed`, and deterministic `restore`. | It does not confer authority for `unit`, `deploy`, `local-model`, or `maintain`. | The latter tier needs a maintainer-authored `authorized_by: <login>` attestation ([host operations](context/operations/host-operations.md)). |
+| Sysop attested tier | Applies bounded `unit`, `deploy`, `local-model`, or `maintain` operations after allowlist attestation. | An agent's request for the operation is not the attestation, and no agent may originate `authorized_by`. | The maintainer must send or explicitly supply the attested host-op artifact ([host operations](context/operations/host-operations.md)). |
+| `deploy-garden.sh` | Tests the candidate, drains if needed, waits up to 600 seconds, advances the deployed tree, lifts its own drain, and restarts. | Its wait cannot outlast legitimate 7,200- or 10,800-second job budgets. It defers before draining when a live job is already at least 300 seconds old. A pre-existing operator drain is not lifted on abort. | On a busy fleet, pre-drain, wait for quiescence, then deploy; diagnose stale drains separately ([deploy](context/operations/deploy.md)). |
+| `git mv schedules/X.md paused-schedules/X.md` | Pauses a schedule by taking it out of the only directory the scheduler enumerates. | It does not cancel a job already dispatched to `todo/` or `doin/`. | Reverse the move to restore the schedule ([schedules](context/operations/schedules.md)). |
+
+The executable sources behind these boundaries are
+[`foreman.sh`](scripts/jobs/foreman.sh) and
+[`promote-plan.sh`](scripts/jobs/promote-plan.sh) (plan selection),
+[`common.sh`](scripts/jobs/common.sh) plus the individual producers' guards
+(drain), [`set-workers.sh`](scripts/jobs/set-workers.sh) (local-only and
+gardener-floor checks), [`sysop.sh`](scripts/jobs/sysop.sh) (issuer replacement
+and trust tiers), [`deploy-garden.sh`](scripts/jobs/deploy-garden.sh) (defer,
+quiesce, and drain ownership), and
+[`scheduler.sh`](scripts/jobs/scheduler.sh) (the `schedules/` enumeration).
 
 ### The claude CLI: the liaison
 

@@ -23,6 +23,26 @@ host-local crontab** so the schedule set is shared across hosts rather than
 stranded on one machine — the scheduler is a leader-only singleton and dispatches
 the shared set for the whole fleet.
 
+## Pausing and restoring
+
+The scheduler enumerates journal `schedules/` only. A paused schedule is the same
+record moved to sibling `paused-schedules/`; there is no `paused: true` field and
+no separate scheduler switch. Restore it by reversing the move:
+
+```sh
+git -C "$DIR" mv schedules/<name>.md paused-schedules/<name>.md  # pause
+git -C "$DIR" mv paused-schedules/<name>.md schedules/<name>.md  # restore
+```
+
+Perform the move in a freshly synced isolated producer clone (`$DIR`), commit the
+one rename, and CAS-push it to `journal2`, retrying from the new tip after a lost
+push race. Do **not** make this commit in the live `journal/` worktree: it may be
+stale or contain another producer's work. The move preserves cadence,
+`last_dispatched`, job body, and timeout exactly. Restoring makes the record
+eligible on the next scheduler tick; if its cadence is already due, it may
+dispatch immediately. Pausing does not recall a copy already posted to `todo/` or
+claimed into `doin/`; control that job separately.
+
 ## Where the detail lives
 
 The record shape, the cadence vocabulary, and the CAS-race procedure are in

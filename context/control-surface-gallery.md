@@ -98,6 +98,17 @@ directly into board data.
   (`journal/jobs/plan/open-signup-gate-flip-minion-town.md`,
   `journal/jobs/plan/verify-ymax0-hex-fix-inquisitor.md`).
 
+- **A gate mistaken for a schedule sat for 29 days.** The SIWE thunk deployment
+  was parked on July 7 as `gate: go-ahead`, with its AWS decisions named as
+  preconditions. It was still in `plan/` on August 5: no credential failure had
+  blocked a running job, because no job had ever been promoted. A separately
+  promoted `-go` job ultimately performed the deployment while the original
+  record remained parked. The lesson is visible in the two artifacts: a
+  `go-ahead` field means “awaiting explicit maintainer authorization,” and only
+  the explicit promotion schedules work
+  (`journal/jobs/plan/deploy-siwe-thunk-minion-town.md`,
+  `journal/jobs/tada/deploy-siwe-thunk-minion-town-go.md`).
+
 - **"Don't page the maintainer; park with `blocked_on`."** A maintainer
   directive (2026-06-27) redirected blocked gardeners away from free-text
   "please wait" messages: post a structured block signal instead. The
@@ -149,6 +160,15 @@ in the decomposition.
   single `post-orchestration.sh --parallel --on-child-failure continue` record
   promoted all four at once, with each failure isolated rather than halting
   the fan-out (`journal/jobs/tada/minion-town-oauth-fanout.md`).
+
+- **Draining the pump also drained the sequencer.** The five-child garden budget
+  attribution chain ran while the leader was deliberately drained to prevent
+  foreman backfill. That same marker made `orchestrate.sh` exit every tick, so
+  the liaison verified each predecessor and ran `promote-plan.sh` on all five
+  children, one by one, then marked the record complete. The scheduler would
+  still have run — it has no drain guard — but the orchestration watcher did
+  not. The episode is why “drain” cannot be treated as a foreman-only brake
+  (`journal/jobs/orch/garden-budget-attribution.md`).
 
 ## Schedules
 

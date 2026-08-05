@@ -27,6 +27,15 @@ schedule). The conversational first-run tour is the sibling tree,
 - **[scaling.md](scaling.md)** — *"scale up/down" / "pause the fleet."* Sizing
   the pool, `set-gardeners` per host, and `drain on/off` — when to prefer which.
 
+- **[host-operations.md](host-operations.md)** — *"change an unattended
+  follower" / "send a host op."* The sysop path for cross-host worker changes,
+  complete issuer-set semantics, and the maintainer attestation required by the
+  less reversible tier.
+
+- **[plan-queue.md](plan-queue.md)** — *"why is this parked job not starting" /
+  "go ahead on X."* Gate diagnosis and the explicit promotion required for
+  `gate: go-ahead` work; no automatic promoter selects that gate.
+
 - **[deploy.md](deploy.md)** — *"an upgrade is ready" / "what is the root
   checkout."* The deliberate deploy: the upgrade-ready signal, `deploy-garden.sh`,
   and why the root checkout is a deployed version, not a dev tree.
