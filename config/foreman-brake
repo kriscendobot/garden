@@ -1,0 +1,18 @@
+The FOREMAN is BRAKED.
+
+While this file exists on journal2, the garden's foreman pump is
+silenced: it promotes no deferred plan jobs and generates no new
+milestone steps. This is the FOREMAN-ONLY brake — it does NOT drain
+the fleet. Gardeners keep claiming and running jobs normally; only
+the autonomous pump that generates new work is paused.
+
+The fleet drain (scripts/jobs/drain-fleet.sh) still stops the foreman
+too, so a drained fleet needs no brake. Use this brake when you want
+the fleet working but the pump quiet.
+
+To let the foreman resume pumping, clear this brake:
+    scripts/jobs/brake-foreman.sh off
+
+set_by: endolin-garden-ece02cb4
+set_at: 2026-08-05T15:18:24Z
+reason: maintainer directive 2026-08-05: foreman pump stays quiet while gardener/cleric work resumes; clear with brake-foreman.sh off
