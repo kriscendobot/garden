@@ -75,3 +75,13 @@ fail-closed cases still fail closed. `tsc` clean.
 Name the branch, the exact pinned sha, the PR, what retires the pin, and any part of
 §6 that remains unimplemented. If the unpublished API turns out not to support
 faithful termination after all, STOP and report that rather than faking it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-05T14:57:48Z
