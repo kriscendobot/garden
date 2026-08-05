@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T17:49:16Z_
+_As of 2026-08-05T17:50:15Z_
 
 ## Latest
 
@@ -5107,23 +5107,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $565.52 _(notional, rate-card)_ | no quota set |
+| Claude | 32.4M | $565.35 _(notional, rate-card)_ | no quota set |
 | Codex | 20.7M _(+446.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr895-880f6cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr895-880f6cf9.md) — attention directive on endojs/endo-but-for-bots PR #895
+### doin (0)
+(none)
 
-### tada (4164)
+### tada (4165)
+- [`endojs-endo-but-for-bots-pr895-880f6cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr895-880f6cf9.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260805-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260805-160502.md) — Completion report
 - [`deadmail-20260805T155844Z-5882ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260805T155844Z-5882ba.md) — Cost
 - [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-0bdfc2c-powers-plane-arm.md) — Completion report: arm the Increment-3 powers plane on live minion.town
 - [`endojs-endo-but-for-bots-pr914-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr914-dependabot.md) — Cost
-- [`endojs-endo-but-for-bots-pr919-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr919-dependabot.md) — Cost
-- … and 4159 more
+- … and 4160 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
