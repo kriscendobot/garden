@@ -10,3 +10,13 @@ Work in a per-job worktree of `worktrees/kriscendobot-minion.town`; read `design
 - Fail-closed still holds: unknown hash, powerless weblet, or a non-powers path ⇒ WS upgrade refused (no 101), bootstrap 404; a plain GET to a WS powers path ⇒ 426, never weblet content.
 Depends on the fixture seeding in `minion-town-0bdfc2c-weblet-edge-verify` — coordinate with that job rather than duplicating the seed.
 Do **not** attempt to unblock `/.well-known/ocapn-cbor` / `-syrup`: those deliberately policy-close 4004 pending the maintainer-gated pin of the fork's unpublished `llm`-branch `@endo/ocapn` (`makeOcapn`+`locator`+Noise WS), which is out of scope here. If arming `GATEWAY_ENDO_SOCK` in production turns out to need a maintainer decision (socket path, blast radius of exposing daemon powers at the public edge), stop and report that instead of guessing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-05T15:38:46Z
