@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:34:42Z_
+_As of 2026-08-05T15:35:38Z_
 
 ## Latest
 
@@ -5001,14 +5001,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $555.53 _(notional, rate-card)_ | no quota set |
+| Claude | 32.2M | $556.26 _(notional, rate-card)_ | no quota set |
 | Codex | 21.3M _(+466.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`minion-town-ocapn-runahead-pin-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-runahead-pin-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #24
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-4.md) — Weblet gateway Increment 4 — the publish capability (+ stubbed charge seam)
 
 ### tada (4146)
