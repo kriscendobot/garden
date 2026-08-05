@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-05T15:39:58Z_
+_As of 2026-08-05T15:40:26Z_
 
 ## Latest
 
@@ -5005,14 +5005,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.4M | $559.60 _(notional, rate-card)_ | no quota set |
-| Codex | 21.4M _(+467.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 32.5M | $560.22 _(notional, rate-card)_ | no quota set |
+| Codex | 21.5M _(+467.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`endojs-endo-but-for-bots-pr912-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr912-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #912
 - [`endojs-endo-but-for-bots-pr913-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr913-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #913
 - [`endojs-endo-but-for-bots-pr914-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr914-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #914
@@ -5025,16 +5025,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`fu-review-retrospective-consolidated-20260804-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-review-retrospective-consolidated-20260804-3.md) — ---
 - [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-powers-plane-arm.md) — ---
 - [`minion-town-0bdfc2c-weblet-edge-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-0bdfc2c-weblet-edge-verify.md) — ---
-- [`minion-town-ocapn-runahead-pin-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-runahead-pin-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #24
 - [`minion-town-weblet-gateway-increment-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-gateway-increment-4.md) — Weblet gateway Increment 4 — the publish capability (+ stubbed charge seam)
 
-### tada (4147)
+### tada (4148)
+- [`minion-town-ocapn-runahead-pin-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-panel-1.md) — Cost
 - [`minion-town-ocapn-runahead-pin-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin-gauntlet-clean.md) — Completion report
 - [`garden-budget-attribution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-attribution.md) — orchestration garden-budget-attribution — complete
 - [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-3.md) — Completion report — minion-town-weblet-gateway-increment-3
 - [`minion-town-ocapn-runahead-pin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin.md) — Cost
-- [`minion-town-namespace-a-restore-auth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-namespace-a-restore-auth.md) — Cost
-- … and 4142 more
+- … and 4143 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
