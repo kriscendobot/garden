@@ -1,4 +1,5 @@
 ---
+child-minion-town-weblet-gateway-increment-4-host: endolin-garden-ece02cb4
 child-minion-town-weblet-gateway-increment-4-reap-count: 0
 child-minion-town-weblet-gateway-increment-3-host: endolin-garden2-5bcdff64
 child-minion-town-weblet-gateway-increment-3-reap-count: 0
