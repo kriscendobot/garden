@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-04T18:29:20Z_
+_As of 2026-08-05T15:33:49Z_
 
 ## Latest
 
@@ -14,18 +14,18 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 4d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 6d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 6d)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 6d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 15d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 16d)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 11h)
+- [endojs/endo-but-for-bots#908](https://github.com/endojs/endo-but-for-bots/pull/908) — fix(iroh): preserve live peer connections (waiting 16h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 7d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 7d)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 7d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 17d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 18d)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 18d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 21d)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 19d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 19d)
 
-_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -2930,6 +2930,26 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > seats). Dispatched: review-improve-merge-base-pinning (deferred builder). Full report in
 > the job completion.
 
+- `20260805T064253Z-f9321a` — from gardener:minion-town-weblet-gateway-increment-3, reply_to `minion-town-weblet-gateway-increment-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T064253Z-f9321a.md)
+
+> Weblet gateway Increment 3 (powers plane, OCapN/CapTP bootstrap) is built + locally verified, PR [kriscendobot/minion.town#24](https://github.com/kriscendobot/minion.town/issues/24) (DRAFT, commit 87586c7). tsc clean; 169 tests pass incl. a native @endo/captp WS round-trip proving the bootstrap surface == granted powers, all fail-closed cases, ocapn-bootstrap locator, 426 guard. No PR-CI on the repo (CD is deploy-on-merge).
+>
+> Merge is DEFERRED behind the SAME blocker as Increment 2 ([kriscendobot/minion.town#23](https://github.com/kriscendobot/minion.town/issues/23)): Increment 1's *.minion.town wildcard broke prod login (github-idp/siwe-idp/www) and the weblet namespace is under arbitration (A: <hash>.weblet.minion.town vs B: <hash>.minion.town). Inc-3 rides the same Caddy wildcard block, so merging now would deploy into the live incident. Code is namespace-agnostic (keys off MINION_TOWN_DOMAIN) — no code change needed once decided.
+>
+> Two decisions needed to unblock:
+>   1) Namespace A vs B — unblocks [kriscendobot/minion.town#23](https://github.com/kriscendobot/minion.town/issues/23) and [kriscendobot/minion.town#24](https://github.com/kriscendobot/minion.town/issues/24) merge together, and requires fixing the managed-subdomain collision first.
+>   2) OCapN CBOR/Syrup: (a) create+pin the `minion-town` run-ahead branch of endojs/endo-but-for-bots now (needs your one-comment ack to open it), or (b) design-default — merge the native-CapTP core and split CBOR/Syrup to a follow-on. Those two endpoints are wired-but-policy-close-4004 today because faithful OCapN termination needs the fork's unpublished @endo/ocapn.
+>
+> I did NOT merge, un-draft, or open the run-ahead branch — all three are maintainer-gated / would deploy into the active incident. Full status posted to [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) (comment 5188462644).
+
+- `20260805T150451Z-f5661d` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T150451Z-f5661d.md)
+
+> (empty message)
+
+- `20260805T150507Z-ee18e7` — from gardener:minion-town-ocapn-runahead-pin, reply_to `minion-town-ocapn-runahead-pin` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T150507Z-ee18e7.md)
+
+> OCapN run-ahead blocker: I opened endojs/endo-but-for-bots branch minion-town at current llm f8c1ca6a63319ec7051a61105bc6188681f1681e, then verified the unpublished API cannot meet design section 6 as written. makeOcapn hard-codes export slot 0 to its own Bootstrap fetch/deposit-gift/withdraw-gift object; it has no option for the weblet granted-powers object, so the remote bootstrap method surface cannot equal the granted powers. The demo proves locator.fetch(secret), not direct powers bootstrap. Per the job stop condition I am stopping rather than pinning a misleading implementation; PR 24 remains unchanged.
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -4841,11 +4861,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-backend-degraded-endolin-garden2-5bcdff64-fireworker.md)
 
-> WATCHDOG notice — occurrence #5887 (first seen 2026-07-31T00:19:05Z, latest 2026-08-04T05:23:03Z).
-> The SAME condition (`backend-degraded-endolin-garden2-5bcdff64-fireworker`) has now been observed 5887 times; this is ONE
-> coalesced notice that updates in place, not 5887 messages. Latest detail:
+> RECOVERED — the watchdog condition `backend-degraded-endolin-garden2-5bcdff64-fireworker` has CLEARED (first seen 2026-07-31T00:19:05Z, cleared 2026-08-04T18:29:53Z).
+> It was observed 5897 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> host endolin-garden2-5bcdff64 declares fireworkers=4 but its fireworker backend probe has failed ~5882m (effective 0). It cannot run its declared fireworkers — Fireworks availability check returned HTTP 412 for fireworker scaler-probe; retry only after endpoint/configuration diagnosis..
+> fireworker on endolin-garden2-5bcdff64 stood down to fireworkers=0; the backend-degraded notice is retired. The class was throttled to zero (nothing left to run) — this is a stand-down, not a backend recovery.
 
 - `watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics` — from watchdog:mystic/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-doc-package-json-cross-tool-semantics.md)
 
@@ -4981,8 +5001,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.1M | $769.71 _(notional, rate-card)_ | no quota set |
-| Codex | 27.7M _(+614.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 32.2M | $555.18 _(notional, rate-card)_ | no quota set |
+| Codex | 21.3M _(+466.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4991,13 +5011,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (4139)
-- [`review-retrospective-consolidated-20260804`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-retrospective-consolidated-20260804.md) — Consolidated review retrospective — 85 events, one cross-cutting pass
-- [`garden-review-rounds-correlation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-review-rounds-correlation.md) — Completion report — garden-review-rounds-correlation (step 2 of 4)
-- [`garden-rename-poison-to-doomed`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-rename-poison-to-doomed.md) — Completion report
-- [`garden-clear-degraded-notice-on-zero`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-clear-degraded-notice-on-zero.md) — Completion report
-- [`garden-budget-triple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-triple.md) — Completion report — garden-budget-triple (Budget 4/5)
-- … and 4134 more
+### tada (4145)
+- [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-gateway-increment-3.md) — Completion report — minion-town-weblet-gateway-increment-3
+- [`minion-town-ocapn-runahead-pin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-runahead-pin.md) — Cost
+- [`minion-town-namespace-a-restore-auth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-namespace-a-restore-auth.md) — Cost
+- [`garden-worker-path-local-bin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-worker-path-local-bin.md) — Completion report
+- [`garden-foreman-independent-brake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-foreman-independent-brake.md) — Completion report: garden-foreman-independent-brake
+- … and 4140 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -5050,7 +5070,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr21-a96e97d-design-land.md) — _normal_ · ---
-- [`minion-town-weblet-gateway-increment-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-weblet-gateway-increment-3.md) — _normal_ · Weblet gateway Increment 3 — the powers plane (OCapN/CapTP bootstrap)
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/monk-finish-gardener-rename.md) — _normal_ · Finish the gardener -> monk worker-kind rename
 - [`ocapn-noise-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260801-090502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
