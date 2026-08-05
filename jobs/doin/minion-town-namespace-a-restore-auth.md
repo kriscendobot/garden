@@ -76,3 +76,13 @@ CD is deploy-on-merge and this is a **live 5-tenant production host**. Do not
 hand-patch the box outside the normal path. If a step needs an action you judge
 outside this job's authority, STOP and report rather than improvising — the last
 unreviewed production change is what caused this incident.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-05T14:57:17Z
