@@ -20,3 +20,13 @@ Precipitating example: packages/daemon/scripts/bundle-bus-worker-xs-ses-boot.mjs
 line ~34 uses `path.dirname(url.fileURLToPath(import.meta.url))`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T09:53:09Z
