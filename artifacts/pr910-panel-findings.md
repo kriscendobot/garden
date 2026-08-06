@@ -443,7 +443,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/git/src/native-git-backend.js:1910`
 - **Claim:** returns `bytes.subarray(from, to)` over the whole materialized object; the other four producers copy (`blob-ref.js captured.slice`, `manager.js bytes.slice`, fresh buffers in `local-blob.js`/`readFileRange`). The selection carries the full object's `ArrayBuffer`, so the first method that hands bytes out leaks past the attenuation. Not exploitable today (nothing returns raw bytes across the exo).
 - **Proposed fix:** use `.slice()` for consistency. [proposed-rule: a `readWindow` primitive backing an attenuation returns a copy, never a view onto a wider buffer.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 931e8c16b`). git `readWindow` (`native-git-backend.js`) now returns `bytes.slice(from, to)` (a copy over a fresh `ArrayBuffer`) instead of `bytes.subarray(from, to)` (a view onto the whole materialized object), matching the copy the other four producers already make. A narrowed git range can no longer carry the full object's backing buffer past the attenuation. The pre-copy comment naming `subarray` was updated too. `lint:types` clean.
 
 ### GD-07 — commit hygiene: a lint autofix is bundled with substance and docs; commits don't read as a merge history
 - **Severity:** should-fix
@@ -451,7 +451,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** commit `336c4bd37` (+ history shape)
 - **Claim:** `336c4bd37`'s semicolon-joined title names three concerns: a `no-inline-import-jsdoc` autofix (`blob-range.js`, `mount.js`), a substantive TS surface change (`daemon/src/types.d.ts`, `fetch`→`range`/`textRange`), and 129 lines of `designs/*.md` prose. fast-checker additionally flags a stray devDependency line bundled with the round-trip changes.
 - **Proposed fix:** split into the autofix, the type change (squashed into `33bcdcf35`), and a `docs:` commit. [rule: skills/pr-formation, roles/jurors/packager § conflated autofix.]
-- **Disposition:**
+- **Disposition:** **reasoned decline — cannot retroactively split without a forbidden force-push** (reply, no commit). The concern is legitimate: `336c4bd37` did conflate an autofix, a TS surface change, and doc prose. But splitting a commit already ~10 commits deep in the pushed branch history requires an interactive rebase and a **force-push**, which the panel-response run explicitly prohibits (child 2 rebased and five sibling children have since stacked follow-up commits on this branch; a force-push would strand them and corrupt the serial run). The hygiene loss is historical and unrecoverable at acceptable cost. Going forward the panel-response commits are kept single-concern (this slice's own commit `931e8c16b` is `fix(git,docs):` scoped to GD-06/GD-09; the daemon/platform siblings likewise). Recorded as a lesson for `skills/pr-formation` rather than a rewrite. The stray devDependency line fast-checker flagged is part of the same already-landed commit and shares this constraint.
 
 ### GD-08 — unrelated ASCII-arrow / character-set churn across the design docs
 - **Severity:** should-fix — **DISPUTED** (integrator#4: should-fix; archivist: explicitly *not* flagged — "style churn, not accuracy")
@@ -459,7 +459,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `designs/*.md` (the design-doc diffs convert `→ ↔ ← …` to ASCII throughout)
 - **Claim:** integrator — the diffs convert arrows/typography to ASCII throughout, unrelated to range attenuation, inflating the diff. archivist declined it as style churn not affecting accuracy. Resolve the split before acting: if kept, it is a `docs:`/formatting concern; if declined, reply saying why.
 - **Proposed fix:** either revert the unrelated character-set churn (integrator), or reply declining per archivist's reasoning. Downstream decides and answers.
-- **Disposition:**
+- **Disposition:** **reasoned decline — dispute resolved in archivist's favor, with evidence** (reply, no commit). I re-measured the churn against the **true** PR merge-base (`a3064e1a2`), not the stale `3ec55851d` the panel diffed — that stale base folds in unrelated rebased commits (ironhorse, endor, daemon-sqlite) and inflates the apparent scope. Against the real base the design-doc diff is 6 files / +148 −98, and the arrow changes that exist are *not* wholesale typography churn: (a) em-dashes are **preserved and net-added** (19 added vs 11 removed `—`), consistent with house `em-dash-style`; (b) the arrow deltas are dominated by **substantive** rewrites (`fetch → range` signatures, `↔ → →` bidirectional→unidirectional in the base64/hex conversion note) rather than pure `→`→`->` reflow; (c) where notation *did* shift to ASCII (`getInfo() -> {…}`, `list() -> string[]`), the direction moves *toward* the garden's own `typist-friendly-code-points` / `no-latin-shorthand` preference, so it is not a regression to revert. Reverting now would itself be fresh churn over lines the must-fix child has since rewritten, risking conflict for zero accuracy gain. Siding with archivist (the documentation seat): style, not accuracy — decline the revert.
 
 ### GD-09 — `readableblob-range-attenuation.md` flipped to *Accepted — implemented* but its "Current surface" section is stale, and two path citations are wrong
 - **Severity:** should-fix
@@ -467,7 +467,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `designs/readableblob-range-attenuation.md` (§"Current surface and…", `:43`, `:155`); `packages/platform/src/fs/extended/shared/blob-ref.js:1-11`
 - **Claim:** the doc flipped to *Status: Accepted — implemented* but its "Current surface" section is stale; `:43` and `:155` cite `shared/blobref.js` when the file is `packages/platform/src/fs/extended/shared/blob-ref.js`; and `blob-ref.js:1-11`'s header lists the exo's surface but omits `streamBase64`.
 - **Proposed fix:** refresh the "Current surface" section, fix the two path citations, add `streamBase64` to the `blob-ref.js` header.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 931e8c16b`). All three parts done in `designs/readableblob-range-attenuation.md` + `blob-ref.js`: (1) the "Current surface and terminology" section — which described the retired `fetch`/`rangeRead`/`rangeReadText` surface as *current* though the doc now reads `Status: Accepted — implemented` — is retitled "Prior surface and terminology" with a `> Retired` callout that points to the (implemented) Proposed interface and states the named symbols no longer exist in the tree; the section's lead sentence changed `current` → `prior`. (2) Both stale `shared/blobref.js` path citations (§ prose and the Implementations table row) corrected to `shared/blob-ref.js`. (3) The `blob-ref.js:1-11` file-header surface list now names `streamBase64` (and `text`/`json`) alongside `getInfo`/`range`/`textRange`. `lint:types` clean on platform.
 
 ### GD-10 — no regression-test note in the PR body
 - **Severity:** should-fix
@@ -475,7 +475,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** PR #910 body (Verification section)
 - **Claim:** the Verification section lists tsc/eslint results and test counts, which is not the break/observe/revert experiment the regression-evidence note names.
 - **Proposed fix:** add a regression-test note describing the break/observe/revert experiment. [rule: skills/regression-evidence § Output shape.]
-- **Disposition:**
+- **Disposition:** **fixed** (PR body edit, no source commit). Added a "Regression-test note" to the PR #910 Verification section per `skills/regression-evidence`, describing a real break/observe/revert experiment I ran: **break** — set `lineByteSpan`'s line-end byte to `to = i + 1` (include the terminating LF, the classic off-by-one) in `blob-range.js`; **observe** — `yarn test test/blob-range.test.js` failed 5 tests including the `textRange(a,b).text() === split('\n').slice(a,b).join('\n')` equivalence corpus (first failing case `textRange(0,1)` of `"\n"`) plus CRLF-preservation and byte-of-text/text-of-byte composition; **revert** — restored `to = i`, all 18 pass. Confirms the attenuation tests exercise the real line-boundary path. (This is a PR-body/doc disposition; no code change on the branch beyond what the experiment reverted.)
 
 ## comment-only
 
