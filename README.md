@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T19:30:07Z_
+_As of 2026-08-06T19:40:47Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 22h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 23h)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 18h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
@@ -5827,24 +5827,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.5M | $632.38 _(notional, rate-card)_ | no quota set |
+| Claude | 36.5M | $630.88 _(notional, rate-card)_ | no quota set |
 | Codex | 17.0M _(+443.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
-- [`pr910-panel-response-05-mustfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-05-mustfix-git-docs.md) — PR #910 panel response — child 05/10: **must-fix** findings in the git-and-do...
 
-### tada (4236)
+### tada (4237)
+- [`pr910-panel-response-05-mustfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-05-mustfix-git-docs.md) — Completion report — PR #910 panel response, child 05/10 (must-fix, git-and-do...
 - [`endojs-endo-but-for-bots-pr893-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr893-shepherd.md) — Cost
 - [`pr910-panel-response-04-mustfix-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-04-mustfix-daemon.md) — Completion report — PR #910 panel response, child 04/10: daemon slice, must-fix
 - [`pr910-panel-response-03-mustfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-03-mustfix-platform.md) — Completion report
 - [`pr910-panel-response-02-rebase-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-02-rebase-onto-llm.md) — Cost
-- [`pr910-panel-response-01-recover-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-01-recover-findings.md) — Completion report
-- … and 4231 more
+- … and 4232 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
