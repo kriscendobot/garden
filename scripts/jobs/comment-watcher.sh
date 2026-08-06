@@ -257,6 +257,60 @@ VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 # forces it off (the test pins both directions deterministically).
 : "${GARDEN_COMMENT_SENDER_GATE:=}"
 
+# --- shared GitHub API outage cooldown --------------------------------------
+# Every armed repo has its own timer, so one provider outage can make all sibling
+# ticks discover the same 5xx/HTML/rate-limit failure within a few seconds. Keep a
+# HOST-SHARED, finite cooldown under GARDEN_STATE: the first detector records the
+# window and warns; siblings skip before touching GitHub and say nothing. The
+# cursor is untouched throughout, preserving the fail-closed "never guess" rule.
+#
+# The lock makes expiry/re-arm atomic: without it, two siblings could both remove
+# an expired marker and both announce a new outage. A detector never extends a
+# live window, so a busy fleet cannot turn a short provider blip into an unbounded
+# local blackout. The configurable window is capped at 15 minutes; 0 is a test/
+# operator escape hatch that disables the cooldown without changing classification.
+: "${GARDEN_COMMENT_API_COOLDOWN_SECS:=300}"
+case "$GARDEN_COMMENT_API_COOLDOWN_SECS" in
+  ''|*[!0-9]*) GARDEN_COMMENT_API_COOLDOWN_SECS=300 ;;
+esac
+[ "$GARDEN_COMMENT_API_COOLDOWN_SECS" -le 900 ] || GARDEN_COMMENT_API_COOLDOWN_SECS=900
+API_COOLDOWN_DIR="$GARDEN_STATE/comment-watcher"
+API_COOLDOWN_MARKER="$API_COOLDOWN_DIR/api-cooldown"
+API_COOLDOWN_LOCK="$API_COOLDOWN_DIR/api-cooldown.lock"
+
+api_cooldown_active() {  # rc 0 = a non-expired shared window exists
+  [ "$GARDEN_COMMENT_API_COOLDOWN_SECS" -gt 0 ] || return 1
+  mkdir -p "$API_COOLDOWN_DIR"
+  (
+    flock 9
+    local now expiry
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$API_COOLDOWN_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    if [ "$expiry" -gt "$now" ]; then exit 0; fi
+    rm -f "$API_COOLDOWN_MARKER"
+    exit 1
+  ) 9>"$API_COOLDOWN_LOCK"
+}
+
+start_api_cooldown() {  # rc 0 = this tick recorded the window (and owns the warning)
+  [ "$GARDEN_COMMENT_API_COOLDOWN_SECS" -gt 0 ] || return 0
+  mkdir -p "$API_COOLDOWN_DIR"
+  (
+    flock 9
+    local now expiry new_expiry tmp
+    now="$(date +%s 2>/dev/null || echo 0)"
+    expiry="$(sed -n '1p' "$API_COOLDOWN_MARKER" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    [ "$expiry" -le "$now" ] || exit 1
+    new_expiry=$((now + GARDEN_COMMENT_API_COOLDOWN_SECS))
+    tmp="$API_COOLDOWN_MARKER.$$"
+    printf '%s\n%s\n' "$new_expiry" "$slug" > "$tmp"
+    mv -f "$tmp" "$API_COOLDOWN_MARKER"
+    exit 0
+  ) 9>"$API_COOLDOWN_LOCK"
+}
+
 # --- silent-blindness self-test (NOT an inactivity detector) -----------------
 # The 2026-06-24 outage hid for ~16h because a broken source (jq absent) emitted
 # ZERO comments every tick and "no new comments" reads as normal for an idle repo.
@@ -335,6 +389,10 @@ source_path_healthy() {  # source_path_healthy <repo>
 }
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
+
+# A sibling already proved GitHub's API transiently unreadable. Do no API work and
+# emit no per-repo log line; the detector's single warning owns this window.
+api_cooldown_active && exit 0
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
 owner="${slug%%-*}"; name="${slug#*-}"
@@ -1334,13 +1392,13 @@ else
   "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
 if [ "$src_rc" -ne 0 ]; then
-  sed 's/^/  source: /' "$ERRF" >&2 || true
   # Transient connectivity (GitHub outage, DNS blip, TLS/read timeout) is "we
   # couldn't ask right now", not a broken enumeration — skip this tick instead of
   # dying, so an outage doesn't drive a systemd restart storm. A structural
   # failure (auth, 404, malformed) still dies loud. See ci-watcher.sh for the
   # matching degrade and is_transient_net_error in common.sh.
   if is_transient_net_error "$ERRF"; then
+    sed 's/^/  source: /' "$ERRF" >&2 || true
     log "WARN: comment source unreachable (transient network) — skipping tick (never guess)"
     exit 0
   fi
@@ -1350,9 +1408,12 @@ if [ "$src_rc" -ne 0 ]; then
   # via the shared GARDEN_TRANSIENT_GH_API_SIGNATURES gate. A structural failure
   # (auth, 404, malformed) still dies loud below.
   if is_transient_gh_source_error "$ERRF"; then
-    log "WARN: comment source hit a transient gh-api blip (5xx/HTML/rate-limit) — skipping tick (never guess)"
+    if start_api_cooldown; then
+      log "WARN: comment source hit a transient gh-api blip (5xx/HTML/rate-limit) — cooling all comment watchers for ${GARDEN_COMMENT_API_COOLDOWN_SECS}s (never guess)"
+    fi
     exit 0
   fi
+  sed 's/^/  source: /' "$ERRF" >&2 || true
   die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 1); the source should already.

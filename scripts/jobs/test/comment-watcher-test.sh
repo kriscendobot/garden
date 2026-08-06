@@ -1450,6 +1450,49 @@ EOF
   grep -qi 'FETCH INCOMPLETE' "$TR/gone-live.err" && ok "the live-repo path still logs FETCH INCOMPLETE" || bad "live-repo path lost its FETCH-INCOMPLETE log ($(cat "$TR/gone-live.err"))"
 fi
 
+# ============================================================================
+# CD — all per-repo comment watchers on a host share one bounded GitHub API
+# cooldown. The first 5xx/HTML/rate-limit detector records the window and emits the
+# warning; a sibling tick skips before invoking its source and is completely quiet.
+# Expiry re-arms detection, proving the window cannot become an unbounded blackout.
+hr; echo "CD — one API blip warns once and quietly cools sibling repo ticks"; hr
+BARE_CD="$TR/cd.git"; seed_bare "$BARE_CD"
+CD_SOURCE="$TR/cd-source.sh"; CD_COUNT="$TR/cd-source.count"; : > "$CD_COUNT"
+cat > "$CD_SOURCE" <<'EOF'
+#!/bin/bash
+n=$(( $(cat "${CD_COUNT:?}" 2>/dev/null || echo 0) + 1 ))
+printf '%s\n' "$n" > "$CD_COUNT"
+printf '%s\n' 'HTTP 503: Service Unavailable' >&2
+exit 1
+EOF
+chmod +x "$CD_SOURCE"
+run_cd() {  # run_cd <slug> <stderr-file>
+  env GARDEN_STATE="$TR/state-cd" JOURNAL_REMOTE="$BARE_CD" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$CD_SOURCE" CD_COUNT="$CD_COUNT" \
+      GARDEN_COMMENT_API_COOLDOWN_SECS=300 GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$1" >/dev/null 2>"$2"
+}
+CD_LOG1="$TR/cd-1.stderr"; CD_LOG2="$TR/cd-2.stderr"; CD_LOG3="$TR/cd-3.stderr"
+run_cd endojs-endo-but-for-bots "$CD_LOG1"
+[ "$(cat "$CD_COUNT")" -eq 1 ] && ok "initial detector invoked its source once" || bad "initial source count $(cat "$CD_COUNT")"
+[ "$(grep -c 'WARN: comment source hit a transient gh-api blip' "$CD_LOG1" || true)" -eq 1 ] \
+  && ok "initial detector emitted exactly one API-blip warning" || bad "initial warning output ($(cat "$CD_LOG1"))"
+grep -q 'source:.*HTTP 503' "$CD_LOG1" && bad "initial transient leaked an extra source warning" || ok "initial warning is consolidated (raw transient stderr suppressed)"
+
+# Different slug, same GARDEN_STATE: it must stop at the shared marker, before even
+# deriving/fetching repo state. Quiet means no source call and zero stderr bytes.
+run_cd kriscendobot-garden "$CD_LOG2"
+[ "$(cat "$CD_COUNT")" -eq 1 ] && ok "sibling tick skipped without invoking its source" || bad "sibling invoked source (count $(cat "$CD_COUNT"))"
+[ ! -s "$CD_LOG2" ] && ok "sibling cooldown skip was quiet" || bad "sibling emitted output ($(cat "$CD_LOG2"))"
+
+# Expire the marker deterministically (no sleep); the next tick must probe again and
+# own a fresh warning, demonstrating that sibling observations never extend a window.
+printf '0\nexpired-test\n' > "$TR/state-cd/comment-watcher/api-cooldown"
+run_cd kriscendobot-garden "$CD_LOG3"
+[ "$(cat "$CD_COUNT")" -eq 2 ] && ok "expired cooldown re-enabled source polling" || bad "expired window did not re-arm (count $(cat "$CD_COUNT"))"
+[ "$(grep -c 'WARN: comment source hit a transient gh-api blip' "$CD_LOG3" || true)" -eq 1 ] \
+  && ok "the first detector after expiry emitted one fresh warning" || bad "post-expiry warning output ($(cat "$CD_LOG3"))"
+
 # ----------------------------------------------------------------------------
 # RCF2 — WATCHER-level freeze-then-recover: a tick whose source fails (a surface
 # blip) must NOT advance the cursor; a subsequent HEALTHY tick then observes the
@@ -1487,6 +1530,7 @@ chmod +x "$RCF_SRC"
 run_rcf() {  # run_rcf <logfile>
   env GARDEN_STATE="$TR/state-rcf2" JOURNAL_REMOTE="$BARE_RCF" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" \
+      GARDEN_COMMENT_API_COOLDOWN_SECS=0 \
       CW_FIXTURE=/dev/null CW_REACTJI_LOG="$RLOG_RCF" \
       GARDEN_COMMENT_SOURCE="$RCF_SRC" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
