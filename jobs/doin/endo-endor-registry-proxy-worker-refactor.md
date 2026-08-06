@@ -39,3 +39,13 @@ Reference the endor design doc `designs/endor-npm-registry-proxy.md`.
 
 This is a follow-up; it is blocked on PR #875 landing so the design targets
 the merged shape of the code, not the pre-merge shape.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T14:41:22Z
