@@ -46,3 +46,13 @@ new verdict is again must-fix, report the remaining findings and STOP; do not st
 another fix loop on your own authority.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T22:13:09Z
