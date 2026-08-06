@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:45:43Z_
+_As of 2026-08-06T07:51:33Z_
 
 ## Latest
 
@@ -5620,18 +5620,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $601.13 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+412.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 33.8M | $601.51 _(notional, rate-card)_ | no quota set |
+| Codex | 16.9M _(+411.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`ebfb-pr600-shepherd-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-shepherd-5201229349.md) — Shepherd endojs/endo-but-for-bots PR 600 to green
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
+- [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-api-cooldown.md) — ---
 
 ### tada (4199)
 - [`fu-ebfb-pr600-retcon-5201229349-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-ebfb-pr600-retcon-5201229349-1.md) — Completion report — fu-ebfb-pr600-retcon-5201229349-1
