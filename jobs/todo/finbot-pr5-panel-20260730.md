@@ -1,9 +1,9 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: liaison
-posted_at: 2026-08-01T10:00:47Z
+role: builder
+model: gpt-5.6-terra
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:46:23Z cleared=none -->
+
 # HELD — stale, do not run as written
 
 STALE HEAD: this panel targets kriscendobot/finbot#5 at head 468b774b, but the live head is c1427a66. A governance panel run against a stale head yields a verdict on code that is not under review — worse than no verdict. Re-issue the panel at the CURRENT head if it is still wanted.
