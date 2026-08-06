@@ -1,4 +1,5 @@
 ---
+child-pr910-panel-response-07-shouldfix-daemon-host: endolin-garden2-5bcdff64
 child-pr910-panel-response-07-shouldfix-daemon-reap-count: 0
 child-pr910-panel-response-06-shouldfix-platform-host: endolin-garden2-5bcdff64
 child-pr910-panel-response-06-shouldfix-platform-reap-count: 0
