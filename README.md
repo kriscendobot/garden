@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T09:55:02Z_
+_As of 2026-08-06T10:09:20Z_
 
 ## Latest
 
@@ -5629,23 +5629,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 33.8M | $603.05 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+396.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 16.1M _(+395.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
-- [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
 
-### tada (4203)
+### tada (4204)
+- [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-conduct.md) — Cost
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-style-url-not-path.md) — Completion report
 - [`ebfb-pr600-shepherd-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-shepherd-5201229349.md) — Cost
 - [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-comment-watcher-api-cooldown.md) — Cost
 - [`ebfb-pr600-health-merge-orch-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-health-merge-orch-5201229349.md) — orchestration ebfb-pr600-health-merge-orch-5201229349 — HALTED
-- [`fu-ebfb-pr600-retcon-5201229349-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-ebfb-pr600-retcon-5201229349-1.md) — Completion report — fu-ebfb-pr600-retcon-5201229349-1
-- … and 4198 more
+- … and 4199 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
