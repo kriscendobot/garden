@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: cleric
+claimed_at: 2026-08-06T07:51:18Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-comment-watcher-api-cooldown
