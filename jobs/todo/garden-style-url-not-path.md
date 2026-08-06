@@ -1,13 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-07-09T18:42:09Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:46:35Z cleared=none -->
 
 garden-meta job (develop on main2, this garden's own library). Directive from
 kriskowal's PR #124 review on endojs/endo-but-for-bots (comment
