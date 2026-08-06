@@ -21,3 +21,13 @@ discipline. The excerpt below is for human context only:
 [APPROVED]  
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T15:03:13Z
