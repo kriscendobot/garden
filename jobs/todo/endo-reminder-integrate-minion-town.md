@@ -1,13 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: designer
-posted_by: liaison
-posted_at: 2026-07-29T01:28:33Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T05:44:22Z cleared=none -->
 
 # Plan: integrate @endo/reminder into minion.town
 
