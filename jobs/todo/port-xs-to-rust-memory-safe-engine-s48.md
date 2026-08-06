@@ -1,13 +1,7 @@
 ---
-gate: blocked
-blocked_on: xs2rust-endor-stage10p-fresh-env-sweep
-priority: normal
-posted_by: producer
-posted_at: 2026-07-20T11:07:47Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
+model: opus
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-06T15:10:05Z cleared=none -->
 
 ---
 model: opus
