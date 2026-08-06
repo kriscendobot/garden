@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: fixer
-posted_at: 2026-07-30T21:27:31Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T05:45:53Z cleared=none -->
 
 ---
 tier: mentor
