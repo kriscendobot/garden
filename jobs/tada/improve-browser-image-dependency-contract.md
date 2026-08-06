@@ -1,28 +1,33 @@
-I've completed the deliverable I can verify and land safely, and handed the maintainer a decision-ready recommendation for the part that requires a fleet-wide image rebuild.
+Done. Work committed and pushed to `main2` (`59fbf0bbe6`).
 
 ## Completion report
 
-**What the job asked:** *"Make image freshness include the Dockerfile's browser-runtime dependency contract."*
+**Job:** Add an unprivileged Chromium launch smoke test after the turnkey image build, and update the Dockerfile's package set so a fresh image passes it — so browser-verification jobs stop failing on missing shared libraries after a container recreation.
 
-**What I found:** The `garden` launcher's image guard was **absent-only** — `ensure_container` built the image when *missing* but never detected a **stale** image (one whose Dockerfile, or a file it `COPY`s, changed since the build). So a Dockerfile change — including to a browser-runtime dependency layer — would land in source but be silently reused from the old image. There was no image-freshness mechanism at all, and the Dockerfile currently declares **no** browser-runtime deps (no firefox/chromium/playwright/system libs anywhere in the tree).
+**Root cause confirmed:** The garden image ships **no** Chromium binary — browser-verification jobs (web-builder / web-designer, mermaid/SVG/data-URI rendering) launch a Chromium their project's own toolchain downloads (puppeteer/playwright). The image only needs the shared libraries that binary dynamically links; those were not declared in the Dockerfile, which is exactly the historical `libnspr4.so`-and-friends failure documented in `skills/mermaid-validation/SKILL.md`.
 
-**What I shipped** (pushed to `main2`, `b875ed04e4`):
-- **`garden` launcher — image-freshness guard keyed on the Dockerfile build contract.** `cmd_build` now stamps a `garden.build-contract-sha` label (sha256 of `Dockerfile` + `entrypoint.sh` + the api-key-handoff seed) into the image. A bare `./garden` **warns** on a stale image at bring-up (warn-only — an auto-rebuild mid-bring-up would surprise a live host, and the running container is unaffected until recreated). New **`./garden check`** subcommand reports fresh/stale, exiting non-zero only on a definite mismatch, so a Dockerfile-affecting deploy can gate on a rebuild. Because freshness keys on the *whole* Dockerfile, the browser-runtime dependency contract that lives there is included **by construction**.
-- **`context/operations/deploy.md`** — documents that `deploy-garden.sh` merges the checkout but does **not** rebuild the image, and how `./garden check` + `build` + `reset` close that per-host gap.
+**Changes (3 files, +126):**
+- **`Dockerfile`** — added the Ubuntu 24.04 (noble, `t64`) puppeteer/playwright shared-library set (`libnss3`, `libnspr4`, `libatk*t64`, `libgbm1`, `libasound2t64`, `fonts-liberation`, …) as a **late** layer so it never invalidates the expensive node/go/CLI layers; all 22 package names verified resolvable on 24.04.
+- **`scripts/aws/turnkey/chromium-smoke.sh`** (new) — unprivileged headless Chromium launch smoke test: `npm install puppeteer` (with retries), then a `--no-sandbox` headless launch that renders and asserts a marker.
+- **`scripts/aws/turnkey/provision.sh`** — runs the smoke **inside a throwaway container off the freshly built image** as the bot user (fed over stdin, no bind mount), failing the bake on a missing-library regression rather than at a browser job's first use.
 
-**Verified** host-side with a stubbed `docker` (no live container touched): `bash -n` clean; `check` correct across absent / pre-label / fresh / stale (exit 0/0/0/1); `build` passes the `--label`; stale image warns at bring-up, fresh is silent.
+**Two container facts baked into the design (both hit during validation):**
+1. The garden's `/tmp` is a **`noexec` tmpfs** — a Chromium unpacked there gets `EACCES` on spawn. The smoke keeps its browser cache under `$HOME` (exec-capable); real browser jobs must do the same.
+2. `npm init` rejects a dot-leading cwd basename ("Invalid name") — the script writes `package.json` directly instead.
 
-**Deliberately not landed — flagged to the maintainer:** the substantive browser-runtime **dependency layer** itself (the apt libraries + a build-time assertion — the actual "contract" gardeners need for real Playwright/UI browser runs). It's an unverifiable, fleet-wide image change requiring a `docker build` I can't run here plus a drained deploy + rebuild per host, and the design doc's "the container has none" made scope non-obvious. I messaged the maintainer a ready-to-apply Dockerfile patch (Playwright `install-deps` + `libnss3`/`libgbm` assertion) and asked for a go-ahead / engine-scope / pin-vs-`@latest` decision.
+**Verification:** ran the smoke script end-to-end in-container → `CHROMIUM-LAUNCH-OK`, exit 0. Both scripts pass `bash -n` and `shellcheck` (only a pre-existing unrelated SC1091 info in provision.sh). Pushed via rebase-CAS to `origin/main2`.
 
-**Follow-up:** on maintainer approval, add the browser-runtime dependency layer to the Dockerfile (the freshness guard already covers it once present) — as a separate job that can be built-and-deployed with eyes open.
+**Follow-ups / notes:**
+- The full assertion only exercises on a real AMI bake (a live `provision.sh` run on the builder instance) — the in-container proxy run confirmed the smoke logic and library set, but the throwaway-container `docker run` path itself is exercised at next bake.
+- Worth surfacing to browser-job roles: the `/tmp` noexec constraint means any Chromium cache/download must target `$HOME`, not `/tmp` — currently only implicit in this smoke's comments.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/improve-browser-image-dependency-contract.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 104 tokens (3796188 cached reads)
-- Output: 40475 tokens
-- Cost: $3.8714230000000005
-- Wall-clock: 668s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 159 tokens (5615829 cached reads)
+- Output: 64124 tokens
+- Cost: $5.988155500000001
+- Wall-clock: 1207s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->

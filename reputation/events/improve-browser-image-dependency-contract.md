@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: other:s
 target: main2
 accepted: true
-agentic_dollars: 3.871423
+agentic_dollars: 5.988156
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.046092
+estimated_dollars: 0.037191
 attempts: 1
-duration_secs: 668
+duration_secs: 539
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden2-5bcdff64/gardener-2
-recorded_at: 2026-08-06T06:33:47Z
+recorded_by: endolin-garden2-5bcdff64/gardener-5
+recorded_at: 2026-08-06T07:00:11Z
 ---
 reputation event for improve-browser-image-dependency-contract: arm anthropic/claude-opus-5/medium work_class other:s target main2 accepted true
