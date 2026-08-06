@@ -1,6 +1,4 @@
----
-kind: panel-findings-checklist
-repo: endojs/endo-but-for-bots
+js/endo-but-for-bots
 pr: 910
 title: "feat(platform): ReadableBlob range attenuation (range / textRange)"
 head: 44d53c7c
@@ -317,21 +315,30 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **Seats:** typist#7
 - **File:** `packages/platform/src/fs/blob-range.js:46,73`
 - **Claim:** `assertOffset` is `@param {bigint} value` yet branches on `typeof value !== 'bigint'`; `assertLineIndex` mirrors it. Declaring `{unknown}` and narrowing on return states the boundary contract honestly and keeps the guard from reading as dead code.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 9f36a0dbe`). Both validators now accept
+  `unknown` at the boundary and narrow before returning `bigint` / `number`, so
+  their annotations describe the runtime validation they perform.
 
 ### PLAT-32 — `compose` is a generic verb for "intersect the child interval with mine"
 - **Severity:** comment-only
 - **Seats:** stylist
 - **File:** `packages/platform/src/fs/blob-range.js:181`
 - **Claim:** `intersectInterval` states the operation; `compose` is generic.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 9f36a0dbe`). Renamed the local helper to
+  `intersectInterval`, which states that child ranges are intersected with the
+  receiver's authority interval.
 
 ### PLAT-33 — `Rich` is a taste qualifier on a public TS type; wants maintainer confirmation
 - **Severity:** comment-only
 - **Seats:** stylist note, curator note
 - **File:** `packages/platform/src/fs/types.d.ts` (`RichReadableBlob` / `RichReadableBlobInterface`)
 - **Claim:** the design uses "rich" only as prose and names no identifier; `Rich` ranks the type rather than naming the added capability, but it does avoid a collision with the whole-value `ReadableBlobInterface`. Lands on the public TS type — worth a maintainer confirmation. [proposed-rule: a type-name qualifier names the added capability, not ranks the type.]
-- **Disposition:**
+- **Disposition:** **reasoned reply / declined rename.** `RichReadableBlob` is
+  already the exported public type used across platform, daemon, and git
+  producers, and it distinguishes the range-capable surface from the existing
+  whole-value `ReadableBlob`. Renaming that public contract for a subjective
+  qualifier preference would create broad churn without changing behavior;
+  retain the established name unless the maintainer requests a replacement.
 
 ---
 
