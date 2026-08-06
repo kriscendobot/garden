@@ -3882,3 +3882,14 @@ Inspect via `git -C journal cat-file -p d4a7ee27a798169fc556496974ef8919c716c256
 - Context: gardener-2 on endolin-garden2-5bcdff64: job 'finbot-pr6-panel-r3-20260801' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 10634cf44187366ff9ca9cca7962ec9dc0c67717`.
+
+## lane 0 -- handler-nonzero failure at 2026-08-06T05:53:58Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 10d7344cd836f1d0038c1da631e12272ebe9aaf3
+- Context: gardener-2 on endolin-garden2-5bcdff64: job 'garden-style-url-not-path' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/10d7344cd836f1d0038c1da631e12272ebe9aaf3
+
+Inspect via `git -C journal cat-file -p 10d7344cd836f1d0038c1da631e12272ebe9aaf3` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/10d7344cd836f1d0038c1da631e12272ebe9aaf3`) -- both work off-host after a plain `journal2` fetch.
