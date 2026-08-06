@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T05:48:17Z_
+_As of 2026-08-06T05:49:07Z_
 
 ## Latest
 
@@ -2992,6 +2992,64 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > OPERATIONAL FLAG: both dependabotany recheck schedules are currently in `paused-schedules/` — the daily backstop (last dispatched 2026-08-01) and [endojs/endo-but-for-bots#868](https://github.com/endojs/endo-but-for-bots/issues/868)'s precise one-shot (was due 2026-08-02T17:15Z, never fired). This sweep ran manually and caught [endojs/endo-but-for-bots#868](https://github.com/endojs/endo-but-for-bots/issues/868), but if the pause was unintended the rechecks are not firing on cadence. The embargoed set is now empty, so no recheck is currently owed regardless.
 
+- `20260806T054827Z-fc7cd9` — from gardener:endojs-endo-but-for-bots-pr656-conduct, reply_to `endojs-endo-but-for-bots-pr656-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T054827Z-fc7cd9.md)
+
+> # [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) — needs your re-approval on the rebased head
+>
+> I claimed the `merge` job for [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656)
+> ("feat(daemon): provideSubMount sub-mount primitive (Phase 4)").
+> Everything is ready except one thing only you can clear.
+>
+> ## State (verified 2026-08-06T05:47Z)
+>
+> - CI: **25/25 green** on head `d74caef78ce22ebcbeeaa6134388340ad8dddbc3`
+>   (the `test (24.x, macos-15)` job that was pending on 08-01 has since passed).
+> - `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, OPEN, not draft.
+> - Base is `llm` (live trunk, not a frozen snapshot) — no unfreeze needed.
+> - No downstream PR is based on this head branch.
+> - No `fixup!` commits to absorb — nothing to tidy, so no force-push is warranted.
+>
+> ## The blocker
+>
+> Your `APPROVED` review (2026-07-29T00:06:25Z) carries `commit_id 76e6800ee5`.
+> The branch was force-pushed on 2026-08-01T09:27:45Z to `d74caef78c`, so the
+> approval is stale by design and the gate correctly refuses:
+>
+>     scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 656
+>     → rollup-terminal total=25 failed=0 → CI GREEN
+>     → merge blocked: no maintainer approval (no current APPROVED review on head d74caef78c)
+>     rc=1
+>
+> (The old `reviewDecision`-rollup gate bug this job was originally parked on is
+> gone — that fix is deployed here. This refusal is the correct post-fix path.)
+>
+> ## The rebase was content-free — re-approval should be a rubber stamp
+>
+> I diffed the approved head against the current head, each against its own
+> merge-base with `llm`:
+>
+> - approved head `76e6800ee5`, merge-base `41cb5806ac`
+> - current head  `d74caef78c`, merge-base `366dc74e36`
+>
+> **All 458 added/removed lines are byte-identical between the two net diffs.**
+> The only differences are blob index hashes and hunk line-number/context drift
+> caused by `llm` moving underneath (e.g. `manager.js` gained a `registry:` entry
+> in the surrounding context). Same 9 files, same +441/-17.
+>
+> So `d74caef78c` is a pure rebase of the tree you approved on 07-29.
+>
+> ## What I need
+>
+> Re-approve head `d74caef78c` on
+> [https://github.com/endojs/endo-but-for-bots/pull/656](https://github.com/endojs/endo-but-for-bots/pull/656)
+> and the merge will go through unattended (or say the word and I'll re-post the
+> conduct job).
+>
+> [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) is the last of the three originally stranded PRs still open — [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) merged
+> 2026-07-29, [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) merged 2026-07-30.
+>
+> — `endojs-endo-but-for-bots-pr656-conduct`
+
 - `doomed-endojs-endo-but-for-bots-pr923-dependabot-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr923-dependabot-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5107,13 +5165,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $571.21 _(notional, rate-card)_ | no quota set |
-| Codex | 15.4M _(+334.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 32.9M | $572.55 _(notional, rate-card)_ | no quota set |
+| Codex | 15.4M _(+335.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
-### todo (4)
-- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
-- [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr21-a96e97d-design-land.md) — ---
+### todo (2)
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-debugger-caught-vs-uncaught.md) — Investigate a caught/uncaught distinction for the Endor debugger protocol
 
@@ -5125,22 +5181,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-reminder-integrate-chat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-chat.md) — Plan: integrate @endo/reminder into Chat
 - [`endo-reminder-integrate-familiar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-familiar.md) — Plan: integrate @endo/reminder into Familiar
 - [`endo-reminder-integrate-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-minion-town.md) — Plan: integrate @endo/reminder into minion.town
+- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-report-render-mode.md) — re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-conduct.md) — conduct endojs/endo-but-for-bots PR #656
-- [`endojs-endo-but-for-bots-pr874-live-google-sheets-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-live-google-sheets-integration.md) — ---
 - [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sha256-consistency-followups.md) — Consistency follow-ups deferred by the @endo/sha256 build
 - [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T0...
 - [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-debugger-cdp-devtools-investigation.md) — Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
-- [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr5-panel-20260730.md) — HELD — stale, do not run as written
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
+- [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
 
-### tada (4166)
+### tada (4168)
+- [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr5-panel-20260730.md) — Cost
+- [`endojs-endo-but-for-bots-pr874-live-google-sheets-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-live-google-sheets-integration.md) — Cost
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-panel-rerun-20260725.md) — Cost
 - [`endojs-endo-but-for-bots-pr895-880f6cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr895-880f6cf9.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260805-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260805-160502.md) — Completion report
-- [`deadmail-20260805T155844Z-5882ba`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260805T155844Z-5882ba.md) — Cost
-- [`minion-town-0bdfc2c-powers-plane-arm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-0bdfc2c-powers-plane-arm.md) — Completion report: arm the Increment-3 powers plane on live minion.town
-- … and 4161 more
+- … and 4163 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
