@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:31:37Z_
+_As of 2026-08-06T07:33:27Z_
 
 ## Latest
 
@@ -3474,6 +3474,61 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `doomed-merge-endo-but-for-bots-pr875-endor-imports-field-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-merge-endo-but-for-bots-pr875-endor-imports-field-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
+> The gardener stamped the deadline-overrun counter, so the reaper surfaced it after 1
+> cycle(s) rather than the full 5-cycle doom threshold. The effective handler budget in
+> force for this job is 2400s. That counter is stamped for two DISTINCT shapes; check the
+> gardener log for the actual elapsed to tell which applies:
+>   (a) GENUINE wall-clock overrun — elapsed ≈ 2400s (rc=124 at the wall). The job does not
+>       fit one claim: SPLIT it into claim-sized stages, or raise its handler-timeout.
+>   (b) FAST repeated failure — elapsed far below 2400s (e.g. a 1–2s usage-cap/API rejection)
+>       flagged by elapsed-constancy. The budget is NOT the problem; read the handler log
+>       for the real cause (quota/usage cut, swallowed error) — raising the budget will not help.
+> The work is preserved at jobs/plan/merge-endo-but-for-bots-pr875-endor-imports-field; it stays HELD until a human promotes it
+> (promote-plan.sh merge-endo-but-for-bots-pr875-endor-imports-field) or removes it.
+> Original job base: merge-endo-but-for-bots-pr875-endor-imports-field
+>
+> --- original job body ---
+> ---
+> role: conductor
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> # Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
+>
+> Finalize and merge PR #875
+> ([https://github.com/endojs/endo-but-for-bots/pull/875](https://github.com/endojs/endo-but-for-bots/pull/875)) — "feat(endor):
+> package imports field (#-prefixed specifiers) for the npm-via-CAS registry
+> proxy".
+>
+> Context: the PR carries a current APPROVAL from @kriskowal
+> (review 4871669598). Its branch `feat/endor-npm-imports-field` was just
+> rebased onto live `llm`, retconned to a clean per-package history
+> (one `feat(endor)` rust/endo commit + one `test(compartment-mapper)`
+> fixture commit; net diff byte-identical to the approved tree), and
+> force-pushed. New head: e3d43900a.
+>
+> Conductor duties:
+> - Base is `llm` (a live trunk, NOT a frozen-base snapshot, NOT master) —
+>   merge target is `llm`. NEVER merge into `master` on this repo (master is
+>   upstream endo's; ferry-only).
+> - PR is already NOT a draft. If GitHub shows it draft, un-draft first.
+> - Rebase onto current `llm` if it has moved; block on CI to terminal and
+>   confirm all checks green on the live head before merging (do not
+>   force-merge a red/pending PR).
+> - Confirm the maintainer approval is still present on the head you merge.
+> - You own the merge method.
+>
+> Once merged, this unblocks the parked follow-up design job
+> `endo-endor-registry-proxy-worker-refactor`.
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `poison-build-kebab-case-lint-wildcard-test262-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/poison-build-kebab-case-lint-wildcard-test262-deadline-overrun.md)
 
 > POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 DEADLINE-OVERRUN cycles on endolin-garden2-5bcdff64.
@@ -5549,19 +5604,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.7M | $598.39 _(notional, rate-card)_ | no quota set |
-| Codex | 17.1M _(+416.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 33.7M | $598.94 _(notional, rate-card)_ | no quota set |
+| Codex | 17.1M _(+416.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-pr600-final-weave-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-final-weave-5201229349.md) — Final weave audit for endojs/endo-but-for-bots PR 600
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
-- [`merge-endo-but-for-bots-pr875-endor-imports-field`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr875-endor-imports-field.md) — Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
 
 ### tada (4197)
 - [`ebfb-pr600-retcon-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-retcon-5201229349.md) — What I did
@@ -5613,6 +5667,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
+- [`merge-endo-but-for-bots-pr875-endor-imports-field`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-endo-but-for-bots-pr875-endor-imports-field.md) — _normal_ · Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
