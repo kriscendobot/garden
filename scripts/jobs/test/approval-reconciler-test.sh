@@ -28,6 +28,11 @@
 #      for an otherwise-eligible PR (leader-only singleton); the SAME fixture on a
 #      leader posts, proving the gate is what suppressed it
 #   L. NON-BOT REPO SLUG — the reconciler exits at the is-bot-repo gate, no job
+#   M. TRANSIENT POST FAILURE — captured/classified, then retried in the same tick
+#   N. UNCERTAIN POST OUTCOME — nonzero post that actually landed is recognized by
+#      a fresh confirmation and is not posted again
+#   O. PERSISTENT POST FAILURE — bounded attempts, actionable diagnostics retained,
+#      then explicit deferral to the next tick
 #
 # Usage: approval-reconciler-test.sh
 set -euo pipefail
@@ -114,18 +119,19 @@ EOF
 chmod +x "$MERGESTUB"
 
 FRESH_TS="$(date -u -d '-1 hour'  +%Y-%m-%dT%H:%M:%SZ)"
+RUN_AR_LOG=/dev/null
 # fixture line: number \t author \t head_repo \t updated_at \t title
 prline() { printf '%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "${4:-$FRESH_TS}" "${5:-a PR}"; }
 
 run_ar() {  # run_ar <state> <bare> <fixture> <approval-map> <merge-map> [slug] [KEY=VAL ...]
   local state="$1" bare="$2" fix="$3" amap="$4" mmap="$5" slug="${6:-$SLUG}"; shift 6 || shift $#
-  env "$@" GARDEN_STATE="$state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$BRANCH" \
+  env GARDEN_STATE="$state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$BRANCH" \
       GARDEN=testleader GARDEN_LEADER_DEFAULT=leader GARDEN_BOT_LOGIN=kriscendobot \
       GARDEN_AR_PR_SOURCE="$SRCSTUB" AR_FIXTURE="$fix" \
       GARDEN_AR_APPROVAL="$APPRSTUB" AR_APPROVAL_MAP="$amap" \
       GARDEN_AR_MERGEABLE="$MERGESTUB" AR_MERGE_MAP="$mmap" \
-      GARDEN_AR_POST="$JOBS/post-job.sh" GARDEN_AR_ACTIVITY_WINDOW='' \
-      "$JOBS/approval-reconciler.sh" "$slug" >/dev/null 2>&1
+      GARDEN_AR_POST="$JOBS/post-job.sh" GARDEN_AR_ACTIVITY_WINDOW='' "$@" \
+      "$JOBS/approval-reconciler.sh" "$slug" >"$RUN_AR_LOG" 2>&1
 }
 
 BOThead="kriscendobot/endo-but-for-bots"
@@ -253,6 +259,85 @@ run_ar "$TR/sl" "$BARE" "$FIX" "1=0" "1=0" "agoric-agoric-sdk"
 if [ "$(lane_count "$BARE" todo "conduct|shepherd")" = 0 ]; then
   ok "an out-of-scope upstream repo mints nothing (never touch agoric-sdk)"
 else bad "the is-bot-repo gate must exclude agoric-sdk"; fi
+
+# ============================================================================
+hr; echo "M. TRANSIENT POST FAILURE — classify + recover within this tick"; hr
+BARE="$TR/m.git"; seed_bare "$BARE"
+FIX="$TR/m.tsv"; prline 901 kriscendobot "$BOThead" > "$FIX"
+RETRYSTUB="$TR/post-retry-stub.sh"; RETRYCOUNT="$TR/post-retry.count"
+cat > "$RETRYSTUB" <<'EOF'
+#!/bin/bash
+n=0; [ ! -f "$AR_POST_COUNT" ] || n="$(cat "$AR_POST_COUNT")"
+n=$((n+1)); printf '%s\n' "$n" > "$AR_POST_COUNT"
+if [ "$n" -eq 1 ]; then
+  echo "could not post: journal push race" >&2
+  exit 1
+fi
+exec "$REAL_POST" "$@"
+EOF
+chmod +x "$RETRYSTUB"
+MLOG="$TR/m.log"
+RUN_AR_LOG="$MLOG"
+run_ar "$TR/sm" "$BARE" "$FIX" "901=0" "901=0" "$SLUG" \
+  GARDEN_AR_POST="$RETRYSTUB" AR_POST_COUNT="$RETRYCOUNT" REAL_POST="$JOBS/post-job.sh" \
+  GARDEN_AR_POST_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+RUN_AR_LOG=/dev/null
+if board_has "$BARE" "$SLUG-pr901-conduct" \
+   && [ "$(cat "$RETRYCOUNT")" = 2 ] \
+   && grep -q 'class=journal-contention.*retrying after backoff' "$MLOG"; then
+  ok "a journal-race failure is diagnosed and recovered before the next tick"
+else bad "transient post failure was not classified/retried/confirmed"; fi
+
+# ============================================================================
+hr; echo "N. UNCERTAIN POST OUTCOME — fresh confirmation wins over nonzero rc"; hr
+BARE="$TR/n.git"; seed_bare "$BARE"
+FIX="$TR/n.tsv"; prline 902 kriscendobot "$BOThead" > "$FIX"
+UNCERTAINSTUB="$TR/post-uncertain-stub.sh"; UNCERTAINCOUNT="$TR/post-uncertain.count"
+cat > "$UNCERTAINSTUB" <<'EOF'
+#!/bin/bash
+n=0; [ ! -f "$AR_POST_COUNT" ] || n="$(cat "$AR_POST_COUNT")"
+n=$((n+1)); printf '%s\n' "$n" > "$AR_POST_COUNT"
+"$REAL_POST" "$@" || exit $?
+echo "fetch failed after push landed" >&2
+exit 42
+EOF
+chmod +x "$UNCERTAINSTUB"
+NLOG="$TR/n.log"
+RUN_AR_LOG="$NLOG"
+run_ar "$TR/sn" "$BARE" "$FIX" "902=0" "902=0" "$SLUG" \
+  GARDEN_AR_POST="$UNCERTAINSTUB" AR_POST_COUNT="$UNCERTAINCOUNT" REAL_POST="$JOBS/post-job.sh" \
+  GARDEN_AR_POST_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+RUN_AR_LOG=/dev/null
+if board_has "$BARE" "$SLUG-pr902-conduct" \
+   && [ "$(cat "$UNCERTAINCOUNT")" = 1 ] \
+   && grep -q 'exited rc=42 class=journal-contention but fresh confirmation found it' "$NLOG"; then
+  ok "a nonzero producer outcome is accepted once a fresh origin fetch confirms it"
+else bad "fresh post-confirmation did not resolve the uncertain producer outcome"; fi
+
+# ============================================================================
+hr; echo "O. PERSISTENT POST FAILURE — bounded, diagnostic, deferred"; hr
+BARE="$TR/o.git"; seed_bare "$BARE"
+FIX="$TR/o.tsv"; prline 903 kriscendobot "$BOThead" > "$FIX"
+FAILSTUB="$TR/post-fail-stub.sh"; FAILCOUNT="$TR/post-fail.count"
+cat > "$FAILSTUB" <<'EOF'
+#!/bin/bash
+n=0; [ ! -f "$AR_POST_COUNT" ] || n="$(cat "$AR_POST_COUNT")"
+n=$((n+1)); printf '%s\n' "$n" > "$AR_POST_COUNT"
+echo "could not post: persistent journal push race marker-903" >&2
+exit 1
+EOF
+chmod +x "$FAILSTUB"
+OLOG="$TR/o.log"
+RUN_AR_LOG="$OLOG"
+run_ar "$TR/so" "$BARE" "$FIX" "903=0" "903=0" "$SLUG" \
+  GARDEN_AR_POST="$FAILSTUB" AR_POST_COUNT="$FAILCOUNT" \
+  GARDEN_AR_POST_ATTEMPTS=3 GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+RUN_AR_LOG=/dev/null
+if ! board_has "$BARE" "$SLUG-pr903-conduct" \
+   && [ "$(cat "$FAILCOUNT")" = 3 ] \
+   && grep -q 'class=journal-contention.*marker-903.*deferring to the next tick' "$OLOG"; then
+  ok "persistent failure stops at the bound and preserves its diagnostic for next-tick deferral"
+else bad "persistent failure did not retain diagnostics or respect the retry bound"; fi
 
 # ============================================================================
 hr

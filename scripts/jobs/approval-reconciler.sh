@@ -111,6 +111,13 @@ GARDEN_TAG="approval-reconciler/$slug"
 : "${GARDEN_AR_MERGEABLE:=$HERE/handlers/pr-mergeable-gh.sh}"
 : "${GARDEN_AR_POST:=$HERE/post-job.sh}"
 : "${GARDEN_AR_VERIFY_CLONE:=$GARDEN_STATE/approval-reconciler/verify}"
+# post-job.sh already retries its own journal CAS, but its caller still has to
+# handle an uncertain outcome: it can fail after the push landed, or a transient
+# fetch/push race can outlive its inner loop. Retry that whole operation a small,
+# bounded number of times in this tick, confirming against a freshly-fetched
+# origin after EVERY attempt. Tests lower the backoff to zero through common.sh's
+# normal GARDEN_BACKOFF_* controls.
+: "${GARDEN_AR_POST_ATTEMPTS:=3}"
 VERIFY="$GARDEN_AR_VERIFY_CLONE"
 # Activity-bound the EXPENSIVE per-PR approval read: a PR untouched beyond this
 # window is skipped before its read. A fresh approval bumps the PR's updated_at, so
@@ -250,6 +257,77 @@ shepherd_tracked() {  # shepherd_tracked <pr>  -> rc 0 if tracked
   local pr="$1"
   base_in_lanes "$slug-pr$pr-shepherd" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA" "$JOBS_PLAN" && return 0
   [ -n "$(pr_role_job "$pr" shepherd)" ]
+}
+
+# Give an operator a stable failure class plus the actual tail from post-job,
+# instead of the old `>/dev/null 2>&1 || true` diagnostic black hole. These are
+# operational classifications, not policy decisions: every class is retried
+# because our generated basename/body are fixed and post-job is idempotent.
+classify_post_failure() {  # classify_post_failure <rc> <stderr-file>
+  local rc="$1" err="$2"
+  case "$rc" in
+    124|137|143) printf 'timeout-or-termination\n'; return ;;
+  esac
+  if is_transient_net_error "$err"; then
+    printf 'transient-network\n'
+  elif is_transient_auth_error "$err"; then
+    printf 'transient-auth\n'
+  elif is_transient_gh_source_error "$err"; then
+    printf 'transient-service\n'
+  elif grep -qiE 'push race|could not post|did not land|fetch|push|journal\.lock|lock busy|remote (end|host)|failed to sync' "$err" 2>/dev/null; then
+    printf 'journal-contention\n'
+  else
+    printf 'unclassified\n'
+  fi
+}
+
+# post_and_confirm <base> <body-file>
+# rc 0 only when the job is freshly confirmed on the shared journal; rc 1 after
+# the bounded retries are exhausted. A non-zero post followed by confirmation is
+# success: the producer's final fetch/verification may have lost a race after its
+# push actually landed.
+post_and_confirm() {
+  local base="$1" body="$2" attempt rc class fetch_ok err out detail
+  err="$(mktemp "${TMPDIR:-/tmp}/approval-post.XXXXXX.err")"
+  out="$(mktemp "${TMPDIR:-/tmp}/approval-post.XXXXXX.out")"
+  for attempt in $(seq 1 "$GARDEN_AR_POST_ATTEMPTS"); do
+    : > "$err"; : > "$out"; rc=0
+    if "$GARDEN_AR_POST" "$base" "$body" >"$out" 2>"$err"; then
+      rc=0
+    else
+      rc=$?
+    fi
+
+    fetch_ok=1
+    verify_fetch fresh || fetch_ok=0
+    if [ "$fetch_ok" -eq 1 ] \
+       && base_in_lanes "$base" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; then
+      if [ "$rc" -ne 0 ]; then
+        class="$(classify_post_failure "$rc" "$err")"
+        detail="$(tail -c 600 "$err" 2>/dev/null | tr '\n' ' ' || true)"
+        log "post of $base exited rc=$rc class=$class but fresh confirmation found it on origin/$JOURNAL_BRANCH${detail:+; stderr=[$detail]}"
+      fi
+      rm -f "$err" "$out"
+      return 0
+    fi
+
+    if [ "$rc" -eq 0 ]; then
+      class="unconfirmed-success"
+    else
+      class="$(classify_post_failure "$rc" "$err")"
+    fi
+    [ "$fetch_ok" -eq 1 ] || class="confirmation-fetch-failed+$class"
+    detail="$(tail -c 600 "$err" 2>/dev/null | tr '\n' ' ' || true)"
+    [ -n "$detail" ] || detail="$(tail -c 300 "$out" 2>/dev/null | tr '\n' ' ' || true)"
+    if [ "$attempt" -lt "$GARDEN_AR_POST_ATTEMPTS" ]; then
+      log "WARN: post of $base not confirmed (attempt $attempt/$GARDEN_AR_POST_ATTEMPTS, rc=$rc, class=$class)${detail:+; diagnostic=[$detail]}; retrying after backoff"
+      backoff "$attempt"
+    else
+      log "WARN: post of $base not confirmed after $attempt attempt(s) (rc=$rc, class=$class)${detail:+; diagnostic=[$detail]}; deferring to the next tick"
+    fi
+  done
+  rm -f "$err" "$out"
+  return 1
 }
 
 # --- enumerate the repo's open PRs (bounded, reaped source subtree) ----------
@@ -415,15 +493,13 @@ while IFS=$'\t' read -r pr author head updated _title; do
           log "#$pr: conductor appeared concurrently — idempotent skip"; rm -f "$jb"
           deduped=$((deduped+1)); continue
         fi
-        "$GARDEN_AR_POST" "$base" "$jb" >/dev/null 2>&1 || true
-        rm -f "$jb"
-        if base_in_lanes "$base" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA" && verify_fetch fresh \
-           && base_in_lanes "$base" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; then
+        if post_and_confirm "$base" "$jb"; then
           log "posted $base (recovered missed approval -> conductor for #$pr)"
           conducted=$((conducted+1))
         else
-          log "WARN: post of $base did not confirm on origin/$JOURNAL_BRANCH — will retry next tick"
+          log "WARN: post of $base exhausted its in-tick recovery — next reconcile tick will retry"
         fi
+        rm -f "$jb"
         ;;
     *)  # approved but not mergeable/green → shepherd (the finalize->shepherd degrade)
         if shepherd_tracked "$pr"; then
@@ -454,15 +530,13 @@ while IFS=$'\t' read -r pr author head updated _title; do
           log "#$pr: shepherd appeared concurrently — idempotent skip"; rm -f "$jb"
           deduped=$((deduped+1)); continue
         fi
-        "$GARDEN_AR_POST" "$base" "$jb" >/dev/null 2>&1 || true
-        rm -f "$jb"
-        if base_in_lanes "$base" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA" && verify_fetch fresh \
-           && base_in_lanes "$base" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; then
+        if post_and_confirm "$base" "$jb"; then
           log "posted $base (recovered missed approval -> shepherd for #$pr, CI needs work)"
           shepherded=$((shepherded+1))
         else
-          log "WARN: post of $base did not confirm on origin/$JOURNAL_BRANCH — will retry next tick"
+          log "WARN: post of $base exhausted its in-tick recovery — next reconcile tick will retry"
         fi
+        rm -f "$jb"
         ;;
   esac
 done < "$SRC"
