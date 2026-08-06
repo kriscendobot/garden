@@ -66,4 +66,29 @@ echo "== provision: verify the image is present =="
 sudo -u "$OWNER" -H bash -lc "sg docker -c 'docker image inspect garden-${OWNER} >/dev/null'" \
   && echo "image garden-${OWNER} present"
 
+echo "== provision: unprivileged Chromium launch smoke test =="
+# Prove the freshly baked image can launch a headless Chromium — the property
+# browser-verification jobs depend on — so a missing shared library fails HERE, in
+# the bake, not at a browser job's first use after a container recreation. Runs the
+# smoke INSIDE a throwaway container off the built image, as the UNPRIVILEGED bot
+# user, with an exec-capable $HOME (the garden's /tmp is a noexec tmpfs). The script
+# is fed over stdin (`bash -ls`) so it needs no bind mount, and a login shell picks
+# up /etc/profile.d/garden.sh (node on PATH). --entrypoint bash bypasses systemd; we
+# only need node here, not the unit manager.
+HERE="$(cd "$(dirname "$0")" && pwd)"
+uid="$(id -u "$OWNER")"
+smoke_out="$(sudo -u "$OWNER" -H bash -lc \
+  "sg docker -c 'docker run --rm -i --user ${uid} -e HOME=/home/${OWNER} \
+     --entrypoint bash garden-${OWNER} -ls' < '$HERE/chromium-smoke.sh'" 2>&1)" || {
+  echo "$smoke_out"
+  echo "== provision: FAIL — Chromium launch smoke test did not pass =="
+  exit 1
+}
+echo "$smoke_out"
+grep -q "CHROMIUM-LAUNCH-OK" <<<"$smoke_out" || {
+  echo "== provision: FAIL — Chromium launch smoke test produced no OK marker =="
+  exit 1
+}
+echo "== provision: Chromium launch smoke test PASSED =="
+
 echo "== provision: DONE =="

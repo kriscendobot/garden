@@ -214,6 +214,42 @@ RUN for attempt in 1 2 3; do \
         sleep "$attempt"; \
     done
 
+# Headless-Chromium shared libraries. Browser-verification jobs (the web-builder /
+# web-designer roles, mermaid/SVG/data-URI rendering) launch a Chromium the project's
+# own toolchain downloads (puppeteer/playwright) — the image ships NO Chromium binary,
+# only the shared libraries that binary dynamically links. Their absence is exactly
+# what made those jobs fail on a fresh image after a container recreation (`libnspr4.so`
+# and friends — skills/mermaid-validation/SKILL.md, roles/web-{builder,designer}/AGENT.md).
+# This is the Ubuntu 24.04 (noble) puppeteer/playwright dependency set, with the t64
+# names from the 64-bit time_t transition; provision.sh's chromium-smoke.sh asserts a
+# real headless launch against this set at bake time, so a future rename/removal fails
+# the build rather than a browser job. Declared LATE so it never invalidates the
+# expensive node/go/CLI layers above (apt is a no-op for any already pulled transitively).
+RUN apt-get update && apt-get install -y \
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0t64 \
+    libatk-bridge2.0-0t64 \
+    libcups2t64 \
+    libdbus-1-3 \
+    libdrm2 \
+    libgbm1 \
+    libglib2.0-0t64 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxrandr2 \
+    libx11-6 \
+    libxcb1 \
+    libpango-1.0-0 \
+    libcairo2 \
+    libasound2t64 \
+    libatspi2.0-0t64 \
+    fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
+
 # Create the bot user matching the HOST user (name + uid, from --build-arg) so the
 # bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
 # 24.04 ships a default `ubuntu` user at uid 1000; remove it first so USER_UID
