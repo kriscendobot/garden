@@ -84,3 +84,13 @@ branch instead. If you rebase onto `llm`, take the escape hatch and shed `src/cb
 then report so `endo-cbor-adopt-slots` reduces to verification.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T06:23:21Z

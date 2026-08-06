@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-06T06:23:21Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-124-resume-rebase-review-fixups
