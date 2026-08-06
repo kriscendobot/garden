@@ -14,3 +14,13 @@ read every `(storeNumber, storeType)` row into memory in a single allocation at
 startup. Maintainer directive: conduct this follow-up AFTER PR #124's sqlite
 bindings work is landed/conducted to the `llm` branch. Land as a draft design
 PR against `llm` per roles/designer/AGENT.md.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T05:43:39Z
