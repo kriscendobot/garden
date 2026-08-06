@@ -1,14 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs/endo-but-for-bots#600
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-07-25T06:12:13Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-06T14:56:05Z cleared=none -->
 
 Design: bytecode precompile & content-addressed cache for XS — C and Rust engines.
 
