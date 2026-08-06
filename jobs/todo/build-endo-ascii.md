@@ -1,14 +1,7 @@
 ---
-tier: mentor
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/836
-priority: normal
 role: builder
-posted_by: gardener:endojs-endo-but-for-bots-pr836-review-03bd85ff
-posted_at: 2026-07-30T00:25:29Z
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-06T14:41:04Z cleared=none -->
 
 ---
 tier: minion
