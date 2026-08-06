@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+doomed_at: 2026-08-06T07:33:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-06T07:33:03Z
+---
+
+---
 role: conductor
 tier: minion
 model-burned: mentor
@@ -33,16 +47,5 @@ Conductor duties:
 Once merged, this unblocks the parked follow-up design job
 `endo-endor-registry-proxy-worker-refactor`.
 
-<!-- garden-reaped: 0 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-06T06:43:23Z
