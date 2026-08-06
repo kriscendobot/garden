@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:41:41Z_
+_As of 2026-08-06T15:53:51Z_
 
 ## Latest
 
@@ -5743,24 +5743,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.7M | $624.34 _(notional, rate-card)_ | no quota set |
-| Codex | 16.6M _(+416.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 16.7M _(+419.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
-- [`endojs-endo-but-for-bots-pr945-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #945
 - [`endojs-endo-but-for-bots-pr946-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #946
 
-### tada (4226)
+### tada (4227)
+- [`endojs-endo-but-for-bots-pr945-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr945-review-6692252d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-review-6692252d.md) — Cost
 - [`endojs-endo-but-for-bots-pr936-review-66e037e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-review-66e037e2.md) — Cost
 - [`consolidate-test262-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/consolidate-test262-fixtures.md) — Job: consolidate-test262-fixtures — completion report
 - [`build-endo-ascii-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-ascii-gauntlet.md) — gauntlet build-endo-ascii-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr944-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr944-conduct.md) — Completion report
-- … and 4221 more
+- … and 4222 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
