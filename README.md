@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:20:54Z_
+_As of 2026-08-06T15:23:34Z_
 
 ## Latest
 
@@ -3285,6 +3285,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > **Board cleanup:** I retired 3 doomed plan entries that targeted the merged/deleted branch (`s2-test-rust-green`, `stage10p-fresh-env-sweep`, `watchdog-20260801`) as superseded-by-merge. Their 3 poison notices still sitting in your inbox are now moot — safe to dismiss. Full lifecycle journaled at `entries/2026/08/06/151742Z-progress-gardener-46f7c3.md`.
 
+- `20260806T152311Z-6e6ac4` — from gauntlet:build-endo-ascii-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T152311Z-6e6ac4.md)
+
+> Gauntlet build-endo-ascii-gauntlet HALTED: stage 'build-endo-ascii-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5728,8 +5732,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.8M | $625.03 _(notional, rate-card)_ | no quota set |
-| Codex | 16.0M _(+399.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 35.9M | $626.43 _(notional, rate-card)_ | no quota set |
+| Codex | 16.0M _(+399.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -5740,13 +5744,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
 - [`endojs-endo-but-for-bots-pr945-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #945
 
-### tada (4222)
+### tada (4223)
+- [`build-endo-ascii-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-ascii-gauntlet.md) — gauntlet build-endo-ascii-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr944-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr944-conduct.md) — Completion report
 - [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-ascii-gauntlet-clean.md) — Cost
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s48.md) — Completion report — port-xs-to-rust-memory-safe-engine-s48
 - [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/decommission-cxs-rust-default-xst-ci-parity.md) — Completion report — decommission-cxs-rust-default-xst-ci-parity
-- [`endojs-endo-but-for-bots-pr600-57909b1b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-57909b1b-retro.md) — Cost
-- … and 4217 more
+- … and 4218 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
