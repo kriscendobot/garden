@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:55:28Z_
+_As of 2026-08-06T07:57:34Z_
 
 ## Latest
 
@@ -5624,27 +5624,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $601.51 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+412.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 33.8M | $602.29 _(notional, rate-card)_ | no quota set |
+| Codex | 17.0M _(+412.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-pr600-shepherd-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-shepherd-5201229349.md) — Shepherd endojs/endo-but-for-bots PR 600 to green
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
-- [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-api-cooldown.md) — ---
 
-### tada (4200)
+### tada (4201)
+- [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-comment-watcher-api-cooldown.md) — Cost
 - [`ebfb-pr600-health-merge-orch-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-health-merge-orch-5201229349.md) — orchestration ebfb-pr600-health-merge-orch-5201229349 — HALTED
 - [`fu-ebfb-pr600-retcon-5201229349-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-ebfb-pr600-retcon-5201229349-1.md) — Completion report — fu-ebfb-pr600-retcon-5201229349-1
 - [`ebfb-pr600-final-weave-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-final-weave-5201229349.md) — Completion report
 - [`ebfb-pr600-retcon-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-retcon-5201229349.md) — What I did
-- [`ebfb-pr600-rebase-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-rebase-5201229349.md) — Completion report
-- … and 4195 more
+- … and 4196 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
