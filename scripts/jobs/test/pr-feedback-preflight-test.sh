@@ -117,6 +117,97 @@ run_live() {  # run_live <comments-file> [pull-fail-msg] — genuine gather path
 printf '#!/bin/bash\nprintf "%%s\\n" "$2" >> %q\n' "$TR/alert.log" > "$TR/alert-sink.sh"
 chmod +x "$TR/alert-sink.sh"
 
+# --- issue-comment (PR conversation) target-resolution harness ----------------
+# When the triggering id is a PR CONVERSATION comment, the review and inline-comment
+# surfaces 404 and resolution must fall through to issues/comments/<id>. These tests
+# drive the genuine gather path with a fake gh whose dispatch distinguishes the
+# single-object target lookups from the paginated corpus fetches, and prove: the id
+# now RESOLVES (no gather-failure alert), reviewed_head_sha is the current head, and a
+# citation in either a commit or a CONVERSATION comment reaches NO-OP.
+make_live_gh_issue() {  # make_live_gh_issue -> gh where the target is an issue comment
+  mkdir -p "$TR/bin"
+  cat > "$TR/bin/gh" <<'GH'
+#!/bin/bash
+# Fake gh for the issue-comment target-resolution tests. The review and inline-comment
+# surfaces 404 so resolution falls through to issues/comments/<id>. Order matters: the
+# single-object target lookups (/pulls/comments/<id>, /issues/comments/<id>) must be
+# matched BEFORE the paginated corpus fetches (/pulls/<pr>/comments, /issues/<pr>/comments).
+path=""; for a in "$@"; do path="$a"; done
+case "$path" in
+  *"/pulls/"*"/reviews/"*)   printf 'gh: HTTP 404 Not Found\n' >&2; exit 1 ;;
+  *"/pulls/comments/"*)      printf 'gh: HTTP 404 Not Found\n' >&2; exit 1 ;;
+  *"/issues/comments/"*)     cat "$GH_ISSUE_COMMENT" ;;
+  *"/issues/"*"/comments"*)  cat "$GH_ISSUE_CORPUS" ;;
+  *"/pulls/"*"/comments"*)   cat "$GH_INLINE_CORPUS" ;;
+  *"/commits"*)              cat "$GH_COMMITS" ;;
+  *"/pulls/"*)               cat "$GH_PULL" ;;
+  *) printf 'fake gh: unexpected path: %s\n' "$path" >&2; exit 1 ;;
+esac
+GH
+  chmod +x "$TR/bin/gh"
+}
+
+run_live_issue() {  # run_live_issue <commits-file> <issue-corpus-file>
+  local commits="$1" corpus="$2"
+  make_live_gh_issue
+  # Issue comment: a timeline comment with NO commit_id, posted at the feedback time.
+  printf '{"id":%s,"created_at":"2026-07-14T22:40:24Z","body":"please fix the thing"}\n' \
+    "$CID" > "$TR/issue-comment.json"
+  printf '{"head":{"sha":"%s"}}\n' "$REVIEWED_SHA" > "$TR/pull.json"
+  printf '[]\n' > "$TR/inline-corpus.json"
+  rm -f "$TR/alert.log"
+  set +e
+  OUT="$(env -u GARDEN_PREFLIGHT_EVIDENCE \
+             PATH="$TR/bin:$PATH" \
+             GARDEN=testhost GARDEN_STATE="$TR/state" \
+             GARDEN_ALERT_CMD="$TR/alert-sink.sh" \
+             GH_ISSUE_COMMENT="$TR/issue-comment.json" GH_PULL="$TR/pull.json" \
+             GH_COMMITS="$commits" GH_INLINE_CORPUS="$TR/inline-corpus.json" \
+             GH_ISSUE_CORPUS="$corpus" \
+             bash "$PRE" "$REPO" "$PR" "$CID" "$REVIEWER" 2>&1)"
+  RC=$?
+  set -e
+}
+
+hr; echo "ISSUE-COMMENT RESOLUTION — no correlation resolves cleanly (the bug fix)"; hr
+printf '[]\n' > "$TR/ic-nocommits.json"; printf '[]\n' > "$TR/ic-nocorpus.json"
+run_live_issue "$TR/ic-nocommits.json" "$TR/ic-nocorpus.json"
+{ [ "$RC" -eq 0 ] && grep -q 'PROCEED' <<<"$OUT"; } \
+  && ok "conversation-comment id resolves and proceeds (no wrong-surface fail-open)" \
+  || bad "conversation-comment id did not resolve to a clean PROCEED (exit $RC): $OUT"
+grep -qi 'evidence gathering FAILED' <<<"$OUT" \
+  && bad "conversation-comment id was mislabelled as a gather FAILURE" \
+  || ok "conversation-comment id did not borrow the failure log line"
+[ -s "$TR/alert.log" ] \
+  && bad "conversation-comment id wrongly filed a gather-failure maintainer alert" \
+  || ok "conversation-comment id filed no maintainer alert (the wrong-surface flood is fixed)"
+
+hr; echo "ISSUE-COMMENT RESOLUTION — a commit citing the id resolves to NO-OP"; hr
+printf '[{"sha":"%s","commit":{"committer":{"date":"2026-07-14T23:10:00Z"},"message":"fix: address conversation comment %s"}}]\n' \
+  "$REVIEWED_SHA" "$CID" > "$TR/ic-commit-cite.json"
+run_live_issue "$TR/ic-commit-cite.json" "$TR/ic-nocorpus.json"
+{ [ "$RC" -eq 2 ] && grep -q 'citing feedback id' <<<"$OUT"; } \
+  && ok "a post-feedback commit citing the conversation-comment id reaches NO-OP" \
+  || bad "commit citation on a conversation comment did not NO-OP (exit $RC): $OUT"
+
+hr; echo "ISSUE-COMMENT RESOLUTION — a conversation reply citing the id resolves to NO-OP"; hr
+printf '[{"id":555,"created_at":"2026-07-14T23:15:00Z","body":"Fixed in a follow-up, see comment %s"}]\n' \
+  "$CID" > "$TR/ic-corpus-cite.json"
+run_live_issue "$TR/ic-nocommits.json" "$TR/ic-corpus-cite.json"
+{ [ "$RC" -eq 2 ] && grep -q 'citing feedback id' <<<"$OUT"; } \
+  && ok "a later conversation comment citing the id reaches NO-OP (corpus is consulted)" \
+  || bad "conversation-comment citation was not consulted (exit $RC): $OUT"
+
+hr; echo "ISSUE-COMMENT RESOLUTION — generic ack without an id citation still PROCEEDs"; hr
+# reviewed_head_sha == current head for a conversation comment, so the SHA-gated
+# generic-acknowledgement path is inert: a bare '@reviewer' ack cannot no-op.
+printf '[{"sha":"%s","commit":{"committer":{"date":"2026-07-14T23:10:00Z"},"message":"chore: tidy up\\n\\nAddressed @%s."}}]\n' \
+  "$REVIEWED_SHA" "$REVIEWER" > "$TR/ic-generic-ack.json"
+run_live_issue "$TR/ic-generic-ack.json" "$TR/ic-nocorpus.json"
+{ [ "$RC" -eq 0 ] && grep -q 'PROCEED' <<<"$OUT"; } \
+  && ok "a generic ack with no id citation cannot resolve a conversation comment" \
+  || bad "generic ack wrongly resolved a conversation comment (exit $RC): $OUT"
+
 hr; echo "ARGV E2BIG REGRESSION — oversized comment corpus, resolving reply"; hr
 big_comments "$TR/big-resolving.json" 1
 SZ=$(wc -c < "$TR/big-resolving.json")

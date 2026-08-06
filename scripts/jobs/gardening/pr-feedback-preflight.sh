@@ -5,8 +5,10 @@
 # Usage: pr-feedback-preflight.sh <repo> <pr> <comment-id> [<reviewer-login>]
 #   <repo>           owner/name (e.g. endojs/endo-but-for-bots)
 #   <pr>             the pull-request number
-#   <comment-id>     the triggering review/inline comment id (or review id) this
-#                    feedback job was minted from
+#   <comment-id>     the triggering feedback id this job was minted from — a review
+#                    id, an inline (review) comment id, OR a PR conversation (issue)
+#                    comment id. These are three DISJOINT id spaces on three
+#                    endpoints; the gate resolves each in turn (see gather_evidence).
 #   <reviewer-login> (optional) the reviewer/author whose feedback this is
 #
 # Exit code is the no-op signal:
@@ -45,6 +47,12 @@
 # pull_request_review_id, "" when absent). It is what lets a REVIEW-keyed feedback
 # job see a peer's reply: replies thread to the INLINE COMMENT id, never to the
 # review id, so without it `in_reply_to_id == <review id>` can never match.
+# For a PR CONVERSATION (issue) comment target there is no associated commit, so
+# "reviewed_head_sha" is the CURRENT head (a conversation comment carries no reviewed
+# head), and the "comments" corpus additionally folds in the PR's conversation-comment
+# timeline — the natural acknowledgement surface for a conversation comment. Those
+# comments carry no in_reply_to_id/review_id, so they can only match the id-citation
+# body scan, never the same-thread or review-thread checks.
 # GARDEN_PREFLIGHT_EVIDENCE <repo> <pr> -> this object. The test substitutes
 # fixtures; match logic remains here rather than in the hook.
 
@@ -92,16 +100,20 @@ gather_evidence() {  # gather_evidence <reason_file> -> JSON evidence on stdout
   fi
   require_tools gh jq
 
-  local target kind pull head_sha commits comments
-  # A feedback job may be keyed by either the enclosing review id or an inline
-  # comment id. Resolve the target first: without its time and reviewed head, a
+  local target kind pull head_sha commits inline_comments issue_comments
+  # A feedback job may be keyed by an enclosing review id, an inline (review) comment
+  # id, or a PR CONVERSATION (issue) comment id. These live in three DISJOINT id
+  # spaces on three different endpoints, so resolve the target by trying each surface
+  # in turn: without its time (and, for review/inline feedback, its reviewed head), a
   # generic acknowledgement is deliberately unusable.
   if target="$(gh api "repos/$repo/pulls/$pr/reviews/$cid" 2>"$errf")"; then
     kind=review
   elif target="$(gh api "repos/$repo/pulls/comments/$cid" 2>>"$errf")"; then
     kind=comment
+  elif target="$(gh api "repos/$repo/issues/comments/$cid" 2>>"$errf")"; then
+    kind=issue_comment
   else
-    _fail "could not resolve feedback target id $cid on $repo#$pr (neither a review nor an inline comment)"; return 1
+    _fail "could not resolve feedback target id $cid on $repo#$pr (not a review, an inline comment, or a PR conversation comment)"; return 1
   fi
   if ! pull="$(gh api "repos/$repo/pulls/$pr" 2>"$errf")"; then
     _fail "could not fetch pull $repo#$pr"; return 1
@@ -112,84 +124,92 @@ gather_evidence() {  # gather_evidence <reason_file> -> JSON evidence on stdout
   if ! commits="$(gh api "repos/$repo/commits?sha=$head_sha&per_page=$GARDEN_PREFLIGHT_COMMITS" 2>"$errf")"; then
     _fail "could not fetch commits for $repo#$pr at $head_sha"; return 1
   fi
-  if ! comments="$(gh api --paginate "repos/$repo/pulls/$pr/comments?per_page=100" 2>"$errf" | jq -s 'add // []' 2>>"$errf")"; then
+  if ! inline_comments="$(gh api --paginate "repos/$repo/pulls/$pr/comments?per_page=100" 2>"$errf" | jq -s 'add // []' 2>>"$errf")"; then
     _fail "could not fetch review comments for $repo#$pr"; return 1
   fi
-
-  # Feed every unbounded payload (the target, the commit list, and above all the
-  # review-comment corpus) to jq through temp files via --slurpfile, NEVER as
-  # --argjson argv values. A busy PR's comment payload routinely exceeds
-  # MAX_ARG_STRLEN (131072 B) — the per-argument execve cap that is SEPARATE from
-  # the multi-megabyte ARG_MAX total — so an argv value there fails execve E2BIG on
-  # exactly the PRs that carry the most feedback. printf is a bash builtin, so
-  # writing a payload to a file does not itself pass through execve. --slurpfile
-  # binds each file's single top-level value as element [0] of an array.
-  local tf_target tf_commits tf_comments
-  tf_target="$(mktemp)"; tf_commits="$(mktemp)"; tf_comments="$(mktemp)"
-  tmps+=("$tf_target" "$tf_commits" "$tf_comments")
-  printf '%s' "$target"   >"$tf_target"
-  printf '%s' "$commits"  >"$tf_commits"
-  printf '%s' "$comments" >"$tf_comments"
-
-  if [ "$kind" = review ]; then
-    jq -cn --arg head "$head_sha" \
-      --slurpfile target "$tf_target" \
-      --slurpfile commits "$tf_commits" \
-      --slurpfile comments "$tf_comments" '
-      {
-        target: {
-          id: ($target[0].id | tostring),
-          created_at: $target[0].submitted_at,
-          reviewed_head_sha: $target[0].commit_id
-        },
-        head: {sha: $head},
-        commits: [
-          ($commits[0] // [])[] | {
-            sha,
-            timestamp: (.commit.committer.date // .commit.author.date),
-            message: .commit.message
-          }
-        ],
-        comments: [
-          ($comments[0] // [])[] | {
-            id: (.id | tostring),
-            in_reply_to_id: ((.in_reply_to_id // "") | tostring),
-            review_id: ((.pull_request_review_id // "") | tostring),
-            created_at,
-            body: (.body // "")
-          }
-        ]
-      }' 2>"$errf" || { _fail "jq failed assembling the review evidence document"; return 1; }
+  # For a conversation-comment target the natural acknowledgement surface is another
+  # CONVERSATION comment, so fold the PR's issue-comment timeline into the corpus for
+  # that kind. Conversation comments carry no in_reply_to_id/pull_request_review_id,
+  # so they can only ever match the id-citation body scan — never the same-thread or
+  # review-thread checks — which is exactly the correlation a flat conversation
+  # comment can support. Every other kind keeps a byte-identical corpus (empty here).
+  if [ "$kind" = issue_comment ]; then
+    if ! issue_comments="$(gh api --paginate "repos/$repo/issues/$pr/comments?per_page=100" 2>"$errf" | jq -s 'add // []' 2>>"$errf")"; then
+      _fail "could not fetch conversation comments for $repo#$pr"; return 1
+    fi
   else
-    jq -cn --arg head "$head_sha" \
-      --slurpfile target "$tf_target" \
-      --slurpfile commits "$tf_commits" \
-      --slurpfile comments "$tf_comments" '
-      {
-        target: {
-          id: ($target[0].id | tostring),
-          created_at: $target[0].created_at,
-          reviewed_head_sha: ($target[0].commit_id // $target[0].original_commit_id)
-        },
-        head: {sha: $head},
-        commits: [
-          ($commits[0] // [])[] | {
-            sha,
-            timestamp: (.commit.committer.date // .commit.author.date),
-            message: .commit.message
-          }
-        ],
-        comments: [
-          ($comments[0] // [])[] | {
-            id: (.id | tostring),
-            in_reply_to_id: ((.in_reply_to_id // "") | tostring),
-            review_id: ((.pull_request_review_id // "") | tostring),
-            created_at,
-            body: (.body // "")
-          }
-        ]
-      }' 2>"$errf" || { _fail "jq failed assembling the inline-comment evidence document"; return 1; }
+    issue_comments='[]'
   fi
+
+  # Resolve the target's id, timestamp, and reviewed head from whichever surface it
+  # came off. The three surfaces name the timestamp differently, and a PR conversation
+  # comment is a timeline comment with NO associated commit: it carries no reviewed
+  # head, so use the CURRENT head. That both satisfies the correlation contract's
+  # non-empty-SHA requirement and leaves the generic-acknowledgement SHA path inert
+  # (that path fires only when the head has ADVANCED past the reviewed head — a
+  # conversation comment has no durable reviewed head to advance from).
+  local target_id target_created_at target_reviewed_head
+  target_id="$(jq -r '(.id // "") | tostring' <<<"$target" 2>>"$errf")"
+  case "$kind" in
+    review)
+      target_created_at="$(jq -r '.submitted_at // ""' <<<"$target" 2>>"$errf")"
+      target_reviewed_head="$(jq -r '.commit_id // ""' <<<"$target" 2>>"$errf")" ;;
+    comment)
+      target_created_at="$(jq -r '.created_at // ""' <<<"$target" 2>>"$errf")"
+      target_reviewed_head="$(jq -r '.commit_id // .original_commit_id // ""' <<<"$target" 2>>"$errf")" ;;
+    issue_comment)
+      target_created_at="$(jq -r '.created_at // ""' <<<"$target" 2>>"$errf")"
+      target_reviewed_head="$head_sha" ;;
+  esac
+
+  # Feed every unbounded payload (the commit list and above all the comment corpus) to
+  # jq through temp files via --slurpfile, NEVER as --argjson argv values. A busy PR's
+  # comment payload routinely exceeds MAX_ARG_STRLEN (131072 B) — the per-argument
+  # execve cap that is SEPARATE from the multi-megabyte ARG_MAX total — so an argv
+  # value there fails execve E2BIG on exactly the PRs that carry the most feedback.
+  # The target's scalar fields (id/time/head) are extracted above and passed as small
+  # --arg values; only the arrays go through files. printf is a bash builtin, so
+  # writing a payload to a file does not itself pass through execve. --slurpfile binds
+  # each file's single top-level value as element [0] of an array.
+  local tf_commits tf_inline tf_issue
+  tf_commits="$(mktemp)"; tf_inline="$(mktemp)"; tf_issue="$(mktemp)"
+  tmps+=("$tf_commits" "$tf_inline" "$tf_issue")
+  printf '%s' "$commits"         >"$tf_commits"
+  printf '%s' "$inline_comments" >"$tf_inline"
+  printf '%s' "$issue_comments"  >"$tf_issue"
+
+  jq -cn \
+    --arg id "$target_id" \
+    --arg created_at "$target_created_at" \
+    --arg reviewed_head "$target_reviewed_head" \
+    --arg head "$head_sha" \
+    --slurpfile commits "$tf_commits" \
+    --slurpfile inline "$tf_inline" \
+    --slurpfile issue "$tf_issue" '
+    {
+      target: {
+        id: $id,
+        created_at: $created_at,
+        reviewed_head_sha: $reviewed_head
+      },
+      head: {sha: $head},
+      commits: [
+        ($commits[0] // [])[] | {
+          sha,
+          timestamp: (.commit.committer.date // .commit.author.date),
+          message: .commit.message
+        }
+      ],
+      comments: [
+        (($inline[0] // []) + ($issue[0] // []))[] | {
+          id: (.id | tostring),
+          in_reply_to_id: ((.in_reply_to_id // "") | tostring),
+          review_id: ((.pull_request_review_id // "") | tostring),
+          created_at,
+          body: (.body // "")
+        }
+      ]
+    }' 2>"$errf" || { _fail "jq failed assembling the evidence document"; return 1; }
 }
 
 # Gather, distinguishing a FAILURE to gather (infrastructure/tool/transport) from a
