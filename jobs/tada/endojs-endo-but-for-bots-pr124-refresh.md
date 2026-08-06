@@ -1,33 +1,30 @@
-Refresh complete. Final summary:
+Inbox is empty. The job is complete — a metadata-only refresh of PR #124's title and description, with no code changes to commit.
 
 ## Completion report
 
-**Job:** refresh directive on endojs/endo-but-for-bots PR #124 (`slot-machine` → `llm`).
+**Job:** refresh directive on endojs/endo-but-for-bots PR #124 — refresh the title and description "such that they are ready to become historical record."
 
-**What I did**
-- Treated the maintainer comment as untrusted data; its intent matched the `refresh` map (re-sync branch / regenerate derived artifacts).
-- Set up an isolated project worktree keyed to this job base and fetched latest `llm` (`1ffb4e3be`) and `slot-machine` (`a226e9e70`). The branch was **3 behind, 19 ahead** (diverged).
-- **Rebased** `slot-machine` onto `llm` HEAD — clean, no conflicts (the 3 intervening `llm` commits were `pi-0.81.1`/`genie`/`agentry` only, touching no PR files). The rebased tree differs from the old branch by exactly those 3 upstream commits' files — the rebase introduced no content of its own.
-- **Derived-artifact check:** `yarn.lock` unchanged (upstream advance touched no `package.json`); the immutable install during worktree provisioning was green. No committed generated-file drift.
-- **Pushed** the rebased branch to the PR head with a lease guard (`--force-with-lease=slot-machine:a226e9e70`). PR is now **19 ahead, 0 behind** of `llm` (verified via the compare API).
-- Posted a summary reply on the PR (comment `5206212223`).
+**Context:** The branch itself was already rebased onto `llm` by the immediately-preceding job (`slot-machine` is 19 ahead / 0 behind `llm` HEAD `18963b77a`, clean replay). This directive was the follow-up asking specifically for the title and description to be made fit as a permanent record.
 
-**SQL-bindings assessment (the maintainer's conditional)**
-- SQL bindings are **available and sufficient; nothing is stubbed.** The host-backed functions live on `llm` at `rust/endo/xsnap/src/powers/sqlite.rs` (full `sqliteOpen/Close/Exec/Prepare/StmtRun/Get/All/Columns/Finalize` set, present since the merge base), and the daemon already consumes them via `hostSqlite*` in `packages/daemon/src/bus-manager-endor-powers.js`. Commit `fix(daemon): require host-backed endor SQLite` removed the earlier 44-line fallback so the daemon *requires* the real bindings — aligned with "do not stub them."
-- Because the bindings are present, the "if sufficient SQL bindings are not available … park a job to wake this PR until it lands" branch **did not trigger**. **No wake-on-land blocking job was parked** (parking one would have been wrong given the bindings exist).
+**What I did:**
+- Re-derived the branch's actual current state (file names, test counts, package layout) from the checkout rather than trusting the stale body.
+- **Retitled** the PR to `feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity`, dropping the `(re-opened from #22 under the bot)` scaffolding.
+- **Rewrote the description** as clean historical record: pruned the re-open-under-bot preamble, the nested "Original PR body", the forwarded inline-review-comment log, the forwarded review summaries, and the dead SHA tables. Kept the strong technical structure (slot-machine protocol / end-to-end chain / SQLite parity / CI plumbing / caveats) but corrected every fact to the current branch: renamed files (`bus-manager-endor.js`, `endor-sqlite.js`, `rust.yml`, `endor-sqlite.test.js`), current test counts (`@endo/slots` 75, `slots` crate 43, `endor-sqlite.test.js` 5, `sqlite-parity.test.js` 3), the shared `@endo/cbor` factor-out, and the honest caveats (flag off by default, bench regressions, daemon XS bundle broken on the `llm` base with its `continue-on-error` steps).
+- Posted a completion comment on the PR (issuecomment-5206544249) summarizing the refresh and noting no code changed.
 
-**Changes:** project repo only (force-pushed rebase to `slot-machine`). No garden `main2` changes were needed.
+**What changed:** PR #124 title and body only (via `gh pr edit` under the bot identity). No branch commits, no garden `main2` changes — nothing to push.
 
-**Follow-ups (not done here — out of `refresh` scope):**
-- The PR is ready to **resume** (gauntlet / fixer). Several review-comment follow-ups remain open on the PR (bundler retention-graph investigation on the `bundle-bus-worker-xs*.mjs` excludes; the `@ts-ignore` vs `@ts-expect-error` decision at `message-breakpoints.js:130`; the `@endo/cbor` factoring question; the `bus-daemon-rust-xs.js:592` `@endo/stream`-pipes jury). These are fixer-scale, not part of a refresh, and await a resume dispatch.
+**Verification:** Re-read the PR via `gh pr view` after the edit; the new title and body-head are confirmed in place.
+
+**Follow-ups:** None from this job. The PR remains draft and stays draft until CI is green per the standing instruction (the daemon XS bundle reconciliation on the `llm` base is the outstanding blocker, already documented in the PR and prior comments — not in scope here).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr124-refresh.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 2 host(s) (1 unmetered)
-- Input: 28 tokens (841527 cached reads)
-- Output: 12748 tokens
-- Cost: $1.2914625 (1 engagement(s) unpriced)
-- Wall-clock: 2629s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 3 on 2 host(s) (1 unmetered)
+- Input: 72 tokens (2497933 cached reads)
+- Output: 28301 tokens
+- Cost: $3.2610015 (1 engagement(s) unpriced)
+- Wall-clock: 2921s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
