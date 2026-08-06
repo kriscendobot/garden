@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T06:06:14Z_
+_As of 2026-08-06T06:08:59Z_
 
 ## Latest
 
@@ -3054,6 +3054,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) ([https://github.com/endojs/endo-but-for-bots/pull/656](https://github.com/endojs/endo-but-for-bots/pull/656)) — report `endojs-endo-but-for-bots-pr656-conduct` — is blocked solely on a human re-approval: kriskowal needs to re-approve head `d74caef78c`. Every other merge gate is already satisfied, and once the approval lands, re-posting the `endojs-endo-but-for-bots-pr656-conduct` job should merge it unattended. It is the last of the three originally stranded PRs still open (#671 merged 2026-07-29, #691 merged 2026-07-30).
 
+- `20260806T060842Z-ad8879` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T060842Z-ad8879.md)
+
+> Report `xs2rust-endor-debugger-caught-vs-uncaught` (researcher, endojs/endo-but-for-bots, PR [https://github.com/endojs/endo-but-for-bots/pull/600](https://github.com/endojs/endo-but-for-bots/pull/600)) found that the debugger row it was briefed against is no longer on the `xs2rust-endor` branch, and names "recover the debugger row onto PR 600" as blocking its other three follow-ups: (2) `setExceptionBreakMode('uncaught')` is a live silent no-op, (3) Ironhorse's engine-raised errors do not unwind through the jump chain, (4) three `BreakpointTable` parity nits (missing `line == 0 && id == 0` guard, un-ported `start` pseudo-breakpoint, a doc reference to a nonexistent `"unhandled"` pseudo-breakpoint). I am not posting recovery or fix jobs: re-landing a row of work that left the branch for unknown reasons is your call, not the fleet's, and fixes 2–4 target code that is not currently on PR 600, so they would be posted against absent files. Decide whether the debugger row should be recovered onto PR 600 (and by whom — weaver vs. a fresh builder slice); once it is back, 2–4 can be posted as ordinary fixer jobs.
+
 - `doomed-endojs-endo-but-for-bots-pr923-dependabot-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr923-dependabot-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5169,8 +5173,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.6M | $583.97 _(notional, rate-card)_ | no quota set |
-| Codex | 16.3M _(+354.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Claude | 33.7M | $586.80 _(notional, rate-card)_ | no quota set |
+| Codex | 16.3M _(+356.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
