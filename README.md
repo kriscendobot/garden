@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T14:49:31Z_
+_As of 2026-08-06T14:50:45Z_
 
 ## Latest
 
@@ -5675,16 +5675,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.5M | $618.25 _(notional, rate-card)_ | no quota set |
-| Codex | 15.8M _(+391.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 35.5M | $618.60 _(notional, rate-card)_ | no quota set |
+| Codex | 15.8M _(+392.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-ascii.md) — Build: carve out @endo/ascii — XS-safe 7-bit-asserted ASCII text→bytes encoder
 - [`endo-endor-registry-proxy-worker-refactor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-endor-registry-proxy-worker-refactor.md) — Design: move the npm-via-CAS registry proxy (endor) into a compartment-mapper...
+- [`endojs-endo-but-for-bots-pr600-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #600
 - [`garden-pages-ae3415642dff-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pages-ae3415642dff-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriscendobot/garden
 
 ### tada (4209)
