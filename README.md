@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T06:51:50Z_
+_As of 2026-08-06T06:52:21Z_
 
 ## Latest
 
@@ -3106,6 +3106,49 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Say the word and I'll open a follow-up job for it (or tell me the preferred engine
 > scope / whether to pin playwright instead of @latest).
 
+- `20260806T065203Z-f98dfe` — from gardener:minion-town-pr21-a96e97d-design-land, reply_to `minion-town-pr21-a96e97d-design-land` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T065203Z-f98dfe.md)
+
+> Weblet-gateway design PR [kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21) — reconciled + gauntleted, deliberately LEFT DRAFT.
+>
+> On resume I found the branch had advanced past my earlier session (while this
+> job was being reaper-doomed): the namespace was corrected to *.weblet.minion.town
+> ([kriscendobot/minion.town#25](https://github.com/kriscendobot/minion.town/issues/25)), and Increments 2 and 3 landed
+> ([kriscendobot/minion.town#23](https://github.com/kriscendobot/minion.town/issues/23) / [kriscendobot/minion.town#24](https://github.com/kriscendobot/minion.town/issues/24), armed by
+> [kriscendobot/minion.town#26](https://github.com/kriscendobot/minion.town/issues/26)). I rebased on current main and ran the design panel
+> end to end (9 fix-loop rounds).
+>
+> Reconciliation + review done (all on the branch):
+> - Corrected the id/record model to MATCH SHIPPED CODE. An earlier round of mine
+>   had reworked it toward a value-oriented model (record={id,owner}, powers-in-id,
+>   formula-deref) — that was BACKWARDS. Shipped reality: id = sha-256(contentRoot)
+>   (content only, powers NOT in the id), record stores {id,contentRoot,powers,owner},
+>   powers-plane reads record.powers. Fixed throughout.
+> - Reconciled the retired seed mechanism (GATEWAY_SEED_WEBLETS/seed.env → the CAS
+>   store + seed-weblet-fixture.sh), added As-built notes for Inc 2/3, and recorded
+>   the preconditions those increments SKIPPED (control-port split, __Host- rename,
+>   browser CORS check, canonicity gate) — re-collected into a new pre-publish
+>   hardening increment "H" that gates publish, restoring the halt policy's meaning.
+> - Surfaced and closed a real SECURITY hole the content-only id exposes: an attacker
+>   can pre-publish content a victim will publish and bind attacker powers to it
+>   (fixed: collision is clean owned:false only when EFFECTIVE powers agree, else
+>   content-collision reject), and post-unpublish re-registration transfers powers
+>   behind cached bytes (fixed: unpublish tombstones the id).
+>
+> Why I did NOT un-draft it: the design is functioning as a LIVING DOCUMENT — it is
+> reconciled in place on the draft branch after each increment merges (Inc 1/2/3 all
+> landed against it while it stayed draft; Inc 4 + H remain spec-only). Per the job's
+> instruction for exactly this case, I left the rebase + reconciliation commits on the
+> branch and did not merge.
+>
+> ONE DECISION NEEDS YOU (open question 7, now the sharpest call and a publish gate):
+> keep the shipped content-only id (id = sha-256(contentRoot)) — which REQUIRES the
+> collision rule + the unpublish tombstone above as security machinery — OR adopt a
+> composite id = digest(contentRoot, powers), which dissolves both by separating the
+> origins. This is a genuine identity-modeling call, not something I should decide.
+>
+> Branch head: design/weblet-gateway (pushed). Panel state: converging on prose polish
+> + this OQ7 decision; not driven to a formal "pass" because the residual is your call.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5442,8 +5485,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.0M | $605.54 _(notional, rate-card)_ | no quota set |
-| Codex | 17.3M _(+414.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 34.1M | $606.00 _(notional, rate-card)_ | no quota set |
+| Codex | 17.3M _(+415.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
