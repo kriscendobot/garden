@@ -56,6 +56,15 @@ assert_transient  "gh: Bad Gateway (HTTP 502)"                 "502 bad gateway"
 assert_transient  "gh: (HTTP 429)"                             "429 throttle"
 assert_transient  "You have exceeded a secondary rate limit"  "secondary rate limit (a 403 variant)"
 assert_transient  "API rate limit exceeded for user"          "rate limit text"
+# `grep -q` used to close its input pipe after matching this first line. With
+# pipefail active, printf then hit EPIPE while writing the multi-megabyte tail and
+# the classifier falsely returned definitive. Keep the signature first so this
+# catches exactly that broken-pipe regression rather than merely testing size.
+shopt -qo pipefail || bad "pipefail is not active for the large-stderr regression"
+large_tail="$(dd if=/dev/zero bs=1M count=3 2>/dev/null | tr '\0' x)"
+assert_transient "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)
+$large_tail" "first-line rate limit in a multi-megabyte stderr blob under pipefail"
+unset large_tail
 assert_transient  "fatal: unable to access: Could not resolve host: api.github.com" "DNS failure (shared offline set)"
 assert_transient  "curl 56 Recv failure: Connection reset by peer" "connection reset (shared offline set)"
 # Go net/http transport wording `gh` emits (distinct from git's curl/SSH set). The
@@ -75,6 +84,9 @@ assert_definitive ""                                          "no stderr at all 
 is_gh_primary_rate_limit_text "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" \
   && ok "primary-quota predicate matches GitHub's user-specific 403" \
   || bad "primary-quota predicate missed GitHub's user-specific 403"
+is_gh_primary_rate_limit_text "x-ratelimit-remaining: 0" \
+  && ok "primary-quota predicate matches an exhausted remaining-quota header" \
+  || bad "primary-quota predicate missed x-ratelimit-remaining: 0"
 for nonprimary in "You have exceeded a secondary rate limit" "abuse detection mechanism" "gh: (HTTP 429)"; do
   if is_gh_primary_rate_limit_text "$nonprimary"; then
     bad "primary-quota predicate swallowed transient throttle: $nonprimary"

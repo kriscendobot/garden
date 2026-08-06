@@ -1487,6 +1487,36 @@ else
   bad "rc 75 was not accepted by is_nonattributable_rc"
 fi
 
+# Exercise the watcher's generic stderr classifier with the production failure
+# shape: a transient signature on the first line followed by enough output to make
+# the former `printf | grep -q` producer hit EPIPE under pipefail. This path must
+# absorb the tick directly (WARN + exit 0), never reach FATAL.
+RATE_BLOB_SOURCE="$TR/rate-blob-source.sh"
+cat > "$RATE_BLOB_SOURCE" <<'EOF'
+#!/bin/bash
+printf '%s\n' 'gh: API rate limit exceeded for user ID 279080640 (HTTP 403)' >&2
+dd if=/dev/zero bs=1M count=3 2>/dev/null | tr '\0' x >&2
+exit 1
+EOF
+chmod +x "$RATE_BLOB_SOURCE"
+RATE_BLOB_ERR="$TR/rate-blob.err"
+set +e
+env GARDEN_STATE="$TR/state-rate-blob" JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$RATE_BLOB_SOURCE" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$RATE_BLOB_ERR"
+rate_blob_rc=$?
+set -e
+[ "$rate_blob_rc" -eq 0 ] \
+  && ok "multi-megabyte rate-limit stderr is absorbed with watcher exit 0" \
+  || bad "multi-megabyte rate-limit stderr crashed watcher (rc=$rate_blob_rc)"
+grep -q 'WARN: comment source hit a transient gh-api blip' "$RATE_BLOB_ERR" \
+  && ok "rate-limited source emits the transient gh-api skip WARN" \
+  || bad "rate-limited source missed transient WARN ($(tail -c 500 "$RATE_BLOB_ERR"))"
+grep -q 'FATAL:' "$RATE_BLOB_ERR" \
+  && bad "rate-limited source emitted FATAL" \
+  || ok "rate-limited source did not emit FATAL"
+
 # ============================================================================
 # GONE — SOURCE-level REPO-GONE degrade: when the REPO ITSELF is definitively 404,
 # every surface fails, so the LOST-FETCH invariant (RCF above) would exit nonzero on

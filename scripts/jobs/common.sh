@@ -2971,18 +2971,22 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # shape keeps callers from re-deriving this distinction from a generic "rate limit"
 # substring. The failing response itself is the source of truth; do not spend an
 # extra, equally-doomed `gh api rate_limit` call merely to learn the reset time.
-: "${GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES:=API rate limit exceeded for user([[:space:]]+ID)?}"
+: "${GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES:=API rate limit exceeded for user([[:space:]]+ID)?|x-ratelimit-remaining:[[:space:]]*0}"
 
 # is_gh_primary_rate_limit_text <text> — 0 only for GitHub primary quota
 # exhaustion, 1 for secondary/abuse throttling, HTTP 429, and other failures.
 is_gh_primary_rate_limit_text() {
-  printf '%s' "${1:-}" | grep -qiE "$GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES"
+  grep -qiE "$GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES" <<<"${1:-}"
 }
 
 # Classify captured gh stderr ($1) as a transient (self-resolving) gh-api failure:
 # returns 0 on a transient signature, 1 on a definitive one. Case-insensitive.
+# Feed grep directly: `printf | grep -q` lets grep close the pipe at the first
+# match, then a large stderr blob makes printf hit EPIPE; under pipefail that turns
+# the successful match into a false definitive result (and emits a broken-pipe
+# diagnostic). A here-string has no producer process that can fail this way.
 _gh_api_stderr_is_transient() {
-  printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_GH_API_SIGNATURES"
+  grep -qiE "$GARDEN_TRANSIENT_GH_API_SIGNATURES" <<<"$1"
 }
 
 # gh_api_retry <gh-api-args…> — run `gh api <args…>` with bounded transient retry.
