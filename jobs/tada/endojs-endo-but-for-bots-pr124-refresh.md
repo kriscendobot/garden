@@ -1,37 +1,33 @@
-The job is complete. Let me write the final report to stdout.
+Refresh complete. Final summary:
 
-# Completion report — endojs/endo-but-for-bots PR #124 refresh
+## Completion report
 
-Refreshed PR #124 (`slot-machine`) per kriskowal's 2026-07-30 directive. Rebased the 3-commit stack onto `llm` (endor + SQL host bindings are now on llm), retargeted the PR base from `endor` to `llm`, and applied the deferred review fixups.
+**Job:** refresh directive on endojs/endo-but-for-bots PR #124 (`slot-machine` → `llm`).
 
-**What changed**
-- **Rebase onto `llm`:** the slot-machine stack rebased cleanly (rerere resolved the llm daemon file renames: `bus-daemon-rust-xs.js` -> `bus-manager-rust-xs.js`, `daemon.js` -> `manager.js`). The `better-sqlite3-xs.js` -> `rust-xs-sqlite.js` rename and the slot-machine splice now land in the renamed manager files. yarn.lock refreshed for the `@endo/slots` workspace entry.
-- **SQL bindings:** verified the nine raw XS SQLite host bindings are on `llm` and sufficient for this PR's `rust-xs-sqlite.js` shim (which wraps exactly those). No stubs needed; no bindings-PR dependency. The durable-store layer (#811/#819/#825/#690) remains open and is not a dependency of this PR.
-- **Review fixups:** `rust-endor.yml` -> `rust.yml` (rename + ci.yml-aligned triggers + single `yarn bundle:xs` script); base64 type-cast specificity restored; `new URL` path math in the ses-boot bundler; `EXCLUDED_PACKAGES` rationale documented; design-doc arrow code points replaced.
-- **ESLint 10 flat-config reconciliation:** dropped re-added `.eslintignore`, updated the `endor.d.ts` config block, removed redundant `/* global globalThis */` / `/* global process */` directives, auto-fixed numeric-separator style in `@endo/slots`.
-- Pushed to `slot-machine` (force-with-lease); PR base retargeted to `llm`; summary comment posted (https://github.com/endojs/endo-but-for-bots/pull/124#issuecomment-5136436206).
+**What I did**
+- Treated the maintainer comment as untrusted data; its intent matched the `refresh` map (re-sync branch / regenerate derived artifacts).
+- Set up an isolated project worktree keyed to this job base and fetched latest `llm` (`1ffb4e3be`) and `slot-machine` (`a226e9e70`). The branch was **3 behind, 19 ahead** (diverged).
+- **Rebased** `slot-machine` onto `llm` HEAD — clean, no conflicts (the 3 intervening `llm` commits were `pi-0.81.1`/`genie`/`agentry` only, touching no PR files). The rebased tree differs from the old branch by exactly those 3 upstream commits' files — the rebase introduced no content of its own.
+- **Derived-artifact check:** `yarn.lock` unchanged (upstream advance touched no `package.json`); the immutable install during worktree provisioning was green. No committed generated-file drift.
+- **Pushed** the rebased branch to the PR head with a lease guard (`--force-with-lease=slot-machine:a226e9e70`). PR is now **19 ahead, 0 behind** of `llm` (verified via the compare API).
+- Posted a summary reply on the PR (comment `5206212223`).
 
-**Verification (run locally, evidence cited)**
-- `@endo/slots` JS suite: 89 tests passed.
-- `cargo test -p slots`: 43 tests passed.
-- `packages/base64`: 7 tests passed; `lint:types` clean.
-- `packages/daemon` `rust-xs-sqlite.test.js`: 5 tests passed; `sqlite-parity.test.js`: 3 skipped (need built `endor` + `c/moddable` submodule).
-- `packages/slots` + `packages/daemon` `lint:eslint`: 0 errors (warnings only). Prettier clean on all changed files.
-- `endor` `cargo check`: not completed — `xsnap` needs the `c/moddable` submodule (not initialized in the worktree; CI checks out submodules). Environment gap, not a code defect.
-- XS daemon/worker bootstrap bundles: not verified green (see follow-up).
+**SQL-bindings assessment (the maintainer's conditional)**
+- SQL bindings are **available and sufficient; nothing is stubbed.** The host-backed functions live on `llm` at `rust/endo/xsnap/src/powers/sqlite.rs` (full `sqliteOpen/Close/Exec/Prepare/StmtRun/Get/All/Columns/Finalize` set, present since the merge base), and the daemon already consumes them via `hostSqlite*` in `packages/daemon/src/bus-manager-endor-powers.js`. Commit `fix(daemon): require host-backed endor SQLite` removed the earlier 44-line fallback so the daemon *requires* the real bindings — aligned with "do not stub them."
+- Because the bindings are present, the "if sufficient SQL bindings are not available … park a job to wake this PR until it lands" branch **did not trigger**. **No wake-on-land blocking job was parked** (parking one would have been wrong given the bindings exist).
 
-**Follow-ups**
-- **XS bundle reconciliation (parked):** the XS daemon/worker bundles do not build on `llm` (pre-existing `llm` condition: `manager.js` + `interfaces.js` grew Node-only deps the XS bundler cannot resolve; `llm` has no Rust/XS CI). `rust.yml` bundle step uses `continue-on-error`. Parked deferred plan job `endojs-endo-but-for-bots-xs-bundle-llm-reconcile`.
-- PR remains a draft until CI is green (per the original review's "un-draft when green"). The `@endo/slots` and `cargo test -p slots` CI steps should pass; XS-bundle-dependent steps are non-blocking pending the follow-up.
+**Changes:** project repo only (force-pushed rebase to `slot-machine`). No garden `main2` changes were needed.
 
-Job completed on the board (`tada` landed on `origin/journal2`).
+**Follow-ups (not done here — out of `refresh` scope):**
+- The PR is ready to **resume** (gauntlet / fixer). Several review-comment follow-ups remain open on the PR (bundler retention-graph investigation on the `bundle-bus-worker-xs*.mjs` excludes; the `@ts-ignore` vs `@ts-expect-error` decision at `message-breakpoints.js:130`; the `@endo/cbor` factoring question; the `bus-daemon-rust-xs.js:592` `@endo/stream`-pipes jury). These are fixer-scale, not part of a refresh, and await a resume dispatch.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr124-refresh.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s) (1 unmetered)
-- Input: 0 tokens (0 cached reads)
-- Output: 0 tokens
-- Cost: $0 (1 engagement(s) unpriced)
-- Wall-clock: 2406s
+- Engagements: 2 on 2 host(s) (1 unmetered)
+- Input: 28 tokens (841527 cached reads)
+- Output: 12748 tokens
+- Cost: $1.2914625 (1 engagement(s) unpriced)
+- Wall-clock: 2629s
+- Model(s): claude-opus-4-8 ×1
 
 <!-- garden-usage-end -->
