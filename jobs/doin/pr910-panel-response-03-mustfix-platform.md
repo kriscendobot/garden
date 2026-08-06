@@ -68,3 +68,13 @@ Every `must-fix` finding in the `platform` slice carries a disposition in the ch
 changes are pushed and locally verified; the tada report lists what you fixed, what you
 refuted and why, and anything you had to defer with the reason. Do not un-draft, do not
 merge, do not re-run the panel.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T18:52:08Z
