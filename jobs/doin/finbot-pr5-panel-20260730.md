@@ -61,3 +61,13 @@ uses the deterministic canonical recompute and refuses unreconciled output.
 
 Per merge governance (2026-07-22), this increment lands only after both a passing
 panel and Fable-orchestrator sign-off. Never self-merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T05:47:40Z
