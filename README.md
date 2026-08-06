@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T14:37:16Z_
+_As of 2026-08-06T14:40:15Z_
 
 ## Latest
 
@@ -5678,15 +5678,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
+### doin (0)
+(none)
 
 ### tada (4208)
+- [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-refresh.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-stderr-classifier-epipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-stderr-classifier-epipe.md) — Cost
 - [`garden-pages-584d3b516cfc-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-pages-584d3b516cfc-shepherd.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-rate-limit-403`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-rate-limit-403.md) — Cost
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Completion report
-- [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-conduct.md) — Cost
 - … and 4203 more
 
 ## Plan queue (parked — not claimable until promoted)
