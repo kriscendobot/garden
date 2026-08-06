@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T20:33:41Z_
+_As of 2026-08-06T20:34:40Z_
 
 ## Latest
 
@@ -5828,14 +5828,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 36.5M | $630.88 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+408.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
+| Codex | 15.6M _(+407.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-panel-response-09-comment-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-09-comment-only.md) — PR #910 panel response — child 9/10: **comment-only** findings, all slices
 
 ### tada (4241)
 - [`pr910-panel-response-08-shouldfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-08-shouldfix-git-docs.md) — Completion report — PR #910 panel response, child 08/10: should-fix, git-and-...
