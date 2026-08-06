@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:11:32Z_
+_As of 2026-08-06T15:13:41Z_
 
 ## Latest
 
@@ -5688,29 +5688,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.7M | $620.86 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+397.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 35.8M | $622.03 _(notional, rate-card)_ | no quota set |
+| Codex | 15.9M _(+397.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-ascii-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #943
 - [`consolidate-test262-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/consolidate-test262-fixtures.md) — Refactor: consolidate test262 fixtures (@endo/test262-runner + endor-vm cases...
 - [`decommission-cxs-rust-default-xst-ci-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/decommission-cxs-rust-default-xst-ci-parity.md) — End-state: decommission C-XS — drop c/moddable, remove the C-binding Endor, m...
 - [`endojs-endo-but-for-bots-pr600-57909b1b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-57909b1b-retro.md) — Retrospective on endojs/endo-but-for-bots PR #600 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr934-review-9d402c3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr934-review-9d402c3a.md) — Review directive on endojs/endo-but-for-bots PR #934
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s48.md) — Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
 
-### tada (4216)
+### tada (4217)
+- [`endojs-endo-but-for-bots-pr934-review-9d402c3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr934-review-9d402c3a.md) — Cost
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-xs-bytecode-precompile-cache.md) — Cost
 - [`endojs-endo-but-for-bots-pr934-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr934-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-refresh.md) — Completion report
 - [`garden-pages-ae3415642dff-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-pages-ae3415642dff-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr760-8e04fcb0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr760-8e04fcb0.md) — Completion report
-- … and 4211 more
+- … and 4212 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
