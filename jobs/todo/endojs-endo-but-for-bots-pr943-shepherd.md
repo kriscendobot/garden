@@ -20,15 +20,4 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 [APPROVED]  
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-06T15:03:13Z
+<!-- garden-reaped: 1 -->
