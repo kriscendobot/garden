@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:05:01Z_
+_As of 2026-08-06T07:13:30Z_
 
 ## Latest
 
@@ -14,9 +14,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 5h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
 - [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 10h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 7d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 7d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
@@ -3229,6 +3229,50 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `doomed-endojs-endo-but-for-bots-pr885-conduct-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr885-conduct-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
+> The gardener stamped the deadline-overrun counter, so the reaper surfaced it after 1
+> cycle(s) rather than the full 5-cycle doom threshold. The effective handler budget in
+> force for this job is 2400s. That counter is stamped for two DISTINCT shapes; check the
+> gardener log for the actual elapsed to tell which applies:
+>   (a) GENUINE wall-clock overrun — elapsed ≈ 2400s (rc=124 at the wall). The job does not
+>       fit one claim: SPLIT it into claim-sized stages, or raise its handler-timeout.
+>   (b) FAST repeated failure — elapsed far below 2400s (e.g. a 1–2s usage-cap/API rejection)
+>       flagged by elapsed-constancy. The budget is NOT the problem; read the handler log
+>       for the real cause (quota/usage cut, swallowed error) — raising the budget will not help.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr885-conduct; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr885-conduct) or removes it.
+> Original job base: endojs-endo-but-for-bots-pr885-conduct
+>
+> --- original job body ---
+> ---
+> role: conductor
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Finalize (curate → merge) endojs/endo-but-for-bots PR #885
+>
+> A trusted maintainer APPROVED this PR and the watcher confirmed it is
+> OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
+> **conductor** to un-draft (if the PR is still draft) and merge. Do NOT name
+> a merge method — the conductor owns that choice (roles/conductor/AGENT.md).
+>
+> Guards (the watcher already enforced these; re-verify before merging):
+>   - Bot repo only (endojs/endo-but-for-bots). NEVER merge agoric-sdk or the endojs/endo
+>     upstream — those are the maintainers / boatmans call.
+>   - The PR must still be OPEN, mergeable, and checks green. If it has
+>     regressed (conflicts, red CI), dispatch the shepherd/fixer instead of
+>     forcing the merge.
+>   - Idempotent: if the PR is already merging/merged/closed, do nothing.
+>
+> Source: pr-review-body by kriskowal
+> Approval: [https://github.com/endojs/endo-but-for-bots/pull/885](https://github.com/endojs/endo-but-for-bots/pull/885)#pullrequestreview-4871644069
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `doomed-endojs-endo-but-for-bots-pr903-review-1ec51e37-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr903-review-1ec51e37-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5501,17 +5545,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.9M | $602.71 _(notional, rate-card)_ | no quota set |
-| Codex | 17.3M _(+420.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 34.0M | $607.57 _(notional, rate-card)_ | no quota set |
+| Codex | 17.3M _(+419.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`ebfb-pr600-rebase-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-rebase-5201229349.md) — Rebase endojs/endo-but-for-bots PR 600 onto current llm
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
-- [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 - [`merge-endo-but-for-bots-pr875-endor-imports-field`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr875-endor-imports-field.md) — Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
@@ -5550,6 +5593,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-gauntlet.md) — _normal_ · Run the gauntlet: attenuated Google Sheets facets
+- [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr885-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr903-review-1ec51e37`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-review-1ec51e37.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #903
 - [`endojs-endo-but-for-bots-pr909-5e6ae075`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-5e6ae075.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr923-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
