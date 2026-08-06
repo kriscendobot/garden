@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":17,"elapsed_s":619,"input_tokens":33,"output_tokens":48246,"cache_creation_tokens":109033,"cache_read_tokens":1170517,"total_cost_usd":2.8849455,"ts":"2026-08-06T18:05:53Z","base":"pr910-panel-response-01-recover-findings","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"researcher"}
