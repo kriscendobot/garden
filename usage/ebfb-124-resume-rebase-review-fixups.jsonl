@@ -2,3 +2,4 @@
 {"ts":"2026-08-06T05:55:19Z","base":"ebfb-124-resume-rebase-review-fixups","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":105}
 {"ts":"2026-08-06T06:07:46Z","base":"ebfb-124-resume-rebase-review-fixups","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":262}
 {"ts":"2026-08-06T06:14:08Z","base":"ebfb-124-resume-rebase-review-fixups","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":52}
+{"source":"result","num_turns":171,"elapsed_s":2398,"input_tokens":292,"output_tokens":84294,"cache_creation_tokens":202902,"cache_read_tokens":22198295,"total_cost_usd":15.240428499999998,"ts":"2026-08-06T07:03:28Z","base":"ebfb-124-resume-rebase-review-fixups","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}
