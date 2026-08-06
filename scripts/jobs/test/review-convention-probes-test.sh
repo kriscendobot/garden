@@ -121,5 +121,42 @@ printf '%s\n' "$panel_output" | grep -q '^fire purist matched: base64::' \
   && ok 'Rust base64 implementation deterministically routes to purist' \
   || bad "purist probe missed Rust base64: $panel_output"
 
+# URL-relative path math needs judgment rather than a blocking gate, but it must
+# reliably route to the purist so the panel can apply the Endo URL convention.
+git -C "$REPOSITORY" reset -q --hard HEAD
+base=$(git -C "$REPOSITORY" rev-parse HEAD)
+printf '%s\n' \
+  "import path from 'node:path';" \
+  "const directory = path.dirname(fileURLToPath(import.meta.url));" \
+  > "$REPOSITORY/bundle-worker.mjs"
+git -C "$REPOSITORY" add bundle-worker.mjs
+git -C "$REPOSITORY" commit -qm candidate
+panel_output=$(cd "$REPOSITORY" && BASE="$base" bash "$PURIST")
+printf '%s\n' "$panel_output" | grep -q '^fire purist matched: import path from' \
+  && ok 'node:path import deterministically routes URL-relative path math to purist' \
+  || bad "purist probe missed node:path import: $panel_output"
+
+git -C "$REPOSITORY" reset -q --hard HEAD
+base=$(git -C "$REPOSITORY" rev-parse HEAD)
+printf '%s\n' "const workerPath = path.resolve('worker.mjs');" \
+  > "$REPOSITORY/bundle-worker.mjs"
+git -C "$REPOSITORY" add bundle-worker.mjs
+git -C "$REPOSITORY" commit -qm candidate
+panel_output=$(cd "$REPOSITORY" && BASE="$base" bash "$PURIST")
+printf '%s\n' "$panel_output" | grep -q '^fire purist matched: path.resolve(' \
+  && ok 'path.resolve deterministically routes to purist' \
+  || bad "purist probe missed path.resolve: $panel_output"
+
+git -C "$REPOSITORY" reset -q --hard HEAD
+base=$(git -C "$REPOSITORY" rev-parse HEAD)
+printf '%s\n' "const directory = path.dirname('worker.mjs');" \
+  > "$REPOSITORY/bundle-worker.mjs"
+git -C "$REPOSITORY" add bundle-worker.mjs
+git -C "$REPOSITORY" commit -qm candidate
+panel_output=$(cd "$REPOSITORY" && BASE="$base" bash "$PURIST")
+printf '%s\n' "$panel_output" | grep -q '^fire purist matched: path.dirname(' \
+  && ok 'path.dirname deterministically routes to purist' \
+  || bad "purist probe missed path.dirname: $panel_output"
+
 echo "$passes passing, $failures failing"
 [ "$failures" -eq 0 ]

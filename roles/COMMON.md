@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-07-28
+updated: 2026-08-06
 author: gardener, liaison
 ---
 
@@ -253,6 +253,7 @@ The garden's standing style rules. Every dispatched agent follows these on every
 - `garden/skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
 - `garden/skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
 - `garden/skills/test-title-spec-spelling/SKILL.md`: when a test title names a spec-defined surface, spell it exactly as the specification does.
+- `garden/skills/url-path-math/SKILL.md`: in Endo JavaScript modules, use `new URL(...)` for module-relative path math and convert to a native path only at the API boundary that requires one.
 - `garden/skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand. This is a GitHub-communication rule, distinct from `relative-paths` (which keeps links *inside* a document tree relative).
 - `garden/skills/gricean-maxims/SKILL.md`: be concise; optimize for the reader's attention. Apply Grice's four maxims (Quantity, Quality, Relation, Manner) to every communication (completion reports, PR comments, review replies, journal bodies, bus messages) and to the prose you land in a project repo (code comments, design documents, commit bodies). Unlike the mechanical rules above, these are judgment calls, so the skill makes them operational with do/don't pairs. The sharpest one to internalize is **empty emphasis**. Do not tell the reader that something matters ("load-bearing rather than incidental", "note that this is subtle", "importantly"); show what it buys and let them conclude it. Such a phrase is padding when the surrounding text already shows the importance, and an unevidenced claim when it does not. The maxims govern **how** something is said, never **whether** a required disclosure (a completion-summary element, an inline-reply anchor, the `tada` contract) is made.
 

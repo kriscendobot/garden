@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-08-06
 author: gardener
 ---
 
@@ -25,6 +25,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [panel-review](../../../skills/panel-review/SKILL.md): the per-juror block shape the judge aggregates.
 - [pr-creation-flow](../../../skills/pr-creation-flow/SKILL.md): the canonical flow and the jury-fixer loop.
 - [adversarial-tests](../../../skills/adversarial-tests/SKILL.md): the brainstorming list, the passability and side-channel categories specifically.
+- [url-path-math](../../../skills/url-path-math/SKILL.md): the Endo convention for module-relative file paths.
 - [em-dash-style](../../../skills/em-dash-style/SKILL.md), [relative-paths](../../../skills/relative-paths/SKILL.md): apply to the review prose.
 - [self-improvement](../../../skills/self-improvement/SKILL.md): the final task of every engagement.
 
@@ -38,6 +39,7 @@ Assumes you have already read `roles/COMMON.md`.
   - **Family-consistency across related symbols.** When the PR touches one of a family of symbols (e.g., `cause`, `errors`, `code` on errors; `remotable`, `promise` matchers), apply the same treatment to the rest of the family or document why not. "What about `cause` and `errors`? Do they have this problem too?" is the recurring purist question.
   - **Minimum viable abstraction.** Is the new type / wrapper / helper actually necessary, or does it duplicate a discipline the existing surface already carries? "I don't like introducing a new type for this purpose if possible" is the recurring purist preference. When the new abstraction is unavoidable, the purist notes the minimum it must carry.
   - **Reuse over re-implementation of `@endo/*` primitives.** Does the PR hand-roll a primitive that an existing `@endo/*` package already provides — hex / base64 / ascii encoding (`@endo/hex`, `@endo/base64`, `@endo/ascii`), byte handling (`@endo/bytes`), hashing (`@endo/sha256`), or error assertions (`@endo/errors` `Fail` / `assert` / `q`, including a hand-rolled `insist`)? Flag the duplication and name the package to import. This holds for Rust ports too, where the existing JS implementation should be reused via bundling rather than re-implemented. Recurring maintainer finding across `endojs/endo-but-for-bots` #671 / #755 / #824 / #836 / #877 / #882; sibling to the `endo-errors-over-raw-throw` and `named-imports-over-namespace` idioms.
+  - **URL-relative path math.** When an added `node:path` import, `path.resolve`, or `path.dirname` calculates a path from `import.meta.url` or another file URL, prefer `new URL(...)` and retain a URL until the receiving Node API requires a native path string. For example, `path.dirname(fileURLToPath(import.meta.url))` becomes `fileURLToPath(new URL('.', import.meta.url))`. Do not flag a `node:path` use whose input is already a native path string or whose operation has no URL equivalent. Cite the path calculation and the URL form that serves it; should-fix unless the unnecessary conversion changes correctness.
   - **Edge-case enumeration on values.** Empty CopyArrays, zeroth elements, single-element collections, `undefined`-as-distinguished-from-absent. The purist surfaces the cases where the shape of the value matters even if the documented happy path is unaffected.
 - **Secondary surface (overlap).** Invariant-claim integrity when a frozen-property or passable claim depends on a contract another seat (the breaker, the warden) would attack. The breaker owns invariant attacks per its role file; the warden owns the SES boundary; the purist's overlap is the "this new symbol violates the ocap-shape invariants the rest of the module assumes" slice. Cite the symbol family and the prior member whose shape the new member should match.
 - **Each finding has a verdict**: must-fix, should-fix, or comment-only. Must-fix is reserved for findings that would break passability or open a side-channel across a boundary the module crosses; should-fix covers namespace collisions, family-consistency lapses, and minimum-viable-abstraction overreach; comment-only is for taste-driven hygiene the rest of the panel might dispute.

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-08-05
+updated: 2026-08-06
 author: gardener
 ---
 
@@ -89,7 +89,7 @@ Every `fire` line collects into the recommended set.
 
 ### 5. Content-regex-triggered seats (7)
 
-For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The `purist` probe includes recognizable reimplementations of Endo primitives (SHA-256, byte/text codecs, base64, hex, ASCII, `insist`, and Rust base64), routing ambiguous cases to judgment while the narrower pre-push probe blocks unambiguous JavaScript/TypeScript shapes. The `spec-keeper` probe additionally fires on an added `M.any()` or broad `M.record()` in a changed `.ts`/`.js` exo or `M.interface(...)` guard, so the seat can decide whether a documented compatibility exception justifies it. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
+For each, the probe runs `git diff "$BASE...HEAD" -U0 | grep -E '^\+'` and tests for at least one match against the regex set: `warden`, `locksmith`, `purist`, `spec-keeper`, `wire-watcher`, `engine-realist`, `typist`. A single regex hit anywhere in the added lines fires the seat; false positives are accepted, false negatives minimized. The probe reports the first hit so the seat list can be verified. The full regex sets live in the per-seat `probes/C-<seat>.sh` files. The `purist` probe includes recognizable reimplementations of Endo primitives (SHA-256, byte/text codecs, base64, hex, ASCII, `insist`, and Rust base64) plus `node:path` imports and `path.resolve` / `path.dirname` calls. The first group routes ambiguous primitive duplication to judgment while the narrower pre-push probe blocks unambiguous JavaScript/TypeScript shapes; the latter routes URL-relative path math to the purist to decide whether `new URL(...)` serves the operation. The `spec-keeper` probe additionally fires on an added `M.any()` or broad `M.record()` in a changed `.ts`/`.js` exo or `M.interface(...)` guard, so the seat can decide whether a documented compatibility exception justifies it. The typist probe fires on an inline `import()` type reference in a JSDoc tag, because the always-on seat is still the backstop when a gauntlet skips the gate.
 
 ### 6. Design-panel routing
 
