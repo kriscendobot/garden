@@ -32,6 +32,7 @@ Conductor duties:
 Once merged, this unblocks the parked follow-up design job
 `endo-endor-registry-proxy-worker-refactor`.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
