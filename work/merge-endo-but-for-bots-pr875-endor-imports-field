@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 3
+worker_kind: gardener
+claimed_at: 2026-08-06T06:34:14Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-merge-endo-but-for-bots-pr875-endor-imports-field
