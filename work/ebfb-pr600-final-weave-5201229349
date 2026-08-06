@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: gardener
+claimed_at: 2026-08-06T07:31:11Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-pr600-final-weave-5201229349
