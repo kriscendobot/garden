@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T19:40:47Z_
+_As of 2026-08-06T19:43:57Z_
 
 ## Latest
 
@@ -5835,15 +5835,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
+- [`pr910-panel-response-06-shouldfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-06-shouldfix-platform.md) — PR #910 panel response — child 06/10: **should-fix** findings in the platform...
 
-### tada (4237)
+### tada (4238)
+- [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-shepherd.md) — Cost
 - [`pr910-panel-response-05-mustfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-05-mustfix-git-docs.md) — Completion report — PR #910 panel response, child 05/10 (must-fix, git-and-do...
 - [`endojs-endo-but-for-bots-pr893-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr893-shepherd.md) — Cost
 - [`pr910-panel-response-04-mustfix-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-04-mustfix-daemon.md) — Completion report — PR #910 panel response, child 04/10: daemon slice, must-fix
 - [`pr910-panel-response-03-mustfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-03-mustfix-platform.md) — Completion report
-- [`pr910-panel-response-02-rebase-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-02-rebase-onto-llm.md) — Cost
-- … and 4232 more
+- … and 4233 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
