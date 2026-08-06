@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:00:23Z_
+_As of 2026-08-06T07:03:45Z_
 
 ## Latest
 
@@ -5497,15 +5497,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.1M | $611.32 _(notional, rate-card)_ | no quota set |
-| Codex | 17.4M _(+419.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 33.9M | $602.40 _(notional, rate-card)_ | no quota set |
+| Codex | 17.3M _(+420.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-resume-rebase-review-fixups.md) — Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
+### doin (6)
 - [`ebfb-pr600-rebase-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-rebase-5201229349.md) — Rebase endojs/endo-but-for-bots PR 600 onto current llm
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
@@ -5513,13 +5512,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 - [`merge-endo-but-for-bots-pr875-endor-imports-field`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr875-endor-imports-field.md) — Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
 
-### tada (4194)
+### tada (4195)
+- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-resume-rebase-review-fixups.md) — Report
 - [`improve-browser-image-dependency-contract`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-browser-image-dependency-contract.md) — Completion report
 - [`endojs-endo-but-for-bots-pr877-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-finalize.md) — Conductor report — endojs/endo-but-for-bots#877 (feat/endor-npm-dual-build-ex...
 - [`improve-pr-feedback-issue-comment-target-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-pr-feedback-issue-comment-target-resolution.md) — Completion report
 - [`endojs-endo-but-for-bots-pr124-review-368d8b3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-review-368d8b3b.md) — Cost
-- [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr21-a96e97d-design-land.md) — Completion report
-- … and 4189 more
+- … and 4190 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
