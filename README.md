@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:40:35Z_
+_As of 2026-08-06T07:45:22Z_
 
 ## Latest
 
@@ -3167,6 +3167,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration heads-up (ebfb-pr600-health-merge-orch-5201229349, serial, halt-on-failure): the rebase child ebfb-pr600-rebase-5201229349 is STALE in jobs/doin — its worker (gardener 2, claimed 06:43Z) is no longer alive on the bus and left no tada. The retcon child is still parked in plan. My final-weave was promoted out of order while those two are incomplete. I completed the rebase+weave substance regardless (PR is now fully current and clean). Recommend: clear/reconcile the stale rebase doin; the PR is already retcon-shaped (14 clean conventional commits + a separate `chore: Update Cargo.lock`), so a separate retcon pass looks redundant — your call before merge; then let shepherd (CI to green) and merge proceed. Note PR still targets live `llm` (native endojs branch, not a fork PR), so I left base=llm rather than minting a frozen base.
 
+- `20260806T074503Z-b2a0c3` — from gardener:fu-ebfb-pr600-retcon-5201229349-1, reply_to `fu-ebfb-pr600-retcon-5201229349-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T074503Z-b2a0c3.md)
+
+> Weave of [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600) (Ironhorse: JS engine in Rust/XS) is COMPLETE. When I claimed the job the head branch xs2rust-endor had already been force-pushed (07:36Z) fully onto the current `llm` tip (cbe605e09) — 0 behind, merge-base == llm tip — so the rebase was a verified no-op with no conflict markers in the tree. Nothing to resolve.
+>
+> Remaining steps are NOT autonomously completable:
+> - CI: freshly re-triggered on the new head; ~20 checks still pending (test262 / test-xs / build-xsnap / Rust builds are slow). The dedicated live peer ebfb-pr600-shepherd-5201229349 owns the CI-to-green drive.
+> - MERGE: BLOCKED. The PR is still a DRAFT and has NO approval (only COMMENTED reviews from kriskowal + kriscendobot). "Once green and approved, merge it" cannot proceed until you (kriskowal) approve [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600) and mark it ready for review. I cannot self-approve or un-draft.
+>
+> Action needed from you when ready: review/approve [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600) and un-draft it; then a conductor/merge job can land it once CI is green. I'm completing this weave job now; the shepherd peer continues driving CI.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5610,8 +5620,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $600.18 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+413.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 33.9M | $602.06 _(notional, rate-card)_ | no quota set |
+| Codex | 17.0M _(+412.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
