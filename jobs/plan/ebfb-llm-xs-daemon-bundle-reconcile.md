@@ -80,3 +80,37 @@ from a clean checkout after it.  Then flip `continue-on-error` to
 `false` on the "Generate XS bootstrap bundles" step of
 `.github/workflows/rust.yml` (on #124, or after it merges), and report
 back on #124 so it can un-draft.
+
+<!-- garden-annotation: key=correct-xsnap-buildability by=fixer at=2026-08-06T06:50:22Z -->
+
+Correction to the job body above (same author, same day): the claim
+that **`cargo build -p xsnap` fails on a clean `llm` checkout is
+WRONG**. It does not fail, and why it does not is the interesting
+part.
+
+`packages/thixotrope/scripts/bundle-xs-worker.mjs` ends with a loop
+that writes a **throwing stub** for each of `ses_boot.js`,
+`worker_bootstrap.js`, `daemon_bootstrap.js` that is absent:
+
+    throw new Error('stub bootstrap: regenerate with the endor bundler');
+
+`llm`'s only XS lane is `ci.yml`'s `build-xsnap` job, which runs
+`yarn workspace @endo/thixotrope run build:xs-bundles` (writing those
+stubs), then the ses-boot and worker bundlers -- **never** the daemon
+bundler -- and then only `cargo check --manifest-path
+rust/endo/xsnap/Cargo.toml`. So `llm` compiles a daemon bootstrap that
+would throw the moment it is evaluated, and no lane on `llm` ever
+evaluates it.
+
+Everything else in the body stands. The daemon XS bundle genuinely
+cannot be produced on `llm`, the three static-import causes are
+accurate, and the reproduction command is right. What changes is only
+the framing: this is not "llm is unbuildable", it is "llm has no lane
+that builds a *working* XS manager, and the stub hides it". The
+workflow endojs/endo-but-for-bots#124 adds is the first lane that
+builds and runs the real `endor` binary, which is why it is the first
+to care.
+
+Do **not** resolve this job by pointing the endor workflow at the
+thixotrope stub. That would turn a red CI into a green one that ships
+a daemon bootstrap which throws on first evaluation.
