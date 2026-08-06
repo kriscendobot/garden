@@ -12,3 +12,13 @@ Design WAL checkpointing at shutdown across ALL supported daemon platforms
 (Node/better-sqlite3 and Rust+XS host bindings), not just the current
 `journal_mode = WAL` + clean `db.close()` assumption. Cover the cross-platform
 semantics the maintainer flagged. Land as a draft design PR against `llm`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T05:44:08Z
