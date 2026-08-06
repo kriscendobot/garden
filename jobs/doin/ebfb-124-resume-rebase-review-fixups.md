@@ -85,6 +85,7 @@ then report so `endo-cbor-adopt-slots` reduces to verification.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
