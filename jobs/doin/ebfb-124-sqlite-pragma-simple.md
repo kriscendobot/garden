@@ -12,3 +12,13 @@ better-sqlite3's `pragma(stmt, { simple: true })` returns a scalar rather than a
 row set. The maintainer notes this "will certainly become useful in the future."
 Specify the shim + host binding behavior and land as a draft design PR against
 `llm`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T05:43:47Z
