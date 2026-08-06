@@ -28,3 +28,13 @@ Guards (re-verify before merging):
 
 Source: shepherd hand-off from job endojs-endo-but-for-bots-pr877-shepherd.
 Approval: https://github.com/endojs/endo-but-for-bots/pull/877#pullrequestreview-4871702108
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T06:56:13Z
