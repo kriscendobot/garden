@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:15:01Z_
+_As of 2026-08-06T15:16:14Z_
 
 ## Latest
 
@@ -3245,6 +3245,36 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > To land it: re-approve the current head ffa7d3fe. The periodic approval reconciler will then re-post a merge job and it merges automatically once CI is green (the conductor un-drafts as part of the merge). No code change needed on my side.
 
+- `20260806T151553Z-fdddf7` — from gardener:decommission-cxs-rust-default-xst-ci-parity, reply_to `decommission-cxs-rust-default-xst-ci-parity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T151553Z-fdddf7.md)
+
+> HALTED (no destructive work done): the `decommission-cxs-rust-default-xst-ci-parity`
+> plan was promoted, but its hard gate — "run ONLY once the XS->Rust port is complete" —
+> is NOT met on `endojs/endo-but-for-bots@llm`. I did NOT drop c/moddable, remove the
+> C-binding Endor, or touch CI. Evidence (worktree off origin/llm @ 0c157c49d):
+>
+> 1. Rust engine NOT the default / NOT daemon-integrated (charter finish-line item one):
+>    - `bin/endor.rs:7` comment: "XS is the default engine for every [...]".
+>    - Rust `ironhorse` VM is reachable ONLY via explicit `endor run -e ironhorse
+>      <script>` / `endor worker ... ironhorse`, behind `#[cfg(feature =
+>      "ironhorse-engine")]`. Not dispatched by the daemon/worker CapTP loop.
+>    - `inproc.rs` still calls `xsnap::run_xs_manager_inproc` / `run_xs_worker_inproc`;
+>      `engine.rs` `Engine::Shared` still uses `xsnap::WORKER_BOOTSTRAP`/`WORKER_CREATION`.
+>    - `endojs/endo-but-for-bots#600` ("feat(ironhorse): JavaScript engine in Rust")
+>      landed the ENGINE, not the daemon integration.
+> 2. No green `test:rust`: there is no `test:rust` npm script at all.
+> 3. test262 parity NOT closed: CI `test262` job (.github/workflows/ci.yml line 400) is
+>    stubbed `run: exit 0 # TODO remove test262 from required tests for CI`.
+> 4. `consolidate-test262-fixtures` groundwork (the CI-parity substrate this depends on)
+>    is not landed as a single consolidated corpus.
+>
+> Performing the decommission now would break the daemon/worker/run default path
+> (nothing else drives the in-process shared machine) and delete the parity oracle
+> before parity is even measured. Recommend: keep parked. I could not re-park under the
+> same base while holding the lifecycle slot — please re-park with
+> `scripts/jobs/post-plan.sh --go-ahead decommission-cxs-rust-default-xst-ci-parity`
+> once this job clears, and only re-promote after the daemon integration lands +
+> `test:rust` is green + test262 parity is closed. Full spec preserved in my tada report.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5688,8 +5718,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.8M | $622.90 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+398.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 35.9M | $623.72 _(notional, rate-card)_ | no quota set |
+| Codex | 15.9M _(+398.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
