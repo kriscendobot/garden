@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T13:54:41Z_
+_As of 2026-08-06T14:30:24Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 12h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 13h)
 - [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 17h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
@@ -3202,6 +3202,32 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > review on b9b25b923; once you approve, the conduct can be posted.
 > [https://github.com/endojs/endo-but-for-bots/pull/652](https://github.com/endojs/endo-but-for-bots/pull/652)
 
+- `20260806T143009Z-c9844a` — from gardener:garden-pages-584d3b516cfc-shepherd, reply_to `garden-pages-584d3b516cfc-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T143009Z-c9844a.md)
+
+> pages-shepherd escalation (next: liaison) — GitHub Pages backend flake, NOT a content error.
+>
+> Garden Pages deploy is RED on main2 tip 584d3b516cfc. Diagnosis: this is a GitHub-side
+> Pages *build* infrastructure flake, not a docs defect. Evidence:
+> - Pages build_type is `legacy`; the legacy build for 584d3b5 errors with the generic
+>   "Page build failed." and duration=0, after hanging ~10 min each time (the Actions
+>   deploy step then times out in `deployment_queued`).
+> - docs/ is byte-identical to commit 2bc08ac, which built GREEN at 07:56 today. Tree is
+>   intact: .nojekyll + index.html + bulletin app, 10 files / 42KB total. No size limit,
+>   no path change, no content diff.
+> - GitHub status page shows Pages "operational", but this repo's builds are failing.
+>
+> Actions taken (no code change — content is provably fine):
+>   1) re-ran the failed Actions deploy job -> failed (same queued-timeout);
+>   2) requested a fresh legacy build via API -> errored, duration 0;
+>   3) requested a second fresh legacy build -> errored, duration 0.
+> Three consecutive GitHub-side failures over ~40 min.
+>
+> This is self-healing: the next main2 push mints a fresh build that will go green once
+> GitHub's Pages backend recovers. No maintainer action strictly required — flagging for
+> awareness. If it persists for hours, a maintainer could try toggling the repo's Pages
+> source in Settings to nudge GitHub's backend (a repo-settings action the bot won't take
+> unilaterally). The pages-watcher will re-post on this same red SHA idempotently.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5645,8 +5671,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.6M | $608.24 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+391.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 34.7M | $610.01 _(notional, rate-card)_ | no quota set |
+| Codex | 15.7M _(+391.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
