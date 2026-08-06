@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:03:42Z_
+_As of 2026-08-06T15:04:48Z_
 
 ## Latest
 
@@ -5675,16 +5675,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.7M | $619.60 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+395.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 35.7M | $619.94 _(notional, rate-card)_ | no quota set |
+| Codex | 15.9M _(+395.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-ascii-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #943
 - [`design-xs-bytecode-precompile-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-xs-bytecode-precompile-cache.md) — ---
+- [`endojs-endo-but-for-bots-pr934-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr934-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #934
 - [`endojs-endo-but-for-bots-pr934-review-9d402c3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr934-review-9d402c3a.md) — Review directive on endojs/endo-but-for-bots PR #934
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
 
