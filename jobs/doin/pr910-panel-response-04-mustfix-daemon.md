@@ -68,3 +68,13 @@ Every `must-fix` finding in the `daemon` slice carries a disposition in the chec
 changes are pushed and locally verified; the tada report lists what you fixed, what you
 refuted and why, and anything you had to defer with the reason. Do not un-draft, do not
 merge, do not re-run the panel.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T19:13:19Z
