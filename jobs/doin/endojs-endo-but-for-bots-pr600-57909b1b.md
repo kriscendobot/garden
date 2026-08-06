@@ -39,3 +39,13 @@ directive:
   * if you cannot name the artifact for every ask, treat exit 2 as PROCEED
     and do the work.
 Never state in your report that a peer did work you did not verify.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T06:37:54Z
