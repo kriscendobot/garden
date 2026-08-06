@@ -1,13 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: researcher
-posted_by: liaison
-posted_at: 2026-07-28T07:46:23Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T05:46:42Z cleared=none -->
 
 # Investigate a caught/uncaught distinction for the Endor debugger protocol
 
