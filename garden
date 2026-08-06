@@ -69,7 +69,13 @@ Commands:
               bring-up path — e.g. standing up a follower.
   build       Build (or rebuild) the container image. Bare \`$(basename "$0")\`
               auto-builds when the image is absent; this is for explicit
-              rebuilds.
+              rebuilds. Stamps the build-contract digest (Dockerfile + copied
+              inputs) into the image so freshness can be checked later.
+  check       Report whether the built image is fresh (matches the current
+              Dockerfile + build inputs) or STALE. Exits non-zero only when a
+              built, tracked image no longer matches its source — a gate for a
+              Dockerfile-affecting deploy. A bare \`$(basename "$0")\` also warns
+              on a stale image at bring-up (never auto-rebuilds).
   reset       Remove the container so the next invocation creates a fresh one.
 
 Environment:
@@ -107,13 +113,75 @@ EOF
     exit 1
 }
 
+# The image's build CONTRACT is the set of local inputs `docker build` consumes:
+# the Dockerfile and every file it COPYs (the entrypoint and the api-key-handoff
+# seed). Its digest is stamped into the built image as a label at build time
+# (cmd_build) and compared on every bring-up (ensure_container) and by `./garden
+# check`. So a change to any of them — notably the Dockerfile's browser-runtime
+# dependency layer (the apt libraries a headless browser needs to launch, which a
+# gardener's Playwright/UI acceptance run relies on) — flips a pre-existing image
+# to STALE instead of being silently reused until the next deliberate rebuild. The
+# guard was previously absent-only: it built when the image was missing but never
+# noticed a missing image was better than a stale one.
+GARDEN_CONTRACT_LABEL="garden.build-contract-sha"
+
+# The files docker build actually consumes, in a fixed order so the digest is
+# stable. Keep this in sync with the Dockerfile's COPY lines.
+build_contract_inputs() {
+    printf '%s\n' \
+        "$SCRIPT_DIR/Dockerfile" \
+        "$SCRIPT_DIR/entrypoint.sh" \
+        "$SCRIPT_DIR/scripts/systemd/seed-api-key-handoff.sh"
+}
+
+# sha256 of the concatenated build inputs. Missing inputs (a partial checkout)
+# contribute nothing rather than aborting, so `check` still runs; the Dockerfile
+# is always present in a real tree.
+build_contract_sha() {
+    local f
+    while IFS= read -r f; do
+        [[ -f "$f" ]] && cat "$f"
+    done < <(build_contract_inputs) | sha256sum | cut -d' ' -f1
+}
+
+# The contract digest recorded in the built image, or empty when the image was
+# built before this label existed (an image we cannot assert staleness against).
+image_contract_sha() {
+    docker image inspect \
+        -f "{{ index .Config.Labels \"$GARDEN_CONTRACT_LABEL\" }}" \
+        "$IMAGE_NAME" 2>/dev/null || true
+}
+
 cmd_build() {
     docker build \
         --allow network.host \
         --network host \
         --build-arg "USERNAME=${HOST_USER}" \
         --build-arg "USER_UID=${HOST_UID}" \
+        --label "${GARDEN_CONTRACT_LABEL}=$(build_contract_sha)" \
         -t "$IMAGE_NAME" "$SCRIPT_DIR"
+}
+
+# Warn (do not act) when a pre-existing image no longer matches the build
+# contract. Warn-only on purpose: an auto-rebuild mid-bring-up would be a
+# minutes-long surprise on a live host, and the running container keeps its old
+# image until a deliberate `reset` + re-enter anyway. An image with NO recorded
+# label predates contract tracking; we cannot assert it is stale, so we stay
+# silent rather than nag — a present-but-different label is the only definite
+# mismatch.
+warn_if_image_stale() {
+    local want have
+    want="$(build_contract_sha)"
+    have="$(image_contract_sha)"
+    [[ -n "$have" && "$have" != "$want" ]] || return 0
+    {
+        echo "WARNING: image '$IMAGE_NAME' is STALE — its build inputs (Dockerfile,"
+        echo "         entrypoint, api-key-handoff seed) changed since it was built,"
+        echo "         so any new browser-runtime deps or tooling are NOT in it yet."
+        echo "         Rebuild and recreate the container to pick them up:"
+        echo "             $(basename "$0") build && $(basename "$0") reset"
+        echo "         (the next '$(basename "$0")' then recreates it from the fresh image)."
+    } >&2
 }
 
 cmd_reset() {
@@ -170,6 +238,8 @@ ensure_container() {
     if ! docker image inspect "$IMAGE_NAME" &>/dev/null; then
         echo "Image '$IMAGE_NAME' not found; building it now ('$(basename "$0") build' to rebuild later)." >&2
         cmd_build
+    else
+        warn_if_image_stale
     fi
 
     if ! docker container inspect "$CONTAINER_NAME" &>/dev/null; then
@@ -270,6 +340,36 @@ cmd_codex() {
         /bin/bash -lc 'exec codex --dangerously-bypass-approvals-and-sandbox'
 }
 
+# Report whether the built image matches the current build contract, so the
+# deploy procedure (context/operations/deploy.md) can gate a Dockerfile-affecting
+# deploy on a rebuild. Exit 0 when fresh — or when there is no image yet, or an
+# image that predates contract tracking (nothing we can call stale); exit 1 only
+# when a built, labelled image definitely no longer matches its source inputs.
+cmd_check() {
+    if ! docker image inspect "$IMAGE_NAME" &>/dev/null; then
+        echo "Image '$IMAGE_NAME' not built yet — nothing to check ('$(basename "$0") build' to create it)."
+        return 0
+    fi
+    local want have
+    want="$(build_contract_sha)"
+    have="$(image_contract_sha)"
+    if [[ -z "$have" ]]; then
+        echo "Image '$IMAGE_NAME' predates build-contract tracking; rebuild to enable freshness checks ('$(basename "$0") build')."
+        return 0
+    fi
+    if [[ "$have" == "$want" ]]; then
+        echo "Image '$IMAGE_NAME' is fresh (build contract ${want:0:12})."
+        return 0
+    fi
+    {
+        echo "Image '$IMAGE_NAME' is STALE:"
+        echo "    image build contract:   ${have:0:12}"
+        echo "    current source contract: ${want:0:12}"
+        echo "Rebuild and recreate: $(basename "$0") build && $(basename "$0") reset"
+    } >&2
+    return 1
+}
+
 # The debugging escape hatch: a login shell instead of claude — yesterday's
 # enter behavior verbatim.
 cmd_sh() {
@@ -287,6 +387,7 @@ case "$1" in
     sh) shift; cmd_sh "$@" ;;
     create) shift; cmd_create "$@" ;;
     build) shift; cmd_build "$@" ;;
+    check) shift; cmd_check "$@" ;;
     reset) shift; cmd_reset "$@" ;;
     -h|--help|help) usage ;;
     *) usage ;;

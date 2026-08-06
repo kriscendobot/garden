@@ -71,6 +71,38 @@ operator drain and restarts the fleet. If this pre-drained attempt aborts, the
 script preserves the operator's marker; use the check below before deciding
 whether to lift it.
 
+## A Dockerfile-affecting deploy needs an image rebuild
+
+`deploy-garden.sh` merges `origin/main2` into the root checkout and restarts the
+`--user` units, but it does **not** rebuild the container image — the fleet keeps
+running inside the container it already created. So a deploy that advances the
+**Dockerfile** (or a file it `COPY`s — the entrypoint, the api-key-handoff seed),
+for example a change to its **browser-runtime dependency layer**, lands the source
+without landing it in the running image: the units restart on new *library* code
+but the same *image*, and the new apt/tooling contract is silently absent.
+
+The `garden` launcher now tracks this. `./garden build` stamps a **build-contract
+digest** (a hash of the Dockerfile and its copied inputs) into the image as a
+label; a bare `./garden` **warns** when a pre-existing image no longer matches
+that digest (it never auto-rebuilds — a minutes-long rebuild mid-bring-up would be
+a surprise, and the running container is unaffected until recreated). To gate a
+deploy on it:
+
+```sh
+./garden check   # exit 0 = fresh (or no/pre-tracking image); exit 1 = STALE
+```
+
+When `check` reports STALE after a Dockerfile-affecting deploy, rebuild and
+recreate this host's container so the new image is actually in use:
+
+```sh
+./garden build && ./garden reset   # the next ./garden recreates from the fresh image
+```
+
+This is a per-host step (the image is per-host, `garden-<user>`), deliberate and
+drained like the deploy itself. A deploy that did not touch the Dockerfile leaves
+`check` fresh and needs none of this.
+
 ## The drain can outlive the deploy
 
 A *successful* deploy lifts the drain it engaged (and current code's abort belt
