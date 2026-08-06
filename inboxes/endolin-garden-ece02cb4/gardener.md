@@ -2118,3 +2118,14 @@ Inspect via `git -C journal cat-file -p 6b2085de99f40d91210f48fa5f98ea61b4cee013
 - Context: gardener-5 on endolin-garden-ece02cb4: job 'finbot-pr6-fix-panel-r5' transient-classified (rc=1) but elapsed near-constant (3,4s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 990b21664be253db3936c4d8f4a0177f5a1f627b`.
+
+## lane 0 -- handler-nonzero failure at 2026-08-06T15:36:22Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a48b0b8dd660dc25671f3394c9d5c7e00c123b78
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'endojs-endo-but-for-bots-pr943-shepherd' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/a48b0b8dd660dc25671f3394c9d5c7e00c123b78
+
+Inspect via `git -C journal cat-file -p a48b0b8dd660dc25671f3394c9d5c7e00c123b78` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/a48b0b8dd660dc25671f3394c9d5c7e00c123b78`) -- both work off-host after a plain `journal2` fetch.
