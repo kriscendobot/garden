@@ -1,0 +1,2 @@
+base: improve-browser-image-dependency-contract
+identity: mentor:scripts/aws/turnkey/provision.sh
