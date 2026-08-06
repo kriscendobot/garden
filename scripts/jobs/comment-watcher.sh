@@ -1392,6 +1392,16 @@ else
   "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
 if [ "$src_rc" -ne 0 ]; then
+  # EX_TEMPFAIL is an explicit source contract: enumeration is incomplete, so
+  # discard its output and freeze the cursor, but propagate the non-attributable
+  # rc instead of turning the tick into a unit failure. self-heal-run.sh normalizes
+  # this to a clean service exit. This branch must remain before every success path
+  # below; rc 75 must never sort/process SRC or slide last_seen.
+  if is_nonattributable_rc "$src_rc"; then
+    sed 's/^/  source: /' "$ERRF" >&2 || true
+    log "RATE LIMITED: comment source ended this tick non-attributably (rc=$src_rc) — cursor frozen; propagating rc for self-heal normalization"
+    exit "$src_rc"
+  fi
   # Transient connectivity (GitHub outage, DNS blip, TLS/read timeout) is "we
   # couldn't ask right now", not a broken enumeration — skip this tick instead of
   # dying, so an outage doesn't drive a systemd restart storm. A structural

@@ -488,11 +488,27 @@ grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "t
 hr; echo "H — missing jq → comment-source-gh.sh fails LOUD (no silent empty)"; hr
 SHIMDIR="$TR/nojq-bin"; mkdir -p "$SHIMDIR"
 for f in /usr/bin/*; do ln -sf "$f" "$SHIMDIR/$(basename "$f")" 2>/dev/null || true; done
-rm -f "$SHIMDIR/jq"   # the only tool removed
+# common.sh now appends /usr/bin to every fleet PATH, so merely removing jq from
+# the leading shim cannot mask it. Put an executable broken-jq sentinel first and
+# use an empty API stub: the source reaches its jq pipeline hermetically and must
+# still fail loud rather than treating the absent implementation as empty JSON.
+rm -f "$SHIMDIR/jq"
+cat > "$SHIMDIR/jq" <<'EOF'
+#!/bin/bash
+echo 'jq: command not found (test sentinel)' >&2
+exit 127
+EOF
+chmod +x "$SHIMDIR/jq"
+GH_EMPTY="$TR/gh-empty.sh"
+cat > "$GH_EMPTY" <<'EOF'
+#!/bin/bash
+printf '[]\n'
+EOF
+chmod +x "$GH_EMPTY"
 command -v jq >/dev/null 2>&1 && have_jq=1 || have_jq=0   # sanity: jq exists on the real host
 SRC_OUT="$TR/h.out"; SRC_ERR="$TR/h.err"
 set +e
-env -i HOME="$HOME" PATH="$SHIMDIR" GARDEN_NO_MAINTAINER_ALERT=1 \
+env -i HOME="$HOME" PATH="$SHIMDIR" GARDEN_GH="$GH_EMPTY" GARDEN_NO_MAINTAINER_ALERT=1 \
     GARDEN_STATE="$TR/state-h" \
     "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots 2026-06-24T00:00:00Z kriscendobot \
     > "$SRC_OUT" 2> "$SRC_ERR"
@@ -1374,6 +1390,101 @@ EOF
   [ "$rcf_rc" -ne 0 ] && ok "the source exits NONZERO when one surface fails (rc=$rcf_rc) — the tick fails, cursor cannot advance" || bad "source returned 0 despite a failed surface (silent-partial regression!)"
   grep -qi 'FETCH INCOMPLETE\|FETCH-FAIL' "$RCF_ERR" && ok "the incomplete enumeration is LOGGED (diagnosable, not silent)" || bad "no FETCH-INCOMPLETE log ($(cat "$RCF_ERR"))"
   grep -qiE 'HTTP 50[0-9]|503' "$RCF_ERR" && ok "the underlying transient gh signature reaches stderr (so the watcher classifies it transient → skip, not die)" || bad "transient signature not surfaced ($(cat "$RCF_ERR"))"
+fi
+
+# ============================================================================
+# RATE — GitHub PRIMARY quota exhaustion is not a millisecond-scale transient.
+# The source must make one request total (one helper attempt, then short-circuit
+# every remaining surface), return EX_TEMPFAIL, and leave the watcher cursor frozen.
+hr; echo "RATE — primary GitHub quota short-circuits surfaces and propagates rc 75 with a frozen cursor"; hr
+command -v jq >/dev/null 2>&1 && have_jq_rate=1 || have_jq_rate=0
+if [ "$have_jq_rate" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHRATE="$TR/gh-rate"; mkdir -p "$GHRATE"
+  RATE_CALLS="$TR/rate.calls"; : > "$RATE_CALLS"
+  cat > "$GHRATE/gh" <<'EOF'
+#!/bin/bash
+if [ "${1:-}" = auth ]; then
+  printf 'test-token\n'
+  exit 0
+fi
+echo "$*" >> "${RATE_CALLS:?}"
+if [ "${RATE_LATE:-0}" = 1 ]; then
+  case "$*" in
+    *"/issues/comments"*) printf '[]\n'; exit 0 ;;
+    *"/pulls?state=open"*) printf '[{"number":1,"updated_at":"2099-01-01T00:00:00Z"},{"number":2,"updated_at":"2099-01-01T00:00:00Z"}]\n'; exit 0 ;;
+  esac
+fi
+echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2
+exit 1
+EOF
+  chmod +x "$GHRATE/gh"
+  RATE_SOURCE_ERR="$TR/rate-source.err"
+  set +e
+  env PATH="$GHRATE:$PATH" RATE_CALLS="$RATE_CALLS" GARDEN_GH_API_ATTEMPTS=4 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-rate-source" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    >/dev/null 2>"$RATE_SOURCE_ERR"
+  rate_source_rc=$?
+  set -e
+  [ "$rate_source_rc" -eq 75 ] \
+    && ok "primary-quota source exits rc 75" \
+    || bad "primary-quota source exited $rate_source_rc (want 75)"
+  [ "$(wc -l < "$RATE_CALLS")" -eq 1 ] \
+    && ok "primary quota made exactly one gh attempt, then short-circuited all remaining surfaces" \
+    || bad "primary quota made $(wc -l < "$RATE_CALLS") gh requests (want 1): $(cat "$RATE_CALLS")"
+  grep -qi 'RATE LIMITED' "$RATE_SOURCE_ERR" \
+    && ok "primary-quota degrade emits a RATE LIMITED log" \
+    || bad "primary-quota degrade did not log RATE LIMITED ($(cat "$RATE_SOURCE_ERR"))"
+
+  # Let two early surfaces succeed, then exhaust quota on PR #1's review-id map.
+  # The source must not request that PR's reviews, PR #2, repo-wide inline comments,
+  # or the repo-gone probe after the quota signature has been recorded.
+  : > "$RATE_CALLS"
+  set +e
+  env PATH="$GHRATE:$PATH" RATE_CALLS="$RATE_CALLS" RATE_LATE=1 GARDEN_GH_API_ATTEMPTS=4 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-rate-late" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    >/dev/null 2>"$TR/rate-late.err"
+  rate_late_rc=$?
+  set -e
+  [ "$rate_late_rc" -eq 75 ] && [ "$(wc -l < "$RATE_CALLS")" -eq 3 ] \
+    && ok "quota discovered inside the PR walk stops all later PR/surface requests" \
+    || bad "late quota did not short-circuit (rc=$rate_late_rc calls=$(wc -l < "$RATE_CALLS")): $(cat "$RATE_CALLS")"
+fi
+
+BARE_RATE="$TR/rate.git"; seed_bare "$BARE_RATE"
+RATE_WATCH_SOURCE="$TR/rate-watch-source.sh"
+cat > "$RATE_WATCH_SOURCE" <<'EOF'
+#!/bin/bash
+# A partial row must be discarded because rc 75 means enumeration was incomplete.
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-06T13:30:50Z pr-comment 403001 678 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/678#issuecomment-403001 \
+  'Please rebase.'
+echo 'RATE LIMITED: GitHub primary API quota exhausted' >&2
+exit 75
+EOF
+chmod +x "$RATE_WATCH_SOURCE"
+RATE_WATCH_ERR="$TR/rate-watch.err"
+set +e
+env GARDEN_STATE="$TR/state-rate-watch" JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$RATE_WATCH_SOURCE" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$RATE_WATCH_ERR"
+rate_watch_rc=$?
+set -e
+[ "$rate_watch_rc" -eq 75 ] \
+  && ok "watcher propagates source rc 75 for self-heal normalization" \
+  || bad "watcher returned $rate_watch_rc (want propagated 75)"
+[ -z "$(cursor_seen "$TR/state-rate-watch" "$BARE_RATE")" ] \
+  && ok "rc 75 freezes the cursor below the partially enumerated row" \
+  || bad "rc 75 advanced the cursor ($(cursor_seen "$TR/state-rate-watch" "$BARE_RATE"))"
+if bash -c 'source "$1"; is_nonattributable_rc "$2"' _ "$JOBS/common.sh" "$rate_watch_rc"; then
+  ok "rc 75 is accepted by is_nonattributable_rc"
+else
+  bad "rc 75 was not accepted by is_nonattributable_rc"
 fi
 
 # ============================================================================

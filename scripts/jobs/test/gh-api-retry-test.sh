@@ -72,6 +72,16 @@ assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted
 assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"
 assert_definitive "gh: Bad credentials (HTTP 401)"            "401 — auth, will not self-heal"
 assert_definitive ""                                          "no stderr at all → not provably transient"
+is_gh_primary_rate_limit_text "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" \
+  && ok "primary-quota predicate matches GitHub's user-specific 403" \
+  || bad "primary-quota predicate missed GitHub's user-specific 403"
+for nonprimary in "You have exceeded a secondary rate limit" "abuse detection mechanism" "gh: (HTTP 429)"; do
+  if is_gh_primary_rate_limit_text "$nonprimary"; then
+    bad "primary-quota predicate swallowed transient throttle: $nonprimary"
+  else
+    ok "primary-quota predicate excludes transient throttle: $nonprimary"
+  fi
+done
 
 # ============================================================================
 hr; echo "SUBTEST 2 — gh_api_retry: retry transient, return payload, never guess on failure"; hr
@@ -98,6 +108,8 @@ gh() {
       printf '%s\n' "${GH_STUB_PAYLOAD:-OK}"; return 0 ;;
     transient-always)
       echo "${GH_STUB_TRANSIENT_STDERR:-gh: Server Error (HTTP 503)}" >&2; return 1 ;;
+    primary-always)
+      echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2; return 1 ;;
     definitive)
       echo "gh: Not Found (HTTP 404)" >&2; return 22 ;;
   esac
@@ -135,6 +147,28 @@ n=$(wc -l < "$GH_STUB_CALLS")
 { [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 4 ]; } \
   && ok "exhausted transient: nonzero + empty after exactly 4 attempts (loud, no guess)" \
   || bad "exhaustion path wrong (rc=$rc out='$out' calls=$n want 4)"
+
+# (c2) primary quota exhaustion cannot recover inside this retry window: fail
+#      immediately after ONE request even though the generic text is also in the
+#      transient signature set.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=primary-always gh_api_retry "repos/o/r/pulls/primary" 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ]; } \
+  && ok "primary quota: gh api fails immediately after exactly one attempt" \
+  || bad "primary quota retried unexpectedly (rc=$rc out='$out' calls=$n want 1)"
+
+# (c3) secondary throttling remains transient and can recover inside the budget.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=flaky GH_STUB_SUCCEED_ON=2 GH_STUB_PAYLOAD=RECOVERED \
+       GH_STUB_TRANSIENT_STDERR='You have exceeded a secondary rate limit' \
+       gh_api_retry "repos/o/r/pulls/secondary")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = RECOVERED ] && [ "$n" -eq 2 ]; } \
+  && ok "secondary rate limit still retries and recovers" \
+  || bad "secondary rate limit did not recover (rc=$rc out='$out' calls=$n want 2)"
 
 # (d) definitive 404: NOT retried → fails after exactly ONE call, nonzero, empty
 #     stdout. A definitive error fails fast-ish but loud; only transient errors get
@@ -197,6 +231,26 @@ n=$(wc -l < "$GH_STUB_CALLS")
 { [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 4 ]; } \
   && ok "pr view exhausted transient: nonzero + empty after exactly 4 attempts (loud, no guess)" \
   || bad "pr view exhaustion path wrong (rc=$rc out='$out' calls=$n want 4)"
+
+# (c2) primary quota is likewise one-shot on the gh-pr-view transport.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=primary-always gh_pr_view_retry 999 --json state 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ]; } \
+  && ok "pr view primary quota fails immediately after exactly one attempt" \
+  || bad "pr view primary quota retried unexpectedly (rc=$rc out='$out' calls=$n want 1)"
+
+# (c3) an HTTP 429 remains retryable and can recover.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=flaky GH_STUB_SUCCEED_ON=2 GH_STUB_PAYLOAD='{"state":"OPEN"}' \
+       GH_STUB_TRANSIENT_STDERR='gh: Too Many Requests (HTTP 429)' \
+       gh_pr_view_retry 999 --json state)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = '{"state":"OPEN"}' ] && [ "$n" -eq 2 ]; } \
+  && ok "pr view HTTP 429 still retries and recovers" \
+  || bad "pr view HTTP 429 did not recover (rc=$rc out='$out' calls=$n want 2)"
 
 # (d) definitive error: NOT retried → single call, nonzero, empty stdout.
 : > "$GH_STUB_CALLS"; set +e

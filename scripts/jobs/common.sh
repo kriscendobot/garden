@@ -2922,6 +2922,8 @@ _fetch_stderr_is_upstream_gone() {
 #   * a TRANSIENT failure is retried under `backoff "$attempt"` up to
 #     GARDEN_GH_API_ATTEMPTS (default 4); once exhausted it still fails (nonzero,
 #     empty stdout) so the caller dies loud rather than acting on a guess.
+#   * GitHub PRIMARY quota exhaustion fails after one attempt: unlike a secondary
+#     throttle, it cannot recover before the hourly reset.
 #
 # Usage (a read; the caller still owns the die):
 #   out="$(gh_api_retry "repos/$repo/pulls/$num" --jq '…')" \
@@ -2962,6 +2964,21 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # empty) rather than guessing. gh-api set ONLY (a Go-decoder string, never git's).
 : "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|${GARDEN_OFFLINE_SIGNATURES}}"
 
+# GitHub's PRIMARY hourly quota refusal. This is deliberately narrower than the
+# transient signature set above: secondary-rate-limit / abuse throttles and HTTP
+# 429 can clear inside the bounded retry window, while this refusal cannot clear
+# until the account's primary quota resets. Matching the provider-quota predicate
+# shape keeps callers from re-deriving this distinction from a generic "rate limit"
+# substring. The failing response itself is the source of truth; do not spend an
+# extra, equally-doomed `gh api rate_limit` call merely to learn the reset time.
+: "${GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES:=API rate limit exceeded for user([[:space:]]+ID)?}"
+
+# is_gh_primary_rate_limit_text <text> — 0 only for GitHub primary quota
+# exhaustion, 1 for secondary/abuse throttling, HTTP 429, and other failures.
+is_gh_primary_rate_limit_text() {
+  printf '%s' "${1:-}" | grep -qiE "$GARDEN_GH_PRIMARY_RATE_LIMIT_SIGNATURES"
+}
+
 # Classify captured gh stderr ($1) as a transient (self-resolving) gh-api failure:
 # returns 0 on a transient signature, 1 on a definitive one. Case-insensitive.
 _gh_api_stderr_is_transient() {
@@ -2999,6 +3016,13 @@ gh_api_retry() {
       return 0
     fi
     stderr="$(cat "$errf" 2>/dev/null || true)"
+    # The primary hourly quota cannot recover inside this millisecond-scale retry
+    # budget. Fail immediately and let the caller freeze/degrade the tick.
+    if is_gh_primary_rate_limit_text "$stderr"; then
+      log "WARN: gh api $label RATE LIMITED by GitHub primary quota (rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
     # Definitive failure (no transient signature): do NOT retry — fail now so the
     # caller dies fast and loud, preserving "never guess a state".
     if ! _gh_api_stderr_is_transient "$stderr"; then
@@ -3037,10 +3061,10 @@ gh_api_retry() {
 # matches no transient signature) is NOT retried (fast + loud); a TRANSIENT
 # failure is retried under `backoff "$attempt"` up to GARDEN_GH_API_ATTEMPTS,
 # then still fails (nonzero, empty stdout) so the caller skips rather than
-# guesses a state. Throttling (429 / rate limit / secondary-rate / abuse) is a
-# transient signature and IS retried here, same as everywhere else in the fleet
-# — the bounded, jittered budget cannot deepen a cooldown the way an unbounded
-# retry would. The gh binary is "${GARDEN_GH:-gh}" (the same test seam
+# guesses a state. Secondary/abuse throttling and HTTP 429 ARE retried here;
+# GitHub primary quota exhaustion is recognized separately and fails after one
+# attempt because this budget cannot outwait its hourly reset. The gh binary is
+# "${GARDEN_GH:-gh}" (the same test seam
 # ci-wait-merge.sh uses to inject a stub).
 gh_pr_view_retry() {
   local attempt=1 out rc errf stderr label gh_bin a
@@ -3057,6 +3081,12 @@ gh_pr_view_retry() {
       return 0
     fi
     stderr="$(cat "$errf" 2>/dev/null || true)"
+    # As above, a primary hourly quota refusal is not a useful retry candidate.
+    if is_gh_primary_rate_limit_text "$stderr"; then
+      log "WARN: $label RATE LIMITED by GitHub primary quota (rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
     # Definitive failure (no transient signature): do NOT retry — fail now so the
     # caller skips fast and loud, preserving "never guess a state".
     if ! _gh_api_stderr_is_transient "$stderr"; then

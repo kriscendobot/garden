@@ -87,7 +87,8 @@ if [ -n "$floor" ] && [ "$since" \< "$floor" ]; then since="$floor"; fi
 oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 
 # Every `gh api` here is `gh_api_retry` (common.sh): a TRANSIENT blip (5xx / 429 /
-# DNS-TLS-reset) is ridden out under full-jitter backoff before the call gives up,
+# secondary throttle / DNS-TLS-reset) is ridden out under full-jitter backoff before
+# the call gives up. GitHub PRIMARY quota exhaustion instead fails after one attempt,
 # so a single GitHub flake no longer blanks an endpoint — and, on the structural
 # calls below, no longer produces the empty self-heal blob. A DEFINITIVE error
 # (404 / auth) is NOT retried; it fails through to the same degrade paths as before —
@@ -132,8 +133,12 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # exiting nonzero can only ever be re-tried against a repo that no longer exists,
 # which is a permanent systemd failure loop, not a recoverable enumeration gap.
 fetch_failed=""
+fetch_primary_quota=""
 note_fetch_failure() {  # note_fetch_failure <label> <errfile>
   fetch_failed=1
+  if is_gh_primary_rate_limit_text "$(cat "$2" 2>/dev/null || true)"; then
+    fetch_primary_quota=1
+  fi
   # Echo the captured gh stderr (carrying gh_api_retry's WARN with the underlying
   # 5xx/rate-limit/network signature) to fd 2 so the watcher can classify the tick
   # failure as transient (skip) vs structural (die). The FETCH-FAIL prefix keeps the
@@ -214,11 +219,15 @@ prlist_err="$(mktemp)"; rids_err="$(mktemp)"; rev_err="$(mktemp)"; s3out="$(mkte
 # A FAILED open-PR list is NOT an empty list: degrading it to open_prs="" (the prior
 # behavior) silently dropped EVERY review surface while the cursor still advanced off
 # the successful issue-comment surface. Mark it a fetch failure so the tick is frozen.
-open_prs="$(gh_api_retry --paginate \
-    "repos/$repo/pulls?state=open&sort=updated&direction=desc&per_page=100" \
-    2>"$prlist_err" \
-    | jq -r '.[] | [(.number|tostring), (.updated_at // "")] | @tsv')" \
-  || { note_fetch_failure "pulls?state=open (open-PR list)" "$prlist_err"; open_prs=""; }
+if [ -n "$fetch_primary_quota" ]; then
+  open_prs=""
+else
+  open_prs="$(gh_api_retry --paginate \
+      "repos/$repo/pulls?state=open&sort=updated&direction=desc&per_page=100" \
+      2>"$prlist_err" \
+      | jq -r '.[] | [(.number|tostring), (.updated_at // "")] | @tsv')" \
+    || { note_fetch_failure "pulls?state=open (open-PR list)" "$prlist_err"; open_prs=""; }
+fi
 
 scanned=0; total=0
 while IFS=$'\t' read -r n updated; do
@@ -238,6 +247,10 @@ while IFS=$'\t' read -r n updated; do
   rids="$(gh_api_retry --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
           | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
           | sort -u | tr '\n' ' ')" || { rids=""; note_fetch_failure "pulls/$n/comments (review-id map)" "$rids_err"; }
+  # A primary quota refusal applies to every remaining surface for this identity.
+  # Stop the PR walk immediately instead of multiplying doomed requests by every
+  # active PR and its review surfaces.
+  [ -n "$fetch_primary_quota" ] && break
   # Guard the reviews fetch too: a swallowed failure here dropped that PR's entire
   # review-body surface while the cursor advanced. Capture-then-emit so a gh failure
   # is DETECTED (fetch_failed), not lost to `| jq … || true`.
@@ -257,6 +270,7 @@ while IFS=$'\t' read -r n updated; do
   else
     note_fetch_failure "pulls/$n/reviews" "$rev_err"
   fi
+  [ -n "$fetch_primary_quota" ] && break
 done <<< "$open_prs"
 # No silent caps: record how many open PRs were polled vs how many the activity
 # bound skipped (info-level stderr; the watcher ignores a 0-exit source's stderr).
@@ -286,18 +300,20 @@ cat "$s3out"
 # inline review comment, so a swallowed blip here was the exact silent drop. Capture
 # the fetch and mark a failure rather than emitting a partial subset.
 s2_err="$(mktemp)"
-if _inline="$(gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>"$s2_err")"; then
-  printf '%s' "$_inline" | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "
-      .[] | select(.created_at >= \$s)
-      | select((.user.login // \"\") != \$bot)
-      | ((.pull_request_review_id // \"\") | tostring) as \$rid
-      | (if (\$rid != \"\") and (\$rids | contains(\" \" + \$rid + \" \"))
-         then \"pr-review-comment-subsumed\" else \"pr-review-comment\" end) as \$surface
-      | [ .created_at, \$surface, (.id|tostring),
-          ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline), \$rid ] | @tsv"
-else
-  note_fetch_failure "pulls/comments (inline review comments)" "$s2_err"
+if [ -z "$fetch_primary_quota" ]; then
+  if _inline="$(gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>"$s2_err")"; then
+    printf '%s' "$_inline" | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "
+        .[] | select(.created_at >= \$s)
+        | select((.user.login // \"\") != \$bot)
+        | ((.pull_request_review_id // \"\") | tostring) as \$rid
+        | (if (\$rid != \"\") and (\$rids | contains(\" \" + \$rid + \" \"))
+           then \"pr-review-comment-subsumed\" else \"pr-review-comment\" end) as \$surface
+        | [ .created_at, \$surface, (.id|tostring),
+            ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
+            .user.login, .html_url, ($oneline), \$rid ] | @tsv"
+  else
+    note_fetch_failure "pulls/comments (inline review comments)" "$s2_err"
+  fi
 fi
 rm -f "$s2_err"
 
@@ -350,6 +366,10 @@ repo_is_definitively_gone() {
 # past comments we never saw. The next healthy tick re-polls them; re-posting an
 # already-handled directive is an idempotent no-op (verify_posted + identity dedup).
 if [ -n "$fetch_failed" ]; then
+  if [ -n "$fetch_primary_quota" ]; then
+    log "RATE LIMITED: GitHub primary API quota exhausted while enumerating $repo — freezing the cursor and ending this tick without further surface requests"
+    exit "${GARDEN_TRANSIENT_RC:-75}"
+  fi
   if repo_is_definitively_gone; then
     slug="${repo//\//-}"
     log "REPO GONE: $repo returns a definitive repo-level error (${REPO_GONE_REASON:-<no stderr>}) — the repo does not exist or is no longer readable. Deactivating this watch gracefully (exit 0) instead of failing the tick forever."
