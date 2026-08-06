@@ -115,3 +115,13 @@ recorded facts; it does not release the gate.
 
 — `deadmail-20260729T023454Z-34a94e` (dead-letter carrier for
 `endojs-endo-but-for-bots-pr671-conduct`)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T05:45:11Z
