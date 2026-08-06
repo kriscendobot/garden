@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 4
-worker_kind: gardener
-claimed_at: 2026-08-06T05:44:08Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-124-sqlite-shutdown-checkpoint
