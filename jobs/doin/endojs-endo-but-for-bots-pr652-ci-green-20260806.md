@@ -64,3 +64,13 @@ If CI cannot be driven green, report the classification and what blocks it rathe
 grinding to the deadline.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T10:43:09Z
