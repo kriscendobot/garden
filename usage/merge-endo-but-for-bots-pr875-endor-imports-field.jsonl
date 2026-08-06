@@ -1,1 +1,2 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":7,"elapsed_s":61,"input_tokens":13,"output_tokens":3127,"cache_creation_tokens":28264,"cache_read_tokens":261551,"total_cost_usd":0.49387649999999994,"ts":"2026-08-06T06:35:45Z","base":"merge-endo-but-for-bots-pr875-endor-imports-field","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"conductor"}
+{"ts":"2026-08-06T07:24:02Z","base":"merge-endo-but-for-bots-pr875-endor-imports-field","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2401}
