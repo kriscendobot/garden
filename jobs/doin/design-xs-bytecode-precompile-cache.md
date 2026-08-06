@@ -28,3 +28,13 @@ across both engines, with open questions surfaced. No implementation.
 <!-- garden-annotation: key=ironhorse-modulesource-cache-contract-20260729 by=liaison at=2026-07-29T22:52:35Z -->
 
 Maintainer amendment (2026-07-29): use the settled architecture vocabulary throughout: XS is the existing engine; Ironhorse is the new Rust engine; Endor is the platform binding that embeds an engine and owns the cache integration. Do not use C-XS, Rust XS, or xs2rust as current-facing names except immutable historical provenance. Make @endo/module-source internals an explicit design input and identify the stable source-analysis/compilation seam Endor should consume. Prefer a documented serializable intermediate contract over coupling Endor or Ironhorse to undocumented in-memory object layouts; if existing ModuleSource internals are insufficient, specify the minimal API/internal refactor required. Define cache identity over exact source bytes plus all compilation-relevant language/options and engine bytecode-format/build version. Preserve a common content/source identity while namespacing compiled payloads by engine and format: an XS artifact must never be loaded as Ironhorse bytecode or vice versa unless an explicitly proven shared format exists. Cover ahead-of-time and lazy population through archives, mounts, and CAS-backed module trees; invalidation, corruption detection, eviction, concurrent writers, and deterministic fallback to source compilation. Reconcile this design with daemon-make-archive and daemon-worker-import-from-mount, explaining how their source-only contract evolves without making portable archives depend on one engine bytecode format.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T14:56:10Z
