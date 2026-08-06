@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-08-06T18:52:08Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-pr910-panel-response-03-mustfix-platform
