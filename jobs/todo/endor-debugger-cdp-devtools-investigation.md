@@ -1,13 +1,7 @@
 ---
-gate: deferred
-priority: normal
 role: researcher
-posted_by: liaison
-posted_at: 2026-07-28T07:48:48Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T05:45:59Z cleared=none -->
 
 # Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can drive Endor
 
