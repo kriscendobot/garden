@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T17:55:29Z_
+_As of 2026-08-06T18:06:09Z_
 
 ## Latest
 
@@ -5828,23 +5828,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 36.5M | $630.88 _(notional, rate-card)_ | no quota set |
-| Codex | 16.9M _(+441.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Codex | 16.7M _(+436.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
-- [`pr910-panel-response-01-recover-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-01-recover-findings.md) — PR #910 panel response — child 1/10: recover the UNABRIDGED finding set
 
-### tada (4231)
+### tada (4232)
+- [`pr910-panel-response-01-recover-findings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-01-recover-findings.md) — Completion report
 - [`endojs-endo-but-for-bots-pr893-review-c75e34e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr893-review-c75e34e0.md) — Completion report
 - [`endojs-endo-but-for-bots-pr946-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr946-shepherd.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260806-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260806-160502.md) — Cost
 - [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr945-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-shepherd.md) — Cost
-- … and 4226 more
+- … and 4227 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
