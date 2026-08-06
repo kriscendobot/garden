@@ -118,3 +118,13 @@ Ground every claim in specifications or code you actually read, and cite them.
 Protocol details recalled from memory are exactly the kind of thing that is
 plausibly wrong, so verify before asserting, and leave open what you cannot
 establish.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T05:46:12Z
