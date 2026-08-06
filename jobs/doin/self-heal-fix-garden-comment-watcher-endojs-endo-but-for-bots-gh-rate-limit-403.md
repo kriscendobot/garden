@@ -12,3 +12,13 @@ Two scoped changes:
 2. `scripts/jobs/handlers/comment-source-gh.sh` + `scripts/jobs/comment-watcher.sh` — make the tick fail **quietly**. In the `fetch_failed` tail block (comment-source-gh.sh:352-361), when the recorded failures carry the primary-quota signature, keep the freeze but exit `GARDEN_TRANSIENT_RC`/`GARDEN_ENV_RC` (75) with a `RATE LIMITED` log line instead of 1 — structurally the same graceful-degrade shape as the REPO-GONE branch above it. Correspondingly, `comment-watcher.sh:1336-1356` currently treats every nonzero `src_rc` the same and calls `die`; it must treat 75 as **"do not advance the cursor, but do not `die`"** — propagate 75 so `self-heal-run.sh:113` normalizes it to a clean exit. **Do not let 75 fall into any success path that slides `last_seen`** — that would advance past un-enumerated comments and lose them, which is the exact invariant the nonzero exit exists to protect. Also short-circuit the remaining surfaces once quota exhaustion is seen in a tick, rather than iterating every open PR × 2 surfaces (the ~80 wasted requests above).
 
 Regression coverage alongside the existing `scripts/jobs/test/gh-api-retry-test.sh` and `ci-watcher-test.sh` patterns: a stubbed `gh` emitting the primary-limit 403 must yield exactly one attempt per surface (no retries), a frozen cursor, and rc 75 that `is_nonattributable_rc` accepts; a stubbed `secondary rate limit` / 429 must still retry and recover.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T13:32:58Z
