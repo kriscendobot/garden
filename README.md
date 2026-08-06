@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T14:54:33Z_
+_As of 2026-08-06T14:54:54Z_
 
 ## Latest
 
@@ -5675,26 +5675,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.4M | $615.28 _(notional, rate-card)_ | no quota set |
-| Codex | 15.8M _(+392.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 35.4M | $615.32 _(notional, rate-card)_ | no quota set |
+| Codex | 15.8M _(+393.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-ascii-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #943
-- [`endo-endor-registry-proxy-worker-refactor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-endor-registry-proxy-worker-refactor.md) — Design: move the npm-via-CAS registry proxy (endor) into a compartment-mapper...
 - [`endojs-endo-but-for-bots-pr760-8e04fcb0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr760-8e04fcb0.md) — attention directive on endojs/endo-but-for-bots PR #760
 - [`garden-pages-ae3415642dff-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pages-ae3415642dff-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriscendobot/garden
 
-### tada (4211)
+### tada (4212)
+- [`endo-endor-registry-proxy-worker-refactor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-endor-registry-proxy-worker-refactor.md) — Cost
 - [`build-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-ascii.md) — Completion report
 - [`endojs-endo-but-for-bots-pr600-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr878-b4128eee`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr878-b4128eee.md) — Cost
 - [`endojs-endo-but-for-bots-pr876-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-refresh.md) — Completion report
-- … and 4206 more
+- … and 4207 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
