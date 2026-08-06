@@ -18,3 +18,13 @@ Change the first-line check from "matches an extension allowlist" to "**names a 
 Mirror the widening in `already_fixed_pending_deploy` (line 286): its `grep -oE '...\.(sh|md|py|js|ts|service|timer)'` cannot extract `garden` or `Dockerfile` from a body, so the pending-deploy pre-filter under-matches for exactly the jobs this bug surfaced. Add the extensionless well-known roots (at minimum `garden`, `Dockerfile`) to that token extraction.
 
 Separately, add a **loop backstop** so no future semantic rejection can wedge the service indefinitely: count consecutive rejections against the same digest SHA in `$GARDEN_STATE/mentor` and, past a small threshold (~3), advance the marker and escalate once to the maintainer inbox rather than re-running the identical digest forever. Verify with a unit-style check that a body whose first line is `garden` or `Dockerfile` validates and emits, that `A prose sentence here.` still rejects, and that a nonexistent `scripts/jobs/nope.sh` behaves as today.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T06:22:06Z
