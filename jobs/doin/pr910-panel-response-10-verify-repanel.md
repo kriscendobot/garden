@@ -45,6 +45,7 @@ the maintainer's call, gated on their APPROVED review of the then-current head. 
 new verdict is again must-fix, report the remaining findings and STOP; do not start
 another fix loop on your own authority.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
