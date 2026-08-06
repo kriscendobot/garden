@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T16:05:23Z_
+_As of 2026-08-06T16:06:56Z_
 
 ## Latest
 
@@ -5736,6 +5736,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The blob holds only the two-line FATAL tail (`mentor provider 'openai' returned malformed semantic output` → `improve handler failed`), which is itself the first symptom: the deployed `scripts/jobs/handlers/mentor-claude.sh` discards `$raw` on its EXIT trap and logs no excerpt, so every recurrence is evidence-free. I reproduced the rejection directly against the deployed `validate_mentor_response`: it accepts *only* a file that is pure `JOB…ENDJOB` blocks or literally empty. A markdown code fence around the blocks, a preamble, a trailing "Summary: …" line, or a prose-only "no clear opportunities this tick" answer all return rc=20 → FATAL. `codex exec --output-last-message` against `gpt-5.6-terra` naturally em
 
+- `watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-bfc91f5` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-bfc91f5.md)
+
+> conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#943](https://github.com/endojs/endo-but-for-bots/issues/943): frozen base 'llm-bfc91f5' is shared by open PRs (#943, #888). Forwarding #943 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#943 left on the snapshot: not stranded silently, not force-forked.)
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
@@ -5743,7 +5747,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.7M | $624.34 _(notional, rate-card)_ | no quota set |
-| Codex | 16.8M _(+422.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 16.8M _(+422.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
