@@ -47,3 +47,13 @@ establish rather than guessing.
 
 If the plan turns out to depend on #721 changing shape, say so plainly instead of
 planning against an API that may not survive review.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T05:44:19Z
