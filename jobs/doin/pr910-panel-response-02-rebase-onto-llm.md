@@ -59,3 +59,13 @@ conflicts that have to be resolved twice.
 left to re-run on the new merge result. Report the pre- and post-rebase tips and confirm
 the net diff invariant. If the rebase surfaces conflicts you cannot resolve without
 guessing at intent, STOP and report — do not invent a resolution.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T18:07:08Z
