@@ -87,104 +87,91 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:191` (167, 190-194)
 - **Claim:** `streamBase64` calls `selected()` *eagerly* and passes the resulting promise into `base64Chunks`; the comment claims the read is "deferred into the generator" but only the `await` is deferred — the promise exists before the pump pulls. `makeReaderPump` does not advance until the consumer resolves the syn head, so a consumer that calls `streamBase64` and abandons the stream leaves that rejection unobserved. Confirmed (assessor): range a mount file, delete the file, `streamBase64` without iterating → `SES_UNHANDLED_REJECTION: ENOENT ... at readWindow (mount.js:1549)`; fatal under `--unhandled-rejections=strict`.
 - **Proposed fix:** pass a thunk and call `selected()` inside the generator body; a promise created eagerly for later consumption must be attached to a handler at creation.
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). `base64Chunks` now takes the `selected` *thunk* and calls it on first advance; the window read (and any rejection it carries) is created only when a consumer pumps the stream, so obtaining `streamBase64` without iterating leaves no unobserved rejection.
 ### PLAT-02 — range read derives length from `stat().size`, producing a false content address on /proc, sysfs, and FIFOs
 - **Severity:** must-fix
 - **Seats:** breaker (must-fix)
 - **File:** `packages/platform/src/fs-node/local-blob.js:43-52` — **xref daemon** `packages/daemon/src/mount.js:1551-1559` (same shape via `filePowers.statPath`)
 - **Claim:** `readFileWindow` derives its window from `handle.stat().size` and issues one unlooped `handle.read`. `makeLocalBlob('/proc/self/status')`: `text()` returns 1535 chars, but `range(0n,1535n).text()` returns `''` because `size` is 0 so `clamped <= 0`. On a FIFO, `read` returns short (6/12) and the window is silently truncated with no error. `getInfo()` on that range then reports `size: 0n` and the SHA-256 of the empty string — **a false content address a verifying caller will accept**. `manager.js` and the Git backend are unaffected (authoritative size / full materialization).
 - **Proposed fix:** loop the read until short-or-EOF; stop treating `stat.size` as the authoritative upper bound. [proposed-rule: a range read must not derive its length from `stat().size`; read-until-EOF and loop, as `readFile` does.]
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). `readFileWindow` (`fs-node/local-blob.js`) no longer derives the window length from `stat().size`; it reads in a loop from the requested position until the byte count is satisfied or the source signals EOF (`bytesRead === 0`), so a range over `/proc`, `sysfs`, or a short-reading FIFO can no longer mint a false content address (SHA-256 of `''`). The daemon `mount.js` mirror is xref-daemon (sibling slice).
 ### PLAT-03 — `range`'s guard makes `end` mandatory, so "offset to EOF" is inexpressible and forces a whole-window allocation (OOM vector)
 - **Severity:** must-fix
 - **Seats:** breaker (must-fix); purist#2, integrator#6, saboteur#3 (should-fix)
 - **File:** `packages/platform/src/fs/interfaces.js:116-117`; `packages/platform/src/fs/blob-range.js:169,183`
 - **Claim:** the guard is `range: M.call(M.bigint(), M.bigint())` (both required), yet the internals already model `hi === undefined` as "to end-of-content" (the base blob uses it). "Read from offset N to EOF" therefore forces `range(N, 9007199254740991n)`, making `readWindow` allocate one `Uint8Array` of `min(MAX_SAFE, filesize)`; every derived `streamBase64`/`getInfo`/`textRange` then materializes the whole window. A remote CapTP caller can send `range(0n, 9007199254740991n).streamBase64()` against a multi-GB mount file and drive the daemon OOM — the retired `fetch` returned an incremental reader and could not.
 - **Proposed fix:** make `end` optional (`M.call(M.bigint()).optional(M.bigint())`; the implementation already supports it) **and** chunk the window read (see PLAT-16). [proposed-rule: an interface guard exposes the full domain its implementation models, or the unreachable case is deleted.]
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). `range`'s guard is now `M.call(M.bigint()).optional(M.bigint())`; the implementation composes `end === undefined` as "to end-of-content", and the `RichReadableBlob`/`BlobRef` types + the daemon `EndoMountReadableBlob.range` signature were updated to the optional-`end` shape. "Offset to EOF" no longer needs a sentinel upper bound. (The incremental/chunked window read that removes the residual whole-window allocation is PLAT-16, should-fix — sibling.)
 ### PLAT-04 — `textRange` reads the entire content to locate LFs; the added "without streaming the whole file" claim is false
 - **Severity:** must-fix
 - **Seats:** benchmarker Finding 1 (must-fix-loop); saboteur#4 (should-fix); assessor (comment-only); engine-realist#5
 - **File:** `packages/platform/src/fs/blob-range.js:262` (seeds base at `(0n, undefined)`); doc `packages/platform/src/fs-node/local-blob.js:11-16` and `blob-range.js:12`
 - **Claim:** `makeBlobRangeMethods` builds `base` at `(0n, undefined)`, so `textRange(a,b)` does `await selected()` → `readWindow(0n, undefined)` → the whole file, every call, plus an O(n) LF scan in `lineByteSpan` — asking for one line of a multi-GB file reads all of it. The added comment asserts the blob can "attenuate to **byte / line** windows without streaming the whole file"; true for `range`, false for `textRange` (the pre-existing comment said "byte ranges", true of `fetch`; the PR widened it into a falsehood).
 - **Proposed fix:** qualify the claim to `range` (or note the `textRange` cost); an efficiency claim closes with a measurement or an explicit decline. Not a behavioral regression (`rangeReadText` also read whole).
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). The "attenuate to byte/line windows **without streaming the whole file**" claim is qualified to `range` at both sites (`blob-range.js` module doc, `local-blob.js` header): a `textRange` line window still scans the current content to locate LFs. Not a behavioral regression.
 ### PLAT-05 — `textRange` costs strictly more than the retired `rangeReadText`, unmeasured; the second read is memoizable for immutable producers
 - **Severity:** must-fix
 - **Seats:** benchmarker Finding 2 (must-fix-loop)
 - **File:** `packages/platform/src/fs/blob-range.js` (`textRange` path)
 - **Claim:** retired `LocalBlob.rangeReadText` was one `readFile`. Shipped `textRange(a,b).text()` is `readFileWindow(0, undefined)` (open+stat+whole-file read) → LF scan → new exo → `readFileWindow(lo, hi)` (second open+stat+read). The PR body's "matches the retired `rangeReadText(a,b)` **exactly**" is a fine *semantic* claim; the *cost delta* beside it is neither measured nor declined. Split: for immutable producers (`BlobRef`, snapshot `EndoBlob`, Git blob) the second read is provably redundant and memoizable; for the live mount it is semantically required.
 - **Proposed fix:** memoize the located byte-span / first read for immutable producers, or post a measurement / explicit decline. (Distinct from PLAT-04: this is the cost/measurement obligation, not the doc claim.)
-- **Disposition:**
-
+- **Disposition:** **reasoned reply / declined memoization in the shared maker; cost documented** (`commit 2ef332079`). The shared `makeBlobRangeMethods` is source-agnostic and *cannot* memoize the located span or first read without breaking live sources — for a live mount the second read is semantically required (memoizing there is exactly the PLAT-06 freeze hazard). Per-immutable-producer memoization is a distinct optimization that belongs in each immutable producer, not the shared path, and is deferred to a follow-up. The extra whole-selection read `textRange` performs (locate-LFs read, then windowed read) is now stated in the `blob-range.js` module doc — the measurement/decline the finding asks for.
 ### PLAT-06 — `textRange` on a *live* source freezes byte offsets: a line grant silently decays into a byte grant and leaks unrelated lines
 - **Severity:** must-fix
 - **Seats:** wire-watcher#1 (must-fix), locksmith (must-fix); saboteur#5 (should-fix)
 - **File:** `packages/platform/src/fs/blob-range.js:238-241` — **xref daemon** `packages/daemon/src/mount.js:1543-1560`; **xref docs** `packages/daemon/src/help.md:865-871`, `packages/platform/src/fs/types.d.ts:44-49`
 - **Claim:** `textRange` resolves lines to `[from,to)` once, then `compose()`s a frozen *byte* interval; on `EndoMountFile` each later read re-reads the file at those offsets. Verified (locksmith): `file.textRange(0,1)` over `public\nSECRET-TOKEN-abc\n` reads `"public"` at grant time, then `"SECRET"` after the owner rewrites the file — **the holder gained a different line without any new grant**. `range`'s help text carries the live-semantics warning; `textRange`'s (help.md) and `RichReadableBlob.textRange` (types.d.ts) omit it, and the design's §Text ranges never examines the live case.
 - **Proposed fix:** minimum — state the divergence at both doc sites and the mount call site; better — re-resolve lines per read, or reject `textRange` on live faces. [proposed-rule: an attenuator named in one coordinate system (lines) but enforced in another (bytes) documents the divergence at every mutable-source implementation site.]
-- **Disposition:**
-
+- **Disposition:** **fixed (documentation, the stated must-fix minimum)** (`commit 2ef332079`). The live-source line->byte decay is documented on `RichReadableBlob.textRange`'s type doc (`platform/src/fs/types.ts`) and at the maker's `textRange` call site (`blob-range.js`): on a live face the located byte offsets are frozen at call time, so a later read may reflect different lines — a line grant can decay into a byte grant; prefer `textRange` on immutable snapshots for stable line semantics. The daemon `help.md:865-871` / mount call-site prose is xref-daemon (sibling slice). The deeper options (re-resolve lines per read, or reject `textRange` on live faces) are architectural and left as a follow-up.
 ### PLAT-07 — CAS is populated with bytes never checked against the hash they are keyed by, and this PR removed the last bound
 - **Severity:** must-fix
 - **Seats:** wire-watcher#2 (must-fix); assessor note (`cached-fs.js:112` no `stringLengthLimit`)
 - **File:** `packages/platform/src/fs/extended/cached-fs.js:112` (cf. `cas.js:158` which documents the limit as necessary for one-shot frames)
 - **Claim:** `cached-fs.js:112` drains via `iterateBytesReader(blobP)` with no `stringLengthLimit`, while `cas.js:158` documents that limit as necessary; the retired `fetch` path is what made the asymmetry moot. wire-watcher frames it as CAS bytes entering the store unchecked against the hash they are keyed by, with the last bound removed by this PR.
 - **Proposed fix:** re-establish the `stringLengthLimit` bound on the drain path (or otherwise verify bytes against the key before caching).
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). `cached-fs.js` `populateInBackground` now raises the per-frame `stringLengthLimit` above the worst-case 4/3 base64 expansion of `info.size` (the same formula `cas.js`'s `drainBytesReader` uses), re-establishing the bound the retired ranged `fetch` path made moot — without it any blob larger than ~75 KB silently failed to populate.
 ### PLAT-08 — interface-tag collision: `RichReadableBlobInterface` is tagged `'ReadableBlob'`, identical to `ReadableBlobInterface`, while its own comment claims the tag is distinct
 - **Severity:** must-fix
 - **Seats:** stylist, curator, archivist#1, breaker, surfacer#1 (must-fix); typist#4, warden#4, purist#1, spec-keeper#3, locksmith, wire-watcher#4 (should-fix)
 - **File:** `packages/platform/src/fs/interfaces.js:159-162` (collides with `:146`)
 - **Claim:** `:162` mints `RichReadableBlobInterface` with `M.interface('ReadableBlob', …)` — byte-identical to `ReadableBlobInterface` at `:146` — while the comment at `:159-161` asserts "The tag is distinct from the whole-value `ReadableBlobInterface` so the two shapes don't collide in diagnostics." Two different method sets now marshal under one interface name; the pre-PR tag was `'ReadableBlobRange'`, so the rename *dropped* a genuine distinction (a regression). A diagnostic or interface-name-keyed dispatch can no longer tell a whole-value blob from a rich one.
 - **Proposed fix:** retag `'RichReadableBlob'` (matching the exported identifier), or delete the sentence. [proposed-rule: two `M.interface` declarations with different method sets never share a tag; no comment may claim a distinction the code does not make.]
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). `RichReadableBlobInterface` is retagged `M.interface('RichReadableBlob', ...)`, distinct from the whole-value `'ReadableBlob'`; the comment is corrected. No snapshot or dispatch keys on the tag (feature detection is by method name), and the daemon/git exos that reuse the interface retag consistently; all packages' `lint:types` + the mount conformance suite pass.
 ### PLAT-09 — the `M.promise()` guard claims a "same-interface guarantee at the CapTP boundary" it does not enforce
 - **Severity:** must-fix — **DISPUTED** (breaker: must-fix; warden#4, spec-keeper#4, purist: should-fix)
 - **Seats:** breaker (must-fix); warden#4, spec-keeper#4, purist (should-fix)
 - **File:** `packages/platform/src/fs/interfaces.js:112-117` (113)
 - **Claim:** the comment says "The runtime guards require the returned value be a promise (of a `ReadableBlob`) … so the same-interface guarantee holds at the CapTP boundary," but `.returns(M.promise())` constrains nothing about the fulfillment value. A third-party producer whose `range` fulfills with a plain record passes the guard, and a caller relying on the stated guarantee to compose ranges gets a non-blob.
 - **Proposed fix:** weaken the comment to state only what is enforced (promiseness), or use `M.callWhen(…).returns(M.remotable('ReadableBlob'))` and detect by method names, not tag.
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). The `M.promise()` comment in `interfaces.js` is weakened to state only what the guard enforces (promiseness); it no longer claims a same-interface guarantee at the CapTP boundary and notes callers detect the rich surface by method names.
 ### PLAT-10 — the PR's only new public export is typed `any`, erasing the `RichReadableBlob` contract at its single source
 - **Severity:** must-fix
 - **Seats:** typist#2 (must-fix), surfacer#4 (must-fix-loop); curator (should-fix); purist#? 
 - **File:** `packages/platform/src/fs/blob-range.js:167,259`
 - **Claim:** `makeAttenuatedBlob` is `@returns {any}` and `makeBlobRangeMethods` returns `Promise<any>` for both `range` and `textRange`, while `types.d.ts` declares `Promise<RichReadableBlob>`. Every consumer that spreads these (`local-blob.js:71`, `manager.js:1844`, `mount.js`, `native-git-backend.js`) carries `/** @satisfies {RichReadableBlob} */`, which now passes **vacuously** for the two methods it most needs to check — a swapped `range`/`textRange` or wrong arity would typecheck.
 - **Proposed fix:** `@import { RichReadableBlob } from './types.js'` and return `Promise<RichReadableBlob>`.
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). `makeAttenuatedBlob` / `makeBlobRangeMethods` are typed `Promise<RichReadableBlob>` (with a top-of-file `@import`), not `any`. This immediately surfaced a masked lie the vacuous `any` hid: `BlobRef.range`/`textRange` were declared `Promise<BlobRef>`, but a derived range is a generic `RichReadableBlob` (async `getInfo`, no snapshot identity) — corrected in `extended/types.ts`. `lint:types` passes across platform, daemon, git, exo-git, agent-tools.
 ### PLAT-11 — the `base64Chunks` multi-chunk loop is an untested code path
 - **Severity:** must-fix — **DISPUTED** (fast-checker: must-fix-loop, "an untested code path, not a preference"; prover: coverage-gap-not-defect — drove a 130 KB range through it, correct incl. non-multiple-of-3 chunk size)
 - **Seats:** fast-checker (must-fix-loop); prover note (coverage)
 - **File:** `packages/platform/src/fs/blob-range.js:96-106`
 - **Claim:** the multi-chunk loop is unreachable in the whole suite (largest fixture 12 bytes vs a 49152-byte chunk). prover verified it correct under a 130 KB probe; fast-checker holds that an untested path over a chunk boundary must be pinned by a test before merge.
 - **Proposed fix:** add a >1-chunk round-trip test (drive ≥130 KB through `streamBase64`, assert byte-exact decode), or record prover's evidence and decline.
-- **Disposition:**
-
+- **Disposition:** **fixed — dispute resolved by adding the test fast-checker asked for** (`commit 2ef332079`). Added a >1-chunk (~130 KB, non-multiple of the 48 KiB chunk size and of 3) `streamBase64` round-trip test asserting byte-exact decode, including a sub-window crossing several chunk boundaries. prover's correctness evidence stands; the loop is now pinned.
 ### PLAT-12 — abbreviated freshly-authored identifiers throughout `blob-range.js`
 - **Severity:** must-fix (stylist only)
 - **Seats:** stylist (must-fix)
 - **File:** `packages/platform/src/fs/blob-range.js` — **xref daemon** `manager.js:1831`, `mount.js:1555`
 - **Claim:** `MAX_SAFE` (`:36`) → `MAX_SAFE_INTEGER`; `minBig` (`:91`) → `minBigInt`; `lfAt` (`:128`) → `lineFeedOffsets`; `lo`/`hi`/`newLo`/`newHi` (`:165,169,182-184`) → the surface's own `start`/`end` vocabulary (`absoluteStart`/`absoluteEnd`) so the internals don't drift from the `range(start,end)` API; `s`/`e` (`:218-219,231-232`) → `start`/`end`, `startLine`/`endLine`. Also `len` at daemon `manager.js:1831` and `mount.js:1555` → `length`.
 - **Proposed fix:** rename per stylist brief § Abbreviated identifiers.
-- **Disposition:**
-
+- **Disposition:** **fixed (platform)** (`commit 2ef332079`). Renamed in `blob-range.js`: `MAX_SAFE`->`MAX_SAFE_INTEGER`, `minBig`->`minBigInt`, `lfAt`->`lineFeedOffsets`, `lo`/`hi`->`absoluteStart`/`absoluteEnd`, `newLo`/`newHi`->`composedStart`/`composedEnd`, and the `s`/`e` locals removed in favor of the surface's own `start`/`end`/`startLine`/`endLine`. `selected`->`readSelectedBytes` is PLAT-23 (should-fix, sibling) and left for it. The daemon `manager.js:1831` / `mount.js:1555` `len`->`length` renames are xref-daemon (sibling slice).
 ### PLAT-13 — whole-value `text()` and a full-interval `range().text()` disagree on a BOM'd file; the attenuation identity the design rests on does not hold
 - **Severity:** must-fix
 - **Seats:** spec-keeper#2 (must-fix)
 - **File:** `packages/platform/src/fs/blob-range.js` (attenuation / decode path); reproduced via a BOM'd fixture
 - **Claim:** spec-keeper probed a BOM'd file: whole-value `text()` and a full-interval `range().text()` return different strings — "the attenuation identity the design rests on does not hold." Root is likely two different decoders crossing the same bytes (BOM stripped on one path, not the other).
 - **Proposed fix:** make the full-interval range decode byte-identically to the whole-value read (single decode path), and add a BOM fixture to the equivalence corpus. **Verify against source** — this is the one must-fix from a deeply-condensed seat with no full-seat corroboration; the child should reproduce before fixing.
-- **Disposition:**
-
+- **Disposition:** **fixed** (`commit 2ef332079`). Reproduced: a UTF-8 BOM made LocalBlob's whole-value `text()` (Node `readFile('utf-8')`, BOM retained) disagree with `range(0,size).text()` (the range path's `TextDecoder`, BOM stripped). LocalBlob's whole-value `text`/`json` now decode through the same `bytesToText` path the range surface uses, restoring the identity; a BOM equivalence test was added. BlobRef already decoded via `TextDecoder` on both paths (identity held). NOTE (cross-slice): the daemon `EndoMountFile` whole-value `text()` uses `readFileText` (BOM retained) while its range path strips — a pre-existing divergence for the daemon slice to reconcile; native-git already strips on both.
 ## should-fix
 
 ### PLAT-14 — `compose` clamps `newHi` but never `newLo`, so it can mint `lo > hi` (inverted interval / late `EINVAL` overflow)
