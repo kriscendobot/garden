@@ -83,16 +83,4 @@ sequencing escape hatch: `packages/slots` may adopt `@endo/cbor` **in flight** o
 branch instead. If you rebase onto `llm`, take the escape hatch and shed `src/cbor.js` here,
 then report so `endo-cbor-adopt-slots` reduces to verification.
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-06T06:03:11Z
+<!-- garden-reaped: 0 -->
