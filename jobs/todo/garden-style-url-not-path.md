@@ -19,12 +19,4 @@ burden (the juror seat(s) that review Endo JS) so the panel flags `import path` 
 Precipitating example: packages/daemon/scripts/bundle-bus-worker-xs-ses-boot.mjs
 line ~34 uses `path.dirname(url.fileURLToPath(import.meta.url))`.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-06T05:46:47Z
+<!-- garden-reaped: 1 -->
