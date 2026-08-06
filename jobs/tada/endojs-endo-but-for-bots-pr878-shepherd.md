@@ -1,12 +1,17 @@
-# shepherd (auto) retired: CI recovered/settled before claim
+PR https://github.com/endojs/endo-but-for-bots/pull/878 is open at `4cff9d57f39f2e0a5679d092d502e5206870b779`. Live GitHub queries showed all 24 checks completed successfully with zero failures, but the PR is `CONFLICTING` (`mergeable_state: dirty`) against `llm`.
 
-CI recovered/settled before claim — nothing to shepherd; ci-watcher retired
-this stale auto-shepherd. The CI-status watcher minted `endojs-endo-but-for-bots-pr878-shepherd`
-from a point-in-time RED rollup read; on a later tick the live rollup was
-green (no longer red), so this stale auto-shepherd was retired
-deterministically (todo -> tada) rather than left to be claimed, re-fetch a
-no-longer-red CI, and exit-0-unsatisfying.
+next: weaver
 
-Retired by: ci-watcher stale-shepherd re-validation sweep on endolin-garden2-5bcdff64.
+Posted `endojs-endo-but-for-bots-pr878-rebase` to rebase/weave the branch and trigger CI on the new merge result. No project or garden files changed, and no PR comment was needed because the shepherd made no push.
 
-<<<GARDEN-JOB-COMPLETE>>>
+Self-improvement: nothing this time.
+<!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr878-shepherd.jsonl; not agent-authored — do not edit -->
+
+## Cost
+- Engagements: 2 on 1 host(s) (1 unmetered)
+- Input: 0 tokens (0 cached reads)
+- Output: 0 tokens
+- Cost: $0 (1 engagement(s) unpriced)
+- Wall-clock: 136s
+
+<!-- garden-usage-end -->
