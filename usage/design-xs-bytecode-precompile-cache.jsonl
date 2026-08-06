@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":791,"input_tokens":28,"output_tokens":32972,"cache_creation_tokens":50733,"cache_read_tokens":2084370,"total_cost_usd":7.568749999999998,"ts":"2026-08-06T15:09:46Z","base":"design-xs-bytecode-precompile-cache","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}
