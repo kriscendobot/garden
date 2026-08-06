@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":105,"elapsed_s":3499,"input_tokens":170,"output_tokens":79085,"cache_creation_tokens":198872,"cache_read_tokens":12638661,"total_cost_usd":10.2883815,"ts":"2026-08-06T22:09:01Z","base":"pr910-panel-response-10-verify-repanel","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener"}
