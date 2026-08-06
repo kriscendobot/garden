@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T06:59:09Z_
+_As of 2026-08-06T06:59:32Z_
 
 ## Latest
 
@@ -3149,6 +3149,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Branch head: design/weblet-gateway (pushed). Panel state: converging on prose polish
 > + this OQ7 decision; not driven to a formal "pass" because the residual is your call.
 
+- `20260806T065908Z-b00670` — from gardener:endojs-endo-but-for-bots-pr877-finalize, reply_to `endojs-endo-but-for-bots-pr877-finalize` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T065908Z-b00670.md)
+
+> Conductor for [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) (feat/endor-npm-dual-build-execution → llm).
+>
+> Status: un-drafted, OPEN, MERGEABLE, CI in flight. NOT merged — blocked on re-approval.
+>
+> Why: the blocking rebase job (pr877-rebase) resolved the base conflict and force-pushed a new head `c48a7d83d` at 06:49Z, AFTER kriskowal's APPROVED review (06:31Z, on commit `58bdaa60f`). The rebase changed the tree (conflict resolution preserving base dependency-edge / shared-endowment / bundle-doc changes alongside the PR's self-reference + text-codec work), so the deterministic maintainer-approval gate correctly treats the prior approval as stale — there is no APPROVED review on the current head.
+>
+> Action needed: kriskowal (or a journal maintainer) re-approves [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) at head `c48a7d83d`. Once re-approved and CI is green, re-post a merge/conduct job (or say `merge endojs/endo-but-for-bots#877`) and it will land with `--merge`. Repo has no auto-merge enabled, so I cannot pre-arm `--auto`.
+>
+> Base is live `llm` (not a frozen snapshot) — no unfreeze needed. No CI failures observed yet (all checks still pending at report time).
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5485,8 +5497,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.2M | $612.06 _(notional, rate-card)_ | no quota set |
-| Codex | 17.4M _(+419.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 34.2M | $612.30 _(notional, rate-card)_ | no quota set |
+| Codex | 17.4M _(+419.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
