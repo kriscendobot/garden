@@ -45,15 +45,4 @@ the maintainer's call, gated on their APPROVED review of the then-current head. 
 new verdict is again must-fix, report the remaining findings and STOP; do not start
 another fix loop on your own authority.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-06T22:13:09Z
+<!-- garden-reaped: 2 -->
