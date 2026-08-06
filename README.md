@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T08:35:43Z_
+_As of 2026-08-06T09:55:02Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 12h)
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 7h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 13h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 8h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 7d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
@@ -5629,24 +5629,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 33.8M | $603.05 _(notional, rate-card)_ | no quota set |
-| Codex | 16.6M _(+407.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Codex | 16.1M _(+396.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
-- [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 
-### tada (4202)
+### tada (4203)
+- [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-style-url-not-path.md) — Completion report
 - [`ebfb-pr600-shepherd-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-shepherd-5201229349.md) — Cost
 - [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-comment-watcher-api-cooldown.md) — Cost
 - [`ebfb-pr600-health-merge-orch-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-health-merge-orch-5201229349.md) — orchestration ebfb-pr600-health-merge-orch-5201229349 — HALTED
 - [`fu-ebfb-pr600-retcon-5201229349-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-ebfb-pr600-retcon-5201229349-1.md) — Completion report — fu-ebfb-pr600-retcon-5201229349-1
-- [`ebfb-pr600-final-weave-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-final-weave-5201229349.md) — Completion report
-- … and 4197 more
+- … and 4198 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
