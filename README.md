@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T10:45:13Z_
+_As of 2026-08-06T10:45:34Z_
 
 ## Latest
 
@@ -5645,23 +5645,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $603.51 _(notional, rate-card)_ | no quota set |
+| Claude | 33.8M | $603.05 _(notional, rate-card)_ | no quota set |
 | Codex | 15.9M _(+393.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
+### doin (0)
+(none)
 
-### tada (4204)
+### tada (4205)
+- [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Completion report
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-conduct.md) — Cost
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-style-url-not-path.md) — Completion report
 - [`ebfb-pr600-shepherd-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-shepherd-5201229349.md) — Cost
 - [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-comment-watcher-api-cooldown.md) — Cost
-- [`ebfb-pr600-health-merge-orch-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-health-merge-orch-5201229349.md) — orchestration ebfb-pr600-health-merge-orch-5201229349 — HALTED
-- … and 4199 more
+- … and 4200 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
