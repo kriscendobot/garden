@@ -3,3 +3,7 @@ gardener: 4
 worker_kind: gardener
 claimed_at: 2026-08-06T14:41:09Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-endo-ascii
+pr_number: 943
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/943
+pr_head: build/endo-ascii-7bit
