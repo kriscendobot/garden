@@ -35,6 +35,8 @@ Once merged, this unblocks the parked follow-up design job
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
