@@ -32,3 +32,13 @@ close an item — "considered, declining because X" is a complete answer here.
 
 Verify locally, push as follow-up commits (no force-push), update the checklist with
 each disposition, and report. Do not un-draft, do not merge, do not re-run the panel.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T20:34:09Z
