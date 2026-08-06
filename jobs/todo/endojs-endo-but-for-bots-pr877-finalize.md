@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr877-rebase
-priority: normal
-posted_by: producer
-posted_at: 2026-08-06T06:38:29Z
+role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-06T06:56:06Z cleared=none -->
 
 ---
 role: conductor
