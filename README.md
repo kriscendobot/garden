@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T13:33:23Z_
+_As of 2026-08-06T13:43:12Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 16h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 17h)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 12h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
@@ -5646,22 +5646,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 34.6M | $608.24 _(notional, rate-card)_ | no quota set |
-| Codex | 15.5M _(+387.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Codex | 15.7M _(+391.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-rate-limit-403`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-rate-limit-403.md) — ---
+### doin (0)
+(none)
 
-### tada (4205)
+### tada (4206)
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-rate-limit-403`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-rate-limit-403.md) — Cost
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Completion report
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr898-conduct.md) — Cost
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-style-url-not-path.md) — Completion report
 - [`ebfb-pr600-shepherd-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-shepherd-5201229349.md) — Cost
-- [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-comment-watcher-api-cooldown.md) — Cost
-- … and 4200 more
+- … and 4201 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
