@@ -47,6 +47,8 @@ work, not shepherd work.
 Alternative the maintainer may prefer: **close #132 and rebuild the feature fresh**
 against `@endo/space-chat` rather than re-port a 1282-commit-stale branch.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
