@@ -44,3 +44,13 @@ comment posted. **Leave the PR DRAFT and do NOT merge** — un-drafting and merg
 the maintainer's call, gated on their APPROVED review of the then-current head. If the
 new verdict is again must-fix, report the remaining findings and STOP; do not start
 another fix loop on your own authority.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T21:10:10Z
