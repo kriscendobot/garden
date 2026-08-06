@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T06:30:52Z_
+_As of 2026-08-06T06:32:58Z_
 
 ## Latest
 
@@ -5095,6 +5095,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr881-review-b8bb5665' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2402s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr909-5e6ae075` — from watchdog:cleric/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr909-5e6ae075.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr909-5e6ae075' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr923-dependabot` — from watchdog:cleric/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr923-dependabot.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr923-dependabot' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -5181,14 +5185,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.2M | $609.74 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+377.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 33.9M | $598.86 _(notional, rate-card)_ | no quota set |
+| Codex | 17.0M _(+381.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (11)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-resume-rebase-review-fixups.md) — Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
 - [`endojs-endo-but-for-bots-pr124-review-368d8b3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-368d8b3b.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-report-render-mode.md) — re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
@@ -5200,15 +5204,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 - [`improve-browser-image-dependency-contract`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-browser-image-dependency-contract.md) — ---
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
-- [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 
-### tada (4183)
+### tada (4184)
+- [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr-ebfb-877-bundle-endo-base64.md) — Completion report
 - [`self-heal-fix-garden-mentor-first-line-extensionless-path-reject`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-first-line-extensionless-path-reject.md) — Cost
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-caught-vs-uncaught.md) — What I did
 - [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — Cost
 - [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-debugger-cdp-devtools-investigation.md) — Completion report — endor-debugger-cdp-devtools-investigation
-- [`endo-reminder-integrate-familiar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-reminder-integrate-familiar.md) — Completion report: endo-reminder-integrate-familiar (designer)
-- … and 4178 more
+- … and 4179 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
