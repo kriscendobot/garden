@@ -90,3 +90,13 @@ it while both engines still exist to cross-check.
 - The existing honest-skip ledger is fully represented as list entries.
 - No net change to what actually passes today (pure refactor + expectation
   externalization), proven by a before/after run at a pinned tip.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T15:09:56Z
