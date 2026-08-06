@@ -1,1 +1,2 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":23,"elapsed_s":166,"input_tokens":38,"output_tokens":8408,"cache_creation_tokens":49431,"cache_read_tokens":1044137,"total_cost_usd":1.2288185,"ts":"2026-08-06T07:43:29Z","base":"ebfb-pr600-shepherd-5201229349","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"shepherd"}
+{"ts":"2026-08-06T08:35:28Z","base":"ebfb-pr600-shepherd-5201229349","host":"endolin-garden-ece02cb4","outcome":"tada","source":"none","elapsed_s":2512}
