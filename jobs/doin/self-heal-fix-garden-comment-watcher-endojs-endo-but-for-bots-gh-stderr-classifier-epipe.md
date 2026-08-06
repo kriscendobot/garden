@@ -26,3 +26,13 @@ Second, bounded change (retry amplification against an exhausted quota) — scri
 GitHub's primary per-user limit resets on the hour, so retrying it under sub-second full-jitter backoff cannot succeed. This tick burned ~76 doomed calls (9 PRs x 2 surfaces x 4 attempts in 20 s) and produced the oversized stderr that tripped the bug above. Add a rate-limit circuit breaker mirroring the precedent at ci-watcher.sh:424 (`aborted` / "consecutive rollup reads unreadable — aborting tick"): once a surface fails with `API rate limit exceeded` / `x-ratelimit-remaining: 0`, stop enumerating further surfaces for the tick immediately and emit ONE loud WARN instead of repeating it per surface. Preserve the LOST-FETCH invariant exactly — `fetch_failed` must still be set and the cursor still frozen, so the next healthy tick re-polls; only the doomed call volume and the log volume shrink. Do NOT remove `rate limit` from GARDEN_TRANSIENT_GH_API_SIGNATURES — other callers depend on absorbing secondary-rate limits in band.
 
 Verification: run scripts/jobs/test/gh-api-retry-test.sh and scripts/jobs/test/comment-watcher-test.sh; confirm a simulated rate-limited source now yields the watcher's "transient gh-api blip — skipping tick" WARN with exit 0, not FATAL exit 1.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T14:31:59Z
