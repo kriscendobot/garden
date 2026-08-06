@@ -1,13 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
 role: fixer
-posted_by: gardener
-posted_at: 2026-07-09T18:42:14Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:43:24Z cleared=none -->
 
 fixer job (endojs/endo-but-for-bots), GATED — do NOT run until the XS sqlite
 bindings land. This is the "rebase trigger" kriskowal asked for in the PR #124
