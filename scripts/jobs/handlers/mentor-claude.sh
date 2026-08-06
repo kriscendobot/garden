@@ -99,13 +99,24 @@ _mentor_norm_line() { printf '%s' "$1" | sed -E 's/^[[:space:]]*[-*>`[:space:]]*
 # as `No clear opportunities.`, or the lone trailing newline codex flushes) is the
 # legitimate no-op — return 0 with empty output, WARN-logging any prose so it stays
 # visible. The first body line of each block is normalized (decoration stripped)
-# before the path check, and the extension set matches already_fixed_pending_deploy.
+# before the path check. Known extensions remain a cheap accept fast-path; an
+# extensionless candidate must name a path that exists on origin/main2.
 #
 # On a fail-closed rejection it sets `mentor_reject_reason` (which line, which check
 # failed, and a bounded excerpt of the offending text) before `return 20`, so the
 # caller's FATAL and the recorded diagnostic name the ACTUAL defect rather than a
 # bare "malformed output" that made this failure undiagnosable.
 mentor_reject_reason=""
+_mentor_first_path_acceptable() {
+  local first="$1"
+  # Preserve the historical cheap path for the common script/unit/brief shapes.
+  [[ "$first" =~ ^[A-Za-z0-9_./-]+\.(sh|py|js|ts|md|service|timer)$ ]] && return 0
+  # The fallback is deliberately still lexical before asking git: prose (spaces)
+  # and revision/path punctuation cannot be interpreted as an ambiguous tree-ish.
+  [[ "$first" =~ ^[A-Za-z0-9_./-]+$ ]] || return 1
+  git -C "$GARDEN_ROOT" cat-file -e "origin/main2:$first" 2>/dev/null
+}
+
 validate_mentor_response() {
   local f="${1:?response file}" line base="" body="" first bl norm
   local state=between emitted=0 nonblank=0 lineno=0
@@ -142,8 +153,8 @@ validate_mentor_response() {
         norm="$(_mentor_norm_line "$bl")"
         [ -n "$norm" ] && { first="$norm"; break; }
       done <<< "$body"
-      if [[ ! "$first" =~ ^[A-Za-z0-9_./-]+\.(sh|py|js|ts|md|service|timer)$ ]]; then
-        mentor_reject_reason="JOB '$base': first body line is not a repo-relative script/unit/brief path: ${first:0:120}"
+      if ! _mentor_first_path_acceptable "$first"; then
+        mentor_reject_reason="JOB '$base': first body line failed the repo-relative path check (neither a known-extension path nor a path present in origin/main2): ${first:0:120}"
         return 20
       fi
       printf 'JOB %s\n%sENDJOB\n' "$base" "$body"
@@ -278,13 +289,16 @@ done
 _m2_fetched=""
 already_fixed_pending_deploy() {
   local body="$1" path
-  # Collect file tokens the body names (scripts/... .sh and similar file paths).
+  # Collect file tokens the body names (known-extension paths plus well-known
+  # extensionless repo-root files). Tokenize first so prose containing e.g.
+  # "garden-variety" cannot accidentally implicate the `garden` launcher.
   local -a paths=()
   while IFS= read -r path; do
     [ -n "$path" ] && paths+=("$path")
   done < <(printf '%s' "$body" \
-    | grep -oE '[A-Za-z0-9._/-]+\.(sh|md|py|js|ts|service|timer)' \
-    | sort -u)
+    | grep -oE '[A-Za-z0-9._/-]+' \
+    | grep -E '(^garden$|^Dockerfile$|\.(sh|md|py|js|ts|service|timer)$)' \
+    | sort -u || true)
   [ "${#paths[@]}" -gt 0 ] || return 1
   if [ -z "$_m2_fetched" ]; then
     git -C "$GARDEN_ROOT" fetch -q origin main2 2>/dev/null || return 1
@@ -318,7 +332,7 @@ post_mentor_job() {
   # the SAME shared helper validate_mentor_response uses, so the poster and the
   # validator never disagree on what a decorated first line normalizes to.
   path="$(_mentor_norm_line "$first")"
-  if [[ "$path" =~ ^[A-Za-z0-9_./-]+$ ]] && { [[ "$path" == *.sh ]] || [[ "$path" == */* ]]; }; then
+  if _mentor_first_path_acceptable "$path"; then
     path="${path#./}"
     printf '%s' "$body" | "$HERE/../post-job.sh" --identity "mentor:$path" "$base"
   else

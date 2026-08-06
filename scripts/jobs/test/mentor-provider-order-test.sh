@@ -175,5 +175,17 @@ DURABLE_CAP="$(find "$REJ_DIR" -name '*-anthropic.txt' 2>/dev/null | head -1)"
   && ok "rejection saved a per-failure capture under rejected/ carrying the raw output" \
   || bad "durable rejected/ capture missing or lacking the raw output"
 
+echo 'SUBTEST 20 — tracked extensionless root paths validate and emit; prose still fails closed'
+if run_shape 'JOB improve-root-garden\ngarden\nharden the launcher\nENDJOB\n' && posted improve-root-garden; then
+  ok "tracked extensionless path garden is accepted and posted"; else bad "garden was rejected or not posted"; fi
+if run_shape 'JOB improve-root-dockerfile\nDockerfile\nharden the image build\nENDJOB\n' && posted improve-root-dockerfile; then
+  ok "tracked extensionless path Dockerfile is accepted and posted"; else bad "Dockerfile was rejected or not posted"; fi
+if run_shape 'JOB improve-prose-path\nA prose sentence here.\nreason\nENDJOB\n' >/dev/null 2>&1; then
+  bad "prose first line was accepted"; else ok "prose first line still fails closed"; fi
+
+echo 'SUBTEST 21 — a nonexistent known-extension path preserves historical acceptance'
+if run_shape 'JOB improve-nope-path\nscripts/jobs/nope.sh\nreason\nENDJOB\n' && posted improve-nope-path; then
+  ok "nonexistent scripts/jobs/nope.sh behaves as before (accepted and posted)"; else bad "known-extension fast-path regressed"; fi
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

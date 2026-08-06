@@ -21,6 +21,9 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="mentor"
 : "${GARDEN_MENTOR_HANDLER:=$HERE/handlers/mentor-claude.sh}"
+: "${GARDEN_MENTOR_REJECT_THRESHOLD:=3}"
+[[ "$GARDEN_MENTOR_REJECT_THRESHOLD" =~ ^[1-9][0-9]*$ ]] \
+  || die "GARDEN_MENTOR_REJECT_THRESHOLD must be a positive integer"
 
 fleet_draining && exit 0
 
@@ -30,6 +33,7 @@ sync_clone "$DIR"
 
 SEEN="$GARDEN_STATE/mentor/seen"
 JSINCE="$GARDEN_STATE/mentor/journalctl-since"
+REJECTION_STATE="$GARDEN_STATE/mentor/semantic-rejections"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"
 
 # 1. new journal entries since last run
@@ -118,6 +122,7 @@ set -e
 if [ "$rc" -eq 0 ]; then
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
   printf '%s\n' "$tick_start" > "$JSINCE"
+  rm -f "$REJECTION_STATE"
   rm -f "$capture"
 elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
   # EMPTY capture + a signal/offline rc — a `claude -p` handler SIGKILLed/
@@ -131,15 +136,37 @@ elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
   # mirroring gardener.sh's empty-capture branch (gardener.sh:679-687) via the
   # SAME common.sh helper so the two handlers stay aligned: WARN + exit 0, leaving
   # $SEEN/$JSINCE unadvanced so the next tick retries.
-  rm -f "$capture"
+  rm -f "$capture" "$REJECTION_STATE"
   log "WARN: improve handler killed with empty output (rc=$rc); leaving markers, retrying next tick"
   exit 0
 else
   out="$(tail -c 65536 "$capture" 2>/dev/null || true)"
   rm -f "$capture"
   if is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out"; then
+    rm -f "$REJECTION_STATE"
     log "WARN: improve handler hit a transient outage; leaving markers, retrying next tick"
     exit 0
+  fi
+  if printf '%s' "$out" | grep -q 'malformed semantic output'; then
+    # A semantic rejection correctly refuses provider fallback, but retrying the
+    # same content-addressed digest forever only reproduces the same decision.
+    # Bound that episode, then consume the inputs and surface one actionable page.
+    prior_sha=""; reject_count=0
+    read -r prior_sha reject_count < "$REJECTION_STATE" 2>/dev/null || true
+    [[ "$reject_count" =~ ^[0-9]+$ ]] || reject_count=0
+    if [ "$prior_sha" = "$sha" ]; then reject_count=$((reject_count + 1)); else reject_count=1; fi
+    printf '%s %s\n' "$sha" "$reject_count" > "$REJECTION_STATE"
+    if [ "$reject_count" -ge "$GARDEN_MENTOR_REJECT_THRESHOLD" ]; then
+      printf '%s\n' "$out" >&2
+      alert_maintainer "mentor-semantic-rejection-$sha" \
+        "mentor rejected digest $sha semantically $reject_count consecutive times on host $GARDEN. The retry backstop advanced its input markers after the last rejection. Latest diagnostic: ${out:0:1000}"
+      for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
+      printf '%s\n' "$tick_start" > "$JSINCE"
+      log "WARN: mentor digest $sha reached $reject_count semantic rejections; advanced markers and escalated to the maintainer"
+      exit 0
+    fi
+  else
+    rm -f "$REJECTION_STATE"
   fi
   printf '%s\n' "$out" >&2   # surface the real diagnostic before we die
   die "improve handler failed; leaving markers so the next tick retries"
