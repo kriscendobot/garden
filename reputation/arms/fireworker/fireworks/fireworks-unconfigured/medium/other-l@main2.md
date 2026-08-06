@@ -4,10 +4,10 @@ model: fireworks-unconfigured
 thoughtfulness: medium
 work_class: other:l
 target: main2
-attempts: 3
-accepts: 3
-censored: 3
+attempts: 2
+accepts: 2
+censored: 2
 estimated: 0
-mean_dollars: 2.406667
-m2: 3.891467
+mean_dollars: 2.130000
+m2: 3.432200
 acceptance_rate: 1.0000
