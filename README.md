@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T14:52:58Z_
+_As of 2026-08-06T14:53:31Z_
 
 ## Latest
 
@@ -5676,13 +5676,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.3M | $615.11 _(notional, rate-card)_ | no quota set |
-| Codex | 15.8M _(+392.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Codex | 15.8M _(+392.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-ascii-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #943
 - [`endo-endor-registry-proxy-worker-refactor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-endor-registry-proxy-worker-refactor.md) — Design: move the npm-via-CAS registry proxy (endor) into a compartment-mapper...
 - [`garden-pages-ae3415642dff-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pages-ae3415642dff-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriscendobot/garden
 
