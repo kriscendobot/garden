@@ -34,3 +34,13 @@ Once merged, this unblocks the parked follow-up design job
 `endo-endor-registry-proxy-worker-refactor`.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T06:43:23Z
