@@ -46,3 +46,13 @@ work, not shepherd work.
 
 Alternative the maintainer may prefer: **close #132 and rebuild the feature fresh**
 against `@endo/space-chat` rather than re-port a 1282-commit-stale branch.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T05:44:51Z
