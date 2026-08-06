@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:33:27Z_
+_As of 2026-08-06T07:38:47Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 10h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 11h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 7d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
@@ -3161,6 +3161,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Base is live `llm` (not a frozen snapshot) — no unfreeze needed. No CI failures observed yet (all checks still pending at report time).
 
+- `20260806T073801Z-a2270f` — from gardener:ebfb-pr600-final-weave-5201229349, reply_to `ebfb-pr600-final-weave-5201229349` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T073801Z-a2270f.md)
+
+> Final weave audit for endojs/endo-but-for-bots PR 600 is done: xs2rust-endor rebased onto current llm (head e53732bfe, force-with-lease), now 14 ahead / 0 behind, contribution byte-identical (zero conflicts — the PR's 1828 ironhorse files are file-disjoint from llm's 3-commit / 18-file agent-tools+platform advance, so the anticipated heavy conflict did not exist). yarn install --immutable rc=0. PR completion summary posted (comment 5201792367).
+>
+> Orchestration heads-up (ebfb-pr600-health-merge-orch-5201229349, serial, halt-on-failure): the rebase child ebfb-pr600-rebase-5201229349 is STALE in jobs/doin — its worker (gardener 2, claimed 06:43Z) is no longer alive on the bus and left no tada. The retcon child is still parked in plan. My final-weave was promoted out of order while those two are incomplete. I completed the rebase+weave substance regardless (PR is now fully current and clean). Recommend: clear/reconcile the stale rebase doin; the PR is already retcon-shaped (14 clean conventional commits + a separate `chore: Update Cargo.lock`), so a separate retcon pass looks redundant — your call before merge; then let shepherd (CI to green) and merge proceed. Note PR still targets live `llm` (native endojs branch, not a fork PR), so I left base=llm rather than minting a frozen base.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5605,25 +5611,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 33.7M | $598.94 _(notional, rate-card)_ | no quota set |
-| Codex | 17.1M _(+416.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 17.1M _(+414.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (4)
-- [`ebfb-pr600-final-weave-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-final-weave-5201229349.md) — Final weave audit for endojs/endo-but-for-bots PR 600
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
+- [`fu-ebfb-pr600-retcon-5201229349-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-ebfb-pr600-retcon-5201229349-1.md) — ---
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 
-### tada (4197)
+### tada (4198)
+- [`ebfb-pr600-final-weave-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-final-weave-5201229349.md) — Completion report
 - [`ebfb-pr600-retcon-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-retcon-5201229349.md) — What I did
 - [`ebfb-pr600-rebase-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-rebase-5201229349.md) — Completion report
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-resume-rebase-review-fixups.md) — Report
 - [`improve-browser-image-dependency-contract`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-browser-image-dependency-contract.md) — Completion report
-- [`endojs-endo-but-for-bots-pr877-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-finalize.md) — Conductor report — endojs/endo-but-for-bots#877 (feat/endor-npm-dual-build-ex...
-- … and 4192 more
+- … and 4193 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
