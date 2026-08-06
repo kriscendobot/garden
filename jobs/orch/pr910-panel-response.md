@@ -1,4 +1,5 @@
 ---
+child-pr910-panel-response-01-recover-findings-reap-count: 0
 order: serial
 children: pr910-panel-response-01-recover-findings pr910-panel-response-02-rebase-onto-llm pr910-panel-response-03-mustfix-platform pr910-panel-response-04-mustfix-daemon pr910-panel-response-05-mustfix-git-docs pr910-panel-response-06-shouldfix-platform pr910-panel-response-07-shouldfix-daemon pr910-panel-response-08-shouldfix-git-docs pr910-panel-response-09-comment-only pr910-panel-response-10-verify-repanel
 on-child-failure: halt
