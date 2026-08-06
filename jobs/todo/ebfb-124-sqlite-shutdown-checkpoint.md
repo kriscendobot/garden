@@ -1,13 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-07-09T18:41:49Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:43:52Z cleared=none -->
 
 designer job (endojs/endo-but-for-bots). Follow-up to PR #124 review by
 kriskowal (comment https://github.com/endojs/endo-but-for-bots/pull/124#discussion_r3548826725,
