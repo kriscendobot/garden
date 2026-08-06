@@ -1,12 +1,4 @@
----
-gate: go-ahead
-priority: normal
-posted_by: fixer
-posted_at: 2026-07-02T00:42:06Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:44:40Z cleared=none -->
 
 # re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-for-bots #132)
 
