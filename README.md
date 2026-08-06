@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T05:45:42Z_
+_As of 2026-08-06T05:46:59Z_
 
 ## Latest
 
@@ -5107,14 +5107,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.6M | $566.70 _(notional, rate-card)_ | no quota set |
-| Codex | 15.2M _(+335.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 32.7M | $569.01 _(notional, rate-card)_ | no quota set |
+| Codex | 15.2M _(+334.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/finbot-pr5-panel-20260730.md) — HELD — stale, do not run as written
+- [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs2rust-endor-debugger-caught-vs-uncaught.md) — Investigate a caught/uncaught distinction for the Endor debugger protocol
 
-### doin (11)
+### doin (15)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-resume-rebase-review-fixups.md) — Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-iterate-streaming.md) — ---
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-pragma-simple.md) — ---
@@ -5126,6 +5127,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-conduct.md) — conduct endojs/endo-but-for-bots PR #656
 - [`endojs-endo-but-for-bots-pr874-live-google-sheets-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr874-live-google-sheets-integration.md) — ---
 - [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sha256-consistency-followups.md) — Consistency follow-ups deferred by the @endo/sha256 build
+- [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T0...
+- [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-debugger-cdp-devtools-investigation.md) — Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
+- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/finbot-pr4-panel-rerun-20260725.md) — HELD — stale, do not run as written
+- [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 
 ### tada (4165)
 - [`endojs-endo-but-for-bots-pr895-880f6cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr895-880f6cf9.md) — Cost
@@ -5162,16 +5167,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-gauntlet.md) — _normal_ · Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr923-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
 - [`endojs-pr160-ci-fix-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-pr160-ci-fix-finalize.md) — _normal_ · ---
-- [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr4-panel-rerun-20260725.md) — _normal_ · HELD — stale, do not run as written
 - [`finbot-pr5-panel-20260727`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260727.md) — _normal_ · Run the required panel for kriscendobot/finbot PR #5
-- [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260730.md) — _normal_ · HELD — stale, do not run as written
 - [`finbot-pr5-panel-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr5-panel-20260801.md) — _normal_ · Run the required merge-governance panel for kriscendobot/finbot PR #5 (curren...
 - [`finbot-pr6-fix-panel-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-fix-panel-r5.md) — _normal_ · Fix the round-5 merge-governance panel must-fix findings for kriscendobot/fin...
 - [`finbot-progress-20260725-105007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260725-105007.md) — _normal_ · Push progress on kriscendobot/finbot (every 6h)
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
-- [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-style-url-not-path.md) — _normal_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
@@ -5199,9 +5201,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
-- [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-debugger-cdp-devtools-investigation.md) — _normal_ · Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
-- [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-debugger-caught-vs-uncaught.md) — _normal_ · Investigate a caught/uncaught distinction for the Endor debugger protocol
-- [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — _normal_ · ---
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 
