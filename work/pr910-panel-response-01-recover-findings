@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 5
+worker_kind: gardener
+claimed_at: 2026-08-06T17:55:12Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-pr910-panel-response-01-recover-findings

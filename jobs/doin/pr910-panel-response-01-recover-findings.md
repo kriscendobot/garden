@@ -80,3 +80,13 @@ The checklist exists on `journal2`, every finding in every artifact is represent
 exactly once, each carries a severity and a slice, and the tada report gives the
 severity x slice tally plus a note on which artifacts were partial and how you
 reconciled disagreement between them. Change NO code in this job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T17:55:12Z
