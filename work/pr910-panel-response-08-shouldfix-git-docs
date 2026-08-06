@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-08-06T20:25:09Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-pr910-panel-response-08-shouldfix-git-docs
