@@ -49,3 +49,13 @@ establish rather than guessing.
 
 If the plan turns out to depend on #721 changing shape, say so plainly instead of
 planning against an API that may not survive review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T05:44:33Z
