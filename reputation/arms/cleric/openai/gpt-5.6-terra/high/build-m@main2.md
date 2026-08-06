@@ -4,10 +4,10 @@ model: gpt-5.6-terra
 thoughtfulness: high
 work_class: build:m
 target: main2
-attempts: 27
-accepts: 27
-censored: 26
-estimated: 26
-mean_dollars: 9.347168
-m2: 3871.686392
+attempts: 28
+accepts: 28
+censored: 27
+estimated: 27
+mean_dollars: 10.681212
+m2: 5217.119040
 acceptance_rate: 1.0000
