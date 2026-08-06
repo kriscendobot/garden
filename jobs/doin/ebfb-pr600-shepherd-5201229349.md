@@ -17,6 +17,7 @@ Maintainer directive: https://github.com/endojs/endo-but-for-bots/pull/600#issue
 
 Use an isolated project worktree keyed by this child basename. Run the repository local gates that correspond to CI before pushing. Drive every CI check for the current PR head to terminal green, classify failures, fix in-scope defects with fixup commits against the retconned history, close any local-versus-CI automation gap, and rerun affected gates. Do not complete while checks are pending or red. Post the required completion summary with the green run URLs.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
