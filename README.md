@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:22:33Z_
+_As of 2026-08-06T07:24:36Z_
 
 ## Latest
 
@@ -5475,6 +5475,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > gardener job 'finbot-pr6-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2413s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-merge-endo-but-for-bots-pr875-endor-imports-field` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-merge-endo-but-for-bots-pr875-endor-imports-field.md)
+
+> gardener job 'merge-endo-but-for-bots-pr875-endor-imports-field' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-minion-town-mcp-b2-first-guest-tools-gauntlet` — from watchdog:gardener/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-minion-town-mcp-b2-first-guest-tools-gauntlet.md)
 
 > gardener job 'minion-town-mcp-b2-first-guest-tools-gauntlet' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -5545,8 +5549,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.7M | $597.62 _(notional, rate-card)_ | no quota set |
-| Codex | 17.2M _(+418.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 33.7M | $598.19 _(notional, rate-card)_ | no quota set |
+| Codex | 17.2M _(+417.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
