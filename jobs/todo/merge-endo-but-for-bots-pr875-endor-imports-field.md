@@ -1,7 +1,8 @@
 ---
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
@@ -32,13 +33,4 @@ Conductor duties:
 Once merged, this unblocks the parked follow-up design job
 `endo-endor-registry-proxy-worker-refactor`.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-06T06:34:14Z
+<!-- garden-reaped: 0 -->
