@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T19:24:01Z_
+_As of 2026-08-06T19:25:35Z_
 
 ## Latest
 
@@ -5828,15 +5828,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 36.5M | $630.88 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+443.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
+| Codex | 17.0M _(+443.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr893-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr893-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #893
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
+- [`pr910-panel-response-05-mustfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-05-mustfix-git-docs.md) — PR #910 panel response — child 05/10: **must-fix** findings in the git-and-do...
 
 ### tada (4235)
 - [`pr910-panel-response-04-mustfix-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-04-mustfix-daemon.md) — Completion report — PR #910 panel response, child 04/10: daemon slice, must-fix
