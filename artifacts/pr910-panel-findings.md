@@ -371,7 +371,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/daemon/src/manager.js:2269` (`'Transient blob range'`, tag `TransientBlob`), `:1842` (sentence label `` `Readable file range of SHA-256 ${…}...` ``, tag `EndoBlob`)
 - **Claim:** four adopters are `<exo tag> range` (`LocalBlob range`, `BlobRef range`, `GitBlob range`, `EndoMountFile range`), but these two diverge.
 - **Proposed fix:** make them `TransientBlob range` and `EndoBlob range`. [proposed-rule: a derived cap's exo label is `<parent exo tag> <derivation>`.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 59e08beb6`). Both divergent range labels now follow the `<parent exo tag> range` convention. The transient blob's `manager.js` label is `'TransientBlob range'` (its parent exo is tagged exactly `'TransientBlob'`). The content-store readable blob's label is `` `Readable file with SHA-256 ${sha256.slice(0,8)}... range` `` — derived from its **actual** parent exo tag (`` `Readable file with SHA-256 ${…}...` ``), keeping the sha disambiguation. Note: stylist's shorthand "EndoBlob" is not a real exo tag in the code (no exo is tagged `EndoBlob`; the readable-blob exo is the templated `Readable file with SHA-256 …`), so applying the stated rule faithfully means deriving from the real parent tag rather than substituting the shorthand — a literal `'EndoBlob range'` would itself violate the `<parent exo tag> range` rule. No test asserts these label strings.
 
 ### DMN-05 — live-file `textRange` has no behavioral test
 - **Severity:** should-fix
@@ -379,7 +379,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/daemon/test/mount-platform-fs-conformance.test.js:226`
 - **Claim:** `mount-platform-fs-conformance.test.js:226` lists `'textRange'` in `ENDOMOUNTFILE_EXTENSIONS`, pinning only that the name exists. The live path differs materially from `BlobRef`'s (stat + `readFileRange` per read, byte offsets frozen at call time). prover probed it and it works (`'a\nb\nc\n'` → `textRange(1,3).text() === 'b\nc'`).
 - **Proposed fix:** make prover's probe a test.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 59e08beb6`). Added a behavioral live-file `textRange` test to `packages/daemon/test/mount.test.js` (`EndoMountFile.textRange reads a half-open line interval on the live file`) that writes `'a\nb\nc\n'` to a real mount file and asserts `textRange(1,3).text() === 'b\nc'` (prover's exact probe) plus a single-line window `textRange(0,1) === 'a'`. This exercises the live path (stat + `readFileRange` per read) end-to-end, not just the conformance name-set. The suite (78 tests) passes.
 
 ### DMN-06 — every `readWindow` adds a `size()`/`statPath()` before the read that `fetch(offset,length)` did not
 - **Severity:** should-fix (perf)
@@ -387,7 +387,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/daemon/src/manager.js:1828`, `packages/daemon/src/mount.js:1551`
 - **Claim:** each `readWindow` adds a `size()`/`statPath()` before the read that the retired `fetch(offset,length)` path did not — an extra stat per windowed read. (benchmarker also notes `manager.js:1821`'s assertion that "only the requested `[start,end)` window leaves disk" is in tension with `textRange`'s whole-file read — see PLAT-04/05.)
 - **Proposed fix:** avoid the redundant stat where the size is already known, or record the cost with a measurement.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit 59e08beb6`). Verified the stat is genuinely redundant, not merely suspected: `filePowers.readFileRange` **already** stats internally to clamp `length` to the bytes available and short-reads at EOF (a documented `FilePowers` contract — see `bus-manager-rust-xs-powers.js:155-171` — honored by all three impls: `manager-node-powers.js`, `bus-manager-rust-xs-powers.js`, `content-store-powers.js`). So both `readWindow`s did **two** stats per windowed read (the explicit `statPath()`/`size()` plus `readFileRange`'s internal one). Removed the explicit pre-stat at both sites (`mount.js` live-file `readWindow`; `manager.js` content-store `readWindow`): an explicit `end` now passes its own length (an over-long one is clamped down by the power), and `end === undefined` (to end-of-content) passes a `Number.MAX_SAFE_INTEGER - from` sentinel the power clamps to size. Results are **byte-identical** (traced `range(6n,106n)`→`'world\n'`, `range(100n,104n)`→`''`, `range(0n,12n)`→whole; the internal clamp still bounds allocation, so memory safety is unchanged). One fewer stat syscall per windowed read on both the live mount and the content store. Verified: `mount.test.js` (78) + conformance (20) + `daemon-cas` content-store (9, incl. the `readRange(len-5,100)` past-EOF clamp that pins the contract this fix leans on) all pass; tsc + eslint clean. (The `endo.test.js` assertions at `:752-755` that exercise the content-store range past-EOF are unrunnable in this deep per-job worktree — its 148-byte unix socket path exceeds the ~108-byte `sun_path` limit and collides via truncation — an environment artifact, not a defect in the change; covered instead by the byte-equivalence trace + the daemon-cas contract test.)
 
 ---
 
