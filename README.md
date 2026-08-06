@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T19:43:57Z_
+_As of 2026-08-06T20:07:34Z_
 
 ## Latest
 
@@ -5828,22 +5828,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 36.5M | $630.88 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+443.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
+| Codex | 16.8M _(+441.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`pr910-panel-response-06-shouldfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-06-shouldfix-platform.md) — PR #910 panel response — child 06/10: **should-fix** findings in the platform...
+### doin (0)
+(none)
 
-### tada (4238)
+### tada (4239)
+- [`pr910-panel-response-06-shouldfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-06-shouldfix-platform.md) — Completion report — PR #910 child 06/10: should-fix findings in the platform ...
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-shepherd.md) — Cost
 - [`pr910-panel-response-05-mustfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-05-mustfix-git-docs.md) — Completion report — PR #910 panel response, child 05/10 (must-fix, git-and-do...
 - [`endojs-endo-but-for-bots-pr893-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr893-shepherd.md) — Cost
 - [`pr910-panel-response-04-mustfix-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-04-mustfix-daemon.md) — Completion report — PR #910 panel response, child 04/10: daemon slice, must-fix
-- [`pr910-panel-response-03-mustfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-03-mustfix-platform.md) — Completion report
-- … and 4233 more
+- … and 4234 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
