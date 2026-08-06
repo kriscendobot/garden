@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":65,"elapsed_s":847,"input_tokens":121,"output_tokens":54713,"cache_creation_tokens":135228,"cache_read_tokens":6691141,"total_cost_usd":6.0690215,"ts":"2026-08-06T20:24:54Z","base":"pr910-panel-response-07-shouldfix-daemon","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}
