@@ -291,3 +291,13 @@ so supervision survives a restart. Journal each stage transition.
 A single PR on `endojs/endo-but-for-bots` carrying the approved design plus the end-to-end implementation at
 test262 parity, reviewed to completion by you, un-drafted, and surfaced to the maintainer with a status
 summary. The maintainer is asked to look once, at the end. Journal the full lifecycle.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T15:10:15Z
