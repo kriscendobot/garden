@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T14:44:00Z_
+_As of 2026-08-06T14:45:24Z_
 
 ## Latest
 
@@ -3228,6 +3228,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > source in Settings to nudge GitHub's backend (a repo-settings action the bot won't take
 > unilaterally). The pages-watcher will re-post on this same red SHA idempotently.
 
+- `20260806T144506Z-483fab` — from gardener:endojs-endo-but-for-bots-pr876-shepherd, reply_to `endojs-endo-but-for-bots-pr876-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T144506Z-483fab.md)
+
+> PR [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876) cannot dispatch CI at head f0a0d58eaeb62cda5354543b2a7b2b09d560fd01 because GitHub reports mergeable=CONFLICTING, mergeStateStatus=DIRTY, and an empty statusCheckRollup. The referenced review was re-fetched as an empty-body APPROVED review by kriskowal. next: weaver
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5671,8 +5675,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.4M | $615.26 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+391.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Claude | 35.4M | $615.65 _(notional, rate-card)_ | no quota set |
+| Codex | 15.8M _(+391.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
