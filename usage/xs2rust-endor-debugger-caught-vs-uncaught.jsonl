@@ -1,0 +1,1 @@
+{"source":"result","num_turns":79,"elapsed_s":950,"input_tokens":145,"output_tokens":58311,"cache_creation_tokens":183565,"cache_read_tokens":9367255,"total_cost_usd":7.9808875,"ts":"2026-08-06T06:05:55Z","base":"xs2rust-endor-debugger-caught-vs-uncaught","host":"endolin-garden-ece02cb4","outcome":"tada","role":"researcher"}
