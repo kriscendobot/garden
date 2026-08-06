@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T05:56:41Z_
+_As of 2026-08-06T05:58:01Z_
 
 ## Latest
 
@@ -5165,16 +5165,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.7M | $583.40 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+343.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 33.8M | $584.40 _(notional, rate-card)_ | no quota set |
+| Codex | 16.1M _(+345.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (14)
+### doin (13)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-resume-rebase-review-fixups.md) — Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
-- [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-sqlite-iterate-streaming.md) — ---
 - [`endo-reminder-integrate-familiar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-familiar.md) — Plan: integrate @endo/reminder into Familiar
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-report-render-mode.md) — re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr898-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr898-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #898
@@ -5188,13 +5187,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-debugger-caught-vs-uncaught.md) — Investigate a caught/uncaught distinction for the Endor debugger protocol
 
-### tada (4176)
+### tada (4177)
+- [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-iterate-streaming.md) — Cost
 - [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-sha256-consistency-followups.md) — Cost
 - [`endo-reminder-integrate-chat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-reminder-integrate-chat.md) — Completion report
 - [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-shutdown-checkpoint.md) — Completion report
 - [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-pragma-simple.md) — Cost
-- [`endo-reminder-integrate-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-reminder-integrate-minion-town.md) — Cost
-- … and 4171 more
+- … and 4172 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
