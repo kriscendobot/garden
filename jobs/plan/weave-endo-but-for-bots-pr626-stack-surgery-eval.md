@@ -14,6 +14,14 @@ tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
+handler-timeout: 7200
+<!-- liaison 2026-08-06: this job was DOOMED by the reaper after a
+     deterministic deadline overrun at the 2400s default. It carried no
+     handler-timeout: header and its role does not qualify for the 7200s
+     builder default (landed 2026-08-01), so it was SIGTERM-killed at the
+     wall on every requeue. The budget is the fix; the work is wanted.
+     If it overruns 7200s too, that is a REAL overrun -- diagnose it, do
+     not raise the budget again. -->
 
 ---
 role: weaver
