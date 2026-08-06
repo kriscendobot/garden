@@ -1,12 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: builder
-posted_at: 2026-07-26T01:20:40Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
+model: opus
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T15:10:00Z cleared=none -->
 
 ---
 model: opus
