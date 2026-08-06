@@ -47,3 +47,13 @@ Verify: `yarn bundle:xs` builds all three bundles green; flip
 `.github/workflows/rust.yml`.
 
 Refs: https://github.com/endojs/endo-but-for-bots/pull/124#issuecomment-5136436206
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T05:46:16Z
