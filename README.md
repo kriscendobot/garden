@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:04:48Z_
+_As of 2026-08-06T15:08:50Z_
 
 ## Latest
 
@@ -3232,6 +3232,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876) cannot dispatch CI at head f0a0d58eaeb62cda5354543b2a7b2b09d560fd01 because GitHub reports mergeable=CONFLICTING, mergeStateStatus=DIRTY, and an empty statusCheckRollup. The referenced review was re-fetched as an empty-body APPROVED review by kriskowal. next: weaver
 
+- `20260806T150834Z-ab684e` — from gardener:endojs-endo-but-for-bots-pr934-conduct, reply_to `endojs-endo-but-for-bots-pr934-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T150834Z-ab684e.md)
+
+> [endojs/endo-but-for-bots#934](https://github.com/endojs/endo-but-for-bots/issues/934) (design(daemon): WAL checkpointing at shutdown) — merge held, one re-approval away.
+>
+> You approved commit 3fbeb190 with "Please address feedback and merge." A fixer then addressed the feedback and force-pushed the branch; the current head is ffa7d3fe (commit 67030bfc + docs revision ffa7d3fe, plus a head-revision comment from kriscendobot). That push superseded your approval, so the deterministic merge gate finds no current maintainer approval on the exact head — I will not merge over a stale approval.
+>
+> Status right now:
+>   - OPEN, mergeable, base=llm (live trunk)
+>   - still DRAFT
+>   - CI in progress (build/lint/test/browser-tests running; zizmor green)
+>
+> To land it: re-approve the current head ffa7d3fe. The periodic approval reconciler will then re-post a merge job and it merges automatically once CI is green (the conductor un-drafts as part of the merge). No code change needed on my side.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5675,8 +5688,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.7M | $619.94 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+395.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 35.8M | $621.95 _(notional, rate-card)_ | no quota set |
+| Codex | 15.9M _(+396.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
