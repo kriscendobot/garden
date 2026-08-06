@@ -22,6 +22,7 @@ discipline. The excerpt below is for human context only:
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
