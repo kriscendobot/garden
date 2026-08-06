@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T06:56:40Z_
+_As of 2026-08-06T06:58:47Z_
 
 ## Latest
 
@@ -5485,17 +5485,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.2M | $610.31 _(notional, rate-card)_ | no quota set |
-| Codex | 17.3M _(+418.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 34.3M | $613.61 _(notional, rate-card)_ | no quota set |
+| Codex | 17.4M _(+419.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-resume-rebase-review-fixups.md) — Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
 - [`ebfb-pr600-rebase-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr600-rebase-5201229349.md) — Rebase endojs/endo-but-for-bots PR 600 onto current llm
-- [`endojs-endo-but-for-bots-pr124-review-368d8b3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-368d8b3b.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr652-ci-green-20260806`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr652-ci-green-20260806.md) — Drive endojs/endo-but-for-bots PR #652 to merge-ready
 - [`endojs-endo-but-for-bots-pr877-finalize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-finalize.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #877
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
@@ -5505,13 +5504,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`improve-pr-feedback-issue-comment-target-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-pr-feedback-issue-comment-target-resolution.md) — ---
 - [`merge-endo-but-for-bots-pr875-endor-imports-field`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endo-but-for-bots-pr875-endor-imports-field.md) — Merge endojs/endo-but-for-bots PR #875 (endor package imports field)
 
-### tada (4191)
+### tada (4192)
+- [`endojs-endo-but-for-bots-pr124-review-368d8b3b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-review-368d8b3b.md) — Cost
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr21-a96e97d-design-land.md) — Completion report
 - [`endojs-endo-but-for-bots-pr877-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-rebase.md) — Cost
 - [`endojs-endo-but-for-bots-pr876-review-190136d8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr876-review-190136d8.md) — Completion report
 - [`endojs-endo-but-for-bots-pr600-57909b1b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-57909b1b.md) — Cost
-- [`endojs-endo-but-for-bots-pr878-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr878-rebase.md) — Weaver report — endojs/endo-but-for-bots PR #878
-- … and 4186 more
+- … and 4187 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -5577,6 +5576,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endo-bejar-hofman-box-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-bejar-hofman-box-investigation.md) — _normal_ · Investigate the Bejar-Hofman Box: reachable-only-from-roots monitoring
 - [`review-improve-merge-base-pinning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/review-improve-merge-base-pinning.md) — _normal_ · review-improve: merge-base-pinning (prevention + durable sensing)
+- [`ebfb-thixotrope-drop-inert-bundle-filter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-thixotrope-drop-inert-bundle-filter.md) — _normal_ · ---
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr903-review-1ec51e37-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-review-1ec51e37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #903 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr124-review-368d8b3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-368d8b3b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
