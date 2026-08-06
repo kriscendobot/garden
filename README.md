@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:57:34Z_
+_As of 2026-08-06T07:58:32Z_
 
 ## Latest
 
@@ -3181,6 +3181,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ebfb-pr600-health-merge-orch-5201229349 HALTED: child ebfb-pr600-shepherd-5201229349 stalled after 1 requeues on host endolin-garden-ece02cb4 (requeue count rose from 0) (serial, on-child-failure=halt). 3/5 done before halt; swept: ebfb-pr600-merge-5201229349
 
+- `20260806T075814Z-e217c5` — from gardener:endojs-endo-but-for-bots-pr652-ci-green-20260806, reply_to `endojs-endo-but-for-bots-pr652-ci-green-20260806` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T075814Z-e217c5.md)
+
+> [endojs/endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/issues/652) is green and awaiting maintainer review on head b9b25b923fc09b55546a9c8ce8da0d8d27066ffb. All 25 current checks passed, including lint and sandbox-drivers. I did not merge or post a conductor job.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5625,7 +5629,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 33.8M | $602.29 _(notional, rate-card)_ | no quota set |
-| Codex | 17.0M _(+412.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Codex | 17.0M _(+412.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
