@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T19:13:00Z_
+_As of 2026-08-06T19:13:41Z_
 
 ## Latest
 
@@ -5834,9 +5834,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr893-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr893-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #893
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
+- [`pr910-panel-response-04-mustfix-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-04-mustfix-daemon.md) — PR #910 panel response — child 04/10: **must-fix** findings in the daemon slice
 
 ### tada (4234)
 - [`pr910-panel-response-03-mustfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-03-mustfix-platform.md) — Completion report
