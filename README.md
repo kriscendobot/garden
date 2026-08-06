@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T14:32:22Z_
+_As of 2026-08-06T14:36:19Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 13h)
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 17h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 18h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
@@ -5678,7 +5678,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr124-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #124
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-stderr-classifier-epipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-gh-stderr-classifier-epipe.md) — ---
 
 ### tada (4207)
