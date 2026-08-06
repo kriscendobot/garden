@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T10:09:20Z_
+_As of 2026-08-06T10:45:13Z_
 
 ## Latest
 
@@ -14,10 +14,10 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 13h)
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 8h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 14h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 9h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 7d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 18d)
@@ -3185,6 +3185,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > [endojs/endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/issues/652) is green and awaiting maintainer review on head b9b25b923fc09b55546a9c8ce8da0d8d27066ffb. All 25 current checks passed, including lint and sandbox-drivers. I did not merge or post a conductor job.
 
+- `20260806T104450Z-8a1a90` — from gardener:endojs-endo-but-for-bots-pr652-ci-green-20260806, reply_to `endojs-endo-but-for-bots-pr652-ci-green-20260806` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T104450Z-8a1a90.md)
+
+> [endojs/endo-but-for-bots#652](https://github.com/endojs/endo-but-for-bots/issues/652) (feat(cli): expose mount deniedSegments via --deny/--no-deny) is GREEN and awaiting your review.
+>
+> - Head: b9b25b923bafd5c8b55fc94a3797aba424b9abf3
+> - Base: llm — mergeable=MERGEABLE, mergeStateStatus=CLEAN
+> - CI: all 25 checks pass (0 failures). The two checks that had sat red for a week
+>   (lint, sandbox-drivers) are green on the current head. The lint failure was closed
+>   by follow-up commit b9b25b923 "fix(cli): remove redundant process global" (Kriscendo
+>   Bot, 2026-08-06 06:42Z); sandbox-drivers went green on the re-run.
+> - reviewDecision is still EMPTY — no maintainer review on this PR yet.
+>
+> Per the job's definition of done I did NOT merge and did NOT post a conductor: the
+> merge gate is a maintainer APPROVED review on this head. The PR is ready for your
+> review on b9b25b923; once you approve, the conduct can be posted.
+> [https://github.com/endojs/endo-but-for-bots/pull/652](https://github.com/endojs/endo-but-for-bots/pull/652)
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5628,8 +5645,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $603.05 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+395.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 33.8M | $603.51 _(notional, rate-card)_ | no quota set |
+| Codex | 15.9M _(+393.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
