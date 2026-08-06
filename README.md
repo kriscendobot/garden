@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T07:51:33Z_
+_As of 2026-08-06T07:55:28Z_
 
 ## Latest
 
@@ -3177,6 +3177,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Action needed from you when ready: review/approve [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600) and un-draft it; then a conductor/merge job can land it once CI is green. I'm completing this weave job now; the shepherd peer continues driving CI.
 
+- `20260806T075508Z-3ec1f5` — from orchestrator:ebfb-pr600-health-merge-orch-5201229349-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T075508Z-3ec1f5.md)
+
+> Orchestration ebfb-pr600-health-merge-orch-5201229349 HALTED: child ebfb-pr600-shepherd-5201229349 stalled after 1 requeues on host endolin-garden-ece02cb4 (requeue count rose from 0) (serial, on-child-failure=halt). 3/5 done before halt; swept: ebfb-pr600-merge-5201229349
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5621,7 +5625,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 33.8M | $601.51 _(notional, rate-card)_ | no quota set |
-| Codex | 16.9M _(+411.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 17.0M _(+412.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -5634,13 +5638,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
 - [`improve-comment-watcher-api-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-api-cooldown.md) — ---
 
-### tada (4199)
+### tada (4200)
+- [`ebfb-pr600-health-merge-orch-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-health-merge-orch-5201229349.md) — orchestration ebfb-pr600-health-merge-orch-5201229349 — HALTED
 - [`fu-ebfb-pr600-retcon-5201229349-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-ebfb-pr600-retcon-5201229349-1.md) — Completion report — fu-ebfb-pr600-retcon-5201229349-1
 - [`ebfb-pr600-final-weave-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-final-weave-5201229349.md) — Completion report
 - [`ebfb-pr600-retcon-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-retcon-5201229349.md) — What I did
 - [`ebfb-pr600-rebase-5201229349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr600-rebase-5201229349.md) — Completion report
-- [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-resume-rebase-review-fixups.md) — Report
-- … and 4194 more
+- … and 4195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
