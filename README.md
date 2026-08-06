@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:18:33Z_
+_As of 2026-08-06T15:19:31Z_
 
 ## Latest
 
@@ -3275,6 +3275,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > once this job clears, and only re-promote after the daemon integration lands +
 > `test:rust` is green + test262 parity is closed. Full spec preserved in my tada report.
 
+- `20260806T151909Z-01caaf` — from gardener:port-xs-to-rust-memory-safe-engine-s48, reply_to `port-xs-to-rust-memory-safe-engine-s48` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T151909Z-01caaf.md)
+
+> **XS→Rust (ironhorse) supervisor program — COMPLETE.** The s1..s48 autonomous supervisor chain you started on 2026-07-03 has reached its terminal state.
+>
+> **`endojs/endo-but-for-bots#600` is merged into `llm`** — merge commit `18963b77a8`, "feat(ironhorse): JavaScript engine in Rust, based on XS", CI green (25 checks), merged 2026-08-06T14:52Z per your own "shepherd… rebase, retcon, weave, and merge" directive (06:36Z today). [https://github.com/endojs/endo-but-for-bots/pull/600](https://github.com/endojs/endo-but-for-bots/pull/600) . The Rust engine is genuinely wired into the daemon (`endor run -e endor-rs`, real metering). I claimed s48 ~18 min after the merge, so there is nothing left to un-draft or dispatch onto `xs2rust-endor` (branch now deleted). **I did not park an s49 — the single-PR program is done.**
+>
+> **Deferred to your parallel follow-up scope** (you scoped these past the landing on 07-30): full `test:rust` daemon-suite green (a fresh checkout still can't build the daemon — gitignored JS bundles + unpopulated `c/moddable`; manager-bundle generator broken pre-existing), test262 parity closure, and the engine frontier cluster / rows 8–9. Follow-up machinery is already yours and moving: the post-merge retro, `pr-ebfb-600-ironhorse-rename`, and `endor-same-process-worker-benchmark`.
+>
+> **Board cleanup:** I retired 3 doomed plan entries that targeted the merged/deleted branch (`s2-test-rust-green`, `stage10p-fresh-env-sweep`, `watchdog-20260801`) as superseded-by-merge. Their 3 poison notices still sitting in your inbox are now moot — safe to dismiss. Full lifecycle journaled at `entries/2026/08/06/151742Z-progress-gardener-46f7c3.md`.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5718,18 +5728,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.8M | $623.98 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+398.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 35.9M | $624.63 _(notional, rate-card)_ | no quota set |
+| Codex | 16.0M _(+399.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-ascii-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #943
 - [`consolidate-test262-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/consolidate-test262-fixtures.md) — Refactor: consolidate test262 fixtures (@endo/test262-runner + endor-vm cases...
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
 - [`endojs-endo-but-for-bots-pr944-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr944-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #944
+- [`endojs-endo-but-for-bots-pr945-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #945
 - [`port-xs-to-rust-memory-safe-engine-s48`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s48.md) — Supervisor: drive the XS→Rust (Endor) port from design to maintainer-ready, a...
 
 ### tada (4219)
