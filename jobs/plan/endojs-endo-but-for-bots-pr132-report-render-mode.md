@@ -1,3 +1,17 @@
+---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+doomed_at: 2026-08-06T06:33:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-06T06:33:03Z
+---
+
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:44:40Z cleared=none -->
 
 # re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-for-bots #132)
@@ -48,13 +62,3 @@ Alternative the maintainer may prefer: **close #132 and rebuild the feature fres
 against `@endo/space-chat` rather than re-port a 1282-commit-stale branch.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-06T05:44:51Z
