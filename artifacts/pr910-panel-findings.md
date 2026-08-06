@@ -180,7 +180,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:157` (181-185)
 - **Claim:** `compose` clamps `newHi` against `hi` but never clamps `newLo`, so a nested range can produce `lo > hi`. Safety currently rests on all five `readWindow` implementations independently returning empty for an inverted interval; the invariant lives in the callers, not the maker. saboteur confirmed the concrete symptom: `range(MAX,MAX)` → `''`, but `range(MAX,MAX).range(MAX,MAX)` → `EINVAL: "start" 18014398509481982n exceeds Number.MAX_SAFE_INTEGER` on *every* read incl. `getInfo`. (assessor also notes `compose` sums two `MAX_SAFE`-bounded bigints without re-checking the sum, surfacing the overflow later at `toSafeNumber` naming `start`.)
 - **Proposed fix:** clamp at the single construction site: `const newLo = hi === undefined ? lo + start : minBig(lo + start, hi)`. [proposed-rule: enforce an interval invariant where the interval is constructed, not at each consumer.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `compose` now clamps `composedStart` to the receiver's `absoluteEnd` as well as `composedEnd`, at the single construction site, so a nested range whose start lands past the receiver's end yields an empty interval rather than an inverted one (`composedStart > composedEnd`). `range(MAX,MAX).range(MAX,MAX)` and kin no longer surface a late `EINVAL`/overflow at read time (incl. `getInfo`).
 
 ### PLAT-15 — `lineByteSpan` returns `[min,max]`, silently reversing the span if `from > to`
 - **Severity:** should-fix
@@ -188,7 +188,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:128` (148)
 - **Claim:** `lineByteSpan` returns `[min(from,to), max(from,to)]`; if `from > to` were reachable this silently *reverses* the span into a non-empty wrong slice rather than yielding empty. prover: unreachable from the two preceding branches — no test can pin it; prefer deleting the swap over leaving untestable defense.
 - **Proposed fix:** `to <= from ? [from, from] : [from, to]`, **or** delete the swap if provably unreachable (prover's recommendation). One of the two — do not leave the reversing form.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `lineByteSpan` no longer returns `[min(from,to), max(from,to)]`; the rewritten two-boundary scan returns `[from, to]` directly, with a comment showing the branches guarantee `from <= to` (prover's unreachability result). The reversing swap is gone — no silent span reversal and no untestable defensive code left behind. (Same rewrite resolves PLAT-26.)
 
 ### PLAT-16 — attenuated `streamBase64` buffers the whole selection, widening the memory bound of a *narrowed* authority
 - **Severity:** should-fix
@@ -196,7 +196,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:171,192`
 - **Claim:** a derived `streamBase64` awaits the whole window into one `Uint8Array` (`local-blob.js readFileWindow` allocates `new Uint8Array(size - from)`), so `range(0n, 9007199254740991n).streamBase64()` replaces `LocalBlob`'s bounded `fs.createReadStream` with a whole-file allocation. A narrowing of authority should not widen the resource bound. (Couples with PLAT-03 — chunk the window read.)
 - **Proposed fix:** stream/chunk the window read incrementally. [proposed-rule: an attenuated read must not exceed the resource bound of the unattenuated read it derives from.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). A derived `streamBase64` now reads the selection in bounded `BASE64_CHUNK_RAW_BYTES` sub-windows (`streamWindowBase64`) instead of buffering the whole window into one `Uint8Array`, so `range(0n, huge).streamBase64()` streams within a one-chunk memory bound rather than allocating the whole selection — a narrowing of authority no longer widens the resource bound. Each non-final sub-window is a multiple of 3 bytes so concatenated base64 stays byte-exact (relies on the documented `readWindow` full-window-or-EOF contract the single-read path already assumed); verified by the existing >1-chunk round-trip test (BlobRef) and the daemon live-mount conformance suite. `text`/`json`/`getInfo`, which genuinely need the whole selection, still read it in one call. This is the chunked window read PLAT-03's must-fix disposition deferred here.
 
 ### PLAT-17 — bare `JSON.parse` with a known origin yields unlocated errors
 - **Severity:** should-fix
@@ -204,7 +204,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:200`
 - **Claim:** `JSON.parse` here throws `Unexpected end of JSON input` / `Expected ':' after property name … position 4`, neither naming the blob `label` nor the `[lo, hi)` interval — and an empty selection (what a mis-ordered `range` yields) is exactly the case an agent hits most.
 - **Proposed fix:** wrap with a located `@endo/errors` message naming the label and interval.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `json()` on a derived range wraps `JSON.parse` failures in a located `@endo/errors` message naming the source label and the `[start, end)` interval (original parse error as `cause`), so the empty-selection case an agent hits most no longer surfaces a bare `Unexpected end of JSON input`.
 
 ### PLAT-18 — the `RangeSource` typedef lives inline in an implementation file though it is reused cross-package
 - **Severity:** should-fix
@@ -212,7 +212,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:152`
 - **Claim:** `RangeSource` is multi-field and reused across packages (`daemon/src/manager.js` ×2, `daemon/src/mount.js`, `git/src/native-git-backend.js`, + two in-package sites) as the parameter type of an exported function; it belongs in `src/fs/types.d.ts` and `@import`ed so cross-package producers can name it. Not covered by the module-private single-use escape hatch.
 - **Proposed fix:** move to `src/fs/types.d.ts`, `@import` it.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). The `RangeSource` typedef moved from the inline JSDoc in `blob-range.js` to `src/fs/types.ts` (the authored source TS resolves `./types.js` to) and is `@import`ed back; cross-package producers can now name the record type they pass to `makeBlobRangeMethods`. `lint:types` passes across platform, daemon, git, exo-git, agent-tools.
 
 ### PLAT-19 — `assertOffset` bakes one backend's int53/`fs.read` limit into the deliberately source-agnostic portable surface
 - **Severity:** should-fix
@@ -220,7 +220,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:36,61`
 - **Claim:** `assertOffset` rejects any `bigint` above `Number.MAX_SAFE_INTEGER`; `bigint` was chosen for these offsets *precisely because* a blob may exceed int53. The shared attenuator now bakes one backend's `fs.read` limit into the portable surface a Rust/Go/browser producer would also implement.
 - **Proposed fix:** push the safe-number narrowing to each producer's `readWindow` (where `toSafeNumber` already lives).
-- **Disposition:**
+- **Disposition:** **reasoned decline / deferred** (no code change). purist#3's portability point is real, but removing the `> MAX_SAFE_INTEGER` bound from the shared `assertOffset` would move a predictable *eager* `EINVAL` at `range()` call time to a *deferred* per-read failure, and that eager rejection is a relied-upon, tested contract in BOTH platform (`local-blob.test.js`, `blob-range.test.js`) and daemon (`mount.test.js:246`, asserting `range(2n**60n, …)` rejects before reaching the read). The safe-integer bound is also not purely a Node `fs.read` limit: every current producer narrows via `toSafeNumber` anyway, so the shared check is fail-fast defense-in-depth, not a portability wall, and no >int53-capable producer (Rust/Go/browser) yet exists. Relaxing the shared bound belongs with the first such producer as a scoped change carrying its own tests; doing it now is net-negative (worse error locality + cross-package test churn) for a purely speculative benefit.
 
 ### PLAT-20 — the attenuator's `source` record is never hardened and is re-read per derived range, so a producer can swap `readWindow` after handing out an attenuated blob
 - **Severity:** should-fix
@@ -228,7 +228,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:170,224,241,261`
 - **Claim:** `makeBlobRangeMethods` is public API (`fs/index.js:25`), and `makeAttenuatedBlob` re-destructures `source.readWindow` on each `range`/`textRange`. A producer that retains the record it passed can swap `readWindow` *after* handing an attenuated blob to a less-trusted holder; every range that holder subsequently derives then reads outside the interval it was granted.
 - **Proposed fix:** destructure once in `makeBlobRangeMethods` and thread a `harden`ed internal record. [rule: AGENTS.md § Hardened JavaScript.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `makeBlobRangeMethods` now snapshots and `harden`s the `source` record once (`{ readWindow, hashBytes, label }`) and threads that frozen record through `makeAttenuatedBlob` and every derived range, so a producer that retains the record it passed can no longer swap `readWindow`/`hashBytes` out from under an attenuated blob already handed to a less-trusted holder.
 
 ### PLAT-21 — `SnapshotBlobInterface` / `snapshotBlobMethods` get no `range`/`textRange` (family gap)
 - **Severity:** should-fix
@@ -236,7 +236,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/interfaces.js:151`
 - **Claim:** the snapshot blob family gains no `range`/`textRange`, yet `interfaces.js:151` claims family parity. Either extend the family or state the exclusion.
 - **Proposed fix:** add the methods to the snapshot family, or document the deliberate exclusion at `:151`.
-- **Disposition:**
+- **Disposition:** **fixed (documented deliberate exclusion)** (`commit cf29cfd77`). Added a comment at `SnapshotBlobInterface` stating the snapshot family deliberately omits `range`/`textRange`: `SnapshotBlob` is the immutable content-addressed *identity* surface (`sha256`), and a derived range is a generic `RichReadableBlob` with no snapshot identity, so carrying the attenuation there would imply a `sha256`-bearing value a range silently strips. A holder needing a windowed read loads the bytes (CAS / rich blob) and ranges there.
 
 ### PLAT-22 — `BASE64_CHUNK_RAW_BYTES` and `base64Chunks` are duplicated verbatim across two modules in this PR
 - **Severity:** should-fix
@@ -244,7 +244,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:38,96` and `packages/platform/src/fs/extended/shared/blob-ref.js:24,26,31`
 - **Claim:** a chunking constant + its consumer are copied verbatim into a second module in the same PR; two copies drift.
 - **Proposed fix:** export one. [proposed-rule: a chunking constant shared by two producers lives in one module.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `BASE64_CHUNK_RAW_BYTES` and the buffer-chunker are exported once from `blob-range.js` (`encodeBase64Chunks`); `extended/shared/blob-ref.js` imports both and its verbatim copies are deleted. The maker's own derived `streamBase64` uses the incremental `streamWindowBase64` (PLAT-16), so the two paths no longer duplicate a chunking constant that could drift. (The unrelated `BASE64_CHUNK_RAW_BYTES` in `src/blob.js` is a separate pre-existing module outside this finding's two named sites.)
 
 ### PLAT-23 — `selected` names an asynchronous I/O thunk with a past participle
 - **Severity:** should-fix
@@ -252,7 +252,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:171`
 - **Claim:** `const selected = () => readWindow(lo, hi)` names an async I/O thunk with a past participle; every call site reads `await selected()`. A niladic function that performs I/O is named with a verb.
 - **Proposed fix:** rename `readSelectedBytes`.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `selected` renamed to `readSelectedBytes` (a verb for the niladic I/O thunk); all call sites (`text`/`json`/`getInfo`/`textRange`) updated.
 
 ### PLAT-24 — `drainBytesReader` no longer takes a reader
 - **Severity:** should-fix
@@ -260,7 +260,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/extended/cas.js:144,149` (call site `:198`)
 - **Claim:** `drainBytesReader(readerRef, …)` no longer takes a reader — the new JSDoc says "a remotable exposing `streamBase64`" and the sole call site passes `blobRef`.
 - **Proposed fix:** rename `drainBlobBytes(blobRef, …)`.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `cas.js`'s `drainBytesReader(readerRef, …)` renamed to `drainBlobBytes(blobRef, …)` (it takes a `streamBase64`-bearing blob, not a reader); JSDoc, param, call site, and the `cached-fs.js` cross-reference comment updated. (The other `drainBytesReader` functions in `from-mount-backend.js` / `tree-view.js` / exo-http-client tests are unrelated and untouched.)
 
 ### PLAT-25 — `getInfo` on a range is an O(n) read plus a digest per call
 - **Severity:** should-fix (perf)
@@ -268,7 +268,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:205`
 - **Claim:** `getInfo` on a range performs an O(n) read plus a digest on every call, where every parent's `getInfo` recomputes; unmemoized.
 - **Proposed fix:** memoize the digest for immutable producers, or post a measurement / decline.
-- **Disposition:**
+- **Disposition:** **reasoned decline / documented cost** (`commit cf29cfd77`). Consistent with PLAT-05: the shared `makeBlobRangeMethods` is source-agnostic and cannot memoize `getInfo`'s O(n) read+digest without breaking live sources (on a live face the bytes, and thus the content address, can change between calls). The per-call cost is now documented at `getInfo`; per-immutable-producer memoization (where immutability makes it sound — `BlobRef` already memoizes its *own* whole-blob `getInfo`) is a scoped follow-up, not a shared-path change.
 
 ### PLAT-26 — `lineByteSpan` materializes every LF offset when two boundaries suffice
 - **Severity:** should-fix (perf)
@@ -276,7 +276,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:128`
 - **Claim:** `lineByteSpan` materializes every LF offset in the selection when only the two bounding LF offsets are needed.
 - **Proposed fix:** scan for only the two needed boundaries, or record it as an acceptable cost with a measurement.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). `lineByteSpan` was rewritten to scan once for only the two bounding LF offsets (the LF ending line `startLine-1` and the LF ending line `endLine-1`), with early exit once both are found, instead of materializing every LF offset in the selection. Same rewrite as PLAT-15.
 
 ### PLAT-27 — the `textRange` equivalence claim has no backing test (the method it was equivalent to is deleted)
 - **Severity:** should-fix
@@ -284,7 +284,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/blob-range.js:110-116`
 - **Claim:** the module claims `textRange(a,b).text()` equals `text.split('\n').slice(a,b).join('\n')` and "never disagrees" with the retired `rangeReadText`, and the PR body repeats it; `rangeReadText` is deleted, so nothing pins the drift. prover verified the claim holds (296 `(a,b)` pairs over a 14-string corpus incl. empty, bare-LF, CRLF, unterminated-final-line: 0 mismatches).
 - **Proposed fix:** add prover's corpus loop verbatim as the backing test. [rule: skills/regression-evidence § Equivalence claims need a backing test.]
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). Added prover's equivalence corpus test to `blob-range.test.js`: an exhaustive `(a,b)` sweep (0..8 x 0..8, skipping inverted) over a 14-string corpus (empty, bare LF, blank interior line, CRLF, unterminated final line, …) asserting `textRange(a,b).text()` equals `text.split('\n').slice(a,b).join('\n')`. Pins the equivalence the deleted `rangeReadText` no longer anchors.
 
 ### PLAT-28 — duplicate / subsumed tests in `local-blob.test.js`
 - **Severity:** should-fix
@@ -292,7 +292,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/test/local-blob.test.js:67,126` (byte-identical); `:56` subsumed by `:115`
 - **Claim:** `:67` and `:126` are byte-identical (same three `range()` EINVAL assertions); `:56` is strictly subsumed by `:115`. Pre-migration each pinned a distinct method (`fetch` vs `rangeRead`); post-migration one of each pair exerts zero regression pressure.
 - **Proposed fix:** delete the duplicates.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). Deleted the byte-identical duplicate EINVAL test (`local-blob.test.js` '…EINVAL (reads)') and the subsumed 'attenuates to a clamped byte interval' test (its assertions are a strict subset of 'reads a clamped byte interval').
 
 ### PLAT-29 — a test assertion pins the test helper, not production
 - **Severity:** should-fix
@@ -300,7 +300,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/test/local-blob.test.js:118`
 - **Claim:** `t.true(whole instanceof Uint8Array)` where `whole = await collectBytes(...)`, and `collectBytes` itself constructs `new Uint8Array(total)` (`:30`) — the assertion pins the helper, passing whatever `range` returns.
 - **Proposed fix:** assert against production output directly.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). Removed the vacuous `t.true(whole instanceof Uint8Array)` (the helper `collectBytes` always builds a `Uint8Array`, so it pinned the helper, not production); the retained content assertion `t.is(fromUtf8(whole), 'hello world\n')` asserts the range's actual read output.
 
 ### PLAT-30 — stale in-tree comments naming the retired `fetch`
 - **Severity:** should-fix
@@ -308,7 +308,7 @@ length)_`). Downstream children (`platform` / `daemon` / `git-and-docs`) work fr
 - **File:** `packages/platform/src/fs/interfaces.js:80`; `packages/platform/src/fs/extended/shared/helpers.js:17`; `packages/platform/src/fs/extended/cas.js:10` — **xref daemon** `packages/daemon/src/bus-manager-rust-xs-powers.js:157`
 - **Claim:** `interfaces.js:80` — "(live blobs add `fetch` for windowed reads)"; `helpers.js:17` — "Used by `shared/blob-ref.js` for `BlobRef.fetch`" (and `blob-ref.js` no longer imports it, so the file-header claim at `:6` that every export is actively used is now wrong); `cas.js:10` — "skip `BlobRef.fetch()`"; daemon `bus-manager-rust-xs-powers.js:157` — "Mirrors the `BlobRef.fetch` clamp".
 - **Proposed fix:** update each comment to the `range`/`textRange` surface.
-- **Disposition:**
+- **Disposition:** **fixed** (`commit cf29cfd77`). Updated the stale `fetch`-naming comments in the platform slice: `interfaces.js:80` ('live blobs add `fetch`' -> 'rich blobs add `range`/`textRange`'), `helpers.js:17` (`makeBytesReaderFromBytes` doc — the export is NOT dead: it is used by `cached-fs.js` to serve a cached slice through the reader surface, so the attribution is corrected and the file-header 'every export is actively used' claim holds), and `cas.js:10` ('skip `BlobRef.fetch()`' -> 'skip re-streaming the blob's bytes'). The daemon `bus-manager-rust-xs-powers.js:157` mirror is xref-daemon (sibling slice).
 
 ## comment-only
 
