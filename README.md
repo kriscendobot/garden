@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:32:09Z_
+_As of 2026-08-06T15:41:16Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 14h)
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 18h)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 19h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
@@ -5743,24 +5743,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.7M | $624.34 _(notional, rate-card)_ | no quota set |
-| Codex | 16.3M _(+405.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
+| Codex | 16.6M _(+416.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
-- [`endojs-endo-but-for-bots-pr945-review-6692252d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-review-6692252d.md) — Review directive on endojs/endo-but-for-bots PR #945
 - [`endojs-endo-but-for-bots-pr945-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr945-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #945
 
-### tada (4225)
+### tada (4226)
+- [`endojs-endo-but-for-bots-pr945-review-6692252d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr945-review-6692252d.md) — Cost
 - [`endojs-endo-but-for-bots-pr936-review-66e037e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-review-66e037e2.md) — Cost
 - [`consolidate-test262-fixtures`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/consolidate-test262-fixtures.md) — Job: consolidate-test262-fixtures — completion report
 - [`build-endo-ascii-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-ascii-gauntlet.md) — gauntlet build-endo-ascii-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr944-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr944-conduct.md) — Completion report
-- [`build-endo-ascii-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-endo-ascii-gauntlet-clean.md) — Cost
-- … and 4220 more
+- … and 4221 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
