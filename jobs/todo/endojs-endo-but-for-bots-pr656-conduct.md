@@ -1,12 +1,4 @@
----
-gate: go-ahead
-priority: normal
-posted_by: endojs-endo-but-for-bots-pr656-shepherd
-posted_at: 2026-07-29T00:35:06Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:44:59Z cleared=none -->
 
 # conduct endojs/endo-but-for-bots PR #656
 
