@@ -94,3 +94,13 @@ answer: build it as a follow-up package, blocked on #836.
 `@endo/ascii` exists with the 7-bit-asserted encoder, `packages/sha256`'s XS
 spot check consumes it (local helper gone), everything is locally verified, and
 the PR is ready for the gauntlet.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T14:41:09Z
