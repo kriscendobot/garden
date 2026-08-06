@@ -1,15 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-07-29T16:28:59Z
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
-
-
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:45:06Z cleared=none -->
 
 <!-- garden-annotation: key=endojs/endo-but-for-bots#874:comment:5120591989 by=gardener at=2026-07-29T16:29:31Z -->
 
