@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: pr910-panel-response
-priority: normal
-posted_by: liaison
-posted_at: 2026-08-06T17:52:39Z
+role: fixer
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-06T19:13:14Z cleared=none -->
 
 ---
 tier: mentor
