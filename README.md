@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T05:50:08Z_
+_As of 2026-08-06T05:50:36Z_
 
 ## Latest
 
@@ -5165,12 +5165,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.7M | $578.72 _(notional, rate-card)_ | no quota set |
-| Codex | 15.6M _(+335.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 33.7M | $580.06 _(notional, rate-card)_ | no quota set |
+| Codex | 15.6M _(+336.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr892-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr892-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #892
+### todo (1)
 - [`endojs-endo-but-for-bots-pr909-5e6ae075`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr909-5e6ae075.md) — attention directive on endojs/endo-but-for-bots PR #909
 
 ### doin (16)
@@ -5181,8 +5180,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-reminder-integrate-chat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-chat.md) — Plan: integrate @endo/reminder into Chat
 - [`endo-reminder-integrate-familiar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-familiar.md) — Plan: integrate @endo/reminder into Familiar
 - [`endo-reminder-integrate-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-minion-town.md) — Plan: integrate @endo/reminder into minion.town
-- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-report-render-mode.md) — re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
+- [`endojs-endo-but-for-bots-pr892-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr892-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #892
 - [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sha256-consistency-followups.md) — Consistency follow-ups deferred by the @endo/sha256 build
 - [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T0...
 - [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-debugger-cdp-devtools-investigation.md) — Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
@@ -5191,13 +5190,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-debugger-caught-vs-uncaught.md) — Investigate a caught/uncaught distinction for the Endor debugger protocol
 
-### tada (4169)
+### tada (4170)
+- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-conduct.md) — conduct endojs/endo-but-for-bots#656 — STALLED: merge blocked: no maintainer ...
 - [`finbot-pr5-panel-20260730`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr5-panel-20260730.md) — Cost
 - [`endojs-endo-but-for-bots-pr874-live-google-sheets-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr874-live-google-sheets-integration.md) — Cost
 - [`finbot-pr4-panel-rerun-20260725`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/finbot-pr4-panel-rerun-20260725.md) — Cost
-- [`endojs-endo-but-for-bots-pr895-880f6cf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr895-880f6cf9.md) — Cost
-- … and 4164 more
+- … and 4165 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
