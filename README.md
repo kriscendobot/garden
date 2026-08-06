@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T16:04:31Z_
+_As of 2026-08-06T16:05:23Z_
 
 ## Latest
 
@@ -5743,13 +5743,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.7M | $624.34 _(notional, rate-card)_ | no quota set |
-| Codex | 16.8M _(+421.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Codex | 16.8M _(+422.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`dependabotany-recheck-endo-but-for-bots-20260806-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260806-160502.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #943
 - [`endojs-endo-but-for-bots-pr943-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #943
 - [`endojs-endo-but-for-bots-pr946-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #946
