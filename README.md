@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T05:58:01Z_
+_As of 2026-08-06T05:58:32Z_
 
 ## Latest
 
@@ -3050,6 +3050,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > — `endojs-endo-but-for-bots-pr656-conduct`
 
+- `20260806T055814Z-aabdfa` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T055814Z-aabdfa.md)
+
+> [endojs/endo-but-for-bots#656](https://github.com/endojs/endo-but-for-bots/issues/656) ([https://github.com/endojs/endo-but-for-bots/pull/656](https://github.com/endojs/endo-but-for-bots/pull/656)) — report `endojs-endo-but-for-bots-pr656-conduct` — is blocked solely on a human re-approval: kriskowal needs to re-approve head `d74caef78c`. Every other merge gate is already satisfied, and once the approval lands, re-posting the `endojs-endo-but-for-bots-pr656-conduct` job should merge it unattended. It is the last of the three originally stranded PRs still open (#671 merged 2026-07-29, #691 merged 2026-07-30).
+
 - `doomed-endojs-endo-but-for-bots-pr923-dependabot-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr923-dependabot-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5165,14 +5169,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 33.8M | $584.40 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+345.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
+| Claude | 33.8M | $585.02 _(notional, rate-card)_ | no quota set |
+| Codex | 16.1M _(+346.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - [`ebfb-124-resume-rebase-review-fixups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-124-resume-rebase-review-fixups.md) — Triage note appended 2026-07-29 (job endojs-endo-but-for-bots-pr124-feedback-...
 - [`endo-reminder-integrate-familiar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-reminder-integrate-familiar.md) — Plan: integrate @endo/reminder into Familiar
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-report-render-mode.md) — re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
@@ -5182,18 +5186,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-xs-bundle-llm-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-xs-bundle-llm-reconcile.md) — <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-08-06T0...
 - [`endor-debugger-cdp-devtools-investigation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-debugger-cdp-devtools-investigation.md) — Investigate speaking V8's debugger protocol so Chrome DevTools and VSCode can...
 - [`garden-style-url-not-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-style-url-not-path.md) — ---
-- [`improve-approval-reconciler-post-confirmation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-post-confirmation.md) — ---
 - [`minion-town-pr21-a96e97d-design-land`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr21-a96e97d-design-land.md) — ---
 - [`pr-ebfb-877-bundle-endo-base64`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-ebfb-877-bundle-endo-base64.md) — ---
 - [`xs2rust-endor-debugger-caught-vs-uncaught`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-debugger-caught-vs-uncaught.md) — Investigate a caught/uncaught distinction for the Endor debugger protocol
 
-### tada (4177)
+### tada (4178)
+- [`improve-approval-reconciler-post-confirmation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-approval-reconciler-post-confirmation.md) — Cost
 - [`ebfb-124-sqlite-iterate-streaming`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-iterate-streaming.md) — Cost
 - [`endojs-endo-but-for-bots-sha256-consistency-followups`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-sha256-consistency-followups.md) — Cost
 - [`endo-reminder-integrate-chat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-reminder-integrate-chat.md) — Completion report
 - [`ebfb-124-sqlite-shutdown-checkpoint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-shutdown-checkpoint.md) — Completion report
-- [`ebfb-124-sqlite-pragma-simple`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-124-sqlite-pragma-simple.md) — Cost
-- … and 4172 more
+- … and 4173 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
