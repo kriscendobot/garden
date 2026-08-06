@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-06T05:46:12Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endor-debugger-cdp-devtools-investigation
