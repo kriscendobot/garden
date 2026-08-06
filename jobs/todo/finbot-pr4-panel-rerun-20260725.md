@@ -1,9 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-posted_by: liaison
-posted_at: 2026-08-01T10:00:47Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-06T05:46:04Z cleared=none -->
+
 # HELD — stale, do not run as written
 
 OBSOLETE: kriscendobot/finbot#4 is **already MERGED** (head b70fb80c). This job targets head 63df8109 and describes a *prior panel requested changes* state that was resolved by the 07-29 panel PASS (28 seats) + orchestrator sign-off at b70fb80. A panel re-run on a merged PR is pure waste of a mentor slot.
