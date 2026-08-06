@@ -84,3 +84,13 @@ request and do not modify engine code in this job.
 
 Ground every claim in code you actually read. If you cannot establish something,
 say so and leave it open rather than guessing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-06T05:49:38Z

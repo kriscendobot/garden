@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 2
+worker_kind: gardener
+claimed_at: 2026-08-06T05:49:38Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-xs2rust-endor-debugger-caught-vs-uncaught
