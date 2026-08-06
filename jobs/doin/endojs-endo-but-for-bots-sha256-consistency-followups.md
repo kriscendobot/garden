@@ -29,3 +29,13 @@ explicitly deferred two items; neither is on the bundle's critical path.
 
 Worth doing only if profiling on `designs/daemon-rust-xs-performance.md`'s hot
 path asks for item 2, or as tidy-up alongside the git-injectability work.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-06T05:45:28Z
