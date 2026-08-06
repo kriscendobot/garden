@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T15:10:41Z_
+_As of 2026-08-06T15:11:32Z_
 
 ## Latest
 
@@ -5688,8 +5688,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.7M | $619.49 _(notional, rate-card)_ | no quota set |
-| Codex | 15.9M _(+397.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Claude | 35.7M | $620.86 _(notional, rate-card)_ | no quota set |
+| Codex | 15.9M _(+397.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -5762,15 +5762,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`pi-release-watch-20260730-190501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pi-release-watch-20260730-190501.md) — _normal_ · ---
-- [`pr-ebfb-600-ironhorse-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr-ebfb-600-ironhorse-rename.md) — _normal_ · ---
 - [`proposal-compartments-press-20260731-192002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-press-20260731-192002.md) — _normal_ · Press the fresh Compartments proposal forward (daily) — spec, tests, explaine...
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
-- [`xs2rust-endor-s2-test-rust-green`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-s2-test-rust-green.md) — _normal_ · xs2rust-endor bin 2/3 — drive the test:rust daemon tests to green
-- [`xs2rust-endor-stage10p-fresh-env-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-stage10p-fresh-env-sweep.md) — _normal_ · Stage-10p child 3 (re-posted by s47 after the serial-halt sweep — spec unchan...
 - [`xs2rust-endor-watchdog-20260801-010501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/xs2rust-endor-watchdog-20260801-010501.md) — _normal_ · xs2rust-endor watchdog — is the finish-line chain still moving?
 
 ### deferred (top by priority; foreman auto-promotes when idle)
