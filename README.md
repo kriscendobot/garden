@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T05:49:26Z_
+_As of 2026-08-07T05:51:16Z_
 
 ## Latest
 
@@ -5839,14 +5839,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $739.06 _(notional, rate-card)_ | no quota set |
-| Codex | 9.0M _(+282.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Claude | 44.3M | $745.10 _(notional, rate-card)_ | no quota set |
+| Codex | 9.1M _(+282.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-panel-budget.md) — ---
 - [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-06-repanel.md) — PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
 
 ### tada (4254)
