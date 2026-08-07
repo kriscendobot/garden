@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:37:43Z_
+_As of 2026-08-07T03:40:30Z_
 
 ## Latest
 
@@ -5838,8 +5838,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-02-daemon-cas.md) — PR #910 fix round 2 — child 02: daemon mount/CAS hardening
 
 ### tada (4247)
 - [`pr910-mustfix-round2-01-platform-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-01-platform-range.md) — Completion report
