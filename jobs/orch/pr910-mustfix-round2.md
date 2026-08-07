@@ -2,7 +2,7 @@
 order: serial
 children: pr910-mustfix-round2-01-platform-range pr910-mustfix-round2-02-daemon-cas pr910-mustfix-round2-03-producer-copy pr910-mustfix-round2-04-types-help pr910-mustfix-round2-05-hygiene pr910-mustfix-round2-06-repanel
 on-child-failure: halt
-state: pending
+state: running
 created_by: planner
 created_at: 2026-08-07T03:10:58Z
 ---
