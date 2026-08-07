@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:40:30Z_
+_As of 2026-08-07T03:41:49Z_
 
 ## Latest
 
@@ -5779,14 +5779,14 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #14 (first seen 2026-07-29T06:56:25Z, latest 2026-08-06T14:54:19Z).
-> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 14 times; this is ONE
-> coalesced notice that updates in place, not 14 messages. Latest detail:
+> WATCHDOG notice — occurrence #16 (first seen 2026-07-29T06:56:25Z, latest 2026-08-07T03:41:32Z).
+> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 16 times; this is ONE
+> coalesced notice that updates in place, not 16 messages. Latest detail:
 >
-> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#760](https://github.com/endojs/endo-but-for-bots/issues/760) (cid=5206387190) and failed open.
+> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#851](https://github.com/endojs/endo-but-for-bots/issues/851) (cid=5212022426) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5206387190 on [endojs/endo-but-for-bots#760](https://github.com/endojs/endo-but-for-bots/issues/760) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5212022426 on [endojs/endo-but-for-bots#851](https://github.com/endojs/endo-but-for-bots/issues/851) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
@@ -5831,14 +5831,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.7M | $695.17 _(notional, rate-card)_ | no quota set |
+| Claude | 40.7M | $695.73 _(notional, rate-card)_ | no quota set |
 | Codex | 8.7M _(+259.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr851-f1568461`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr851-f1568461.md) — attention directive on endojs/endo-but-for-bots PR #851
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-02-daemon-cas.md) — PR #910 fix round 2 — child 02: daemon mount/CAS hardening
 
 ### tada (4247)
