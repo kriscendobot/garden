@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":45,"elapsed_s":632,"input_tokens":82,"output_tokens":39522,"cache_creation_tokens":95771,"cache_read_tokens":3319420,"total_cost_usd":3.609057,"ts":"2026-08-07T05:06:10Z","base":"pr910-mustfix-round2-05-hygiene","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}

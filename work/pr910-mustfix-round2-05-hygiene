@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-07T04:55:09Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-pr910-mustfix-round2-05-hygiene
