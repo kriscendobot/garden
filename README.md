@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:43:20Z_
+_As of 2026-08-07T03:43:58Z_
 
 ## Latest
 
@@ -5831,14 +5831,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.8M | $696.26 _(notional, rate-card)_ | no quota set |
+| Claude | 40.8M | $696.58 _(notional, rate-card)_ | no quota set |
 | Codex | 8.7M _(+259.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr851-a4ffe447`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr851-a4ffe447.md) — attention directive on endojs/endo-but-for-bots PR #851
 - [`endojs-endo-but-for-bots-pr851-f1568461`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr851-f1568461.md) — attention directive on endojs/endo-but-for-bots PR #851
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-02-daemon-cas.md) — PR #910 fix round 2 — child 02: daemon mount/CAS hardening
 
