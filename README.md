@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T05:07:29Z_
+_As of 2026-08-07T05:48:07Z_
 
 ## Latest
 
@@ -15,13 +15,13 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 7h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 8h)
 - [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 7h)
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 7h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 18d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 19d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20d)
 
@@ -5769,6 +5769,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'pr-ebfb-600-ironhorse-rename' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-pr910-mustfix-round2-06-repanel` — from watchdog:cleric/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-pr910-mustfix-round2-06-repanel.md)
+
+> gardener job 'pr910-mustfix-round2-06-repanel' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64` — from watchdog:mentor-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64.md)
 
 > WATCHDOG notice — occurrence #55 (first seen 2026-07-28T22:56:20Z, latest 2026-08-01T02:50:13Z).
@@ -5831,8 +5835,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.7M | $695.17 _(notional, rate-card)_ | no quota set |
-| Codex | 8.8M _(+259.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
+| Claude | 43.5M | $738.70 _(notional, rate-card)_ | no quota set |
+| Codex | 9.0M _(+282.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
