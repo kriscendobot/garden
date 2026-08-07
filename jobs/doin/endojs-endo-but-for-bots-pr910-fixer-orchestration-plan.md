@@ -122,3 +122,13 @@ parked children exist on the board (`jobs/plan/` + `jobs/orchestration/`), and
 your report names the orchestration base and lists the child bases.
 
 <!-- garden-job: posted by endojs-endo-but-for-bots-pr910-review-e5f8d5f3 per kriskowal review 4879564977 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-07T03:06:31Z
