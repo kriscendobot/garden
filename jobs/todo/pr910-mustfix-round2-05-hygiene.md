@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: pr910-mustfix-round2
-priority: normal
 role: fixer
-posted_by: producer
-posted_at: 2026-08-07T03:10:43Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-07T04:55:03Z cleared=none -->
 
 ---
 tier: mentor
