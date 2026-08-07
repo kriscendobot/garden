@@ -51,3 +51,13 @@ PLAT-05, PLAT-25 (shared-maker memoization would freeze live sources; immutable-
 - Push commits to the PR head branch (no force-push).
 - Post the required top-level PR summary comment after the push ([skills/pr-completion-summary-comment](skills/pr-completion-summary-comment/SKILL.md)) and reply on the threads your commits address.
 - Do NOT un-draft, merge, or re-run the panel — later children of this orchestration own those.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-07T04:07:08Z
