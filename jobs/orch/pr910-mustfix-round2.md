@@ -1,4 +1,5 @@
 ---
+child-pr910-mustfix-round2-06-repanel-host: endolin-garden2-5bcdff64
 child-pr910-mustfix-round2-06-repanel-reap-count: 0
 child-pr910-mustfix-round2-05-hygiene-host: endolin-garden2-5bcdff64
 child-pr910-mustfix-round2-05-hygiene-reap-count: 0
