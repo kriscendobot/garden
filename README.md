@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-06T22:16:35Z_
+_As of 2026-08-07T00:02:27Z_
 
 ## Latest
 
@@ -14,12 +14,12 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 16m)
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 44m)
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 17m)
+- [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 2h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 2h)
+- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 2h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8d)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 18d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20d)
@@ -5831,23 +5831,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.5M | $650.77 _(notional, rate-card)_ | no quota set |
-| Codex | 12.7M _(+288.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Claude | 40.7M | $695.17 _(notional, rate-card)_ | no quota set |
+| Codex | 9.6M _(+267.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`pr910-panel-response-10-verify-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-panel-response-10-verify-repanel.md) — PR #910 panel response — child 10/10: verify the response, then re-panel
+### doin (0)
+(none)
 
-### tada (4243)
+### tada (4244)
+- [`pr910-panel-response-10-verify-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-10-verify-repanel.md) — Cost
 - [`pr910-panel-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response.md) — orchestration pr910-panel-response — HALTED
 - [`pr910-panel-response-09-comment-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-09-comment-only.md) — Cost
 - [`pr910-panel-response-08-shouldfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-08-shouldfix-git-docs.md) — Completion report — PR #910 panel response, child 08/10: should-fix, git-and-...
 - [`pr910-panel-response-07-shouldfix-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-07-shouldfix-daemon.md) — Job complete: PR #910 panel response — child 07/10 (should-fix, daemon slice)
-- [`pr910-panel-response-06-shouldfix-platform`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-06-shouldfix-platform.md) — Completion report — PR #910 child 06/10: should-fix findings in the platform ...
-- … and 4238 more
+- … and 4239 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
