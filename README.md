@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T04:07:38Z_
+_As of 2026-08-07T04:31:25Z_
 
 ## Latest
 
@@ -20,7 +20,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 18d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20d)
@@ -5832,22 +5832,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 40.7M | $695.17 _(notional, rate-card)_ | no quota set |
-| Codex | 8.7M _(+259.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Codex | 8.8M _(+259.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 50% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`pr910-mustfix-round2-03-producer-copy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-03-producer-copy.md) — PR #910 fix round 2 — child 03: Git/XS producer amplification and window-byte...
+- [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-04-types-help.md) — PR #910 fix round 2 — child 04: contracts, generated types, and help/prose
 
-### tada (4250)
+### tada (4251)
+- [`pr910-mustfix-round2-03-producer-copy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-03-producer-copy.md) — Cost
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-02-daemon-cas.md) — Completion report
 - [`endojs-endo-but-for-bots-pr851-a4ffe447`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-a4ffe447.md) — Cost
 - [`endojs-endo-but-for-bots-pr851-f1568461`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-f1568461.md) — Cost
 - [`pr910-mustfix-round2-01-platform-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-01-platform-range.md) — Completion report
-- [`endojs-endo-but-for-bots-pr910-fixer-orchestration-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-fixer-orchestration-plan.md) — Cost
-- … and 4245 more
+- … and 4246 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
