@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:07:46Z_
+_As of 2026-08-07T03:11:55Z_
 
 ## Latest
 
@@ -5831,23 +5831,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.7M | $695.78 _(notional, rate-card)_ | no quota set |
+| Claude | 40.7M | $695.17 _(notional, rate-card)_ | no quota set |
 | Codex | 8.7M _(+259.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr910-fixer-orchestration-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-fixer-orchestration-plan.md) — Plan a fixer orchestration for PR #910's remaining panel blockers
+### doin (0)
+(none)
 
-### tada (4245)
+### tada (4246)
+- [`endojs-endo-but-for-bots-pr910-fixer-orchestration-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-fixer-orchestration-plan.md) — Cost
 - [`endojs-endo-but-for-bots-pr910-review-e5f8d5f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-review-e5f8d5f3.md) — Completion report
 - [`pr910-panel-response-10-verify-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-10-verify-repanel.md) — Cost
 - [`pr910-panel-response`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response.md) — orchestration pr910-panel-response — HALTED
 - [`pr910-panel-response-09-comment-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-09-comment-only.md) — Cost
-- [`pr910-panel-response-08-shouldfix-git-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-08-shouldfix-git-docs.md) — Completion report — PR #910 panel response, child 08/10: should-fix, git-and-...
-- … and 4240 more
+- … and 4241 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
