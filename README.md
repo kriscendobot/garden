@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T04:31:25Z_
+_As of 2026-08-07T04:52:24Z_
 
 ## Latest
 
@@ -15,8 +15,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo#3158](https://github.com/endojs/endo/pull/3158) — feat(parser-pipeline): create @endo/parser-pipeline (waiting 6h)
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
 - [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 6h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 7h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 8d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 8d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9d)
@@ -5838,16 +5838,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-04-types-help.md) — PR #910 fix round 2 — child 04: contracts, generated types, and help/prose
+### doin (0)
+(none)
 
-### tada (4251)
+### tada (4252)
+- [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-04-types-help.md) — Completion report
 - [`pr910-mustfix-round2-03-producer-copy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-03-producer-copy.md) — Cost
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-02-daemon-cas.md) — Completion report
 - [`endojs-endo-but-for-bots-pr851-a4ffe447`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-a4ffe447.md) — Cost
 - [`endojs-endo-but-for-bots-pr851-f1568461`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-f1568461.md) — Cost
-- [`pr910-mustfix-round2-01-platform-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-01-platform-range.md) — Completion report
-- … and 4246 more
+- … and 4247 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
