@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:03:50Z_
+_As of 2026-08-07T03:06:54Z_
 
 ## Latest
 
@@ -5831,14 +5831,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.7M | $695.17 _(notional, rate-card)_ | no quota set |
+| Claude | 40.8M | $696.27 _(notional, rate-card)_ | no quota set |
 | Codex | 8.7M _(+259.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr910-fixer-orchestration-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-fixer-orchestration-plan.md) — Plan a fixer orchestration for PR #910's remaining panel blockers
 - [`endojs-endo-but-for-bots-pr910-review-e5f8d5f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-review-e5f8d5f3.md) — Review directive on endojs/endo-but-for-bots PR #910
 
 ### tada (4244)
