@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:44:37Z_
+_As of 2026-08-07T03:45:12Z_
 
 ## Latest
 
@@ -5831,24 +5831,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.8M | $696.77 _(notional, rate-card)_ | no quota set |
+| Claude | 40.8M | $696.98 _(notional, rate-card)_ | no quota set |
 | Codex | 8.7M _(+259.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr851-a4ffe447`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr851-a4ffe447.md) — attention directive on endojs/endo-but-for-bots PR #851
+### doin (1)
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-02-daemon-cas.md) — PR #910 fix round 2 — child 02: daemon mount/CAS hardening
 
-### tada (4248)
+### tada (4249)
+- [`endojs-endo-but-for-bots-pr851-a4ffe447`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-a4ffe447.md) — Cost
 - [`endojs-endo-but-for-bots-pr851-f1568461`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-f1568461.md) — Cost
 - [`pr910-mustfix-round2-01-platform-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-01-platform-range.md) — Completion report
 - [`endojs-endo-but-for-bots-pr910-fixer-orchestration-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-fixer-orchestration-plan.md) — Cost
 - [`endojs-endo-but-for-bots-pr910-review-e5f8d5f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-review-e5f8d5f3.md) — Completion report
-- [`pr910-panel-response-10-verify-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-panel-response-10-verify-repanel.md) — Cost
-- … and 4243 more
+- … and 4244 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
