@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T05:48:07Z_
+_As of 2026-08-07T05:49:26Z_
 
 ## Latest
 
@@ -3303,6 +3303,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration pr910-panel-response HALTED: child pr910-panel-response-10-verify-repanel stalled after 1 requeues on host endolin-garden-ece02cb4 (requeue count rose from 0) (serial, on-child-failure=halt). 9/10 done before halt; swept: none
 
+- `20260807T054907Z-1fc7ef` — from orchestrator:pr910-mustfix-round2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260807T054907Z-1fc7ef.md)
+
+> Orchestration pr910-mustfix-round2 HALTED: child pr910-mustfix-round2-06-repanel stalled in flight for 2512s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 5/6 done before halt; swept: none
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5835,7 +5839,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $738.70 _(notional, rate-card)_ | no quota set |
+| Claude | 43.5M | $739.06 _(notional, rate-card)_ | no quota set |
 | Codex | 9.0M _(+282.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
@@ -5845,13 +5849,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-06-repanel.md) — PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
 
-### tada (4253)
+### tada (4254)
+- [`pr910-mustfix-round2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2.md) — orchestration pr910-mustfix-round2 — HALTED
 - [`pr910-mustfix-round2-05-hygiene`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-05-hygiene.md) — Completion report
 - [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-04-types-help.md) — Completion report
 - [`pr910-mustfix-round2-03-producer-copy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-03-producer-copy.md) — Cost
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-02-daemon-cas.md) — Completion report
-- [`endojs-endo-but-for-bots-pr851-a4ffe447`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr851-a4ffe447.md) — Cost
-- … and 4248 more
+- … and 4249 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
