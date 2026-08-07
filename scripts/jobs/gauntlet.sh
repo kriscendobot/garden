@@ -72,9 +72,21 @@ DIR="${GARDEN_GAUNTLET_CLONE:-$GARDEN_STATE/gauntlet/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
-# The CI-blocking stages (clean/fix) need a CI-sized handler budget; the panel/undraft
-# stages fit the default. Kept under GARDEN_CLAIM_TTL so the reaper invariant holds.
+# The CI-blocking stages (clean/fix) need a CI-sized handler budget; only the short
+# undraft stage fits the plain default. Kept under GARDEN_CLAIM_TTL so the reaper
+# invariant holds.
 : "${GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT:=$GARDEN_SHEPHERD_HANDLER_TIMEOUT}"
+# The panel stage is a SCRIPTED juror fan-out + aggregation, not a CI wait, but one
+# round routinely runs LONGER than the plain GARDEN_HANDLER_TIMEOUT (2400s / 40min):
+# the re-panel deadline overrun showed a single round exceeding it and being doomed
+# after ONE deterministic wall hit (rc=124), so the panel base burned its requeue
+# budget on a wall it was always going to hit rather than on genuine failure. Budget
+# that known long-running stage its OWN CI-sized default (a dedicated knob so it tunes
+# independently of the clean/fix CI budget) — comfortably under the same claim-TTL
+# ceiling as GARDEN_SHEPHERD_HANDLER_TIMEOUT (GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER
+# − 1 ≈ 14339s at the shipped defaults), so the gardener honors it verbatim rather than
+# clamping and escalating.
+: "${GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT:=7200}"
 # CI-wait deadline for the clean/fix stages — comfortably UNDER the stage handler
 # budget so ci-wait-merge returns rc=4 (still-pending) and the stage re-posts CLEANLY
 # rather than the handler being killed mid-wait (which the reaper dooms after one
@@ -211,9 +223,13 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
   pr="$(gauntlet_pr "$rec")"; repo="$(gauntlet_repo "$rec")"
   prnum="$(gauntlet_pr_number "$rec")"; kind="$(gauntlet_kind "$rec")"
 
-  # CI-blocking stages carry the CI-sized handler budget; panel/undraft take the default.
+  # CI-blocking stages carry the CI-sized handler budget; the panel stage carries its
+  # own (longer-than-default) scripted-fan-out budget; only undraft takes the default.
   local timeout_line=""
-  case "$stage" in clean|fix) timeout_line="handler-timeout: $GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT";; esac
+  case "$stage" in
+    clean|fix) timeout_line="handler-timeout: $GARDEN_GAUNTLET_STAGE_HANDLER_TIMEOUT";;
+    panel)     timeout_line="handler-timeout: $GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT";;
+  esac
 
   printf -- '---\n'
   printf 'role: gardener\n'

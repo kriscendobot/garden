@@ -58,6 +58,9 @@ export GARDEN_POST_ATTEMPTS=50
 # Keep the CI-blocking-stage budget line deterministic (not required by the test, but
 # stamped into the stage bodies the driver posts).
 export GARDEN_SHEPHERD_HANDLER_TIMEOUT=7200
+# The panel stage carries its OWN CI-sized budget (above the plain 2400s default), so a
+# long single round is budgeted rather than doomed after one deterministic wall hit.
+export GARDEN_GAUNTLET_PANEL_HANDLER_TIMEOUT=7200
 
 # --- board inspection helpers (fresh clone each call) -----------------------
 V="$TR/verify"
@@ -72,6 +75,9 @@ record_field() {  # record_field <g> <key>
   sed -n "s/^$2:[[:space:]]*//p" "$V/jobs/gauntlet/$1.md" 2>/dev/null | head -1
 }
 tada_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/tada/$1.md" 2>/dev/null; }
+todo_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/todo/$1.md" 2>/dev/null; }
+# handler_timeout <todo-base> → the handler-timeout header value, or empty if none.
+handler_timeout() { todo_body "$1" | sed -n 's/^handler-timeout:[[:space:]]*//p' | head -1; }
 
 # Simulate a gardener COMPLETING a stage with a stage-result MARKER: remove it from
 # todo/doin and write a tada report ending in the deterministic marker line.
@@ -124,18 +130,27 @@ tick   # fresh record → post clean
 { in_dir jobs/todo g1-clean && [ "$(record_field g1 current_child)" = g1-clean ] && [ "$(record_field g1 stage)" = clean ]; } \
   && ok "tick 1: posted g1-clean, record at stage=clean" \
   || bad "tick 1: todo=[$(board jobs/todo)] stage=$(record_field g1 stage) child=$(record_field g1 current_child)"
+[ "$(handler_timeout g1-clean)" = 7200 ] \
+  && ok "clean stage carries the CI-sized handler-timeout (7200)" \
+  || bad "clean handler-timeout=[$(handler_timeout g1-clean)] (expected 7200)"
 
 complete_stage g1-clean clean=done
 tick   # clean done → post panel-1
 { in_dir jobs/todo g1-panel-1 && [ "$(record_field g1 stage)" = panel ] && [ "$(record_field g1 iteration)" = 1 ]; } \
   && ok "tick 2: clean=done → posted g1-panel-1 (iteration 1)" \
   || bad "tick 2: todo=[$(board jobs/todo)] stage=$(record_field g1 stage) iter=$(record_field g1 iteration)"
+[ "$(handler_timeout g1-panel-1)" = 7200 ] \
+  && ok "panel stage carries its dedicated CI-sized handler-timeout (7200, above the 2400 default)" \
+  || bad "panel handler-timeout=[$(handler_timeout g1-panel-1)] (expected 7200)"
 
 complete_stage g1-panel-1 panel=pass
 tick   # panel pass (feature) → post undraft
 { in_dir jobs/todo g1-undraft && [ "$(record_field g1 stage)" = undraft ]; } \
   && ok "tick 3: panel=pass → posted g1-undraft" \
   || bad "tick 3: todo=[$(board jobs/todo)] stage=$(record_field g1 stage)"
+[ -z "$(handler_timeout g1-undraft)" ] \
+  && ok "undraft stage carries NO handler-timeout (short stage takes the plain default)" \
+  || bad "undraft handler-timeout=[$(handler_timeout g1-undraft)] (expected none)"
 
 complete_stage g1-undraft undraft=done
 tick   # undraft done → finish
