@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T04:04:25Z_
+_As of 2026-08-07T04:07:38Z_
 
 ## Latest
 
@@ -5838,8 +5838,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-mustfix-round2-03-producer-copy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-03-producer-copy.md) — PR #910 fix round 2 — child 03: Git/XS producer amplification and window-byte...
 
 ### tada (4250)
 - [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-02-daemon-cas.md) — Completion report
