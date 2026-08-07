@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T05:53:37Z_
+_As of 2026-08-07T05:54:45Z_
 
 ## Latest
 
@@ -5882,23 +5882,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $745.19 _(notional, rate-card)_ | no quota set |
+| Claude | 44.3M | $745.60 _(notional, rate-card)_ | no quota set |
 | Codex | 9.1M _(+282.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-panel-budget.md) — ---
+### doin (0)
+(none)
 
-### tada (4254)
+### tada (4255)
+- [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-panel-budget.md) — Completion report
 - [`pr910-mustfix-round2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2.md) — orchestration pr910-mustfix-round2 — HALTED
 - [`pr910-mustfix-round2-05-hygiene`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-05-hygiene.md) — Completion report
 - [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-04-types-help.md) — Completion report
 - [`pr910-mustfix-round2-03-producer-copy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-03-producer-copy.md) — Cost
-- [`pr910-mustfix-round2-02-daemon-cas`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-02-daemon-cas.md) — Completion report
-- … and 4249 more
+- … and 4250 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
