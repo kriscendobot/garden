@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T05:06:25Z_
+_As of 2026-08-07T05:07:29Z_
 
 ## Latest
 
@@ -5838,8 +5838,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-06-repanel.md) — PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
 
 ### tada (4253)
 - [`pr910-mustfix-round2-05-hygiene`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-05-hygiene.md) — Completion report
