@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T03:11:55Z_
+_As of 2026-08-07T03:13:39Z_
 
 ## Latest
 
@@ -5838,8 +5838,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-mustfix-round2-01-platform-range`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-01-platform-range.md) — PR #910 fix round 2 — child 01: platform blob-range invariants
 
 ### tada (4246)
 - [`endojs-endo-but-for-bots-pr910-fixer-orchestration-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-fixer-orchestration-plan.md) — Cost
