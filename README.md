@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-07T04:52:24Z_
+_As of 2026-08-07T04:55:33Z_
 
 ## Latest
 
@@ -5838,8 +5838,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`pr910-mustfix-round2-05-hygiene`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-mustfix-round2-05-hygiene.md) — PR #910 fix round 2 — child 05: changeset and history hygiene
 
 ### tada (4252)
 - [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-04-types-help.md) — Completion report
