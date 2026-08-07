@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":15,"elapsed_s":279,"input_tokens":25,"output_tokens":18724,"cache_creation_tokens":60753,"cache_read_tokens":738749,"total_cost_usd":2.8941540000000003,"ts":"2026-08-07T03:11:38Z","base":"endojs-endo-but-for-bots-pr910-fixer-orchestration-plan","host":"endolin-garden2-5bcdff64","outcome":"tada"}
