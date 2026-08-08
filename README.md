@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T09:49:20Z_
+_As of 2026-08-08T09:50:38Z_
 
 ## Latest
 
@@ -5978,14 +5978,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $1012.36 _(notional, rate-card)_ | no quota set |
-| Codex | 14.1M _(+472.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Claude | 64.4M | $1015.62 _(notional, rate-card)_ | no quota set |
+| Codex | 14.1M _(+473.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- [`ironhorse-full-test262-automation-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-02-errors-coercions-strict-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
