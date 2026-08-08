@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ironhorse test262 conformance reports</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        max-width: 62rem; margin: 2rem auto; padding: 0 1.2rem;
+      }
+      h1 { font-size: 1.6rem; margin-bottom: 0.2rem; }
+      .sub { color: GrayText; margin-top: 0; }
+      table { border-collapse: collapse; margin: 1rem 0; }
+      th, td { text-align: left; padding: 0.3rem 0.9rem 0.3rem 0; }
+      td.n { text-align: right; font-variant-numeric: tabular-nums; }
+      .prov { color: GrayText; font-size: 0.9rem; }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+      .headline { background: color-mix(in srgb, Canvas 92%, GrayText); padding: 0.8rem 1rem; border-radius: 8px; }
+      .pill { display: inline-block; padding: 0.05rem 0.5rem; border-radius: 999px; background: color-mix(in srgb, Canvas 85%, GrayText); font-size: 0.85rem; }
+      a { color: LinkText; }
+    </style>
+  </head>
+  <body>
+    <h1>Ironhorse test262 conformance reports</h1>
+    <p class="sub">
+      The authoritative full-suite sweep of the
+      <a href="https://github.com/tc39/test262">TC39 test262</a> corpus against the
+      Ironhorse JavaScript engine, oracle-locked to XS. Maintainer request:
+      <a href="https://github.com/kriscendobot/garden/issues/51">kriscendobot/garden#51</a>.
+    </p>
+
+    <h2>Latest run &mdash; <span class="pill">2026-08-08</span></h2>
+    <div class="headline">
+      <p style="margin:0 0 0.4rem">
+        <strong>52,092</strong> cases from the complete <code>test/**</code> tree
+        (<code>staging/</code> excluded, as the runner does).
+      </p>
+      <table>
+        <tr><th>Outcome</th><th>Cases</th><th>Share</th></tr>
+        <tr><td>Covered (ran end-to-end, met the bar)</td><td class="n">4,740</td><td class="n">9.10%</td></tr>
+        <tr><td>Unsupported (language-implementation gap)</td><td class="n">38,400</td><td class="n">73.72%</td></tr>
+        <tr><td>Skipped (declared / structural)</td><td class="n">8,932</td><td class="n">17.15%</td></tr>
+        <tr><td>Ironhorse failure (bar-forbidden divergence)</td><td class="n">19</td><td class="n">0.04%</td></tr>
+        <tr><td>Infrastructure (no verdict; not a language gap)</td><td class="n">1</td><td class="n">0.00%</td></tr>
+      </table>
+      <p style="margin:0.4rem 0 0">
+        <strong>Proxy is entirely unimplemented:</strong> of 311 official
+        <code>built-ins/Proxy</code> cases, <strong>0 are covered</strong>
+        (307 unsupported, 4 skipped).
+      </p>
+    </div>
+
+    <p style="margin-top:1rem">
+      <a href="20260808-14f26d0a6/report.html"><strong>Open the full HTML report &rarr;</strong></a>
+      &nbsp;&middot;&nbsp;
+      <a href="20260808-14f26d0a6/report.json">report.json</a>
+      &nbsp;&middot;&nbsp;
+      <a href="20260808-14f26d0a6/provenance.json">provenance.json</a>
+    </p>
+
+    <p class="prov">
+      Provenance: test262 <code>tc39/test262@be13516f</code> (2026-08-07) &middot;
+      Ironhorse/endo <code>14f26d0a6</code> &middot;
+      XS oracle <code>moddable 8.3.1 @ 23b4d6b0</code> &middot;
+      runner <code>ironhorse-xst</code>
+      (<a href="https://github.com/endojs/endo-but-for-bots/pull/969">PR #969</a>).
+      The 19 Ironhorse failures are 16 Unicode identifier-start over-acceptances plus 3
+      non-terminating <code>for (await using|using|const &hellip;)</code> invalid-assignment
+      cases (an engine hang, externally bounded and recorded as a failure).
+    </p>
+
+    <h2>All runs</h2>
+    <ul>
+      <li><a href="20260808-14f26d0a6/report.html">2026-08-08</a>
+        &mdash; endo <code>14f26d0a6</code>, test262 <code>be13516f</code>
+        &mdash; 4,740 covered / 52,092</li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ironhorse test262 conformance report</title>
+<style>
+
+:root {
+  --bg: #ffffff; --fg: #1a1a1a; --muted: #555; --line: #d0d0d0;
+  --card: #f4f4f5; --accent: #0b5cad;
+  --covered: #1a7f37; --fail: #b3261e; --unsupported: #8a5a00;
+  --skipped: #3a3a55; --infra: #555;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171a; --fg: #e8e8e8; --muted: #a8a8a8; --line: #333;
+    --card: #1f242a; --accent: #6fb3ff;
+    --covered: #4ac26b; --fail: #ff6b60; --unsupported: #e0a53a;
+    --skipped: #b0b0d0; --infra: #a8a8a8;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+main { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+h1 { font-size: 1.7rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.2rem; margin: 2rem 0 .75rem; border-bottom: 1px solid var(--line); padding-bottom: .25rem; }
+.lede { color: var(--muted); margin-top: 0; }
+.note { color: var(--muted); font-size: .9rem; }
+.ok { color: var(--covered); font-weight: 600; }
+dl.prov { display: grid; grid-template-columns: 1fr; gap: .25rem; margin: 0; }
+dl.prov > div { display: grid; grid-template-columns: 12rem 1fr; gap: .5rem;
+  padding: .3rem 0; border-bottom: 1px solid var(--line); }
+dl.prov dt { font-weight: 600; margin: 0; }
+dl.prov dd { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .9rem; overflow-wrap: anywhere; }
+ul.cards { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .75rem; }
+.card { background: var(--card); border: 1px solid var(--line);
+  border-radius: .5rem; padding: .75rem 1rem; min-width: 8.5rem;
+  display: flex; flex-direction: column; border-left: .35rem solid var(--muted); }
+.card .num { font-size: 1.7rem; font-weight: 700; }
+.card .lbl { font-size: .85rem; color: var(--muted); }
+.card .pct { font-size: .8rem; color: var(--muted); }
+.card.covered { border-left-color: var(--covered); }
+.card.fail { border-left-color: var(--fail); }
+.card.unsupported { border-left-color: var(--unsupported); }
+.card.skipped { border-left-color: var(--skipped); }
+.card.infra { border-left-color: var(--infra); }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0 1rem; font-size: .92rem; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { border-bottom: 2px solid var(--line); position: sticky; top: 0; background: var(--bg); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.path, .reason, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; overflow-wrap: anywhere; }
+a:focus, :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+footer { margin-top: 3rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Ironhorse test262 conformance report</h1>
+<p class="lede">The complete authoritative TC39 test262 corpus run against the Ironhorse engine, oracle-locked to XS. 52092 cases.</p>
+<section aria-labelledby="prov">
+<h2 id="prov">Run provenance</h2>
+<dl class="prov">
+<div><dt>Runner</dt><dd>ironhorse-xst</dd></div>
+<div><dt>test262 revision</dt><dd>tc39/test262@be13516fb644</dd></div>
+<div><dt>test262 SHA</dt><dd>be13516fb6441b950ba8a3df97eb34062c186972</dd></div>
+<div><dt>endo / Ironhorse SHA</dt><dd>14f26d0a6989f5bb93cd1c1ca731dc7e1bc383d6</dd></div>
+<div><dt>XS oracle</dt><dd>moddable submodule @ 23b4d6b0a65f (XS 8.3.1)</dd></div>
+<div><dt>Command</dt><dd>full-run.sh --jobs 16 --oracle on (whole test/ tree; 3 non-terminating cases externally bounded and recorded as ironhorse-failure)</dd></div>
+<div><dt>Config</dt><dd>oracle=on flat-per-directory-batches jobs=16 subtree=&lt;all&gt;; 1727/1730 batches auto-completed in ~90s, 3 hanging cases (await-using/const/using -invalid-assignment-next-expression-for) killed after &gt;11min and re-run excluding the hang</dd></div>
+<div><dt>Started</dt><dd>2026-08-08T04:23:15Z</dd></div>
+<div><dt>Finished</dt><dd>2026-08-08T04:39:45Z</dd></div>
+<div><dt>Host</dt><dd>endolin-garden2-5bcdff64</dd></div>
+</dl>
+</section>
+<section aria-labelledby="totals">
+<h2 id="totals">Totals by category</h2>
+<ul class="cards">
+<li class="card covered"><span class="num">4740</span><span class="lbl">Covered</span><span class="pct">9.1%</span></li>
+<li class="card fail"><span class="num">19</span><span class="lbl">Ironhorse failures</span><span class="pct">0.0%</span></li>
+<li class="card unsupported"><span class="num">38400</span><span class="lbl">Unsupported</span><span class="pct">73.7%</span></li>
+<li class="card skipped"><span class="num">8932</span><span class="lbl">Skipped</span><span class="pct">17.1%</span></li>
+<li class="card infra"><span class="num">1</span><span class="lbl">Infrastructure</span><span class="pct">0.0%</span></li>
+</ul>
+<p class="note">“Covered” = ran end-to-end and agreed bit-exactly with the XS oracle. “Ironhorse failures” are bar-forbidden divergences/over-acceptances. “Unsupported” are genuine language gaps (the actionable backlog). “Infrastructure” are oracle/harness non-results, <strong>not</strong> Ironhorse gaps. Totals sum to 52092 cases.</p>
+</section>
+<section aria-labelledby="outcomes">
+<h2 id="outcomes">Totals by observed outcome</h2>
+<table>
+<thead><tr><th scope="col">Outcome</th><th scope="col">Count</th><th scope="col">Share</th></tr></thead>
+<tbody>
+<tr><th scope="row">covered</th><td class="n">4740</td><td class="n">9.1%</td></tr>
+<tr><th scope="row">fail</th><td class="n">19</td><td class="n">0.0%</td></tr>
+<tr><th scope="row">pre-skip</th><td class="n">8932</td><td class="n">17.1%</td></tr>
+<tr><th scope="row">run-skip</th><td class="n">38401</td><td class="n">73.7%</td></tr>
+</tbody>
+</table>
+</section>
+<section aria-labelledby="bypath">
+<h2 id="bypath">Breakdown by subtree</h2>
+<table>
+<thead><tr><th scope="col">Key</th><th scope="col">Total</th><th scope="col">Covered</th><th scope="col">Failures</th><th scope="col">Unsupported</th><th scope="col">Skipped</th><th scope="col">Infra</th></tr></thead>
+<tbody>
+<tr><th scope="row" class="path">language/expressions</th><td class="n">11102</td><td class="n">1373</td><td class="n">0</td><td class="n">9384</td><td class="n">345</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/statements</th><td class="n">9347</td><td class="n">787</td><td class="n">3</td><td class="n">8335</td><td class="n">222</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Temporal</th><td class="n">4603</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">4603</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Object</th><td class="n">3411</td><td class="n">186</td><td class="n">0</td><td class="n">3215</td><td class="n">10</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Array</th><td class="n">3082</td><td class="n">520</td><td class="n">0</td><td class="n">2551</td><td class="n">11</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Temporal</th><td class="n">2029</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">2029</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/RegExp</th><td class="n">1879</td><td class="n">338</td><td class="n">0</td><td class="n">1540</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/TypedArray</th><td class="n">1446</td><td class="n">0</td><td class="n">0</td><td class="n">1431</td><td class="n">15</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/String</th><td class="n">1223</td><td class="n">192</td><td class="n">0</td><td class="n">1031</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">annexB/language</th><td class="n">845</td><td class="n">25</td><td class="n">0</td><td class="n">792</td><td class="n">28</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/TypedArrayConstructors</th><td class="n">738</td><td class="n">11</td><td class="n">0</td><td class="n">659</td><td class="n">68</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Promise</th><td class="n">729</td><td class="n">137</td><td class="n">0</td><td class="n">589</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Iterator</th><td class="n">654</td><td class="n">0</td><td class="n">0</td><td class="n">654</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/module-code</th><td class="n">599</td><td class="n">0</td><td class="n">0</td><td class="n">3</td><td class="n">596</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Date</th><td class="n">594</td><td class="n">0</td><td class="n">0</td><td class="n">586</td><td class="n">8</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/DataView</th><td class="n">561</td><td class="n">64</td><td class="n">0</td><td class="n">458</td><td class="n">39</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/literals</th><td class="n">534</td><td class="n">156</td><td class="n">0</td><td class="n">361</td><td class="n">17</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Function</th><td class="n">509</td><td class="n">39</td><td class="n">0</td><td class="n">433</td><td class="n">37</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Atomics</th><td class="n">389</td><td class="n">0</td><td class="n">0</td><td class="n">5</td><td class="n">384</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Set</th><td class="n">383</td><td class="n">36</td><td class="n">0</td><td class="n">346</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/eval-code</th><td class="n">347</td><td class="n">0</td><td class="n">0</td><td class="n">327</td><td class="n">20</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Number</th><td class="n">340</td><td class="n">89</td><td class="n">0</td><td class="n">251</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Math</th><td class="n">327</td><td class="n">153</td><td class="n">0</td><td class="n">174</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Proxy</th><td class="n">311</td><td class="n">0</td><td class="n">0</td><td class="n">307</td><td class="n">4</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/identifiers</th><td class="n">268</td><td class="n">28</td><td class="n">16</td><td class="n">223</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/arguments-object</th><td class="n">263</td><td class="n">0</td><td class="n">0</td><td class="n">254</td><td class="n">9</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/NumberFormat</th><td class="n">249</td><td class="n">0</td><td class="n">0</td><td class="n">249</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/DateTimeFormat</th><td class="n">244</td><td class="n">0</td><td class="n">0</td><td class="n">179</td><td class="n">65</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">annexB/built-ins</th><td class="n">241</td><td class="n">5</td><td class="n">0</td><td class="n">227</td><td class="n">9</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/ArrayBuffer</th><td class="n">221</td><td class="n">11</td><td class="n">0</td><td class="n">198</td><td class="n">12</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/function-code</th><td class="n">217</td><td class="n">92</td><td class="n">0</td><td class="n">81</td><td class="n">44</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Map</th><td class="n">204</td><td class="n">26</td><td class="n">0</td><td class="n">176</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Locale</th><td class="n">168</td><td class="n">0</td><td class="n">0</td><td class="n">168</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/JSON</th><td class="n">165</td><td class="n">16</td><td class="n">0</td><td class="n">149</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Reflect</th><td class="n">153</td><td class="n">6</td><td class="n">0</td><td class="n">147</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/block-scope</th><td class="n">145</td><td class="n">33</td><td class="n">0</td><td class="n">109</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/WeakMap</th><td class="n">141</td><td class="n">11</td><td class="n">0</td><td class="n">129</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/import</th><td class="n">129</td><td class="n">0</td><td class="n">0</td><td class="n">6</td><td class="n">123</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">harness</th><td class="n">116</td><td class="n">19</td><td class="n">0</td><td class="n">97</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/types</th><td class="n">113</td><td class="n">52</td><td class="n">0</td><td class="n">55</td><td class="n">6</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/DurationFormat</th><td class="n">110</td><td class="n">0</td><td class="n">0</td><td class="n">104</td><td class="n">6</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AsyncDisposableStack</th><td class="n">104</td><td class="n">0</td><td class="n">0</td><td class="n">104</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/SharedArrayBuffer</th><td class="n">104</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">104</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/asi</th><td class="n">102</td><td class="n">56</td><td class="n">0</td><td class="n">46</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Symbol</th><td class="n">98</td><td class="n">8</td><td class="n">0</td><td class="n">88</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/NativeErrors</th><td class="n">94</td><td class="n">6</td><td class="n">0</td><td class="n">88</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/DisposableStack</th><td class="n">93</td><td class="n">0</td><td class="n">0</td><td class="n">93</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Error</th><td class="n">93</td><td class="n">3</td><td class="n">0</td><td class="n">90</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/WeakSet</th><td class="n">85</td><td class="n">9</td><td class="n">0</td><td class="n">76</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/ListFormat</th><td class="n">81</td><td class="n">0</td><td class="n">0</td><td class="n">81</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/RelativeTimeFormat</th><td class="n">80</td><td class="n">0</td><td class="n">0</td><td class="n">80</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/statementList</th><td class="n">80</td><td class="n">22</td><td class="n">0</td><td class="n">58</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Segmenter</th><td class="n">79</td><td class="n">0</td><td class="n">0</td><td class="n">79</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/BigInt</th><td class="n">77</td><td class="n">0</td><td class="n">0</td><td class="n">77</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Uint8Array</th><td class="n">70</td><td class="n">0</td><td class="n">0</td><td class="n">70</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/white-space</th><td class="n">67</td><td class="n">45</td><td class="n">0</td><td class="n">22</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Intl</th><td class="n">66</td><td class="n">0</td><td class="n">0</td><td class="n">66</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Collator</th><td class="n">65</td><td class="n">0</td><td class="n">0</td><td class="n">65</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/ShadowRealm</th><td class="n">64</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">64</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/directive-prologue</th><td class="n">62</td><td class="n">28</td><td class="n">0</td><td class="n">34</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/GeneratorPrototype</th><td class="n">61</td><td class="n">8</td><td class="n">0</td><td class="n">53</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/DisplayNames</th><td class="n">57</td><td class="n">0</td><td class="n">0</td><td class="n">57</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/decodeURIComponent</th><td class="n">56</td><td class="n">0</td><td class="n">0</td><td class="n">56</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/decodeURI</th><td class="n">55</td><td class="n">0</td><td class="n">0</td><td class="n">55</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/parseInt</th><td class="n">55</td><td class="n">32</td><td class="n">0</td><td class="n">23</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/future-reserved-words</th><td class="n">55</td><td class="n">6</td><td class="n">0</td><td class="n">31</td><td class="n">18</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/parseFloat</th><td class="n">54</td><td class="n">38</td><td class="n">0</td><td class="n">16</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/PluralRules</th><td class="n">53</td><td class="n">0</td><td class="n">0</td><td class="n">53</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/comments</th><td class="n">52</td><td class="n">12</td><td class="n">0</td><td class="n">39</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Boolean</th><td class="n">51</td><td class="n">14</td><td class="n">0</td><td class="n">36</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AsyncGeneratorPrototype</th><td class="n">48</td><td class="n">0</td><td class="n">0</td><td class="n">48</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/computed-property-names</th><td class="n">48</td><td class="n">1</td><td class="n">0</td><td class="n">47</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/FinalizationRegistry</th><td class="n">47</td><td class="n">0</td><td class="n">0</td><td class="n">47</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/global-code</th><td class="n">42</td><td class="n">4</td><td class="n">0</td><td class="n">33</td><td class="n">4</td><td class="n">1</td></tr>
+<tr><th scope="row" class="path">language/line-terminators</th><td class="n">41</td><td class="n">8</td><td class="n">0</td><td class="n">33</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AsyncFromSyncIteratorPrototype</th><td class="n">38</td><td class="n">0</td><td class="n">0</td><td class="n">38</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/encodeURI</th><td class="n">31</td><td class="n">0</td><td class="n">0</td><td class="n">31</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/encodeURIComponent</th><td class="n">31</td><td class="n">0</td><td class="n">0</td><td class="n">31</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/WeakRef</th><td class="n">29</td><td class="n">0</td><td class="n">0</td><td class="n">29</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/global</th><td class="n">29</td><td class="n">8</td><td class="n">0</td><td class="n">19</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/ArrayIteratorPrototype</th><td class="n">27</td><td class="n">0</td><td class="n">0</td><td class="n">27</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/reserved-words</th><td class="n">27</td><td class="n">7</td><td class="n">0</td><td class="n">19</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AggregateError</th><td class="n">25</td><td class="n">0</td><td class="n">0</td><td class="n">25</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/keywords</th><td class="n">25</td><td class="n">0</td><td class="n">0</td><td class="n">25</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AsyncGeneratorFunction</th><td class="n">23</td><td class="n">0</td><td class="n">0</td><td class="n">23</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/GeneratorFunction</th><td class="n">23</td><td class="n">0</td><td class="n">0</td><td class="n">23</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/SuppressedError</th><td class="n">22</td><td class="n">0</td><td class="n">0</td><td class="n">22</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402</th><td class="n">22</td><td class="n">0</td><td class="n">0</td><td class="n">22</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/String</th><td class="n">19</td><td class="n">0</td><td class="n">0</td><td class="n">19</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/destructuring</th><td class="n">19</td><td class="n">0</td><td class="n">0</td><td class="n">19</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AsyncFunction</th><td class="n">18</td><td class="n">1</td><td class="n">0</td><td class="n">17</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/RegExpStringIteratorPrototype</th><td class="n">17</td><td class="n">0</td><td class="n">0</td><td class="n">17</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/isFinite</th><td class="n">15</td><td class="n">3</td><td class="n">0</td><td class="n">12</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/isNaN</th><td class="n">15</td><td class="n">3</td><td class="n">0</td><td class="n">12</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/ThrowTypeError</th><td class="n">14</td><td class="n">0</td><td class="n">0</td><td class="n">14</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/identifier-resolution</th><td class="n">14</td><td class="n">6</td><td class="n">0</td><td class="n">7</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AsyncIteratorPrototype</th><td class="n">13</td><td class="n">0</td><td class="n">0</td><td class="n">13</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Date</th><td class="n">12</td><td class="n">0</td><td class="n">0</td><td class="n">12</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/MapIteratorPrototype</th><td class="n">11</td><td class="n">0</td><td class="n">0</td><td class="n">11</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/SetIteratorPrototype</th><td class="n">11</td><td class="n">0</td><td class="n">0</td><td class="n">11</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/BigInt</th><td class="n">11</td><td class="n">0</td><td class="n">0</td><td class="n">11</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/punctuators</th><td class="n">11</td><td class="n">1</td><td class="n">0</td><td class="n">10</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/rest-parameters</th><td class="n">11</td><td class="n">1</td><td class="n">0</td><td class="n">10</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/eval</th><td class="n">10</td><td class="n">0</td><td class="n">0</td><td class="n">10</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/AbstractModuleSource</th><td class="n">8</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">8</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/undefined</th><td class="n">8</td><td class="n">1</td><td class="n">0</td><td class="n">6</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/StringIteratorPrototype</th><td class="n">7</td><td class="n">0</td><td class="n">0</td><td class="n">7</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Number</th><td class="n">7</td><td class="n">0</td><td class="n">0</td><td class="n">7</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/Infinity</th><td class="n">6</td><td class="n">1</td><td class="n">0</td><td class="n">5</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">built-ins/NaN</th><td class="n">6</td><td class="n">2</td><td class="n">0</td><td class="n">4</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/export</th><td class="n">3</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/Array</th><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/FallbackSymbol</th><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">intl402/TypedArray</th><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">language/source-text</th><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+</tbody>
+</table>
+</section>
+<section aria-labelledby="byfeature">
+<h2 id="byfeature">Breakdown by feature</h2>
+<p class="note">197 features total; showing the 60 with the most gaps.</p>
+<table>
+<thead><tr><th scope="col">Key</th><th scope="col">Total</th><th scope="col">Covered</th><th scope="col">Failures</th><th scope="col">Unsupported</th><th scope="col">Skipped</th><th scope="col">Infra</th></tr></thead>
+<tbody>
+<tr><th scope="row" class="path">destructuring-binding</th><td class="n">6637</td><td class="n">716</td><td class="n">0</td><td class="n">5848</td><td class="n">73</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">async-iteration</th><td class="n">4971</td><td class="n">0</td><td class="n">0</td><td class="n">4917</td><td class="n">54</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class</th><td class="n">4790</td><td class="n">0</td><td class="n">0</td><td class="n">4718</td><td class="n">72</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">generators</th><td class="n">4119</td><td class="n">421</td><td class="n">0</td><td class="n">3637</td><td class="n">61</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">TypedArray</th><td class="n">2522</td><td class="n">9</td><td class="n">0</td><td class="n">2110</td><td class="n">403</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">default-parameters</th><td class="n">2269</td><td class="n">242</td><td class="n">0</td><td class="n">2023</td><td class="n">4</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class-fields-public</th><td class="n">2057</td><td class="n">0</td><td class="n">0</td><td class="n">2049</td><td class="n">8</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.iterator</th><td class="n">1860</td><td class="n">23</td><td class="n">0</td><td class="n">1832</td><td class="n">5</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class-methods-private</th><td class="n">1709</td><td class="n">0</td><td class="n">0</td><td class="n">1701</td><td class="n">8</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class-static-methods-private</th><td class="n">1513</td><td class="n">0</td><td class="n">0</td><td class="n">1505</td><td class="n">8</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">BigInt</th><td class="n">1501</td><td class="n">57</td><td class="n">0</td><td class="n">1113</td><td class="n">331</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol</th><td class="n">1479</td><td class="n">61</td><td class="n">0</td><td class="n">921</td><td class="n">497</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class-fields-private</th><td class="n">1133</td><td class="n">0</td><td class="n">0</td><td class="n">1118</td><td class="n">15</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">dynamic-import</th><td class="n">1011</td><td class="n">0</td><td class="n">0</td><td class="n">959</td><td class="n">52</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">arrow-function</th><td class="n">949</td><td class="n">38</td><td class="n">0</td><td class="n">655</td><td class="n">256</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">async-functions</th><td class="n">705</td><td class="n">47</td><td class="n">0</td><td class="n">605</td><td class="n">53</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Reflect.construct</th><td class="n">704</td><td class="n">0</td><td class="n">0</td><td class="n">554</td><td class="n">150</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">regexp-unicode-property-escapes</th><td class="n">681</td><td class="n">0</td><td class="n">0</td><td class="n">681</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.asyncIterator</th><td class="n">538</td><td class="n">0</td><td class="n">0</td><td class="n">538</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Proxy</th><td class="n">479</td><td class="n">0</td><td class="n">0</td><td class="n">475</td><td class="n">4</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Reflect</th><td class="n">478</td><td class="n">6</td><td class="n">0</td><td class="n">443</td><td class="n">29</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">computed-property-names</th><td class="n">478</td><td class="n">2</td><td class="n">0</td><td class="n">446</td><td class="n">30</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">resizable-arraybuffer</th><td class="n">462</td><td class="n">0</td><td class="n">0</td><td class="n">410</td><td class="n">52</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">explicit-resource-management</th><td class="n">430</td><td class="n">3</td><td class="n">2</td><td class="n">413</td><td class="n">12</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">iterator-helpers</th><td class="n">393</td><td class="n">0</td><td class="n">0</td><td class="n">393</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">object-rest</th><td class="n">358</td><td class="n">0</td><td class="n">0</td><td class="n">357</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class-static-fields-private</th><td class="n">345</td><td class="n">0</td><td class="n">0</td><td class="n">344</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.species</th><td class="n">284</td><td class="n">0</td><td class="n">0</td><td class="n">275</td><td class="n">9</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">ArrayBuffer</th><td class="n">275</td><td class="n">0</td><td class="n">0</td><td class="n">168</td><td class="n">107</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">import-defer</th><td class="n">252</td><td class="n">0</td><td class="n">0</td><td class="n">148</td><td class="n">104</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">source-phase-imports</th><td class="n">251</td><td class="n">0</td><td class="n">0</td><td class="n">238</td><td class="n">13</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.toPrimitive</th><td class="n">233</td><td class="n">0</td><td class="n">0</td><td class="n">193</td><td class="n">40</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">regexp-modifiers</th><td class="n">230</td><td class="n">0</td><td class="n">0</td><td class="n">230</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">class-static-fields-public</th><td class="n">213</td><td class="n">0</td><td class="n">0</td><td class="n">208</td><td class="n">5</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">cross-realm</th><td class="n">202</td><td class="n">0</td><td class="n">0</td><td class="n">195</td><td class="n">7</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">DataView</th><td class="n">193</td><td class="n">4</td><td class="n">0</td><td class="n">133</td><td class="n">56</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">regexp-v-flag</th><td class="n">187</td><td class="n">0</td><td class="n">0</td><td class="n">187</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">set-methods</th><td class="n">186</td><td class="n">0</td><td class="n">0</td><td class="n">186</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Intl.Locale</th><td class="n">172</td><td class="n">0</td><td class="n">0</td><td class="n">172</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">align-detached-buffer-semantics-with-web-reality</th><td class="n">158</td><td class="n">0</td><td class="n">0</td><td class="n">143</td><td class="n">15</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">globalThis</th><td class="n">146</td><td class="n">0</td><td class="n">0</td><td class="n">135</td><td class="n">11</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">destructuring-assignment</th><td class="n">141</td><td class="n">1</td><td class="n">0</td><td class="n">120</td><td class="n">20</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">object-spread</th><td class="n">135</td><td class="n">0</td><td class="n">0</td><td class="n">111</td><td class="n">24</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">change-array-by-copy</th><td class="n">132</td><td class="n">17</td><td class="n">0</td><td class="n">115</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.toStringTag</th><td class="n">131</td><td class="n">0</td><td class="n">0</td><td class="n">111</td><td class="n">20</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Intl.DurationFormat</th><td class="n">111</td><td class="n">0</td><td class="n">0</td><td class="n">103</td><td class="n">8</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">array-find-from-last</th><td class="n">109</td><td class="n">10</td><td class="n">0</td><td class="n">93</td><td class="n">6</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">source-phase-imports-module-source</th><td class="n">108</td><td class="n">0</td><td class="n">0</td><td class="n">105</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Promise.allSettled</th><td class="n">102</td><td class="n">12</td><td class="n">0</td><td class="n">90</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">regexp-named-groups</th><td class="n">100</td><td class="n">1</td><td class="n">0</td><td class="n">99</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Intl.NumberFormat-v3</th><td class="n">99</td><td class="n">0</td><td class="n">0</td><td class="n">99</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.replace</th><td class="n">98</td><td class="n">0</td><td class="n">0</td><td class="n">95</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">rest-parameters</th><td class="n">96</td><td class="n">0</td><td class="n">0</td><td class="n">96</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Array.fromAsync</th><td class="n">95</td><td class="n">0</td><td class="n">0</td><td class="n">93</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">await-dictionary</th><td class="n">89</td><td class="n">0</td><td class="n">0</td><td class="n">89</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Symbol.match</th><td class="n">88</td><td class="n">0</td><td class="n">0</td><td class="n">87</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">joint-iteration</th><td class="n">82</td><td class="n">0</td><td class="n">0</td><td class="n">82</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Intl.ListFormat</th><td class="n">81</td><td class="n">0</td><td class="n">0</td><td class="n">81</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Intl.RelativeTimeFormat</th><td class="n">79</td><td class="n">0</td><td class="n">0</td><td class="n">79</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><th scope="row" class="path">Intl.Segmenter</th><td class="n">79</td><td class="n">0</td><td class="n">0</td><td class="n">79</td><td class="n">0</td><td class="n">0</td></tr>
+</tbody>
+</table>
+</section>
+<section aria-labelledby="failures">
+<h2 id="failures">Ironhorse failures</h2>
+<p class="note">19 case(s).</p>
+<table>
+<thead><tr><th scope="col">Case</th><th scope="col">Detail</th></tr></thead>
+<tbody>
+<tr><td class="path">language/identifiers/start-unicode-10.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-10.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-13.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-13.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-15.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-15.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-16.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-16.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-17.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-17.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-5.2.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-5.2.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-8.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-8.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-9.0.0-escaped.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/identifiers/start-unicode-9.0.0.js</td><td>over-acceptance: ironhorse completed a source the oracle rejected</td></tr>
+<tr><td class="path">language/statements/await-using/syntax/await-using-invalid-assignment-next-expression-for.js</td><td>engine-hang:no-termination-vs-oracle(&gt;150s, killed); reproduces with --no-oracle</td></tr>
+<tr><td class="path">language/statements/const/syntax/const-invalid-assignment-next-expression-for.js</td><td>engine-hang:no-termination-vs-oracle(&gt;150s, killed); reproduces with --no-oracle</td></tr>
+<tr><td class="path">language/statements/using/syntax/using-invalid-assignment-next-expression-for.js</td><td>engine-hang:no-termination-vs-oracle(&gt;150s, killed); reproduces with --no-oracle</td></tr>
+</tbody>
+</table>
+</section>
+<section aria-labelledby="unsupported">
+<h2 id="unsupported">Unsupported reasons (language gaps)</h2>
+<table>
+<thead><tr><th scope="col">Reason</th><th scope="col">Count</th><th scope="col">Example cases</th></tr></thead>
+<tbody>
+<tr><th scope="row" class="reason">ironhorse-aborted</th><td class="n">12666</td><td><code>annexB/built-ins/Date/prototype/getYear/B.2.4.js</code><br><code>annexB/built-ins/Date/prototype/getYear/length.js</code><br><code>annexB/built-ins/Date/prototype/getYear/name.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:to_instance</th><td class="n">6898</td><td><code>built-ins/Array/prototype/concat/Array.prototype.concat_non-array.js</code><br><code>built-ins/Function/internals/Call/class-ctor.js</code><br><code>built-ins/Function/prototype/toString/async-generator-method-class-expression-static.js</code></td></tr>
+<tr><th scope="row" class="reason">negative-parse:pending-compiler</th><td class="n">4131</td><td><code>annexB/language/statements/for-in/bare-initializer.js</code><br><code>annexB/language/statements/for-in/const-initializer.js</code><br><code>annexB/language/statements/for-in/let-initializer.js</code></td></tr>
+<tr><th scope="row" class="reason">abort-value-differs</th><td class="n">2635</td><td><code>annexB/built-ins/RegExp/RegExp-control-escape-russian-letter.js</code><br><code>annexB/built-ins/RegExp/RegExp-invalid-control-escape-character-class.js</code><br><code>annexB/built-ins/RegExp/RegExp-leading-escape-BMP.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:async_generator_function</th><td class="n">1920</td><td><code>built-ins/Array/fromAsync/mapfn-async-iterable-async.js</code><br><code>built-ins/Array/fromAsync/mapfn-sync-iterable-async.js</code><br><code>built-ins/AsyncFromSyncIteratorPrototype/next/iterator-result-poisoned-done.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:accessor-descriptor</th><td class="n">1036</td><td><code>annexB/built-ins/RegExp/prototype/Symbol.split/Symbol.match-getter-recompiles-source.js</code><br><code>built-ins/Array/from/get-iter-method-err.js</code><br><code>built-ins/Array/from/iter-get-iter-val-err.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:set_property_at</th><td class="n">826</td><td><code>built-ins/Array/from/calling-from-valid-1-noStrict.js</code><br><code>built-ins/Array/from/calling-from-valid-2.js</code><br><code>built-ins/Array/from/elements-added-after.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:with</th><td class="n">661</td><td><code>annexB/language/eval-code/direct/func-block-decl-eval-func-block-scoping.js</code><br><code>annexB/language/eval-code/direct/func-block-decl-eval-func-existing-block-fn-no-init.js</code><br><code>annexB/language/eval-code/direct/func-block-decl-eval-func-existing-block-fn-update.js</code></td></tr>
+<tr><th scope="row" class="reason">parse-or-decode</th><td class="n">542</td><td><code>annexB/built-ins/RegExp/RegExp-decimal-escape-class-range.js</code><br><code>annexB/built-ins/RegExp/RegExp-decimal-escape-not-capturing.js</code><br><code>annexB/built-ins/RegExp/RegExp-leading-escape.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Function</th><td class="n">480</td><td><code>annexB/built-ins/Function/createdynfn-html-close-comment-body.js</code><br><code>annexB/built-ins/Function/createdynfn-html-close-comment-params.js</code><br><code>annexB/built-ins/Function/createdynfn-html-open-comment-body.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:partial-descriptor</th><td class="n">363</td><td><code>annexB/built-ins/RegExp/prototype/compile/pattern-regexp-immutable-lastindex.js</code><br><code>built-ins/Array/prototype/every/15.4.4.16-3-23.js</code><br><code>built-ins/Array/prototype/reduceRight/15.4.4.22-3-23.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:arguments_sloppy</th><td class="n">337</td><td><code>annexB/language/function-code/block-decl-func-skip-arguments.js</code><br><code>built-ins/Array/isArray/15.4.3.2-1-13.js</code><br><code>built-ins/Array/prototype/concat/Array.prototype.concat_holey-sloppy-arguments.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:for_of</th><td class="n">337</td><td><code>language/expressions/array/spread-err-mult-err-itr-get-call.js</code><br><code>language/expressions/array/spread-err-mult-err-itr-step.js</code><br><code>language/expressions/array/spread-err-sngl-err-itr-get-call.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:for_await_of</th><td class="n">336</td><td><code>language/statements/for-await-of/async-func-decl-dstr-array-elem-init-assignment.js</code><br><code>language/statements/for-await-of/async-func-decl-dstr-array-elem-init-evaluation.js</code><br><code>language/statements/for-await-of/async-func-decl-dstr-array-elem-init-in.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:exotic-object</th><td class="n">324</td><td><code>built-ins/Array/length/define-own-prop-length-coercion-order.js</code><br><code>built-ins/Array/length/define-own-prop-length-error.js</code><br><code>built-ins/Array/length/define-own-prop-length-no-value-order.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:module:dynamic-import</th><td class="n">298</td><td><code>language/expressions/dynamic-import/always-create-new-promise.js</code><br><code>language/expressions/dynamic-import/assign-expr-get-value-abrupt-throws.js</code><br><code>language/expressions/dynamic-import/assignment-expression/unary-expr.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:reset_local</th><td class="n">288</td><td><code>annexB/built-ins/String/prototype/substr/start-and-length-as-numbers.js</code><br><code>built-ins/Array/prototype/toLocaleString/invoke-element-tolocalestring.js</code><br><code>built-ins/Date/parse/year-zero.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:extend</th><td class="n">223</td><td><code>annexB/built-ins/RegExp/legacy-accessors/index/this-subclass-constructor.js</code><br><code>annexB/built-ins/RegExp/legacy-accessors/input/this-subclass-constructor.js</code><br><code>annexB/built-ins/RegExp/legacy-accessors/lastMatch/this-subclass-constructor.js</code></td></tr>
+<tr><th scope="row" class="reason">non-primitive-completion</th><td class="n">201</td><td><code>built-ins/Function/prototype/bind/15.3.4.5-2-16.js</code><br><code>built-ins/Promise/prototype/finally/resolved-observable-then-calls-argument.js</code><br><code>built-ins/Promise/prototype/then/rxn-handler-identity.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:non-object</th><td class="n">188</td><td><code>built-ins/Array/from/iter-set-length-err.js</code><br><code>built-ins/Array/of/does-not-use-prototype-properties.js</code><br><code>built-ins/Array/prototype/every/15.4.4.16-2-12.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:getOwnPropertyDescriptor:non-object</th><td class="n">188</td><td><code>built-ins/ArrayBuffer/prototype/byteLength/invoked-as-func.js</code><br><code>built-ins/ArrayBuffer/prototype/byteLength/this-has-no-typedarrayname-internal.js</code><br><code>built-ins/ArrayBuffer/prototype/byteLength/this-is-not-object.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Map:iterable</th><td class="n">186</td><td><code>built-ins/Map/bigint-number-same-value.js</code><br><code>built-ins/Map/iterable-calls-set.js</code><br><code>built-ins/Map/iterator-close-after-set-failure.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:(?flags:) inline modifiers</th><td class="n">147</td><td><code>built-ins/RegExp/early-err-modifiers-code-point-repeat-i-1.js</code><br><code>built-ins/RegExp/early-err-modifiers-code-point-repeat-i-2.js</code><br><code>built-ins/RegExp/early-err-modifiers-other-code-point-arbitrary.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:String</th><td class="n">147</td><td><code>built-ins/Boolean/prototype/constructor/S15.6.4.1_A1.js</code><br><code>built-ins/DataView/defined-bytelength-and-byteoffset.js</code><br><code>built-ins/DataView/defined-byteoffset-undefined-bytelength.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.construct:reentrant-trampoline</th><td class="n">133</td><td><code>built-ins/AggregateError/is-a-constructor.js</code><br><code>built-ins/Array/from/not-a-constructor.js</code><br><code>built-ins/Array/fromAsync/not-a-constructor.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:ambiguous-default-key</th><td class="n">115</td><td><code>built-ins/JSON/stringify/property-order.js</code><br><code>built-ins/Object/create/15.2.3.5-4-105.js</code><br><code>built-ins/Object/create/15.2.3.5-4-106.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise-combinator:non-array-iterable</th><td class="n">104</td><td><code>built-ins/Promise/all/S25.4.4.1_A3.1_T1.js</code><br><code>built-ins/Promise/all/S25.4.4.1_A3.1_T2.js</code><br><code>built-ins/Promise/all/S25.4.4.1_A5.1_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Object</th><td class="n">100</td><td><code>built-ins/Boolean/S15.6.1.1_A1_T1.js</code><br><code>built-ins/DataView/prototype/getBigInt64/toindex-byteoffset-wrapped-values.js</code><br><code>built-ins/DataView/prototype/getBigUint64/toindex-byteoffset-wrapped-values.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:add</th><td class="n">98</td><td><code>built-ins/Function/S15.3.2.1_A2_T5.js</code><br><code>built-ins/Function/S15.3.2.1_A2_T6.js</code><br><code>built-ins/Function/prototype/toString/arrow-function.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:index-key</th><td class="n">97</td><td><code>built-ins/Array/prototype/copyWithin/return-abrupt-from-delete-target.js</code><br><code>built-ins/Array/prototype/copyWithin/return-abrupt-from-get-start-value.js</code><br><code>built-ins/Array/prototype/every/15.4.4.16-7-b-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:delete_property_at</th><td class="n">85</td><td><code>built-ins/Array/prototype/every/15.4.4.16-7-3.js</code><br><code>built-ins/Array/prototype/every/15.4.4.16-7-6.js</code><br><code>built-ins/Array/prototype/filter/15.4.4.20-9-3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:RegExp:syntax-error-throw</th><td class="n">84</td><td><code>built-ins/RegExp/15.10.2.15-6-1.js</code><br><code>built-ins/RegExp/15.10.2.5-3-1.js</code><br><code>built-ins/RegExp/15.10.4.1-2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:generator:return-into-suspended</th><td class="n">83</td><td><code>built-ins/GeneratorPrototype/return/try-catch-before-try.js</code><br><code>built-ins/GeneratorPrototype/return/try-catch-following-catch.js</code><br><code>built-ins/GeneratorPrototype/return/try-finally-before-try.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:to_string</th><td class="n">75</td><td><code>annexB/language/expressions/template-literal/legacy-octal-escape-sequence-non-strict.js</code><br><code>built-ins/Error/prototype/toString/invalid-receiver.js</code><br><code>built-ins/JSON/rawJSON/illegal-empty-and-start-end-chars.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:\p / \P unicode property escape</th><td class="n">65</td><td><code>built-ins/RegExp/property-escapes/character-class.js</code><br><code>built-ins/RegExp/property-escapes/generated/strings/Basic_Emoji.js</code><br><code>built-ins/RegExp/property-escapes/generated/strings/Emoji_Keycap_Sequence.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:u/v flag (unicode)</th><td class="n">63</td><td><code>built-ins/Array/fromAsync/asyncitems-arraylike-promise.js</code><br><code>built-ins/Array/fromAsync/asyncitems-asynciterator-exists.js</code><br><code>built-ins/Array/fromAsync/asyncitems-asynciterator-null.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:non-string-key</th><td class="n">54</td><td><code>built-ins/Array/prototype/find/return-abrupt-from-property.js</code><br><code>built-ins/Array/prototype/findIndex/return-abrupt-from-property.js</code><br><code>built-ins/Array/prototype/findLast/return-abrupt-from-property.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.split:non-regexp-separator</th><td class="n">50</td><td><code>built-ins/Iterator/zipKeyed/padding-iteration.js</code><br><code>built-ins/String/prototype/split/argument-is-null-and-instance-is-function-call-that-returned-string.js</code><br><code>built-ins/String/prototype/split/argument-is-undefined-and-instance-is-string.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:data-view-set:coerce-offset</th><td class="n">48</td><td><code>built-ins/DataView/prototype/setFloat32/index-check-before-value-conversion.js</code><br><code>built-ins/DataView/prototype/setFloat32/index-is-out-of-range.js</code><br><code>built-ins/DataView/prototype/setFloat32/negative-byteoffset-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:at</th><td class="n">47</td><td><code>annexB/built-ins/RegExp/legacy-accessors/input/this-not-regexp-constructor.js</code><br><code>built-ins/DisposableStack/prototype/use/Symbol.dispose-getter.js</code><br><code>built-ins/Function/prototype/toString/method-computed-property-name.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:copy_object</th><td class="n">47</td><td><code>language/expressions/array/spread-err-mult-err-obj-unresolvable.js</code><br><code>language/expressions/array/spread-err-sngl-err-obj-unresolvable.js</code><br><code>language/expressions/array/spread-mult-obj-null.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:ArrayBuffer:resizable</th><td class="n">45</td><td><code>built-ins/ArrayBuffer/options-maxbytelength-allocation-limit.js</code><br><code>built-ins/ArrayBuffer/options-maxbytelength-diminuitive.js</code><br><code>built-ins/ArrayBuffer/options-maxbytelength-excessive.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:arguments_strict</th><td class="n">44</td><td><code>built-ins/Array/prototype/concat/Array.prototype.concat_strict-arguments.js</code><br><code>built-ins/ArrayIteratorPrototype/next/args-unmapped-expansion-after-exhaustion.js</code><br><code>built-ins/ArrayIteratorPrototype/next/args-unmapped-expansion-before-exhaustion.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:data-view-get:coerce-offset</th><td class="n">40</td><td><code>built-ins/DataView/prototype/getFloat32/index-is-out-of-range.js</code><br><code>built-ins/DataView/prototype/getFloat32/negative-byteoffset-throws.js</code><br><code>built-ins/DataView/prototype/getFloat32/return-abrupt-from-tonumber-byteoffset-symbol.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:indexOf/lastIndexOf:scan-metering</th><td class="n">39</td><td><code>built-ins/String/prototype/indexOf/S15.5.4.7_A1_T10.js</code><br><code>built-ins/String/prototype/indexOf/S15.5.4.7_A1_T4.js</code><br><code>built-ins/String/prototype/indexOf/S15.5.4.7_A1_T5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:generator:yield-in-try</th><td class="n">38</td><td><code>built-ins/GeneratorPrototype/return/try-catch-within-catch.js</code><br><code>built-ins/GeneratorPrototype/return/try-catch-within-try.js</code><br><code>built-ins/GeneratorPrototype/return/try-finally-nested-try-catch-within-catch.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:template_cache</th><td class="n">38</td><td><code>built-ins/String/raw/return-the-string-value-from-template.js</code><br><code>built-ins/String/raw/special-characters.js</code><br><code>built-ins/String/raw/template-substitutions-are-appended-on-same-index.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Number.toString:non-decimal-radix</th><td class="n">35</td><td><code>built-ins/Number/prototype/toString/a-z.js</code><br><code>built-ins/Number/prototype/toString/numeric-literal-tostring-radix-11.js</code><br><code>built-ins/Number/prototype/toString/numeric-literal-tostring-radix-12.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:run_tail_1</th><td class="n">33</td><td><code>language/function-code/10.4.3-1-101-s.js</code><br><code>language/function-code/10.4.3-1-81-s.js</code><br><code>language/function-code/10.4.3-1-81gs.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:getOwnPropertyDescriptor:non-string-key</th><td class="n">32</td><td><code>built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-2-1.js</code><br><code>built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-2-12.js</code><br><code>built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-2-13.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.parse:syntax</th><td class="n">31</td><td><code>built-ins/JSON/parse/15.12.1.1-0-1.js</code><br><code>built-ins/JSON/parse/15.12.1.1-0-2.js</code><br><code>built-ins/JSON/parse/15.12.1.1-0-3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:WeakMap:iterable</th><td class="n">30</td><td><code>built-ins/WeakMap/empty-iterable.js</code><br><code>built-ins/WeakMap/iterable-failure.js</code><br><code>built-ins/WeakMap/iterable-with-object-keys.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:string-method:non-numeric-argument</th><td class="n">30</td><td><code>built-ins/String/prototype/charAt/S15.5.4.4_A1_T10.js</code><br><code>built-ins/String/prototype/charAt/S9.4_A1.js</code><br><code>built-ins/String/prototype/charAt/pos-coerce-string.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:reduce:non-dense-array</th><td class="n">29</td><td><code>built-ins/Array/prototype/reduce/15.4.4.21-4-1.js</code><br><code>built-ins/Array/prototype/reduce/15.4.4.21-4-3.js</code><br><code>built-ins/Array/prototype/reduce/15.4.4.21-4-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:seal:exotic-object</th><td class="n">29</td><td><code>built-ins/Object/seal/seal-aggregateerror.js</code><br><code>built-ins/Object/seal/seal-arraybuffer.js</code><br><code>built-ins/Object/seal/seal-bigint64array.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:trim:non-ascii</th><td class="n">29</td><td><code>built-ins/String/prototype/trim/15.5.4.20-2-44.js</code><br><code>built-ins/String/prototype/trim/15.5.4.20-3-1.js</code><br><code>built-ins/String/prototype/trim/15.5.4.20-3-2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Array.prototype.sort:data-dependent-comparison-metering</th><td class="n">25</td><td><code>built-ins/Array/prototype/sort/S15.4.4.11_A1.1_T1.js</code><br><code>built-ins/Array/prototype/sort/S15.4.4.11_A1.2_T1.js</code><br><code>built-ins/Array/prototype/sort/S15.4.4.11_A1.2_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Array.from:iterator-protocol-metering</th><td class="n">24</td><td><code>built-ins/Array/from/array-like-has-length-but-no-indexes-with-values.js</code><br><code>built-ins/Array/from/elements-deleted-after.js</code><br><code>built-ins/Array/from/elements-updated-after.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:array-buffer-slice:species-constructor</th><td class="n">24</td><td><code>built-ins/ArrayBuffer/prototype/slice/end-default-if-absent.js</code><br><code>built-ins/ArrayBuffer/prototype/slice/end-default-if-undefined.js</code><br><code>built-ins/ArrayBuffer/prototype/slice/end-exceeds-length.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:plus</th><td class="n">24</td><td><code>built-ins/Number/S9.3.1_A10.js</code><br><code>built-ins/Number/S9.3.1_A11.js</code><br><code>built-ins/Number/S9.3.1_A13.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.stringify:replacer-or-space</th><td class="n">23</td><td><code>built-ins/JSON/stringify/replacer-array-duplicates.js</code><br><code>built-ins/JSON/stringify/replacer-array-empty.js</code><br><code>built-ins/JSON/stringify/replacer-array-order.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:data-view-get:bigint</th><td class="n">22</td><td><code>built-ins/DataView/prototype/getBigInt64/index-is-out-of-range.js</code><br><code>built-ins/DataView/prototype/getBigInt64/negative-byteoffset-throws.js</code><br><code>built-ins/DataView/prototype/getBigInt64/return-abrupt-from-tonumber-byteoffset-symbol.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:some/every:non-dense-array</th><td class="n">22</td><td><code>built-ins/Array/prototype/every/15.4.4.16-4-1.js</code><br><code>built-ins/Array/prototype/every/15.4.4.16-4-3.js</code><br><code>built-ins/Array/prototype/every/15.4.4.16-4-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:to_numeric</th><td class="n">21</td><td><code>language/expressions/postfix-decrement/S11.3.2_A2.2_T1.js</code><br><code>language/expressions/postfix-decrement/S11.3.2_A3_T1.js</code><br><code>language/expressions/postfix-decrement/S11.3.2_A3_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:RegExp:regexp-pattern-arg</th><td class="n">18</td><td><code>built-ins/RegExp/15.10.4.1-1.js</code><br><code>built-ins/RegExp/S15.10.3.1_A1_T1.js</code><br><code>built-ins/RegExp/S15.10.3.1_A1_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:at_2</th><td class="n">18</td><td><code>built-ins/Array/S15.4.5.1_A2.1_T1.js</code><br><code>built-ins/Array/S15.4_A1.1_T5.js</code><br><code>built-ins/Array/S15.4_A1.1_T6.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:freeze:exotic-object</th><td class="n">18</td><td><code>built-ins/Array/prototype/fill/return-abrupt-from-setting-property-value.js</code><br><code>built-ins/Array/prototype/pop/set-length-zero-array-is-frozen.js</code><br><code>built-ins/Array/prototype/push/set-length-zero-array-is-frozen.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise:adopt-native-thenable</th><td class="n">18</td><td><code>built-ins/Promise/create-resolving-functions-reject.js</code><br><code>built-ins/Promise/create-resolving-functions-resolve.js</code><br><code>built-ins/Promise/prototype/then/resolve-pending-fulfilled-thenable.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:store_arrow</th><td class="n">18</td><td><code>language/eval-code/direct/new.target-arrow.js</code><br><code>language/eval-code/direct/super-call-arrow.js</code><br><code>language/eval-code/direct/super-prop-arrow.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:isNaN/isFinite:uncoercible</th><td class="n">17</td><td><code>built-ins/isFinite/return-abrupt-from-tonumber-number-symbol.js</code><br><code>built-ins/isFinite/return-abrupt-from-tonumber-number.js</code><br><code>built-ins/isFinite/tonumber-operations.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:data-view-set:coerce</th><td class="n">16</td><td><code>built-ins/DataView/prototype/setFloat32/return-abrupt-from-tonumber-value-symbol.js</code><br><code>built-ins/DataView/prototype/setFloat32/return-abrupt-from-tonumber-value.js</code><br><code>built-ins/DataView/prototype/setFloat64/return-abrupt-from-tonumber-value-symbol.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:divide</th><td class="n">16</td><td><code>built-ins/String/S15.5.1.1_A1_T12.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.2_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.2_T2.2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:not_equal</th><td class="n">16</td><td><code>built-ins/String/prototype/concat/S15.5.4.6_A3.js</code><br><code>language/expressions/does-not-equals/S11.9.2_A3.2.js</code><br><code>language/expressions/does-not-equals/S11.9.2_A3.3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.replace:non-regexp-pattern</th><td class="n">15</td><td><code>built-ins/String/prototype/replace/S15.5.4.11_A1_T10.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A1_T11.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A1_T12.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.search:non-regexp-arg</th><td class="n">15</td><td><code>built-ins/String/prototype/search/S15.5.4.12_A1.1_T1.js</code><br><code>built-ins/String/prototype/search/S15.5.4.12_A1_T10.js</code><br><code>built-ins/String/prototype/search/S15.5.4.12_A1_T11.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:modulo</th><td class="n">15</td><td><code>language/expressions/compound-assignment/S11.13.2_A4.3_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.3_T2.2.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.3_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise:handler-throw</th><td class="n">15</td><td><code>built-ins/Promise/all/invoke-resolve-error-reject.js</code><br><code>built-ins/Promise/allSettled/invoke-resolve-error-reject.js</code><br><code>built-ins/Promise/allSettled/resolved-then-catch-finally.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:increment</th><td class="n">14</td><td><code>language/expressions/prefix-increment/S11.4.4_A2.2_T1.js</code><br><code>language/expressions/prefix-increment/S11.4.4_A3_T1.js</code><br><code>language/expressions/prefix-increment/S11.4.4_A3_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:less</th><td class="n">14</td><td><code>built-ins/BigInt/prototype/toString/a-z.js</code><br><code>language/expressions/less-than/S11.8.1_A3.1_T2.2.js</code><br><code>language/expressions/less-than/S11.8.1_A3.1_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:instantiate</th><td class="n">13</td><td><code>built-ins/Error/isError/fake-errors.js</code><br><code>built-ins/Iterator/zipKeyed/iterables-iteration-inherited.js</code><br><code>built-ins/Object/prototype/setPrototypeOf-with-non-circular-values-__proto__.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:multiply</th><td class="n">13</td><td><code>language/expressions/compound-assignment/S11.13.2_A4.1_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.1_T2.2.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.1_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:subtract</th><td class="n">13</td><td><code>language/expressions/compound-assignment/S11.13.2_A4.5_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.5_T2.2.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.5_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.match:non-regexp-arg</th><td class="n">12</td><td><code>built-ins/String/prototype/match/S15.5.4.10_A1_T10.js</code><br><code>built-ins/String/prototype/match/S15.5.4.10_A1_T11.js</code><br><code>built-ins/String/prototype/match/S15.5.4.10_A1_T12.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:data-view-set:bigint</th><td class="n">12</td><td><code>built-ins/DataView/prototype/setBigInt64/index-check-before-value-conversion.js</code><br><code>built-ins/DataView/prototype/setBigInt64/index-is-out-of-range.js</code><br><code>built-ins/DataView/prototype/setBigInt64/negative-byteoffset-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:decrement</th><td class="n">12</td><td><code>language/expressions/prefix-decrement/S11.4.5_A2.2_T1.js</code><br><code>language/expressions/prefix-decrement/S11.4.5_A3_T1.js</code><br><code>language/expressions/prefix-decrement/S11.4.5_A3_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:non-object-descriptor</th><td class="n">12</td><td><code>built-ins/Object/defineProperty/15.2.3.6-3-15.js</code><br><code>built-ins/Object/defineProperty/15.2.3.6-3-16.js</code><br><code>built-ins/Object/defineProperty/15.2.3.6-3-17.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:more</th><td class="n">12</td><td><code>language/expressions/greater-than/S11.8.2_A3.1_T2.2.js</code><br><code>language/expressions/greater-than/S11.8.2_A3.1_T2.5.js</code><br><code>language/expressions/greater-than/S11.8.2_A3.1_T2.6.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.parse:reviver</th><td class="n">11</td><td><code>built-ins/JSON/parse/reviver-array-get-prop-from-prototype.js</code><br><code>built-ins/JSON/parse/reviver-array-non-configurable-prop-create.js</code><br><code>built-ins/JSON/parse/reviver-array-non-configurable-prop-delete.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:equal</th><td class="n">11</td><td><code>language/expressions/equals/S11.9.1_A3.2.js</code><br><code>language/expressions/equals/S11.9.1_A3.3.js</code><br><code>language/expressions/equals/S11.9.1_A4.1_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:filter:non-dense-array</th><td class="n">11</td><td><code>built-ins/Array/prototype/filter/15.4.4.20-4-1.js</code><br><code>built-ins/Array/prototype/filter/15.4.4.20-4-3.js</code><br><code>built-ins/Array/prototype/filter/15.4.4.20-4-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:forEach:non-dense-array</th><td class="n">11</td><td><code>built-ins/Array/prototype/forEach/15.4.4.18-4-1.js</code><br><code>built-ins/Array/prototype/forEach/15.4.4.18-4-3.js</code><br><code>built-ins/Array/prototype/forEach/15.4.4.18-4-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:map:non-dense-array</th><td class="n">11</td><td><code>built-ins/Array/prototype/map/15.4.4.19-4-1.js</code><br><code>built-ins/Array/prototype/map/15.4.4.19-4-3.js</code><br><code>built-ins/Array/prototype/map/15.4.4.19-4-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.match:global</th><td class="n">10</td><td><code>built-ins/RegExp/lookBehind/captures.js</code><br><code>built-ins/RegExp/lookBehind/start-of-line.js</code><br><code>built-ins/String/prototype/match/S15.5.4.10_A2_T12.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.replace:global</th><td class="n">10</td><td><code>built-ins/RegExp/S15.10.2.8_A3_T18.js</code><br><code>built-ins/RegExp/u180e.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A1_T17.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:array-buffer-transfer:unsupported</th><td class="n">10</td><td><code>built-ins/ArrayBuffer/prototype/transfer/from-fixed-to-larger-no-resizable.js</code><br><code>built-ins/ArrayBuffer/prototype/transfer/from-fixed-to-larger.js</code><br><code>built-ins/ArrayBuffer/prototype/transfer/from-fixed-to-same-no-resizable.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:bit_and</th><td class="n">10</td><td><code>language/expressions/bitwise-and/S11.10.1_A3_T1.3.js</code><br><code>language/expressions/bitwise-and/S11.10.1_A3_T2.2.js</code><br><code>language/expressions/bitwise-and/S11.10.1_A3_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:bit_or</th><td class="n">10</td><td><code>language/expressions/bitwise-or/S11.10.3_A3_T1.3.js</code><br><code>language/expressions/bitwise-or/S11.10.3_A3_T2.2.js</code><br><code>language/expressions/bitwise-or/S11.10.3_A3_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:bit_xor</th><td class="n">10</td><td><code>language/expressions/bitwise-xor/S11.10.2_A3_T1.3.js</code><br><code>language/expressions/bitwise-xor/S11.10.2_A3_T2.2.js</code><br><code>language/expressions/bitwise-xor/S11.10.2_A3_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:call:non-user-function-receiver</th><td class="n">10</td><td><code>built-ins/Function/S15.3_A2_T1.js</code><br><code>built-ins/Function/S15.3_A2_T2.js</code><br><code>built-ins/Function/S15.3_A3_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:left_shift</th><td class="n">10</td><td><code>language/expressions/compound-assignment/S11.13.2_A4.6_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.6_T2.2.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.6_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:less_equal</th><td class="n">10</td><td><code>language/expressions/less-than-or-equal/S11.8.3_A3.1_T2.2.js</code><br><code>language/expressions/less-than-or-equal/S11.8.3_A3.1_T2.5.js</code><br><code>language/expressions/less-than-or-equal/S11.8.3_A3.1_T2.6.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:more_equal</th><td class="n">10</td><td><code>language/expressions/greater-than-or-equal/S11.8.4_A3.1_T2.2.js</code><br><code>language/expressions/greater-than-or-equal/S11.8.4_A3.1_T2.5.js</code><br><code>language/expressions/greater-than-or-equal/S11.8.4_A3.1_T2.6.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:signed_right_shift</th><td class="n">10</td><td><code>language/expressions/compound-assignment/S11.13.2_A4.7_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.7_T2.2.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.7_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:unsigned_right_shift</th><td class="n">10</td><td><code>language/expressions/compound-assignment/S11.13.2_A4.8_T1.3.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.8_T2.2.js</code><br><code>language/expressions/compound-assignment/S11.13.2_A4.8_T2.5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.split:empty-match</th><td class="n">9</td><td><code>built-ins/String/prototype/split/argument-is-new-reg-exp-and-instance-is-string-hello.js</code><br><code>built-ins/String/prototype/split/arguments-are-new-reg-exp-and-1-and-instance-is-string-hello.js</code><br><code>built-ins/String/prototype/split/arguments-are-new-reg-exp-and-2-and-instance-is-string-hello.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:await:await-in-try</th><td class="n">9</td><td><code>language/expressions/async-arrow-function/try-reject-finally-reject.js</code><br><code>language/expressions/async-arrow-function/try-reject-finally-return.js</code><br><code>language/expressions/async-arrow-function/try-reject-finally-throw.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:delete_property</th><td class="n">9</td><td><code>built-ins/Array/prototype/toString/non-callable-join-string-tag.js</code><br><code>built-ins/Boolean/S15.6.2.1_A4.js</code><br><code>built-ins/Number/S15.7.2.1_A4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:in</th><td class="n">9</td><td><code>built-ins/Function/prototype/bind/S15.3.4.5_A3.js</code><br><code>language/expressions/conditional/in-branch-1.js</code><br><code>language/expressions/in/S11.8.7_A2.1_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:instanceof</th><td class="n">9</td><td><code>language/expressions/instanceof/S11.8.6_A3.js</code><br><code>language/expressions/instanceof/S11.8.6_A6_T1.js</code><br><code>language/expressions/instanceof/S11.8.6_A6_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">negative-type-unmatched:ReferenceError</th><td class="n">8</td><td><code>language/statements/const/global-use-before-initialization-in-declaration-statement.js</code><br><code>language/statements/const/global-use-before-initialization-in-prior-statement.js</code><br><code>language/statements/let/global-use-before-initialization-in-declaration-statement.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.replace:dollar-substitution</th><td class="n">8</td><td><code>built-ins/String/prototype/replace/S15.5.4.11_A2_T10.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A2_T7.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A2_T8.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:arguments</th><td class="n">8</td><td><code>language/expressions/arrow-function/syntax/arrowparameters-cover-includes-rest-concisebody-functionbody.js</code><br><code>language/expressions/arrow-function/syntax/arrowparameters-cover-rest-concisebody-functionbody.js</code><br><code>language/expressions/arrow-function/syntax/arrowparameters-cover-rest-lineterminator-concisebody-functionbody.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:data-view-set:out-of-range</th><td class="n">8</td><td><code>built-ins/DataView/prototype/setFloat32/range-check-after-value-conversion.js</code><br><code>built-ins/DataView/prototype/setFloat64/range-check-after-value-conversion.js</code><br><code>built-ins/DataView/prototype/setInt16/range-check-after-value-conversion.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:exponentiation</th><td class="n">8</td><td><code>language/expressions/exponentiation/bigint-and-number.js</code><br><code>language/expressions/exponentiation/bigint-arithmetic.js</code><br><code>language/expressions/exponentiation/bigint-errors.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:getOwnPropertyDescriptor:exotic-object</th><td class="n">8</td><td><code>built-ins/Array/prototype/filter/15.4.4.20-9-c-iii-1.js</code><br><code>built-ins/Array/prototype/map/15.4.4.19-8-c-iii-1.js</code><br><code>built-ins/Object/getOwnPropertyDescriptor/15.2.3.3-3-14.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:indexOf:non-dense-array</th><td class="n">8</td><td><code>built-ins/Array/prototype/indexOf/15.4.4.14-10-1.js</code><br><code>built-ins/Array/prototype/indexOf/15.4.4.14-5-12.js</code><br><code>built-ins/Array/prototype/indexOf/15.4.4.14-5-16.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:isExtensible:exotic-object</th><td class="n">8</td><td><code>built-ins/Object/keys/15.2.3.14-2-4.js</code><br><code>built-ins/Object/preventExtensions/15.2.3.10-3-5.js</code><br><code>built-ins/Object/seal/object-seal-o-is-a-boolean-object.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:lastIndexOf:non-dense-array</th><td class="n">8</td><td><code>built-ins/Array/prototype/lastIndexOf/15.4.4.15-5-12.js</code><br><code>built-ins/Array/prototype/lastIndexOf/15.4.4.15-5-16.js</code><br><code>built-ins/Array/prototype/lastIndexOf/15.4.4.15-8-9.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Number</th><td class="n">8</td><td><code>built-ins/Number/S15.7.1.1_A1.js</code><br><code>built-ins/Number/S8.12.8_A3.js</code><br><code>built-ins/Number/S8.12.8_A4.js</code></td></tr>
+<tr><th scope="row" class="reason">negative-type-unmatched:Test262Error</th><td class="n">7</td><td><code>language/line-terminators/comment-multi-lf.js</code><br><code>language/line-terminators/comment-multi-ls.js</code><br><code>language/line-terminators/comment-multi-ps.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:(?&lt;name&gt;) named capture</th><td class="n">7</td><td><code>built-ins/RegExp/match-indices/indices-groups-object-unmatched.js</code><br><code>built-ins/RegExp/named-groups/groups-object-unmatched.js</code><br><code>built-ins/RegExp/named-groups/non-unicode-match.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Array.prototype.toSorted:data-dependent-comparison-metering</th><td class="n">7</td><td><code>built-ins/Array/prototype/toSorted/comparefn-controls-sort.js</code><br><code>built-ins/Array/prototype/toSorted/comparefn-default.js</code><br><code>built-ins/Array/prototype/toSorted/comparefn-not-a-function.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:WeakMap.set:non-object-key</th><td class="n">7</td><td><code>built-ins/WeakMap/prototype/delete/delete-entry-with-symbol-key.js</code><br><code>built-ins/WeakMap/prototype/delete/returns-false-when-symbol-key-not-present.js</code><br><code>built-ins/WeakMap/prototype/get/returns-undefined-with-symbol-key.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:parseFloat:non-string-argument</th><td class="n">7</td><td><code>built-ins/parseFloat/S15.1.2.3_A1_T1.js</code><br><code>built-ins/parseFloat/S15.1.2.3_A1_T2.js</code><br><code>built-ins/parseFloat/S15.1.2.3_A1_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:parseInt:non-string-argument</th><td class="n">7</td><td><code>built-ins/parseInt/S15.1.2.2_A1_T1.js</code><br><code>built-ins/parseInt/S15.1.2.2_A1_T2.js</code><br><code>built-ins/parseInt/S15.1.2.2_A1_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.stringify:toJSON</th><td class="n">6</td><td><code>built-ins/JSON/stringify/value-tojson-abrupt.js</code><br><code>built-ins/JSON/stringify/value-tojson-arguments.js</code><br><code>built-ins/JSON/stringify/value-tojson-array-circular.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:WeakSet.add:non-object-value</th><td class="n">6</td><td><code>built-ins/WeakSet/prototype/add/adds-symbol-element.js</code><br><code>built-ins/WeakSet/prototype/add/returns-this-symbol.js</code><br><code>built-ins/WeakSet/prototype/add/throw-when-value-cannot-be-held-weakly.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:concat:non-string-argument</th><td class="n">6</td><td><code>built-ins/String/prototype/concat/S15.5.4.6_A1_T10.js</code><br><code>built-ins/String/prototype/concat/S15.5.4.6_A1_T5.js</code><br><code>built-ins/String/prototype/concat/S15.5.4.6_A1_T6.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:hasOwnProperty:index-key</th><td class="n">6</td><td><code>built-ins/Array/length/S15.4.5.1_A1.2_T3.js</code><br><code>built-ins/Array/prototype/sort/bug_596_2.js</code><br><code>built-ins/Array/prototype/splice/15.4.4.12-9-c-ii-1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise:resolve-self</th><td class="n">6</td><td><code>built-ins/Promise/prototype/then/resolve-pending-fulfilled-self.js</code><br><code>built-ins/Promise/prototype/then/resolve-pending-rejected-self.js</code><br><code>built-ins/Promise/prototype/then/resolve-settled-fulfilled-self.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:startsWith/endsWith:non-string-search</th><td class="n">6</td><td><code>built-ins/String/prototype/endsWith/return-abrupt-from-searchstring-as-symbol.js</code><br><code>built-ins/String/prototype/endsWith/return-abrupt-from-searchstring.js</code><br><code>built-ins/String/prototype/endsWith/searchstring-is-regexp-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:toCase:non-ascii</th><td class="n">6</td><td><code>built-ins/String/prototype/toLowerCase/Final_Sigma_U180E.js</code><br><code>built-ins/String/prototype/toLowerCase/special_casing.js</code><br><code>built-ins/String/prototype/toLowerCase/special_casing_conditional.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:yield*</th><td class="n">6</td><td><code>language/expressions/yield/star-array.js</code><br><code>language/expressions/yield/star-string.js</code><br><code>language/statements/for-of/yield-star-from-catch.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Object.keys:non-object</th><td class="n">5</td><td><code>built-ins/Object/keys/15.2.3.14-1-1.js</code><br><code>built-ins/Object/keys/15.2.3.14-1-2.js</code><br><code>built-ins/Object/keys/15.2.3.14-1-3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.apply:reentrant-trampoline</th><td class="n">5</td><td><code>built-ins/Reflect/apply/arguments-list-is-not-array-like.js</code><br><code>built-ins/Reflect/apply/call-target.js</code><br><code>built-ins/Reflect/apply/return-target-call-result.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.defineProperty:partial-descriptor</th><td class="n">5</td><td><code>built-ins/Object/internals/DefineOwnProperty/consistent-value-function-caller.js</code><br><code>built-ins/Object/internals/DefineOwnProperty/consistent-value-regexp-dollar1.js</code><br><code>built-ins/Object/internals/DefineOwnProperty/consistent-writable-regexp-dollar1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:bind:non-user-function-receiver</th><td class="n">5</td><td><code>built-ins/Function/prototype/bind/15.3.4.5-2-3.js</code><br><code>built-ins/Function/prototype/bind/15.3.4.5-2-4.js</code><br><code>built-ins/Function/prototype/bind/15.3.4.5-2-5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:call:primitive-this-boxing</th><td class="n">5</td><td><code>built-ins/Function/prototype/call/S15.3.4.4_A5_T3.js</code><br><code>language/expressions/dynamic-import/assignment-expression/this.js</code><br><code>language/function-code/10.4.3-1-1-s.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:getOwnPropertyDescriptors:non-object</th><td class="n">5</td><td><code>built-ins/Object/getOwnPropertyDescriptors/exception-not-object-coercible.js</code><br><code>built-ins/Object/getOwnPropertyDescriptors/primitive-booleans.js</code><br><code>built-ins/Object/getOwnPropertyDescriptors/primitive-numbers.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:hasOwnProperty:non-string-key</th><td class="n">5</td><td><code>built-ins/Object/prototype/hasOwnProperty/symbol_own_property.js</code><br><code>built-ins/Object/prototype/hasOwnProperty/symbol_property_toPrimitive.js</code><br><code>built-ins/Object/prototype/hasOwnProperty/symbol_property_toString.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:DataView:coerce-offset</th><td class="n">5</td><td><code>built-ins/DataView/byteoffset-is-negative-throws.js</code><br><code>built-ins/DataView/negative-byteoffset-throws.js</code><br><code>built-ins/DataView/return-abrupt-tonumber-byteoffset-symbol.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:preventExtensions:exotic-object</th><td class="n">5</td><td><code>built-ins/Object/defineProperties/15.2.3.7-6-a-194.js</code><br><code>built-ins/Object/defineProperty/15.2.3.6-4-198.js</code><br><code>built-ins/Object/isFrozen/15.2.3.12-2-a-12.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.parse:non-string</th><td class="n">4</td><td><code>built-ins/JSON/parse/text-negative-zero.js</code><br><code>built-ins/JSON/parse/text-non-string-primitive.js</code><br><code>built-ins/JSON/parse/text-object-abrupt.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Object.entries:non-object</th><td class="n">4</td><td><code>built-ins/Object/entries/exception-not-object-coercible.js</code><br><code>built-ins/Object/entries/primitive-booleans.js</code><br><code>built-ins/Object/entries/primitive-numbers.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Object.values:non-object</th><td class="n">4</td><td><code>built-ins/Object/values/exception-not-object-coercible.js</code><br><code>built-ins/Object/values/primitive-booleans.js</code><br><code>built-ins/Object/values/primitive-numbers.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:String.replace:function</th><td class="n">4</td><td><code>built-ins/String/prototype/replace/15.5.4.11-1.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A12.js</code><br><code>built-ins/String/prototype/replace/S15.5.4.11_A4_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:astral code point in pattern</th><td class="n">4</td><td><code>built-ins/RegExp/prototype/exec/regexp-builtin-exec-v-u-flag.js</code><br><code>built-ins/String/prototype/match/regexp-prototype-match-v-u-flag.js</code><br><code>built-ins/String/prototype/matchAll/regexp-prototype-matchAll-v-u-flag.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:for_in</th><td class="n">4</td><td><code>language/statements/for-in/S12.6.4_A1.js</code><br><code>language/statements/for-in/S12.6.4_A2.js</code><br><code>language/statements/for-in/let-block-with-newline.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:get_super</th><td class="n">4</td><td><code>language/expressions/object/method-definition/generator-super-prop-body.js</code><br><code>language/expressions/object/method-definition/generator-super-prop-param.js</code><br><code>language/expressions/object/method-definition/name-super-prop-body.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:DataView:coerce-length</th><td class="n">4</td><td><code>built-ins/DataView/negative-bytelength-throws.js</code><br><code>built-ins/DataView/return-abrupt-tonumber-bytelength-symbol.js</code><br><code>built-ins/DataView/return-abrupt-tonumber-bytelength.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise:executor-throw</th><td class="n">4</td><td><code>built-ins/Promise/exception-after-resolve-in-executor.js</code><br><code>built-ins/Promise/reject-ignored-via-abrupt.js</code><br><code>built-ins/Promise/reject-via-abrupt-queue.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:propertyIsEnumerable:non-string-key</th><td class="n">4</td><td><code>built-ins/Object/prototype/propertyIsEnumerable/symbol_own_property.js</code><br><code>built-ins/Object/prototype/propertyIsEnumerable/symbol_property_toPrimitive.js</code><br><code>built-ins/Object/prototype/propertyIsEnumerable/symbol_property_toString.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:typed-array-set:coerce</th><td class="n">4</td><td><code>built-ins/TypedArrayConstructors/ctors-bigint/object-arg/bigint-tobigint64.js</code><br><code>built-ins/TypedArrayConstructors/ctors-bigint/object-arg/bigint-tobiguint64.js</code><br><code>built-ins/TypedArrayConstructors/internals/Set/BigInt/bigint-tobigint64.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Array.prototype.toLocaleString:locale-stringification</th><td class="n">3</td><td><code>built-ins/Array/prototype/toLocaleString/S15.4.4.3_A1_T1.js</code><br><code>built-ins/Array/prototype/toLocaleString/S15.4.4.3_A3_T1.js</code><br><code>intl402/Array/prototype/toLocaleString/calls-toLocaleString-number-elements.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.stringify:wrapper-object</th><td class="n">3</td><td><code>built-ins/JSON/stringify/value-boolean-object.js</code><br><code>built-ins/JSON/stringify/value-number-object.js</code><br><code>built-ins/JSON/stringify/value-string-object.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Math:non-numeric-argument</th><td class="n">3</td><td><code>built-ins/Math/hypot/Math.hypot_ToNumberErr.js</code><br><code>built-ins/Math/max/15.8.2.11-1.js</code><br><code>built-ins/Math/min/15.8.2.12-1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Number.toString:radix-range</th><td class="n">3</td><td><code>built-ins/Number/prototype/toString/numeric-literal-tostring-radix-1.js</code><br><code>built-ins/Number/prototype/toString/numeric-literal-tostring-radix-37.js</code><br><code>built-ins/Number/prototype/toString/numeric-literal-tostring-radix-poisoned.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Object.keys:exotic-object</th><td class="n">3</td><td><code>built-ins/Object/keys/15.2.3.14-3-3.js</code><br><code>built-ins/Object/keys/15.2.3.14-5-11.js</code><br><code>built-ins/Object/keys/15.2.3.14-6-3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.set:exotic-object</th><td class="n">3</td><td><code>built-ins/TypedArrayConstructors/internals/Set/key-is-in-bounds-receiver-is-not-typed-array.js</code><br><code>built-ins/TypedArrayConstructors/internals/Set/key-is-out-of-bounds-receiver-is-not-object.js</code><br><code>built-ins/TypedArrayConstructors/internals/Set/key-is-out-of-bounds-receiver-is-not-typed-array.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.setPrototypeOf:non-object-proto</th><td class="n">3</td><td><code>built-ins/Reflect/setPrototypeOf/proto-is-not-object-and-not-null-throws.js</code><br><code>built-ins/Reflect/setPrototypeOf/proto-is-symbol-throws.js</code><br><code>built-ins/Reflect/setPrototypeOf/return-true-if-proto-is-current.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Symbol.keyFor:non-symbol</th><td class="n">3</td><td><code>built-ins/Symbol/asyncDispose/no-key.js</code><br><code>built-ins/Symbol/dispose/no-key.js</code><br><code>built-ins/Symbol/keyFor/arg-non-symbol.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:generator:already-running</th><td class="n">3</td><td><code>built-ins/GeneratorPrototype/next/from-state-executing.js</code><br><code>built-ins/GeneratorPrototype/return/from-state-executing.js</code><br><code>built-ins/GeneratorPrototype/throw/from-state-executing.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:generator:new-target</th><td class="n">3</td><td><code>language/expressions/generators/invoke-as-constructor.js</code><br><code>language/expressions/object/method-definition/generator-invoke-ctor.js</code><br><code>language/statements/generators/invoke-as-constructor.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:get_property_at</th><td class="n">3</td><td><code>built-ins/String/15.5.5.5.2-7-3.js</code><br><code>language/expressions/delete/delete-unresolvable-base-object-reference-throws-typeerror.js</code><br><code>language/expressions/optional-chaining/iteration-statement-for.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:includes:non-string-search</th><td class="n">3</td><td><code>built-ins/String/prototype/includes/return-abrupt-from-searchstring-as-symbol.js</code><br><code>built-ins/String/prototype/includes/return-abrupt-from-searchstring.js</code><br><code>built-ins/String/prototype/includes/searchstring-is-regexp-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:join:non-dense-array</th><td class="n">3</td><td><code>built-ins/Array/prototype/join/S15.4.4.5_A1.2_T1.js</code><br><code>built-ins/Array/prototype/join/S15.4.4.5_A1.2_T2.js</code><br><code>built-ins/Array/prototype/join/S15.4.4.5_A5_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:AggregateError:iterable-errors</th><td class="n">3</td><td><code>built-ins/AggregateError/errors-iterabletolist-failures.js</code><br><code>built-ins/AggregateError/errors-iterabletolist.js</code><br><code>built-ins/AggregateError/order-of-args-evaluation.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Array:bad-length</th><td class="n">3</td><td><code>built-ins/Array/length/S15.4.2.2_A2.2_T1.js</code><br><code>built-ins/Array/length/S15.4.2.2_A2.2_T2.js</code><br><code>built-ins/Array/length/S15.4.2.2_A2.2_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:ArrayBuffer:bad-length</th><td class="n">3</td><td><code>built-ins/ArrayBuffer/allocation-limit.js</code><br><code>built-ins/ArrayBuffer/length-is-too-large-throws.js</code><br><code>built-ins/ArrayBuffer/negative-length-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:ArrayBuffer:coerce-length</th><td class="n">3</td><td><code>built-ins/ArrayBuffer/return-abrupt-from-length-symbol.js</code><br><code>built-ins/ArrayBuffer/return-abrupt-from-length.js</code><br><code>built-ins/ArrayBuffer/toindex-length.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:with:range</th><td class="n">3</td><td><code>built-ins/Array/prototype/with/index-bigger-or-eq-than-length.js</code><br><code>built-ins/Array/prototype/with/index-smaller-than-minus-length.js</code><br><code>built-ins/Array/prototype/with/index-throw-completion.js</code></td></tr>
+<tr><th scope="row" class="reason">async:no-completion-signal</th><td class="n">2</td><td><code>built-ins/Promise/allSettled/invoke-then-error-reject.js</code><br><code>built-ins/Promise/race/invoke-then-error-reject.js</code></td></tr>
+<tr><th scope="row" class="reason">async:reported-failure</th><td class="n">2</td><td><code>built-ins/Promise/all/resolve-non-thenable.js</code><br><code>built-ins/Promise/race/resolve-prms-cstm-then.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Array.of:metering</th><td class="n">2</td><td><code>built-ins/Array/of/creates-a-new-array-from-arguments.js</code><br><code>built-ins/Array/of/return-a-new-array-object.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.defineProperty:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/defineProperty/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/defineProperty/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.deleteProperty:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/deleteProperty/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/deleteProperty/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.get:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/get/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/get/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.getOwnPropertyDescriptor:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/getOwnPropertyDescriptor/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/getOwnPropertyDescriptor/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.getOwnPropertyDescriptor:non-string-key</th><td class="n">2</td><td><code>built-ins/Reflect/getOwnPropertyDescriptor/return-abrupt-from-property-key.js</code><br><code>built-ins/Reflect/getOwnPropertyDescriptor/undefined-property.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.getPrototypeOf:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/getPrototypeOf/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/getPrototypeOf/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.has:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/has/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/has/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.ownKeys:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/ownKeys/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/ownKeys/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.set:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/set/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/set/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.setPrototypeOf:non-object</th><td class="n">2</td><td><code>built-ins/Reflect/setPrototypeOf/target-is-not-object-throws.js</code><br><code>built-ins/Reflect/setPrototypeOf/target-is-symbol-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Symbol.for:non-string-key</th><td class="n">2</td><td><code>built-ins/Symbol/for/description.js</code><br><code>built-ins/Symbol/for/to-string-err.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:apply:arguments-array</th><td class="n">2</td><td><code>built-ins/Function/prototype/apply/argarray-not-object.js</code><br><code>built-ins/Function/prototype/apply/get-length-abrupt.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:concat:sparse-arg</th><td class="n">2</td><td><code>built-ins/Array/prototype/concat/S15.4.4.4_A1_T4.js</code><br><code>built-ins/Array/prototype/concat/S15.4.4.4_A3_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:find:non-dense-array</th><td class="n">2</td><td><code>built-ins/Array/prototype/find/predicate-called-for-each-array-property.js</code><br><code>built-ins/Array/prototype/findIndex/predicate-called-for-each-array-property.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:findLast:non-dense-array</th><td class="n">2</td><td><code>built-ins/Array/prototype/findLast/predicate-called-for-each-array-property.js</code><br><code>built-ins/Array/prototype/findLastIndex/predicate-called-for-each-array-property.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:generator:throw-into-suspended</th><td class="n">2</td><td><code>built-ins/GeneratorPrototype/throw/try-catch-before-try.js</code><br><code>built-ins/GeneratorPrototype/throw/try-finally-before-try.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:generator:throw-on-completed</th><td class="n">2</td><td><code>built-ins/GeneratorPrototype/throw/from-state-completed.js</code><br><code>built-ins/GeneratorPrototype/throw/from-state-suspended-start.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:join:non-string-separator</th><td class="n">2</td><td><code>built-ins/Array/prototype/join/S15.4.4.5_A3.1_T1.js</code><br><code>built-ins/Array/prototype/join/S15.4.4.5_A3.1_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:minus</th><td class="n">2</td><td><code>language/expressions/unary-minus/11.4.7-4-1.js</code><br><code>language/expressions/unary-minus/S11.4.7_A3_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:DataView:non-buffer</th><td class="n">2</td><td><code>built-ins/DataView/buffer-does-not-have-arraybuffer-data-throws.js</code><br><code>built-ins/DataView/buffer-not-object-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:pop:non-dense-array</th><td class="n">2</td><td><code>built-ins/Array/prototype/pop/S15.4.4.6_A1.2_T1.js</code><br><code>built-ins/Array/prototype/pop/S15.4.4.6_A4_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise:non-user-executor</th><td class="n">2</td><td><code>built-ins/Promise/executor-not-callable.js</code><br><code>language/statements/async-function/evaluation-body.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:promise:thenable-then-throw</th><td class="n">2</td><td><code>built-ins/Promise/exception-after-resolve-in-thenable-job.js</code><br><code>built-ins/Promise/resolve/S25.4.4.5_A3.1_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:propertyIsEnumerable:ambiguous-default-key</th><td class="n">2</td><td><code>built-ins/Number/MAX_VALUE/S15.7.3.2_A4.js</code><br><code>built-ins/Number/MIN_VALUE/S15.7.3.3_A4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:reduce:concurrent-mutation</th><td class="n">2</td><td><code>built-ins/Array/prototype/reduce/15.4.4.21-9-4.js</code><br><code>built-ins/Array/prototype/reduceRight/15.4.4.22-9-4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:reduce:empty-no-initial</th><td class="n">2</td><td><code>built-ins/Array/prototype/reduce/15.4.4.21-5-1.js</code><br><code>built-ins/Array/prototype/reduceRight/15.4.4.22-5-1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:repeat:range-error</th><td class="n">2</td><td><code>built-ins/String/prototype/repeat/count-is-infinity-throws.js</code><br><code>built-ins/String/prototype/repeat/count-less-than-zero-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:reverse:non-dense-array</th><td class="n">2</td><td><code>built-ins/Array/prototype/reverse/S15.4.4.8_A1_T2.js</code><br><code>built-ins/Array/prototype/reverse/S15.4.4.8_A4_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:shift:non-dense-array</th><td class="n">2</td><td><code>built-ins/Array/prototype/shift/S15.4.4.9_A1.2_T1.js</code><br><code>built-ins/Array/prototype/shift/S15.4.4.9_A4_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:toString:non-dense-array</th><td class="n">2</td><td><code>built-ins/Array/prototype/toString/S15.4.4.2_A1_T2.js</code><br><code>built-ins/Array/prototype/toString/S15.4.4.2_A3_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">negative-type-unmatched:SyntaxError</th><td class="n">1</td><td><code>language/eval-code/indirect/parse-failure-2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.stringify:callable-top</th><td class="n">1</td><td><code>built-ins/JSON/stringify/value-function.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.stringify:callable-value</th><td class="n">1</td><td><code>built-ins/JSON/stringify/value-object-abrupt.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:JSON.stringify:interned-key</th><td class="n">1</td><td><code>built-ins/JSON/stringify/value-symbol.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.defineProperty:non-object-descriptor</th><td class="n">1</td><td><code>built-ins/Reflect/defineProperty/return-abrupt-from-property-key.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.defineProperty:non-string-key</th><td class="n">1</td><td><code>built-ins/Object/internals/DefineOwnProperty/consistent-value-function-arguments.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.deleteProperty:non-string-key</th><td class="n">1</td><td><code>built-ins/Reflect/deleteProperty/return-abrupt-from-property-key.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.get:non-string-key</th><td class="n">1</td><td><code>built-ins/Reflect/get/return-abrupt-from-property-key.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.has:non-string-key</th><td class="n">1</td><td><code>built-ins/Reflect/has/return-abrupt-from-property-key.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.ownKeys:exotic-object</th><td class="n">1</td><td><code>built-ins/Reflect/ownKeys/return-non-enumerable-keys.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:Reflect.set:non-string-key</th><td class="n">1</td><td><code>built-ins/Reflect/set/return-abrupt-from-property-key.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:apply:non-user-function-receiver</th><td class="n">1</td><td><code>built-ins/Function/prototype/apply/S15.3.4.3_A8_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:apply:primitive-this-boxing</th><td class="n">1</td><td><code>built-ins/Function/prototype/apply/S15.3.4.3_A5_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:async:new-target</th><td class="n">1</td><td><code>built-ins/AsyncFunction/instance-construct-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:bind:new-bound</th><td class="n">1</td><td><code>built-ins/Function/prototype/bind/instance-construct-newtarget-self-new.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:bit_not</th><td class="n">1</td><td><code>language/expressions/bitwise-not/S11.4.8_A3_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:copyWithin:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/copyWithin/fill-holes.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:defineProperty:redefine</th><td class="n">1</td><td><code>built-ins/Object/defineProperty/15.2.3.6-4-5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:delete_super_at</th><td class="n">1</td><td><code>language/expressions/delete/super-property-topropertykey.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:fill:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/fill/fill-values-custom-start-and-end.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:getOwnPropertyDescriptors:unclassified-property</th><td class="n">1</td><td><code>built-ins/Object/getOwnPropertyDescriptors/symbols-included.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:includes:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/includes/sparse.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:isFrozen:exotic-object</th><td class="n">1</td><td><code>built-ins/Object/keys/15.2.3.14-2-6.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:isSealed:exotic-object</th><td class="n">1</td><td><code>built-ins/Object/keys/15.2.3.14-2-5.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:join:reference-element</th><td class="n">1</td><td><code>built-ins/Array/prototype/join/S15.4.4.5_A3.2_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:ArrayBuffer</th><td class="n">1</td><td><code>built-ins/ArrayBuffer/undefined-newtarget-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:DataView</th><td class="n">1</td><td><code>built-ins/DataView/newtarget-undefined-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:DataView:bad-length</th><td class="n">1</td><td><code>built-ins/DataView/excessive-bytelength-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:DataView:bad-offset</th><td class="n">1</td><td><code>built-ins/DataView/excessive-byteoffset-throws.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Map</th><td class="n">1</td><td><code>built-ins/Map/undefined-newtarget.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Promise</th><td class="n">1</td><td><code>built-ins/Promise/undefined-newtarget.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Set</th><td class="n">1</td><td><code>built-ins/Set/set-undefined-newtarget.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:Symbol</th><td class="n">1</td><td><code>built-ins/Symbol/invoked-with-new.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:WeakMap</th><td class="n">1</td><td><code>built-ins/WeakMap/undefined-newtarget.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:native-call:WeakSet</th><td class="n">1</td><td><code>built-ins/WeakSet/undefined-newtarget.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:push:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/push/S15.4.4.7_A3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:set_super</th><td class="n">1</td><td><code>language/expressions/super/prop-dot-obj-ref-non-strict.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:slice:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/slice/S15.4.4.10_A4_T1.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:splice:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/splice/S15.4.4.12_A4_T3.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:super_at</th><td class="n">1</td><td><code>language/expressions/super/prop-expr-obj-key-err.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:super_at_2</th><td class="n">1</td><td><code>language/expressions/super/prop-expr-obj-ref-non-strict.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:toReversed:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/toReversed/holes-not-preserved.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:toSpliced:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/toSpliced/holes-not-preserved.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:toString:reference-element</th><td class="n">1</td><td><code>built-ins/Array/prototype/toString/S15.4.4.2_A1_T4.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:unshift:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/unshift/S15.4.4.13_A4_T2.js</code></td></tr>
+<tr><th scope="row" class="reason">unsupported-opcode:with:non-dense-array</th><td class="n">1</td><td><code>built-ins/Array/prototype/with/holes-not-preserved.js</code></td></tr>
+</tbody>
+</table>
+</section>
+<section aria-labelledby="skipped">
+<h2 id="skipped">Skipped reasons (declared &amp; structural)</h2>
+<table>
+<thead><tr><th scope="col">Reason</th><th scope="col">Count</th><th scope="col">Example cases</th></tr></thead>
+<tbody>
+<tr><th scope="row" class="reason">feature:Temporal</th><td class="n">6711</td><td><code>built-ins/Date/prototype/toTemporalInstant/length.js</code><br><code>built-ins/Date/prototype/toTemporalInstant/name.js</code><br><code>built-ins/Date/prototype/toTemporalInstant/not-a-constructor.js</code></td></tr>
+<tr><th scope="row" class="reason">structural:module</th><td class="n">826</td><td><code>built-ins/AbstractModuleSource/length.js</code><br><code>built-ins/AbstractModuleSource/name.js</code><br><code>built-ins/AbstractModuleSource/proto.js</code></td></tr>
+<tr><th scope="row" class="reason">onlyStrict:strict-mode-unimplemented</th><td class="n">632</td><td><code>annexB/language/expressions/template-literal/legacy-octal-escape-sequence-strict.js</code><br><code>annexB/language/statements/for-in/strict-initializer.js</code><br><code>built-ins/Array/from/calling-from-valid-1-onlyStrict.js</code></td></tr>
+<tr><th scope="row" class="reason">feature:Atomics</th><td class="n">303</td><td><code>built-ins/Atomics/Symbol.toStringTag.js</code><br><code>built-ins/Atomics/add/bad-range.js</code><br><code>built-ins/Atomics/add/bigint/bad-range.js</code></td></tr>
+<tr><th scope="row" class="reason">feature:SharedArrayBuffer</th><td class="n">302</td><td><code>built-ins/ArrayBuffer/prototype/byteLength/this-is-sharedarraybuffer.js</code><br><code>built-ins/ArrayBuffer/prototype/detached/this-is-sharedarraybuffer-resizable.js</code><br><code>built-ins/ArrayBuffer/prototype/detached/this-is-sharedarraybuffer.js</code></td></tr>
+<tr><th scope="row" class="reason">feature:ShadowRealm</th><td class="n">64</td><td><code>built-ins/ShadowRealm/WrappedFunction/length-throws-typeerror.js</code><br><code>built-ins/ShadowRealm/WrappedFunction/length.js</code><br><code>built-ins/ShadowRealm/WrappedFunction/name-throws-typeerror.js</code></td></tr>
+<tr><th scope="row" class="reason">feature:IsHTMLDDA</th><td class="n">35</td><td><code>annexB/built-ins/Array/from/iterator-method-emulates-undefined.js</code><br><code>annexB/built-ins/Object/is/emulates-undefined.js</code><br><code>annexB/built-ins/String/prototype/match/custom-matcher-emulates-undefined.js</code></td></tr>
+<tr><th scope="row" class="reason">feature:tail-call-optimization</th><td class="n">35</td><td><code>built-ins/Proxy/revocable/tco-fn-realm.js</code><br><code>language/expressions/call/tco-call-args.js</code><br><code>language/expressions/call/tco-member-args.js</code></td></tr>
+<tr><th scope="row" class="reason">feature:decorators</th><td class="n">24</td><td><code>language/expressions/class/decorator/syntax/class-valid/decorator-member-expr-private-identifier.js</code><br><code>language/expressions/class/decorator/syntax/valid/decorator-call-expr-identifier-reference-yield.js</code><br><code>language/expressions/class/decorator/syntax/valid/decorator-call-expr-identifier-reference.js</code></td></tr>
+</tbody>
+</table>
+</section>
+<section aria-labelledby="infra">
+<h2 id="infra">Infrastructure reasons (non-results)</h2>
+<table>
+<thead><tr><th scope="col">Reason</th><th scope="col">Count</th><th scope="col">Example cases</th></tr></thead>
+<tbody>
+<tr><th scope="row" class="reason">negative-oracle-unexpected</th><td class="n">1</td><td><code>language/global-code/decl-lex-restricted-global.js</code></td></tr>
+</tbody>
+</table>
+</section>
+<footer><p>Generated by <code>ironhorse-262-report</code> from per-case <code>ironhorse-xst</code> output. This report is a snapshot; the machine-readable <code>report.json</code> alongside it carries every case.</p></footer>
+</main>
+</body>
+</html>
