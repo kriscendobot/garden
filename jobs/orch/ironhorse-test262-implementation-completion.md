@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-05-derived-classes-private-decorators-host: endolin-garden-ece02cb4
 child-ironhorse-js-05-derived-classes-private-decorators-reap-count: 0
 child-ironhorse-js-04-functions-constructors-base-classes-host: endolin-garden2-5bcdff64
 child-ironhorse-js-04-functions-constructors-base-classes-reap-count: 0
