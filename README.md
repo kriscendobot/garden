@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T03:46:40Z_
+_As of 2026-08-08T03:59:25Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 5h)
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 5h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
+- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 6h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 9d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 9d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 10d)
@@ -5830,14 +5830,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-07-29T06:56:25Z, latest 2026-08-07T03:41:32Z).
-> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> WATCHDOG notice — occurrence #18 (first seen 2026-07-29T06:56:25Z, latest 2026-08-08T03:59:08Z).
+> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
-> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#851](https://github.com/endojs/endo-but-for-bots/issues/851) (cid=5212022426) and failed open.
+> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (cid=5224391071) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5212022426 on [endojs/endo-but-for-bots#851](https://github.com/endojs/endo-but-for-bots/issues/851) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5224391071 on [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
@@ -5882,14 +5882,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $744.76 _(notional, rate-card)_ | no quota set |
-| Codex | 9.1M _(+282.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Claude | 44.4M | $748.57 _(notional, rate-card)_ | no quota set |
+| Codex | 9.1M _(+282.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr963-5eec99f6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr963-5eec99f6.md) — attention directive on endojs/endo-but-for-bots PR #963
 - [`ironhorse-full-test262-automation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation.md) — Build authoritative full-test262 automation for Ironhorse
 
 ### tada (4257)
@@ -5976,6 +5977,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr894-review-dc37fad0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr894-review-dc37fad0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #894 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr893-review-c75e34e0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr893-review-c75e34e0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #893 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr910-review-e5f8d5f3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr910-review-e5f8d5f3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #910 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr963-5eec99f6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr963-5eec99f6-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #963 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
