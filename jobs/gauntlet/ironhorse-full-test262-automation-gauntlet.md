@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 969
 build_job: ironhorse-full-test262-automation
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ironhorse-full-test262-automation-gauntlet-panel-4
+current_child: ironhorse-full-test262-automation-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-08-08T04:12:53Z
