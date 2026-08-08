@@ -1,4 +1,5 @@
 ---
+child-ironhorse-full-test262-automation-host: endolin-garden2-5bcdff64
 child-ironhorse-full-test262-automation-reap-count: 0
 order: serial
 children: ironhorse-full-test262-automation ironhorse-full-test262-report-publish ironhorse-test262-gap-orchestration
