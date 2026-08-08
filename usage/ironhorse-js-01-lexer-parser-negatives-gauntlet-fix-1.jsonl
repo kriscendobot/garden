@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":70,"elapsed_s":903,"input_tokens":128,"output_tokens":47226,"cache_creation_tokens":170898,"cache_read_tokens":9790480,"total_cost_usd":7.787949000000001,"ts":"2026-08-08T06:56:53Z","base":"ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-1","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener"}
