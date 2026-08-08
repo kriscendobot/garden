@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T10:43:32Z_
+_As of 2026-08-08T10:44:31Z_
 
 ## Latest
 
@@ -3345,6 +3345,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ironhorse-js-01-lexer-parser-negatives-gauntlet HALTED: stage 'ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260808T104407Z-c76fcc` — from gauntlet:ironhorse-js-04-functions-constructors-base-classes-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T104407Z-c76fcc.md)
+
+> Gauntlet ironhorse-js-04-functions-constructors-base-classes-gauntlet HALTED: stage 'ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6069,7 +6073,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 58.1M | $919.95 _(notional, rate-card)_ | no quota set |
-| Codex | 15.2M _(+508.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Codex | 15.3M _(+508.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6081,13 +6085,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-05-derived-classes-private-decorators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-05-derived-classes-private-decorators.md) — Complete derived classes, super, private elements, and decorators
 
-### tada (4311)
+### tada (4312)
+- [`ironhorse-js-04-functions-constructors-base-classes-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-04-functions-constructors-base-classes-gauntlet.md) — gauntlet ironhorse-js-04-functions-constructors-base-classes-gauntlet — HALTED
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives-gauntlet.md) — gauntlet ironhorse-js-01-lexer-parser-negatives-gauntlet — HALTED
 - [`ironhorse-full-test262-automation-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-5.md) — Cost
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-03-object-mop-descriptors-gauntlet-fix-1.md) — Cost
 - [`ironhorse-js-04-functions-constructors-base-classes-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-04-functions-constructors-base-classes-gauntlet-clean.md) — Completion report
-- [`ironhorse-js-02-errors-coercions-strict-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-02-errors-coercions-strict-gauntlet-fix-1.md) — Completion report
-- … and 4306 more
+- … and 4307 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
