@@ -31,3 +31,13 @@ issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315
 submitter: kriscendobot
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-08T09:33:22Z
