@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 970
 build_job: ironhorse-js-01-lexer-parser-negatives
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2
+current_child: ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-08-08T06:06:04Z
