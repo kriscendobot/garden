@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T05:01:28Z_
+_As of 2026-08-08T05:03:42Z_
 
 ## Latest
 
@@ -5882,24 +5882,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $745.40 _(notional, rate-card)_ | no quota set |
+| Claude | 44.3M | $746.12 _(notional, rate-card)_ | no quota set |
 | Codex | 9.3M _(+284.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #969
+### doin (1)
 - [`ironhorse-js-00-report-harness-foundation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation.md) — Establish the completion PR and make the full-suite oracle harness trustworthy
 
-### tada (4271)
+### tada (4272)
+- [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Cost
 - [`ironhorse-test262-report-and-gap-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-report-and-gap-plan.md) — orchestration ironhorse-test262-report-and-gap-plan — complete
 - [`ironhorse-test262-gap-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-gap-orchestration.md) — Cost
 - [`ironhorse-full-test262-report-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-report-publish.md) — Completion report
 - [`ironhorse-full-test262-automation-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-clean.md) — Cost
-- [`ironhorse-full-test262-automation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation.md) — Completion report
-- … and 4266 more
+- … and 4267 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
