@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T06:06:33Z_
+_As of 2026-08-08T06:07:32Z_
 
 ## Latest
 
@@ -5901,9 +5901,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ironhorse-full-test262-automation-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
+- [`ironhorse-js-02-errors-coercions-strict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict.md) — Implement Error objects, abstract coercions, and strict-mode semantics
 
 ### tada (4279)
 - [`ironhorse-js-01-lexer-parser-negatives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives.md) — Completion report — ironhorse-js-01-lexer-parser-negatives
