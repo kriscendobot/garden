@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T15:52:25Z_
+_As of 2026-08-08T16:20:36Z_
 
 ## Latest
 
@@ -6221,15 +6221,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $833.89 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+538.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 53.5M | $839.14 _(notional, rate-card)_ | no quota set |
+| Codex | 15.7M _(+538.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20260808-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260808-162001.md) — Daily dependabotany backstop for endo-but-for-bots
 
 ### tada (4321)
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet.md) — gauntlet ironhorse-js-05-derived-classes-private-decorators-gauntlet — HALTED
