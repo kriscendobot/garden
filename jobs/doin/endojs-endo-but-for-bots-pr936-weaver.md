@@ -30,3 +30,13 @@ preserving — this is a docs index/content merge), and force-push with
 re-dispatch on the new head; verify it converges green (the diff is docs-only, so
 expect the docs-only lane). The PR is a draft and already approved; do not
 un-draft or merge — that is the maintainer's/conductor's call.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-08T06:55:48Z
