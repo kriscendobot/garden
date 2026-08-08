@@ -1,1 +1,2 @@
 {"source":"none","ts":"2026-08-08T07:44:12Z","base":"ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":1040,"role":"gardener"}
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":1284,"input_tokens":60,"output_tokens":13624,"cache_creation_tokens":50030,"cache_read_tokens":1615841,"total_cost_usd":1.6515174999999997,"ts":"2026-08-08T08:15:17Z","base":"ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}
