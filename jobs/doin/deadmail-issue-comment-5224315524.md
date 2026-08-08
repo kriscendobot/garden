@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-522431552
 We’ve merged #600 but work remains. Notably, Proxy is evidently not implemented. Please check. Let’s get a full run of the current, authoritative test262 tests and identify language implementation gaps. Update our automation for running a *full* test262 suite with Ironhorse a
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-08T03:40:11Z
