@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: ironhorse-js-04-functions-constructors-base-classes-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-08-08T09:21:26Z
 ---
