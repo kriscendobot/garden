@@ -1,12 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-test262-report-and-gap-plan
-priority: high
-roadmap: ironhorse-language-completion
 role: mentor
-posted_by: gardener
-posted_at: 2026-08-08T03:44:11Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-08T04:46:03Z cleared=none -->
 
 ---
 tier: mentor
