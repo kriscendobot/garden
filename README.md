@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T05:50:35Z_
+_As of 2026-08-08T05:52:56Z_
 
 ## Latest
 
@@ -3307,6 +3307,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration pr910-mustfix-round2 HALTED: child pr910-mustfix-round2-06-repanel stalled in flight for 2512s on host endolin-garden2-5bcdff64 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 5/6 done before halt; swept: none
 
+- `20260808T055242Z-22a9a8` — from gardener:ironhorse-js-01-lexer-parser-negatives, reply_to `ironhorse-js-01-lexer-parser-negatives` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T055242Z-22a9a8.md)
+
+> Child 01 (Ironhorse lexer/parser/negatives) — the job's two premises are BOTH empirically wrong; here is what I proved by running the pinned XS oracle (23b4d6b0, moddable 8.3.1) directly, and what I propose.
+>
+> FINDING 1 — the 16 `start-unicode-*` "over-acceptances" are NOT an identifier-table bug. Ironhorse's ID_Start/ID_Continue tables are byte-for-byte identical to XS 8.3.1's gxIdentifierFirst/NextTable (verified programmatically), and XS accepts every one of those Unicode code points individually. The files fail only because each declares thousands of top-level vars (4302–6866); XS reserves one value-stack slot per top-level binding (compiled program|eval frame) and OVERFLOWS its 4096-slot C value stack at exactly 3913 bindings — a runtime host abort (empty error, ~23 computrons, bytecode WAS emitted). Truncating the real 16.0.0 file to ≤3912 decls makes XS accept it; ≥3913 rejects. So the oracle host-overflows on valid wide-frame programs; Ironhorse correctly runs them.
+>
+> FINDING 2 — the 3 `*-invalid-assignment-next-expression-for.js` "hangs" are the ORACLE hanging, not Ironhorse. XS itself infinite-loops on `for (const/using/await-using i=0; i<1; i++){}` (confirmed with an 8s bound on bare source). Ironhorse terminates immediately (throws/returns). dual_run runs the oracle inside the same bounded thread, so child 00's per-case bound catches the ORACLE'S non-termination and mislabels it `ironhorse-hang`.
+>
+> So all 19 failures in my slice are XS host/oracle limitations, not Ironhorse defects — exactly the "specifically justified host-only exclusion" your acceptance criterion allows. No engine parser/coder/identifier change makes them "covered" (you cannot differentially cover a program the oracle can't run). 
+>
+> PLAN (precisely gated to exactly these 19 cases; zero blast radius elsewhere — they are the report's only IronhorseOnlyComplete + only timeouts): (1) attribute an oracle-only non-termination as `oracle-nontermination` (re-run ironhorse-only under the bound; if it terminates, the oracle hung) rather than `ironhorse-hang`; (2) classify `IronhorseOnlyComplete` where the oracle emitted bytecode but aborted with an empty error (fatal host stack overflow, not a language rejection) as `oracle-host-stack-limit` rather than `over-acceptance`. Both are honest reattributions in child 00's classifier, land the 19 as justified `skipped` exclusions (not covered, not ironhorse-failure, not infrastructure — regression invariant holds), with focused Rust regression tests. I'll proceed with this unless you redirect. Reply routes to my inbox.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5882,8 +5894,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.8M | $814.41 _(notional, rate-card)_ | no quota set |
-| Codex | 9.5M _(+292.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 49.2M | $821.65 _(notional, rate-card)_ | no quota set |
+| Codex | 9.5M _(+292.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
