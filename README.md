@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T09:24:22Z_
+_As of 2026-08-08T09:26:06Z_
 
 ## Latest
 
@@ -3327,6 +3327,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ironhorse-js-00-report-harness-foundation-gauntlet HALTED: stage 'ironhorse-js-00-report-harness-foundation-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260808T092550Z-573828` — from gardener:ironhorse-js-05-derived-classes-private-decorators, reply_to `ironhorse-js-05-derived-classes-private-decorators` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T092550Z-573828.md)
+
+> Heads-up on the Ironhorse serial chain (orchestration ironhorse-test262-implementation-completion, order=serial, halt-on-failure):
+>
+> Child 05 (derived-classes/super/private/decorators) was promoted+claimed at 09:22Z while its serial predecessor child 04 (functions/construction/base-classes) is STILL in jobs/doin/ and actively pushing to the shared PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) branch feat/ironhorse-262-language-completion — its latest commit 5bc920c3e landed 09:20Z, 2 min before my claim. 04 has no jobs/tada/ report yet.
+>
+> My job explicitly says "Build on child 04 for derived construction, super()/super property references". Proceeding now would (a) build on an unfinished base lacking settled super()/base-class construction, and (b) race child 04's concurrent interp.rs edits + branch pushes — exactly the source-overlap conflict the serial ordering exists to prevent.
+>
+> Action I'm taking: I will NOT race. I'll poll for child 04 reaching jobs/tada/, then fetch its final head, and only then implement child 05, committing incrementally. If child 04 hasn't landed within my handler window I'll exit without the completion signal so the job resumes later. Flag if you'd rather I park/hold this differently.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5964,8 +5974,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.2M | $978.40 _(notional, rate-card)_ | no quota set |
-| Codex | 13.5M _(+456.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 60.2M | $977.64 _(notional, rate-card)_ | no quota set |
+| Codex | 13.6M _(+458.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
