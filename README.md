@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T09:26:06Z_
+_As of 2026-08-08T09:34:38Z_
 
 ## Latest
 
@@ -3337,6 +3337,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Action I'm taking: I will NOT race. I'll poll for child 04 reaching jobs/tada/, then fetch its final head, and only then implement child 05, committing incrementally. If child 04 hasn't landed within my handler window I'll exit without the completion signal so the job resumes later. Flag if you'd rather I park/hold this differently.
 
+- `20260808T093407Z-975ced` — from orchestrator:ironhorse-test262-implementation-completion-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T093407Z-975ced.md)
+
+> Orchestration ironhorse-test262-implementation-completion HALTED: child ironhorse-js-05-derived-classes-private-decorators stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 5/29 done before halt; swept: ironhorse-js-06-sync-iteration-generators ironhorse-js-07-promises-async-functions ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5974,28 +5978,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.2M | $977.64 _(notional, rate-card)_ | no quota set |
-| Codex | 13.6M _(+458.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 60.8M | $968.30 _(notional, rate-card)_ | no quota set |
+| Codex | 13.9M _(+465.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (4)
 - [`ironhorse-full-test262-automation-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #969
-- [`ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-02-errors-coercions-strict-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-03-object-mop-descriptors-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-04-functions-constructors-base-classes-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-04-functions-constructors-base-classes-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-05-derived-classes-private-decorators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-05-derived-classes-private-decorators.md) — Complete derived classes, super, private elements, and decorators
 
-### tada (4304)
+### tada (4307)
+- [`ironhorse-js-02-errors-coercions-strict-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-02-errors-coercions-strict-gauntlet-fix-1.md) — Completion report
+- [`ironhorse-test262-implementation-completion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion.md) — orchestration ironhorse-test262-implementation-completion — HALTED
+- [`ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-2.md) — Cost
 - [`ironhorse-js-04-functions-constructors-base-classes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-04-functions-constructors-base-classes.md) — Completion report — ironhorse-js-04-functions-constructors-base-classes
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-03-object-mop-descriptors-gauntlet-panel-1.md) — Cost
-- [`ironhorse-js-03-object-mop-descriptors-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-03-object-mop-descriptors-gauntlet-clean.md) — Completion report
-- [`ironhorse-full-test262-automation-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-4.md) — Completion report
-- [`ironhorse-js-03-object-mop-descriptors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-03-object-mop-descriptors.md) — Cost
-- … and 4299 more
+- … and 4302 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
