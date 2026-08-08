@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T06:49:22Z_
+_As of 2026-08-08T06:53:37Z_
 
 ## Latest
 
@@ -5898,14 +5898,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $867.36 _(notional, rate-card)_ | no quota set |
-| Codex | 10.8M _(+331.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 52.9M | $871.96 _(notional, rate-card)_ | no quota set |
+| Codex | 11.1M _(+338.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- [`endojs-endo-but-for-bots-pr936-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr936-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #936
 - [`endojs-endo-but-for-bots-pr937-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #937
 - [`ironhorse-full-test262-automation-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
