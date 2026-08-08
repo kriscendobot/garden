@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":23,"elapsed_s":2209,"input_tokens":44,"output_tokens":11913,"cache_creation_tokens":63637,"cache_read_tokens":1247382,"total_cost_usd":1.560425,"ts":"2026-08-08T05:03:27Z","base":"ironhorse-full-test262-automation-gauntlet-panel-1","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}
