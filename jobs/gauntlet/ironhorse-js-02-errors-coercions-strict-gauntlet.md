@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: ironhorse-js-02-errors-coercions-strict-gauntlet-clean
+state: running
 created_by: producer
 created_at: 2026-08-08T07:43:08Z
 ---
