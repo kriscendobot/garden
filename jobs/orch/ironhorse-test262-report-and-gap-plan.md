@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-full-test262-automation ironhorse-full-test262-report-publish ironhorse-test262-gap-orchestration
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-08T03:44:17Z
 ---
