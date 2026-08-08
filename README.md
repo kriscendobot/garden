@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T06:20:34Z_
+_As of 2026-08-08T06:22:21Z_
 
 ## Latest
 
@@ -5864,7 +5864,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
 
-> root repo /home/kris/garden2 deploy has been STALLED for ~3d: deployed sha dc18efaf50770e81bb0bd4b1a381e1cad03eaed3 is 33 commit(s) behind origin/main2 (dd30716f03fa71a59988ccd21467b84a3d465314) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-04T10:22:02Z, latest 2026-08-08T06:22:01Z).
+> The SAME condition (`root-repo-deploy-stalled-endolin-garden2-5bcdff64`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> root repo /home/kris/garden2 deploy has been STALLED for ~3d: deployed sha c7d730c3652a92b3bc4f533af5c1fd993bcb72d4 is 13 commit(s) behind origin/main2 (b771c6ff8444c1748581dddbffb8db9ae17223a0) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden2-5bcdff64)
 
 - `watchdog-root-repo-objstore-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden-ece02cb4.md)
 
@@ -5894,8 +5898,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.1M | $824.99 _(notional, rate-card)_ | no quota set |
-| Codex | 9.9M _(+302.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 50.5M | $828.62 _(notional, rate-card)_ | no quota set |
+| Codex | 10.0M _(+303.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
