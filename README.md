@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T09:36:20Z_
+_As of 2026-08-08T09:39:09Z_
 
 ## Latest
 
@@ -5978,18 +5978,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $975.04 _(notional, rate-card)_ | no quota set |
-| Codex | 13.9M _(+466.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 62.1M | $986.04 _(notional, rate-card)_ | no quota set |
+| Codex | 14.0M _(+468.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`ironhorse-full-test262-automation-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-02-errors-coercions-strict-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-03-object-mop-descriptors-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
+- [`ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-05-derived-classes-private-decorators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-05-derived-classes-private-decorators.md) — Complete derived classes, super, private elements, and decorators
 
 ### tada (4308)
