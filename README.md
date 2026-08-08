@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T07:05:38Z_
+_As of 2026-08-08T07:13:59Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 9h)
 - [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 9h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 9d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 10d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 9d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 19d)
@@ -5898,27 +5898,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.0M | $876.86 _(notional, rate-card)_ | no quota set |
-| Codex | 11.6M _(+363.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 53.0M | $877.11 _(notional, rate-card)_ | no quota set |
+| Codex | 11.8M _(+378.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endojs-endo-but-for-bots-pr936-weaver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr936-weaver.md) — rebase directive on endojs/endo-but-for-bots PR #936
+### doin (4)
 - [`ironhorse-full-test262-automation-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-02-errors-coercions-strict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict.md) — Implement Error objects, abstract coercions, and strict-mode semantics
 
-### tada (4286)
+### tada (4287)
+- [`endojs-endo-but-for-bots-pr936-weaver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-weaver.md) — Cost
 - [`endojs-endo-but-for-bots-pr937-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-rebase.md) — Cost
 - [`endojs-endo-but-for-bots-pr936-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-shepherd.md) — Cost
 - [`ironhorse-full-test262-automation-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-3.md) — Cost
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-1.md) — Cost
-- [`ironhorse-full-test262-automation-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-2.md) — Completion report
-- … and 4281 more
+- … and 4282 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
