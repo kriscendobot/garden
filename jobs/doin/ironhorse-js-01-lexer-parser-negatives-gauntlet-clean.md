@@ -37,3 +37,13 @@ You are ONE stage of a staged gauntlet (ironhorse-js-01-lexer-parser-negatives-g
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-08T06:08:09Z
