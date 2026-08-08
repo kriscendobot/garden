@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T06:38:34Z_
+_As of 2026-08-08T06:40:59Z_
 
 ## Latest
 
@@ -5899,24 +5899,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 52.5M | $861.86 _(notional, rate-card)_ | no quota set |
-| Codex | 10.3M _(+320.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Codex | 10.3M _(+321.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ironhorse-full-test262-automation-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #969
+### doin (2)
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-02-errors-coercions-strict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict.md) — Implement Error objects, abstract coercions, and strict-mode semantics
 
-### tada (4283)
+### tada (4284)
+- [`ironhorse-full-test262-automation-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-3.md) — Cost
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-1.md) — Cost
 - [`ironhorse-full-test262-automation-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-2.md) — Completion report
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives-gauntlet-clean.md) — Cost
 - [`deadmail-20260808T060857Z-d8040f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260808T060857Z-d8040f.md) — Completion report
-- [`ironhorse-js-01-lexer-parser-negatives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives.md) — Completion report — ironhorse-js-01-lexer-parser-negatives
-- … and 4278 more
+- … and 4279 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
