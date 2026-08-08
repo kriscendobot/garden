@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T04:44:53Z_
+_As of 2026-08-08T04:46:38Z_
 
 ## Latest
 
@@ -5889,8 +5889,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #969
+- [`ironhorse-test262-gap-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-gap-orchestration.md) — Turn the published Ironhorse test262 report into an implementation orchestration
 
 ### tada (4269)
 - [`ironhorse-full-test262-report-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-report-publish.md) — Completion report
