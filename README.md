@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T11:14:39Z_
+_As of 2026-08-08T11:31:30Z_
 
 ## Latest
 
@@ -6167,23 +6167,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 58.1M | $919.95 _(notional, rate-card)_ | no quota set |
-| Codex | 15.5M _(+517.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 37% _(plan; codex-reported)_ |
+| Codex | 15.6M _(+524.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ironhorse-full-test262-automation-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #969
+### doin (1)
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 
-### tada (4317)
+### tada (4318)
+- [`ironhorse-full-test262-automation-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-6.md) — Cost
 - [`ironhorse-js-02-errors-coercions-strict-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-02-errors-coercions-strict-gauntlet.md) — gauntlet ironhorse-js-02-errors-coercions-strict-gauntlet — HALTED
 - [`ironhorse-js-03-object-mop-descriptors-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-03-object-mop-descriptors-gauntlet.md) — gauntlet ironhorse-js-03-object-mop-descriptors-gauntlet — HALTED
 - [`ironhorse-full-test262-automation-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-6.md) — Cost
 - [`ironhorse-js-05-derived-classes-private-decorators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators.md) — Cost
-- [`ironhorse-full-test262-automation-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-5.md) — Cost
-- … and 4312 more
+- … and 4313 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
