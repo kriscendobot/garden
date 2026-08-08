@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T05:28:30Z_
+_As of 2026-08-08T05:28:48Z_
 
 ## Latest
 
@@ -5882,25 +5882,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $744.76 _(notional, rate-card)_ | no quota set |
+| Claude | 44.2M | $744.86 _(notional, rate-card)_ | no quota set |
 | Codex | 9.2M _(+284.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ironhorse-full-test262-automation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #969
+### doin (2)
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-01-lexer-parser-negatives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives.md) — Close lexer, parser, and early-error correctness gaps
 
-### tada (4273)
+### tada (4274)
+- [`ironhorse-full-test262-automation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-1.md) — Cost
 - [`ironhorse-js-00-report-harness-foundation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-00-report-harness-foundation.md) — Completion report — ironhorse-js-00-report-harness-foundation
 - [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Cost
 - [`ironhorse-test262-report-and-gap-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-report-and-gap-plan.md) — orchestration ironhorse-test262-report-and-gap-plan — complete
 - [`ironhorse-test262-gap-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-gap-orchestration.md) — Cost
-- [`ironhorse-full-test262-report-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-report-publish.md) — Completion report
-- … and 4268 more
+- … and 4269 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
