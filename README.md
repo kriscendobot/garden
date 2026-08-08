@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T07:30:55Z_
+_As of 2026-08-08T07:32:15Z_
 
 ## Latest
 
@@ -5907,27 +5907,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 55.2M | $898.80 _(notional, rate-card)_ | no quota set |
-| Codex | 12.2M _(+392.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Codex | 12.2M _(+394.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`deadmail-20260808T072509Z-f78199`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260808T072509Z-f78199.md) — Dead-lettered message — pick up its intent
+### doin (5)
 - [`deadmail-20260808T072625Z-3bd2f7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260808T072625Z-3bd2f7.md) — Dead-lettered message — pick up its intent
 - [`ironhorse-full-test262-automation-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-02-errors-coercions-strict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict.md) — Implement Error objects, abstract coercions, and strict-mode semantics
 
-### tada (4290)
+### tada (4291)
+- [`deadmail-20260808T072509Z-f78199`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260808T072509Z-f78199.md) — Cost
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-01-lexer-parser-negatives-gauntlet-fix-1.md) — Cost
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-00-report-harness-foundation-gauntlet-fix-1.md) — Completion report — Gauntlet FIX round 1, PR #970
 - [`ironhorse-full-test262-automation-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr936-weaver`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-weaver.md) — Cost
-- [`endojs-endo-but-for-bots-pr937-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-rebase.md) — Cost
-- … and 4285 more
+- … and 4286 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
