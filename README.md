@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T07:54:35Z_
+_As of 2026-08-08T08:03:53Z_
 
 ## Latest
 
@@ -3713,6 +3713,60 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `doomed-ironhorse-js-00-report-harness-foundation-gauntlet-panel-2-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-00-report-harness-foundation-gauntlet-panel-2-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
+> The gardener stamped the deadline-overrun counter, so the reaper surfaced it after 1
+> cycle(s) rather than the full 5-cycle doom threshold. The effective handler budget in
+> force for this job is 2400s. That counter is stamped for two DISTINCT shapes; check the
+> gardener log for the actual elapsed to tell which applies:
+>   (a) GENUINE wall-clock overrun — elapsed ≈ 2400s (rc=124 at the wall). The job does not
+>       fit one claim: SPLIT it into claim-sized stages, or raise its handler-timeout.
+>   (b) FAST repeated failure — elapsed far below 2400s (e.g. a 1–2s usage-cap/API rejection)
+>       flagged by elapsed-constancy. The budget is NOT the problem; read the handler log
+>       for the real cause (quota/usage cut, swallowed error) — raising the budget will not help.
+> The work is preserved at jobs/plan/ironhorse-js-00-report-harness-foundation-gauntlet-panel-2; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-js-00-report-harness-foundation-gauntlet-panel-2) or removes it.
+> Original job base: ironhorse-js-00-report-harness-foundation-gauntlet-panel-2
+>
+> --- original job body ---
+> ---
+> role: gardener
+> gauntlet: ironhorse-js-00-report-harness-foundation-gauntlet
+> gauntlet_stage: panel
+> gauntlet_iteration: 2
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/970](https://github.com/endojs/endo-but-for-bots/pull/970)
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
+>
+> You are ONE stage of a staged gauntlet (ironhorse-js-00-report-harness-foundation-gauntlet). Run EXACTLY ONE panel round, post the
+> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh ironhorse-js-00-report-harness-foundation-gauntlet-panel-2 endojs/endo-but-for-bots <pr-head-branch>`.
+> 2. Run the panel in SINGLE-ROUND mode against that worktree:
+>    `GARDEN_PANEL_SINGLE_ROUND=1 \
+>      /home/kris/garden2/scripts/jobs/gardening/panel.sh <worktree> 970 <base-ref>`
+>    It fans the seats, aggregates, and prints its disposition as the terminal line's
+>    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
+> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/970](https://github.com/endojs/endo-but-for-bots/pull/970) — the
+>    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
+>    review on must-fix, a comment/approve on pass).
+> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
+>    report with `orchestration-failed: true` and do NOT emit a panel marker.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: panel=pass -->
+>   <!-- gauntlet-stage-result: panel=must-fix -->
+>
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `doomed-merge-endo-but-for-bots-pr875-endor-imports-field-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-merge-endo-but-for-bots-pr875-endor-imports-field-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5906,17 +5960,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.2M | $898.80 _(notional, rate-card)_ | no quota set |
-| Codex | 12.4M _(+408.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Claude | 55.1M | $897.92 _(notional, rate-card)_ | no quota set |
+| Codex | 12.5M _(+411.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr937-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #937
 - [`ironhorse-full-test262-automation-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #969
-- [`ironhorse-js-00-report-harness-foundation-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-02-errors-coercions-strict-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-03-object-mop-descriptors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-03-object-mop-descriptors.md) — Complete the ordinary-object MOP, property references, and descriptors
@@ -5967,6 +6020,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
+- [`ironhorse-js-00-report-harness-foundation-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-00-report-harness-foundation-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
