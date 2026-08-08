@@ -34,6 +34,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-deadline-overrun: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
