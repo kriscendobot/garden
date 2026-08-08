@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T05:41:37Z_
+_As of 2026-08-08T05:49:05Z_
 
 ## Latest
 
@@ -20,7 +20,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 9d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 10d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 19d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 19d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 20d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 21d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 22d)
@@ -5882,25 +5882,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.7M | $782.58 _(notional, rate-card)_ | no quota set |
-| Codex | 9.4M _(+289.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 48.5M | $810.52 _(notional, rate-card)_ | no quota set |
+| Codex | 9.5M _(+291.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ironhorse-full-test262-automation-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #969
+### doin (2)
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-00-report-harness-foundation-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-01-lexer-parser-negatives`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-01-lexer-parser-negatives.md) — Close lexer, parser, and early-error correctness gaps
 
-### tada (4276)
+### tada (4277)
+- [`ironhorse-full-test262-automation-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-2.md) — Cost
 - [`ironhorse-js-00-report-harness-foundation-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-00-report-harness-foundation-gauntlet-clean.md) — Cost
 - [`deadmail-20260808T053023Z-3f9f08`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260808T053023Z-3f9f08.md) — Completion report
 - [`ironhorse-full-test262-automation-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-1.md) — Cost
 - [`ironhorse-js-00-report-harness-foundation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-00-report-harness-foundation.md) — Completion report — ironhorse-js-00-report-harness-foundation
-- [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Cost
-- … and 4271 more
+- … and 4272 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
