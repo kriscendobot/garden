@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-08T09:35:07Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3
