@@ -1,6 +1,6 @@
 ---
 role: gardener
-gauntlet: ironhorse-js-00-report-harness-foundation-gauntlet
+gauntlet: ironhorse-js-01-lexer-parser-negatives-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 2
 pr: https://github.com/endojs/endo-but-for-bots/pull/970
@@ -12,11 +12,11 @@ dispatch: automatic
 
 # Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
 
-You are ONE stage of a staged gauntlet (ironhorse-js-00-report-harness-foundation-gauntlet). Run EXACTLY ONE panel round, post the
+You are ONE stage of a staged gauntlet (ironhorse-js-01-lexer-parser-negatives-gauntlet). Run EXACTLY ONE panel round, post the
 verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 
 1. Get an ISOLATED project checkout of the PR head:
-   `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh ironhorse-js-00-report-harness-foundation-gauntlet-panel-2 endojs/endo-but-for-bots <pr-head-branch>`.
+   `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-2 endojs/endo-but-for-bots <pr-head-branch>`.
 2. Run the panel in SINGLE-ROUND mode against that worktree:
    `GARDEN_PANEL_SINGLE_ROUND=1 \
      /home/kris/garden2/scripts/jobs/gardening/panel.sh <worktree> 970 <base-ref>`
@@ -32,15 +32,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-08T07:43:17Z
+<!-- garden-reaped: 0 -->
