@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 3
+deadline_overruns: 1
+doomed_at: 2026-08-08T08:03:07Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-08T08:03:07Z
+---
+
+---
 role: gardener
 gauntlet: ironhorse-js-00-report-harness-foundation-gauntlet
 gauntlet_stage: panel
@@ -32,16 +46,5 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-08T07:53:25Z
