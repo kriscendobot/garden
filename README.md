@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T08:03:53Z_
+_As of 2026-08-08T08:05:24Z_
 
 ## Latest
 
@@ -3323,6 +3323,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Shared branch moved under js-02 with lexer/parser gauntlet commits. Post-rebase full official language is now 7,008 covered / 88 ironhorse-failure / 16,628 skipped; 83 are regexp-modifiers, 4 class-heritage-arrow early errors, 1 duplicate __proto__. Pre-rebase it was 7,008 / 0 / 16,716. I notified the live js-01 gauntlet-fix peer and am holding push because js-02 acceptance forbids new failures. Exact corpus is restored to 1,712/1,712 and js-02 focused slice is 104/0/221. Please confirm peer is expected to land the 88 fixes, or authorize js-02 to absorb them.
 
+- `20260808T080508Z-77bfcd` — from gauntlet:ironhorse-js-00-report-harness-foundation-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T080508Z-77bfcd.md)
+
+> Gauntlet ironhorse-js-00-report-harness-foundation-gauntlet HALTED: stage 'ironhorse-js-00-report-harness-foundation-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -5961,7 +5965,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 55.1M | $897.92 _(notional, rate-card)_ | no quota set |
-| Codex | 12.5M _(+411.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 12.6M _(+412.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -5974,13 +5978,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-02-errors-coercions-strict-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-02-errors-coercions-strict-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-03-object-mop-descriptors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-03-object-mop-descriptors.md) — Complete the ordinary-object MOP, property references, and descriptors
 
-### tada (4295)
+### tada (4296)
+- [`ironhorse-js-00-report-harness-foundation-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-00-report-harness-foundation-gauntlet.md) — gauntlet ironhorse-js-00-report-harness-foundation-gauntlet — HALTED
 - [`ironhorse-full-test262-automation-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-panel-4.md) — Cost
 - [`ironhorse-js-02-errors-coercions-strict-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-02-errors-coercions-strict-gauntlet-clean.md) — Cost
 - [`ironhorse-js-02-errors-coercions-strict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-02-errors-coercions-strict.md) — Cost
 - [`deadmail-20260808T072625Z-3bd2f7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260808T072625Z-3bd2f7.md) — Completion report
-- [`deadmail-20260808T072509Z-f78199`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260808T072509Z-f78199.md) — Cost
-- … and 4290 more
+- … and 4291 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
