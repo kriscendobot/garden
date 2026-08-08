@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T03:40:37Z_
+_As of 2026-08-08T03:46:40Z_
 
 ## Latest
 
@@ -5890,15 +5890,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`deadmail-issue-comment-5224315524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5224315524.md) — Dead-lettered message — pick up its intent
+- [`ironhorse-full-test262-automation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation.md) — Build authoritative full-test262 automation for Ironhorse
 
-### tada (4256)
+### tada (4257)
+- [`deadmail-issue-comment-5224315524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5224315524.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260807-160502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260807-160502.md) — Completion report
 - [`improve-gauntlet-panel-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-gauntlet-panel-budget.md) — Completion report
 - [`pr910-mustfix-round2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2.md) — orchestration pr910-mustfix-round2 — HALTED
 - [`pr910-mustfix-round2-05-hygiene`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-05-hygiene.md) — Completion report
-- [`pr910-mustfix-round2-04-types-help`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-mustfix-round2-04-types-help.md) — Completion report
-- … and 4251 more
+- … and 4252 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
