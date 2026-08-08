@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T11:47:04Z_
+_As of 2026-08-08T11:47:43Z_
 
 ## Latest
 
@@ -6177,8 +6177,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 
 ### tada (4320)
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean.md) — Cost
