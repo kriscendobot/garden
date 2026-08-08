@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T17:08:53Z_
+_As of 2026-08-08T17:11:20Z_
 
 ## Latest
 
@@ -6228,16 +6228,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr969-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr969-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #969
+### doin (0)
+(none)
 
-### tada (4322)
+### tada (4323)
+- [`endojs-endo-but-for-bots-pr969-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr969-conduct.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260808-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260808-162001.md) — Cost
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet.md) — gauntlet ironhorse-js-05-derived-classes-private-decorators-gauntlet — HALTED
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean.md) — Cost
 - [`ironhorse-full-test262-automation-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet.md) — gauntlet ironhorse-full-test262-automation-gauntlet — HALTED
-- [`ironhorse-full-test262-automation-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-6.md) — Cost
-- … and 4317 more
+- … and 4318 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
