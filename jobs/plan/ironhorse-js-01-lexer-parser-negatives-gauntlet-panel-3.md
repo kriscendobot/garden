@@ -1,8 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+doomed_at: 2026-08-08T10:33:04Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-08T10:33:04Z
+---
+
+---
 role: gardener
-gauntlet: ironhorse-js-03-object-mop-descriptors-gauntlet
+gauntlet: ironhorse-js-01-lexer-parser-negatives-gauntlet
 gauntlet_stage: panel
-gauntlet_iteration: 2
+gauntlet_iteration: 3
 pr: https://github.com/endojs/endo-but-for-bots/pull/970
 tier: minion
 model-burned: mentor
@@ -10,13 +24,13 @@ fallback-tier:
 dispatch: automatic
 ---
 
-# Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
+# Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #970
 
-You are ONE stage of a staged gauntlet (ironhorse-js-03-object-mop-descriptors-gauntlet). Run EXACTLY ONE panel round, post the
+You are ONE stage of a staged gauntlet (ironhorse-js-01-lexer-parser-negatives-gauntlet). Run EXACTLY ONE panel round, post the
 verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 
 1. Get an ISOLATED project checkout of the PR head:
-   `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2 endojs/endo-but-for-bots <pr-head-branch>`.
+   `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3 endojs/endo-but-for-bots <pr-head-branch>`.
 2. Run the panel in SINGLE-ROUND mode against that worktree:
    `GARDEN_PANEL_SINGLE_ROUND=1 \
      /home/kris/garden2/scripts/jobs/gardening/panel.sh <worktree> 970 <base-ref>`
@@ -31,16 +45,3 @@ verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-08T10:23:16Z
