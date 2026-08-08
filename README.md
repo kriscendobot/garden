@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T16:20:36Z_
+_As of 2026-08-08T16:25:37Z_
 
 ## Latest
 
@@ -6222,22 +6222,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 53.5M | $839.14 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+538.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Codex | 15.8M _(+539.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260808-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260808-162001.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (4321)
+### tada (4322)
+- [`dependabotany-recheck-endo-but-for-bots-20260808-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260808-162001.md) — Cost
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet.md) — gauntlet ironhorse-js-05-derived-classes-private-decorators-gauntlet — HALTED
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet-clean.md) — Cost
 - [`ironhorse-full-test262-automation-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet.md) — gauntlet ironhorse-full-test262-automation-gauntlet — HALTED
 - [`ironhorse-full-test262-automation-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-fix-6.md) — Cost
-- [`ironhorse-js-02-errors-coercions-strict-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-02-errors-coercions-strict-gauntlet.md) — gauntlet ironhorse-js-02-errors-coercions-strict-gauntlet — HALTED
-- … and 4316 more
+- … and 4317 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
