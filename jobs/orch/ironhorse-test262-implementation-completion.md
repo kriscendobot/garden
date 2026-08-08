@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-02-errors-coercions-strict-host: endolin-garden2-5bcdff64
 child-ironhorse-js-02-errors-coercions-strict-reap-count: 0
 child-ironhorse-js-01-lexer-parser-negatives-host: endolin-garden2-5bcdff64
 child-ironhorse-js-01-lexer-parser-negatives-reap-count: 0
