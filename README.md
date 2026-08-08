@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T04:24:25Z_
+_As of 2026-08-08T04:26:36Z_
 
 ## Latest
 
@@ -5882,14 +5882,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $745.37 _(notional, rate-card)_ | no quota set |
+| Claude | 44.3M | $745.42 _(notional, rate-card)_ | no quota set |
 | Codex | 9.3M _(+285.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #969
 - [`ironhorse-full-test262-report-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-report-publish.md) — Run and publish the authoritative Ironhorse test262 report
 
 ### tada (4268)
