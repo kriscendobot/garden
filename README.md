@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-08T04:26:36Z_
+_As of 2026-08-08T04:44:53Z_
 
 ## Latest
 
@@ -5882,24 +5882,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.3M | $745.42 _(notional, rate-card)_ | no quota set |
+| Claude | 44.2M | $744.09 _(notional, rate-card)_ | no quota set |
 | Codex | 9.3M _(+285.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ironhorse-full-test262-automation-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-automation-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #969
-- [`ironhorse-full-test262-report-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-full-test262-report-publish.md) — Run and publish the authoritative Ironhorse test262 report
 
-### tada (4268)
+### tada (4269)
+- [`ironhorse-full-test262-report-publish`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-report-publish.md) — Completion report
 - [`ironhorse-full-test262-automation-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation-gauntlet-clean.md) — Cost
 - [`ironhorse-full-test262-automation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-full-test262-automation.md) — Completion report
 - [`endojs-endo-but-for-bots-pr963-review-2673a94e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-2673a94e.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-review-892844d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-892844d0.md) — Cost
-- [`endojs-endo-but-for-bots-pr963-review-7187744a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-7187744a.md) — Completion report — endojs/endo-but-for-bots PR #963, review 4888038108 (kuma...
-- … and 4263 more
+- … and 4264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
