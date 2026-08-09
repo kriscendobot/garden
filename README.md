@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:59:21Z_
+_As of 2026-08-09T19:25:36Z_
 
 ## Latest
 
@@ -3391,6 +3391,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Downstream: [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20) (B5, base feat/endo-guest-mcp-tools-b4)
 > now needs its own rebase onto the new B4 head (c952d01).
 
+- `20260809T192507Z-3aeadc` — from orchestrator:minion-town-weblet-publish-completion-20260809-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260809T192507Z-3aeadc.md)
+
+> Orchestration minion-town-weblet-publish-completion-20260809 HALTED: child minion-town-weblet-powers-reference-build-20260809 stalled after 1 requeues on host endolin-garden-ece02cb4 (requeue count rose from 0) (serial, on-child-failure=halt). 3/6 done before halt; swept: minion-town-weblet-powers-reference-land-20260809 minion-town-weblet-publish-deploy-verify-20260809
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6370,13 +6374,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`minion-town-weblet-powers-reference-build-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-powers-reference-build-20260809.md) — ---
 
-### tada (4349)
+### tada (4350)
+- [`minion-town-weblet-publish-completion-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-completion-20260809.md) — orchestration minion-town-weblet-publish-completion-20260809 — HALTED
 - [`minion-town-pr27-4460deb-deploy-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr27-4460deb-deploy-wiring.md) — Cost
 - [`minion-town-bc4ef70-verify-weblet-publish-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bc4ef70-verify-weblet-publish-deploy.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-conduct.md) — Cost
 - [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr27-20260809.md) — Completion report
-- [`deadmail-20260809T183223Z-212b41`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260809T183223Z-212b41.md) — Cost
-- … and 4344 more
+- … and 4345 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
