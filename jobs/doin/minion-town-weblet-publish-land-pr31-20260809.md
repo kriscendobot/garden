@@ -21,3 +21,13 @@ issue_spine: issue-kriscendobot-garden-58
 issue_url: https://github.com/kriscendobot/garden/issues/58#issuecomment-5233033913
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-09T18:31:14Z
