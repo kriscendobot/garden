@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:37:40Z_
+_As of 2026-08-09T18:43:38Z_
 
 ## Latest
 
@@ -4178,6 +4178,38 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > <!-- garden-deadline-overrun: 1 -->
 
+- `doomed-minion-town-endo-b3-daemon-deploy-verify-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-minion-town-endo-b3-daemon-deploy-verify-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
+> The gardener stamped the deadline-overrun counter, so the reaper surfaced it after 1
+> cycle(s) rather than the full 5-cycle doom threshold. The effective handler budget in
+> force for this job is 2400s. That counter is stamped for two DISTINCT shapes; check the
+> gardener log for the actual elapsed to tell which applies:
+>   (a) GENUINE wall-clock overrun — elapsed ≈ 2400s (rc=124 at the wall). The job does not
+>       fit one claim: SPLIT it into claim-sized stages, or raise its handler-timeout.
+>   (b) FAST repeated failure — elapsed far below 2400s (e.g. a 1–2s usage-cap/API rejection)
+>       flagged by elapsed-constancy. The budget is NOT the problem; read the handler log
+>       for the real cause (quota/usage cut, swallowed error) — raising the budget will not help.
+> The work is preserved at jobs/plan/minion-town-endo-b3-daemon-deploy-verify; it stays HELD until a human promotes it
+> (promote-plan.sh minion-town-endo-b3-daemon-deploy-verify) or removes it.
+> Original job base: minion-town-endo-b3-daemon-deploy-verify
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Repository: kriscendobot/minion.town. Three consecutive commits landed the B3 endo daemon deployment path — 1b2cfe7 "feat(endo): B3 daemon deployment and CD ordering", then two hotfixes b4f22e5 "make B3 daemon deployment runnable" and ee4e70d "focus daemon production closure on target" — which together indicate the deploy path was landed before it was exercised end to end.
+> Verify the deployment path is actually runnable as it now stands, and close the gap that let two hotfixes be needed:
+> - Read deploy/aws/scripts/deploy-endo-daemon.sh at HEAD and confirm the production closure/target focus in ee4e70d is coherent with the systemd units deploy/aws/systemd/endo-daemon.service and deploy/aws/systemd/minion-mcp.service (b4f22e5 and 1b2cfe7 both touched the units; check the After=/Requires= ordering matches the CD ordering the workflow now enforces).
+> - Confirm .github/workflows/deploy.yml ordering and deploy/aws/scripts/deploy-cd-iam.mjs permissions cover every action the daemon deploy step performs; a missing IAM action fails only at deploy time.
+> - Cross-check .env.example, config/policy.json, and src/config.ts against each other: b4f22e5 changed all three plus dev/client.ts, so confirm no config key was renamed in one place and left stale in another, and that dev/client.ts still speaks the same shape.
+> - Confirm DEPLOYMENT.md at HEAD describes the deployment as it now works, including the daemon step and its ordering relative to minion-mcp.
+> Land any corrections as a PR on the fork and run the gauntlet. If a lightweight smoke check (a dry-run or lint of the deploy script, or a unit-file validation) can be added cheaply to CI so this class of "landed but not runnable" regression is caught before merge, include it; if it is not cheap, say so in the PR description rather than building it.
+>
+> <!-- garden-deadline-overrun: 1 -->
+
 - `doomed-pr910-mustfix-round2-06-repanel-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-pr910-mustfix-round2-06-repanel-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6328,16 +6360,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $668.23 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+568.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 44.2M | $670.68 _(notional, rate-card)_ | no quota set |
+| Codex | 16.1M _(+569.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-conduct.md) — ---
-- [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
 - [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-publish-land-pr27-20260809.md) — ---
 
 ### tada (4345)
@@ -6400,6 +6431,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`merge-upstream-master-into-llm-20260717`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/merge-upstream-master-into-llm-20260717.md) — _normal_ · Merge upstream master into the endo-but-for-bots llm branch (propose PR -> sh...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
+- [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-endo-b3-daemon-deploy-verify.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/monk-finish-gardener-rename.md) — _normal_ · Finish the gardener -> monk worker-kind rename
 - [`ocapn-noise-press-20260801-090502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-noise-press-20260801-090502.md) — _normal_ · Press OCapN-over-Noise forward (endojs/endo-but-for-bots, base llm)
