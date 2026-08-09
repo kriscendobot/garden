@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 [APPROVED] Reminder that we may not be making much use of the oauth scopes. The daemon governs access control per guest facet, so oauth is only responsible for designating a guest for an oauth credential  
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-09T17:43:28Z
