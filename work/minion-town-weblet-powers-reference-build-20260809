@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-09T18:49:07Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-weblet-powers-reference-build-20260809
-pr_number: 33
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/33
-pr_head: feat/weblet-user-powers-reference
