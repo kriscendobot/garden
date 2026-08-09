@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:48:57Z_
+_As of 2026-08-09T17:50:50Z_
 
 ## Latest
 
@@ -6230,15 +6230,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`kriscendobot-minion.town-pr19-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr19-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #19
-- [`minion-town-remove-toy-tools-scopes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remove-toy-tools-scopes.md) — Design: remove the toy "minion" tools and prune the demo-only OAuth scopes
+- [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr27-review-615e16eb.md) — Review directive on kriscendobot/minion.town PR #27
 
-### tada (4329)
+### tada (4330)
+- [`minion-town-remove-toy-tools-scopes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-remove-toy-tools-scopes.md) — Completion report
 - [`minion-town-doc-deploy-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-doc-deploy-secrets.md) — Completion report
 - [`minion-town-pr18-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr18-weave.md) — Cost
 - [`kriscendobot-minion.town-pr18-review-3c065cec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr18-review-3c065cec.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Cost
-- [`deadmail-issue-comment-5229437024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229437024.md) — Cost
-- … and 4324 more
+- … and 4325 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6332,6 +6332,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr963-review-892844d0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr963-review-892844d0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #963 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr963-review-2673a94e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr963-review-2673a94e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #963 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr18-review-3c065cec-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr18-review-3c065cec-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #18 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr27-review-615e16eb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr27-review-615e16eb-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #27 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
