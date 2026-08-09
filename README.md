@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:43:38Z_
+_As of 2026-08-09T18:47:35Z_
 
 ## Latest
 
@@ -6360,24 +6360,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.2M | $670.68 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+569.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 44.1M | $669.50 _(notional, rate-card)_ | no quota set |
+| Codex | 16.1M _(+569.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-conduct.md) — ---
-- [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-publish-land-pr27-20260809.md) — ---
 
-### tada (4345)
+### tada (4346)
+- [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr27-20260809.md) — Completion report
 - [`deadmail-20260809T183223Z-212b41`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260809T183223Z-212b41.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Cost
 - [`minion-town-weblet-publish-land-pr31-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr31-20260809.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-weave.md) — Cost
-- [`kriscendobot-minion.town-pr20-weave-14dae5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr20-weave-14dae5c.md) — Cost
-- … and 4340 more
+- … and 4341 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
