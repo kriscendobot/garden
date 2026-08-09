@@ -1,4 +1,5 @@
 ---
+child-minion-town-weblet-powers-reference-build-20260809-reap-count: 0
 child-minion-town-weblet-publish-land-pr27-20260809-host: endolin-garden2-5bcdff64
 child-minion-town-weblet-publish-land-pr27-20260809-reap-count: 0
 child-minion-town-weblet-publish-land-pr31-20260809-host: endolin-garden-ece02cb4
