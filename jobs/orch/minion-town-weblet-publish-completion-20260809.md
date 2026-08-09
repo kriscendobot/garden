@@ -3,7 +3,7 @@ child-minion-town-weblet-publish-fable-review-20260809-host: endolin-garden2-5bc
 order: serial
 children: minion-town-weblet-publish-fable-review-20260809 minion-town-weblet-publish-land-pr31-20260809 minion-town-weblet-publish-land-pr27-20260809 minion-town-weblet-powers-reference-build-20260809 minion-town-weblet-powers-reference-land-20260809 minion-town-weblet-publish-deploy-verify-20260809
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-09T18:20:50Z
 ---
