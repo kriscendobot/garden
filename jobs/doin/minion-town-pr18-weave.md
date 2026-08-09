@@ -21,3 +21,13 @@ Endo daemon is installed/healthy before the app step that enables ENDO_SOCK.
 DEPLOYMENT.md may also need a trivial content merge. Verify typecheck/build/tests
 after the rebase. Do NOT change the PR's substance beyond conflict resolution.
 Leave the PR a DRAFT — a follow-up conductor job un-drafts and merges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-09T17:44:20Z
