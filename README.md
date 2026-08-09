@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:36:30Z_
+_As of 2026-08-09T18:37:40Z_
 
 ## Latest
 
@@ -6328,25 +6328,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $668.59 _(notional, rate-card)_ | no quota set |
-| Codex | 16.0M _(+568.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 44.1M | $668.23 _(notional, rate-card)_ | no quota set |
+| Codex | 16.1M _(+568.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`deadmail-20260809T183223Z-212b41`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260809T183223Z-212b41.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-conduct.md) — ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
+- [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-publish-land-pr27-20260809.md) — ---
 
-### tada (4344)
+### tada (4345)
+- [`deadmail-20260809T183223Z-212b41`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260809T183223Z-212b41.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Cost
 - [`minion-town-weblet-publish-land-pr31-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr31-20260809.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-weave.md) — Cost
 - [`kriscendobot-minion.town-pr20-weave-14dae5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr20-weave-14dae5c.md) — Cost
-- [`minion-town-weblet-publish-fable-review-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-fable-review-20260809.md) — Proxy-review verdict — minion.town weblet-publish critical path (kriscendobot...
-- … and 4339 more
+- … and 4340 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
