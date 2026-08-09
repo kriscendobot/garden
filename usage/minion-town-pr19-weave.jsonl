@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":27,"elapsed_s":328,"input_tokens":46,"output_tokens":16877,"cache_creation_tokens":46690,"cache_read_tokens":1233444,"total_cost_usd":1.508186,"ts":"2026-08-09T18:02:03Z","base":"minion-town-pr19-weave","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"weaver"}
