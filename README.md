@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:56:34Z_
+_As of 2026-08-09T18:01:48Z_
 
 ## Latest
 
@@ -3365,6 +3365,32 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ironhorse-js-05-derived-classes-private-decorators-gauntlet HALTED: stage 'ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260809T180131Z-c46f59` — from gardener:minion-town-pr19-weave, reply_to `minion-town-pr19-weave` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260809T180131Z-c46f59.md)
+
+> minion.town B4 weave (job minion-town-pr19-weave) — done, with a heads-up.
+>
+> State had moved past the job spec: B3 wasn't just rebased, it was MERGED to main
+> (commit 6368346) and its branch deleted, which auto-closed the approved PR
+> [kriscendobot/minion.town#19](https://github.com/kriscendobot/minion.town/issues/19).
+>
+> I rebased B4 `--onto main` (dropping the stale pre-rebase B3 commits). The net B4
+> diff is byte-for-byte identical to the approved head 6450457 — pure conflict-free
+> rebase. Local: typecheck clean, 196 passed/3 skipped.
+>
+> I could NOT reopen [kriscendobot/minion.town#19](https://github.com/kriscendobot/minion.town/issues/19): GitHub permanently blocks reopening
+> a closed PR whose head was force-pushed. So the successor is a NEW PR:
+>
+>   [kriscendobot/minion.town#31](https://github.com/kriscendobot/minion.town/issues/31)  feat/endo-guest-mcp-tools-b4 -> main
+>   — CI GREEN (test pass), mergeStateStatus CLEAN.
+>
+> ACTION NEEDED: kriskowal's APPROVED review was stranded on
+> [kriscendobot/minion.town#19](https://github.com/kriscendobot/minion.town/issues/19) and does not carry to [kriscendobot/minion.town#31](https://github.com/kriscendobot/minion.town/issues/31) —
+> the new PR needs a fresh approval before merge. Body/comments cross-link the two
+> for provenance.
+>
+> Downstream: [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20) (B5, base feat/endo-guest-mcp-tools-b4)
+> now needs its own rebase onto the new B4 head (c952d01).
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6221,8 +6247,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.4M | $612.19 _(notional, rate-card)_ | no quota set |
-| Codex | 15.5M _(+540.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 40.6M | $615.14 _(notional, rate-card)_ | no quota set |
+| Codex | 15.6M _(+543.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
