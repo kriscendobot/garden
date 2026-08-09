@@ -23,3 +23,13 @@ submitter: kriskowal
 ----- END ISSUE NOTE -----
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-09T19:33:09Z
