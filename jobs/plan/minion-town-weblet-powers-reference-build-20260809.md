@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 3
+deadline_overruns: 1
+doomed_at: 2026-08-09T21:43:05Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-09T21:43:05Z
+---
+
+---
 role: builder
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-09T18:49:03Z cleared=none -->
@@ -22,16 +36,5 @@ issue_url: https://github.com/kriscendobot/garden/issues/58#issuecomment-5233033
 submitter: kriskowal
 ----- END ISSUE NOTE -----
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-09T19:33:09Z
