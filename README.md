@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:35:28Z_
+_As of 2026-08-09T18:36:08Z_
 
 ## Latest
 
@@ -6328,15 +6328,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $668.23 _(notional, rate-card)_ | no quota set |
+| Claude | 44.1M | $668.46 _(notional, rate-card)_ | no quota set |
 | Codex | 16.0M _(+568.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-20260809T183223Z-212b41`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260809T183223Z-212b41.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Review directive on endojs/endo-but-for-bots PR #804
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
 
