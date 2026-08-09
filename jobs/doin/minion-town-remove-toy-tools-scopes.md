@@ -46,3 +46,13 @@ A short design (in `designs/`) that:
   4. hands off to a builder for the actual removal PR(s).
 This is a FOLLOW-UP to PR #18 and does not block its merge. Base the design on
 main after #18 lands if it has merged by the time you pick this up.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-09T17:44:07Z
