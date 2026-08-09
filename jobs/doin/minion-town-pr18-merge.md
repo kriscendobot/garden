@@ -19,3 +19,13 @@ then un-draft and merge it. You own the merge method. Bot repo
 (kriscendobot/minion.town) — this is authorized; NEVER touches agoric-sdk or the
 endojs/endo upstream. If the PR is somehow still not mergeable (fresh conflict,
 red check), do not force it — report the gap instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-09T17:51:09Z
