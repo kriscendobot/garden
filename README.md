@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:45:15Z_
+_As of 2026-08-09T17:46:31Z_
 
 ## Latest
 
@@ -6221,27 +6221,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.5M | $614.05 _(notional, rate-card)_ | no quota set |
+| Claude | 40.5M | $613.42 _(notional, rate-card)_ | no quota set |
 | Codex | 15.4M _(+538.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`kriscendobot-minion.town-pr18-review-3c065cec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr18-review-3c065cec.md) — Review directive on kriscendobot/minion.town PR #18
+### doin (4)
 - [`kriscendobot-minion.town-pr19-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr19-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #19
 - [`minion-town-doc-deploy-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-doc-deploy-secrets.md) — Doc: maintainer setup instructions for deployment credentials/secrets
 - [`minion-town-pr18-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr18-weave.md) — Rebase kriscendobot/minion.town PR #18 onto main (make it mergeable)
 - [`minion-town-remove-toy-tools-scopes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remove-toy-tools-scopes.md) — Design: remove the toy "minion" tools and prune the demo-only OAuth scopes
 
-### tada (4326)
+### tada (4327)
+- [`kriscendobot-minion.town-pr18-review-3c065cec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr18-review-3c065cec.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Cost
 - [`deadmail-issue-comment-5229437024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229437024.md) — Cost
 - [`deadmail-issue-comment-5229091808`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229091808.md) — Cost
 - [`endojs-endo-but-for-bots-pr969-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr969-conduct.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260808-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260808-162001.md) — Cost
-- … and 4321 more
+- … and 4322 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
