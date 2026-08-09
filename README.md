@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:30:28Z_
+_As of 2026-08-09T18:31:49Z_
 
 ## Latest
 
@@ -6153,6 +6153,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > gardener job 'finbot-pr6-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2413s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-kriscendobot-minion.town-pr27-review-615e16eb` — from watchdog:cleric/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-kriscendobot-minion.town-pr27-review-615e16eb.md)
+
+> gardener job 'kriscendobot-minion.town-pr27-review-615e16eb' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-merge-endo-but-for-bots-pr875-endor-imports-field` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-merge-endo-but-for-bots-pr875-endor-imports-field.md)
 
 > gardener job 'merge-endo-but-for-bots-pr875-endor-imports-field' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -6247,8 +6251,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $667.71 _(notional, rate-card)_ | no quota set |
-| Codex | 16.0M _(+566.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 44.1M | $667.40 _(notional, rate-card)_ | no quota set |
+| Codex | 16.0M _(+567.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6257,17 +6261,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (5)
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Review directive on endojs/endo-but-for-bots PR #804
 - [`endojs-endo-but-for-bots-pr804-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-weave.md) — weaver (rebase over conflict) on endojs/endo-but-for-bots PR #804
-- [`kriscendobot-minion.town-pr20-weave-14dae5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr20-weave-14dae5c.md) — ---
 - [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr27-review-615e16eb.md) — Review directive on kriscendobot/minion.town PR #27
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
+- [`minion-town-weblet-publish-land-pr31-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-publish-land-pr31-20260809.md) — ---
 
-### tada (4340)
+### tada (4341)
+- [`kriscendobot-minion.town-pr20-weave-14dae5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr20-weave-14dae5c.md) — Cost
 - [`minion-town-weblet-publish-fable-review-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-fable-review-20260809.md) — Proxy-review verdict — minion.town weblet-publish critical path (kriscendobot...
 - [`kriscendobot-minion.town-pr31-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr31-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-shepherd.md) — Report
 - [`deadmail-issue-comment-5233033913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5233033913.md) — Cost
-- [`deadmail-issue-comment-5233017666`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5233017666.md) — Cost
-- … and 4335 more
+- … and 4336 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
