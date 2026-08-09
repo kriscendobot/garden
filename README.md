@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:51:32Z_
+_As of 2026-08-09T17:52:38Z_
 
 ## Latest
 
@@ -6221,25 +6221,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.5M | $613.34 _(notional, rate-card)_ | no quota set |
-| Codex | 15.4M _(+538.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 40.5M | $613.61 _(notional, rate-card)_ | no quota set |
+| Codex | 15.5M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr19-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr19-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #19
 - [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr27-review-615e16eb.md) — Review directive on kriscendobot/minion.town PR #27
-- [`minion-town-pr18-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr18-merge.md) — Finalize + merge kriscendobot/minion.town PR #18
 
-### tada (4330)
+### tada (4332)
+- [`minion-town-pr18-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr18-merge.md) — Completion report
+- [`kriscendobot-minion.town-pr18-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr18-conduct.md) — Cost
 - [`minion-town-remove-toy-tools-scopes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-remove-toy-tools-scopes.md) — Completion report
 - [`minion-town-doc-deploy-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-doc-deploy-secrets.md) — Completion report
 - [`minion-town-pr18-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr18-weave.md) — Cost
-- [`kriscendobot-minion.town-pr18-review-3c065cec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr18-review-3c065cec.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Cost
-- … and 4325 more
+- … and 4327 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
