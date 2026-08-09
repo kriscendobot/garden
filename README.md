@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:12:10Z_
+_As of 2026-08-09T18:16:00Z_
 
 ## Latest
 
@@ -6247,14 +6247,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $648.73 _(notional, rate-card)_ | no quota set |
-| Codex | 15.6M _(+549.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 43.6M | $652.01 _(notional, rate-card)_ | no quota set |
+| Codex | 15.7M _(+552.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
+- [`deadmail-issue-comment-5233017666`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5233017666.md) — Dead-lettered message — pick up its intent
+- [`deadmail-issue-comment-5233033913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5233033913.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Review directive on endojs/endo-but-for-bots PR #804
 - [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr27-review-615e16eb.md) — Review directive on kriscendobot/minion.town PR #27
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
