@@ -10,3 +10,13 @@ Verify the deployment path is actually runnable as it now stands, and close the 
 - Cross-check .env.example, config/policy.json, and src/config.ts against each other: b4f22e5 changed all three plus dev/client.ts, so confirm no config key was renamed in one place and left stale in another, and that dev/client.ts still speaks the same shape.
 - Confirm DEPLOYMENT.md at HEAD describes the deployment as it now works, including the daemon step and its ordering relative to minion-mcp.
 Land any corrections as a PR on the fork and run the gauntlet. If a lightweight smoke check (a dry-run or lint of the deploy script, or a unit-file validation) can be added cheaply to CI so this class of "landed but not runnable" regression is caught before merge, include it; if it is not cheap, say so in the PR description rather than building it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-09T17:53:24Z
