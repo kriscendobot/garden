@@ -15,3 +15,13 @@ Verification to perform (SSM-only, no interactive host login; see DEPLOYMENT.md 
 5. Re-run `deploy/aws/scripts/seed-weblet-fixture.sh` and confirm it is still idempotent under the new ownership.
 
 If any step fails, land the fix on `main` (this repo deploys from `main`; the preceding commit went direct) with the evidence in the commit message. If everything holds, report the verification — including the publish→serve transcript — as a comment on kriscendobot/minion.town#27 so the Increment-4 thread carries the proof.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-09T18:53:10Z
