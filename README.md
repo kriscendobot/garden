@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:47:35Z_
+_As of 2026-08-09T18:48:42Z_
 
 ## Latest
 
@@ -6360,15 +6360,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.1M | $669.50 _(notional, rate-card)_ | no quota set |
-| Codex | 16.1M _(+569.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 44.1M | $669.75 _(notional, rate-card)_ | no quota set |
+| Codex | 16.1M _(+569.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-conduct.md) — ---
+- [`minion-town-pr27-4460deb-deploy-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr27-4460deb-deploy-wiring.md) — ---
 
 ### tada (4346)
 - [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr27-20260809.md) — Completion report
