@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:43:57Z_
+_As of 2026-08-09T17:45:15Z_
 
 ## Latest
 
@@ -6221,16 +6221,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.5M | $613.16 _(notional, rate-card)_ | no quota set |
+| Claude | 40.5M | $614.05 _(notional, rate-card)_ | no quota set |
 | Codex | 15.4M _(+538.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
 - [`kriscendobot-minion.town-pr18-review-3c065cec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr18-review-3c065cec.md) — Review directive on kriscendobot/minion.town PR #18
 - [`kriscendobot-minion.town-pr19-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr19-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #19
+- [`minion-town-doc-deploy-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-doc-deploy-secrets.md) — Doc: maintainer setup instructions for deployment credentials/secrets
+- [`minion-town-pr18-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr18-weave.md) — Rebase kriscendobot/minion.town PR #18 onto main (make it mergeable)
+- [`minion-town-remove-toy-tools-scopes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remove-toy-tools-scopes.md) — Design: remove the toy "minion" tools and prune the demo-only OAuth scopes
 
 ### tada (4326)
 - [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Cost
@@ -6339,6 +6342,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
+- [`minion-town-pr18-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr18-merge.md) — awaiting `minion-town-pr18-weave` · Finalize + merge kriscendobot/minion.town PR #18
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
