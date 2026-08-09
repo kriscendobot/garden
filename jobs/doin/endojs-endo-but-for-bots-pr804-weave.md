@@ -24,3 +24,13 @@ Diagnosis: gh api repos/endojs/endo-but-for-bots/pulls/804 --jq '{mergeable, mer
 => {"mergeable":false,"mergeable_state":"dirty"}. Once rebased green, the conductor
 is posted by the event watcher / a later reconcile tick. Never link to upstream
 agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-09T18:24:19Z
