@@ -39,3 +39,13 @@ the branch is clean at the approved head for you.
 
 Downstream: PR #20 (`feat/endo-daemon-guest-mcp-b5`, base B4) will need its own
 follow-on rebase onto the rebased B4 once this lands.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-09T17:56:11Z
