@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-09T17:53:24Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-endo-b3-daemon-deploy-verify
-pr_number: 32
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/32
-pr_head: feat/b3-deploy-coherence-guard
