@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:48:06Z_
+_As of 2026-08-09T17:48:57Z_
 
 ## Latest
 
@@ -6221,25 +6221,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.5M | $614.05 _(notional, rate-card)_ | no quota set |
+| Claude | 40.5M | $613.26 _(notional, rate-card)_ | no quota set |
 | Codex | 15.4M _(+538.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr19-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr19-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #19
-- [`minion-town-doc-deploy-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-doc-deploy-secrets.md) — Doc: maintainer setup instructions for deployment credentials/secrets
 - [`minion-town-remove-toy-tools-scopes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-remove-toy-tools-scopes.md) — Design: remove the toy "minion" tools and prune the demo-only OAuth scopes
 
-### tada (4328)
+### tada (4329)
+- [`minion-town-doc-deploy-secrets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-doc-deploy-secrets.md) — Completion report
 - [`minion-town-pr18-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr18-weave.md) — Cost
 - [`kriscendobot-minion.town-pr18-review-3c065cec`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr18-review-3c065cec.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Cost
 - [`deadmail-issue-comment-5229437024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229437024.md) — Cost
-- [`deadmail-issue-comment-5229091808`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229091808.md) — Cost
-- … and 4323 more
+- … and 4324 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
