@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:17:10Z_
+_As of 2026-08-09T18:21:08Z_
 
 ## Latest
 
@@ -6247,18 +6247,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.7M | $652.96 _(notional, rate-card)_ | no quota set |
-| Codex | 15.7M _(+553.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 43.9M | $656.36 _(notional, rate-card)_ | no quota set |
+| Codex | 15.8M _(+557.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`deadmail-issue-comment-5233033913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5233033913.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Review directive on endojs/endo-but-for-bots PR #804
 - [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr27-review-615e16eb.md) — Review directive on kriscendobot/minion.town PR #27
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
+- [`minion-town-weblet-publish-fable-review-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-publish-fable-review-20260809.md) — ---
 
 ### tada (4336)
 - [`deadmail-issue-comment-5233017666`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5233017666.md) — Cost
