@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T18:54:12Z_
+_As of 2026-08-09T18:57:57Z_
 
 ## Latest
 
@@ -6367,18 +6367,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
-- [`minion-town-bc4ef70-verify-weblet-publish-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-bc4ef70-verify-weblet-publish-deploy.md) — ---
+### doin (2)
 - [`minion-town-pr27-4460deb-deploy-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr27-4460deb-deploy-wiring.md) — ---
 - [`minion-town-weblet-powers-reference-build-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-powers-reference-build-20260809.md) — ---
 
-### tada (4347)
+### tada (4348)
+- [`minion-town-bc4ef70-verify-weblet-publish-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bc4ef70-verify-weblet-publish-deploy.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-conduct.md) — Cost
 - [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr27-20260809.md) — Completion report
 - [`deadmail-20260809T183223Z-212b41`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260809T183223Z-212b41.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-review-06a6b2da.md) — Cost
-- [`minion-town-weblet-publish-land-pr31-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr31-20260809.md) — Cost
-- … and 4342 more
+- … and 4343 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
