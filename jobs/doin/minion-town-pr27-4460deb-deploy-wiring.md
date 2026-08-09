@@ -23,3 +23,13 @@ submitter: kriskowal
 ----- END ISSUE NOTE -----
 
 Post issue-scoped progress only on https://github.com/kriscendobot/garden/issues/58 and PR-scoped work only on the PR. Never close the issue. Coordinate with the in-flight `minion-town-weblet-publish-land-pr27-20260809` job rather than duplicating its landing/review work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-09T18:48:29Z
