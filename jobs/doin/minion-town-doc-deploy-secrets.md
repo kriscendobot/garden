@@ -37,3 +37,13 @@ isn't hunting for secrets that don't exist), and the AWS Secrets Manager entries
 the runtime secret-renderer scripts expect (names, shape, which script creates
 each). Keep it factual and current; do not invent secrets.
 This is a FOLLOW-UP to PR #18 and does not block its merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-09T17:44:38Z
