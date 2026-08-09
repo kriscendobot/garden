@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T17:52:38Z_
+_As of 2026-08-09T17:53:50Z_
 
 ## Latest
 
@@ -6221,16 +6221,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.5M | $613.61 _(notional, rate-card)_ | no quota set |
-| Codex | 15.5M _(+538.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 40.5M | $614.05 _(notional, rate-card)_ | no quota set |
+| Codex | 15.5M _(+539.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr19-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr19-shepherd.md) — shepherd directive on kriscendobot/minion.town PR #19
 - [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr27-review-615e16eb.md) — Review directive on kriscendobot/minion.town PR #27
+- [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-b3-daemon-deploy-verify.md) — ---
 
 ### tada (4332)
 - [`minion-town-pr18-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr18-merge.md) — Completion report
