@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: minion-town-pr18-weave
-priority: normal
-posted_by: producer
-posted_at: 2026-08-09T17:44:59Z
+role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-09T17:51:05Z cleared=none -->
 
 ---
 role: conductor
