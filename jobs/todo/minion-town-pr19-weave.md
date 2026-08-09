@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: minion-town-pr18-weave
-priority: normal
 role: weaver
-posted_by: kriscendobot-minion.town-pr19-shepherd
-posted_at: 2026-08-09T17:53:53Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-09T17:56:06Z cleared=none -->
 
 ---
 tier: mentor
