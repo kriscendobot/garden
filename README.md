@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-09T16:20:32Z_
+_As of 2026-08-09T16:28:14Z_
 
 ## Latest
 
@@ -6228,16 +6228,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (4325)
+### tada (4326)
+- [`dependabotany-recheck-endo-but-for-bots-20260809-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260809-162001.md) — Cost
 - [`deadmail-issue-comment-5229437024`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229437024.md) — Cost
 - [`deadmail-issue-comment-5229091808`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5229091808.md) — Cost
 - [`endojs-endo-but-for-bots-pr969-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr969-conduct.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260808-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260808-162001.md) — Cost
-- [`ironhorse-js-05-derived-classes-private-decorators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-05-derived-classes-private-decorators-gauntlet.md) — gauntlet ironhorse-js-05-derived-classes-private-decorators-gauntlet — HALTED
-- … and 4320 more
+- … and 4321 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
