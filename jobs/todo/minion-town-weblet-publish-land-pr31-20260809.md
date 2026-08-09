@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-weblet-publish-completion-20260809
-priority: normal
 role: gardener
-posted_by: gardener
-posted_at: 2026-08-09T18:20:17Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-09T18:31:07Z cleared=none -->
 
 ---
 tier: mentor
