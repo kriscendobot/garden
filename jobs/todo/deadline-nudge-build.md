@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: deadline-nudge-design
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-10T23:07:59Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-10T23:21:05Z cleared=none -->
 
 ---
 tier: mentor
