@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:02:07Z_
+_As of 2026-08-10T23:02:26Z_
 
 ## Latest
 
@@ -6441,24 +6441,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.6M | $777.46 _(notional, rate-card)_ | no quota set |
+| Claude | 51.4M | $781.19 _(notional, rate-card)_ | no quota set |
 | Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-minion.town-pr34-review-0d44611c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-review-0d44611c.md) — Review directive on kriscendobot/minion.town PR #34
+### doin (1)
 - [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr34-conductor-merge.md) — Merge kriscendobot/minion.town PR #34 (ocap.site weblet-isolation design)
 
-### tada (4358)
+### tada (4359)
+- [`kriscendobot-minion.town-pr34-review-0d44611c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-review-0d44611c.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-pr923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr923.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr923
 - [`deadmail-issue-comment-5245282293`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5245282293.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-review-de2e2794`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-de2e2794.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-review-41a1f971`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-41a1f971.md) — Cost
-- [`endojs-endo-but-for-bots-pr963-0d63c852`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-0d63c852.md) — Completion report — attention directive on endojs/endo-but-for-bots #963 (kum...
-- … and 4353 more
+- … and 4354 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
