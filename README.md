@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T02:53:19Z_
+_As of 2026-08-10T02:55:35Z_
 
 ## Latest
 
@@ -6423,8 +6423,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5235358040.md) — Dead-lettered message — pick up its intent
 
 ### tada (4350)
 - [`minion-town-weblet-publish-completion-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-completion-20260809.md) — orchestration minion-town-weblet-publish-completion-20260809 — HALTED
