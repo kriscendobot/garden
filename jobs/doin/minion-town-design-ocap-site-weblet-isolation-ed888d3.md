@@ -11,3 +11,13 @@ Task: open the PR for this branch and run it through the full gauntlet.
 2. Open a **draft** PR from `design/ocap-site-weblet-isolation`, titled for the design (`docs: design ocap.site weblet isolation`), body summarizing the decision: publish each weblet at `<hash>.ocap.site`, submit `ocap.site` to the PSL PRIVATE section on meeting admission criteria, apex is a stateless redirect to `https://minion.town/`, no authenticated app/API/user state under `ocap.site`. Note that it makes no DNS, certificate, deployment, or PSL change yet, and that it follows the direction in `https://github.com/kriscendobot/garden/issues/58#issuecomment-5245282293`.
 3. Run the gauntlet end to end per [pr-creation-flow](skills/pr-creation-flow/SKILL.md): clean → panel review → fix-loop → un-draft. This is a **design-only, docs-touching** change — expect the panel's kind discrimination to seat the design/docs jurors, not the source-touching set.
 4. Do not implement the design in this job; a build is a separate follow-up once the design PR is reviewed and merged.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-10T23:05:05Z
