@@ -14,3 +14,13 @@ The design leaves three open questions (§ 6) that the maintainer has not answer
 Do not deploy. The Cognito/IaC change requires `cdk deploy` **before** the app roll (§ 5 ordering: resource server + client scopes first, then systemd unit + policy) so no client requests a scope the resource server no longer knows. Flag that ordering prominently in the PR body and add the tracking note to DEPLOYMENT.md's phase table rather than performing the deploy.
 
 Verify locally per [`local-verify`] (`npm test` + lint) before pushing, and net-diff-check that no `mcp/tools` or `mcp/guest` enforcement point was removed by accident.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-10T23:59:26Z
