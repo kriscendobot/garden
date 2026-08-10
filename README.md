@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:15:50Z_
+_As of 2026-08-10T23:17:40Z_
 
 ## Latest
 
@@ -6455,25 +6455,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.4M | $782.78 _(notional, rate-card)_ | no quota set |
+| Claude | 51.5M | $783.16 _(notional, rate-card)_ | no quota set |
 | Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadline-nudge-design.md) — Task
+### doin (2)
 - [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — ---
 - [`kriscendobot-minion.town-pr34-bb6b1f5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-bb6b1f5d.md) — attention directive on kriscendobot/minion.town PR #34
 
-### tada (4363)
+### tada (4364)
+- [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadline-nudge-design.md) — Cost
 - [`kriscendobot-minion.town-pr34-c935d37c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-c935d37c.md) — Completion report
 - [`minion-town-design-ocap-site-weblet-isolation-ed888d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-design-ocap-site-weblet-isolation-ed888d3.md) — What I found
 - [`kriscendobot-minion.town-pr34-67292718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-67292718.md) — Cost
 - [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr34-conductor-merge.md) — Cost
-- [`kriscendobot-minion.town-pr34-review-0d44611c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-review-0d44611c.md) — Completion report
-- … and 4358 more
+- … and 4359 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
