@@ -228,6 +228,7 @@ export GARDEN
 # so an unreadable/offline journal makes sync_clone exit the tick BEFORE the read —
 # the pump never fires on a journal it could not read (fail-safe toward braked).
 : "${GARDEN_FOREMAN_BRAKE_PATH:=config/foreman-brake}"
+: "${GARDEN_DEADLINE_NUDGE_CONFIG_PATH:=config/deadline-nudge}"
 
 # --- transcript capture (designs/transcript-journal-capture.md) ---------------
 #
@@ -4868,6 +4869,35 @@ job_handler_budget_base() {
   local jf="${1:-}" role=""
   [ -n "$jf" ] && [ -r "$jf" ] && role="$(plan_role "$jf" 2>/dev/null || true)"
   role_default_handler_timeout "$role"
+}
+
+# applied_handler_budget <jobfile> -> the wall-clock budget the worker applies to
+# this claim. This is the single calculation shared by gardener.sh (the timeout
+# owner), reaper.sh (the stale-claim safety floor), and deadline-nudge.sh (the
+# courtesy-warning deadline).
+#
+# A strictly positive integer `handler-timeout:` overrides the per-role base in
+# either direction. Any other value is invalid and leaves the base in force. A
+# valid explicit value is clamped to the largest value a claim can safely hold:
+# GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1. The per-role base is not
+# clamped when the operator has misconfigured the claim TTL below it. Preserving
+# the runner's real base lets reaper.sh apply its independent lifetime floor and
+# avoid requeueing a still-running handler. If the knobs produce no positive
+# ceiling, retain the chosen positive budget rather than passing 0 to GNU timeout,
+# where 0 disables the wall entirely.
+applied_handler_budget() {
+  local job_file="${1:-}" base requested budget maximum
+  base="$(job_handler_budget_base "$job_file")"
+  budget="$base"
+  requested="$(plan_field "$job_file" handler-timeout)"
+  if [[ "$requested" =~ ^[1-9][0-9]*$ ]]; then
+    budget="$requested"
+    maximum=$(( ${GARDEN_CLAIM_TTL:-14400} - ${GARDEN_HANDLER_KILL_AFTER:-60} - 1 ))
+    if [ "$maximum" -ge 1 ] && [ "$budget" -gt "$maximum" ]; then
+      budget="$maximum"
+    fi
+  fi
+  printf '%s\n' "$budget"
 }
 
 # --- kimi-k3-takes-opus-work-with-opus-fallback ------------------------------

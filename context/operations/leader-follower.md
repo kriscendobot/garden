@@ -20,8 +20,9 @@ bring-up is [starting.md](starting.md).
   duplicates — two foremen double-pump, two schedulers double-dispatch, two
   watchers double-post, two liaison maintainer-inbox Monitors double-answer. The
   leader-only set includes `garden-foreman`, `garden-scheduler`,
-  `garden-bulletin`, `garden-deadmail`, `garden-reaper`, `garden-follow-up`,
-  `garden-proxy`, `garden-mentor`, `garden-mirror-closer`, the
+  `garden-bulletin`, `garden-deadmail`, `garden-reaper`,
+  `garden-deadline-nudge`, `garden-follow-up`, `garden-proxy`, `garden-mentor`,
+  `garden-mirror-closer`, the
   `garden-{comment,ci}-watcher@*` / `garden-approval-reconciler@*` /
   `garden-triager@*` / `garden-mention-watcher` / `garden-issue-inbox` watchers,
   `garden-orchestrate`, and the **liaison maintainer-inbox and deploy-on-upgrade

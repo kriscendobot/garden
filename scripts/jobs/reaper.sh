@@ -336,33 +336,9 @@ _proc_descendants() {
 # The effective budget is the DEFAULT GARDEN_HANDLER_TIMEOUT — the gardener runs a
 # headerless job at that default regardless of GARDEN_CLAIM_TTL — unless the job
 # carries a valid `handler-timeout:` header, which the gardener honors clamped to
-# GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 (never below the default). This
+# GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1. This
 # re-derives the gardener's single-owner invariant at reap time so a GARDEN_CLAIM_TTL
 # misconfigured below the handler wall can no longer requeue a still-live handler.
-# effective_handler_budget <doin-file> — echo the wall-clock budget (seconds) the
-# gardener actually runs this job's handler at: the per-role base
-# (job_handler_budget_base — a build role defaults to GARDEN_BUILD_HANDLER_TIMEOUT,
-# not the fleet default), overridden by a valid `handler-timeout:` header clamped to
-# GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 and never below the base. This is
-# the ACTUAL budget in force — used both to floor the reap age (reap_age_threshold)
-# and to name the real budget in a deadline-overrun doom notice (rather than the
-# literal 2400s default, which is wrong for a job declaring `handler-timeout: 7200`).
-effective_handler_budget() {
-  local f="$1" req budget base budget_max
-  base="$(job_handler_budget_base "$f")"
-  budget="$base"
-  req="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$f" 2>/dev/null | head -1 | tr -dc '0-9')"
-  if [ -n "$req" ] && [ "$req" -ge 1 ] 2>/dev/null; then
-    budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
-    if [ "$req" -le "$budget_max" ]; then budget="$req"; else budget="$budget_max"; fi
-    # The gardener never runs BELOW its base wall for a header job; keep the
-    # floor at least that base so a tiny budget_max (from a misconfigured TTL)
-    # cannot shrink the guard under the real handler lifetime.
-    [ "$budget" -lt "$base" ] && budget="$base"
-  fi
-  printf '%s\n' "$budget"
-}
-
 reap_age_threshold() {
   local f="$1" budget floor
   # The BASE is per-role, from the same helper gardener.sh uses
@@ -370,7 +346,7 @@ reap_age_threshold() {
   # GARDEN_BUILD_HANDLER_TIMEOUT, not the fleet default. If this diverged from the
   # gardener's view, the reaper would judge a live 7200s build stale at 2400s and
   # requeue the base onto a SECOND gardener while the first still runs.
-  budget="$(effective_handler_budget "$f")"
+  budget="$(applied_handler_budget "$f")"
   floor=$(( budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_REAP_SAFETY_SLACK ))
   if [ "$GARDEN_CLAIM_TTL" -ge "$floor" ]; then printf '%s\n' "$GARDEN_CLAIM_TTL"; else printf '%s\n' "$floor"; fi
 }
@@ -866,7 +842,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # Capture the ACTUAL handler budget in force NOW, while the doin file still
       # exists, so the deadline-overrun notice below names the real budget (e.g.
       # 7200s for a `handler-timeout: 7200` job) rather than the literal default.
-      DOOM_BUDGET+=("$(effective_handler_budget "$f")")
+      DOOM_BUDGET+=("$(applied_handler_budget "$f")")
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;

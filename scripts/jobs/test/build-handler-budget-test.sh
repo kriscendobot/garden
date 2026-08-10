@@ -51,14 +51,16 @@ mk norole      'tier: mentor'
   && ok "a role-less job keeps the fleet default" || bad "role-less base changed"
 
 hr; echo "GARDENER / REAPER AGREEMENT — the duplicate-execution guard"; hr
-# Re-implement each side's base derivation the way its source does, and assert
-# they match. Both are supposed to be one call to job_handler_budget_base.
-grep -q 'job_handler_budget_base "\$jobfile"' "$JOBS/gardener.sh" \
-  && ok "gardener.sh derives its base from job_handler_budget_base" \
-  || bad "gardener.sh does not use the shared helper"
-grep -q 'job_handler_budget_base "\$f"' "$JOBS/reaper.sh" \
-  && ok "reaper.sh derives its base from job_handler_budget_base" \
-  || bad "reaper.sh does not use the shared helper"
+# Assert every deadline-sensitive consumer calls the same applied calculation.
+grep -q 'applied_handler_budget "\$jobfile"' "$JOBS/gardener.sh" \
+  && ok "gardener.sh uses applied_handler_budget" \
+  || bad "gardener.sh does not use the shared applied-budget helper"
+grep -q 'applied_handler_budget "\$f"' "$JOBS/reaper.sh" \
+  && ok "reaper.sh uses applied_handler_budget" \
+  || bad "reaper.sh does not use the shared applied-budget helper"
+grep -q 'applied_handler_budget "\$job_file"' "$JOBS/deadline-nudge.sh" \
+  && ok "deadline-nudge.sh uses applied_handler_budget" \
+  || bad "deadline-nudge.sh does not use the shared applied-budget helper"
 grep -q 'budget="\$GARDEN_HANDLER_TIMEOUT"' "$JOBS/reaper.sh" \
   && bad "reaper.sh still seeds its budget from the flat fleet default" \
   || ok "reaper.sh no longer seeds from the flat fleet default"
@@ -88,6 +90,18 @@ handler-timeout: 600'
   && ok "a builder may still declare a LARGER explicit budget" || bad "larger header lost"
 [ "$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$TMP/smaller.md" | head -1)" = 600 ] \
   && ok "a builder may still declare a SMALLER explicit budget" || bad "smaller header lost"
+[ "$(applied_handler_budget "$TMP/bigger.md")" = 10800 ] \
+  && ok "larger explicit budget is applied" || bad "larger explicit budget not applied"
+[ "$(applied_handler_budget "$TMP/smaller.md")" = 600 ] \
+  && ok "smaller explicit budget is applied" || bad "smaller explicit budget not applied"
+mk invalid 'role: builder
+handler-timeout: twelve'
+[ "$(applied_handler_budget "$TMP/invalid.md")" = 7200 ] \
+  && ok "invalid explicit budget leaves the per-role base in force" || bad "invalid explicit budget changed the base"
+mk clamped 'role: builder
+handler-timeout: 20000'
+[ "$(applied_handler_budget "$TMP/clamped.md")" = 14339 ] \
+  && ok "overlarge explicit budget is clamped to the claim ceiling" || bad "claim-ceiling clamp wrong"
 
 hr; echo "THE KNOB"; hr
 ( export GARDEN_BUILD_HANDLER_TIMEOUT=2400

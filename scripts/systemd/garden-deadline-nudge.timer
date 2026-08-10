@@ -1,0 +1,12 @@
+[Unit]
+Description=Garden claimed-job deadline nudge timer
+
+[Timer]
+# Absolute one-minute cadence. A relative timer can be perpetually re-armed by
+# the fleet's frequent daemon reloads before its first elapse.
+OnCalendar=*:*:00
+Persistent=true
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

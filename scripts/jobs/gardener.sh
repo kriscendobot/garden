@@ -484,18 +484,16 @@ while :; do
   # relied on to stamp a header. reaper.sh derives the SAME base from the SAME
   # helper — they must agree or a live build gets requeued onto a second gardener.
   base_budget="$(job_handler_budget_base "$jobfile")"
-  handler_budget="$base_budget"
+  handler_budget="$(applied_handler_budget "$jobfile")"
   if [ "$base_budget" != "$GARDEN_HANDLER_TIMEOUT" ]; then
     log "job '$base' role '$(plan_role "$jobfile" 2>/dev/null || true)' -> default handler budget ${base_budget}s (fleet default ${GARDEN_HANDLER_TIMEOUT}s)"
   fi
-  requested_budget="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$jobfile" 2>/dev/null | head -1 | tr -dc '0-9')"
-  if [ -n "$requested_budget" ] && [ "$requested_budget" -ge 1 ] 2>/dev/null; then
+  requested_budget="$(plan_field "$jobfile" handler-timeout)"
+  if [[ "$requested_budget" =~ ^[1-9][0-9]*$ ]]; then
     budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
     if [ "$requested_budget" -le "$budget_max" ]; then
-      handler_budget="$requested_budget"
       log "job '$base' declared handler-timeout=${requested_budget}s (≤ claim budget max ${budget_max}s); honoring in place of default ${base_budget}s"
     else
-      handler_budget="$budget_max"
       log "job '$base' declared handler-timeout=${requested_budget}s > claim budget max ${budget_max}s; clamping to max and escalating (cannot be a claim-scoped handler)"
       alert_maintainer "handler-budget-overrun-$base" \
         "gardener job '$base' declared handler-timeout=${requested_budget}s, which exceeds what a single claim can hold (max ${budget_max}s = GARDEN_CLAIM_TTL ${GARDEN_CLAIM_TTL}s − GARDEN_HANDLER_KILL_AFTER ${GARDEN_HANDLER_KILL_AFTER}s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at ${budget_max}s and will be SIGTERM-killed at that bound — it will not complete."

@@ -21,8 +21,13 @@ stay extensionless — they are keyed by the job's spine basename.
   in the journal. The inbox is created at claim and destroyed at completion (a
   job doer's lifetime).
   - send: `inbox-send.sh <doer> [body]` (CAS-append to `unread/`; refuses if the
-    doer is not active). Frontmatter: `from`, optional `reply_to`, `sent_at`.
+    doer is not active). Frontmatter: `from_host`, `from`, optional `reply_to`,
+    and `sent_at`. Machine-produced deadline warnings additionally carry
+    `kind: deadline-nudge`, `claim_attempt`, `deadline_at`, and
+    `remaining_seconds`.
   - read: `inbox-read.sh <doer>` (the doer CAS-moves `unread → read`).
+  - deadline warnings are queued journal messages, not mid-turn model input. A
+    running job observes one only when it next calls `inbox-read.sh <doer>`.
 
 ## Maintainer channel (via the liaison)
 

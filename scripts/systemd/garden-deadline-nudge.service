@@ -1,0 +1,10 @@
+[Unit]
+Description=Garden claimed-job deadline nudge
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# One shared scanner covers every host's claims. Re-evaluate leadership on every
+# tick so a handoff needs no unit restart.
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/deadline-nudge.sh

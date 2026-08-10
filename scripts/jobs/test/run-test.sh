@@ -3353,12 +3353,12 @@ ghv="$(env -u GARDEN GARDEN=lead-host bash -c 'source "'"$JOBS"'/common.sh"; pri
 [ "$ghv" = lead-host ] && ok "GARDEN is the host-identity var honored by common.sh" || bad "GARDEN not honored ($ghv)"
 # Every leader-only timer-singleton service carries the ExecCondition; gardeners do not.
 MH_SRC="$JOBS/../systemd"; mh_miss=0
-for u in garden-foreman garden-scheduler garden-deadmail garden-reaper garden-follow-up \
+for u in garden-foreman garden-scheduler garden-deadmail garden-reaper garden-deadline-nudge garden-follow-up \
          garden-proxy garden-mentor garden-mirror-closer garden-comment-watcher@ \
          garden-mention-watcher garden-triager@ garden-issue-inbox garden-library-source-drift-scan; do
   grep -q '^ExecCondition=/bin/bash .*is-main-host.sh' "$MH_SRC/$u.service" || { mh_miss=1; echo "      missing on $u"; }
 done
-[ "$mh_miss" -eq 0 ] && ok "all 13 timer-singleton services carry ExecCondition=is-main-host.sh" || bad "a singleton service lacks the ExecCondition"
+[ "$mh_miss" -eq 0 ] && ok "all 14 timer-singleton services carry ExecCondition=is-main-host.sh" || bad "a singleton service lacks the ExecCondition"
 grep -q 'is_main_host' "$JOBS/bulletin.sh" \
   && ok "bulletin (continuous singleton) gated in-process via is_main_host" || bad "bulletin lacks in-process leader gate"
 grep -q 'is-main-host' "$MH_SRC/garden-gardener@.service" \
