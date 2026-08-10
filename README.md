@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T17:44:41Z_
+_As of 2026-08-10T17:46:04Z_
 
 ## Latest
 
@@ -6416,24 +6416,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.6M | $776.78 _(notional, rate-card)_ | no quota set |
+| Claude | 50.6M | $776.25 _(notional, rate-card)_ | no quota set |
 | Codex | 17.7M _(+657.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr963-review-41a1f971`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr963-review-41a1f971.md) — Review directive on endojs/endo-but-for-bots PR #963
+### doin (1)
 - [`endojs-endo-but-for-bots-pr963-review-de2e2794`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr963-review-de2e2794.md) — Review directive on endojs/endo-but-for-bots PR #963
 
-### tada (4354)
+### tada (4355)
+- [`endojs-endo-but-for-bots-pr963-review-41a1f971`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-41a1f971.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-0d63c852`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-0d63c852.md) — Completion report — attention directive on endojs/endo-but-for-bots #963 (kum...
 - [`dependabotany-recheck-endo-but-for-bots-20260810-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260810-162001.md) — Cost
 - [`deadmail-issue-comment-5235605561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235605561.md) — Completion report
 - [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235358040.md) — Completion report
-- [`minion-town-weblet-publish-completion-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-completion-20260809.md) — orchestration minion-town-weblet-publish-completion-20260809 — HALTED
-- … and 4349 more
+- … and 4350 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
