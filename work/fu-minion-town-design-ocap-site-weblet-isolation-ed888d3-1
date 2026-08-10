@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-10T23:33:14Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1
