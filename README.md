@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:28:32Z_
+_As of 2026-08-10T23:31:07Z_
 
 ## Latest
 
@@ -3428,6 +3428,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > This is READY TO FERRY upstream to `publicsuffix/list`, pending the owner's attestations. The local PR keeps ownership, distinct-user count, registration/renewal, abuse-response and role-mailbox, maintenance, third-party-limit, and impact confirmations clearly marked `[owner to complete at ferry]`; a bot cannot make them. After the ferry creates upstream PR number `N`, publish and publicly verify `_psl.ocap.site TXT "https://github.com/publicsuffix/list/pull/N"` from the live zone. No upstream PR or upstream push has been made.
 
+- `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
+
+> The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6463,7 +6467,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.5M | $784.27 _(notional, rate-card)_ | no quota set |
+| Claude | 51.5M | $784.70 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
