@@ -58,3 +58,13 @@ If any step needs credentials/authority this host lacks, stop and report the gap
 rather than improvising. Related: parked plan `minion-town-ocap-site-build-deploy`
 (zone/deploy/validate units), live build peer
 `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-10T23:21:44Z
