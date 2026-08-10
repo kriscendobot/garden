@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:10:46Z_
+_As of 2026-08-10T23:15:17Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 5h)
+- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 6h)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 3d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 12d)
@@ -6458,9 +6458,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadline-nudge-design.md) — Task
 - [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — ---
+- [`kriscendobot-minion.town-pr34-bb6b1f5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-bb6b1f5d.md) — attention directive on kriscendobot/minion.town PR #34
 
 ### tada (4363)
 - [`kriscendobot-minion.town-pr34-c935d37c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-c935d37c.md) — Completion report
@@ -6574,6 +6575,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr963-review-de2e2794-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr963-review-de2e2794-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #963 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr34-review-0d44611c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-review-0d44611c-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr34-c935d37c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-c935d37c-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr34-bb6b1f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-bb6b1f5d-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
