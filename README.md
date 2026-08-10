@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:09:26Z_
+_As of 2026-08-10T23:10:46Z_
 
 ## Latest
 
@@ -6458,18 +6458,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadline-nudge-design.md) — Task
 - [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — ---
-- [`kriscendobot-minion.town-pr34-c935d37c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-c935d37c.md) — attention directive on kriscendobot/minion.town PR #34
 
-### tada (4362)
+### tada (4363)
+- [`kriscendobot-minion.town-pr34-c935d37c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-c935d37c.md) — Completion report
 - [`minion-town-design-ocap-site-weblet-isolation-ed888d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-design-ocap-site-weblet-isolation-ed888d3.md) — What I found
 - [`kriscendobot-minion.town-pr34-67292718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-67292718.md) — Cost
 - [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr34-conductor-merge.md) — Cost
 - [`kriscendobot-minion.town-pr34-review-0d44611c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-review-0d44611c.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-pr923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr923.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr923
-- … and 4357 more
+- … and 4358 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
