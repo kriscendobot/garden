@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:44:11Z_
+_As of 2026-08-10T23:48:40Z_
 
 ## Latest
 
@@ -6491,16 +6491,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fu-deadline-nudge-build-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-deadline-nudge-build-1.md) — ---
+### doin (0)
+(none)
 
-### tada (4371)
+### tada (4372)
+- [`fu-deadline-nudge-build-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadline-nudge-build-1.md) — Cost
 - [`kriscendobot-minion.town-pr34-9bbe293f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-9bbe293f.md) — Completion report
 - [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — Completion report: fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1
 - [`deadline-nudge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadline-nudge-build.md) — Follow-ups
 - [`minion-town-ocap-site-psl-local-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocap-site-psl-local-pr.md) — Cost
-- [`minion-town-bd5a54b-weblet-isolation-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bd5a54b-weblet-isolation-deploy.md) — Cost
-- … and 4366 more
+- … and 4367 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
