@@ -38,3 +38,13 @@ names, and cover it with a test consistent with the surrounding
   deadline-overrun cycle markers.
 - Report which design open-questions (if any) were resolved during build
   and how, vs. deferred back to the maintainer.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-10T23:21:15Z
