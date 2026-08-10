@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:24:06Z_
+_As of 2026-08-10T23:27:28Z_
 
 ## Latest
 
@@ -3420,6 +3420,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Design is APPROVED/MERGEABLE/CLEAN, test check green. Dispatching the conductor to
 > un-draft + merge the design now (per the review directive).
 
+- `20260810T232710Z-3721ab` — from gardener:minion-town-ocap-site-psl-local-pr, reply_to `minion-town-ocap-site-psl-local-pr` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T232710Z-3721ab.md)
+
+> The Public Suffix List change is prepared in the fork-local PR: [https://github.com/kriscendobot/list/pull/1](https://github.com/kriscendobot/list/pull/1)
+>
+> The patch adds the single `ocap.site` PRIVATE rule in the Minion Town alphabetical position. Local `make test` passes, including all PSL syntax checks and the libpsl ICU test suites (3/3 fuzz tests and 5/5 rule tests).
+>
+> This is READY TO FERRY upstream to `publicsuffix/list`, pending the owner's attestations. The local PR keeps ownership, distinct-user count, registration/renewal, abuse-response and role-mailbox, maintenance, third-party-limit, and impact confirmations clearly marked `[owner to complete at ferry]`; a bot cannot make them. After the ferry creates upstream PR number `N`, publish and publicly verify `_psl.ocap.site TXT "https://github.com/publicsuffix/list/pull/N"` from the live zone. No upstream PR or upstream push has been made.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6455,8 +6463,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.4M | $782.78 _(notional, rate-card)_ | no quota set |
-| Codex | 18.0M _(+661.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 51.5M | $783.41 _(notional, rate-card)_ | no quota set |
+| Codex | 18.0M _(+663.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
