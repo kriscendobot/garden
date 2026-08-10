@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:02:26Z_
+_As of 2026-08-10T23:03:43Z_
 
 ## Latest
 
@@ -6448,16 +6448,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr34-conductor-merge.md) — Merge kriscendobot/minion.town PR #34 (ocap.site weblet-isolation design)
+### doin (0)
+(none)
 
-### tada (4359)
+### tada (4360)
+- [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr34-conductor-merge.md) — Cost
 - [`kriscendobot-minion.town-pr34-review-0d44611c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-review-0d44611c.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-pr923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr923.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr923
 - [`deadmail-issue-comment-5245282293`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5245282293.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-review-de2e2794`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-de2e2794.md) — Cost
-- [`endojs-endo-but-for-bots-pr963-review-41a1f971`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-41a1f971.md) — Cost
-- … and 4354 more
+- … and 4355 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
