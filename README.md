@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T16:26:09Z_
+_As of 2026-08-10T17:28:25Z_
 
 ## Latest
 
@@ -14,14 +14,14 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 2h)
+- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 16m)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 2d)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 12d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 12d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 12d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 22d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 23d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 24d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 24d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 24d)
 
@@ -6348,14 +6348,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-07-29T06:56:25Z, latest 2026-08-08T03:59:08Z).
-> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> WATCHDOG notice — occurrence #19 (first seen 2026-07-29T06:56:25Z, latest 2026-08-10T17:28:06Z).
+> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 19 times; this is ONE
+> coalesced notice that updates in place, not 19 messages. Latest detail:
 >
-> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (cid=5224391071) and failed open.
+> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (cid=5243661900) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5224391071 on [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5243661900 on [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
@@ -6416,15 +6416,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.2M | $772.55 _(notional, rate-card)_ | no quota set |
-| Codex | 17.7M _(+657.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 50.2M | $772.75 _(notional, rate-card)_ | no quota set |
+| Codex | 17.7M _(+657.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr963-0d63c852`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr963-0d63c852.md) — attention directive on endojs/endo-but-for-bots PR #963
 
 ### tada (4353)
 - [`dependabotany-recheck-endo-but-for-bots-20260810-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260810-162001.md) — Cost
@@ -6531,6 +6531,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr18-review-3c065cec-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr18-review-3c065cec-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #18 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr27-review-615e16eb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr27-review-615e16eb-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #27 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr804-review-06a6b2da-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr804-review-06a6b2da-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #804 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr963-0d63c852-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr963-0d63c852-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #963 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
