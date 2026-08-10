@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T17:46:04Z_
+_As of 2026-08-10T17:51:05Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 33m)
+- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 39m)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 2d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 12d)
@@ -6423,16 +6423,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr963-review-de2e2794`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr963-review-de2e2794.md) — Review directive on endojs/endo-but-for-bots PR #963
+### doin (0)
+(none)
 
-### tada (4355)
+### tada (4356)
+- [`endojs-endo-but-for-bots-pr963-review-de2e2794`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-de2e2794.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-review-41a1f971`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-review-41a1f971.md) — Cost
 - [`endojs-endo-but-for-bots-pr963-0d63c852`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr963-0d63c852.md) — Completion report — attention directive on endojs/endo-but-for-bots #963 (kum...
 - [`dependabotany-recheck-endo-but-for-bots-20260810-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260810-162001.md) — Cost
 - [`deadmail-issue-comment-5235605561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235605561.md) — Completion report
-- [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235358040.md) — Completion report
-- … and 4350 more
+- … and 4351 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
