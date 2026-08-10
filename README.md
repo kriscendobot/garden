@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:40:35Z_
+_As of 2026-08-10T23:41:35Z_
 
 ## Latest
 
@@ -6484,25 +6484,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.7M | $788.89 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $786.77 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`fu-deadline-nudge-build-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-deadline-nudge-build-1.md) — ---
-- [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — ---
 - [`kriscendobot-minion.town-pr34-9bbe293f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-9bbe293f.md) — attention directive on kriscendobot/minion.town PR #34
 
-### tada (4369)
+### tada (4370)
+- [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — Completion report: fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1
 - [`deadline-nudge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadline-nudge-build.md) — Follow-ups
 - [`minion-town-ocap-site-psl-local-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocap-site-psl-local-pr.md) — Cost
 - [`minion-town-bd5a54b-weblet-isolation-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bd5a54b-weblet-isolation-deploy.md) — Cost
 - [`kriscendobot-minion.town-pr34-bb6b1f5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-bb6b1f5d.md) — Completion report — kriscendobot-minion.town-pr34-bb6b1f5d
-- [`minion-town-bd5a54b-weblet-isolation-verify-config`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bd5a54b-weblet-isolation-verify-config.md) — Cost
-- … and 4364 more
+- … and 4365 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
