@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:38:49Z_
+_As of 2026-08-10T23:40:35Z_
 
 ## Latest
 
@@ -3432,6 +3432,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `20260810T234019Z-220dc3` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T234019Z-220dc3.md)
+
+> ocap.site weblet isolation is BUILT, DEPLOYED, and VALIDATED LIVE (per your [kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34) approval "Proceed to build, deploy, and validate" + "the DNS record needed on the ocap.site nameserver to direct traffic to the gateway").
+>
+> Code merged to kriscendobot/minion.town main (feat bd5a54b + fix 2dcc271 serialize-cert). CD deployed gateway (23:19) and Caddy (23:28 caddy-targeted redeploy — the 23:23 push-deploy hit a transient oauth2-proxy 403 before the Caddy steps, recovered).
+>
+> The DNS record you asked for is LIVE: dedicated Route53 zone ocap.site (Z048672026UQWLGHNEQE0), apex A + wildcard *.ocap.site A -> 13.56.17.18 (the gateway edge), publicly resolving; delegation to the AWS nameservers is active.
+>
+> Edge validation (all green):
+> - Apex https://ocap.site/ -> 302 https://minion.town/, path+query discarded, no Set-Cookie.
+> - Live weblet -> 200 with full isolation floor: CSP, COEP require-corp, COOP same-origin, CORP same-origin, Origin-Agent-Cluster ?1, referrer-policy no-referrer, X-Frame DENY, nosniff, immutable caching + ETag/304; NO cookie, NO CORS.
+> - Fail-closed: unknown/non-canonical/short labels -> 404 (TLS completes on wildcard cert).
+> - Two independent certs: apex CN=ocap.site (ordinary), wildcard CN=*.ocap.site (DNS-01) — the serialize-cert fix; no per-weblet certs, hashes never hit CT logs.
+> - Powers plane rides the new namespace (/.well-known/ocapn-bootstrap -> endo:<powers>; endo-captp -> 426 WS-upgrade).
+>
+> DEFERRED BY DESIGN (needs owner authority a bot cannot hold): the PSL PRIVATE-section submission (design section 4/7 unit 6) — admission gates (2k-3k publishers, 2yr registration) unmet and the owner attestations cannot be delegated. Registrar controls (lock/DNSSEC/renewal) are the domain-owner's; the zone is already delegated so acquisition (unit 1) appears done. Nothing else is blocked.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6467,7 +6484,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.7M | $787.87 _(notional, rate-card)_ | no quota set |
+| Claude | 51.7M | $788.89 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
