@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:58:21Z_
+_As of 2026-08-10T23:59:16Z_
 
 ## Latest
 
@@ -6484,15 +6484,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $787.27 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $787.59 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadmail-issue-comment-5247362179`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5247362179.md) — Dead-lettered message — pick up its intent
+- [`kriscendobot-list-pr1-ff3c4813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-ff3c4813.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-list-pr1-review-7c1f0148`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-review-7c1f0148.md) — Review directive on kriscendobot/list PR #1
 
 ### tada (4374)
@@ -6610,6 +6611,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr34-bb6b1f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-bb6b1f5d-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr34-9bbe293f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-9bbe293f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 - [`kriscendobot-list-pr1-review-7c1f0148-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-review-7c1f0148-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-revi...
+- [`kriscendobot-list-pr1-ff3c4813-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-ff3c4813-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-ff3c...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
