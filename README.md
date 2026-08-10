@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:08:16Z_
+_As of 2026-08-10T23:08:49Z_
 
 ## Latest
 
@@ -6451,15 +6451,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.4M | $782.40 _(notional, rate-card)_ | no quota set |
+| Claude | 51.4M | $782.56 _(notional, rate-card)_ | no quota set |
 | Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadline-nudge-design.md) — Task
+- [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — ---
 
 ### tada (4362)
 - [`minion-town-design-ocap-site-weblet-isolation-ed888d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-design-ocap-site-weblet-isolation-ed888d3.md) — What I found
