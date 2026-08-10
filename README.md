@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T16:20:36Z_
+_As of 2026-08-10T16:26:09Z_
 
 ## Latest
 
@@ -6417,22 +6417,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 50.2M | $772.55 _(notional, rate-card)_ | no quota set |
-| Codex | 17.5M _(+654.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Codex | 17.7M _(+657.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260810-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260810-162001.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (4352)
+### tada (4353)
+- [`dependabotany-recheck-endo-but-for-bots-20260810-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260810-162001.md) — Cost
 - [`deadmail-issue-comment-5235605561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235605561.md) — Completion report
 - [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235358040.md) — Completion report
 - [`minion-town-weblet-publish-completion-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-completion-20260809.md) — orchestration minion-town-weblet-publish-completion-20260809 — HALTED
 - [`minion-town-pr27-4460deb-deploy-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr27-4460deb-deploy-wiring.md) — Cost
-- [`minion-town-bc4ef70-verify-weblet-publish-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bc4ef70-verify-weblet-publish-deploy.md) — Cost
-- … and 4347 more
+- … and 4348 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
