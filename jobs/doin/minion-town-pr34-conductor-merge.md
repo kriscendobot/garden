@@ -19,3 +19,13 @@ The PR is a design-only doc add (designs/ocap-site-weblet-isolation.md), current
 DRAFT, mergeable=MERGEABLE, mergeStateStatus=CLEAN, reviewDecision=APPROVED, test
 check green. Un-draft, then merge. You own the merge method. Bot repo — merge is in
 scope.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-10T23:01:43Z
