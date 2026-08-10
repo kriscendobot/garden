@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:03:43Z_
+_As of 2026-08-10T23:04:51Z_
 
 ## Latest
 
@@ -6441,15 +6441,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.4M | $781.19 _(notional, rate-card)_ | no quota set |
+| Claude | 51.4M | $781.49 _(notional, rate-card)_ | no quota set |
 | Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr34-67292718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-67292718.md) — attention directive on kriscendobot/minion.town PR #34
 
 ### tada (4360)
 - [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr34-conductor-merge.md) — Cost
