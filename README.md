@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T02:59:45Z_
+_As of 2026-08-10T03:45:23Z_
 
 ## Latest
 
@@ -6423,8 +6423,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-5235605561`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5235605561.md) — Dead-lettered message — pick up its intent
 
 ### tada (4351)
 - [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235358040.md) — Completion report
