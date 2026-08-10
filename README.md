@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:57:23Z_
+_As of 2026-08-10T23:58:21Z_
 
 ## Latest
 
@@ -6484,7 +6484,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $787.12 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $787.27 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
@@ -6493,15 +6493,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`deadmail-issue-comment-5247362179`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5247362179.md) — Dead-lettered message — pick up its intent
-- [`kriscendobot-minion.town-pr35-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr35-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #35
+- [`kriscendobot-list-pr1-review-7c1f0148`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-review-7c1f0148.md) — Review directive on kriscendobot/list PR #1
 
-### tada (4373)
+### tada (4374)
+- [`kriscendobot-minion.town-pr35-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr35-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr30-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr30-conduct.md) — Completion report
 - [`fu-deadline-nudge-build-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadline-nudge-build-1.md) — Cost
 - [`kriscendobot-minion.town-pr34-9bbe293f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-9bbe293f.md) — Completion report
 - [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — Completion report: fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1
-- [`deadline-nudge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadline-nudge-build.md) — Follow-ups
-- … and 4368 more
+- … and 4369 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6609,6 +6609,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr34-c935d37c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-c935d37c-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr34-bb6b1f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-bb6b1f5d-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr34-9bbe293f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-9bbe293f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
+- [`kriscendobot-list-pr1-review-7c1f0148-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-review-7c1f0148-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-revi...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
