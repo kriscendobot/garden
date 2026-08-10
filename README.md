@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:07:30Z_
+_As of 2026-08-10T23:08:16Z_
 
 ## Latest
 
@@ -6458,8 +6458,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadline-nudge-design.md) — Task
 
 ### tada (4362)
 - [`minion-town-design-ocap-site-weblet-isolation-ed888d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-design-ocap-site-weblet-isolation-ed888d3.md) — What I found
@@ -6576,6 +6576,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`deadline-nudge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadline-nudge-build.md) — awaiting `deadline-nudge-design` · Task
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
