@@ -69,3 +69,13 @@ check `designs/` first for related lever/control docs, e.g. the recent
 foreman-brake design, before choosing) committed directly to `main2`,
 following the garden's own `designs/` conventions. Flag anything genuinely
 blocking implementation as an open question rather than picking silently.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-10T23:07:47Z
