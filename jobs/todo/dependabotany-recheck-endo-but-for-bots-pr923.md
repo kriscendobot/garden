@@ -1,5 +1,7 @@
-once: 2026-08-10T21:15:00Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots-pr923
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Recheck endo-but-for-bots Dependabot PR #923
 
