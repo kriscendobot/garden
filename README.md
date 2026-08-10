@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:01:16Z_
+_As of 2026-08-10T23:02:07Z_
 
 ## Latest
 
@@ -3395,6 +3395,31 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration minion-town-weblet-publish-completion-20260809 HALTED: child minion-town-weblet-powers-reference-build-20260809 stalled after 1 requeues on host endolin-garden-ece02cb4 (requeue count rose from 0) (serial, on-child-failure=halt). 3/6 done before halt; swept: minion-town-weblet-powers-reference-land-20260809 minion-town-weblet-publish-deploy-verify-20260809
 
+- `20260810T230117Z-ffaf6d` — from gardener:kriscendobot-minion.town-pr34-review-0d44611c, reply_to `kriscendobot-minion.town-pr34-review-0d44611c` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T230117Z-ffaf6d.md)
+
+> Resolved kriskowal's approval-with-asks review on [kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34)
+> (ocap.site weblet-isolation design).
+>
+> ASK 1 — DNS record needed: answered on the PR
+> ([kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34) issuecomment-5246983148). Records to publish on the ocap.site zone once the
+> domain is acquired/delegated, pointing at the live edge (stable Elastic IP
+> 13.56.17.18):
+>   ocap.site.    A  13.56.17.18   (apex 302 -> https://minion.town/)
+>   *.ocap.site.  A  13.56.17.18   (<hash>.ocap.site -> weblet gateway)
+> Deferred: _psl.ocap.site TXT (after PSL PR number); _acme-challenge is dynamic
+> DNS-01, not pre-created.
+>
+> ASK 2 — build/deploy/validate: parked as plan job
+> `minion-town-ocap-site-build-deploy` with the design's §7 decomposition. It is
+> BLOCKED on an owner-only prerequisite the fleet cannot do: **ocap.site is not
+> registered yet** (verified). The domain acquisition + operator controls (registrar
+> lock, DNSSEC, role mailboxes) and the PSL owner-attestations are non-delegable
+> (design §4.2, §7). Code-only units (WEBLET_PARENT_DOMAIN rename, isolation headers,
+> Route53/Caddy deploy-script inputs) are unblocked — promote them anytime.
+>
+> Design is APPROVED/MERGEABLE/CLEAN, test check green. Dispatching the conductor to
+> un-draft + merge the design now (per the review directive).
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6416,15 +6441,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.6M | $777.21 _(notional, rate-card)_ | no quota set |
+| Claude | 50.6M | $777.46 _(notional, rate-card)_ | no quota set |
 | Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`kriscendobot-minion.town-pr34-review-0d44611c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-review-0d44611c.md) — Review directive on kriscendobot/minion.town PR #34
+- [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr34-conductor-merge.md) — Merge kriscendobot/minion.town PR #34 (ocap.site weblet-isolation design)
 
 ### tada (4358)
 - [`dependabotany-recheck-endo-but-for-bots-pr923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr923.md) — Completion report — dependabotany-recheck-endo-but-for-bots-pr923
