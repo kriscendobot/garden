@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T02:55:35Z_
+_As of 2026-08-10T02:59:45Z_
 
 ## Latest
 
@@ -6423,16 +6423,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5235358040.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (4350)
+### tada (4351)
+- [`deadmail-issue-comment-5235358040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5235358040.md) — Completion report
 - [`minion-town-weblet-publish-completion-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-completion-20260809.md) — orchestration minion-town-weblet-publish-completion-20260809 — HALTED
 - [`minion-town-pr27-4460deb-deploy-wiring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr27-4460deb-deploy-wiring.md) — Cost
 - [`minion-town-bc4ef70-verify-weblet-publish-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-bc4ef70-verify-weblet-publish-deploy.md) — Cost
 - [`endojs-endo-but-for-bots-pr804-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr804-conduct.md) — Cost
-- [`minion-town-weblet-publish-land-pr27-20260809`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-publish-land-pr27-20260809.md) — Completion report
-- … and 4345 more
+- … and 4346 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
