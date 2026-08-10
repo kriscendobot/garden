@@ -1,6 +1,6 @@
 ---
 created: 2026-07-11
-updated: 2026-07-11
+updated: 2026-08-10
 author: gardener
 ---
 
@@ -66,7 +66,7 @@ The standing instruction runs at all three tiers the garden uses for style rules
 
 1. **Guidance.** This skill, indexed in `roles/COMMON.md` § House style, so every role reads it as part of the standing style set.
 2. **Jury.** The [typist](../../roles/jurors/typist/AGENT.md) seat (always-on in every code panel) and the [copyeditor](../../roles/jurors/copyeditor/AGENT.md) seat (every design panel, cross-fired onto markdown-heavy code PRs) flag typist-hostile code points in the diff; the [pedant](../../roles/jurors/pedant/AGENT.md) carries the rule among its layered project style rules. The seats are the always-on backstop for a PR whose gauntlet never ran.
-3. **Gate (auto-fix).** The [pre-push-gates](../pre-push-gates/SKILL.md) probe `typist-friendly-code-points.sh` scans added lines of changed markdown files and, run with `--fix` in the gate's auto-fix stage, mechanically rewrites the substitutable glyphs in the changed files (skipping code fences and inline code spans) and re-stages. The judgment-only glyphs (`•`, check and ballot marks) fail the probe with a one-line suggestion instead. Source files under `src/` and `lib/` are already covered by the stricter `no-non-ascii-in-source` probe; box-drawing glyphs by `no-ascii-banners`.
+3. **Gate (auto-fix).** The [pre-push-gates](../pre-push-gates/SKILL.md) probe `typist-friendly-code-points.sh` scans added lines of changed markdown files and, run with `--fix` in the gate's auto-fix stage, mechanically rewrites the substitutable glyphs in the changed files (skipping code fences and inline code spans) and re-stages. The judgment-only glyphs (`•`, check and ballot marks) fail the probe with a one-line suggestion instead. The current executable probe is markdown-scoped; source ASCII and box-drawing rules remain guidance and panel concerns until their own probe scripts land.
 
 ## How to sweep a file
 

@@ -22,6 +22,10 @@ is_source() {
 
 staged_diff_for() {
   local file="$1"
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    git diff -U0 "$PRE_PUSH_BASE_REF"...HEAD -- "$file" 2>/dev/null
+    return
+  fi
   if git diff --staged --quiet -- "$file" 2>/dev/null; then
     git diff -U0 -- "$file" 2>/dev/null
   else
@@ -31,6 +35,7 @@ staged_diff_for() {
 
 file_content() {
   local file="$1"
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then cat "$file" 2>/dev/null; return; fi
   if git diff --staged --quiet -- "$file" 2>/dev/null; then
     cat "$file" 2>/dev/null
   else
@@ -125,8 +130,12 @@ run_probe() {
   cd "$root" 2>/dev/null || { echo "fail: cannot enter project root '$root'"; return 1; }
 
   local files findings=0
-  files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
-  [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    files=$(git diff "$PRE_PUSH_BASE_REF"...HEAD --name-only --diff-filter=d 2>/dev/null)
+  else
+    files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
+    [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  fi
 
   while IFS= read -r file; do
     [ -n "$file" ] || continue

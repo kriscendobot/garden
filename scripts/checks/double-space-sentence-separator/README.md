@@ -20,15 +20,14 @@ they did not write.
 ## The historical incident
 
 The wrap rule is older than this gate; it lives in CONTRIBUTING /
-style guides on the upstream `endojs/endo` repo and is enforced on
-full files by `skills/pre-push-gates/probes/sentence-per-line-md.sh`.
-The gate exists because PR #3 review `4414266979` (kriskowal,
+style guides on the upstream `endojs/endo` repo. The pre-push driver does not
+currently ship a sentence-per-line probe; this diff-scoped check is its
+deterministic enforcement. The gate exists because PR #3 review `4414266979` (kriskowal,
 2026-06-02) asked for pre-dispatch coverage of "common symptoms of
 forgetting the line wrapping rules, like the introduction of `. ` or
-`.  ` in a comment or markdown file." The probe and the gate are
-complementary: the probe catches everything in the file (a fixer's
-load-bearing audit); the gate catches just the new offenders (a
-deterministic pre-CI cheap check).
+`.  ` in a comment or markdown file." The worker's full-file checklist audit
+and this gate are complementary: the audit catches old surrounding offenders
+in a file being edited; this gate catches just the newly added offenders.
 
 ## Allowlist policy
 

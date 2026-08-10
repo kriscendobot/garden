@@ -10,10 +10,9 @@ The garden's wrap rule is **sentence-per-line**: each physical line in
 a markdown file or a comment carries at most one sentence. Multi-
 sentence physical lines force the reader's eye to scan within the line
 for sentence boundaries; one-sentence-per-line lets each sentence
-start at column zero. This is the same rule the
-`skills/pre-push-gates/probes/sentence-per-line-md.sh` probe enforces
-on full files; this gate enforces it on the diff so authors get the
-feedback before the panel does.
+start at column zero. The pre-push driver does not currently ship a
+sentence-per-line probe; this diff-scoped gate supplies deterministic feedback
+before the panel, while the worker's checklist owns any full-file audit.
 
 # The maintainer's reasoning
 

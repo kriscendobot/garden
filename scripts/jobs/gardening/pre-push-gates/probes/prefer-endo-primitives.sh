@@ -94,8 +94,12 @@ is_exempt() {
 
 added_lines_for() {
   local file="$1" diff
-  diff=$(git diff --staged -U0 -- "$file" 2>/dev/null)
-  [ -z "$diff" ] && diff=$(git diff -U0 -- "$file" 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    diff=$(git diff -U0 "$PRE_PUSH_BASE_REF"...HEAD -- "$file" 2>/dev/null)
+  else
+    diff=$(git diff --staged -U0 -- "$file" 2>/dev/null)
+    [ -z "$diff" ] && diff=$(git diff -U0 -- "$file" 2>/dev/null)
+  fi
   printf '%s\n' "$diff" \
     | grep '^+' | grep -v '^+++' | sed 's/^+//' \
     | awk -v file="$file" '{ print file "\t" $0 }'
@@ -104,8 +108,12 @@ added_lines_for() {
 run_probe() {
   local root="${1:-.}" files stream
   cd "$root" 2>/dev/null || { echo "fail: cannot enter project root '$root'"; return 1; }
-  files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
-  [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    files=$(git diff "$PRE_PUSH_BASE_REF"...HEAD --name-only --diff-filter=d 2>/dev/null)
+  else
+    files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
+    [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  fi
 
   stream=$(
     while IFS= read -r file; do

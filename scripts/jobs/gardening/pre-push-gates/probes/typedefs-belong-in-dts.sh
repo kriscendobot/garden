@@ -107,8 +107,12 @@ run_probe() {
   # Prefer the staged diff (the gate's normal input); fall back to the unstaged
   # working-tree diff when nothing is staged. --diff-filter=d drops deletions.
   local files
-  files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
-  [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    files=$(git diff "$PRE_PUSH_BASE_REF"...HEAD --name-only --diff-filter=d 2>/dev/null)
+  else
+    files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
+    [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  fi
 
   local findings=0
   while IFS= read -r f; do
@@ -120,7 +124,8 @@ run_probe() {
       *) continue ;;
     esac
     local content
-    content=$(git show ":$f" 2>/dev/null) || content=""
+    if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then content=$(cat "$f" 2>/dev/null) || content=""
+    else content=$(git show ":$f" 2>/dev/null) || content=""; fi
     [ -z "$content" ] && content=$(cat "$f" 2>/dev/null)
     if printf '%s\n' "$content" | is_types_only_module; then
       echo "fail: $f is a types-only module (@typedef/@callback, no runtime exports) — author it as a hand-written .d.ts and repoint the \`types\` export condition, not a .js"

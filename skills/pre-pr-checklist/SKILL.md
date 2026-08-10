@@ -1,12 +1,12 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-08-10
 author: gardener
 ---
 
 # Skill: pre-pr-checklist
 
-The pre-PR gate. Run before every push to a PR branch (initial create or follow-up), and again before any `gh pr edit --body` rewrite. Run as a step of the gardening state machine (`scripts/jobs/gardening/garden-pr.sh`, design: [`designs/gardening-state-machine.md`](../../designs/gardening-state-machine.md)); the deterministic subset of it is the [pre-push-gates](../pre-push-gates/SKILL.md) script, which the gate invokes mechanically.
+The pre-PR gate. Run before every push to a PR branch (initial create or follow-up), and again before any `gh pr edit --body` rewrite. The gardening state machine (`scripts/jobs/gardening/garden-pr.sh`, design: [`designs/gardening-state-machine.md`](../../designs/gardening-state-machine.md)) mechanically invokes the [pre-push-gates](../pre-push-gates/SKILL.md) driver followed by [local-verify](../local-verify/SKILL.md); this checklist supplies the human review around those executable checks.
 
 ## The minimum
 
@@ -18,7 +18,7 @@ For a JavaScript / monorepo / yarn project (the canonical case): adapt the comma
 - `cd packages/<name> && npx ava` (or the project's test command): at least the tests nearest the change.
 - Decide whether to add a changeset entry per project convention.
 
-The deterministic, auto-fixable, and probe-able items above are run by the [pre-push-gates](../pre-push-gates/SKILL.md) script; this checklist is the broader human-facing review-yourself list around it.
+The [pre-push-gates](../pre-push-gates/SKILL.md) driver runs format/lint auto-fix, the probes that actually ship in its `probes/` directory, and typecheck. [Local-verify](../local-verify/SKILL.md) runs the broader project suite. Items without an executable probe, including changeset judgment, remain the worker's responsibility.
 
 ## PR body template
 

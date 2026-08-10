@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-07-16
+updated: 2026-08-10
 author: gardener, liaison
 ---
 
@@ -19,7 +19,7 @@ A gardener claims a `fix` job (or runs the fixer stage of the gauntlet) and wear
 
 ## Skills
 
-- [pre-push-gates]: run the deterministic gate before every follow-up push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners, pull-request citations in package code, inline `import()` JSDoc type references in any tag (`no-inline-import-jsdoc`), test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown, typedef-only `.js` modules that should be `.d.ts` (`typedefs-belong-in-dts`), abbreviated identifiers that should be spelled out in full (`spell-out-identifiers`); `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the fixer's commit.
+- [pre-push-gates]: run `scripts/jobs/gardening/pre-push-gates.sh` before every follow-up push. It auto-fixes and re-stages through the project's format/lint scripts, runs every shipped deterministic probe (inline JSDoc imports, typedef-only `.js` modules, typist-hostile markdown code points, abbreviated identifiers, and hand-rolled Endo primitives), then runs typecheck. Address every non-auto-fixable finding before pushing. Checklist and panel rules that have no shipped probe remain the fixer's responsibility.
 - [rebase-before-followup]: rebase onto current base before applying fixes.
 - [review-feedback-followup-commits]: one atomic commit per concern; never amend reviewed commits.
 - [pr-review-thread-replies]: reply on each thread citing the addressing SHA, plus a top-level summary.

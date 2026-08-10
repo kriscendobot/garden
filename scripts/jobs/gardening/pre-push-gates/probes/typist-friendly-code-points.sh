@@ -29,7 +29,8 @@
 # its rewrite (period / parentheses / colon) is judgment, not substitution. The
 # en dash is tolerated per the same skill. Source under src/ and lib/ is already
 # covered whole by the stricter no-non-ascii-in-source probe; box-drawing by
-# no-ascii-banners. This probe covers the prose surface those two do not.
+# no-ascii-banners. Those two rules currently rely on guidance/detection and the
+# panel; this executable probe covers the markdown prose surface only.
 #
 # SCOPE LIMITS (narrow by design, skills/pre-push-gates § Pitfalls): `.md` files
 # only; `references/` (vendored snapshots) and node_modules are skipped; per-file
@@ -176,8 +177,12 @@ wants_scan() {
 # changed_md_files — the changed `.md` paths, staged diff first, else unstaged.
 changed_md_files() {
   local files
-  files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
-  [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    files=$(git diff "$PRE_PUSH_BASE_REF"...HEAD --name-only --diff-filter=d 2>/dev/null)
+  else
+    files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
+    [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  fi
   local f
   while IFS= read -r f; do
     [ -z "$f" ] && continue
@@ -194,8 +199,12 @@ EOF
 # the same diff changed_md_files used), or "" when the diff carries no added lines.
 added_ranges_for() {
   local f="$1" diff
-  diff=$(git diff --staged -U0 -- "$f" 2>/dev/null)
-  [ -z "$diff" ] && diff=$(git diff -U0 -- "$f" 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    diff=$(git diff -U0 "$PRE_PUSH_BASE_REF"...HEAD -- "$f" 2>/dev/null)
+  else
+    diff=$(git diff --staged -U0 -- "$f" 2>/dev/null)
+    [ -z "$diff" ] && diff=$(git diff -U0 -- "$f" 2>/dev/null)
+  fi
   printf '%s\n' "$diff" \
     | sed -n 's/^@@ [^+]*+\([0-9][0-9,]*\).*/\1/p' \
     | tr '\n' ' ' | sed 's/ $//'
@@ -208,6 +217,7 @@ run_probe() {
   while IFS= read -r f; do
     ranges=$(added_ranges_for "$f")
     [ -z "$ranges" ] && continue
+    # shellcheck disable=SC2094 # engine writes stdout, never the input file.
     out=$(engine scan "$f" "$ranges" < "$f")
     if [ -n "$out" ]; then printf '%s\n' "$out"; rc=1; fi
   done <<EOF
@@ -223,12 +233,13 @@ run_fix() {
   local f tmp subs
   while IFS= read -r f; do
     tmp=$(mktemp)
+    # shellcheck disable=SC2094 # output is a distinct temporary file.
     subs=$( { engine fix "$f" all < "$f" > "$tmp"; } 3>&1 )
     if [ "${subs:-0}" -gt 0 ] 2>/dev/null; then
       cat "$tmp" > "$f"
       # Re-stage only when the file already had staged changes; a working-tree-only
       # edit stays unstaged for the calling step's own commit machinery.
-      if [ -n "$(git diff --staged --name-only -- "$f" 2>/dev/null)" ]; then
+      if [ -n "${PRE_PUSH_BASE_REF:-}" ] || [ -n "$(git diff --staged --name-only -- "$f" 2>/dev/null)" ]; then
         git add -- "$f"
       fi
       echo "fixed: $f ($subs substitutions)"

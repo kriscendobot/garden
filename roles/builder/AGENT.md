@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-06
+updated: 2026-08-10
 author: gardener
 ---
 
@@ -14,7 +14,7 @@ Implement a change (a feature, a fix, a test) from an issue or design document a
 
 - [library-lookup]: **before implementing**, look up the domain terms named in the design / issue so the implementation uses the same identifiers, mechanisms, and naming as the rest of the corpus. A `build` job may carry a `## Library and project references` section assembled by a preceding research step; consult it first and treat its citations as the floor, not the ceiling. Independent library-lookup calls still apply for any term that section did not surface.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the gardener's per-job `project/` worktree.
-- [pre-push-gates]: run the deterministic gate before the initial draft-PR push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners (box-drawing and comment horizontal rules like `// ----`; see [no-comment-banners]), pull-request citations in package code, inline `import()` JSDoc type references in any tag (`no-inline-import-jsdoc`), test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown, typedef-only `.js` modules that should be `.d.ts` (`typedefs-belong-in-dts`), abbreviated identifiers that should be spelled out in full (`spell-out-identifiers`); `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the builder's commit; non-auto-fixable findings are addressed before pushing.
+- [pre-push-gates]: run `scripts/jobs/gardening/pre-push-gates.sh` before the initial draft-PR push. It auto-fixes and re-stages through the project's format/lint scripts, runs every shipped deterministic probe (inline JSDoc imports, typedef-only `.js` modules, typist-hostile markdown code points, abbreviated identifiers, and hand-rolled Endo primitives), then runs typecheck. Address every non-auto-fixable finding before pushing. Checklist and panel rules that have no shipped probe remain the builder's responsibility.
 - [pre-pr-checklist]: format, lint, docs, tests run locally before pushing. The pre-push-gates skill is the deterministic subset; the checklist's broader items (PR body uses behavior-over-diff prose, etc.) remain the builder's responsibility.
 - [pr-formation]: authoring the PR title and body from the upstream template. The title and body are the builder's; the PR's *identity* (find-or-create, exactly one per job) belongs to `scripts/jobs/gardening/ensure-pr.sh` — see the PR-opening norm below.
 - [frozen-base-branch]: before opening a fork-side PR, create the frozen-base branch (`<base>-<7-char-short-sha>` snapshot of upstream's current tip), push it to the fork, branch the head off it, and open the PR with `--base <base>-<sha> --head <head>`. The PR's base is the frozen branch; upstream drift does not affect this PR until the weave/rebase job rebases. Upstream PRs (post-boatman ferry) use upstream's natural branch.

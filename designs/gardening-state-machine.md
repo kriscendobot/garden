@@ -65,15 +65,19 @@ whose cost we want to avoid when a signal says they cannot matter.
    in an added code line; etc. (`run_if <sense…> -- <command…>`). Each
    deterministic detector is quiet-by-design and gates a best-effort `claude -p`
    handler.
-3. **evaluation gate (always)** — run the project's eval suite; *no* sense-gate.
+3. **pre-push gate (always)** — run
+   `scripts/jobs/gardening/pre-push-gates.sh`. It applies the project's
+   format/lint fixers, runs every executable garden-specific probe, and runs
+   typecheck. Any surviving finding blocks the push.
+4. **evaluation gate (always)** — run the project's eval suite; *no* sense-gate.
    False positives fine, false negatives unacceptable. The default eval runner is
    the deterministic, no-LLM pre-PR verification harness
    `scripts/jobs/gardening/local-verify.sh` (format/lint/build/test/docgen,
    silent on success, git-hash-capturing failures for selective debugging-agent
    inspection); see [local-verify](../skills/local-verify/SKILL.md). It is wired
    as `GARDEN_EVAL`; a project overrides that with its own runner when needed.
-4. **push for CI** — deterministic (identity owned by the boatman for upstream).
-5. **loop decision** — `decide` whether to wait on CI and loop, or stop. Emits
+5. **push for CI** — deterministic (identity owned by the boatman for upstream).
+6. **loop decision** — `decide` whether to wait on CI and loop, or stop. Emits
    `loop` to the supervisor or exits quietly.
 
 ## Build handoff invariant

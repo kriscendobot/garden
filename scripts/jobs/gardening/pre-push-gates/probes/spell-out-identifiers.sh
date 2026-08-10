@@ -157,8 +157,12 @@ classify() {
 added_lines_for() {
   local f="$1"
   local diff
-  diff=$(git diff --staged -U0 -- "$f" 2>/dev/null)
-  [ -z "$diff" ] && diff=$(git diff -U0 -- "$f" 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    diff=$(git diff -U0 "$PRE_PUSH_BASE_REF"...HEAD -- "$f" 2>/dev/null)
+  else
+    diff=$(git diff --staged -U0 -- "$f" 2>/dev/null)
+    [ -z "$diff" ] && diff=$(git diff -U0 -- "$f" 2>/dev/null)
+  fi
   printf '%s\n' "$diff" \
     | grep '^+' | grep -v '^+++' | sed 's/^+//' \
     | awk -v f="$f" '{ print f "\t" $0 }'
@@ -186,8 +190,12 @@ run_probe() {
   cd "$root" 2>/dev/null || { echo "fail: cannot enter project root '$root'"; return 1; }
 
   local files
-  files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
-  [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  if [ -n "${PRE_PUSH_BASE_REF:-}" ]; then
+    files=$(git diff "$PRE_PUSH_BASE_REF"...HEAD --name-only --diff-filter=d 2>/dev/null)
+  else
+    files=$(git diff --staged --name-only --diff-filter=d 2>/dev/null)
+    [ -z "$files" ] && files=$(git diff --name-only --diff-filter=d 2>/dev/null)
+  fi
 
   # Build the combined `<file>\t<line>` stream, then classify once so `seen`
   # dedupes across the whole diff and the exit code is a single verdict.

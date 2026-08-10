@@ -6,7 +6,8 @@
 # but a run of repeated rule characters used as a decorative separator.
 #
 # Why a third enforcement site: the banner rule is already enforced at generation
-# (skills/pre-push-gates no-ascii-banners) and at review (the archivist juror).
+# (skills/no-comment-banners) and at review (the archivist juror). The pre-push
+# driver does not currently ship a separate no-ascii-banners probe.
 # This gate catches a banner the moment it lands in a gardening diff, so the
 # fixer can strip it before the panel ever sees it.
 #

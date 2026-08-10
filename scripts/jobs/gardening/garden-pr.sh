@@ -19,8 +19,8 @@
 #    toward running everything (false positives fine, false negatives not).
 #
 # Usage: garden-pr.sh <worktree> <pr-number> [base-ref]
-# Stages: rebase? → sense-gated automations → ALWAYS run evals → push for CI →
-#         ask claude -p whether to loop.
+# Stages: rebase? → sense-gated automations → pre-push probes → ALWAYS run evals
+#         → push for CI → ask claude -p whether to loop.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -92,6 +92,13 @@ run_if "$DETECT_BANNERS" check "$wt" "$base" -- "$GARDEN_BANNER_FIXER" "$wt" "$b
 DETECT_CATCH_ALL_SWALLOW="$HERE/detect-catch-all-swallow.sh"
 : "${GARDEN_CATCH_ALL_SWALLOW_FIXER:=$HERE/../handlers/catch-all-swallow-claude.sh}"
 run_if "$DETECT_CATCH_ALL_SWALLOW" check "$wt" "$base" -- "$GARDEN_CATCH_ALL_SWALLOW_FIXER" "$wt" "$base"
+
+# --- deterministic pre-push probes, then evaluation/test gate BEFORE CI ------
+# The style/probe gate may fix and re-stage deterministic findings. It runs
+# before the read-only full evaluation suite and blocks the push on anything it
+# cannot settle. A project may override the driver for a specialized gate.
+: "${GARDEN_PRE_PUSH_GATES:=$HERE/pre-push-gates.sh}"
+"$GARDEN_PRE_PUSH_GATES" --base-ref "$base" "$wt" || fail "pre-push gates"
 
 # --- evaluation/test gate BEFORE CI: err toward running everything -----------
 # False positives are fine here; false negatives are not. We do NOT sense-gate

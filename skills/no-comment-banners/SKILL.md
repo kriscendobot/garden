@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-06-25
+updated: 2026-08-10
 author: gardener
 ---
 
@@ -33,8 +33,7 @@ The maintainer's reason (PR #503, review `4573212313`): banner rules are
 the file does not redraw the ruler to the same width, does not add one to the
 next section, and does not agree on the character. The decoration drifts the
 moment a human touches the file, so it reads as machine-generated noise. The
-same objection retired ASCII box diagrams (`skills/pre-push-gates/SKILL.md`
-`no-ascii-banners`); horizontal rules are the same class of decoration in a
+same objection retired ASCII box diagrams; horizontal rules are the same class of decoration in a
 thinner shape.
 
 ## What is *not* a banner
@@ -56,10 +55,10 @@ The rule governs code comments in the projects the garden builds for (today
 code-style rule, not a garden-document prose rule, so it is enforced at three
 sites:
 
-- **Generation.** The `no-ascii-banners` probe in
-  `skills/pre-push-gates/SKILL.md` fails a push whose changed `.js` / `.ts` /
-  `.md` files add a banner-rule comment. By the time a diff reaches the panel,
-  this class of finding cannot survive.
+- **Generation.** `scripts/jobs/gardening/detect-banners.sh` detects an added
+  banner-rule comment and gates the state machine's banner-sweep handler. The
+  pre-push driver does not currently ship a `no-ascii-banners` probe, so the
+  panel remains the backstop when the detector or handler does not settle it.
 - **Gardening loop.** The sense-gated `scripts/jobs/gardening/detect-banners.sh`
   detector runs inside `garden-pr.sh`: on any ADDED banner-rule line in a code
   file it fires the conditional
@@ -90,8 +89,6 @@ title line and adjust its punctuation so it reads as a sentence.
   `4573212313`. The maintainer asked to apply the banner feedback generally and
   to reinforce the garden to anticipate it at the generation and review sites.
   The reconstructed passable-byte-arrays PR carried roughly forty `// ----`
-  rule comments across six files; the existing `no-ascii-banners` probe missed
-  them because it matched only box-drawing characters and `+--+` / `|...|`
-  boxes, not plain hyphen and equals rules. The probe definition was widened the
-  same day and this skill landed as the single citeable rule the gate and the
-  two juror seats reference.
+  rule comments across six files. The planned `no-ascii-banners` probe was
+  widened in documentation, but its executable did not survive the v2
+  migration; `detect-banners.sh` plus the panel seats are the active enforcement.
