@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:17:40Z_
+_As of 2026-08-10T23:22:11Z_
 
 ## Latest
 
@@ -23,7 +23,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 22d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 24d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 24d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 24d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 25d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -6455,16 +6455,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.5M | $783.16 _(notional, rate-card)_ | no quota set |
-| Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 51.5M | $784.42 _(notional, rate-card)_ | no quota set |
+| Codex | 18.0M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (6)
+- [`deadline-nudge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadline-nudge-build.md) — Task
 - [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — ---
 - [`kriscendobot-minion.town-pr34-bb6b1f5d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-bb6b1f5d.md) — attention directive on kriscendobot/minion.town PR #34
+- [`minion-town-bd5a54b-weblet-isolation-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-bd5a54b-weblet-isolation-deploy.md) — ---
+- [`minion-town-bd5a54b-weblet-isolation-verify-config`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-bd5a54b-weblet-isolation-verify-config.md) — ---
+- [`minion-town-ocap-site-psl-local-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocap-site-psl-local-pr.md) — Fork the Public Suffix List and open a LOCAL PR for ocap.site (design kriscen...
 
 ### tada (4364)
 - [`deadline-nudge-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadline-nudge-design.md) — Cost
@@ -6583,7 +6587,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`deadline-nudge-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadline-nudge-build.md) — awaiting `deadline-nudge-design` · Task
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
