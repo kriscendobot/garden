@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-523535804
 Is it possible to obviate the `weblet` term in `*.weblet.minion.town` subdomains? Let’s assume all subdomains of `minion.town` are themselves weblets. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-10T02:55:07Z
