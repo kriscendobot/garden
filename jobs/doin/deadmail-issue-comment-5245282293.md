@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-524528229
 I’m favoring the use of another content apex, nominally `ocap.site`, so `*.ocap.site` will all be separate sites and `ocap.site` will just redirect to `minion.town`. Please post a design, including steps needed to add an entry to the public suffix list. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-10T20:00:13Z
