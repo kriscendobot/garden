@@ -43,3 +43,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-524736217
 Sitrep. I would like to take a moment to try to publish a weblet myself, using a local `endo` CLI to publish a `*.ocap.site` weblet with content from a given directory and a given set of powers that the static site will reach over WebSocket and OCapN. I would like this to take th
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-10T23:55:08Z
