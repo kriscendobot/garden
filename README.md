@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:04:51Z_
+_As of 2026-08-10T23:06:01Z_
 
 ## Latest
 
@@ -6385,6 +6385,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
 
+- `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
+
+> pr-feedback-preflight could not gather evidence for [kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34) (cid=5247008734) and failed open.
+> This is a tool/transport failure, not a no-evidence finding — real feedback may
+> have been processed WITHOUT the peer-resolution recheck. Reason:
+> evidence gathering failed: could not resolve feedback target id 5247008734 on [kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34) (neither a review nor an inline comment)
+> --- captured stderr ---
+> gh: Not Found (HTTP 404)
+> gh: Not Found (HTTP 404)
+
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
 > RECOVERED — the watchdog condition `provider-quota` has CLEARED (first seen 2026-07-28T08:48:08Z, cleared 2026-08-01T23:52:27Z).
@@ -6441,15 +6451,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.4M | $781.49 _(notional, rate-card)_ | no quota set |
+| Claude | 51.4M | $782.40 _(notional, rate-card)_ | no quota set |
 | Codex | 17.9M _(+661.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`kriscendobot-minion.town-pr34-67292718`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr34-67292718.md) — attention directive on kriscendobot/minion.town PR #34
+- [`minion-town-design-ocap-site-weblet-isolation-ed888d3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-design-ocap-site-weblet-isolation-ed888d3.md) — ---
 
 ### tada (4360)
 - [`minion-town-pr34-conductor-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr34-conductor-merge.md) — Cost
