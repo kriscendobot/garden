@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":50,"input_tokens":14,"output_tokens":2350,"cache_creation_tokens":30501,"cache_read_tokens":270820,"total_cost_usd":0.501268,"ts":"2026-08-10T23:22:22Z","base":"minion-town-bd5a54b-weblet-isolation-verify-config","host":"endolin-garden-ece02cb4","outcome":"tada"}
