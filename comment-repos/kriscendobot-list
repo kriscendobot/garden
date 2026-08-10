@@ -1,0 +1,16 @@
+# garden-comment-watcher arming record (auto-provisioned)
+repo: kriscendobot/list
+sender-gate: required
+armed_at: 2026-08-10T23:23:47Z
+authorized_by: kriskowal
+authorization: msgs/broadcast/20260709T225552Z-e61229.md ("watch the garden's own forks",
+  2026-07-09), added automatically by
+  scripts/jobs/fork-watch-provisioner.sh. Own forks may be PUBLIC, so
+  repo-gating cannot clear their comment surveillance; the sender-gate:
+  required line above makes comment-watcher.sh drop any comment whose
+  author is not on trusted-senders/allowlist, maintainers/allowlist, or a
+  current endojs/Agoric org member — in plain code, before any text
+  reaches a job, a reactji, or claude -p. The ci-watcher rides this same
+  set and reads only CI status. Design:
+  designs/auto-provision-fork-watchers.md. To unwatch durably, delete this
+  file AND add watch-optout/kriscendobot-list.
