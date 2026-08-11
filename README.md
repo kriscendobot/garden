@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T17:47:15Z_
+_As of 2026-08-11T17:47:55Z_
 
 ## Latest
 
@@ -6410,14 +6410,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #19 (first seen 2026-07-29T06:56:25Z, latest 2026-08-10T17:28:06Z).
-> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 19 times; this is ONE
-> coalesced notice that updates in place, not 19 messages. Latest detail:
+> WATCHDOG notice — occurrence #20 (first seen 2026-07-29T06:56:25Z, latest 2026-08-11T17:47:36Z).
+> The SAME condition (`preflight-gather-fail-endojs-endo-but-for-bots`) has now been observed 20 times; this is ONE
+> coalesced notice that updates in place, not 20 messages. Latest detail:
 >
-> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (cid=5243661900) and failed open.
+> pr-feedback-preflight could not gather evidence for [endojs/endo-but-for-bots#971](https://github.com/endojs/endo-but-for-bots/issues/971) (cid=5256778250) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5243661900 on [endojs/endo-but-for-bots#963](https://github.com/endojs/endo-but-for-bots/issues/963) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5256778250 on [endojs/endo-but-for-bots#971](https://github.com/endojs/endo-but-for-bots/issues/971) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
