@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T18:44:44Z_
+_As of 2026-08-11T18:46:34Z_
 
 ## Latest
 
@@ -6513,8 +6513,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-vitals-weblet-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-vitals-weblet-design.md) — Task
 
 ### tada (4387)
 - [`minion-town-git-content-substrate-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-content-substrate-design.md) — Completion report — minion-town-git-content-substrate-design
