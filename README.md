@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T17:49:36Z_
+_As of 2026-08-11T18:09:47Z_
 
 ## Latest
 
@@ -6506,15 +6506,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.8M | $767.21 _(notional, rate-card)_ | no quota set |
-| Codex | 18.3M _(+664.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 50.6M | $774.60 _(notional, rate-card)_ | no quota set |
+| Codex | 18.3M _(+664.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`design-justin-subset-pass-style-doc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-justin-subset-pass-style-doc.md) — Document the Justin subset of JavaScript in docs/, and lock down the dialect ...
 
 ### tada (4383)
 - [`endojs-endo-but-for-bots-pr971-7cc75196`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-7cc75196.md) — Cost
