@@ -77,3 +77,13 @@ A design PR against `main` on `kriscendobot/minion.town`, following the
 repo's own design-doc format. Every open question above is either answered
 in the document or moved to its own explicit "Open questions" section — never
 silently assumed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T18:34:10Z
