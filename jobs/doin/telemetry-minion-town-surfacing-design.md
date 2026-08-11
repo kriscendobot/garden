@@ -58,3 +58,13 @@ edit plus the recorded future direction, nothing else.
 
 The amended `designs/fleet-telemetry-and-anomaly-response.md` committed
 directly to `main2`. Report exactly which sections changed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-11T18:31:09Z
