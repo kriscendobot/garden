@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T22:33:35Z_
+_As of 2026-08-11T22:47:35Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 12h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 3m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 13d)
@@ -6584,13 +6584,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#943](https://github.com/endojs/endo-but-for-bots/issues/943): frozen base 'llm-bfc91f5' is shared by open PRs (#943, #888). Forwarding #943 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#943 left on the snapshot: not stranded silently, not force-forked.)
 
+- `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
+
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). git said: Timeout, server github.com not responding. fatal: expected flush after ref listing
+> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $781.74 _(notional, rate-card)_ | no quota set |
+| Claude | 51.9M | $782.64 _(notional, rate-card)_ | no quota set |
 | Codex | 18.9M _(+679.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
