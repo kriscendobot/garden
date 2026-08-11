@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T18:33:55Z_
+_As of 2026-08-11T18:34:37Z_
 
 ## Latest
 
@@ -6506,15 +6506,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.2M | $766.84 _(notional, rate-card)_ | no quota set |
+| Claude | 50.2M | $767.23 _(notional, rate-card)_ | no quota set |
 | Codex | 18.3M _(+664.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr972-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr972-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #972
+- [`minion-town-git-content-substrate-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-git-content-substrate-design.md) — Task
 
 ### tada (4385)
 - [`telemetry-minion-town-surfacing-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/telemetry-minion-town-surfacing-design.md) — Cost
