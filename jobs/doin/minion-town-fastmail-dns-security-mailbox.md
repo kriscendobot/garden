@@ -72,3 +72,13 @@ List each record created with its final resolved value, confirm the single-SPF
 invariant, confirm the edge regression check, and state explicitly whether
 FastMail's side (mailbox/alias for `security@minion.town`) still needs an action the
 fleet cannot take — the DNS half does not by itself create the mailbox.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T01:06:26Z
