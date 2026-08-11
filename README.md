@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:03:20Z_
+_As of 2026-08-11T21:20:21Z_
 
 ## Latest
 
@@ -6506,23 +6506,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.2M | $766.76 _(notional, rate-card)_ | no quota set |
-| Codex | 18.3M _(+664.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 50.5M | $769.75 _(notional, rate-card)_ | no quota set |
+| Codex | 18.3M _(+664.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`minion-town-git-remote-capability-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-git-remote-capability-design.md) — Context (maintainer's own framing, 2026-08-11 — treat as ground truth)
+### doin (0)
+(none)
 
-### tada (4390)
+### tada (4391)
+- [`minion-town-git-remote-capability-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-remote-capability-design.md) — Completion report
 - [`self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe.md) — Cost
 - [`telemetry-minion-town-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/telemetry-minion-town-orchestration.md) — orchestration telemetry-minion-town-orchestration — complete
 - [`minion-town-vitals-weblet-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-vitals-weblet-design.md) — Completion report
 - [`minion-town-git-content-substrate-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-content-substrate-design.md) — Completion report — minion-town-git-content-substrate-design
-- [`endojs-endo-but-for-bots-pr972-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-shepherd.md) — Report
-- … and 4385 more
+- … and 4386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
