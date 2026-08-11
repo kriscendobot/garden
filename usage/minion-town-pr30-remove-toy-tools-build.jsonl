@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":155,"elapsed_s":1389,"input_tokens":267,"output_tokens":97678,"cache_creation_tokens":232042,"cache_read_tokens":24293348,"total_cost_usd":16.91294899999999,"ts":"2026-08-11T00:23:07Z","base":"minion-town-pr30-remove-toy-tools-build","host":"endolin-garden-ece02cb4","outcome":"tada"}

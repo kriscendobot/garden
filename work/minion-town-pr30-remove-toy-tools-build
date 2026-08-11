@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-10T23:59:26Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-pr30-remove-toy-tools-build
-pr_number: 36
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/36
-pr_head: remove-toy-tools-and-prune-minion-scopes
