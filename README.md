@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T18:22:59Z_
+_As of 2026-08-11T18:23:52Z_
 
 ## Latest
 
@@ -6506,23 +6506,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.9M | $779.46 _(notional, rate-card)_ | no quota set |
+| Claude | 50.7M | $775.42 _(notional, rate-card)_ | no quota set |
 | Codex | 18.3M _(+664.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`design-justin-subset-pass-style-doc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-justin-subset-pass-style-doc.md) — Document the Justin subset of JavaScript in docs/, and lock down the dialect ...
+### doin (0)
+(none)
 
-### tada (4383)
+### tada (4384)
+- [`design-justin-subset-pass-style-doc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-justin-subset-pass-style-doc.md) — Completion report: document the Justin subset and lock the pass-style dialect
 - [`endojs-endo-but-for-bots-pr971-7cc75196`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-7cc75196.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260811-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260811-162001.md) — Completion report
 - [`minion-town-fastmail-dns-security-mailbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-fastmail-dns-security-mailbox.md) — Completion report — FastMail mail delivery DNS for security@minion.town (issu...
 - [`minion-town-ocap-mailboxes-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocap-mailboxes-design.md) — Completion report
-- [`kriscendobot-list-pr1-a6dd7c1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-a6dd7c1c.md) — Completion report
-- … and 4378 more
+- … and 4379 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
