@@ -25,3 +25,13 @@ Head: endojs/endo-but-for-bots `pr824-endo-sha256` (bot-pushable)
 Once mergeable and CI dispatches, a shepherd/conductor follows (the approval
 reconciler will re-dispatch, or a green run triggers the event watcher).
 Never link to upstream agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T21:53:37Z
