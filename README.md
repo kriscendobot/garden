@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:41:57Z_
+_As of 2026-08-11T21:43:25Z_
 
 ## Latest
 
@@ -6506,26 +6506,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.6M | $770.69 _(notional, rate-card)_ | no quota set |
-| Codex | 18.5M _(+665.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 51.0M | $774.22 _(notional, rate-card)_ | no quota set |
+| Codex | 18.6M _(+667.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-22343348.md) — attention directive on kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — ---
-- [`kriscendobot-minion.town-pr39-review-9b29b203`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-9b29b203.md) — Review directive on kriscendobot/minion.town PR #39
 - [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-usage-metering-design.md) — ---
 
-### tada (4391)
+### tada (4392)
+- [`kriscendobot-minion.town-pr39-review-9b29b203`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-9b29b203.md) — Cost
 - [`minion-town-git-remote-capability-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-remote-capability-design.md) — Completion report
 - [`self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe.md) — Cost
 - [`telemetry-minion-town-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/telemetry-minion-town-orchestration.md) — orchestration telemetry-minion-town-orchestration — complete
 - [`minion-town-vitals-weblet-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-vitals-weblet-design.md) — Completion report
-- [`minion-town-git-content-substrate-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-content-substrate-design.md) — Completion report — minion-town-git-content-substrate-design
-- … and 4386 more
+- … and 4387 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
