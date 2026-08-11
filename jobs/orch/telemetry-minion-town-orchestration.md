@@ -1,4 +1,5 @@
 ---
+child-minion-town-git-content-substrate-design-host: endolin-garden-ece02cb4
 child-minion-town-git-content-substrate-design-reap-count: 0
 order: serial
 children: telemetry-minion-town-surfacing-design minion-town-git-content-substrate-design minion-town-vitals-weblet-design
