@@ -120,3 +120,13 @@ repo's own design-doc format, with the Research section's citations, the
 explicit reconciliation with #39/#40, and the endo-but-for-bots follow-on
 section named above. Any open question this job cannot resolve goes in the
 document's own "Open questions" section rather than being guessed past.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T21:03:05Z
