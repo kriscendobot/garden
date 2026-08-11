@@ -87,3 +87,13 @@ importantly — an explicit **list of every divergence you found between the jes
 grammar and `marshal-justin.js`**, plus any pass-style category whose Justin form you
 could not determine from either source. Those are exactly the decisions the PR needs
 from the maintainer.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T18:09:18Z
