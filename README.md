@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-10T23:59:16Z_
+_As of 2026-08-11T00:00:09Z_
 
 ## Latest
 
@@ -6414,6 +6414,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
 
+- `watchdog-preflight-gather-fail-kriscendobot-list` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-list.md)
+
+> pr-feedback-preflight could not gather evidence for [kriscendobot/list#1](https://github.com/kriscendobot/list/issues/1) (cid=5247405955) and failed open.
+> This is a tool/transport failure, not a no-evidence finding — real feedback may
+> have been processed WITHOUT the peer-resolution recheck. Reason:
+> evidence gathering failed: could not resolve feedback target id 5247405955 on [kriscendobot/list#1](https://github.com/kriscendobot/list/issues/1) (neither a review nor an inline comment)
+> --- captured stderr ---
+> gh: Not Found (HTTP 404)
+> gh: Not Found (HTTP 404)
+
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-08-10T23:05:19Z, latest 2026-08-10T23:15:26Z).
@@ -6484,17 +6494,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $787.59 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $787.90 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-issue-comment-5247362179`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5247362179.md) — Dead-lettered message — pick up its intent
 - [`kriscendobot-list-pr1-ff3c4813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-ff3c4813.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-list-pr1-review-7c1f0148`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-review-7c1f0148.md) — Review directive on kriscendobot/list PR #1
+- [`minion-town-pr30-remove-toy-tools-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr30-remove-toy-tools-build.md) — ---
 
 ### tada (4374)
 - [`kriscendobot-minion.town-pr35-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr35-conduct.md) — Cost
