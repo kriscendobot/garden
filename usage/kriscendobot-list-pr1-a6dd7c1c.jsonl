@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":33,"elapsed_s":418,"input_tokens":56,"output_tokens":25436,"cache_creation_tokens":78717,"cache_read_tokens":2135727,"total_cost_usd":2.4935484999999997,"ts":"2026-08-11T00:24:13Z","base":"kriscendobot-list-pr1-a6dd7c1c","host":"endolin-garden2-5bcdff64","outcome":"tada"}
