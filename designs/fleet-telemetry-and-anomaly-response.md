@@ -226,8 +226,8 @@ precedent:
 
 ## Surfacing
 
-Extend `docs/bulletin/` with a **Vitals** panel — one more read-only view over
-`journal2`, no new app, no backend. It fetches `vitals/fleet.json` and renders:
+The primary surface is a **Vitals weblet on minion.town**. It reads the garden's
+public `journal2` telemetry and fetches `vitals/fleet.json`, then renders:
 
 - the nine vitals as a compact status row (green / soft / hard / ceiling), each with
   its 24 h sparkline from the embedded bucket array;
@@ -236,10 +236,30 @@ Extend `docs/bulletin/` with a **Vitals** panel — one more read-only view over
 - the **open-incidents list** (§ below) so the maintainer sees, in one place, every
   condition currently firing and its `notice_count`.
 
-The panel is deliberately *thin* — status and trend, not analytics. Deep questions
+The weblet is deliberately *thin* — status and trend, not analytics. Deep questions
 ("where did last week's spend go by role") stay in the on-demand `cost.sh` /
 `reputation.sh` CLI tools, which already answer them; duplicating those into a
 dashboard nobody reads is the anti-goal.
+
+This frontend choice also exercises the minion.town weblet-gateway system with a
+real consumer of garden telemetry and motivates improvements to that system. Two
+companion designs define the minion.town side: the
+`minion-town-git-content-substrate-design` job covers the general capability for a
+weblet to source content from a git branch (the garden's public `journal2` here),
+rather than only the existing tarball/S3/SSM deployment pipeline; the
+`minion-town-vitals-weblet-design` job covers the concrete Vitals weblet built on
+that substrate and consuming this document's `vitals/fleet.json` shape.
+
+Extending `docs/bulletin/` with the same Vitals panel remains a live interim and
+fallback if the git-content substrate or minion.town weblet is not yet available.
+It is no longer a co-primary long-term target: once the weblet is operating, the
+Pages panel is superseded so the garden does not maintain two copies of the view
+and so normal use continues to exercise the weblet gateway.
+
+Forward direction, outside this design's scope for now: migrate the garden's entire
+existing GitHub Pages bulletin, not only Vitals, to minion.town in due course. This
+design neither specifies nor builds that migration, but the Vitals surface must not
+foreclose it.
 
 ---
 
@@ -484,8 +504,9 @@ before implementation.
    aggregate. This alone makes #1, #6, #8 *observable* — the metrics exist even before
    anything reads them. No thresholds, no notices.
 
-2. **Surfacing.** The bulletin "Vitals" panel + host-liveness strip + open-incidents
-   list. Read-only; still no autonomous action.
+2. **Surfacing.** The minion.town Vitals weblet + host-liveness strip +
+   open-incidents list, with the GitHub Pages Vitals panel as an interim fallback.
+   Read-only; still no autonomous action.
 
 3. **Detection.** The deterministic evaluator: thresholds → rungs 0–1 via
    `watchdog-notice.sh`; the `incidents/open/` registry (#7); detector
