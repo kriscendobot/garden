@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:51:08Z_
+_As of 2026-08-11T21:52:23Z_
 
 ## Latest
 
@@ -6506,15 +6506,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.2M | $777.98 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+676.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 51.2M | $779.19 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+677.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr903-review-6ea43da5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-6ea43da5.md) — Review directive on endojs/endo-but-for-bots PR #903
+- [`endojs-endo-but-for-bots-pr903-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #903
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-22343348.md) — attention directive on kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — ---
 - [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-usage-metering-design.md) — ---
