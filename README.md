@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T00:27:50Z_
+_As of 2026-08-11T01:06:55Z_
 
 ## Latest
 
@@ -6506,15 +6506,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $790.87 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $792.66 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-fastmail-dns-security-mailbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-fastmail-dns-security-mailbox.md) — Set up FastMail mail delivery DNS for security@minion.town
 
 ### tada (4380)
 - [`minion-town-ocap-mailboxes-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocap-mailboxes-design.md) — Completion report
