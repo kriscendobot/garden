@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T00:03:54Z_
+_As of 2026-08-11T00:17:17Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 6h)
+- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 7h)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 3d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 12d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 12d)
@@ -6494,14 +6494,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $787.83 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $789.99 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-list-pr1-a6dd7c1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-a6dd7c1c.md) — attention directive on kriscendobot/list PR #1
 - [`minion-town-pr30-remove-toy-tools-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr30-remove-toy-tools-build.md) — ---
 
 ### tada (4377)
@@ -6620,6 +6621,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr34-9bbe293f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr34-9bbe293f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #34 (primary: kriscendobot-minio...
 - [`kriscendobot-list-pr1-review-7c1f0148-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-review-7c1f0148-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-revi...
 - [`kriscendobot-list-pr1-ff3c4813-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-ff3c4813-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-ff3c...
+- [`kriscendobot-list-pr1-a6dd7c1c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-a6dd7c1c-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-a6dd...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
