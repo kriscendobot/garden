@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:39:45Z_
+_As of 2026-08-11T21:40:02Z_
 
 ## Latest
 
@@ -6438,14 +6438,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-10T23:05:19Z, latest 2026-08-10T23:15:26Z).
-> The SAME condition (`preflight-gather-fail-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-08-10T23:05:19Z, latest 2026-08-11T21:39:47Z).
+> The SAME condition (`preflight-gather-fail-kriscendobot-minion.town`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> pr-feedback-preflight could not gather evidence for [kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34) (cid=5247080255) and failed open.
+> pr-feedback-preflight could not gather evidence for [kriscendobot/minion.town#39](https://github.com/kriscendobot/minion.town/issues/39) (cid=5259131482) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5247080255 on [kriscendobot/minion.town#34](https://github.com/kriscendobot/minion.town/issues/34) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5259131482 on [kriscendobot/minion.town#39](https://github.com/kriscendobot/minion.town/issues/39) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
@@ -6506,7 +6506,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.5M | $769.75 _(notional, rate-card)_ | no quota set |
+| Claude | 50.5M | $769.92 _(notional, rate-card)_ | no quota set |
 | Codex | 18.4M _(+665.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
