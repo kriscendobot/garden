@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:59:34Z_
+_As of 2026-08-11T22:05:05Z_
 
 ## Latest
 
@@ -14,7 +14,6 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 2m)
 - [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 11h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13d)
@@ -24,8 +23,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 25d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 25d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 28d)
 
-_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -6642,6 +6642,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
+- [`endojs-endo-but-for-bots-pr937-rebase-onto-new-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr937-rebase-onto-new-llm.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/903` · Rebase PR #937 onto the new llm, to clarify the review
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
