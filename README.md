@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:00:18Z_
+_As of 2026-08-11T21:03:20Z_
 
 ## Latest
 
@@ -6513,8 +6513,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-git-remote-capability-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-git-remote-capability-design.md) — Context (maintainer's own framing, 2026-08-11 — treat as ground truth)
 
 ### tada (4390)
 - [`self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe.md) — Cost
