@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:53:01Z_
+_As of 2026-08-11T21:54:16Z_
 
 ## Latest
 
@@ -6506,26 +6506,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.3M | $779.82 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+678.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 51.3M | $779.96 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+679.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr903-review-6ea43da5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-6ea43da5.md) — Review directive on endojs/endo-but-for-bots PR #903
-- [`endojs-endo-but-for-bots-pr903-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-shepherd.md) — shepherd (auto: approved but CI needs work) on endojs/endo-but-for-bots PR #903
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-22343348.md) — attention directive on kriscendobot/minion.town PR #39
-- [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — ---
+- [`weave-endo-but-for-bots-pr903-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr903-onto-llm.md) — weave (rebase onto llm to clear conflict) — endojs/endo-but-for-bots PR #903
 
-### tada (4395)
+### tada (4397)
+- [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — Cost
+- [`endojs-endo-but-for-bots-pr903-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #903
 - [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-usage-metering-design.md) — Cost
 - [`deadmail-20260811T214135Z-879156`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260811T214135Z-879156.md) — Completion report
 - [`deadmail-20260811T214238Z-528983`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260811T214238Z-528983.md) — Completion report
-- [`kriscendobot-minion.town-pr39-review-9b29b203`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-9b29b203.md) — Cost
-- [`minion-town-git-remote-capability-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-remote-capability-design.md) — Completion report
-- … and 4390 more
+- … and 4392 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
