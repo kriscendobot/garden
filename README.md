@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T18:30:36Z_
+_As of 2026-08-11T18:31:32Z_
 
 ## Latest
 
@@ -6506,15 +6506,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.1M | $766.14 _(notional, rate-card)_ | no quota set |
+| Claude | 50.2M | $766.26 _(notional, rate-card)_ | no quota set |
 | Codex | 18.3M _(+664.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr972-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr972-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #972
+- [`telemetry-minion-town-surfacing-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/telemetry-minion-town-surfacing-design.md) — Task
 
 ### tada (4384)
 - [`design-justin-subset-pass-style-doc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-justin-subset-pass-style-doc.md) — Completion report: document the Justin subset and lock the pass-style dialect
