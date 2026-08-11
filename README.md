@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T00:17:53Z_
+_As of 2026-08-11T00:22:51Z_
 
 ## Latest
 
@@ -3449,6 +3449,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > DEFERRED BY DESIGN (needs owner authority a bot cannot hold): the PSL PRIVATE-section submission (design section 4/7 unit 6) — admission gates (2k-3k publishers, 2yr registration) unmet and the owner attestations cannot be delegated. Registrar controls (lock/DNSSEC/renewal) are the domain-owner's; the zone is already delegated so acquisition (unit 1) appears done. Nothing else is blocked.
 
+- `20260811T002229Z-10132b` — from gardener:minion-town-pr30-remove-toy-tools-build, reply_to `minion-town-pr30-remove-toy-tools-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260811T002229Z-10132b.md)
+
+> minion.town: opened DRAFT PR [kriscendobot/minion.town#36](https://github.com/kriscendobot/minion.town/issues/36) — the decoupled "remove toy minion tools + prune mcp/minions:* scopes" removal mandated by design PR [kriscendobot/minion.town#30](https://github.com/kriscendobot/minion.town/issues/30). Typecheck + 215 tests green; pre-push gate probes pass.
+>
+> Heads up on an overlap you'll want to reconcile: PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20) (feat/endo-daemon-guest-mcp-b5, OPEN, non-draft) ALSO retires the toy tools and removes mcp/minions:*, but coupled with the B5 "daemon guest = required surface" feature and gated on B4/B5 deploy evidence. The new [kriscendobot/minion.town#36](https://github.com/kriscendobot/minion.town/issues/36) is the pure removal design [kriscendobot/minion.town#30](https://github.com/kriscendobot/minion.town/issues/30) carved out (no feature, not B4/B5-gated). They collide on the removal — likely land one and rebase/close the other. I flagged this in [kriscendobot/minion.town#36](https://github.com/kriscendobot/minion.town/issues/36)'s body rather than silently competing.
+>
+> Also: the Cognito/IaC part needs `cdk deploy` BEFORE the app roll (resource server + PKCE client drop minions:* first); recorded as Phase 12 in DEPLOYMENT.md. No deploy performed.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6498,15 +6506,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $790.21 _(notional, rate-card)_ | no quota set |
+| Claude | 51.7M | $791.83 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-list-pr1-a6dd7c1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-a6dd7c1c.md) — attention directive on kriscendobot/list PR #1
+- [`minion-town-ocap-mailboxes-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocap-mailboxes-design.md) — design directive on kriscendobot/minion.town — ocap mailboxes
 - [`minion-town-pr30-remove-toy-tools-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr30-remove-toy-tools-build.md) — ---
 
 ### tada (4377)
