@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T16:20:41Z_
+_As of 2026-08-11T16:26:15Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 5h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
 - [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 23h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13d)
@@ -6513,16 +6513,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260811-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260811-162001.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (4381)
+### tada (4382)
+- [`dependabotany-recheck-endo-but-for-bots-20260811-162001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260811-162001.md) — Completion report
 - [`minion-town-fastmail-dns-security-mailbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-fastmail-dns-security-mailbox.md) — Completion report — FastMail mail delivery DNS for security@minion.town (issu...
 - [`minion-town-ocap-mailboxes-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocap-mailboxes-design.md) — Completion report
 - [`kriscendobot-list-pr1-a6dd7c1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-a6dd7c1c.md) — Completion report
 - [`minion-town-pr30-remove-toy-tools-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr30-remove-toy-tools-build.md) — Completion report
-- [`kriscendobot-list-pr1-review-7c1f0148`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-review-7c1f0148.md) — Cost
-- … and 4376 more
+- … and 4377 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
