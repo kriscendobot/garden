@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T18:46:34Z_
+_As of 2026-08-11T18:56:49Z_
 
 ## Latest
 
@@ -6513,16 +6513,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`minion-town-vitals-weblet-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-vitals-weblet-design.md) — Task
+### doin (0)
+(none)
 
-### tada (4387)
+### tada (4388)
+- [`minion-town-vitals-weblet-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-vitals-weblet-design.md) — Completion report
 - [`minion-town-git-content-substrate-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-content-substrate-design.md) — Completion report — minion-town-git-content-substrate-design
 - [`endojs-endo-but-for-bots-pr972-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-shepherd.md) — Report
 - [`telemetry-minion-town-surfacing-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/telemetry-minion-town-surfacing-design.md) — Cost
 - [`design-justin-subset-pass-style-doc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-justin-subset-pass-style-doc.md) — Completion report: document the Justin subset and lock the pass-style dialect
-- [`endojs-endo-but-for-bots-pr971-7cc75196`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-7cc75196.md) — Cost
-- … and 4382 more
+- … and 4383 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
