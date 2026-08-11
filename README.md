@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T00:01:35Z_
+_As of 2026-08-11T00:02:34Z_
 
 ## Latest
 
@@ -6501,18 +6501,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-list-pr1-ff3c4813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-ff3c4813.md) — attention directive on kriscendobot/list PR #1
+### doin (2)
 - [`kriscendobot-list-pr1-review-7c1f0148`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-review-7c1f0148.md) — Review directive on kriscendobot/list PR #1
 - [`minion-town-pr30-remove-toy-tools-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr30-remove-toy-tools-build.md) — ---
 
-### tada (4375)
+### tada (4376)
+- [`kriscendobot-list-pr1-ff3c4813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-list-pr1-ff3c4813.md) — Cost
 - [`deadmail-issue-comment-5247362179`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5247362179.md) — Completion report
 - [`kriscendobot-minion.town-pr35-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr35-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr30-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr30-conduct.md) — Completion report
 - [`fu-deadline-nudge-build-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadline-nudge-build-1.md) — Cost
-- [`kriscendobot-minion.town-pr34-9bbe293f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-9bbe293f.md) — Completion report
-- … and 4370 more
+- … and 4371 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
