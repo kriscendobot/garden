@@ -187,5 +187,39 @@ echo 'SUBTEST 21 — a nonexistent known-extension path preserves historical acc
 if run_shape 'JOB improve-nope-path\nscripts/jobs/nope.sh\nreason\nENDJOB\n' && posted improve-nope-path; then
   ok "nonexistent scripts/jobs/nope.sh behaves as before (accepted and posted)"; else bad "known-extension fast-path regressed"; fi
 
+echo 'SUBTEST 22 -- a systemd template-unit path is accepted and posted with a stable identity'
+template_ok=1
+run_shape 'JOB improve-template-unit\nscripts/systemd/garden-ci-watcher@.timer\nharden the template timer\nENDJOB\n' || template_ok=0
+run_shape 'JOB improve-template-unit-repeat\nscripts/systemd/garden-ci-watcher@.timer\nharden the same template timer again\nENDJOB\n' || template_ok=0
+TV="$TR/vtemplate"; rm -rf "$TV"; git clone -q --branch journal2 "$BARE" "$TV"
+template_landed="$(find "$TV/jobs" \( -name 'improve-template-unit.md' -o -name 'improve-template-unit-repeat.md' \) 2>/dev/null | wc -l)"
+if [ "$template_ok" -eq 1 ] && [ "$template_landed" -eq 1 ]; then
+  ok "template-unit path is accepted and repeat detections collapse onto one identity"
+else
+  bad "template-unit path failed acceptance or identity dedup (landed $template_landed jobs)"
+fi
+
+echo 'SUBTEST 23 -- a long malformed reply reaches WARN and FATAL instead of dying on SIGPIPE'
+long_malformed="JOB improve-long-malformed\\nscripts/jobs/zzz-long-malformed.sh\\n$(printf 'x%.0s' {1..500})\\nENDJOB\\ntrailing prose\\n"
+long_rc=0
+run_shape "$long_malformed" >/dev/null || long_rc=$?
+long_err="$TR/shape-$shape_n.err"
+if [ "$long_rc" -eq 1 ]; then
+  ok "long malformed reply exits through die (rc=1)"
+else
+  bad "long malformed reply exited rc=$long_rc (want 1)"
+fi
+if grep -q "WARN: provider 'anthropic' returned malformed output" "$long_err"; then
+  ok "long malformed reply emits the rejection WARN"
+else
+  bad "long malformed reply lost the rejection WARN"
+fi
+if grep -q "FATAL: mentor provider 'anthropic' returned malformed semantic output" "$long_err" \
+  && grep -q 'non-blank junk between/after a complete JOB block' "$long_err"; then
+  ok "long malformed reply emits the FATAL reject reason"
+else
+  bad "long malformed reply lost the FATAL reject reason"
+fi
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

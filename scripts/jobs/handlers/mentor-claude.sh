@@ -110,10 +110,10 @@ mentor_reject_reason=""
 _mentor_first_path_acceptable() {
   local first="$1"
   # Preserve the historical cheap path for the common script/unit/brief shapes.
-  [[ "$first" =~ ^[A-Za-z0-9_./-]+\.(sh|py|js|ts|md|service|timer)$ ]] && return 0
+  [[ "$first" =~ ^[A-Za-z0-9_@./-]+\.(sh|py|js|ts|md|service|timer)$ ]] && return 0
   # The fallback is deliberately still lexical before asking git: prose (spaces)
   # and revision/path punctuation cannot be interpreted as an ambiguous tree-ish.
-  [[ "$first" =~ ^[A-Za-z0-9_./-]+$ ]] || return 1
+  [[ "$first" =~ ^[A-Za-z0-9_@./-]+$ ]] || return 1
   git -C "$GARDEN_ROOT" cat-file -e "origin/main2:$first" 2>/dev/null
 }
 
@@ -213,7 +213,7 @@ record_malformed_reply() { # <provider> <raw-file> [reason]
     local i
     for ((i = 0; i < excess; i++)); do rm -f "${caps[i]}"; done
   fi
-  excerpt="$( { head -n 3 "$raw"; printf '  …  '; tail -n 3 "$raw"; } 2>/dev/null | head -c 400 | tr '\n' ' ')"
+  excerpt="$( { head -n 3 "$raw"; printf '  ...  '; tail -n 3 "$raw"; } 2>/dev/null | tr '\n' ' ' | cut -c1-400 || true)"
   log "WARN: provider '$provider' returned malformed output ($reason); capture saved to $cap: $excerpt"
 }
 
@@ -296,7 +296,7 @@ already_fixed_pending_deploy() {
   while IFS= read -r path; do
     [ -n "$path" ] && paths+=("$path")
   done < <(printf '%s' "$body" \
-    | grep -oE '[A-Za-z0-9._/-]+' \
+    | grep -oE '[A-Za-z0-9._@/-]+' \
     | grep -E '(^garden$|^Dockerfile$|\.(sh|md|py|js|ts|service|timer)$)' \
     | sort -u || true)
   [ "${#paths[@]}" -gt 0 ] || return 1
