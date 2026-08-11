@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: gardener
+claimed_at: 2026-08-11T21:39:15Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-minion.town-pr39-22343348
