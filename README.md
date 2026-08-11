@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T18:58:16Z_
+_As of 2026-08-11T20:54:31Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 8h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 10h)
 - [endojs/endo#3340](https://github.com/endojs/endo/pull/3340) — fix(ses): fix Node.js-specific permits (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13d)
@@ -6506,15 +6506,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.1M | $765.81 _(notional, rate-card)_ | no quota set |
-| Codex | 18.3M _(+664.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 50.2M | $766.76 _(notional, rate-card)_ | no quota set |
+| Codex | 18.3M _(+664.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe.md) — ---
 
 ### tada (4389)
 - [`telemetry-minion-town-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/telemetry-minion-town-orchestration.md) — orchestration telemetry-minion-town-orchestration — complete
