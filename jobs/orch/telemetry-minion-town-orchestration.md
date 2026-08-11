@@ -2,7 +2,7 @@
 order: serial
 children: telemetry-minion-town-surfacing-design minion-town-git-content-substrate-design minion-town-vitals-weblet-design
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-11T18:30:10Z
 ---
