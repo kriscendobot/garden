@@ -70,3 +70,13 @@ A design PR against `main` on `kriscendobot/minion.town`. If either
 prerequisite document leaves an open question that blocks a concrete answer
 here, say so explicitly in this design's own "Open questions" rather than
 guessing past it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T18:46:09Z
