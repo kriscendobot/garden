@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T00:00:09Z_
+_As of 2026-08-11T00:01:35Z_
 
 ## Latest
 
@@ -6494,26 +6494,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $787.90 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $787.83 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-issue-comment-5247362179`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5247362179.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`kriscendobot-list-pr1-ff3c4813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-ff3c4813.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-list-pr1-review-7c1f0148`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-review-7c1f0148.md) — Review directive on kriscendobot/list PR #1
 - [`minion-town-pr30-remove-toy-tools-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr30-remove-toy-tools-build.md) — ---
 
-### tada (4374)
+### tada (4375)
+- [`deadmail-issue-comment-5247362179`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5247362179.md) — Completion report
 - [`kriscendobot-minion.town-pr35-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr35-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr30-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr30-conduct.md) — Completion report
 - [`fu-deadline-nudge-build-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-deadline-nudge-build-1.md) — Cost
 - [`kriscendobot-minion.town-pr34-9bbe293f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr34-9bbe293f.md) — Completion report
-- [`fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1.md) — Completion report: fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1
-- … and 4369 more
+- … and 4370 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
