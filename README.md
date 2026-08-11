@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:58:34Z_
+_As of 2026-08-11T21:59:34Z_
 
 ## Latest
 
@@ -6506,24 +6506,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.1M | $778.05 _(notional, rate-card)_ | no quota set |
+| Claude | 51.1M | $776.56 _(notional, rate-card)_ | no quota set |
 | Codex | 18.9M _(+679.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-6ea43da5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-6ea43da5.md) — Review directive on endojs/endo-but-for-bots PR #903
-- [`weave-endo-but-for-bots-pr903-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-endo-but-for-bots-pr903-onto-llm.md) — weave (rebase onto llm to clear conflict) — endojs/endo-but-for-bots PR #903
 
-### tada (4398)
+### tada (4399)
+- [`weave-endo-but-for-bots-pr903-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr903-onto-llm.md) — Completion report
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-22343348.md) — Job: attention directive — "Run a design gauntlet" on kriscendobot/minion.tow...
 - [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #903
 - [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-usage-metering-design.md) — Cost
-- [`deadmail-20260811T214135Z-879156`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260811T214135Z-879156.md) — Completion report
-- … and 4393 more
+- … and 4394 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
