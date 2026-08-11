@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:45:52Z_
+_As of 2026-08-11T21:48:17Z_
 
 ## Latest
 
@@ -6506,27 +6506,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.1M | $777.60 _(notional, rate-card)_ | no quota set |
-| Codex | 18.7M _(+669.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 51.2M | $777.98 _(notional, rate-card)_ | no quota set |
+| Codex | 18.8M _(+671.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-20260811T214135Z-879156`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260811T214135Z-879156.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260811T214238Z-528983`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260811T214238Z-528983.md) — Dead-lettered message — pick up its intent
+### doin (4)
+- [`endojs-endo-but-for-bots-pr903-review-6ea43da5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-6ea43da5.md) — Review directive on endojs/endo-but-for-bots PR #903
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-22343348.md) — attention directive on kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — ---
 - [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-usage-metering-design.md) — ---
 
-### tada (4392)
+### tada (4394)
+- [`deadmail-20260811T214135Z-879156`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260811T214135Z-879156.md) — Completion report
+- [`deadmail-20260811T214238Z-528983`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260811T214238Z-528983.md) — Completion report
 - [`kriscendobot-minion.town-pr39-review-9b29b203`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-9b29b203.md) — Cost
 - [`minion-town-git-remote-capability-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-git-remote-capability-design.md) — Completion report
 - [`self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mentor-template-unit-path-and-silent-sigpipe.md) — Cost
-- [`telemetry-minion-town-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/telemetry-minion-town-orchestration.md) — orchestration telemetry-minion-town-orchestration — complete
-- [`minion-town-vitals-weblet-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-vitals-weblet-design.md) — Completion report
-- … and 4387 more
+- … and 4389 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6638,6 +6637,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-list-pr1-ff3c4813-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-ff3c4813-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-ff3c...
 - [`kriscendobot-list-pr1-a6dd7c1c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-a6dd7c1c-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-a6dd...
 - [`kriscendobot-minion.town-pr39-review-9b29b203-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr39-review-9b29b203-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #39 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr903-review-6ea43da5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-review-6ea43da5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #903 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
