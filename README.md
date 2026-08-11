@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T22:47:35Z_
+_As of 2026-08-11T22:48:07Z_
 
 ## Latest
 
@@ -6586,8 +6586,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-agoric-3-proposals.md)
 
-> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git failed (rc=128). git said: Timeout, server github.com not responding. fatal: expected flush after ref listing
-> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-agoric-3-proposals cannot be triaged until it is restored.
+> RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-08-11T22:46:30Z, cleared 2026-08-11T22:47:50Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: fetch for kriscendobot-agoric-3-proposals at /home/kris/garden2/worktrees/kriscendobot-agoric-3-proposals.git is SUCCEEDING again; kriscendobot-agoric-3-proposals is being triaged normally.
 
 
 ## Spend & quota
