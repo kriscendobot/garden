@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: telemetry-minion-town-orchestration
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-08-11T18:30:01Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-11T18:46:03Z cleared=none -->
 
 ---
 tier: mentor
