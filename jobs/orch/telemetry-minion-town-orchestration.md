@@ -1,4 +1,5 @@
 ---
+child-minion-town-vitals-weblet-design-host: endolin-garden2-5bcdff64
 child-minion-town-vitals-weblet-design-reap-count: 0
 child-minion-town-git-content-substrate-design-host: endolin-garden-ece02cb4
 child-minion-town-git-content-substrate-design-reap-count: 0
