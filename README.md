@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T21:43:25Z_
+_As of 2026-08-11T21:45:52Z_
 
 ## Latest
 
@@ -6506,14 +6506,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.0M | $774.22 _(notional, rate-card)_ | no quota set |
-| Codex | 18.6M _(+667.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 51.1M | $777.60 _(notional, rate-card)_ | no quota set |
+| Codex | 18.7M _(+669.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
+- [`deadmail-20260811T214135Z-879156`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260811T214135Z-879156.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260811T214238Z-528983`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260811T214238Z-528983.md) — Dead-lettered message — pick up its intent
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-22343348.md) — attention directive on kriscendobot/minion.town PR #39
 - [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — ---
 - [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-usage-metering-design.md) — ---
