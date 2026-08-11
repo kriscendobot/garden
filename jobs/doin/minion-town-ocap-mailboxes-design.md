@@ -56,3 +56,13 @@ Surface genuine unknowns under `## Open questions` rather than deciding them:
 the transport substrate (SES receipt pipeline vs. a custom relay), whether
 opaque handles are per-pair or per-recipient, revocation and rotation
 semantics, and how metering state is persisted.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-11T00:22:10Z
