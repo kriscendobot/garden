@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-11T00:17:17Z_
+_As of 2026-08-11T00:17:53Z_
 
 ## Latest
 
@@ -6416,10 +6416,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-preflight-gather-fail-kriscendobot-list` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-list.md)
 
-> pr-feedback-preflight could not gather evidence for [kriscendobot/list#1](https://github.com/kriscendobot/list/issues/1) (cid=5247405955) and failed open.
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-10T23:59:33Z, latest 2026-08-11T00:17:22Z).
+> The SAME condition (`preflight-gather-fail-kriscendobot-list`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> pr-feedback-preflight could not gather evidence for [kriscendobot/list#1](https://github.com/kriscendobot/list/issues/1) (cid=5247528889) and failed open.
 > This is a tool/transport failure, not a no-evidence finding — real feedback may
 > have been processed WITHOUT the peer-resolution recheck. Reason:
-> evidence gathering failed: could not resolve feedback target id 5247405955 on [kriscendobot/list#1](https://github.com/kriscendobot/list/issues/1) (neither a review nor an inline comment)
+> evidence gathering failed: could not resolve feedback target id 5247528889 on [kriscendobot/list#1](https://github.com/kriscendobot/list/issues/1) (neither a review nor an inline comment)
 > --- captured stderr ---
 > gh: Not Found (HTTP 404)
 > gh: Not Found (HTTP 404)
@@ -6494,7 +6498,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.6M | $789.99 _(notional, rate-card)_ | no quota set |
+| Claude | 51.6M | $790.21 _(notional, rate-card)_ | no quota set |
 | Codex | 18.0M _(+663.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
