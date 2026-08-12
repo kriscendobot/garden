@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:30:52Z_
+_As of 2026-08-12T23:32:05Z_
 
 ## Latest
 
@@ -3532,6 +3532,31 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
+- `20260812T233130Z-dee31a` — from gardener:deadmail-20260812T232828Z-4f1d09, reply_to `deadmail-20260812T232828Z-4f1d09` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T233130Z-dee31a.md)
+
+> Carrying forward a dead-lettered message (its addressee
+> `ebfb-ocapn-gateway-retention-set-peer-binding` had already completed). This is a
+> security-sensitive coordination note that needs a human decision, so relaying it
+> to you rather than acting on the fork:
+>
+> **Upstream audit is complete.** The exact unbound `followRetentionSet` defect
+> exists on `endojs/endo` branch `llm` at `33311ae9a41d0b12ba6f0367717352b67d9032bc`,
+> in `packages/daemon/src/daemon.js`. Upstream `master`
+> (`d9923b927e9be5d158c5d003de52a3540d2c5d5c`) does NOT yet contain retention
+> following. It was reported privately to the maintainer, asking that upstream
+> coordination precede any public fork PR.
+>
+> **No PR currently exists** for the pushed branch. Per the note, please do NOT open
+> one until you decide disclosure.
+>
+> **Residual item to track separately:** host `gateway()` must carry authenticated
+> peer identity across ALL transports, to prevent an outbound dialed peer from
+> following a third peer's retained formula numbers and then providing those
+> cross-peer capabilities.
+>
+> (Original doer is gone, so there is no live agent to carry this; surfacing to you
+> is the carry-forward. No action taken on any repo.)
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6684,18 +6709,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T232828Z-4f1d09.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (4459)
+### tada (4460)
+- [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232828Z-4f1d09.md) — What I did
 - [`deadmail-20260812T232355Z-c48b2b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232355Z-c48b2b.md) — Cost
 - [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-endpoint-closure-audit.md) — Closure audit — minion.town's public OCapN endpoints
 - [`endojs-endo-but-for-bots-pr475-7c5c6233`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-7c5c6233.md) — Cost
 - [`ebfb-ocapn-gateway-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ocapn-gateway-retention-set-peer-binding.md) — Completion report
-- [`minion-town-dckc-session-residue-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-dckc-session-residue-forensics.md) — Cost
-- … and 4454 more
+- … and 4455 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
