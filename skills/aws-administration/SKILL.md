@@ -1,6 +1,6 @@
 ---
 created: 2026-07-07
-updated: 2026-07-07
+updated: 2026-08-12
 author: gardener
 ---
 
@@ -176,3 +176,11 @@ the old working key active.
 - Hard links require one filesystem. If a checkout ever lives on a different
   filesystem than `~/.aws`, `relink-aws-creds.sh` reports the failure instead of
   silently copying, because a copy would not stay in sync through a rotation.
+
+## Notes from the field
+
+- _2026-08-12_ — A hardened container mounted `/tmp` with `noexec`, so the AWS
+  CLI archive unpacked there but its installer failed with `Permission denied`.
+  Point `TMPDIR` at an executable scratch directory and rerun
+  `scripts/aws/install-aws-cli.sh`; the script's `mktemp -d` then stages the
+  official installer on that filesystem without changing its install target.
