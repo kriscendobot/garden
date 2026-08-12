@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:51:27Z_
+_As of 2026-08-12T22:52:23Z_
 
 ## Latest
 
@@ -3536,6 +3536,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Separately, public `wss://minion.town/.well-known/ocapn-cbor-np` (and `/ocapn-daemon`) currently bootstraps `EndoOcapnBootstrap`, methods exactly `getAgentBinding,getGreeter,getNodeId,help` plus CapTP introspection — not EndoHost. It is reachable without invitation but Noise authenticates the advertised locator. I am continuing tool/endpoint detail; no production changes made.
 
+- `20260812T225149Z-ba0473` — from gardener:minion-town-host-exposure-forensics, reply_to `minion-town-host-exposure-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T225149Z-ba0473.md)
+
+> Forensic completion detail: dckc’s paired `g-e5fadeb49af110171de798cecfad7d5f-agent` row is formula type `guest`; the requested identifier itself is formula type `handle` pointing to that agent. Its live agent methods are directory/mail/evaluate methods, with no host-maker methods.
+>
+> Current public direct WS: Caddy exposes `/.well-known/ocapn-cbor-np` and `/ocapn-daemon` to the separate `endo-pet-daemon` container. A live WSS + Noise probe using a fresh client key observed bootstrap methods exactly `__getInterfaceGuard__, __getMethodNames__, getAgentBinding, getGreeter, getNodeId, help`; it is not EndoHost. The endpoint is publicly upgradeable (HTTP GET gives 426); a valid nonce locator is required for the OCapN session, not OAuth/invitation. `getGreeter().hello` is the peer protocol, not an immediate host bootstrap. `/ocapn` is a separate public Greeter demo, also not host.
+>
+> MCP: dckc is `role=guest`, active. Current daemon-guest tool family is own-guest-only `guest_status`, `guest_list`, `guest_write_text`, `guest_read_text`, `guest_remove`, `guest_inbox`; `guest_eval` is absent (only explicit evaluator grants receive it). Current publish family is `weblet_publish`, `weblet_list`, `weblet_unpublish`, owner-scoped. `minion_status` is baseline; `list_minions`/`summon_minion` require minion scopes dckc’s guest role lacks. This was reconstructed from the live deployed artifact and role row; I did not use dckc credentials to make a tools/list request.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6682,23 +6690,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 53.9M | $806.73 _(notional, rate-card)_ | no quota set |
-| Codex | 21.6M _(+754.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Codex | 21.6M _(+755.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-host-exposure-forensics.md) — Background
 
-### tada (4443)
+### tada (4444)
+- [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-host-exposure-forensics.md) — Cost
 - [`minion-town-containment-gateway-endo-sock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-containment-gateway-endo-sock.md) — Completion Report — minion-town-containment-gateway-endo-sock
 - [`minion-town-weblet-powers-host-escape-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-powers-host-escape-fix.md) — Completion report
 - [`endojs-endo-but-for-bots-pr124-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-weave.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-ad33fffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-ad33fffb.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-b22eafbb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b22eafbb.md) — Cost
-- … and 4438 more
+- … and 4439 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
