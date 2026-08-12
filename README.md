@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:38:58Z_
+_As of 2026-08-12T09:10:15Z_
 
 ## Latest
 
@@ -14,12 +14,12 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 10h)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 23d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 24d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 25d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
@@ -6652,23 +6652,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.6M | $810.89 _(notional, rate-card)_ | no quota set |
-| Codex | 19.6M _(+701.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 54.0M | $806.08 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+702.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Review directive on endojs/endo-but-for-bots PR #903
+### doin (0)
+(none)
 
-### tada (4415)
+### tada (4416)
+- [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Completion report
 - [`dependabot-auto-merge-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-auto-merge-rollout.md) — orchestration dependabot-auto-merge-rollout — complete
 - [`dependabotany-sweep-approval-held`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held.md) — Botanist sweep — HALTED at precondition (deploy is the blocker)
 - [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-merge-now-auto-conduct.md) — Cost
 - [`weave-ebfb-pr970-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-ebfb-pr970-onto-llm.md) — Completion report
-- [`fix-orchestrate-watcher-progress-and-serial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-watcher-progress-and-serial.md) — Completion report
-- … and 4410 more
+- … and 4411 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
