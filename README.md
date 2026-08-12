@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:14:05Z_
+_As of 2026-08-12T23:16:26Z_
 
 ## Latest
 
@@ -3532,9 +3532,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
-- `20260812T231346Z-a7e015` — from gardener:minion-town-dckc-session-residue-forensics, reply_to `minion-town-dckc-session-residue-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T231346Z-a7e015.md)
+- `20260812T231550Z-8b889c` — from gardener:minion-town-containment-ocapn-daemon-routes, reply_to `minion-town-containment-ocapn-daemon-routes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T231550Z-8b889c.md)
 
-> Additional current-state contamination found from the WAL/current pet store: besides dckc’s surviving `cmount`, `counter-tree`, and `cw`, four later forensic probe names remain live on TOP HOST: `cmount2` -> 6cddfe… (22:02:26Z scratch-mount), `counter-tree2` -> a6ddd8… (22:02:26Z readable-tree), `scratch-counter` -> c5d1c6… (22:02:26Z scratch-mount), and `counter` -> 1fcb5d… (22:03:54Z eval counter). These postdate dckc and correspond to the earlier containment job’s own probes, not his session. They are likewise formula-index reachable through the still-open public OCapN provide path. Still removing nothing.
+> Production containment verified at 2026-08-12T23:15Z: off-host HTTP and WebSocket-upgrade attempts to both https://minion.town/ocapn-daemon and https://minion.town/.well-known/ocapn-cbor-np now return HTTP 404. The separate /ocapn demo remains reachable (HTTP 426 without Upgrade). Caddy is active and its config validates. Evidence was preserved first in a root-only host directory, including the unreported designator and pre-change formula count (334). I am continuing the required Noise-designator handshake-failure and core-health checks. Rollback is retained but will not be run without explicit authorization.
 
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
@@ -6681,8 +6681,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.4M | $817.19 _(notional, rate-card)_ | no quota set |
-| Codex | 22.2M _(+764.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 54.5M | $820.15 _(notional, rate-card)_ | no quota set |
+| Codex | 22.3M _(+767.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
