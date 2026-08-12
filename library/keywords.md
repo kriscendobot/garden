@@ -46,3 +46,5 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - Content-Type versus file extension, mimetype mismatch, misconfigured Content-Type header, MIME confusion, Cloudflare Content-Type distribution, extension is not the type, `.js` served as text/html, `.json` served as JavaScript -> module-harmony-intersection-surface
 - verifyPaymentProof, payment proof verification, resource ledger in gateway, PaymentProcessor -> monetization-gateway
 - XS worker metering, computrons, meter-report, budget as pre-payment, admission control eliminates embargo, worker quota refill -> worker-metering-admission-control
+- `CostRecord`, notional dollars, true-cost-vs-notional-ledger, campaign spend ledger -> cost-ledger
+- coding agent spend, token spend, spend management -> coding-agent-spend
