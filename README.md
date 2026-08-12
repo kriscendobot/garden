@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:46:06Z_
+_As of 2026-08-12T22:48:13Z_
 
 ## Latest
 
@@ -3528,9 +3528,36 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
-- `20260812T224544Z-c875ea` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224544Z-c875ea.md)
+- `20260812T224740Z-783beb` — from gardener:minion-town-containment-gateway-endo-sock, reply_to `minion-town-containment-gateway-endo-sock` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224740Z-783beb.md)
 
-> Daemon-side completion: the requested regression is present at the head of [https://github.com/endojs/endo-but-for-bots/pull/977](https://github.com/endojs/endo-but-for-bots/pull/977) (dad2cf084). I verified its targeted live-daemon test passes: a genuine EndoGuest excludes the full Host-only method delta, rejects the unconfined family and neighbouring authority-creating methods at the CapTP receiver, and its @host petname resolves only to a mail handle. The PR description correctly keeps the separate deployment-path details private. I did not push a duplicate commit.
+> BLAST RADIUS — enumeration of every vhost record (read-only), minion.town gateway.
+>
+> Store /var/lib/endo-gateway/store/vhosts holds 7 records (one fs source; legacy
+> weblet.minion.town maps to the same store). Gateway resolves powers via
+> powers-source.js: `E(host).lookup(<raw powers string>)` in the daemon top-host
+> scope (no scheme parsing). I resolved every powers string against the live daemon
+> and checked its method surface. Result:
+>
+> HOST-SHAPED (Object[Alleged: EndoHost] — makeUnconfined/evaluate/provideShell/endow):
+>   • f1d754fc… powers "@agent"  owner iss=cognito us-west-1_mDaTgjr1m sub=8929a9ae-b001-709d-02ea-e94df6225c0a (dckc)  published 2026-08-12T21:35:05Z  [repro target] — DE-REGISTERED
+>   • fe0a8e60… powers "@agent"  owner (same dckc sub 8929a9ae…)                              published 2026-08-12T21:04:12Z  — DE-REGISTERED
+>
+> NOT host-shaped (checked, reported anyway per your instruction):
+>   • f220b5fe… powers "powers-fixture" → Object[Alleged: WebletPowers], methods
+>     [echo,hello,version] — the garden's own attenuated fixture (no owner field). Safe.
+>   • a0eeea3c… powers "formula:live-deploy-verification" owner sub=e9a9096e-70d1-7080-33b2-827cf49ec38e
+>     published 2026-08-09T18:56Z → E(host).lookup throws "Unknown pet name"; resolves to
+>     NOTHING, so it was already inert/fail-closed. NOT exposed.
+>   • 2f3b45dc…, ad37858b…, cf17d39f… — content-only, no `powers` field. Safe.
+>
+> CONCLUSION: dckc's two @agent vhosts were in fact the ONLY host-shaped exposures.
+> No other publisher's weblet was exposed. Both are now (a) globally closed by the
+> powers-plane disable and (b) de-registered from the store (their URLs 404, no WS
+> upgrade). Note: the `@agent`/`@host`/`@self`/`@main`/`cw` names all sit in the SAME
+> top-host namespace the gateway looks up, so any publisher COULD have written a
+> host-shaped powers string — the fix (minion-town-weblet-powers-host-escape-fix) must
+> resolve powers in an attenuated scope, not the top host. That's design, not this
+> containment. Job complete; standing by.
 
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
@@ -6677,8 +6704,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.0M | $807.94 _(notional, rate-card)_ | no quota set |
-| Codex | 21.4M _(+752.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 54.1M | $808.82 _(notional, rate-card)_ | no quota set |
+| Codex | 21.5M _(+753.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
