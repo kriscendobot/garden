@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T20:23:37Z_
+_As of 2026-08-12T20:33:04Z_
 
 ## Latest
 
@@ -6673,25 +6673,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.5M | $796.21 _(notional, rate-card)_ | no quota set |
+| Claude | 53.5M | $796.43 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+699.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
-- [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/patrick-cooney-endo-but-for-bots-contributions-report.md) — Report: Patrick Cooney's contributions to endo-but-for-bots
-- [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/xs2rust-endor-debugger-design.md) — Design: xs2rust-endor debugger, following on #600
 
-### tada (4427)
+### tada (4429)
+- [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-contributions-report.md) — Patrick Cooney’s contributions to endojs/endo-but-for-bots
+- [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-design.md) — Completion report
 - [`issue-kriscendobot-garden-71`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-71.md) — Cost
 - [`fix-orchestrate-vanished-false-positive-and-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-vanished-false-positive-and-sweep.md) — Cost
 - [`ironhorse-test262-implementation-completion-resume-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-2.md) — orchestration ironhorse-test262-implementation-completion-resume-2 — HALTED
-- [`ironhorse-js-07-promises-async-functions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-07-promises-async-functions.md) — Cost
-- [`ironhorse-test262-restore-and-relaunch-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch-2.md) — Completion report
-- … and 4422 more
+- … and 4424 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
