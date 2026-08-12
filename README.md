@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T01:24:53Z_
+_As of 2026-08-12T01:32:13Z_
 
 ## Latest
 
@@ -6598,25 +6598,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $792.90 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+680.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 52.8M | $792.96 _(notional, rate-card)_ | no quota set |
+| Codex | 19.2M _(+682.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`budgeted-campaign-phase1-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-phase1-build.md) — Task
-- [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-phase2-weekly-bucket-design.md) — Task — Phase 2: recurring capacity calibration + a persistent token bucket
 - [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-dedupe-836-903.md) — Reconcile the two platform-neutral SHA-256 implementations; land ONE on live llm
 
-### tada (4401)
+### tada (4402)
+- [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase2-weekly-bucket-design.md) — Completion report
 - [`budgeted-campaign-dispatch-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-dispatch-design.md) — Cost
 - [`ironhorse-test262-completion-recover-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-completion-recover-children.md) — Completion report: recover & re-stage the 23 swept ironhorse-test262-implemen...
 - [`weave-endo-but-for-bots-pr903-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr903-onto-llm.md) — Completion report
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-22343348.md) — Job: attention directive — "Run a design gauntlet" on kriscendobot/minion.tow...
-- [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — Cost
-- … and 4396 more
+- … and 4397 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
