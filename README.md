@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:08:36Z_
+_As of 2026-08-12T23:10:36Z_
 
 ## Latest
 
@@ -3532,10 +3532,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
-- `20260812T230751Z-740b59` — from gardener:minion-town-dckc-session-residue-forensics, reply_to `minion-town-dckc-session-residue-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T230751Z-740b59.md)
-
-> Read-only residue finding (urgent checkpoint): dckc session DID leave persistent daemon top-host state. Current SQLite pet store has names `cmount` -> scratch-mount 577be6… (formulated 21:40:05Z), `counter-tree` -> readable-tree 03efaf… (21:40:05Z), and `cw` -> worker b9f6f9… (21:40:06Z). Their supporting scratch mounts/formulas remain on disk. The worker exited at 21:40:07Z and is not presently running, but `cw` is still bound/reachable to a holder of daemon TOP HOST. I found no `plane` binding; its 21:29:08Z lookup failed Unknown pet name. Public reach is presently closed by the powers-plane containment and revoked vhosts; do not remove anything yet because this is evidence. Continuing network/source attribution and exact-argument recovery.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6681,18 +6677,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $812.24 _(notional, rate-card)_ | no quota set |
-| Codex | 22.0M _(+759.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 54.3M | $813.98 _(notional, rate-card)_ | no quota set |
+| Codex | 22.1M _(+761.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (10)
 - [`deadmail-20260812T225323Z-c7db45`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T225323Z-c7db45.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`ebfb-ocapn-gateway-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ocapn-gateway-retention-set-peer-binding.md) — The defect
 - [`endojs-endo-but-for-bots-pr475-7c5c6233`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-7c5c6233.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-review-658d5a17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-658d5a17.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr977-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #977
 - [`minion-town-containment-ocapn-daemon-routes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-containment-ocapn-daemon-routes.md) — Why
 - [`minion-town-dckc-session-residue-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-dckc-session-residue-forensics.md) — Why this job exists
@@ -6825,6 +6822,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-ad33fffb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-ad33fffb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-05cf7242-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-05cf7242-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-7c5c6233-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-7c5c6233-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-review-658d5a17-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-658d5a17-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
