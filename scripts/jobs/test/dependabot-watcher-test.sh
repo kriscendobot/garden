@@ -149,6 +149,8 @@ FIX_A="$TR/fix-a.tsv"; prline 849 "$DEP" > "$FIX_A"
 run_dep "$TR/state-a" "$BARE_A" "$FIX_A"
 board_has "$BARE_A" "$SLUG-pr849-dependabot" && ok "botanist job posted ($SLUG-pr849-dependabot)" || bad "botanist job missing"
 [ "$(todo_count "$BARE_A")" -eq 1 ] && ok "exactly one job posted" || bad "expected one job, got $(todo_count "$BARE_A")"
+has_in_body "$BARE_A" "$SLUG-pr849-dependabot" 'role: botanist' \
+  && ok "botanist producer stamps the long-running performing role" || bad "botanist role header missing"
 
 # ============================================================================
 hr; echo "B — re-poll the same dependabot PR → idempotent (no duplicate)"; hr

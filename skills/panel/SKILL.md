@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-08-01
+updated: 2026-08-12
 author: gardener
 ---
 
@@ -139,9 +139,10 @@ was previously deleted with the worktree.
    aggregate is byte-identical however the seats happened to interleave.
    Concurrency is what makes the panel fit a gardener's handler budget *by
    construction*: sequentially, a 28-seat code panel over a ~1500-line diff ran
-   ~1.5–2.5 hours against a default `GARDEN_HANDLER_TIMEOUT` of 2400s, so every
-   auto-gauntlet and `run the gauntlet` job depended on a producer remembering to
-   stamp `handler-timeout:` — a header, not an invariant.
+   ~1.5–2.5 hours against a default `GARDEN_HANDLER_TIMEOUT` of 2400s. Panel jobs
+   therefore resolve the 7200s `GARDEN_PANEL_HANDLER_TIMEOUT` role/stage default;
+   the shared budget resolver enforces this instead of relying on every producer
+   to remember an explicit header.
 4. **Decide the disposition.** The script shells one `claude -p` (the
    `decide_disposition` hook) over the aggregate and reads back exactly
    `must-fix` or `pass`.

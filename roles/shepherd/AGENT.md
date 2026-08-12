@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-07-28
+updated: 2026-08-12
 author: liaison, gardener
 ---
 
@@ -34,7 +34,7 @@ A gardener claims a `shepherd` job (the triager maps a "shepherd #N" comment dir
   When the only change a new commit makes is clearing a CI-flagged style, lint, or format failure and the PR has already been retconned, author it with `git commit --fixup=<sha>` targeting the commit that introduced the violation, not a conventional `fix:`, `style:`, or `chore: prettier` commit.
   The `fixup!` prefix lets the conductor autosquash it without manual reordering ([conductor](../conductor/AGENT.md) step 3), matching the fixer's convention ([fixer](../fixer/AGENT.md)).
   A commit that genuinely changes behavior remains a normal `feat:` or `fix:`.
-- **A posted shepherd job carries a CI-sized `handler-timeout:` header.** A shepherd *waits on* CI, which routinely exceeds the default 2400s (40-min) gardener handler budget, so a shepherd job stamped only with the default deterministically overruns (rc=124) and never completes. Both shepherd producers — `scripts/jobs/comment-watcher.sh` (the manual `shepherd #N` directive) and `scripts/jobs/ci-watcher.sh` (auto-shepherd on red CI) — therefore stamp a `handler-timeout: <seconds>` header on the `<slug>-pr<N>-shepherd` job they mint, from the single shared constant `GARDEN_SHEPHERD_HANDLER_TIMEOUT` in `scripts/jobs/common.sh` (default **7200s / 2h**). That is sized for a full CI wait plus a couple of fix→CI cycles (endojs/endo-but-for-bots CI runs ~20–40min) and stays under the ~14339s (~3.98h) claim-budget max, so the gardener honors it in place of the default rather than clamping+escalating (`gardener.sh`). A shepherd genuinely needing longer than one claim (>~3.98h of CI-driving) cannot be helped by a larger header — that pathological case must run detached or be split, and is out of scope. This does **not** cover the gauntlet-embedded shepherd *stage*, which rides the enclosing gauntlet job's budget, not this header.
+- **A shepherd gets a CI-sized handler budget by role.** `role: shepherd` and gauntlet clean/fix stages resolve `GARDEN_SHEPHERD_HANDLER_TIMEOUT` from `scripts/jobs/common.sh` (default **7200s / 2h**), even if a producer forgets the redundant `handler-timeout:` header. That is larger than the bounded 5400s CI wait and stays under the ~14339s claim-budget max. An explicit header still wins. A shepherd genuinely needing longer than one claim (>~3.98h of CI-driving) must run detached or be split. See `skills/job-board/SKILL.md` § Per-job handler budget for the invariant and full table.
 
 ## Hard escalation points
 

@@ -817,6 +817,10 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         [ -n "${prevp:-}" ] && [ "$prevp" -eq "$prevp" ] 2>/dev/null || prevp=0
       fi
       pcount=$(( prevp + 1 ))
+      # Capture this BEFORE git rm removes the doin file. applied_handler_budget
+      # needs the file to resolve its role/stage default; calling it after rm made
+      # every role-defaulted doom notice fall back to the flat 2400s fleet default.
+      doomed_budget="$(applied_handler_budget "$f")"
       {
         printf -- '---\n'
         printf 'gate: go-ahead\n'
@@ -839,10 +843,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       git -C "$DIR" add "$JOBS_PLAN/$base"
       DOOM_BASE+=("$spine"); DOOM_BODY+=("$body"); DOOM_COUNT+=("$count")
       DOOM_OVERRUN+=("$overrun"); DOOM_SIG+=("$sig")
-      # Capture the ACTUAL handler budget in force NOW, while the doin file still
-      # exists, so the deadline-overrun notice below names the real budget (e.g.
-      # 7200s for a `handler-timeout: 7200` job) rather than the literal default.
-      DOOM_BUDGET+=("$(applied_handler_budget "$f")")
+      DOOM_BUDGET+=("$doomed_budget")
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;

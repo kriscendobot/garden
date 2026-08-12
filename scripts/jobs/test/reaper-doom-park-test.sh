@@ -80,9 +80,12 @@ count_unread() { resync; ls -1 "$V/inbox/maintainer/unread" 2>/dev/null | grep -
 # carrying a deadline-overrun marker in its body. Simulates a gardener that
 # claimed the job and died.  place_stale <base> [overrun-N]
 place_stale() {
-  local base="$1" overrun="${2:-}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  local base="$1" overrun="${2:-}" role="${3:-}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   {
+    if [ -n "$role" ]; then
+      printf -- '---\nrole: %s\n---\n' "$role"
+    fi
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
     [ -n "$overrun" ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$overrun"
     printf -- '---\nclaim:\n  host: testhost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
@@ -182,6 +185,22 @@ grep -q '^doom_signature: deadline-overrun$' "$V/jobs/plan/boom.md" \
 [ "$diff_ok" -eq 1 ] \
   && ok "same job, different reason: a NEW keyed notice posted (2 total), plan updated in place" \
   || bad "different-reason: unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
+
+# ============================================================================
+hr; echo "SUBTEST 3b: role-defaulted doom notice names the APPLIED budget"; hr
+place_stale rolebudget 2 conductor
+run_reaper
+resync
+
+role_notice="$V/inbox/maintainer/unread/doomed-rolebudget-deadline-overrun.md"
+if [ -f "$role_notice" ] \
+   && grep -q 'effective handler budget in' "$role_notice" \
+   && grep -q 'force for this job is 7200s' "$role_notice" \
+   && grep -q 'elapsed ≈ 7200s' "$role_notice"; then
+  ok "doom notice prints the resolved 7200s conductor budget (not the 2400s fleet default)"
+else
+  bad "role-defaulted doom notice missing or reports the wrong budget"
+fi
 
 # ============================================================================
 hr; echo "SUBTEST 4 — SPOOL: an unreachable maintainer inbox is diagnosed + spooled, not dropped"; hr

@@ -1,3 +1,9 @@
+---
+created: 2026-05-13
+updated: 2026-08-12
+author: gardener
+---
+
 # Skill: job-board
 
 The journal-backed job board: how producers post, how concurrent consumers
@@ -57,19 +63,41 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 
-## Per-job handler budget — build-heavy jobs (`handler-timeout:`)
+## Per-job handler budget (`handler-timeout:`)
 
-A gardener kills its handler at the default wall-clock budget
-`GARDEN_HANDLER_TIMEOUT` (2400 s = **40 min**). A job that legitimately runs longer —
-the paradigm case is a **cold `docker build`**, which can take a few hours — must
-declare its own budget or it is SIGTERM-killed at 40 min on **every** requeue and
-never completes (the docker build burns a gardener slot per cycle, then dooms).
+A gardener kills its handler at a resolved wall-clock budget. Ordinary work gets
+`GARDEN_HANDLER_TIMEOUT` (2400 s = **40 min**); known long-running roles/stages get
+the defaults below. Work that legitimately exceeds its resolved default (the
+paradigm case is a **cold `docker build`**) must declare its own budget or it is
+SIGTERM-killed at the wall on every requeue and never completes.
 
-**A build role gets a larger budget automatically (2026-08-01).** `role: builder`
-and `role: web-builder` default to `GARDEN_BUILD_HANDLER_TIMEOUT` (**7200 s / 2 h**)
-instead of the 2400 s fleet default, resolved by `job_handler_budget_base`
-(`common.sh`) — which **both** `gardener.sh` and `reaper.sh` call, so the runner's
-wall and the staleness guard cannot drift apart. Every other role is unchanged.
+**Structurally long-running roles and stages get a larger budget automatically.**
+The canonical table is `role_default_handler_timeout` in `common.sh`:
+
+| Runtime role/stage | Knob | Default |
+|---|---|---|
+| `builder`, `web-builder` | `GARDEN_BUILD_HANDLER_TIMEOUT` | 7200 s |
+| `shepherd` (including gauntlet clean/fix) | `GARDEN_SHEPHERD_HANDLER_TIMEOUT` | 7200 s |
+| `conductor` | `GARDEN_CONDUCTOR_HANDLER_TIMEOUT` | 7200 s |
+| review directive | `GARDEN_REVIEW_HANDLER_TIMEOUT` | 7200 s |
+| panel / repanel | `GARDEN_PANEL_HANDLER_TIMEOUT` | 7200 s |
+| `botanist` | `GARDEN_BOTANIST_HANDLER_TIMEOUT` | 7200 s |
+| every other role/stage | `GARDEN_HANDLER_TIMEOUT` | 2400 s |
+
+Review directives carry `handler-budget-role: review`; gauntlet stage jobs carry
+the corresponding `handler-budget-role` as well as their performing `role`, because
+neither `review` nor `panel` is a performing role. `job_handler_budget_base`
+resolves that runtime role (and recognizes `gauntlet_stage` as a compatibility
+fallback). `gardener.sh`, `reaper.sh`, and `deadline-nudge.sh` all consume the same
+`applied_handler_budget`, so execution, staleness, warnings, and doom notices cannot
+drift.
+
+**Invariant:** any handler that hosts `ci-wait-merge.sh`, or fans out a panel, MUST
+have a handler budget greater than the bounded CI wait or panel fan-out cost. The
+default CI deadline is 5400 s, so the 7200 s conductor/botanist/shepherd defaults
+strictly exceed it. A producer for a new such stage must assign one of the long
+runtime roles above (use `handler-budget-role` when the performing role differs),
+or stamp a larger explicit `handler-timeout:`.
 
 This exists because the header was previously the *only* remedy and the producer had
 to remember it. When they forgot, the failure was expensive: the handler is
@@ -84,9 +112,8 @@ the board carrying an explicit header, 16 said 7200, 11 said 10800, 1 said 14000
 in the **job body** at post time (`post-job.sh <base> <body-with-header>`) still
 wins, in either direction, over whatever the role defaults to. Reach for it when a
 job runs a container/image build, a full-from-scratch compile, or another step known
-to exceed the role default — a cold `docker build` still wants `10800`. A non-build
-role doing build-shaped work (a `fixer` that must run the full test suite, a staged
-gauntlet doing a clean build) gets **no** automatic boost and still needs the header.
+to exceed the role default. A cold `docker build` still wants `10800`. A non-build
+role doing unusually heavy work beyond its role/stage default still needs the header.
 
 ```
 handler-timeout: 10800      # 3h — a cold docker image build

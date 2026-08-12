@@ -78,6 +78,7 @@ tada_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BAR
 todo_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/todo/$1.md" 2>/dev/null; }
 # handler_timeout <todo-base> → the handler-timeout header value, or empty if none.
 handler_timeout() { todo_body "$1" | sed -n 's/^handler-timeout:[[:space:]]*//p' | head -1; }
+handler_budget_role() { todo_body "$1" | sed -n 's/^handler-budget-role:[[:space:]]*//p' | head -1; }
 
 # Simulate a gardener COMPLETING a stage with a stage-result MARKER: remove it from
 # todo/doin and write a tada report ending in the deterministic marker line.
@@ -133,6 +134,9 @@ tick   # fresh record → post clean
 [ "$(handler_timeout g1-clean)" = 7200 ] \
   && ok "clean stage carries the CI-sized handler-timeout (7200)" \
   || bad "clean handler-timeout=[$(handler_timeout g1-clean)] (expected 7200)"
+[ "$(handler_budget_role g1-clean)" = shepherd ] \
+  && ok "clean stage is protected by the shepherd budget role" \
+  || bad "clean handler-budget-role=[$(handler_budget_role g1-clean)] (expected shepherd)"
 
 complete_stage g1-clean clean=done
 tick   # clean done → post panel-1
@@ -142,6 +146,9 @@ tick   # clean done → post panel-1
 [ "$(handler_timeout g1-panel-1)" = 7200 ] \
   && ok "panel stage carries its dedicated CI-sized handler-timeout (7200, above the 2400 default)" \
   || bad "panel handler-timeout=[$(handler_timeout g1-panel-1)] (expected 7200)"
+[ "$(handler_budget_role g1-panel-1)" = panel ] \
+  && ok "panel stage is protected by the panel budget role" \
+  || bad "panel handler-budget-role=[$(handler_budget_role g1-panel-1)] (expected panel)"
 
 complete_stage g1-panel-1 panel=pass
 tick   # panel pass (feature) → post undraft

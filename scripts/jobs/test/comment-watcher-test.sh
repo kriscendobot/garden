@@ -760,6 +760,7 @@ board_has "$BARE_R" "$SLUG-pr528-gauntlet" && bad "minted a verb-only gauntlet j
 [ "$(todo_glob "$BARE_R" "^$SLUG-pr528-review-")" -eq 1 ] && ok "exactly one per-review 'review' job minted" || bad "no per-review 'review' job (todo=$(todo_count "$BARE_R"))"
 [ "$(todo_count "$BARE_R")" -eq 1 ] && ok "exactly one job total for the review" || bad "expected one job, got $(todo_count "$BARE_R")"
 RBODY="$(review_job_body "$BARE_R" 528)"
+printf '%s' "$RBODY" | grep -q '^handler-budget-role: review$' && ok "review job carries the long-running review budget role" || bad "review job missing handler-budget-role: review"
 printf '%s' "$RBODY" | grep -qi 'WHOLE review' && ok "review job frames the WHOLE review as the unit" || bad "review job not framed as whole-review"
 printf '%s' "$RBODY" | grep -qi 'gauntlet' && ok "review job notes the verb (gauntlet) as the primary action" || bad "review job dropped the verb action"
 printf '%s' "$RBODY" | grep -qi 'primary action' && ok "the verb is labelled PRIMARY (one item, not the whole job)" || bad "verb not labelled primary"

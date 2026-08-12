@@ -1,6 +1,6 @@
 #!/bin/bash
-# build-handler-budget-test.sh — the per-role default handler budget, and the
-# gardener/reaper agreement it must preserve.
+# build-handler-budget-test.sh: per-role/stage default handler budgets and the
+# gardener/reaper agreement they must preserve.
 #
 # WHY THIS EXISTS. GARDEN_HANDLER_TIMEOUT (2400s) is right for an ordinary job and
 # wrong for a BUILD, which runs a full install+compile+test pass and exceeds 40
@@ -38,6 +38,12 @@ mk webbuilder  'role: web-builder'
 mk fixer       'role: fixer'
 mk designer    'role: designer'
 mk norole      'tier: mentor'
+mk conductor   'role: conductor'
+mk review      'handler-budget-role: review'
+mk panel       'role: gardener
+gauntlet_stage: panel'
+mk botanist    'role: botanist'
+mk shepherd    'role: shepherd'
 
 [ "$(job_handler_budget_base "$TMP/builder.md")" = 7200 ] \
   && ok "builder defaults to 7200s" || bad "builder base = $(job_handler_budget_base "$TMP/builder.md")"
@@ -49,6 +55,16 @@ mk norole      'tier: mentor'
   && ok "designer keeps the fleet default (a design is not a build)" || bad "designer base changed"
 [ "$(job_handler_budget_base "$TMP/norole.md")" = 2400 ] \
   && ok "a role-less job keeps the fleet default" || bad "role-less base changed"
+[ "$(job_handler_budget_base "$TMP/conductor.md")" = 7200 ] \
+  && ok "conduct/merge defaults to 7200s (above the 5400s CI wait)" || bad "conductor base wrong"
+[ "$(job_handler_budget_base "$TMP/review.md")" = 7200 ] \
+  && ok "review directive defaults to 7200s" || bad "review base wrong"
+[ "$(job_handler_budget_base "$TMP/panel.md")" = 7200 ] \
+  && ok "panel stage defaults to 7200s" || bad "panel base wrong"
+[ "$(job_handler_budget_base "$TMP/botanist.md")" = 7200 ] \
+  && ok "botanist defaults to 7200s" || bad "botanist base wrong"
+[ "$(job_handler_budget_base "$TMP/shepherd.md")" = 7200 ] \
+  && ok "shepherd defaults to 7200s" || bad "shepherd base wrong"
 
 hr; echo "GARDENER / REAPER AGREEMENT — the duplicate-execution guard"; hr
 # Assert every deadline-sensitive consumer calls the same applied calculation.
@@ -102,6 +118,22 @@ mk clamped 'role: builder
 handler-timeout: 20000'
 [ "$(applied_handler_budget "$TMP/clamped.md")" = 14339 ] \
   && ok "overlarge explicit budget is clamped to the claim ceiling" || bad "claim-ceiling clamp wrong"
+mk paneloverride 'role: gardener
+gauntlet_stage: panel
+handler-timeout: 600'
+[ "$(applied_handler_budget "$TMP/paneloverride.md")" = 600 ] \
+  && ok "explicit handler-timeout still wins over a panel stage default" || bad "panel explicit override lost"
+
+hr; echo "PATH PREPEND IS IDEMPOTENT"; hr
+( PATH=/usr/bin:/bin
+  # shellcheck source=../common.sh
+  source "$JOBS/common.sh"
+  source "$JOBS/common.sh"
+  source "$JOBS/common.sh"
+  count="$(printf '%s' "$PATH" | tr ':' '\n' | grep -Fxc "$GARDEN_BIN")"
+  [ "$count" -eq 1 ] ) \
+  && ok "repeated common.sh sourcing leaves one leading jobs/bin entry" \
+  || bad "repeated common.sh sourcing stacked jobs/bin in PATH"
 
 hr; echo "THE KNOB"; hr
 ( export GARDEN_BUILD_HANDLER_TIMEOUT=2400

@@ -987,7 +987,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     # as the asks; the mapped verb (if any) is the PRIMARY action but one item
     # among them, never the entire job.
     {
-      [ -n "$role" ] && printf '%s\n%s\n%s\n\n' '---' "role: $role" '---'
+      printf '%s\n%s\n%s\n\n' '---' 'handler-budget-role: review' '---'
       printf '# Review directive on %s PR #%s\n\n' "$repo" "$pr"
       printf 'A trusted maintainer/contributor REVIEW on #%s. Treat the WHOLE review\n' "$pr"
       printf 'as the unit of work: address its top-level body AND every inline comment\n'

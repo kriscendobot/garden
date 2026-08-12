@@ -233,6 +233,10 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
 
   printf -- '---\n'
   printf 'role: gardener\n'
+  case "$stage" in
+    clean|fix) printf 'handler-budget-role: shepherd\n' ;;
+    panel)     printf 'handler-budget-role: panel\n' ;;
+  esac
   [ -n "$timeout_line" ] && printf '%s\n' "$timeout_line"
   printf 'gauntlet: %s\n' "$base"
   printf 'gauntlet_stage: %s\n' "$stage"

@@ -26,7 +26,7 @@
 # The message-bus / job-board branch. Directory is `journal`; branch is `journal2`.
 : "${JOURNAL_BRANCH:=journal2}"
 
-# Shepherd handler budget (seconds). A shepherd DRIVES CI to green, so it BLOCKS on
+# Long-running handler budgets (seconds). A shepherd DRIVES CI to green, so it BLOCKS on
 # CI runs that routinely exceed the default GARDEN_HANDLER_TIMEOUT (2400s / 40min):
 # a shepherd job stamped only with the default deterministically overruns (rc=124)
 # and never COMPLETES. The shepherd producers — comment-watcher.sh's `shepherd #N`
@@ -44,6 +44,18 @@
 # escalate; that pathological case is out of scope for the common minutes-to-a-
 # couple-hours shepherd this targets.
 : "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:=7200}"
+
+# These stage types have the same shipped two-hour budget for different structural
+# reasons, but keep separate knobs so operators can tune one workload without
+# widening all of them. A conductor/botanist can host ci-wait-merge.sh, whose
+# bounded wait alone defaults to 5400s. A review directive may have to implement
+# every item in a review and then drive CI. A panel fans out up to 35 seats. Every
+# such default must remain larger than the bounded wait/fan-out it contains and
+# below the single-claim ceiling enforced by applied_handler_budget.
+: "${GARDEN_CONDUCTOR_HANDLER_TIMEOUT:=7200}"
+: "${GARDEN_REVIEW_HANDLER_TIMEOUT:=7200}"
+: "${GARDEN_PANEL_HANDLER_TIMEOUT:=7200}"
+: "${GARDEN_BOTANIST_HANDLER_TIMEOUT:=7200}"
 
 # --- test-context guard against a production-journal push (incident 2026-07-11) -
 # A test that isolates GARDEN_STATE but leaves the journal REMOTE pointing at the
@@ -315,7 +327,7 @@ fi
 # does not stack the entry.
 GARDEN_BIN="$GARDEN_ROOT/scripts/jobs/bin"
 case ":$PATH:" in
-  "$GARDEN_BIN:"*) : ;;             # already at the front; nothing to do
+  ":$GARDEN_BIN:"*) : ;;            # already at the front; nothing to do
   *) export PATH="$GARDEN_BIN:$PATH" ;;
 esac
 
@@ -4828,8 +4840,9 @@ role_default_effort() {
 # (ebfb-pr882-bootstrap-generators, rc=124 at elapsed=2401s, doomed to plan/
 # with two maintainer notices; its re-post then carried handler-timeout: 7200).
 #
-# So the build roles now carry a LARGER DEFAULT. This is a default, not a cap: an
-# explicit `handler-timeout:` header still wins in either direction, and the
+# So structurally long-running roles/stages now carry a LARGER DEFAULT. This is a
+# default, not a cap: an explicit `handler-timeout:` header still wins in either
+# direction, and the
 # claim-scoping invariant (budget + KILL_AFTER < CLAIM_TTL) still clamps the
 # result at the call sites.
 #
@@ -4843,14 +4856,19 @@ role_default_effort() {
 # retire the distinction entirely.
 : "${GARDEN_BUILD_HANDLER_TIMEOUT:=7200}"
 
-# role_default_handler_timeout <role> -> default handler budget in seconds for
-# that role. Empty role, or a role with no build character, yields the fleet
-# default. Kept beside role_default_model/effort so the three per-role policies
-# stay visibly one family.
+# role_default_handler_timeout <runtime-role> -> default handler budget in seconds.
+# Empty/unknown roles yield the fleet default. `review` and `panel` are runtime
+# budget roles used through handler-budget-role; they are not performing roles.
+# Kept beside role_default_model/effort so the per-role policies stay one family.
 role_default_handler_timeout() {
   local role="${1:-}"
   case "$role" in
     builder|web-builder) printf '%s\n' "${GARDEN_BUILD_HANDLER_TIMEOUT:-7200}" ;;
+    shepherd)            printf '%s\n' "${GARDEN_SHEPHERD_HANDLER_TIMEOUT:-7200}" ;;
+    conductor)           printf '%s\n' "${GARDEN_CONDUCTOR_HANDLER_TIMEOUT:-7200}" ;;
+    review)              printf '%s\n' "${GARDEN_REVIEW_HANDLER_TIMEOUT:-7200}" ;;
+    panel)               printf '%s\n' "${GARDEN_PANEL_HANDLER_TIMEOUT:-7200}" ;;
+    botanist)            printf '%s\n' "${GARDEN_BOTANIST_HANDLER_TIMEOUT:-7200}" ;;
     *)                   printf '%s\n' "${GARDEN_HANDLER_TIMEOUT:-2400}" ;;
   esac
 }
@@ -4866,8 +4884,21 @@ role_default_handler_timeout() {
 # execution on one worktree, the exact hole the claim-scoping invariant closes.
 # Both call this; neither re-derives it.
 job_handler_budget_base() {
-  local jf="${1:-}" role=""
-  [ -n "$jf" ] && [ -r "$jf" ] && role="$(plan_role "$jf" 2>/dev/null || true)"
+  local jf="${1:-}" role="" stage=""
+  if [ -n "$jf" ] && [ -r "$jf" ]; then
+    # handler-budget-role names the runtime shape without lying about the role the
+    # gardener wears. Review directives are general routing jobs (not a fictional
+    # `review` performing role), while staged panels deliberately run as `gardener`.
+    role="$(plan_field "$jf" handler-budget-role)"
+    if [ -z "$role" ]; then
+      stage="$(plan_field "$jf" gauntlet_stage)"
+      case "$stage" in
+        panel)     role=panel ;;
+        clean|fix) role=shepherd ;; # both host the bounded CI wait
+        *)         role="$(plan_role "$jf" 2>/dev/null || true)" ;;
+      esac
+    fi
+  fi
   role_default_handler_timeout "$role"
 }
 

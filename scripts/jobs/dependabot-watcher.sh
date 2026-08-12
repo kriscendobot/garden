@@ -363,6 +363,7 @@ preflight
 # would have partially reverted a deliberate repin).
 write_full_body() {  # write_full_body <pr> [<pkg> <old> <new>]
   local pr="$1"
+  printf '%s\n%s\n%s\n\n' '---' 'role: botanist' '---'
   printf '# botanist (auto: dependabot PR) on %s PR #%s\n\n' "$repo" "$pr"
   printf 'A `dependabot[bot]` pull request is open on this gated repo. Map:\n'
   printf '**dependabot PR** -> botanist review. Wear roles/botanist/AGENT.md and review\n'
@@ -407,6 +408,7 @@ write_full_body() {  # write_full_body <pr> [<pkg> <old> <new>]
 # a fresh end-to-end diligence whose only output would be "REJECT, superseded".
 write_superseded_body() {  # write_superseded_body <pr> <pkg> <old> <new> <peer-pr>
   local pr="$1" pkg="$2" old="$3" new="$4" peer="$5"
+  printf '%s\n%s\n%s\n\n' '---' 'role: botanist' '---'
   printf '# botanist (auto: dependabot PR, SUPERSEDED by preflight) on %s PR #%s\n\n' "$repo" "$pr"
   printf 'The dependabot-PR watcher reconciled the open Dependabot PRs on this repo\n'
   printf 'BEFORE commissioning any review and determined DETERMINISTICALLY that this one\n'

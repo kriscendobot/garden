@@ -1,3 +1,9 @@
+---
+created: 2026-05-13
+updated: 2026-08-12
+author: gardener, liaison
+---
+
 # Role: liaison
 
 Purpose: the human-facing role. Relays messages between the user (maintainer)
@@ -26,15 +32,14 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   answering or archiving maintainer-inbox messages, and small garden-library
   edits (role/skill/doc changes) the maintainer asks you to make directly —
   though a larger library change may itself be posted as a `gardener` job.
-- **A build-heavy job carries a `handler-timeout:` header.** A gardener kills its
-  handler at the 40-min default (`GARDEN_HANDLER_TIMEOUT=2400`), so a job whose work
-  legitimately runs longer — the paradigm case is a **cold `docker build`** (a few
-  hours) — is SIGTERM-killed at 40 min on **every** requeue and never completes
-  unless the job body declares its own budget. When you post such a job, put a
+- **Unusually long work carries a `handler-timeout:` header.** Build, shepherd,
+  conductor, review, panel, and botanist jobs already have 7200s role/stage defaults;
+  ordinary jobs keep the 2400s fleet default. When work legitimately exceeds its
+  role default (the paradigm case is a **cold `docker build`**), put a
   `handler-timeout: <seconds>` line in the body (e.g. `handler-timeout: 10800` for a
   ~3 h docker build); the gardener honors it up to ~3.98 h (the claim-budget cap,
-  `GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER − 1`). There is no auto-classifier —
-  the producer owns the header. See `skills/job-board/SKILL.md` § Per-job handler
+  `GARDEN_CLAIM_TTL − GARDEN_HANDLER_KILL_AFTER − 1`). See
+  `skills/job-board/SKILL.md` § Per-job handler
   budget. A build-heavy job that omits it and overruns is now surfaced fast (the
   reaper dooms a no-progress deadline overrun after **one** cycle, parking it held
   with a notice) so you can re-post it with the header rather than watch it churn.
