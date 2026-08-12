@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-test262-implementation-completion-resume-2
-priority: normal
-posted_by: producer
-posted_at: 2026-08-12T17:14:50Z
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-12T17:19:04Z cleared=none -->
 
 ---
 tier: mentor
