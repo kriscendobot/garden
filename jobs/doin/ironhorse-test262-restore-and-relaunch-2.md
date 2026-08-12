@@ -128,3 +128,13 @@ If it does not check out, park the campaign and report rather than guessing.
 - A report naming the sweep commit used, any child whose recovery was imperfect and
   how you resolved it, and the budget figure with the source you verified it against.
 - If the precondition failed, none of the above — just the halt and the message.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T17:09:25Z
