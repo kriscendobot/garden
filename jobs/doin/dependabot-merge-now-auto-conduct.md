@@ -100,3 +100,13 @@ Remove the approval requirement for this ONE case, deterministically, in code.
   job — the sweep job that follows does that.
 - Docs above updated; `designs/dependabot-auto-merge.md` written.
 - Pushed to `main2`. Report the commit(s) and name explicitly which guards remain.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T05:16:19Z
