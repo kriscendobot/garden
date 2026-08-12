@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:55:39Z_
+_As of 2026-08-12T23:59:12Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 24m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6703,26 +6703,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.2M | $814.89 _(notional, rate-card)_ | no quota set |
-| Codex | 23.0M _(+793.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 23.0M _(+794.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-20260812T235216Z-ca9637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T235216Z-ca9637.md) — Dead-lettered message — pick up its intent
+### doin (4)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-e97aa392.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr978-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr978-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #978
 
-### tada (4463)
+### tada (4464)
+- [`deadmail-20260812T235216Z-ca9637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T235216Z-ca9637.md) — Completion report — dead-letter pickup for endo-upstream-llm-retention-set-pe...
 - [`endo-upstream-llm-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-upstream-llm-retention-set-peer-binding.md) — Completion report
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-conduct.md) — Completion report
 - [`deadmail-20260812T233020Z-59f3fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T233020Z-59f3fc.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Cost
-- [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232828Z-4f1d09.md) — What I did
-- … and 4458 more
+- … and 4459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
