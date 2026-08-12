@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:33:12Z_
+_As of 2026-08-12T05:34:22Z_
 
 ## Latest
 
@@ -6649,7 +6649,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.6M | $810.89 _(notional, rate-card)_ | no quota set |
-| Codex | 19.6M _(+701.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 19.6M _(+701.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6658,13 +6658,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Review directive on endojs/endo-but-for-bots PR #903
 
-### tada (4414)
+### tada (4415)
+- [`dependabot-auto-merge-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-auto-merge-rollout.md) — orchestration dependabot-auto-merge-rollout — complete
 - [`dependabotany-sweep-approval-held`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held.md) — Botanist sweep — HALTED at precondition (deploy is the blocker)
 - [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-merge-now-auto-conduct.md) — Cost
 - [`weave-ebfb-pr970-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-ebfb-pr970-onto-llm.md) — Completion report
 - [`fix-orchestrate-watcher-progress-and-serial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-watcher-progress-and-serial.md) — Completion report
-- [`fix-handler-budget-role-defaults`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-handler-budget-role-defaults.md) — Cost
-- … and 4409 more
+- … and 4410 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
