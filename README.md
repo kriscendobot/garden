@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T16:46:27Z_
+_As of 2026-08-12T16:47:23Z_
 
 ## Latest
 
@@ -6652,14 +6652,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.3M | $789.58 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+683.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 53.4M | $789.84 _(notional, rate-card)_ | no quota set |
+| Codex | 18.9M _(+683.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-liveness-progress-over-elapsed-deadlines`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-liveness-progress-over-elapsed-deadlines.md) — designer: replace elapsed-deadline reaping with liveness + progress, and budg...
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
 
 ### tada (4420)
