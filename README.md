@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T20:40:07Z_
+_As of 2026-08-12T20:57:01Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 21h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 4m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
@@ -6673,24 +6673,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.5M | $796.43 _(notional, rate-card)_ | no quota set |
-| Codex | 19.6M _(+699.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 53.8M | $799.46 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+699.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
-- [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/patrick-cooney-endo-but-for-bots-value-report.md) — Follow-up report: Patrick Cooney's contribution VOLUME and VALUE, to substant...
 
-### tada (4429)
+### tada (4430)
+- [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md) — Patrick Cooney's contribution volume, comparative standing, and dependency we...
 - [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-contributions-report.md) — Patrick Cooney’s contributions to endojs/endo-but-for-bots
 - [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-design.md) — Completion report
 - [`issue-kriscendobot-garden-71`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-71.md) — Cost
 - [`fix-orchestrate-vanished-false-positive-and-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-vanished-false-positive-and-sweep.md) — Cost
-- [`ironhorse-test262-implementation-completion-resume-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-2.md) — orchestration ironhorse-test262-implementation-completion-resume-2 — HALTED
-- … and 4424 more
+- … and 4425 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
