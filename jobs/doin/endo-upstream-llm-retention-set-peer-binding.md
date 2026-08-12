@@ -69,3 +69,13 @@ holder of an OCapN address. That deployment is contained.
   retention set) is deliberately OUT of scope here and parked separately as
   `ocapn-gateway-outbound-peer-binding`. Mention it in the PR as known follow-up
   work, without implying it is fixed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T23:38:02Z
