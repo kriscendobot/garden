@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T03:16:14Z_
+_As of 2026-08-12T03:20:41Z_
 
 ## Latest
 
@@ -6617,7 +6617,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260812T031510Z-1cc9e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T031510Z-1cc9e2.md) — Dead-lettered message — pick up its intent
 - [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-06-sync-iteration-generators.md) — Complete synchronous iteration and generators
 
 ### tada (4404)
