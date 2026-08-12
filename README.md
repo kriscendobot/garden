@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:44:16Z_
+_As of 2026-08-12T22:46:06Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 16m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
@@ -3528,42 +3528,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
-- `20260812T224358Z-a6e49c` — from gardener:minion-town-containment-gateway-endo-sock, reply_to `minion-town-containment-gateway-endo-sock` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224358Z-a6e49c.md)
+- `20260812T224544Z-c875ea` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224544Z-c875ea.md)
 
-> CONTAINMENT STEP 1 VERIFIED — minion.town weblet powers plane failed closed.
->
-> Job: minion-town-containment-gateway-endo-sock (authorized by you 2026-08-12).
->
-> WHAT I DID (reversible, drop-in only; no code deployed):
-> - Installed /etc/systemd/system/endo-gateway.service.d/zz-containment-20260812.conf
->   which UnsetEnvironment=GATEWAY_ENDO_SOCK and drops the endo-daemon supplementary
->   group (keeps endo-weblet-store so the content plane still works), then restarted
->   endo-gateway.service. Boot log now reads: "powers plane : disabled
->   (GATEWAY_ENDO_SOCK unset — /.well-known fails closed)".
-> - ROLLBACK: rm that drop-in; systemctl daemon-reload; systemctl restart endo-gateway.service.
->
-> THE TEST THAT MATTERS — unauthenticated repro re-run from outside the host, on the
-> exact endpoint (6hlvj7a67t2eqpw74hakvrlqodhtt2xm4q54rgild3lqedcwzxjq.ocap.site):
->   BEFORE: /.well-known/ocapn-bootstrap -> 200  "endo:@agent"; /.well-known/endo-captp
->           WS handshake -> 101 Switching Protocols (CapTP host obtainable).
->   AFTER : /.well-known/ocapn-bootstrap -> 404 "no such weblet"; endo-captp WS ->
->           426 Upgrade Required, upgrade REFUSED. No CapTP host obtainable. FAIL CLOSED.
-> On-host journal proved the resolved object was the full EndoHost (makeUnconfined,
-> makeUnconfinedFromTree, evaluate, provideShell, endow, provideHost) and recorded
-> dckc driving evaluate against vhost fe0a8e602d18 at 21:27–21:39Z.
->
-> WHAT THIS BREAKS (the cost you carry until the fix deploys): ALL powers weblets are
-> now down globally — every weblet whose record has a `powers` field returns 404 on
-> its powers endpoints. That is 4 records: dckc's two @agent ones (being de-registered
-> next) plus "formula:live-deploy-verification" and "powers-fixture". Content-only
-> weblets are UNAFFECTED (3 verified still serving 200). Non-weblet surfaces UP:
-> minion.town/ 302, ocapn-cbor-np 426 (untouched, as instructed), ocapn-daemon 426,
-> MCP 401. endo-daemon.service active, its socket untouched. All core units active.
->
-> NEXT (still authorized, doing now): de-register dckc's two @agent vhosts, then the
-> read-only enumeration of every remaining host-shaped vhost to give you the true
-> blast radius. Permanent fix remains job minion-town-weblet-powers-host-escape-fix
-> (not deployed here). No exploit specifics posted anywhere public.
+> Daemon-side completion: the requested regression is present at the head of [https://github.com/endojs/endo-but-for-bots/pull/977](https://github.com/endojs/endo-but-for-bots/pull/977) (dad2cf084). I verified its targeted live-daemon test passes: a genuine EndoGuest excludes the full Host-only method delta, rejects the unconfined family and neighbouring authority-creating methods at the CapTP receiver, and its @host petname resolves only to a mail handle. The PR description correctly keeps the separate deployment-path details private. I did not push a duplicate commit.
 
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
@@ -6710,8 +6677,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.0M | $807.26 _(notional, rate-card)_ | no quota set |
-| Codex | 21.4M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 54.0M | $807.94 _(notional, rate-card)_ | no quota set |
+| Codex | 21.4M _(+752.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
