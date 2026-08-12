@@ -1,1 +1,2 @@
 {"ts":"2026-08-12T16:58:23Z","base":"ironhorse-test262-restore-and-relaunch","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":80}
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":179,"input_tokens":24,"output_tokens":12607,"cache_creation_tokens":49092,"cache_read_tokens":647442,"total_cost_usd":1.133448,"ts":"2026-08-12T17:06:28Z","base":"ironhorse-test262-restore-and-relaunch","host":"endolin-garden-ece02cb4","outcome":"tada"}
