@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T21:19:12Z_
+_As of 2026-08-12T21:22:28Z_
 
 ## Latest
 
@@ -6673,25 +6673,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.8M | $800.99 _(notional, rate-card)_ | no quota set |
-| Codex | 19.7M _(+699.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 53.8M | $801.77 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+700.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conductor-rebase-and-shepherd-before-merge.md) — designer+builder: the conductor must REBASE and SHEPHERD before every merge
-- [`endo-but-for-bots-workflow-triggers-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-workflow-triggers-llm.md) — builder: run the test workflows on llm, the branch this fork actually uses — ...
 - [`patrick-cooney-endo-but-for-bots-value-report-v2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/patrick-cooney-endo-but-for-bots-value-report-v2.md) — Redo: Patrick Cooney contribution VALUE report — the prior attempt under-deli...
 
-### tada (4431)
+### tada (4432)
+- [`endo-but-for-bots-workflow-triggers-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-workflow-triggers-llm.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Completion report
 - [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md) — Completed jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md.
 - [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-contributions-report.md) — Patrick Cooney’s contributions to endojs/endo-but-for-bots
 - [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-design.md) — Completion report
-- [`issue-kriscendobot-garden-71`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-71.md) — Cost
-- … and 4426 more
+- … and 4427 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
