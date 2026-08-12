@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T14:33:31Z_
+_As of 2026-08-12T15:02:16Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 15h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 16h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
@@ -6652,23 +6652,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $808.21 _(notional, rate-card)_ | no quota set |
+| Claude | 53.5M | $802.24 _(notional, rate-card)_ | no quota set |
 | Codex | 20.0M _(+707.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-sweep-approval-held-2.md) — botanist: sweep the seven approval-held MERGE-NOW dependabot PRs (deploy is D...
+### doin (0)
+(none)
 
-### tada (4417)
+### tada (4418)
+- [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held-2.md) — Cost
 - [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-child-failure-detection.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Completion report
 - [`dependabot-auto-merge-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-auto-merge-rollout.md) — orchestration dependabot-auto-merge-rollout — complete
 - [`dependabotany-sweep-approval-held`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held.md) — Botanist sweep — HALTED at precondition (deploy is the blocker)
-- [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-merge-now-auto-conduct.md) — Cost
-- … and 4412 more
+- … and 4413 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
