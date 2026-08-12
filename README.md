@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T17:19:00Z_
+_As of 2026-08-12T17:19:36Z_
 
 ## Latest
 
@@ -6676,8 +6676,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
+- [`ironhorse-js-07-promises-async-functions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-07-promises-async-functions.md) — Complete Promises, jobs, and async functions
 
 ### tada (4423)
 - [`ironhorse-test262-restore-and-relaunch-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch-2.md) — Completion report
