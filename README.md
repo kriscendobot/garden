@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T21:39:34Z_
+_As of 2026-08-12T21:41:41Z_
 
 ## Latest
 
@@ -6673,25 +6673,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $803.78 _(notional, rate-card)_ | no quota set |
+| Claude | 53.9M | $804.15 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+700.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr403-b7affa82`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-b7affa82.md) — attention directive on endojs/endo-but-for-bots PR #403
-- [`endojs-endo-but-for-bots-pr656-6df67575`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-6df67575.md) — attention directive on endojs/endo-but-for-bots PR #656
 - [`patrick-cooney-endo-but-for-bots-value-report-v2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/patrick-cooney-endo-but-for-bots-value-report-v2.md) — Redo: Patrick Cooney contribution VALUE report — the prior attempt under-deli...
 
-### tada (4433)
+### tada (4434)
+- [`endojs-endo-but-for-bots-pr656-6df67575`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-6df67575.md) — Cost
 - [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/conductor-rebase-and-shepherd-before-merge.md) — Cost
 - [`endo-but-for-bots-workflow-triggers-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-workflow-triggers-llm.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Completion report
 - [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md) — Completed jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md.
-- [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-contributions-report.md) — Patrick Cooney’s contributions to endojs/endo-but-for-bots
-- … and 4428 more
+- … and 4429 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
