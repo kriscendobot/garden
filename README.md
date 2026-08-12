@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:49:24Z_
+_As of 2026-08-12T22:49:45Z_
 
 ## Latest
 
@@ -6673,25 +6673,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $809.12 _(notional, rate-card)_ | no quota set |
-| Codex | 21.5M _(+753.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 53.9M | $806.41 _(notional, rate-card)_ | no quota set |
+| Codex | 21.5M _(+753.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`minion-town-containment-gateway-endo-sock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-containment-gateway-endo-sock.md) — Why
 - [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-host-exposure-forensics.md) — Background
 
-### tada (4442)
+### tada (4443)
+- [`minion-town-containment-gateway-endo-sock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-containment-gateway-endo-sock.md) — Completion Report — minion-town-containment-gateway-endo-sock
 - [`minion-town-weblet-powers-host-escape-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-powers-host-escape-fix.md) — Completion report
 - [`endojs-endo-but-for-bots-pr124-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-weave.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-ad33fffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-ad33fffb.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-b22eafbb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b22eafbb.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-09a40229`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-09a40229.md) — Cost
-- … and 4437 more
+- … and 4438 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
