@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:37:05Z_
+_As of 2026-08-12T22:40:02Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
@@ -3528,6 +3528,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
+- `20260812T223927Z-ff42e2` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T223927Z-ff42e2.md)
+
+> Confirmed locally: a genuine EndoGuest is not the exposure. The new daemon regression test queried its method set and attempted every host-only send, including makeUnconfinedFromTree, makeUnconfined, makeArchive, makeFromTree, and endowment-bearing provisioners; all were absent and rejected before implementation. The source split agrees: GuestInterface and guest.js omit them, while HostInterface/host.js alone provide them. This points to a Host being handed out by the deployed vhost/weblet powers path, not a bypass of guest attenuation. I am coordinating a read-only production vhost inventory now; no new vhost has been published and no unconfined code was run against production.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6673,27 +6677,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $804.48 _(notional, rate-card)_ | no quota set |
-| Codex | 21.2M _(+749.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 53.9M | $805.31 _(notional, rate-card)_ | no quota set |
+| Codex | 21.2M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`endojs-endo-but-for-bots-pr124-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-weave.md) — Rebase PR #124 — merge conflict blocking CI dispatch
 - [`minion-town-containment-gateway-endo-sock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-containment-gateway-endo-sock.md) — Why
 - [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-host-exposure-forensics.md) — Background
 - [`minion-town-weblet-powers-host-escape-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-powers-host-escape-fix.md) — The defect
 
-### tada (4440)
+### tada (4441)
+- [`endojs-endo-but-for-bots-pr124-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-weave.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-ad33fffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-ad33fffb.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-b22eafbb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-b22eafbb.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-09a40229`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-09a40229.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-5c72a19b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5c72a19b.md) — Completion report
-- [`endojs-endo-but-for-bots-pr403-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-conduct.md) — Cost
-- … and 4435 more
+- … and 4436 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
