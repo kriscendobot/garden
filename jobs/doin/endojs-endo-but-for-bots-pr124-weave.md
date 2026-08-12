@@ -23,3 +23,13 @@ top-level PR comment closing the loop on the bot's own
 `https://github.com/endojs/endo-but-for-bots/pull/124#issuecomment-5273101195`
 ("will follow up here when it lands") — say plainly what was done, since that
 promise has been sitting unfulfilled.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T22:32:23Z
