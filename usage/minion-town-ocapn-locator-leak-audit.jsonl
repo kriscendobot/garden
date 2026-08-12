@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":45,"elapsed_s":969,"input_tokens":84,"output_tokens":39614,"cache_creation_tokens":105982,"cache_read_tokens":3390459,"total_cost_usd":3.748545500000001,"ts":"2026-08-12T23:21:30Z","base":"minion-town-ocapn-locator-leak-audit","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}
