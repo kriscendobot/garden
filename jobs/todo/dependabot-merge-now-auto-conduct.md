@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: dependabot-auto-merge-rollout
-priority: normal
 role: builder
-posted_by: liaison
-posted_at: 2026-08-12T05:14:12Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-12T05:16:04Z cleared=none -->
 
 ---
 tier: mentor
