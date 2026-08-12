@@ -86,3 +86,13 @@ frozen bases, propose it — do not implement a fleet-wide policy change in this
 The diff inventory, which PR you chose as carrier and why, what you ported, the lint
 disposition (pre-existing vs PR-introduced), the closed PR's cross-reference, and the
 self-improvement finding with its proposed fix.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T01:03:44Z
