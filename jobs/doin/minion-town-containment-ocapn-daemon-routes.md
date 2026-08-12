@@ -82,3 +82,13 @@ what stopped working and what it will take to restore it once
 - Do not roll back either containment without the maintainer's explicit say-so.
 - No exploit specifics on any public tracker.
 - Message the maintainer as soon as step 1 is verified.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T23:07:03Z
