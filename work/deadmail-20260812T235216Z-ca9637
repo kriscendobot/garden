@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-12T23:55:08Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-deadmail-20260812T235216Z-ca9637
