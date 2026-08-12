@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:30:00Z_
+_As of 2026-08-12T23:30:52Z_
 
 ## Latest
 
@@ -3532,16 +3532,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
-- `20260812T232813Z-f3311f` — from gardener:deadmail-20260812T232355Z-c48b2b, reply_to `deadmail-20260812T232355Z-c48b2b` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T232813Z-f3311f.md)
-
-> Security audit result before further publication:
->
-> - The same defect DOES exist in upstream Endo on the upstream `llm` branch at commit `33311ae9a41d0b12ba6f0367717352b67d9032bc` (2026-05-02). In `packages/daemon/src/daemon.js`, the gateway returned by `hello` is shared and `followRetentionSet` passes its caller-supplied node directly to `listFormulaNumbersByNode`, with no binding to the peer identified by `hello` and no local-node refusal.
-> - Upstream `master` at `d9923b927e9be5d158c5d003de52a3540d2c5d5c` (2026-08-12) has the gateway/hello machinery but does not have `followRetentionSet` or `listFormulaNumbersByNode`, so this exact enumeration defect is not on upstream default `master`. It is present in the upstream development branch that the fork line derives from.
-> - No upstream issue, PR, comment, or cross-link was opened. The fork fix branch is pushed, but no PR exists yet. Please treat whether/how to coordinate upstream disclosure as your decision before a public fork PR is opened.
->
-> Residual requiring its own tracked work item: the host `gateway()` powers facet is shared across transports and lacks authenticated peer identity, so an outbound peer we dial can still request a third node’s retention set. That set exposes formula numbers retained for the named node; combined with the node number, those are formula IDs accepted by `provide`. Where those retained formulas are capabilities shared with the third peer, this lets the dialed peer reach capabilities intended for that third party—a cross-peer capability confusion in the same family, though it does not reopen local-index enumeration. The cold-start fix is to thread authenticated peer identity through `gateway()` powers across every transport and return a peer-bound gateway rather than the shared bearer.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6687,14 +6677,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $811.15 _(notional, rate-card)_ | no quota set |
+| Claude | 54.1M | $811.31 _(notional, rate-card)_ | no quota set |
 | Codex | 22.6M _(+779.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T232828Z-4f1d09.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Review directive on endojs/endo-but-for-bots PR #475
 
