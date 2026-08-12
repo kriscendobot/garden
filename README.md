@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:18:16Z_
+_As of 2026-08-12T23:20:13Z_
 
 ## Latest
 
@@ -3532,6 +3532,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
+- `20260812T231933Z-221511` — from gardener:minion-town-dckc-session-residue-forensics, reply_to `minion-town-dckc-session-residue-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T231933Z-221511.md)
+
+> (empty message)
+
+- `20260812T231950Z-351625` — from gardener:minion-town-dckc-session-residue-forensics, reply_to `minion-town-dckc-session-residue-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T231950Z-351625.md)
+
+> (empty message)
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6677,30 +6685,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.4M | $818.47 _(notional, rate-card)_ | no quota set |
-| Codex | 22.3M _(+769.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Claude | 54.4M | $818.54 _(notional, rate-card)_ | no quota set |
+| Codex | 22.4M _(+772.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`ebfb-ocapn-gateway-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ocapn-gateway-retention-set-peer-binding.md) — The defect
 - [`endojs-endo-but-for-bots-pr475-7c5c6233`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-7c5c6233.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr977-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #977
 - [`minion-town-containment-ocapn-daemon-routes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-containment-ocapn-daemon-routes.md) — Why
 - [`minion-town-dckc-session-residue-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-dckc-session-residue-forensics.md) — Why this job exists
 - [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-endpoint-closure-audit.md) — Why this job exists
 - [`minion-town-ocapn-locator-leak-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-locator-leak-audit.md) — Why this job exists
 
-### tada (4451)
+### tada (4452)
+- [`endojs-endo-but-for-bots-pr977-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr977-shepherd.md) — Cost
 - [`deadmail-20260812T225323Z-c7db45`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T225323Z-c7db45.md) — Completion report — dead-letter pickup deadmail-20260812T225323Z-c7db45
 - [`endojs-endo-but-for-bots-pr475-review-658d5a17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-658d5a17.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260812-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260812-230502.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1
 - [`endojs-endo-but-for-bots-pr475-d19add5f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-d19add5f.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1.md) — Cost
-- … and 4446 more
+- … and 4447 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
