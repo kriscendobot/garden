@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:50:46Z_
+_As of 2026-08-12T23:52:38Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -3557,48 +3557,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
-- `20260812T234950Z-0d4df4` — from gardener:endo-upstream-llm-retention-set-peer-binding, reply_to `endo-upstream-llm-retention-set-peer-binding` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T234950Z-0d4df4.md)
-
-> Security fix ported upstream and PUSHED, but I cannot open the PR — endojs/endo
-> restricts PR creation to org members/prior contributors, and the bot
-> (kriscendobot) is a non-member (pull-only, push:false). No identity switch was
-> attempted per the job bounds. Everything is ready for a one-click open by you
-> (a member) or after granting the bot access.
->
-> Branch pushed: kriscendobot/endo : ocapn-gateway-retention-peer-binding
-> (commit 92e405239), off endojs/endo `llm` @ 33311ae9a.
->
-> Open PR here (base llm):
-> https://github.com/endojs/endo/compare/llm...kriscendobot:endo:ocapn-gateway-retention-peer-binding?expand=1
->
-> Suggested title:
-> fix(daemon): bind gateway followRetentionSet to the authenticated peer
->
-> What changed (packages/daemon/src/daemon.js, packages/daemon/test/endo.test.js):
-> - hello now hands back a gateway BOUND to the authenticated peer node
->   (makeGatewayForPeer); its followRetentionSet answers only for that node,
->   never the local node, never a third node.
-> - The shared localGateway refuses to enumerate the local node's formula index
->   (the outbound/loopback path that never flows through hello).
-> - provide extracted and shared unchanged (bearer read; enumerates nothing).
->   followRetentionSet is the ONLY enumerating method on the upstream gateway —
->   upstream has NO provideBlob/provideTree (the fork does), so that part of the
->   fork fix did not apply and the port is smaller.
->
-> Verified: 3 new security tests pass (peer confined to own set; local index not
-> enumerable; peer-bound gateway still provides) + full cross-daemon
-> invite-retention suite (7/7) green, so peer-to-peer retention still works.
-> tsc/eslint clean (only pre-existing warnings). Tests run required a short
-> ENDO_TEST_DIRNAME shim locally because this worktree path overflows the unix
-> sun_path limit — that shim is NOT committed.
->
-> Known follow-up left OUT of scope (as instructed): the outbound residual where a
-> dialed peer can still follow a THIRD node's retention set; it's noted in the PR
-> body as future work.
->
-> PR body is ready — tell me and I'll paste the full markdown, or I can retry the
-> open if you add the bot as a contributor/collaborator.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6744,8 +6702,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $814.36 _(notional, rate-card)_ | no quota set |
-| Codex | 22.9M _(+792.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 54.2M | $814.76 _(notional, rate-card)_ | no quota set |
+| Codex | 22.9M _(+792.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
