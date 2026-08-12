@@ -70,3 +70,13 @@ radius and whether anyone else's weblet was exposed. Report it even though step
 - Do not deploy code. The fix is `minion-town-weblet-powers-host-escape-fix`.
 - No exploit specifics on any public tracker.
 - Report to the maintainer as soon as step 1 is verified, before the enumeration.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T22:36:39Z
