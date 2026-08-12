@@ -337,6 +337,14 @@ assuming one account per host forever. Phase 2 also decides whether a
 campaign-tagged usage append becomes mandatory before completion, closing phase
 1's undetectable-missing-row gap.
 
+A separate follow-on track, the recurring weekly capacity calibration and the
+persistent token bucket, is designed in
+[`recurring-budget-calibration.md`](recurring-budget-calibration.md). It replaces
+the hand-supplied `--budget-tokens N` with a scheduled deterministic measurement
+of real weekly capacity and a shared journal-backed balance a campaign draws from,
+and composes with the account-aware track above (its `per_account_capacity` is the
+per-account ceiling the account-aware caps would enforce).
+
 ## Alternatives considered
 
 - **A new `campaign-usage.jsonl` or mutable spent counter.** Rejected. It would
