@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T16:54:15Z_
+_As of 2026-08-12T17:07:23Z_
 
 ## Latest
 
@@ -20,7 +20,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 24d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 26d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 29d)
@@ -3507,6 +3507,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Per the job's own precondition I did NOT review or merge anything under the old rules, and I am ending the job with orchestration-failed: true so the orchestration HALTS. Re-promote this sweep after deploy-garden.sh advances the root past 225e364eb0.
 
+- `20260812T165812Z-e793d5` — from gardener:ironhorse-test262-restore-and-relaunch, reply_to `ironhorse-test262-restore-and-relaunch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T165812Z-e793d5.md)
+
+> PRECONDITION FAILED. Deployed /home/kris/garden has the orchestrate.sh stall fix (removed requeue-rise heuristic), but does not have ede7f1f467 child-failure stamping. Deployed common.sh tada_failed() only recognizes undecorated orchestration-* fields and does not recognize decorated verdict lines. Deployed complete-job.sh has no --orchestration-failed option or stamping path. Per ironhorse-test262-restore-and-relaunch, I stopped before restoring or posting any children/campaign. Please deploy ede7f1f467 before requeueing this recovery.
+
+- `20260812T170548Z-21924f` — from gardener:ironhorse-test262-restore-and-relaunch, reply_to `ironhorse-test262-restore-and-relaunch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T170548Z-21924f.md)
+
+> HALTED — precondition (fix #two) not met; did NOT restore or relaunch the ironhorse test262 campaign.
+>
+> Deployed garden root is at commit 225e364eb0 (fingerprinted scripts/jobs/{common.sh,complete-job.sh,orchestrate.sh} blobs against each candidate — all three match 225e364eb0 exactly).
+>
+> - Fix one (9a16e2a6ef, stall heuristic) IS live: orchestrate.sh has `! has_productive_cycle_hint "$jf" && [ "$n" -gt "$limit" ]` and no "requeue count rose from" string. OK.
+> - Fix two (ede7f1f467, child-failure detect/stamp) is NOT live: deployed tada_failed() in common.sh is the OLD 3-line grep that does NOT recognize decorated verdict lines; deployed complete-job.sh has NO --orchestration-failed flag. The three HEAD commits ede7f1f467, b63befa87e, b580e3d51a are on main2/origin but not yet deployed to the root.
+>
+> Per the job's fail-closed gate, I stopped rather than arm ~2.08M billable tokens of real spend with child-failure detection absent — the old tada_failed would MISS a decorated failure line and let a serial run promote past a genuinely-failed child instead of halting.
+>
+> ACTION NEEDED: run a deliberate deploy (scripts/jobs/deploy-garden.sh) to advance the root to at least ede7f1f467, then re-post this restore job (new campaign base ironhorse-test262-implementation-completion-resume-2). The 22 swept child bodies are still recoverable from the sweep-commit parent c95607119^. I did not verify the 2.08M budget figure — I halted before that step.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6652,8 +6669,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $790.76 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+686.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 53.4M | $792.57 _(notional, rate-card)_ | no quota set |
+| Codex | 19.0M _(+687.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6662,13 +6679,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
 
-### tada (4421)
+### tada (4422)
+- [`ironhorse-test262-restore-and-relaunch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch.md) — Completion report
 - [`design-liveness-progress-over-elapsed-deadlines`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-liveness-progress-over-elapsed-deadlines.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260812-162003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260812-162003.md) — Completion report
 - [`improve-automate-stale-dependabot-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-automate-stale-dependabot-rebase.md) — Completion report: improve-automate-stale-dependabot-rebase
 - [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held-2.md) — Cost
-- [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-child-failure-detection.md) — Cost
-- … and 4416 more
+- … and 4417 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
