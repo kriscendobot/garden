@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":58,"elapsed_s":1385,"input_tokens":110,"output_tokens":33884,"cache_creation_tokens":92992,"cache_read_tokens":4120152,"total_cost_usd":3.8401619999999994,"ts":"2026-08-12T04:22:41Z","base":"ironhorse-js-06-sync-iteration-generators-gauntlet-clean","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"gardener"}
