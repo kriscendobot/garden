@@ -1,4 +1,5 @@
 ---
+child-dependabotany-sweep-approval-held-reap-count: 0
 child-dependabot-merge-now-auto-conduct-host: endolin-garden-ece02cb4
 child-dependabot-merge-now-auto-conduct-reap-count: 0
 order: serial
