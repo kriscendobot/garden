@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:34:18Z_
+_As of 2026-08-12T22:37:05Z_
 
 ## Latest
 
@@ -3528,18 +3528,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
-- `20260812T223323Z-1b5cb9` — from gardener:minion-town-host-exposure-forensics, reply_to `minion-town-host-exposure-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T223323Z-1b5cb9.md)
-
-> URGENT: I reproduced host powers from an unauthenticated public position. This is the weblet-powers theory, not dckc's MCP guest facet and not the OCapN daemon bootstrap itself.
->
-> Dckc's active account derives guest handle `g-e5fadeb49af110171de798cecfad7d5f`; live `endo inspect` reports its formula type verbatim as `handle`, and sibling `g-e5fadeb49af110171de798cecfad7d5f-agent` as `guest`. However, both weblets owned by his `iss+sub` record grant powers string `@agent`; live `endo inspect @agent` reports formula type verbatim `host`.
->
-> From outside AWS, I connected with no OAuth token or other credential to one public endpoint, `wss://6hlvj7a67t2eqpw74hakvrlqodhtt2xm4q54rgild3lqedcwzxjq.ocap.site/.well-known/endo-captp`. Its bootstrap `__getMethodNames__()` is the full EndoHost surface, including `makeUnconfinedFromTree`, `makeUnconfined`, `provideHost`, `provideShell`, `evaluate`, `endow`, `lookupById`, and 80+ other methods. Anyone who knows either dckc weblet URL/hash can run arbitrary unconfined code as the `endo-daemon` service user, read/write that daemon's accessible state, and mint/delegate further daemon capabilities. The direct cause is `weblet_publish`: it accepts an arbitrary powers string without authority validation, while the gateway holds the top host and resolves it with `E(host).lookup(powers)`.
->
-> Immediate closure choices for maintainer action: remove/disable `GATEWAY_ENDO_SOCK` on `endo-gateway.service` (all weblet powers endpoints fail closed), or remove the public `*.ocap.site` gateway route; merely suspending dckc's MCP account does not revoke already-published vhosts. De-registering the two offending vhosts closes these known URLs but does not close the general arbitrary-powers publication flaw.
->
-> The separate direct minion.town OCapN endpoint `wss://minion.town/.well-known/ocapn-cbor-np` publicly serves `EndoOcapnBootstrap`, whose live method list is only `getAgentBinding`, `getGreeter`, `getNodeId`, `help` plus introspection. It requires the OCapN location/designator to complete Noise IK; it is not directly an EndoHost. I am continuing the remaining endpoint and MCP-tool inventory now, read-only.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6685,16 +6673,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $804.05 _(notional, rate-card)_ | no quota set |
-| Codex | 21.1M _(+748.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 53.9M | $804.48 _(notional, rate-card)_ | no quota set |
+| Codex | 21.2M _(+749.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-weave.md) — Rebase PR #124 — merge conflict blocking CI dispatch
+- [`minion-town-containment-gateway-endo-sock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-containment-gateway-endo-sock.md) — Why
 - [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-host-exposure-forensics.md) — Background
 - [`minion-town-weblet-powers-host-escape-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-powers-host-escape-fix.md) — The defect
 
