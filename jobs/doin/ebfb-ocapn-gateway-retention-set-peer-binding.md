@@ -71,3 +71,13 @@ problem.
 - The reporting job deliberately did NOT invoke `hello` or `provide` against
   production, since that handshake mutates peer/retention state. Reproduce
   locally against a test daemon, not against minion.town.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T23:04:25Z
