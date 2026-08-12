@@ -104,3 +104,13 @@ toward "never reap"), and how an operator diagnoses it.
   would have kept each of the three instances alive — or correctly killed it.
 - Pushed to `main2`. Do NOT implement; if the design implies staged jobs, name them
   so the liaison can post them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T16:46:55Z
