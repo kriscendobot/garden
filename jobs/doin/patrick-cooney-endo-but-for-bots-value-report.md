@@ -74,3 +74,13 @@ A journal report (same convention as the prior one — lands in
 `jobs/tada/`, not a PR), explicitly cross-linked to the prior report rather
 than duplicating its content. State plainly, in your own completion report,
 the journal path and a one-line summary of the strongest evidence found.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T20:39:43Z
