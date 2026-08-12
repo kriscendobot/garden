@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T01:32:13Z_
+_As of 2026-08-12T01:37:43Z_
 
 ## Latest
 
@@ -6598,16 +6598,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $792.96 _(notional, rate-card)_ | no quota set |
-| Codex | 19.2M _(+682.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 52.8M | $793.01 _(notional, rate-card)_ | no quota set |
+| Codex | 19.2M _(+687.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`budgeted-campaign-phase1-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-phase1-build.md) — Task
 - [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-dedupe-836-903.md) — Reconcile the two platform-neutral SHA-256 implementations; land ONE on live llm
+- [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-06-sync-iteration-generators.md) — Complete synchronous iteration and generators
 
 ### tada (4402)
 - [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase2-weekly-bucket-design.md) — Completion report
