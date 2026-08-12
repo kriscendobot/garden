@@ -81,3 +81,13 @@ recurring calibration and the token bucket" section, or a sibling document if
 the amendment would make the existing one exceed the 1-3 screen norm — your
 call, cite the reason). Any open question goes in the document's own "Open
 questions," not guessed past. This is design only — no build in this job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T01:24:24Z
