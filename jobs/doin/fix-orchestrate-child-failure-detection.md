@@ -83,3 +83,13 @@ future parser gap degrades into a vague report instead of a confident false one.
   argument in the report for any leg deliberately not taken.
 - Pushed to `main2`. Note in the report that a deploy is required before the fix
   is live on the fleet.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T14:22:13Z
