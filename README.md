@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:09:08Z_
+_As of 2026-08-12T05:16:40Z_
 
 ## Latest
 
@@ -6638,14 +6638,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $808.81 _(notional, rate-card)_ | no quota set |
-| Codex | 19.5M _(+691.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 54.5M | $810.01 _(notional, rate-card)_ | no quota set |
+| Codex | 19.6M _(+694.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabot-merge-now-auto-conduct.md) — builder: dependabot MERGE-NOW auto-conducts — retire the maintainer-approval ...
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Review directive on endojs/endo-but-for-bots PR #903
 - [`weave-ebfb-pr970-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-pr970-onto-llm.md) — Unblock the Ironhorse arc: reconcile #970 with llm WITHOUT rewriting the shar...
 
