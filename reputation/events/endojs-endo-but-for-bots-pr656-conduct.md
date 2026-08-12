@@ -2,22 +2,22 @@
 base: endojs-endo-but-for-bots-pr656-conduct
 kind: gardener
 provider: anthropic
-model: claude-default
+model: claude-opus-5
 thoughtfulness: medium
-work_class: other:l
+work_class: ops:m
 target: main2
 accepted: true
-agentic_dollars: 1.278659
+agentic_dollars: 2.023782
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.014145
+estimated_dollars: 0.005451
 attempts: 1
-duration_secs: 205
+duration_secs: 79
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/gardener-2
-recorded_at: 2026-08-06T05:49:23Z
+recorded_by: endolin-garden2-5bcdff64/gardener-5
+recorded_at: 2026-08-12T23:38:07Z
 ---
-reputation event for endojs-endo-but-for-bots-pr656-conduct: arm anthropic/claude-default/medium work_class other:l target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr656-conduct: arm anthropic/claude-opus-5/medium work_class ops:m target main2 accepted true
