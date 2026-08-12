@@ -102,3 +102,13 @@ directly to `main2`. Phase 1 must be scoped so a same-day or next-day build
 can apply it to the waiting ironhorse campaign before the week's usefulness
 window closes. Open questions this job cannot resolve go in the document's
 own "Open questions" section.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T00:53:06Z
