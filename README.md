@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:05:44Z_
+_As of 2026-08-12T23:07:37Z_
 
 ## Latest
 
@@ -3532,28 +3532,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
-- `20260812T230044Z-054638` — from gardener:deadmail-20260812T225323Z-c7db45, reply_to `deadmail-20260812T225323Z-c7db45` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T230044Z-054638.md)
-
-> URGENT closure result, read-only, observed 2026-08-12T22:57:11Z–23:00:19Z (after the ~22:37–22:45 containment window): the public `/ocapn-daemon` bootstrap is indirectly host-powerful for any bearer of a valid daemon location. It is not bounded safe.
->
-> Deployed artifact exact closure:
->
-> - `endo-bootstrap` methods: `getNodeId`, `getAgentBinding`, `getGreeter`, `help`.
-> - `getAgentBinding()` returns only a pass-by-copy record `{agentPublicKey: string, signature: string}`; no methods.
-> - `getGreeter()` returns `EndoGreeter`, method `hello` only.
-> - `hello(remoteNodeId, remoteGateway, cancel, cancelled)` returns the daemon's `localGateway` with methods `provide` and `followRetentionSet`.
-> - `followRetentionSet(peerNodeNumber)` has no session/peer binding or authorization check. It directly runs `listFormulaNumbersByNode(peerNodeNumber)`. Since `getNodeId()` publicly reveals the local node, a locator bearer can pass that node to enumerate every local formula number, combine each number with the known node into a full formula ID, and call `provide(id)`.
-> - The live read-only SQLite inventory confirms this is consequential: the advertised local node is `a6cd6e...`; its indexed formulas include `endo`, 23 `eval`, `make-unconfined`, `least-authority`, workers, directories, peers, invitations, and other daemon formulas. Thus the closure reaches unconfined/host-equivalent authority even though the first bootstrap object is not EndoHost. I did not invoke `hello` or `provide` against production because that handshake mutates peer/retention state; this conclusion is from the exact deployed container source plus a read-only DB query.
->
-> Locator gate:
->
-> - Reaching the WSS port is insufficient. Noise IK requires the responder's current 256-bit Ed25519 designator, and the current location/designator lives in `/data/ocapn-daemon-location.json`; it is not served by Caddy. The designator is computationally unguessable.
-> - But the swissnum is fixed and public (`endo-bootstrap`), not a secret nonce. More importantly, every legitimate Endo invitation's `locate()` includes `addresses()`, and the OCapN address embeds the complete Noise location/designator in its `loc=` parameter. Therefore every invitation recipient/legitimate peer becomes a bearer of the dangerous bootstrap locator; a leaked/stored invitation or address does too. This is capability-gated, not internet-open, but the gate is broader than the invitation's own random formula number because possession of any address reveals the fixed bootstrap entry.
->
-> Separate `/ocapn` toy demo is bounded safe. Its locator contains only fixed swissnum `greeter`; the returned Greeter has methods `hello(string)->string` and `getNodeId()->string`, and those return only strings. Its Noise location/designator is likewise host-local (`/opt/ocapn-demo/ocapn-demo-location.json`) and fetched by the operational demo over SSM, not published by Caddy. A bearer can invoke only those two harmless methods.
->
-> Containment implication: disable/remove the public `/ocapn-daemon` listener or rotate/retire its current Noise location until the Gateway API is fixed. The code-level fix must bind `followRetentionSet` to the authenticated peer and must not let a caller enumerate the local node's formula index; `provide` remains safe only if formula numbers stay secret.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6699,19 +6677,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $810.72 _(notional, rate-card)_ | no quota set |
+| Claude | 54.2M | $811.66 _(notional, rate-card)_ | no quota set |
 | Codex | 21.9M _(+759.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (10)
 - [`deadmail-20260812T225323Z-c7db45`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T225323Z-c7db45.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`ebfb-ocapn-gateway-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ocapn-gateway-retention-set-peer-binding.md) — The defect
+- [`endojs-endo-but-for-bots-pr475-7c5c6233`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-7c5c6233.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr977-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #977
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260812-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260812-230502.md) — ---
+- [`minion-town-containment-ocapn-daemon-routes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-containment-ocapn-daemon-routes.md) — Why
 - [`minion-town-dckc-session-residue-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-dckc-session-residue-forensics.md) — Why this job exists
 - [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-endpoint-closure-audit.md) — Why this job exists
 - [`minion-town-ocapn-locator-leak-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-locator-leak-audit.md) — Why this job exists
@@ -6841,6 +6821,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr475-review-5c72a19b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-5c72a19b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-ad33fffb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-ad33fffb-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr475-review-05cf7242-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-review-05cf7242-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr475-7c5c6233-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr475-7c5c6233-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #475 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
