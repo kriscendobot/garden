@@ -119,3 +119,13 @@ If it does not check out, park the campaign and report rather than guessing.
 - If the precondition failed, none of the above — just the halt and the message.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T17:03:21Z
