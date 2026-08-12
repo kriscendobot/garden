@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T04:56:28Z_
+_As of 2026-08-12T04:57:11Z_
 
 ## Latest
 
@@ -6638,17 +6638,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $806.80 _(notional, rate-card)_ | no quota set |
-| Codex | 19.4M _(+689.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 54.5M | $807.84 _(notional, rate-card)_ | no quota set |
+| Codex | 19.4M _(+689.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Review directive on endojs/endo-but-for-bots PR #903
 - [`fix-handler-budget-role-defaults`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-handler-budget-role-defaults.md) — Give long-running stage types a role-appropriate handler budget; fix the noti...
 - [`fix-orchestrate-watcher-progress-and-serial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-watcher-progress-and-serial.md) — Fix two orchestrate-watcher defects: progress-blind stall detection, and conc...
+- [`weave-ebfb-pr970-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-ebfb-pr970-onto-llm.md) — Unblock the Ironhorse arc: reconcile #970 with llm WITHOUT rewriting the shar...
 
 ### tada (4409)
 - [`ironhorse-js-06-sync-iteration-generators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators-gauntlet.md) — gauntlet ironhorse-js-06-sync-iteration-generators-gauntlet — HALTED
