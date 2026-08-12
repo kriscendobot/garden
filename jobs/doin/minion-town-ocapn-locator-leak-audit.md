@@ -68,3 +68,13 @@ older published strings are stale.
   a truncated prefix. Do not post it anywhere.
 - Message the maintainer immediately if you find a current address on a public
   surface. That converts a capability-gated exposure into an open one.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T23:04:53Z
