@@ -1,1 +1,2 @@
 {"ts":"2026-08-12T22:32:27Z","base":"ebfb-guest-unconfined-from-tree","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2106}
+{"ts":"2026-08-12T22:46:14Z","base":"ebfb-guest-unconfined-from-tree","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":760}
