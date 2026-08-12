@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: builder
@@ -51,13 +52,4 @@ Notes:
   is confirmed, before the full fix lands, since the answer changes how urgent
   the deploy is.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-12T21:56:54Z
+<!-- garden-reaped: 0 -->
