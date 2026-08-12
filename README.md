@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:16:26Z_
+_As of 2026-08-12T23:17:37Z_
 
 ## Latest
 
@@ -14,14 +14,14 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 3m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 24d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 29d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 41d)
 
@@ -6681,15 +6681,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $820.15 _(notional, rate-card)_ | no quota set |
-| Codex | 22.3M _(+767.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 29% _(plan; codex-reported)_ |
+| Claude | 54.4M | $817.67 _(notional, rate-card)_ | no quota set |
+| Codex | 22.3M _(+769.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
-- [`deadmail-20260812T225323Z-c7db45`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T225323Z-c7db45.md) — Dead-lettered message — pick up its intent
+### doin (8)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`ebfb-ocapn-gateway-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ocapn-gateway-retention-set-peer-binding.md) — The defect
 - [`endojs-endo-but-for-bots-pr475-7c5c6233`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-7c5c6233.md) — attention directive on endojs/endo-but-for-bots PR #475
@@ -6699,13 +6698,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-endpoint-closure-audit.md) — Why this job exists
 - [`minion-town-ocapn-locator-leak-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-locator-leak-audit.md) — Why this job exists
 
-### tada (4450)
+### tada (4451)
+- [`deadmail-20260812T225323Z-c7db45`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T225323Z-c7db45.md) — Completion report — dead-letter pickup deadmail-20260812T225323Z-c7db45
 - [`endojs-endo-but-for-bots-pr475-review-658d5a17`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-658d5a17.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260812-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260812-230502.md) — Completion Report — fu-minion-town-containment-gateway-endo-sock-1
 - [`endojs-endo-but-for-bots-pr475-d19add5f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-d19add5f.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-2d488d9a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2d488d9a.md) — Cost
-- … and 4445 more
+- … and 4446 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
