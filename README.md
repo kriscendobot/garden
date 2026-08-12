@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:31:36Z_
+_As of 2026-08-12T05:32:49Z_
 
 ## Latest
 
@@ -3497,6 +3497,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ironhorse-js-06-sync-iteration-generators-gauntlet HALTED: stage 'ironhorse-js-06-sync-iteration-generators-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260812T053228Z-6aa19b` — from gardener:dependabotany-sweep-approval-held, reply_to `dependabotany-sweep-approval-held` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T053228Z-6aa19b.md)
+
+> dependabotany-sweep-approval-held HALTED at its precondition — the deploy is the blocker, not the PRs.
+>
+> The seven approval-held MERGE-NOW dependabot PRs on endojs/endo-but-for-bots cannot be swept yet. The auto-conduct policy (skip maintainer approval for a dependabot-authored PR on a bot-owned repo) is committed on origin/main2 as `225e364eb0 feat(botany): auto-conduct Dependabot MERGE-NOW`, which adds the `--dependabot-auto-merge` mode to scripts/jobs/gardening/ci-wait-merge.sh.
+>
+> But the DEPLOYED garden root (HEAD c7d730c36) does NOT carry it: its ci-wait-merge.sh has no `--dependabot-auto-merge` flag and still calls pr-maintainer-approval-gh.sh unconditionally at the merge point. `deploy-garden.sh` has not run since that commit landed.
+>
+> Per the job's own precondition I did NOT review or merge anything under the old rules, and I am ending the job with orchestration-failed: true so the orchestration HALTS. Re-promote this sweep after deploy-garden.sh advances the root past 225e364eb0.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6638,8 +6648,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.6M | $810.89 _(notional, rate-card)_ | no quota set |
-| Codex | 19.6M _(+700.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 54.6M | $811.46 _(notional, rate-card)_ | no quota set |
+| Codex | 19.6M _(+701.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
