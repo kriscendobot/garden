@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T01:38:10Z_
+_As of 2026-08-12T01:42:57Z_
 
 ## Latest
 
@@ -3457,6 +3457,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Also: the Cognito/IaC part needs `cdk deploy` BEFORE the app roll (resource server + PKCE client drop minions:* first); recorded as Phase 12 in DEPLOYMENT.md. No deploy performed.
 
+- `20260812T014239Z-d62597` — from gardener:endo-sha256-dedupe-836-903, reply_to `endo-sha256-dedupe-836-903` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T014239Z-d62597.md)
+
+> SHA-256 dedupe done: [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) is the reconciled survivor on live `llm` — green and mergeable, awaiting your approval on the current head.
+>
+> - **Carrier = [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903)** (not [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836)). [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836) merged only into the frozen `llm-bfc91f5` (invisible from live `llm`); [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) is on live `llm` and is a strict superset — same public API, plus the daemon `host-tool-powers` + `rust/endo/xsnap` crypto integration and richer tests that [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836) never carried. Diff found nothing materially unique in [endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836), so nothing needed porting.
+> - **Lint fix:** the failing `lint` leg was PR-introduced (a stale `packages/git/tsconfig.composite.json` after the new `@endo/sha256` dep), not the known repo-wide flake. Regenerated it; all 26 checks now pass. Head is now `a1a18e3f7`.
+> - **[endojs/endo-but-for-bots#836](https://github.com/endojs/endo-but-for-bots/issues/836)** is already merged (to the frozen base), so there is no open loser to close; cross-reference comments are posted on both PRs recording the absorption.
+> - **Not merged** — both prior approvals are stale against the current head and the gate correctly refuses. Needs a fresh approval on `a1a18e3f7` to merge.
+> - **Self-improvement:** the duplication traces to the frozen-base blind spot; filed a structural proposal to the liaison for a producer-side supersession check.
+>
+> Please approve [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) at `a1a18e3f7` if it looks right.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6598,7 +6610,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $793.01 _(notional, rate-card)_ | no quota set |
+| Claude | 52.8M | $793.19 _(notional, rate-card)_ | no quota set |
 | Codex | 19.2M _(+688.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
