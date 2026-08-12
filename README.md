@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T15:02:16Z_
+_As of 2026-08-12T15:21:13Z_
 
 ## Latest
 
@@ -6652,15 +6652,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.5M | $802.24 _(notional, rate-card)_ | no quota set |
-| Codex | 20.0M _(+707.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
+| Claude | 53.5M | $798.47 _(notional, rate-card)_ | no quota set |
+| Codex | 20.0M _(+707.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-automate-stale-dependabot-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-automate-stale-dependabot-rebase.md) — ---
 
 ### tada (4418)
 - [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held-2.md) — Cost
