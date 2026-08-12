@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:32:59Z_
+_As of 2026-08-12T23:33:22Z_
 
 ## Latest
 
@@ -6709,8 +6709,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
+- [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 
 ### tada (4461)
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Cost
