@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T17:19:36Z_
+_As of 2026-08-12T17:39:03Z_
 
 ## Latest
 
@@ -6670,23 +6670,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 53.4M | $793.98 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+687.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Codex | 19.6M _(+699.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
-- [`ironhorse-js-07-promises-async-functions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-07-promises-async-functions.md) — Complete Promises, jobs, and async functions
 
-### tada (4423)
+### tada (4424)
+- [`ironhorse-js-07-promises-async-functions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-07-promises-async-functions.md) — Cost
 - [`ironhorse-test262-restore-and-relaunch-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch-2.md) — Completion report
 - [`ironhorse-test262-restore-and-relaunch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch.md) — Completion report
 - [`design-liveness-progress-over-elapsed-deadlines`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-liveness-progress-over-elapsed-deadlines.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260812-162003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260812-162003.md) — Completion report
-- [`improve-automate-stale-dependabot-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-automate-stale-dependabot-rebase.md) — Completion report: improve-automate-stale-dependabot-rebase
-- … and 4418 more
+- … and 4419 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
