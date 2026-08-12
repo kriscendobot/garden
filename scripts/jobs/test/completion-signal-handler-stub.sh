@@ -16,12 +16,17 @@
 #                           that pushed real work this cycle (the productive-cycle
 #                           signal). No-op unless the worktree already exists as a git
 #                           repo (a RESUMED worktree persisted from a prior cycle).
+#   GARDEN_STUB_ORCHESTRATION_FAILED 1 → make the exact failure signal the
+#                           report's last line; gardener.sh must translate it to
+#                           stamped frontmatter during completion.
 #
 # Used by completion-signal-test.sh and productive-cycle-test.sh.
 set -uo pipefail
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report}"
 
 printf '# report for %s\nstub handler ran\n' "$base" > "$report"
+[ "${GARDEN_STUB_ORCHESTRATION_FAILED:-0}" = "1" ] \
+  && printf '%s\n' '<<<GARDEN-ORCHESTRATION-FAILED>>>' >> "$report"
 [ -n "${GARDEN_STUB_CAPTURE:-}" ] && { echo "$GARDEN_STUB_CAPTURE"; echo "$GARDEN_STUB_CAPTURE" >&2; }
 
 # Model real per-cycle progress: advance the persisted garden worktree's HEAD.

@@ -66,6 +66,8 @@ export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
 # keep pushes fast and quiet
 export GARDEN_POST_ATTEMPTS=50
+# shellcheck source=../common.sh
+source "$JOBS/common.sh"
 
 # --- board inspection helpers (fresh clone each call) -----------------------
 V="$TR/verify"
@@ -115,6 +117,40 @@ append_usage() {  # append_usage <base> <line>
 tick() { "$JOBS/orchestrate.sh" >"$TR/tick.log" 2>&1 || { echo "  (orchestrate.sh rc=$? — see $TR/tick.log)"; cat "$TR/tick.log"; }; }
 
 # ============================================================================
+hr; echo "SUBTEST 0 — FAILURE VERDICT CONTRACT: decorated legacy, frontmatter, and prose mention"; hr
+decorated="$TR/decorated-report.md"
+frontmatter="$TR/frontmatter-report.md"
+mention="$TR/prose-mention-report.md"
+bullet="$TR/bulleted-report.md"
+printf '%s\n' \
+  'The precondition gate correctly halted this job. Here is my report.' \
+  '' \
+  '---' \
+  '' \
+  '## Botanist sweep — HALTED at precondition (deploy is the blocker)' \
+  '' \
+  '**Outcome: `orchestration-failed: true`** — this is the correct disposition …' \
+  > "$decorated"
+printf '%s\n' '---' 'orchestration-failed: true' '---' '# clean stamped report' > "$frontmatter"
+printf '%s\n' \
+  'The job body told the child to end the job with `orchestration-failed: true` in the report.' \
+  > "$mention"
+printf '%s\n' '  - **`orchestration-failed: yes`**' > "$bullet"
+
+tada_failed "$decorated" \
+  && ok "decorated Outcome verdict from the real incident is classified failed" \
+  || bad "decorated Outcome verdict was missed"
+tada_failed "$frontmatter" \
+  && ok "clean leading-frontmatter declaration is classified failed" \
+  || bad "leading-frontmatter declaration was missed"
+tada_failed "$mention" \
+  && bad "ordinary prose mentioning the token was misclassified failed" \
+  || ok "ordinary prose mentioning the token does NOT declare failure"
+tada_failed "$bullet" \
+  && ok "leading whitespace plus list/emphasis/backtick decoration is classified failed" \
+  || bad "bulleted decorated verdict was missed"
+
+# ============================================================================
 hr; echo "SUBTEST 1 — SERIAL: promote one child at a time, in order"; hr
 "$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial s-a >/dev/null
 "$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-serial s-b >/dev/null
@@ -147,6 +183,11 @@ tick   # all done → orchestration completes
 { in_dir jobs/tada orch-serial && ! in_dir jobs/orch orch-serial; } \
   && ok "tick 5: all children done → orchestration completed (tada/orch-serial, record removed)" \
   || bad "tick 5: orch not completed (tada=[$(board jobs/tada)] orch=[$(board jobs/orch)])"
+{ grep -q '^Child dispositions:' "$V/jobs/tada/orch-serial.md" \
+  && grep -q '^- s-a: tada report present; no machine-readable failure declaration detected$' "$V/jobs/tada/orch-serial.md" \
+  && ! grep -q '^All children succeeded\.$' "$V/jobs/tada/orch-serial.md"; } \
+  && ok "completion report restates scoped child dispositions instead of blanket success" \
+  || bad "completion report retained a confident blanket-success assertion"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — PARALLEL: promote all children at once"; hr

@@ -633,9 +633,13 @@ while :; do
     # the handler already succeeded. Tolerate the offline rc: the job stays in
     # doin and the reaper requeues it after GARDEN_CLAIM_TTL; the handler's work
     # is idempotent on re-claim. Any other non-zero is still a real failure.
+    completion_args=()
+    if report_has_orchestration_failure_marker "$report"; then
+      completion_args=(--orchestration-failed)
+    fi
     set +e
     GARDEN_JOB_DURATION_SECS=$elapsed_usage GARDEN_ENGAGEMENT_USAGE="$usage_measurement" \
-      "$HERE/complete-job.sh" "$id" "$base" "$report"; crc=$?
+      "$HERE/complete-job.sh" "${completion_args[@]}" "$id" "$base" "$report"; crc=$?
     set -e
     if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
       append_usage requeue

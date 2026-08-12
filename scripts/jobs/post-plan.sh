@@ -21,6 +21,10 @@
 #                the orchestration's children into todo/ per its order (serial |
 #                parallel) and watches them to completion. The `orchestrated-by:`
 #                field names the owning orchestration; requires --orchestrated-by.
+#                A child that finishes without achieving its gated outcome emits
+#                `<<<GARDEN-ORCHESTRATION-FAILED>>>` as the penultimate report line,
+#                immediately before `<<<GARDEN-JOB-COMPLETE>>>`. Completion then
+#                stamps `orchestration-failed: true` into leading frontmatter.
 #                See skills/orchestration/SKILL.md.
 # It becomes work only when promote-plan.sh moves plan/<base> → todo/<base>.
 #
@@ -101,6 +105,10 @@ Usage:
   --go-ahead / --deferred / --blocked / --orchestrated  the gate reason (default --deferred).
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
   --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
+                           A failed child ends its report with the exact lines
+                           <<<GARDEN-ORCHESTRATION-FAILED>>>
+                           <<<GARDEN-JOB-COMPLETE>>>
+                           in that order; completion stamps the parsed field.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
   --role ROLE              the role a gardener wears to do the work; stamped as

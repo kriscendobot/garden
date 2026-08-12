@@ -80,6 +80,20 @@ progress, and applies a failure policy rather than silently stalling.
      the first failure (sweeping not-yet-run downstream children) and **surfaces
      the failure to the maintainer inbox**; **continue** proceeds to the next
      child. Never a silent stall.
+   - **child failure emission** is mechanical. A child that genuinely finishes
+     but does not achieve its gated outcome ends its report with these exact two
+     lines, in this order:
+
+     ```text
+     <<<GARDEN-ORCHESTRATION-FAILED>>>
+     <<<GARDEN-JOB-COMPLETE>>>
+     ```
+
+     The gardener passes `--orchestration-failed` to `complete-job.sh`, which
+     removes the signal and stamps `orchestration-failed: true` into leading YAML
+     frontmatter. Do not free-type that field into Markdown prose. Producers can
+     quote this exact contract in an orchestrated child body; `post-plan.sh
+     --orchestrated --help` carries the same guidance.
 5. **Completion.** When every child is terminal the watcher writes
    `jobs/tada/<orch-base>.md` (an outcome summary carrying an
    `orchestration-status:` marker) and removes the record, so the orchestration
@@ -140,6 +154,10 @@ also leaves a maintainer-inbox note.
 - **Children must be parked before the orchestration is recorded** —
   `post-orchestration.sh` enforces this; a child that never existed reads as
   `failed` (there is no way to distinguish "never posted" from "vanished").
+- **Legacy report compatibility:** `tada_failed()` also recognizes a dedicated
+  verdict line whose marker is wrapped in Markdown list/emphasis/backtick
+  decoration, including an `Outcome:` line. A prose sentence that merely
+  discusses the marker is not a verdict and does not fail the child.
 - **Budgets gate admission, not execution:** an already-promoted child is never
   killed. Its actual cost may overshoot the declaration; the watcher reports the
   overshoot and stops before the next promotion.

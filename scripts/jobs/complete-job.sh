@@ -1,9 +1,11 @@
 #!/bin/bash
 # complete-job.sh — consumer primitive: finish a job, doin → tada (report).
 #
-# Usage: complete-job.sh <gardener-id> <basename> <report-file>
+# Usage: complete-job.sh [--orchestration-failed] <gardener-id> <basename> <report-file>
 #   Removes jobs/doin/<basename> and writes jobs/tada/<basename> from
 #   <report-file>, under the SAME reserved basename.
+#   --orchestration-failed strips the exact worker failure signal (when present)
+#   and mechanically stamps `orchestration-failed: true` in leading frontmatter.
 #
 # Unlike a claim, completion touches only THIS gardener's own basename, so it
 # is safe to retry on push contention: re-sync, re-apply the deterministic
@@ -16,7 +18,12 @@ source "$HERE/common.sh"
 # shellcheck source=auction.sh
 source "$HERE/auction.sh"     # reputation.sh helpers + JOBS_BIDS (source-once guarded)
 
-id="${1:?usage: complete-job.sh <gardener-id> <basename> <report-file>}"
+orchestration_failed=false
+if [ "${1:-}" = "--orchestration-failed" ]; then
+  orchestration_failed=true
+  shift
+fi
+id="${1:?usage: complete-job.sh [--orchestration-failed] <gardener-id> <basename> <report-file>}"
 base="${2:?missing basename}"
 report="${3:?missing report-file}"
 # The completing worker's kind, inherited from the spine (gardener.sh exports it).
@@ -128,6 +135,13 @@ for attempt in $(seq 1 100); do
   sync_clone "$DIR"
   mkdir -p "$DIR/$JOBS_TADA"
   cp "$report" "$DIR/$JOBS_TADA/$base.md"
+  if $orchestration_failed; then
+    # The worker emits an exact signal, not a machine-parsed Markdown field.
+    # Remove that signal and stamp a leading YAML field ourselves so formatting
+    # choices in the human report cannot change the child disposition.
+    sed -i "/^${GARDEN_ORCHESTRATION_FAILURE_MARKER}$/d" "$DIR/$JOBS_TADA/$base.md"
+    sed -i '1i---\norchestration-failed: true\n---' "$DIR/$JOBS_TADA/$base.md"
+  fi
   # The final engagement rides this same completion CAS.  Only append while the
   # doin claim exists: a retry after a successful transition must re-stamp the
   # view but never duplicate a CostRecord.

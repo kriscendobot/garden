@@ -136,6 +136,13 @@ as the very LAST line of your report, on its own line, as your final act. If you
 still did NOT finish, do NOT emit that line — the job will be requeued and
 resumed again rather than falsely recorded as done.
 
+ORCHESTRATED FAILURE SIGNAL: If you genuinely finished but did NOT achieve a
+gated outcome required by an orchestration, emit the exact line
+    $GARDEN_ORCHESTRATION_FAILURE_MARKER
+immediately BEFORE the completion signal. Do not type an
+\`orchestration-failed:\` field into prose. The completion machinery stamps that
+field into report frontmatter from this exact signal.
+
 $note
 
 ----- JOB $base -----
@@ -165,6 +172,13 @@ as the very LAST line of your report, on its own line, as your final act. If you
 still did NOT finish, do NOT emit that line — the job will be requeued and
 resumed again rather than falsely recorded as done.
 
+ORCHESTRATED FAILURE SIGNAL: If you genuinely finished but did NOT achieve a
+gated outcome required by an orchestration, emit the exact line
+    $GARDEN_ORCHESTRATION_FAILURE_MARKER
+immediately BEFORE the completion signal. Do not type an
+\`orchestration-failed:\` field into prose. The completion machinery stamps that
+field into report frontmatter from this exact signal.
+
 $note
 
 ----- JOB $base -----
@@ -185,6 +199,13 @@ as the very LAST line of your report, on its own line, as your final act. This i
 the deterministic signal that the job completed. If you did NOT finish — you ran
 out of turns, hit a wall, or are unsure the work is done — do NOT emit that line;
 the job will be requeued and resumed rather than falsely recorded as done.
+
+ORCHESTRATED FAILURE SIGNAL: If you genuinely finished but did NOT achieve a
+gated outcome required by an orchestration, emit the exact line
+    $GARDEN_ORCHESTRATION_FAILURE_MARKER
+immediately BEFORE the completion signal. Do not type an
+\`orchestration-failed:\` field into prose. The completion machinery stamps that
+field into report frontmatter from this exact signal.
 
 $note
 

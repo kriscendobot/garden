@@ -20,6 +20,8 @@
 #
 # SUBTEST 1 — pure helpers report_has_completion_marker / strip_completion_marker.
 # SUBTEST 2 — (b) handler exits 0 WITH the signal → job completed to tada.
+# SUBTEST 2A — an exact orchestration-failure signal is mechanically stamped
+#              into leading frontmatter and removed from the human report.
 # SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → NOT in tada; left in doin
 #             with a reap-now hint; the reaper then requeues it doin→todo.
 # SUBTEST 4 — (c) each of the four named exit modes (API error / rate limit / quota
@@ -96,6 +98,15 @@ strip_completion_marker "$r"
   && ok "strip drops the marker line, preserves the report body" \
   || bad "strip damaged the body or left the marker ($(tr '\n' '|' <"$r"))"
 
+printf 'work finished without the gated outcome\n%s\n' "$GARDEN_ORCHESTRATION_FAILURE_MARKER" > "$r"
+report_has_orchestration_failure_marker "$r" \
+  && ok "exact final failure signal is detected for mechanical stamping" \
+  || bad "exact final failure signal was missed"
+printf '%s\n' "$GARDEN_ORCHESTRATION_FAILURE_MARKER" 'more prose' > "$r"
+report_has_orchestration_failure_marker "$r" \
+  && bad "mid-report failure signal was accepted" \
+  || ok "failure signal is last-line-anchored"
+
 # ============================================================================
 hr; echo "SUBTEST 2 — (b) handler exits 0 WITH the signal → completed to tada"; hr
 T2="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2.XXXXXX")"
@@ -110,6 +121,24 @@ V2="$T2/verify"; git clone -q --single-branch --branch journal2 "$BARE2" "$V2" 2
   && ok "signaled completion moved the job doin→tada" \
   || bad "signaled job not in tada (tada=$([ -f "$V2/jobs/tada/donejob.md" ] && echo y || echo n) doin=$([ -e "$V2/jobs/doin/donejob.md" ] && echo y || echo n) todo=$([ -e "$V2/jobs/todo/donejob.md" ] && echo y || echo n))"
 rm -rf "$T2"
+
+# ============================================================================
+hr; echo "SUBTEST 2A — orchestration failure signal → mechanically stamped frontmatter"; hr
+T2A="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2a.XXXXXX")"
+BARE2A="$(seed_board "$T2A" failedchild)"
+env GARDEN="failhost" GARDEN_STATE="$T2A/state" JOURNAL_REMOTE="$BARE2A" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+    GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_ORCHESTRATION_FAILED=1 \
+    GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2A/gardener.log" 2>&1 || true
+V2A="$T2A/verify"; git clone -q --single-branch --branch journal2 "$BARE2A" "$V2A" 2>/dev/null
+{ [ -f "$V2A/jobs/tada/failedchild.md" ] \
+  && sed -n '1,3p' "$V2A/jobs/tada/failedchild.md" | grep -qx 'orchestration-failed: true' \
+  && ! grep -qF "$GARDEN_ORCHESTRATION_FAILURE_MARKER" "$V2A/jobs/tada/failedchild.md" \
+  && tada_failed "$V2A/jobs/tada/failedchild.md"; } \
+  && ok "gardener/complete-job translated the exact signal into parsed frontmatter" \
+  || bad "failure signal was not translated cleanly ($(sed -n '1,8p' "$V2A/jobs/tada/failedchild.md" 2>/dev/null | tr '\n' '|'))"
+rm -rf "$T2A"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → requeued, NOT tada"; hr

@@ -34,8 +34,12 @@ to completion — so a follow-up is never forgotten.
   serial run at the first failed child, sweeps the not-yet-run downstream
   children, and surfaces the failure to the maintainer; `continue` proceeds. A
   child "fails" when it vanishes from the board without reaching `tada/` (the
-  reaper doomed it) or its report marks `orchestration-failed: true`. **Never a
-  silent stall** — that is the whole point of the watch.
+  reaper doomed it) or its report declares failure. The child emits the exact
+  line `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before its final
+  `<<<GARDEN-JOB-COMPLETE>>>` line; completion mechanically stamps
+  `orchestration-failed: true` into leading report frontmatter. Do not instruct a
+  child to free-type the parsed field into prose. **Never a silent stall** — that
+  is the whole point of the watch.
 - **Relate to `blocked_on`, don't duplicate it.** For a plain linear two-step
   dependency with no parallelism, progress report, or failure policy,
   `post-plan.sh --blocked --blocked-on <predecessor>` + the unblock watcher is the

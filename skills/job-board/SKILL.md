@@ -57,9 +57,11 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
   job) stays on the untouched race. The auction adds `bid_window` latency and one
   push per bidder; it degrades to the race for 0/1 bidders and after its staged
   liveness window. See `scripts/jobs/auction.sh` + `reputation.sh`.
-- **Complete** (`complete-job.sh <id> <base> <report>`): remove
+- **Complete** (`complete-job.sh [--orchestration-failed] <id> <base> <report>`): remove
   `doin/<base>.md`/`work/<base>`/`inbox/<base>`, write `tada/<base>.md`, sweep
   `jobs/bids/<base>/`, record the `reputation/` event, push.
+  `--orchestration-failed` removes the exact worker failure signal and stamps
+  `orchestration-failed: true` into leading YAML frontmatter mechanically.
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 

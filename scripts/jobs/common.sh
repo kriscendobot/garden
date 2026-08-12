@@ -3319,6 +3319,7 @@ reap_process_group() {
 #      simulates a genuine completion just writes the sentinel directly.
 # gardener.sh reads only the sentinel: present → complete; absent → requeue.
 GARDEN_COMPLETION_MARKER='<<<GARDEN-JOB-COMPLETE>>>'
+GARDEN_ORCHESTRATION_FAILURE_MARKER='<<<GARDEN-ORCHESTRATION-FAILED>>>'
 
 # report_has_completion_marker <report-file> — 0 iff the report's LAST non-blank
 # line is exactly the completion marker (the worker's final deterministic act).
@@ -3348,6 +3349,21 @@ strip_completion_marker() {
       for (i=1;i<=n;i++) print line[i]
     }
   ' "$f" > "$f.stripmarker" && mv "$f.stripmarker" "$f"
+}
+
+# report_has_orchestration_failure_marker <report-file> — 0 iff the report's
+# last non-blank line is the exact failure marker. Handlers strip the completion
+# marker first, so a worker declares a completed-but-unsatisfied outcome by making
+# these its final two non-blank lines, in order:
+#   <<<GARDEN-ORCHESTRATION-FAILED>>>
+#   <<<GARDEN-JOB-COMPLETE>>>
+# gardener.sh passes `--orchestration-failed` to complete-job.sh, which removes
+# this signal and mechanically stamps the parsed frontmatter field.
+report_has_orchestration_failure_marker() {
+  local f="${1:-}" last
+  [ -f "$f" ] || return 1
+  last="$(awk 'NF{l=$0} END{print l}' "$f")"
+  [ "$last" = "$GARDEN_ORCHESTRATION_FAILURE_MARKER" ]
 }
 
 # Marker the reaper stamps into a requeued job body to count requeue cycles. It
@@ -5114,12 +5130,22 @@ gauntlet_pr() { plan_field "$1" pr; }
 
 # Did a job's tada REPORT declare that the job completed WITHOUT achieving its
 # gated outcome? A job can reach tada/ (it finished, its worker exited cleanly)
-# yet decline the very thing a downstream gate keys on — the canonical case is a
+# yet decline the very thing a downstream gate keys on. The canonical case is a
 # conductor whose `merge` job correctly REFUSES to merge (CI red, base frozen,
-# ferry-required) but still completes. Such a report carries an explicit failure
-# marker so a dependent is NOT satisfied by the mere completion:
-#   orchestration-failed: true|yes            (or: yes)
-#   orchestration-status: fail…               (halted / failed / fail)
+# ferry-required) but still completes.
+#
+# CONTRACT: recognize a failure declaration only in leading YAML frontmatter or
+# on a dedicated verdict line. The preferred path is the mechanically stamped
+# leading field written by `complete-job.sh --orchestration-failed`:
+#   ---
+#   orchestration-failed: true
+#   ---
+# For compatibility with reports written before that flag existed, a dedicated
+# line may carry the same token with leading whitespace, a Markdown list bullet,
+# emphasis/backticks, and an optional `Outcome:` label. An Outcome line may add
+# an explanation after the decorated marker. Ordinary prose that merely quotes or
+# discusses the token does NOT count. `orchestration-status: fail...` follows the
+# same frontmatter-or-dedicated-line rule for watcher-authored terminal reports.
 # Returns 0 when the marker is present, 1 otherwise. This is the SINGLE source of
 # truth for "completed-but-declined", honored by BOTH deterministic serial
 # primitives: the orchestrate watcher (a child that failed → on-child-failure
@@ -5127,8 +5153,22 @@ gauntlet_pr() { plan_field "$1" pr; }
 # NOT promote; hold for the maintainer). Keep the two in lock-step by reading the
 # same marker here rather than re-spelling the grep in each.
 tada_failed() {
-  grep -qiE '^orchestration-(status:[[:space:]]*fail|failed:[[:space:]]*(true|yes))' \
-    "$1" 2>/dev/null
+  local f="${1:-}" declared status
+  [ -f "$f" ] || return 1
+
+  declared="$(plan_field "$f" orchestration-failed)"
+  status="$(plan_field "$f" orchestration-status)"
+  [[ "${declared,,}" =~ ^(true|yes)$ ]] && return 0
+  [[ "${status,,}" =~ ^(fail|halt) ]] && return 0
+
+  # A bare marker is a whole dedicated line. The Outcome form is also anchored
+  # at the line start, but may carry the explanatory prose used by older reports.
+  grep -qiE \
+    '^[[:space:]]*([-+*][[:space:]]+)?(\*\*|__)?`?orchestration-(failed:[[:space:]]*(true|yes)|status:[[:space:]]*(fail|halt)[[:alnum:]-]*)`?(\*\*|__)?[[:space:]]*$' \
+    "$f" 2>/dev/null && return 0
+  grep -qiE \
+    '^[[:space:]]*([-+*][[:space:]]+)?(\*\*|__)?Outcome:[[:space:]]*`?orchestration-(failed:[[:space:]]*(true|yes)|status:[[:space:]]*(fail|halt)[[:alnum:]-]*)`?(\*\*|__)?([[:space:]]+[-:—].*)?[[:space:]]*$' \
+    "$f" 2>/dev/null
 }
 
 # Parse an artifact string as a GitHub pull-request reference. On a match prints

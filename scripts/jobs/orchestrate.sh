@@ -566,7 +566,9 @@ advance_parallel() {  # <base> <policy> <child>...
 # reachable on policy=continue for serial, or normally for parallel) are surfaced.
 complete_done() {  # <base> <total> <order> [<failed-child>...]
   local base="$1" total="$2" order="$3"; shift 3
-  local failed=("$@") sf budget snapshot reason_file
+  local failed=("$@") sf budget snapshot reason_file c f disposition
+  local completion_kids=()
+  read -ra completion_kids <<<"$(orch_children "$DIR/$JOBS_ORCH/$base.md")"
   budget="$(orch_budget_tokens "$DIR/$JOBS_ORCH/$base.md")"
   if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
     reason_file="$(mktemp "${TMPDIR:-/tmp}/orch-budget-reason.XXXXXX")"
@@ -586,9 +588,15 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
     printf 'All %d children reached a terminal state (%s).\n' "$total" "$order"
     if [ "${#failed[@]}" -gt 0 ]; then
       printf '%d child(ren) FAILED: %s\n' "${#failed[@]}" "${failed[*]}"
-    else
-      printf 'All children succeeded.\n'
     fi
+    printf '\nChild dispositions:\n'
+    for c in "${completion_kids[@]}"; do
+      disposition='tada report present; no machine-readable failure declaration detected'
+      for f in "${failed[@]}"; do
+        [ "$c" = "$f" ] && disposition='failure detected'
+      done
+      printf -- '- %s: %s\n' "$c" "$disposition"
+    done
     if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
       printf '\n'
       print_campaign_quantities "$snapshot"
