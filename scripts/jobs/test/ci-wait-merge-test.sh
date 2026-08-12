@@ -29,6 +29,12 @@
 #   T12 downstream open PR based on the head branch → merge WITHOUT
 #      --delete-branch (branch retained; the endo-but-for-bots #800 auto-close)
 #   T13 head-branch read fails → fail-RETAIN: merge but keep the branch
+#   T14 explicit dependabot mode + human author + no approval → no merge
+#   T15 explicit dependabot mode + CHANGES_REQUESTED → no merge
+#   T16 explicit dependabot mode + dependabot author + no approval → merge
+#   T17 explicit dependabot mode + non-owned repo + no approval → no merge
+#   T18 explicit dependabot mode + unreadable author + no approval → no merge
+#   T19 explicit dependabot mode + unreadable final review state → no merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -62,6 +68,12 @@ if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":
 case "$1 $2" in
   "pr view")
     if printf ' %s' "$@" | grep -q -- '--json state,autoMergeRequest'; then cat "$STUBDIR/verify"; exit 0; fi
+    if printf ' %s' "$@" | grep -q -- '--json author'; then
+      [ -f "$STUBDIR/author_fail" ] && exit 1
+      cat "$STUBDIR/author" 2>/dev/null || printf '{"author":{"login":"dependabot[bot]"}}'; exit 0; fi
+    if printf ' %s' "$@" | grep -q -- '--json reviewDecision$'; then
+      [ -f "$STUBDIR/finalreview_fail" ] && exit 1
+      cat "$STUBDIR/finalreview" 2>/dev/null || printf '{"reviewDecision":""}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json reviewDecision,headRefOid'; then
       cat "$STUBDIR/approvalmeta" 2>/dev/null || printf '{"reviewDecision":"APPROVED","headRefOid":"head123"}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json statusCheckRollup --jq'; then cat "$STUBDIR/failures" 2>/dev/null; exit 0; fi
@@ -94,7 +106,7 @@ RED='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR='{"state":"OPEN","mergeable":"MERGEABLE","reviewDecision":"CHANGES_REQUESTED","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"SUCCESS"}]}'
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -161,6 +173,7 @@ run o/r 510; chk "$rc" 1 T10; nomerge T10; noedit T10
 
 echo "T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, no merge)"
 reset_seq; seq_add "$GREEN_CR"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"reviewDecision":"CHANGES_REQUESTED"}' > "$STUBDIR/finalreview"
 run o/r 7; chk "$rc" 1 T11; nomerge T11
 
 echo "T12 green + downstream open PR based on the head branch → merge WITHOUT --delete-branch"
@@ -175,6 +188,42 @@ echo "T13 green + head-branch read fails → fail-RETAIN (merge, keep the branch
 reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
 printf '' > "$STUBDIR/headref"   # unreadable/empty head ref → not license to delete
 run o/r 799; chk "$rc" 0 T13; merged T13; retained T13
+
+echo "T14 dependabot mode + human author + no approval → keep approval gate, no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"author":{"login":"alice"}}' > "$STUBDIR/author"
+printf '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head123"}' > "$STUBDIR/approvalmeta"
+run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 1 T14; nomerge T14
+
+echo "T15 dependabot mode + CHANGES_REQUESTED → absolute veto, no merge"
+reset_seq; seq_add "$GREEN_CR"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"author":{"login":"dependabot[bot]"}}' > "$STUBDIR/author"
+printf '{"reviewDecision":"CHANGES_REQUESTED"}' > "$STUBDIR/finalreview"
+run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 1 T15; nomerge T15
+
+echo "T16 dependabot mode + dependabot author + no approval → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"author":{"login":"dependabot[bot]"}}' > "$STUBDIR/author"
+printf '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head123"}' > "$STUBDIR/approvalmeta"
+run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 0 T16; merged T16
+
+echo "T17 dependabot mode + non-owned repo + no approval → keep approval gate, no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"author":{"login":"dependabot[bot]"}}' > "$STUBDIR/author"
+printf '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head123"}' > "$STUBDIR/approvalmeta"
+run upstream/project 914 --dependabot-auto-merge; chk "$rc" 1 T17; nomerge T17
+
+echo "T18 dependabot mode + unreadable author + no approval → keep approval gate, no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+touch "$STUBDIR/author_fail"
+printf '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head123"}' > "$STUBDIR/approvalmeta"
+run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 1 T18; nomerge T18
+
+echo "T19 dependabot mode + unreadable final review state → fail closed, no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"author":{"login":"dependabot[bot]"}}' > "$STUBDIR/author"
+touch "$STUBDIR/finalreview_fail"
+run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 1 T19; nomerge T19
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

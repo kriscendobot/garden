@@ -72,7 +72,7 @@ author="$(printf '%s' "$pr_json" | jq -r '.author.login // empty')"
 # out from under the maintainer: on 2026-07-29 the build
 # `fix-botanist-scripts-enabled-install-gap` (a garden-`main2` fix that opened no PR)
 # cited endojs/endo-but-for-bots#867 — a live `@noble/curves` bump a botanist had just
-# cleared MERGE-NOW and that was waiting on the maintainer's approval — as the botany
+# cleared MERGE-NOW before automatic conduct — as the botany
 # that surfaced its gap, and the handoff force-drafted it, pulling it out of the
 # maintainer's queue and blocking its merge.  Check BEFORE any mutation and never
 # re-draft first, so a mis-identified PR is never touched at all.

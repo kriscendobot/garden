@@ -7,7 +7,8 @@
 # behind by a job that "completed while waiting" (the endo-but-for-bots #178 bug,
 # which bit the same PR twice).
 #
-# Invoked as: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge]
+# Invoked as: ci-wait-merge.sh <owner/name> <pr-number>
+#               [--merge|--no-merge|--dependabot-auto-merge]
 #
 # Behaviour:
 #   * Polls the statusCheckRollup (the source of truth — check_run/check_suite
@@ -17,9 +18,13 @@
 #   * On GREEN terminal (no failures) and --merge (default): first UNFREEZE the
 #     base if it is a frozen snapshot (conductor step 2 — see below), then require
 #     a current maintainer approval independently of branch protection, else
-#     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. Issuing
-#     the merge in the same invocation as the wait is the whole point — never
-#     "wait, exit, hope a later tick merges".
+#     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. The one
+#     narrow exception is the explicit `--dependabot-auto-merge` mode: it skips
+#     only the approval requirement, and only after a live author read proves
+#     `dependabot[bot]` and the repository is in the bot-owned merge scope. An
+#     unreadable or different author, or a repository outside that scope, keeps
+#     the ordinary approval gate. Issuing the merge in the same invocation as the
+#     wait is the whole point — never "wait, exit, hope a later tick merges".
 #   * STACKED-PR BRANCH RETENTION: `--delete-branch` is DROPPED when another
 #     open PR uses this PR's head branch as its BASE. Deleting the ref through
 #     the API makes GitHub AUTO-CLOSE such downstream PRs (base_ref_deleted)
@@ -59,6 +64,10 @@
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
 # 3 = red, 4 = timeout) for callers that drive the merge themselves.
+# --dependabot-auto-merge is the botanist MERGE-NOW opt-in. It still enforces CI,
+# CHANGES_REQUESTED, unfreeze/shared-stack, branch-retention, and post-merge
+# verification; only the current-maintainer APPROVED signature is omitted after
+# both the author and bot-owned-repository checks succeed.
 #
 # Silent-failure discipline (the 2026-06-24 jq-outage lesson): require_tools fails
 # LOUD on a missing binary, and a failed gh read returns non-zero (escalate) rather
@@ -73,13 +82,15 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 GARDEN_TAG="ci-wait-merge"
 
-repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge]}"
-pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge]}"
+repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge]}"
+pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge]}"
 do_merge=1
+dependabot_auto_merge=0
 case "${3:-}" in
   --no-merge) do_merge=0 ;;
   --merge|"") do_merge=1 ;;
-  *) die "unknown flag: ${3:-} (expected --merge or --no-merge)" ;;
+  --dependabot-auto-merge) do_merge=1; dependabot_auto_merge=1 ;;
+  *) die "unknown flag: ${3:-} (expected --merge, --no-merge, or --dependabot-auto-merge)" ;;
 esac
 
 # Resolve the gh binary DURABLY for the whole (potentially 90-minute) CI-wait.
@@ -105,6 +116,45 @@ if [ -n "${GARDEN_GH:-}" ]; then
 fi
 require_tools jq
 require_tools "$GH"
+
+: "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
+
+# This is the same deny-by-default autonomous repository boundary used by the CI
+# watcher and approval reconciler. The garden's own repository is denied before
+# the bot-owner arm because garden development pushes directly to main2.
+is_bot_owned_merge_repo() {  # is_bot_owned_merge_repo <owner/name>
+  local candidate="$1" production_repo
+  for production_repo in "$GARDEN_PRODUCTION_JOURNAL_REPO" $GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES; do
+    [ "$candidate" = "$production_repo" ] && return 1
+  done
+  case "$candidate" in
+    agoric/agoric-sdk|endojs/endo) return 1 ;;
+    endojs/endo-but-for-bots)      return 0 ;;
+    "$GARDEN_BOT_LOGIN"/*)         return 0 ;;
+    *)                             return 1 ;;
+  esac
+}
+
+# Resolve the explicit dependabot opt-in before unfreezing so a mis-scoped call
+# cannot mutate a human PR's base. Failure does not abort an otherwise ordinary
+# conductor merge: it leaves the maintainer-approval gate in force.
+dependabot_approval_bypass=0
+if [ "$dependabot_auto_merge" -eq 1 ]; then
+  if ! is_bot_owned_merge_repo "$repo"; then
+    log "dependabot auto-merge bypass denied: $repo is outside the bot-owned merge scope; keeping maintainer approval"
+  elif author_meta="$("$GH" pr view "$pr" -R "$repo" --json author 2>/dev/null)" \
+       && printf '%s' "$author_meta" | jq -e . >/dev/null 2>&1; then
+    author_login="$(printf '%s' "$author_meta" | jq -r '.author.login // ""')"
+    if [ -n "$author_login" ] \
+       && [ "$(printf '%s' "$author_login" | tr '[:upper:]' '[:lower:]')" = "$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')" ]; then
+      dependabot_approval_bypass=1
+    else
+      log "dependabot auto-merge bypass denied: live author for $repo#$pr is ${author_login:-unreadable}, not $GARDEN_DEPENDABOT_LOGIN; keeping maintainer approval"
+    fi
+  else
+    log "dependabot auto-merge bypass denied: live author for $repo#$pr is unreadable; keeping maintainer approval"
+  fi
+fi
 
 deadline_secs="${GARDEN_CI_DEADLINE_SECS:-5400}"
 poll_secs="${GARDEN_CI_POLL_SECS:-60}"
@@ -278,6 +328,15 @@ if [ "$do_merge" -eq 0 ]; then exit 0; fi
 # to APPROVED / REVIEW_REQUIRED once the CHANGES_REQUESTED review is dismissed or
 # superseded, so a later re-enqueued tick merges cleanly once the feedback is
 # resolved. Exit 1 (stall) leaves the merge job claimable, not completed-merged.
+# Read it again at the final merge point. The CI rollup read may be seconds old,
+# and the dependabot path no longer calls the approval helper that used to supply
+# a second reviewDecision read. An unreadable final decision fails closed because
+# it is not evidence that the veto is absent.
+final_review_meta="$("$GH" pr view "$pr" -R "$repo" --json reviewDecision 2>/dev/null)" \
+  || { echo "review-blocked repo=$repo pr=$pr reviewDecision=UNREADABLE → NOT merging"; exit 1; }
+printf '%s' "$final_review_meta" | jq -e . >/dev/null 2>&1 \
+  || { echo "review-blocked repo=$repo pr=$pr reviewDecision=UNREADABLE → NOT merging"; exit 1; }
+review="$(printf '%s' "$final_review_meta" | jq -r '.reviewDecision // ""')"
 if [ "$review" = CHANGES_REQUESTED ]; then
   alert_maintainer "changes-requested-${repo//\//_}-$pr" \
     "conductor merge BLOCKED for $repo#$pr: reviewDecision=CHANGES_REQUESTED. A reviewer requested changes; I will NOT merge over it even though GitHub reports the PR mergeable (no branch protection requiring approval). Address the review feedback (or dismiss/supersede the review) and the next tick merges cleanly. (#$pr left claimable: not merged, not stranded.)"
@@ -286,11 +345,13 @@ if [ "$review" = CHANGES_REQUESTED ]; then
 fi
 
 # `reviewDecision=APPROVED` alone is not enough on a repository without branch
-# protection. Require a current APPROVED review by a journal maintainer here, at
-# the final merge point, so a hand-driven conductor cannot bypass the upstream
-# watcher gate. The helper also rejects dismissed reviews and approvals attached
-# to an older commit.
-if ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
+# protection. Ordinary conductor calls require a current APPROVED review by a
+# journal maintainer here, at the final merge point. The explicit botanist path
+# omits only that signature after the live dependabot-author and bot-owned-repo
+# checks above. CHANGES_REQUESTED remains the independent absolute veto above.
+if [ "$dependabot_approval_bypass" -eq 1 ]; then
+  echo "approval-bypass repo=$repo pr=$pr author=$GARDEN_DEPENDABOT_LOGIN mode=dependabot-auto-merge"
+elif ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
   echo "merge blocked: no maintainer approval repo=$repo pr=$pr"
   exit 1
 fi

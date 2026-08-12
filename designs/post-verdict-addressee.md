@@ -1,5 +1,14 @@
 # Design: durable addressee for a posted but unexecuted PR verdict
 
+> **Withdrawn for botanist MERGE-NOW (2026-08-12).** This document records the
+> former approval-wait problem and an unimplemented proposal. Botanist MERGE-NOW
+> now conducts immediately through the scoped exception in
+> [Dependabot MERGE-NOW auto-conduct](dependabot-auto-merge.md), so it has no
+> `pending-approval` state to preserve. The correction-addressability lesson may
+> still motivate a future design, and ordinary human-authored conductor merges
+> remain approval-gated. Everything below is historical rather than the current
+> execution contract.
+
 ## Problem
 
 `MERGE-NOW` is currently terminal only as a *review classification*.  It is not
