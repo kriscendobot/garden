@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:50:14Z_
+_As of 2026-08-12T23:50:46Z_
 
 ## Latest
 
@@ -6745,26 +6745,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.2M | $814.36 _(notional, rate-card)_ | no quota set |
-| Codex | 22.9M _(+791.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 22.9M _(+792.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`endo-upstream-llm-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-upstream-llm-retention-set-peer-binding.md) — What is wrong upstream
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-e97aa392.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr978-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr978-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #978
 
-### tada (4462)
+### tada (4463)
+- [`endo-upstream-llm-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-upstream-llm-retention-set-peer-binding.md) — Completion report
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-conduct.md) — Completion report
 - [`deadmail-20260812T233020Z-59f3fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T233020Z-59f3fc.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Cost
 - [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232828Z-4f1d09.md) — What I did
-- [`deadmail-20260812T232355Z-c48b2b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232355Z-c48b2b.md) — Cost
-- … and 4457 more
+- … and 4458 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
