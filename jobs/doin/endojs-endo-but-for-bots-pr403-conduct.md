@@ -18,3 +18,13 @@ Dispatch the conductor to carry finalization to completion. Apply the conductor'
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/403
 Head at routing: fe34cb9b1f34073fed6d463c87557dd2369cbdd9
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T21:42:12Z
