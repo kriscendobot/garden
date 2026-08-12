@@ -1,1 +1,2 @@
 {"ts":"2026-08-12T23:11:09Z","base":"minion-town-ocapn-endpoint-closure-audit","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":457}
+{"source":"result","model":"claude-opus-4-8","num_turns":52,"elapsed_s":889,"input_tokens":87,"output_tokens":58809,"cache_creation_tokens":141774,"cache_read_tokens":4530042,"total_cost_usd":5.156304,"ts":"2026-08-12T23:28:36Z","base":"minion-town-ocapn-endpoint-closure-audit","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
