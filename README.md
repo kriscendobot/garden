@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T03:59:33Z_
+_As of 2026-08-12T04:44:32Z_
 
 ## Latest
 
@@ -14,12 +14,12 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 5h)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 6h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 13d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 13d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 23d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 25d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
@@ -3473,6 +3473,26 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume HALTED: child ironhorse-js-06-sync-iteration-generators stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 6/29 done before halt; swept: ironhorse-js-07-promises-async-functions ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
+- `20260812T044412Z-323235` — from gardener:ironhorse-js-06-sync-iteration-generators-gauntlet-clean, reply_to `ironhorse-js-06-sync-iteration-generators-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T044412Z-323235.md)
+
+> Gauntlet CLEAN stage BLOCKED on a base-branch conflict — endojs/endo-but-for-bots PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970).
+>
+> PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) (feat/ironhorse-262-language-completion, base `llm`) is CONFLICTING/DIRTY, so GitHub attaches NO pull_request checks: the two commits pushed today (768a4deca, effecb184) and my cleanup push (cb12da4de) all got zero CI runs — the rollup stays empty. Actions works repo-wide (other branches ran today); it's specifically this PR's unmergeable state.
+>
+> Base `llm` has advanced with overlapping ironhorse work; the branch now conflicts in 9 files, including core VM source:
+>   rust/engine/ironhorse-vm/src/interp.rs
+>   rust/engine/ironhorse-snapshot/src/sidetable.rs
+>   rust/engine/ironhorse-262/src/{lib.rs,test262.rs,xst.rs,bin/ironhorse_xst.rs}
+>   rust/engine/ironhorse-262/Cargo.toml
+>   rust/engine/README.md
+>   designs/ironhorse-test262-convergence.md
+>
+> This needs a WEAVE/REBASE onto `llm` before any gauntlet stage can run — out of the clean stage's scope, and a force-push rebase would disrupt the child branches that build on this shared draft. Recommend: weave [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) (or update-branch/merge `llm` in) to resolve, then re-run the gauntlet.
+>
+> Clean-stage work completed and pushed: removed the one branch-introduced unused_mut warning (ironhorse-vm split closure); ironhorse-vm lib tests green (82/82). Two never-read fields in ironhorse-compile/src/coder.rs (Payload.plus_one, Target.index) left in place — they carry documented serialization semantics on a shared draft branch and look like intentional scaffolding, not orphaned dead code.
+>
+> Halting this stage (orchestration-failed) rather than looping still-pending, since CI can never attach until the conflict is resolved.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6614,7 +6634,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.6M | $797.73 _(notional, rate-card)_ | no quota set |
+| Claude | 53.7M | $800.06 _(notional, rate-card)_ | no quota set |
 | Codex | 19.3M _(+688.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
