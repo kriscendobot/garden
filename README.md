@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T00:53:26Z_
+_As of 2026-08-12T00:59:27Z_
 
 ## Latest
 
@@ -6598,24 +6598,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.9M | $783.08 _(notional, rate-card)_ | no quota set |
+| Claude | 52.7M | $788.28 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+679.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`budgeted-campaign-dispatch-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-dispatch-design.md) — Task
-- [`ironhorse-test262-completion-recover-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-completion-recover-children.md) — Recover and re-stage the 23 swept children of ironhorse-test262-implementatio...
 
-### tada (4399)
+### tada (4400)
+- [`ironhorse-test262-completion-recover-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-completion-recover-children.md) — Completion report: recover & re-stage the 23 swept ironhorse-test262-implemen...
 - [`weave-endo-but-for-bots-pr903-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr903-onto-llm.md) — Completion report
 - [`kriscendobot-minion.town-pr39-22343348`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-22343348.md) — Job: attention directive — "Run a design gauntlet" on kriscendobot/minion.tow...
 - [`kriscendobot-minion.town-pr39-review-4910891844-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-4910891844-fix.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #903
-- [`minion-town-weblet-usage-metering-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-usage-metering-design.md) — Cost
-- … and 4394 more
+- … and 4395 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
