@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T21:42:54Z_
+_As of 2026-08-12T21:45:23Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 50m)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 56m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
@@ -6674,21 +6674,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 53.8M | $800.99 _(notional, rate-card)_ | no quota set |
-| Codex | 19.7M _(+700.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Codex | 19.8M _(+701.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr403-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-conduct.md) — Finalize endojs/endo-but-for-bots PR #403
+### doin (0)
+(none)
 
 ### tada (4436)
+- [`endojs-endo-but-for-bots-pr403-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-conduct.md) — Cost
 - [`patrick-cooney-endo-but-for-bots-value-report-v2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report-v2.md) — Patrick Cooney — contribution VALUE report for endojs/endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr403-b7affa82`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-b7affa82.md) — Cost
 - [`endojs-endo-but-for-bots-pr656-6df67575`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-6df67575.md) — Cost
 - [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/conductor-rebase-and-shepherd-before-merge.md) — Cost
-- [`endo-but-for-bots-workflow-triggers-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-workflow-triggers-llm.md) — Cost
 - … and 4431 more
 
 ## Plan queue (parked — not claimable until promoted)
