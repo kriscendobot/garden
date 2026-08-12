@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 ## Summary `/mcp` advertises four scopes in its protected-resource metadata (`mcp/tools`, `mcp/minions:read`, `mcp/minions:write`, `mcp/guest`) but its `401` challenge advertises only `scope="mcp/tools"`. RFC-compliant clients (e.g. opencode, tested 1.17.3 and 1.18.16) honor the 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T19:36:59Z
