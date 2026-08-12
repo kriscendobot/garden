@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T17:07:23Z_
+_As of 2026-08-12T17:09:39Z_
 
 ## Latest
 
@@ -6669,15 +6669,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $792.57 _(notional, rate-card)_ | no quota set |
+| Claude | 53.4M | $793.51 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+687.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
+- [`ironhorse-test262-restore-and-relaunch-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-restore-and-relaunch-2.md) — Restore the 22 swept ironhorse children and relaunch the campaign (DEPLOY IS ...
 
 ### tada (4422)
 - [`ironhorse-test262-restore-and-relaunch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch.md) — Completion report
