@@ -86,3 +86,13 @@ reach, say so immediately and state what would close it, but do not act on it
 yourself.
 
 Keep specifics off public trackers.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T23:02:34Z
