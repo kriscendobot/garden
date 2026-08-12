@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T14:22:02Z_
+_As of 2026-08-12T14:22:39Z_
 
 ## Latest
 
@@ -6652,15 +6652,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $807.90 _(notional, rate-card)_ | no quota set |
+| Claude | 54.1M | $808.12 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+702.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-sweep-approval-held-2.md) — botanist: sweep the seven approval-held MERGE-NOW dependabot PRs (deploy is D...
+- [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-child-failure-detection.md) — fixer: orchestrate.sh read an explicitly FAILED child as a success — the halt...
 
 ### tada (4416)
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Completion report
