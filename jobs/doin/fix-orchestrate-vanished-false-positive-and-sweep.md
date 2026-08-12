@@ -92,3 +92,13 @@ not re-run it.
 - Regression tests for both: a completed-child-read-during-sync case, and a halt
   that leaves the remainder parked.
 - Pushed to `main2`; note that a deploy is required before it is live.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T17:44:05Z
