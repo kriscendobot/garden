@@ -57,7 +57,18 @@ whose cost we want to avoid when a signal says they cannot matter.
 
 ## Stages (scaffold)
 
-1. **rebase?** — sense whether the base moved; `decide` whether to rebase; do it.
+1. **rebase?** — a deterministic fresh-base/head check, then a safe rebase, run by
+   `scripts/jobs/gardening/safe-rebase.sh` (wired as `GARDEN_SAFE_REBASE`). It
+   compares HEAD to the (optionally freshly-fetched) base by ancestry: a branch that
+   already carries the base tip is a quiet no-op; otherwise it replays the reviewed
+   commits onto the fresh base. The one conflict class it resolves is a **lockfile-only
+   conflict** — drop the stale `chore: Update yarn.lock` commit and regenerate the
+   lockfile against the new base (skills/conflict-resolution § generated files;
+   yarn-lock-separate-commit § Rebase recovery). ANY other conflict fails closed
+   (rc 3) for a weaver/fixer rather than being resolved on agent discretion. This
+   automates the routine stale-branch recovery a gardener did by hand for the approved
+   Dependabot PR endojs/endo-but-for-bots#868. No `decide` call: freshness and the
+   lockfile-only test are deterministic, and a real conflict is escalated, not judged.
 2. **sense-gated automations** — docs/lint when Markdown changed; dependency
    checks when an `import` line moved; a workstation-coupling fixer when
    `detect-home-coupling.sh` finds a hardcoded `$HOME` in an added line; a
@@ -121,8 +132,12 @@ approval — as the botany that surfaced its gap, and the hook force-drafted it 
 maintainer's queue, blocking its merge. The check runs before any mutation, so a
 mis-identified PR is never re-drafted first.
 
-The scaffold wires the rebase/push mechanics as placeholders where a project
-plugs in its real commands; the `GARDEN_EVAL` gate now defaults to the
-`local-verify` harness rather than the original `true` no-op. The control flow,
-quiet-on-success discipline, diverted tracing, and heuristic gating are the
-reusable parts.
+The rebase and push mechanics are now real deterministic helpers, not placeholders:
+the rebase stage defaults to `safe-rebase.sh` (fresh-base/head check, lockfile-only
+recovery, fail-closed on any other conflict) and the push stage to
+`safe-push-pr-head.sh` (never rewinds a peer's newer commits); both are quiet no-ops
+under the scaffold's default `base` (`HEAD~1`) / unset remote wiring, and both are
+overridable per project (`GARDEN_SAFE_REBASE` / `GARDEN_SAFE_PUSH`). The `GARDEN_EVAL`
+gate likewise defaults to the `local-verify` harness rather than the original `true`
+no-op. The control flow, quiet-on-success discipline, diverted tracing, and heuristic
+gating are the reusable parts.

@@ -46,8 +46,18 @@ decide() {  # decide "<question>" -> prints the subagent's answer
 fail() { echo "garden-pr #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 
 # --- stage: rebase (only if the base moved / branch is behind) --------------
-if [ "$("$SENSE" any-change "$wt" "$base"; echo $?)" = 0 ]; then :; fi
-# (rebase decision delegated; deterministic mechanics would live here)
+# Deterministic stale-branch recovery: fresh-base/head check, then replay the
+# reviewed commits onto the fresh base. A lockfile-only conflict is auto-resolved
+# by drop-and-regenerate; ANY other conflict is refused (rc 3) for a weaver/fixer,
+# never resolved on agent discretion. Motivated by endojs/endo-but-for-bots #868,
+# where an approved Dependabot PR had to be hand-rebased and its yarn.lock hand-
+# resolved before CI and merge. When the base is fresh (the scaffold's HEAD~1, which
+# HEAD already contains), this is a quiet no-op. A supervisor passes a real moved
+# base (or sets GARDEN_BASE_REMOTE/GARDEN_BASE_BRANCH to fetch it fresh) to make it
+# act. See safe-rebase.sh and skills/yarn-lock-separate-commit § Rebase recovery.
+: "${GARDEN_SAFE_REBASE:=$HERE/safe-rebase.sh}"
+"$GARDEN_SAFE_REBASE" "$wt" "$base" \
+  || fail "safe rebase (base moved and the conflict is not lockfile-only — needs a weave/rebase by hand, a weaver escalating to a fixer)"
 
 # --- sense-gated automations (skip when a cheap signal says they can't matter)
 run_if() {  # run_if <sense-test...> -- <command...>

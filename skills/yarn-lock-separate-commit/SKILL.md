@@ -81,6 +81,15 @@ This is the weave/rebase step's standing move when a base has moved under a
 dependency-touching PR. The weaver-to-fixer escalation and the conflict
 discipline live in [conflict-resolution](../conflict-resolution/SKILL.md).
 
+The gardening state machine now runs this exact drop-and-regenerate
+deterministically as its rebase stage:
+[`scripts/jobs/gardening/safe-rebase.sh`](../../scripts/jobs/gardening/safe-rebase.sh)
+does the fresh-base/head check, replays the reviewed commits, and — when the *only*
+conflict is a lockfile-only commit — skips it and regenerates the lockfile against
+the new base as its own `chore: Update yarn.lock`. Any other conflict fails closed
+(rc 3) for a weaver/fixer. It was added to automate the routine stale-branch recovery
+a gardener did by hand for the approved Dependabot PR endojs/endo-but-for-bots#868.
+
 ## Notes from the field
 
 - _2026-05-13_ (v1): adopted from a reference garden. The discipline applies
