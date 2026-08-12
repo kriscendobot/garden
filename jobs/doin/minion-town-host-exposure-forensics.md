@@ -82,3 +82,13 @@ immediately, and state plainly what an attacker could do and what would close it
 Keep specifics off public trackers. This is security-sensitive and dckc's
 account state is another person's data: report it to the maintainer, not to any
 public surface.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T22:24:33Z
