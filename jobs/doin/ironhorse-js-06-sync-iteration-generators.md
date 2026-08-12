@@ -30,6 +30,7 @@ issue_spine: issue-kriscendobot-garden-51
 issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315524
 submitter: kriscendobot
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
