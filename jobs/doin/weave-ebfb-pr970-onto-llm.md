@@ -79,3 +79,13 @@ tests, STOP and report that file rather than guessing.
 The merge commit, the per-file resolution decisions for all nine conflicts, confirmation
 that the rollup is now non-empty with the check count, and any conflict you declined to
 resolve.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T04:56:39Z
