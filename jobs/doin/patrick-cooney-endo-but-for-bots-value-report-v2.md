@@ -69,3 +69,13 @@ the analysis itself, you have not finished the job.
 Your own `tada` report contains the full analysis above, inline, at a length
 proportionate to the content (expect multiple hundred lines, not a handful) —
 not a pointer to work you did but didn't write down.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T21:18:46Z
