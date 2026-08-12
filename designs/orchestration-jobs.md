@@ -1,7 +1,7 @@
 ---
 created: 2026-07-01
 updated: 2026-08-12
-author: designer, builder
+author: gardener, designer, builder
 ---
 
 # Design: orchestration jobs (sequence a multi-part job's children and watch them)
@@ -68,12 +68,14 @@ having *failed*, only of it *reaching* `tada/`).
   every active orchestration ONE step per tick:
   - **serial:** promote child #1, watch it to `tada/`, then #2, … one at a time.
   - **parallel:** promote all children at once, then watch them all.
-  - **child state** from the board: `done` (`tada/`), `active` (`todo`/`doin`),
+  - **child state** from one immutable committed board tree: `done` (`tada/`), `active` (`todo`/`doin`),
     `parked` (`plan`), or `failed` (in NONE — promoted then vanished without a
     `tada/`: the reaper doomed it after repeated handler failures; or the report
-    carries `orchestration-failed: true`).
-  - **failure:** `halt` stops a serial run at the first failure, sweeps not-yet-run
-    downstream children, surfaces to the maintainer inbox; `continue` proceeds.
+    carries `orchestration-failed: true`). An unreadable tree or multiple board
+    locations retries next tick; a hard-reset working-tree gap is never observed.
+  - **failure:** `halt` stops a serial run at the first failure, leaves not-yet-run
+    downstream children parked under their held gate, and surfaces to the
+    maintainer inbox; `continue` proceeds.
   - **completion:** write `tada/<orch-base>` (outcome summary with an
     `orchestration-status:` marker) and remove the record.
 
@@ -109,11 +111,12 @@ self-heals, and nothing can forget.
 `scripts/jobs/test/orchestrate-test.sh` (hermetic, throwaway journal, no systemd):
 serial promotes one child at a time and advances only after each reaches `tada/`;
 parallel promotes all at once; a child failure halts a serial run (next child NOT
-promoted, downstream swept, surfaced to maintainer) under `halt` and proceeds under
+promoted, downstream parked, surfaced to maintainer) under `halt` and proceeds under
 `continue`. Budget coverage adds under-cap promotion, exact-cap stop, overshoot,
 epoch filtering, all-outcome aggregation, malformed/unmetered fail-closed,
 non-sweeping remainder, visible unspent completion, parallel rejection, and
-separately-budgeted resume. 25 assertions.
+separately-budgeted resume. Snapshot coverage models a hard-reset delete/add gap,
+and inconsistent duplicate board locations retry without mutation.
 
 ## Files
 

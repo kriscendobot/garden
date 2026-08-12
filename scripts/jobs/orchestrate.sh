@@ -63,6 +63,8 @@
 #
 # Pluggable for tests:
 #   GARDEN_ORCH_CLONE   this service's journal clone (default $GARDEN_STATE/orch/journal).
+#   GARDEN_ORCH_AFTER_SYNC_CMD  command invoked with the clone path after the
+#                       initial sync (used to model a half-applied checkout).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -88,8 +90,48 @@ fleet_draining && exit 0
 DIR="${GARDEN_ORCH_CLONE:-$GARDEN_STATE/orch/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
+[ -z "${GARDEN_ORCH_AFTER_SYNC_CMD:-}" ] || "$GARDEN_ORCH_AFTER_SYNC_CMD" "$DIR"
 
-# --- child state, read purely from the board --------------------------------
+# --- child state, read from one committed board snapshot --------------------
+# A `git reset --hard` updates the checkout path-by-path. Reading tada/todo/doin/
+# plan with four working-tree `test -e` calls can therefore observe no path while
+# the reset is between deleting the old path and creating the new one. Resolve all
+# four candidates from ONE immutable commit tree instead. An unreadable tree or a
+# commit that contains the child in multiple board directories is not evidence of
+# failure: return `retry` and let the next timer tick read again.
+child_board_view() {  # <child> -> "<location> <snapshot>"; location includes gone|retry
+  local c="$1" snapshot listing count path location
+  if ! snapshot="$(git -C "$DIR" rev-parse --verify 'HEAD^{commit}' 2>/dev/null)"; then
+    printf 'retry -\n'; return 0
+  fi
+  if ! listing="$(git -C "$DIR" ls-tree --name-only "$snapshot" -- \
+      "$JOBS_TADA/$c.md" "$JOBS_TODO/$c.md" "$JOBS_DOIN/$c.md" "$JOBS_PLAN/$c.md" 2>/dev/null)"; then
+    printf 'retry %s\n' "$snapshot"; return 0
+  fi
+  count="$(printf '%s\n' "$listing" | awk 'NF{n++} END{print n+0}')"
+  if [ "$count" -eq 0 ]; then printf 'gone %s\n' "$snapshot"; return 0; fi
+  if [ "$count" -ne 1 ]; then printf 'retry %s\n' "$snapshot"; return 0; fi
+  path="$(printf '%s\n' "$listing" | awk 'NF{print; exit}')"
+  case "$path" in
+    "$JOBS_TADA/$c.md") location=tada ;;
+    "$JOBS_TODO/$c.md") location=todo ;;
+    "$JOBS_DOIN/$c.md") location=doin ;;
+    "$JOBS_PLAN/$c.md") location=plan ;;
+    *) location=retry ;;
+  esac
+  printf '%s %s\n' "$location" "$snapshot"
+}
+
+child_snapshot_file() {  # <snapshot> <location> <child> <destination>
+  local snapshot="$1" location="$2" c="$3" destination="$4" dir
+  case "$location" in
+    tada) dir="$JOBS_TADA" ;; todo) dir="$JOBS_TODO" ;;
+    doin) dir="$JOBS_DOIN" ;; plan) dir="$JOBS_PLAN" ;;
+    *) return 1 ;;
+  esac
+  git -C "$DIR" show "$snapshot:$dir/$c.md" > "$destination" 2>/dev/null
+}
+
 set_orch_field() {  # <base> <field> <value>; CAS-retried, leading frontmatter only
   local base="$1" field="$2" value="$3" f rc attempt
   for attempt in $(seq 1 50); do
@@ -162,16 +204,28 @@ set_orch_claim_host() {  # <orch-base> <child>; preserve the first claiming host
 # notices.  It is deliberately recomputed from the board rather than kept in
 # process globals (the caller receives child_state through command substitution).
 child_failure_detail() {  # <child> <orch-record>
-  local c="$1" orch="$2" jf="" n limit started now started_epoch age host
-  if [ -f "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
-  elif [ -f "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
-  else
-    if [ -f "$DIR/$JOBS_PLAN/$c.md" ] && grep -qxE 'doomed: true|poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
+  local c="$1" orch="$2" jf view location snapshot n limit started now started_epoch age host
+  view="$(child_board_view "$c")"; read -r location snapshot <<<"$view"
+  case "$location" in
+    retry) printf 'board snapshot unreadable or inconsistent; retrying\n'; return 0 ;;
+    gone) printf 'vanished from the board\n'; return 0 ;;
+  esac
+  jf="$(mktemp "${TMPDIR:-/tmp}/orch-child.XXXXXX")"
+  if ! child_snapshot_file "$snapshot" "$location" "$c" "$jf"; then
+    rm -f "$jf"; printf 'board snapshot unreadable or inconsistent; retrying\n'; return 0
+  fi
+  if [ "$location" = tada ]; then
+    if tada_failed "$jf"; then printf 'completed but declared its gated outcome unsatisfied\n'
+    else printf 'completed successfully\n'; fi
+    rm -f "$jf"; return 0
+  fi
+  if [ "$location" = plan ]; then
+    if grep -qxE 'doomed: true|poisoned: true' "$jf" 2>/dev/null; then
       printf 'doomed and held in plan\n'
     else
-      printf 'vanished from the board\n'
+      printf 'parked in plan\n'
     fi
-    return 0
+    rm -f "$jf"; return 0
   fi
   n="$(child_reap_count "$jf")"
   host="$(child_claim_host "$jf")"; [ -n "$host" ] || host="$(plan_field "$orch" "child-$c-host")"; [ -n "$host" ] || host=unknown
@@ -182,7 +236,7 @@ child_failure_detail() {  # <child> <orch-record>
   # streak EXCEEDS the tunable limit is a requeue stall. The old "rose above baseline"
   # clause is gone — any rise was punishing the normal reap-and-resume path.
   if ! has_productive_cycle_hint "$jf" && [ "$n" -gt "$limit" ] 2>/dev/null; then
-    printf 'stalled after %s requeues on host %s (limit %s, no progress hint this cycle)\n' "$n" "$host" "$limit"; return 0
+    printf 'stalled after %s requeues on host %s (limit %s, no progress hint this cycle)\n' "$n" "$host" "$limit"; rm -f "$jf"; return 0
   fi
   started="$(child_claimed_at "$jf")"; [ -n "$started" ] || started="$(child_promoted_at "$jf")"
   if [ -n "$started" ]; then
@@ -191,29 +245,33 @@ child_failure_detail() {  # <child> <orch-record>
       age=$(( now - started_epoch )); limit=$(( $(child_handler_timeout "$jf") * GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER ))
       if [ "$age" -gt "$limit" ]; then
         printf 'stalled in flight for %ss on host %s (handler-timeout=%ss, multiplier=%s)\n' \
-          "$age" "$host" "$(child_handler_timeout "$jf")" "$GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER"; return 0
+          "$age" "$host" "$(child_handler_timeout "$jf")" "$GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER"; rm -f "$jf"; return 0
       fi
     fi
   fi
-  printf 'failed / vanished from the board\n'
+  printf 'failed while still in flight\n'
+  rm -f "$jf"
 }
 
-child_state() {  # <child-base> <orch-record> → done|active|progressing|parked|failed
-  local c="$1" orch="$2" jf="" n prev detail
-  if [ -e "$DIR/$JOBS_TADA/$c.md" ]; then
+child_state() {  # <child-base> <orch-record> → done|active|progressing|parked|failed|retry
+  local c="$1" orch="$2" jf view location snapshot n prev detail
+  view="$(child_board_view "$c")"; read -r location snapshot <<<"$view"
+  case "$location" in retry) printf 'retry\n'; return 0;; gone) printf 'failed\n'; return 0;; esac
+  jf="$(mktemp "${TMPDIR:-/tmp}/orch-child.XXXXXX")"
+  if ! child_snapshot_file "$snapshot" "$location" "$c" "$jf"; then
+    rm -f "$jf"; printf 'retry\n'; return 0
+  fi
+  if [ "$location" = tada ]; then
     # A tada report can carry the "completed but declined its gated outcome"
     # marker (tada_failed, common.sh) — shared with the unblock watcher.
-    if tada_failed "$DIR/$JOBS_TADA/$c.md"; then
+    if tada_failed "$jf"; then
       printf 'failed\n'
     else
       printf 'done\n'
     fi
-    return 0
+    rm -f "$jf"; return 0
   fi
-  if [ -e "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
-  elif [ -e "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
-  fi
-  if [ -n "$jf" ]; then
+  if [ "$location" = todo ] || [ "$location" = doin ]; then
     n="$(child_reap_count "$jf")"
     prev="$(plan_field "$orch" "child-$c-reap-count")"
     # A requeue is NOT automatically a failure. The fleet already distinguishes a
@@ -229,7 +287,7 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
       # count. If the count rose above the recorded baseline, signal the caller to
       # ADVANCE the stored floor so the next tick compares against the new baseline.
       if [ -n "$prev" ] && [ "$n" -gt "$prev" ] 2>/dev/null; then
-        printf 'progressing\n'; return 0
+        printf 'progressing\n'; rm -f "$jf"; return 0
       fi
     else
       # No progress hint this cycle: consecutive non-productive requeues count toward
@@ -237,16 +295,16 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
       # which is what the tunable was for. The reaper resets the reap count on every
       # productive cycle, so n already measures the non-productive streak.
       if [ "$n" -gt "$GARDEN_ORCH_STALL_REQUEUE_LIMIT" ] 2>/dev/null; then
-        printf 'failed\n'; return 0
+        printf 'failed\n'; rm -f "$jf"; return 0
       fi
     fi
     # Claim metadata is stamped by claim-job.sh.  A queued child uses the promotion
     # timestamp instead, so an unclaimable child cannot wait forever either.
     detail="$(child_failure_detail "$c" "$orch")"
-    if [[ "$detail" == stalled\ in\ flight* ]]; then printf 'failed\n'; return 0; fi
-    printf 'active\n'; return 0
+    if [[ "$detail" == stalled\ in\ flight* ]]; then printf 'failed\n'; rm -f "$jf"; return 0; fi
+    printf 'active\n'; rm -f "$jf"; return 0
   fi
-  if [ -e "$DIR/$JOBS_PLAN/$c.md" ]; then
+  if [ "$location" = plan ]; then
     # A plan carrying `doomed: true` (or the legacy `poisoned: true`, dual-read
     # for the rollout window) is a doomed-and-PARKED child: the reaper
     # exhausted its requeue budget and parked the work under a held gate for a human
@@ -256,14 +314,12 @@ child_state() {  # <child-base> <orch-record> → done|active|progressing|parked
     # re-run a job that fails every time, forever. The work still survives in plan/
     # (held) for a human to resume; the orchestration merely stops waiting on it and
     # applies its on-child-failure policy.
-    if grep -qxE 'doomed: true|poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
-      printf 'failed\n'; return 0
+    if grep -qxE 'doomed: true|poisoned: true' "$jf" 2>/dev/null; then
+      printf 'failed\n'; rm -f "$jf"; return 0
     fi
-    printf 'parked\n'; return 0
+    printf 'parked\n'; rm -f "$jf"; return 0
   fi
-  # In none of tada/todo/doin/plan: it was promoted and vanished without a tada
-  # (an older-style doom drop, or a manual removal).
-  printf 'failed\n'
+  rm -f "$jf"; printf 'retry\n'
 }
 
 # --- record state update (CAS retry, like promote-plan.sh) ------------------
@@ -290,12 +346,12 @@ set_orch_state() {  # <base> <newstate>
 }
 
 # --- terminal transitions ---------------------------------------------------
-# Complete an orchestration: write tada/<base> from a summary file, remove the
-# orch record, and (halt only) sweep any still-parked children so a halt does not
-# leave orphaned plan jobs. Retries until it lands (touches only its own base).
-finish_orch() {  # <base> <summary-file> [<child-to-sweep>...]
-  local base="$1" summary="$2"; shift 2
-  local sweep=("$@") attempt rc c
+# Complete an orchestration: write tada/<base> from a summary file and remove the
+# orch record. Parked children deliberately survive a halt as recoverable held
+# work. Retries until it lands (touches only its own base).
+finish_orch() {  # <base> <summary-file>
+  local base="$1" summary="$2"
+  local attempt rc
   for attempt in $(seq 1 100); do
     sync_clone "$DIR"
     if [ ! -e "$DIR/$JOBS_ORCH/$base.md" ] && [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
@@ -305,9 +361,6 @@ finish_orch() {  # <base> <summary-file> [<child-to-sweep>...]
     cp "$summary" "$DIR/$JOBS_TADA/$base.md"
     git -C "$DIR" add "$JOBS_TADA/$base.md"
     [ -e "$DIR/$JOBS_ORCH/$base.md" ] && git -C "$DIR" rm -q "$JOBS_ORCH/$base.md"
-    for c in "${sweep[@]}"; do
-      [ -e "$DIR/$JOBS_PLAN/$c.md" ] && git -C "$DIR" rm -q "$JOBS_PLAN/$c.md"
-    done
     # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
     # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
     rc=0; commit_and_push "$DIR" "orch($base) finished → tada by $GARDEN" || rc=$?
@@ -444,6 +497,9 @@ advance_serial() {  # <base> <policy> <child>...
           log "orchestration '$base': waiting on child $((i+1))/$total '$c' (in flight)"
         fi
         return 0;;
+      retry)
+        log "orchestration '$base': child $((i+1))/$total '$c' board snapshot unreadable/inconsistent; retrying next tick"
+        return 0;;
       parked)
         # DEFENSE-IN-DEPTH serial gate: a serial run must have AT MOST ONE child in
         # flight. The ordered loop above already returns at the first active child, but
@@ -487,11 +543,11 @@ advance_serial() {  # <base> <policy> <child>...
         failed+=("$c")
         local detail; detail="$(child_failure_detail "$c" "$DIR/$JOBS_ORCH/$base.md")"
         if [ "$policy" = "halt" ]; then
-          # HALT the serial run at the first failure. Sweep the downstream children
-          # that are still parked so they never run.
-          local sweep=() k
+          # HALT the serial run at the first failure. Downstream children remain
+          # parked under their orchestrated gate for a human to inspect or resume.
+          local parked_remainder=() k
           for ((k=i+1; k<total; k++)); do
-            [ "$(child_state "${kids[$k]}" "$DIR/$JOBS_ORCH/$base.md")" = "parked" ] && sweep+=("${kids[$k]}")
+            [ "$(child_state "${kids[$k]}" "$DIR/$JOBS_ORCH/$base.md")" = "parked" ] && parked_remainder+=("${kids[$k]}")
           done
           local sf; sf="$(mktemp "${TMPDIR:-/tmp}/orch-halt.XXXXXX")"
           {
@@ -500,15 +556,15 @@ advance_serial() {  # <base> <policy> <child>...
             printf 'Serial run halted at child %d/%d **%s**: %s.\n' \
               "$((i+1))" "$total" "$c" "$detail"
             printf '%d/%d children completed before the failure.\n\n' "$done_count" "$total"
-            if [ "${#sweep[@]}" -gt 0 ]; then
-              printf 'Swept %d not-yet-run downstream child(ren): %s\n' "${#sweep[@]}" "${sweep[*]}"
+            if [ "${#parked_remainder[@]}" -gt 0 ]; then
+              printf 'Left %d not-yet-run downstream child(ren) parked under their held orchestrated gate: %s\n' "${#parked_remainder[@]}" "${parked_remainder[*]}"
             fi
             printf '\non-child-failure policy: halt.\n'
           } > "$sf"
-          finish_orch "$base" "$sf" "${sweep[@]}" || log "orchestration '$base': halt-finish failed; retrying next tick"
-          printf 'Orchestration %s HALTED: child %s %s (serial, on-child-failure=halt). %d/%d done before halt; swept: %s\n' \
-            "$base" "$c" "$detail" "$done_count" "$total" "${sweep[*]:-none}" | orch_notify "$base-halted"
-          log "orchestration '$base': HALTED at failed child '$c' (policy=halt); swept ${#sweep[@]} downstream"
+          finish_orch "$base" "$sf" || log "orchestration '$base': halt-finish failed; retrying next tick"
+          printf 'Orchestration %s HALTED: child %s %s (serial, on-child-failure=halt). %d/%d done before halt; parked remainder: %s\n' \
+            "$base" "$c" "$detail" "$done_count" "$total" "${parked_remainder[*]:-none}" | orch_notify "$base-halted"
+          log "orchestration '$base': HALTED at failed child '$c' (policy=halt); left ${#parked_remainder[@]} downstream parked"
           rm -f "$sf"
           return 0
         fi
@@ -528,7 +584,13 @@ advance_parallel() {  # <base> <policy> <child>...
   local f="$DIR/$JOBS_ORCH/$base.md" state
   state="$(orch_state "$f")"
   if [ "$state" = "pending" ]; then
-    local promoted=0 c
+    local promoted=0 c prestate
+    # Validate every child against a readable immutable snapshot before changing
+    # any board state. A transient read failure postpones the whole fan-out.
+    for c in "${kids[@]}"; do
+      prestate="$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")"
+      [ "$prestate" = retry ] && { log "orchestration '$base': unreadable/inconsistent child snapshot; retrying parallel promotion next tick"; return 0; }
+    done
     for c in "${kids[@]}"; do
       if [ "$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")" = "parked" ] \
         && "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1; then
@@ -552,6 +614,7 @@ advance_parallel() {  # <base> <policy> <child>...
         active=$((active+1)); set_orch_claim_host "$base" "$c" || true
         [ "$st" = progressing ] && { set_orch_reap_baseline "$base" "$c" || true; };;
       parked) parked=$((parked+1)); "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1 || true;;
+      retry) log "orchestration '$base': child '$c' board snapshot unreadable/inconsistent; retrying next tick"; return 0;;
     esac
   done
   local terminal=$(( done_count + ${#failed[@]} ))

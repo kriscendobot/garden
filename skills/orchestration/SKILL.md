@@ -71,15 +71,18 @@ progress, and applies a failure policy rather than silently stalling.
      remainder parked. A malformed/unmetered matching row finishes
      `budget-meter-incomplete`, also without promotion or sweeping.
    - **parallel** — promote ALL children at once, then watch them all.
-   - **child state** is read purely from the board: `done` (in `tada/`), `active`
+   - **child state** is read from one immutable committed board snapshot: `done` (in `tada/`), `active`
      (in `todo/`/`doin/`), `parked` (in `plan/`), or `failed` (in NONE of them —
      it was promoted but vanished without a `tada/` report; its report carries
      `orchestration-failed: true`; or the watcher observes a requeue rise, an
-     excessive requeue count, or time in flight beyond its handler budget).
+     excessive requeue count, or time in flight beyond its handler budget). An
+     unreadable tree or a child present in multiple board directories is `retry`,
+     never evidence of failure. Reading the commit tree also makes a hard-reset
+     delete/add working-tree gap harmless.
    - **on a child failure** it applies the policy — **halt** stops a serial run at
-     the first failure (sweeping not-yet-run downstream children) and **surfaces
-     the failure to the maintainer inbox**; **continue** proceeds to the next
-     child. Never a silent stall.
+     the first failure, leaves not-yet-run downstream children parked under their
+     held `orchestrated` gate, and **surfaces the failure to the maintainer
+     inbox**; **continue** proceeds to the next child. Never a silent stall.
    - **child failure emission** is mechanical. A child that genuinely finishes
      but does not achieve its gated outcome ends its report with these exact two
      lines, in this order:
@@ -153,7 +156,8 @@ also leaves a maintainer-inbox note.
   (child promotion itself is CAS-deduped and safe on any host).
 - **Children must be parked before the orchestration is recorded** —
   `post-orchestration.sh` enforces this; a child that never existed reads as
-  `failed` (there is no way to distinguish "never posted" from "vanished").
+  `failed` once a readable committed snapshot confirms it is absent from all four
+  board directories.
 - **Legacy report compatibility:** `tada_failed()` also recognizes a dedicated
   verdict line whose marker is wrapped in Markdown list/emphasis/backtick
   decoration, including an `Outcome:` line. A prose sentence that merely

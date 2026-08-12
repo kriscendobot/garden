@@ -9,8 +9,8 @@
 #   2. PARALLEL   — all children promoted at once on the first tick.
 #   3. HALT       — a child that FAILS (vanishes without tada) halts a serial run
 #                   (policy=halt): the next child is NOT promoted, downstream
-#                   parked children are swept, and the failure surfaces to the
-#                   maintainer — not a silent stall.
+#                   children remain safely parked, and the failure surfaces to
+#                   the maintainer — not a silent stall.
 #   4. CONTINUE   — the same failure with policy=continue proceeds to the next
 #                   child rather than halting.
 #   5. STALL       — a NON-PRODUCTIVE requeue streak that EXCEEDS
@@ -25,6 +25,10 @@
 #                   productive-cycle hint) stays active and advances its reap baseline.
 #   8. SERIAL GATE — a serial run never promotes child N+1 while child N still
 #                   occupies jobs/todo or jobs/doin (at most one child in flight).
+#   9. SNAPSHOT    — a completed child stays visible while its working-tree
+#                   checkout models the delete/add gap of a hard reset.
+#  10. INCONSISTENT — a commit containing the child in two board directories
+#                   retries instead of inventing a terminal disposition.
 #
 # Usage: orchestrate-test.sh
 
@@ -87,6 +91,20 @@ complete_child() {  # complete_child <base>
   printf '# %s done\n\nwork complete\n' "$1" > "$wt/jobs/tada/$1.md"
   git -C "$wt" add "jobs/tada/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+# Simulate a child that completed its work but explicitly declared that its
+# orchestration-gated outcome was not achieved.
+complete_failed_child() {  # complete_failed_child <base>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  printf '%s\n' '---' 'orchestration-failed: true' '---' "# $1 completed without its gated outcome" > "$wt/jobs/tada/$1.md"
+  git -C "$wt" add "jobs/tada/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) gated-failure"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -227,12 +245,12 @@ tick                      # detect failure → HALT
 
 halt_ok=1
 in_dir jobs/todo h-b && halt_ok=0          # h-b must NOT be promoted
-in_dir jobs/plan h-b && halt_ok=0          # h-b swept (not left parked)
-in_dir jobs/plan h-c && halt_ok=0          # h-c swept
+in_dir jobs/plan h-b || halt_ok=0          # h-b remains parked under its held gate
+in_dir jobs/plan h-c || halt_ok=0          # h-c remains parked under its held gate
 in_dir jobs/orch orch-halt && halt_ok=0    # orchestration record removed
 in_dir jobs/tada orch-halt || halt_ok=0    # halt summary written
 { [ "$halt_ok" -eq 1 ]; } \
-  && ok "failed child halted the run: h-b NOT promoted, downstream swept, orchestration closed" \
+  && ok "failed child halted the run: h-b NOT promoted, downstream remained parked, orchestration closed" \
   || bad "halt: todo=[$(board jobs/todo)] plan=[$(board jobs/plan)] orch=[$(board jobs/orch)] tada=[$(board jobs/tada)]"
 
 # the failure surfaced to the maintainer inbox (not a silent stall)
@@ -244,6 +262,9 @@ note_ok=0; grep -rqi 'halt' "$V/inbox/maintainer/unread" 2>/dev/null && note_ok=
 grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
   && ok "halt summary marks orchestration-status: halted" \
   || bad "halt summary missing status marker"
+grep -q 'Left 2 not-yet-run downstream child(ren) parked' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
+  && ok "halt summary names the recoverable parked remainder" \
+  || bad "halt summary does not record the parked remainder"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — CONTINUE: a serial child failure proceeds (policy=continue)"; hr
@@ -574,6 +595,66 @@ tick                              # only now may continue promote g-b
 { in_dir jobs/todo g-b; } \
   && ok "once g-a vanished, policy=continue released the gate and promoted g-b" \
   || bad "g-b not promoted after g-a vanished (todo=$(board jobs/todo))"
+
+# ============================================================================
+hr; echo "SUBTEST 17 — GATED TADA: report the declared failure, never 'vanished'"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-decl d-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-decl d-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-decl d-a d-b >/dev/null
+tick
+complete_failed_child d-a
+tick
+decl_ok=1
+in_dir jobs/tada orch-decl || decl_ok=0
+in_dir jobs/plan d-b || decl_ok=0
+grep -q 'completed but declared its gated outcome unsatisfied' "$V/jobs/tada/orch-decl.md" 2>/dev/null || decl_ok=0
+grep -q 'vanished from the board' "$V/jobs/tada/orch-decl.md" 2>/dev/null && decl_ok=0
+[ "$decl_ok" -eq 1 ] \
+  && ok "completed gated-failure child halted with its true disposition and left the remainder parked" \
+  || bad "gated tada was misreported or destructive (plan=$(board jobs/plan))"
+
+# ============================================================================
+hr; echo "SUBTEST 18 — SNAPSHOT: completed child survives a half-applied checkout read"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-snapshot snap-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-snapshot snap-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-snapshot snap-a snap-b >/dev/null
+tick
+complete_child snap-a
+half_checkout="$TR/half-checkout.sh"
+printf '%s\n' '#!/bin/sh' 'rm -f "$1/jobs/tada/snap-a.md"' > "$half_checkout"
+chmod +x "$half_checkout"
+GARDEN_ORCH_AFTER_SYNC_CMD="$half_checkout" tick
+snapshot_ok=1
+in_dir jobs/todo snap-b || snapshot_ok=0
+in_dir jobs/tada orch-snapshot && snapshot_ok=0
+in_dir jobs/plan snap-b && snapshot_ok=0
+[ "$snapshot_ok" -eq 1 ] \
+  && ok "immutable commit-tree read saw completed snap-a despite the checkout delete/add gap and advanced safely" \
+  || bad "half-applied checkout produced a false child failure (todo=$(board jobs/todo), tada=$(board jobs/tada))"
+
+# ============================================================================
+hr; echo "SUBTEST 19 — INCONSISTENT: duplicate board locations retry without failure"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-inconsistent dup-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-inconsistent dup-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-inconsistent dup-a dup-b >/dev/null
+dupwt="$(mktemp -d "$TR/edit.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$dupwt"
+printf '# duplicate completed location\n' > "$dupwt/jobs/tada/dup-a.md"
+git -C "$dupwt" add jobs/tada/dup-a.md
+git -C "$dupwt" "${git_id[@]}" commit -q -m 'fixture: duplicate dup-a board location'
+git -C "$dupwt" push -q origin "HEAD:$BRANCH"
+rm -rf "$dupwt"
+tick
+inconsistent_ok=1
+in_dir jobs/orch orch-inconsistent || inconsistent_ok=0
+in_dir jobs/plan dup-a || inconsistent_ok=0
+in_dir jobs/plan dup-b || inconsistent_ok=0
+in_dir jobs/todo dup-a && inconsistent_ok=0
+in_dir jobs/tada orch-inconsistent && inconsistent_ok=0
+grep -q 'board snapshot unreadable/inconsistent; retrying next tick' "$TR/tick.log" || inconsistent_ok=0
+[ "$inconsistent_ok" -eq 1 ] \
+  && ok "duplicate board locations left the orchestration and both parked children untouched for retry" \
+  || bad "inconsistent board was treated as progress/failure instead of retry"
 
 # ============================================================================
 hr
