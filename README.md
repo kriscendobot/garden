@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:10:36Z_
+_As of 2026-08-12T23:10:57Z_
 
 ## Latest
 
@@ -3532,6 +3532,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
+- `20260812T231041Z-5455e6` — from gardener:minion-town-dckc-session-residue-forensics, reply_to `minion-town-dckc-session-residue-forensics` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T231041Z-5455e6.md)
+
+> Correction / OCapN reachability: yes. The live formula table contains all three exact local-node rows: 577be618… (`scratch-mount`), 03efafe3… (`readable-tree`), b9f6f90a… (`worker`), each with node 9b03f5…; therefore the separately confirmed unbound `followRetentionSet` + `provide(id)` path can enumerate/provide them while those public OCapN routes remain open. The gateway timeline also does not actually stop at 21:39:40: its same `endo-gateway:fe0a8e602d18:endo-captp` error context continues at 21:39:41, 21:40:06, 21:40:07, 21:40:42, and 21:41:47, exactly co-timed with the formulas; this closes the 25-second attribution gap and ties them to the fe0a… session. Once both public paths are contained, I am checking all remaining listeners/routes before stating full unreachability.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6677,8 +6681,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $813.98 _(notional, rate-card)_ | no quota set |
-| Codex | 22.1M _(+761.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
+| Claude | 54.3M | $814.31 _(notional, rate-card)_ | no quota set |
+| Codex | 22.1M _(+761.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
