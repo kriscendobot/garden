@@ -46,3 +46,13 @@ Confirm the flag/mechanism is built and tested per the design's own
 acceptance criteria, and confirm the orchestration launch call succeeded
 (name the resulting `jobs/orch/ironhorse-test262-implementation-completion-resume.md`
 state).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T01:24:07Z
