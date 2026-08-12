@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T01:06:07Z_
+_As of 2026-08-12T01:24:53Z_
 
 ## Latest
 
@@ -6598,14 +6598,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $791.59 _(notional, rate-card)_ | no quota set |
-| Codex | 19.0M _(+679.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
+| Claude | 52.8M | $792.90 _(notional, rate-card)_ | no quota set |
+| Codex | 19.0M _(+680.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`budgeted-campaign-phase1-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-phase1-build.md) — Task
+- [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-phase2-weekly-bucket-design.md) — Task — Phase 2: recurring capacity calibration + a persistent token bucket
 - [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-dedupe-836-903.md) — Reconcile the two platform-neutral SHA-256 implementations; land ONE on live llm
 
 ### tada (4401)
