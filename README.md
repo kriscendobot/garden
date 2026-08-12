@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:42:28Z_
+_As of 2026-08-12T22:43:53Z_
 
 ## Latest
 
@@ -3528,24 +3528,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
-- `20260812T224127Z-d0b0ed` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224127Z-d0b0ed.md)
-
-> Urgent production inventory complete (read-only file enumeration plus __getMethodNames__ only): two live vhost records resolve powers "@agent" to the full EndoHost method set, including makeUnconfinedFromTree.
->
-> - 6hlvj7a67t2eqpwp4yqkvrlqodhtt2xozq54xc4jtembv4awztjq.ocap.site — owner: https://cognito-idp.us-west-1.amazonaws.com/us-west-1_mDaTgjr1m / 8929a9ae-b001-709d-02ea-e94df6225c0a; published (record mtime): 2026-08-12 21:35:05 UTC.
-> - 7yfk4yqodap7nruf4tz5vncwb7lzbygxc4n3xtcfusaqobyhzmqa.ocap.site — same owner; published: 2026-08-12 21:04:12 UTC.
->
-> These are live unauthenticated remote Host bootstraps and need immediate containment (unpublish/revoke at least these two, then deploy the gateway fix). The remaining five records are not Host-shaped: three lack powers, powers-fixture exposes only echo/hello/version, and formula:live-deploy-verification currently fails lookup. No vhost was published, altered, or executed during this audit.
-
-- `20260812T224149Z-e2ea0b` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224149Z-e2ea0b.md)
-
-> Correction to my just-sent inventory: I transcribed the base32 labels incorrectly. The canonical vhost names, derived from the record filenames, are:
->
-> - 6hlvj7a67t2eqpw74hakvrlqodhtt2xm4q54rgild3lqedcwzxjq.ocap.site (published 2026-08-12 21:35:05 UTC)
-> - 7yfi4ybndap7w3uh4tznxjdqd7lzb2exczo3zrcsuqlqpsyxjcqa.ocap.site (published 2026-08-12 21:04:12 UTC)
->
-> All other conclusions and owner details in the prior message are unchanged.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6691,8 +6673,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.0M | $806.55 _(notional, rate-card)_ | no quota set |
-| Codex | 21.2M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
+| Claude | 54.0M | $807.16 _(notional, rate-card)_ | no quota set |
+| Codex | 21.4M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
