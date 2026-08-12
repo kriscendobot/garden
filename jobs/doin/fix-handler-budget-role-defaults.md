@@ -91,3 +91,13 @@ pre-existing on origin/main2 — verify against baseline before blaming this cha
 
 Landed revision, the role→budget table you established, where the invariant is
 recorded, and any role you found blocking on CI that this job did not cover.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T04:56:04Z
