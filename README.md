@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:30:42Z_
+_As of 2026-08-12T22:32:59Z_
 
 ## Latest
 
@@ -3528,6 +3528,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
+- `20260812T223159Z-55f1f9` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T223159Z-55f1f9.md)
+
+> Gateway trace confirms the report's mechanism in minion.town, not the daemon guest facet. At deployed minion.town main 37252bcdeb200f1088429337c9151b642fe43091, the authenticated MCP weblet_publish tool accepts any nonempty powers string. The public unauthenticated *.ocap.site WebSocket gateway reads that string from the vhost record, performs E(daemonHost).lookup(record.powers), and presents the resolved object as the CapTP bootstrap. `@self` passes validation and resolves the gateway's daemon top Host. Thus an admitted guest can publish a public Host bootstrap; this is urgent and a minion.town fix/deploy is required. I am obtaining the reporter's live hash or equivalent production record and will safely reproduce with __getMethodNames__ only. I redacted the earlier false deployment conclusion from [endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/issues/977).
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6673,15 +6677,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $803.70 _(notional, rate-card)_ | no quota set |
-| Codex | 21.0M _(+745.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 53.9M | $803.74 _(notional, rate-card)_ | no quota set |
+| Codex | 21.0M _(+747.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
+- [`endojs-endo-but-for-bots-pr124-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-weave.md) — Rebase PR #124 — merge conflict blocking CI dispatch
 - [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-host-exposure-forensics.md) — Background
 
 ### tada (4440)
