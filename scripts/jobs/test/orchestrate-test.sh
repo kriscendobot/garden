@@ -13,11 +13,18 @@
 #                   maintainer — not a silent stall.
 #   4. CONTINUE   — the same failure with policy=continue proceeds to the next
 #                   child rather than halting.
-#   5. STALL       — a requeue observed across ticks, or an expired handler
-#                   budget, is a deterministic failed child (not endless active).
+#   5. STALL       — a NON-PRODUCTIVE requeue streak that EXCEEDS
+#                   GARDEN_ORCH_STALL_REQUEUE_LIMIT, or an expired handler budget, is
+#                   a deterministic failed child; a requeue within the limit, or one
+#                   carrying the productive-cycle hint, stays active (not endless
+#                   active, not a first-requeue false halt).
 #   6. BUDGET      — fresh CostRecord aggregation gates serial promotion, fails
 #                   closed, preserves the remainder, reports unused budget, and
 #                   supports a separately-budgeted resume.
+#   7. PRODUCTIVE  — a requeued child that advanced a per-job worktree HEAD (the
+#                   productive-cycle hint) stays active and advances its reap baseline.
+#   8. SERIAL GATE — a serial run never promotes child N+1 while child N still
+#                   occupies jobs/todo or jobs/doin (at most one child in flight).
 #
 # Usage: orchestrate-test.sh
 
@@ -289,6 +296,34 @@ requeue_child() {  # requeue_child <base> <count>
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
+set_reap() {  # set_reap <subdir> <base> <count> — overwrite the reap marker on a job in <subdir>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  sed -i '/^<!-- garden-reaped: [0-9]* -->$/d' "$wt/$1/$2.md"
+  printf '\n<!-- garden-reaped: %s -->\n' "$3" >> "$wt/$1/$2.md"
+  git -C "$wt" add "$1/$2.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "set-reap($2=$3)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+# Simulate a PRODUCTIVE resume cycle: the child is claimed in doin with a prior
+# non-productive requeue count AND the gardener's productive-cycle hint (it advanced a
+# per-job worktree HEAD this cycle). Under the OLD "any requeue rise = failed" rule this
+# would have been torn down; the watcher must now read the hint and keep it active.
+claim_progressing() {  # claim_progressing <base> <reapcount>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  [ -f "$wt/jobs/todo/$1.md" ] && git -C "$wt" mv "jobs/todo/$1.md" "jobs/doin/$1.md"
+  sed -i '/^<!-- garden-reaped: [0-9]* -->$/d;/^<!-- garden-productive-cycle -->$/d' "$wt/jobs/doin/$1.md"
+  {
+    printf '\n<!-- garden-reaped: %s -->\n' "$2"
+    printf '<!-- garden-productive-cycle -->\n'
+  } >> "$wt/jobs/doin/$1.md"
+  git -C "$wt" add "jobs/doin/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "progressing($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
 
 "$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall r-a >/dev/null
 "$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-stall r-b >/dev/null
@@ -297,13 +332,23 @@ tick                            # promotes r-a and snapshots reaps=0
 claim_child r-a "$(date -u +%FT%TZ)"
 tick                            # captures claim host for the later notice
 requeue_child r-a 1
-tick                            # requeue count rose 0 → 1: deterministic failure
+tick                            # reaps 0 → 1 WITHIN the limit (2), no productive hint: tolerated
+{ ! in_dir jobs/tada orch-stall && ! in_dir jobs/todo r-b && in_dir jobs/todo r-a; } \
+  && ok "one requeue below GARDEN_ORCH_STALL_REQUEUE_LIMIT is tolerated (child stays active)" \
+  || bad "requeue within limit was wrongly failed (tada=$(board jobs/tada), todo=$(board jobs/todo))"
+set_reap jobs/todo r-a 2
+tick                            # reaps == limit (2): still tolerated
+{ ! in_dir jobs/tada orch-stall && in_dir jobs/todo r-a; } \
+  && ok "requeue count equal to the limit is still tolerated" \
+  || bad "requeue at the limit was wrongly failed (tada=$(board jobs/tada), todo=$(board jobs/todo))"
+set_reap jobs/todo r-a 3
+tick                            # reaps 3 EXCEEDS the limit (2), no progress hint: deterministic failure
 stall_ok=1
 in_dir jobs/tada orch-stall || stall_ok=0
 in_dir jobs/todo r-b && stall_ok=0
-grep -q 'stalled after 1 requeues on host stall-host' "$V/jobs/tada/orch-stall.md" 2>/dev/null || stall_ok=0
-grep -rqi 'stalled after 1 requeues on host stall-host' "$V/inbox/maintainer/unread" 2>/dev/null || stall_ok=0
-[ "$stall_ok" -eq 1 ] && ok "requeue rise is stalled, halts, and names its last host" \
+grep -q 'stalled after 3 requeues on host stall-host' "$V/jobs/tada/orch-stall.md" 2>/dev/null || stall_ok=0
+grep -rqi 'stalled after 3 requeues on host stall-host' "$V/inbox/maintainer/unread" 2>/dev/null || stall_ok=0
+[ "$stall_ok" -eq 1 ] && ok "a requeue streak past the limit with no progress hint stalls, halts, and names its host" \
   || bad "requeue stall not surfaced correctly (tada=$(board jobs/tada), todo=$(board jobs/todo))"
 
 # ============================================================================
@@ -443,6 +488,51 @@ in_dir jobs/todo e-a || resume_ok=0
 in_dir jobs/plan e-b || resume_ok=0
 [ "$resume_ok" -eq 1 ] && ok "resume created a distinct budget epoch, retagged atomically, and excluded old spend" \
   || bad "separately-budgeted resume mismatch (todo=$(board jobs/todo), plan=$(board jobs/plan))"
+
+# ============================================================================
+hr; echo "SUBTEST 15 — PRODUCTIVE: a requeued child that advanced a HEAD stays active and advances its baseline"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-prod pr-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-prod pr-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-prod pr-a pr-b >/dev/null
+tick                              # promote pr-a, baseline reaps=0
+claim_child pr-a "$(date -u +%FT%TZ)"
+tick                              # capture claim host
+claim_progressing pr-a 1          # prior requeue count 1 (>baseline) BUT a productive-cycle hint
+tick                              # honor the hint → progressing, NOT failed; advance baseline
+prod_ok=1
+in_dir jobs/tada orch-prod && { prod_ok=0; echo "    orchestration halted a progressing child"; }
+in_dir jobs/todo pr-b && { prod_ok=0; echo "    pr-b promoted early"; }
+in_dir jobs/doin pr-a || { prod_ok=0; echo "    pr-a no longer in flight"; }
+pview="$(mktemp -d "$TR/prod-view.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$pview"
+grep -q '^child-pr-a-reap-count: 1' "$pview/jobs/orch/orch-prod.md" 2>/dev/null \
+  || { prod_ok=0; echo "    reap baseline not advanced to the new floor (1)"; }
+rm -rf "$pview"
+[ "$prod_ok" -eq 1 ] && ok "productive-cycle child (worktree HEAD advanced) stayed active and advanced its reap baseline" \
+  || bad "productive-cycle handling mismatch (orch=$(board jobs/orch) tada=$(board jobs/tada) doin=$(board jobs/doin))"
+
+# ============================================================================
+hr; echo "SUBTEST 16 — SERIAL GATE: N+1 is NOT promoted while N still occupies todo/doin"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-gate g-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-gate g-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure continue orch-gate g-a g-b >/dev/null
+tick                              # promote g-a
+in_dir jobs/todo g-a || bad "gate setup: g-a not promoted"
+claim_child g-a "$(date -u +%FT%TZ)"
+# Force g-a to classify as FAILED (no hint, requeue streak past the limit) while it is
+# STILL in doin. Under policy=continue the ordered loop advances past it; the serial gate
+# must nevertheless refuse to promote g-b while g-a still occupies the board.
+set_reap jobs/doin g-a 3
+tick
+gate_ok=1
+in_dir jobs/doin g-a || { gate_ok=0; echo "    g-a unexpectedly left doin"; }
+in_dir jobs/todo g-b && { gate_ok=0; echo "    g-b PROMOTED while g-a still in flight (serial gate breached)"; }
+[ "$gate_ok" -eq 1 ] && ok "serial run held g-b parked while g-a still occupied doin (no concurrent promotion)" \
+  || bad "serial gate breached (doin=$(board jobs/doin) todo=$(board jobs/todo))"
+fail_child g-a                    # g-a genuinely vanishes from the board
+tick                              # only now may continue promote g-b
+{ in_dir jobs/todo g-b; } \
+  && ok "once g-a vanished, policy=continue released the gate and promoted g-b" \
+  || bad "g-b not promoted after g-a vanished (todo=$(board jobs/todo))"
 
 # ============================================================================
 hr

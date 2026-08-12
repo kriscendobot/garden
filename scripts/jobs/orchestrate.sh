@@ -24,18 +24,27 @@
 #             orchestration completes when every child is terminal.
 #
 # CHILD STATE is read purely from the board (child_state below):
-#   done   — jobs/tada/<child> exists (and carries no failure marker).
-#   active — jobs/todo or jobs/doin holds it (claimed / queued, in flight), unless
-#            its deterministic liveness bounds say it has stalled.
-#   parked — jobs/plan holds it (gate=orchestrated, not yet promoted) and it is
-#            NOT doomed.
-#   failed — either it VANISHED without reaching tada (promoted, then removed), or
-#            its tada report marks `orchestration-failed: true`, or it is parked in
-#            jobs/plan carrying `doomed: true` (the reaper exhausted its requeue
-#            budget and parked the work under a held gate rather than dropping it —
-#            reaper.sh doom branch). A failed child triggers the on-child-failure
-#            policy rather than a silent stall (or, for a doomed child, rather
-#            than an endless re-promote loop).
+#   done        — jobs/tada/<child> exists (and carries no failure marker).
+#   active      — jobs/todo or jobs/doin holds it (claimed / queued, in flight),
+#                 unless its deterministic liveness bounds say it has stalled.
+#   progressing — in flight AND its requeue count rose above the recorded baseline,
+#                 BUT it carries the gardener's productive-cycle hint (a per-job
+#                 worktree HEAD advanced this cycle — the SAME signal the reaper
+#                 honors to reset its doom counter). Treated like active, and the
+#                 caller advances the stored reap baseline to the new floor. This is
+#                 the fix for the watcher tearing down a long-running child (a shepherd
+#                 driving CI, a 35-seat panel) on its first NORMAL reap-and-resume.
+#   parked      — jobs/plan holds it (gate=orchestrated, not yet promoted) and it is
+#                 NOT doomed.
+#   failed      — either it VANISHED without reaching tada (promoted, then removed),
+#                 or its tada report marks `orchestration-failed: true`, or it is
+#                 parked in jobs/plan carrying `doomed: true` (the reaper exhausted its
+#                 requeue budget and parked the work under a held gate rather than
+#                 dropping it — reaper.sh doom branch), or it exceeded
+#                 GARDEN_ORCH_STALL_REQUEUE_LIMIT non-productive requeues with NO
+#                 progress hint. A failed child triggers the on-child-failure policy
+#                 rather than a silent stall (or, for a doomed child, rather than an
+#                 endless re-promote loop).
 #
 # On completion the watcher writes tada/<base> (a progress/outcome summary) and
 # removes the orch record, so the orchestration shows as done on the board and is
@@ -111,11 +120,33 @@ child_handler_timeout() {
   printf '%s\n' "${n:-$GARDEN_HANDLER_TIMEOUT}"
 }
 
-set_orch_reap_baseline() {  # <orch-base> <child>; called immediately after promotion
+set_orch_reap_baseline() {  # <orch-base> <child>; record the child's current reap count as the floor
+  # Called immediately after promotion (child is in todo) AND when a progressing child
+  # advances its baseline (child is in doin — the reaper has not yet requeued the
+  # productive cycle), so read whichever of todo/doin holds it.
   local base="$1" c="$2" jf n
-  jf="$DIR/$JOBS_TODO/$c.md"; [ -f "$jf" ] || return 0
+  if [ -f "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
+  elif [ -f "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
+  else return 0; fi
   n="$(child_reap_count "$jf")"
   set_orch_field "$base" "child-$c-reap-count" "$n"
+}
+
+# serial_sibling_in_flight <self-child> <all-children...> — print the FIRST sibling
+# child (≠ self) that currently occupies jobs/todo or jobs/doin, and return 0; return
+# 1 (nothing printed) if no sibling is in flight. The defense-in-depth gate a SERIAL
+# run applies before promoting a parked child: a serial orchestration must have AT
+# MOST ONE child in flight, so if any sibling is queued/claimed we must NOT promote.
+serial_sibling_in_flight() {
+  local self="$1"; shift
+  local c
+  for c in "$@"; do
+    [ "$c" = "$self" ] && continue
+    if [ -e "$DIR/$JOBS_TODO/$c.md" ] || [ -e "$DIR/$JOBS_DOIN/$c.md" ]; then
+      printf '%s\n' "$c"; return 0
+    fi
+  done
+  return 1
 }
 
 set_orch_claim_host() {  # <orch-base> <child>; preserve the first claiming host
@@ -131,7 +162,7 @@ set_orch_claim_host() {  # <orch-base> <child>; preserve the first claiming host
 # notices.  It is deliberately recomputed from the board rather than kept in
 # process globals (the caller receives child_state through command substitution).
 child_failure_detail() {  # <child> <orch-record>
-  local c="$1" orch="$2" jf="" n prev limit started now started_epoch age host
+  local c="$1" orch="$2" jf="" n limit started now started_epoch age host
   if [ -f "$DIR/$JOBS_TODO/$c.md" ]; then jf="$DIR/$JOBS_TODO/$c.md"
   elif [ -f "$DIR/$JOBS_DOIN/$c.md" ]; then jf="$DIR/$JOBS_DOIN/$c.md"
   else
@@ -143,14 +174,15 @@ child_failure_detail() {  # <child> <orch-record>
     return 0
   fi
   n="$(child_reap_count "$jf")"
-  prev="$(plan_field "$orch" "child-$c-reap-count")"
   host="$(child_claim_host "$jf")"; [ -n "$host" ] || host="$(plan_field "$orch" "child-$c-host")"; [ -n "$host" ] || host=unknown
   limit="$GARDEN_ORCH_STALL_REQUEUE_LIMIT"
-  if [ "$n" -gt "$limit" ] 2>/dev/null; then
-    printf 'stalled after %s requeues on host %s (limit %s)\n' "$n" "$host" "$limit"; return 0
-  fi
-  if [ -n "$prev" ] && [ "$n" -gt "$prev" ] 2>/dev/null; then
-    printf 'stalled after %s requeues on host %s (requeue count rose from %s)\n' "$n" "$host" "$prev"; return 0
+  # Mirror child_state EXACTLY (these two must never disagree): a child that advanced a
+  # per-job worktree HEAD this cycle carries the productive-cycle hint and is
+  # progressing, never stalled. Only a child with NO hint whose non-productive requeue
+  # streak EXCEEDS the tunable limit is a requeue stall. The old "rose above baseline"
+  # clause is gone — any rise was punishing the normal reap-and-resume path.
+  if ! has_productive_cycle_hint "$jf" && [ "$n" -gt "$limit" ] 2>/dev/null; then
+    printf 'stalled after %s requeues on host %s (limit %s, no progress hint this cycle)\n' "$n" "$host" "$limit"; return 0
   fi
   started="$(child_claimed_at "$jf")"; [ -n "$started" ] || started="$(child_promoted_at "$jf")"
   if [ -n "$started" ]; then
@@ -166,7 +198,7 @@ child_failure_detail() {  # <child> <orch-record>
   printf 'failed / vanished from the board\n'
 }
 
-child_state() {  # <child-base> <orch-record> → done|active|parked|failed
+child_state() {  # <child-base> <orch-record> → done|active|progressing|parked|failed
   local c="$1" orch="$2" jf="" n prev detail
   if [ -e "$DIR/$JOBS_TADA/$c.md" ]; then
     # A tada report can carry the "completed but declined its gated outcome"
@@ -184,11 +216,29 @@ child_state() {  # <child-base> <orch-record> → done|active|parked|failed
   if [ -n "$jf" ]; then
     n="$(child_reap_count "$jf")"
     prev="$(plan_field "$orch" "child-$c-reap-count")"
-    # Promotion records the baseline in the orchestration record.  A later rise
-    # proves the child died and was requeued between watcher ticks.
-    if { [ -n "$prev" ] && [ "$n" -gt "$prev" ] 2>/dev/null; } \
-      || [ "$n" -gt "$GARDEN_ORCH_STALL_REQUEUE_LIMIT" ] 2>/dev/null; then
-      printf 'failed\n'; return 0
+    # A requeue is NOT automatically a failure. The fleet already distinguishes a
+    # requeued-but-PROGRESSING child from a requeued-and-FAILING one via the
+    # productive-cycle hint (common.sh § productive-cycle hint): the gardener stamps it
+    # when a per-job worktree HEAD advanced this cycle, and the reaper RESETS its doom
+    # counter on it instead of incrementing. Consult the SAME predicate the reaper
+    # honors so a long-running child that is reaped and re-claims — the NORMAL path for
+    # a shepherd waiting on CI or a 35-seat panel — is not declared stalled on its
+    # first requeue.  Promotion records the baseline in the orchestration record.
+    if has_productive_cycle_hint "$jf"; then
+      # Advanced a HEAD this cycle → making real progress. Never fail it on requeue
+      # count. If the count rose above the recorded baseline, signal the caller to
+      # ADVANCE the stored floor so the next tick compares against the new baseline.
+      if [ -n "$prev" ] && [ "$n" -gt "$prev" ] 2>/dev/null; then
+        printf 'progressing\n'; return 0
+      fi
+    else
+      # No progress hint this cycle: consecutive non-productive requeues count toward
+      # GARDEN_ORCH_STALL_REQUEUE_LIMIT and fail the child only once they EXCEED it —
+      # which is what the tunable was for. The reaper resets the reap count on every
+      # productive cycle, so n already measures the non-productive streak.
+      if [ "$n" -gt "$GARDEN_ORCH_STALL_REQUEUE_LIMIT" ] 2>/dev/null; then
+        printf 'failed\n'; return 0
+      fi
     fi
     # Claim metadata is stamped by claim-job.sh.  A queued child uses the promotion
     # timestamp instead, so an unclaimable child cannot wait forever either.
@@ -382,11 +432,32 @@ advance_serial() {  # <base> <policy> <child>...
     case "$st" in
       done)
         done_count=$((done_count+1)); continue;;
-      active)
+      active|progressing)
         set_orch_claim_host "$base" "$c" || true
-        log "orchestration '$base': waiting on child $((i+1))/$total '$c' (in flight)"
+        if [ "$st" = progressing ]; then
+          # Requeued but the gardener advanced a per-job worktree HEAD this cycle —
+          # real progress, not a stall. Advance the stored reap baseline so the next
+          # tick compares against the new floor, and keep waiting on it.
+          set_orch_reap_baseline "$base" "$c" || true
+          log "orchestration '$base': child $((i+1))/$total '$c' requeued but PROGRESSING (advanced a worktree HEAD); baseline advanced, still in flight"
+        else
+          log "orchestration '$base': waiting on child $((i+1))/$total '$c' (in flight)"
+        fi
         return 0;;
       parked)
+        # DEFENSE-IN-DEPTH serial gate: a serial run must have AT MOST ONE child in
+        # flight. The ordered loop above already returns at the first active child, but
+        # if an earlier sibling were momentarily MISCLASSIFIED as terminal (a live child
+        # misread as failed, then policy=continue) a `continue` could reach this parked
+        # child and promote it — two children editing overlapping sources and pushing to
+        # ONE shared PR branch (the 2026-08-08 ironhorse-262 five-children collision).
+        # Independently assert no OTHER child of this orchestration occupies todo/doin
+        # before promoting; if one does, WAIT rather than promote.
+        local sib
+        if sib="$(serial_sibling_in_flight "$c" "${kids[@]}")"; then
+          log "orchestration '$base': NOT promoting child $((i+1))/$total '$c' — serial sibling '$sib' still in flight (todo/doin)"
+          return 0
+        fi
         local budget snapshot reason_file spend
         budget="$(orch_budget_tokens "$DIR/$JOBS_ORCH/$base.md")"
         if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
@@ -477,7 +548,9 @@ advance_parallel() {  # <base> <policy> <child>...
     case "$st" in
       done)   done_count=$((done_count+1));;
       failed) failed+=("$c");;
-      active) active=$((active+1)); set_orch_claim_host "$base" "$c" || true;;
+      active|progressing)
+        active=$((active+1)); set_orch_claim_host "$base" "$c" || true
+        [ "$st" = progressing ] && { set_orch_reap_baseline "$base" "$c" || true; };;
       parked) parked=$((parked+1)); "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1 || true;;
     esac
   done
