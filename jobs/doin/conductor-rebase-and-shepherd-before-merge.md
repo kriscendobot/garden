@@ -96,3 +96,13 @@ so state it as a recommendation rather than quietly shipping a narrower rule.
   goes red, and the approval interaction chosen above.
 - Conductor role + state-machine design updated.
 - Full test suite green; pushed to `main2`. Note the deploy requirement in the report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T21:18:27Z
