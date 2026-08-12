@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T03:58:33Z_
+_As of 2026-08-12T03:59:33Z_
 
 ## Latest
 
@@ -6621,8 +6621,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ironhorse-js-06-sync-iteration-generators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-06-sync-iteration-generators-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 
 ### tada (4407)
 - [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators.md) — Completion report — ironhorse-js-06-sync-iteration-generators
