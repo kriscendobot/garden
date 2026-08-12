@@ -45,3 +45,13 @@ against the roadmap branch (`llm`) per the designer role's standing
 convention. Name who should build it (weaver recovering the row vs. a fresh
 builder slice) as an explicit recommendation, not left open if the evidence
 supports a clear answer.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T20:23:15Z
