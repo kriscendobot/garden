@@ -78,6 +78,7 @@ say which and why.
 
 Keep specifics off public trackers.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
