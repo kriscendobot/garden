@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:23:46Z_
+_As of 2026-08-12T23:24:27Z_
 
 ## Latest
 
@@ -3532,37 +3532,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
-- `20260812T232240Z-95992e` — from gardener:ebfb-ocapn-gateway-retention-set-peer-binding, reply_to `ebfb-ocapn-gateway-retention-set-peer-binding` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T232240Z-95992e.md)
-
-> Security fix for the OCapN gateway retention-set leak is up as DRAFT PR
-> [endojs/endo-but-for-bots#978](https://github.com/endojs/endo-but-for-bots/issues/978) (base `llm`, head kriscendobot:ocapn-gateway-retention-peer-binding).
->
-> What it does:
-> - `hello` now returns a gateway BOUND to the peer's authenticated node;
->   `followRetentionSet` answers only for that node — never another peer's,
->   never the local node's.
-> - The shared `localGateway` (outbound/loopback paths that don't flow through
->   `hello`) refuses outright to enumerate the local node's formula index. Safe
->   because no legitimate caller ever follows the local node's own set (a node
->   never peers with itself).
-> - Bearer read methods (`provide`/`provideBlob`/`provideTree`) audited: each
->   answers only for a caller already holding the secret id/hash; none enumerate.
->   `followRetentionSet` was the only enumerating method.
->
-> Tests: 3 new targeted tests (peer confined to own set; local index not
-> enumerable; interop `provide` still works) + the full cross-daemon
-> invite-retention suite still green, so OCapN peer retention is unaffected.
->
-> One residual, reported in the PR as follow-up (NOT a local-index leak): the
-> OUTBOUND transport path presents the shared gateway un-bound to the specific
-> dialed peer, so a peer we dial could still follow a THIRD node's set (local is
-> still refused). Fully binding outbound needs the peer identity threaded through
-> the host gateway() powers facet across all transports — a broader change.
->
-> Left draft per the job: containment + deploy are your call. This is the code
-> change the two minion.town containment jobs referenced as the thing that lands
-> before OCapN-over-Noise can be restored.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6708,8 +6677,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $814.02 _(notional, rate-card)_ | no quota set |
-| Codex | 22.5M _(+777.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 54.2M | $814.46 _(notional, rate-card)_ | no quota set |
+| Codex | 22.5M _(+777.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
