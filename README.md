@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:26:33Z_
+_As of 2026-08-12T05:29:51Z_
 
 ## Latest
 
@@ -6639,23 +6639,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.6M | $810.89 _(notional, rate-card)_ | no quota set |
-| Codex | 19.6M _(+697.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Codex | 19.6M _(+699.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabot-merge-now-auto-conduct.md) — builder: dependabot MERGE-NOW auto-conducts — retire the maintainer-approval ...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Review directive on endojs/endo-but-for-bots PR #903
 
-### tada (4412)
+### tada (4413)
+- [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-merge-now-auto-conduct.md) — Cost
 - [`weave-ebfb-pr970-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-ebfb-pr970-onto-llm.md) — Completion report
 - [`fix-orchestrate-watcher-progress-and-serial`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-watcher-progress-and-serial.md) — Completion report
 - [`fix-handler-budget-role-defaults`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-handler-budget-role-defaults.md) — Cost
 - [`ironhorse-js-06-sync-iteration-generators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators-gauntlet.md) — gauntlet ironhorse-js-06-sync-iteration-generators-gauntlet — HALTED
-- [`ironhorse-js-06-sync-iteration-generators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators-gauntlet-clean.md) — Clean stage — endojs/endo-but-for-bots PR #970 — HALTED (base-branch conflict)
-- … and 4407 more
+- … and 4408 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
