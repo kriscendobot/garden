@@ -106,3 +106,13 @@ promotes child N+1 while child N is in `todo` or `doin`. Run the existing
 The landed main2 revision, the root cause you found for defect B (not just the fix),
 and confirmation that the productive-cycle predicate is now shared rather than
 duplicated between reaper and orchestrator.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T04:55:23Z
