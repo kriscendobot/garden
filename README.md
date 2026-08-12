@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T16:47:23Z_
+_As of 2026-08-12T16:54:15Z_
 
 ## Latest
 
@@ -6652,24 +6652,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $789.84 _(notional, rate-card)_ | no quota set |
-| Codex | 18.9M _(+683.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
+| Claude | 53.4M | $790.76 _(notional, rate-card)_ | no quota set |
+| Codex | 19.0M _(+686.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`design-liveness-progress-over-elapsed-deadlines`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-liveness-progress-over-elapsed-deadlines.md) — designer: replace elapsed-deadline reaping with liveness + progress, and budg...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
 
-### tada (4420)
+### tada (4421)
+- [`design-liveness-progress-over-elapsed-deadlines`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-liveness-progress-over-elapsed-deadlines.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260812-162003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260812-162003.md) — Completion report
 - [`improve-automate-stale-dependabot-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-automate-stale-dependabot-rebase.md) — Completion report: improve-automate-stale-dependabot-rebase
 - [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held-2.md) — Cost
 - [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-child-failure-detection.md) — Cost
-- [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Completion report
-- … and 4415 more
+- … and 4416 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
