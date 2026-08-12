@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:03:46Z_
+_As of 2026-08-12T23:05:44Z_
 
 ## Latest
 
@@ -6699,28 +6699,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $809.18 _(notional, rate-card)_ | no quota set |
-| Codex | 21.9M _(+758.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 54.2M | $810.72 _(notional, rate-card)_ | no quota set |
+| Codex | 21.9M _(+759.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (8)
 - [`deadmail-20260812T225323Z-c7db45`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T225323Z-c7db45.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`endojs-endo-but-for-bots-pr475-d19add5f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-d19add5f.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`ebfb-ocapn-gateway-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ocapn-gateway-retention-set-peer-binding.md) — The defect
 - [`endojs-endo-but-for-bots-pr977-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr977-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #977
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260812-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260812-230502.md) — ---
 - [`minion-town-dckc-session-residue-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-dckc-session-residue-forensics.md) — Why this job exists
 - [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-endpoint-closure-audit.md) — Why this job exists
+- [`minion-town-ocapn-locator-leak-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-ocapn-locator-leak-audit.md) — Why this job exists
 
-### tada (4447)
+### tada (4448)
+- [`endojs-endo-but-for-bots-pr475-d19add5f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-d19add5f.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-2d488d9a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2d488d9a.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-05cf7242`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-05cf7242.md) — Cost
 - [`minion-town-host-exposure-forensics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-host-exposure-forensics.md) — Cost
-- [`minion-town-containment-gateway-endo-sock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-containment-gateway-endo-sock.md) — Completion Report — minion-town-containment-gateway-endo-sock
-- … and 4442 more
+- … and 4443 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
