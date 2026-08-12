@@ -1,3 +1,9 @@
+---
+created: 2026-07-01
+updated: 2026-08-12
+author: designer, builder
+---
+
 # Design: orchestration jobs (sequence a multi-part job's children and watch them)
 
 Maintainer directive (kriskowal 2026-07-01): **for a multi-part job, always make an
@@ -45,6 +51,18 @@ having *failed*, only of it *reaching* `tada/`).
   names the children (run order), the `order` (`serial`|`parallel`), and the
   `on-child-failure` policy (`halt`|`continue`). `jobs/orch/` sits alongside the
   lifecycle like `plan/`/`index/`: never claimed, never reaped.
+- **Optional serial budget.** `--budget-tokens N` declares a positive billable-
+  token cap and uses the record's `created_at` as its accounting epoch. Before
+  every parked-child promotion, `campaign-spend.sh` freshly folds the named
+  children's matching CostRecord rows. At/over cap, `orchestrate.sh` finishes
+  `budget-exhausted`; malformed or unmetered matching rows finish
+  `budget-meter-incomplete`. Both outcomes keep and enumerate the unpromoted
+  remainder in `plan/`. Parallel budgets are rejected. Full rationale and dollar
+  reporting semantics are in [budgeted-campaign-dispatch.md](budgeted-campaign-dispatch.md).
+- **Separate-budget resume.** `--resume-from <terminal-campaign>` verifies the
+  terminal report's parked remainder, atomically retags those plan files to a new
+  campaign, and creates a new record with a new budget epoch. It never mutates an
+  old budget declaration or rolls unused permission forward automatically.
 - **The watcher** `orchestrate.sh` — the leader-only `garden-orchestrate` timer,
   deterministic, **no `claude -p`**, modeled exactly on `unblock.sh` — advances
   every active orchestration ONE step per tick:
@@ -92,12 +110,16 @@ self-heals, and nothing can forget.
 serial promotes one child at a time and advances only after each reaches `tada/`;
 parallel promotes all at once; a child failure halts a serial run (next child NOT
 promoted, downstream swept, surfaced to maintainer) under `halt` and proceeds under
-`continue`. 14 assertions.
+`continue`. Budget coverage adds under-cap promotion, exact-cap stop, overshoot,
+epoch filtering, all-outcome aggregation, malformed/unmetered fail-closed,
+non-sweeping remainder, visible unspent completion, parallel rejection, and
+separately-budgeted resume. 25 assertions.
 
 ## Files
 
 - `scripts/jobs/post-orchestration.sh` — record an orchestration over parked children.
 - `scripts/jobs/orchestrate.sh` — the deterministic watcher.
+- `scripts/jobs/campaign-spend.sh` — fresh CostRecord reducer and reporting snapshot.
 - `scripts/jobs/post-plan.sh` — `--orchestrated` / `--orchestrated-by` gate.
 - `scripts/jobs/common.sh` — `JOBS_ORCH`, `orch_*` frontmatter helpers.
 - `scripts/systemd/garden-orchestrate.{service,timer}` — leader-only timer.

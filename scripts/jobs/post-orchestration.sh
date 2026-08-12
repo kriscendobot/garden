@@ -29,10 +29,13 @@
 #
 # Usage:
 #   post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
+#                         [--budget-tokens N] [--resume-from TERMINAL-CAMPAIGN]
 #                         [--by ROLE] [--no-validate] <orch-base> <child>... [-- body-file]
 #
 #   --serial | --parallel        ordering of the children (default --serial).
 #   --on-child-failure halt|continue   policy on a child failure (default halt).
+#   --budget-tokens N           positive billable-token cap (serial only).
+#   --resume-from CAMPAIGN      adopt that terminal campaign's parked remainder.
 #   --by ROLE                    provenance (default: $GARDEN_SENDER or "producer").
 #   --no-validate                skip the "each child is parked in plan/" check
 #                                (use only when children are posted concurrently).
@@ -57,10 +60,14 @@ post-orchestration.sh — record an orchestration over parked child sub-jobs.
 
 Usage:
   post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
+                        [--budget-tokens N] [--resume-from TERMINAL-CAMPAIGN]
                         [--by ROLE] [--no-validate] <orch-base> <child>... [-- body-file]
 
   --serial | --parallel              ordering (default --serial).
   --on-child-failure halt|continue   policy on a child failure (default halt).
+  --budget-tokens N                 positive billable-token cap (serial only).
+  --resume-from CAMPAIGN            atomically adopt its parked remainder under
+                                    this new campaign and budget epoch.
   --by ROLE                          provenance (default $GARDEN_SENDER or producer).
   --no-validate                      skip the "child parked in plan/" precheck.
   <orch-base>                        the orchestration spine.
@@ -74,12 +81,16 @@ policy="halt"
 by="${GARDEN_SENDER:-producer}"
 validate=1
 body_src=""
+budget_tokens=""
+resume_from=""
 while [ $# -gt 0 ]; do
   case "$1" in
     -h|--help)          usage; exit 0;;
     --serial)           order="serial"; shift;;
     --parallel)         order="parallel"; shift;;
     --on-child-failure) policy="${2:?--on-child-failure needs halt|continue}"; shift 2;;
+    --budget-tokens)   budget_tokens="${2:?--budget-tokens needs a positive integer}"; shift 2;;
+    --resume-from)     resume_from="${2:?--resume-from needs a terminal campaign base}"; shift 2;;
     --by)               by="${2:?--by needs a value}"; shift 2;;
     --no-validate)      validate=0; shift;;
     --)                 shift; break;;   # end of options; positionals (and a trailing
@@ -100,6 +111,13 @@ case "$base" in
 esac
 case "$order" in serial|parallel) :;; *) die "illegal order: '$order' (serial|parallel)";; esac
 case "$policy" in halt|continue) :;; *) die "illegal on-child-failure: '$policy' (halt|continue)";; esac
+if [ -n "$budget_tokens" ]; then
+  case "$budget_tokens" in 0|*[!0-9]*) die "--budget-tokens must be a positive base-10 integer";; esac
+  budget_tokens="$(sed 's/^0*//' <<<"$budget_tokens")"
+  [ -n "$budget_tokens" ] || die "--budget-tokens must be greater than zero"
+  [ "$order" = serial ] || die "--budget-tokens is supported only with --serial"
+fi
+case "$resume_from" in */*|.*|-*) die "illegal --resume-from campaign: '$resume_from'";; esac
 
 # Collect the child basenames (everything up to a lone `--`, which starts the body).
 children=()
@@ -141,6 +159,8 @@ compose() {
   printf 'children: %s\n' "${children[*]}"
   printf 'on-child-failure: %s\n' "$policy"
   printf 'state: pending\n'
+  [ -n "$budget_tokens" ] && printf 'budget_tokens: %s\n' "$budget_tokens"
+  [ -n "$resume_from" ] && printf 'resume_from: %s\n' "$resume_from"
   printf 'created_by: %s\n' "$by"
   printf 'created_at: %s\n' "$(date -u +%FT%TZ)"
   printf -- '---\n\n'
@@ -152,6 +172,26 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   if [ -e "$DIR/$JOBS_ORCH/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
     log "orchestration '$base' already recorded; nothing to do"
     exit 0
+  fi
+  resume_children=()
+  if [ -n "$resume_from" ]; then
+    terminal="$DIR/$JOBS_TADA/$resume_from.md"
+    [ -f "$terminal" ] || die "--resume-from campaign '$resume_from' has no terminal tada report"
+    grep -qE '^orchestration-status: (budget-exhausted|budget-meter-incomplete)$' "$terminal" \
+      || die "--resume-from campaign '$resume_from' is not a resumable budget terminal outcome"
+    read -ra resume_children <<<"$(sed -n 's/^campaign-parked-children:[[:space:]]*//p' "$terminal" | head -1)"
+    [ "${#resume_children[@]}" -gt 0 ] \
+      || die "--resume-from campaign '$resume_from' names no parked remainder"
+    for c in "${resume_children[@]}"; do
+      printf '%s\n' "${children[@]}" | grep -qx "$c" \
+        || die "parked remainder child '$c' is absent from the new campaign child list"
+      plan="$DIR/$JOBS_PLAN/$c.md"
+      [ -f "$plan" ] || die "parked remainder child '$c' is no longer in plan/"
+      [ "$(plan_gate "$plan")" = orchestrated ] \
+        || die "parked remainder child '$c' is not orchestrated"
+      [ "$(plan_field "$plan" orchestrated_by)" = "$resume_from" ] \
+        || die "parked remainder child '$c' is not owned by '$resume_from'"
+    done
   fi
   # Validate each child is parked in plan/ (the producer must park children BEFORE
   # recording the orchestration, so the watcher has something to promote). A child
@@ -166,6 +206,13 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   mkdir -p "$DIR/$JOBS_ORCH"
   compose > "$DIR/$JOBS_ORCH/$base.md"
   git -C "$DIR" add "$JOBS_ORCH/$base.md"
+  # Adoption and the new orchestration record are one journal commit: a watcher
+  # can see either the old ownership or the complete new budget epoch, never a
+  # half-retagged remainder.
+  for c in "${resume_children[@]}"; do
+    sed -i "s/^orchestrated_by:.*/orchestrated_by: $base/" "$DIR/$JOBS_PLAN/$c.md"
+    git -C "$DIR" add "$JOBS_PLAN/$c.md"
+  done
   if commit_and_push "$DIR" "orch($base) recorded [$order/$policy, ${#children[@]} children] by $GARDEN"; then
     log "recorded orchestration '$base' ($order, ${#children[@]} children, on-child-failure=$policy)"
     exit 0

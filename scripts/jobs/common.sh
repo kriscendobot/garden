@@ -5008,6 +5008,8 @@ reroute_job_model() {
 #   children: a b c                    # space-separated child job basenames, in order
 #   on-child-failure: halt | continue  # policy when a child fails (default halt)
 #   state: pending | running | done | halted   # managed by orchestrate.sh
+#   budget_tokens: <positive integer>   # optional serial-promotion token cap
+#   resume_from: <terminal campaign>    # optional separately-budgeted predecessor
 #   child-<base>-reap-count: <N>      # watcher baseline at promotion
 #   child-<base>-host: <host>         # first claimant; diagnostic only
 #   created_by: <role>                 # optional provenance
@@ -5032,6 +5034,17 @@ orch_failure_policy() {
 orch_state() {
   local s; s="$(plan_field "$1" state)"; printf '%s\n' "${s:-pending}"
 }
+# Read the optional billable-token declaration's value.
+orch_budget_tokens() { plan_field "$1" budget_tokens; }
+# Presence is distinct from a non-empty value: `budget_tokens:` is a malformed
+# declaration that must fail closed, not silently regain unbudgeted behavior.
+orch_has_budget() { grep -q '^budget_tokens:' "$1" 2>/dev/null; }
+# The accounting epoch. Budgeted records require this; unbudgeted legacy records
+# may omit it.
+orch_created_at() { plan_field "$1" created_at; }
+# Optional audit link for a new budget epoch adopting a terminal campaign's
+# still-parked remainder.
+orch_resume_from() { plan_field "$1" resume_from; }
 
 # --- gauntlet-record metadata helpers ---------------------------------------
 # A gauntlet record (jobs/gauntlet/<g>.md) carries leading YAML frontmatter:

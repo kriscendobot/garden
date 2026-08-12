@@ -276,6 +276,100 @@ orch_notify() {  # <subject> ; body on stdin
     log "orchestration notify to maintainer failed (non-fatal): $subject"
 }
 
+# --- budgeted-campaign reporting and terminal transitions ------------------
+campaign_spend() {  # <base> — one JSON object, from this tick's synced checkout
+  "$HERE/campaign-spend.sh" --dir "$DIR" "$1"
+}
+
+campaign_parked_children() {  # <orch-record> <child>...
+  local record="$1"; shift
+  local child
+  for child in "$@"; do
+    [ "$(child_state "$child" "$record")" = parked ] && printf '%s\n' "$child"
+  done
+}
+
+print_campaign_quantities() {  # <snapshot-json>
+  local snapshot="$1"
+  printf 'campaign-budget-tokens: %s\n' "$(jq -r '.budget_tokens' <<<"$snapshot")"
+  printf 'campaign-spend-tokens: %s\n' "$(jq -r '.spend_tokens' <<<"$snapshot")"
+  printf 'campaign-unspent-tokens: %s\n' "$(jq -r '.unspent_tokens' <<<"$snapshot")"
+  printf 'campaign-overshoot-tokens: %s\n' "$(jq -r '.overshoot_tokens' <<<"$snapshot")"
+}
+
+print_campaign_price_snapshot() {  # <snapshot-json>
+  local snapshot="$1" notional real index calibrated unpriced
+  notional="$(jq -r '.notional_usd' <<<"$snapshot")"
+  real="$(jq -r '.real_equivalent_usd' <<<"$snapshot")"
+  index="$(jq -r '.notional_to_real_index' <<<"$snapshot")"
+  calibrated="$(jq -r '.calibration_as_of' <<<"$snapshot")"
+  unpriced="$(jq -r '.unpriced' <<<"$snapshot")"
+  printf 'Notional spend at the terminal snapshot: $%.2f (%s unpriced engagement(s)).\n' "$notional" "$unpriced"
+  printf 'Real-dollar-equivalent: $%.2f at the %.4fx fleet index as of %s.\n' "$real" "$index" "$calibrated"
+}
+
+finish_budget_meter_incomplete() {  # <base> <reason> <position> <total> <child>...
+  local base="$1" reason="$2" position="$3" total="$4"; shift 4
+  local kids=("$@") record="$DIR/$JOBS_ORCH/$base.md" budget sf
+  local parked=()
+  mapfile -t parked < <(campaign_parked_children "$record" "${kids[@]}")
+  budget="$(orch_budget_tokens "$record")"
+  sf="$(mktemp "${TMPDIR:-/tmp}/orch-budget-meter.XXXXXX")"
+  {
+    printf 'orchestration-status: budget-meter-incomplete\n'
+    printf 'campaign-budget-tokens: %s\n' "${budget:-unknown}"
+    printf 'campaign-spend-tokens: unknown\n'
+    printf 'campaign-unspent-tokens: unknown\n'
+    printf 'campaign-overshoot-tokens: unknown\n'
+    printf 'campaign-parked-children: %s\n' "${parked[*]}"
+    printf '# orchestration %s — BUDGET METER INCOMPLETE\n\n' "$base"
+    if [ "$position" -gt 0 ]; then
+      printf 'Stopped before promoting child %d/%d.\n' "$position" "$total"
+    else
+      printf 'Stopped while rendering the terminal campaign snapshot.\n'
+    fi
+    printf '%d not-yet-run child(ren) remain parked: %s\n\n' "${#parked[@]}" "${parked[*]:-none}"
+    printf 'Meter failure: %s\n' "$reason"
+  } > "$sf"
+  if finish_orch "$base" "$sf"; then
+    printf 'Orchestration %s stopped with budget-meter-incomplete. Budget: %s. Parked remainder: %s. Reason: %s\n' \
+      "$base" "${budget:-unknown}" "${parked[*]:-none}" "$reason" | orch_notify "$base-budget-meter-incomplete"
+    log "orchestration '$base': BUDGET METER INCOMPLETE; ${#parked[@]} child(ren) remain parked"
+  else
+    log "orchestration '$base': budget-meter-incomplete finish failed; retrying next tick"
+  fi
+  rm -f "$sf"
+}
+
+finish_budget_exhausted() {  # <base> <snapshot> <position> <done-count> <child>...
+  local base="$1" snapshot="$2" position="$3" done_count="$4"; shift 4
+  local kids=("$@")
+  local total="${#kids[@]}" record="$DIR/$JOBS_ORCH/$base.md" sf
+  local parked=()
+  mapfile -t parked < <(campaign_parked_children "$record" "${kids[@]}")
+  sf="$(mktemp "${TMPDIR:-/tmp}/orch-budget-exhausted.XXXXXX")"
+  {
+    printf 'orchestration-status: budget-exhausted\n'
+    print_campaign_quantities "$snapshot"
+    printf 'campaign-parked-children: %s\n' "${parked[*]}"
+    printf '# orchestration %s — BUDGET EXHAUSTED\n\n' "$base"
+    printf 'Stopped before promoting child %d/%d. %d children were already complete.\n' \
+      "$position" "$total" "$done_count"
+    printf '%d not-yet-run child(ren) remain parked: %s\n' "${#parked[@]}" "${parked[*]:-none}"
+    print_campaign_price_snapshot "$snapshot"
+  } > "$sf"
+  if finish_orch "$base" "$sf"; then
+    printf 'Orchestration %s exhausted its %s-token campaign budget after %s recorded tokens (%s overshoot). Unspent: %s. Parked remainder: %s\n' \
+      "$base" "$(jq -r '.budget_tokens' <<<"$snapshot")" "$(jq -r '.spend_tokens' <<<"$snapshot")" \
+      "$(jq -r '.overshoot_tokens' <<<"$snapshot")" "$(jq -r '.unspent_tokens' <<<"$snapshot")" \
+      "${parked[*]:-none}" | orch_notify "$base-budget-exhausted"
+    log "orchestration '$base': BUDGET EXHAUSTED; ${#parked[@]} child(ren) remain parked"
+  else
+    log "orchestration '$base': budget-exhausted finish failed; retrying next tick"
+  fi
+  rm -f "$sf"
+}
+
 # --- serial and parallel advancement ----------------------------------------
 advance_serial() {  # <base> <policy> <child>...
   local base="$1" policy="$2"; shift 2
@@ -293,6 +387,23 @@ advance_serial() {  # <base> <policy> <child>...
         log "orchestration '$base': waiting on child $((i+1))/$total '$c' (in flight)"
         return 0;;
       parked)
+        local budget snapshot reason_file spend
+        budget="$(orch_budget_tokens "$DIR/$JOBS_ORCH/$base.md")"
+        if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
+          reason_file="$(mktemp "${TMPDIR:-/tmp}/orch-budget-reason.XXXXXX")"
+          if ! snapshot="$(campaign_spend "$base" 2>"$reason_file")"; then
+            finish_budget_meter_incomplete "$base" "$(tail -1 "$reason_file")" "$((i+1))" "$total" "${kids[@]}"
+            rm -f "$reason_file"
+            return 0
+          fi
+          rm -f "$reason_file"
+          spend="$(jq -r '.spend_tokens' <<<"$snapshot")"
+          log "orchestration '$base': campaign spend $spend/$budget before child $((i+1))/$total '$c'"
+          if [ "$spend" -ge "$budget" ]; then
+            finish_budget_exhausted "$base" "$snapshot" "$((i+1))" "$done_count" "${kids[@]}"
+            return 0
+          fi
+        fi
         if "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1; then
           log "orchestration '$base': promoted child $((i+1))/$total '$c' (serial)"
           set_orch_state "$base" running || true
@@ -382,7 +493,18 @@ advance_parallel() {  # <base> <policy> <child>...
 # reachable on policy=continue for serial, or normally for parallel) are surfaced.
 complete_done() {  # <base> <total> <order> [<failed-child>...]
   local base="$1" total="$2" order="$3"; shift 3
-  local failed=("$@") sf
+  local failed=("$@") sf budget snapshot reason_file
+  budget="$(orch_budget_tokens "$DIR/$JOBS_ORCH/$base.md")"
+  if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
+    reason_file="$(mktemp "${TMPDIR:-/tmp}/orch-budget-reason.XXXXXX")"
+    if ! snapshot="$(campaign_spend "$base" 2>"$reason_file")"; then
+      read -ra completion_kids <<<"$(orch_children "$DIR/$JOBS_ORCH/$base.md")"
+      finish_budget_meter_incomplete "$base" "$(tail -1 "$reason_file")" 0 "$total" "${completion_kids[@]}"
+      rm -f "$reason_file"
+      return 0
+    fi
+    rm -f "$reason_file"
+  fi
   sf="$(mktemp "${TMPDIR:-/tmp}/orch-done.XXXXXX")"
   {
     if [ "${#failed[@]}" -gt 0 ]; then printf 'orchestration-status: complete-with-failures\n'
@@ -394,14 +516,30 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
     else
       printf 'All children succeeded.\n'
     fi
+    if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
+      printf '\n'
+      print_campaign_quantities "$snapshot"
+      printf 'campaign-parked-children: \n'
+      printf '\nCampaign budget finished with %s token(s) unused.\n' "$(jq -r '.unspent_tokens' <<<"$snapshot")"
+      print_campaign_price_snapshot "$snapshot"
+    fi
   } > "$sf"
-  finish_orch "$base" "$sf" || log "orchestration '$base': done-finish failed; retrying next tick"
+  if ! finish_orch "$base" "$sf"; then
+    log "orchestration '$base': done-finish failed; retrying next tick"
+    rm -f "$sf"
+    return 0
+  fi
   if [ "${#failed[@]}" -gt 0 ]; then
     printf 'Orchestration %s complete WITH FAILURES (%s): %d/%d failed: %s\n' \
       "$base" "$order" "${#failed[@]}" "$total" "${failed[*]}" | orch_notify "$base-complete-failures"
     log "orchestration '$base': complete with ${#failed[@]} failure(s)"
   else
     log "orchestration '$base': complete — all $total children done"
+  fi
+  if [ -n "$budget" ]; then
+    printf 'Orchestration %s completed within its %s-token campaign budget after %s recorded tokens. %s token(s) remain unused.\n' \
+      "$base" "$budget" "$(jq -r '.spend_tokens' <<<"$snapshot")" \
+      "$(jq -r '.unspent_tokens' <<<"$snapshot")" | orch_notify "$base-budget-complete"
   fi
   rm -f "$sf"
 }
@@ -417,6 +555,11 @@ for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
   read -ra kids <<<"$(orch_children "$f")"
   if [ "${#kids[@]}" -lt 1 ]; then
     log "orchestration '$base' names no children; leaving parked (malformed record)"
+    continue
+  fi
+  if [ "$order" = parallel ] && orch_has_budget "$f"; then
+    finish_budget_meter_incomplete "$base" "budget_tokens is invalid with parallel order" 1 "${#kids[@]}" "${kids[@]}"
+    advanced=$((advanced+1))
     continue
   fi
   case "$order" in

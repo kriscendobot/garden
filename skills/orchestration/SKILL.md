@@ -1,3 +1,9 @@
+---
+created: 2026-07-01
+updated: 2026-08-12
+author: gardener, builder
+---
+
 # Skill: orchestration
 
 Decompose a **multi-part job** into planned child sub-jobs plus one **orchestration
@@ -30,6 +36,8 @@ progress, and applies a failure policy rather than silently stalling.
   children: child-a child-b child-c  # space-separated, in run order
   on-child-failure: halt | continue  # policy on a child failure (default halt)
   state: pending | running | done | halted   # managed by orchestrate.sh
+  budget_tokens: 2080000             # optional; positive integer, serial only
+  resume_from: prior-campaign        # optional; adopts its parked remainder
   created_by: <role>
   created_at: <iso8601>
   ---
@@ -47,13 +55,21 @@ progress, and applies a failure policy rather than silently stalling.
    `post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body-file]`.
 3. **Record the orchestration:**
    `post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
+   [--budget-tokens N] [--resume-from terminal-campaign]
    <orch-base> <child>...`. It validates each child is parked, then writes the
-   record. Serial is the default; `--parallel` promotes all children at once.
+   record. Serial is the default; `--parallel` promotes all children at once. A
+   token budget is serial-only because parallel promotion admits every child
+   before actual spend exists.
 4. **The deterministic watcher drives it.** `orchestrate.sh` (the leader-only
    `garden-orchestrate` timer, ~3m cadence, **no `claude -p`**) advances every
    active orchestration ONE step per tick against the board state:
    - **serial** — promote child #1 (`promote-plan.sh`), WATCH it reach
-     `jobs/tada/`, then promote #2, … one at a time, in order.
+     `jobs/tada/`, then promote #2, … one at a time, in order. Immediately before
+     each budgeted promotion, freshly sum billable tokens (input + output + cache
+     creation; cache reads excluded) from the named children's ledgers at or
+     after `created_at`. At/over the cap, finish `budget-exhausted` and leave the
+     remainder parked. A malformed/unmetered matching row finishes
+     `budget-meter-incomplete`, also without promotion or sweeping.
    - **parallel** — promote ALL children at once, then watch them all.
    - **child state** is read purely from the board: `done` (in `tada/`), `active`
      (in `todo/`/`doin/`), `parked` (in `plan/`), or `failed` (in NONE of them —
@@ -68,7 +84,24 @@ progress, and applies a failure policy rather than silently stalling.
    `jobs/tada/<orch-base>.md` (an outcome summary carrying an
    `orchestration-status:` marker) and removes the record, so the orchestration
    shows as done on the board and stops being scanned. Any failures surface to the
-   maintainer.
+   maintainer. Budgeted completion includes budget, spend, non-negative unspent,
+   and overshoot quantities in the report and sends the unused remainder to the
+   maintainer inbox as a visible permission-not-exercised event.
+
+## Resume a budget-stopped remainder
+
+Start a new campaign with a new explicit budget and accounting epoch:
+
+```sh
+post-orchestration.sh --serial --budget-tokens <new-cap> \
+  --resume-from <budget-terminal-campaign> <new-campaign> <full-child-list>
+```
+
+The terminal report's `campaign-parked-children:` field is authoritative.
+Posting verifies those children are still parked and owned by the terminal
+campaign, then retags them and creates the new record in one journal commit.
+Completed children may remain in the full list and are skipped normally. Never
+edit or replenish an old campaign's budget in place.
 
 ## Why not just `blocked_on` + unblock
 
@@ -107,3 +140,6 @@ also leaves a maintainer-inbox note.
 - **Children must be parked before the orchestration is recorded** —
   `post-orchestration.sh` enforces this; a child that never existed reads as
   `failed` (there is no way to distinguish "never posted" from "vanished").
+- **Budgets gate admission, not execution:** an already-promoted child is never
+  killed. Its actual cost may overshoot the declaration; the watcher reports the
+  overshoot and stops before the next promotion.

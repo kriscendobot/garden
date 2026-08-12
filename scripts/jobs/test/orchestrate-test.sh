@@ -15,6 +15,9 @@
 #                   child rather than halting.
 #   5. STALL       — a requeue observed across ticks, or an expired handler
 #                   budget, is a deterministic failed child (not endless active).
+#   6. BUDGET      — fresh CostRecord aggregation gates serial promotion, fails
+#                   closed, preserves the remainder, reports unused budget, and
+#                   supports a separately-budgeted resume.
 #
 # Usage: orchestrate-test.sh
 
@@ -42,9 +45,9 @@ git init -q --bare "$BARE"
 SEED="$TR/seed"; git init -q "$SEED"
 git -C "$SEED" checkout -q -b "$BRANCH"
 ( cd "$SEED"
-  mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan jobs/orch work \
+  mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan jobs/orch usage work \
            inbox/maintainer/unread inbox/maintainer/read
-  for d in jobs/todo jobs/doin jobs/tada jobs/plan jobs/orch work \
+  for d in jobs/todo jobs/doin jobs/tada jobs/plan jobs/orch usage work \
            inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: board + orch structure"
@@ -87,6 +90,17 @@ fail_child() {  # fail_child <base>
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
   git -C "$wt" "${git_id[@]}" commit -q -m "doom-drop($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+# Append a literal CostRecord (or malformed fixture text) to one child's ledger.
+append_usage() {  # append_usage <base> <line>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  printf '%s\n' "$2" >> "$wt/usage/$1.jsonl"
+  git -C "$wt" add "usage/$1.jsonl"
+  git -C "$wt" "${git_id[@]}" commit -q -m "usage($1)"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -312,6 +326,123 @@ in_dir jobs/todo t-b && time_ok=0
 grep -q 'stalled in flight' "$V/jobs/tada/orch-time.md" 2>/dev/null || time_ok=0
 [ "$time_ok" -eq 1 ] && ok "expired handler-timeout is a deterministic stalled child" \
   || bad "handler-timeout stall not detected (tada=$(board jobs/tada), todo=$(board jobs/todo))"
+
+# ============================================================================
+hr; echo "SUBTEST 8 — BUDGET VALIDATION: positive integers and serial-only"; hr
+validation_ok=1
+"$JOBS/post-orchestration.sh" --serial --budget-tokens 0 invalid-budget child 2>/dev/null && validation_ok=0
+"$JOBS/post-orchestration.sh" --serial --budget-tokens nope invalid-budget child 2>/dev/null && validation_ok=0
+"$JOBS/post-orchestration.sh" --parallel --budget-tokens 10 invalid-budget child 2>/dev/null && validation_ok=0
+[ "$validation_ok" -eq 1 ] && ok "invalid/zero budgets and budgeted parallel dispatch are rejected" \
+  || bad "budget validation accepted an illegal declaration"
+
+# ============================================================================
+hr; echo "SUBTEST 9 — BUDGET FOLD: under cap promotes; epoch/outcome semantics"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-under u-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-under u-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-under u-a u-b >/dev/null
+append_usage u-a '{"ts":"2000-01-01T00:00:00Z","source":"result","outcome":"tada","input_tokens":900}'
+now="$(date -u +%FT%TZ)"
+append_usage u-a "{\"ts\":\"$now\",\"source\":\"result\",\"outcome\":\"requeue\",\"input_tokens\":20,\"output_tokens\":10,\"cache_creation_tokens\":5,\"cache_read_tokens\":900,\"total_cost_usd\":1.5}"
+append_usage u-a "{\"ts\":\"$now\",\"source\":\"delta\",\"outcome\":\"fail\",\"input_tokens\":10,\"output_tokens\":5,\"cache_creation_tokens\":10}"
+tick
+fold_ok=1
+in_dir jobs/todo u-a || fold_ok=0
+grep -q 'campaign spend 60/100' "$TR/tick.log" || fold_ok=0
+[ "$fold_ok" -eq 1 ] && ok "fresh fold excluded prior epoch/cache reads, counted requeue+fail, and promoted under cap" \
+  || bad "under-budget fold/promotion mismatch (todo=$(board jobs/todo); log=$(cat "$TR/tick.log"))"
+
+# ============================================================================
+hr; echo "SUBTEST 10 — EXACT CAP: stop terminally and preserve parked remainder"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-exact e-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-exact e-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-exact e-a e-b >/dev/null
+now="$(date -u +%FT%TZ)"
+append_usage e-a "{\"ts\":\"$now\",\"source\":\"result\",\"outcome\":\"tada\",\"input_tokens\":100,\"total_cost_usd\":2}"
+tick
+exact_ok=1
+in_dir jobs/tada orch-exact || exact_ok=0
+in_dir jobs/orch orch-exact && exact_ok=0
+in_dir jobs/plan e-a || exact_ok=0
+in_dir jobs/plan e-b || exact_ok=0
+grep -q '^orchestration-status: budget-exhausted' "$V/jobs/tada/orch-exact.md" 2>/dev/null || exact_ok=0
+grep -q '^campaign-parked-children: e-a e-b' "$V/jobs/tada/orch-exact.md" 2>/dev/null || exact_ok=0
+[ "$exact_ok" -eq 1 ] && ok "spend == cap closed budget-exhausted without sweeping the visible remainder" \
+  || bad "exact-cap state mismatch (plan=$(board jobs/plan), tada=$(board jobs/tada))"
+
+# ============================================================================
+hr; echo "SUBTEST 11 — OVERSHOOT: one admitted child may cross the cap"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-over o-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-over o-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-over o-a o-b >/dev/null
+tick
+complete_child o-a
+now="$(date -u +%FT%TZ)"
+append_usage o-a "{\"ts\":\"$now\",\"source\":\"result\",\"outcome\":\"tada\",\"input_tokens\":120,\"total_cost_usd\":3}"
+tick
+over_ok=1
+in_dir jobs/tada orch-over || over_ok=0
+in_dir jobs/plan o-b || over_ok=0
+grep -q '^campaign-overshoot-tokens: 20' "$V/jobs/tada/orch-over.md" 2>/dev/null || over_ok=0
+grep -q '^campaign-unspent-tokens: 0' "$V/jobs/tada/orch-over.md" 2>/dev/null || over_ok=0
+[ "$over_ok" -eq 1 ] && ok "post-child overshoot reported and next child remained parked" \
+  || bad "overshoot state/report mismatch"
+
+# ============================================================================
+hr; echo "SUBTEST 12 — FAIL CLOSED: unmetered and malformed campaign rows"; hr
+for kind in unmetered malformed; do
+  campaign="orch-$kind"; child="m-$kind"
+  "$JOBS/post-plan.sh" --orchestrated --orchestrated-by "$campaign" "$child" >/dev/null
+  "$JOBS/post-orchestration.sh" --serial --budget-tokens 100 "$campaign" "$child" >/dev/null
+  if [ "$kind" = unmetered ]; then
+    now="$(date -u +%FT%TZ)"; append_usage "$child" "{\"ts\":\"$now\",\"source\":\"none\",\"outcome\":\"fail\"}"
+  else
+    append_usage "$child" '{not-json'
+  fi
+  tick
+done
+meter_ok=1
+for kind in unmetered malformed; do
+  in_dir jobs/tada "orch-$kind" || meter_ok=0
+  in_dir jobs/plan "m-$kind" || meter_ok=0
+  grep -q '^orchestration-status: budget-meter-incomplete' "$V/jobs/tada/orch-$kind.md" 2>/dev/null || meter_ok=0
+done
+[ "$meter_ok" -eq 1 ] && ok "unmetered and malformed ledgers terminated fail-closed with work parked" \
+  || bad "meter-incomplete terminal behavior mismatch"
+
+# ============================================================================
+hr; echo "SUBTEST 13 — COMPLETION: report and notify unused budget"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-unspent n-a >/dev/null
+"$JOBS/post-orchestration.sh" --serial --budget-tokens 100 orch-unspent n-a >/dev/null
+tick
+complete_child n-a
+now="$(date -u +%FT%TZ)"
+append_usage n-a "{\"ts\":\"$now\",\"source\":\"result\",\"outcome\":\"tada\",\"input_tokens\":40,\"total_cost_usd\":1}"
+tick
+unspent_ok=1
+in_dir jobs/tada orch-unspent || unspent_ok=0
+grep -q '^campaign-spend-tokens: 40' "$V/jobs/tada/orch-unspent.md" 2>/dev/null || unspent_ok=0
+grep -q '^campaign-unspent-tokens: 60' "$V/jobs/tada/orch-unspent.md" 2>/dev/null || unspent_ok=0
+grep -rqi '60 token(s) remain unused' "$V/inbox/maintainer/unread" 2>/dev/null || unspent_ok=0
+[ "$unspent_ok" -eq 1 ] && ok "under-budget completion surfaced 60 unused tokens in report and maintainer inbox" \
+  || bad "under-budget completion did not surface unused budget"
+
+# ============================================================================
+hr; echo "SUBTEST 14 — RESUME: new budget epoch atomically retags remainder"; hr
+"$JOBS/post-orchestration.sh" --serial --budget-tokens 50 --resume-from orch-exact \
+  orch-resume e-a e-b >/dev/null
+resume_ok=1
+resume_view="$(mktemp -d "$TR/resume-view.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$resume_view"
+grep -q '^resume_from: orch-exact' "$resume_view/jobs/orch/orch-resume.md" || resume_ok=0
+grep -q '^orchestrated_by: orch-resume' "$resume_view/jobs/plan/e-a.md" || resume_ok=0
+grep -q '^orchestrated_by: orch-resume' "$resume_view/jobs/plan/e-b.md" || resume_ok=0
+rm -rf "$resume_view"
+tick
+in_dir jobs/todo e-a || resume_ok=0
+in_dir jobs/plan e-b || resume_ok=0
+[ "$resume_ok" -eq 1 ] && ok "resume created a distinct budget epoch, retagged atomically, and excluded old spend" \
+  || bad "separately-budgeted resume mismatch (todo=$(board jobs/todo), plan=$(board jobs/plan))"
 
 # ============================================================================
 hr
