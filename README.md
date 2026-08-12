@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:38:08Z_
+_As of 2026-08-12T05:38:58Z_
 
 ## Latest
 
@@ -6473,6 +6473,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr894-review-dc37fad0` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr894-review-dc37fad0.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr894-review-dc37fad0' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr903-review-024fa540` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr903-review-024fa540.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr903-review-024fa540' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2404s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr903-review-1ec51e37` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr903-review-1ec51e37.md)
 
