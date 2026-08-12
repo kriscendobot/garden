@@ -51,6 +51,7 @@ Notes:
   is confirmed, before the full fix lands, since the answer changes how urgent
   the deploy is.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
