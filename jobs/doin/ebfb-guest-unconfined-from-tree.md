@@ -50,3 +50,13 @@ Notes:
 - Report back to the maintainer via the inbox once you know whether the report
   is confirmed, before the full fix lands, since the answer changes how urgent
   the deploy is.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T21:56:54Z
