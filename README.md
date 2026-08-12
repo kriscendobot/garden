@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:52:38Z_
+_As of 2026-08-12T23:55:39Z_
 
 ## Latest
 
@@ -6702,14 +6702,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $814.76 _(notional, rate-card)_ | no quota set |
-| Codex | 22.9M _(+792.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 54.2M | $814.89 _(notional, rate-card)_ | no quota set |
+| Codex | 23.0M _(+793.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-20260812T235216Z-ca9637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T235216Z-ca9637.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-e97aa392.md) — attention directive on endojs/endo-but-for-bots PR #403
