@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T20:57:01Z_
+_As of 2026-08-12T20:57:31Z_
 
 ## Latest
 
@@ -6673,7 +6673,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.8M | $799.46 _(notional, rate-card)_ | no quota set |
+| Claude | 53.8M | $799.49 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+699.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
@@ -6684,7 +6684,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
 
 ### tada (4430)
-- [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md) — Patrick Cooney's contribution volume, comparative standing, and dependency we...
+- [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md) — Completed jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md.
 - [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-contributions-report.md) — Patrick Cooney’s contributions to endojs/endo-but-for-bots
 - [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-design.md) — Completion report
 - [`issue-kriscendobot-garden-71`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-71.md) — Cost
