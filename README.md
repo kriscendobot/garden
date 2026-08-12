@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T17:39:03Z_
+_As of 2026-08-12T17:40:40Z_
 
 ## Latest
 
@@ -3524,6 +3524,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > ACTION NEEDED: run a deliberate deploy (scripts/jobs/deploy-garden.sh) to advance the root to at least ede7f1f467, then re-post this restore job (new campaign base ironhorse-test262-implementation-completion-resume-2). The 22 swept child bodies are still recoverable from the sweep-commit parent c95607119^. I did not verify the 2.08M budget figure — I halted before that step.
 
+- `20260812T174011Z-239a0b` — from orchestrator:ironhorse-test262-implementation-completion-resume-2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T174011Z-239a0b.md)
+
+> Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6679,13 +6683,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
 
-### tada (4424)
+### tada (4425)
+- [`ironhorse-test262-implementation-completion-resume-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-2.md) — orchestration ironhorse-test262-implementation-completion-resume-2 — HALTED
 - [`ironhorse-js-07-promises-async-functions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-07-promises-async-functions.md) — Cost
 - [`ironhorse-test262-restore-and-relaunch-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch-2.md) — Completion report
 - [`ironhorse-test262-restore-and-relaunch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch.md) — Completion report
 - [`design-liveness-progress-over-elapsed-deadlines`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-liveness-progress-over-elapsed-deadlines.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-20260812-162003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260812-162003.md) — Completion report
-- … and 4419 more
+- … and 4420 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
