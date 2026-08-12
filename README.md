@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T03:20:41Z_
+_As of 2026-08-12T03:23:12Z_
 
 ## Latest
 
@@ -6611,23 +6611,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 52.7M | $791.99 _(notional, rate-card)_ | no quota set |
-| Codex | 19.3M _(+688.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
+| Codex | 19.3M _(+688.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260812T031510Z-1cc9e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T031510Z-1cc9e2.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-06-sync-iteration-generators.md) — Complete synchronous iteration and generators
 
-### tada (4404)
+### tada (4405)
+- [`deadmail-20260812T031510Z-1cc9e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T031510Z-1cc9e2.md) — Cost
 - [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-dedupe-836-903.md) — Completion report: reconcile the two SHA-256 implementations
 - [`budgeted-campaign-phase1-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase1-build.md) — Cost
 - [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase2-weekly-bucket-design.md) — Completion report
 - [`budgeted-campaign-dispatch-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-dispatch-design.md) — Cost
-- [`ironhorse-test262-completion-recover-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-completion-recover-children.md) — Completion report: recover & re-stage the 23 swept ironhorse-test262-implemen...
-- … and 4399 more
+- … and 4400 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
