@@ -68,3 +68,13 @@ Name the recovery commit(s) used, confirm all 23 child bodies are byte-identical
 to their pre-sweep content (or note any that couldn't be recovered and why),
 and confirm the false-alarm-stall reading of child 6 with the actual evidence
 (timestamps), or correct that reading if the evidence says otherwise.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T00:52:55Z
