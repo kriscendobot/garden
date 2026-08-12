@@ -1,0 +1,2 @@
+base: improve-automate-stale-dependabot-rebase
+identity: mentor:scripts/jobs/gardening/garden-pr.sh
