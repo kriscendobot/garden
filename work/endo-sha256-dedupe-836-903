@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 5
-worker_kind: gardener
-claimed_at: 2026-08-12T01:03:44Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-sha256-dedupe-836-903
