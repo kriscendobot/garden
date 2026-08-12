@@ -56,3 +56,13 @@ for anyone who wants to dig in.
 State plainly in your own completion report: the identity you confirmed (or
 your best-effort identification and its confidence), the total PR/commit/
 review/issue counts found, and the journal path where the report landed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T20:23:06Z
