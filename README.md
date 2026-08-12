@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T14:22:39Z_
+_As of 2026-08-12T14:33:31Z_
 
 ## Latest
 
@@ -6652,24 +6652,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $808.12 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+702.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Claude | 54.1M | $808.21 _(notional, rate-card)_ | no quota set |
+| Codex | 20.0M _(+707.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-sweep-approval-held-2.md) — botanist: sweep the seven approval-held MERGE-NOW dependabot PRs (deploy is D...
-- [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-child-failure-detection.md) — fixer: orchestrate.sh read an explicitly FAILED child as a success — the halt...
 
-### tada (4416)
+### tada (4417)
+- [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-child-failure-detection.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Completion report
 - [`dependabot-auto-merge-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-auto-merge-rollout.md) — orchestration dependabot-auto-merge-rollout — complete
 - [`dependabotany-sweep-approval-held`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held.md) — Botanist sweep — HALTED at precondition (deploy is the blocker)
 - [`dependabot-merge-now-auto-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-merge-now-auto-conduct.md) — Cost
-- [`weave-ebfb-pr970-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-ebfb-pr970-onto-llm.md) — Completion report
-- … and 4411 more
+- … and 4412 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
