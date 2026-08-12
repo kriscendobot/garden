@@ -2,7 +2,7 @@
 order: serial
 children: dependabot-merge-now-auto-conduct dependabotany-sweep-approval-held
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-08-12T05:14:32Z
 ---
