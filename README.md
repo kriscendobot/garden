@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T21:22:28Z_
+_As of 2026-08-12T21:33:38Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 28m)
+- [endojs/endo#3338](https://github.com/endojs/endo/pull/3338) — feat(compartment-mapper): support dynamic imports of absolute paths & windows paths (waiting 44m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14d)
@@ -6673,24 +6673,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.8M | $801.77 _(notional, rate-card)_ | no quota set |
+| Claude | 53.9M | $802.93 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+700.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conductor-rebase-and-shepherd-before-merge.md) — designer+builder: the conductor must REBASE and SHEPHERD before every merge
+### doin (1)
 - [`patrick-cooney-endo-but-for-bots-value-report-v2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/patrick-cooney-endo-but-for-bots-value-report-v2.md) — Redo: Patrick Cooney contribution VALUE report — the prior attempt under-deli...
 
-### tada (4432)
+### tada (4433)
+- [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/conductor-rebase-and-shepherd-before-merge.md) — Cost
 - [`endo-but-for-bots-workflow-triggers-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-workflow-triggers-llm.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Completion report
 - [`patrick-cooney-endo-but-for-bots-value-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md) — Completed jobs/tada/patrick-cooney-endo-but-for-bots-value-report.md.
 - [`patrick-cooney-endo-but-for-bots-contributions-report`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-contributions-report.md) — Patrick Cooney’s contributions to endojs/endo-but-for-bots
-- [`xs2rust-endor-debugger-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xs2rust-endor-debugger-design.md) — Completion report
-- … and 4427 more
+- … and 4428 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
