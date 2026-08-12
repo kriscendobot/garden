@@ -69,3 +69,13 @@ records published before the fix will still be there after it.
   powers strings, and state whether the fix neutralizes them or whether a
   cleanup of stored records is also needed. If cleanup is needed, put it under
   Follow-ups; do not perform it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-12T22:33:37Z
