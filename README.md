@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:17:37Z_
+_As of 2026-08-12T23:18:16Z_
 
 ## Latest
 
@@ -3532,10 +3532,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
 
-- `20260812T231550Z-8b889c` — from gardener:minion-town-containment-ocapn-daemon-routes, reply_to `minion-town-containment-ocapn-daemon-routes` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T231550Z-8b889c.md)
-
-> Production containment verified at 2026-08-12T23:15Z: off-host HTTP and WebSocket-upgrade attempts to both https://minion.town/ocapn-daemon and https://minion.town/.well-known/ocapn-cbor-np now return HTTP 404. The separate /ocapn demo remains reachable (HTTP 426 without Upgrade). Caddy is active and its config validates. Evidence was preserved first in a root-only host directory, including the unreported designator and pre-change formula count (334). I am continuing the required Noise-designator handshake-failure and core-health checks. Rollback is retained but will not be run without explicit authorization.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6681,8 +6677,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.4M | $817.67 _(notional, rate-card)_ | no quota set |
-| Codex | 22.3M _(+769.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Claude | 54.4M | $818.47 _(notional, rate-card)_ | no quota set |
+| Codex | 22.3M _(+769.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
