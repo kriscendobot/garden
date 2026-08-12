@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:35:42Z_
+_As of 2026-08-12T23:36:44Z_
 
 ## Latest
 
@@ -6703,25 +6703,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.1M | $811.31 _(notional, rate-card)_ | no quota set |
-| Codex | 22.7M _(+780.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Codex | 22.7M _(+781.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (4)
-- [`deadmail-20260812T233020Z-59f3fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260812T233020Z-59f3fc.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-e97aa392.md) — attention directive on endojs/endo-but-for-bots PR #403
+- [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #656
 
-### tada (4461)
+### tada (4462)
+- [`deadmail-20260812T233020Z-59f3fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T233020Z-59f3fc.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Cost
 - [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232828Z-4f1d09.md) — What I did
 - [`deadmail-20260812T232355Z-c48b2b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232355Z-c48b2b.md) — Cost
 - [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-endpoint-closure-audit.md) — Closure audit — minion.town's public OCapN endpoints
-- [`endojs-endo-but-for-bots-pr475-7c5c6233`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-7c5c6233.md) — Cost
-- … and 4456 more
+- … and 4457 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
