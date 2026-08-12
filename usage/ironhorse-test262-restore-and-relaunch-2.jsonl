@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":31,"elapsed_s":526,"input_tokens":53,"output_tokens":26268,"cache_creation_tokens":75041,"cache_read_tokens":1856641,"total_cost_usd":2.3394655,"ts":"2026-08-12T17:18:43Z","base":"ironhorse-test262-restore-and-relaunch-2","host":"endolin-garden2-5bcdff64","outcome":"tada"}
