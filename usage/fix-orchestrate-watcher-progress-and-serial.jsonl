@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":33,"elapsed_s":785,"input_tokens":61,"output_tokens":57112,"cache_creation_tokens":131830,"cache_read_tokens":3626694,"total_cost_usd":4.563083000000001,"ts":"2026-08-12T05:08:54Z","base":"fix-orchestrate-watcher-progress-and-serial","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}
