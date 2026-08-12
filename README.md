@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T00:59:27Z_
+_As of 2026-08-12T01:04:10Z_
 
 ## Latest
 
@@ -6598,15 +6598,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $788.28 _(notional, rate-card)_ | no quota set |
+| Claude | 52.7M | $791.08 _(notional, rate-card)_ | no quota set |
 | Codex | 19.0M _(+679.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`budgeted-campaign-dispatch-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/budgeted-campaign-dispatch-design.md) — Task
+- [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-dedupe-836-903.md) — Reconcile the two platform-neutral SHA-256 implementations; land ONE on live llm
 
 ### tada (4400)
 - [`ironhorse-test262-completion-recover-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-completion-recover-children.md) — Completion report: recover & re-stage the 23 swept ironhorse-test262-implemen...
