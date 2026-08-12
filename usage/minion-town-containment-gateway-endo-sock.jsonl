@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":31,"elapsed_s":739,"input_tokens":47,"output_tokens":44898,"cache_creation_tokens":112584,"cache_read_tokens":2252330,"total_cost_usd":3.3775020000000007,"ts":"2026-08-12T22:49:29Z","base":"minion-town-containment-gateway-endo-sock","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
