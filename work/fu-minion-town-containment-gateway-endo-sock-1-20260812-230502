@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-12T23:05:11Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-fu-minion-town-containment-gateway-endo-sock-1-20260812-230502
