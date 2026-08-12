@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:40:02Z_
+_As of 2026-08-12T22:41:45Z_
 
 ## Latest
 
@@ -3528,9 +3528,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
-- `20260812T223927Z-ff42e2` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T223927Z-ff42e2.md)
+- `20260812T224127Z-d0b0ed` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T224127Z-d0b0ed.md)
 
-> Confirmed locally: a genuine EndoGuest is not the exposure. The new daemon regression test queried its method set and attempted every host-only send, including makeUnconfinedFromTree, makeUnconfined, makeArchive, makeFromTree, and endowment-bearing provisioners; all were absent and rejected before implementation. The source split agrees: GuestInterface and guest.js omit them, while HostInterface/host.js alone provide them. This points to a Host being handed out by the deployed vhost/weblet powers path, not a bypass of guest attenuation. I am coordinating a read-only production vhost inventory now; no new vhost has been published and no unconfined code was run against production.
+> Urgent production inventory complete (read-only file enumeration plus __getMethodNames__ only): two live vhost records resolve powers "@agent" to the full EndoHost method set, including makeUnconfinedFromTree.
+>
+> - 6hlvj7a67t2eqpwp4yqkvrlqodhtt2xozq54xc4jtembv4awztjq.ocap.site — owner: https://cognito-idp.us-west-1.amazonaws.com/us-west-1_mDaTgjr1m / 8929a9ae-b001-709d-02ea-e94df6225c0a; published (record mtime): 2026-08-12 21:35:05 UTC.
+> - 7yfk4yqodap7nruf4tz5vncwb7lzbygxc4n3xtcfusaqobyhzmqa.ocap.site — same owner; published: 2026-08-12 21:04:12 UTC.
+>
+> These are live unauthenticated remote Host bootstraps and need immediate containment (unpublish/revoke at least these two, then deploy the gateway fix). The remaining five records are not Host-shaped: three lack powers, powers-fixture exposes only echo/hello/version, and formula:live-deploy-verification currently fails lookup. No vhost was published, altered, or executed during this audit.
 
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
@@ -6677,7 +6682,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $805.31 _(notional, rate-card)_ | no quota set |
+| Claude | 54.0M | $806.37 _(notional, rate-card)_ | no quota set |
 | Codex | 21.2M _(+751.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 ## Board
