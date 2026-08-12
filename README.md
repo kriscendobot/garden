@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T16:20:26Z_
+_As of 2026-08-12T16:23:37Z_
 
 ## Latest
 
@@ -6659,16 +6659,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260812-162003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260812-162003.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (4419)
+### tada (4420)
+- [`dependabotany-recheck-endo-but-for-bots-20260812-162003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260812-162003.md) — Completion report
 - [`improve-automate-stale-dependabot-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-automate-stale-dependabot-rebase.md) — Completion report: improve-automate-stale-dependabot-rebase
 - [`dependabotany-sweep-approval-held-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-sweep-approval-held-2.md) — Cost
 - [`fix-orchestrate-child-failure-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-child-failure-detection.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Completion report
-- [`dependabot-auto-merge-rollout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabot-auto-merge-rollout.md) — orchestration dependabot-auto-merge-rollout — complete
-- … and 4414 more
+- … and 4415 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
