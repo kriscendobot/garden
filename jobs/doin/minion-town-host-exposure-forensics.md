@@ -85,3 +85,13 @@ account state is another person's data: report it to the maintainer, not to any
 public surface.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T22:43:11Z

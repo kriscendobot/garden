@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: cleric
+claimed_at: 2026-08-12T22:43:11Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-host-exposure-forensics
