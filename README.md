@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T04:44:59Z_
+_As of 2026-08-12T04:47:33Z_
 
 ## Latest
 
@@ -3493,6 +3493,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Halting this stage (orchestration-failed) rather than looping still-pending, since CI can never attach until the conflict is resolved.
 
+- `20260812T044708Z-28e385` — from gauntlet:ironhorse-js-06-sync-iteration-generators-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T044708Z-28e385.md)
+
+> Gauntlet ironhorse-js-06-sync-iteration-generators-gauntlet HALTED: stage 'ironhorse-js-06-sync-iteration-generators-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6634,7 +6638,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.6M | $797.73 _(notional, rate-card)_ | no quota set |
+| Claude | 54.4M | $803.51 _(notional, rate-card)_ | no quota set |
 | Codex | 19.3M _(+688.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -6644,13 +6648,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (4408)
+### tada (4409)
+- [`ironhorse-js-06-sync-iteration-generators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators-gauntlet.md) — gauntlet ironhorse-js-06-sync-iteration-generators-gauntlet — HALTED
 - [`ironhorse-js-06-sync-iteration-generators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators-gauntlet-clean.md) — Clean stage — endojs/endo-but-for-bots PR #970 — HALTED (base-branch conflict)
 - [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-06-sync-iteration-generators.md) — Completion report — ironhorse-js-06-sync-iteration-generators
 - [`ironhorse-test262-implementation-completion-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume.md) — orchestration ironhorse-test262-implementation-completion-resume — HALTED
 - [`deadmail-20260812T031510Z-1cc9e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T031510Z-1cc9e2.md) — Cost
-- [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-dedupe-836-903.md) — Completion report: reconcile the two SHA-256 implementations
-- … and 4403 more
+- … and 4404 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
