@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T05:29:51Z_
+_As of 2026-08-12T05:31:36Z_
 
 ## Latest
 
@@ -6639,13 +6639,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.6M | $810.89 _(notional, rate-card)_ | no quota set |
-| Codex | 19.6M _(+699.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 19.6M _(+700.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`dependabotany-sweep-approval-held`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-sweep-approval-held.md) — botanist: sweep the seven approval-held MERGE-NOW dependabot PRs on endojs/en...
 - [`endojs-endo-but-for-bots-pr903-review-024fa540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-024fa540.md) — Review directive on endojs/endo-but-for-bots PR #903
 
 ### tada (4413)
