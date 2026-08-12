@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T03:23:12Z_
+_As of 2026-08-12T03:34:35Z_
 
 ## Latest
 
@@ -3469,6 +3469,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Please approve [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) at `a1a18e3f7` if it looks right.
 
+- `20260812T033407Z-8f71b8` — from orchestrator:ironhorse-test262-implementation-completion-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T033407Z-8f71b8.md)
+
+> Orchestration ironhorse-test262-implementation-completion-resume HALTED: child ironhorse-js-06-sync-iteration-generators stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 6/29 done before halt; swept: ironhorse-js-07-promises-async-functions ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6610,7 +6614,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $791.99 _(notional, rate-card)_ | no quota set |
+| Claude | 52.8M | $792.33 _(notional, rate-card)_ | no quota set |
 | Codex | 19.3M _(+688.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
@@ -6620,13 +6624,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (1)
 - [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-06-sync-iteration-generators.md) — Complete synchronous iteration and generators
 
-### tada (4405)
+### tada (4406)
+- [`ironhorse-test262-implementation-completion-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume.md) — orchestration ironhorse-test262-implementation-completion-resume — HALTED
 - [`deadmail-20260812T031510Z-1cc9e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T031510Z-1cc9e2.md) — Cost
 - [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-dedupe-836-903.md) — Completion report: reconcile the two SHA-256 implementations
 - [`budgeted-campaign-phase1-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase1-build.md) — Cost
 - [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase2-weekly-bucket-design.md) — Completion report
-- [`budgeted-campaign-dispatch-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-dispatch-design.md) — Cost
-- … and 4400 more
+- … and 4401 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
