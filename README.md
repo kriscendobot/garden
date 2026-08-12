@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T01:42:57Z_
+_As of 2026-08-12T01:43:30Z_
 
 ## Latest
 
@@ -6610,24 +6610,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $793.19 _(notional, rate-card)_ | no quota set |
+| Claude | 52.7M | $791.08 _(notional, rate-card)_ | no quota set |
 | Codex | 19.2M _(+688.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sha256-dedupe-836-903.md) — Reconcile the two platform-neutral SHA-256 implementations; land ONE on live llm
+### doin (1)
 - [`ironhorse-js-06-sync-iteration-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-06-sync-iteration-generators.md) — Complete synchronous iteration and generators
 
-### tada (4403)
+### tada (4404)
+- [`endo-sha256-dedupe-836-903`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-sha256-dedupe-836-903.md) — Completion report: reconcile the two SHA-256 implementations
 - [`budgeted-campaign-phase1-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase1-build.md) — Cost
 - [`budgeted-campaign-phase2-weekly-bucket-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-phase2-weekly-bucket-design.md) — Completion report
 - [`budgeted-campaign-dispatch-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/budgeted-campaign-dispatch-design.md) — Cost
 - [`ironhorse-test262-completion-recover-children`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-completion-recover-children.md) — Completion report: recover & re-stage the 23 swept ironhorse-test262-implemen...
-- [`weave-endo-but-for-bots-pr903-onto-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/weave-endo-but-for-bots-pr903-onto-llm.md) — Completion report
-- … and 4398 more
+- … and 4399 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
