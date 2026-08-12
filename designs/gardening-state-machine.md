@@ -91,6 +91,31 @@ whose cost we want to avoid when a signal says they cannot matter.
 6. **loop decision** — `decide` whether to wait on CI and loop, or stop. Emits
    `loop` to the supervisor or exits quietly.
 
+## Terminal conduct stage ordering
+
+The reusable PR-editing scaffold above is not the terminal merge spine. When a
+conductor, or a botanist's explicit Dependabot MERGE-NOW path, is ready to land a
+PR, `ci-wait-merge.sh` owns this deterministic sequence:
+
+1. unfreeze a frozen snapshot to the live base, refusing a shared stack;
+2. synchronize the isolated project worktree to the exact remote PR head;
+3. call the same `safe-rebase.sh` against a freshly fetched live base and publish
+   any rewrite with `safe-push-pr-head.sh --mode rewrite` under a fresh lease;
+4. wait for CI whose simultaneously read `headRefOid` equals that post-rebase
+   head (an empty or old-head rollup remains pending);
+5. at terminal green, repeat the live-base/rebase check; a moved base invalidates
+   the green result and sends the new head back through stage 4;
+6. route red on the current head to `ci red: needs shepherd`; otherwise enforce
+   `CHANGES_REQUESTED` and the ordinary exact-current-head maintainer approval
+   (the scoped Dependabot path omits only this signature);
+7. apply stacked-branch retention, merge, and verify the post-merge state.
+
+A safe rebase that changes HEAD deliberately makes an ordinary approval stale.
+The spine never treats a clean replay as signature-preserving: the maintainer
+approves the rebased commit identity on a later invocation, whose freshness check
+is a no-op unless the base genuinely moved again. This ordering is specified in
+[conductor-rebase-before-merge](conductor-rebase-before-merge.md).
+
 ## Build handoff invariant
 
 The builder's initial draft PR is followed by a durable board edge, not merely a

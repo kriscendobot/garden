@@ -2,7 +2,7 @@
 
 | Created | 2026-08-12 |
 | Author  | gardener |
-| Status  | Accepted |
+| Status  | Implemented |
 
 ## Problem
 
@@ -74,9 +74,13 @@ For a merge-capable invocation, the deterministic order is:
    fresh lease closes both peer-update races. Record the resulting head OID.
 6. Poll `statusCheckRollup`, accepting a result only when the simultaneously read
    `headRefOid` equals the recorded post-rebase OID. An empty rollup remains
-   pending. Thus a pre-rebase green run can never satisfy this stage.
-7. Route terminal red to the existing `ci red: needs shepherd` outcome. On green,
-   re-read and enforce `CHANGES_REQUESTED`.
+   pending. Thus a pre-rebase green run can never satisfy this stage. At the
+   terminal-green boundary, repeat the live-base/rebase gate: if the base moved
+   during CI and HEAD changes again, invalidate that green result and loop from
+   this stage on the new OID.
+7. Route terminal red to the existing `ci red: needs shepherd` outcome. Once the
+   final live-base check is a no-op and CI is green, re-read and enforce
+   `CHANGES_REQUESTED`.
 8. On an ordinary call, require a maintainer `APPROVED` review on the current
    post-rebase head. On an eligible Dependabot call, omit only this signature.
 9. Apply the existing downstream-stack branch-retention guard, merge, and verify

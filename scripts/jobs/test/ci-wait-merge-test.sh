@@ -35,6 +35,11 @@
 #   T17 explicit dependabot mode + non-owned repo + no approval → no merge
 #   T18 explicit dependabot mode + unreadable author + no approval → no merge
 #   T19 explicit dependabot mode + unreadable final review state → no merge
+#   T20 post-rebase head whose CI is red → exit 3 / shepherd, no merge
+#   T21 ordinary approval on the pre-rebase head → stale, no merge
+#   T22 ordinary approval on the post-rebase head → merge
+#   T23 base moves during CI → old green invalidated; new-head red → shepherd
+#   T24 safe-rebase conflict refusal → needs-weave, no CI merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -51,6 +56,7 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 
 rm -rf "$TR"; mkdir -p "$TR"
 export STUBDIR="$TR" GARDEN_GH="$TR/gh"
+export GARDEN_REBASE_PR="$TR/rebase-pr"
 export GARDEN_NO_MAINTAINER_ALERT=1
 export GARDEN_CI_POLL_SECS=0 GARDEN_CI_POLL_MAX_SECS=0 GARDEN_CI_DEADLINE_SECS=5
 printf 'kriskowal\n' > "$TR/maintainers"
@@ -64,7 +70,7 @@ cat > "$TR/gh" <<'STUB'
 # $STUBDIR/basemeta (default: a LIVE base → no unfreeze); `pr list` returns the
 # shared-base PR count/numbers; `pr edit --base` appends to $STUBDIR/edit.log.
 SEQ="$STUBDIR/seq"; i=$(cat "$STUBDIR/i" 2>/dev/null || echo 0)
-if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"head123","user":{"login":"kriskowal"}}]'; exit 0; fi
+if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"123abc123abc123abc123abc123abc123abc123a","user":{"login":"kriskowal"}}]'; exit 0; fi
 case "$1 $2" in
   "pr view")
     if printf ' %s' "$@" | grep -q -- '--json state,autoMergeRequest'; then cat "$STUBDIR/verify"; exit 0; fi
@@ -75,7 +81,7 @@ case "$1 $2" in
       [ -f "$STUBDIR/finalreview_fail" ] && exit 1
       cat "$STUBDIR/finalreview" 2>/dev/null || printf '{"reviewDecision":""}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json reviewDecision,headRefOid'; then
-      cat "$STUBDIR/approvalmeta" 2>/dev/null || printf '{"reviewDecision":"APPROVED","headRefOid":"head123"}'; exit 0; fi
+      cat "$STUBDIR/approvalmeta" 2>/dev/null || printf '{"reviewDecision":"APPROVED","headRefOid":"123abc123abc123abc123abc123abc123abc123a"}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json statusCheckRollup --jq'; then cat "$STUBDIR/failures" 2>/dev/null; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json state,baseRefName'; then
       cat "$STUBDIR/basemeta" 2>/dev/null || printf '{"state":"OPEN","baseRefName":"llm"}'; exit 0; fi
@@ -99,14 +105,31 @@ exit 0
 STUB
 chmod +x "$TR/gh"
 
-b64() { printf '%s' "$1" | base64 | tr -d '\n'; }
-PEND='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build","status":"IN_PROGRESS","conclusion":null}]}'
-GREEN='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"SUCCESS"}]}'
-RED='{"state":"OPEN","mergeable":"MERGEABLE","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"FAILURE"}]}'
-# Green CI but a maintainer requested changes: reviewDecision drives the gate.
-GREEN_CR='{"state":"OPEN","mergeable":"MERGEABLE","reviewDecision":"CHANGES_REQUESTED","statusCheckRollup":[{"name":"build","status":"COMPLETED","conclusion":"SUCCESS"}]}'
+cat > "$TR/rebase-pr" <<'STUB'
+#!/bin/bash
+echo "rebase: $*" >> "$STUBDIR/rebase.log"
+[ -f "$STUBDIR/rebase_rc" ] && exit "$(cat "$STUBDIR/rebase_rc")"
+if [ -f "$STUBDIR/rebase_seq" ]; then
+  i="$(cat "$STUBDIR/rebase_i" 2>/dev/null || echo 0)"
+  line="$(sed -n "$((i+1))p" "$STUBDIR/rebase_seq")"
+  [ -z "$line" ] && line="$(tail -n1 "$STUBDIR/rebase_seq")"
+  echo $((i+1)) > "$STUBDIR/rebase_i"
+  printf '%s\n' "$line"
+  exit 0
+fi
+cat "$STUBDIR/rebase_head" 2>/dev/null || printf '123abc123abc123abc123abc123abc123abc123a\n'
+STUB
+chmod +x "$TR/rebase-pr"
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta"; }
+b64() { printf '%s' "$1" | base64 | tr -d '\n'; }
+HEAD='123abc123abc123abc123abc123abc123abc123a'
+PEND="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"IN_PROGRESS\",\"conclusion\":null}]}"
+GREEN="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
+RED="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"FAILURE\"}]}"
+# Green CI but a maintainer requested changes: reviewDecision drives the gate.
+GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
+
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -224,6 +247,37 @@ reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
 printf '{"author":{"login":"dependabot[bot]"}}' > "$STUBDIR/author"
 touch "$STUBDIR/finalreview_fail"
 run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 1 T19; nomerge T19
+
+echo "T20 post-rebase head whose CI goes red → shepherd outcome, no merge"
+reset_seq; seq_add "$RED"; printf '  red: build = FAILURE\n' > "$STUBDIR/failures"
+run o/r 178; chk "$rc" 3 T20; nomerge T20
+if [ -f "$STUBDIR/rebase.log" ]; then ok "T20 rebase stage ran before red CI"; else bad "T20 rebase stage did not run"; fi
+
+echo "T21 approval on pre-rebase head is stale → no merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"reviewDecision":"APPROVED","headRefOid":"%s"}' "$HEAD" > "$STUBDIR/approvalmeta"
+printf '[{"state":"APPROVED","commit_id":"def456def456def456def456def456def456def4","user":{"login":"kriskowal"}}]' > "$STUBDIR/reviews"
+run o/r 178; chk "$rc" 1 T21; nomerge T21
+
+echo "T22 approval on post-rebase head is current → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"reviewDecision":"APPROVED","headRefOid":"%s"}' "$HEAD" > "$STUBDIR/approvalmeta"
+printf '[{"state":"APPROVED","commit_id":"%s","user":{"login":"kriskowal"}}]' "$HEAD" > "$STUBDIR/reviews"
+run o/r 178; chk "$rc" 0 T22; merged T22
+
+echo "T23 base moves during CI → old green invalidated; new-head red → shepherd"
+reset_seq
+HEAD2='456def456def456def456def456def456def456d'
+GREEN1="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
+RED2="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD2\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"FAILURE\"}]}"
+printf '%s\n%s\n%s\n' "$HEAD" "$HEAD2" "$HEAD2" > "$STUBDIR/rebase_seq"
+seq_add "$GREEN1"; seq_add "$RED2"
+printf '  red: build = FAILURE\n' > "$STUBDIR/failures"
+run o/r 178; chk "$rc" 3 T23; nomerge T23
+
+echo "T24 safe-rebase conflict refusal → needs-weave, no merge"
+reset_seq; seq_add "$GREEN"; printf '3\n' > "$STUBDIR/rebase_rc"
+run o/r 178; chk "$rc" 1 T24; nomerge T24
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

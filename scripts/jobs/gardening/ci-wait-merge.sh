@@ -15,8 +15,12 @@
 #     events do NOT appear on the events feed; see skills/pr-ci-watch) on a real
 #     timeout/backoff cadence until every check has SETTLED (no QUEUED/IN_PROGRESS/
 #     PENDING/WAITING left), or the overall deadline passes.
-#   * On GREEN terminal (no failures) and --merge (default): first UNFREEZE the
-#     base if it is a frozen snapshot (conductor step 2 — see below), then require
+#   * Before accepting CI in a merge-capable mode: first UNFREEZE the base if it
+#     is a frozen snapshot, then use safe-rebase.sh to establish that the exact
+#     remote head contains the freshly fetched live base. A changed head is
+#     lease-pushed and ONLY CI attached to that resulting OID is accepted. A
+#     non-lockfile conflict fails closed as `needs weave`.
+#   * On GREEN terminal (no failures) and --merge (default): require
 #     a current maintainer approval independently of branch protection, else
 #     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. The one
 #     narrow exception is the explicit `--dependabot-auto-merge` mode: it skips
@@ -47,8 +51,8 @@
 #     specific stack and stalls (exit 1) rather than silently stranding OR
 #     force-forking. See roles/conductor/AGENT.md § Loop step 2 and
 #     skills/frozen-base-branch § Unfreeze before merge.
-#   * On RED terminal: print the failing checks and exit 3 (the conductor stalls
-#     `ci red: needs shepherd`; it does NOT merge red).
+#   * On RED terminal, including red on a newly rebased head: print the failing
+#     checks and exit 3 (the conductor stalls `ci red: needs shepherd`).
 #   * On TIMEOUT while still pending: exit 4 — CI is NOT a terminal state, so the
 #     caller MUST re-enqueue the merge job (leave it claimable) rather than
 #     complete it unmerged.
@@ -58,8 +62,8 @@
 #   2  already CLOSED on entry                      → nothing to finalize
 #   3  CI red (terminal failure)                    → stall: needs shepherd
 #   4  timed out with CI still pending              → re-enqueue, still unmerged
-#   1  hard error / merge blocked / not mergeable / frozen base shared by a
-#      sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
+#   1  hard error / merge or rebase blocked (`needs weave`) / not mergeable /
+#      frozen base shared by a sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
 #      alerted)                                      → stall, re-enqueue
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
@@ -73,6 +77,9 @@
 # LOUD on a missing binary, and a failed gh read returns non-zero (escalate) rather
 # than being swallowed into a false green.
 #
+# Run merge-capable modes from the isolated project worktree, or name it with
+# GARDEN_PR_WORKTREE. GARDEN_PR_REMOTE / GARDEN_BASE_REMOTE override its head/base
+# remotes (both default to origin).
 # Tunables (env): GARDEN_CI_DEADLINE_SECS (default 5400 = 90 min),
 #   GARDEN_CI_POLL_SECS (default 60), GARDEN_CI_POLL_MAX_SECS (backoff cap, 60).
 
@@ -80,7 +87,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
-GARDEN_TAG="ci-wait-merge"
+export GARDEN_TAG="ci-wait-merge"
 
 repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge]}"
 pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge]}"
@@ -116,6 +123,8 @@ if [ -n "${GARDEN_GH:-}" ]; then
 fi
 require_tools jq
 require_tools "$GH"
+
+: "${GARDEN_REBASE_PR:=$HERE/rebase-pr-before-merge.sh}"
 
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
 
@@ -161,14 +170,15 @@ poll_secs="${GARDEN_CI_POLL_SECS:-60}"
 poll_max="${GARDEN_CI_POLL_MAX_SECS:-60}"
 start="$(date +%s)"
 
-# One rollup read. Echoes "<state>|<pending>|<failed>|<total>|<reviewDecision>"
+# One rollup read. Echoes
+# "<state>|<pending>|<failed>|<total>|<reviewDecision>|<headRefOid>"
 # on stdout, or returns non-zero (never a fabricated green) when the read itself
 # fails. reviewDecision is GitHub's review rollup (CHANGES_REQUESTED / APPROVED /
 # REVIEW_REQUIRED / ""); the green-and-terminal block below refuses to merge over
 # a CHANGES_REQUESTED so a maintainer review landing mid-wait is never merged over.
 read_rollup() {
-  local json state pending failed total review
-  json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup,reviewDecision 2>/dev/null)" \
+  local json state pending failed total review head_oid
+  json="$("$GH" pr view "$pr" -R "$repo" --json state,mergeable,statusCheckRollup,reviewDecision,headRefOid 2>/dev/null)" \
     || { log "gh pr view $repo#$pr failed — aborting this tick (never fabricate green)"; return 1; }
   [ -n "$json" ] || { log "empty PR state for $repo#$pr"; return 1; }
   # Validate the payload IS json before extracting: a jq parse failure on
@@ -191,7 +201,8 @@ read_rollup() {
     | length')"
   total="$(printf '%s' "$json" | jq -r '[ .statusCheckRollup[]? ] | length')"
   review="$(printf '%s' "$json" | jq -r '.reviewDecision // ""')"
-  printf '%s|%s|%s|%s|%s\n' "$state" "${pending:-0}" "${failed:-0}" "${total:-0}" "$review"
+  head_oid="$(printf '%s' "$json" | jq -r '.headRefOid // ""')"
+  printf '%s|%s|%s|%s|%s|%s\n' "$state" "${pending:-0}" "${failed:-0}" "${total:-0}" "$review" "$head_oid"
 }
 
 print_failures() {
@@ -223,8 +234,10 @@ past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
 unfreeze_base_if_frozen() {
   local meta state base live count nums
   meta="$("$GH" pr view "$pr" -R "$repo" --json state,baseRefName 2>/dev/null)" \
-    || { log "gh pr view (baseRefName) $repo#$pr failed — skipping unfreeze check"; return 0; }
-  [ -n "$meta" ] || return 0
+    || { log "gh pr view (baseRefName) $repo#$pr failed — refusing to merge without the live-base check"; return 1; }
+  [ -n "$meta" ] || { log "empty baseRefName metadata for $repo#$pr — refusing to merge"; return 1; }
+  printf '%s' "$meta" | jq -e . >/dev/null 2>&1 \
+    || { log "unparseable baseRefName metadata for $repo#$pr — refusing to merge"; return 1; }
   state="$(printf '%s' "$meta" | jq -r '.state // ""')"
   base="$(printf '%s' "$meta" | jq -r '.baseRefName // ""')"
   # Only an OPEN PR can be unfrozen; the wait loop handles terminal states.
@@ -246,8 +259,8 @@ unfreeze_base_if_frozen() {
     echo "unfroze repo=$repo pr=$pr base=$base → $live (live trunk) before merge"
     return 0
   fi
-  log "gh pr edit --base $live failed for $repo#$pr — proceeding; the merge will block if the base is wrong rather than strand"
-  return 0
+  log "gh pr edit --base $live failed for $repo#$pr — refusing to merge onto a snapshot"
+  return 1
 }
 
 # --- conductor step 2: unfreeze before the wait/merge -----------------------
@@ -255,7 +268,30 @@ unfreeze_base_if_frozen() {
 # is awaited by the loop below and the eventual merge lands on the trunk. Skipped
 # for --no-merge probes (they do not merge, so they must not mutate the PR's base).
 if [ "$do_merge" -eq 1 ]; then
-  unfreeze_base_if_frozen || { rc=$?; [ "$rc" -eq 10 ] && exit 1; }
+  unfreeze_base_if_frozen || exit 1
+
+  # Establish freshness BEFORE observing CI. The helper synchronizes this job's
+  # isolated project worktree to the exact remote PR head, delegates replay to
+  # safe-rebase.sh, and lease-pushes a rewrite through safe-push-pr-head.sh. Its
+  # stdout is the one head OID whose CI this invocation may accept.
+  rebase_rc=0
+  post_rebase_head="$("$GARDEN_REBASE_PR" "$repo" "$pr" "${GARDEN_PR_WORKTREE:-$PWD}")" || rebase_rc=$?
+  case "$rebase_rc" in
+    0)
+      [[ "$post_rebase_head" =~ ^[0-9a-fA-F]{40}$ ]] \
+        || { echo "rebase-blocked repo=$repo pr=$pr reason=unreadable-post-rebase-head → NOT merging"; exit 1; }
+      ;;
+    3)
+      echo "rebase-blocked repo=$repo pr=$pr reason=needs-weave → NOT merging"
+      exit 1
+      ;;
+    *)
+      echo "rebase-blocked repo=$repo pr=$pr reason=operational-error rc=$rebase_rc → NOT merging"
+      exit 1
+      ;;
+  esac
+else
+  post_rebase_head=""
 fi
 
 # --- block until CI is terminal (or the deadline passes) --------------------
@@ -267,12 +303,24 @@ while :; do
     fi
     sleep "$poll_secs"; continue
   fi
-  IFS='|' read -r state pending failed total review <<<"$rollup"
+  IFS='|' read -r state pending failed total review observed_head <<<"$rollup"
 
   case "$state" in
     MERGED) echo "terminal repo=$repo pr=$pr state=MERGED (already merged)"; exit 0 ;;
     CLOSED) echo "terminal repo=$repo pr=$pr state=CLOSED (nothing to finalize)"; exit 2 ;;
   esac
+
+  # A force-pushed rebase invalidates every pre-rebase run. GitHub's rollup is
+  # normally head-scoped, but bind it explicitly to the OID the helper published
+  # so API propagation lag or a bad stub can never turn stale green into evidence.
+  if [ -n "$post_rebase_head" ] && [ "$observed_head" != "$post_rebase_head" ]; then
+    if past_deadline; then
+      echo "ci-wait-timeout repo=$repo pr=$pr waiting-for-head=${post_rebase_head:0:11} observed=${observed_head:0:11} after ${deadline_secs}s — STILL UNMERGED, re-enqueue"
+      exit 4
+    fi
+    log "waiting: $repo#$pr CI rollup belongs to head ${observed_head:0:11}, need post-rebase ${post_rebase_head:0:11}"
+    sleep "$poll_secs"; continue
+  fi
 
   # An EMPTY rollup is NOT green: in the window right after a push (before any
   # check attaches) statusCheckRollup is [] for up to ~a minute, and pending=0 ∧
@@ -295,6 +343,37 @@ while :; do
       echo "rollup-terminal repo=$repo pr=$pr total=$total failed=$failed → CI RED"
       print_failures
       exit 3
+    fi
+
+    # CI may have taken long enough for the live base to move again. Re-run the
+    # same deterministic gate at the last green boundary. If it rewrites HEAD,
+    # this green belongs to the old integration: reset the observation window
+    # and loop until CI settles on the new OID. With one conductor in flight this
+    # normally no-ops; the repeat closes races with non-garden base updates.
+    if [ "$do_merge" -eq 1 ]; then
+      rebase_rc=0
+      refreshed_head="$("$GARDEN_REBASE_PR" "$repo" "$pr" "${GARDEN_PR_WORKTREE:-$PWD}")" || rebase_rc=$?
+      case "$rebase_rc" in
+        0)
+          [[ "$refreshed_head" =~ ^[0-9a-fA-F]{40}$ ]] \
+            || { echo "rebase-blocked repo=$repo pr=$pr reason=unreadable-final-rebase-head → NOT merging"; exit 1; }
+          ;;
+        3)
+          echo "rebase-blocked repo=$repo pr=$pr reason=needs-weave-after-ci → NOT merging"
+          exit 1
+          ;;
+        *)
+          echo "rebase-blocked repo=$repo pr=$pr reason=final-operational-error rc=$rebase_rc → NOT merging"
+          exit 1
+          ;;
+      esac
+      if [ "$refreshed_head" != "$post_rebase_head" ]; then
+        echo "base-moved repo=$repo pr=$pr head=${post_rebase_head:0:11} → ${refreshed_head:0:11}; invalidating prior green and re-waiting"
+        post_rebase_head="$refreshed_head"
+        start="$(date +%s)"
+        poll_secs="${GARDEN_CI_POLL_SECS:-60}"
+        continue
+      fi
     fi
     break   # green + terminal → fall through to the merge
   fi
