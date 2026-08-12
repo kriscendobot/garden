@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T22:17:31Z_
+_As of 2026-08-12T22:19:46Z_
 
 ## Latest
 
@@ -6677,26 +6677,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.9M | $803.22 _(notional, rate-card)_ | no quota set |
-| Codex | 20.6M _(+732.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
+| Claude | 53.8M | $803.02 _(notional, rate-card)_ | no quota set |
+| Codex | 20.7M _(+735.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr475-review-09a40229`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-09a40229.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-review-5c72a19b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-5c72a19b.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-b22eafbb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-b22eafbb.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (4436)
+### tada (4437)
+- [`endojs-endo-but-for-bots-pr475-review-5c72a19b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5c72a19b.md) — Completion report
 - [`endojs-endo-but-for-bots-pr403-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-conduct.md) — Cost
 - [`patrick-cooney-endo-but-for-bots-value-report-v2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/patrick-cooney-endo-but-for-bots-value-report-v2.md) — Patrick Cooney — contribution VALUE report for endojs/endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr403-b7affa82`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-b7affa82.md) — Cost
 - [`endojs-endo-but-for-bots-pr656-6df67575`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-6df67575.md) — Cost
-- [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/conductor-rebase-and-shepherd-before-merge.md) — Cost
-- … and 4431 more
+- … and 4432 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
