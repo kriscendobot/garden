@@ -62,3 +62,13 @@ than silently including or excluding it.
 - The PR body explains why `[master]` alone was wrong here and cites the branch
   divergence, so the next reader does not "fix" it back toward `ci.yml`.
 - Report the PR URL.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-12T21:17:46Z
