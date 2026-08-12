@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T23:36:44Z_
+_As of 2026-08-12T23:38:46Z_
 
 ## Latest
 
@@ -3557,6 +3557,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
+- `20260812T233824Z-2b8ea4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T233824Z-2b8ea4.md)
+
+> deadmail-20260812T232828Z-4f1d09 follow-up 1: a branch has been pushed but no PR exists, and the report asks for a disclosure-timing decision before any public fork PR is opened. This is your call — tell me whether to open the PR now, hold it under embargo, or coordinate a disclosure window first, and I'll post the job accordingly.
+
+- `20260812T233830Z-b50ab3` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T233830Z-b50ab3.md)
+
+> deadmail-20260812T232828Z-4f1d09 follow-up 2: the report asks to track separately the gap in authenticated peer identity in host `gateway()` across all transports (cross-peer retained-formula-number following). It names no repo or URL, and filing it publicly could pre-empt the disclosure decision in follow-up 1. Confirm the target repo and whether a public design/tracking item is safe yet, and I'll post a designer job.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6702,8 +6710,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.1M | $811.31 _(notional, rate-card)_ | no quota set |
-| Codex | 22.7M _(+781.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 54.1M | $812.16 _(notional, rate-card)_ | no quota set |
+| Codex | 22.7M _(+783.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6711,16 +6719,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (4)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
+- [`endo-upstream-llm-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-upstream-llm-retention-set-peer-binding.md) — What is wrong upstream
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-e97aa392.md) — attention directive on endojs/endo-but-for-bots PR #403
-- [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr656-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #656
 
 ### tada (4462)
+- [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-conduct.md) — Completion report
 - [`deadmail-20260812T233020Z-59f3fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T233020Z-59f3fc.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-0653272e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-0653272e.md) — Cost
 - [`deadmail-20260812T232828Z-4f1d09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232828Z-4f1d09.md) — What I did
 - [`deadmail-20260812T232355Z-c48b2b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T232355Z-c48b2b.md) — Cost
-- [`minion-town-ocapn-endpoint-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-ocapn-endpoint-closure-audit.md) — Closure audit — minion.town's public OCapN endpoints
 - … and 4457 more
 
 ## Plan queue (parked — not claimable until promoted)
@@ -6798,6 +6806,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-daemon-sqlite-wal-limit-measurement.md) — _normal_ · Measure the daemon SQLite WAL size policy
 - [`minion-town-ocap-site-build-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocap-site-build-deploy.md) — _normal_ · Build / deploy / validate: isolated weblets on ocap.site (design #34)
 - [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sha256-async-arm-followup.md) — _normal_ · ---
+- [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-gateway-outbound-peer-binding.md) — _2_ · The residual
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr903-review-1ec51e37-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-review-1ec51e37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #903 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr124-review-368d8b3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-368d8b3b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
