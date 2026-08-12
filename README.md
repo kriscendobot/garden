@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T21:18:14Z_
+_As of 2026-08-12T21:19:12Z_
 
 ## Latest
 
@@ -6673,15 +6673,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.8M | $800.63 _(notional, rate-card)_ | no quota set |
+| Claude | 53.8M | $800.99 _(notional, rate-card)_ | no quota set |
 | Codex | 19.7M _(+699.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`conductor-rebase-and-shepherd-before-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conductor-rebase-and-shepherd-before-merge.md) — designer+builder: the conductor must REBASE and SHEPHERD before every merge
 - [`endo-but-for-bots-workflow-triggers-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-workflow-triggers-llm.md) — builder: run the test workflows on llm, the branch this fork actually uses — ...
+- [`patrick-cooney-endo-but-for-bots-value-report-v2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/patrick-cooney-endo-but-for-bots-value-report-v2.md) — Redo: Patrick Cooney contribution VALUE report — the prior attempt under-deli...
 
 ### tada (4431)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Completion report
