@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-12T19:37:15Z_
+_As of 2026-08-12T19:41:35Z_
 
 ## Latest
 
@@ -6680,17 +6680,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr903-review-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-review-reconcile.md) — Reconcile the two DOOMED pr903 review directives against current PR state
-- [`issue-kriscendobot-garden-71`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-71.md) — Issue from dckc on kriscendobot/garden #71
 
-### tada (4426)
+### tada (4427)
+- [`issue-kriscendobot-garden-71`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/issue-kriscendobot-garden-71.md) — Cost
 - [`fix-orchestrate-vanished-false-positive-and-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-orchestrate-vanished-false-positive-and-sweep.md) — Cost
 - [`ironhorse-test262-implementation-completion-resume-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-2.md) — orchestration ironhorse-test262-implementation-completion-resume-2 — HALTED
 - [`ironhorse-js-07-promises-async-functions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-07-promises-async-functions.md) — Cost
 - [`ironhorse-test262-restore-and-relaunch-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch-2.md) — Completion report
-- [`ironhorse-test262-restore-and-relaunch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-restore-and-relaunch.md) — Completion report
-- … and 4421 more
+- … and 4422 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
