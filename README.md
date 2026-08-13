@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:57:23Z_
+_As of 2026-08-13T22:57:49Z_
 
 ## Latest
 
@@ -6790,25 +6790,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.3M | $996.79 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+802.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.5M | $997.12 _(notional, rate-card)_ | no quota set |
+| Codex | 23.7M _(+801.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #980
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
-- [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-resume-6-launch.md) — Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28)
 
-### tada (4582)
+### tada (4583)
+- [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-resume-6-launch.md) — Report
 - [`kriscendobot-minion.town-pr28-review-a4dd8f2f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-review-a4dd8f2f.md) — Completion report
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1.md) — Cost
 - [`garden-campaign-spend-unmetered-rows`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-campaign-spend-unmetered-rows.md) — Cost
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Cost
-- [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-from-llm-r3.md) — Completion report — genie-docs-delete-from-llm-r3
-- … and 4577 more
+- … and 4578 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
