@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 repo: the garden itself (this repo, `main2` branch) AND endojs/endo-but-for-bots (journal board operations)
@@ -76,12 +77,4 @@ needs more time than this job's budget allows, land and deploy Part 1 and
 report Part 2 as a clean, explicit follow-up rather than launching against an
 unfixed watcher.
 
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-13T14:03:04Z
+<!-- garden-reaped: 0 -->
