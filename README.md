@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:59:12Z_
+_As of 2026-08-13T22:01:57Z_
 
 ## Latest
 
@@ -3581,6 +3581,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration garden-tada-shard-orchestration HALTED: child garden-tada-shard-03-write-switch completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 2/5 done before halt; parked remainder: garden-tada-shard-04-migrate garden-tada-shard-05-cleanup
 
+- `20260813T220138Z-503f1c` — from orchestrator:ironhorse-test262-implementation-completion-resume-4-budget-exhausted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T220138Z-503f1c.md)
+
+> Orchestration ironhorse-test262-implementation-completion-resume-4 exhausted its 750518-token campaign budget after 1067391 recorded tokens (316873 overshoot). Unspent: 0. Parked remainder: ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6742,24 +6746,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.5M | $1002.65 _(notional, rate-card)_ | no quota set |
+| Claude | 61.5M | $1003.42 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
+- [`genie-docs-r2-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-r2-01-migrate-into-journal.md) — Relationship to the date-sharding chain (advisory, NOT blocking)
 
-### tada (4563)
+### tada (4564)
+- [`ironhorse-test262-implementation-completion-resume-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-4.md) — orchestration ironhorse-test262-implementation-completion-resume-4 — BUDGET E...
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-10-arrays-species.md) — Completion report — ironhorse-js-10-arrays-species
 - [`context-graph-size-audit-focused`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused.md) — Completion report
 - [`garden-tada-shard-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-orchestration.md) — orchestration garden-tada-shard-orchestration — HALTED
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status.md) — orchestration endojs-endo-but-for-bots-pr149-review-13c87bef-status — complete
-- [`garden-tada-shard-03-write-switch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-03-write-switch.md) — Cost
-- … and 4558 more
+- … and 4559 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6904,7 +6910,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — awaiting `endojs-endo-but-for-bots-pr149-review-13c87bef-status` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
