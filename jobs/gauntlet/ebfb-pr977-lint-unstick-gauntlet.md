@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: ebfb-pr977-lint-unstick-gauntlet-clean
+state: running
 created_by: gardener
 created_at: 2026-08-13T04:15:43Z
 ---
