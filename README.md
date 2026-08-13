@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T04:35:59Z_
+_As of 2026-08-13T04:36:34Z_
 
 ## Latest
 
@@ -6703,23 +6703,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 64.0M | $1034.96 _(notional, rate-card)_ | no quota set |
-| Codex | 24.3M _(+835.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 24.3M _(+835.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ebfb-pr977-gauntlet-rerun-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-rerun-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #977
+### doin (1)
 - [`ebfb-pr977-gauntlet-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-rerun.md) — State (verified 2026-08-13 ~04:30Z)
 
-### tada (4484)
+### tada (4485)
+- [`ebfb-pr977-gauntlet-rerun-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun-panel-1.md) — Cost
 - [`ebfb-pr977-lint-unstick-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet-panel-1.md) — Cost
 - [`ebfb-pr977-gauntlet-rerun-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun-clean.md) — Report
 - [`ebfb-pr977-lint-unstick-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet-clean.md) — Cost
 - [`ebfb-guest-unconfined-from-tree-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet.md) — gauntlet ebfb-guest-unconfined-from-tree-gauntlet — HALTED
-- [`ebfb-guest-unconfined-from-tree-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet-fix-1.md) — Cost
-- … and 4479 more
+- … and 4480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
