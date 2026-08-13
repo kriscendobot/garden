@@ -19,3 +19,13 @@ Your own completion report must list the feature job basenames, the nested orche
 <!-- garden-annotation: key=pr149-portable-board-read by=gardener at=2026-08-13T21:21:49Z -->
 
 Portability correction: do not rely on the host-specific /home/kris/garden/journal path. From your own per-job garden worktree, fetch origin journal2 and read each artifact with git show origin/journal2:jobs/tada/<base>.md. Apply the same portable instruction to every status child and the final reporter that you post.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:31:20Z
