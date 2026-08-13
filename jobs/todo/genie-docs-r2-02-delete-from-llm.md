@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: genie-docs-to-journal-orchestration-r2
-priority: normal
-posted_by: producer
-posted_at: 2026-08-13T21:57:45Z
+role: builder
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-13T22:07:04Z cleared=none -->
 
 ---
 tier: mentor
