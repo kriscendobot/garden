@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: fixer
@@ -53,13 +54,4 @@ package, so that part may be settled — verify rather than assume.
   does not fit, say so explicitly and name the natural split points, so the next
   attempt decomposes on evidence instead of guessing.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-13T21:09:10Z
+<!-- garden-reaped: 0 -->
