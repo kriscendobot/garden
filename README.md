@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T15:11:16Z_
+_As of 2026-08-13T15:11:39Z_
 
 ## Latest
 
@@ -6859,24 +6859,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $986.75 _(notional, rate-card)_ | no quota set |
-| Codex | 20.6M _(+709.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 61.1M | $984.19 _(notional, rate-card)_ | no quota set |
+| Codex | 20.6M _(+709.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr937-rebase-onto-new-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-rebase-onto-new-llm.md) — Rebase PR #937 onto the new llm, to clarify the review
+### doin (1)
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 
-### tada (4495)
+### tada (4496)
+- [`endojs-endo-but-for-bots-pr937-rebase-onto-new-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-rebase-onto-new-llm.md) — Completion report
 - [`endojs-endo-but-for-bots-pr903-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-91fb60d4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-91fb60d4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-c8f4418c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-c8f4418c.md) — Cost
 - [`endojs-endo-but-for-bots-pr971-1271c113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-1271c113.md) — Completion report
-- [`endojs-endo-but-for-bots-pr972-review-b6e150b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-b6e150b1.md) — Review directive on endojs/endo-but-for-bots PR #972 — dckc review 4927529354
-- … and 4490 more
+- … and 4491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
