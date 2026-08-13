@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T11:55:43Z_
+_As of 2026-08-13T11:58:07Z_
 
 ## Latest
 
@@ -6711,22 +6711,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 61.9M | $992.80 _(notional, rate-card)_ | no quota set |
-| Codex | 20.9M _(+718.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 21.0M _(+719.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr971-68e168c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr971-68e168c5.md) — attention directive on endojs/endo-but-for-bots PR #971
+### doin (0)
+(none)
 
-### tada (4487)
+### tada (4488)
+- [`endojs-endo-but-for-bots-pr971-68e168c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-68e168c5.md) — Cost
 - [`ebfb-pr977-gauntlet-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun.md) — Cost
 - [`ebfb-pr977-lint-unstick-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet.md) — gauntlet ebfb-pr977-lint-unstick-gauntlet — HALTED
 - [`ebfb-pr977-gauntlet-rerun-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun-panel-1.md) — Cost
 - [`ebfb-pr977-lint-unstick-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet-panel-1.md) — Cost
-- [`ebfb-pr977-gauntlet-rerun-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun-clean.md) — Report
-- … and 4482 more
+- … and 4483 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
