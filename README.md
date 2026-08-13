@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:49:34Z_
+_As of 2026-08-13T22:51:43Z_
 
 ## Latest
 
@@ -6759,16 +6759,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $996.88 _(notional, rate-card)_ | no quota set |
-| Codex | 23.8M _(+803.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.4M | $998.15 _(notional, rate-card)_ | no quota set |
+| Codex | 23.7M _(+803.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #980
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
+- [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-resume-6-launch.md) — Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28)
 
 ### tada (4580)
 - [`garden-campaign-spend-unmetered-rows`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-campaign-spend-unmetered-rows.md) — Cost
@@ -6922,7 +6923,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
-- [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-6-launch.md) — awaiting `garden-campaign-spend-unmetered-rows` · Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28)
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
