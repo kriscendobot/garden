@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T02:59:35Z_
+_As of 2026-08-13T03:00:38Z_
 
 ## Latest
 
@@ -6702,14 +6702,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.2M | $850.95 _(notional, rate-card)_ | no quota set |
+| Claude | 56.3M | $852.65 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+805.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260813T025727Z-27834f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260813T025727Z-27834f.md) — Dead-lettered message — pick up its intent
 - [`ebfb-guest-unconfined-from-tree-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #977
 
 ### tada (4477)
