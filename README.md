@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T14:38:22Z_
+_As of 2026-08-13T14:43:21Z_
 
 ## Latest
 
@@ -6772,6 +6772,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > triager: the upstream for kriscendobot-list is reachable again; kriscendobot-list is being triaged normally.
+
+- `watchdog-triager-upstream-gone-kriscendobot-moddable` — from watchdog:triager/kriscendobot-moddable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-moddable.md)
+
+> triager: fetch for kriscendobot-moddable at /home/kris/garden2/worktrees/kriscendobot-moddable.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
+> This does NOT self-heal by retrying: kriscendobot-moddable is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/moddable', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-moddable AND removing repos/kriscendobot-moddable (see designs/auto-provision-fork-watchers.md).
+
+- `watchdog-triager-upstream-gone-kriscendobot-vattr97` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-vattr97.md)
+
+> triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
+> This does NOT self-heal by retrying: kriscendobot-vattr97 is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/vattr97', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-vattr97 AND removing repos/kriscendobot-vattr97 (see designs/auto-provision-fork-watchers.md).
 
 
 ## Spend & quota
