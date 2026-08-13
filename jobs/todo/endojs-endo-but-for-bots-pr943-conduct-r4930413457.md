@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-pr943-weave-conduct-r4930413457
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-08-13T18:40:51Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-13T18:52:06Z cleared=none -->
 
 ---
 tier: mentor
