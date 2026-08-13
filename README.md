@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T01:34:19Z_
+_As of 2026-08-13T01:39:58Z_
 
 ## Latest
 
@@ -6709,17 +6709,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 
-### tada (4469)
+### tada (4470)
+- [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-f9e663e7.md) — Completion report
 - [`pr403-chain-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-chain-20260813.md) — orchestration pr403-chain-20260813 — HALTED
 - [`pr403-conduct-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-conduct-20260813.md) — conduct #403 — completion report
 - [`pr403-shepherd-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-shepherd-20260813.md) — Cost
 - [`pr403-weave-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-weave-20260813.md) — Cost
-- [`endojs-endo-but-for-bots-pr978-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr978-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #978
-- … and 4464 more
+- … and 4465 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
