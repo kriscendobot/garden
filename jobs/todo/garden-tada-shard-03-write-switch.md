@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-tada-shard-orchestration
-priority: normal
-posted_by: producer
-posted_at: 2026-08-13T21:30:18Z
+role: builder
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-13T21:55:04Z cleared=none -->
 
 ---
 tier: mentor
