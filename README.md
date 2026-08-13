@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T20:46:41Z_
+_As of 2026-08-13T20:58:22Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 17h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6731,15 +6731,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 61.3M | $987.40 _(notional, rate-card)_ | no quota set |
-| Codex | 20.8M _(+712.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
+| Codex | 21.0M _(+726.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
 - [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii.md) — ---
+- [`endojs-endo-but-for-bots-pr124-review-01d36f3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-01d36f3a.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-09-proxy-mop.md) — Implement Proxy completely over the object MOP
 
 ### tada (4517)
@@ -6883,6 +6884,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr972-review-b6e150b1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr972-review-b6e150b1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #972 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr903-91fb60d4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-91fb60d4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #903 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr943-review-f464f894-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr943-review-f464f894-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #943 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr124-review-01d36f3a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-01d36f3a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
