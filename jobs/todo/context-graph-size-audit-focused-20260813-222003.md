@@ -1,7 +1,3 @@
-cadence: 30d
-last_dispatched: 2026-08-13T22:20:03Z
-job_basename_prefix: context-graph-size-audit-focused
----
 ---
 tier: mentor
 fallback-tier: minion
