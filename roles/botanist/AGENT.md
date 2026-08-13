@@ -126,11 +126,12 @@ On a `dependabot[bot]`-authored PR on a repo where the bot holds merge authority
   2. **Daily heartbeat over the ledger (backstop).** Idempotently ensure the per-project daily sweep exists, as a safety net that catches any PR whose precise one-shot was lost (a rejected push, a hand-edited ledger, a floor recorded without a one-shot):
 
      ```sh
-     scripts/jobs/set-schedule.sh dependabotany-recheck-<project> daily \
+     GARDEN_SCHEDULE_PREFLIGHT=dependabotany-preflight.sh \
+       scripts/jobs/set-schedule.sh dependabotany-recheck-<project> daily \
        dependabotany-recheck-<project> <body-file>
      ```
 
-     Its body instructs a gardener to wear this role and re-evaluate every PR in the `<project>` ledger whose maturity date has arrived, executing the now-due verdict. The call is idempotent (one daily schedule per project), so an embargo simply ensures it exists.
+     Its body instructs a gardener to wear this role and re-evaluate every PR in the `<project>` ledger whose maturity date has arrived, executing the now-due verdict. The call is idempotent (one daily schedule per project), so an embargo simply ensures it exists. The `GARDEN_SCHEDULE_PREFLIGHT=dependabotany-preflight.sh` is **not** optional decoration: it wires the deterministic idle gate (`scripts/jobs/dependabotany-preflight.sh`) that the scheduler runs before each daily dispatch, so the backstop **skips** (advances its clock, posts nothing) on the common quiet day — no open `dependabot[bot]` PR on the repo AND no due row in the `<project>` ledger — instead of dispatching an Opus sweep that drains, finds nothing, and writes a verbose "no row due / set drained" clean-confirmation entry. The gate fails **open** (dispatches) on any GitHub or ledger read error, so it only ever quiets a *provably* idle day; it never starves a real recheck (an active embargo is an open PR, which the gate always sees). Always pass it when ensuring this schedule.
 
   A terminal verdict (MERGE-NOW or REJECT) on a later recheck removes that PR's ledger row; when the ledger holds no project rows the daily heartbeat may be deleted. A PR's precise one-shot self-deletes once it fires, so it leaves no residue.
 
