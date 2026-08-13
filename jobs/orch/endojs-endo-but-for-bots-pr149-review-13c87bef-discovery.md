@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core-host: endolin-garden2-5bcdff64
 order: parallel
 children: endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts
 on-child-failure: halt
