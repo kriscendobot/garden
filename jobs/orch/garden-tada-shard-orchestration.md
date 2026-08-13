@@ -2,7 +2,7 @@
 order: serial
 children: garden-tada-shard-01-design garden-tada-shard-02-read-tolerance garden-tada-shard-03-write-switch garden-tada-shard-04-migrate garden-tada-shard-05-cleanup
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-13T21:30:52Z
 ---
