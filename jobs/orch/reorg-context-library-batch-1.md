@@ -2,7 +2,7 @@
 order: parallel
 children: reorg-context-local-inference-amd reorg-skill-local-verify
 on-child-failure: continue
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-13T22:08:11Z
 ---
