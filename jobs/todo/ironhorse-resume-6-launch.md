@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: garden-campaign-spend-unmetered-rows
-priority: normal
-posted_by: producer
-posted_at: 2026-08-13T22:43:25Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-13T22:51:05Z cleared=none -->
 
 ---
 tier: mentor
