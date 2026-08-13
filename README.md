@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:32:27Z_
+_As of 2026-08-13T16:35:52Z_
 
 ## Latest
 
@@ -6726,7 +6726,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.6M | $990.60 _(notional, rate-card)_ | no quota set |
+| Claude | 61.3M | $982.19 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+685.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
@@ -6734,16 +6734,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (2)
+- [`dependabotany-recheck-endo-but-for-bots-20260813-163502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260813-163502.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
-- [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-gateway-outbound-peer-binding.md) — The residual
 
-### tada (4503)
+### tada (4504)
+- [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-gateway-outbound-peer-binding.md) — Job complete: OCapN outbound gateway peer-binding
 - [`ebfb-pr977-gauntlet-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3.md) — gauntlet ebfb-pr977-gauntlet-r3 — complete
 - [`ebfb-pr977-gauntlet-r3-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-undraft.md) — Completion report
 - [`ebfb-pr977-gauntlet-r3-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr937-reframe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-reframe.md) — Cost
-- [`garden-triager-transient-auth-misclassified-as-upstream-gone`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-triager-transient-auth-misclassified-as-upstream-gone.md) — Cost
-- … and 4498 more
+- … and 4499 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
