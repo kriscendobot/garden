@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T04:16:23Z_
+_As of 2026-08-13T04:17:25Z_
 
 ## Latest
 
@@ -6702,24 +6702,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.7M | $991.59 _(notional, rate-card)_ | no quota set |
-| Codex | 24.1M _(+825.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 61.7M | $992.14 _(notional, rate-card)_ | no quota set |
+| Codex | 24.1M _(+826.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ebfb-pr977-lint-unstick-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-lint-unstick-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #977
+### doin (1)
 - [`ebfb-pr977-lint-unstick`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-lint-unstick.md) — State
 
-### tada (4481)
+### tada (4482)
+- [`ebfb-pr977-lint-unstick-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet-clean.md) — Cost
 - [`ebfb-guest-unconfined-from-tree-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet.md) — gauntlet ebfb-guest-unconfined-from-tree-gauntlet — HALTED
 - [`ebfb-guest-unconfined-from-tree-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet-fix-1.md) — Cost
 - [`ebfb-guest-unconfined-from-tree-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet-panel-1.md) — Cost
 - [`deadmail-20260813T025727Z-27834f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260813T025727Z-27834f.md) — Cost
-- [`ebfb-guest-unconfined-from-tree-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet-clean.md) — Completion report
-- … and 4476 more
+- … and 4477 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
