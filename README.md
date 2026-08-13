@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:09:25Z_
+_As of 2026-08-13T22:12:23Z_
 
 ## Latest
 
@@ -3577,32 +3577,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker` (endojs/endo-but-for-bots PR #149) leaves two judgment calls open: (1) whether to accept the `agentry` disposition, under which the status-directory-walker is a clean lift (module + 5 tests) independent of the PR's blocked sandbox cluster and genie glue; and (2) whether to proceed at all given the feature stays dead code unless the sub-agent-directory arc (TODO/53–61) lands a consumer, which is unimplemented on the branch. No autonomous job posted pending your call.
 
-- `20260813T215826Z-18732c` — from orchestrator:garden-tada-shard-orchestration-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T215826Z-18732c.md)
-
-> Orchestration garden-tada-shard-orchestration HALTED: child garden-tada-shard-03-write-switch completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 2/5 done before halt; parked remainder: garden-tada-shard-04-migrate garden-tada-shard-05-cleanup
-
-- `20260813T220138Z-503f1c` — from orchestrator:ironhorse-test262-implementation-completion-resume-4-budget-exhausted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T220138Z-503f1c.md)
-
-> Orchestration ironhorse-test262-implementation-completion-resume-4 exhausted its 750518-token campaign budget after 1067391 recorded tokens (316873 overshoot). Unspent: 0. Parked remainder: ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
-
-- `20260813T220847Z-dca7e5` — from gardener:genie-docs-r2-02-delete-from-llm, reply_to `genie-docs-r2-02-delete-from-llm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T220847Z-dca7e5.md)
-
-> Halted: genie-docs-r2-02-delete-from-llm (delete PLAN/TODO/TADA from endo-but-for-bots llm).
->
-> I stopped at the precondition WITHOUT deleting anything. Stage 1
-> (genie-docs-r2-01-migrate-into-journal) has NOT run: it is still parked in
-> jobs/plan/ (gate=orchestrated), the r2 orchestration is state=pending, there is
-> no r2-01 tada report, library/endo-but-for-bots/ does not exist, and no genie
-> prose docs are present anywhere in the journal outside jobs/. The journal copy
-> does not exist, so deleting from llm would destroy the only copy.
->
-> Coordination bug worth a look: stage 2 (the destructive delete) got promoted and
-> claimed while stage 1 is still parked and the serial/halt orchestration is still
-> 'pending'. The halt-on-failure guard did its job here (I refused), but stage 2
-> should not have been dispatchable before stage 1 reached tada. Recommend
-> re-promoting genie-docs-r2-01 to run the migration first, and re-posting the
-> delete stage only after r2-01 count-match reconciles.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6764,23 +6738,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.7M | $990.43 _(notional, rate-card)_ | no quota set |
+| Claude | 60.9M | $993.20 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (6)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
+- [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-orchestrate-serial-order-violation.md) — What happened (2026-08-13)
+- [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
+- [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
+- [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reorg-context-local-inference-amd.md) — reorg-context-local-inference-amd
+- [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reorg-skill-local-verify.md) — reorg-skill-local-verify
 
-### tada (4568)
+### tada (4569)
+- [`genie-docs-to-journal-orchestration-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration-r2.md) — orchestration genie-docs-to-journal-orchestration-r2 — HALTED
 - [`genie-docs-r2-02-delete-from-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-02-delete-from-llm.md) — Completion report
 - [`genie-docs-r2-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-01-migrate-into-journal.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — Cost
-- [`ironhorse-test262-implementation-completion-resume-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-4.md) — orchestration ironhorse-test262-implementation-completion-resume-4 — BUDGET E...
-- … and 4563 more
+- … and 4564 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
