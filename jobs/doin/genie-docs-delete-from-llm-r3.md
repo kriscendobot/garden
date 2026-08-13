@@ -61,3 +61,13 @@ content from the repo — report back instead. Some readers may want these kept
 in-tree, and that is the maintainer's call.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T22:23:11Z
