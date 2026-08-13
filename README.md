@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T18:28:58Z_
+_As of 2026-08-13T18:35:10Z_
 
 ## Latest
 
@@ -6726,14 +6726,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.9M | $983.05 _(notional, rate-card)_ | no quota set |
-| Codex | 19.5M _(+663.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 61.0M | $983.23 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+668.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr943-review-f464f894`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-review-f464f894.md) — Review directive on endojs/endo-but-for-bots PR #943
 - [`ironhorse-js-08-async-generators-for-await`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-08-async-generators-for-await.md) — Complete async generators and for-await-of
 
 ### tada (4508)
@@ -6875,6 +6876,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr972-review-c8f4418c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr972-review-c8f4418c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #972 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr972-review-b6e150b1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr972-review-b6e150b1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #972 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr903-91fb60d4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-91fb60d4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #903 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr943-review-f464f894-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr943-review-f464f894-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #943 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
