@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T15:11:39Z_
+_As of 2026-08-13T16:08:31Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 13h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -3557,54 +3557,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
-- `20260813T143405Z-31068e` — from gardener:ironhorse-orchestrate-vanished-fix-and-resume, reply_to `ironhorse-orchestrate-vanished-fix-and-resume` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T143405Z-31068e.md)
-
-> Ironhorse orchestrate-fix job — Part 1 done, Part 2 needs a budget decision before resume-3 launches.
->
-> PART 1 (fix): LANDED on main2 (commit 9393c3ce6d). Root cause of the resume-2
-> "vanished from the board" false-halt: child_state draws a TERMINAL, campaign-halting
-> `failed` from a single `gone` reading (child in none of tada/todo/doin/plan) taken from
-> the tick's ONE top-sync snapshot. df2226 made that read atomic w.r.t. a hard reset, but
-> the snapshot is still only as fresh as that single sync, which can observe the board one
-> commit before a child's doin->tada completion lands. Fix: child_board_view now re-syncs
-> and re-reads before trusting a `gone` verdict (bounded, GARDEN_ORCH_GONE_RECHECK). A real
-> doom-drop stays gone and still halts; a just-completing child resolves to tada. Regression
-> test (orchestrate-test.sh SUBTEST 20) reproduces the race deterministically; verified it
-> FAILS without the guard and PASSES with it (41/41).
->
-> DEPLOY: upgrade-monitor already flags 9393c3ce6d as "Upgrade ready"; I also sent a sysop
-> deploy op. BUT deploy-garden.sh defers while a long gardener job runs (like this one), so
-> it will only land once the fleet is quiet. Please drive the deploy to completion (liaison
-> deploy-on-upgrade Monitor, or a sysop deploy op in a quiet window) and confirm the deployed
-> root's scripts/jobs/orchestrate.sh contains GARDEN_ORCH_GONE_RECHECK before resume-3 runs.
->
-> PART 2 (budget) — NEEDS YOUR CALL. I did NOT launch resume-3, for two reasons: (a) it must
-> not launch on an undeployed watcher, and (b) launching it would keep the fleet busy and
-> BLOCK the deploy indefinitely (defer-on-long-job). The 21 children js-08..js-28 are all
-> correctly staged in jobs/plan/ with gate: orchestrated — nothing drifted.
->
-> Budget arithmetic (billable = input+output+cache_creation, excl cache_read, excl source=none):
->   - Original budget:                         2,080,000
->   - Mechanism-consistent spend (top-level child ledgers only, what campaign-spend.sh
->     actually enforces): 1,329,482  ->  remaining = 750,518
->   - HONEST total incl. all gauntlet sub-job ledgers (what your instruction asked me to
->     sum): 3,307,979  ->  ALREADY 1,227,979 OVER the 2,080,000 budget.
->
-> The gap matters: campaign-spend.sh only sums usage/<child>.jsonl, NOT the gauntlet
-> sub-job ledgers (panel/fix/clean), which are ~60% of real spend. So the "2,080,000 budget"
-> as enforced never constrained gauntlet spend. Which basis should resume-3 use?
->   Option A: launch with --budget-tokens 750,518 (mechanism-consistent; resume-3's spend is
->             enforced top-level-only, matching how the original figure was subtracted).
->   Option B: treat the honest total as authoritative -> the campaign is already over quota;
->             pause resume-3 until the Friday 2026-08-15 21:00 Pacific reset.
-> My recommendation: A (750,518) if you want the campaign to continue this window, since the
-> enforcement mechanism is top-level-only either way; but you should know the true quota
-> impact is ~2.5x the enforced figure.
->
-> I'm posting a follow-up job "ironhorse-resume-3-launch" that will (after deploy is
-> confirmed) launch post-orchestration.sh --serial --on-child-failure halt --budget-tokens
-> <your figure> for the 21 children in order. Tell me the figure (or "A"/"B") and I/it will run it.
-
 - `20260813T151055Z-707011` — from gardener:endojs-endo-but-for-bots-pr937-rebase-onto-new-llm, reply_to `endojs-endo-but-for-bots-pr937-rebase-onto-new-llm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T151055Z-707011.md)
 
 > Rebased [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) onto the fresh pinned base llm-0c3598a (llm tip after [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903)). Result: the rebase revealed [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) landed a refined superset of nearly all of [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) — 9 of its 10 commits collapse to empty against the new llm (the @endo/sha256 package, the daemon host-tool-powers + XS-bundle work, BlobRef/chat/design updates all already in llm; llm's CI already generates the daemon XS bundle). The PR's original "restore XS bundle generation" goal is already met on llm.
@@ -6859,8 +6811,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.1M | $984.19 _(notional, rate-card)_ | no quota set |
-| Codex | 20.6M _(+709.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 61.3M | $981.15 _(notional, rate-card)_ | no quota set |
+| Codex | 19.7M _(+683.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
