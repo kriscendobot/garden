@@ -28,3 +28,13 @@ MUST be retained.
 
 If the merge guard still reports a shared frozen base, the weave step did not
 retarget #943 to live `llm` — surface that rather than force-forking.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T18:52:10Z
