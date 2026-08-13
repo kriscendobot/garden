@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:12:23Z_
+_As of 2026-08-13T22:16:50Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 42m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 50m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -3577,6 +3577,26 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker` (endojs/endo-but-for-bots PR #149) leaves two judgment calls open: (1) whether to accept the `agentry` disposition, under which the status-directory-walker is a clean lift (module + 5 tests) independent of the PR's blocked sandbox cluster and genie glue; and (2) whether to proceed at all given the feature stays dead code unless the sub-agent-directory arc (TODO/53–61) lands a consumer, which is unimplemented on the branch. No autonomous job posted pending your call.
 
+- `20260813T221630Z-e4a901` — from gardener:genie-docs-delete-from-llm-r3, reply_to `genie-docs-delete-from-llm-r3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T221630Z-e4a901.md)
+
+> Job genie-docs-delete-from-llm-r3 (delete PLAN/TODO/TADA from endo-but-for-bots@llm): migration verified clean, but the job's key premise is wrong and this is a maintainer call — holding before I delete.
+>
+> VERIFIED OK: journal copy at library/endo-but-for-bots/ matches source llm@a54c3adb exactly — tree hashes match bit-for-bit (PLAN/TODO/TADA), counts 11/1/172, migration commit is an ancestor of origin/journal2, provenance README present. (TODO/ is just a .keep placeholder — empty queue.)
+>
+> PREMISE VIOLATED: the job says inbound references live "ONLY within the directories themselves." On current llm that is false — 95 path-references across 42 files cite these docs:
+>   - 10 are HARD markdown links that would 404 after deletion: packages/genie/{AGENTS.md,README.md,DESIGN.md}, designs/{README,endo-posix-sandbox}.md, packages/sandbox/README.md.
+>   - 85 are prose/comment citations ("see TODO/57", "TADA/60", PLAN/*.md) scattered through packages/genie source + tests.
+> The repo's own pivoker/evoke task-runner also defaults TASKS_IN=TODO / TASKS_OUT=TADA (scripts tolerate absence, so nothing breaks functionally).
+>
+> THE CATCH: the content moved to the garden JOURNAL, a separate private repo. An external contributor to this public repo following a PLAN/ link hits a dead end — there's no valid in-repo redirect target.
+>
+> Which do you want?
+>   (A) KEEP the dirs in-tree — treat the journal as a mirror/backup, not a replacement. (My lean, given the pervasive in-repo citations and that the journal isn't reachable from this repo.)
+>   (B) DELETE anyway — I'll open the PR, neutralize the 10 broken links (drop link markup, keep the doc name + a note the docs moved to the garden journal), and leave the 85 prose task-ID citations as historical breadcrumbs. I'll document the pivoker implication in the PR.
+>   (C) DELETE and also strip/rewrite all 95 references (invasive, changes source comments across the genie package).
+>
+> I'll wait for your call before touching llm.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6738,7 +6758,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.9M | $993.20 _(notional, rate-card)_ | no quota set |
+| Claude | 61.0M | $996.70 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
