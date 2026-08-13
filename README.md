@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:29:32Z_
+_As of 2026-08-13T16:30:31Z_
 
 ## Latest
 
@@ -6726,25 +6726,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.6M | $989.14 _(notional, rate-card)_ | no quota set |
+| Claude | 61.6M | $989.55 _(notional, rate-card)_ | no quota set |
 | Codex | 19.8M _(+685.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`ebfb-pr977-gauntlet-r3-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-r3-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #977
+### doin (2)
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 - [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-gateway-outbound-peer-binding.md) — The residual
 
-### tada (4501)
+### tada (4502)
+- [`ebfb-pr977-gauntlet-r3-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-undraft.md) — Completion report
 - [`ebfb-pr977-gauntlet-r3-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr937-reframe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-reframe.md) — Cost
 - [`garden-triager-transient-auth-misclassified-as-upstream-gone`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-triager-transient-auth-misclassified-as-upstream-gone.md) — Cost
 - [`ebfb-pr977-gauntlet-r3-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-clean.md) — Report
-- [`ebfb-pr977-gauntlet-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-3.md) — Completion report
-- … and 4496 more
+- … and 4497 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
