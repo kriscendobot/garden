@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 5
+worker_kind: gardener
+claimed_at: 2026-08-13T00:55:16Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-pr403-conduct-20260813
