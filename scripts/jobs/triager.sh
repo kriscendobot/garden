@@ -40,6 +40,13 @@ GARDEN_TAG="triager/$slug"
 # Consecutive-failure circuit-breaker threshold: after this many failures of the
 # handler on the SAME new_sha, stop re-triaging that sha (0 disables the breaker).
 : "${GARDEN_TRIAGE_FAIL_THRESHOLD:=5}"
+# A fetch authentication/network failure is retried inside the tick with full
+# jitter before it counts toward the cross-tick persistence window. Five ticks at
+# the two-minute timer cadence is about ten minutes, long enough to absorb an SSH
+# authentication throttle without hiding credential drift. The old OFFLINE name
+# remains a compatibility fallback for deployed overrides.
+: "${GARDEN_TRIAGE_FETCH_ATTEMPTS:=${GARDEN_FETCH_RETRIES:-3}}"
+: "${GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK:=${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -135,12 +142,30 @@ if git --git-dir="$BARE" remote 2>/dev/null | grep -qx origin; then
 else
   fetch_target=(--all)
 fi
-if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-    git --git-dir="$BARE" fetch -q "${fetch_target[@]}" --prune 2>&1 1>/dev/null)"; then
-  rc=0
-else
-  rc=$?
-fi
+fetch_attempt=1
+while :; do
+  if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+      git --git-dir="$BARE" fetch -q "${fetch_target[@]}" --prune 2>&1 1>/dev/null)"; then
+    rc=0
+  else
+    rc=$?
+  fi
+  [ "$rc" -eq 0 ] && break
+
+  # Missing-repository diagnostics need an API confirmation, not blind retries.
+  # Authentication rejections and transport failures do get bounded full-jitter
+  # retries: GitHub can emit the same publickey rejection while throttling a burst
+  # of SSH handshakes after all watcher units restart together.
+  if ! _fetch_stderr_is_upstream_gone "$GARDEN_FETCH_STDERR" \
+     && { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_transient "$GARDEN_FETCH_STDERR"; } \
+     && [ "$fetch_attempt" -lt "$GARDEN_TRIAGE_FETCH_ATTEMPTS" ]; then
+    log "transient fetch failure for $slug on attempt $fetch_attempt/$GARDEN_TRIAGE_FETCH_ATTEMPTS (rc=$rc); retrying after backoff"
+    backoff "$fetch_attempt"
+    fetch_attempt=$((fetch_attempt + 1))
+    continue
+  fi
+  break
+done
 if [ "$rc" -ne 0 ]; then
   # CLASSIFY before escalating. A fetch failure has three materially different
   # causes and the remedy differs per cause; the pre-2026-07-28 code captured
@@ -149,25 +174,29 @@ if [ "$rc" -ne 0 ]; then
   # across 13 repos, of which 9 landed inside ONE 20-minute network outage.
   err_tail="$(printf '%s' "$GARDEN_FETCH_STDERR" | tail -n 5 | tr '\n' ' ')"
 
-  # (a) UPSTREAM GONE — checked FIRST, because GitHub's dead-repo message ("ERROR:
-  #     Repository not found." + "fatal: Could not read from remote repository.")
-  #     also matches the offline signature set, and misreading a deleted fork as a
-  #     network blip is how a dead watch retries silently forever. This does NOT
+  # Classify from git's actual diagnostic, then confirm every candidate-gone
+  # verdict with the GitHub API. An API success or inconclusive probe vetoes the
+  # gone claim. Only a confirming 404/403 reaches the durable-remedy notice.
+  repo="${slug%%-*}/${slug#*-}"
+  fetch_verdict="$(classify_fetch_failure "$GARDEN_FETCH_STDERR" "$repo")"
+
+  # (a) UPSTREAM GONE OR INACCESSIBLE, confirmed by gh api. This does not
   #     self-resolve: report it with the disarm remedy. (fork-watch-provisioner.sh
   #     independently re-probes armed own forks every 4h and auto-tombstones a 404,
   #     so this notice is the audit trail, not the only cure.)
-  if _fetch_stderr_is_upstream_gone "$GARDEN_FETCH_STDERR"; then
+  if [ "$fetch_verdict" = upstream-gone ]; then
     gmsg="triager: fetch for $slug at $BARE failed (rc=$rc) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: $err_tail
-This does NOT self-heal by retrying: $slug is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/${slug%%-*}/${slug#*-}', then either restore access, or disarm the watch durably by adding journal watch-optout/$slug AND removing repos/$slug (see designs/auto-provision-fork-watchers.md)."
+GitHub's repository API also returned 404/403, so this does NOT self-heal by retrying: $slug is not being triaged at all until it is resolved. Remedy — verify 'gh api repos/$repo', then either restore access, or disarm the watch durably by adding journal watch-optout/$slug AND removing repos/$slug (see designs/auto-provision-fork-watchers.md)."
     log "WARN: fetch for $slug failed rc=$rc — upstream gone/unreachable: $err_tail"
     alert_maintainer "triager-upstream-gone-${slug//[^A-Za-z0-9._-]/_}" "$gmsg"
     exit 0
   fi
 
-  # (b) TRANSIENT connectivity / timeout — the same classification sync_clone
-  #     applies, which this path always intended (see the comment above) but never
-  #     actually performed. A DNS blip, a reset connection, a GitHub 5xx, or the
-  #     wall-clock kill (124/137) is self-resolving.
+  # (b) TRANSIENT connectivity / timeout / authentication rejection. A DNS blip,
+  #     reset connection, GitHub 5xx, wall-clock kill (124/137), or throttled SSH
+  #     authentication is retryable. A candidate-gone diagnostic whose API probe
+  #     says the repo exists (or cannot confirm its state) also lands here: it is
+  #     never grounds for an upstream-gone notice.
   #
   #     Do NOT page for weather, and do NOT go silent either: a blip that lasts one
   #     or two ticks is nobody's business (9 of the 43 fetch notices landed inside a
@@ -175,24 +204,37 @@ This does NOT self-heal by retrying: $slug is not being triaged at all until it 
   #     "transient" failure that keeps repeating means this repo is not being
   #     triaged at all, which IS the maintainer's business. Count consecutive
   #     transient failures in host-local state and escalate only once the streak
-  #     reaches GARDEN_TRIAGE_OFFLINE_ALERT_STREAK (default 5 ticks, ~5-10 minutes).
+  #     reaches GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK (default 5 ticks, about ten
+  #     minutes at the current timer cadence).
   #     The escalation is the same coalescing key as (c), so a long outage is one
   #     entry whose count rises, not one message per window.
-  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || [[ "$fetch_verdict" = transient-* ]]; then
     streak_file="$GARDEN_STATE/triager/offline-streak/${slug//[^A-Za-z0-9._-]/_}"
     mkdir -p "$(dirname "$streak_file")" 2>/dev/null || true
     streak="$(cat "$streak_file" 2>/dev/null || echo 0)"
     [[ "$streak" =~ ^[0-9]+$ ]] || streak=0
     streak=$(( streak + 1 ))
     printf '%s\n' "$streak" > "$streak_file" 2>/dev/null || true
-    if [ "${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}" -gt 0 ] \
-       && [ "$streak" -ge "${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}" ]; then
-      omsg="triager: fetch for $slug at $BARE has failed TRANSIENTLY on $streak consecutive ticks (latest rc=$rc). git said: $err_tail
-Each failure alone looks like weather (DNS/TLS/reset/5xx/timeout), but it has now persisted, so $slug is NOT being triaged. If the rest of the fleet is fetching fine, suspect this repo's remote or this host's credentials rather than the network."
+    if [ "$GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK" -gt 0 ] \
+       && [ "$streak" -ge "$GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK" ]; then
+      case "$fetch_verdict" in
+        transient-auth)
+          omsg="triager: authentication is failing for $slug at $BARE on $streak consecutive ticks (latest rc=$rc). git said: $err_tail
+The repository is not classified as gone. The watcher retried each tick with backoff, but $slug is still not being triaged. Check this host's SSH/token authentication and provider throttling." ;;
+        transient-repository-exists)
+          omsg="triager: fetch for $slug at $BARE has failed on $streak consecutive ticks (latest rc=$rc), although 'gh api repos/$repo' confirms the repository exists. git said: $err_tail
+The upstream is not gone. The watcher will keep retrying; check the git transport and this host's authentication." ;;
+        transient-unconfirmed)
+          omsg="triager: fetch for $slug at $BARE has failed on $streak consecutive ticks (latest rc=$rc), and 'gh api repos/$repo' could not confirm a gone/inaccessible state. git said: $err_tail
+The watcher is not claiming the upstream is gone. It will keep retrying; check GitHub/API reachability and this host's authentication." ;;
+        *)
+          omsg="triager: fetch for $slug at $BARE has failed TRANSIENTLY on $streak consecutive ticks (latest rc=$rc). git said: $err_tail
+Each failure alone looks like weather (DNS/TLS/reset/5xx/timeout), but it has now persisted, so $slug is NOT being triaged. If the rest of the fleet is fetching fine, suspect this repo's remote or this host's credentials rather than the network." ;;
+      esac
       log "WARN: transient fetch failure for $slug persisted $streak ticks (rc=$rc): $err_tail"
       alert_maintainer "triager-fetch-failed-${slug//[^A-Za-z0-9._-]/_}" "$omsg"
     else
-      log "offline/timeout fetching $slug (rc=$rc, streak $streak/${GARDEN_TRIAGE_OFFLINE_ALERT_STREAK:-5}); skipping tick: $err_tail"
+      log "transient fetch failure for $slug (verdict=$fetch_verdict, rc=$rc, attempts=$fetch_attempt, streak $streak/$GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK); skipping tick: $err_tail"
     fi
     exit 0
   fi

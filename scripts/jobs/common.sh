@@ -2851,15 +2851,27 @@ journal_fetch() {
 # git-over-HTTPS's `Could not resolve host:` and SSH's `Could not resolve hostname`.
 : "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve host|Temporary failure in name resolution|Could not read from remote repository|Connection timed out|Operation timed out|Connection reset by peer|Recv failure|Early EOF|unexpected disconnect|RPC failed|HTTP 5[0-9][0-9]|The requested URL returned error: 5|gnutls_handshake|SSL|TLS|error connecting to|check your internet connection}"
 
-# Canonical UPSTREAM-GONE signature set — the failures that do NOT self-resolve.
-# A deleted/renamed fork (or a host whose credentials lost access to it) fails a
+# Canonical UPSTREAM-GONE signature set — diagnostics that make a missing or
+# inaccessible repository plausible. A deleted/renamed fork fails a
 # fetch with a message that OVERLAPS the offline set: GitHub-over-SSH answers a
 # missing repo with "ERROR: Repository not found." followed by "fatal: Could not
 # read from remote repository.", and that second line is an offline signature. Any
 # caller that classifies offline FIRST therefore reads a dead upstream as weather
-# and retries it silently forever. Test THIS set first; it is deliberately narrow,
-# matching only wordings GitHub/git emit for a repo that is absent or forbidden.
-: "${GARDEN_UPSTREAM_GONE_SIGNATURES:=Repository not found|remote: Not Found|HTTP 404|The requested URL returned error: 404|repository .* (does not exist|not found)|does not appear to be a git repository|Permission denied \(publickey\)|You do not have permission|access denied}"
+# and retries it silently forever. This is a CANDIDATE classifier, not sufficient
+# evidence for a gone notice: callers must confirm the repository state through
+# the GitHub API before making that claim. Authentication diagnostics are excluded
+# deliberately. GitHub can reject an SSH authentication burst with "Permission
+# denied (publickey)" while the public repository still exists and the same key
+# succeeds moments later.
+: "${GARDEN_UPSTREAM_GONE_SIGNATURES:=Repository not found|remote: Not Found|HTTP 404|The requested URL returned error: 404|repository .* (does not exist|not found)|does not appear to be a git repository}"
+
+# Authentication failures are transient at the fetch-classification boundary.
+# They may mean durable credential drift, but the same strings are also emitted by
+# provider throttling and other short-lived authentication failures. A watcher
+# retries them with backoff and only escalates after its configured persistence
+# window, using an authentication-specific notice rather than claiming the
+# repository is gone.
+: "${GARDEN_TRANSIENT_AUTH_SIGNATURES:=Permission denied \(publickey\)|Authentication failed|authentication required|Could not authenticate|Invalid username or password|You do not have permission|access denied|HTTP 401|HTTP 403|The requested URL returned error: 401|The requested URL returned error: 403}"
 
 # Classify captured git-fetch stderr ($1) as a connectivity/DNS outage rather
 # than a real repository error. These are the transient, self-resolving failures
@@ -2868,6 +2880,18 @@ journal_fetch() {
 # signature classifies regardless of how the producing tool cased it.
 _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
+}
+
+# Classify a fetch diagnostic as an authentication rejection. Kept separate from
+# the transport set so a persistent alert can say what is actually failing.
+_fetch_stderr_is_auth_failure() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_AUTH_SIGNATURES"
+}
+
+# The complete retryable fetch surface. Callers that do not need to distinguish
+# authentication from transport weather use this predicate.
+_fetch_stderr_is_transient() {
+  _fetch_stderr_is_auth_failure "$1" || _fetch_stderr_is_offline "$1"
 }
 
 # Local repository corruption is distinct from a transient transport outage: a
@@ -3057,6 +3081,67 @@ gh_api_retry() {
     backoff "$attempt"
     attempt=$((attempt+1))
   done
+}
+
+# classify_fetch_failure <git-stderr> [<owner/repo>]
+#
+# Print one stable verdict for a failed git fetch:
+#   transient-auth               authentication was rejected; retry it
+#   transient-network            timeout/reset/DNS/TLS/provider weather
+#   transient-repository-exists  git suggested "gone", but GitHub says it exists
+#   transient-unconfirmed        GitHub could not confirm the candidate-gone state
+#   upstream-gone                git suggested gone AND GitHub confirmed 404/403
+#   unclassified                 none of the known signatures matched
+#
+# With no owner/repo argument this is the direct stderr classifier: a repository-
+# not-found diagnostic yields upstream-gone, while authentication never does. A
+# watcher that might emit a gone notice passes owner/repo, which makes the read-only
+# `gh api repos/<owner>/<repo>` confirmation mandatory. A successful API response
+# vetoes the gone verdict. An inconclusive API failure also vetoes it because an
+# inability to confirm is not evidence that the repository disappeared.
+classify_fetch_failure() {
+  local diagnostic="${1:-}" repo="${2:-}" probe_error_file probe_stderr
+
+  if _fetch_stderr_is_auth_failure "$diagnostic"; then
+    printf 'transient-auth\n'
+    return 0
+  fi
+
+  if _fetch_stderr_is_upstream_gone "$diagnostic"; then
+    if [ -z "$repo" ]; then
+      printf 'upstream-gone\n'
+      return 0
+    fi
+
+    probe_error_file="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/fetch-repo-probe.$$")"
+    if gh_api_retry "repos/$repo" --jq '.full_name' >/dev/null 2>"$probe_error_file"; then
+      rm -f "$probe_error_file"
+      printf 'transient-repository-exists\n'
+      return 0
+    fi
+    probe_stderr="$(cat "$probe_error_file" 2>/dev/null || true)"
+    rm -f "$probe_error_file"
+
+    if _gh_api_stderr_is_transient "$probe_stderr"; then
+      printf 'transient-unconfirmed\n'
+      return 0
+    fi
+    case "$probe_stderr" in
+      *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*|*"HTTP 403"*|*"Must have admin rights"*)
+        printf 'upstream-gone\n'
+        return 0 ;;
+    esac
+
+    printf 'transient-unconfirmed\n'
+    return 0
+  fi
+
+  if _fetch_stderr_is_offline "$diagnostic"; then
+    printf 'transient-network\n'
+    return 0
+  fi
+
+  printf 'unclassified\n'
 }
 
 # gh_pr_view_retry <gh-pr-view-args…> — the `gh pr view` sibling of gh_api_retry.

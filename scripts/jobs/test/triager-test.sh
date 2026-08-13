@@ -339,6 +339,18 @@ cat > "$ALERT_STUB" <<EOF
 printf '%s|%s\n' "\$1" "\$2" >> "$ALERTS"
 EOF
 chmod +x "$ALERT_STUB"
+# Read-only GitHub repository probe stub used by the fetch-verdict tests. The
+# production classifier invokes it as `gh api repos/<owner>/<name> --jq ...`.
+GH_STUB="$TR/gh-stub.sh"
+cat > "$GH_STUB" <<'EOF'
+#!/bin/bash
+case "${GH_REPO_PROBE_RESULT:-exists}" in
+  exists) printf '%s\n' 'kriscendobot/minion.town'; exit 0 ;;
+  gone)   printf '%s\n' 'gh: Not Found (HTTP 404)' >&2; exit 1 ;;
+  *)      printf '%s\n' 'dial tcp: i/o timeout' >&2; exit 1 ;;
+esac
+EOF
+chmod +x "$GH_STUB"
 UPSTREAMS="$TR/upstreams"
 NOSLUG=kriscendobot-finbot                      # a watched slug with NO local clone
 UPBARE="$UPSTREAMS/kriscendobot/finbot.git"     # the URL derive_clone_url resolves to
@@ -589,6 +601,35 @@ EOF
   chmod +x "$d/git"
 }
 
+# M0 - direct classifier contract. Authentication rejection is retryable and must
+# never yield the upstream-gone verdict; the narrow repository-not-found wording
+# remains the candidate-gone verdict before an API confirmation is requested.
+permission_verdict="$(
+  # shellcheck source=../common.sh
+  source "$JOBS/common.sh"
+  classify_fetch_failure 'git@github.com: Permission denied (publickey).'
+)"
+[ "$permission_verdict" = transient-auth ] \
+  && ok "classifier: Permission denied (publickey) is transient authentication" \
+  || bad "classifier: publickey rejection verdict = $permission_verdict (want transient-auth)"
+repository_not_found_verdict="$(
+  # shellcheck source=../common.sh
+  source "$JOBS/common.sh"
+  classify_fetch_failure 'ERROR: Repository not found.'
+)"
+[ "$repository_not_found_verdict" = upstream-gone ] \
+  && ok "classifier: Repository not found is an upstream-gone candidate" \
+  || bad "classifier: repository-not-found verdict = $repository_not_found_verdict (want upstream-gone)"
+api_veto_verdict="$(
+  # shellcheck source=../common.sh
+  source "$JOBS/common.sh"
+  GARDEN_GH="$GH_STUB" GH_REPO_PROBE_RESULT=exists \
+    classify_fetch_failure 'ERROR: Repository not found.' 'kriscendobot/minion.town'
+)"
+[ "$api_veto_verdict" = transient-repository-exists ] \
+  && ok "classifier: successful gh api confirmation vetoes upstream-gone" \
+  || bad "classifier: API-veto verdict = $api_veto_verdict (want transient-repository-exists)"
+
 # M1 — transient stderr signature (Connection timed out, rc 1): clean-skip, QUIET
 # on the first ticks, escalating only once the blip has persisted.
 rm -rf "$TR/state14"; STATE="$TR/state14"; rm -rf "$BARE"; seed_journal
@@ -601,15 +642,15 @@ env PATH="$TR/fetch-shim-transient:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
-    GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_TRIAGE_FETCH_ATTEMPTS=3 GARDEN_BACKOFF_CAP_MS=5 \
     GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
 [ "$rc" -eq 0 ] && ok "transient fetch failure exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
-[ "$(wc -l < "$FETCH_CALLS")" -eq 1 ] && ok "runs one bounded fetch before the next timer tick retries" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 1)"
-grep -q "offline/timeout fetching $SLUG" "$MOUT" && ok "transient skip logs the offline classification and the streak" || bad "offline-skip log missing (out: $(cat "$MOUT"))"
+[ "$(wc -l < "$FETCH_CALLS")" -eq 3 ] && ok "transient failure is retried with backoff inside the tick" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 3)"
+grep -q "transient fetch failure for $SLUG" "$MOUT" && ok "transient skip logs the verdict and streak" || bad "transient-skip log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on a transient fetch failure" || bad "a transient failure still died FATAL (out: $(cat "$MOUT"))"
 [ ! -s "$ALERTS" ] && ok "a ONE-TICK blip pages nobody (weather is not an alert)" || bad "a single transient tick alerted ($(cat "$ALERTS"))"
 [ ! -s "$CALLS" ] && ok "handler never invoked (no refs resolved past a skipped fetch)" || bad "handler ran ($(grep -c . "$CALLS") calls; want 0 — a failed fetch must not reach triage)"
@@ -623,7 +664,7 @@ for i in 2 3 4 5; do
       GARDEN=testhost GARDEN_STATE="$STATE" \
       JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
-      GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_BACKOFF_CAP_MS=5 \
+      GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_TRIAGE_FETCH_ATTEMPTS=3 GARDEN_BACKOFF_CAP_MS=5 \
       GARDEN_ALERT_CMD="$ALERT_STUB" \
       GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
       GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
@@ -668,7 +709,7 @@ env PATH="$TR/fetch-shim-timeout:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
 [ "$rc" -eq 0 ] && ok "rc-124 wall-clock kill exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
-grep -q "offline/timeout fetching $SLUG" "$MOUT" && ok "rc-124 skip logs the transient classification" || bad "rc-124 skip log missing (out: $(cat "$MOUT"))"
+grep -q "transient fetch failure for $SLUG" "$MOUT" && ok "rc-124 skip logs the transient classification" || bad "rc-124 skip log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on an rc-124 wall-clock kill" || bad "an rc-124 kill still died FATAL (out: $(cat "$MOUT"))"
 [ ! -s "$ALERTS" ] && ok "one rc-124 kill is weather: no alert" || bad "a single rc-124 kill alerted ($(cat "$ALERTS"))"
 
@@ -689,33 +730,52 @@ env PATH="$TR/fetch-shim-kill:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
 [ "$rc" -eq 0 ] && ok "rc-137 SIGKILL escalation exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
-grep -q "offline/timeout fetching $SLUG" "$MOUT" && ok "rc-137 skip logs the transient classification" || bad "rc-137 skip log missing (out: $(cat "$MOUT"))"
+grep -q "transient fetch failure for $SLUG" "$MOUT" && ok "rc-137 skip logs the transient classification" || bad "rc-137 skip log missing (out: $(cat "$MOUT"))"
 ! grep -q "FATAL: fetch failed for $SLUG" "$MOUT" && ok "no FATAL on an rc-137 kill" || bad "an rc-137 kill still died FATAL (out: $(cat "$MOUT"))"
 [ ! -s "$ALERTS" ] && ok "one rc-137 kill is weather: no alert" || bad "a single rc-137 kill alerted ($(cat "$ALERTS"))"
 
-# M4 — a structural fetch error also soft-skips and escalates.
+# M4 - an authentication rejection is retried and stays quiet until the explicit
+# persistence threshold. Its eventual notice says authentication is failing and
+# never claims the upstream is gone.
 rm -rf "$TR/state14c"; STATE="$TR/state14c"; rm -rf "$BARE"; seed_journal
 seed_watched_bare
-mk_fetch_shim "$TR/fetch-shim-structural" 128 "fatal: Authentication failed for 'https://github.com/x/y.git/'"
-: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-structural.out"; : > "$MOUT"
-FETCH_CALLS="$TR/fetch-calls-structural"; : > "$FETCH_CALLS"
+mk_fetch_shim "$TR/fetch-shim-auth" 128 "git@github.com: Permission denied (publickey)."
+: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-auth.out"; : > "$MOUT"
+FETCH_CALLS="$TR/fetch-calls-auth"; : > "$FETCH_CALLS"
 set +e
-env PATH="$TR/fetch-shim-structural:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
+env PATH="$TR/fetch-shim-auth:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
-    GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_TRIAGE_FETCH_ATTEMPTS=3 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK=2 \
     GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
     "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
 rc=$?; set -e
-[ "$rc" -eq 0 ] && ok "structural fetch error exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
-[ "$(wc -l < "$FETCH_CALLS")" -eq 1 ] && ok "structural failure runs one bounded fetch" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 1)"
-grep -q "WARN: fetch failed for $SLUG (rc=128)" "$MOUT" && ok "structural failure logs the rc and git's words" || bad "structural failure log missing (out: $(cat "$MOUT"))"
-grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "structural failure alerts IMMEDIATELY with the per-slug key" || bad "fetch-failure alert missing ($(cat "$ALERTS"))"
-grep -q "Authentication failed" "$ALERTS" && ok "the structural alert carries git's own diagnosis" || bad "structural alert omits git's stderr ($(cat "$ALERTS"))"
-[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on a structural fetch failure" || bad "cursor advanced despite a failed fetch"
+[ "$rc" -eq 0 ] && ok "authentication rejection exits 0 for the next tick" || bad "tick exit = $rc (want 0)"
+[ "$(wc -l < "$FETCH_CALLS")" -eq 3 ] && ok "authentication rejection gets three backoff retries" || bad "fetch attempts = $(wc -l < "$FETCH_CALLS") (want 3)"
+[ ! -s "$ALERTS" ] && ok "one authentication-rejection tick does not alert" || bad "one auth tick alerted ($(cat "$ALERTS"))"
+
+set +e
+env PATH="$TR/fetch-shim-auth:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
+    GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_FETCH_TIMEOUT=5 GARDEN_FETCH_RETRIES=1 GARDEN_TRIAGE_FETCH_ATTEMPTS=3 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_TRIAGE_TRANSIENT_ALERT_STREAK=2 \
+    GARDEN_ALERT_CMD="$ALERT_STUB" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "persistent authentication rejection still exits 0" || bad "persistent auth tick exit = $rc (want 0)"
+grep -q "triager-fetch-failed-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" && ok "persistent authentication failure alerts at its threshold" || bad "persistent auth alert missing ($(cat "$ALERTS"))"
+grep -qi "authentication is failing" "$ALERTS" && ok "persistent notice names authentication failure" || bad "persistent notice does not name authentication ($(cat "$ALERTS"))"
+! grep -q "triager-upstream-gone" "$ALERTS" && ok "authentication rejection never emits upstream-gone" || bad "authentication rejection emitted upstream-gone ($(cat "$ALERTS"))"
+! grep -qi "upstream appears gone" "$ALERTS" && ok "authentication notice never claims the upstream appears gone" || bad "authentication notice contains a gone claim ($(cat "$ALERTS"))"
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "activity cursor NOT advanced on an authentication failure" || bad "cursor advanced despite a failed fetch"
 
 # M5 — a GONE upstream is NOT weather. GitHub answers a deleted/renamed repo over
 # SSH with "ERROR: Repository not found." followed by "fatal: Could not read from
@@ -736,6 +796,7 @@ env PATH="$TR/fetch-shim-gone:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
     GARDEN=testhost GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_GH="$GH_STUB" GH_REPO_PROBE_RESULT=gone \
     GARDEN_FETCH_TIMEOUT=5 GARDEN_ALERT_CMD="$ALERT_STUB" \
     GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
     GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
@@ -748,6 +809,29 @@ grep -q "triager-upstream-gone-${SLUG//[^A-Za-z0-9._-]/_}" "$ALERTS" \
   && ok "it is NOT filed as a transient fetch failure" || bad "gone upstream misfiled as a fetch blip ($(cat "$ALERTS"))"
 grep -q "watch-optout/$SLUG" "$ALERTS" && ok "the alert states the durable disarm remedy" || bad "alert omits the disarm remedy ($(cat "$ALERTS"))"
 grep -q "does NOT self-heal" "$ALERTS" && ok "the alert says retrying will not fix it" || bad "alert does not distinguish it from weather ($(cat "$ALERTS"))"
+
+# M6 - the same git diagnostic is not a gone verdict when the repository API
+# answers. This is the integration-level veto that would have suppressed the
+# false notices even if git had supplied a candidate-gone diagnostic.
+rm -rf "$TR/state14e"; STATE="$TR/state14e"; rm -rf "$BARE"; seed_journal
+seed_watched_bare
+: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-fetch-api-veto.out"; : > "$MOUT"
+FETCH_CALLS="$TR/fetch-calls-api-veto"; : > "$FETCH_CALLS"
+set +e
+env PATH="$TR/fetch-shim-gone:$PATH" GIT_FETCH_CALLS="$FETCH_CALLS" \
+    GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_GH="$GH_STUB" GH_REPO_PROBE_RESULT=exists \
+    GARDEN_FETCH_TIMEOUT=5 GARDEN_ALERT_CMD="$ALERT_STUB" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "API-vetoed candidate-gone fetch exits 0 for the next tick" || bad "API-veto tick exit = $rc (want 0)"
+[ ! -s "$ALERTS" ] && ok "repository API success suppresses the first-tick notice" || bad "API-vetoed fetch alerted ($(cat "$ALERTS"))"
+grep -q "verdict=transient-repository-exists" "$MOUT" && ok "API success routes the git failure to the transient streak" || bad "API-veto transient verdict missing (out: $(cat "$MOUT"))"
+! grep -qi "upstream gone/unreachable" "$MOUT" && ok "API-vetoed fetch is not logged as upstream gone" || bad "API-vetoed fetch logged a gone claim (out: $(cat "$MOUT"))"
 
 # ============================================================================
 hr

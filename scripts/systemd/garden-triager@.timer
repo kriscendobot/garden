@@ -10,6 +10,11 @@ Description=Garden triager timer for repo %i
 Unit=garden-triager@%i.service
 OnBootSec=30s
 OnUnitActiveSec=2m
+# Spread per-repository SSH handshakes after a watcher restart. Without this,
+# every template instance becomes due on the same OnBootSec boundary and GitHub
+# can reject the authentication burst even though every repository and key is
+# healthy.
+RandomizedDelaySec=30s
 AccuracySec=2s
 
 [Install]
