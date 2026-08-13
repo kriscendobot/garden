@@ -70,6 +70,9 @@ export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
 # keep pushes fast and quiet
 export GARDEN_POST_ATTEMPTS=50
+# the gone re-sync guard sleeps between re-reads in production; zero it here so the
+# hermetic ticks (every real-gone halt now re-syncs first) stay fast and deterministic
+export GARDEN_ORCH_GONE_RECHECK_SLEEP=0
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 
@@ -655,6 +658,61 @@ grep -q 'board snapshot unreadable/inconsistent; retrying next tick' "$TR/tick.l
 [ "$inconsistent_ok" -eq 1 ] \
   && ok "duplicate board locations left the orchestration and both parked children untouched for retry" \
   || bad "inconsistent board was treated as progress/failure instead of retry"
+
+# ============================================================================
+hr; echo "SUBTEST 20 — GONE RECHECK: a completing child's transient gone read re-syncs, never false-halts"; hr
+# Reproduce the resume-2 incident deterministically (no real timing): child aa-a
+# completes — its tada is committed to origin — but the tick observes a snapshot in
+# which aa-a is in NONE of the board dirs (a stale/racy read one commit behind the
+# completion). The pre-fix watcher read that single snapshot as `gone` and HALTED a
+# genuinely-completing child. The fix re-syncs and re-reads before trusting gone:
+# the fresh sync reveals the tada and the run advances.
+#
+# NOTE the base sorts BEFORE every other orchestration left running by earlier
+# subtests: the tick dispatches orch records in directory order, and a sibling
+# processed first would sync_clone the shared clone and discard the transient local
+# snapshot below before this orchestration ever reads it. Sorting first guarantees
+# aa-a is the first child_state read after the after-sync hook.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone aa-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone aa-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt aa-gone aa-a aa-b >/dev/null
+tick                       # promote aa-a
+complete_child aa-a        # aa-a's tada lands on origin
+# After the tick-top sync (clone == origin, aa-a in tada), force the clone onto a
+# COMMITTED snapshot in which aa-a is absent from every board dir — the transient
+# read the incident hit (local clone stale/behind while origin already holds the
+# tada). child_board_view must re-sync (restoring origin's tada) before ruling the
+# child vanished.
+transient_gone="$TR/transient-gone.sh"
+printf '%s\n' '#!/bin/sh' \
+  'git -C "$1" rm -q jobs/tada/aa-a.md 2>/dev/null || true' \
+  'git -C "$1" -c user.name=t -c user.email=t@l commit -q -m "transient: aa-a momentarily off-board" || true' \
+  > "$transient_gone"
+chmod +x "$transient_gone"
+GARDEN_ORCH_AFTER_SYNC_CMD="$transient_gone" tick
+gone_ok=1
+in_dir jobs/tada aa-gone && gone_ok=0          # NOT halted: orchestration still running
+in_dir jobs/todo aa-b || gone_ok=0             # run ADVANCED: aa-b promoted after aa-a done
+in_dir jobs/plan aa-b && gone_ok=0             # aa-b no longer parked
+[ "$gone_ok" -eq 1 ] \
+  && ok "a transient gone read re-synced, saw the completed child, and advanced instead of false-halting" \
+  || bad "transient gone read produced a false halt (todo=$(board jobs/todo), tada=$(board jobs/tada), plan=$(board jobs/plan))"
+
+# Negative control: a child that is GENUINELY gone (origin also has no record) must
+# still fail — the re-sync confirms the disposition rather than masking a real doom.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone2 aa2-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by aa-gone2 aa2-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt aa-gone2 aa2-a aa2-b >/dev/null
+tick
+fail_child aa2-a                               # genuine doom-drop: gone on origin
+tick                                           # re-sync keeps seeing gone → HALT
+gg_ok=1
+in_dir jobs/tada aa-gone2 || gg_ok=0           # halt summary written
+in_dir jobs/todo aa2-b && gg_ok=0              # aa2-b NOT promoted
+in_dir jobs/plan aa2-b || gg_ok=0              # aa2-b remains parked
+[ "$gg_ok" -eq 1 ] \
+  && ok "a genuinely-gone child still halted the run after the re-sync confirmed its absence" \
+  || bad "genuine gone was masked by the re-sync guard (todo=$(board jobs/todo), tada=$(board jobs/tada), plan=$(board jobs/plan))"
 
 # ============================================================================
 hr

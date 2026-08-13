@@ -64,7 +64,10 @@
 # Pluggable for tests:
 #   GARDEN_ORCH_CLONE   this service's journal clone (default $GARDEN_STATE/orch/journal).
 #   GARDEN_ORCH_AFTER_SYNC_CMD  command invoked with the clone path after the
-#                       initial sync (used to model a half-applied checkout).
+#                       initial sync (used to model a half-applied checkout, or a
+#                       transient snapshot in which a completing child reads gone).
+#   GARDEN_ORCH_GONE_RECHECK / GARDEN_ORCH_GONE_RECHECK_SLEEP  attempts and per-
+#                       attempt sleep for the gone re-sync guard (sleep=0 in tests).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -86,6 +89,16 @@ fleet_draining && exit 0
 : "${GARDEN_HANDLER_TIMEOUT:=2400}"
 : "${GARDEN_ORCH_STALL_TIMEOUT_MULTIPLIER:=1}"
 : "${GARDEN_ORCH_STALL_REQUEUE_LIMIT:=2}"
+# A `gone` reading (child in none of tada/todo/doin/plan) is the ONLY irreversible,
+# campaign-halting verdict this watcher draws from a single synced snapshot, and it
+# is the exact reading a doin→tada transition can flash through if the tick-top sync
+# observed the board a beat before the completion commit landed (incident: a
+# genuinely-completing child whose tada was already committed was still halted as
+# "vanished"). Before trusting a gone reading, re-sync the clone and re-read up to
+# this many times: a genuine reaper doom-drop stays gone across a fresh sync; a
+# just-completing child resolves to tada. Only paid on the rare gone reading.
+: "${GARDEN_ORCH_GONE_RECHECK:=2}"
+: "${GARDEN_ORCH_GONE_RECHECK_SLEEP:=2}"
 
 DIR="${GARDEN_ORCH_CLONE:-$GARDEN_STATE/orch/journal}"
 ensure_clone "$DIR"
@@ -99,7 +112,7 @@ sync_clone "$DIR"
 # four candidates from ONE immutable commit tree instead. An unreadable tree or a
 # commit that contains the child in multiple board directories is not evidence of
 # failure: return `retry` and let the next timer tick read again.
-child_board_view() {  # <child> -> "<location> <snapshot>"; location includes gone|retry
+child_board_view_once() {  # <child> -> "<location> <snapshot>"; location includes gone|retry
   local c="$1" snapshot listing count path location
   if ! snapshot="$(git -C "$DIR" rev-parse --verify 'HEAD^{commit}' 2>/dev/null)"; then
     printf 'retry -\n'; return 0
@@ -120,6 +133,34 @@ child_board_view() {  # <child> -> "<location> <snapshot>"; location includes go
     *) location=retry ;;
   esac
   printf '%s %s\n' "$location" "$snapshot"
+}
+
+# child_board_view wraps the single-snapshot read with a bounded re-sync guard for
+# the one reading that cannot be walked back: `gone`. df2226 made the read atomic
+# w.r.t. a hard reset's path-by-path checkout, so a gone reading is no longer a
+# working-tree artifact — but it is still only as FRESH as the tick's single top
+# sync, which can observe the board one commit before a child's doin→tada
+# completion lands and thereby read the completing child as absent. Because gone is
+# the sole verdict that halts a whole serial campaign, confirm it against a FRESH
+# sync before trusting it: re-sync and re-read; a genuine reaper doom-drop is still
+# gone afterward, while a just-completed child now resolves to tada. Every other
+# reading (tada/todo/doin/plan/retry) is already self-correcting on the next tick,
+# so only gone pays the re-sync cost. child_state and child_failure_detail both call
+# this, so they observe the SAME confirmed reading and never disagree.
+child_board_view() {  # <child> -> "<location> <snapshot>"
+  local c="$1" view attempt
+  view="$(child_board_view_once "$c")"
+  case "$view" in
+    gone\ *)
+      for attempt in $(seq 1 "$GARDEN_ORCH_GONE_RECHECK"); do
+        [ "$GARDEN_ORCH_GONE_RECHECK_SLEEP" -gt 0 ] 2>/dev/null && sleep "$GARDEN_ORCH_GONE_RECHECK_SLEEP"
+        sync_clone "$DIR" >/dev/null 2>&1 || true
+        view="$(child_board_view_once "$c")"
+        case "$view" in gone\ *) ;; *) break ;; esac
+      done
+      ;;
+  esac
+  printf '%s\n' "$view"
 }
 
 child_snapshot_file() {  # <snapshot> <location> <child> <destination>
