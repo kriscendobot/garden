@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:20:53Z_
+_As of 2026-08-13T22:22:35Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 50m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 56m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6738,27 +6738,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.1M | $989.54 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 60.1M | $989.86 _(notional, rate-card)_ | no quota set |
+| Codex | 23.6M _(+800.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit-focused-20260813-222003.md) — context-graph-size-audit-focused (recurring)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #980
-- [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-orchestrate-serial-order-violation.md) — What happened (2026-08-13)
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
 
-### tada (4573)
+### tada (4574)
+- [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestrate-serial-order-violation.md) — Cost
 - [`reorg-context-library-batch-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-library-batch-1.md) — orchestration reorg-context-library-batch-1 — complete
 - [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-local-inference-amd.md) — Completion report
 - [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-skill-local-verify.md) — What I did
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Completion report
-- [`genie-docs-to-journal-orchestration-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration-r2.md) — orchestration genie-docs-to-journal-orchestration-r2 — HALTED
-- … and 4568 more
+- … and 4569 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
