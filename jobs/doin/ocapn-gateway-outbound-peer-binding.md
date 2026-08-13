@@ -54,3 +54,13 @@ Found 2026-08-12 during the minion.town OCapN incident. See the completion
 reports for `ebfb-ocapn-gateway-retention-set-peer-binding`,
 `deadmail-20260812T225323Z-c7db45` (the original closure walk), and
 `minion-town-containment-ocapn-daemon-routes`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T16:11:06Z
