@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:35:52Z_
+_As of 2026-08-13T16:37:58Z_
 
 ## Latest
 
@@ -6733,17 +6733,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`dependabotany-recheck-endo-but-for-bots-20260813-163502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260813-163502.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (1)
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 
-### tada (4504)
+### tada (4505)
+- [`dependabotany-recheck-endo-but-for-bots-20260813-163502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260813-163502.md) — Completion report
 - [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-gateway-outbound-peer-binding.md) — Job complete: OCapN outbound gateway peer-binding
 - [`ebfb-pr977-gauntlet-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3.md) — gauntlet ebfb-pr977-gauntlet-r3 — complete
 - [`ebfb-pr977-gauntlet-r3-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-undraft.md) — Completion report
 - [`ebfb-pr977-gauntlet-r3-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr937-reframe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-reframe.md) — Cost
-- … and 4499 more
+- … and 4500 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
