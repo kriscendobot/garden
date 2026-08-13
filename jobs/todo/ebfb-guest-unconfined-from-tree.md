@@ -52,16 +52,4 @@ Notes:
   is confirmed, before the full fix lands, since the answer changes how urgent
   the deploy is.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-13T02:43:09Z
+<!-- garden-reaped: 0 -->
