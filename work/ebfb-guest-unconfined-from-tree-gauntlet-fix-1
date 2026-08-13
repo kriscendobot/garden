@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: cleric
+claimed_at: 2026-08-13T03:23:07Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-guest-unconfined-from-tree-gauntlet-fix-1
