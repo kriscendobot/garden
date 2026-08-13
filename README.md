@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:51:43Z_
+_As of 2026-08-13T22:52:29Z_
 
 ## Latest
 
@@ -6759,17 +6759,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $998.15 _(notional, rate-card)_ | no quota set |
+| Claude | 60.5M | $999.10 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+803.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #980
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
 - [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-resume-6-launch.md) — Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28)
+- [`kriscendobot-minion.town-pr28-review-a4dd8f2f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-review-a4dd8f2f.md) — Review directive on kriscendobot/minion.town PR #28
 
 ### tada (4580)
 - [`garden-campaign-spend-unmetered-rows`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-campaign-spend-unmetered-rows.md) — Cost
@@ -6916,6 +6917,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr124-review-01d36f3a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-01d36f3a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr149-review-13c87bef-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #149 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr152-review-c8f113d5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr152-review-c8f113d5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #152 (primary: endojs-endo-but-f...
+- [`kriscendobot-minion.town-pr28-review-a4dd8f2f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr28-review-a4dd8f2f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #28 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
