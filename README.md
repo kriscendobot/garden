@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:24:02Z_
+_As of 2026-08-13T22:25:31Z_
 
 ## Latest
 
@@ -3577,6 +3577,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker` (endojs/endo-but-for-bots PR #149) leaves two judgment calls open: (1) whether to accept the `agentry` disposition, under which the status-directory-walker is a clean lift (module + 5 tests) independent of the PR's blocked sandbox cluster and genie glue; and (2) whether to proceed at all given the feature stays dead code unless the sub-agent-directory arc (TODO/53–61) lands a consumer, which is unimplemented on the branch. No autonomous job posted pending your call.
 
+- `20260813T222511Z-ac5bcb` — from orchestrator:ironhorse-test262-implementation-completion-resume-5-budget-meter-incomplete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T222511Z-ac5bcb.md)
+
+> Orchestration ironhorse-test262-implementation-completion-resume-5 stopped with budget-meter-incomplete. Budget: 10000000. Parked remainder: ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary. Reason: <3>22:25:05 [campaign-spend] FATAL: usage/ironhorse-js-11-strings.jsonl line 1 is an unmetered or invalid campaign row
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6745,18 +6749,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #980
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
-- [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
 
-### tada (4575)
+### tada (4577)
+- [`ironhorse-test262-implementation-completion-resume-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-5.md) — orchestration ironhorse-test262-implementation-completion-resume-5 — BUDGET M...
+- [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-11-strings.md) — Cost
 - [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused-20260813-222003.md) — Cost
 - [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestrate-serial-order-violation.md) — Cost
 - [`reorg-context-library-batch-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-library-batch-1.md) — orchestration reorg-context-library-batch-1 — complete
-- [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-local-inference-amd.md) — Completion report
-- [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-skill-local-verify.md) — What I did
-- … and 4570 more
+- … and 4572 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
