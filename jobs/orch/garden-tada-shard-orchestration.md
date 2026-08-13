@@ -1,4 +1,5 @@
 ---
+child-garden-tada-shard-01-design-host: endolin-garden-ece02cb4
 child-garden-tada-shard-01-design-reap-count: 0
 order: serial
 children: garden-tada-shard-01-design garden-tada-shard-02-read-tolerance garden-tada-shard-03-write-switch garden-tada-shard-04-migrate garden-tada-shard-05-cleanup
