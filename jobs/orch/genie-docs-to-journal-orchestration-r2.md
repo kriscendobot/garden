@@ -1,4 +1,5 @@
 ---
+child-genie-docs-r2-01-migrate-into-journal-reap-count: 0
 order: serial
 children: genie-docs-r2-01-migrate-into-journal genie-docs-r2-02-delete-from-llm
 on-child-failure: halt
