@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T14:55:03Z_
+_As of 2026-08-13T14:57:38Z_
 
 ## Latest
 
@@ -6852,23 +6852,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 61.4M | $989.19 _(notional, rate-card)_ | no quota set |
-| Codex | 20.6M _(+713.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 20.6M _(+712.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr903-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr903-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #903
+### doin (1)
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 
-### tada (4494)
+### tada (4495)
+- [`endojs-endo-but-for-bots-pr903-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr903-91fb60d4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-91fb60d4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-c8f4418c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-c8f4418c.md) — Cost
 - [`endojs-endo-but-for-bots-pr971-1271c113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-1271c113.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-b6e150b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-b6e150b1.md) — Review directive on endojs/endo-but-for-bots PR #972 — dckc review 4927529354
-- [`endojs-endo-but-for-bots-pr972-7d657cf2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-7d657cf2.md) — Completion report
-- … and 4489 more
+- … and 4490 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
