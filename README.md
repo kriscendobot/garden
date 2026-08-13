@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:55:59Z_
+_As of 2026-08-13T22:56:39Z_
 
 ## Latest
 
@@ -6759,14 +6759,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $997.62 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+802.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.4M | $997.76 _(notional, rate-card)_ | no quota set |
+| Codex | 23.7M _(+802.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #980
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
 - [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-resume-6-launch.md) — Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28)
 
