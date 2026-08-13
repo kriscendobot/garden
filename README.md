@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T15:01:39Z_
+_As of 2026-08-13T15:11:16Z_
 
 ## Latest
 
@@ -3605,6 +3605,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > confirmed) launch post-orchestration.sh --serial --on-child-failure halt --budget-tokens
 > <your figure> for the 21 children in order. Tell me the figure (or "A"/"B") and I/it will run it.
 
+- `20260813T151055Z-707011` — from gardener:endojs-endo-but-for-bots-pr937-rebase-onto-new-llm, reply_to `endojs-endo-but-for-bots-pr937-rebase-onto-new-llm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T151055Z-707011.md)
+
+> Rebased [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) onto the fresh pinned base llm-0c3598a (llm tip after [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903)). Result: the rebase revealed [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) landed a refined superset of nearly all of [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) — 9 of its 10 commits collapse to empty against the new llm (the @endo/sha256 package, the daemon host-tool-powers + XS-bundle work, BlobRef/chat/design updates all already in llm; llm's CI already generates the daemon XS bundle). The PR's original "restore XS bundle generation" goal is already met on llm.
+>
+> What survives is one commit: a `bundle:xs` npm script folding the three explicit node bundle .mjs CI lines into one named script (net +2/-3 across package.json + ci.yml). PR now MERGEABLE, diff clean/interpretable. Verified `yarn bundle:xs` and the daemon bundle script build clean on the new base. Did not merge or request review.
+>
+> Decision for you: keep [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) as this small cosmetic refactor, or close it as superseded by [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903). Details in a PR comment on the PR.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6851,8 +6859,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.1M | $986.27 _(notional, rate-card)_ | no quota set |
-| Codex | 20.6M _(+711.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 61.2M | $986.75 _(notional, rate-card)_ | no quota set |
+| Codex | 20.6M _(+709.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
