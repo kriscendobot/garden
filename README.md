@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:16:12Z_
+_As of 2026-08-13T16:18:16Z_
 
 ## Latest
 
@@ -6726,25 +6726,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.4M | $983.83 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+684.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 61.4M | $984.96 _(notional, rate-card)_ | no quota set |
+| Codex | 19.8M _(+685.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`garden-triager-transient-auth-misclassified-as-upstream-gone`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-triager-transient-auth-misclassified-as-upstream-gone.md) — What happened
+### doin (4)
+- [`ebfb-pr977-gauntlet-r3-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-r3-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #977
+- [`endojs-endo-but-for-bots-pr937-reframe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-reframe.md) — Reframe PR #937 to its actual remaining scope
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 - [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-gateway-outbound-peer-binding.md) — The residual
 
-### tada (4498)
+### tada (4499)
+- [`garden-triager-transient-auth-misclassified-as-upstream-gone`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-triager-transient-auth-misclassified-as-upstream-gone.md) — Cost
 - [`ebfb-pr977-gauntlet-r3-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3-clean.md) — Report
 - [`ebfb-pr977-gauntlet-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr937-rebase-onto-new-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-rebase-onto-new-llm.md) — Completion report
 - [`endojs-endo-but-for-bots-pr903-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr903-91fb60d4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr903-91fb60d4.md) — Completion report
-- … and 4493 more
+- … and 4494 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
