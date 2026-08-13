@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:48:23Z_
+_As of 2026-08-13T21:50:14Z_
 
 ## Latest
 
@@ -6730,20 +6730,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.0M | $1014.12 _(notional, rate-card)_ | no quota set |
-| Codex | 22.9M _(+788.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 62.1M | $1015.78 _(notional, rate-card)_ | no quota set |
+| Codex | 23.2M _(+792.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 ## Board
-### todo (5)
+### todo (3)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-credential-masking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr149-review-13c87bef-status-credential-masking.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-lifecycle-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-lifecycle-plan.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning.md) — ---
 - [`genie-docs-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/genie-docs-01-migrate-into-journal.md) — What these are, and the trap
 
 ### doin (15)
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-dual-workspace-boundary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-dual-workspace-boundary.md) — ---
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-credential-masking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-credential-masking.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-persistent-slice-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-persistent-slice-registry.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-pet-store-restart-order`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-pet-store-restart-order.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-live-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-live-handoff.md) — ---
@@ -6752,19 +6749,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-shared-pet-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-shared-pet-names.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-introductions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-introductions.md) — ---
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-lifecycle-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-lifecycle-plan.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-tool-selection-guide`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-tool-selection-guide.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
 - [`garden-deadline-nudge-handoff-and-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-deadline-nudge-handoff-and-budget.md) — Evidence: the mechanism runs and still fails
 - [`garden-tada-shard-02-read-tolerance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tada-shard-02-read-tolerance.md) — Tests
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-10-arrays-species.md) — Complete Array construction and prototype algorithms
 
-### tada (4540)
+### tada (4542)
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-dual-workspace-boundary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-dual-workspace-boundary.md) — Feature-disposition report — Dual host/sandbox workspace boundary (PR #149)
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker.md) — Feature-disposition analysis — walkDirectory (generic Endo directory walker)
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-workspace-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-workspace-bootstrap.md) — Feature-disposition analysis — workspace capability & sandbox bootstrap (PR #...
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-retained-root-lifecycle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-retained-root-lifecycle.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-no-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-no-model.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-owner-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-owner-handoff.md) — Cost
-- [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites.md) — Cost
-- … and 4535 more
+- … and 4537 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
