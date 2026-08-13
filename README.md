@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T04:36:34Z_
+_As of 2026-08-13T04:37:30Z_
 
 ## Latest
 
@@ -3557,6 +3557,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
+- `20260813T043642Z-1b6cab` — from gauntlet:ebfb-pr977-gauntlet-rerun-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T043642Z-1b6cab.md)
+
+> Gauntlet ebfb-pr977-gauntlet-rerun HALTED: stage 'ebfb-pr977-gauntlet-rerun-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260813T043654Z-568651` — from gauntlet:ebfb-pr977-lint-unstick-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T043654Z-568651.md)
+
+> Gauntlet ebfb-pr977-lint-unstick-gauntlet HALTED: stage 'ebfb-pr977-lint-unstick-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6709,16 +6717,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ebfb-pr977-gauntlet-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-rerun.md) — State (verified 2026-08-13 ~04:30Z)
+### doin (0)
+(none)
 
-### tada (4485)
+### tada (4487)
+- [`ebfb-pr977-gauntlet-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun.md) — Cost
+- [`ebfb-pr977-lint-unstick-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet.md) — gauntlet ebfb-pr977-lint-unstick-gauntlet — HALTED
 - [`ebfb-pr977-gauntlet-rerun-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun-panel-1.md) — Cost
 - [`ebfb-pr977-lint-unstick-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet-panel-1.md) — Cost
 - [`ebfb-pr977-gauntlet-rerun-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun-clean.md) — Report
-- [`ebfb-pr977-lint-unstick-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-lint-unstick-gauntlet-clean.md) — Cost
-- [`ebfb-guest-unconfined-from-tree-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet.md) — gauntlet ebfb-guest-unconfined-from-tree-gauntlet — HALTED
-- … and 4480 more
+- … and 4482 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
