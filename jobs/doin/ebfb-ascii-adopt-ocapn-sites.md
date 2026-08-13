@@ -20,3 +20,13 @@ Additional genuine site: packages/ocapn/src/hub/hub.js swissnumHex currently fee
 <!-- garden-annotation: key=ascii-site-ocapn-session-prefix by=designer at=2026-08-13T18:52:53Z -->
 
 Also replace packages/ocapn/src/cryptography.js sessionIdHashPrefixBytes TextEncoder encoding of the ASCII protocol prefix prot0 with encodeAscii. This removes the file module-load dependency on the TextEncoder host global; the same file already needs encodeAscii for LOCATION_SIG_DOMAIN.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T20:26:09Z
