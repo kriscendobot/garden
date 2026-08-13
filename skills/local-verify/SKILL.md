@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-07-28
+updated: 2026-08-13
 author: gardener
 ---
 
@@ -18,10 +18,7 @@ be run locally before pushing; a red CI check is a defect in our tooling to
 close, not merely a PR to fix; and a local-pass/CI-fail discrepancy is itself an
 environment-parity defect (see [Parity is the contract](#parity-is-the-contract)
 below). This skill is where the fleet meets that bar (`roles/COMMON.md`
-§ Reporting). A change that clears the gate is then far more likely to be green
-on the first CI push, which shortens (or eliminates) the shepherd loop and spends
-fewer tokens on remote test discovery, but that speed is a consequence of the
-invariant, not its purpose.
+§ Reporting).
 
 The executable is `scripts/jobs/gardening/local-verify.sh`; this skill is the
 contract it implements. It is the default body of the gardening state machine's
@@ -31,11 +28,13 @@ contract it implements. It is the default body of the gardening state machine's
 ## Why it exists
 
 CI is the slow, expensive place to discover a format nit, a lint error, a type
-break, or a failing test. Every such discovery on CI costs a round trip and a
-shepherd loop, and the shepherd then pulls the failure log into an agent's
-context to read it. Running the same steps locally first, deterministically and
-silently, moves that discovery off the CI server and out of the agent's context:
-the shepherd's job shrinks to confirming CI, not discovering failures.
+break, or a failing test: each such discovery costs a round trip and a shepherd
+loop that pulls the failure log into an agent's context. Running the same steps
+locally first, deterministically and silently, moves that discovery off the CI
+server and out of the agent's context — the shepherd's job shrinks to confirming
+CI, not discovering failures. The speed (a shorter or empty shepherd loop, fewer
+tokens on remote test discovery) is a consequence of the invariant, not its
+purpose.
 
 ## Parity is the contract
 
@@ -60,15 +59,16 @@ kinds, and both must be closed (never worked around with a one-off green push):
    `scripts/jobs/gardening/install-node-tool-shims.sh`, not to accept the skip.
    Install them with that script rather than by hand: a hand-written shim naming
    one job's worktree dies (or, worse, silently lints a peer's checkout) as soon
-   as that worktree is torn down. See the 2026-07-29 field note.
+   as that worktree is torn down. See [field-notes.md](field-notes.md), the
+   2026-07-29 tool-shim entry.
 
 Divergence in the **other** direction — local-fail, CI-pass — is the same defect
 and gets the same treatment. A gate that red-lights work CI would have accepted
 sends an agent chasing a phantom, and, worse, teaches the fleet that a red gate
 is negotiable. The container's inherited **host git configuration** is the
 standing source of these (it bind-mounts the maintainer's home, while a CI runner
-has no user configuration at all), which is why the harness blanks it; see the
-2026-07-28 rerere field note below.
+has no user configuration at all), which is why the harness blanks it; see
+[field-notes.md](field-notes.md), the 2026-07-28 rerere entry.
 
 The fix is therefore always **two-part**: (i) green the PR, and (ii) close the
 gap (add the missing check or restore the environment parity) so the same class
@@ -251,35 +251,13 @@ blocks are the human/agent-readable surface.
 
 ## The debugging-agent contract (selective inspection)
 
-This is the token-efficiency core. A debugging agent handed a failure block reads
-**only the slices it needs** from the blob, never the whole log:
-
-```sh
-# the failing test's assertion and the lines around it
-git -C <worktree> cat-file -p <sha> | grep -n -A5 -B2 'FAIL\|Error\|✗'
-# just the first error
-git -C <worktree> cat-file -p <sha> | grep -m1 -i error
-# the tail (a stack trace, the summary line)
-git -C <worktree> cat-file -p <sha> | tail -40
-# a specific failing file's section
-git -C <worktree> cat-file -p <sha> | sed -n '/packages\/foo/,/^$/p'
-```
-
-The full log is in git, content-addressed and immutable, but it enters the
-agent's context only one narrowed slice at a time. This generalizes the gardening
-state machine's diverted `GARDEN_TRACE` (trace to a file a debug subagent reads,
-not to the supervisor's stdout) and the
-[prompt-on-failure-capture](../prompt-on-failure-capture/SKILL.md) pattern
-(hash a failure log into git, pass the SHA, inspect on demand). The shared
-primitives are `capture_blob` / `inspect_note` / `anchor_blob` in
-`scripts/jobs/common.sh`.
-
-Cross-host note: `git hash-object -w` writes the blob into the **local** object
-store of the worktree only. A same-host debugging agent (the usual case: the
-gardener supervising this PR) reads it directly. To make a capture inspectable
-from another host, anchor it under a ref and push it
-(`anchor_blob`), per [prompt-on-failure-capture](../prompt-on-failure-capture/SKILL.md)
-§ Cross-host reachability.
+The token-efficiency core: a debugging agent handed a failure block reads **only
+the slices it needs** from the content-addressed blob (`git cat-file -p <sha> |
+grep`/`sed`/`tail`), never the whole log — so the full failure enters context one
+narrowed slice at a time. The inspection recipes, the relationship to
+`GARDEN_TRACE` and [prompt-on-failure-capture](../prompt-on-failure-capture/SKILL.md),
+and the cross-host `anchor_blob` note are in
+[debugging-contract.md](debugging-contract.md).
 
 ## How it plugs into the shepherd/builder flow
 
@@ -308,250 +286,33 @@ from another host, anchor it under a ref and push it
 ## Tests
 
 `scripts/jobs/test/local-verify-test.sh` exercises the contract against throwaway
-git repos with a stubbed runner (`GARDEN_YARN`): a full pass is silent and exits
-0; a failing step emits only the step name + SHA + one-line tail (no raw body);
-`git cat-file -p <sha>` returns the captured output; discovery picks the
-check-variant; overrides skip and replace; a repo with no `package.json` exits 0;
-the same failure hashes to the same SHA (determinism); and the codegen-then-clean
-gate fails (with a SHA-captured diff, no raw diff on stdout) when a generator
-staled an artifact but stays silent when the generator is up to date. It also
-proves two failing workspaces both appear in the captured test blob, without
-re-running the fail-fast root aggregator.
-
-Two later groups cover the environment-fault class. The **unit** cases prove
-identical output from different commands is reported as one `ENVIRONMENT FAULT`
-(with the not-installed cause named, and the per-step blocks retained), while
-distinct failing output — and one script matched by two steps — are *not*
-flagged. The **end-to-end** case drives the real
-`scripts/jobs/ensure-project-worktree.sh` through a cold build and then a warm
-cache HIT against a throwaway fork and a stubbed package manager that reproduces
-yarn 4's defining behavior (refuse every `run` without link state), and asserts
-the gate actually exercises its steps in the HIT worktree — silent, exit 0. Its
-negative control re-creates the pre-fix shape with `GARDEN_SKIP_DEP_RECONCILE=1`
-(deps linked in, no link state) and asserts the gate diagnoses it as an
-environment fault. `bash -n` and `shellcheck` clean.
+git repos with a stubbed runner (`GARDEN_YARN`): the silent-pass / SHA-only-failure
+surface, `cat-file` recovery of the captured output, check-variant discovery,
+override skip/replace, no-`package.json` exit 0, SHA determinism, the
+codegen-then-clean gate (fires on a staled artifact, silent when up to date), and
+two failing workspaces both appearing in the captured test blob without the
+fail-fast root aggregator. Two later groups cover the environment-fault class: unit
+cases prove identical output from **different** commands is reported as one
+`ENVIRONMENT FAULT` (cause named, per-step blocks retained) while distinct output —
+and one script matched by two steps — is not flagged; an end-to-end case drives the
+real `ensure-project-worktree.sh` through a cold build then a warm cache HIT
+(stubbed yarn-4 runner that refuses `run` without link state) and asserts the gate
+runs silently in the HIT worktree, with a `GARDEN_SKIP_DEP_RECONCILE=1` negative
+control that must diagnose an environment fault. `bash -n` and `shellcheck` clean.
 
 ## Pitfalls
 
-- **A project's `format` (no check variant) mutates the tree.** When only the
-  mutating `format` script exists, the harness runs it; the auto-fix lands in the
-  working tree like the style gate's — and the codegen-then-clean gate then fails,
-  since any dirtiness (not just a codegen regen) trips it. That is the intended
-  discipline: an unformatted or unregenerated commit is caught locally and the
-  supervising agent commits the change. Prefer a `format:check` script where the
-  project offers one; the candidate order already favors it.
-- **Per-project specialization belongs in the project's scripts**, not the
-  harness. The harness is the contract; the project's `package.json` scripts
-  implement. Extend the candidate table for a new script name rather than
-  branching on a project.
-- **Do not inline a failure log into a prompt.** The whole point is the SHA: pass
-  it, inspect slices. A debugging agent that `cat-file`s the whole blob into
-  context has defeated the harness.
-- **Every step failing with the *same* one-line tail is one environment failure,
-  not N defects.** The steps are independent checks of independent things; they
-  do not fail in unison over a real change. When the tails match — especially
-  when the message is a *usage* error from the package runner rather than an
-  assertion — the harness never reached the project's checks at all. Fix the
-  environment (see the warm-cache field note below), then re-run for a real
-  verdict; do not start fixing the code. The harness now makes this call itself
-  and says `ENVIRONMENT FAULT` (§ Output), so this pitfall is the reasoning
-  behind that line rather than a judgement left to the reader — but the
-  detection is deliberately conservative (identical output from *different*
-  commands), so a runner that varies its refusal per step still lands here.
-- **Confirm you are running the harness you think you are.** The deployed root
-  checkout advances only by a deliberate drained deploy, so it can lag `main2` by
-  days (CLAUDE.md § Deliberate deploy). A divergence whose fix is already
-  described in these field notes is the tell; `diff` the deployed
-  `scripts/jobs/gardening/local-verify.sh` against `main2`'s before re-diagnosing
-  it as new.
+The recurring gotchas — a mutating `format` tripping the dirty gate, per-project
+specialization belonging in the project's scripts, never inlining a failure log
+into a prompt, reading N identical tails as one environment fault, and confirming
+the deployed harness is not lagging `main2` — are catalogued in
+[pitfalls.md](pitfalls.md).
 
 ## Notes from the field
 
-(Append; terse and dated.)
-
-- _2026-06-25_: initial build (job `build-local-prepr-verification`). Wired as the
-  default `GARDEN_EVAL` in `garden-pr.sh`, replacing the `true` no-op placeholder.
-  Reuses `capture_blob` from `common.sh` (the audit-self-healing-wrappers
-  primitive). Hashes only on failure (success needs no blob), a deliberate read
-  of the "hash then discard on success" contract that avoids creating GC'able
-  loose objects on the common path.
-- _2026-07-16_: added the `codegen` step + codegen-then-clean gate (job
-  `improve-local-verify-regen-clean-gate`). Generators now run as part of the
-  gate; a worktree left dirty by a regen fails loud with a SHA-captured
-  `git diff --stat`. Hardens against endojs/endo-but-for-bots#714, where a rebase
-  staled `packages/agentry/src/execute/{git,fs}-types.js` and silently red-lit all
-  CI test jobs after approval until the regen was committed.
-- _2026-07-20_: reframed from optimization to **invariant** (job
-  `encode-ci-parity-policy`) per the maintainer's standing policy: any lint/test
-  CI failure is a defect in our automation, not merely a PR fix. Added the
-  [Parity is the contract](#parity-is-the-contract) section: the local set must
-  cover every check CI runs, and a local-pass/CI-fail discrepancy is a coverage
-  gap or an environment divergence to close (two-part fix: green + close the gap).
-  Cross-linked from `roles/COMMON.md` § Reporting and
-  [ci-failure-classification-loop](../ci-failure-classification-loop/SKILL.md).
-- _2026-07-28_: closed an environment divergence found while shepherding
-  endojs/endo-but-for-bots#865. The container mounts `/tmp` **noexec**, and yarn 4
-  materializes every package-bin call as a temporary exec shim under `$TMPDIR`, so
-  any step dispatching through a bin died locally with `permission denied: <bin>`
-  (observed as `ses-ava` for the `test` step and `tsc` for `lint:types`) while the
-  same script was green on CI. The affected checks therefore could not run locally
-  at all. `local-verify.sh` now exports an exec-capable `TMPDIR` via the new
-  `exec_tmpdir` helper in `scripts/jobs/common.sh` (probe `$TMPDIR`, fall back to
-  `$GARDEN_SCRATCH/tmpexec`), generalizing the defense
-  `scripts/jobs/ensure-project-worktree.sh` already applied to the dep install.
-  The tell is a "failure" whose message is `permission denied` rather than an
-  assertion: that is the environment, not the change.
-- _2026-07-28_: closed a coverage gap found in the same shepherd run. On
-  endojs/endo-but-for-bots the `codegen` step matched `build:types` at the repo
-  root, which is `tsc --build tsconfig.composite.json` — a **compile**, not a
-  generator. The real generator is `build:types:gen`
-  (`node scripts/generate-composite-tsconfigs.mjs`), so nothing regenerated the
-  composite tsconfigs and the dirty gate had nothing to catch. Adding a workspace
-  dependency (`@endo/harden` to `packages/agent-tools`) staled
-  `packages/agent-tools/tsconfig.composite.json`, the local gate stayed silent,
-  and CI's separate `yarn build:types:check` step turned `lint` red. Fix:
-  `build:types:gen` now outranks `build:types` in the codegen candidates. General
-  lesson for the table: a codegen candidate must **mutate**; a check-or-compile
-  script in that slot makes the codegen-then-clean gate vacuous.
-- _2026-07-28_: closed an environment divergence in the **opposite** direction —
-  local-fail, CI-pass (job `fu-build-exo-google-sheets-facets-1`). The container
-  bind-mounts the host user's home, so the maintainer's
-  `~/.config/git/config` was in effect for every `git` a verification step
-  spawned, while a CI runner has no user configuration at all. Its
-  `rerere.enabled=true` made `@endo/agentry`'s conflict-rebase eval fixture
-  auto-resolve the conflict it exists to provoke (`Staged 'app.txt' using
-  previous resolution`), so a test asserting the conflict stops the rebase failed
-  here and passed on CI. `local-verify.sh` now calls the new
-  `hermetic_gitconfig` helper (`scripts/jobs/common.sh`), which points
-  `GIT_CONFIG_GLOBAL`/`GIT_CONFIG_SYSTEM` at `/dev/null` so every step sees only
-  repository-local configuration — checked in, hence identical on CI.
-  `GARDEN_INHERIT_GITCONFIG=1` opts back out while debugging. The class is wider
-  than rerere: `diff.algorithm`, `diff.renames`, `merge.conflictStyle`,
-  `rebase.autostash`, `core.autocrlf`, and `url.<base>.insteadOf` all change git's
-  semantics from a config file CI never reads. The tell is a failure that
-  reproduces for the fleet but never for CI, on a project whose tests shell git.
-  The project-side half is endojs/endo-but-for-bots#883, which pins rerere off in
-  the fixture's own repository-local config; the two defenses are independently
-  sufficient, and the fixture's is the one that also protects a human's checkout.
-
-- _2026-07-28_: **`build` now precedes `lint`** (job
-  `endojs-endo-but-for-bots-form-data-advisory`), closing a second
-  environment-divergence class of the same shape as the gitconfig one above.
-  Linting an unbuilt tree made eslint's TypeScript project service report whole
-  directories under `packages/familiar` and `packages/lal` as
-  `Parsing error: <file> was not found by the project service` — hard errors, so
-  the step failed, while the identical content was green on CI (whose lint job
-  builds first). Re-running `yarn lint:eslint` after the build step on the same
-  worktree reported zero errors, which is what identified the ordering rather
-  than the branch as the cause. The tell is a lint failure naming files the diff
-  does not touch.
-
-  Sibling gap found in the same run and NOT yet closed: eight `@endo/cli` demo
-  tests fail locally at `endo start` with
-  `ENOENT ... <worktree>/.tmp/endo-cli-test-XXXXXX/runtime/endo.sock`. The socket
-  path is 134 bytes against the 108-byte `sun_path` limit, because a per-job
-  project worktree path (`$GARDEN_SCRATCH/project-wt-<job-base>-<hash8>`) is
-  already ~90 bytes before the test appends its own suffix. That workflow's own
-  `Move working directory` step relocates its checkout under `$RUNNER_TEMP` for
-  exactly this reason. Any project whose tests bind a unix socket under the
-  worktree is exposed; the fix is a shorter per-job checkout path (or a short
-  socket dir), and it belongs in `scripts/jobs/ensure-project-worktree.sh` rather
-  than here, since changing that naming has to stay stable across a requeue.
-
-- _2026-07-28_: closed an environment divergence that made the gate **unrunnable
-  on a warm-cache worktree** (job `local-verify-parity-endo-but-for-bots-warm-cache`).
-  `scripts/jobs/ensure-project-worktree.sh` populates a fresh per-job worktree by
-  hardlinking cached `node_modules` trees in and skipping the install. But a
-  package manager keeps its *"is this project installed?"* state **outside**
-  `node_modules` — yarn 4 writes `.yarn/install-state.gz` at the project root —
-  and that file is gitignored, so `git worktree add` never carries it and the
-  cache never copied it. Yarn therefore refused every `yarn run <script>` in the
-  populated tree with `Usage Error: The project in .../package.json doesn't seem
-  to have been installed`, and `local-verify.sh` reported **all six steps
-  FAILED** with that one message. Fix: a cache HIT now finishes by running the
-  package manager's own install (`dep_reconcile_cmd`) to reconcile its state
-  against the trees just linked in. It does not defeat the cache — what the cache
-  spares is the **native build**, and a reconcile against a populated store
-  performs none: measured on `endojs/endo-but-for-bots`, ~5s reconcile against a
-  ~5s cold install on an already-warm yarn store, with `better-sqlite3`'s
-  prebuilt `.node` keeping its cached inode and mtime. Both numbers now appear in
-  the `WARM-CACHE hit:` log line, so a reconcile that ever grew into a real
-  rebuild would be visible rather than inferred. `npm ci` is substituted for
-  `npm install` on this path only, because `npm ci` deletes `node_modules` first
-  and would throw away the hardlinked trees. The tell is the pitfall above: six
-  identical one-line tails, all a package-runner *usage* error.
-
-- _2026-07-28_: a second divergence reported alongside it — `@endo/agentry`'s
-  `eval > conflict-rebase > outcome assertion fails when conflicted worktree is
-  left mid-rebase` failing locally while green on CI — turned out **not to be
-  new**. It is exactly the `rerere.enabled=true` divergence the gitconfig note
-  above already closed: the fixture provisions its repository by resolving the
-  conflict once, so an inherited rerere auto-stages `app.txt` on the test's own
-  rebase, leaving `M  app.txt` where the test asserts `UU app.txt`, and the test
-  rethrows. It reappeared because the **deployed** root checkout was behind
-  `main2` and its `local-verify.sh` predated `hermetic_gitconfig` (also predating
-  build-before-lint and the workspace-test aggregation). Verified directly on a
-  fresh worktree: the test **passes** under `GIT_CONFIG_GLOBAL=/dev/null
-  GIT_CONFIG_SYSTEM=/dev/null` and **fails** without them, printing
-  `Staged 'app.txt' using previous resolution` — the same signature. Nothing to
-  fix in the harness; the follow-up is a deliberate deploy
-  ([context/operations/deploy.md](../../context/operations/deploy.md)).
-  Generalized as the second new pitfall above. Note the project-side pin from
-  `endojs/endo-but-for-bots#883` (`rerere.enabled=false` in the fixture's own
-  repository-local config) is still not on `llm`, so the harness-side defense is
-  currently the only one in force.
-
-- _2026-07-29_: closed the remaining two halves of the warm-cache divergence
-  above (job `fix-warm-cache-yarn-install-state`), which was posted before the
-  link-state reconcile landed and outlived it by three requeues. The root cause
-  was already fixed, so what was left was **the regression** and **the
-  diagnosis**.
-  * *Regression.* `scripts/jobs/test/local-verify-test.sh` now drives the real
-    `ensure-project-worktree.sh` through a cold build and then a warm cache HIT
-    (throwaway fork + bare clone + a stubbed package manager that reproduces
-    yarn 4's defining behavior: refuse every `run` without link state) and
-    asserts the gate **exercises its steps** in the HIT worktree — silent, exit
-    0. The negative control re-creates the pre-fix shape exactly, with
-    `GARDEN_SKIP_DEP_RECONCILE=1`. Before this, the reconcile was covered only
-    from the provisioner's side (`project-worktree-isolation-test.sh` asserts
-    the link state gets written); nothing asserted the *gate* was runnable,
-    which is the property that actually failed.
-  * *Diagnosis.* `local-verify.sh` now distinguishes **"the runner is broken"**
-    from **"the check failed"** (§ Output): two or more failing steps that ran
-    **different** commands yet produced **byte-identical** output get one
-    trailing `ENVIRONMENT FAULT` line naming the shared blob and exonerating the
-    change, plus a cause hint for the recognizable signatures (not-installed,
-    `permission denied`, missing runner). Identical output is the crisp signal
-    here because the failure capture already content-addresses each step's
-    output, so "the same failure six times" is an exact blob-SHA match rather
-    than a fuzzy text comparison. The discriminator that keeps it honest is
-    *different commands*: `codegen` and `docs` both match `build:types` on a
-    project without a dedicated generator, and that one script failing twice is
-    an honest failure reported twice, not an environment fault. Verdict and exit
-    code are unchanged — only the diagnosis is. The general lesson for the
-    table: when a gate captures failures by content address, cross-step output
-    identity is free evidence about whether the gate ran at all, and a gate that
-    can tell it never ran should say so rather than emit N failures it knows are
-    one.
-- _2026-07-29_: closed the environment divergence the Parity section already
-  warned about, found while working the review on
-  <https://github.com/endojs/endo-but-for-bots/pull/671>. The `yarn`/`ava`/
-  `eslint` PATH shims this skill prescribes were **hand-written by whichever job
-  first needed one**, each `exec node <that job's worktree>/node_modules/...`.
-  A per-job worktree is torn down when its job ends, so on this host all four
-  shims (`eslint`, `prettier`, `tsc`, `ava`) pointed into a
-  `project-wt-...-pr761-shepherd-...` deleted days earlier. Every lint, type, and
-  test step dispatching through them was broken host-wide. The second failure
-  mode is the dangerous one and is silent: while the pinned worktree still
-  exists, the shim **lints a peer's checkout**, so a green result says nothing
-  about the code about to be pushed, which is precisely the local-pass/CI-fail
-  discrepancy this skill exists to prevent. Fix:
-  `scripts/jobs/gardening/install-node-tool-shims.sh` generates shims that name
-  no tree at all, walking up from `$PWD` at invocation time to the nearest
-  enclosing `node_modules` holding the tool. That resolution is correct for every
-  worktree concurrently and needs no reinstall between jobs. Each tool carries
-  every entrypoint spelling we have seen (`ava/entrypoints/cli.mjs` and
-  `cli.js`), so a tool upgrade moving its entrypoint does not silently re-break
-  the shim. General lesson for the table: a shim that hard-codes an absolute path
-  into ephemeral per-job state is not a parity fix, it is a deferred parity bug,
-  and its quiet failure mode is worse than its loud one.
+The dated log of every environment divergence and coverage gap this harness has
+closed — the `TMPDIR` noexec / bin-shim fault, the `hermetic_gitconfig` fix, the
+build-before-lint reorder, the warm-cache install-state reconcile, the
+`ENVIRONMENT FAULT` diagnosis, the tree-independent tool shims, and more, each
+with its tell and its fix — lives in [field-notes.md](field-notes.md). Append new
+entries there.
