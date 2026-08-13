@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 980
 build_job: ebfb-ascii-adopt-ocapn-sites
 kind: feature
-stage: fix
-iteration: 2
+stage: panel
+iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-2
+current_child: ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-3
 state: running
 created_by: producer
 created_at: 2026-08-13T21:46:34Z
