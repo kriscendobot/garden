@@ -65,3 +65,13 @@ tool is a read-only report generator, not a job-system gate) that:
   [no-latin-shorthand](skills/no-latin-shorthand/SKILL.md).
 - No PR is needed — this is a change to the garden's own repo/journal, pushed
   directly per `CLAUDE.md` § Conventions.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:25:49Z
