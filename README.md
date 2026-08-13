@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:55:54Z_
+_As of 2026-08-13T21:57:29Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 25m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 31m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6734,27 +6734,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.9M | $1016.12 _(notional, rate-card)_ | no quota set |
-| Codex | 23.5M _(+799.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
+| Claude | 61.9M | $1018.18 _(notional, rate-card)_ | no quota set |
+| Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`context-graph-size-audit-focused`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit-focused.md) — context-graph-size-audit-focused
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
-- [`garden-tada-shard-03-write-switch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tada-shard-03-write-switch.md) — The change
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-10-arrays-species.md) — Complete Array construction and prototype algorithms
 
-### tada (4558)
+### tada (4559)
+- [`garden-tada-shard-03-write-switch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-03-write-switch.md) — Cost
 - [`genie-docs-to-journal-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration.md) — orchestration genie-docs-to-journal-orchestration — HALTED
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning.md) — Feature-disposition analysis — subagent-slice-provisioning
 - [`garden-tada-shard-02-read-tolerance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-02-read-tolerance.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-tool-selection-guide`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-tool-selection-guide.md) — Cost
-- … and 4553 more
+- … and 4554 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
