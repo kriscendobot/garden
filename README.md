@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T02:32:25Z_
+_As of 2026-08-13T02:34:05Z_
 
 ## Latest
 
@@ -6703,25 +6703,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.3M | $819.41 _(notional, rate-card)_ | no quota set |
-| Codex | 23.3M _(+801.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Codex | 23.4M _(+803.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
-- [`endojs-endo-but-for-bots-pr475-review-45629ced`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-45629ced.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-7b320c90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-7b320c90.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-review-e7ffcbe6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-e7ffcbe6.md) — Review directive on endojs/endo-but-for-bots PR #475
 
-### tada (4470)
+### tada (4471)
+- [`endojs-endo-but-for-bots-pr475-review-45629ced`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-45629ced.md) — Completion report: review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-f9e663e7.md) — Completion report
 - [`pr403-chain-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-chain-20260813.md) — orchestration pr403-chain-20260813 — HALTED
 - [`pr403-conduct-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-conduct-20260813.md) — conduct #403 — completion report
 - [`pr403-shepherd-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-shepherd-20260813.md) — Cost
-- [`pr403-weave-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-weave-20260813.md) — Cost
-- … and 4465 more
+- … and 4466 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
