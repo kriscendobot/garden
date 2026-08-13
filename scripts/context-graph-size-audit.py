@@ -50,7 +50,7 @@ def tracked_markdown(root: Path) -> set[Path]:
     }
 
 
-def main_roots(root: Path, files: set[Path]) -> list[Path]:
+def main_roots(root: Path, files: set[Path], exclude_globs: tuple[str, ...] = ()) -> list[Path]:
     patterns = (
         "CLAUDE.md",
         "README.md",
@@ -63,7 +63,12 @@ def main_roots(root: Path, files: set[Path]) -> list[Path]:
         "context/*.md",
         "context/**/*.md",
     )
-    roots = {path for path in files if any(fnmatch.fnmatch(path.as_posix(), pattern) for pattern in patterns)}
+    roots = {
+        path
+        for path in files
+        if any(fnmatch.fnmatch(path.as_posix(), pattern) for pattern in patterns)
+        and not any(fnmatch.fnmatch(path.as_posix(), pattern) for pattern in exclude_globs)
+    }
     agents = Path("AGENTS.md")
     claude = Path("CLAUDE.md")
     if agents in files:
@@ -104,16 +109,23 @@ def links_from(root: Path, source: Path) -> set[Path]:
     }
 
 
-def walk(root: Path, seeds: list[Path]) -> tuple[set[Path], dict[Path, set[Path]]]:
+def walk(
+    root: Path,
+    seeds: list[Path],
+    exclude_globs: tuple[str, ...] = (),
+) -> tuple[set[Path], dict[Path, set[Path]]]:
+    def excluded(path: Path) -> bool:
+        return any(fnmatch.fnmatch(path.as_posix(), pattern) for pattern in exclude_globs)
+
     reachable: set[Path] = set()
     edges: dict[Path, set[Path]] = {}
-    pending = deque(path for path in seeds if (root / path).is_file())
+    pending = deque(path for path in seeds if (root / path).is_file() and not excluded(path))
     while pending:
         path = pending.popleft()
         if path in reachable:
             continue
         reachable.add(path)
-        edges[path] = links_from(root, path)
+        edges[path] = {target for target in links_from(root, path) if not excluded(target)}
         pending.extend(edges[path] - reachable)
     return reachable, edges
 
@@ -220,6 +232,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--journal-root", type=Path, required=True, help="journal2 checkout root")
     parser.add_argument("--date", required=True, help="report date in YYYY-MM-DD form")
     parser.add_argument("--top", type=int, default=15, help="largest documents listed per tree")
+    parser.add_argument(
+        "--exclude-root-glob",
+        action="append",
+        default=[],
+        metavar="PATTERN",
+        help="drop main2 roots matching this glob before the walk (repeatable)",
+    )
+    parser.add_argument(
+        "--exclude-journal-seed",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="drop a journal2 seed path so the walk does not start from it (repeatable)",
+    )
     return parser.parse_args()
 
 
@@ -233,12 +259,21 @@ def run() -> int:
         if not root.is_dir():
             raise SystemExit(f"{label} root is not a directory: {root}")
 
+    exclude_root_globs = tuple(args.exclude_root_glob)
+    exclude_journal_seeds = {Path(item) for item in args.exclude_journal_seed}
+
     main_files = tracked_markdown(main_root)
-    main_reachable, _ = walk(main_root, main_roots(main_root, main_files))
+    main_reachable, _ = walk(
+        main_root, main_roots(main_root, main_files, exclude_root_globs), exclude_root_globs
+    )
     main_docs = inspect(main_root, main_reachable)
 
     journal_files = tracked_markdown(journal_root)
-    journal_seeds = [path for path in (Path("README.md"), Path("projects/README.md"), Path("library/README.md")) if path in journal_files]
+    journal_seeds = [
+        path
+        for path in (Path("README.md"), Path("projects/README.md"), Path("library/README.md"))
+        if path in journal_files and path not in exclude_journal_seeds
+    ]
     journal_reachable, _ = walk(journal_root, journal_seeds)
     journal_docs = inspect(journal_root, journal_reachable)
 
@@ -250,12 +285,26 @@ def run() -> int:
     for path, doc in journal_docs.items():
         grouped[tree_name(path, "journal2")][path] = doc
 
+    main_root_prose = (
+        "The main2 roots are the top-level orientation documents plus every role, juror, skill, design, and `context/` Markdown document."
+    )
+    if exclude_root_globs:
+        main_root_prose += (
+            " Excluded main2 globs (dropped as roots and pruned from the walk, so they are neither seeded nor reached through links): "
+            + ", ".join(f"`{glob}`" for glob in exclude_root_globs)
+            + "."
+        )
+    journal_seed_prose = "The journal2 roots are " + ", ".join(f"`{seed.as_posix()}`" for seed in journal_seeds) + "; links from those roots may reach additional journal trees."
+    if exclude_journal_seeds:
+        journal_seed_prose += " Excluded journal2 seeds: " + ", ".join(f"`{seed.as_posix()}`" for seed in sorted(exclude_journal_seeds)) + "."
+
     lines = [
         f"# Context graph size audit ({args.date})",
         "",
         "This report walks relative inline Markdown links from the documented context roots. "
-        "The main2 roots are the top-level orientation documents plus every role, juror, skill, design, and `context/` Markdown document. "
-        "The journal2 roots are `README.md`, `projects/README.md`, and `library/README.md`; links from those roots may reach additional journal trees.",
+        + main_root_prose
+        + " "
+        + journal_seed_prose,
         "",
         "Classification thresholds: small is below 100 lines and 8 KiB; medium starts at 100 lines or 8 KiB; large starts at 300 lines or 24 KiB; very large starts at 600 lines or 48 KiB. "
         "A hand-authored document is flagged when it reaches 300 lines or 24 KiB, has at least 160 lines and eight level-two sections, or has at least 150 lines and twice the median line count of three or more same-directory peers. "
@@ -270,15 +319,25 @@ def run() -> int:
         tree_flags = {path: reasons for path, reasons in journal_flagged.items() if path in tree_docs}
         lines.extend(render_tree(name, tree_docs, tree_flags, args.top, generated_exempt))
 
-    main_orphans = sorted(main_files - main_reachable)
+    main_orphans = sorted(
+        path
+        for path in main_files - main_reachable
+        if not any(fnmatch.fnmatch(path.as_posix(), pattern) for pattern in exclude_root_globs)
+    )
+    journal_orphan_trees = {seed.parts[0] for seed in journal_seeds if len(seed.parts) > 1}
     journal_context_files = {
-        path for path in journal_files if path.parts and path.parts[0] in {"projects", "library"}
+        path for path in journal_files if path.parts and path.parts[0] in journal_orphan_trees
     }
     journal_orphans = sorted(journal_context_files - journal_reachable)
+    journal_tree_prose = (
+        " and ".join(f"`{tree}/`" for tree in sorted(journal_orphan_trees))
+        if journal_orphan_trees
+        else "no seeded trees"
+    )
     lines.extend(["## Orphan signal", ""])
     lines.append(
         f"Unreachable tracked Markdown documents: {len(main_orphans)} on main2 and "
-        f"{len(journal_orphans)} under journal2 `projects/` and `library/`."
+        f"{len(journal_orphans)} under journal2 {journal_tree_prose}."
     )
     for label, paths in (("main2", main_orphans), ("journal2 context", journal_orphans)):
         if paths:
