@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:43:41Z_
+_As of 2026-08-13T22:49:34Z_
 
 ## Latest
 
@@ -6759,25 +6759,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.3M | $994.43 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+800.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.4M | $996.88 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+803.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #980
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
-- [`garden-campaign-spend-unmetered-rows`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-campaign-spend-unmetered-rows.md) — Fix: campaign-spend.sh must tolerate unmetered engagement rows
 
-### tada (4579)
+### tada (4580)
+- [`garden-campaign-spend-unmetered-rows`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-campaign-spend-unmetered-rows.md) — Cost
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Cost
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-from-llm-r3.md) — Completion report — genie-docs-delete-from-llm-r3
 - [`ironhorse-test262-implementation-completion-resume-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-5.md) — orchestration ironhorse-test262-implementation-completion-resume-5 — BUDGET M...
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-11-strings.md) — Cost
-- [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused-20260813-222003.md) — Cost
-- … and 4574 more
+- … and 4575 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
