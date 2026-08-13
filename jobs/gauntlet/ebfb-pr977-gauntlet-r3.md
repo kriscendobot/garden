@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: ebfb-pr977-gauntlet-r3-clean
+state: running
 created_by: ebfb-pr977-gauntlet-3
 created_at: 2026-08-13T16:14:19Z
 ---
