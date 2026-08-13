@@ -82,16 +82,29 @@ git -C "$SEED" checkout -q -b "$BRANCH"
 write_claim "$SEED" above "fixer" "" 2400 601
 write_claim "$SEED" due "fixer" "" 2400 600 \
   '<!-- garden-reaped: 4 -->\n<!-- garden-deadline-overrun: 2 -->\n<!-- garden-productive-cycle -->\n<!-- garden-outage-cycle -->'
+sed -i '2a token-budget: 10000' "$SEED/jobs/doin/due.md"
 write_claim "$SEED" exact "fixer" "" 2400 0
 write_claim "$SEED" expired "fixer" "" 2400 -1
-write_claim "$SEED" short "fixer" 100 100 90
+write_claim "$SEED" short "fixer" 100 100 90 \
+  '<!-- garden-provider-quota-backoff: type=session reset-at=2033-05-18T04:00:00Z -->'
 write_claim "$SEED" builder "builder" "" 7200 900
 write_claim "$SEED" reapnow "fixer" "" 2400 300 \
   '<!-- garden-reaped: 1 -->\n<!-- garden-deadline-overrun: 1 -->\n<!-- garden-reap-now -->'
 write_claim "$SEED" badtime "fixer" "" 2400 300
 sed -i 's/^  claimed_at:.*/  claimed_at: not-a-time/' "$SEED/jobs/doin/badtime.md"
-mkdir -p "$SEED/jobs/todo" "$SEED/jobs/plan" "$SEED/jobs/tada" "$SEED/work" "$SEED/inbox/dead"
+mkdir -p "$SEED/jobs/todo" "$SEED/jobs/plan" "$SEED/jobs/tada" "$SEED/jobs/orch" "$SEED/usage" "$SEED/work" "$SEED/inbox/dead"
 touch "$SEED/jobs/todo/.gitkeep" "$SEED/jobs/plan/.gitkeep" "$SEED/jobs/tada/.gitkeep" "$SEED/work/.gitkeep" "$SEED/inbox/dead/.gitkeep"
+usage_ts="$(date -u -d "@$((NOW - 1000))" +%FT%TZ)"
+printf '{"ts":"%s","source":"provider","input_tokens":150,"output_tokens":50,"cache_creation_tokens":25,"cache_read_tokens":500}\n' "$usage_ts" > "$SEED/usage/due.jsonl"
+cat > "$SEED/jobs/orch/nudge-campaign.md" <<EOF
+---
+order: serial
+children: due
+budget_tokens: 1000
+created_at: $(date -u -d "@$((NOW - 2000))" +%FT%TZ)
+---
+deadline nudge budget fixture
+EOF
 git -C "$SEED" add -A
 git -C "$SEED" "${git_identity[@]}" commit -q -m seed
 git -C "$SEED" remote add origin "$BARE"
@@ -136,6 +149,15 @@ after_job_hash="$(tip_show jobs/doin/due.md | sha256sum | cut -d' ' -f1)"
 [ -z "$(nudge_paths above)" ] && ok 'claim above lead window receives no nudge' || bad 'above-window claim was nudged'
 [ -z "$(nudge_paths exact)" ] && [ -z "$(nudge_paths expired)" ] && ok 'claim at or after deadline receives no first nudge' || bad 'late claim was nudged'
 [ "$(nudge_paths short | wc -l)" -eq 1 ] && ok 'budget shorter than two-tick floor warns immediately' || bad 'short-budget warning missing'
+[ "$(git -C "$BARE" ls-tree -r --name-only "$BRANCH" -- inbox/short | grep -c 'deadline-checkpoint-' || true)" -eq 1 ] \
+  && ok 'final checkpoint nudge asks for durable WIP near the wall' || bad 'final checkpoint warning missing'
+short_message="$(nudge_paths short | head -1)"
+if tip_show "$short_message" | grep -q '^quota_window_status: provider-session-exhausted$' \
+  && tip_show "$short_message" | grep -q '^provider_quota_resets_at: 2033-05-18T04:00:00Z$'; then
+  ok 'known provider quota exhaustion and reset are explicit in the nudge'
+else
+  bad 'provider quota backoff facts are missing from the nudge'
+fi
 [ "$(nudge_paths builder | wc -l)" -eq 1 ] && ok 'builder warns at the 900s cap' || bad 'builder cap warning missing'
 [ -z "$(nudge_paths reapnow)" ] && ok 'reap-now claim is skipped' || bad 'reap-now claim was nudged'
 [ -z "$(nudge_paths badtime)" ] && ok 'malformed claim time is skipped' || bad 'malformed claim time was nudged'
@@ -149,6 +171,21 @@ if tip_show "$due_message" | grep -q '^kind: deadline-nudge$' \
 else
   bad 'message shape is incomplete'
 fi
+if tip_show "$due_message" | grep -q '^attempt_billable_tokens: 225$' \
+  && tip_show "$due_message" | grep -q '^job_billable_tokens_spent: 225$' \
+  && tip_show "$due_message" | grep -q '^job_token_budget: 10000$' \
+  && tip_show "$due_message" | grep -q '^job_token_budget_remaining: 9950$' \
+  && tip_show "$due_message" | grep -q '^campaign: nudge-campaign$' \
+  && tip_show "$due_message" | grep -q '^campaign_budget_tokens: 1000$' \
+  && tip_show "$due_message" | grep -q '^campaign_budget_remaining: 775$' \
+  && tip_show "$due_message" | grep -q '^quota_window_status:'; then
+  ok 'message carries attempt, job, campaign, and quota-window budget facts'
+else
+  bad 'message budget facts are incomplete'
+fi
+for primitive in 'post-job.sh' 'post-plan.sh --budget-hold' 'post-plan.sh --go-ahead' 'post-plan.sh --orchestrated' 'post-orchestration.sh' 'GARDEN-JOB-HANDED-OFF'; do
+  tip_show "$due_message" | grep -q "$primitive" || bad "nudge omits handoff primitive/disposition: $primitive"
+done
 for marker in 'garden-reaped: 4' 'garden-deadline-overrun: 2' 'garden-productive-cycle' 'garden-outage-cycle'; do
   tip_show jobs/doin/due.md | grep -q "$marker" || bad "marker disappeared: $marker"
 done
@@ -262,6 +299,86 @@ set -e
 [ "$dead_rc" -eq 0 ] && ok 'unavailable journal origin exits successfully' || bad "unavailable origin escaped rc=$dead_rc"
 
 hr
+printf '%s\n' 'HONEST HANDOFF AND BUDGET PARK/REFRESH'
+hr
+handoff_update="$TEST_ROOT/handoff-update"
+git clone -q --branch "$BRANCH" "$BARE" "$handoff_update"
+write_claim "$handoff_update" handoff "fixer" "" 2400 300
+printf '%s\n' 'successor work' > "$handoff_update/jobs/todo/handoff-successor.md"
+git -C "$handoff_update" add -A
+git -C "$handoff_update" "${git_identity[@]}" commit -q -m 'add handoff fixtures'
+git -C "$handoff_update" push -q origin "HEAD:$BRANCH"
+handoff_report="$TEST_ROOT/handoff-report"
+printf 'partial work committed and successor posted\n%s\n' '<<<GARDEN-JOB-HANDED-OFF: handoff-successor>>>' > "$handoff_report"
+env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
+  GARDEN_STATE="$STATE" GARDEN=worker-host GARDEN_GARDENER_CLONE="$STATE/handoff/journal" \
+  "$JOBS/complete-job.sh" --handed-off handoff-successor 3 handoff "$handoff_report" \
+  > "$TEST_ROOT/handoff.out" 2>&1
+if tip_show jobs/tada/handoff.md | grep -q '^handed-off: handoff-successor$' \
+  && tip_show jobs/tada/handoff.md | grep -q '^deliverable-complete: false$' \
+  && ! tip_show jobs/tada/handoff.md | grep -qF '<<<GARDEN-JOB-HANDED-OFF:'; then
+  ok 'declared handoff is mechanically distinct from clean completion'
+else
+  bad 'handoff disposition was not stamped or signal leaked into the report'
+fi
+
+park_update="$TEST_ROOT/park-update"
+git clone -q --branch "$BRANCH" "$BARE" "$park_update"
+write_claim "$park_update" budgetpark "fixer" "" 2400 300 \
+  '<!-- garden-deadline-overrun: 1 -->\n<!-- garden-reap-now -->'
+sed -i '2a token-budget: 10' "$park_update/jobs/doin/budgetpark.md"
+printf '{"ts":"2026-08-13T00:00:00Z","source":"provider","input_tokens":1,"output_tokens":20,"cache_creation_tokens":0}\n' > "$park_update/usage/budgetpark.jsonl"
+write_claim "$park_update" liveprogress "fixer" "" 2400 300 \
+  '<!-- garden-deadline-overrun: 1 -->\n<!-- garden-reap-now -->'
+sed -i '2a token-budget: 10000' "$park_update/jobs/doin/liveprogress.md"
+printf '{"ts":"%s","source":"provider","input_tokens":10,"output_tokens":3000,"cache_creation_tokens":0}\n' "$usage_ts" > "$park_update/usage/liveprogress.jsonl"
+git -C "$park_update" add -A
+git -C "$park_update" "${git_identity[@]}" commit -q -m 'add budget park fixture'
+git -C "$park_update" push -q origin "HEAD:$BRANCH"
+env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
+  GARDEN_STATE="$STATE/reaper" GARDEN=reaper-host GARDEN_NO_MAINTAINER_ALERT=1 \
+  GARDEN_REAPER_CLONE="$STATE/reaper/journal" GARDEN_PROGRESS_DOOM=on \
+  "$JOBS/reaper.sh" > "$TEST_ROOT/reaper.out" 2>&1
+if tip_has jobs/plan/budgetpark.md \
+  && tip_show jobs/plan/budgetpark.md | grep -q '^budget_hold: true$' \
+  && tip_show jobs/plan/budgetpark.md | grep -q '^park_reason: over-token-budget$' \
+  && tip_show jobs/plan/budgetpark.md | grep -q '^gate: go-ahead$'; then
+  ok 'over-budget progress disposition creates a held go-ahead plan'
+else
+  bad 'reaper did not create the expected budget hold'
+fi
+if tip_has jobs/todo/liveprogress.md && ! tip_has jobs/plan/liveprogress.md; then
+  ok 'token-live work below budget requeues instead of elapsed-only doom'
+else
+  bad 'progress-aware reaper did not keep live under-budget work moving'
+fi
+park_body="$TEST_ROOT/selfpark-body"
+printf 'resume this work after quota refresh\n' > "$park_body"
+env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
+  GARDEN_STATE="$STATE/selfpark" GARDEN=worker-host GARDEN_PRODUCER_CLONE="$STATE/selfpark/journal" \
+  "$JOBS/post-plan.sh" --budget-hold --budget-resets-at 2030-01-01T00:00:00Z selfpark "$park_body" \
+  > "$TEST_ROOT/selfpark.out" 2>&1
+if tip_has jobs/plan/selfpark.md \
+  && tip_show jobs/plan/selfpark.md | grep -q '^gate: go-ahead$' \
+  && tip_show jobs/plan/selfpark.md | grep -q '^budget_hold: true$'; then
+  ok 'nudged worker can explicitly post a quota-refresh-held successor'
+else
+  bad 'post-plan --budget-hold did not create a refresh-held successor'
+fi
+env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
+  GARDEN_STATE="$STATE/refresh" GARDEN=leader-one GARDEN_BUDGET_REFRESH_CLONE="$STATE/refresh/journal" \
+  GARDEN_BUDGET_REFRESH_NOW="$NOW" GARDEN_TOKEN_WINDOW_SECS=1 \
+  "$JOBS/budget-refresh.sh" > "$TEST_ROOT/refresh.out" 2>&1
+if tip_has jobs/todo/budgetpark.md && ! tip_has jobs/plan/budgetpark.md \
+  && tip_show jobs/todo/budgetpark.md | grep -q '^token-budget: 10$' \
+  && tip_show jobs/todo/budgetpark.md | grep -q '^token-budget-epoch:' \
+  && tip_has jobs/todo/selfpark.md && ! tip_has jobs/plan/selfpark.md; then
+  ok 'quota-window refresh promotes reaper and worker-created budget holds'
+else
+  bad 'budget refresh did not promote the held plan'
+fi
+
+hr
 printf '%s\n' 'UNIT WIRING'
 hr
 service="$ROOT/scripts/systemd/garden-deadline-nudge.service"
@@ -272,6 +389,9 @@ grep -q 'deadline-nudge.sh' "$service" && ok 'service invokes scanner' || bad 's
 grep -q '^OnCalendar=\*:\*:00$' "$timer" && grep -q '^AccuracySec=1s$' "$timer" \
   && ok 'timer uses an absolute one-minute cadence' || bad 'timer cadence is not one minute'
 grep -q '^WantedBy=timers.target$' "$timer" && ok 'timer is auto-enable discoverable' || bad 'timer is not installable'
+grep -q 'budget-refresh.sh' "$ROOT/scripts/systemd/garden-budget-refresh.service" \
+  && grep -q '^WantedBy=timers.target$' "$ROOT/scripts/systemd/garden-budget-refresh.timer" \
+  && ok 'budget refresh promoter is leader-timer wired' || bad 'budget refresh unit wiring is incomplete'
 
 hr
 printf 'passed %d, failed %d\n' "$pass" "$fail"

@@ -57,11 +57,15 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
   job) stays on the untouched race. The auction adds `bid_window` latency and one
   push per bidder; it degrades to the race for 0/1 bidders and after its staged
   liveness window. See `scripts/jobs/auction.sh` + `reputation.sh`.
-- **Complete** (`complete-job.sh [--orchestration-failed] <id> <base> <report>`): remove
+- **Complete** (`complete-job.sh [--orchestration-failed|--handed-off BASE] <id> <base> <report>`): remove
   `doin/<base>.md`/`work/<base>`/`inbox/<base>`, write `tada/<base>.md`, sweep
   `jobs/bids/<base>/`, record the `reputation/` event, push.
   `--orchestration-failed` removes the exact worker failure signal and stamps
   `orchestration-failed: true` into leading YAML frontmatter mechanically.
+  `--handed-off BASE` first verifies that the named successor job or orchestration
+  exists, removes its exact worker disposition signal, and stamps `handed-off: BASE`
+  plus `deliverable-complete: false`. This completes an evidenced transfer, never
+  the unfinished deliverable itself.
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 
@@ -130,12 +134,14 @@ be split into claim-sized stages). To raise the ceiling, raise `GARDEN_CLAIM_TTL
 (and keep `gardener.sh` and `reaper.sh` in sync) so the single-owner invariant
 `budget + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL` still holds.
 
-**Deterministic overrun surfaces fast.** A job that hits its wall with **no
-progress** is a deterministic overrun (it will overrun identically on every requeue);
-the reaper dooms it after **one** such cycle (`GARDEN_REAP_OVERRUN_THRESHOLD=1`),
-parking it held with a maintainer notice rather than churning ~5× the budget. A
-long job that makes progress each cycle (a per-job worktree HEAD advances — the
-sanctioned resume treadmill) is exempt and never dooms on that basis.
+**Progress and budget choose the destination after the wall.** The wall and live-PID
+guard still decide when single-owner requeue is safe. At the historical doom
+threshold, recorded output spend and durable/token progress decide whether to keep
+working, hold an over-budget job, or doom a repeated no-progress job. A budget hold
+is a `go-ahead` plan carrying `park_reason: over-token-budget`; the leader-only
+`budget-refresh.sh` promoter returns it to `todo/` after its explicit reset or
+rolling quota window. `GARDEN_PROGRESS_DOOM=off` restores the elapsed-only decision.
+Use `progress.sh <base>` for the read-only verdict and budget facts.
 
 ## Plan category — parked work, not claimable until promoted
 
@@ -145,6 +151,8 @@ so a plan job is invisible to the worker pool and never goes stale. A plan job i
 a **proposal / parked item**, parked for one of these reasons (its **gate**):
 
 - **`go-ahead`** — needs the maintainer's **authorization** before any work runs.
+  Reaper-created `over-token-budget` holds use this gate too, but only
+  `budget-refresh.sh` promotes that mechanically-marked subset on quota refresh.
 - **`deferred`** — parked behind higher-priority items, to be **selected by
   priority/urgency**.
 - **`blocked`** — parked behind an **artifact** (a PR or another job) named in
@@ -169,8 +177,11 @@ posted_at: <iso8601>
 <the work body — becomes the todo job on promotion, minus cycle markers>
 ```
 
-- **Park** (`post-plan.sh [--go-ahead|--deferred] [--priority L] [--roadmap I]
+- **Park** (`post-plan.sh [--go-ahead|--deferred|--budget-hold] [--priority L] [--roadmap I]
   [--by R] <base> [body]`): write `jobs/plan/<base>.md`. Default gate `--deferred`.
+  `--budget-hold` is a `go-ahead` subset carrying the machine fields that let
+  `budget-refresh.sh` promote it after the rolling window or an optional
+  `--budget-resets-at` timestamp; a generic `--go-ahead` remains human-only.
   Idempotent on the basename (no-op if `<base>` is anywhere in plan/todo/doin/tada),
   retry-with-backoff like `post-job.sh`. It **clears the reaper/gardener cycle
   markers** from the body it parks — the same family the promote path clears (below)

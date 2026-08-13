@@ -636,6 +636,8 @@ while :; do
     completion_args=()
     if report_has_orchestration_failure_marker "$report"; then
       completion_args=(--orchestration-failed)
+    elif handoff_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
+      completion_args=(--handed-off "$handoff_successor")
     fi
     set +e
     GARDEN_JOB_DURATION_SECS=$elapsed_usage GARDEN_ENGAGEMENT_USAGE="$usage_measurement" \

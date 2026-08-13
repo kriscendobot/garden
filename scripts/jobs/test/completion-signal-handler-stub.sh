@@ -19,6 +19,7 @@
 #   GARDEN_STUB_ORCHESTRATION_FAILED 1 → make the exact failure signal the
 #                           report's last line; gardener.sh must translate it to
 #                           stamped frontmatter during completion.
+#   GARDEN_STUB_HANDOFF_SUCCESSOR <base> -> emit the exact handoff disposition.
 #
 # Used by completion-signal-test.sh and productive-cycle-test.sh.
 set -uo pipefail
@@ -27,6 +28,8 @@ base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report}"
 printf '# report for %s\nstub handler ran\n' "$base" > "$report"
 [ "${GARDEN_STUB_ORCHESTRATION_FAILED:-0}" = "1" ] \
   && printf '%s\n' '<<<GARDEN-ORCHESTRATION-FAILED>>>' >> "$report"
+[ -n "${GARDEN_STUB_HANDOFF_SUCCESSOR:-}" ] \
+  && printf '<<<GARDEN-JOB-HANDED-OFF: %s>>>\n' "$GARDEN_STUB_HANDOFF_SUCCESSOR" >> "$report"
 [ -n "${GARDEN_STUB_CAPTURE:-}" ] && { echo "$GARDEN_STUB_CAPTURE"; echo "$GARDEN_STUB_CAPTURE" >&2; }
 
 # Model real per-cycle progress: advance the persisted garden worktree's HEAD.

@@ -104,6 +104,7 @@ GARDEN_TAG="reaper"
 # The gardener owns/increments the counter (common.sh § deadline-overrun); the reaper
 # only reads it to decide the threshold.
 : "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # deadline-overrun cycles after which a wall-hitting job is surfaced as doom
+: "${GARDEN_PROGRESS_DOOM:=on}"          # off restores the elapsed-only destination decision
 
 # --- two-writers-in-one-worktree guard (data-corruption class) ----------------
 #
@@ -739,10 +740,12 @@ reaped=0
 doomed=0
 staged=0
 declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_SIG=() DOOM_BUDGET=()
+declare -a DOOM_TOKEN_BUDGET=() DOOM_TOKEN_SPEND=() DOOM_PROGRESS=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
   DOOM_BASE=(); DOOM_BODY=(); DOOM_COUNT=(); DOOM_OVERRUN=(); DOOM_SIG=(); DOOM_BUDGET=()
+  DOOM_TOKEN_BUDGET=(); DOOM_TOKEN_SPEND=(); DOOM_PROGRESS=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
@@ -807,7 +810,40 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       overrun=0
       body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
     fi
+    old_doom=0
     if [ "$outage" -ne 1 ] && { [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; }; then
+      old_doom=1
+    fi
+    should_park="$old_doom"
+    progress=unknown
+    sig=""
+    token_budget="$(applied_token_budget "$f")"
+    token_epoch="$(plan_field "$f" token-budget-epoch)"
+    token_spend="$(usage_tokens_since "$DIR" "$spine" "${token_epoch:--}" output 2>/dev/null || true)"
+    [ -n "$token_spend" ] || token_spend=unknown
+    if [ "$old_doom" -eq 1 ] && [ "$GARDEN_PROGRESS_DOOM" != off ]; then
+      claimed_at="$(sed -n 's/^  claimed_at:[[:space:]]*//p' "$f" | tail -1)"
+      progress="$(job_progress_verdict "$DIR" "$spine" "$f" "$claimed_at")"
+      if [[ "$token_spend" =~ ^[0-9]+$ ]] && [ "$token_spend" -ge "$token_budget" ]; then
+        should_park=1
+        sig=over-token-budget
+      elif [ "$progress" = advancing ]; then
+        should_park=0
+        count=0
+        overrun=0
+        body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
+        log "progress: '$base' spent ${token_spend} output token(s), below budget $token_budget; requeueing instead of elapsed-only doom"
+      elif [ "$progress" = wedged ]; then
+        if [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; then
+          should_park=1
+          sig=requeue-exhausted
+        else
+          should_park=0
+        fi
+      fi
+      # An unknown verdict retains the historical elapsed-only disposition.
+    fi
+    if [ "$should_park" -eq 1 ]; then
       # Doom: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
       # under a HELD gate so the work survives and can be resumed once the
       # underlying issue is cleared, rather than being lost until a human
@@ -824,7 +860,9 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # rather than spawning duplicates — mirroring the keyed maintainer-message
       # dedup below. The signature (deterministic-overrun vs generic requeue
       # exhaustion) keys both the plan provenance and the maintainer notice.
-      if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then sig="deadline-overrun"; else sig="requeue-exhausted"; fi
+      if [ -z "$sig" ]; then
+        if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then sig="deadline-overrun"; else sig="requeue-exhausted"; fi
+      fi
       # doom_count: how many times THIS job has been doom-parked. A re-doom
       # bumps the prior value carried in the existing plan file (idempotent on the
       # spine), so a job repeatedly promoted-and-re-doomed accrues a visible count.
@@ -843,17 +881,44 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # needs the file to resolve its role/stage default; calling it after rm made
       # every role-defaulted doom notice fall back to the flat 2400s fleet default.
       doomed_budget="$(applied_handler_budget "$f")"
+      exec_role="$(plan_role "$f" 2>/dev/null || true)"
+      exec_tier="$(plan_field "$f" tier)"
+      exec_model="$(plan_field "$f" model)"
+      exec_budget_role="$(plan_field "$f" handler-budget-role)"
+      exec_timeout="$(plan_field "$f" handler-timeout)"
       {
         printf -- '---\n'
         printf 'gate: go-ahead\n'
         printf 'priority: normal\n'
-        printf 'doomed: true\n'
-        printf 'doom_signature: %s\n' "$sig"
-        printf 'doom_count: %s\n'     "$pcount"
+        [ -n "$exec_role" ] && printf 'role: %s\n' "$exec_role"
+        [ -n "$exec_tier" ] && printf 'tier: %s\n' "$exec_tier"
+        [ -n "$exec_model" ] && printf 'model: %s\n' "$exec_model"
+        [ -n "$exec_budget_role" ] && printf 'handler-budget-role: %s\n' "$exec_budget_role"
+        [ -n "$exec_timeout" ] && printf 'handler-timeout: %s\n' "$exec_timeout"
+        printf 'token-budget: %s\n' "$token_budget"
+        [ -n "$token_epoch" ] && printf 'token-budget-epoch: %s\n' "$token_epoch"
+        if [ "$sig" = over-token-budget ]; then
+          printf 'budget_hold: true\n'
+          printf 'park_reason: over-token-budget\n'
+          printf 'token_budget: %s\n' "$token_budget"
+          printf 'token_spend: %s\n' "$token_spend"
+          printf 'parked_for_budget_at: %s\n' "$(date -u +%FT%TZ)"
+          printf 'budget_window_seconds: %s\n' "$GARDEN_TOKEN_WINDOW_SECS"
+          reset_at="$(plan_field "$f" budget-resets-at)"
+          [ -n "$reset_at" ] && printf 'budget_resets_at: %s\n' "$reset_at"
+        else
+          printf 'doomed: true\n'
+          printf 'doom_signature: %s\n' "$sig"
+          printf 'doom_count: %s\n'     "$pcount"
+        fi
         printf 'requeue_cycles: %s\n'   "$count"
         printf 'deadline_overruns: %s\n' "$overrun"
-        printf 'doomed_at: %s\n'      "$(date -u +%FT%TZ)"
-        printf 'doomed_on: %s\n'      "$GARDEN"
+        if [ "$sig" = over-token-budget ]; then
+          printf 'parked_on: %s\n' "$GARDEN"
+        else
+          printf 'doomed_at: %s\n' "$(date -u +%FT%TZ)"
+          printf 'doomed_on: %s\n' "$GARDEN"
+        fi
         printf 'posted_by: reaper:%s\n' "$GARDEN"
         printf 'posted_at: %s\n'        "$(date -u +%FT%TZ)"
         printf -- '---\n\n'
@@ -866,6 +931,8 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       DOOM_BASE+=("$spine"); DOOM_BODY+=("$body"); DOOM_COUNT+=("$count")
       DOOM_OVERRUN+=("$overrun"); DOOM_SIG+=("$sig")
       DOOM_BUDGET+=("$doomed_budget")
+      DOOM_TOKEN_BUDGET+=("$token_budget"); DOOM_TOKEN_SPEND+=("$token_spend")
+      DOOM_PROGRESS+=("$progress")
     else
       # A stale Moonshot claim is an already-running automatic job, not a new
       # dispatch. Never touch a live doin claim before it reaches this reaper path;
@@ -939,7 +1006,17 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       povr="${DOOM_OVERRUN[$i]:-0}"
       psig="${DOOM_SIG[$i]:-requeue-exhausted}"
       pbudget="${DOOM_BUDGET[$i]:-${GARDEN_HANDLER_TIMEOUT:-2400}}"
-      if [ "$povr" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
+      if [ "$psig" = over-token-budget ]; then
+        log "BUDGET HOLD: '$pbase' spent ${DOOM_TOKEN_SPEND[$i]} output token(s) against ${DOOM_TOKEN_BUDGET[$i]}; parked until quota-window refresh"
+        pbody="$(
+          printf 'Job PARKED in jobs/plan/ (held, gate=go-ahead) after reaching its notional token budget.\n'
+          printf 'Recorded output spend: %s token(s); budget: %s token(s); progress verdict: %s.\n' \
+                 "${DOOM_TOKEN_SPEND[$i]}" "${DOOM_TOKEN_BUDGET[$i]}" "${DOOM_PROGRESS[$i]}"
+          printf 'This is a budget hold, not a doom verdict. garden-budget-refresh promotes it after the recorded quota window refreshes.\n'
+          printf 'The work is preserved at jobs/plan/%s.\n' "$pbase"
+        )"
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+      elif [ "$povr" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
         # Early-escalation doom (the gardener stamped the deadline-overrun counter).
         # The counter is stamped from TWO gardener paths that the reaper cannot tell
         # apart here — a GENUINE wall-clock overrun (rc=124 at the handler budget) and
@@ -995,4 +1072,4 @@ if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$staged" -ne 0 ]; then
   log "FAILED to land requeue of ${#STALE[@]} stale claim(s) after $GARDEN_REAP_PUSH_ATTEMPTS attempts"
   exit 1
 fi
-log "reaped $reaped stale claim(s); doomed $doomed"
+log "reaped $reaped stale claim(s); parked $doomed held claim(s) (doom or budget)"

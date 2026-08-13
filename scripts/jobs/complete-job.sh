@@ -1,7 +1,7 @@
 #!/bin/bash
 # complete-job.sh — consumer primitive: finish a job, doin → tada (report).
 #
-# Usage: complete-job.sh [--orchestration-failed] <gardener-id> <basename> <report-file>
+# Usage: complete-job.sh [--orchestration-failed|--handed-off BASE] <gardener-id> <basename> <report-file>
 #   Removes jobs/doin/<basename> and writes jobs/tada/<basename> from
 #   <report-file>, under the SAME reserved basename.
 #   --orchestration-failed strips the exact worker failure signal (when present)
@@ -19,11 +19,12 @@ source "$HERE/common.sh"
 source "$HERE/auction.sh"     # reputation.sh helpers + JOBS_BIDS (source-once guarded)
 
 orchestration_failed=false
-if [ "${1:-}" = "--orchestration-failed" ]; then
-  orchestration_failed=true
-  shift
-fi
-id="${1:?usage: complete-job.sh [--orchestration-failed] <gardener-id> <basename> <report-file>}"
+handed_off=""
+case "${1:-}" in
+  --orchestration-failed) orchestration_failed=true; shift ;;
+  --handed-off) handed_off="${2:?--handed-off needs a successor basename}"; shift 2 ;;
+esac
+id="${1:?usage: complete-job.sh [--orchestration-failed|--handed-off BASE] <gardener-id> <basename> <report-file>}"
 base="${2:?missing basename}"
 report="${3:?missing report-file}"
 # The completing worker's kind, inherited from the spine (gardener.sh exports it).
@@ -31,6 +32,7 @@ KIND="${GARDEN_WORKER_KIND:-gardener}"
 GARDEN_TAG="done/$id"
 [ -f "$report" ] || die "report file not found: $report"
 case "$base" in -*|*/*|.*|'') die "illegal basename: '$base'";; esac
+case "$handed_off" in -*|*/*|.*|*' '*) die "illegal handoff successor: '$handed_off'";; esac
 
 DIR="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}"
 ensure_clone "$DIR"
@@ -141,6 +143,20 @@ for attempt in $(seq 1 100); do
     # choices in the human report cannot change the child disposition.
     sed -i "/^${GARDEN_ORCHESTRATION_FAILURE_MARKER}$/d" "$DIR/$JOBS_TADA/$base.md"
     sed -i '1i---\norchestration-failed: true\n---' "$DIR/$JOBS_TADA/$base.md"
+  fi
+  if [ -n "$handed_off" ]; then
+    # A declared handoff is completion of the TRANSFER, not of the original
+    # deliverable. Require durable evidence that the named successor was posted
+    # before allowing doin -> tada, then stamp the disposition mechanically.
+    if ! job_in_lifecycle "$DIR" "$handed_off" \
+       && [ ! -e "$DIR/$JOBS_ORCH/$handed_off.md" ]; then
+      die "handoff successor '$handed_off' is not durably posted on the board"
+    fi
+    handoff_marker="$GARDEN_HANDOFF_MARKER_PREFIX $handed_off>>>"
+    awk -v marker="$handoff_marker" '$0 != marker { print }' "$DIR/$JOBS_TADA/$base.md" \
+      > "$DIR/$JOBS_TADA/$base.md.handoff" \
+      && mv "$DIR/$JOBS_TADA/$base.md.handoff" "$DIR/$JOBS_TADA/$base.md"
+    sed -i "1i---\nhanded-off: $handed_off\ndeliverable-complete: false\n---" "$DIR/$JOBS_TADA/$base.md"
   fi
   # The final engagement rides this same completion CAS.  Only append while the
   # doin claim exists: a retry after a successful transition must re-stamp the

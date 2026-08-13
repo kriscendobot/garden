@@ -68,6 +68,14 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   [orchestration](../../skills/orchestration/SKILL.md).
 - **Watch your inbox while you work.** A maintainer reply or a peer message can
   arrive mid-job; poll `inbox-read.sh <your-base>`.
+- **A deadline handoff is an evidenced disposition, not a clean completion.** Post
+  one sequential successor with `post-job.sh`, or park separable children and post
+  their orchestration, before emitting the exact handed-off marker named in the
+  worker prompt. Completion verifies the successor and stamps `handed-off:` plus
+  `deliverable-complete: false`; without that durable successor, leave the job
+  unfinished so it requeues. Use `post-plan.sh --budget-hold` when the successor
+  should return automatically after quota refresh; generic `--go-ahead` still
+  requires maintainer authorization.
 - To reach the user, `message-user.sh <your-base>` — the liaison surfaces it and
   routes any reply back into your inbox.
 - Before submitting to CI, err toward running **all** evaluation scripts

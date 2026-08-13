@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden budget-hold quota-window refresh promoter
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-budget-refresh -- @GARDEN_ROOT@/scripts/jobs/budget-refresh.sh
+TimeoutStartSec=900

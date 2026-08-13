@@ -296,7 +296,11 @@ change on a watched repo, or a job you post directly) and becomes a board
 entry: `todo/` → claimed to `doin/` → report in `tada/`. From there the
 follow-up service reads each completed report's `## Follow-ups` section and
 turns actionable ones into new jobs, schedules, or messages to you — the
-board feeds itself. If the issue implies design work, the design→build
+board feeds itself. A worker approaching its deadline does not need to falsely
+complete to use that surface: it can durably post one sequential successor or a
+parked orchestration, then complete the transfer with a mechanically stamped
+`handed-off:` disposition while `deliverable-complete: false` remains explicit.
+If the issue implies design work, the design-to-build
 pipeline above takes over: a poller notices approved designs with no tracking
 PR and posts the build. When the board empties entirely, the **foreman** looks
 at the current milestone and posts its next most important unblocked step, so

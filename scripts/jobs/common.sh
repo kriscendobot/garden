@@ -3461,6 +3461,7 @@ reap_process_group() {
 # gardener.sh reads only the sentinel: present → complete; absent → requeue.
 GARDEN_COMPLETION_MARKER='<<<GARDEN-JOB-COMPLETE>>>'
 GARDEN_ORCHESTRATION_FAILURE_MARKER='<<<GARDEN-ORCHESTRATION-FAILED>>>'
+GARDEN_HANDOFF_MARKER_PREFIX='<<<GARDEN-JOB-HANDED-OFF:'
 
 # report_has_completion_marker <report-file> — 0 iff the report's LAST non-blank
 # line is exactly the completion marker (the worker's final deterministic act).
@@ -3505,6 +3506,28 @@ report_has_orchestration_failure_marker() {
   [ -f "$f" ] || return 1
   last="$(awk 'NF{l=$0} END{print l}' "$f")"
   [ "$last" = "$GARDEN_ORCHESTRATION_FAILURE_MARKER" ]
+}
+
+# report_handoff_successor <report-file>: print the successor basename iff the
+# report's last non-blank line is the exact handoff disposition marker. Handlers
+# have already stripped the completion marker, so an honest unfinished handoff
+# ends with these two lines:
+#   <<<GARDEN-JOB-HANDED-OFF: successor-base>>>
+#   <<<GARDEN-JOB-COMPLETE>>>
+# The basename grammar is deliberately the same narrow spine grammar used by the
+# producer primitives. A quoted marker or one followed by prose is not accepted.
+report_handoff_successor() {
+  local f="${1:-}" last successor
+  [ -f "$f" ] || return 1
+  last="$(awk 'NF{l=$0} END{print l}' "$f")"
+  case "$last" in
+    "${GARDEN_HANDOFF_MARKER_PREFIX} "*'>>>') ;;
+    *) return 1 ;;
+  esac
+  successor="${last#"$GARDEN_HANDOFF_MARKER_PREFIX "}"
+  successor="${successor%>>>}"
+  case "$successor" in -*|*/*|.*|*' '*|'') return 1 ;; esac
+  printf '%s\n' "$successor"
 }
 
 # Marker the reaper stamps into a requeued job body to count requeue cycles. It
@@ -5143,6 +5166,82 @@ applied_handler_budget() {
     fi
   fi
   printf '%s\n' "$budget"
+}
+
+# --- per-role notional token budget -----------------------------------------
+#
+# This bounds repeated resume cycles, not one model call. It is intentionally
+# separate from the handler wall: elapsed time still guarantees single ownership;
+# token spend chooses whether an already-dead claim is requeued or held. The
+# reaper compares OUTPUT tokens (the generative progress signal specified by the
+# liveness design), while deadline-nudge also reports billable input + output +
+# cache-creation spend so a worker sees the same quantity campaign budgets use.
+: "${GARDEN_TOKEN_BUDGET_DEFAULT:=100000}"
+: "${GARDEN_TOKEN_BUDGET_LARGE:=250000}"
+: "${GARDEN_PROGRESS_MIN_OUTPUT_TOKENS:=2000}"
+
+role_default_token_budget() {
+  case "${1:-}" in
+    designer|builder|web-builder|review|panel|shepherd|conductor|botanist)
+      printf '%s\n' "$GARDEN_TOKEN_BUDGET_LARGE" ;;
+    *) printf '%s\n' "$GARDEN_TOKEN_BUDGET_DEFAULT" ;;
+  esac
+}
+
+applied_token_budget() {
+  local jf="${1:-}" role requested
+  role="$(plan_field "$jf" handler-budget-role)"
+  [ -n "$role" ] || role="$(plan_role "$jf" 2>/dev/null || true)"
+  requested="$(plan_field "$jf" token-budget)"
+  if [[ "$requested" =~ ^[1-9][0-9]*$ ]]; then
+    printf '%s\n' "$requested"
+  else
+    role_default_token_budget "$role"
+  fi
+}
+
+# usage_tokens_since <journal-dir> <base> <iso-cutoff|-> <billable|output>
+# Prints a non-negative integer. Return 2 means the ledger is absent (unknown),
+# and return 1 means it exists but cannot be trusted. Callers must not turn either
+# into a zero-spend claim.
+usage_tokens_since() {
+  local dir="${1:?}" base="${2:?}" cutoff="${3:--}" quantity="${4:-billable}"
+  local ledger="$1/usage/$2.jsonl" filter
+  [ -f "$ledger" ] || return 2
+  command -v jq >/dev/null 2>&1 || return 1
+  case "$quantity" in
+    billable) filter='(($r.input_tokens // 0) + ($r.output_tokens // 0) + ($r.cache_creation_tokens // 0))' ;;
+    output) filter='($r.output_tokens // 0)' ;;
+    *) return 1 ;;
+  esac
+  jq -sre --arg cutoff "$cutoff" "
+    [ .[] | select(\$cutoff == \"-\" or ((.ts? | type) == \"string\" and .ts >= \$cutoff)) ] as \$rows
+    | if any(\$rows[];
+        ((.source? // \"\") == \"none\")
+        or ([.input_tokens?, .output_tokens?, .cache_creation_tokens?]
+            | all(. == null))
+        or ([.input_tokens?, .output_tokens?, .cache_creation_tokens?]
+            | any(. != null and ((type != \"number\") or . < 0 or floor != .))))
+      then error(\"unmetered or malformed usage row\")
+      else reduce \$rows[] as \$r (0; . + $filter)
+      end
+  " "$ledger" 2>/dev/null
+}
+
+# job_progress_verdict <journal-dir> <base> <job-file> <claimed-at>
+# HEAD progress is carried by the productive-cycle marker; token liveness is the
+# current claim's recorded output. Missing/malformed accounting is conservative.
+job_progress_verdict() {
+  local dir="$1" base="$2" jf="$3" claimed_at="$4" out
+  has_productive_cycle_hint "$jf" && { printf 'advancing\n'; return 0; }
+  if ! out="$(usage_tokens_since "$dir" "$base" "$claimed_at" output 2>/dev/null)"; then
+    printf 'unknown\n'; return 0
+  fi
+  if [ "$out" -ge "$GARDEN_PROGRESS_MIN_OUTPUT_TOKENS" ]; then
+    printf 'advancing\n'
+  else
+    printf 'wedged\n'
+  fi
 }
 
 # --- kimi-k3-takes-opus-work-with-opus-fallback ------------------------------

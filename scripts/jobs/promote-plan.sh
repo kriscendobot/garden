@@ -98,16 +98,27 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # budget are resolved from the CLAIMED todo file, so dropping them silently
   # demoted every planned designer/builder job to the fleet default model.
   role="$(plan_field "$src" role)"
+  tier="$(plan_field "$src" tier)"
   model="$(plan_field "$src" model)"
+  budget_role="$(plan_field "$src" handler-budget-role)"
   htimeout="$(plan_field "$src" handler-timeout)"
+  token_budget="$(plan_field "$src" token-budget)"
+  budget_epoch="$(plan_field "$src" token-budget-epoch)"
+  if [ "$(plan_field "$src" budget_hold)" = true ]; then
+    budget_epoch="$(date -u +%FT%TZ)"
+  fi
   cleared="$(cycle_marker_summary "$src")"
   mkdir -p "$DIR/$JOBS_TODO"
   {
-    if [ -n "$role$model$htimeout" ]; then
+    if [ -n "$role$tier$model$budget_role$htimeout$token_budget$budget_epoch" ]; then
       printf -- '---\n'
       [ -n "$role" ]     && printf 'role: %s\n' "$role"
+      [ -n "$tier" ]     && printf 'tier: %s\n' "$tier"
       [ -n "$model" ]    && printf 'model: %s\n' "$model"
+      [ -n "$budget_role" ] && printf 'handler-budget-role: %s\n' "$budget_role"
       [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"
+      [ -n "$token_budget" ] && printf 'token-budget: %s\n' "$token_budget"
+      [ -n "$budget_epoch" ] && printf 'token-budget-epoch: %s\n' "$budget_epoch"
       printf -- '---\n'
     fi
     # `at=` stays the LAST timestamp-shaped field consumers key on (orchestrate.sh

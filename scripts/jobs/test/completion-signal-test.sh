@@ -106,6 +106,14 @@ printf '%s\n' "$GARDEN_ORCHESTRATION_FAILURE_MARKER" 'more prose' > "$r"
 report_has_orchestration_failure_marker "$r" \
   && bad "mid-report failure signal was accepted" \
   || ok "failure signal is last-line-anchored"
+printf 'partial\n%s\n' '<<<GARDEN-JOB-HANDED-OFF: successor-job>>>' > "$r"
+[ "$(report_handoff_successor "$r")" = successor-job ] \
+  && ok "exact final handoff signal yields its successor basename" \
+  || bad "handoff signal was not parsed"
+printf '%s\n' '<<<GARDEN-JOB-HANDED-OFF: successor-job>>>' 'more prose' > "$r"
+report_handoff_successor "$r" >/dev/null \
+  && bad "mid-report handoff signal was accepted" \
+  || ok "handoff signal is last-line-anchored"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — (b) handler exits 0 WITH the signal → completed to tada"; hr
@@ -139,6 +147,44 @@ V2A="$T2A/verify"; git clone -q --single-branch --branch journal2 "$BARE2A" "$V2
   && ok "gardener/complete-job translated the exact signal into parsed frontmatter" \
   || bad "failure signal was not translated cleanly ($(sed -n '1,8p' "$V2A/jobs/tada/failedchild.md" 2>/dev/null | tr '\n' '|'))"
 rm -rf "$T2A"
+
+# ============================================================================
+hr; echo "SUBTEST 2B: evidenced handoff signal becomes a mechanically stamped partial disposition"; hr
+T2B="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2b.XXXXXX")"
+BARE2B="$(seed_board "$T2B" handoffjob)"
+U2B="$T2B/update"; git clone -q --single-branch --branch journal2 "$BARE2B" "$U2B"
+printf 'successor owns the remainder\n' > "$U2B/jobs/todo/successor-job.md"
+git -C "$U2B" add jobs/todo/successor-job.md
+git -C "$U2B" -c user.name=test -c user.email=test@localhost commit -q -m 'post successor'
+git -C "$U2B" push -q origin HEAD:journal2
+env GARDEN="handoffhost" GARDEN_STATE="$T2B/state" JOURNAL_REMOTE="$BARE2B" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=successor-job GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2B/gardener.log" 2>&1 || true
+V2B="$T2B/verify"; git clone -q --single-branch --branch journal2 "$BARE2B" "$V2B" 2>/dev/null
+{ [ -f "$V2B/jobs/tada/handoffjob.md" ] \
+  && sed -n '1,4p' "$V2B/jobs/tada/handoffjob.md" | grep -qx 'handed-off: successor-job' \
+  && sed -n '1,4p' "$V2B/jobs/tada/handoffjob.md" | grep -qx 'deliverable-complete: false' \
+  && ! grep -qF '<<<GARDEN-JOB-HANDED-OFF:' "$V2B/jobs/tada/handoffjob.md"; } \
+  && ok "gardener/complete-job translated an evidenced handoff into partial-disposition frontmatter" \
+  || bad "handoff signal was not translated cleanly ($(sed -n '1,8p' "$V2B/jobs/tada/handoffjob.md" 2>/dev/null | tr '\n' '|'))"
+rm -rf "$T2B"
+
+# ============================================================================
+hr; echo "SUBTEST 2C: an unposted handoff is rejected and remains unfinished"; hr
+T2C="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2c.XXXXXX")"
+BARE2C="$(seed_board "$T2C" unevidenced)"
+env GARDEN="handoffhost" GARDEN_STATE="$T2C/state" JOURNAL_REMOTE="$BARE2C" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=missing-successor GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2C/gardener.log" 2>&1 || true
+V2C="$T2C/verify"; git clone -q --single-branch --branch journal2 "$BARE2C" "$V2C" 2>/dev/null
+{ [ -f "$V2C/jobs/doin/unevidenced.md" ] \
+  && [ ! -e "$V2C/jobs/tada/unevidenced.md" ] \
+  && grep -q "not durably posted" "$T2C/gardener.log"; } \
+  && ok "missing successor blocked the handoff completion and left the claim unfinished" \
+  || bad "unevidenced handoff escaped the durable-successor gate"
+rm -rf "$T2C"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → requeued, NOT tada"; hr

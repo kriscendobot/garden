@@ -2,7 +2,7 @@
 
 | Created | 2026-08-12 |
 | Author  | designer (gardener) |
-| Status  | Proposed |
+| Status  | Implemented (2026-08-13) |
 
 Maintainer directive (kriskowal, 2026-08-12), verbatim:
 
@@ -358,3 +358,25 @@ trade is right, and it is exactly the maintainer's ask:
 Suggested shape: an **orchestration job** (`orch-liveness-progress-reaping`, serial,
 `on-child-failure: halt`) with the four above parked as children, so Phase N+1 promotes
 only after Phase N reaches `tada/` — the standing multi-part decomposition pattern.
+
+## Implementation note (2026-08-13)
+
+The implementation landed the phases together because the deadline-handoff job
+required an end-to-end park and refresh test. `GARDEN_PROGRESS_DOOM` therefore
+defaults to `on`; setting it to `off` is the immediate rollback. No separate journal
+arming flag was added. The destination decision is local to the already-synced reaper
+clone and has the environment kill switch, while a second flag would let hosts
+disagree during a mixed-version rollout.
+
+The shipped role defaults are static starting values (100,000 ordinary and 250,000
+large-role output tokens). Calibration from completed-job percentiles remains an
+operator tuning task. The refresh promoter uses a parseable `budget_resets_at` when
+present. Otherwise it waits the recorded rolling window and requires the local quota
+meter not to report backoff. Provider refusals are represented by the existing
+absolute `garden-provider-quota-backoff` marker after the provider's reset clause is
+parsed; deadline nudges report that typed exhausted state and reset directly.
+
+Promotion stamps a fresh `token-budget-epoch`. Later disposition sums output tokens
+from that epoch, not from the job's first lifetime engagement. Without a new epoch,
+a resumed job would remain over its old notional cap and park again at the next wall,
+making quota refresh unable to grant a usable new work allowance.

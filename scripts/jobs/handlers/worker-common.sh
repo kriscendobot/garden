@@ -119,6 +119,18 @@ worker_job_prompt() {
   local role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
   local jobs_dir="$GARDEN_ROOT/scripts/jobs"
   local note; note="$(worker_worktree_note "$base" "$worktree" "$main_branch")"
+  local handoff_note
+  handoff_note="$(cat <<EOF
+HONEST HANDOFF SIGNAL: If the core deliverable is unfinished but you have durably
+posted a named successor job or orchestration that owns all remaining work, you
+may complete this attempt as a declared handoff. Report evidence, then emit
+    <<<GARDEN-JOB-HANDED-OFF: successor-base>>>
+immediately BEFORE the completion signal. The machinery verifies the successor
+exists and stamps \`handed-off: successor-base\` plus
+\`deliverable-complete: false\`. Never use this for an unposted follow-up or as a
+clean-completion claim.
+EOF
+)"
   if [ "$mode" = resume ]; then
     cat <<EOF
 You are RESUMING garden job '$base' after a reaper requeue: your earlier session
@@ -142,6 +154,8 @@ gated outcome required by an orchestration, emit the exact line
 immediately BEFORE the completion signal. Do not type an
 \`orchestration-failed:\` field into prose. The completion machinery stamps that
 field into report frontmatter from this exact signal.
+
+$handoff_note
 
 $note
 
@@ -179,6 +193,8 @@ immediately BEFORE the completion signal. Do not type an
 \`orchestration-failed:\` field into prose. The completion machinery stamps that
 field into report frontmatter from this exact signal.
 
+$handoff_note
+
 $note
 
 ----- JOB $base -----
@@ -206,6 +222,8 @@ gated outcome required by an orchestration, emit the exact line
 immediately BEFORE the completion signal. Do not type an
 \`orchestration-failed:\` field into prose. The completion machinery stamps that
 field into report frontmatter from this exact signal.
+
+$handoff_note
 
 $note
 

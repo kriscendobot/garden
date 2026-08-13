@@ -29,17 +29,21 @@
 # It becomes work only when promote-plan.sh moves plan/<base> → todo/<base>.
 #
 # Usage:
-#   post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated]
+#   post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated|--budget-hold]
 #                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
+#                [--budget-resets-at ISO]
 #                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 #
-#   --go-ahead / --deferred / --blocked / --orchestrated
+#   --go-ahead / --deferred / --blocked / --orchestrated / --budget-hold
 #                            the gate reason. Default: --deferred (the common
 #                            producer action is to park; the others are explicit).
 #   --blocked-on ARTIFACT    the blocker for a --blocked job: a PR URL or a job
 #                            basename. Required with --blocked; illegal otherwise.
 #   --orchestrated-by ORCH   the owning orchestration base for an --orchestrated
 #                            child. Required with --orchestrated; illegal otherwise.
+#   --budget-hold            a go-ahead plan held specifically for quota refresh;
+#                            the budget-refresh watcher may promote this subset.
+#   --budget-resets-at ISO   optional parseable provider reset for --budget-hold.
 #   --priority LEVEL         urgent|high|normal|low (default normal). The
 #                            selection key the foreman uses for deferred jobs.
 #   --roadmap ITEM           optional roadmap item / milestone this serves, so a
@@ -98,11 +102,14 @@ usage() {
 post-plan.sh — park a job in the board's plan/ category (not yet claimable).
 
 Usage:
-  post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated]
+  post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated|--budget-hold]
                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
+               [--budget-resets-at ISO]
                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 
   --go-ahead / --deferred / --blocked / --orchestrated  the gate reason (default --deferred).
+  --budget-hold            park under go-ahead for automatic quota-window refresh.
+  --budget-resets-at ISO   optional parseable reset timestamp for --budget-hold.
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
   --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
                            A failed child ends its report with the exact lines
@@ -124,6 +131,8 @@ priority="normal"
 roadmap=""
 blocked_on=""
 orchestrated_by=""
+budget_hold=false
+budget_resets_at=""
 role=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
@@ -133,6 +142,8 @@ while [ $# -gt 0 ]; do
     --deferred)   gate="deferred"; shift;;
     --blocked)    gate="blocked"; shift;;
     --orchestrated) gate="orchestrated"; shift;;
+    --budget-hold)  gate="go-ahead"; budget_hold=true; shift;;
+    --budget-resets-at) budget_resets_at="${2:?--budget-resets-at needs an ISO timestamp}"; shift 2;;
     --blocked-on) blocked_on="${2:?--blocked-on needs a value}"; shift 2;;
     --orchestrated-by) orchestrated_by="${2:?--orchestrated-by needs a value}"; shift 2;;
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
@@ -168,6 +179,15 @@ if [ "$gate" = "orchestrated" ] && [ -z "$orchestrated_by" ]; then
 fi
 if [ "$gate" != "orchestrated" ] && [ -n "$orchestrated_by" ]; then
   die "--orchestrated-by is only valid with --orchestrated"
+fi
+if $budget_hold && [ "$gate" != go-ahead ]; then
+  die "--budget-hold cannot be combined with another gate"
+fi
+if [ -n "$budget_resets_at" ] && ! $budget_hold; then
+  die "--budget-resets-at is only valid with --budget-hold"
+fi
+if [ -n "$budget_resets_at" ] && ! date -u -d "$budget_resets_at" +%s >/dev/null 2>&1; then
+  die "--budget-resets-at must be a parseable timestamp"
 fi
 
 # Body source guard: a non-empty body arg that is not a readable file is almost
@@ -215,6 +235,13 @@ rm -f "$CLEARED_TMP"; trap - EXIT
 compose() {
   printf -- '---\n'
   printf 'gate: %s\n' "$gate"
+  if $budget_hold; then
+    printf 'budget_hold: true\n'
+    printf 'park_reason: over-token-budget\n'
+    printf 'parked_for_budget_at: %s\n' "$(date -u +%FT%TZ)"
+    printf 'budget_window_seconds: %s\n' "$GARDEN_TOKEN_WINDOW_SECS"
+    [ -n "$budget_resets_at" ] && printf 'budget_resets_at: %s\n' "$budget_resets_at"
+  fi
   [ -n "$blocked_on" ] && printf 'blocked_on: %s\n' "$blocked_on"
   [ -n "$orchestrated_by" ] && printf 'orchestrated_by: %s\n' "$orchestrated_by"
   printf 'priority: %s\n' "$priority"
