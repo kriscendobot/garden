@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:22:35Z_
+_As of 2026-08-13T22:24:02Z_
 
 ## Latest
 
@@ -6739,25 +6739,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 60.1M | $989.86 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+800.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
+| Codex | 23.6M _(+800.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit-focused-20260813-222003.md) — context-graph-size-audit-focused (recurring)
+### doin (3)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #980
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
 
-### tada (4574)
+### tada (4575)
+- [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused-20260813-222003.md) — Cost
 - [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestrate-serial-order-violation.md) — Cost
 - [`reorg-context-library-batch-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-library-batch-1.md) — orchestration reorg-context-library-batch-1 — complete
 - [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-local-inference-amd.md) — Completion report
 - [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-skill-local-verify.md) — What I did
-- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Completion report
-- … and 4569 more
+- … and 4570 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
