@@ -27,3 +27,13 @@ Freshly fetch current origin/llm and the pull-request head in an isolated read-o
 5. migrate only its durable prompt/history into the garden journal.
 
 Use fully qualified https://github.com/owner/repo/... URLs for every GitHub reference. Report the freshly observed origin/llm SHA, PR-head SHA, disposition, evidence, and any associated TODO/TADA/PLAN history worth leaving behind or migrating. This job is read-only: do not modify project files or branches, push, open or edit anything, or post to GitHub.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T21:41:36Z
