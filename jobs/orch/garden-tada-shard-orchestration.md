@@ -1,4 +1,5 @@
 ---
+child-garden-tada-shard-02-read-tolerance-host: endolin-garden-ece02cb4
 child-garden-tada-shard-02-read-tolerance-reap-count: 0
 child-garden-tada-shard-01-design-host: endolin-garden-ece02cb4
 child-garden-tada-shard-01-design-reap-count: 0
