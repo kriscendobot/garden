@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T00:57:55Z_
+_As of 2026-08-13T00:58:37Z_
 
 ## Latest
 
@@ -3567,6 +3567,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The conductor will not merge without a current maintainer approval. Please re-review/re-approve [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) at head 40afbd62 and re-post the merge, and it will land immediately.
 > [https://github.com/endojs/endo-but-for-bots/pull/403](https://github.com/endojs/endo-but-for-bots/pull/403)
 
+- `20260813T005810Z-6e830f` — from orchestrator:pr403-chain-20260813-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T005810Z-6e830f.md)
+
+> Orchestration pr403-chain-20260813 HALTED: child pr403-conduct-20260813 vanished from the board (serial, on-child-failure=halt). 2/3 done before halt; swept: none
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6723,13 +6727,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
 
-### tada (4468)
+### tada (4469)
+- [`pr403-chain-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-chain-20260813.md) — orchestration pr403-chain-20260813 — HALTED
 - [`pr403-conduct-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-conduct-20260813.md) — conduct #403 — completion report
 - [`pr403-shepherd-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-shepherd-20260813.md) — Cost
 - [`pr403-weave-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-weave-20260813.md) — Cost
 - [`endojs-endo-but-for-bots-pr978-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr978-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #978
-- [`deadmail-20260812T235216Z-ca9637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T235216Z-ca9637.md) — Completion report — dead-letter pickup for endo-upstream-llm-retention-set-pe...
-- … and 4463 more
+- … and 4464 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
