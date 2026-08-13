@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T23:52:34Z_
+_As of 2026-08-13T23:53:47Z_
 
 ## Latest
 
@@ -6790,14 +6790,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.7M | $981.41 _(notional, rate-card)_ | no quota set |
-| Codex | 24.0M _(+797.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Claude | 59.7M | $981.55 _(notional, rate-card)_ | no quota set |
+| Codex | 24.0M _(+796.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr981-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr981-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #981
 
 ### tada (4589)
