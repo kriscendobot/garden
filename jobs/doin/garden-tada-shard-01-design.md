@@ -57,3 +57,13 @@ enumerable with `grep -rln -E 'JOBS_TADA|jobs/tada' scripts/`) and flag the ones
 where a subtle break is dangerous rather than noisy — `post-job.sh` idempotency,
 `orchestrate.sh` child-completion detection, `follow-up.sh` report scanning,
 `unblock.sh`, and `gauntlet.sh`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T21:31:07Z
