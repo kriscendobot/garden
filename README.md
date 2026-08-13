@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:22:35Z_
+_As of 2026-08-13T21:23:58Z_
 
 ## Latest
 
@@ -6730,8 +6730,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.6M | $999.72 _(notional, rate-card)_ | no quota set |
-| Codex | 22.0M _(+754.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 61.6M | $1000.70 _(notional, rate-card)_ | no quota set |
+| Codex | 22.0M _(+758.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6743,17 +6743,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr124-review-01d36f3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-01d36f3a.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
+- [`garden-deadline-nudge-handoff-and-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-deadline-nudge-handoff-and-budget.md) — Evidence: the mechanism runs and still fails
 - [`quota-limit-type-differentiation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/quota-limit-type-differentiation.md) — Differentiate session/usage/5-hour vs weekly quota-limit refusals
 
-### tada (4519)
+### tada (4520)
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents.md) — Cost
 - [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-09-proxy-mop.md) — Completion report
 - [`endojs-endo-but-for-bots-pr152-review-c8f113d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr152-review-c8f113d5.md) — Review on endojs/endo-but-for-bots #152 — resolved
 - [`ebfb-pr700-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr700-integrate-endo-ascii.md) — Completion report
 - [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr943-6a74672c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-6a74672c.md) — Cost
-- … and 4514 more
+- … and 4515 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
