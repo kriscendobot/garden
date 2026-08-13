@@ -1,1 +1,2 @@
 {"ts":"2026-08-13T21:10:35Z","base":"ebfb-pr475-integrate-endo-ascii-r2","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":60}
+{"source":"result","model":"claude-opus-4-8","num_turns":56,"elapsed_s":798,"input_tokens":96,"output_tokens":48710,"cache_creation_tokens":103961,"cache_read_tokens":4011013,"total_cost_usd":4.2659505,"ts":"2026-08-13T21:26:38Z","base":"ebfb-pr475-integrate-endo-ascii-r2","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}
