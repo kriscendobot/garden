@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T18:35:10Z_
+_As of 2026-08-13T18:41:45Z_
 
 ## Latest
 
@@ -6726,14 +6726,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.0M | $983.23 _(notional, rate-card)_ | no quota set |
-| Codex | 19.7M _(+668.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 61.0M | $984.70 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+672.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Design: integrate @endo/ascii into the PRs/sites that motivated it
 - [`endojs-endo-but-for-bots-pr943-review-f464f894`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-review-f464f894.md) — Review directive on endojs/endo-but-for-bots PR #943
 - [`ironhorse-js-08-async-generators-for-await`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-08-async-generators-for-await.md) — Complete async generators and for-await-of
 
