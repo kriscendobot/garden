@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T23:07:36Z_
+_As of 2026-08-13T23:08:54Z_
 
 ## Latest
 
@@ -6790,24 +6790,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.8M | $984.22 _(notional, rate-card)_ | no quota set |
-| Codex | 23.9M _(+802.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
+| Claude | 59.7M | $981.92 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+803.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #980
-- [`kriscendobot-minion.town-pr28-review-aa455b97`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-review-aa455b97.md) — Review directive on kriscendobot/minion.town PR #28
 
-### tada (4585)
+### tada (4586)
+- [`kriscendobot-minion.town-pr28-review-aa455b97`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-review-aa455b97.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260813-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260813-230502.md) — Cost
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-llm-retire-genie-package.md) — Completion report
 - [`ironhorse-resume-6-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-resume-6-launch.md) — Report
 - [`kriscendobot-minion.town-pr28-review-a4dd8f2f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-review-a4dd8f2f.md) — Completion report
-- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1.md) — Cost
-- … and 4580 more
+- … and 4581 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
