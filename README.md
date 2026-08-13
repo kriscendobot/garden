@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:15:59Z_
+_As of 2026-08-13T21:17:13Z_
 
 ## Latest
 
@@ -6730,17 +6730,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.5M | $994.62 _(notional, rate-card)_ | no quota set |
-| Codex | 21.6M _(+741.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
+| Claude | 61.5M | $995.46 _(notional, rate-card)_ | no quota set |
+| Codex | 21.7M _(+742.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (10)
 - [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
 - [`ebfb-pr475-integrate-endo-ascii-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii-r2.md) — The work
 - [`endojs-endo-but-for-bots-pr124-review-01d36f3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-01d36f3a.md) — Review directive on endojs/endo-but-for-bots PR #124
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts.md) — ---
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core.md) — ---
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
 - [`endojs-endo-but-for-bots-pr152-review-c8f113d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr152-review-c8f113d5.md) — Review directive on endojs/endo-but-for-bots PR #152
 - [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-09-proxy-mop.md) — Implement Proxy completely over the object MOP
