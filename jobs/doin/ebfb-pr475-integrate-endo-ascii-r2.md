@@ -55,3 +55,13 @@ package, so that part may be settled — verify rather than assume.
   attempt decomposes on evidence instead of guessing.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T21:13:13Z
