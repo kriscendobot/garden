@@ -21,3 +21,7 @@ Base this change on llm after pull request 943 merges, using a frozen llm snapsh
 <!-- garden-annotation: key=ascii-site-ocapn-hub by=designer at=2026-08-13T18:52:14Z -->
 
 Additional genuine site: packages/ocapn/src/hub/hub.js swissnumHex currently feeds string-form swissnums through TextEncoder without the ASCII contract. Replace that branch with encodeAscii (or the canonical validated swissnum helper if its branded result is accepted) and add a non-ASCII rejection test while preserving raw Uint8Array and ArrayBufferLike branches.
+
+<!-- garden-annotation: key=ascii-site-ocapn-session-prefix by=designer at=2026-08-13T18:52:53Z -->
+
+Also replace packages/ocapn/src/cryptography.js sessionIdHashPrefixBytes TextEncoder encoding of the ASCII protocol prefix prot0 with encodeAscii. This removes the file module-load dependency on the TextEncoder host global; the same file already needs encodeAscii for LOCATION_SIG_DOMAIN.
