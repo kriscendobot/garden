@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr149-review-13c87bef-status
-priority: normal
 role: fixer
-posted_by: designer
-posted_at: 2026-08-13T21:38:53Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-13T22:01:16Z cleared=none -->
 
 ---
 tier: mentor
