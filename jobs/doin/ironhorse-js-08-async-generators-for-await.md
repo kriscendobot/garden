@@ -28,3 +28,13 @@ Regression invariant: no case that is covered in the starting report or by any e
 issue_spine: issue-kriscendobot-garden-51
 issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315524
 submitter: kriscendobot
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T18:28:08Z
