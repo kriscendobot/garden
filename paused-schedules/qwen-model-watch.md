@@ -44,7 +44,7 @@ tell which model that week's verdict was measured against. (A hardcoded
 what produced the wrong conclusion in report `qwen-model-watch-20260728-180502`.)
 
 ## Our hardware — ground every recommendation in this
-Read `context/operations/local-inference-amd.md`: the box is an AMD Ryzen AI Max+
+Read `context/operations/local-inference-amd/README.md` (and its sibling topic files): the box is an AMD Ryzen AI Max+
 395, Radeon 8060S iGPU **gfx1151** (RDNA 3.5, ROCm 7.2 via ollama's bundled
 runtime), ~50 GiB default GTT budget (raisable toward ~100 GiB), ~125 GiB unified
 RAM. On this iGPU, **MoE + quantized (MXFP4 / Q4 / Q5) models run ~an order of
