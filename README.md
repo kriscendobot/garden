@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T03:00:38Z_
+_As of 2026-08-13T03:02:03Z_
 
 ## Latest
 
@@ -6702,24 +6702,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.3M | $852.65 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+805.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 56.3M | $854.02 _(notional, rate-card)_ | no quota set |
+| Codex | 23.7M _(+805.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260813T025727Z-27834f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260813T025727Z-27834f.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`ebfb-guest-unconfined-from-tree-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #977
 
-### tada (4477)
+### tada (4478)
+- [`deadmail-20260813T025727Z-27834f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260813T025727Z-27834f.md) — Cost
 - [`ebfb-guest-unconfined-from-tree-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet-clean.md) — Completion report
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-e815058c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e815058c.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-8aba7fc3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-8aba7fc3.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-e7ffcbe6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-e7ffcbe6.md) — Cost
-- … and 4472 more
+- … and 4473 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
