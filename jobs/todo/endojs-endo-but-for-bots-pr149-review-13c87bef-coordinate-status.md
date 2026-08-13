@@ -1,11 +1,7 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr149-review-13c87bef-discovery
-priority: normal
 role: designer
-posted_by: gardener
-posted_at: 2026-08-13T21:15:42Z
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-13T21:31:12Z cleared=none -->
 
 ---
 tier: mentor
