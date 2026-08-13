@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:16:50Z_
+_As of 2026-08-13T22:17:57Z_
 
 ## Latest
 
@@ -6758,28 +6758,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.0M | $996.70 _(notional, rate-card)_ | no quota set |
+| Claude | 60.2M | $990.65 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
-- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
+### doin (4)
 - [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-orchestrate-serial-order-violation.md) — What happened (2026-08-13)
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
 - [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reorg-context-local-inference-amd.md) — reorg-context-local-inference-amd
-- [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reorg-skill-local-verify.md) — reorg-skill-local-verify
 
-### tada (4569)
+### tada (4571)
+- [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-skill-local-verify.md) — What I did
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Completion report
 - [`genie-docs-to-journal-orchestration-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration-r2.md) — orchestration genie-docs-to-journal-orchestration-r2 — HALTED
 - [`genie-docs-r2-02-delete-from-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-02-delete-from-llm.md) — Completion report
 - [`genie-docs-r2-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-01-migrate-into-journal.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — Cost
-- … and 4564 more
+- … and 4566 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
