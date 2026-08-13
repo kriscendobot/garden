@@ -55,3 +55,7 @@ draft despite the substantive work being done.
   description; the substantive fix for the deployed defect lives elsewhere.
 
 <!-- garden-deadline-overrun: 1 -->
+
+<!-- garden-annotation: key=e75c9d514225 by=producer at=2026-08-13T04:34:28Z -->
+
+SUPERSEDED — do NOT promote. Steps 1-3 (lint fix) COMPLETED before this job overran: PR 977 head advanced 76b26a3f36 -> cc282686478acc2daeda4f9b2b009a48780b259e ('fixup! test(daemon): exercise full host-only surface from guest and @host') and ALL checks now pass. Only step 4 (gauntlet re-run) remained, and it is owned by job 'ebfb-pr977-gauntlet-rerun' with a 7200s supervisor budget. This job overran precisely because step 4 does not fit one 2400s claim alongside steps 1-3. Promoting it would re-run a lint fix against a stale head and then overrun again. Remove it rather than promoting.
