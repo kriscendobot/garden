@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T02:47:10Z_
+_As of 2026-08-13T02:55:05Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 39s)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 6m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 14d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 14d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -3557,6 +3557,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
+- `20260813T025443Z-6342c1` — from gardener:ebfb-guest-unconfined-from-tree, reply_to `ebfb-guest-unconfined-from-tree` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T025443Z-6342c1.md)
+
+> Completion update: the daemon facet audit is covered by draft [endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/issues/977) (all CI checks passed). The WebSocket issue is confirmed as a minion.town gateway escape, not a daemon Guest-interface leak. A dedicated remediation now exists at private [kriscendobot/minion.town#44](https://github.com/kriscendobot/minion.town/issues/44) with passing CI; it blocks host-shaped resolved bootstraps both on publish and serve, including stale records. Deploying that minion.town change is required to contain the running exposure. I have kept the Endo PR deployment statement minimal and will complete this job as the daemon-side regression/audit handoff.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6702,8 +6706,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.4M | $820.67 _(notional, rate-card)_ | no quota set |
-| Codex | 23.5M _(+804.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 55.4M | $837.78 _(notional, rate-card)_ | no quota set |
+| Codex | 23.6M _(+804.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
