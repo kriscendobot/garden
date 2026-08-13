@@ -38,3 +38,13 @@ for. Do not migrate anything here.
 Prove a newly-completed job lands sharded, that it is found by basename lookup,
 that `orchestrate.sh` sees it as completed, and that `follow-up.sh` harvests its
 `## Follow-ups`. Prove flat historical entries remain readable alongside.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:55:16Z
