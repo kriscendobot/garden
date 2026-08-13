@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:01:57Z_
+_As of 2026-08-13T22:05:59Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 31m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 37m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6746,26 +6746,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.5M | $1003.42 _(notional, rate-card)_ | no quota set |
+| Claude | 61.2M | $999.32 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
 - [`genie-docs-r2-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-r2-01-migrate-into-journal.md) — Relationship to the date-sharding chain (advisory, NOT blocking)
 
-### tada (4564)
+### tada (4566)
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Cost
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — Cost
 - [`ironhorse-test262-implementation-completion-resume-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-4.md) — orchestration ironhorse-test262-implementation-completion-resume-4 — BUDGET E...
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-10-arrays-species.md) — Completion report — ironhorse-js-10-arrays-species
 - [`context-graph-size-audit-focused`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused.md) — Completion report
-- [`garden-tada-shard-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-orchestration.md) — orchestration garden-tada-shard-orchestration — HALTED
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status.md) — orchestration endojs-endo-but-for-bots-pr149-review-13c87bef-status — complete
-- … and 4559 more
+- … and 4561 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
