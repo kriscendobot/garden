@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 977
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ebfb-pr977-gauntlet-r3-panel-1
+current_child: ebfb-pr977-gauntlet-r3-undraft
 state: running
 created_by: ebfb-pr977-gauntlet-3
 created_at: 2026-08-13T16:14:19Z
