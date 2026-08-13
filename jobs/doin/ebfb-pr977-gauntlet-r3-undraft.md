@@ -22,3 +22,13 @@ You are the FINAL stage of a staged gauntlet (ebfb-pr977-gauntlet-r3). The panel
 
 END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T16:29:08Z
