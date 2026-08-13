@@ -65,3 +65,13 @@ pattern in CLAUDE.md tells producers to express exactly this dependency as a
 serial orchestration. If serial does not hold, that guidance is actively
 dangerous, and the next chain may not have a defensive precondition written into
 its body.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T22:10:39Z
