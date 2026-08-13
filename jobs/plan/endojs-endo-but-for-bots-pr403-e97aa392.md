@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+doomed_at: 2026-08-13T00:43:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-13T00:43:03Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -41,16 +55,5 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-reaped: 1 -->
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-12T23:53:11Z
