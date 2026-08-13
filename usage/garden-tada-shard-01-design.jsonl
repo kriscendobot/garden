@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":16,"elapsed_s":297,"input_tokens":27,"output_tokens":18547,"cache_creation_tokens":67698,"cache_read_tokens":814068,"total_cost_usd":1.550492,"ts":"2026-08-13T21:36:41Z","base":"garden-tada-shard-01-design","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer"}
