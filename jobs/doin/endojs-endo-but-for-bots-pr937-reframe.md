@@ -38,3 +38,13 @@ scope — do not close it as superseded.**
 
 Confirm the new title/body, and that CI/mergeability are unaffected by the
 metadata-only change.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T16:17:51Z
