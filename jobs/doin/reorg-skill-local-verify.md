@@ -60,3 +60,13 @@ split the way a `context/` doc would be.
   [no-latin-shorthand](skills/no-latin-shorthand/SKILL.md).
 - This is a child of the `reorg-context-library-batch-1` orchestration; report
   through the normal job-board completion, no separate coordination needed.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T22:11:01Z
