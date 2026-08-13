@@ -51,3 +51,13 @@ not projects).
 - No PR needed; this is a change to the garden's own repo/journal, pushed
   directly per `CLAUDE.md` § Conventions.
 - Still a one-off run, not a schedule.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T21:52:35Z
