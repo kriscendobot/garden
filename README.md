@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:32:35Z_
+_As of 2026-08-13T21:39:22Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 4m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10m)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6730,30 +6730,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.7M | $1004.98 _(notional, rate-card)_ | no quota set |
-| Codex | 22.2M _(+770.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 61.7M | $1008.17 _(notional, rate-card)_ | no quota set |
+| Codex | 22.3M _(+772.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
 - [`endojs-endo-but-for-bots-pr124-review-01d36f3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-01d36f3a.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-coordinate-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-coordinate-status.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
 - [`garden-deadline-nudge-handoff-and-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-deadline-nudge-handoff-and-budget.md) — Evidence: the mechanism runs and still fails
-- [`garden-tada-shard-01-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tada-shard-01-design.md) — What the design must settle
+- [`garden-tada-shard-02-read-tolerance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tada-shard-02-read-tolerance.md) — Tests
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-10-arrays-species.md) — Complete Array construction and prototype algorithms
-- [`quota-limit-type-differentiation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/quota-limit-type-differentiation.md) — Differentiate session/usage/5-hour vs weekly quota-limit refusals
 
-### tada (4525)
+### tada (4527)
+- [`quota-limit-type-differentiation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/quota-limit-type-differentiation.md) — Cost
+- [`garden-tada-shard-01-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-01-design.md) — Completion report
 - [`context-graph-size-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discovery.md) — orchestration endojs-endo-but-for-bots-pr149-review-13c87bef-discovery — comp...
 - [`ebfb-pr475-integrate-endo-ascii-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr475-integrate-endo-ascii-r2.md) — Completion report: ebfb-pr475-integrate-endo-ascii-r2
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts.md) — Discovery artifact — PR #149 "[EXPERIMENT] genie in a bottle" vs origin/llm
-- … and 4520 more
+- … and 4522 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6898,6 +6897,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-report-close`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr149-review-13c87bef-report-close.md) — awaiting `endojs-endo-but-for-bots-pr149-review-13c87bef-status` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
