@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: reorg-context-library-batch-1
-priority: normal
-posted_by: producer
-posted_at: 2026-08-13T22:07:56Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-13T22:10:45Z cleared=none -->
 
 ---
 tier: mentor
