@@ -57,6 +57,9 @@ assert_transient "$INCIDENT" "exact incident string: session limit + reset time"
 assert_transient "YOU'VE HIT YOUR SESSION LIMIT · RESETS 1:10AM (UTC)" "uppercased incident string"
 # Usage-cap wording (the other Claude Code cap phrasing).
 assert_transient "You've hit your usage limit · resets 3:00pm (UTC)" "usage-limit wording + reset time"
+assert_transient "You've hit your weekly limit · resets Aug 15, 3am (UTC)" "weekly-limit wording + reset date"
+assert_transient "You've hit your 5-hour limit · resets 6:00pm (UTC)" "first-person 5-hour-limit wording"
+assert_transient "You've hit your 5-hour limit" "first-person 5-hour limit without a reset clause"
 # The 'limit reached/reset' shapes and the 5-hour framing.
 assert_transient "session limit reached" "'session limit reached'"
 assert_transient "usage limit reset at 12:00am" "'usage limit reset'"
@@ -82,6 +85,9 @@ assert_notcap() { if is_explicit_cap_signature "$1"; then bad "explicit cap (exp
 assert_cap "$INCIDENT" "exact 2026-07-01 incident string"
 assert_cap "You've hit your session limit · resets 2am (UTC)" "exact 2026-07-17 incident string"
 assert_cap "You've hit your usage limit · resets 3:00pm (UTC)" "usage-limit wording"
+assert_cap "You've hit your weekly limit · resets Aug 15, 3am (UTC)" "weekly-limit wording"
+assert_cap "You've hit your 5-hour limit · resets 6:00pm (UTC)" "first-person 5-hour-limit wording"
+assert_cap "You've hit your 5-hour limit" "first-person 5-hour limit without a reset clause"
 assert_cap "5-hour limit reached" "'5-hour limit reached'"
 assert_cap "resets 9:45pm (UTC)" "'resets … (utc)' clause alone"
 assert_notcap "Error: overloaded_error (529)" "overloaded stays floor-gated"
@@ -89,6 +95,19 @@ assert_notcap "connection error: ECONNRESET" "connection drop stays floor-gated"
 assert_notcap "api error: 429 rate limit" "rate-limit/429 stays floor-gated"
 # Subset invariant: every explicit-cap match is also a transient match.
 assert_transient "You've hit your session limit · resets 2am (UTC)" "explicit-cap subset ⊆ transient set"
+
+# The limit-class helper preserves the distinction that the boolean classifier
+# used to discard. All four canonical Claude Code wordings are covered.
+assert_type() {
+  local got
+  got="$(provider_quota_limit_type "$1" 2>/dev/null || true)"
+  [ "$got" = "$2" ] && ok "limit type: $2" || bad "limit type [$got], expected [$2]: $1"
+}
+assert_type "You've hit your session limit · resets 2am (UTC)" session
+assert_type "You've hit your usage limit · resets 3pm (UTC)" usage
+assert_type "You've hit your weekly limit · resets Aug 15, 3am (UTC)" weekly
+assert_type "You've hit your 5-hour limit · resets 6pm (UTC)" 5-hour
+assert_type "YOU'VE HIT YOUR WEEKLY LIMIT · RESETS AUG 15, 3AM (UTC)" weekly
 
 # ============================================================================
 hr; echo "SUBTEST 2 — integration: exact capture + rc=1 → transient, no escalation"; hr

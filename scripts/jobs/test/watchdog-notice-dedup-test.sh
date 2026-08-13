@@ -163,6 +163,7 @@ names | grep -qx "$QFILE" && ok "the entry is keyed 'provider-quota', not per-un
 [ "$(field "$QFILE" notice_count)" = "3" ] && ok "notice_count counts all three observations" || bad "notice_count = $(field "$QFILE" notice_count) (want 3)"
 qbody="$(body_of "$QFILE")"
 grep -qi 'resets 4:10pm' <<<"$qbody" && ok "the notice names the reset time" || bad "notice omits the reset clause"
+grep -q 'limit_type: weekly' <<<"$qbody" && ok "the notice carries the extracted weekly limit type" || bad "notice omits the weekly limit type"
 grep -qi 'ACCOUNT LIMIT' <<<"$qbody" && ok "the notice says this is an account limit, not a garden defect" || bad "notice does not classify the condition"
 grep -qi 'restore' <<<"$qbody" && ok "the notice points at the restore skill" || bad "notice omits the operational response"
 

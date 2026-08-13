@@ -281,7 +281,7 @@ run_gardener "$BARE6" echost6 "$TR6" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MI
   GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
 CLONE6="$TR6/state/gardeners/1/journal"
 # (a) the floor tripped: the reclassification log line names the too-fast signature.
-if grep -q "too fast for a genuine usage/session cap" "$TR6/gardener.log"; then
+if grep -q "too fast for a genuine provider cap" "$TR6/gardener.log"; then
   ok "sub-floor signature reclassified a real failure (floor tripped at ~3s < 30s)"
 else
   bad "floor did NOT trip; log: $(grep -i 'transient\|floor\|FAILED\|too fast' "$TR6/gardener.log" | tail -5)"
@@ -325,13 +325,13 @@ trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8"' EXIT
 run_gardener "$BARE8" echost8 "$TR8" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30
 CLONE8="$TR8/state/gardeners/1/journal"
 # (a) the exemption log line fired (the floor was consulted and bypassed by content).
-if grep -q "EXPLICIT session/usage-cap wording" "$TR8/gardener.log"; then
+if grep -q "EXPLICIT provider-cap wording" "$TR8/gardener.log"; then
   ok "exemption fired: sub-floor explicit-cap capture kept transient by content"
 else
   bad "exemption did NOT fire; log: $(grep -i 'transient\|floor\|too fast\|FAILED' "$TR8/gardener.log" | tail -5)"
 fi
 # (b) classified transient (the transient-outage verdict line), NOT reclassified.
-if grep -Eq "looks transient \(rc=1[,)]" "$TR8/gardener.log" && ! grep -q "too fast for a genuine usage/session cap" "$TR8/gardener.log"; then
+if grep -Eq "looks transient \(rc=1[,)]" "$TR8/gardener.log" && ! grep -q "too fast for a genuine provider cap" "$TR8/gardener.log"; then
   ok "explicit-cap capture on the transient path (no 'too fast' reclassification)"
 else
   bad "explicit-cap capture reclassified or not transient (transient=$(grep -Eq "looks transient" "$TR8/gardener.log" && echo y || echo n) toofast=$(grep -q "too fast" "$TR8/gardener.log" && echo y || echo n))"
@@ -342,6 +342,43 @@ if [ -e "$CLONE8/inboxes/echost8/gardener.md" ]; then
 else
   ok "no inbox escalation — genuine cap left for the reaper's requeue past the reset"
 fi
+
+# Reproduce the still-live sibling bug, not only the historical session case: a
+# real weekly or 5-hour refusal also arrives in a few seconds. Before the shared
+# four-type signature fix these two captures fell through to handler-nonzero as
+# deterministic defects under the same 30-second floor.
+for cap_type in weekly 5-hour; do
+  read -r TRCAP BARECAP < <(build_fixture 0 0 0)
+  if [ "$cap_type" = weekly ]; then
+    cap_message="You've hit your weekly limit · resets Aug 15, 3am (UTC)"
+  else
+    cap_message="You've hit your 5-hour limit"
+  fi
+  run_gardener "$BARECAP" "echost-$cap_type" "$TRCAP" \
+    GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30 \
+    GARDEN_STUB_MESSAGE="$cap_message"
+  CLONECAP="$TRCAP/state/gardeners/1/journal"
+  VCAP="$TRCAP/verify"; git clone -q --single-branch --branch journal2 "$BARECAP" "$VCAP" 2>/dev/null
+  if grep -Eq "looks transient \(rc=1[,)]" "$TRCAP/gardener.log" \
+     && grep -q "EXPLICIT provider-cap wording" "$TRCAP/gardener.log" \
+     && [ ! -e "$CLONECAP/inboxes/echost-$cap_type/gardener.md" ]; then
+    ok "fast $cap_type refusal stayed transient below the floor (no deterministic-defect escalation)"
+  else
+    bad "fast $cap_type refusal was not kept transient: $(grep -i 'transient\|floor\|FAILED' "$TRCAP/gardener.log" | tail -4)"
+  fi
+  if [ "$cap_type" = weekly ]; then
+    fields="$(provider_quota_backoff_fields "$VCAP/jobs/doin/overrunjob.md" 2>/dev/null || true)"
+    case "$fields" in
+      "weekly "*) ok "weekly refusal stamped a typed reset-aware reaper backoff" ;;
+      *) bad "weekly refusal did not stamp its typed reaper backoff (fields=[$fields])" ;;
+    esac
+  elif grep -q '^<!-- garden-reap-now -->$' "$VCAP/jobs/doin/overrunjob.md"; then
+    ok "5-hour refusal without a reset used the ordinary prompt requeue hint"
+  else
+    bad "5-hour refusal without a reset did not receive a requeue hint"
+  fi
+  rm -rf "$TRCAP"
+done
 
 # ============================================================================
 hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior notes must NOT confirm constancy"; hr

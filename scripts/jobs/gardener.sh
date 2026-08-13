@@ -995,10 +995,10 @@ while :; do
         transient=1
       elif [ "$floor" -gt 0 ] && [ "$elapsed" -lt "$floor" ]; then
         if is_explicit_cap_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
-          log "handler for '$base' died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s) but the capture carries an EXPLICIT session/usage-cap wording — a real cap rejection IS this fast; keeping transient (transient=1)"
+          log "handler for '$base' died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s) but the capture carries an EXPLICIT provider-cap wording: a real cap rejection IS this fast; keeping transient (transient=1)"
           transient=1   # explicit cap statement: transient by content, elapsed irrelevant
         else
-          log "handler for '$base' emitted a transient-claude signature but died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s): too fast for a genuine usage/session cap — treating as a DETERMINISTIC setup/spec defect, escalating as a real failure (transient=0)"
+          log "handler for '$base' emitted a transient-claude signature but died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s): too fast for a genuine provider cap; treating as a DETERMINISTIC setup/spec defect, escalating as a real failure (transient=0)"
           transient=0   # sub-few-second signature: a setup/spec defect, not a blip
         fi
       else
@@ -1123,10 +1123,27 @@ while :; do
         else
           log "could not stamp deadline-overrun hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
         fi
-      elif ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
-        log "stamped reap-now hint on '$base'; reaper will requeue before TTL (doom cycle still counts)"
       else
-        log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+        quota_text="$(tail -c 65536 "$capture" 2>/dev/null || true)"
+        quota_type="$(provider_quota_limit_type "$quota_text" 2>/dev/null || true)"
+        quota_reset_epoch="$(provider_quota_reset_epoch "$quota_text" 2>/dev/null || true)"
+        if [ -n "$quota_type" ] && [ -n "$quota_reset_epoch" ]; then
+          quota_reset_at="$(date -u -d "@$quota_reset_epoch" +%FT%TZ)"
+          if ( stamp_provider_quota_backoff_hint "$CLONE" "$JOBS_DOIN/$base.md" "$quota_type" "$quota_reset_epoch" ); then
+            log "stamped provider-quota backoff on '$base' (type=$quota_type reset-at=$quota_reset_at); reaper will hold the claim until that reset, then requeue immediately"
+          else
+            log "could not stamp provider-quota backoff on '$base' (rc=$?); falling back to reap-now"
+            if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+              log "stamped reap-now hint on '$base'; reaper will requeue before TTL (doom cycle still counts)"
+            else
+              log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+            fi
+          fi
+        elif ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+          log "stamped reap-now hint on '$base'; reaper will requeue before TTL (doom cycle still counts)"
+        else
+          log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+        fi
       fi
 
       # --- elapsed-constancy early-escalation --------------------------------

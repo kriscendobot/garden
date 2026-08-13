@@ -1343,7 +1343,12 @@ backend_effective_count() {
 # these wordings are the account-level cap that refuses every call until a named
 # reset time (e.g. "You've hit your weekly limit · resets 4:10pm (UTC)"). Matched
 # case-insensitively.
-: "${GARDEN_PROVIDER_QUOTA_SIGNATURES:=hit your (session|usage|weekly|5-hour) limit|(session|usage|weekly|5-hour) limit (reached|exceeded)|usage limit reached|quota (exceeded|exhausted)|resets [0-9][^)]*\(utc\)}"
+# Keep the four Claude Code limit-class words in ONE shared fragment. The provider,
+# transient-handler, and fast-cap classifiers all consume the same cap signature;
+# a new class cannot be added to one path while fast handler deaths still miss it.
+: "${GARDEN_PROVIDER_QUOTA_LIMIT_TYPES:=session|usage|weekly|5-hour}"
+: "${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES:=hit your (${GARDEN_PROVIDER_QUOTA_LIMIT_TYPES}) limit|(${GARDEN_PROVIDER_QUOTA_LIMIT_TYPES}) limit (reached|reset|exceeded)|resets [0-9][^)]*\(utc\)}"
+: "${GARDEN_PROVIDER_QUOTA_SIGNATURES:=${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}|quota (exceeded|exhausted)}"
 # The ONE fleet-level key every provider-quota observation folds into.
 : "${GARDEN_PROVIDER_QUOTA_KEY:=provider-quota}"
 
@@ -1360,6 +1365,54 @@ provider_quota_reset_clause() {
   printf '%s' "${1:-}" | grep -oiE 'resets [^.·|]*' | head -1 | sed 's/[[:space:]]*$//'
 }
 
+# provider_quota_limit_type <text>: echo the explicit Claude Code limit class
+# (session / usage / weekly / 5-hour), normalized to lower case, else nothing.
+provider_quota_limit_type() {
+  local matched type
+  matched="$(printf '%s' "${1:-}" \
+    | grep -oiE "(${GARDEN_PROVIDER_QUOTA_LIMIT_TYPES})[[:space:]]+limit" \
+    | head -1 2>/dev/null || true)"
+  type="$(printf '%s' "$matched" | tr '[:upper:]' '[:lower:]' | sed -E 's/[[:space:]]+limit$//')"
+  case "$type" in
+    session|usage|weekly|5-hour) printf '%s\n' "$type" ;;
+    *) return 1 ;;
+  esac
+}
+
+# provider_quota_reset_epoch <text> [<now-epoch>]: parse Claude Code's observed
+# UTC reset clauses. A time-only reset means the next occurrence of that time;
+# a month/day reset means that date this year, or next year when already past.
+# Echoes an epoch only for a future, parseable reset.
+provider_quota_reset_epoch() {
+  local text="${1:-}" now="${2:-}" clause value candidate year today month day time
+  [ -n "$now" ] || now="$(date -u +%s 2>/dev/null || true)"
+  case "$now" in ''|*[!0-9]*) return 1 ;; esac
+  clause="$(provider_quota_reset_clause "$text" 2>/dev/null || true)"
+  [ -n "$clause" ] || return 1
+  value="${clause#*[Rr][Ee][Ss][Ee][Tt][Ss] }"
+  value="$(printf '%s' "$value" \
+    | sed -E 's/[[:space:]]*\([Uu][Tt][Cc]\)[[:space:]]*$//; s/,//g; s/^[[:space:]]+//; s/[[:space:]]+$//')"
+  [ -n "$value" ] || return 1
+
+  if [[ "$value" =~ ^([[:alpha:]]{3,9})[[:space:]]+([0-9]{1,2})[[:space:]]+(.+)$ ]]; then
+    month="${BASH_REMATCH[1]}"; day="${BASH_REMATCH[2]}"; time="${BASH_REMATCH[3]}"
+    year="$(date -u -d "@$now" +%Y 2>/dev/null || true)"
+    candidate="$(date -u -d "$month $day $year $time UTC" +%s 2>/dev/null || true)"
+    if [ -n "$candidate" ] && [ "$candidate" -le "$now" ]; then
+      candidate="$(date -u -d "$month $day $(( year + 1 )) $time UTC" +%s 2>/dev/null || true)"
+    fi
+  else
+    today="$(date -u -d "@$now" +%F 2>/dev/null || true)"
+    candidate="$(date -u -d "$today $value UTC" +%s 2>/dev/null || true)"
+    if [ -n "$candidate" ] && [ "$candidate" -le "$now" ]; then
+      candidate="$(date -u -d "$today + 1 day $value UTC" +%s 2>/dev/null || true)"
+    fi
+  fi
+  case "$candidate" in ''|*[!0-9]*) return 1 ;; esac
+  [ "$candidate" -gt "$now" ] || return 1
+  printf '%s\n' "$candidate"
+}
+
 # alert_maintainer <dedup-key> <message> — best-effort, THROTTLED, COALESCING
 # escalation to the maintainer inbox. Used by require_tools, the watchers'
 # silent-output anomaly checks, the triagers, and the self-heal responder.
@@ -1373,8 +1426,12 @@ alert_maintainer() {
 
   # Environmental reclassification (before keying): one fleet condition, one key.
   if is_provider_quota_text "$msg"; then
-    local resets; resets="$(provider_quota_reset_clause "$msg" 2>/dev/null || true)"
-    msg="provider quota/usage limit reached — the API is refusing calls fleet-wide${resets:+ (}${resets}${resets:+)}.
+    local resets limit_type limit_label
+    resets="$(provider_quota_reset_clause "$msg" 2>/dev/null || true)"
+    limit_type="$(provider_quota_limit_type "$msg" 2>/dev/null || true)"
+    limit_label="${limit_type:-quota/usage}"
+    msg="provider $limit_label limit reached: the API is refusing calls fleet-wide${resets:+ (}${resets}${resets:+)}.
+limit_type: ${limit_type:-unknown}
 This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
 resumes on its own once the window resets (see skills/restore/SKILL.md for the
 post-outage restore). Every unit that trips the limit folds into THIS one notice
@@ -1458,11 +1515,11 @@ alert_maintainer_clear() {
 # note_provider_quota <context> [text] — record ONE observation of the fleet-level
 # provider quota condition, from whichever unit happened to trip it. The canonical
 # phrase leads the message so alert_maintainer's classifier always fires (keying is
-# then idempotent), and the observed refusal text rides along so its reset clause
-# reaches the notice.
+# then idempotent), and it stays type-neutral so the observed refusal supplies the
+# real class and reset to the notice.
 note_provider_quota() {
   alert_maintainer "$GARDEN_PROVIDER_QUOTA_KEY" \
-    "usage limit reached while running ${1:-the fleet}. Observed: ${2:-(no detail captured)}"
+    "provider quota exceeded while running ${1:-the fleet}. Observed: ${2:-(no detail captured)}"
 }
 
 # note_provider_ok [context] — the provider ANSWERED, so any open fleet-level
@@ -3219,15 +3276,14 @@ gh_pr_view_retry() {
 #   * rate[ _-]?limit / 429                  (throttling)
 #   * connection error / econnreset / etimedout   (transport drop / SDK)
 #   * 5NN                                    (any 5xx gateway/overload)
-#   * hit your session/usage limit          (Claude Code 5-hour session/usage cap,
+#   * hit your session/usage/weekly/5-hour limit (Claude Code account caps,
 #     e.g. "You've hit your session limit · resets 1:10am (UTC)" — a cap that names
 #     its own reset time is the definitive self-resolving transient; requeuing past
 #     the named reset succeeds. The `resets N…(utc)` alternative also catches the
 #     usage-cap wording that leads with the reset clause.)
-#     A follow-on worth doing but out of this change's scope: when the signature
-#     carries an explicit reset time, back off the reaper requeue until that time
-#     instead of re-failing every TTL cycle (parse the "resets H:MMam (UTC)" clause).
-: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|hit your (session|usage) limit|(session|usage|5-hour) limit (reached|reset)|resets [0-9].*\(utc\)}"
+#     gardener.sh parses the named reset and stamps a reset-aware reaper backoff,
+#     so the next attempt begins when that specific account window opens.
+: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}}"
 
 # Classify a failed `claude -p`'s combined output ($1) as a transient API blip
 # (returns 0) versus a genuine, non-self-resolving failure (returns 1). A
@@ -3240,8 +3296,8 @@ is_transient_claude_signature() {
 }
 
 # EXPLICIT-CAP subset of the transient signatures: the first-person Claude Code
-# session/usage-cap wordings ("You've hit your session limit …", "usage limit
-# reached", the "resets H:MMam (UTC)" clause). These are definitive statements the
+# session/usage/weekly/5-hour-cap wordings ("You've hit your session limit ...",
+# "usage limit reached", the "resets H:MMam (UTC)" clause). These are definitive statements the
 # CLI prints about ITS OWN quota state, not ambient error text a setup script might
 # echo, so they are trustworthy on CONTENT alone — gardener.sh exempts them from
 # the GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor. The floor's premise ("a genuine cap
@@ -3253,7 +3309,7 @@ is_transient_claude_signature() {
 # overload-shaped alternatives (overloaded / 429 / 5xx / api error / connection
 # drops — the 2026-07-03 sub-2s echo batch the floor was built for) are NOT in
 # this subset and keep the floor. Matched case-insensitively.
-: "${GARDEN_EXPLICIT_CAP_SIGNATURES:=hit your (session|usage) limit|(session|usage|5-hour) limit (reached|reset)|resets [0-9].*\(utc\)}"
+: "${GARDEN_EXPLICIT_CAP_SIGNATURES:=${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}}"
 
 # Classify a failed `claude -p`'s combined output ($1) as carrying an EXPLICIT
 # session/usage-cap statement (returns 0) — transient by content, regardless of
@@ -3562,6 +3618,61 @@ elapsed_within_band() {
 REAP_NOW_MARKER='<!-- garden-reap-now -->'
 REAP_NOW_MARKER_RE='^<!-- garden-reap-now -->$'
 
+# A provider quota refusal with a named reset is known-dead like reap-now, but it
+# must not be reclaimed until the provider says the account window opens. The
+# marker carries both the extracted class and the absolute UTC reset. The reaper
+# holds it before reset and treats it as cap-exempt reap-now at/after reset.
+PROVIDER_QUOTA_BACKOFF_MARKER_RE='^<!-- garden-provider-quota-backoff: type=(session|usage|weekly|5-hour) reset-at=[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z -->$'
+
+# provider_quota_backoff_fields <file>: echo "<type> <reset-at>" for a valid
+# quota-backoff marker, else nothing.
+provider_quota_backoff_fields() {
+  local f="${1:-}" line type reset_at
+  [ -f "$f" ] || return 1
+  line="$(grep -E "$PROVIDER_QUOTA_BACKOFF_MARKER_RE" "$f" | tail -1 2>/dev/null || true)"
+  [ -n "$line" ] || return 1
+  type="$(printf '%s' "$line" | sed -nE 's/^<!-- garden-provider-quota-backoff: type=([^ ]+) reset-at=([^ ]+) -->$/\1/p')"
+  reset_at="$(printf '%s' "$line" | sed -nE 's/^<!-- garden-provider-quota-backoff: type=([^ ]+) reset-at=([^ ]+) -->$/\2/p')"
+  [ -n "$type" ] && [ -n "$reset_at" ] || return 1
+  printf '%s %s\n' "$type" "$reset_at"
+}
+
+# stamp_provider_quota_backoff_hint <clone> <doin-relpath> <type> <reset-epoch>:
+# insert a reset-aware requeue hint into this gardener's dead claim.
+stamp_provider_quota_backoff_hint() {
+  local clone="$1" rel="$2" type="$3" reset_epoch="$4" attempt f rc reset_at marker
+  case "$type" in session|usage|weekly|5-hour) ;; *) return 1 ;; esac
+  case "$reset_epoch" in ''|*[!0-9]*) return 1 ;; esac
+  reset_at="$(date -u -d "@$reset_epoch" +%FT%TZ 2>/dev/null || true)"
+  [ -n "$reset_at" ] || return 1
+  marker="<!-- garden-provider-quota-backoff: type=$type reset-at=$reset_at -->"
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi
+    if provider_quota_backoff_fields "$f" >/dev/null 2>&1; then clone_unlock "$clone"; return 0; fi
+    awk -v m="$marker" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) print m
+          print line[i]
+        }
+        if (cut == 0) print m
+      }
+    ' "$f" > "$f.quotabackoff" && mv "$f.quotabackoff" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "quota-backoff: hold $rel until $reset_at ($type) by $GARDEN"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  return 1
+}
+
 # has_reap_now_hint <file> — 0 if the job file carries the reap-now marker.
 has_reap_now_hint() {
   local f="${1:-}"
@@ -3848,8 +3959,9 @@ stamp_outage_cycle_hint() {
 
 # --- the cycle-marker family, cleared on every plan-side transition ----------
 #
-# The five markers above (reap-count, deadline-overrun, and the per-cycle reap-now /
-# productive-cycle / outage-cycle hints) are the reaper's and the gardener's running
+# The six markers above (reap-count, deadline-overrun, quota-backoff, and the
+# per-cycle reap-now / productive-cycle / outage-cycle hints) are the reaper's
+# and the gardener's running
 # account of ONE job's failure history. They are meaningful only while the job is
 # cycling through todo -> doin -> requeue; a job that reaches jobs/plan/ has stopped
 # cycling, and its counters are stale the moment it is parked.
@@ -3871,7 +3983,7 @@ stamp_outage_cycle_hint() {
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$REAP_NOW_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and
@@ -3891,6 +4003,7 @@ cycle_marker_summary() {
   n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
   n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
   if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
+  if provider_quota_backoff_fields "$f" >/dev/null 2>&1; then out="${out:+$out,}provider-quota-backoff"; fi
   if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi
   if has_outage_cycle_hint "$f";     then out="${out:+$out,}outage-cycle"; fi
   printf '%s\n' "${out:-none}"

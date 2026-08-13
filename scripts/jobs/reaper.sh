@@ -469,7 +469,8 @@ gc_scratch() {
 # that itself contains a `---` rule is preserved intact. If no claim block is
 # found the body is returned unchanged (never blindly truncated at a stray `---`).
 clean_body() {
-  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" \
+  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" \
+      -v qback="$PROVIDER_QUOTA_BACKOFF_MARKER_RE" -v prod="$PRODUCTIVE_MARKER_RE" \
       -v outage="$OUTAGE_MARKER_RE" '
     { line[NR] = $0 }
     END {
@@ -480,6 +481,7 @@ clean_body() {
       for (i = 1; i <= end; i++) {
         if (line[i] ~ mark) continue          # drop prior reap-count markers
         if (line[i] ~ rnow) continue          # drop the gardener reap-now hint (never persist it)
+        if (line[i] ~ qback) continue         # drop the consumed provider reset backoff
         if (line[i] ~ prod) continue          # drop the gardener productive-cycle hint (re-earned each cycle)
         if (line[i] ~ outage) continue        # drop the gardener outage-cycle hint (re-earned each cycle)
         out[++m] = line[i]
@@ -553,7 +555,10 @@ gc_scratch
 drain_doom_spool
 
 # --- 1. detect the stale set -------------------------------------------------
-now="$(date -u +%s)"
+now="${GARDEN_REAPER_NOW:-$(date -u +%s)}"
+case "$now" in
+  ''|*[!0-9]*) log "WARNING: GARDEN_REAPER_NOW='$now' is not an epoch; using wall clock"; now="$(date -u +%s)" ;;
+esac
 declare -a STALE=()
 declare -a STALE_AGE=()            # parallel to STALE: claim age in seconds (oldest-first cap ordering, § 1b)
 declare -a STALE_RN=()             # parallel to STALE: 1 iff reap-now-hinted (cap-exempt, § 1b)
@@ -565,6 +570,21 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   ts=0; [ -n "$claimed_at" ] && ts="$(date -u -d "$claimed_at" +%s 2>/dev/null || echo 0)"
   age=$(( now - ts ))
   reap_now_flag=0
+  # A provider-cap refusal is dead immediately but should become claimable only
+  # when its own reset arrives. This check precedes both reap-now and age expiry:
+  # before reset it can delay even a TTL-expired claim; at/after reset it promotes
+  # the claim immediately, without waiting for a uniform TTL cycle.
+  quota_backoff="$(provider_quota_backoff_fields "$f" 2>/dev/null || true)"
+  if [ -n "$quota_backoff" ]; then
+    read -r quota_type quota_reset_at <<< "$quota_backoff"
+    quota_reset_epoch="$(date -u -d "$quota_reset_at" +%s 2>/dev/null || true)"
+    if [[ "$quota_reset_epoch" =~ ^[0-9]+$ ]] && [ "$now" -lt "$quota_reset_epoch" ]; then
+      log "quota-backoff: '$base' is held for provider $quota_type limit until $quota_reset_at (now=$(date -u -d "@$now" +%FT%TZ)); not requeueing"
+      continue
+    fi
+    reap_now_flag=1
+    log "quota-backoff: '$base' provider $quota_type limit reset is due ($quota_reset_at); requeueing now"
+  fi
   # A gardener whose handler died a transient signal-kill stamps a reap-now hint on
   # its own still-in-doin claim (gardener.sh transient branch): it KNOWS the claim
   # is dead, so we requeue it on THIS tick instead of idling the full TTL. Checked
@@ -572,7 +592,9 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   # claimed_at. The hint only promotes the claim into the stale set early — it then
   # flows through the SAME requeue + doom-counter path below, so a job SIGTERM'd
   # every cycle still escalates as doom after the threshold (never loops forever).
-  if has_reap_now_hint "$f"; then
+  if [ "$reap_now_flag" -eq 1 ]; then
+    : # provider quota reset reached; already logged above
+  elif has_reap_now_hint "$f"; then
     reap_now_flag=1
     log "reap-now: '$base' carries a gardener reap-now hint (age ${age}s); requeueing before TTL"
   else
