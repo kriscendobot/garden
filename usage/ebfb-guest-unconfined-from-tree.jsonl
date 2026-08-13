@@ -1,2 +1,3 @@
 {"ts":"2026-08-12T22:32:27Z","base":"ebfb-guest-unconfined-from-tree","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2106}
 {"ts":"2026-08-12T22:46:14Z","base":"ebfb-guest-unconfined-from-tree","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":760}
+{"source":"result","model":"claude-opus-4-8","num_turns":42,"elapsed_s":531,"input_tokens":72,"output_tokens":32924,"cache_creation_tokens":97302,"cache_read_tokens":3283688,"total_cost_usd":3.4407470000000004,"ts":"2026-08-13T02:52:20Z","base":"ebfb-guest-unconfined-from-tree","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"builder"}
