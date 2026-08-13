@@ -40,6 +40,8 @@ draft despite the substantive work being done.
   security incident. Keep exploit specifics out of commit messages and the PR
   description; the substantive fix for the deployed defect lives elsewhere.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
