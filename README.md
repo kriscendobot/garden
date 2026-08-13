@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:50:14Z_
+_As of 2026-08-13T21:51:55Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 25m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -6730,39 +6730,35 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.1M | $1015.78 _(notional, rate-card)_ | no quota set |
-| Codex | 23.2M _(+792.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 62.0M | $1015.15 _(notional, rate-card)_ | no quota set |
+| Codex | 23.4M _(+796.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
-- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning.md) — ---
-- [`genie-docs-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/genie-docs-01-migrate-into-journal.md) — What these are, and the trap
+### todo (0)
+(none)
 
-### doin (15)
+### doin (13)
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-credential-masking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-credential-masking.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-persistent-slice-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-persistent-slice-registry.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-pet-store-restart-order`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-pet-store-restart-order.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-live-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-live-handoff.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-private-network-egress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-private-network-egress.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-sandbox-acceptance-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-sandbox-acceptance-matrix.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-shared-pet-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-shared-pet-names.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner.md) — ---
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-introductions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-introductions.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-lifecycle-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-lifecycle-plan.md) — ---
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-tool-selection-guide`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-status-tool-selection-guide.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
 - [`garden-deadline-nudge-handoff-and-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-deadline-nudge-handoff-and-budget.md) — Evidence: the mechanism runs and still fails
 - [`garden-tada-shard-02-read-tolerance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tada-shard-02-read-tolerance.md) — Tests
+- [`genie-docs-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-01-migrate-into-journal.md) — What these are, and the trap
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-10-arrays-species.md) — Complete Array construction and prototype algorithms
 
-### tada (4542)
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-dual-workspace-boundary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-dual-workspace-boundary.md) — Feature-disposition report — Dual host/sandbox workspace boundary (PR #149)
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker.md) — Feature-disposition analysis — walkDirectory (generic Endo directory walker)
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-workspace-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-workspace-bootstrap.md) — Feature-disposition analysis — workspace capability & sandbox bootstrap (PR #...
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-retained-root-lifecycle`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-retained-root-lifecycle.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-no-model`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-primordial-no-model.md) — Cost
-- … and 4537 more
+### tada (4547)
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-shared-pet-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-shared-pet-names.md) — Cost
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-private-network-egress`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-private-network-egress.md) — Cost
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-introductions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-introductions.md) — Completion report — feature disposition: subagent-explicit-introductions (PR ...
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-persistent-slice-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-persistent-slice-registry.md) — Feature-disposition analysis — named persistent sandbox-slice registry (PR #149)
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-sandbox-acceptance-matrix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-sandbox-acceptance-matrix.md) — Feature-disposition analysis — sandbox-restart-acceptance-matrix (PR #149)
+- … and 4542 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
