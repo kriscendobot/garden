@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T18:42:46Z_
+_As of 2026-08-13T18:43:43Z_
 
 ## Latest
 
@@ -6727,14 +6727,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 60.9M | $983.05 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+673.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 19.9M _(+674.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 7% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Design: integrate @endo/ascii into the PRs/sites that motivated it
+- [`endojs-endo-but-for-bots-pr943-weave-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-weave-llm.md) — Weave endojs/endo-but-for-bots PR #943 onto live llm
 - [`ironhorse-js-08-async-generators-for-await`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-08-async-generators-for-await.md) — Complete async generators and for-await-of
 
 ### tada (4509)
