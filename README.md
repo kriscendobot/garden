@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T17:51:53Z_
+_As of 2026-08-13T18:03:21Z_
 
 ## Latest
 
@@ -6726,24 +6726,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.9M | $981.12 _(notional, rate-card)_ | no quota set |
+| Claude | 60.9M | $980.32 _(notional, rate-card)_ | no quota set |
 | Codex | 19.6M _(+666.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr979-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr979-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #979
+### doin (1)
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 
-### tada (4506)
+### tada (4507)
+- [`endojs-endo-but-for-bots-pr979-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr979-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr937-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-shepherd.md) — Report
 - [`improve-dependabotany-idle-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-idle-preflight.md) — What I did
 - [`dependabotany-recheck-endo-but-for-bots-20260813-163502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260813-163502.md) — Completion report
 - [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ocapn-gateway-outbound-peer-binding.md) — Job complete: OCapN outbound gateway peer-binding
-- [`ebfb-pr977-gauntlet-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-r3.md) — gauntlet ebfb-pr977-gauntlet-r3 — complete
-- … and 4501 more
+- … and 4502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
