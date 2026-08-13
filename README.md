@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T23:01:32Z_
+_As of 2026-08-13T23:05:43Z_
 
 ## Latest
 
@@ -6790,16 +6790,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $996.55 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+800.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.3M | $994.97 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+801.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 32% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #980
 - [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260813-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260813-230502.md) — ---
 - [`kriscendobot-minion.town-pr28-review-aa455b97`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-review-aa455b97.md) — Review directive on kriscendobot/minion.town PR #28
 
 ### tada (4583)
