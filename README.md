@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:51:31Z_
+_As of 2026-08-13T16:59:58Z_
 
 ## Latest
 
@@ -20,7 +20,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 24d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 25d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 27d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 30d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 42d)
@@ -6726,14 +6726,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.3M | $982.19 _(notional, rate-card)_ | no quota set |
+| Claude | 61.5M | $984.13 _(notional, rate-card)_ | no quota set |
 | Codex | 19.9M _(+686.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr979-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr979-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #979
 - [`improve-dependabotany-idle-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-idle-preflight.md) — ---
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 
