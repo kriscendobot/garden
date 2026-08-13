@@ -62,12 +62,14 @@ schedule). The conversational first-run tour is the sibling tree,
   over the SSM-tunnelled ssh CLI, cost/retention/teardown. Routes to
   `designs/turnkey-garden-host.md`.
 
-- **[local-inference-amd.md](local-inference-amd.md)** — *"run a local model" /
-  "add a local-inference worker on the AMD box."* ROCm/gfx1151 (Strix Halo
-  Radeon 8060S) setup, standing up an OpenAI-compatible `/v1` endpoint (Ollama
-  recommended), model selection for the unified-memory budget, and wiring a
-  `provider: local` worker into the cleric/spine bid-auction cost model. Routes
-  to `designs/cleric-worker-bid-auction-reputation.md`.
+- **[local-inference-amd/](local-inference-amd/README.md)** — *"run a local
+  model" / "add a local-inference worker on the AMD box."* A directory tree:
+  ROCm/gfx1151 (Strix Halo Radeon 8060S) host setup, standing up an
+  OpenAI-compatible `/v1` endpoint (Ollama recommended), model selection for the
+  unified-memory budget, wiring and pricing a `provider: local` `hermit` worker
+  into the cleric/spine bid-auction cost model, and image durability. Its README
+  routes to the child topic. Routes to
+  `designs/cleric-worker-bid-auction-reputation.md`.
 
 - **[kimi-k3.md](kimi-k3.md)** — *"activate hosted Kimi" / "run the Kimi
   canary."* A bounded Moonshot Kimi K3 activation: credential forwarding at
