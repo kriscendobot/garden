@@ -79,3 +79,13 @@ Also confirm all 17 children below are still parked in `jobs/plan/` with
 - Branch `feat/ironhorse-262-language-completion`; pins test262 `be13516fb6…`, XS oracle `23b4d6b0a6…`
 - Issue spine: https://github.com/kriscendobot/garden/issues/51
 - Prior orchestration reports: `jobs/tada/ironhorse-test262-implementation-completion-resume-{4,5}.md`
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T22:51:10Z
