@@ -25,3 +25,13 @@ worth calling out).
 
 Precedent runs: journal/reports/context-graph-size-audit-focused-2026-08-13.md
 (the first, hand-posted run this recurring schedule continues).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T22:20:20Z
