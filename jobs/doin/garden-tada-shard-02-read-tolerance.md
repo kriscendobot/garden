@@ -45,3 +45,13 @@ the tree still entirely flat.
 
 Do not migrate anything and do not switch any writer. Landing this stage must be
 a behavioral no-op on today's flat tree.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:37:14Z
