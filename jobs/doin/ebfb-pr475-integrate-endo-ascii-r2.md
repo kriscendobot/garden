@@ -53,6 +53,7 @@ package, so that part may be settled — verify rather than assume.
   does not fit, say so explicitly and name the natural split points, so the next
   attempt decomposes on evidence instead of guessing.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
