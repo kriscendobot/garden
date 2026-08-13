@@ -1,10 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:triager/kriscendobot-minion.town
-sent_at: 2026-08-13T14:43:35Z
+sent_at: 2026-08-13T14:45:47Z
 watchdog_key: triager-upstream-gone-kriscendobot-minion.town
 notice_count: 1
 first_seen: 2026-08-13T14:42:36Z
-last_seen: 2026-08-13T14:43:35Z
+last_seen: 2026-08-13T14:45:47Z
+recovered: true
 ---
-triager: fetch for kriscendobot-minion.town at /home/kris/garden2/worktrees/kriscendobot-minion.town.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
-This does NOT self-heal by retrying: kriscendobot-minion.town is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/minion.town', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-minion.town AND removing repos/kriscendobot-minion.town (see designs/auto-provision-fork-watchers.md).
+RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-minion.town` has CLEARED (first seen 2026-08-13T14:42:36Z, cleared 2026-08-13T14:45:47Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+triager: the upstream for kriscendobot-minion.town is reachable again; kriscendobot-minion.town is being triaged normally.
