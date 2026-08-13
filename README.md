@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T14:43:21Z_
+_As of 2026-08-13T14:46:51Z_
 
 ## Latest
 
@@ -6746,16 +6746,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-triager-upstream-gone-kriscendobot-agoric-3-proposals` — from watchdog:triager/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-agoric-3-proposals.md)
 
-> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-08-13T14:33:04Z, cleared 2026-08-13T14:34:46Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-agoric-3-proposals` has CLEARED (first seen 2026-08-13T14:33:04Z, cleared 2026-08-13T14:45:30Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > triager: the upstream for kriscendobot-agoric-3-proposals is reachable again; kriscendobot-agoric-3-proposals is being triaged normally.
 
 - `watchdog-triager-upstream-gone-kriscendobot-cosgov` — from watchdog:triager/kriscendobot-cosgov, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-cosgov.md)
 
-> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-cosgov` has CLEARED (first seen 2026-08-13T14:32:57Z, cleared 2026-08-13T14:34:42Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-cosgov` has CLEARED (first seen 2026-08-13T14:32:57Z, cleared 2026-08-13T14:45:30Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > triager: the upstream for kriscendobot-cosgov is reachable again; kriscendobot-cosgov is being triaged normally.
@@ -6765,23 +6765,85 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > triager: fetch for kriscendobot-endo-but-for-bots at /home/kris/garden2/worktrees/kriscendobot-endo-but-for-bots.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
 > This does NOT self-heal by retrying: kriscendobot-endo-but-for-bots is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/endo-but-for-bots', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-endo-but-for-bots AND removing repos/kriscendobot-endo-but-for-bots (see designs/auto-provision-fork-watchers.md).
 
+- `watchdog-triager-upstream-gone-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-endo.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-endo` has CLEARED (first seen 2026-08-13T14:36:39Z, cleared 2026-08-13T14:43:35Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-endo is reachable again; kriscendobot-endo is being triaged normally.
+
+- `watchdog-triager-upstream-gone-kriscendobot-finbot` — from watchdog:triager/kriscendobot-finbot, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-finbot.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-finbot` has CLEARED (first seen 2026-08-13T14:41:24Z, cleared 2026-08-13T14:45:14Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-finbot is reachable again; kriscendobot-finbot is being triaged normally.
+
 - `watchdog-triager-upstream-gone-kriscendobot-list` — from watchdog:triager/kriscendobot-list, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-list.md)
 
-> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-list` has CLEARED (first seen 2026-08-13T14:33:00Z, cleared 2026-08-13T14:34:46Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-list` has CLEARED (first seen 2026-08-13T14:33:00Z, cleared 2026-08-13T14:46:00Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > triager: the upstream for kriscendobot-list is reachable again; kriscendobot-list is being triaged normally.
 
+- `watchdog-triager-upstream-gone-kriscendobot-minion.town` — from watchdog:triager/kriscendobot-minion.town, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-minion.town.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-minion.town` has CLEARED (first seen 2026-08-13T14:42:36Z, cleared 2026-08-13T14:45:47Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-minion.town is reachable again; kriscendobot-minion.town is being triaged normally.
+
 - `watchdog-triager-upstream-gone-kriscendobot-moddable` — from watchdog:triager/kriscendobot-moddable, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-moddable.md)
 
-> triager: fetch for kriscendobot-moddable at /home/kris/garden2/worktrees/kriscendobot-moddable.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
-> This does NOT self-heal by retrying: kriscendobot-moddable is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/moddable', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-moddable AND removing repos/kriscendobot-moddable (see designs/auto-provision-fork-watchers.md).
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-moddable` has CLEARED (first seen 2026-08-13T14:36:47Z, cleared 2026-08-13T14:42:00Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-moddable is reachable again; kriscendobot-moddable is being triaged normally.
+
+- `watchdog-triager-upstream-gone-kriscendobot-ocapn` — from watchdog:triager/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-ocapn.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-ocapn` has CLEARED (first seen 2026-08-13T14:41:54Z, cleared 2026-08-13T14:45:47Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-ocapn is reachable again; kriscendobot-ocapn is being triaged normally.
+
+- `watchdog-triager-upstream-gone-kriscendobot-proposal-compartments` — from watchdog:triager/kriscendobot-proposal-compartments, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-proposal-compartments.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-proposal-compartments` has CLEARED (first seen 2026-08-13T14:36:39Z, cleared 2026-08-13T14:44:51Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-proposal-compartments is reachable again; kriscendobot-proposal-compartments is being triaged normally.
 
 - `watchdog-triager-upstream-gone-kriscendobot-vattr97` — from watchdog:triager/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-vattr97.md)
 
-> triager: fetch for kriscendobot-vattr97 at /home/kris/garden2/worktrees/kriscendobot-vattr97.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
-> This does NOT self-heal by retrying: kriscendobot-vattr97 is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/vattr97', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-vattr97 AND removing repos/kriscendobot-vattr97 (see designs/auto-provision-fork-watchers.md).
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-vattr97` has CLEARED (first seen 2026-08-13T14:38:49Z, cleared 2026-08-13T14:45:47Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-vattr97 is reachable again; kriscendobot-vattr97 is being triaged normally.
+
+- `watchdog-triager-upstream-gone-kriscendobot-ymax-e2e` — from watchdog:triager/kriscendobot-ymax-e2e, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-ymax-e2e.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-ymax-e2e` has CLEARED (first seen 2026-08-13T14:36:55Z, cleared 2026-08-13T14:45:03Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-ymax-e2e is reachable again; kriscendobot-ymax-e2e is being triaged normally.
+
+- `watchdog-triager-upstream-gone-kriscendobot-ymax-stdio-mcp` — from watchdog:triager/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-upstream-gone-kriscendobot-ymax-stdio-mcp.md)
+
+> RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-08-13T14:36:48Z, cleared 2026-08-13T14:45:03Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> triager: the upstream for kriscendobot-ymax-stdio-mcp is reachable again; kriscendobot-ymax-stdio-mcp is being triaged normally.
 
 
 ## Spend & quota
@@ -6789,8 +6851,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.3M | $988.73 _(notional, rate-card)_ | no quota set |
-| Codex | 20.7M _(+714.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Claude | 61.4M | $988.97 _(notional, rate-card)_ | no quota set |
+| Codex | 20.7M _(+714.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
