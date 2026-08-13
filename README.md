@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:17:57Z_
+_As of 2026-08-13T22:18:21Z_
 
 ## Latest
 
@@ -6758,26 +6758,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.2M | $990.65 _(notional, rate-card)_ | no quota set |
+| Claude | 60.1M | $988.55 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-orchestrate-serial-order-violation.md) — What happened (2026-08-13)
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
-- [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reorg-context-local-inference-amd.md) — reorg-context-local-inference-amd
 
-### tada (4571)
+### tada (4572)
+- [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-local-inference-amd.md) — Completion report
 - [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-skill-local-verify.md) — What I did
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Completion report
 - [`genie-docs-to-journal-orchestration-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration-r2.md) — orchestration genie-docs-to-journal-orchestration-r2 — HALTED
 - [`genie-docs-r2-02-delete-from-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-02-delete-from-llm.md) — Completion report
-- [`genie-docs-r2-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-01-migrate-into-journal.md) — Cost
-- … and 4566 more
+- … and 4567 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
