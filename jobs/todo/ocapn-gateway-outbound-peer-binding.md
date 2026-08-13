@@ -1,9 +1,7 @@
 ---
-gate: deferred
-priority: 2
-posted_by: producer
-posted_at: 2026-08-12T23:38:19Z
+role: builder
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=2 at=2026-08-13T16:10:57Z cleared=none -->
 
 ---
 tier: mentor
