@@ -75,3 +75,13 @@ arithmetic), and confirmation the resume-3 launch succeeded (or, if the fix
 needs more time than this job's budget allows, land and deploy Part 1 and
 report Part 2 as a clean, explicit follow-up rather than launching against an
 unfixed watcher.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T14:03:04Z
