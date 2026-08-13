@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 3
+worker_kind: gardener
+claimed_at: 2026-08-13T22:53:08Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1
