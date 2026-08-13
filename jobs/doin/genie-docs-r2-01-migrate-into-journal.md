@@ -28,3 +28,13 @@ has been removed: this stage is forbidden from writing under `jobs/` at all, and
 that chain only ever touches `jobs/tada/`. The two do not overlap, so there is
 nothing to wait for. Both write to `journal2`, so ordinary push races may occur;
 re-sync and retry as usual.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T22:01:12Z
