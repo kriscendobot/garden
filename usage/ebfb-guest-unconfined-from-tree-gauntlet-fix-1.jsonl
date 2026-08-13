@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":41,"elapsed_s":540,"input_tokens":73,"output_tokens":24987,"cache_creation_tokens":87046,"cache_read_tokens":3119747,"total_cost_usd":3.0578784999999997,"ts":"2026-08-13T03:20:39Z","base":"ebfb-guest-unconfined-from-tree-gauntlet-fix-1","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"gardener"}
