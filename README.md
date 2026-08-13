@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:32:08Z_
+_As of 2026-08-13T21:32:35Z_
 
 ## Latest
 
@@ -6730,15 +6730,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.6M | $1004.95 _(notional, rate-card)_ | no quota set |
-| Codex | 22.2M _(+770.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 61.7M | $1004.98 _(notional, rate-card)_ | no quota set |
+| Codex | 22.2M _(+770.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
-- [`context-graph-size-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit.md) — context-graph-size-audit
+### doin (8)
 - [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
 - [`endojs-endo-but-for-bots-pr124-review-01d36f3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-01d36f3a.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-coordinate-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-coordinate-status.md) — ---
@@ -6748,13 +6747,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-10-arrays-species.md) — Complete Array construction and prototype algorithms
 - [`quota-limit-type-differentiation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/quota-limit-type-differentiation.md) — Differentiate session/usage/5-hour vs weekly quota-limit refusals
 
-### tada (4524)
+### tada (4525)
+- [`context-graph-size-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discovery.md) — orchestration endojs-endo-but-for-bots-pr149-review-13c87bef-discovery — comp...
 - [`ebfb-pr475-integrate-endo-ascii-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr475-integrate-endo-ascii-r2.md) — Completion report: ebfb-pr475-integrate-endo-ascii-r2
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core.md) — Cost
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-deployment-prompts.md) — Discovery artifact — PR #149 "[EXPERIMENT] genie in a bottle" vs origin/llm
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents.md) — Cost
-- … and 4519 more
+- … and 4520 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
