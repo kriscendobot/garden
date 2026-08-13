@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:11:33Z_
+_As of 2026-08-13T16:14:56Z_
 
 ## Latest
 
@@ -6726,15 +6726,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.3M | $982.19 _(notional, rate-card)_ | no quota set |
-| Codex | 19.8M _(+683.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 61.5M | $984.91 _(notional, rate-card)_ | no quota set |
+| Codex | 19.8M _(+683.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`ebfb-pr977-gauntlet-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-3.md) — State (verified 2026-08-13 ~16:10Z)
+- [`ebfb-pr977-gauntlet-r3-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-r3-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #977
 - [`garden-triager-transient-auth-misclassified-as-upstream-gone`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-triager-transient-auth-misclassified-as-upstream-gone.md) — What happened
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
 - [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-gateway-outbound-peer-binding.md) — The residual
