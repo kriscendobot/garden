@@ -1,17 +1,15 @@
-orchestration-failed: true
+Merged endojs/endo-but-for-bots PR #943 into live `llm` with merge commit `a54c3adbebf18fd837770d467433e480de498e8d`.
 
-PR #943 was marked ready for review but not merged. Final checks showed head `94c0579e6c253048e9a177fe50fcb58e4d48a4c1` approved, mergeable, and all 23 CI checks successful. The conductor merge guard blocked unfreezing because PRs #943 and #888 share frozen base `llm-bfc91f5`; merging would violate shared-stack safety. The maintainer was alerted automatically.
-
-Follow-up: weave the shared stack forward together or merge it in dependency order, then retry #943.
+Verified 26 checks green, current-head approval from `kriskowal`, and final GitHub state `MERGED`. The head branch was deleted. Retained frozen base `llm-bfc91f5` because open PR #888 still uses it; no head-based downstream PRs were found.
 
 Self-improvement: nothing this time.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr943-conduct.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s) (1 unmetered)
+- Engagements: 2 on 2 host(s) (2 unmetered)
 - Input: 0 tokens (0 cached reads)
 - Output: 0 tokens
-- Cost: $0 (1 engagement(s) unpriced)
-- Wall-clock: 157s
+- Cost: $0 (2 engagement(s) unpriced)
+- Wall-clock: 299s
 
 <!-- garden-usage-end -->
