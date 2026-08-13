@@ -1,0 +1,2 @@
+base: improve-dependabotany-idle-preflight
+identity: mentor:scripts/jobs/dependabotany-preflight.sh

@@ -1,0 +1,7 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+scripts/jobs/dependabotany-preflight.sh
+Add a deterministic preflight that exits 2 when the watched repo has no open Dependabot PRs and no due ledger rows; wire the daily backstop schedule to it. This prevents routine no-op botanist jobs and verbose clean-confirmation journal entries while preserving fail-open behavior on API errors.
