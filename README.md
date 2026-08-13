@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T00:45:45Z_
+_As of 2026-08-13T00:46:39Z_
 
 ## Latest
 
@@ -6702,16 +6702,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $818.08 _(notional, rate-card)_ | no quota set |
+| Claude | 54.3M | $818.21 _(notional, rate-card)_ | no quota set |
 | Codex | 23.0M _(+799.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
+- [`pr403-weave-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr403-weave-20260813.md) — weave stage for PR #403
 
 ### tada (4465)
 - [`endojs-endo-but-for-bots-pr978-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr978-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #978
