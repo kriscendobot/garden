@@ -63,3 +63,13 @@ conventions for non-job content, and say in your report why you chose it.
 
 Read-only against `endojs/endo-but-for-bots`. Do not modify, push, or open
 anything on that repo in this stage.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T21:51:11Z
