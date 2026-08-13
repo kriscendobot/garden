@@ -1,10 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:triager/kriscendobot-moddable
-sent_at: 2026-08-13T14:37:01Z
+sent_at: 2026-08-13T14:42:00Z
 watchdog_key: triager-upstream-gone-kriscendobot-moddable
 notice_count: 1
 first_seen: 2026-08-13T14:36:47Z
-last_seen: 2026-08-13T14:37:01Z
+last_seen: 2026-08-13T14:42:00Z
+recovered: true
 ---
-triager: fetch for kriscendobot-moddable at /home/kris/garden2/worktrees/kriscendobot-moddable.git failed (rc=128) — the UPSTREAM APPEARS GONE (deleted/renamed fork, or this host's credentials lost access). git said: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Please make sure you have the correct access rights and the repository exists.
-This does NOT self-heal by retrying: kriscendobot-moddable is not being triaged at all until it is resolved. Remedy — confirm with 'gh api repos/kriscendobot/moddable', then either restore access, or disarm the watch durably by adding journal watch-optout/kriscendobot-moddable AND removing repos/kriscendobot-moddable (see designs/auto-provision-fork-watchers.md).
+RECOVERED — the watchdog condition `triager-upstream-gone-kriscendobot-moddable` has CLEARED (first seen 2026-08-13T14:36:47Z, cleared 2026-08-13T14:42:00Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+triager: the upstream for kriscendobot-moddable is reachable again; kriscendobot-moddable is being triaged normally.
