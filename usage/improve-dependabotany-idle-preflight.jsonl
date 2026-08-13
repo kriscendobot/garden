@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":44,"elapsed_s":837,"input_tokens":83,"output_tokens":58207,"cache_creation_tokens":135474,"cache_read_tokens":4731063,"total_cost_usd":5.177801500000001,"ts":"2026-08-13T17:05:23Z","base":"improve-dependabotany-idle-preflight","host":"endolin-garden2-5bcdff64","outcome":"tada"}
