@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T00:58:37Z_
+_As of 2026-08-13T00:59:50Z_
 
 ## Latest
 
@@ -3557,20 +3557,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
-- `20260813T005715Z-b039fb` — from gardener:pr403-conduct-20260813, reply_to `pr403-conduct-20260813` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T005715Z-b039fb.md)
-
-> conduct [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) ("Weave, shepherd, conduct") BLOCKED: merge cannot proceed.
->
-> - CI is fully GREEN (27 checks, 0 failed), base is live trunk `llm`, mergeState CLEAN.
-> - But kriskowal's APPROVED review is on commit 051baffb (2026-06-29). The weave+shepherd stages moved the head to 40afbd62 (2026-08-12, "fix: satisfy current lint rules after rebase"), so the approval is STALE — no APPROVED review exists on the current head.
->
-> The conductor will not merge without a current maintainer approval. Please re-review/re-approve [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) at head 40afbd62 and re-post the merge, and it will land immediately.
-> [https://github.com/endojs/endo-but-for-bots/pull/403](https://github.com/endojs/endo-but-for-bots/pull/403)
-
-- `20260813T005810Z-6e830f` — from orchestrator:pr403-chain-20260813-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T005810Z-6e830f.md)
-
-> Orchestration pr403-chain-20260813 HALTED: child pr403-conduct-20260813 vanished from the board (serial, on-child-failure=halt). 2/3 done before halt; swept: none
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6716,7 +6702,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.3M | $818.21 _(notional, rate-card)_ | no quota set |
+| Claude | 54.3M | $818.72 _(notional, rate-card)_ | no quota set |
 | Codex | 23.2M _(+801.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
