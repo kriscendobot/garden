@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-08-12
+updated: 2026-08-13
 author: gardener, builder
 ---
 
@@ -64,7 +64,10 @@ progress, and applies a failure policy rather than silently stalling.
    `garden-orchestrate` timer, ~3m cadence, **no `claude -p`**) advances every
    active orchestration ONE step per tick against the board state:
    - **serial** — promote child #1 (`promote-plan.sh`), WATCH it reach
-     `jobs/tada/`, then promote #2, … one at a time, in order. Immediately before
+     `jobs/tada/`, then promote #2, ... one at a time, in order. The promotion
+     primitive revalidates every predecessor against its own freshly-synced board
+     snapshot inside the plan-to-todo CAS loop; a stale watcher pre-read can therefore
+     never authorize N+1 while N remains parked. Immediately before
      each budgeted promotion, freshly sum billable tokens (input + output + cache
      creation; cache reads excluded) from the named children's ledgers at or
      after `created_at`. At/over the cap, finish `budget-exhausted` and leave the
@@ -82,7 +85,11 @@ progress, and applies a failure policy rather than silently stalling.
    - **on a child failure** it applies the policy — **halt** stops a serial run at
      the first failure, leaves not-yet-run downstream children parked under their
      held `orchestrated` gate, and **surfaces the failure to the maintainer
-     inbox**; **continue** proceeds to the next child. Never a silent stall.
+     inbox**; **continue** proceeds to the next child only when the failed child
+     has nevertheless reached `tada/` (for example, a report declaring
+     `orchestration-failed: true`). A vanished/stalled child has no completion
+     evidence and cannot satisfy the serial promotion precondition; the chain
+     remains safely parked for recovery. Never infer completion from absence.
    - **child failure emission** is mechanical. A child that genuinely finishes
      but does not achieve its gated outcome ends its report with these exact two
      lines, in this order:
@@ -147,7 +154,10 @@ also leaves a maintainer-inbox note.
 ## Notes
 
 - **Serial preserves order strictly:** a tick promotes the next child only after
-  the current one is in `tada/`; while a child is `active`, the tick waits.
+  the current one is in `tada/`; while a child is `active`, the tick waits. The
+  final check is repeated by `promote-plan.sh --require-tada` after its own fresh
+  sync and on every CAS retry, so watcher and promotion snapshots cannot open a
+  time-of-check/time-of-use hole.
 - **Idempotent + restart-safe:** promotion (`promote-plan.sh`) and the record
   writes are basename-idempotent and CAS-retried; a re-post of an existing
   orchestration is a no-op. The watcher recomputes state from the board each tick,

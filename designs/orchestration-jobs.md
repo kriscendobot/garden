@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-08-12
+updated: 2026-08-13
 author: gardener, designer, builder
 ---
 
@@ -67,6 +67,10 @@ having *failed*, only of it *reaching* `tada/`).
   deterministic, **no `claude -p`**, modeled exactly on `unblock.sh` — advances
   every active orchestration ONE step per tick:
   - **serial:** promote child #1, watch it to `tada/`, then #2, … one at a time.
+    For every later child, `promote-plan.sh --require-tada` revalidates all
+    predecessors in its own freshly-synced producer clone inside the same CAS
+    loop as the plan-to-todo move. The watcher pre-read chooses the candidate; it is never the
+    final authorization, so a stale snapshot cannot release a destructive stage.
   - **parallel:** promote all children at once, then watch them all.
   - **child state** from one immutable committed board tree: `done` (`tada/`), `active` (`todo`/`doin`),
     `parked` (`plan`), or `failed` (in NONE — promoted then vanished without a
@@ -75,7 +79,9 @@ having *failed*, only of it *reaching* `tada/`).
     locations retries next tick; a hard-reset working-tree gap is never observed.
   - **failure:** `halt` stops a serial run at the first failure, leaves not-yet-run
     downstream children parked under their held gate, and surfaces to the
-    maintainer inbox; `continue` proceeds.
+    maintainer inbox; `continue` proceeds only if the failed child still reached
+    `tada/`. A vanished child cannot prove completion, so the serial CAS gate
+    leaves downstream work parked for recovery.
   - **completion:** write `tada/<orch-base>` (outcome summary with an
     `orchestration-status:` marker) and remove the record.
 
@@ -116,7 +122,9 @@ promoted, downstream parked, surfaced to maintainer) under `halt` and proceeds u
 epoch filtering, all-outcome aggregation, malformed/unmetered fail-closed,
 non-sweeping remainder, visible unspent completion, parallel rejection, and
 separately-budgeted resume. Snapshot coverage models a hard-reset delete/add gap,
-and inconsistent duplicate board locations retry without mutation.
+inconsistent duplicate board locations retry without mutation, and a stale
+watcher snapshot cannot promote child N+1 while the authoritative promotion
+snapshot still has child N parked.
 
 ## Files
 

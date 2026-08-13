@@ -18,8 +18,11 @@
 # orchestration ONE step against the board state:
 #
 #   serial:   promote child #1, WATCH it reach jobs/tada/, then promote #2, … —
-#             one at a time, in order. A tick either promotes the next child, waits
-#             on the in-flight one, halts on a failure (policy=halt), or completes.
+#             one at a time, in order. Every N>1 promotion is CAS-conditional on
+#             ALL predecessors still being unambiguously in tada/ in the promotion
+#             primitive's own fresh board snapshot. A tick either promotes the next
+#             child, waits on the in-flight one, halts on a failure (policy=halt),
+#             or completes.
 #   parallel: promote ALL children at once (first tick), then watch them all; the
 #             orchestration completes when every child is terminal.
 #
@@ -576,10 +579,24 @@ advance_serial() {  # <base> <policy> <child>...
             return 0
           fi
         fi
-        if "$HERE/promote-plan.sh" "$c" >/dev/null 2>&1; then
+        # The ordered read above chooses WHICH child is next, but it cannot by
+        # itself authorize the move: DIR and promote-plan.sh use separate clones,
+        # so the board can change between this read and the promotion CAS. Carry
+        # every predecessor into the primitive. It re-syncs and validates them in
+        # the SAME critical section as the plan-to-todo move, and repeats the validation after
+        # every rejected-push retry. This is the serial ordering invariant's final
+        # enforcement point, not merely a watcher-side observation.
+        local promotion_args=() k promote_rc=0
+        for ((k=0; k<i; k++)); do
+          promotion_args+=(--require-tada "${kids[$k]}")
+        done
+        "$HERE/promote-plan.sh" "${promotion_args[@]}" "$c" >/dev/null 2>&1 || promote_rc=$?
+        if [ "$promote_rc" -eq 0 ]; then
           log "orchestration '$base': promoted child $((i+1))/$total '$c' (serial)"
           set_orch_state "$base" running || true
           set_orch_reap_baseline "$base" "$c" || true
+        elif [ "$promote_rc" -eq 3 ]; then
+          log "orchestration '$base': NOT promoting child $((i+1))/$total '$c': fresh promotion snapshot did not confirm every predecessor in tada/"
         else
           log "orchestration '$base': could not promote child '$c'; retrying next tick"
         fi

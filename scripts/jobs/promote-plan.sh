@@ -2,7 +2,7 @@
 # promote-plan.sh — move a parked plan job into the live queue: plan/<base> →
 # todo/<base>, so a gardener can claim it normally.
 #
-# Usage: promote-plan.sh <basename>
+# Usage: promote-plan.sh [--require-tada <predecessor>]... <basename>
 #
 # Two promotion paths feed this one primitive:
 #   1. MAINTAINER GO-AHEAD — the liaison (or the proxy within its bounds) runs this
@@ -39,6 +39,14 @@
 # PARKING side, so a producer that re-parks a live job body cannot smuggle a stale
 # counter into plan/ in the first place; the two share common.sh's strip helpers.
 #
+# For serial orchestration, each `--require-tada <predecessor>` is checked after
+# the promotion clone's fresh sync and again after every rejected-push retry. The
+# move and its dependency check therefore share one CAS critical section: if the
+# board changes after the check, the push loses and the next attempt revalidates.
+# A predecessor absent from tada/ (or ambiguously still present in plan/todo/doin)
+# refuses the move with exit 3. A recoverable stalled chain is safer than an early
+# destructive stage.
+#
 # Idempotent: if <base> is already past plan/ (in todo/doin/tada) the promotion is
 # a no-op success. If <base> is nowhere, it is an error.
 
@@ -48,12 +56,32 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="promote-plan"
 
-base="${1:?usage: promote-plan.sh <basename>}"
+required_tada=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --require-tada)
+      required_tada+=("${2:?--require-tada needs a predecessor basename}")
+      shift 2
+      ;;
+    --) shift; break;;
+    -*) die "unknown option: '$1'";;
+    *) break;;
+  esac
+done
+
+base="${1:?usage: promote-plan.sh [--require-tada <predecessor>]... <basename>}"
 case "$base" in
   -*)        die "illegal basename: '$base'";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
 base="${base%.md}"
+for predecessor in "${required_tada[@]}"; do
+  case "$predecessor" in
+    -*)        die "illegal predecessor basename: '$predecessor'";;
+    */*|.*|'') die "illegal predecessor basename: '$predecessor'";;
+  esac
+  [ "${predecessor%.md}" != "$base" ] || die "a job cannot require its own tada report"
+done
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
@@ -87,6 +115,23 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     fi
     die "no plan job '$base' to promote (not in plan/, todo/, doin/, or tada/)"
   fi
+
+  # This check belongs HERE, in the same freshly-synced producer clone and CAS
+  # loop as the move. A watcher-side pre-read alone is a TOCTOU check: its clone
+  # may say predecessor=tada while the authoritative board has since re-parked it.
+  # Requiring tada here makes the promotion commit itself conditional. Presence
+  # in any live/parked lifecycle directory makes the view ambiguous and blocks,
+  # even if a duplicate tada report also exists.
+  for predecessor in "${required_tada[@]}"; do
+    predecessor="${predecessor%.md}"
+    if [ -e "$DIR/$JOBS_PLAN/$predecessor.md" ] \
+       || [ -e "$DIR/$JOBS_TODO/$predecessor.md" ] \
+       || [ -e "$DIR/$JOBS_DOIN/$predecessor.md" ] \
+       || ! tada_exists "$DIR" "$predecessor"; then
+      log "refusing to promote '$base': required predecessor '$predecessor' is not unambiguously complete in tada/"
+      exit 3
+    fi
+  done
 
   src="$DIR/$JOBS_PLAN/$base.md"
   gate="$(plan_gate "$src")"

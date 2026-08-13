@@ -11,8 +11,8 @@
 #                   (policy=halt): the next child is NOT promoted, downstream
 #                   children remain safely parked, and the failure surfaces to
 #                   the maintainer — not a silent stall.
-#   4. CONTINUE   — the same failure with policy=continue proceeds to the next
-#                   child rather than halting.
+#   4. CONTINUE   - a child that reaches tada with a declared failure proceeds to
+#                   the next child rather than halting under policy=continue.
 #   5. STALL       — a NON-PRODUCTIVE requeue streak that EXCEEDS
 #                   GARDEN_ORCH_STALL_REQUEUE_LIMIT, or an expired handler budget, is
 #                   a deterministic failed child; a requeue within the limit, or one
@@ -29,6 +29,8 @@
 #                   checkout models the delete/add gap of a hard reset.
 #  10. INCONSISTENT — a commit containing the child in two board directories
 #                   retries instead of inventing a terminal disposition.
+#  11. SERIAL CAS   - a stale watcher snapshot cannot promote N+1 when the
+#                   promotion primitive's fresh snapshot still has N parked.
 #
 # Usage: orchestrate-test.sh
 
@@ -293,7 +295,7 @@ hr; echo "SUBTEST 4 — CONTINUE: a serial child failure proceeds (policy=contin
 
 tick                      # promote c-a
 in_dir jobs/todo c-a || bad "continue setup: c-a not promoted"
-fail_child c-a            # c-a fails
+complete_failed_child c-a # c-a fails but still supplies terminal tada evidence
 tick                      # policy=continue → promote c-b despite the failure
 { in_dir jobs/todo c-b; } \
   && ok "failed child did NOT halt: c-b promoted (policy=continue)" \
@@ -610,10 +612,10 @@ in_dir jobs/todo g-b && { gate_ok=0; echo "    g-b PROMOTED while g-a still in f
 [ "$gate_ok" -eq 1 ] && ok "serial run held g-b parked while g-a still occupied doin (no concurrent promotion)" \
   || bad "serial gate breached (doin=$(board jobs/doin) todo=$(board jobs/todo))"
 fail_child g-a                    # g-a genuinely vanishes from the board
-tick                              # only now may continue promote g-b
-{ in_dir jobs/todo g-b; } \
-  && ok "once g-a vanished, policy=continue released the gate and promoted g-b" \
-  || bad "g-b not promoted after g-a vanished (todo=$(board jobs/todo))"
+tick                              # disappearance is NOT completion evidence
+{ in_dir jobs/plan g-b && ! in_dir jobs/todo g-b; } \
+  && ok "a vanished predecessor did not satisfy the tada precondition; g-b stayed parked" \
+  || bad "g-b promoted without predecessor tada evidence (todo=$(board jobs/todo))"
 
 # ============================================================================
 hr; echo "SUBTEST 17 — GATED TADA: report the declared failure, never 'vanished'"; hr
@@ -745,6 +747,41 @@ in_dir jobs/tada zz-sharded && sharded_ok=0
 [ "$sharded_ok" -eq 1 ] \
   && ok "a child completed into a date shard read as tada and promoted the next child" \
   || bad "sharded child read as vanished instead of tada (todo=$(board jobs/todo), tada=$(board jobs/tada), plan=$(board jobs/plan))"
+
+# ============================================================================
+hr; echo "SUBTEST 22 - SERIAL CAS: N+1 promotion revalidates N=tada in the authoritative snapshot"; hr
+# Reproduce the unsafe state deterministically. The watcher syncs a pending serial
+# orchestration whose children are both parked. Its private immutable snapshot is
+# then made stale/misleading: child 1 appears in tada there, while authoritative
+# origin STILL has child 1 parked. Before the fix the ordered loop trusted that
+# pre-read, promoted child 2 through the separate producer clone, and transitioned
+# pending-to-running, yielding exactly child1=plan + child2=todo. The fix carries the
+# predecessor into promote-plan.sh, whose own fresh sync sees child 1 parked and
+# refuses the move in the same CAS critical section.
+#
+# This orchestration sorts first so no older record can re-sync the watcher clone
+# and erase the injected snapshot before this record is evaluated.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-serial-cas 00-cas-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by 00-serial-cas 00-cas-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt 00-serial-cas 00-cas-a 00-cas-b >/dev/null
+stale_serial="$TR/stale-serial.sh"
+printf '%s\n' '#!/bin/sh' \
+  'git -C "$1" mv jobs/plan/00-cas-a.md jobs/tada/00-cas-a.md' \
+  'git -C "$1" -c user.name=t -c user.email=t@l commit -q -m "transient: stale view says child 1 done"' \
+  > "$stale_serial"
+chmod +x "$stale_serial"
+GARDEN_ORCH_AFTER_SYNC_CMD="$stale_serial" tick
+cas_ok=1
+in_dir jobs/plan 00-cas-a || cas_ok=0
+in_dir jobs/plan 00-cas-b || cas_ok=0
+in_dir jobs/todo 00-cas-b && cas_ok=0
+cas_view="$(mktemp -d "$TR/cas-view.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$cas_view"
+grep -q '^state: pending$' "$cas_view/jobs/orch/00-serial-cas.md" || cas_ok=0
+rm -rf "$cas_view"
+[ "$cas_ok" -eq 1 ] \
+  && ok "stale watcher view could not move child 2; both children stayed parked and the record stayed pending" \
+  || bad "serial CAS gate breached (todo=$(board jobs/todo), plan=$(board jobs/plan))"
 
 # ============================================================================
 hr

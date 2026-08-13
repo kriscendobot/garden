@@ -33,7 +33,9 @@ to completion — so a follow-up is never forgotten.
 - **Failure policy is explicit.** `--on-child-failure halt` (default) stops a
   serial run at the first failed child, leaves the not-yet-run downstream
   children parked under their held `orchestrated` gate, and surfaces the failure
-  to the maintainer; `continue` proceeds. A
+  to the maintainer; `continue` proceeds only after a failed child has still
+  produced a `tada/` report. A vanished child is not completion evidence, so
+  downstream children remain parked even under `continue`. A
   child "fails" when it vanishes from the board without reaching `tada/` (the
   reaper doomed it) or its report declares failure. The child emits the exact
   line `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before its final
@@ -42,7 +44,9 @@ to completion — so a follow-up is never forgotten.
   child to free-type the parsed field into prose. **Never a silent stall** — that
   is the whole point of the watch. Board state is read from one committed Git
   tree; an unreadable or multiply-located child retries next tick rather than
-  being guessed failed.
+  being guessed failed. The final serial prerequisite check runs again inside
+  the promotion primitive's fresh sync/CAS loop, so a stale watcher snapshot
+  cannot release a later child.
 - **Relate to `blocked_on`, don't duplicate it.** For a plain linear two-step
   dependency with no parallelism, progress report, or failure policy,
   `post-plan.sh --blocked --blocked-on <predecessor>` + the unblock watcher is the
