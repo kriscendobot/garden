@@ -78,3 +78,13 @@ report Part 2 as a clean, explicit follow-up rather than launching against an
 unfixed watcher.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T18:13:13Z

@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: cleric
+claimed_at: 2026-08-13T18:13:13Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-orchestrate-vanished-fix-and-resume
