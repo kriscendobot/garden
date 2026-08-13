@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T13:28:25Z_
+_As of 2026-08-13T13:30:39Z_
 
 ## Latest
 
@@ -6710,24 +6710,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.9M | $992.97 _(notional, rate-card)_ | no quota set |
+| Claude | 61.9M | $992.80 _(notional, rate-card)_ | no quota set |
 | Codex | 21.0M _(+719.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr971-1271c113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr971-1271c113.md) — attention directive on endojs/endo-but-for-bots PR #971
+### doin (1)
 - [`endojs-endo-but-for-bots-pr972-review-c8f4418c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr972-review-c8f4418c.md) — Review directive on endojs/endo-but-for-bots PR #972
 
-### tada (4491)
+### tada (4492)
+- [`endojs-endo-but-for-bots-pr971-1271c113`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-1271c113.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-b6e150b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-b6e150b1.md) — Review directive on endojs/endo-but-for-bots PR #972 — dckc review 4927529354
 - [`endojs-endo-but-for-bots-pr972-7d657cf2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-7d657cf2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-402165a4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-402165a4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr971-68e168c5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr971-68e168c5.md) — Cost
-- [`ebfb-pr977-gauntlet-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr977-gauntlet-rerun.md) — Cost
-- … and 4486 more
+- … and 4487 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
