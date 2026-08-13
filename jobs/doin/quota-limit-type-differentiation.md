@@ -106,3 +106,13 @@ State plainly: what the JSON-envelope investigation found (Part 1), the
 asymmetry fix, and confirm the specific misclassification bug (fast weekly/
 5-hour death treated as deterministic) is now covered by a test that fails
 on the pre-fix code.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:11:01Z
