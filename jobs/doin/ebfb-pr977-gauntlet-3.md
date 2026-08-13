@@ -47,3 +47,13 @@ overran 2400s doing exactly that.
   running the daemon tests locally; a peer worked around it with an
   `ENDO_TEST_DIRNAME` shim it did not commit. A failure of that shape is an
   environment artifact, not a broken test.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T16:11:02Z
