@@ -52,3 +52,13 @@ package, so that part may be settled — verify rather than assume.
 - Report elapsed time against the 7200s budget in your summary. If this still
   does not fit, say so explicitly and name the natural split points, so the next
   attempt decomposes on evidence instead of guessing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:09:10Z
