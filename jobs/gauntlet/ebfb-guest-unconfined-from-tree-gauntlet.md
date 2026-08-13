@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 977
 build_job: ebfb-guest-unconfined-from-tree
 kind: feature
-stage: panel
+stage: fix
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ebfb-guest-unconfined-from-tree-gauntlet-panel-1
+current_child: ebfb-guest-unconfined-from-tree-gauntlet-fix-1
 state: running
 created_by: producer
 created_at: 2026-08-13T02:55:31Z
