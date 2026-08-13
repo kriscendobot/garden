@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T00:46:39Z_
+_As of 2026-08-13T00:49:44Z_
 
 ## Latest
 
@@ -6703,24 +6703,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 54.3M | $818.21 _(notional, rate-card)_ | no quota set |
-| Codex | 23.0M _(+799.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
+| Codex | 23.1M _(+800.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
 - [`endojs-endo-but-for-bots-pr124-f9e663e7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-f9e663e7.md) — attention directive on endojs/endo-but-for-bots PR #124
-- [`pr403-weave-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr403-weave-20260813.md) — weave stage for PR #403
 
-### tada (4465)
+### tada (4466)
+- [`pr403-weave-20260813`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr403-weave-20260813.md) — Cost
 - [`endojs-endo-but-for-bots-pr978-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr978-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #978
 - [`deadmail-20260812T235216Z-ca9637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T235216Z-ca9637.md) — Completion report — dead-letter pickup for endo-upstream-llm-retention-set-pe...
 - [`endo-upstream-llm-retention-set-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-upstream-llm-retention-set-peer-binding.md) — Completion report
 - [`endojs-endo-but-for-bots-pr656-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr656-conduct.md) — Completion report
-- [`deadmail-20260812T233020Z-59f3fc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260812T233020Z-59f3fc.md) — Cost
-- … and 4460 more
+- … and 4461 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
