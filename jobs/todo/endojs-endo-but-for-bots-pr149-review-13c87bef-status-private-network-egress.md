@@ -1,11 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr149-review-13c87bef-status
-priority: normal
 role: designer
-posted_by: designer
-posted_at: 2026-08-13T21:38:31Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-13T21:43:23Z cleared=none -->
 
 ---
 tier: mentor
