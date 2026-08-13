@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:35:40Z_
+_As of 2026-08-13T22:42:31Z_
 
 ## Latest
 
@@ -6759,15 +6759,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.2M | $990.36 _(notional, rate-card)_ | no quota set |
+| Claude | 60.3M | $993.68 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #980
+- [`ebfb-llm-retire-genie-package`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-llm-retire-genie-package.md) — Retire the genie package and its PLAN/TODO/TADA docs; make sandbox stand alone
 
 ### tada (4579)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Cost
