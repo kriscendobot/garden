@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr943-weave-llm endojs-endo-but-for-bots-pr943-conduct-r4930413457
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-13T18:40:57Z
 ---
