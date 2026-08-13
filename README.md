@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:18:21Z_
+_As of 2026-08-13T22:19:22Z_
 
 ## Latest
 
@@ -6770,13 +6770,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-11-strings.md) — Complete String construction, iteration, and prototype algorithms
 
-### tada (4572)
+### tada (4573)
+- [`reorg-context-library-batch-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-library-batch-1.md) — orchestration reorg-context-library-batch-1 — complete
 - [`reorg-context-local-inference-amd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-local-inference-amd.md) — Completion report
 - [`reorg-skill-local-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-skill-local-verify.md) — What I did
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Completion report
 - [`genie-docs-to-journal-orchestration-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration-r2.md) — orchestration genie-docs-to-journal-orchestration-r2 — HALTED
-- [`genie-docs-r2-02-delete-from-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-02-delete-from-llm.md) — Completion report
-- … and 4567 more
+- … and 4568 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
