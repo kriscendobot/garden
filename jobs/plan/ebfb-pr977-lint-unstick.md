@@ -1,4 +1,18 @@
 ---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+doomed_at: 2026-08-13T04:33:11Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-13T04:33:11Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -41,13 +55,3 @@ draft despite the substantive work being done.
   description; the substantive fix for the deployed defect lives elsewhere.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 4
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-13T03:46:17Z
