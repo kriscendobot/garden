@@ -1,4 +1,5 @@
 ---
+child-genie-docs-01-migrate-into-journal-host: endolin-garden2-5bcdff64
 child-genie-docs-01-migrate-into-journal-reap-count: 0
 order: serial
 children: genie-docs-01-migrate-into-journal genie-docs-02-delete-from-llm
