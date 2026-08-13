@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: cleric
+claimed_at: 2026-08-13T16:08:47Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-garden-triager-transient-auth-misclassified-as-upstream-gone

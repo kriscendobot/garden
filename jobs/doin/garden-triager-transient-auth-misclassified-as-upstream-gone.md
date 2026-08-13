@@ -75,3 +75,13 @@ produce an upstream-gone verdict; a `Repository not found` stderr must; and the
 - Do not disarm any watch and do not add any `watch-optout` tombstone. Every one
   of those thirteen repos is legitimately watched; the notices were wrong, not
   the watch set.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T16:08:47Z
