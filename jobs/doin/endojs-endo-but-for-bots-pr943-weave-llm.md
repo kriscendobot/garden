@@ -56,3 +56,13 @@ ORCHESTRATION GATE: if the rebase reveals #943's premise no longer holds (e.g.
 @endo/ascii already landed on `llm`, or an irreducible conflict), emit the
 orchestration-failed signal so the conduct step does not fire on a broken weave,
 and surface the reason.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T18:43:08Z
