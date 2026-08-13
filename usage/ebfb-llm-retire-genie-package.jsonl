@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":111,"elapsed_s":1420,"input_tokens":208,"output_tokens":67038,"cache_creation_tokens":141444,"cache_read_tokens":10713844,"total_cost_usd":10.304180999999996,"ts":"2026-08-13T23:06:08Z","base":"ebfb-llm-retire-genie-package","host":"endolin-garden2-5bcdff64","outcome":"tada"}
