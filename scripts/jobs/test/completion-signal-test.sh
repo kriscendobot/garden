@@ -225,10 +225,11 @@ rm -rf "$T3"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — (c) all four exit modes → requeue, bounded by the doom threshold"; hr
-# Drive each named mode through the REAL gardener and assert it is requeued
-# (not completed to tada). API error / rate limit / quota are non-zero with a
-# transient claude signature in the capture; exit-0-unsatisfying is the new clean
-# exit-0 path. All four leave the job in doin with a reap-now hint.
+# Drive each named mode through the REAL gardener and assert it is retained for
+# deterministic retry (not completed to tada). API error / rate limit / quota are
+# non-zero with a transient claude signature in the capture; exit-0-unsatisfying
+# is the clean exit-0 path. Ordinary transients carry reap-now. A provider quota
+# refusal with a parseable reset carries the stronger quota-backoff marker.
 run_mode() {  # run_mode <label> <base> <rc> <signal> <capture>
   local label="$1" base="$2" rc="$3" sig="$4" cap="$5"
   local tr bare
@@ -246,10 +247,10 @@ run_mode() {  # run_mode <label> <base> <rc> <signal> <capture>
       "$JOBS/gardener.sh" 1 > "$tr/gardener.log" 2>&1 || true
   local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
   if [ ! -e "$v/jobs/tada/$base.md" ] && [ -f "$v/jobs/doin/$base.md" ] \
-       && grep -Eq '^<!-- garden-reap-now -->$' "$v/jobs/doin/$base.md"; then
-    ok "$label → requeued (not tada; left in doin with a reap-now hint)"
+       && grep -Eq '^<!-- garden-(reap-now|provider-quota-backoff: .*) -->$' "$v/jobs/doin/$base.md"; then
+    ok "$label -> retained for deterministic retry (not tada; retry/backoff hint stamped)"
   else
-    bad "$label → NOT requeued as expected (tada=$([ -e "$v/jobs/tada/$base.md" ] && echo y || echo n) doin=$([ -f "$v/jobs/doin/$base.md" ] && echo y || echo n) hint=$([ -f "$v/jobs/doin/$base.md" ] && grep -Eq '^<!-- garden-reap-now -->$' "$v/jobs/doin/$base.md" && echo y || echo n))"
+    bad "$label -> NOT retained as expected (tada=$([ -e "$v/jobs/tada/$base.md" ] && echo y || echo n) doin=$([ -f "$v/jobs/doin/$base.md" ] && echo y || echo n) hint=$([ -f "$v/jobs/doin/$base.md" ] && grep -Eq '^<!-- garden-(reap-now|provider-quota-backoff: .*) -->$' "$v/jobs/doin/$base.md" && echo y || echo n))"
   fi
   rm -rf "$tr"
 }
