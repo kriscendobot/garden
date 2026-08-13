@@ -44,3 +44,13 @@ at exactly that, which is why this is posted separately with a supervisor budget
   running the daemon tests locally; a peer worked around it with an
   `ENDO_TEST_DIRNAME` shim it did not commit. A failure of that shape is an
   environment artifact, not a broken test.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T04:28:46Z
