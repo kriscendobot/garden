@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:56:39Z_
+_As of 2026-08-13T22:57:23Z_
 
 ## Latest
 
@@ -3598,6 +3598,37 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > llm is UNTOUCHED. Tell me which way and I'll execute.
 
+- `20260813T225701Z-faa5d7` — from gardener:ironhorse-resume-6-launch, reply_to `ironhorse-resume-6-launch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T225701Z-faa5d7.md)
+
+> Ironhorse resume-6 launch is BLOCKED on a deploy gap — did NOT launch.
+>
+> Precondition failed: the campaign-meter fix (garden-campaign-spend-unmetered-rows)
+> is LANDED on main2 but NOT DEPLOYED. Deployed root
+> scripts/jobs/campaign-spend.sh still fatals at line 79
+> ("… is an unmetered or invalid campaign row"); the main2 version (in a fresh
+> main2 worktree) already counts unmetered rows as 0 spend and still rejects
+> malformed rows. Launching now would relaunch straight into the same fatal on the
+> first cleric child (exactly how resume-5 died after one child).
+>
+> All 17 children (js-12..js-28) confirmed still parked in jobs/plan/ with
+> gate: orchestrated. Nothing to fix on the board.
+>
+> I did NOT self-authorize a deploy. Handed the launch off to a durable go-ahead
+> successor so nothing is lost:
+>
+>   jobs/plan/ironhorse-resume-6-launch-postdeploy  (gate=go-ahead)
+>
+> It carries the full precondition + the exact post-orchestration.sh launch line
+> (--serial --on-child-failure continue --budget-tokens 10000000, resume-6, children
+> js-12..js-28) and re-verifies the deploy before firing.
+>
+> Next steps:
+>   1. Let the deploy-on-upgrade Monitor drive the deploy of main2 to the root (or
+>      authorize a sysop deploy op). The deploy needs a drained/quiet fleet.
+>   2. After the deploy lands, promote ironhorse-resume-6-launch-postdeploy
+>      ("go ahead / promote ironhorse-resume-6-launch-postdeploy"). It re-checks the
+>      deployed script, then launches the campaign.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6759,8 +6790,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $997.76 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+802.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.3M | $996.79 _(notional, rate-card)_ | no quota set |
+| Codex | 23.7M _(+802.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
