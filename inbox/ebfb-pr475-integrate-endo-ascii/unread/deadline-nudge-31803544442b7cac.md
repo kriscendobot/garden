@@ -1,0 +1,9 @@
+from_host: endolin-garden2-5bcdff64
+from: deadline-nudge
+sent_at: 2026-08-13T20:57:00Z
+kind: deadline-nudge
+claim_attempt: 31803544442b7cac
+deadline_at: 2026-08-13T21:06:20Z
+remaining_seconds: 560
+---
+Deadline nudge: about 10 minutes remain in this attempt. Wrap up now. If the remaining work is separable, finish the current unit honestly and record the next job under `## Follow-ups`; garden-follow-up consumes that section. Preserve and commit safe progress before the wall. Do not emit the completion signal while the current job's core deliverable is unfinished.
