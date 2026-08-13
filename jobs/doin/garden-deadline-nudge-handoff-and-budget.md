@@ -94,3 +94,13 @@ push semantics — a stale sender must still never warn a later claim.
   option between "finish" and "die at the wall", not to make giving up cheap.
 - Report elapsed against the 7200s budget, and if this does not fit, name the
   split points rather than overrunning.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T21:23:31Z
