@@ -73,3 +73,13 @@ reports how many were unmetered, still rejects malformed rows, tests pass, and t
 change is pushed to `main2`. This blocks the Ironhorse relaunch
 (`ironhorse-resume-6-launch`), so report the pushed commit SHA in your completion
 report — the launch job checks for it in the deployed root.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T22:42:53Z
