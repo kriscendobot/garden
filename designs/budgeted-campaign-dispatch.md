@@ -1,6 +1,6 @@
 ---
 created: 2026-08-12
-updated: 2026-08-12
+updated: 2026-08-13
 author: designer (job budgeted-campaign-dispatch-design)
 ---
 
@@ -197,12 +197,15 @@ is explicit: an unpriced row contributes tokens but not dollars. The real-dollar
 equivalent divides campaign notional spend by a freshly recomputed reset-to-date
 fleet index, using the two-account `$400 * 12 / 52` weekly cost, and stamps the
 calculation time. It is reporting metadata and never participates in admission.
-A malformed
-JSON line, an unreadable named file, or a matching `source: none` row produces a
-non-zero exit with a reason. The watcher then terminates the campaign as
+A malformed JSON line, an unreadable named file, an invalid timestamp, or an
+invalid token or cost value produces a non-zero exit with a reason. The watcher
+then terminates the campaign as
 `orchestration-status: budget-meter-incomplete`, promotes nothing, leaves the
-remainder parked, and notifies the maintainer. Counting an unknown row as zero
-would turn a bounded campaign into an unbounded one.
+remainder parked, and notifies the maintainer. A well-formed engagement with
+`source: none`, or with all four token fields absent or null, instead increments
+`unmetered` and contributes zero tokens. Terminal reports carry the unmetered
+count so the excluded spend remains visible rather than looking artificially
+complete.
 
 An absent usage file is normal before a child runs. The existing capture path is
 best-effort, so phase 1 cannot prove that no completed engagement was omitted
@@ -242,11 +245,13 @@ campaign-budget-tokens: 2080000
 campaign-spend-tokens: 2144102
 campaign-unspent-tokens: 0
 campaign-overshoot-tokens: 64102
+campaign-unmetered-engagements: 2
 
 # orchestration ironhorse-test262-implementation-completion-resume - BUDGET EXHAUSTED
 
 Stopped before promoting child 18/29. 17 children were already complete.
 12 not-yet-run children remain parked: ...
+Recorded token spend excludes 2 unmetered engagement(s).
 Notional spend at the terminal snapshot: $65.41 (0 unpriced engagements).
 Real-dollar-equivalent: $19.92 at the 3.2833x fleet index as of 2026-08-12T01:00:00Z.
 ```

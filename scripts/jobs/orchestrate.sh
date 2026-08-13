@@ -446,15 +446,18 @@ print_campaign_quantities() {  # <snapshot-json>
   printf 'campaign-spend-tokens: %s\n' "$(jq -r '.spend_tokens' <<<"$snapshot")"
   printf 'campaign-unspent-tokens: %s\n' "$(jq -r '.unspent_tokens' <<<"$snapshot")"
   printf 'campaign-overshoot-tokens: %s\n' "$(jq -r '.overshoot_tokens' <<<"$snapshot")"
+  printf 'campaign-unmetered-engagements: %s\n' "$(jq -r '.unmetered' <<<"$snapshot")"
 }
 
 print_campaign_price_snapshot() {  # <snapshot-json>
-  local snapshot="$1" notional real index calibrated unpriced
+  local snapshot="$1" notional real index calibrated unpriced unmetered
   notional="$(jq -r '.notional_usd' <<<"$snapshot")"
   real="$(jq -r '.real_equivalent_usd' <<<"$snapshot")"
   index="$(jq -r '.notional_to_real_index' <<<"$snapshot")"
   calibrated="$(jq -r '.calibration_as_of' <<<"$snapshot")"
   unpriced="$(jq -r '.unpriced' <<<"$snapshot")"
+  unmetered="$(jq -r '.unmetered' <<<"$snapshot")"
+  printf 'Recorded token spend excludes %s unmetered engagement(s).\n' "$unmetered"
   printf 'Notional spend at the terminal snapshot: $%.2f (%s unpriced engagement(s)).\n' "$notional" "$unpriced"
   printf 'Real-dollar-equivalent: $%.2f at the %.4fx fleet index as of %s.\n' "$real" "$index" "$calibrated"
 }
@@ -472,6 +475,7 @@ finish_budget_meter_incomplete() {  # <base> <reason> <position> <total> <child>
     printf 'campaign-spend-tokens: unknown\n'
     printf 'campaign-unspent-tokens: unknown\n'
     printf 'campaign-overshoot-tokens: unknown\n'
+    printf 'campaign-unmetered-engagements: unknown\n'
     printf 'campaign-parked-children: %s\n' "${parked[*]}"
     printf '# orchestration %s — BUDGET METER INCOMPLETE\n\n' "$base"
     if [ "$position" -gt 0 ]; then
@@ -573,7 +577,7 @@ advance_serial() {  # <base> <policy> <child>...
           fi
           rm -f "$reason_file"
           spend="$(jq -r '.spend_tokens' <<<"$snapshot")"
-          log "orchestration '$base': campaign spend $spend/$budget before child $((i+1))/$total '$c'"
+          log "orchestration '$base': campaign spend $spend/$budget before child $((i+1))/$total '$c'; $(jq -r '.unmetered' <<<"$snapshot") unmetered engagement(s) excluded"
           if [ "$spend" -ge "$budget" ]; then
             finish_budget_exhausted "$base" "$snapshot" "$((i+1))" "$done_count" "${kids[@]}"
             return 0

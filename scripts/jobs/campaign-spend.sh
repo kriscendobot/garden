@@ -67,17 +67,14 @@ for child in $children; do
     timestamp="$(jq -r '.ts' <<<"$row")"
     [ -n "$timestamp" ] || die "usage/$child.jsonl line $line_number is missing ts"
     date -u -d "$timestamp" +%s >/dev/null 2>&1 || die "usage/$child.jsonl line $line_number has invalid ts '$timestamp'"
-    [[ "$timestamp" < "$created_at" ]] && continue
     if ! jq -e '
-      (.source // "") != "none"
-      and ([.input_tokens?, .output_tokens?, .cache_creation_tokens?, .cache_read_tokens?]
-           | any(. != null))
-      and ([.input_tokens?, .output_tokens?, .cache_creation_tokens?, .cache_read_tokens?]
+      ([.input_tokens?, .output_tokens?, .cache_creation_tokens?, .cache_read_tokens?]
            | all(. == null or (type == "number" and . >= 0 and floor == .)))
       and (.total_cost_usd == null or (.total_cost_usd | type == "number" and . >= 0))
     ' >/dev/null 2>&1 <<<"$row"; then
-      die "usage/$child.jsonl line $line_number is an unmetered or invalid campaign row"
+      die "usage/$child.jsonl line $line_number has invalid token or cost accounting"
     fi
+    [[ "$timestamp" < "$created_at" ]] && continue
     printf '%s\n' "$row" >> "$matching_rows"
   done < "$ledger"
 done
@@ -85,10 +82,16 @@ done
 campaign_summary="$(jq -sc '
   reduce .[] as $row ({engagements:0, spend_tokens:0, notional_usd:0, unpriced:0, unmetered:0};
     .engagements += 1
-    | .spend_tokens += (($row.input_tokens // 0) + ($row.output_tokens // 0)
-                       + ($row.cache_creation_tokens // 0))
+    | (($row.source == "none")
+       or ([$row.input_tokens?, $row.output_tokens?, $row.cache_creation_tokens?, $row.cache_read_tokens?]
+           | all(. == null))) as $unmetered
+    | .spend_tokens += (if $unmetered then 0 else
+                          (($row.input_tokens // 0) + ($row.output_tokens // 0)
+                           + ($row.cache_creation_tokens // 0))
+                        end)
     | .notional_usd += ($row.total_cost_usd // 0)
-    | .unpriced += (if $row.total_cost_usd == null then 1 else 0 end))
+    | .unpriced += (if $row.total_cost_usd == null then 1 else 0 end)
+    | .unmetered += (if $unmetered then 1 else 0 end))
 ' "$matching_rows")" || die "could not aggregate campaign '$base'"
 
 # Reporting-only calibration: the latest Friday 9 p.m. Pacific reset through

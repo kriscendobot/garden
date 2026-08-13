@@ -517,7 +517,7 @@ grep -q '^campaign-unspent-tokens: 0' "$V/jobs/tada/orch-over.md" 2>/dev/null ||
   || bad "overshoot state/report mismatch"
 
 # ============================================================================
-hr; echo "SUBTEST 12 — FAIL CLOSED: unmetered and malformed campaign rows"; hr
+hr; echo "SUBTEST 12 — COVERAGE: count unmetered rows; fail closed only on malformed rows"; hr
 for kind in unmetered malformed; do
   campaign="orch-$kind"; child="m-$kind"
   "$JOBS/post-plan.sh" --orchestrated --orchestrated-by "$campaign" "$child" >/dev/null
@@ -530,13 +530,19 @@ for kind in unmetered malformed; do
   tick
 done
 meter_ok=1
-for kind in unmetered malformed; do
-  in_dir jobs/tada "orch-$kind" || meter_ok=0
-  in_dir jobs/plan "m-$kind" || meter_ok=0
-  grep -q '^orchestration-status: budget-meter-incomplete' "$V/jobs/tada/orch-$kind.md" 2>/dev/null || meter_ok=0
-done
-[ "$meter_ok" -eq 1 ] && ok "unmetered and malformed ledgers terminated fail-closed with work parked" \
-  || bad "meter-incomplete terminal behavior mismatch"
+in_dir jobs/todo m-unmetered || meter_ok=0
+in_dir jobs/tada orch-unmetered && meter_ok=0
+in_dir jobs/tada orch-malformed || meter_ok=0
+in_dir jobs/plan m-malformed || meter_ok=0
+grep -q '^orchestration-status: budget-meter-incomplete' "$V/jobs/tada/orch-malformed.md" 2>/dev/null || meter_ok=0
+complete_child m-unmetered
+tick
+in_dir jobs/tada orch-unmetered || meter_ok=0
+grep -q '^orchestration-status: complete' "$V/jobs/tada/orch-unmetered.md" 2>/dev/null || meter_ok=0
+grep -q '^campaign-unmetered-engagements: 1' "$V/jobs/tada/orch-unmetered.md" 2>/dev/null || meter_ok=0
+grep -q 'Recorded token spend excludes 1 unmetered engagement' "$V/jobs/tada/orch-unmetered.md" 2>/dev/null || meter_ok=0
+[ "$meter_ok" -eq 1 ] && ok "unmetered rows permit dispatch and surface in the terminal report; malformed rows still fail closed" \
+  || bad "unmetered/malformed campaign behavior mismatch"
 
 # ============================================================================
 hr; echo "SUBTEST 13 — COMPLETION: report and notify unused budget"; hr
