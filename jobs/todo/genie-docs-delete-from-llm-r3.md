@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: builder
@@ -59,13 +60,4 @@ Run the normal gauntlet. Do not force the merge if review objects to removing th
 content from the repo — report back instead. Some readers may want these kept
 in-tree, and that is the maintainer's call.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-13T22:11:25Z
+<!-- garden-reaped: 0 -->
