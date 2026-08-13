@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-tada-shard-orchestration
-priority: normal
-posted_by: producer
-posted_at: 2026-08-13T21:29:35Z
+role: designer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-13T21:31:03Z cleared=none -->
 
 ---
 tier: mentor
