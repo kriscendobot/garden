@@ -144,8 +144,9 @@ while IFS= read -r j; do
     # to merge). Such a report is tada_failed → do NOT promote; hold the plan and
     # surface the stalled dependency to the maintainer instead of running the
     # dependent against an outcome that never happened.
-    if [ -f "$DIR/jobs/tada/$artifact.md" ]; then
-      if tada_failed "$DIR/jobs/tada/$artifact.md"; then
+    tada_path="$(tada_find "$DIR" "$artifact" || true)"
+    if [ -n "$tada_path" ]; then
+      if tada_failed "$DIR/$tada_path"; then
         # `|| true`: a hold that exhausts its CAS retries logs and is retried next
         # tick; it must never `set -e`-abort the whole scan of the other plans.
         hold_failed "$base" "$artifact" || true

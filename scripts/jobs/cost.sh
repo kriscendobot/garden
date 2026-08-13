@@ -64,7 +64,7 @@ fi
 # Total completed jobs = the coverage denominator (tada reports outlive the board).
 tada_total=0
 if [ -d "$dir/$JOBS_TADA" ]; then
-  tada_total="$(find "$dir/$JOBS_TADA" -maxdepth 1 -name '*.md' 2>/dev/null | grep -c . || true)"
+  tada_total="$(tada_list "$dir" | grep -c . || true)"
 fi
 
 if [ "${#files[@]}" -eq 0 ]; then

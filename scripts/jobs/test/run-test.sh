@@ -1192,6 +1192,17 @@ git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
 job1b=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-1\.md$' || true)
 { [ "$hb" = "$ha" ] && [ "$job1b" -eq 1 ]; } && ok "second tick: no commit, no duplicate job (idempotent)" || bad "second tick not idempotent (commit $hb→$ha job=$job1b)"
 rm -rf "$FV"
+# A report written into the future date-sharded layout is consumed under the
+# same basename and its seen marker is path-independent.
+push_change "jobs/tada/2026/08/13/fu-sharded.md" \
+  "$(printf '# sharded\n## Follow-ups (escalated to liaison)\n- weaver rebase the sharded case\n')" \
+  "seed sharded follow-up report"
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-stub.sh" "$JOBS/follow-up.sh" >/dev/null 2>&1
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
+[ -f "$FV/jobs/todo/fu-fu-sharded-1.md" ] && grep -qxF 'fu-sharded' "$GARDEN_STATE/follow-up/seen" \
+  && ok "sharded report is consumed once and keyed by stable basename" \
+  || bad "sharded follow-up report was missed or marked by path"
+rm -rf "$FV"
 # the one-shot schedule (a past `once:`) fires exactly once, then is deleted
 "$JOBS/scheduler.sh" >/dev/null 2>&1
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
@@ -1236,7 +1247,7 @@ mm_before=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv0" 
 rcA=0
 env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_BLOCKS="$TR/blocks-detrej" \
     "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcA=$?
-seenA=0; grep -qxF "jobs/tada/fuh-detrej.md" "$SEEN_FUH" 2>/dev/null && seenA=1
+seenA=0; grep -qxF "fuh-detrej" "$SEEN_FUH" 2>/dev/null && seenA=1
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv1"
 leakA=$(ls -1 "$TR/fuhv1/jobs/todo" | grep -c '^fuh-detrej' || true)
 mm_after=$(ls -1 "$TR/fuhv1/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuhv1"
@@ -1259,7 +1270,7 @@ rcB=0
 env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_BLOCKS="$TR/blocks-trans" \
     GARDEN_PUSH_CMD=/bin/false GARDEN_POST_ATTEMPTS=2 \
     "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcB=$?
-seenB=0; grep -qxF "jobs/tada/fuh-trans.md" "$SEEN_FUH" 2>/dev/null && seenB=1
+seenB=0; grep -qxF "fuh-trans" "$SEEN_FUH" 2>/dev/null && seenB=1
 { [ "$rcB" -ne 0 ] && [ "$seenB" -eq 0 ]; } \
   && ok "transient producer failure: tick fails, marker NOT advanced (digest retried)" \
   || bad "transient case wrong (rc=$rcB seen=$seenB — want rc!=0, seen=0)"
@@ -1275,7 +1286,7 @@ rcC=0
 env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_FAIL=1 \
     FAKE_CLAUDE_STDERR="API error: Overloaded (529); please retry" \
     "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcC=$?
-seenC=0; grep -qxF "jobs/tada/fuh-ctrans.md" "$SEEN_FUH" 2>/dev/null && seenC=1
+seenC=0; grep -qxF "fuh-ctrans" "$SEEN_FUH" 2>/dev/null && seenC=1
 { [ "$rcC" -ne 0 ] && [ "$seenC" -eq 0 ]; } \
   && ok "inner claude transient failure: tick fails, marker NOT advanced (digest retried)" \
   || bad "inner-claude transient case wrong (rc=$rcC seen=$seenC — want rc!=0, seen=0)"
@@ -1293,7 +1304,7 @@ rcD=0
 env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_FAIL=1 \
     FAKE_CLAUDE_STDERR="TypeError: undefined is not a function (a genuine inner-agent crash)" \
     "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcD=$?
-seenD=0; grep -qxF "jobs/tada/fuh-dcrash.md" "$SEEN_FUH" 2>/dev/null && seenD=1
+seenD=0; grep -qxF "fuh-dcrash" "$SEEN_FUH" 2>/dev/null && seenD=1
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv3"
 mm_after2=$(ls -1 "$TR/fuhv3/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuhv3"
 { [ "$rcD" -eq 0 ] && [ "$seenD" -eq 1 ]; } \
@@ -1325,13 +1336,13 @@ rc1=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JO
 c1=$(awk '{print $1}' "$FC_FUQ" 2>/dev/null || echo NONE)
 rc2=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || rc2=$?
 c2=$(awk '{print $1}' "$FC_FUQ" 2>/dev/null || echo NONE)
-seen_pre=0; grep -qxF "jobs/tada/fuq-wedge.md" "$SEEN_FUQ" 2>/dev/null && seen_pre=1
+seen_pre=0; grep -qxF "fuq-wedge" "$SEEN_FUQ" 2>/dev/null && seen_pre=1
 { [ "$rc1" -ne 0 ] && [ "$rc2" -ne 0 ] && [ "$c1" = 1 ] && [ "$c2" = 2 ] && [ "$seen_pre" -eq 0 ]; } \
   && ok "below ceiling: each tick fails, streak increments (1→2), marker NOT advanced" \
   || bad "below-ceiling wrong (rc1=$rc1 rc2=$rc2 c1=$c1 c2=$c2 seen=$seen_pre)"
 # tick 3 hits the ceiling → quarantine: exit 0, marker advanced, streak cleared, escalated
 rc3=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || rc3=$?
-seen_post=0; grep -qxF "jobs/tada/fuq-wedge.md" "$SEEN_FUQ" 2>/dev/null && seen_post=1
+seen_post=0; grep -qxF "fuq-wedge" "$SEEN_FUQ" 2>/dev/null && seen_post=1
 fc_gone=0; [ -f "$FC_FUQ" ] || fc_gone=1
 mm_q1=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuqv1" && \
   ls -1 "$TR/fuqv1/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuqv1"
@@ -1396,7 +1407,7 @@ rcT3=0
 env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 \
     GARDEN_FLEET_BRAKE_LEDGER="$BRAKE_FUT" "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcT3=$?
 cT3=$(awk '{print $1}' "$FC_FUT" 2>/dev/null || echo NONE)
-seenT=0; grep -qxF "jobs/tada/fut-wedge.md" "$SEEN_FUT" 2>/dev/null && seenT=1
+seenT=0; grep -qxF "fut-wedge" "$SEEN_FUT" 2>/dev/null && seenT=1
 { [ "$cT0" = 1 ] && [ "$cT1" = 1 ] && [ "$cT2" = 1 ] && [ "$cT3" = 1 ] && [ "$seenT" -eq 0 ]; } \
   && ok "not-attributable ticks (rc signal / transient signature / fleet brake) leave the streak at 1, nothing quarantined" \
   || bad "outage spent the budget (streak $cT0→$cT1→$cT2→$cT3, seen=$seenT)"
@@ -1412,7 +1423,7 @@ ts_gone=0; [ -f "$TS_FUT" ] || ts_gone=1
   || bad "attributable failure not counted (cT4=$cT4 stretch-marker-cleared=$ts_gone)"
 # UNCOUNTED IS NOT UNBOUNDED: backdate the stretch past the wall-clock bound and
 # assert ONE maintainer notice, no quarantine, and no repeat notice.
-sha_fut="$(printf '%s\n' "jobs/tada/fut-wedge.md" | git hash-object --stdin)"
+sha_fut="$(printf '%s\n' "fut-wedge" | git hash-object --stdin)"
 printf '%s %s 0\n' "$(( $(date +%s) - 90000 ))" "$sha_fut" > "$TS_FUT"
 mm_t0=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/futv0" && \
   ls -1 "$TR/futv0/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/futv0"
@@ -1424,7 +1435,7 @@ env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-outage-stub.sh" GARDEN_FOLLOWUP_MAX
     "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
 mm_t2=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/futv2" && \
   ls -1 "$TR/futv2/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/futv2"
-seenT2=0; grep -qxF "jobs/tada/fut-wedge.md" "$SEEN_FUT" 2>/dev/null && seenT2=1
+seenT2=0; grep -qxF "fut-wedge" "$SEEN_FUT" 2>/dev/null && seenT2=1
 { [ "$mm_t1" -gt "$mm_t0" ] && [ "$mm_t2" -eq "$mm_t1" ] && [ "$seenT2" -eq 0 ]; } \
   && ok "a long uncounted stretch tells the maintainer ONCE and still does not quarantine" \
   || bad "stretch bound wrong (mm:$mm_t0→$mm_t1→$mm_t2 seen=$seenT2 — want one notice, no quarantine)"
@@ -2393,7 +2404,7 @@ run_unblock
 { blhas jobs/plan/blk-job-b.md && ! blhas jobs/todo/blk-job-b.md; } \
   && ok "unblock leaves the job parked while its blocking job is not yet in tada/" \
   || bad "blk-job-b promoted prematurely (blocker not complete)"
-push_change_bare2 "jobs/tada/some-blocker-job.md" "# done" "complete the blocking job"
+push_change_bare2 "jobs/tada/2026/08/13/some-blocker-job.md" "# done" "complete the blocking job in a date shard"
 run_unblock
 { ! blhas jobs/plan/blk-job-b.md && blhas jobs/todo/blk-job-b.md; } \
   && ok "unblock promotes the job once its blocking job completes (lands in tada/)" \

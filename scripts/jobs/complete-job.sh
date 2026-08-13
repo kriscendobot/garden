@@ -51,10 +51,13 @@ ensure_clone "$DIR"
 # <base>) always wins. Human-review dollars are 0 at record time; the reducer fills
 # them from the review data when it finalizes a PR-target event.
 record_reputation_event() {
-  local jf="$DIR/$JOBS_DOIN/$base.md" provider model tht wc tgt agentic
+  local jf="$DIR/$JOBS_DOIN/$base.md" tada_path provider model tht wc tgt agentic
   local attempts duration awarded nbidders accepted human aggregate dest
   local cost_source estimated
-  [ -f "$jf" ] || jf="$DIR/$JOBS_TADA/$base.md"   # fall back to the just-copied report/tada
+  if [ ! -f "$jf" ]; then
+    tada_path="$(tada_find "$DIR" "$base" || true)"
+    [ -z "$tada_path" ] || jf="$DIR/$tada_path"   # fall back to the just-copied report/tada
+  fi
   { read -r provider; read -r model; read -r tht; } < <(rep_resolve_arm "$KIND" "$jf")
   wc="$(rep_work_class "$jf")"; tgt="$(rep_target "$jf")"
   agentic="$(rep_agentic_dollars "$DIR" "$base")"

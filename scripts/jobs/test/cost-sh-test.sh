@@ -15,8 +15,10 @@ command -v jq >/dev/null 2>&1 || { echo "cost-sh-test: jq absent, skipping"; exi
 
 TR="$(mktemp -d "${TMPDIR:-/tmp}/cost-sh.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 D="$TR/journal"; mkdir -p "$D/usage" "$D/jobs/tada"
-# Five completed jobs on the board (coverage denominator); three carry a ledger.
-for b in j1 j2 j3 j4 j5; do printf 'done\n' > "$D/jobs/tada/$b.md"; done
+# Five completed jobs across both layouts (coverage denominator); three carry a ledger.
+for b in j1 j2 j3 j4; do printf 'done\n' > "$D/jobs/tada/$b.md"; done
+mkdir -p "$D/jobs/tada/2026/08/13"
+printf 'done\n' > "$D/jobs/tada/2026/08/13/j5.md"
 # j1: two priced engagements on host A (role builder, opus).
 printf '%s\n' \
   '{"ts":"2026-08-01T10:00:00Z","base":"j1","host":"hostA","role":"builder","model":"claude-opus-4-8","source":"result","outcome":"requeue","elapsed_s":100,"input_tokens":1000,"output_tokens":200,"cache_creation_tokens":50,"cache_read_tokens":10,"total_cost_usd":1.00}' \

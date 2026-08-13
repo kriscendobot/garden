@@ -176,6 +176,18 @@ post "$NIB" "$(bodyfile 'plain no-identity re-post')"
 ! has "$NIB" && ok "8d a no-identity post whose base is in tada stays deduped (unchanged)" \
              || bad "8d no-identity tada dedup regressed (re-minted into todo)"
 
+# The same basename idempotency must see a completed report below a date shard.
+SHARDED_NIB=plain-sharded-tada-idempotent
+CC4="$TR/ntada-sharded"; git clone -q -b journal2 "$BARE" "$CC4" 2>/dev/null
+mkdir -p "$CC4/jobs/tada/2026/08/13"
+printf 'done\n' > "$CC4/jobs/tada/2026/08/13/$SHARDED_NIB.md"
+git -C "$CC4" add -A
+git -C "$CC4" -c user.name=t -c user.email=t@l commit -q -m 'seed sharded tada for no-id case'
+git -C "$CC4" push -q origin journal2
+post "$SHARDED_NIB" "$(bodyfile 'plain no-identity re-post of sharded completion')"
+! has "$SHARDED_NIB" && ok "8e a no-identity post dedups a sharded completed basename" \
+                     || bad "8e sharded tada dedup regressed (re-minted into todo)"
+
 echo "----------------------------------------------------------------"
 echo "directive-identity-dedup-test: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]

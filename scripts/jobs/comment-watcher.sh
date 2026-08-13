@@ -501,7 +501,7 @@ gauntlet_recorded() {  # gauntlet_recorded <base> [fresh]
   local base="$1"
   verify_fetch "${2:-}" || return 1
   git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/gauntlet/$base.md" 2>/dev/null && return 0
-  git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/tada/$base.md" 2>/dev/null && return 0
+  tada_find_tree "$VERIFY" "origin/$JOURNAL_BRANCH" "$base" >/dev/null && return 0
   return 1
 }
 

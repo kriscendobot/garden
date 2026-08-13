@@ -115,9 +115,10 @@ fi
 posted_anywhere() {  # posted_anywhere <base> [fresh]
   local base="$1" sub
   verify_fetch "${2:-}" || return 1
-  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
     git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:$sub/$base.md" 2>/dev/null && return 0
   done
+  tada_find_tree "$VERIFY" "origin/$JOURNAL_BRANCH" "$base" >/dev/null && return 0
   return 1
 }
 

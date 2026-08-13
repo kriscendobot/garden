@@ -98,6 +98,22 @@ complete_child() {  # complete_child <base>
   rm -rf "$wt"
 }
 
+# Simulate the next rollout stage's layout while this stage's orchestration
+# writer remains flat. The reader must already tolerate this completed child.
+complete_child_sharded() {  # complete_child_sharded <base>
+  local wt shard; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  shard="$(date -u +%Y/%m/%d)"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  mkdir -p "$wt/jobs/tada/$shard"
+  printf '# %s done\n\nwork complete\n' "$1" > "$wt/jobs/tada/$shard/$1.md"
+  git -C "$wt" add "jobs/tada/$shard/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) sharded"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
 # Simulate a child that completed its work but explicitly declared that its
 # orchestration-gated outcome was not achieved.
 complete_failed_child() {  # complete_failed_child <base>
@@ -713,6 +729,22 @@ in_dir jobs/plan aa2-b || gg_ok=0              # aa2-b remains parked
 [ "$gg_ok" -eq 1 ] \
   && ok "a genuinely-gone child still halted the run after the re-sync confirmed its absence" \
   || bad "genuine gone was masked by the re-sync guard (todo=$(board jobs/todo), tada=$(board jobs/tada), plan=$(board jobs/plan))"
+
+# ============================================================================
+hr; echo "SUBTEST 21 — SHARDED TADA: a sharded child completion advances serial orchestration"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by zz-sharded zz-shard-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by zz-sharded zz-shard-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt zz-sharded zz-shard-a zz-shard-b >/dev/null
+tick
+complete_child_sharded zz-shard-a
+tick
+sharded_ok=1
+in_dir jobs/todo zz-shard-b || sharded_ok=0
+in_dir jobs/plan zz-shard-b && sharded_ok=0
+in_dir jobs/tada zz-sharded && sharded_ok=0
+[ "$sharded_ok" -eq 1 ] \
+  && ok "a child completed into a date shard read as tada and promoted the next child" \
+  || bad "sharded child read as vanished instead of tada (todo=$(board jobs/todo), tada=$(board jobs/tada), plan=$(board jobs/plan))"
 
 # ============================================================================
 hr

@@ -143,7 +143,7 @@ compose() {
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
-  if [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+  if [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ] || tada_exists "$DIR" "$base"; then
     log "gauntlet '$base' already recorded; nothing to do"
     exit 0
   fi

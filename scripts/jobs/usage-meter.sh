@@ -351,9 +351,13 @@ usage_capture_rusage() {
 # Stage one append-only CostRecord.  This is stage-only so a completion can carry
 # its row on the existing completion push while failures use usage-append.sh.
 usage_ledger_stage_row() {
-  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf role row
+  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf tada_path role row
   mkdir -p "$dir/usage" || return 1
-  jf="$dir/$JOBS_DOIN/$base.md"; [ -f "$jf" ] || jf="$dir/$JOBS_TADA/$base.md"
+  jf="$dir/$JOBS_DOIN/$base.md"
+  if [ ! -f "$jf" ]; then
+    tada_path="$(tada_find "$dir" "$base" || true)"
+    [ -z "$tada_path" ] || jf="$dir/$tada_path"
+  fi
   role="$(plan_role "$jf" 2>/dev/null || true)"
   case "$elapsed" in ''|*[!0-9]*) elapsed=0 ;; esac
   if command -v jq >/dev/null 2>&1 && [ -n "$measurement" ] && jq -e . >/dev/null 2>&1 <<<"$measurement"; then

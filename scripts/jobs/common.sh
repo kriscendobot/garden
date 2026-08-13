@@ -4486,9 +4486,101 @@ JOBS_ORCH="jobs/orch"
 # See scripts/jobs/gauntlet.sh and designs/staged-gauntlet.md.
 JOBS_GAUNTLET="jobs/gauntlet"
 
+# Centralized tada paths. Readers must not infer a completion's shard: the date
+# is part of the stored path, so basename lookups exhaustively search the tree.
+# The flat probe stays first during the rolling migration; writers deliberately
+# continue using the legacy flat path until the separate writer-switch stage.
+tada_path_for() {  # <base> <yyyy/mm/dd> -> relative path
+  printf '%s/%s/%s.md\n' "$JOBS_TADA" "$2" "$1"
+}
+
+tada_write_path() {  # <base> -> relative path for a new completion
+  tada_path_for "$1" "$(date -u +%Y/%m/%d)"
+}
+
+tada_find() {  # <journal-dir> <base> -> actual relative path, or rc 1
+  local dir="${1%/}" base="$2" legacy candidate
+  legacy="$JOBS_TADA/$base.md"
+  if [ -f "$dir/$legacy" ]; then
+    printf '%s\n' "$legacy"
+    return 0
+  fi
+  [ -d "$dir/$JOBS_TADA" ] || return 1
+  candidate="$(find "$dir/$JOBS_TADA" -type f -name "$base.md" -print -quit 2>/dev/null)"
+  [ -n "$candidate" ] || return 1
+  printf '%s\n' "${candidate#"$dir/"}"
+}
+
+tada_exists() {  # <journal-dir> <base>
+  tada_find "$1" "$2" >/dev/null
+}
+
+tada_find_tree() {  # <git-dir> <ref> <base> -> actual path in tree, or rc 1
+  local dir="$1" ref="$2" base="$3" legacy listing path
+  legacy="$JOBS_TADA/$base.md"
+  if git -C "$dir" cat-file -e "$ref:$legacy" 2>/dev/null; then
+    printf '%s\n' "$legacy"
+    return 0
+  fi
+  listing="$(git -C "$dir" ls-tree -r --name-only "$ref" -- "$JOBS_TADA" 2>/dev/null)" || return 1
+  while IFS= read -r path; do
+    [ "${path##*/}" = "$base.md" ] || continue
+    printf '%s\n' "$path"
+    return 0
+  done <<< "$listing"
+  return 1
+}
+
+# List every report once by basename, preferring the legacy flat copy if a
+# malformed transition ever leaves both layouts present. Paths are relative to
+# the journal root so callers can read, link, or remove the actual entry.
+tada_list() {  # <journal-dir>
+  local dir="${1%/}"
+  [ -d "$dir/$JOBS_TADA" ] || return 0
+  find "$dir/$JOBS_TADA" -type f -name '*.md' -printf '%P\n' 2>/dev/null \
+    | awk -F/ '
+        { leaf=$NF }
+        !(leaf in candidate) { candidate[leaf]=$0 }
+        NF == 1 { candidate[leaf]=$0 }
+        END { for (leaf in candidate) print candidate[leaf] }
+      ' \
+    | sort \
+    | sed "s#^#$JOBS_TADA/#"
+}
+
+# List reports in the recent date-shard window, newest first. Legacy flat
+# reports have no encoded date, so include them all (ordered by mtime) during
+# the compatibility stages. Only the requested day leaves are visited for the
+# sharded half; undated/ is intentionally not a recent-date bucket.
+tada_recent() {  # <journal-dir> <days>
+  local dir="${1%/}" days="$2" offset shard root
+  case "$days" in ''|*[!0-9]*) return 2 ;; esac
+  [ "$days" -gt 0 ] || return 0
+  root="$dir/$JOBS_TADA"
+  [ -d "$root" ] || return 0
+  {
+    find "$root" -maxdepth 1 -type f -name '*.md' -printf '%T@\t%P\n' 2>/dev/null
+    for offset in $(seq 0 $((days - 1))); do
+      shard="$(date -u -d "$offset days ago" +%Y/%m/%d)"
+      [ -d "$root/$shard" ] || continue
+      find "$root/$shard" -maxdepth 1 -type f -name '*.md' \
+        -printf "%T@\t$shard/%f\n" 2>/dev/null
+    done
+  } | sort -k1,1nr -k2,2r \
+    | awk -v prefix="$JOBS_TADA/" '
+        { tab=index($0, "\t"); path=substr($0, tab + 1)
+          count=split(path, part, "/"); leaf=part[count]
+          if (!seen[leaf]++) print prefix path }
+      '
+}
+
 # List job basenames in a lifecycle dir, sorted, excluding .gitkeep.
 list_jobs() {
   local dir="$1" sub="$2"
+  if [ "$sub" = "$JOBS_TADA" ]; then
+    tada_list "$dir" | sed "s#^$JOBS_TADA/##"
+    return 0
+  fi
   ls -1 "$dir/$sub" 2>/dev/null | grep -v -x '.gitkeep' || true
 }
 
@@ -4520,9 +4612,10 @@ job_id_hash() { printf '%s' "$1" | (sha1sum 2>/dev/null || shasum) | cut -c1-16;
 # Mirrors post-job.sh's own "already present in lifecycle" basename check.
 job_in_lifecycle() {
   local dir="$1" base="$2" sub
-  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
     [ -e "$dir/$sub/$base.md" ] && return 0
   done
+  tada_exists "$dir" "$base" && return 0
   return 1
 }
 
@@ -4542,9 +4635,10 @@ journal_identity_owner_live() {
   entry="$(git -C "$dir" cat-file -p "$ref:$JOBS_INDEX/$idhash" 2>/dev/null)" || return 1
   owner="$(printf '%s\n' "$entry" | sed -n 's/^base:[[:space:]]*//p' | head -1)"
   [ -n "$owner" ] || return 1
-  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+  for sub in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
     git -C "$dir" cat-file -e "$ref:$sub/$owner.md" 2>/dev/null && { printf '%s\n' "$owner"; return 0; }
   done
+  tada_find_tree "$dir" "$ref" "$owner" >/dev/null && { printf '%s\n' "$owner"; return 0; }
   return 1
 }
 

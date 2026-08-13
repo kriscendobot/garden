@@ -113,20 +113,22 @@ sync_clone "$DIR"
 # commit that contains the child in multiple board directories is not evidence of
 # failure: return `retry` and let the next timer tick read again.
 child_board_view_once() {  # <child> -> "<location> <snapshot>"; location includes gone|retry
-  local c="$1" snapshot listing count path location
+  local c="$1" snapshot listing tada_path count path location
   if ! snapshot="$(git -C "$DIR" rev-parse --verify 'HEAD^{commit}' 2>/dev/null)"; then
     printf 'retry -\n'; return 0
   fi
+  tada_path="$(tada_find_tree "$DIR" "$snapshot" "$c" || true)"
   if ! listing="$(git -C "$DIR" ls-tree --name-only "$snapshot" -- \
-      "$JOBS_TADA/$c.md" "$JOBS_TODO/$c.md" "$JOBS_DOIN/$c.md" "$JOBS_PLAN/$c.md" 2>/dev/null)"; then
+      "$JOBS_TODO/$c.md" "$JOBS_DOIN/$c.md" "$JOBS_PLAN/$c.md" 2>/dev/null)"; then
     printf 'retry %s\n' "$snapshot"; return 0
   fi
+  [ -z "$tada_path" ] || listing="${tada_path}${listing:+$'\n'}${listing}"
   count="$(printf '%s\n' "$listing" | awk 'NF{n++} END{print n+0}')"
   if [ "$count" -eq 0 ]; then printf 'gone %s\n' "$snapshot"; return 0; fi
   if [ "$count" -ne 1 ]; then printf 'retry %s\n' "$snapshot"; return 0; fi
   path="$(printf '%s\n' "$listing" | awk 'NF{print; exit}')"
   case "$path" in
-    "$JOBS_TADA/$c.md") location=tada ;;
+    "$tada_path") [ -n "$tada_path" ] && location=tada || location=retry ;;
     "$JOBS_TODO/$c.md") location=todo ;;
     "$JOBS_DOIN/$c.md") location=doin ;;
     "$JOBS_PLAN/$c.md") location=plan ;;
@@ -164,13 +166,15 @@ child_board_view() {  # <child> -> "<location> <snapshot>"
 }
 
 child_snapshot_file() {  # <snapshot> <location> <child> <destination>
-  local snapshot="$1" location="$2" c="$3" destination="$4" dir
+  local snapshot="$1" location="$2" c="$3" destination="$4" path
   case "$location" in
-    tada) dir="$JOBS_TADA" ;; todo) dir="$JOBS_TODO" ;;
-    doin) dir="$JOBS_DOIN" ;; plan) dir="$JOBS_PLAN" ;;
+    tada) path="$(tada_find_tree "$DIR" "$snapshot" "$c")" || return 1 ;;
+    todo) path="$JOBS_TODO/$c.md" ;;
+    doin) path="$JOBS_DOIN/$c.md" ;;
+    plan) path="$JOBS_PLAN/$c.md" ;;
     *) return 1 ;;
   esac
-  git -C "$DIR" show "$snapshot:$dir/$c.md" > "$destination" 2>/dev/null
+  git -C "$DIR" show "$snapshot:$path" > "$destination" 2>/dev/null
 }
 
 set_orch_field() {  # <base> <field> <value>; CAS-retried, leading frontmatter only
@@ -395,7 +399,7 @@ finish_orch() {  # <base> <summary-file>
   local attempt rc
   for attempt in $(seq 1 100); do
     sync_clone "$DIR"
-    if [ ! -e "$DIR/$JOBS_ORCH/$base.md" ] && [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+    if [ ! -e "$DIR/$JOBS_ORCH/$base.md" ] && tada_exists "$DIR" "$base"; then
       return 0   # already finished on a prior tick
     fi
     mkdir -p "$DIR/$JOBS_TADA"

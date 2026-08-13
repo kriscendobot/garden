@@ -162,7 +162,7 @@ gauntlet_recorded() {
   ensure_clone "$dir"
   journal_fetch "$dir" >/dev/null 2>&1 || return 1
   git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/gauntlet/$base.md" 2>/dev/null && return 0
-  git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/tada/$base.md" 2>/dev/null && return 0
+  tada_find_tree "$dir" "origin/$JOURNAL_BRANCH" "$base" >/dev/null && return 0
   return 1
 }
 

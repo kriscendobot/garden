@@ -183,7 +183,7 @@ refresh_settled() {  # refresh_settled <identity>
   # A hash collision between two distinct identities must never read as settled.
   [ "$(sed -n 's/^identity:[[:space:]]*//p' "$entry" | head -1)" = "$id" ] || return 1
   owner="$(sed -n 's/^base:[[:space:]]*//p' "$entry" | head -1)"
-  [ -n "$owner" ] && [ -e "$DIR/$JOBS_TADA/$owner.md" ]
+  [ -n "$owner" ] && tada_exists "$DIR" "$owner"
 }
 
 post_refresh() {  # post_refresh <slug> <repo> <path> <recorded> <upstream> <identity>

@@ -260,9 +260,10 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   src="$DIR/$JOBS_PLAN/$base.md"
   if [ ! -e "$src" ]; then
     where=""
-    for cat_dir in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+    for cat_dir in "$JOBS_TODO" "$JOBS_DOIN"; do
       if [ -e "$DIR/$cat_dir/$base.md" ]; then where="$cat_dir"; break; fi
     done
+    [ -n "$where" ] || where="$(tada_find "$DIR" "$base" || true)"
     clone_unlock "$DIR"
     if [ -n "$where" ]; then
       if [ "$if_parked" = 1 ]; then

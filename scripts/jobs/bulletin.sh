@@ -84,6 +84,7 @@ GARDEN_TAG="bulletin"
 : "${GARDEN_BULLETIN_IDLE_SLEEP:=5}"
 : "${GARDEN_BULLETIN_ONCE:=0}"
 : "${GARDEN_BULLETIN_MAX_ITERS:=0}"   # 0 = unbounded
+: "${GARDEN_BULLETIN_TADA_DAYS:=7}"   # date shards considered recent
 : "${GARDEN_BULLETIN_PARKED_TTL:=300}"   # seconds between parked-PR gh refreshes
 # Owners to scope the parked-PR query to (space-separated). Restricting by owner
 # keeps the "parked for kriskowal" board to the garden's domain and EXCLUDES the
@@ -191,7 +192,7 @@ job_desc() {
 # (count + the few most-recently-modified completions), so a large tada set never
 # bloats the bulletin. Print to stdout.
 render_board() {
-  local todo_n doin_n tada_n j desc
+  local todo_n doin_n tada_n j desc label
   todo_n=$(list_jobs "$DIR" jobs/todo | grep -c . || true)
   doin_n=$(list_jobs "$DIR" jobs/doin | grep -c . || true)
   tada_n=$(list_jobs "$DIR" jobs/tada | grep -c . || true)
@@ -224,8 +225,9 @@ render_board() {
   if [ "$tada_n" -gt 0 ]; then
     while IFS= read -r j; do
       [ -n "$j" ] || continue
-      desc=$(job_desc "$DIR/jobs/tada/$j")
-      printf -- '- [`%s`](%s/jobs/tada/%s) — %s\n' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "$desc"
+      desc=$(job_desc "$DIR/$j")
+      label="$(basename "$j" .md)"
+      printf -- '- [`%s`](%s/%s) — %s\n' "$label" "$GARDEN_BLOB_BASE" "$j" "$desc"
     done < <(
       # `sort | head -5`: head closes the pipe after 5 lines, so on a large tada
       # `sort` can be SIGPIPE-killed mid-write (a benign "sort: write error" /
@@ -235,8 +237,7 @@ render_board() {
       # is normal, not a failure. (Root cause of the 2026-06-25 ~2h dark window:
       # a sort broken-pipe took down the loop, then rapid restarts hit the
       # systemd start-limit and the dashboard stayed dark.)
-      find "$DIR/jobs/tada" -maxdepth 1 -type f ! -name '.gitkeep' -printf '%T@ %f\n' 2>/dev/null \
-        | { sort -rn 2>/dev/null || true; } | head -5 | cut -d' ' -f2-
+      { tada_recent "$DIR" "$GARDEN_BULLETIN_TADA_DAYS" || true; } | head -5
     )
     if [ "$tada_n" -gt 5 ]; then printf -- '- … and %s more\n' "$((tada_n - 5))"; fi
   else

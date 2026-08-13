@@ -169,14 +169,15 @@ compose() {
 
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
-  if [ -e "$DIR/$JOBS_ORCH/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+  if [ -e "$DIR/$JOBS_ORCH/$base.md" ] || tada_exists "$DIR" "$base"; then
     log "orchestration '$base' already recorded; nothing to do"
     exit 0
   fi
   resume_children=()
   if [ -n "$resume_from" ]; then
-    terminal="$DIR/$JOBS_TADA/$resume_from.md"
-    [ -f "$terminal" ] || die "--resume-from campaign '$resume_from' has no terminal tada report"
+    terminal_path="$(tada_find "$DIR" "$resume_from" || true)"
+    [ -n "$terminal_path" ] || die "--resume-from campaign '$resume_from' has no terminal tada report"
+    terminal="$DIR/$terminal_path"
     grep -qE '^orchestration-status: (budget-exhausted|budget-meter-incomplete)$' "$terminal" \
       || die "--resume-from campaign '$resume_from' is not a resumable budget terminal outcome"
     read -ra resume_children <<<"$(sed -n 's/^campaign-parked-children:[[:space:]]*//p' "$terminal" | head -1)"

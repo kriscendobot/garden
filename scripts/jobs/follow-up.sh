@@ -8,8 +8,7 @@
 #
 # Part of the garden's autonomous posture (silent until an error). Each tick:
 #   1. sync a dedicated journal clone,
-#   2. find tada reports new since a seen-marker (keyed by jobs/tada/<base>.md,
-#      exactly like mentor's SEEN),
+#   2. find tada reports new since a seen-marker (keyed by stable basename),
 #   3. extract each new report's `## Follow-ups` (escalated-to-liaison) section;
 #      a report with no actionable follow-ups is skipped but still marked seen,
 #   4. hand a digest of the actionable follow-ups to a pluggable handler
@@ -99,22 +98,32 @@ mkdir -p "$(dirname "$SEEN")"
 cold_start=0; [ -e "$SEEN" ] || cold_start=1
 touch "$SEEN"
 
-# new tada reports since last run (keyed by the jobs/tada/<base>.md rel path)
+# Normalize the pre-sharding rel-path marker in place before comparing. This is
+# deliberately basename-keyed so moving a report between flat and date-sharded
+# layouts never makes thousands of old reports look new.
+seen_normalized="$SEEN.normalized.$$"
+awk -F/ '{ leaf=$NF; sub(/\.md$/, "", leaf); if (leaf != "") print leaf }' "$SEEN" \
+  | sort -u > "$seen_normalized"
+mv "$seen_normalized" "$SEEN"
+
+# New tada reports since last run, resolved through the centralized lister.
 new=()
-while IFS= read -r f; do
-  rel="${f#"$DIR"/}"
-  grep -qxF "$rel" "$SEEN" && continue
+while IFS= read -r rel; do
+  [ -n "$rel" ] || continue
+  f="$DIR/$rel"
+  base="$(basename "$f" .md)"
+  grep -qxF "$base" "$SEEN" && continue
   new+=("$f")
-done < <(find "$DIR/$JOBS_TADA" -type f -name '*.md' 2>/dev/null | sort)
+done < <(tada_list "$DIR")
 
 # Record the whole new set as seen (used on success, on no-op, and to quarantine
-# a wedged digest). Appends each new report's rel-path to the seen-marker.
-mark_new_seen() { local f; for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done; }
+# a wedged digest). Appends each new report's stable basename to the seen-marker.
+mark_new_seen() { local f; for f in "${new[@]}"; do basename "$f" .md; done >> "$SEEN"; }
 
-# A content hash of the (sorted) new-report rel-path set — the key the
+# A content hash of the (sorted) new-report basename set — the key the
 # consecutive-failure counter is bound to, so an UNCHANGED pending set increments
 # the streak while any change (a new report arrives, or some clear) resets it.
-new_list_sha() { local f; for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}"; done | sort | git -C "$DIR" hash-object --stdin; }
+new_list_sha() { local f; for f in "${new[@]}"; do basename "$f" .md; done | sort | git -C "$DIR" hash-object --stdin; }
 
 # cold start: record everything seen without acting, then stay silent
 if [ "$cold_start" -eq 1 ]; then
@@ -153,7 +162,7 @@ is_actionable() {
 digest="$(mktemp "${TMPDIR:-/tmp}/garden-follow-up.XXXXXX")"
 actionable=0
 for f in "${new[@]}"; do
-  rel="${f#"$DIR"/}"; base="${rel#"$JOBS_TADA"/}"; base="${base%.md}"
+  base="$(basename "$f" .md)"
   section="$(extract_followups "$f")"
   if is_actionable "$section"; then
     actionable=$((actionable+1))

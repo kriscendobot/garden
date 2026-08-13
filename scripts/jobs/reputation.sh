@@ -499,11 +499,15 @@ AWK
 # rep_wallclock_index <dir> [base] — claim-to-tada spans for completed runs in the
 # journal log, or one base when requested.
 rep_wallclock_index() {
-  local dir="${1:?}" base="${2:-}" prog
+  local dir="${1:?}" base="${2:-}" prog tada_path
+  local paths=()
   prog="$(_rep_wallclock_awk)"
   if [ -n "$base" ]; then
+    paths+=("$JOBS_DOIN/$base.md")
+    tada_path="$(tada_find "$dir" "$base" || true)"
+    [ -z "$tada_path" ] || paths+=("$tada_path")
     git -C "$dir" log --reverse --no-renames --diff-filter=AD --name-status \
-        --format='C %ct %s' -- "$JOBS_DOIN/$base.md" "$JOBS_TADA/$base.md" 2>/dev/null
+        --format='C %ct %s' -- "${paths[@]}" 2>/dev/null
   else
     git -C "$dir" log --reverse --no-renames --diff-filter=AD --name-status \
         --format='C %ct %s' -- "$JOBS_DOIN" "$JOBS_TADA" 2>/dev/null

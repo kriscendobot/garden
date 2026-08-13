@@ -259,7 +259,7 @@ compose() {
 for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
   if [ -e "$DIR/$JOBS_PLAN/$base.md" ] || [ -e "$DIR/$JOBS_TODO/$base.md" ] \
-     || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+     || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || tada_exists "$DIR" "$base"; then
     log "job '$base' already present in lifecycle; nothing to do"
     exit 0
   fi

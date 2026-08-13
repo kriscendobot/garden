@@ -81,7 +81,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
 
   if [ ! -e "$DIR/$JOBS_PLAN/$base.md" ]; then
     if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] \
-       || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+       || tada_exists "$DIR" "$base"; then
       log "job '$base' already promoted past plan/; nothing to do"
       exit 0
     fi

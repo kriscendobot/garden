@@ -133,12 +133,23 @@ def _iter_board_files(root, rev, dirs):
             base = os.path.join(root, d)
             if not os.path.isdir(base):
                 continue
-            for fn in sorted(os.listdir(base)):
-                if fn.endswith(".md"):
-                    p = os.path.join(base, fn)
-                    if os.path.isfile(p):
-                        with open(p, encoding="utf-8", errors="replace") as fh:
-                            yield os.path.join(d, fn), fh.read()
+            if d == "jobs/tada":
+                paths = (
+                    os.path.join(directory, filename)
+                    for directory, _, filenames in os.walk(base)
+                    for filename in filenames
+                    if filename.endswith(".md")
+                )
+            else:
+                paths = (
+                    os.path.join(base, filename)
+                    for filename in os.listdir(base)
+                    if filename.endswith(".md")
+                )
+            for path in sorted(paths):
+                if os.path.isfile(path):
+                    with open(path, encoding="utf-8", errors="replace") as fh:
+                        yield os.path.relpath(path, root), fh.read()
 
 
 def _scan_frontmatter(text):

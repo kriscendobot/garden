@@ -95,11 +95,12 @@ sync_clone "$DIR"
 
 # --- child state, read purely from the board (mirrors orchestrate.sh) --------
 child_state() {  # <stage-base> → done|active|failed
-  local c="$1"
-  if [ -e "$DIR/$JOBS_TADA/$c.md" ]; then
+  local c="$1" tada_path
+  tada_path="$(tada_find "$DIR" "$c" || true)"
+  if [ -n "$tada_path" ]; then
     # A tada report can carry the completed-but-declined marker (tada_failed) —
     # a stage that finished yet reported orchestration-failed: true.
-    if tada_failed "$DIR/$JOBS_TADA/$c.md"; then printf 'failed\n'; else printf 'done\n'; fi
+    if tada_failed "$DIR/$tada_path"; then printf 'failed\n'; else printf 'done\n'; fi
     return 0
   fi
   if [ -e "$DIR/$JOBS_TODO/$c.md" ] || [ -e "$DIR/$JOBS_DOIN/$c.md" ]; then
@@ -158,7 +159,7 @@ finish_gauntlet() {  # <base> <summary-file>
   local base="$1" summary="$2" attempt rc
   for attempt in $(seq 1 100); do
     sync_clone "$DIR"
-    if [ ! -e "$DIR/$JOBS_GAUNTLET/$base.md" ] && [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+    if [ ! -e "$DIR/$JOBS_GAUNTLET/$base.md" ] && tada_exists "$DIR" "$base"; then
       return 0   # already finished on a prior tick
     fi
     mkdir -p "$DIR/$JOBS_TADA"
@@ -358,14 +359,15 @@ post_stage() {  # <child> <body-file>
 # occupied (tada→todo) and child_state never briefly reads it as failed. The stable
 # base means a re-posted stage resumes its own --resume session.
 repost_stage() {  # <child> <body-file>
-  local child="$1" body="$2" attempt rc
+  local child="$1" body="$2" attempt rc tada_path
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
     [ -e "$DIR/$JOBS_TODO/$child.md" ] && return 0   # already re-posted on a prior tick
     mkdir -p "$DIR/$JOBS_TODO"
     cp "$body" "$DIR/$JOBS_TODO/$child.md"
     git -C "$DIR" add "$JOBS_TODO/$child.md"
-    [ -e "$DIR/$JOBS_TADA/$child.md" ] && git -C "$DIR" rm -q "$JOBS_TADA/$child.md"
+    tada_path="$(tada_find "$DIR" "$child" || true)"
+    [ -z "$tada_path" ] || git -C "$DIR" rm -q "$tada_path"
     rc=0; commit_and_push "$DIR" "gauntlet re-post stage $child (CI still pending) by $GARDEN" || rc=$?
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 2 ] && return 0
@@ -477,7 +479,8 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   # set -e (which would abort the whole tick and strand every later record) — the
   # empty-marker case is handled explicitly just below.
   mstage=""; mresult=""
-  read -r mstage mresult < <(parse_stage_result "$DIR/$JOBS_TADA/$child.md") || true
+  child_tada_path="$(tada_find "$DIR" "$child" || true)"
+  read -r mstage mresult < <(parse_stage_result "$DIR/$child_tada_path") || true
   if [ -z "${mstage:-}" ]; then
     halt_gauntlet "$base" "stage '$child' ($stage) completed with NO parseable gauntlet-stage-result marker — fail-closed, never a guess."
     advanced=$((advanced+1)); continue

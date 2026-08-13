@@ -360,7 +360,7 @@ for name in $(list_jobs "$DIR" schedules); do
       [ -f "$DIR/schedules/$name" ] || { log "schedule $name already fired+removed; skip"; break; }
       body="$(sed '1,/^---$/d' "$DIR/schedules/$name" | automatic_route_body)"
       git -C "$DIR" rm -q "schedules/$name"
-      if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
+      if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || tada_exists "$DIR" "$base"; then
         # job already exists in the lifecycle — just retire the schedule
         if commit_and_push "$DIR" "schedule-once($name) already dispatched; removing"; then
           log "one-time schedule $name retired ($base already present)"; break

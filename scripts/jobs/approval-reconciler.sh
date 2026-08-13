@@ -196,6 +196,10 @@ base_in_lanes() {  # base_in_lanes <base> <lane> [<lane>...]
   local base="$1"; shift
   local lane
   for lane in "$@"; do
+    if [ "$lane" = "$JOBS_TADA" ]; then
+      tada_find_tree "$VERIFY" "origin/$JOURNAL_BRANCH" "$base" >/dev/null && return 0
+      continue
+    fi
     git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:$lane/$base.md" 2>/dev/null && return 0
   done
   return 1
@@ -233,7 +237,7 @@ pr_role_job() {  # pr_role_job <pr> <want:conductor|shepherd>  -> echoes matchin
   url_re="github\\.com/${repo_re}/pull/${pr}([^0-9]|\$)"
   # git grep across the lifecycle lanes; -I skips binary, -l lists paths only.
   files="$(git -C "$VERIFY" grep -lIE "$url_re" "$ref" -- \
-             "$JOBS_TODO/"'*.md' "$JOBS_DOIN/"'*.md' "$JOBS_TADA/"'*.md' \
+             "$JOBS_TODO/"'*.md' "$JOBS_DOIN/"'*.md' "$JOBS_TADA" \
              "$JOBS_PLAN/"'*.md' "$JOBS_ORCH/"'*.md' "$JOBS_GAUNTLET/"'*.md' 2>/dev/null \
            | sed "s#^${ref}:##" || true)"
   for f in $files; do

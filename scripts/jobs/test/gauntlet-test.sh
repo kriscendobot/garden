@@ -94,6 +94,21 @@ complete_stage() {  # complete_stage <base> <marker-body>  (e.g. "clean=done")
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
+
+complete_stage_sharded() {  # complete_stage_sharded <base> <marker-body>
+  local wt shard; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  shard="$(date -u +%Y/%m/%d)"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  mkdir -p "$wt/jobs/tada/$shard"
+  { printf '# %s complete\n\nstage work done.\n\n' "$1"
+    printf '<!-- gauntlet-stage-result: %s -->\n' "$2"; } > "$wt/jobs/tada/$shard/$1.md"
+  git -C "$wt" add "jobs/tada/$shard/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) $2 sharded"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
 # A stage that finishes WITHOUT a parseable marker (fail-closed → halt).
 complete_stage_nomarker() {  # complete_stage_nomarker <base>
   local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
@@ -345,6 +360,16 @@ complete_stage g10-clean clean=done;          tick     # advance to panel-1
 [ "$(record_field g10 resumes)" = 0 ] \
   && ok "advancing to a new stage reset the re-post count (per-stage bound)" \
   || bad "resumebound: resumes=$(record_field g10 resumes) after advancing to panel-1"
+
+# ============================================================================
+hr; echo "SUBTEST 10 — SHARDED TADA: a sharded stage completion advances the gauntlet"; hr
+post_gauntlet g11 https://github.com/testowner/testrepo/pull/11
+tick
+complete_stage_sharded g11-clean clean=done
+tick
+in_dir jobs/todo g11-panel-1 \
+  && ok "a stage completed into a date shard read as done and advanced to panel" \
+  || bad "sharded stage completion did not advance (todo=[$(board jobs/todo)])"
 
 # ============================================================================
 hr
