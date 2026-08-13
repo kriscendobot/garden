@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T20:26:59Z_
+_As of 2026-08-13T20:33:04Z_
 
 ## Latest
 
@@ -3569,6 +3569,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-3 HALTED: child ironhorse-js-08-async-generators-for-await completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/21 done before halt; parked remainder: ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
+- `20260813T203245Z-34aa37` — from gardener:ebfb-pr700-integrate-endo-ascii, reply_to `ebfb-pr700-integrate-endo-ascii` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T203245Z-34aa37.md)
+
+> Working [endojs/endo-but-for-bots#700](https://github.com/endojs/endo-but-for-bots/issues/700) (goblin-chat encodeAscii integration). [endojs/endo-but-for-bots#943](https://github.com/endojs/endo-but-for-bots/issues/943) (@endo/ascii) is merged to llm. Before I force-push, one strategy check — the rebase touches all 10 PRs in the sturdyref bridge stack: `#774 #737 #541 #698 #700 #701 #702 #703 #704 #871` (all endojs/endo-but-for-bots).
+>
+> State I found:
+> - Stack's real base is frozen snapshot origin/llm-da209e5 (2026-07-13). But bottom PR `#774`'s PR base field points at the MOVING `llm` branch, not the snapshot.
+> - @endo/ascii is a purely-additive new package on current llm (~350 commits of drift above da209e5). It touches no file the stack touches.
+>
+> Planned approach (minimal, conflict-free, preserves stacked history):
+> - New frozen snapshot = llm-da209e5 + cherry-picked @endo/ascii package only (NOT the full 350-commit drift). Rebase all 10 branches onto it, retarget PR base fields. Then the encodeAscii edits on the `#700` head.
+>
+> Alternative if you'd rather fully modernize: rebase the whole stack onto latest post-943 llm HEAD (absorbs a month of drift, higher conflict risk).
+>
+> Going with the minimal-additive-snapshot plan unless you say otherwise. Preparing the code edits meanwhile.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6730,8 +6745,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $986.40 _(notional, rate-card)_ | no quota set |
-| Codex | 20.2M _(+686.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 61.3M | $987.82 _(notional, rate-card)_ | no quota set |
+| Codex | 20.6M _(+694.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
