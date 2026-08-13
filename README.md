@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T18:41:45Z_
+_As of 2026-08-13T18:42:46Z_
 
 ## Latest
 
@@ -6726,25 +6726,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.0M | $984.70 _(notional, rate-card)_ | no quota set |
-| Codex | 19.9M _(+672.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 60.9M | $983.05 _(notional, rate-card)_ | no quota set |
+| Codex | 19.9M _(+673.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Design: integrate @endo/ascii into the PRs/sites that motivated it
-- [`endojs-endo-but-for-bots-pr943-review-f464f894`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-review-f464f894.md) — Review directive on endojs/endo-but-for-bots PR #943
 - [`ironhorse-js-08-async-generators-for-await`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-08-async-generators-for-await.md) — Complete async generators and for-await-of
 
-### tada (4508)
+### tada (4509)
+- [`endojs-endo-but-for-bots-pr943-review-f464f894`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-review-f464f894.md) — Completion report — review directive on endojs/endo-but-for-bots #943 (review...
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-orchestrate-vanished-fix-and-resume.md) — Cost
 - [`endojs-endo-but-for-bots-pr979-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr979-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr937-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-shepherd.md) — Report
 - [`improve-dependabotany-idle-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-idle-preflight.md) — What I did
-- [`dependabotany-recheck-endo-but-for-bots-20260813-163502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260813-163502.md) — Completion report
-- … and 4503 more
+- … and 4504 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
