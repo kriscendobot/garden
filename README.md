@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:57:29Z_
+_As of 2026-08-13T21:59:12Z_
 
 ## Latest
 
@@ -3573,6 +3573,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration genie-docs-to-journal-orchestration HALTED: child genie-docs-01-migrate-into-journal completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: genie-docs-02-delete-from-llm
 
+- `20260813T215817Z-006a96` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T215817Z-006a96.md)
+
+> Report `endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker` (endojs/endo-but-for-bots PR #149) leaves two judgment calls open: (1) whether to accept the `agentry` disposition, under which the status-directory-walker is a clean lift (module + 5 tests) independent of the PR's blocked sandbox cluster and genie glue; and (2) whether to proceed at all given the feature stays dead code unless the sub-agent-directory arc (TODO/53–61) lands a consumer, which is unimplemented on the branch. No autonomous job posted pending your call.
+
+- `20260813T215826Z-18732c` — from orchestrator:garden-tada-shard-orchestration-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T215826Z-18732c.md)
+
+> Orchestration garden-tada-shard-orchestration HALTED: child garden-tada-shard-03-write-switch completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 2/5 done before halt; parked remainder: garden-tada-shard-04-migrate garden-tada-shard-05-cleanup
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6734,26 +6742,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.9M | $1018.18 _(notional, rate-card)_ | no quota set |
+| Claude | 61.5M | $1002.65 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`context-graph-size-audit-focused`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/context-graph-size-audit-focused.md) — context-graph-size-audit-focused
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
-- [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-10-arrays-species.md) — Complete Array construction and prototype algorithms
 
-### tada (4559)
+### tada (4563)
+- [`ironhorse-js-10-arrays-species`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-10-arrays-species.md) — Completion report — ironhorse-js-10-arrays-species
+- [`context-graph-size-audit-focused`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused.md) — Completion report
+- [`garden-tada-shard-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-orchestration.md) — orchestration garden-tada-shard-orchestration — HALTED
+- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status.md) — orchestration endojs-endo-but-for-bots-pr149-review-13c87bef-status — complete
 - [`garden-tada-shard-03-write-switch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-03-write-switch.md) — Cost
-- [`genie-docs-to-journal-orchestration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-to-journal-orchestration.md) — orchestration genie-docs-to-journal-orchestration — HALTED
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-subagent-slice-provisioning.md) — Feature-disposition analysis — subagent-slice-provisioning
-- [`garden-tada-shard-02-read-tolerance`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-tada-shard-02-read-tolerance.md) — Cost
-- [`endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr149-review-13c87bef-status-slice-command-spawner.md) — Cost
-- … and 4554 more
+- … and 4558 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
