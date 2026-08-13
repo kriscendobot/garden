@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T20:25:46Z_
+_As of 2026-08-13T20:26:59Z_
 
 ## Latest
 
@@ -6730,23 +6730,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $986.23 _(notional, rate-card)_ | no quota set |
-| Codex | 20.2M _(+685.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 61.2M | $986.40 _(notional, rate-card)_ | no quota set |
+| Codex | 20.2M _(+686.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #943
+### doin (4)
+- [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
+- [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii.md) — ---
+- [`ebfb-pr700-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr700-integrate-endo-ascii.md) — ---
 - [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-09-proxy-mop.md) — Implement Proxy completely over the object MOP
 
 ### tada (4516)
+- [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr943-6a74672c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-6a74672c.md) — Cost
 - [`ebfb-pr943-weave-conduct-r4930413457`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr943-weave-conduct-r4930413457.md) — orchestration ebfb-pr943-weave-conduct-r4930413457 — HALTED
 - [`endojs-endo-but-for-bots-pr943-conduct-r4930413457`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct-r4930413457.md) — Cost
 - [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Cost
-- [`ironhorse-test262-implementation-completion-resume-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-3.md) — orchestration ironhorse-test262-implementation-completion-resume-3 — HALTED
 - … and 4511 more
 
 ## Plan queue (parked — not claimable until promoted)
@@ -6885,9 +6887,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-ascii-adopt-ocapn-sites.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/943` · ---
-- [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-pr475-integrate-endo-ascii.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/943` · ---
-- [`ebfb-pr700-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-pr700-integrate-endo-ascii.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/943` · ---
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
