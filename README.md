@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:28:13Z_
+_As of 2026-08-13T22:33:19Z_
 
 ## Latest
 
@@ -6766,16 +6766,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #980
+### doin (0)
+(none)
 
-### tada (4578)
+### tada (4579)
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Cost
 - [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-from-llm-r3.md) — Completion report — genie-docs-delete-from-llm-r3
 - [`ironhorse-test262-implementation-completion-resume-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-5.md) — orchestration ironhorse-test262-implementation-completion-resume-5 — BUDGET M...
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-11-strings.md) — Cost
 - [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused-20260813-222003.md) — Cost
-- [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestrate-serial-order-violation.md) — Cost
-- … and 4573 more
+- … and 4574 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
