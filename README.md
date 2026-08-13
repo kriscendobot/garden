@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T16:10:29Z_
+_As of 2026-08-13T16:11:33Z_
 
 ## Latest
 
@@ -6726,16 +6726,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.3M | $981.65 _(notional, rate-card)_ | no quota set |
-| Codex | 19.7M _(+683.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 61.3M | $982.19 _(notional, rate-card)_ | no quota set |
+| Codex | 19.8M _(+683.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`ebfb-pr977-gauntlet-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-gauntlet-3.md) — State (verified 2026-08-13 ~16:10Z)
 - [`garden-triager-transient-auth-misclassified-as-upstream-gone`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-triager-transient-auth-misclassified-as-upstream-gone.md) — What happened
 - [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-orchestrate-vanished-fix-and-resume.md) — Fix the orchestrate.sh "vanished from the board" race, then resume the Ironho...
+- [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocapn-gateway-outbound-peer-binding.md) — The residual
 
 ### tada (4496)
 - [`endojs-endo-but-for-bots-pr937-rebase-onto-new-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-rebase-onto-new-llm.md) — Completion report
@@ -6823,7 +6825,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-daemon-sqlite-wal-limit-measurement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-daemon-sqlite-wal-limit-measurement.md) — _normal_ · Measure the daemon SQLite WAL size policy
 - [`minion-town-ocap-site-build-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-ocap-site-build-deploy.md) — _normal_ · Build / deploy / validate: isolated weblets on ocap.site (design #34)
 - [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sha256-async-arm-followup.md) — _normal_ · ---
-- [`ocapn-gateway-outbound-peer-binding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ocapn-gateway-outbound-peer-binding.md) — _2_ · The residual
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr903-review-1ec51e37-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr903-review-1ec51e37-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #903 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr124-review-368d8b3b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-368d8b3b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
