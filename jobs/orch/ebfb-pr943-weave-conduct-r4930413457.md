@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr943-weave-llm-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr943-weave-llm endojs-endo-but-for-bots-pr943-conduct-r4930413457
 on-child-failure: halt
