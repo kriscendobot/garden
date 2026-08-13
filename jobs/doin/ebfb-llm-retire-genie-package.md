@@ -58,3 +58,13 @@ A pull request based on `llm` that stands on its own: genie deleted, the three d
 directories deleted, sandbox self-contained, no dangling references, full local
 verification green (build, lint, tests), and a PR description that explains the
 retirement and where the content is preserved. Keep the PR open; do not merge it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T22:42:01Z
