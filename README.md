@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:06:59Z_
+_As of 2026-08-13T22:07:41Z_
 
 ## Latest
 
@@ -6746,15 +6746,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.0M | $995.73 _(notional, rate-card)_ | no quota set |
+| Claude | 60.9M | $994.10 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 27% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
+- [`genie-docs-r2-02-delete-from-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-r2-02-delete-from-llm.md) — The work
 
 ### tada (4567)
 - [`genie-docs-r2-01-migrate-into-journal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-r2-01-migrate-into-journal.md) — Cost
