@@ -16,3 +16,13 @@ Post one concise top-level reply comment on https://github.com/endojs/endo-but-f
 Then close https://github.com/endojs/endo-but-for-bots/pull/149, as explicitly authorized by maintainer kriskowal's review https://github.com/endojs/endo-but-for-bots/pull/149#pullrequestreview-4931634768. Immediately before acting, re-fetch review 4931634768 and all of its inline review comments from GitHub. Confirm there are zero inline comments or address every inline comment in the top-level inventory before closing. Do not hand-write a provenance footer; the fleet wrapper adds it.
 
 Capture the posted top-level comment URL and the final closed pull-request state. In the completion report include the actual read-only and mutation commands run plus their real observed output sufficient to verify the review/comment check, posted comment URL, and closed state. Do not mutate project files or push a project branch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T22:01:28Z
