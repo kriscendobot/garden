@@ -34,3 +34,13 @@ with #903's now-landed changes, verify it still builds/tests clean
 (`node packages/daemon/scripts/bundle-bus-daemon-rust-xs.mjs` and the usual
 suite), and push. Do not merge or request review yourself — the rebase is
 the deliverable; the maintainer will review once the base is current.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-13T15:01:10Z
