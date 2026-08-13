@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T18:53:09Z_
+_As of 2026-08-13T18:54:02Z_
 
 ## Latest
 
@@ -6731,23 +6731,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 60.9M | $983.05 _(notional, rate-card)_ | no quota set |
-| Codex | 20.2M _(+682.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 20.2M _(+683.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Design: integrate @endo/ascii into the PRs/sites that motivated it
+### doin (1)
 - [`endojs-endo-but-for-bots-pr943-conduct-r4930413457`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr943-conduct-r4930413457.md) — Conduct endojs/endo-but-for-bots PR #943 → merge
 
-### tada (4512)
+### tada (4513)
+- [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Cost
 - [`ironhorse-test262-implementation-completion-resume-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-3.md) — orchestration ironhorse-test262-implementation-completion-resume-3 — HALTED
 - [`endojs-endo-but-for-bots-pr943-weave-llm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-weave-llm.md) — Cost
 - [`ironhorse-js-08-async-generators-for-await`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-08-async-generators-for-await.md) — Cost
 - [`endojs-endo-but-for-bots-pr943-review-f464f894`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-review-f464f894.md) — Completion report — review directive on endojs/endo-but-for-bots #943 (review...
-- [`ironhorse-orchestrate-vanished-fix-and-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-orchestrate-vanished-fix-and-resume.md) — Cost
-- … and 4507 more
+- … and 4508 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
