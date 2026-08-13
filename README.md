@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T20:34:59Z_
+_As of 2026-08-13T20:46:41Z_
 
 ## Latest
 
@@ -6730,26 +6730,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.3M | $988.83 _(notional, rate-card)_ | no quota set |
-| Codex | 20.6M _(+698.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 61.3M | $987.40 _(notional, rate-card)_ | no quota set |
+| Codex | 20.8M _(+712.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
 - [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii.md) — ---
-- [`ebfb-pr700-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr700-integrate-endo-ascii.md) — ---
 - [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-09-proxy-mop.md) — Implement Proxy completely over the object MOP
 
-### tada (4516)
+### tada (4517)
+- [`ebfb-pr700-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr700-integrate-endo-ascii.md) — Completion report
 - [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr943-6a74672c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-6a74672c.md) — Cost
 - [`ebfb-pr943-weave-conduct-r4930413457`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr943-weave-conduct-r4930413457.md) — orchestration ebfb-pr943-weave-conduct-r4930413457 — HALTED
 - [`endojs-endo-but-for-bots-pr943-conduct-r4930413457`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct-r4930413457.md) — Cost
-- [`endojs-endo-but-for-bots-ascii-integrate-motivating-prs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-ascii-integrate-motivating-prs.md) — Cost
-- … and 4511 more
+- … and 4512 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
