@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #979
@@ -19,13 +20,4 @@ If the failure is out of a shepherds scope, escalate to a fixer per the
 shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-13T16:59:23Z
+<!-- garden-reaped: 0 -->
