@@ -4,7 +4,7 @@ This report walks relative inline Markdown links from the documented context roo
 
 Classification thresholds: small is below 100 lines and 8 KiB; medium starts at 100 lines or 8 KiB; large starts at 300 lines or 24 KiB; very large starts at 600 lines or 48 KiB. A hand-authored document is flagged when it reaches 300 lines or 24 KiB, has at least 160 lines and eight level-two sections, or has at least 150 lines and twice the median line count of three or more same-directory peers. The generated `library/sections/README.md` index is classified but exempt from reorganization flags.
 
-Revisions: main2 `39f509d00de4`; journal2 `37cfdcae0383`.
+Revisions: main2 `7e6aae2c3424`; journal2 `7a70085a8318`.
 
 ## main2 context library
 
