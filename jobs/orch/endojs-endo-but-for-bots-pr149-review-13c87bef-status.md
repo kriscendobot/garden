@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr149-review-13c87bef-status-workspace-bootstrap-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-pr149-review-13c87bef-status-retained-root-lifecycle-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-pr149-review-13c87bef-status-root-embodiment-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-pr149-review-13c87bef-status-owner-handoff-host: endolin-garden-ece02cb4
