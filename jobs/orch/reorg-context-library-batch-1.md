@@ -1,4 +1,5 @@
 ---
+child-reorg-context-local-inference-amd-host: endolin-garden2-5bcdff64
 order: parallel
 children: reorg-context-local-inference-amd reorg-skill-local-verify
 on-child-failure: continue
