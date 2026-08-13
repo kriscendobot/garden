@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T03:44:36Z_
+_As of 2026-08-13T03:46:39Z_
 
 ## Latest
 
@@ -3557,10 +3557,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (Original doer is gone, so there is no live agent to carry this; surfacing to you
 > is the carry-forward. No action taken on any repo.)
 
-- `20260813T034407Z-f02e7d` — from gauntlet:ebfb-guest-unconfined-from-tree-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T034407Z-f02e7d.md)
-
-> Gauntlet ebfb-guest-unconfined-from-tree-gauntlet HALTED: stage 'ebfb-guest-unconfined-from-tree-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6706,15 +6702,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.1M | $924.62 _(notional, rate-card)_ | no quota set |
+| Claude | 59.3M | $930.91 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+810.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-pr977-lint-unstick`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr977-lint-unstick.md) — State
 
 ### tada (4481)
 - [`ebfb-guest-unconfined-from-tree-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree-gauntlet.md) — gauntlet ebfb-guest-unconfined-from-tree-gauntlet — HALTED
