@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:27:42Z_
+_As of 2026-08-13T22:28:13Z_
 
 ## Latest
 
@@ -6759,24 +6759,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.2M | $990.29 _(notional, rate-card)_ | no quota set |
+| Claude | 60.2M | $990.36 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #980
-- [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-from-llm-r3.md) — Migration evidence (verify, do not assume)
 
-### tada (4577)
+### tada (4578)
+- [`genie-docs-delete-from-llm-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-from-llm-r3.md) — Completion report — genie-docs-delete-from-llm-r3
 - [`ironhorse-test262-implementation-completion-resume-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-5.md) — orchestration ironhorse-test262-implementation-completion-resume-5 — BUDGET M...
 - [`ironhorse-js-11-strings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-11-strings.md) — Cost
 - [`context-graph-size-audit-focused-20260813-222003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/context-graph-size-audit-focused-20260813-222003.md) — Cost
 - [`garden-orchestrate-serial-order-violation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestrate-serial-order-violation.md) — Cost
-- [`reorg-context-library-batch-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/reorg-context-library-batch-1.md) — orchestration reorg-context-library-batch-1 — complete
-- … and 4572 more
+- … and 4573 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
