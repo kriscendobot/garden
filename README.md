@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T02:55:05Z_
+_As of 2026-08-13T02:56:43Z_
 
 ## Latest
 
@@ -6706,23 +6706,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.4M | $837.78 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+804.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 55.6M | $841.78 _(notional, rate-card)_ | no quota set |
+| Codex | 23.6M _(+805.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree.md) — ---
+- [`ebfb-guest-unconfined-from-tree-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-unconfined-from-tree-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #977
 
-### tada (4475)
+### tada (4476)
+- [`ebfb-guest-unconfined-from-tree`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-guest-unconfined-from-tree.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-e815058c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e815058c.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-8aba7fc3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-8aba7fc3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-e7ffcbe6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-e7ffcbe6.md) — Cost
 - [`endojs-endo-but-for-bots-pr475-review-7b320c90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-7b320c90.md) — Cost
-- [`endojs-endo-but-for-bots-pr475-review-45629ced`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-45629ced.md) — Completion report: review directive on endojs/endo-but-for-bots PR #475
-- … and 4470 more
+- … and 4471 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
