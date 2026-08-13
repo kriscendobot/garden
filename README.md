@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T21:19:47Z_
+_As of 2026-08-13T21:22:35Z_
 
 ## Latest
 
@@ -6730,14 +6730,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.5M | $996.79 _(notional, rate-card)_ | no quota set |
-| Codex | 21.8M _(+747.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 16% _(plan; codex-reported)_ |
+| Claude | 61.6M | $999.72 _(notional, rate-card)_ | no quota set |
+| Codex | 22.0M _(+754.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`ebfb-ascii-adopt-ocapn-sites`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites.md) — ---
 - [`ebfb-pr475-integrate-endo-ascii-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii-r2.md) — The work
 - [`endojs-endo-but-for-bots-pr124-review-01d36f3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-01d36f3a.md) — Review directive on endojs/endo-but-for-bots PR #124
@@ -6745,16 +6745,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-genie-core.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef-discover-sandbox-subagents.md) — ---
 - [`endojs-endo-but-for-bots-pr149-review-13c87bef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr149-review-13c87bef.md) — Review directive on endojs/endo-but-for-bots PR #149
-- [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-09-proxy-mop.md) — Implement Proxy completely over the object MOP
 - [`quota-limit-type-differentiation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/quota-limit-type-differentiation.md) — Differentiate session/usage/5-hour vs weekly quota-limit refusals
 
-### tada (4518)
+### tada (4519)
+- [`ironhorse-js-09-proxy-mop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-09-proxy-mop.md) — Completion report
 - [`endojs-endo-but-for-bots-pr152-review-c8f113d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr152-review-c8f113d5.md) — Review on endojs/endo-but-for-bots #152 — resolved
 - [`ebfb-pr700-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr700-integrate-endo-ascii.md) — Completion report
 - [`endojs-endo-but-for-bots-pr943-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr943-6a74672c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr943-6a74672c.md) — Cost
-- [`ebfb-pr943-weave-conduct-r4930413457`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr943-weave-conduct-r4930413457.md) — orchestration ebfb-pr943-weave-conduct-r4930413457 — HALTED
-- … and 4513 more
+- … and 4514 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
