@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:25:31Z_
+_As of 2026-08-13T22:27:42Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 56m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15d)
@@ -3581,6 +3581,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-test262-implementation-completion-resume-5 stopped with budget-meter-incomplete. Budget: 10000000. Parked remainder: ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary. Reason: <3>22:25:05 [campaign-spend] FATAL: usage/ironhorse-js-11-strings.jsonl line 1 is an unmetered or invalid campaign row
 
+- `20260813T222721Z-d601d9` — from gardener:genie-docs-delete-from-llm-r3, reply_to `genie-docs-delete-from-llm-r3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T222721Z-d601d9.md)
+
+> Job genie-docs-delete-from-llm-r3 (delete PLAN/TODO/TADA from endo-but-for-bots@llm): migration verified, but I'm holding before deleting — the job's premise is contradicted and this is your call.
+>
+> VERIFIED (independently):
+> - Journal copy at library/endo-but-for-bots/ is byte-identical to origin/llm (diff -rq clean, all three dirs). Counts match: PLAN 11, TODO 1, TADA 172 (184 files + README). Provenance README present.
+> - origin/llm HEAD is still exactly the migration source commit a54c3adb — llm has NOT moved.
+> - No instruction file (root AGENTS.md/CLAUDE.md/CONTRIBUTING.md/README.md) ever directed agents to WRITE into these dirs. They're cited only as design provenance.
+>
+> THE PROBLEM the job under-counted:
+> - The job said "references ONLY from within the directories themselves." NOT TRUE at this commit. There are 101 references across 43 files OUTSIDE the three dirs — including 10 breaking markdown links (in designs/, packages/genie/README.md, packages/genie/DESIGN.md, packages/sandbox/README.md, and packages/genie/AGENTS.md — an agent-instruction file) and ~91 historical code-comment citations by doc number across shipping genie/sandbox source and tests (e.g. "// Non-zero exits are data, not errors — see TADA/60").
+> - The migration destination is the garden's PRIVATE journal (journal2). endo-but-for-bots is PUBLIC. So for a public reader the moved content has no public home EXCEPT this repo's own git history at a54c3adb. Deleting leaves public code citing docs that live only where the public can't see (the journal) or in deleted history.
+>
+> RECOMMENDATION: keep them in-tree — the journal copy is a good archival backup, but it doesn't make the docs redundant for a public repo that actively cites them 100+ times. If you still want them gone, my proposed shape: delete the 3 dirs, repoint the 10 markdown links to permanent public permalinks (github.com/endojs/endo-but-for-bots/blob/a54c3adb/...), leave the ~91 comment citations as historical (findable via history), and PR-note that content is preserved in git history at a54c3adb + archived in the journal, don't force merge.
+>
+> llm is UNTOUCHED. Tell me which way and I'll execute.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6742,7 +6759,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.1M | $989.86 _(notional, rate-card)_ | no quota set |
+| Claude | 60.2M | $990.29 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+800.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 ## Board
