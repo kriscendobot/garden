@@ -59,6 +59,7 @@ Run the normal gauntlet. Do not force the merge if review objects to removing th
 content from the repo — report back instead. Some readers may want these kept
 in-tree, and that is the maintainer's call.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
