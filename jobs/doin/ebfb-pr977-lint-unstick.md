@@ -39,3 +39,13 @@ draft despite the substantive work being done.
 - This PR is the daemon-side regression test from the 2026-08-12 minion.town
   security incident. Keep exploit specifics out of commit messages and the PR
   description; the substantive fix for the deployed defect lives elsewhere.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-13T03:46:17Z
