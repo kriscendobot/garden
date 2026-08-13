@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-13T22:54:25Z_
+_As of 2026-08-13T22:55:15Z_
 
 ## Latest
 
@@ -6759,8 +6759,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.4M | $996.72 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+802.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
+| Claude | 60.4M | $997.28 _(notional, rate-card)_ | no quota set |
+| Codex | 23.7M _(+802.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 31% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -6827,6 +6827,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-resume-3-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-3-launch.md) — _normal_ · Launch the Ironhorse test262 campaign resume-3 (21 children, js-08..js-28)
+- [`ironhorse-resume-6-launch-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-6-launch-postdeploy.md) — _normal_ · Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28) — ...
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`kriscendobot-minion.town-pr27-review-615e16eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr27-review-615e16eb.md) — _normal_ · Review directive on kriscendobot/minion.town PR #27
