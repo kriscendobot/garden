@@ -561,10 +561,10 @@ The `See also` block is allowed (and encouraged) to point at concept-ids that *c
 `keywords.md` is a single file, one entry per line:
 
 ```
-<keyword or phrase> | <concept-id>
+- <keyword or phrase>[, <synonym>, ...] -> <concept-id>
 ```
 
-Multiple keywords may resolve to the same concept-id (synonyms cluster). Code-symbol keywords are written in backticks (`` `LOCAL_NODE` ``, `` `EndoGateway.followRetentionSet` ``); prose keywords are plain (`destruction by cohort`, `Karp Stiegler Close`). Letter case is preserved when meaningful. Both kinds live in the same file so a maintainer can scan synonym clusters easily.
+Multiple keywords may resolve to the same concept-id and are clustered as a comma-separated list in one bullet. Code-symbol keywords are written in backticks (`` `LOCAL_NODE` ``, `` `EndoGateway.followRetentionSet` ``); prose keywords are plain (`destruction by cohort`, `Karp Stiegler Close`). Letter case is preserved when meaningful. Both kinds live in the same file so a maintainer can scan synonym clusters easily.
 
 The index is meant to be **grepped, not read by eye**. Use the [`library-lookup`](../../../skills/library-lookup/SKILL.md) skill rather than reading `keywords.md` linearly.
 
