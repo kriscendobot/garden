@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:01:52Z_
+_As of 2026-08-14T06:03:55Z_
 
 ## Latest
 
@@ -4326,14 +4326,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 56.4M | $940.18 _(notional, rate-card)_ | no quota set |
-| Codex | 24.5M _(+787.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
+| Codex | 24.5M _(+789.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
-- [`harden-review-miss-recurrence-escalation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harden-review-miss-recurrence-escalation.md) — Make review-miss recurrence escalation deterministic
+### doin (6)
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr41-panel-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-panel-fix-1.md) — Resume the fixer loop on kriscendobot/minion.town PR #41
 - [`minion-town-pr42-e4561d1-metering-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr42-e4561d1-metering-ledger.md) — ---
@@ -4341,13 +4340,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`review-improve-garden-design-pr-gauntlet-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-garden-design-pr-gauntlet-bypass.md) — review-improve: garden-design-pr-gauntlet-bypass
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-reaper-overrun-threshold-by-signal.md) — Split reaper overrun thresholds by signal
 
-### tada (4609)
+### tada (4610)
+- [`harden-review-miss-recurrence-escalation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/harden-review-miss-recurrence-escalation.md) — Cost
 - [`kriscendobot-minion.town-pr41-5c80fba8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-5c80fba8.md) — Cost
 - [`kriscendobot-minion.town-pr42-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr42-conduct.md) — Cost
 - [`review-quarantined-followup-reports-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/review-quarantined-followup-reports-20260728.md) — Cost
 - [`fix-maintainer-archive-keyed-notice-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-maintainer-archive-keyed-notice-collision.md) — Completion report
-- [`ebfb-pr980-fix-ascii-ocapnlocation-lint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr980-fix-ascii-ocapnlocation-lint.md) — Cost
-- … and 4604 more
+- … and 4605 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
