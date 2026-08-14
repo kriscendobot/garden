@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:55:55Z_
+_As of 2026-08-14T22:57:31Z_
 
 ## Latest
 
@@ -4147,12 +4147,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.5M _(+916.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Codex | 29.5M _(+917.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr988-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #988
-- [`ironhorse-js-26-ca-regexp-properties`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ca-regexp-properties.md) — ---
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cc-object-mop-exotic.md) — Close residual language gap: Object MOP on exotic/proxy objects (defineProper...
 
 ### doin (10)
@@ -4161,19 +4160,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr909-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
+- [`ironhorse-js-26-ca-regexp-properties`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-properties.md) — ---
 - [`ironhorse-js-26-ca-regexp-u-core-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-u-core-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cb-with-env-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cb-with-env-core.md) — with-cluster child A (FOUNDATIONAL): the environment-chain model + real with ...
-- [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-28-issue-summary.md) — Post the final Ironhorse implementation summary to garden issue 51
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 
-### tada (4725)
+### tada (4726)
+- [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-28-issue-summary.md) — Cost
 - [`kriscendobot-minion.town-pr44-review-1686b169`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr44-review-1686b169.md) — Completion report
 - [`ironhorse-js-26-ca-regexp-u-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-u-core.md) — Completion report
 - [`endojs-endo-but-for-bots-pr988-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-fix-3.md) — Cost
 - [`pr910-review-4941452327-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-resolution.md) — orchestration pr910-review-4941452327-resolution — HALTED
-- [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-27-full-suite-report-refresh.md) — Completion report — Ironhorse full-suite report refresh (js-27)
-- … and 4720 more
+- … and 4721 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
