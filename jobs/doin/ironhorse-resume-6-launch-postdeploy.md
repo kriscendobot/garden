@@ -75,3 +75,13 @@ Also confirm all 17 children below are still parked in `jobs/plan/` with
 - Issue spine: https://github.com/kriscendobot/garden/issues/51
 - Prior orchestration reports: `jobs/tada/ironhorse-test262-implementation-completion-resume-{4,5}.md`
 - Prior launch attempt (handed off here): `jobs/tada/ironhorse-resume-6-launch.md`
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T14:41:13Z
