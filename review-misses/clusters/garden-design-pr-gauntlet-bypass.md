@@ -1,7 +1,7 @@
 ---
 slug: garden-design-pr-gauntlet-bypass
 category: evaluator-gaming
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - kriskowal-garden-pr7-review-4798277a
@@ -9,7 +9,9 @@ members:
   - kriscendobot-minion.town-pr41-review-5b4e7d27
 prs: [7, 809, 41]
 improvement_job: review-improve-garden-design-pr-gauntlet-bypass
+improved_by: commit e1e2a3e467 on main2: role-independent design-PR gauntlet staging in scripts/jobs/auto-gauntlet-handoff.sh (+ design_only_paths / gauntlet_record_for_pr in common.sh); completion-time sensor scripts/jobs/assert-design-pr-gauntlet.sh wired into gardener.sh; regression test scripts/jobs/test/design-pr-gauntlet-bypass-test.sh; docs in roles/designer/AGENT.md, skills/pr-creation-flow/SKILL.md, designs/auto-gauntlet-pr-reconciler.md
 ---
+
 
 
 
