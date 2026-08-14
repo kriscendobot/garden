@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":210,"elapsed_s":2250,"input_tokens":389,"output_tokens":159421,"cache_creation_tokens":295987,"cache_read_tokens":36550773,"total_cost_usd":25.2254175,"ts":"2026-08-14T19:24:06Z","base":"ironhorse-js-21-intl-datetime-segmenter","host":"endolin-garden-ece02cb4","outcome":"tada"}
