@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T20:36:32Z_
+_As of 2026-08-14T20:41:36Z_
 
 ## Latest
 
@@ -4272,7 +4272,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (7)
+- [`ebfb-daemon-commit-formula-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-daemon-commit-formula-design.md) — Design: a Daemon-native "commit" formula (reflect the full Git object model)
+- [`ebfb-endor-git-bindings-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-endor-git-bindings-design.md) — Design: Endor Git bindings (libgit2 from Rust, Zig cross-compile)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-25-temporal-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-25-temporal-integration.md) — Close Temporal parsing, formatting, protocol, and integration gaps
@@ -4445,6 +4447,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
 - [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
+- [`mtown-git-remote-followup-notice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mtown-git-remote-followup-notice.md) — awaiting `ebfb-daemon-commit-formula-design` · Notice: chain the minion.town git-remote follow-up on the daemon commit-formu...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
