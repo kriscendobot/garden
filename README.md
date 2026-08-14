@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T19:43:26Z_
+_As of 2026-08-14T19:57:20Z_
 
 ## Latest
 
@@ -4266,25 +4266,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 27.8M _(+883.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
+| Codex | 28.1M _(+893.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`ironhorse-js-23-temporal-plain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-23-temporal-plain.md) — Implement Temporal plain date and time families
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4686)
+### tada (4687)
+- [`ironhorse-js-23-temporal-plain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-23-temporal-plain.md) — Cost
 - [`ironhorse-js-22-temporal-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-22-temporal-core.md) — Cost
 - [`ironhorse-js-21-intl-datetime-segmenter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-21-intl-datetime-segmenter.md) — Completion report
 - [`ironhorse-js-20-intl-formatters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-20-intl-formatters.md) — Completion report — ironhorse-js-20-intl-formatters
 - [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr970-shepherd.md) — Completion report
-- [`ironhorse-js-19-intl-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-19-intl-core.md) — Cost
-- … and 4681 more
+- … and 4682 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
