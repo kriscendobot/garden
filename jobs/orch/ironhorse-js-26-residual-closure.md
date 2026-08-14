@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-cc-object-mop-exotic-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cc-object-mop-exotic-reap-count: 0
 child-ironhorse-js-26-cb-with-statement-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cb-with-statement-reap-count: 0
