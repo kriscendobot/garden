@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 988
 build_job: ebfb-daemon-commit-formula-design
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr988-gauntlet-panel-3
+current_child: endojs-endo-but-for-bots-pr988-gauntlet-fix-3
 state: running
 created_by: producer
 created_at: 2026-08-14T20:55:05Z
