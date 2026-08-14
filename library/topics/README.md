@@ -28,7 +28,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 43 |
 | [module-harmony](module-harmony.md) | The TC39 module-proposal landscape a minimal Compartments spec must intersect — source phase imports (`import source`, `ModuleSource`, `%AbstractModuleSource%`), import defer (deferred synchronous evaluation), module expressions (`module {}`), module declarations (named inline modules), and the layered Compartments proposal (first-class `Module`/`ModuleSource`, virtual sources, Evaluators, Compartment). Unified by "phases of one module load"; concept [[module-harmony-intersection-surface]] synthesizes the adopt/defer-to/stay-compatible-with intersection. Distinct from `compartments` (SES implementation, evidence not spec) and `bundles` (compartment-mapper packaging). | 38 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 110 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 62 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 64 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 78 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format; encodePassable rank-order-preserving format; rankOrder in-memory comparator. | 86 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 40 |
