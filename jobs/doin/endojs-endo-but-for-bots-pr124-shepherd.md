@@ -18,3 +18,13 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please give this another shepherd to deal with docs and lint. Drop a link to the relevant work on improving the bootstrap bundle situation for rust CI testing. Let’s get this unblocked. 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T06:27:39Z
