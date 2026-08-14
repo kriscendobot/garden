@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:58:41Z_
+_As of 2026-08-14T23:02:34Z_
 
 ## Latest
 
@@ -4155,19 +4155,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.6M _(+918.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
+| Codex | 29.8M _(+921.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr988-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr988-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #988
+### todo (1)
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cc-object-mop-exotic.md) — Close residual language gap: Object MOP on exotic/proxy objects (defineProper...
 
-### doin (10)
+### doin (11)
 - [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-merge.md) — Merge PR #124 (post-approval finalization)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr909-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
+- [`endojs-endo-but-for-bots-pr988-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-js-26-ca-regexp-properties`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-properties.md) — ---
 - [`ironhorse-js-26-ca-regexp-u-core-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-u-core-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cb-with-env-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cb-with-env-core.md) — with-cluster child A (FOUNDATIONAL): the environment-chain model + real with ...
