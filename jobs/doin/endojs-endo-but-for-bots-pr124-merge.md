@@ -33,3 +33,13 @@ Task (conductor): confirm the PR is mergeable and all required checks are
 green (drive to green / shepherd if a required check is red and it is
 PR-attributable), then merge. You own the merge method. Bot repo — safe
 to merge; do NOT touch agoric-sdk or endojs/endo upstream.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T22:20:31Z
