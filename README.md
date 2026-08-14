@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:13:43Z_
+_As of 2026-08-14T06:14:38Z_
 
 ## Latest
 
@@ -4340,8 +4340,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
+- [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-gauntlet-after-fix-1-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #41
 - [`minion-town-pr42-e4561d1-metering-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr42-e4561d1-metering-ledger.md) — ---
 - [`resume-vfs-parity-after-providesubmount`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/resume-vfs-parity-after-providesubmount.md) — Resume VFS parity after provideSubMount merged
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-reaper-overrun-threshold-by-signal.md) — Split reaper overrun thresholds by signal
