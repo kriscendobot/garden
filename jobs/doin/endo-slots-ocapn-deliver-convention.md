@@ -28,3 +28,13 @@ Acceptance:
 - The `@endo/slots` README cites the OCapN Body Content Format.
 - Add a breaking changeset, or document why the unreleased surface needs none.
 - Run the `@endo/slots` JavaScript tests and Rust slots tests.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T23:29:50Z
