@@ -1,14 +1,8 @@
 ---
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/124
-priority: normal
 role: builder
-posted_by: orchestrator
-posted_at: 2026-07-28T21:09:54Z
 tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-14T23:26:05Z cleared=none -->
 
 # Adopt `@endo/cbor` in `packages/slots` (cbor-codec design, phase 3)
 
