@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:04:41Z_
+_As of 2026-08-14T22:06:45Z_
 
 ## Latest
 
@@ -4219,13 +4219,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.5M _(+896.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
+| Codex | 28.5M _(+897.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr987-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr987-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #987
 
-### doin (9)
+### doin (11)
+- [`deadmail-20260814T220137Z-15f44f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260814T220137Z-15f44f.md) — Dead-lettered message — pick up its intent
+- [`endojs-endo-but-for-bots-pr124-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr910-review-cde2c465`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-review-cde2c465.md) — Review directive on endojs/endo-but-for-bots PR #910
 - [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #910
