@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:43:27Z_
+_As of 2026-08-14T06:45:12Z_
 
 ## Latest
 
@@ -4308,27 +4308,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.9M | $959.25 _(notional, rate-card)_ | no quota set |
+| Claude | 56.6M | $949.76 _(notional, rate-card)_ | no quota set |
 | Codex | 24.8M _(+795.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #124
-- [`endojs-endo-but-for-bots-pr216-review-9ea61f5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-review-9ea61f5c.md) — Review directive on endojs/endo-but-for-bots PR #216
-- [`endojs-endo-but-for-bots-pr234-review-03f6892a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr234-review-03f6892a.md) — Review directive on endojs/endo-but-for-bots PR #234
+- [`endojs-endo-but-for-bots-pr788-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr788-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #788
+- [`endojs-endo-but-for-bots-pr790-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr790-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #790
+- [`endojs-endo-but-for-bots-pr986-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`resume-vfs-parity-ci-and-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/resume-vfs-parity-ci-and-gauntlet.md) — Finish VFS parity CI and PR advancement
 
-### tada (4625)
+### tada (4627)
+- [`endojs-endo-but-for-bots-pr216-review-9ea61f5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr216-review-9ea61f5c.md) — Completion report
+- [`endojs-endo-but-for-bots-pr234-review-03f6892a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr234-review-03f6892a.md) — Completion report — endojs/endo-but-for-bots#234 review resolution
 - [`resume-vfs-parity-after-providesubmount`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/resume-vfs-parity-after-providesubmount.md) — Cost
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/split-reaper-overrun-threshold-by-signal.md) — Cost
 - [`kriscendobot-minion.town-pr40-review-468a067f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr40-review-468a067f.md) — Cost
-- [`kriscendobot-minion-town-pr46-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr46-conduct.md) — Completion report
-- [`scholar-relative-routing-miller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-relative-routing-miller.md) — Completion report — scholar-relative-routing-miller
-- … and 4620 more
+- … and 4622 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
