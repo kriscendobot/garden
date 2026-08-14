@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:25:45Z_
+_As of 2026-08-14T06:27:10Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 8h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
@@ -1985,10 +1985,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > [endojs/endo-but-for-bots#882](https://github.com/endojs/endo-but-for-bots/issues/882) is fully green and ready, but GitHub blocks the requested landing on kriskowal’s stale July 28 CHANGES_REQUESTED review. I requested approval/dismissal on the PR: [https://github.com/endojs/endo-but-for-bots/pull/882](https://github.com/endojs/endo-but-for-bots/pull/882)#issuecomment-5150761426
 
-- `20260801T091308Z-0019ad` — from orchestrator:endo-npm-cas-arc-landing-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T091308Z-0019ad.md)
-
-> Orchestration endo-npm-cas-arc-landing HALTED: child ebfb-pr882-bootstrap-generators stalled in flight for 2508s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/6 done before halt; swept: ebfb-pr873-lint-fix ebfb-pr875-review-response ebfb-pr876-conduct ebfb-pr877-rebase ebfb-pr878-rebase
-
 - `20260801T092701Z-6b0b1f` — from gardener:endo-byte-array-press-20260801-090502, reply_to `endo-byte-array-press-20260801-090502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T092701Z-6b0b1f.md)
 
 > byteArray press — 2026-08-01 observation (no wheel taken; everything green + awaiting human re-review)
@@ -3033,10 +3029,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Action I'm taking: I will NOT race. I'll poll for child 04 reaching jobs/tada/, then fetch its final head, and only then implement child 05, committing incrementally. If child 04 hasn't landed within my handler window I'll exit without the completion signal so the job resumes later. Flag if you'd rather I park/hold this differently.
 
-- `20260808T093407Z-975ced` — from orchestrator:ironhorse-test262-implementation-completion-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T093407Z-975ced.md)
-
-> Orchestration ironhorse-test262-implementation-completion HALTED: child ironhorse-js-05-derived-classes-private-decorators stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 5/29 done before halt; swept: ironhorse-js-06-sync-iteration-generators ironhorse-js-07-promises-async-functions ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
-
 - `20260808T103507Z-fb59ee` — from gauntlet:ironhorse-js-01-lexer-parser-negatives-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260808T103507Z-fb59ee.md)
 
 > Gauntlet ironhorse-js-01-lexer-parser-negatives-gauntlet HALTED: stage 'ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
@@ -3165,10 +3157,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Please approve [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) at `a1a18e3f7` if it looks right.
 
-- `20260812T033407Z-8f71b8` — from orchestrator:ironhorse-test262-implementation-completion-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T033407Z-8f71b8.md)
-
-> Orchestration ironhorse-test262-implementation-completion-resume HALTED: child ironhorse-js-06-sync-iteration-generators stalled after 1 requeues on host endolin-garden2-5bcdff64 (requeue count rose from 0) (serial, on-child-failure=halt). 6/29 done before halt; swept: ironhorse-js-07-promises-async-functions ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
-
 - `20260812T044412Z-323235` — from gardener:ironhorse-js-06-sync-iteration-generators-gauntlet-clean, reply_to `ironhorse-js-06-sync-iteration-generators-gauntlet-clean` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T044412Z-323235.md)
 
 > Gauntlet CLEAN stage BLOCKED on a base-branch conflict — endojs/endo-but-for-bots PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970).
@@ -3219,10 +3207,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Per the job's fail-closed gate, I stopped rather than arm ~2.08M billable tokens of real spend with child-failure detection absent — the old tada_failed would MISS a decorated failure line and let a serial run promote past a genuinely-failed child instead of halting.
 >
 > ACTION NEEDED: run a deliberate deploy (scripts/jobs/deploy-garden.sh) to advance the root to at least ede7f1f467, then re-post this restore job (new campaign base ironhorse-test262-implementation-completion-resume-2). The 22 swept child bodies are still recoverable from the sweep-commit parent c95607119^. I did not verify the 2.08M budget figure — I halted before that step.
-
-- `20260812T174011Z-239a0b` — from orchestrator:ironhorse-test262-implementation-completion-resume-2-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T174011Z-239a0b.md)
-
-> Orchestration ironhorse-test262-implementation-completion-resume-2 HALTED: child ironhorse-js-07-promises-async-functions vanished from the board (serial, on-child-failure=halt). 0/22 done before halt; swept: ironhorse-js-08-async-generators-for-await ironhorse-js-09-proxy-mop ironhorse-js-10-arrays-species ironhorse-js-11-strings ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-24-temporal-zoned ironhorse-js-25-temporal-integration ironhorse-js-26-residual-gap-closure ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
 
 - `20260812T225839Z-65aa69` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T225839Z-65aa69.md)
 
@@ -3332,6 +3316,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260814T055612Z-868ddf` — from gardener:fix-gauntlet-job-template-absolute-garden-root, reply_to `fix-gauntlet-job-template-absolute-garden-root` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T055612Z-868ddf.md)
 
 > Fixed and pushed staged-gauntlet portability to main2 at 04073b676a: clean/panel/fix stage bodies now name repo-relative scripts/jobs/... paths and explicitly resolve them against the claiming worker's own GARDEN_ROOT. Added regression coverage proving minted bodies omit the posting host's absolute root; gauntlet suite passes 37/37.
+
+- `20260814T062613Z-a58b45` — from gauntlet:kriscendobot-minion.town-pr41-gauntlet-after-fix-1-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T062613Z-a58b45.md)
+
+> Gauntlet kriscendobot-minion.town-pr41-gauntlet-after-fix-1 HALTED: stage 'kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
@@ -4195,14 +4183,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr923-dependabot' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `watchdog-handler-budget-overrun-finbot-pr6-panel-20260728` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-finbot-pr6-panel-20260728.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-07-28T17:34:07Z, latest 2026-07-29T14:10:27Z).
-> The SAME condition (`handler-budget-overrun-finbot-pr6-panel-20260728`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> gardener job 'finbot-pr6-panel-20260728' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2413s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be POISONED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic poison report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-handler-budget-overrun-kriscendobot-minion.town-pr27-review-615e16eb` — from watchdog:cleric/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-kriscendobot-minion.town-pr27-review-615e16eb.md)
 
 > gardener job 'kriscendobot-minion.town-pr27-review-615e16eb' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -4226,14 +4206,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-handler-budget-overrun-pr910-mustfix-round2-06-repanel` — from watchdog:cleric/4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-pr910-mustfix-round2-06-repanel.md)
 
 > gardener job 'pr910-mustfix-round2-06-repanel' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64` — from watchdog:mentor-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-ollama-model-less-endpoint-endolin-garden2-5bcdff64.md)
-
-> WATCHDOG notice — occurrence #55 (first seen 2026-07-28T22:56:20Z, latest 2026-08-01T02:50:13Z).
-> The SAME condition (`ollama-model-less-endpoint-endolin-garden2-5bcdff64`) has now been observed 55 times; this is ONE
-> coalesced notice that updates in place, not 55 messages. Latest detail:
->
-> local inference endpoint http://127.0.0.1:11434/v1 serves no qwen3:0.6b; hermit cannot run 'mentor'. Run `ollama pull qwen3:0.6b` against this endpoint (a client call, so it lands in the serving daemon's own store — a copy in another user's store is invisible here). No local-inference unit is running: neither `systemctl --user status garden-ollama.service` (the garden-supervised one, enabled only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit, run as the `ollama` user) is active. Bring up whichever this host is meant to serve with.
 
 - `watchdog-preflight-gather-fail-endojs-endo-but-for-bots` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-endojs-endo-but-for-bots.md)
 
@@ -4297,20 +4269,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > root repo /home/kris/garden object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden-ece02cb4' pid 405508 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 70 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden gc'. (host=endolin-garden-ece02cb4)
 
-- `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-01T18:54:01Z, latest 2026-08-01T20:53:06Z).
-> The SAME condition (`self-heal-garden-mentor`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: 213106c15d58d061a42ff148889b44edd74c8d8d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 213106c15d58d061a42ff148889b44edd74c8d8d). Diagnosis: ## Diagnosis: already fixed on `main2`, pending deploy — no job posted
->
-> The blob holds only the two-line FATAL tail (`mentor provider 'openai' returned malformed semantic output` → `improve handler failed`), which is itself the first symptom: the deployed `scripts/jobs/handlers/mentor-claude.sh` discards `$raw` on its EXIT trap and logs no excerpt, so every recurrence is evidence-free. I reproduced the rejection directly against the deployed `validate_mentor_response`: it accepts *only* a file that is pure `JOB…ENDJOB` blocks or literally empty. A markdown code fence around the blocks, a preamble, a trailing "Summary: …" line, or a prose-only "no clear opportunities this tick" answer all return rc=20 → FATAL. `codex exec --output-last-message` against `gpt-5.6-terra` naturally em
-
-- `watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-bfc91f5` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-shared-frozen-base-endojs_endo-but-for-bots-llm-bfc91f5.md)
-
-> conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#943](https://github.com/endojs/endo-but-for-bots/issues/943): frozen base 'llm-bfc91f5' is shared by open PRs (#943, #888). Forwarding #943 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#943 left on the snapshot: not stranded silently, not force-forked.)
-
 - `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-08-14T05:58:46Z, cleared 2026-08-14T06:01:10Z).
@@ -4333,15 +4291,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $943.17 _(notional, rate-card)_ | no quota set |
-| Codex | 24.7M _(+790.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
+| Claude | 56.4M | $943.42 _(notional, rate-card)_ | no quota set |
+| Codex | 24.7M _(+791.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
-- [`improve-inbox-clone-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-inbox-clone-retry.md) — ---
+### doin (7)
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr40-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #40
 - [`kriscendobot-minion.town-pr40-review-468a067f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-review-468a067f.md) — Review directive on kriscendobot/minion.town PR #40
@@ -4350,13 +4307,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`scholar-relative-routing-miller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-relative-routing-miller.md) — Scholar: research Mark Miller's "relative routing"
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-reaper-overrun-threshold-by-signal.md) — Split reaper overrun thresholds by signal
 
-### tada (4616)
+### tada (4618)
+- [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1.md) — gauntlet kriscendobot-minion.town-pr41-gauntlet-after-fix-1 — HALTED
+- [`improve-inbox-clone-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-inbox-clone-retry.md) — Cost
 - [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr37-review-58f6afaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-review-58f6afaa.md) — Completion report
 - [`minion-town-pr42-e4561d1-metering-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr42-e4561d1-metering-ledger.md) — Cost
-- [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1-clean.md) — Cost
-- [`kriscendobot-minion.town-pr41-panel-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-panel-fix-1.md) — Completion report: kriscendobot-minion.town-pr41-panel-fix-1
-- … and 4611 more
+- … and 4613 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
