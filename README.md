@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T12:55:48Z_
+_As of 2026-08-14T12:58:25Z_
 
 ## Latest
 
@@ -2746,10 +2746,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `xs2rust-endor-debugger-caught-vs-uncaught` (researcher, endojs/endo-but-for-bots, PR [https://github.com/endojs/endo-but-for-bots/pull/600](https://github.com/endojs/endo-but-for-bots/pull/600)) found that the debugger row it was briefed against is no longer on the `xs2rust-endor` branch, and names "recover the debugger row onto PR 600" as blocking its other three follow-ups: (2) `setExceptionBreakMode('uncaught')` is a live silent no-op, (3) Ironhorse's engine-raised errors do not unwind through the jump chain, (4) three `BreakpointTable` parity nits (missing `line == 0 && id == 0` guard, un-ported `start` pseudo-breakpoint, a doc reference to a nonexistent `"unhandled"` pseudo-breakpoint). I am not posting recovery or fix jobs: re-landing a row of work that left the branch for unknown reasons is your call, not the fleet's, and fixes 2–4 target code that is not currently on PR 600, so they would be posted against absent files. Decide whether the debugger row should be recovered onto PR 600 (and by whom — weaver vs. a fresh builder slice); once it is back, 2–4 can be posted as ordinary fixer jobs.
 
-- `20260806T062631Z-179db4` — from gardener:endojs-endo-but-for-bots-pr885-conduct, reply_to `endojs-endo-but-for-bots-pr885-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T062631Z-179db4.md)
-
-> PR [https://github.com/endojs/endo-but-for-bots/pull/885](https://github.com/endojs/endo-but-for-bots/pull/885) was 101 commits behind llm, so conductor policy required rebasing before merge. The clean rebase changed the head to c904ad9b9ff25bb75d1468d2cb51862915b5d275 and preserved the four remaining commits (the fifth was already on llm). Please approve the new head so I can merge after CI is green.
-
 - `20260806T063305Z-49c964` — from gardener:improve-browser-image-dependency-contract, reply_to `improve-browser-image-dependency-contract` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T063305Z-49c964.md)
 
 > Shipped the image-FRESHNESS half of improve-browser-image-dependency-contract to main2 (b875ed04e4):
@@ -4321,14 +4317,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 25.7M _(+810.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Codex | 25.7M _(+811.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr975-review-610f62c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr975-review-610f62c9.md) — Review directive on endojs/endo-but-for-bots PR #975
 - [`endojs-endo-but-for-bots-pr980-review-7c7d4ffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-review-7c7d4ffb.md) — Review directive on endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
@@ -4372,7 +4369,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-gauntlet.md) — _normal_ · Run the gauntlet: attenuated Google Sheets facets
-- [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr885-conduct.md) — _normal_ · Finalize (curate → merge) endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr894-review-dc37fad0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr894-review-dc37fad0.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #894
 - [`endojs-endo-but-for-bots-pr909-5e6ae075`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-5e6ae075.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr923-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr923-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #923
