@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:45:36Z_
+_As of 2026-08-14T22:46:40Z_
 
 ## Latest
 
@@ -4129,11 +4129,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.3M _(+911.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Codex | 29.3M _(+912.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (3)
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cc-object-mop-exotic.md) — Close residual language gap: Object MOP on exotic/proxy objects (defineProper...
+- [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-28-issue-summary.md) — Post the final Ironhorse implementation summary to garden issue 51
 - [`kriscendobot-minion.town-pr44-review-1686b169`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr44-review-1686b169.md) — Review directive on kriscendobot/minion.town PR #44
 
 ### doin (10)
