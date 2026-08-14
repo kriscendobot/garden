@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T18:29:28Z_
+_As of 2026-08-14T18:44:06Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 4h)
+- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 5h)
 - [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 11h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
@@ -3301,6 +3301,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260814T142909Z-c7624d` — from gauntlet:endojs-endo-but-for-bots-pr980-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T142909Z-c7624d.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr980-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr980-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260814T184349Z-15dd46` — from gardener:ironhorse-js-20-intl-formatters, reply_to `ironhorse-js-20-intl-formatters` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T184349Z-15dd46.md)
+
+> Ironhorse child 20 (intl-formatters) pushed to [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) (head af3f563fea, kept open/draft).
+>
+> Delivered 2 of 6 families fully — Intl.ListFormat and Intl.PluralRules — flipping +54 slice cases from `unsupported` to host-only `oracle-host-missing-intl` (ListFormat skipped 1 to 34, PluralRules 3 to 24) with correct real execution (oracle-backed Rust regressions added). Zero regressions: metering corpus 1711/1711 computron-exact, full workspace green, no new ironhorse-failure/infrastructure across all 6 families.
+>
+> Also fixed a suite-wide core defect discovered here: `arguments.length` was returning (actual args minus declared params) — the ARGUMENTS_SLOPPY/STRICT opcode wrongly used the formal-param-count operand as a skip offset. This blocked test262's propertyHelper `verifyProperty` (it rejects fewer than 3 args) EVERYWHERE, not just Intl. Fixed and metering-verified.
+>
+> Did NOT reach the other 4 families or full coverage. Two remaining CORE blockers (not Intl-specific, risky under the strict metering invariant, better as their own jobs) cap the slice:
+> 1. Native method `.length`/`.name` aren't reflectable/deletable descriptors (computed in GET, not stored) — blocks all length/name/prop-desc verifyProperty tests across every family.
+> 2. `Array.prototype[Symbol.iterator]` isn't a real property (for-of special-cases arrays) — blocks ListFormat format-value tests (they use a[Symbol.iterator]()); installing it would change for-of metering suite-wide.
+> NumberFormat is foundational for RelativeTimeFormat/DurationFormat and is the largest remaining piece (245 cases, needs CLDR currency/unit/compact data).
 
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
