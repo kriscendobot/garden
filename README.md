@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T20:53:29Z_
+_As of 2026-08-14T20:55:43Z_
 
 ## Latest
 
@@ -4273,20 +4273,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (6)
-- [`ebfb-daemon-commit-formula-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-daemon-commit-formula-design.md) — Design: a Daemon-native "commit" formula (reflect the full Git object model)
+- [`deadmail-20260814T205258Z-b51c63`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260814T205258Z-b51c63.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr987-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #987
 - [`ironhorse-js-25-temporal-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-25-temporal-integration.md) — Close Temporal parsing, formatting, protocol, and integration gaps
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4691)
+### tada (4692)
+- [`ebfb-daemon-commit-formula-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-daemon-commit-formula-design.md) — Cost
 - [`endojs-endo-but-for-bots-pr910-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-retcon.md) — Completion report
 - [`ebfb-endor-git-bindings-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-endor-git-bindings-design.md) — Cost
 - [`kriscendobot-minion.town-pr41-review-51a9c0f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-review-51a9c0f3.md) — Completion report — review directive on kriscendobot/minion.town#41
 - [`ironhorse-js-24-temporal-zoned`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-24-temporal-zoned.md) — Completion report — Temporal ZonedDateTime, time zones, and Now (js-24)
-- [`ironhorse-js-23-temporal-plain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-23-temporal-plain.md) — Cost
-- … and 4686 more
+- … and 4687 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
