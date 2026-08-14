@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:27:11Z_
+_As of 2026-08-14T05:30:06Z_
 
 ## Latest
 
@@ -6790,16 +6790,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.8M | $984.48 _(notional, rate-card)_ | no quota set |
-| Codex | 23.8M _(+782.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 59.9M | $986.23 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+780.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (7)
+- [`design-frozen-base-supersession-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-frozen-base-supersession-check.md) — ---
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #980
+- [`garden-fix-designer-dangling-skill-citation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fix-designer-dangling-skill-citation.md) — ---
+- [`garden-fix-library-lookup-keyword-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-fix-library-lookup-keyword-format.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
+- [`kriscendobot-minion.town-pr41-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #41
 - [`kriscendobot-minion.town-pr42-review-d0ab99cd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr42-review-d0ab99cd.md) — Review directive on kriscendobot/minion.town PR #42
 
 ### tada (4591)
