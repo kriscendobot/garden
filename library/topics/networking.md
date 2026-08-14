@@ -102,6 +102,12 @@
 | [opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model](../sections/opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model.md) | OpenSandbox network-isolation architecture | Direct Pod-IP reach is the cross-tenant bypass threat. |
 | [opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement](../sections/opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement.md) | OpenSandbox network-isolation architecture | Platform-owned deny overlays constrain cluster egress. |
 | [opensandbox--docs-architecture-network-isolation--compatibility-and-residual-trust](../sections/opensandbox--docs-architecture-network-isolation--compatibility-and-residual-trust.md) | OpenSandbox network-isolation architecture | Runtime and service-mesh compatibility constrain sidecar enforcement. |
+| [OpenSandbox namespace, RBAC, and shared authority](../sections/opensandbox--docs-guides-multi-tenancy--namespace-rbac-isolation-and-shared-authority.md) | OpenSandbox multi-tenancy guide | Tenant namespaces depend on Kubernetes egress and RBAC controls. |
+| [OpenSandbox outbound credential broker](../sections/opensandbox--docs-guides-credential-vault--outbound-credential-broker-and-trust-boundary.md) | OpenSandbox Credential Vault | Transparent HTTPS interception injects sidecar-held secrets into matched requests. |
+| [OpenSandbox request-scoped credential substitution](../sections/opensandbox--docs-guides-credential-vault--request-scoped-injection-and-placeholder-substitution.md) | OpenSandbox Credential Vault | Scheme/host/method/path bindings and context-aware substitutions narrow secret use. |
+| [OpenSandbox credential binding discipline](../sections/opensandbox--docs-guides-credential-vault--binding-discipline-residual-trust-and-endo-comparison.md) | OpenSandbox Credential Vault | nft-backed default-deny egress and precise bindings are required to prevent destination bypass. |
+| [OpenSandbox inbound token validation](../sections/opensandbox--docs-guides-secure-access--inbound-token-boundary-and-validation-order.md) | OpenSandbox Secure Access | Gateway and server proxy gate HTTP/WebSocket with a per-sandbox token. |
+| [OpenSandbox signed endpoint URLs](../sections/opensandbox--docs-guides-secure-access--signed-urls-key-rotation-and-routing-modes.md) | OpenSandbox Secure Access | Expiring signatures can route through host, header, or URI modes. |
 
 ## See also
 
