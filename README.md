@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:27:10Z_
+_As of 2026-08-14T06:28:21Z_
 
 ## Latest
 
@@ -4291,29 +4291,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $943.42 _(notional, rate-card)_ | no quota set |
-| Codex | 24.7M _(+791.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 56.4M | $943.85 _(notional, rate-card)_ | no quota set |
+| Codex | 24.7M _(+792.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (7)
+- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #124
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
-- [`kriscendobot-minion.town-pr40-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #40
 - [`kriscendobot-minion.town-pr40-review-468a067f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-review-468a067f.md) — Review directive on kriscendobot/minion.town PR #40
 - [`promote-qwen36-to-minion-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/promote-qwen36-to-minion-tier.md) — promote local qwen3.6 from myrmidon to minion in the tier inventory
 - [`resume-vfs-parity-after-providesubmount`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/resume-vfs-parity-after-providesubmount.md) — Resume VFS parity after provideSubMount merged
 - [`scholar-relative-routing-miller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-relative-routing-miller.md) — Scholar: research Mark Miller's "relative routing"
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-reaper-overrun-threshold-by-signal.md) — Split reaper overrun thresholds by signal
 
-### tada (4618)
+### tada (4619)
+- [`kriscendobot-minion.town-pr40-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr40-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1.md) — gauntlet kriscendobot-minion.town-pr41-gauntlet-after-fix-1 — HALTED
 - [`improve-inbox-clone-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-inbox-clone-retry.md) — Cost
 - [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1.md) — Cost
 - [`kriscendobot-minion.town-pr37-review-58f6afaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-review-58f6afaa.md) — Completion report
-- [`minion-town-pr42-e4561d1-metering-ledger`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-pr42-e4561d1-metering-ledger.md) — Cost
-- … and 4613 more
+- … and 4614 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
