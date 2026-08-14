@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:12:26Z_
+_As of 2026-08-14T22:21:19Z_
 
 ## Latest
 
@@ -14,7 +14,6 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 8h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
@@ -24,8 +23,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 28d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 28d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 31d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 43d)
 
-_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -3315,6 +3315,28 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > (empty message)
 
+- `20260814T221408Z-4ef5ea` — from gauntlet:endojs-endo-but-for-bots-pr987-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T221408Z-4ef5ea.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr987-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr987-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
+- `20260814T221858Z-889dcc` — from gardener:ironhorse-js-26-residual-gap-closure, reply_to `ironhorse-js-26-residual-gap-closure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T221858Z-889dcc.md)
+
+> Ironhorse js-26 (residual-gap-closure) — scope escalation + handoff.
+>
+> I ran the authoritative full-suite report on the accumulated PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) head b3c3ae93 (pins as specified: test262 be13516fb, XS oracle 23b4d6b0). Result vs the 08-08 baseline:
+>   covered 4,740 -> 23,496 ; unsupported 38,400 -> 23,233 ; ironhorse-failure 19 -> 194 ; skipped 8,932 -> 4,406 ; infra 1 -> 647.
+>
+> The premise that js-26 is a small mop-up is wrong: **23,427 actionable cases remain** (23,233 unsupported + 194 fail), across ~15 causal clusters — several individually multi-day (RegExp u/v/unicode 4,212; TypedArray/ArrayBuffer 3,243; language expr/stmt 2,710; Object/Array/Reflect/Proxy 2,297; eval/Function/dynamic-import 1,945). This is a multi-week engine-completion effort, not a single 2h child. The residual is dominated by exactly the generic reasons the acceptance bar forbids (unsupported-opcode:* 10,313; ironhorse-aborted 9,510; abort-value-differs 1,825; parse-or-decode 512; non-primitive-completion 351).
+>
+> Per the job's own directive ("if too large for the handler budget, stop before partial relabeling, post a nested halt-on-failure orchestration of bounded causal children"), I did NOT relabel anything. I posted a serial, halt-on-failure orchestration `ironhorse-js-26-residual-closure` with 15 data-grounded causal children (ironhorse-js-26-ca..cz), each carrying its reason-family histogram, top subtrees, example paths, the shared-branch/pins, the full acceptance bar, and the regression invariant. js-26 hands off to that orchestration.
+>
+> Three things need your decision:
+> 1. **Ordering:** js-27-full-suite-report-refresh and js-28-issue-summary sit after js-26 in the serial orchestration `ironhorse-test262-implementation-completion-resume-6`. When js-26 completes they will promote and refresh/report BEFORE the residual work runs. Please re-block js-27 and js-28 on `ironhorse-js-26-residual-closure` (or splice the new children ahead of them) so the report is refreshed only after the residual closes.
+> 2. **js-25 died unreported:** ironhorse-js-25-temporal-integration is stuck in jobs/doin/ (claimed 20:34, worker gone — its inbox dead-lettered). Its commits ARE on the branch (a30cceaf30, b3c3ae93b8). It needs reaping; its "zero feature-based Temporal pre-skips" acceptance is unverified.
+> 3. **Accumulated regressions on the branch (not introduced by me — I made zero commits):** 6 baseline-covered paths regressed (Set.prototype.keys, String trimLeft/trimRight refs, 3 strict abort-value-differs) plus 19 harness/* reclassified; and 194 new ironhorse-failures (185 are RegExp negative over-acceptances — missing regex early-error validation, folded into cluster ca). These are folded into the causal children for repair.
+>
+> I'm handing off js-26 to ironhorse-js-26-residual-closure.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4138,32 +4160,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.6M _(+899.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Codex | 28.8M _(+901.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr894-review-dc37fad0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr894-review-dc37fad0.md) — Review directive on endojs/endo-but-for-bots PR #894
+### todo (0)
+(none)
 
-### doin (11)
-- [`endojs-endo-but-for-bots-pr124-review-90f3bcaf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-90f3bcaf.md) — Review directive on endojs/endo-but-for-bots PR #124
+### doin (10)
+- [`endojs-endo-but-for-bots-hangover-embargo-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hangover-embargo-design.md) — Design: embargo outbound messages until a worker quiesces after delivery
+- [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-merge.md) — Merge PR #124 (post-approval finalization)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #910
+- [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`endojs-endo-but-for-bots-pr987-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #987
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #988
-- [`ironhorse-js-26-residual-gap-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-residual-gap-closure.md) — Rerun the pinned suite and close every residual language gap
+- [`ironhorse-js-26-ca-regexp-unicode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode.md) — Close residual language gap: RegExp u/v flags, Unicode mode, property escapes...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 - [`scholar-ingest-cordiverse-paper-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cordiverse-paper-readme.md) — ---
-- [`scholar-ingest-cordiverse-paper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cordiverse-paper.md) — ---
 
-### tada (4706)
-- [`endojs-endo-but-for-bots-pr124-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-retcon.md) — Completion report
-- [`endojs-endo-but-for-bots-pr910-review-cde2c465`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-review-cde2c465.md) — Cost
-- [`deadmail-20260814T220137Z-15f44f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260814T220137Z-15f44f.md) — Cost
-- [`endojs-endo-but-for-bots-pr987-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-gauntlet-fix-1.md) — Completion report
-- [`ironhorse-js-25-temporal-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-25-temporal-integration.md) — Completion report — Temporal integration (js-25)
-- … and 4701 more
+### tada (4714)
+- [`endojs-endo-but-for-bots-pr894-conduct-after-review-4876933972`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-conduct-after-review-4876933972.md) — Completion report
+- [`ironhorse-js-26-residual-gap-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-residual-gap-closure.md) — Completion report — js-26 residual-gap-closure
+- [`endojs-endo-but-for-bots-pr894-review-dc37fad0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-review-dc37fad0.md) — Cost
+- [`scholar-ingest-cordiverse-paper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cordiverse-paper.md) — Completion report: scholar-ingest-cordiverse-paper
+- [`endojs-endo-but-for-bots-pr936-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-conduct.md) — Completion report
+- … and 4709 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
