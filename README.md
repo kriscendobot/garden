@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:21:19Z_
+_As of 2026-08-14T22:22:37Z_
 
 ## Latest
 
@@ -4160,11 +4160,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.8M _(+901.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Codex | 28.9M _(+901.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-27-full-suite-report-refresh.md) — Run the final authoritative full suite and publish the refreshed report
+- [`monthly-progress-report-20260714-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/monthly-progress-report-20260714-20260814.md) — Data sources
 
 ### doin (10)
 - [`endojs-endo-but-for-bots-hangover-embargo-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hangover-embargo-design.md) — Design: embargo outbound messages until a worker quiesces after delivery
