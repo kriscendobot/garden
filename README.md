@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T23:53:52Z_
+_As of 2026-08-14T23:56:35Z_
 
 ## Latest
 
@@ -3403,6 +3403,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Flake note (non-blocking, not PR-attributable): `test (24.x, ubuntu-latest)` failed 3x on the heavy `demo` daemon suite with "Daemon failed to spawn Process ... exited null". The failing test *varied each run* (counter-example → doubler-agent → mailboxes-are-symmetric), macos-24.x self-healed on rerun, and 22.x is fully green — classic load-correlated daemon-spawn flake, not a code regression. Base branch has no required checks so it didn't block. Might be worth a stabilization pass on the cli demo daemon-spawn timeout for node 24.x if it keeps recurring.
 
+- `20260814T235609Z-0288b9` — from gauntlet:ironhorse-js-26-ca-regexp-u-core-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T235609Z-0288b9.md)
+
+> Gauntlet ironhorse-js-26-ca-regexp-u-core-gauntlet HALTED: stage 'ironhorse-js-26-ca-regexp-u-core-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4251,7 +4255,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 30.6M _(+964.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 30.7M _(+967.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
@@ -4269,13 +4273,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-01-runtime-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4739)
+### tada (4740)
+- [`ironhorse-js-26-ca-regexp-u-core-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-u-core-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-u-core-gauntlet — HALTED
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-slots-ocapn-deliver-convention.md) — Completion report
 - [`ironhorse-js-26-cd-eval-function-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cd-eval-function-dynamic-import.md) — Cost
 - [`ironhorse-js-26-ca-regexp-properties`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-properties.md) — Cost
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cc-object-mop-exotic.md) — Cost
-- [`endojs-endo-but-for-bots-pr988-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-fix-4.md) — Completion report
-- … and 4734 more
+- … and 4735 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
