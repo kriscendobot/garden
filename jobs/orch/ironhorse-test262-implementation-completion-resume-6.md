@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-21-intl-datetime-segmenter-reap-count: 0
 child-ironhorse-js-20-intl-formatters-host: endolin-garden-ece02cb4
 child-ironhorse-js-20-intl-formatters-reap-count: 0
 child-ironhorse-js-19-intl-core-host: endolin-garden-ece02cb4
