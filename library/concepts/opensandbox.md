@@ -1,10 +1,10 @@
 ---
-aliases: [OpenSandbox, OpenSandbox platform, opensandbox-server, execd, OpenSandbox secure runtime, OpenSandbox isolation session]
+aliases: [OpenSandbox, OpenSandbox platform, opensandbox-server, execd, OpenSandbox secure runtime, OpenSandbox isolation session, OpenSandbox MCP, Credential Vault, Secure Access, OpenSandbox multi-tenancy]
 ---
 
 # OpenSandbox
 
-> Abstract: A general-purpose sandbox control and data plane for AI applications. It creates Docker containers or Kubernetes workloads through a language-neutral lifecycle API, injects `execd` for command/file/code execution, and can layer ingress authentication, egress filtering, gVisor or Kata secure runtimes, and nested bubblewrap sessions. Its primary boundary is an operating-system workload that may run arbitrary languages and binaries. It is useful to Endo as an outer deployment sandbox or interoperable execution service, but it does not replace SES's hardened JavaScript realms, object-capability confinement, or XS/xsnap's explicitly mediated JavaScript worker powers.
+> Abstract: A general-purpose sandbox control and data plane for AI applications. It creates Docker containers or Kubernetes workloads through a language-neutral lifecycle API, exposes them through SDK, CLI, and MCP adapters, injects `execd` for command/file/code execution, and can layer tenant namespace routing, ingress authentication, egress filtering and credential injection, gVisor or Kata secure runtimes, and nested bubblewrap sessions. Its primary boundary is an operating-system workload that may run arbitrary languages and binaries. It is useful to Endo as an outer deployment sandbox or interoperable execution service, but it does not replace SES's hardened JavaScript realms, object-capability confinement, or XS/xsnap's explicitly mediated JavaScript worker powers.
 
 ## Sections that touch this concept
 
@@ -22,6 +22,16 @@ aliases: [OpenSandbox, OpenSandbox platform, opensandbox-server, execd, OpenSand
 | [opensandbox--docs-guides-isolation-sessions--nested-bubblewrap-execution-boundary](../sections/opensandbox--docs-guides-isolation-sessions--nested-bubblewrap-execution-boundary.md) | Defines the nested per-task namespace boundary. |
 | [opensandbox--docs-guides-isolation-sessions--authority-surface-and-fail-closed-probing](../sections/opensandbox--docs-guides-isolation-sessions--authority-surface-and-fail-closed-probing.md) | Maps the session authority surface. |
 | [opensandbox--docs-guides-isolation-sessions--limits-and-xsnap-comparison](../sections/opensandbox--docs-guides-isolation-sessions--limits-and-xsnap-comparison.md) | Contrasts bubblewrap with XS/xsnap. |
+| [opensandbox--readme--mcp-cli-and-sdk-tool-interop](../sections/opensandbox--readme--mcp-cli-and-sdk-tool-interop.md) | Maps SDK, CLI, and MCP authority-bearing adapters. |
+| [opensandbox--docs-guides-multi-tenancy--tenant-identity-and-request-scoped-namespace-routing](../sections/opensandbox--docs-guides-multi-tenancy--tenant-identity-and-request-scoped-namespace-routing.md) | Defines tenant key to namespace routing. |
+| [opensandbox--docs-guides-multi-tenancy--namespace-rbac-isolation-and-shared-authority](../sections/opensandbox--docs-guides-multi-tenancy--namespace-rbac-isolation-and-shared-authority.md) | Records the server ClusterRole and shared-pool boundary. |
+| [opensandbox--docs-guides-credential-vault--outbound-credential-broker-and-trust-boundary](../sections/opensandbox--docs-guides-credential-vault--outbound-credential-broker-and-trust-boundary.md) | Defines the outbound secret-injection boundary. |
+| [opensandbox--docs-guides-credential-vault--binding-discipline-residual-trust-and-endo-comparison](../sections/opensandbox--docs-guides-credential-vault--binding-discipline-residual-trust-and-endo-comparison.md) | Compares request mediation with ocap confinement. |
+| [opensandbox--docs-guides-secure-access--endpoint-trust-boundaries-and-endo-comparison](../sections/opensandbox--docs-guides-secure-access--endpoint-trust-boundaries-and-endo-comparison.md) | Distinguishes inbound bearer access from Model-4 ocaps. |
+| [opensandbox--docs-components-execd--daemon-api-pty-and-access-token-boundary](../sections/opensandbox--docs-components-execd--daemon-api-pty-and-access-token-boundary.md) | Defines execd API and shared-token authority. |
+| [opensandbox--docs-components-execd--isolation-session-identity-native-gate-and-namespace-pinning](../sections/opensandbox--docs-components-execd--isolation-session-identity-native-gate-and-namespace-pinning.md) | Grounds the isolation-session implementation boundary. |
+| [opensandbox--docs-components-execd--bind-mount-authority-and-path-confinement](../sections/opensandbox--docs-components-execd--bind-mount-authority-and-path-confinement.md) | Maps bind-mount path authority and allowlisting. |
+| [opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison](../sections/opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison.md) | Compares nested namespaces with SES and XS. |
 
 ## Relations
 
