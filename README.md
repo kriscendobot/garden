@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T20:41:36Z_
+_As of 2026-08-14T20:43:28Z_
 
 ## Latest
 
@@ -4272,22 +4272,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`ebfb-daemon-commit-formula-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-daemon-commit-formula-design.md) — Design: a Daemon-native "commit" formula (reflect the full Git object model)
 - [`ebfb-endor-git-bindings-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-endor-git-bindings-design.md) — Design: Endor Git bindings (libgit2 from Rust, Zig cross-compile)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-25-temporal-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-25-temporal-integration.md) — Close Temporal parsing, formatting, protocol, and integration gaps
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
-- [`kriscendobot-minion.town-pr41-review-51a9c0f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-review-51a9c0f3.md) — Review directive on kriscendobot/minion.town PR #41
 
-### tada (4688)
+### tada (4689)
+- [`kriscendobot-minion.town-pr41-review-51a9c0f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-review-51a9c0f3.md) — Completion report — review directive on kriscendobot/minion.town#41
 - [`ironhorse-js-24-temporal-zoned`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-24-temporal-zoned.md) — Completion report — Temporal ZonedDateTime, time zones, and Now (js-24)
 - [`ironhorse-js-23-temporal-plain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-23-temporal-plain.md) — Cost
 - [`ironhorse-js-22-temporal-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-22-temporal-core.md) — Cost
 - [`ironhorse-js-21-intl-datetime-segmenter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-21-intl-datetime-segmenter.md) — Completion report
-- [`ironhorse-js-20-intl-formatters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-20-intl-formatters.md) — Completion report — ironhorse-js-20-intl-formatters
-- … and 4683 more
+- … and 4684 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
