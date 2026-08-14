@@ -35,3 +35,13 @@ https://github.com/endojs/endo-but-for-bots/actions/runs/31772960981
 - `lint` green on #980, other 25 checks still green.
 - Report whether the gauntlet should be re-run (`run the gauntlet #980`) —
   do not re-run it yourself.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T05:48:57Z
