@@ -52,3 +52,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - coding agent spend, token spend, spend management -> coding-agent-spend
 - relative routing, relative route, choosing a route not an address, nearest reliable path, shortest path to a peer, connection hints as routes, path-based session establishment -> relative-routing
 - donorPath, donor path, vatASearchPath, search path, searchPath, acceptFrom route list, route list, candidate routes -> relative-routing
+- formula DAG, daemon-native commit formula, synthetic refs tree -> formula-graph
