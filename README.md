@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T16:50:44Z_
+_As of 2026-08-14T16:53:26Z_
 
 ## Latest
 
@@ -4287,20 +4287,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
-- [`dependabotany-recheck-endo-but-for-bots-20260814-165004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260814-165004.md) — Daily dependabotany backstop for endo-but-for-bots
+### doin (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-17-resource-management`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-17-resource-management.md) — Complete explicit resource management
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4675)
+### tada (4676)
+- [`dependabotany-recheck-endo-but-for-bots-20260814-165004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260814-165004.md) — Cost
 - [`ironhorse-js-16-modules`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-16-modules.md) — Cost
 - [`ironhorse-js-15-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-15-collections.md) — Cost
 - [`ironhorse-js-14-binary-data-atomics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-14-binary-data-atomics.md) — Completion report — ironhorse-js-14-binary-data-atomics
 - [`ironhorse-js-13-numeric-date-json`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-13-numeric-date-json.md) — Cost
-- [`ironhorse-js-12-regexp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-12-regexp.md) — Child 12 — RegExp: named captures, $ substitution, and catchable SyntaxError
-- … and 4670 more
+- … and 4671 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
