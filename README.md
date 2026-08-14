@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T16:19:40Z_
+_As of 2026-08-14T16:33:22Z_
 
 ## Latest
 
@@ -14,9 +14,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 2h)
+- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 3h)
 - [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 9h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 19h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
@@ -4281,25 +4281,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 26.6M _(+849.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Codex | 26.6M _(+849.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`ironhorse-js-15-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-15-collections.md) — Complete Map, Set, WeakMap, WeakSet, and weak references
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4673)
+### tada (4674)
+- [`ironhorse-js-15-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-15-collections.md) — Cost
 - [`ironhorse-js-14-binary-data-atomics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-14-binary-data-atomics.md) — Completion report — ironhorse-js-14-binary-data-atomics
 - [`ironhorse-js-13-numeric-date-json`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-13-numeric-date-json.md) — Cost
 - [`ironhorse-js-12-regexp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-12-regexp.md) — Child 12 — RegExp: named captures, $ substitution, and catchable SyntaxError
 - [`ironhorse-resume-6-launch-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-resume-6-launch-postdeploy.md) — Cost
-- [`endojs-endo-but-for-bots-pr980-review-shepherd-b59475fb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-review-shepherd-b59475fb.md) — Cost
-- … and 4668 more
+- … and 4669 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
