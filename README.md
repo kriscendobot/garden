@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T23:36:57Z_
+_As of 2026-08-14T23:37:40Z_
 
 ## Latest
 
@@ -4196,11 +4196,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 30.2M _(+955.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 30.2M _(+955.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-cd-eval-function-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cd-eval-function-dynamic-import.md) — Close residual language gap: eval of string source, the Function constructor,...
 
 ### doin (10)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-slots-ocapn-deliver-convention.md) — Migrate @endo/slots deliver bodies to the OCapN calling convention
