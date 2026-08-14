@@ -76,6 +76,12 @@ assert_transient  "net/http: TLS handshake timeout"          "Go TLS handshake t
 assert_transient  "dial tcp: lookup api.github.com: no such host" "Go DNS no such host"
 assert_transient  "dial tcp: lookup api.github.com: server misbehaving" "Go resolver server misbehaving"
 assert_transient  "Post \"https://api.github.com/graphql\": EOF" "Go bare EOF (word-bounded)"
+# Go net/http2 server-side stream reset. The garden-ci-watcher crash signature below
+# (kriscendobot/minion.town, 2026-08-14 08:04:32) must NEVER regress to definitive again.
+assert_transient  "stream error: stream ID 1; CANCEL; received from peer" "Go http2 stream reset — exact minion.town ci-watcher crash signature"
+assert_transient  "http2: server sent GOAWAY and closed the connection" "Go http2 GOAWAY"
+assert_transient  "http2: client connection lost"           "Go http2 client connection lost"
+assert_transient  "stream error: stream ID 7; INTERNAL_ERROR; received from peer" "Go http2 INTERNAL_ERROR stream reset"
 assert_definitive "gh: Not Found for GEOFFREY (HTTP 404)"     "EOF mid-word (GEOFFREY) must NOT match \\bEOF\\b"
 assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted/transferred resource"
 assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"
@@ -205,6 +211,19 @@ n=$(wc -l < "$GH_STUB_CALLS")
 { [ "$rc" -eq 0 ] && [ "$out" = RECOVERED ] && [ "$n" -eq 2 ]; } \
   && ok "secondary rate limit still retries and recovers" \
   || bad "secondary rate limit did not recover (rc=$rc out='$out' calls=$n want 2)"
+
+# (c4) a Go net/http2 server-side stream reset is transient and recovers inside the
+#      budget — the exact garden-ci-watcher failure (kriscendobot/minion.town,
+#      2026-08-14) that used to crash the caller as definitive after 0 retries.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=flaky GH_STUB_SUCCEED_ON=2 GH_STUB_PAYLOAD=RECOVERED \
+       GH_STUB_TRANSIENT_STDERR='stream error: stream ID 1; CANCEL; received from peer' \
+       gh_api_retry "repos/kriscendobot/minion.town/pulls")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = RECOVERED ] && [ "$n" -eq 2 ]; } \
+  && ok "http2 stream reset still retries and recovers (minion.town ci-watcher case)" \
+  || bad "http2 stream reset did not recover (rc=$rc out='$out' calls=$n want 2)"
 
 # (d) definitive 404: NOT retried → fails after exactly ONE call, nonzero, empty
 #     stdout. A definitive error fails fast-ish but loud; only transient errors get

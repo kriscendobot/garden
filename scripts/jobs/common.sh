@@ -3071,7 +3071,20 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # milliseconds-to-seconds cost is far below failing the unit and spawning an LLM
 # self-heal responder per tick, while the failure remains just as visible. This is
 # gh-api set ONLY; GARDEN_OFFLINE_SIGNATURES classifies git's curl/SSH transport.
-: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|${GARDEN_OFFLINE_SIGNATURES}}"
+#
+# A server-side HTTP/2 stream reset is the same shape a third time: Go's net/http2
+# transport reports a peer-torn stream as e.g. `stream error: stream ID 1; CANCEL;
+# received from peer` (also GOAWAY / INTERNAL_ERROR / a lost-or-force-closed client
+# connection) — Go-only wording the offline set never names, so without the
+# signatures below it is misclassified DEFINITIVE and crashes the caller (observed:
+# garden-ci-watcher exit 1 on kriscendobot/minion.town at 2026-08-14 08:04:32, WARN
+# `gh api repos/kriscendobot/minion.town/pulls?... failed (definitive, rc=1)` then
+# `ci-watcher.sh:318 FATAL: ci PR source failed`). A CANCEL/GOAWAY means the stream
+# was torn down before a response, no more hazardous to retry than the 5xx already
+# retried here, so absorbing it under the bounded retry preserves "never guess a
+# state": a reset that outlives GARDEN_GH_API_ATTEMPTS still fails loud (nonzero,
+# empty). gh-api set ONLY (a Go-net/http2 string, never git's curl/SSH transport).
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|stream error: stream ID [0-9]+|http2: (server sent GOAWAY|client connection (lost|force closed))|INTERNAL_ERROR|${GARDEN_OFFLINE_SIGNATURES}}"
 
 # GitHub's PRIMARY hourly quota refusal. This is deliberately narrower than the
 # transient signature set above: secondary-rate-limit / abuse throttles and HTTP
