@@ -170,7 +170,20 @@ separate dispatched agents. The panel-fixer loop lives entirely inside
   design panel automatically (7 seats: critic, skeptic, decomplector, ergonomist,
   copyeditor, pedant, novice) per [`panel`](../panel/SKILL.md). The base of a
   design-only PR is the project's bot-fork roadmap branch; see *Designs versus
-  implementations*.
+  implementations*. A design PR is usually opened not by a `build` but by a
+  `design` job (a designer), or by a research/issue job that happens to carry a
+  design — none of which is `role: builder`. So the gauntlet on a design PR is
+  staged **at job completion, for any role**, not only for builds: when a job
+  completes naming a bot-authored open **draft** design-only PR in its report,
+  [`scripts/jobs/auto-gauntlet-handoff.sh`](../../scripts/jobs/auto-gauntlet-handoff.sh)
+  records that PR's design gauntlet (`<owner>-<repo>-pr<N>-gauntlet`, PR-keyed so
+  two producers on one design PR converge on one record), and
+  [`scripts/jobs/assert-design-pr-gauntlet.sh`](../../scripts/jobs/assert-design-pr-gauntlet.sh)
+  refuses to record the job complete until that record exists. This closes the
+  review-miss cluster `garden-design-pr-gauntlet-bypass` (garden #7,
+  endo-but-for-bots #809, minion.town #41), where the old `role: builder`-only edge
+  let three design PRs reach the maintainer with no panel. The un-draft is still
+  earned only by the panel at the end of the loop.
 - **No must-fix on first panel round.** The fixer stage does not run; the panel
   declares the loop done after the first verdict, the appellate pass runs, then
   `gh pr ready <N>`.

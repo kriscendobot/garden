@@ -8,7 +8,35 @@ author: gardener
 
 | Created | 2026-08-05 |
 | Author | gardener |
-| Status | Proposed |
+| Status | Proposed — completion-edge slice landed 2026-08-14 |
+
+## Status: what has landed (2026-08-14)
+
+The completion-machinery slice of this design is now implemented, dispatched by the
+`garden-design-pr-gauntlet-bypass` review-miss cluster (garden #7,
+endo-but-for-bots #809, minion.town #41 — three DESIGN PRs that reached maintainer
+review with no panel because the auto-gauntlet edge fired only for `role: builder`):
+
+- **Producer decoupling at the completion edge.**
+  `scripts/jobs/auto-gauntlet-handoff.sh` no longer gates on `role: builder`. Any
+  NON-builder completion that produced a bot-authored, OPEN, DRAFT, DESIGN-ONLY PR
+  (deterministic `design_only_paths` predicate in `common.sh`, mirroring
+  `panel.sh`) now records that PR's design gauntlet under a **PR-keyed** base
+  (`<owner>-<repo>-pr<N>-gauntlet`), with `gauntlet_record_for_pr` giving the
+  PR-identity idempotence this design's § Current-failure-boundary item 4 asks for.
+  It never re-drafts a ready PR on this path (the #671/#867 hazard).
+- **A completion-time sensor.** `scripts/jobs/assert-design-pr-gauntlet.sh` is wired
+  into `gardener.sh`'s completion path and refuses to record a job complete
+  (doin→tada) while a design PR it named has no gauntlet record — sensing the
+  evaluator's absence, fail-closed, independent of the stager.
+
+Still **future work** (the fuller design below): the standing, leader-only per-repo
+**reconciler** and the `jobs/pr-lifecycle/` index that catch design PRs created
+*out of band* (a legacy `gh pr create`, a creator killed between PR-open and
+completion, the open-before-complete review window of #881), and the
+approval/conductor gate on terminal lifecycle evidence. The completion edge covers
+every design PR that has an owning garden job — which is all three cluster members —
+but not a PR with no owning completion at all.
 
 ## Summary
 

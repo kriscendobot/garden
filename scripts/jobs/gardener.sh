@@ -623,6 +623,26 @@ while :; do
     fi
   fi
 
+  # SENSING half of the design-PR gauntlet-bypass fix (auto-gauntlet-handoff is the
+  # prevention half). INDEPENDENTLY of the stager above, refuse to record a job
+  # complete (doin→tada) while a garden-owned DESIGN PR it produced has no staged
+  # design gauntlet — the evaluator's absence. On the ordinary path the stager just
+  # staged it, so this passes; it bites only when a design PR reached completion
+  # with no gauntlet (the three-miss bypass shape, or any future producer that opens
+  # a design PR without the stager). A block is treated exactly like a failed
+  # handoff: leave the job in doin and let the reaper retry. See
+  # scripts/jobs/assert-design-pr-gauntlet.sh (deterministic, no LLM).
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    set +e
+    "$HERE/assert-design-pr-gauntlet.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    sensor_rc=$?
+    set -e
+    if [ "$sensor_rc" -ne 0 ]; then
+      hrc=$sensor_rc
+      log "design-PR gauntlet SENSOR blocked completion of '$base' (rc=$hrc): a garden-owned design PR named in the report has no staged gauntlet; leaving in doin for retry"
+    fi
+  fi
+
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     # DETERMINISTIC COMPLETION GATE: the handler both exited 0 AND wrote the
     # completion sentinel (the worker reached its final act and emitted

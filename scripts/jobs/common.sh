@@ -5578,6 +5578,53 @@ parse_pr_ref() {
   return 1
 }
 
+# design_only_paths <path>...  — rc 0 iff there is at least one path AND every path
+# names a design document. Mirrors the panel-kind predicate in
+# scripts/jobs/gardening/panel.sh (designs/*.md, */designs/*.md, DESIGN*.md) and
+# additionally recognizes the docs-design/ convention some projects use
+# (agoric-sdk keeps designs at packages/<pkg>/docs-design/<slug>.md). It is the
+# deterministic "is this a design PR?" test the design-PR gauntlet-coverage
+# enforcement keys on so a garden-authored design PR cannot reach maintainer review
+# without its design panel staged. Bias: ANY non-design path makes the whole set
+# non-design — we only auto-stage a gauntlet for a PR we are confident is
+# design-only; a mixed diff flows through the ordinary builder completion edge.
+design_only_paths() {
+  [ "$#" -gt 0 ] || return 1
+  local f
+  for f in "$@"; do
+    [ -n "$f" ] || return 1
+    case "$f" in
+      designs/*.md|*/designs/*.md) ;;
+      docs-design/*.md|*/docs-design/*.md) ;;
+      DESIGN*.md|*/DESIGN*.md) ;;
+      *) return 1 ;;
+    esac
+  done
+  return 0
+}
+
+# gauntlet_record_for_pr <clone-dir> <repo> <pr-number>
+# Echo the basename of every staged-gauntlet RECORD (jobs/gauntlet/<g>.md) in the
+# given synced journal clone that covers <repo>#<pr-number> — matched on the
+# machine-owned `repo:`/`pr_number:` frontmatter post-gauntlet.sh writes — one per
+# line, and return rc 0 iff at least one exists. This is PR-keyed idempotence: it
+# lets a producer answer "does this PR already have a gauntlet?" independent of the
+# base name the gauntlet was recorded under, closing the base-keyed dedup gap that
+# would otherwise let two producers record two runs for one PR
+# (designs/auto-gauntlet-pr-reconciler.md § Current failure boundary, item 4).
+gauntlet_record_for_pr() {
+  local dir="$1" repo="$2" num="$3" f found=1
+  [ -d "$dir/$JOBS_GAUNTLET" ] || return 1
+  for f in "$dir/$JOBS_GAUNTLET"/*.md; do
+    [ -e "$f" ] || continue
+    grep -qxF "pr_number: $num" "$f" 2>/dev/null || continue
+    grep -qxF "repo: $repo" "$f" 2>/dev/null || continue
+    basename "$f" .md
+    found=0
+  done
+  return "$found"
+}
+
 # Is an artifact a JOB basename (a blocker that is another job)? True when it is a
 # plain basename — no '/', '#', ':', and non-empty — i.e. the spine that ties a
 # job's plan/todo/doin/tada files together.
