@@ -2,7 +2,7 @@
 order: serial
 children: pr910-review-4941452327-fixer pr910-review-4941452327-shepherd pr910-review-4941452327-conductor pr910-review-4941452327-info-cleanup pr910-review-4941452327-fuzzer pr910-review-4941452327-fuzz-build
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-14T22:04:13Z
 ---
