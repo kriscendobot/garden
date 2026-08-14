@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:31:53Z_
+_As of 2026-08-14T22:32:27Z_
 
 ## Latest
 
@@ -4167,8 +4167,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 29.1M _(+905.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr988-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr988-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #988
 
 ### doin (9)
 - [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-merge.md) — Merge PR #124 (post-approval finalization)
