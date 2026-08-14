@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T12:42:46Z_
+_As of 2026-08-14T12:43:23Z_
 
 ## Latest
 
@@ -4331,22 +4331,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (7)
-- [`deadmail-issue-comment-5293357474`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5293357474.md) — Dead-lettered message — pick up its intent
+### doin (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr976-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr976-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #976
-- [`endojs-endo-but-for-bots-pr979-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr979-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #979
-- [`endojs-endo-but-for-bots-pr981-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr981-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #981
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4653)
+### tada (4655)
+- [`endojs-endo-but-for-bots-pr981-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr981-conduct.md) — Cost
+- [`deadmail-issue-comment-5293357474`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5293357474.md) — Cost
+- [`endojs-endo-but-for-bots-pr979-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr979-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr986-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr790-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr790-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr790-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet-panel-4.md) — Cost
-- [`endojs-endo-but-for-bots-pr986-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr790-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet-fix-3.md) — Cost
-- … and 4648 more
+- … and 4650 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
