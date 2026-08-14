@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-cb-with-env-core-reap-count: 0
 order: serial
 children: ironhorse-js-26-cb-with-env-core ironhorse-js-26-cb-with-eval-closure ironhorse-js-26-cb-with-annexb ironhorse-js-26-cb-with-statements-exprs ironhorse-js-26-cb-with-builtins-strict
 on-child-failure: halt
