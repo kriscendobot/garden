@@ -1,38 +1,38 @@
 # Keywords
 
-Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.md`). Most keyword resolution is served by each concept page's `aliases:` frontmatter; this file collects a few high-value cross-term pointers explicitly. Format: `term, term, … → concept-id`.
+Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.md`). Most keyword resolution is served by each concept page's `aliases:` frontmatter; this file collects a few high-value cross-term pointers explicitly. Format: `- term, term, ... -> concept-id`.
 
-- kni, decision graph, decision-graph language, interactive fiction language, choice graph, story engine, branching narrative → decision-graph-as-agent-context-scaffold
-- decision graph as agent context, context scaffold, task graph for agents, dig deep and develop context → decision-graph-as-agent-context-scaffold
-- deterministic elicitation, bounded interview, structured intake, triage flow, render user feedback deterministically, automatic agentic loop, mutually reinforcing loop → deterministic-elicitation-loop
-- kni engine, kni handler, waypoint, resume, ask/answer, kni runtime hooks → deterministic-elicitation-loop
-- AI writing tells, LLM prose tells, AI-assisted writing, formulaic prose, detector evasion, writing style detector → ai-writing-tells-and-avoidance
-- module harmony, module harmony intersection, intersection semantics, coherent under module harmony, minimal Compartments intersection → module-harmony-intersection-surface
-- `ModuleSource`, ModuleSource as key, ModuleSource opaque key, `%AbstractModuleSource%`, AbstractModuleSource → module-harmony-intersection-surface
-- source phase imports, `import source`, `import.source`, source loading phase → module-harmony-intersection-surface
-- `import defer`, deferred module evaluation, lazy module initialization, deferred re-exports → module-harmony-intersection-surface
-- module expressions, module blocks, `module {}` → module-harmony-intersection-surface
-- module declarations, module fragments, `module x {}`, named inline modules → module-harmony-intersection-surface
-- `import module`, `import.module`, module instance vs module source, `Module` vs `ModuleInstance` → module-harmony-intersection-surface
-- import phases model, import modifiers vs attributes, phased module loading → module-harmony-intersection-surface
-- `ModuleSource.bindings`, module bindings reflection, static analysis of module graph, Binding shapes, `needsImportMeta`, `needsImport`, `importAllFrom`, `exportAllFrom` → module-harmony-intersection-surface
-- virtual module source, `VirtualModuleSource`, virtualize module evaluation, JSON module, CommonJS virtual source, WASM virtual module source, module loader hooks → module-harmony-intersection-surface
-- `Evaluators`, Evaluators constructor, per-compartment evaluators, separate globalThis, shared global object, realm intrinsics sharing, identity discontinuity, principle of least authority, supply-chain isolation → module-harmony-intersection-surface
-- Compartments layers, compartment layer 0 1 2 3 4, five-layer compartment structure, module source record, Module Imports Namespace, Module Exports Namespace → module-harmony-intersection-surface
-- import attributes, asset references, asset modules, ShadowRealm, module-harmony neighbors → module-harmony-intersection-surface
-- TerraLingua, artifact-mediated cultural evolution, external cultural memory, AI Anthropologist, artifact phylogeny → artifact-mediated-cultural-evolution
-- MemGPT, MemoryGPT, Letta, LLM operating system → memgpt
-- virtual context, context paging, LLM memory tiers, memory pressure → virtual-context-management
-- Fireworks AI, Fireworks API, FIREWORKS_API_KEY, api.fireworks.ai, Fireworks Serverless, Fireworks deployment, OpenAI-compatible Fireworks → fireworks-ai-integration
-- Fireworks tool calling, Fireworks function calling, Fireworks structured outputs, Fireworks response_format, Firectl, Fireworks Priority tier, Fireworks Fast serving path → fireworks-ai-integration
-- context engineering, effective context engineering, curate context, context configuration, configuration of context → context-engineering
-- context rot, needle in a haystack, long-context recall, recall degradation, lost in the middle → context-rot
-- attention budget, attention scarcity, finite attention, n squared attention, n^2 pairwise relationships, transformer attention constraint, position encoding interpolation → attention-budget
-- just in time context, just-in-time retrieval, JIT context, lightweight identifiers, runtime context loading, agentic search, hybrid retrieval → just-in-time-context
-- compaction, context compaction, conversation summarization, context window summarization, tool result clearing, auto-compact → context-compaction
-- progressive disclosure, incremental context discovery, layer by layer understanding, self-managed context window → progressive-disclosure
-- structured note-taking, agentic memory, NOTES.md, memory tool, notes outside the context window → context-engineering
-- right altitude, Goldilocks prompt altitude, minimal system prompt, smallest set of high-signal tokens → context-engineering
+- kni, decision graph, decision-graph language, interactive fiction language, choice graph, story engine, branching narrative -> decision-graph-as-agent-context-scaffold
+- decision graph as agent context, context scaffold, task graph for agents, dig deep and develop context -> decision-graph-as-agent-context-scaffold
+- deterministic elicitation, bounded interview, structured intake, triage flow, render user feedback deterministically, automatic agentic loop, mutually reinforcing loop -> deterministic-elicitation-loop
+- kni engine, kni handler, waypoint, resume, ask/answer, kni runtime hooks -> deterministic-elicitation-loop
+- AI writing tells, LLM prose tells, AI-assisted writing, formulaic prose, detector evasion, writing style detector -> ai-writing-tells-and-avoidance
+- module harmony, module harmony intersection, intersection semantics, coherent under module harmony, minimal Compartments intersection -> module-harmony-intersection-surface
+- `ModuleSource`, ModuleSource as key, ModuleSource opaque key, `%AbstractModuleSource%`, AbstractModuleSource -> module-harmony-intersection-surface
+- source phase imports, `import source`, `import.source`, source loading phase -> module-harmony-intersection-surface
+- `import defer`, deferred module evaluation, lazy module initialization, deferred re-exports -> module-harmony-intersection-surface
+- module expressions, module blocks, `module {}` -> module-harmony-intersection-surface
+- module declarations, module fragments, `module x {}`, named inline modules -> module-harmony-intersection-surface
+- `import module`, `import.module`, module instance vs module source, `Module` vs `ModuleInstance` -> module-harmony-intersection-surface
+- import phases model, import modifiers vs attributes, phased module loading -> module-harmony-intersection-surface
+- `ModuleSource.bindings`, module bindings reflection, static analysis of module graph, Binding shapes, `needsImportMeta`, `needsImport`, `importAllFrom`, `exportAllFrom` -> module-harmony-intersection-surface
+- virtual module source, `VirtualModuleSource`, virtualize module evaluation, JSON module, CommonJS virtual source, WASM virtual module source, module loader hooks -> module-harmony-intersection-surface
+- `Evaluators`, Evaluators constructor, per-compartment evaluators, separate globalThis, shared global object, realm intrinsics sharing, identity discontinuity, principle of least authority, supply-chain isolation -> module-harmony-intersection-surface
+- Compartments layers, compartment layer 0 1 2 3 4, five-layer compartment structure, module source record, Module Imports Namespace, Module Exports Namespace -> module-harmony-intersection-surface
+- import attributes, asset references, asset modules, ShadowRealm, module-harmony neighbors -> module-harmony-intersection-surface
+- TerraLingua, artifact-mediated cultural evolution, external cultural memory, AI Anthropologist, artifact phylogeny -> artifact-mediated-cultural-evolution
+- MemGPT, MemoryGPT, Letta, LLM operating system -> memgpt
+- virtual context, context paging, LLM memory tiers, memory pressure -> virtual-context-management
+- Fireworks AI, Fireworks API, FIREWORKS_API_KEY, api.fireworks.ai, Fireworks Serverless, Fireworks deployment, OpenAI-compatible Fireworks -> fireworks-ai-integration
+- Fireworks tool calling, Fireworks function calling, Fireworks structured outputs, Fireworks response_format, Firectl, Fireworks Priority tier, Fireworks Fast serving path -> fireworks-ai-integration
+- context engineering, effective context engineering, curate context, context configuration, configuration of context -> context-engineering
+- context rot, needle in a haystack, long-context recall, recall degradation, lost in the middle -> context-rot
+- attention budget, attention scarcity, finite attention, n squared attention, n^2 pairwise relationships, transformer attention constraint, position encoding interpolation -> attention-budget
+- just in time context, just-in-time retrieval, JIT context, lightweight identifiers, runtime context loading, agentic search, hybrid retrieval -> just-in-time-context
+- compaction, context compaction, conversation summarization, context window summarization, tool result clearing, auto-compact -> context-compaction
+- progressive disclosure, incremental context discovery, layer by layer understanding, self-managed context window -> progressive-disclosure
+- structured note-taking, agentic memory, NOTES.md, memory tool, notes outside the context window -> context-engineering
+- right altitude, Goldilocks prompt altitude, minimal system prompt, smallest set of high-signal tokens -> context-engineering
 - atproto, at protocol, bluesky, at:// uri, merkle search tree, MST, DRISL, CAR file, signed commit, PDS, personal data server, subscribeRepos, firehose, operation inversion -> atproto-repository-mst
 - did, DID document, decentralized identifier, did:plc, did:web, did:key, did:webvh, service endpoint, serviceEndpoint, atproto_pds, alsoKnownAs, connection hint for DIDs, location hint -> did-document-service-endpoint
 - content address versus signature, hash versus signature, verify-on-load, what a hash authenticates, attestation by digest, xt, exact topic, magnet xt -> content-address-versus-signature
