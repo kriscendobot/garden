@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-ca-regexp-u-core-reap-count: 0
 order: serial
 children: ironhorse-js-26-ca-regexp-u-core ironhorse-js-26-ca-regexp-properties ironhorse-js-26-ca-regexp-unicode-sets ironhorse-js-26-ca-regexp-groups-modifiers ironhorse-js-26-ca-regexp-annexb-errors ironhorse-js-26-ca-regexp-closure-audit
 on-child-failure: halt
