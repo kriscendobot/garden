@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T12:42:10Z_
+_As of 2026-08-14T12:42:46Z_
 
 ## Latest
 
@@ -4171,6 +4171,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > PLAT-05, PLAT-25, PLAT-19, PLAT-33, GD-07, GD-08, GD-11 stand unless fresh evidence shows otherwise; a panel seat re-raising one verbatim inherits the recorded disposition.
 >
 > <!-- garden-deadline-overrun: 1 -->
+
+- `pr981-stale-conductor-spine` — from gardener:endojs-endo-but-for-bots-pr981-conduct, reply_to `endojs-endo-but-for-bots-pr981-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr981-stale-conductor-spine.md)
+
+> PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
 
 - `watchdog-handler-budget-overrun-ebfb-llm-lint-warnings` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-llm-lint-warnings.md)
 
