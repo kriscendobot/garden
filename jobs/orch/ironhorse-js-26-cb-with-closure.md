@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-js-26-cb-with-env-core ironhorse-js-26-cb-with-eval-closure ironhorse-js-26-cb-with-annexb ironhorse-js-26-cb-with-statements-exprs ironhorse-js-26-cb-with-builtins-strict
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-14T22:41:07Z
 ---
