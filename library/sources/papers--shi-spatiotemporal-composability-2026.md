@@ -35,3 +35,8 @@ Abstract: A derived scholarly digest, not the original paper, of Shi-Zhang-Cui's
 | [context-paradigm-and-calculus](../sections/papers--shi-spatiotemporal-composability-2026--context-paradigm-and-calculus.md) | dynamic-composition, effect-and-coeffect-systems | current |
 | [cordis-implementation-and-koishi](../sections/papers--shi-spatiotemporal-composability-2026--cordis-implementation-and-koishi.md) | dynamic-composition, module-loader | current |
 | [boundaries-security-and-codesign](../sections/papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign.md) | capability-security, sandbox-platforms, dynamic-composition | current |
+
+
+## Companion: the Cordis implementation
+
+The repo-side material this digest only names — the concrete `Context` API, the `ctx.effect`/`ctx.inject` surface, worked examples from the core test suite, the loader/HMR machinery, and an implementation-grounded applicability verdict for the garden — is ingested separately from the working framework `cordiverse/cordis` (the `cordiverse/paper` repo itself carries no code, only README.md + paper.pdf). See the companion source [Cordis — meta-framework of spatiotemporal composability](cordis.md) (job `scholar-ingest-cordiverse-paper-readme`, 2026-08-14). The two are the theory (here) and the running mechanics (there) of the same paradigm.
