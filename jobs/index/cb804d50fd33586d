@@ -1,0 +1,2 @@
+base: improve-inbox-clone-retry
+identity: mentor:scripts/jobs/inbox-read.sh
