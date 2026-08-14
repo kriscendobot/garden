@@ -7,7 +7,7 @@ source_date: 2026-08-13
 source_authors: [cordiverse]
 ingested: 2026-08-14
 ingested_by: scholar
-topics: [change-propagation]
+topics: [change-propagation, effect-and-coeffect-systems]
 status: current
 notes: "Worked examples from the core test suite; the service/inject API lives in packages/core/src/service.ts (commit dd346230)."
 ---
