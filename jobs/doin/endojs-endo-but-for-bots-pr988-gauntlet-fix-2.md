@@ -36,3 +36,13 @@ posting host's garden root.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T21:35:14Z
