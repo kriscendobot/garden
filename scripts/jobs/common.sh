@@ -452,6 +452,10 @@ is_transient_gh_source_error() {
   else
     blob="$1"
   fi
+  # Keep auth on its dedicated watcher path even though gh_api_retry now shares
+  # the same bounded signature set. Callers use this predicate before the auth
+  # predicate, so an explicit exclusion preserves that classification order.
+  is_transient_auth_error "$blob" && return 1
   _gh_api_stderr_is_transient "$blob"
 }
 
@@ -3035,7 +3039,7 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # Transient gh-api failure signatures: a 5xx gateway/overload, throttling (429 /
 # rate limit / secondary-rate / abuse detection), and the shared connectivity set
 # (DNS / TLS / reset / timeout) GARDEN_OFFLINE_SIGNATURES already names. A failure
-# whose stderr matches NONE of these is DEFINITIVE (a 404/401/403/422 that
+# whose stderr matches NONE of these is DEFINITIVE (a 404/403/422 that
 # re-running cannot fix) and is not retried. Matched case-insensitively.
 #
 # `gh` runs on Go's net/http stack, which emits DIFFERENT timeout/transport wording
@@ -3056,7 +3060,18 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # it under the bounded retry preserves "never guess a state": if GitHub keeps
 # returning HTML past GARDEN_GH_API_ATTEMPTS the call still fails loud (nonzero,
 # empty) rather than guessing. gh-api set ONLY (a Go-decoder string, never git's).
-: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|${GARDEN_OFFLINE_SIGNATURES}}"
+#
+# GitHub can also return a spurious `HTTP 401: Bad credentials` while the active
+# token rotates, then accept the next identical request. Absorbing that response
+# under this same bounded retry is safe for the same reason as the HTML-decoder
+# case: a genuinely revoked or expired token fails every attempt, and the call
+# still fails loud (nonzero, empty stdout) after GARDEN_GH_API_ATTEMPTS, preserving
+# "never guess a state". Unlike a 5xx, a real bad-credential state persists, so a
+# broken host pays the bounded full-jitter backoff on every tick; that
+# milliseconds-to-seconds cost is far below failing the unit and spawning an LLM
+# self-heal responder per tick, while the failure remains just as visible. This is
+# gh-api set ONLY; GARDEN_OFFLINE_SIGNATURES classifies git's curl/SSH transport.
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|${GARDEN_OFFLINE_SIGNATURES}}"
 
 # GitHub's PRIMARY hourly quota refusal. This is deliberately narrower than the
 # transient signature set above: secondary-rate-limit / abuse throttles and HTTP
@@ -3216,7 +3231,7 @@ classify_fetch_failure() {
 # TLS-handshake-timeout left a red PR unshepherded).
 #
 # Contract mirrors gh_api_retry exactly: prints captured stdout and returns 0
-# ONLY on a clean success; a DEFINITIVE failure (a 404/401/403/422 whose stderr
+# ONLY on a clean success; a DEFINITIVE failure (a 404/403/422 whose stderr
 # matches no transient signature) is NOT retried (fast + loud); a TRANSIENT
 # failure is retried under `backoff "$attempt"` up to GARDEN_GH_API_ATTEMPTS,
 # then still fails (nonzero, empty stdout) so the caller skips rather than

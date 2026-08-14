@@ -48,7 +48,7 @@ export GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
 source "$JOBS/common.sh"
 
 # ============================================================================
-hr; echo "SUBTEST 1 — _gh_api_stderr_is_transient: 5xx/429/network transient, 4xx definitive"; hr
+hr; echo "SUBTEST 1 — _gh_api_stderr_is_transient: 5xx/429/401/network transient, other 4xx definitive"; hr
 assert_transient()   { if _gh_api_stderr_is_transient "$1"; then ok "transient: $2"; else bad "NOT transient (expected transient): $2 [$1]"; fi; }
 assert_definitive()  { if _gh_api_stderr_is_transient "$1"; then bad "transient (expected definitive): $2 [$1]"; else ok "definitive: $2"; fi; }
 assert_transient  "gh: Server Error (HTTP 503)"                 "503 gateway/overload"
@@ -79,7 +79,7 @@ assert_transient  "Post \"https://api.github.com/graphql\": EOF" "Go bare EOF (w
 assert_definitive "gh: Not Found for GEOFFREY (HTTP 404)"     "EOF mid-word (GEOFFREY) must NOT match \\bEOF\\b"
 assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted/transferred resource"
 assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"
-assert_definitive "gh: Bad credentials (HTTP 401)"            "401 — auth, will not self-heal"
+assert_transient  "gh: Bad credentials (HTTP 401)"            "401 — transient token rotation"
 assert_definitive ""                                          "no stderr at all → not provably transient"
 is_gh_primary_rate_limit_text "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" \
   && ok "primary-quota predicate matches GitHub's user-specific 403" \
@@ -159,6 +159,30 @@ n=$(wc -l < "$GH_STUB_CALLS")
 { [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 4 ]; } \
   && ok "exhausted transient: nonzero + empty after exactly 4 attempts (loud, no guess)" \
   || bad "exhaustion path wrong (rc=$rc out='$out' calls=$n want 4)"
+
+# (c401a) a spurious 401 on the first attempt followed by success is absorbed.
+# The recovered payload is clean stdout and the call count proves one retry.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=flaky GH_STUB_SUCCEED_ON=2 GH_STUB_PAYLOAD=AUTH_HEALED \
+       GH_STUB_TRANSIENT_STDERR='gh: Bad credentials (HTTP 401)' \
+       gh_api_retry "repos/o/r/issues/comments?since=2026-08-14T07:59:00Z")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = AUTH_HEALED ] && [ "$n" -eq 2 ]; } \
+  && ok "spurious 401 absorbed: one retry returns clean payload" \
+  || bad "flaky 401 path wrong (rc=$rc out='$out' calls=$n want 2)"
+
+# (c401b) a genuinely dead credential remains loud after the bounded budget:
+# exactly GARDEN_GH_API_ATTEMPTS calls, nonzero, and EMPTY stdout.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=transient-always \
+       GH_STUB_TRANSIENT_STDERR='gh: Bad credentials (HTTP 401)' \
+       gh_api_retry "repos/o/r/issues/comments?since=2026-08-14T07:59:00Z" 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq "$GARDEN_GH_API_ATTEMPTS" ]; } \
+  && ok "persistent 401: nonzero + empty after exactly $GARDEN_GH_API_ATTEMPTS attempts" \
+  || bad "persistent 401 path wrong (rc=$rc out='$out' calls=$n want $GARDEN_GH_API_ATTEMPTS)"
 
 # (c2) primary quota exhaustion cannot recover inside this retry window: fail
 #      immediately after ONE request even though the generic text is also in the
