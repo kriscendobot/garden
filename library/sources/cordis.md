@@ -24,9 +24,9 @@ This source records, in four sections:
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [overview](../sections/cordis--overview.md) | change-propagation | current |
-| [revertible-effects](../sections/cordis--revertible-effects.md) | change-propagation | current |
-| [reactive-coeffects-and-services](../sections/cordis--reactive-coeffects-and-services.md) | change-propagation | current |
+| [overview](../sections/cordis--overview.md) | change-propagation, effect-and-coeffect-systems | current |
+| [revertible-effects](../sections/cordis--revertible-effects.md) | change-propagation, effect-and-coeffect-systems | current |
+| [reactive-coeffects-and-services](../sections/cordis--reactive-coeffects-and-services.md) | change-propagation, effect-and-coeffect-systems | current |
 | [applicability-to-the-garden](../sections/cordis--applicability-to-the-garden.md) | change-propagation | current |
 
 Source: [README.md](https://github.com/cordiverse/cordis/blob/270f9e85186b71f18476af08036f1a68fa6044bd/README.md) at commit `270f9e85`; companion paper at [cordiverse/paper](https://github.com/cordiverse/paper).
