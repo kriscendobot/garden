@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6784 (530 parent indexes + 6254 children).
+Total section files: 6794 (530 parent indexes + 6264 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -868,6 +868,13 @@ Total section files: 6784 (530 parent indexes + 6254 children).
 ### combex--tech-index
 
 - [combex--tech-index--overview](combex--tech-index--overview.md)
+
+### cordis
+
+- [cordis--applicability-to-the-garden](cordis--applicability-to-the-garden.md)
+- [cordis--overview](cordis--overview.md)
+- [cordis--reactive-coeffects-and-services](cordis--reactive-coeffects-and-services.md)
+- [cordis--revertible-effects](cordis--revertible-effects.md)
 
 ### corepack--readme
 
@@ -8819,6 +8826,15 @@ Total section files: 6784 (530 parent indexes + 6254 children).
 - [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--large-memory-software-fault-isolation](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--large-memory-software-fault-isolation.md)
 - [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--security-boundary-and-endor-threat-model](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--security-boundary-and-endor-threat-model.md)
 - [papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--typed-disaggregation-and-boundary-sanitization](papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--typed-disaggregation-and-boundary-sanitization.md)
+
+### papers--shi-spatiotemporal-composability-2026
+
+- [papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign](papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign.md)
+- [papers--shi-spatiotemporal-composability-2026--context-paradigm-and-calculus](papers--shi-spatiotemporal-composability-2026--context-paradigm-and-calculus.md)
+- [papers--shi-spatiotemporal-composability-2026--cordis-implementation-and-koishi](papers--shi-spatiotemporal-composability-2026--cordis-implementation-and-koishi.md)
+- [papers--shi-spatiotemporal-composability-2026--overview](papers--shi-spatiotemporal-composability-2026--overview.md)
+- [papers--shi-spatiotemporal-composability-2026--reactive-coeffects](papers--shi-spatiotemporal-composability-2026--reactive-coeffects.md)
+- [papers--shi-spatiotemporal-composability-2026--revertible-effects](papers--shi-spatiotemporal-composability-2026--revertible-effects.md)
 
 ### papers--stiegler-karp-yee-miller-polaris-2004
 
