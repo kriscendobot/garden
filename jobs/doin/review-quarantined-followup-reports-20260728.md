@@ -62,3 +62,13 @@ One item from the digest was NOT resolved and is worth its own assessment:
 - Each of the 12 reports classified: still-live (job posted) or moot (say why).
 - A recommendation on `GARDEN_REAP_OVERRUN_THRESHOLD`.
 - Do not re-enable follow-up on these reports; the seen-marker stays advanced.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T05:50:27Z
