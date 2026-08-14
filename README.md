@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T08:26:34Z_
+_As of 2026-08-14T08:30:13Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 1h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 11h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
@@ -4319,19 +4319,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr790-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr790-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #790
 - [`endojs-endo-but-for-bots-pr796-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr986-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4643)
+### tada (4644)
+- [`endojs-endo-but-for-bots-pr986-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr986-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-panel-1.md) — Cost
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-minion-town-http2-stream-error-misclassified-definitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-minion-town-http2-stream-error-misclassified-definitive.md) — Completion report
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-fix-1.md) — Cost
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-gh-api-401-transient-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-test262-gh-api-401-transient-retry.md) — Cost
-- … and 4638 more
+- … and 4639 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
