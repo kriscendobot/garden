@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T07:51:00Z_
+_As of 2026-08-14T07:53:59Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 44m)
+- [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 49m)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 10h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
@@ -4320,17 +4320,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr790-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr790-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #790
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4637)
+### tada (4638)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr790-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr986-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr790-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr790-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr788-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr788-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr788-gauntlet — HALTED
-- … and 4632 more
+- … and 4633 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
