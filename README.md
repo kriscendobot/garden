@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:33:07Z_
+_As of 2026-08-14T05:33:41Z_
 
 ## Latest
 
@@ -6790,27 +6790,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.0M | $989.08 _(notional, rate-card)_ | no quota set |
-| Codex | 23.9M _(+779.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 59.7M | $985.94 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+779.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
-- [`design-frozen-base-supersession-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-frozen-base-supersession-check.md) — ---
+### doin (4)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #980
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr41-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #41
 - [`kriscendobot-minion.town-pr42-review-d0ab99cd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr42-review-d0ab99cd.md) — Review directive on kriscendobot/minion.town PR #42
 
-### tada (4594)
+### tada (4595)
+- [`design-frozen-base-supersession-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-frozen-base-supersession-check.md) — Completion report
 - [`garden-fix-library-lookup-keyword-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fix-library-lookup-keyword-format.md) — Cost
 - [`garden-fix-designer-dangling-skill-citation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fix-designer-dangling-skill-citation.md) — Completion report
 - [`kriscendobot-minion.town-pr41-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr41-review-5b4e7d27`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-review-5b4e7d27.md) — Completion report — review directive on kriscendobot/minion.town PR #41
-- [`endojs-endo-but-for-bots-pr981-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr981-shepherd.md) — Cost
-- … and 4589 more
+- … and 4590 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
