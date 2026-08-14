@@ -20,3 +20,13 @@ Implement the ECMA-262 `Object.prototype.hasOwnProperty` path through `ToObject`
 Pins: test262 `tc39/test262@be13516fb6441b950ba8a3df97eb34062c186972`; Moddable XS oracle `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`. Prepend `$HOME/.cargo/bin` to PATH and put `TMPDIR` on an executable mount. Add focused oracle-backed Rust regressions under `rust/engine/ironhorse-262/tests/`. Run the affected official test262 slices with `full-run.sh --subtree ... --test262-dir <pinned checkout>`, `cargo test --workspace --release`, and the entire proprietary `ironhorse-xst --gate-meter-exact` corpus before pushing. No baseline-covered case may regress, no new failure/infrastructure result may appear, and exact computron expectations must not change. Report commands, before/after slice totals, changed unsupported reasons, pushed SHA, and https://github.com/endojs/endo-but-for-bots/pull/970.
 
 If implementation genuinely completes but a required gate does not pass, end the report with the exact orchestration-failure signal immediately before the normal completion signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T23:34:43Z
