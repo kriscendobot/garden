@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-js-26-cb-with-closure
-priority: normal
-posted_by: gardener
-posted_at: 2026-08-14T22:40:31Z
+tier: mentor
+handler-timeout: 14000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-14T22:43:05Z cleared=none -->
 
 ---
 tier: mentor
