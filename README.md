@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:06:45Z_
+_As of 2026-08-14T22:10:02Z_
 
 ## Latest
 
@@ -14,7 +14,6 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 15h)
 - [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 8h)
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
@@ -24,8 +23,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 25d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 28d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 28d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 31d)
 
-_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260722T060407Z-8a88fc` — from orchestrator:daemon-store-family-build-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260722T060407Z-8a88fc.md)
@@ -4219,32 +4219,32 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.5M _(+897.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
+| Codex | 28.6M _(+898.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr987-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr987-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #987
+### todo (0)
+(none)
 
 ### doin (11)
-- [`deadmail-20260814T220137Z-15f44f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260814T220137Z-15f44f.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr124-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #124
+- [`endojs-endo-but-for-bots-pr124-review-90f3bcaf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-review-90f3bcaf.md) — Review directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr910-review-cde2c465`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-review-cde2c465.md) — Review directive on endojs/endo-but-for-bots PR #910
 - [`endojs-endo-but-for-bots-pr910-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr910-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #910
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
+- [`endojs-endo-but-for-bots-pr987-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr987-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #987
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-js-26-residual-gap-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-residual-gap-closure.md) — Rerun the pinned suite and close every residual language gap
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
+- [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 - [`scholar-ingest-cordiverse-paper-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cordiverse-paper-readme.md) — ---
 - [`scholar-ingest-cordiverse-paper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cordiverse-paper.md) — ---
 
-### tada (4703)
+### tada (4706)
+- [`endojs-endo-but-for-bots-pr124-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-retcon.md) — Completion report
+- [`endojs-endo-but-for-bots-pr910-review-cde2c465`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr910-review-cde2c465.md) — Cost
+- [`deadmail-20260814T220137Z-15f44f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260814T220137Z-15f44f.md) — Cost
 - [`endojs-endo-but-for-bots-pr987-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-gauntlet-fix-1.md) — Completion report
 - [`ironhorse-js-25-temporal-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-25-temporal-integration.md) — Completion report — Temporal integration (js-25)
-- [`endojs-endo-but-for-bots-pr988-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr987-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr987-gauntlet-panel-1.md) — Completion report
-- [`endojs-endo-but-for-bots-pr988-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-panel-2.md) — Completion report
-- … and 4698 more
+- … and 4701 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4397,6 +4397,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr936-review-7217935b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr936-review-7217935b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #936 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr41-review-51a9c0f3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr41-review-51a9c0f3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #41 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr910-review-cde2c465-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr910-review-cde2c465-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #910 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
