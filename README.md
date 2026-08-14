@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T17:37:33Z_
+_As of 2026-08-14T17:38:56Z_
 
 ## Latest
 
@@ -4258,6 +4258,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > root repo /home/kris/garden2 object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden2-5bcdff64' pid 359512 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 51 packs, 150 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden2 rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden2 branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden2 gc'. (host=endolin-garden2-5bcdff64)
 
+- `watchdog-self-heal-garden-regenerate-sections-index` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-regenerate-sections-index.md)
+
+> self-heal: garden-regenerate-sections-index exited rc=1 with no scoped fix. Capture: ec3ec6be53c24e71078e2974bf013e040b2715c1 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ec3ec6be53c24e71078e2974bf013e040b2715c1). Diagnosis: ## Diagnosis
+>
+> The failure blob is only two real lines: `land-journal-edit.sh` refused to land the regenerated `library/sections/README.md` because the journal's current tip blob for that file no longer matched the `--base-blob` the script read before regenerating — i.e. some other writer (a scholar/librarian edit, or another producer touching the library tree) landed a change to that file in the window between this run's tip-sync and its land attempt. The "printf: write error: Broken pipe" line is just a side effect of the same event: `land-journal-edit.sh` exited as soon as it detected the conflict, closing its stdin before `printf` finished writing the piped regenerated body.
+>
+> This is exactly the concurrent-edit race `land-journal-edit.sh`'s CAS discipline is designed to catch and refu
+
 - `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
 
 > RECOVERED — the watchdog condition `triager-fetch-failed-kriscendobot-endo` has CLEARED (first seen 2026-08-14T05:58:46Z, cleared 2026-08-14T06:01:10Z).
@@ -4281,7 +4289,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 27.7M _(+880.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Codex | 27.7M _(+881.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
