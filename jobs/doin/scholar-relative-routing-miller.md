@@ -37,3 +37,13 @@ choosing the nearest, shortest, and most reliable path to establish a session."*
 Output: a library concept/topic file under `journal/library/` with source
 indexes, and (optionally) a `project:minion-town` topic note linking it to the
 ocap-mailboxes design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T06:20:20Z
