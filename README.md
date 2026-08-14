@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T20:57:08Z_
+_As of 2026-08-14T20:58:11Z_
 
 ## Latest
 
@@ -3315,6 +3315,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 2. `Array.prototype[Symbol.iterator]` isn't a real property (for-of special-cases arrays) — blocks ListFormat format-value tests (they use a[Symbol.iterator]()); installing it would change for-of metering suite-wide.
 > NumberFormat is foundational for RelativeTimeFormat/DurationFormat and is the largest remaining piece (245 cases, needs CLDR currency/unit/compact data).
 
+- `20260814T205755Z-bba807` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T205755Z-bba807.md)
+
+> (empty message)
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4266,7 +4270,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.3M _(+894.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Codex | 28.3M _(+894.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
