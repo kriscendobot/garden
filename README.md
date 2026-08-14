@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T13:00:02Z_
+_As of 2026-08-14T13:02:03Z_
 
 ## Latest
 
@@ -3338,6 +3338,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr790-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr790-gauntlet-panel-4' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260814T130142Z-9bfab0` — from gardener:endojs-endo-but-for-bots-pr885-conduct, reply_to `endojs-endo-but-for-bots-pr885-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T130142Z-9bfab0.md)
+
+> [endojs/endo-but-for-bots#885](https://github.com/endojs/endo-but-for-bots/issues/885) was 154 commits behind llm, so conductor rebased its four-commit cluster and force-pushed exact lease c904ad9→c95aa05. CI is running. The deterministic merge gate requires a maintainer APPROVED review on the new exact head; please re-approve c95aa055084b9259e428b976d418becf735ee245 so this same job can merge once green.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4328,18 +4332,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr975-review-610f62c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr975-review-610f62c9.md) — Review directive on endojs/endo-but-for-bots PR #975
-- [`endojs-endo-but-for-bots-pr980-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #980
+- [`endojs-endo-but-for-bots-pr975-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr975-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #975
 - [`endojs-endo-but-for-bots-pr980-review-7c7d4ffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-review-7c7d4ffb.md) — Review directive on endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4658)
+### tada (4659)
+- [`endojs-endo-but-for-bots-pr980-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-gauntlet-clean.md) — Cost
 - [`garden-maintainer-archive-collision-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-maintainer-archive-collision-fix.md) — Cost
 - [`endojs-endo-but-for-bots-pr976-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr976-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr977-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr977-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr981-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr981-conduct.md) — Cost
-- [`deadmail-issue-comment-5293357474`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-issue-comment-5293357474.md) — Cost
-- … and 4653 more
+- … and 4654 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
