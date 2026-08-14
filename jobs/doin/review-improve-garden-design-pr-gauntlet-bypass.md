@@ -52,3 +52,13 @@ After both deliverables and the per-member demonstrations land, close the
 cluster with:
 
 `scripts/jobs/review-miss-record.sh cluster-status garden-design-pr-gauntlet-bypass closed --improved-by "<commits/files changed>"`
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T05:38:15Z
