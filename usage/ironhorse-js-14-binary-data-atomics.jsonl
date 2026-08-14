@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":138,"elapsed_s":2642,"input_tokens":254,"output_tokens":136174,"cache_creation_tokens":239426,"cache_read_tokens":20702767,"total_cost_usd":19.162408749999994,"ts":"2026-08-14T16:18:46Z","base":"ironhorse-js-14-binary-data-atomics","host":"endolin-garden-ece02cb4","outcome":"tada"}
