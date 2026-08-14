@@ -1,16 +1,7 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-doomed_at: 2026-08-06T17:53:13Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-06T17:53:13Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-14T22:11:37Z cleared=deadline-overrun=1 -->
 
 ---
 tier: mentor
@@ -70,4 +61,3 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-deadline-overrun: 1 -->
