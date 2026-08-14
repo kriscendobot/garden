@@ -14,3 +14,13 @@ Why this is safe, and the one caveat to state in the comment: a genuinely revoke
 Evidence to cite in the commit body: on `endolin-garden2-5bcdff64`, `garden-comment-watcher@kriscendobot-test262` ticked ~26 times between 07:22 and 08:01 on 2026-08-14 with exactly 2 401s (07:42, 08:00); `gh auth status` reported the `hosts.yml` token invalid at 07:59 and valid at 08:01 with no change to the file (mtime 2026-07-02), and a fleet-PATH read succeeded at 08:01.
 
 Tests: add a case to `scripts/jobs/test/gh-api-retry-test.sh` mirroring the existing HTML-page pair — (a) 401 on the first attempt then success → one retry, clean stdout, rc 0; (b) 401 on EVERY attempt → exactly `GARDEN_GH_API_ATTEMPTS` calls, nonzero rc, EMPTY stdout (so a truly dead credential still fails loud and the caller's `|| die` fires).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T08:02:49Z
