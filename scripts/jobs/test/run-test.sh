@@ -336,6 +336,41 @@ nrd=$(ls -1 "$I/inbox/inbox-demo/read"   | grep -vxc '.gitkeep' || true)
 { [ "$nun" -eq 0 ] && [ "$nrd" -eq 2 ]; } && ok "after read: unread=0 read=2" || bad "states (unread=$nun read=$nrd)"
 set +e; "$JOBS/inbox-read.sh" inbox-demo >/dev/null; ibc2=$?; set -e
 [ "$ibc2" -eq 0 ] && ok "re-read yields 0 (no redelivery)" || bad "re-read count=$ibc2"
+# The gardener calls inbox-read only once per claim and absorbs its status, so a
+# transient failure creating this script's cold clone must be retried in place.
+# Put a git shim first on PATH that fails the first clone and then delegates.
+echo "hello after clone retry" | "$JOBS/inbox-send.sh" inbox-demo >/dev/null
+IBRETRYBIN="$TR/inbox-retry-bin"; mkdir -p "$IBRETRYBIN"
+ln -s "$HERE/inbox-read-clone-retry-git-stub.sh" "$IBRETRYBIN/git"
+IBRETRYCOUNT="$TR/inbox-retry-count"; rm -f "$IBRETRYCOUNT"
+set +e
+ibretryout="$(env PATH="$IBRETRYBIN:$PATH" \
+  GARDEN_INBOX_CLONE="$TR/state-inbox-retry/journal" \
+  GARDEN_INBOX_CLONE_RETRIES=3 GARDEN_BACKOFF_BASE_MS=0 \
+  GARDEN_INBOX_RETRY_COUNT="$IBRETRYCOUNT" GARDEN_INBOX_RETRY_FAILS=1 \
+  GARDEN_INBOX_RETRY_REAL_GIT="$(command -v git)" \
+  "$JOBS/inbox-read.sh" inbox-demo 2>"$TR/logs/inbox-retry.log")"
+ibretryrc=$?
+set -e
+{ [ "$ibretryrc" -eq 1 ] && [ "$(cat "$IBRETRYCOUNT" 2>/dev/null)" -eq 2 ] \
+    && grep -q "hello after clone retry" <<<"$ibretryout"; } \
+  && ok "inbox cold clone retries a transient failure and drains the message" \
+  || bad "inbox cold clone retry failed (rc=$ibretryrc clones=$(cat "$IBRETRYCOUNT" 2>/dev/null || echo 0))"
+# A permanent clone failure still stops after the configured bound.
+IBFAILCOUNT="$TR/inbox-fail-count"; rm -f "$IBFAILCOUNT"
+set +e
+env PATH="$IBRETRYBIN:$PATH" \
+  GARDEN_INBOX_CLONE="$TR/state-inbox-fail/journal" \
+  GARDEN_INBOX_CLONE_RETRIES=3 GARDEN_BACKOFF_BASE_MS=0 \
+  GARDEN_INBOX_RETRY_COUNT="$IBFAILCOUNT" GARDEN_INBOX_RETRY_FAILS=99 \
+  GARDEN_INBOX_RETRY_REAL_GIT="$(command -v git)" \
+  "$JOBS/inbox-read.sh" inbox-demo >/dev/null 2>"$TR/logs/inbox-retry-bounded.log"
+ibfailrc=$?
+set -e
+{ [ "$ibfailrc" -ne 0 ] && [ "$(cat "$IBFAILCOUNT" 2>/dev/null)" -eq 3 ] \
+    && grep -q 'failed after 3 attempts' "$TR/logs/inbox-retry-bounded.log"; } \
+  && ok "inbox cold clone gives up after the configured retry bound" \
+  || bad "inbox cold clone retry was not bounded (rc=$ibfailrc clones=$(cat "$IBFAILCOUNT" 2>/dev/null || echo 0))"
 # a message to a torn-down/absent inbox is DEAD-LETTERED (not dropped, not a hard
 # error) so garden-deadmail can later promote its intent into a job.
 set +e; echo "carry this intent" | "$JOBS/inbox-send.sh" no-such-doer >/dev/null 2>&1; sndrc=$?; set -e

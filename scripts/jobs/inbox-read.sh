@@ -17,7 +17,25 @@ source "$HERE/common.sh"
 doer="${1:?usage: inbox-read.sh <doer>}"
 GARDEN_TAG="inbox-read/$doer"
 DIR="${GARDEN_INBOX_CLONE:-$GARDEN_STATE/inbox/$doer/journal}"
-ensure_clone "$DIR"
+: "${GARDEN_INBOX_CLONE_RETRIES:=3}"
+
+# A gardener drains its directed inbox only once, immediately after claiming a
+# job. Do not let a momentary failure while creating this doer's cold journal
+# clone turn that sole drain into the caller's silent `|| true` skip. Contain
+# ensure_clone in a subshell because its failure path calls die (exit), then
+# retry with the shared bounded exponential backoff.
+clone_ready=0
+for attempt in $(seq 1 "$GARDEN_INBOX_CLONE_RETRIES"); do
+  if ( ensure_clone "$DIR" ); then
+    clone_ready=1
+    break
+  fi
+  if [ "$attempt" -lt "$GARDEN_INBOX_CLONE_RETRIES" ]; then
+    log "initial inbox journal clone failed (attempt $attempt/$GARDEN_INBOX_CLONE_RETRIES); backing off before retry"
+    backoff "$attempt"
+  fi
+done
+[ "$clone_ready" -eq 1 ] || die "initial inbox journal clone failed after $GARDEN_INBOX_CLONE_RETRIES attempts"
 
 read_total=0
 for attempt in $(seq 1 50); do
