@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:28:21Z_
+_As of 2026-08-14T06:29:24Z_
 
 ## Latest
 
@@ -4292,14 +4292,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 56.4M | $943.85 _(notional, rate-card)_ | no quota set |
-| Codex | 24.7M _(+792.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Codex | 24.7M _(+792.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #124
+- [`endojs-endo-but-for-bots-pr216-review-9ea61f5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-review-9ea61f5c.md) — Review directive on endojs/endo-but-for-bots PR #216
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr40-review-468a067f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-review-468a067f.md) — Review directive on kriscendobot/minion.town PR #40
 - [`promote-qwen36-to-minion-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/promote-qwen36-to-minion-tier.md) — promote local qwen3.6 from myrmidon to minion in the tier inventory
@@ -4460,6 +4461,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr41-5c80fba8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr41-5c80fba8-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #41 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr37-review-58f6afaa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-review-58f6afaa-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr40-review-468a067f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr40-review-468a067f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #40 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr216-review-9ea61f5c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr216-review-9ea61f5c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #216 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
