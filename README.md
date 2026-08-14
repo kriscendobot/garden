@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:57:52Z_
+_As of 2026-08-14T05:58:46Z_
 
 ## Latest
 
@@ -4317,15 +4317,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $941.31 _(notional, rate-card)_ | no quota set |
-| Codex | 24.3M _(+784.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 56.3M | $939.05 _(notional, rate-card)_ | no quota set |
+| Codex | 24.4M _(+785.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
-- [`fix-maintainer-archive-keyed-notice-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-maintainer-archive-keyed-notice-collision.md) — fix: maintainer-archive.sh cannot archive a RECURRING keyed notice (bare git ...
+### doin (8)
 - [`harden-review-miss-recurrence-escalation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harden-review-miss-recurrence-escalation.md) — Make review-miss recurrence escalation deterministic
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr41-5c80fba8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-5c80fba8.md) — attention directive on kriscendobot/minion.town PR #41
@@ -4335,13 +4334,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`review-quarantined-followup-reports-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-quarantined-followup-reports-20260728.md) — review the 12 tada reports the follow-up handler QUARANTINED on 2026-07-28
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-reaper-overrun-threshold-by-signal.md) — Split reaper overrun thresholds by signal
 
-### tada (4605)
+### tada (4606)
+- [`fix-maintainer-archive-keyed-notice-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-maintainer-archive-keyed-notice-collision.md) — Completion report
 - [`ebfb-pr980-fix-ascii-ocapnlocation-lint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr980-fix-ascii-ocapnlocation-lint.md) — Cost
 - [`fix-gauntlet-job-template-absolute-garden-root`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fix-gauntlet-job-template-absolute-garden-root.md) — Cost
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-shepherd.md) — Cost
 - [`kriscendobot-minion.town-pr41-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet.md) — gauntlet kriscendobot-minion.town-pr41-gauntlet — complete
-- [`kriscendobot-minion.town-pr41-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-undraft.md) — Completion report
-- … and 4600 more
+- … and 4601 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
