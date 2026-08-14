@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T07:16:13Z_
+_As of 2026-08-14T07:17:39Z_
 
 ## Latest
 
@@ -3338,6 +3338,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Heads-up before merge: the rebase + the new design commit make your APPROVED review stale by the conductor's exact-head invariant (approval was on the old head 0d088af70f). Since the nit fix changed the tool's input contract — a design call — please re-review/approve the new head e917b6a800. Once you re-approve and CI is green (checks currently running, design-only markdown change), say "merge [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/issues/234)" and the conductor will land it. I did not dispatch the conductor yet because it would immediately stall on the stale-approval gate.
 
+- `20260814T071711Z-def918` — from gauntlet:endojs-endo-but-for-bots-pr788-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T071711Z-def918.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr788-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr788-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4308,7 +4312,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.2M | $958.20 _(notional, rate-card)_ | no quota set |
+| Claude | 57.4M | $962.72 _(notional, rate-card)_ | no quota set |
 | Codex | 25.0M _(+801.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
@@ -4321,13 +4325,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr986-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4632)
+### tada (4633)
+- [`endojs-endo-but-for-bots-pr788-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr788-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr788-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr788-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr788-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr986-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-clean.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-transient-401-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-transient-401-fatal.md) — Cost
 - [`resume-vfs-parity-ci-and-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/resume-vfs-parity-ci-and-gauntlet.md) — Cost
-- [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-shepherd.md) — Cost
-- … and 4627 more
+- … and 4628 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
