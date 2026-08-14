@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-28-issue-summary-reap-count: 0
 child-ironhorse-js-27-full-suite-report-refresh-host: endolin-garden-ece02cb4
 child-ironhorse-js-27-full-suite-report-refresh-reap-count: 0
 child-ironhorse-js-26-residual-gap-closure-host: endolin-garden-ece02cb4
