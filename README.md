@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T14:41:40Z_
+_As of 2026-08-14T14:44:40Z_
 
 ## Latest
 
@@ -4281,26 +4281,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 26.6M _(+848.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Codex | 26.6M _(+849.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr980-review-shepherd-b59475fb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-review-shepherd-b59475fb.md) — Shepherd endojs/endo-but-for-bots PR #980 after review fix b59475fb8c
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`ironhorse-resume-6-launch-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-resume-6-launch-postdeploy.md) — Launch the Ironhorse test262 campaign resume-6 (17 children, js-12..js-28) — ...
+- [`ironhorse-js-12-regexp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-12-regexp.md) — Complete RegExp syntax, Unicode semantics, and protocol methods
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4668)
+### tada (4670)
+- [`ironhorse-resume-6-launch-postdeploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-resume-6-launch-postdeploy.md) — Cost
+- [`endojs-endo-but-for-bots-pr980-review-shepherd-b59475fb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-review-shepherd-b59475fb.md) — Cost
 - [`endojs-endo-but-for-bots-pr980-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr980-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr980-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-gauntlet-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr980-review-7c7d4ffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-review-7c7d4ffb.md) — Cost
-- [`endojs-endo-but-for-bots-pr946-review-c4ba4990`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr946-review-c4ba4990.md) — Cost
-- [`endojs-endo-but-for-bots-pr936-review-7217935b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-review-7217935b.md) — Cost
-- … and 4663 more
+- … and 4665 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4457,6 +4456,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-cbor-adopt-slots.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Adopt @endo/cbor in packages/slots (cbor-codec design, phase 3)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-slots-ocapn-deliver-convention.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/124` · Migrate @endo/slots deliver bodies to the OCapN calling convention
+- [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
