@@ -16,6 +16,8 @@
 #      PRESERVES the earlier archived copy (recurrence is history worth keeping):
 #      read/ now holds two files, both derived from the key.
 #   C. A THIRD occurrence still archives — no cap, no collision.
+#   D. Byte-identical recurrences with the SAME timestamp also archive, using a
+#      deterministic numeric suffix after the content hash.
 #
 # Usage: test_maintainer_archive_recurring_keyed_notice.sh
 set -uo pipefail
@@ -94,9 +96,12 @@ snap() { local d; d="$(mktemp -d "$TR/snap.XXXXXX")"; git clone -q --single-bran
 unread_present() { local d; d="$(snap)"; [ -e "$d/inbox/maintainer/unread/$KEY" ] && { rm -rf "$d"; return 0; }; rm -rf "$d"; return 1; }
 read_count() { local d n; d="$(snap)"; n=$(ls -1 "$d/inbox/maintainer/read" | grep -vxc '.gitkeep' || true); rm -rf "$d"; printf '%s' "$n"; }
 read_names() { local d; d="$(snap)"; ls -1 "$d/inbox/maintainer/read" | grep -vx '.gitkeep' | sort; rm -rf "$d"; }
+unread_hash() { local d hash; d="$(snap)"; hash="$(git -C "$d" hash-object "inbox/maintainer/unread/$KEY")"; rm -rf "$d"; printf '%s' "$hash"; }
+read_hash() { local name="$1" d hash; d="$(snap)"; hash="$(git -C "$d" hash-object "inbox/maintainer/read/$name")"; rm -rf "$d"; printf '%s' "$hash"; }
 
 # --- A. first archive: unchanged behavior, lands read/<key>.md ---------------
 post_notice 2026-08-14T05:00:00Z
+first_hash="$(unread_hash)"
 if archive; then ok "first archive of a keyed notice succeeds"; else ko "first archive failed (see $TR/archive.out)"; fi
 unread_present && ko "unread copy still present after archive" || ok "unread copy removed"
 [ "$(read_count)" -eq 1 ] && ok "read/ holds exactly one archived copy" || ko "read/ holds $(read_count) copies (want 1)"
@@ -104,6 +109,7 @@ read_names | grep -qx "$KEY" && ok "first copy is read/<key>.md (unchanged path)
 
 # --- B. condition RE-OPENS: same key, must archive AND preserve prior copy ---
 post_notice 2026-08-14T09:30:00Z
+second_hash="$(unread_hash)"
 unread_present || ko "precondition: recurrence did not re-create the unread notice"
 if archive; then ok "re-archiving the RECURRING keyed notice succeeds (wedge is gone)"; else ko "re-archive FAILED — the bare-git-mv collision (see $TR/archive.out)"; fi
 unread_present && ko "unread copy still present after re-archive" || ok "second unread copy removed"
@@ -115,11 +121,31 @@ read_names | grep -qx "$KEY" && ok "the original read/<key>.md is untouched" || 
 read_names | grep -q '^watchdog-triager-upstream-gone-kriscendobot-list\.2026-08-14T093000Z\.md$' \
   && ok "second copy is disambiguated by its recurrence timestamp (read/<stem>.<last_seen>.md)" \
   || ko "no timestamp-disambiguated second copy: $(read_names | tr '\n' ' ')"
+second_name="watchdog-triager-upstream-gone-kriscendobot-list.2026-08-14T093000Z.md"
+[ "$(read_hash "$KEY")" = "$first_hash" ] \
+  && ok "original archived content remains byte-for-byte intact" \
+  || ko "original archived content was changed"
+[ "$(read_hash "$second_name")" = "$second_hash" ] \
+  && ok "latest unread content is preserved byte-for-byte in the collision archive" \
+  || ko "collision archive did not preserve the latest unread content"
 
 # --- C. a THIRD occurrence still archives cleanly ----------------------------
 post_notice 2026-08-14T14:15:00Z
 if archive; then ok "a third recurrence archives cleanly"; else ko "third archive failed (see $TR/archive.out)"; fi
 [ "$(read_count)" -eq 3 ] && ok "read/ holds three distinct archived copies" || ko "read/ holds $(read_count) copies (want 3): $(read_names | tr '\n' ' ')"
+
+# --- D. same content + timestamp: hash collision gets a stable ordinal --------
+post_notice 2026-08-14T14:15:00Z
+if archive; then ok "an identical recurrence archives despite timestamp collision"; else ko "identical recurrence failed (see $TR/archive.out)"; fi
+hash_name="$(read_names | grep '^watchdog-triager-upstream-gone-kriscendobot-list\.2026-08-14T141500Z\.[^.]*\.md$' | head -1)"
+[ -n "$hash_name" ] && ok "content hash deterministically disambiguates the repeated timestamp" || ko "no hash-disambiguated archive: $(read_names | tr '\n' ' ')"
+
+post_notice 2026-08-14T14:15:00Z
+if archive; then ok "a second identical recurrence also archives"; else ko "second identical recurrence failed (see $TR/archive.out)"; fi
+read_names | grep -qx "${hash_name%.md}.2.md" \
+  && ok "the repeated content hash receives deterministic suffix .2" \
+  || ko "no deterministic .2 archive after repeated hash collision: $(read_names | tr '\n' ' ')"
+[ "$(read_count)" -eq 5 ] && ok "all five archived versions are preserved" || ko "read/ holds $(read_count) copies (want 5): $(read_names | tr '\n' ' ')"
 
 echo "=== test_maintainer_archive_recurring_keyed_notice: $PASS passed, $FAIL failed ==="
 [ "$FAIL" -gt 0 ] && exit 1

@@ -19,7 +19,7 @@ DIR="${GARDEN_MAINT_CLONE:-$GARDEN_STATE/maintainer/journal}"
 # last_seen), so we PRESERVE both: on collision, archive to
 # read/<stem>.<disambiguator>.md rather than overwriting the earlier copy.
 archive_dest() {
-  local src="$1" stem ext base ts sha rel
+  local src="$1" stem ext base ts sha rel numbered n
   base="$id"
   if [ ! -e "$DIR/inbox/maintainer/read/$base" ]; then
     printf 'inbox/maintainer/read/%s\n' "$base"; return
@@ -50,6 +50,16 @@ archive_dest() {
     [ -n "$sha" ] || sha="$(cksum "$src" | cut -d' ' -f1)"
     rel="inbox/maintainer/read/$stem${ts:+.$ts}.$sha$ext"
   fi
+  # Identical coalesced content can recur with the same timestamp. Its content
+  # hash then collides too, so choose the first free numeric suffix rather than
+  # overwriting history or letting git mv fail. This scan is deterministic for
+  # the synced journal tip; a lost remote CAS re-syncs and computes it again.
+  numbered="${rel%"$ext"}"
+  n=2
+  while [ -e "$DIR/$rel" ]; do
+    rel="$numbered.$n$ext"
+    n=$((n + 1))
+  done
   printf '%s\n' "$rel"
 }
 
