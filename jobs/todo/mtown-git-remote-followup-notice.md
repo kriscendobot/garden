@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: ebfb-daemon-commit-formula-design
-priority: normal
 role: gardener
-posted_by: producer
-posted_at: 2026-08-14T20:41:17Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-14T20:56:17Z cleared=none -->
 
 ---
 tier: mentor
