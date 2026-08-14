@@ -9,8 +9,8 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: 
-state: pending
+current_child: kriscendobot-minion.town-pr41-gauntlet-after-fix-1-clean
+state: running
 created_by: fixer
 created_at: 2026-08-14T06:12:10Z
 ---
