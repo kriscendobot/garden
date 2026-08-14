@@ -31,48 +31,74 @@
       <a href="https://github.com/kriscendobot/garden/issues/51">kriscendobot/garden#51</a>.
     </p>
 
-    <h2>Latest run &mdash; <span class="pill">2026-08-08</span></h2>
+    <h2>Latest run &mdash; <span class="pill">2026-08-14</span></h2>
     <div class="headline">
       <p style="margin:0 0 0.4rem">
-        <strong>52,092</strong> cases from the complete <code>test/**</code> tree
-        (<code>staging/</code> excluded, as the runner does).
+        <strong>51,976</strong> cases from the complete <code>test/**</code> tree
+        (<code>staging/</code>, harness support files, and module cases excluded, as
+        the runner does). Same pinned corpus as the 2026-08-08 run
+        (<code>tc39/test262@be13516f</code>), re-run against the much-advanced
+        language-completion engine head for an exact before/after.
       </p>
       <table>
-        <tr><th>Outcome</th><th>Cases</th><th>Share</th></tr>
-        <tr><td>Covered (ran end-to-end, met the bar)</td><td class="n">4,740</td><td class="n">9.10%</td></tr>
-        <tr><td>Unsupported (language-implementation gap)</td><td class="n">38,400</td><td class="n">73.72%</td></tr>
-        <tr><td>Skipped (declared / structural)</td><td class="n">8,932</td><td class="n">17.15%</td></tr>
-        <tr><td>Ironhorse failure (bar-forbidden divergence)</td><td class="n">19</td><td class="n">0.04%</td></tr>
-        <tr><td>Infrastructure (no verdict; not a language gap)</td><td class="n">1</td><td class="n">0.00%</td></tr>
+        <tr><th>Outcome</th><th>Cases</th><th>Share</th><th>2026-08-08</th></tr>
+        <tr><td>Covered (ran end-to-end, met the bar)</td><td class="n">23,496</td><td class="n">45.21%</td><td class="n">4,740</td></tr>
+        <tr><td>Unsupported (language-implementation gap)</td><td class="n">23,233</td><td class="n">44.70%</td><td class="n">38,400</td></tr>
+        <tr><td>Skipped (declared / structural)</td><td class="n">4,406</td><td class="n">8.48%</td><td class="n">8,932</td></tr>
+        <tr><td>Ironhorse failure (bar-forbidden divergence)</td><td class="n">194</td><td class="n">0.37%</td><td class="n">19</td></tr>
+        <tr><td>Infrastructure (no verdict; not a language gap)</td><td class="n">647</td><td class="n">1.24%</td><td class="n">1</td></tr>
       </table>
       <p style="margin:0.4rem 0 0">
-        <strong>Proxy is entirely unimplemented:</strong> of 311 official
-        <code>built-ins/Proxy</code> cases, <strong>0 are covered</strong>
-        (307 unsupported, 4 skipped).
+        <strong>Covered grew 4,740 &rarr; 23,496 (&times;5).</strong>
+        <code>built-ins/Proxy</code>, entirely unimplemented on 2026-08-08, is now
+        <strong>188 of 311 covered</strong>.
+      </p>
+      <p style="margin:0.6rem 0 0; padding:0.6rem 0.8rem; border-radius:6px; background: color-mix(in srgb, Canvas 80%, GrayText);">
+        <strong>Interim refresh.</strong> This measures a live language-completion
+        branch (<a href="https://github.com/endojs/endo-but-for-bots/pull/970">PR #970</a>,
+        still draft) that is being actively converged. The two largest residual
+        buckets &mdash; RegExp <code>u</code>/<code>v</code>-flag execution
+        (2,870 unsupported + 185 of the 194 failures, all in
+        <code>built-ins/RegExp</code>) and the <code>with</code> statement
+        (943 unsupported) &mdash; are under implementation right now; a further
+        refresh at the closed branch head will follow. Six cases covered on
+        2026-08-08 currently regress to <code>unsupported</code>
+        (<code>Set.prototype.keys</code>, the <code>trimLeft</code>/<code>trimRight</code>
+        Annex-B references, and three strict-mode cases) &mdash; a branch defect
+        flagged for a fixer. Strict-mode executions and the SES/Hardened-JavaScript
+        axis remain unmeasured, as the report lede discloses.
       </p>
     </div>
 
     <p style="margin-top:1rem">
-      <a href="20260808-14f26d0a6/report.html"><strong>Open the full HTML report &rarr;</strong></a>
+      <a href="20260814-b3c3ae93b8/report.html"><strong>Open the full HTML report &rarr;</strong></a>
       &nbsp;&middot;&nbsp;
-      <a href="20260808-14f26d0a6/report.json">report.json</a>
+      <a href="20260814-b3c3ae93b8/report.json">report.json</a>
       &nbsp;&middot;&nbsp;
-      <a href="20260808-14f26d0a6/provenance.json">provenance.json</a>
+      <a href="20260814-b3c3ae93b8/provenance.json">provenance.json</a>
     </p>
 
     <p class="prov">
       Provenance: test262 <code>tc39/test262@be13516f</code> (2026-08-07) &middot;
-      Ironhorse/endo <code>14f26d0a6</code> &middot;
+      Ironhorse/endo <code>b3c3ae93b8</code> &middot;
       XS oracle <code>moddable 8.3.1 @ 23b4d6b0</code> &middot;
       runner <code>ironhorse-xst</code>
-      (<a href="https://github.com/endojs/endo-but-for-bots/pull/969">PR #969</a>).
-      The 19 Ironhorse failures are 16 Unicode identifier-start over-acceptances plus 3
-      non-terminating <code>for (await using|using|const &hellip;)</code> invalid-assignment
-      cases (an engine hang, externally bounded and recorded as a failure).
+      (<a href="https://github.com/endojs/endo-but-for-bots/pull/970">PR #970</a>).
+      The 194 Ironhorse failures are 185 RegExp negative over-acceptances (owned by
+      the in-flight <code>u</code>/<code>v</code> work), 5 other over-acceptances,
+      2 hangs, and 2 worker panics. Infrastructure (647) is dominated by module
+      evaluation/linking gaps (443 <code>module:evaluation</code>, 99
+      <code>module:compiler-rejected</code>) plus 32 oracle host stack-limit and
+      3 oracle-nontermination non-results. The total differs from 52,092 because
+      this engine head's discovery excludes harness support files and classifies
+      module cases distinctly.
     </p>
 
     <h2>All runs</h2>
     <ul>
+      <li><a href="20260814-b3c3ae93b8/report.html">2026-08-14</a>
+        &mdash; endo <code>b3c3ae93b8</code>, test262 <code>be13516f</code>
+        &mdash; 23,496 covered / 51,976 <em>(interim; language-completion branch in flight)</em></li>
       <li><a href="20260808-14f26d0a6/report.html">2026-08-08</a>
         &mdash; endo <code>14f26d0a6</code>, test262 <code>be13516f</code>
         &mdash; 4,740 covered / 52,092</li>
