@@ -1,9 +1,10 @@
 ---
 role: gardener
-tier: mentor
+tier: minion
+model-burned: mentor
 dispatch: automatic
 handler-timeout: 3600
-fallback-tier: minion
+fallback-tier: 
 ---
 # Finish VFS parity CI and PR advancement
 
@@ -11,13 +12,4 @@ Resume the parity arc after job resume-vfs-parity-after-providesubmount. PR #656
 
 Wait for #796 run completion, inspect the failed-job log, rerun if infrastructure/flaky or fix if branch-caused, and cite live execution evidence. Then re-check all four heads, reviews, overlapping active work, and advance green draft PRs through the normal gauntlet/state-machine path without duplicating workers. Hashline EndoMount/EndoGuest/CLI wiring remains sequenced after #796 lands; do not open it prematurely. Post required PR completion comments for any new pushes. Use the existing isolated project worktree for base resume-vfs-parity-after-providesubmount if available or a new job-isolated checkout.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 5
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-14T06:36:41Z
+<!-- garden-reaped: 0 -->
