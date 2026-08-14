@@ -32,3 +32,13 @@ A design PR / design note in the Endor area of endo-but-for-bots covering the
 libgit2 Rust binding + Zig cross-compile approach, explicitly **back-referencing**
 minion.town designs/git-remote-capability.md §5 (pluggable-ODB / server-half prior
 art) and this review comment. Design only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T20:41:13Z
