@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":9,"elapsed_s":100,"input_tokens":17,"output_tokens":5758,"cache_creation_tokens":37031,"cache_read_tokens":393696,"total_cost_usd":0.713202,"ts":"2026-08-14T05:31:01Z","base":"garden-fix-designer-dangling-skill-citation","host":"endolin-garden-ece02cb4","outcome":"tada"}
