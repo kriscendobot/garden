@@ -14,3 +14,13 @@ composition, or is it out of scope for us. Give a clear headline verdict, not
 just a summary.
 
 No known prior ingestion of this repo in the library or the journal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T22:00:58Z
