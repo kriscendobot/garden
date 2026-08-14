@@ -1,20 +1,16 @@
-orchestration-failed: true
+Merged endojs/endo-but-for-bots#885 into live `llm` with merge commit `faa121e244a9d01c59c6a6de92e9fa48c516530c`.
 
-PR #885 rebased from frozen `llm-e9564f0` onto live `llm`, force-pushed as `1d75497df447cd5fb431690d9f8efdc7c9dd7017`, and documented on the PR.
+Rebased its four commits over current `llm`, force-pushed with exact lease, and observed all 28 CI checks pass. Current-head maintainer approval was confirmed before merge. The head branch was deleted; frozen base `llm-e9564f0` was retained because open PR #894 still uses it. No downstream PRs were unblocked.
 
-Merge not performed: CI is newly in progress and `reviewDecision` is empty, so current maintainer approval is required. Re-enqueue conduct after CI is green and approval is restored.
-
-Rebase audit: 78 commits behind, conflict-free. Local `yarn --cwd packages/ocapn test` was not verified: `ses-ava` permission denied.
-
-Project worktree removed. Self-improvement: nothing this time.
+Self-improvement: nothing this time.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr885-conduct.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 1 host(s) (1 unmetered)
+- Engagements: 4 on 2 host(s) (3 unmetered)
 - Input: 0 tokens (0 cached reads)
 - Output: 0 tokens
-- Cost: $0 (2 engagement(s) unpriced)
-- Wall-clock: 308s
+- Cost: $0 (4 engagement(s) unpriced)
+- Wall-clock: 3493s
 - Model(s): kimi-k3 ×1
 
 <!-- garden-usage-end -->
