@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 4
-worker_kind: cleric
-claimed_at: 2026-08-14T06:01:38Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-pr42-e4561d1-metering-ledger
-pr_number: 45
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/45
-pr_head: feat/metering-ledger
