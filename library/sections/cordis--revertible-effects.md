@@ -7,7 +7,7 @@ source_date: 2026-08-13
 source_authors: [cordiverse]
 ingested: 2026-08-14
 ingested_by: scholar
-topics: [change-propagation]
+topics: [change-propagation, effect-and-coeffect-systems]
 status: current
 notes: "Worked examples from the core test suite; the effect-registration API lives in packages/core/src/registry.ts (commit b4b5501b) and the fiber/scope in packages/core/src/fiber.ts (commit 752dbee9)."
 ---
