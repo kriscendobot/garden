@@ -31,6 +31,7 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [what-are-capabilities/the-idea](../sections/habitat-chronicles--what-are-capabilities--designation-and-authority-the-idea.md) | The ACL-vs-ocap contrast at the intuitive level: don't separate designation from authority; a capability (file handle) fixes the confused-deputy flaw of ambient authority. |
 | [habitat-chronicles--tripartite-identity-pattern--account-identifier](../sections/habitat-chronicles--tripartite-identity-pattern--account-identifier.md) | Identity-layer echo of Property D (No Ambient Authority): the permanent account anchor is inert with **no inherent public capabilities**, so the value that names the account confers nothing on presentation. |
 | [habitat-chronicles--tripartite-identity-pattern--login-identifier](../sections/habitat-chronicles--tripartite-identity-pattern--login-identifier.md) | Federated logins (OpenID / OAuth / Facebook Connect) named as **capability-based identities** — a delegated session-establishing capability adopted from an external provider rather than a shared secret. |
+| [papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign](../sections/papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign.md) | Cordis (Shi et al. 2026) §6.3 independently arrives at capability-based access control: dependency injection = capability request, context proxy = mediator, authority by reference-possession not ambient authority. |
 
 ## See also
 
