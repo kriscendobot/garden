@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:49:55Z_
+_As of 2026-08-14T05:50:41Z_
 
 ## Latest
 
@@ -4573,19 +4573,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.3M | $939.11 _(notional, rate-card)_ | no quota set |
-| Codex | 24.0M _(+777.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 56.3M | $938.68 _(notional, rate-card)_ | no quota set |
+| Codex | 24.0M _(+778.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`ebfb-pr980-fix-ascii-ocapnlocation-lint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr980-fix-ascii-ocapnlocation-lint.md) — fix: clear the lint red on endojs/endo-but-for-bots#980 so its gauntlet can r...
 - [`endojs-endo-but-for-bots-pr980-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #980
 - [`fix-maintainer-archive-keyed-notice-collision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-maintainer-archive-keyed-notice-collision.md) — fix: maintainer-archive.sh cannot archive a RECURRING keyed notice (bare git ...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`review-improve-garden-design-pr-gauntlet-bypass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-garden-design-pr-gauntlet-bypass.md) — review-improve: garden-design-pr-gauntlet-bypass
+- [`review-quarantined-followup-reports-20260728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-quarantined-followup-reports-20260728.md) — review the 12 tada reports the follow-up handler QUARANTINED on 2026-07-28
 
 ### tada (4602)
 - [`kriscendobot-minion.town-pr41-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet.md) — gauntlet kriscendobot-minion.town-pr41-gauntlet — complete
