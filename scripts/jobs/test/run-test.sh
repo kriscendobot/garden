@@ -590,6 +590,25 @@ maint_pf_msgs() { # maint_pf_msgs <schedule-name>
   rm -rf "$d"
 }
 
+# (0a) Family default: recurring dependabotany rechecks receive their idle gate
+# without relying on each botanist caller to pass an environment variable. A
+# later ordinary edit must preserve it; unrelated schedules remain ungated.
+echo "# dependabotany sweep" | "$JOBS/set-schedule.sh" \
+  dependabotany-recheck-test-project daily dependabotany-recheck-test-project >/dev/null
+echo "# dependabotany sweep" | "$JOBS/set-schedule.sh" \
+  dependabotany-recheck-test-project hourly dependabotany-recheck-test-project >/dev/null
+echo "# ordinary sweep" | "$JOBS/set-schedule.sh" ordinary-recheck daily ordinary-recheck >/dev/null
+PFCHK="$TR/pf-default-check"; rm -rf "$PFCHK"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$PFCHK" 2>/dev/null
+if grep -qx 'preflight: dependabotany-preflight.sh' \
+     "$PFCHK/schedules/dependabotany-recheck-test-project.md"
+then ok "dependabotany schedule automatically attaches and preserves its preflight"
+else bad "dependabotany schedule is missing its automatic preflight"; fi
+if grep -q '^preflight:' "$PFCHK/schedules/ordinary-recheck.md"
+then bad "ordinary schedule unexpectedly received a dependabotany preflight"
+else ok "dependabotany preflight default is confined to its schedule family"; fi
+rm -rf "$PFCHK"
+
 # (0) set-time GUARD: set-schedule.sh rejects a nonexistent/typo'd preflight gate
 # outright, BEFORE the schedule is ever written to the board (commit "set-schedule:
 # reject a nonexistent preflight gate at set time"). So a dangling gate can never be

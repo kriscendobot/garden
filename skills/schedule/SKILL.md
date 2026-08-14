@@ -74,7 +74,11 @@ it also drops a distinct one-shot note in the deploy state dir (beside the
 escalation, and the deploy-lag diagnosis all reset (and re-arm) as soon as the gate
 is found again. Wire one in
 with `GARDEN_SCHEDULE_PREFLIGHT=<script> set-schedule.sh …`; it is preserved across
-later cadence edits exactly like `last_dispatched`. Example:
+later cadence edits exactly like `last_dispatched`. The recurring
+`dependabotany-recheck-*` family automatically receives
+`dependabotany-preflight.sh` when it has no explicit or preserved gate, so every
+Dependabot ledger backstop is idle-gated even when a caller omits the environment
+variable. Example:
 `scholar-preflight.sh` gates `scholar-library-cycle` on a non-empty scholar inbox,
 a claimable `scholar-*` job, or a fresh `role/scholar` broadcast.
 

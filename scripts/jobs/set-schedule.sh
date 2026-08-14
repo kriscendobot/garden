@@ -18,6 +18,9 @@
 # at write time (resolved the same way scheduler.sh does and required to be an
 # executable file), so a dangling gate can never be committed and later fail open
 # every cadence in the scheduler. See scheduler.sh and skills/schedule/SKILL.md.
+# Schedules named dependabotany-recheck-* default to dependabotany-preflight.sh
+# when neither an explicit nor preserved gate exists. This makes the idle gate an
+# invariant of that recurring backstop family instead of a caller convention.
 #
 # Optional handler budget (env GARDEN_SCHEDULE_HANDLER_TIMEOUT=<seconds>): writes
 # a `handler-timeout:` line for the scheduler to stamp into every dispatched job.
@@ -98,6 +101,12 @@ for attempt in $(seq 1 50); do
     [ -n "$preflight" ] || preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
     [ -n "$handler_timeout" ] || handler_timeout="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
   fi
+  # The recurring Dependabot ledger backstop must never depend on every botanist
+  # remembering an environment variable. Preserve an explicit/existing gate, but
+  # attach the family default whenever this schedule has none.
+  case "$name" in
+    dependabotany-recheck-*) [ -n "$preflight" ] || preflight="dependabotany-preflight.sh" ;;
+  esac
   # Validate a PRESERVED gate too (the env-supplied case was checked up front),
   # so re-running to change cadence can never carry a dangling gate forward.
   if [ -z "${GARDEN_SCHEDULE_PREFLIGHT:-}" ] && [ -n "$preflight" ]; then

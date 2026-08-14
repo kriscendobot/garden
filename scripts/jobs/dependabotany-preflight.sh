@@ -9,8 +9,8 @@
 #   it by stripping the `dependabotany-recheck-` prefix and the `.md` suffix.
 #
 # Wired into schedules/dependabotany-recheck-<project>.md as
-# `preflight: dependabotany-preflight.sh` (roles/botanist/AGENT.md leg 2 sets it
-# via GARDEN_SCHEDULE_PREFLIGHT). The scheduler runs this when the daily cadence
+# `preflight: dependabotany-preflight.sh` (set-schedule.sh attaches it by default
+# for this schedule family). The scheduler runs this when the daily cadence
 # has elapsed and acts on the exit code (skills/schedule/SKILL.md):
 #   exit 0 = work present → dispatch the botanist ledger sweep + advance the clock
 #   exit 2 = no work      → advance the clock only, dispatch nothing
