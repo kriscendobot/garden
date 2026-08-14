@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:22:12Z_
+_As of 2026-08-14T06:24:20Z_
 
 ## Latest
 
@@ -4333,17 +4333,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $941.61 _(notional, rate-card)_ | no quota set |
-| Codex | 24.6M _(+789.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
+| Claude | 56.4M | $942.61 _(notional, rate-card)_ | no quota set |
+| Codex | 24.6M _(+789.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (9)
 - [`improve-inbox-clone-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-inbox-clone-retry.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr37-review-58f6afaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-review-58f6afaa.md) — Review directive on kriscendobot/minion.town PR #37
+- [`kriscendobot-minion.town-pr40-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #40
 - [`kriscendobot-minion.town-pr40-review-468a067f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-review-468a067f.md) — Review directive on kriscendobot/minion.town PR #40
 - [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #41
 - [`resume-vfs-parity-after-providesubmount`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/resume-vfs-parity-after-providesubmount.md) — Resume VFS parity after provideSubMount merged
