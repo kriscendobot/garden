@@ -79,3 +79,13 @@ criteria above (and the test retargeting), then report; do not redo it.
 - Siblings already run under orchestration `endo-cbor-adopt-primitives`:
   `endo-cbor-adopt-ocapn` (phase 2) and `endo-cbor-adopt-daemon-envelope` (phase 4).
   Read their merged PRs first — their bridging decisions are precedent.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T23:26:22Z
