@@ -35,6 +35,7 @@
 | [opensandbox--docs-components-execd--isolation-session-identity-native-gate-and-namespace-pinning](../sections/opensandbox--docs-components-execd--isolation-session-identity-native-gate-and-namespace-pinning.md) | OpenSandbox execd guide | Bubblewrap sessions use probed UID modes, a root-owned native gate, and execd-owned namespace pins. |
 | [opensandbox--docs-components-execd--bind-mount-authority-and-path-confinement](../sections/opensandbox--docs-components-execd--bind-mount-authority-and-path-confinement.md) | OpenSandbox execd guide | Symlink-resolved allowlists bound caller-selected bind mounts, with read-only mounts reducing mutation authority. |
 | [opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison](../sections/opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison.md) | OpenSandbox execd guide | Nested OS namespaces complement but do not reproduce SES/XS reference and message mediation. |
+| [papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign](../sections/papers--shi-spatiotemporal-composability-2026--boundaries-security-and-codesign.md) | Shi et al. 2026 | Sandboxing untrusted components: language-level access control is insufficient, so an untrusted component runs in an external execution boundary and reaches host dependencies through an attenuable bridge fiber. |
 
 ## See also
 
