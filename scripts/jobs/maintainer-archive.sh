@@ -30,10 +30,17 @@ archive_dest() {
     *.md) stem="${base%.md}"; ext=".md";;
     *)    stem="$base";       ext="";;
   esac
-  # Prefer the message's own recurrence timestamp for a meaningful, stable suffix;
-  # fall back through the frontmatter times, then a content hash. Sanitize to the
-  # ref/filesystem-safe charset doom-notice.sh uses (drops the ISO colons).
-  ts="$(sed -n -e 's/^last_seen:[[:space:]]*//p' -e 's/^sent_at:[[:space:]]*//p' -e 's/^first_seen:[[:space:]]*//p' "$src" 2>/dev/null | head -1)"
+  # Prefer the message's own recurrence timestamp for a meaningful, stable suffix,
+  # in explicit preference order (last_seen — the latest occurrence — then sent_at,
+  # then first_seen), falling back to a content hash below. A single multi-pattern
+  # sed would instead pick whichever key appears FIRST in the file (first_seen), so
+  # each key is tried in turn. Sanitize to the ref/filesystem-safe charset
+  # doom-notice.sh uses (drops the ISO colons).
+  local key
+  for key in last_seen sent_at first_seen; do
+    ts="$(sed -n "s/^$key:[[:space:]]*//p" "$src" 2>/dev/null | head -1)"
+    [ -n "$ts" ] && break
+  done
   ts="$(printf '%s' "$ts" | tr -cd 'A-Za-z0-9._-')"
   rel="inbox/maintainer/read/$stem${ts:+.$ts}$ext"
   # Still a collision (same key archived twice at the same timestamp, or no usable

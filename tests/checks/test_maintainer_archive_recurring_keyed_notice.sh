@@ -67,11 +67,14 @@ KEY="watchdog-triager-upstream-gone-kriscendobot-list.md"
 post_notice() {  # post_notice <last_seen>
   local d; d="$(mktemp -d "$TR/post.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$d"
+  # first_seen precedes last_seen in the file AND holds a DIFFERENT value, so the
+  # disambiguator must actively prefer last_seen (the latest occurrence), not just
+  # take the first timestamp key it sees.
   {
     printf -- '---\n'
     printf 'from: watchdog:triager/kriscendobot-list\n'
     printf 'notice_count: 1\n'
-    printf 'first_seen: %s\n' "$1"
+    printf 'first_seen: 2026-08-14T00:00:00Z\n'
     printf 'last_seen: %s\n---\n' "$1"
     printf 'triager: upstream for kriscendobot/list is gone.\n'
   } > "$d/inbox/maintainer/unread/$KEY"
