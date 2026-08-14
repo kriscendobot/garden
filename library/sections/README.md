@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6767 (530 parent indexes + 6237 children).
+Total section files: 6784 (530 parent indexes + 6254 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8321,17 +8321,49 @@ Total section files: 6767 (530 parent indexes + 6237 children).
 - [opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model](opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model.md)
 - [opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement](opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement.md)
 
+### opensandbox--docs-components-execd
+
+- [opensandbox--docs-components-execd--bind-mount-authority-and-path-confinement](opensandbox--docs-components-execd--bind-mount-authority-and-path-confinement.md)
+- [opensandbox--docs-components-execd--daemon-api-pty-and-access-token-boundary](opensandbox--docs-components-execd--daemon-api-pty-and-access-token-boundary.md)
+- [opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison](opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison.md)
+- [opensandbox--docs-components-execd--isolation-session-identity-native-gate-and-namespace-pinning](opensandbox--docs-components-execd--isolation-session-identity-native-gate-and-namespace-pinning.md)
+
+### opensandbox--docs-guides-credential-vault
+
+- [opensandbox--docs-guides-credential-vault--binding-discipline-residual-trust-and-endo-comparison](opensandbox--docs-guides-credential-vault--binding-discipline-residual-trust-and-endo-comparison.md)
+- [opensandbox--docs-guides-credential-vault--outbound-credential-broker-and-trust-boundary](opensandbox--docs-guides-credential-vault--outbound-credential-broker-and-trust-boundary.md)
+- [opensandbox--docs-guides-credential-vault--persistence-transport-and-redaction-boundaries](opensandbox--docs-guides-credential-vault--persistence-transport-and-redaction-boundaries.md)
+- [opensandbox--docs-guides-credential-vault--request-scoped-injection-and-placeholder-substitution](opensandbox--docs-guides-credential-vault--request-scoped-injection-and-placeholder-substitution.md)
+
 ### opensandbox--docs-guides-isolation-sessions
 
 - [opensandbox--docs-guides-isolation-sessions--authority-surface-and-fail-closed-probing](opensandbox--docs-guides-isolation-sessions--authority-surface-and-fail-closed-probing.md)
 - [opensandbox--docs-guides-isolation-sessions--limits-and-xsnap-comparison](opensandbox--docs-guides-isolation-sessions--limits-and-xsnap-comparison.md)
 - [opensandbox--docs-guides-isolation-sessions--nested-bubblewrap-execution-boundary](opensandbox--docs-guides-isolation-sessions--nested-bubblewrap-execution-boundary.md)
 
+### opensandbox--docs-guides-multi-tenancy
+
+- [opensandbox--docs-guides-multi-tenancy--namespace-rbac-isolation-and-shared-authority](opensandbox--docs-guides-multi-tenancy--namespace-rbac-isolation-and-shared-authority.md)
+- [opensandbox--docs-guides-multi-tenancy--provider-caching-key-rotation-and-failure-modes](opensandbox--docs-guides-multi-tenancy--provider-caching-key-rotation-and-failure-modes.md)
+- [opensandbox--docs-guides-multi-tenancy--tenant-identity-and-request-scoped-namespace-routing](opensandbox--docs-guides-multi-tenancy--tenant-identity-and-request-scoped-namespace-routing.md)
+
+### opensandbox--docs-guides-secure-access
+
+- [opensandbox--docs-guides-secure-access--endpoint-trust-boundaries-and-endo-comparison](opensandbox--docs-guides-secure-access--endpoint-trust-boundaries-and-endo-comparison.md)
+- [opensandbox--docs-guides-secure-access--inbound-token-boundary-and-validation-order](opensandbox--docs-guides-secure-access--inbound-token-boundary-and-validation-order.md)
+- [opensandbox--docs-guides-secure-access--signed-urls-key-rotation-and-routing-modes](opensandbox--docs-guides-secure-access--signed-urls-key-rotation-and-routing-modes.md)
+
 ### opensandbox--docs-guides-secure-container
 
 - [opensandbox--docs-guides-secure-container--runtime-isolation-options](opensandbox--docs-guides-secure-container--runtime-isolation-options.md)
 - [opensandbox--docs-guides-secure-container--server-wide-policy-and-execution-boundary](opensandbox--docs-guides-secure-container--server-wide-policy-and-execution-boundary.md)
 - [opensandbox--docs-guides-secure-container--threat-model-and-layering-consequences](opensandbox--docs-guides-secure-container--threat-model-and-layering-consequences.md)
+
+### opensandbox--readme
+
+- [opensandbox--readme--component-map-and-ai-workload-shapes](opensandbox--readme--component-map-and-ai-workload-shapes.md)
+- [opensandbox--readme--mcp-cli-and-sdk-tool-interop](opensandbox--readme--mcp-cli-and-sdk-tool-interop.md)
+- [opensandbox--readme--product-protocol-and-runtime-surface](opensandbox--readme--product-protocol-and-runtime-surface.md)
 
 ### papers--andersen-modeling-forecasting-realized-volatility-2003
 
