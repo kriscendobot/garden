@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T17:32:56Z_
+_As of 2026-08-14T17:37:33Z_
 
 ## Latest
 
@@ -4281,15 +4281,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 27.7M _(+877.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
+| Codex | 27.7M _(+880.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
+- [`ironhorse-js-19-intl-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-19-intl-core.md) — Implement Intl core, Locale, Collator, and canonicalization
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`scholar-ingest-opensandbox-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-opensandbox-remainder.md) — ---
 - [`scholar-ingest-opensandbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-opensandbox.md) — ---
