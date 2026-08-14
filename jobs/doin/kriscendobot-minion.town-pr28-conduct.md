@@ -26,6 +26,7 @@ Approval: https://github.com/kriscendobot/minion.town/pull/28#pullrequestreview-
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-provider-quota-backoff: type=weekly reset-at=2026-08-15T03:00:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
