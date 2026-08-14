@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6755 (530 parent indexes + 6225 children).
+Total section files: 6767 (530 parent indexes + 6237 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8308,6 +8308,30 @@ Total section files: 6755 (530 parent indexes + 6225 children).
 - [ocapn--readme--overview-and-what-is-this](ocapn--readme--overview-and-what-is-this.md)
 - [ocapn--readme--plan](ocapn--readme--plan.md)
 - [ocapn--readme--what-do-i-get](ocapn--readme--what-do-i-get.md)
+
+### opensandbox--docs-architecture-index
+
+- [opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap](opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap.md)
+- [opensandbox--docs-architecture-index--control-plane-data-plane-and-execution-boundary](opensandbox--docs-architecture-index--control-plane-data-plane-and-execution-boundary.md)
+- [opensandbox--docs-architecture-index--layered-isolation-and-trust-boundaries](opensandbox--docs-architecture-index--layered-isolation-and-trust-boundaries.md)
+
+### opensandbox--docs-architecture-network-isolation
+
+- [opensandbox--docs-architecture-network-isolation--compatibility-and-residual-trust](opensandbox--docs-architecture-network-isolation--compatibility-and-residual-trust.md)
+- [opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model](opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model.md)
+- [opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement](opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement.md)
+
+### opensandbox--docs-guides-isolation-sessions
+
+- [opensandbox--docs-guides-isolation-sessions--authority-surface-and-fail-closed-probing](opensandbox--docs-guides-isolation-sessions--authority-surface-and-fail-closed-probing.md)
+- [opensandbox--docs-guides-isolation-sessions--limits-and-xsnap-comparison](opensandbox--docs-guides-isolation-sessions--limits-and-xsnap-comparison.md)
+- [opensandbox--docs-guides-isolation-sessions--nested-bubblewrap-execution-boundary](opensandbox--docs-guides-isolation-sessions--nested-bubblewrap-execution-boundary.md)
+
+### opensandbox--docs-guides-secure-container
+
+- [opensandbox--docs-guides-secure-container--runtime-isolation-options](opensandbox--docs-guides-secure-container--runtime-isolation-options.md)
+- [opensandbox--docs-guides-secure-container--server-wide-policy-and-execution-boundary](opensandbox--docs-guides-secure-container--server-wide-policy-and-execution-boundary.md)
+- [opensandbox--docs-guides-secure-container--threat-model-and-layering-consequences](opensandbox--docs-guides-secure-container--threat-model-and-layering-consequences.md)
 
 ### papers--andersen-modeling-forecasting-realized-volatility-2003
 
