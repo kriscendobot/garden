@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-19-intl-core-reap-count: 0
 child-ironhorse-js-18-realms-eval-annexb-host: endolin-garden2-5bcdff64
 child-ironhorse-js-18-realms-eval-annexb-reap-count: 0
 child-ironhorse-js-17-resource-management-host: endolin-garden-ece02cb4
