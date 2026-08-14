@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:29:24Z_
+_As of 2026-08-14T06:34:18Z_
 
 ## Latest
 
@@ -3321,6 +3321,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet kriscendobot-minion.town-pr41-gauntlet-after-fix-1 HALTED: stage 'kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260814T063238Z-615985` — from gardener:kriscendobot-minion.town-pr40-review-468a067f, reply_to `kriscendobot-minion.town-pr40-review-468a067f` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T063238Z-615985.md)
+
+> [kriscendobot/minion.town#40](https://github.com/kriscendobot/minion.town/issues/40) merged before its approved review asks landed. I opened [https://github.com/kriscendobot/minion.town/pull/46](https://github.com/kriscendobot/minion.town/pull/46) with the completed terminology and zero-agent-token changes; CI is green and a conductor job is posted. The conductor requires a current-head maintainer approval. Please approve [https://github.com/kriscendobot/minion.town/pull/46](https://github.com/kriscendobot/minion.town/pull/46) so it can merge.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4291,30 +4295,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $943.85 _(notional, rate-card)_ | no quota set |
-| Codex | 24.7M _(+792.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
+| Claude | 56.6M | $947.50 _(notional, rate-card)_ | no quota set |
+| Codex | 24.8M _(+794.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #124
 - [`endojs-endo-but-for-bots-pr216-review-9ea61f5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-review-9ea61f5c.md) — Review directive on endojs/endo-but-for-bots PR #216
+- [`endojs-endo-but-for-bots-pr234-review-03f6892a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr234-review-03f6892a.md) — Review directive on endojs/endo-but-for-bots PR #234
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr40-review-468a067f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr40-review-468a067f.md) — Review directive on kriscendobot/minion.town PR #40
-- [`promote-qwen36-to-minion-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/promote-qwen36-to-minion-tier.md) — promote local qwen3.6 from myrmidon to minion in the tier inventory
 - [`resume-vfs-parity-after-providesubmount`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/resume-vfs-parity-after-providesubmount.md) — Resume VFS parity after provideSubMount merged
-- [`scholar-relative-routing-miller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-relative-routing-miller.md) — Scholar: research Mark Miller's "relative routing"
 - [`split-reaper-overrun-threshold-by-signal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-reaper-overrun-threshold-by-signal.md) — Split reaper overrun thresholds by signal
 
-### tada (4619)
+### tada (4622)
+- [`kriscendobot-minion-town-pr46-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion-town-pr46-conduct.md) — Completion report
+- [`scholar-relative-routing-miller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-relative-routing-miller.md) — Completion report — scholar-relative-routing-miller
+- [`promote-qwen36-to-minion-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/promote-qwen36-to-minion-tier.md) — Cost
 - [`kriscendobot-minion.town-pr40-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr40-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1.md) — gauntlet kriscendobot-minion.town-pr41-gauntlet-after-fix-1 — HALTED
-- [`improve-inbox-clone-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-inbox-clone-retry.md) — Cost
-- [`kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-after-fix-1-panel-1.md) — Cost
-- [`kriscendobot-minion.town-pr37-review-58f6afaa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr37-review-58f6afaa.md) — Completion report
-- … and 4614 more
+- … and 4617 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4462,6 +4465,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr37-review-58f6afaa-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-review-58f6afaa-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #37 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr40-review-468a067f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr40-review-468a067f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #40 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr216-review-9ea61f5c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr216-review-9ea61f5c-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #216 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr234-review-03f6892a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr234-review-03f6892a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #234 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
