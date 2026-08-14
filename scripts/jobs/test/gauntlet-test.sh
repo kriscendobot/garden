@@ -21,6 +21,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
+POSTING_GARDEN_ROOT="$(cd "$JOBS/../.." && pwd)"
 BRANCH=journal2
 TR=/home/kris/.garden-gauntlet-test
 PASS=0; FAIL=0
@@ -146,6 +147,11 @@ tick   # fresh record → post clean
 { in_dir jobs/todo g1-clean && [ "$(record_field g1 current_child)" = g1-clean ] && [ "$(record_field g1 stage)" = clean ]; } \
   && ok "tick 1: posted g1-clean, record at stage=clean" \
   || bad "tick 1: todo=[$(board jobs/todo)] stage=$(record_field g1 stage) child=$(record_field g1 current_child)"
+clean_body="$(todo_body g1-clean)"
+{ printf '%s' "$clean_body" | grep -q 'scripts/jobs/ensure-project-worktree.sh' \
+    && ! printf '%s' "$clean_body" | grep -Fq "$POSTING_GARDEN_ROOT/"; } \
+  && ok "clean stage emits repo-relative garden script paths (no posting-host root)" \
+  || bad "clean stage baked the posting host's garden root into its body"
 [ "$(handler_timeout g1-clean)" = 7200 ] \
   && ok "clean stage carries the CI-sized handler-timeout (7200)" \
   || bad "clean handler-timeout=[$(handler_timeout g1-clean)] (expected 7200)"
@@ -158,6 +164,11 @@ tick   # clean done → post panel-1
 { in_dir jobs/todo g1-panel-1 && [ "$(record_field g1 stage)" = panel ] && [ "$(record_field g1 iteration)" = 1 ]; } \
   && ok "tick 2: clean=done → posted g1-panel-1 (iteration 1)" \
   || bad "tick 2: todo=[$(board jobs/todo)] stage=$(record_field g1 stage) iter=$(record_field g1 iteration)"
+panel_body="$(todo_body g1-panel-1)"
+{ printf '%s' "$panel_body" | grep -q 'scripts/jobs/gardening/panel.sh' \
+    && ! printf '%s' "$panel_body" | grep -Fq "$POSTING_GARDEN_ROOT/"; } \
+  && ok "panel stage emits repo-relative garden script paths (no posting-host root)" \
+  || bad "panel stage baked the posting host's garden root into its body"
 [ "$(handler_timeout g1-panel-1)" = 7200 ] \
   && ok "panel stage carries its dedicated CI-sized handler-timeout (7200, above the 2400 default)" \
   || bad "panel handler-timeout=[$(handler_timeout g1-panel-1)] (expected 7200)"
@@ -195,6 +206,11 @@ tick   # panel must-fix → fix-1 (same iteration)
 { in_dir jobs/todo g2-fix-1 && [ "$(record_field g2 stage)" = fix ] && [ "$(record_field g2 iteration)" = 1 ]; } \
   && ok "panel-1 must-fix → posted g2-fix-1 (iteration stays 1)" \
   || bad "fixloop: todo=[$(board jobs/todo)] stage=$(record_field g2 stage) iter=$(record_field g2 iteration)"
+fix_body="$(todo_body g2-fix-1)"
+{ printf '%s' "$fix_body" | grep -q 'scripts/jobs/gardening/safe-push-pr-head.sh' \
+    && ! printf '%s' "$fix_body" | grep -Fq "$POSTING_GARDEN_ROOT/"; } \
+  && ok "fix stage emits repo-relative garden script paths (no posting-host root)" \
+  || bad "fix stage baked the posting host's garden root into its body"
 complete_stage g2-fix-1 fix=done
 tick   # fix-1 done → panel-2 (iteration+1)
 { in_dir jobs/todo g2-panel-2 && [ "$(record_field g2 iteration)" = 2 ]; } \

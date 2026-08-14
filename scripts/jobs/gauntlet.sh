@@ -252,19 +252,23 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
 
 You are ONE stage of a staged gauntlet ($base). Do ONLY the clean stage, then STOP.
 
+Garden script names below are repo-relative. Resolve them against THIS claiming
+worker's \`\$GARDEN_ROOT\` (known by \`scripts/jobs/common.sh\`), never against the
+posting host's garden root.
+
 1. Idempotence first. \`gh pr view $pr --json isDraft,state,statusCheckRollup\`. If the
    PR is already the right shape (coverage already pushed, CI GREEN at the current
    head), this stage is a NO-OP: skip to the marker with clean=done.
 2. Get an ISOLATED project checkout of the PR head:
-   \`$GARDEN_ROOT/scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`
+   \`scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`
    (the head branch is \`gh pr view $pr --json headRefName -q .headRefName\`).
 3. In that checkout: run the coverage pass on the touched packages
    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
 4. If you changed anything, push follow-ups to the PR head with
-   \`$GARDEN_ROOT/scripts/jobs/gardening/safe-push-pr-head.sh\`.
+   \`scripts/jobs/gardening/safe-push-pr-head.sh\`.
 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
    \`GARDEN_CI_DEADLINE_SECS=$GARDEN_GAUNTLET_CI_DEADLINE_SECS \\
-     $GARDEN_ROOT/scripts/jobs/gardening/ci-wait-merge.sh $repo $prnum --no-merge\`
+     scripts/jobs/gardening/ci-wait-merge.sh $repo $prnum --no-merge\`
    - rc 0 (GREEN): success.
    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
@@ -284,11 +288,15 @@ EOF
 You are ONE stage of a staged gauntlet ($base). Run EXACTLY ONE panel round, post the
 verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
 
+Garden script names below are repo-relative. Resolve them against THIS claiming
+worker's \`\$GARDEN_ROOT\` (known by \`scripts/jobs/common.sh\`), never against the
+posting host's garden root.
+
 1. Get an ISOLATED project checkout of the PR head:
-   \`$GARDEN_ROOT/scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`.
+   \`scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`.
 2. Run the panel in SINGLE-ROUND mode against that worktree:
    \`GARDEN_PANEL_SINGLE_ROUND=1 \\
-     $GARDEN_ROOT/scripts/jobs/gardening/panel.sh <worktree> $prnum <base-ref>\`
+     scripts/jobs/gardening/panel.sh <worktree> $prnum <base-ref>\`
    It fans the seats, aggregates, and prints its disposition as the terminal line's
    last token: \`pass\` or \`must-fix\`. It does NOT fix or un-draft in this mode.
 3. Post the aggregate (in \$GARDEN_PANEL_RUNDIR) as a \`gh pr review\` on $pr — the
@@ -309,15 +317,19 @@ EOF
 You are ONE stage of a staged gauntlet ($base). Apply the panel's must-fix items ONCE,
 push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-$((iter+1))).
 
+Garden script names below are repo-relative. Resolve them against THIS claiming
+worker's \`\$GARDEN_ROOT\` (known by \`scripts/jobs/common.sh\`), never against the
+posting host's garden root.
+
 1. Get an ISOLATED project checkout of the PR head:
-   \`$GARDEN_ROOT/scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`.
+   \`scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`.
 2. Read the LATEST panel verdict on $pr (the request-changes \`gh pr review\` the
    panel-$iter stage just posted) for its must-fix items. Apply them.
 3. Push the fix as review-feedback follow-up commits to the PR head with
-   \`$GARDEN_ROOT/scripts/jobs/gardening/safe-push-pr-head.sh\`.
+   \`scripts/jobs/gardening/safe-push-pr-head.sh\`.
 4. Watch CI to terminal, BOUNDED (same as the clean stage):
    \`GARDEN_CI_DEADLINE_SECS=$GARDEN_GAUNTLET_CI_DEADLINE_SECS \\
-     $GARDEN_ROOT/scripts/jobs/gardening/ci-wait-merge.sh $repo $prnum --no-merge\`
+     scripts/jobs/gardening/ci-wait-merge.sh $repo $prnum --no-merge\`
    - rc 0 (GREEN): success.
    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
    - rc 3 (RED): begin your report with \`orchestration-failed: true\`; no fix=done.
