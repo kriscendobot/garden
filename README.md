@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:22:37Z_
+_As of 2026-08-14T22:24:05Z_
 
 ## Latest
 
@@ -4160,14 +4160,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.9M _(+901.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Codex | 28.9M _(+902.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
 - [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-27-full-suite-report-refresh.md) — Run the final authoritative full suite and publish the refreshed report
 - [`monthly-progress-report-20260714-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/monthly-progress-report-20260714-20260814.md) — Data sources
 
-### doin (10)
+### doin (9)
 - [`endojs-endo-but-for-bots-hangover-embargo-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hangover-embargo-design.md) — Design: embargo outbound messages until a worker quiesces after delivery
 - [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-merge.md) — Merge PR #124 (post-approval finalization)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
@@ -4177,15 +4177,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-ca-regexp-unicode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode.md) — Close residual language gap: RegExp u/v flags, Unicode mode, property escapes...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
-- [`scholar-ingest-cordiverse-paper-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-cordiverse-paper-readme.md) — ---
 
-### tada (4714)
+### tada (4715)
+- [`scholar-ingest-cordiverse-paper-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cordiverse-paper-readme.md) — Completion report
 - [`endojs-endo-but-for-bots-pr894-conduct-after-review-4876933972`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-conduct-after-review-4876933972.md) — Completion report
 - [`ironhorse-js-26-residual-gap-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-residual-gap-closure.md) — Completion report — js-26 residual-gap-closure
 - [`endojs-endo-but-for-bots-pr894-review-dc37fad0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-review-dc37fad0.md) — Cost
 - [`scholar-ingest-cordiverse-paper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cordiverse-paper.md) — Completion report: scholar-ingest-cordiverse-paper
-- [`endojs-endo-but-for-bots-pr936-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr936-conduct.md) — Completion report
-- … and 4709 more
+- … and 4710 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
