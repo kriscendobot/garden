@@ -14,3 +14,13 @@ The review body was empty. Its only inline ask requested the design rename. Comm
 At dispatch time the PR is OPEN, draft, MERGEABLE/CLEAN at head a7e5ffa48155c28c379d52375c0d4e0f531d6761, and every check is terminal-success. The previously cancelled docs-only lint check was rerun successfully at https://github.com/endojs/endo-but-for-bots/actions/runs/31122398122.
 
 Task: re-fetch live state, require approval, mergeability, and terminal-green checks on the current head, un-draft if still draft, and merge. The conductor owns the merge method. This is a bot repository. Never merge agoric-sdk or endojs/endo upstream. If any gate has regressed, do not force it; report the gated outcome honestly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T22:19:13Z
