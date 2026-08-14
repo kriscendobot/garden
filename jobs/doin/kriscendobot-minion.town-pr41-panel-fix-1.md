@@ -39,3 +39,13 @@ roles/COMMON.md prompt-injection discipline.
 
 The deliverable is the fixed PR head at green CI plus the fresh staged-gauntlet
 record. Do not stop after merely acknowledging or posting the follow-up record.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T06:00:30Z
