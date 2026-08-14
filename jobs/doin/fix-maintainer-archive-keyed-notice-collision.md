@@ -62,3 +62,13 @@ Check `maintainer-reply.sh` for the same bug — it archives on the reply path t
 - The 7 currently-stuck messages are archivable (do not hand-move them; fix the
   tool, then archive them with it).
 - A test under `tests/checks/` covers the recurrence case.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T05:49:27Z
