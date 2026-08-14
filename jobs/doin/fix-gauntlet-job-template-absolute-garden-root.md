@@ -44,3 +44,13 @@ fallback does not apply.
 - A panel-stage job minted on one host runs unmodified on another.
 - No job-minting code path emits an absolute garden root into a job body.
 - Reply to the reporting host's liaison when done.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T05:50:54Z
