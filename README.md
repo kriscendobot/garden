@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T13:09:42Z_
+_As of 2026-08-14T13:10:15Z_
 
 ## Latest
 
@@ -4283,10 +4283,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
-- [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr936-review-7217935b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr936-review-7217935b.md) — Review directive on endojs/endo-but-for-bots PR #936
 - [`endojs-endo-but-for-bots-pr946-review-c4ba4990`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-review-c4ba4990.md) — Review directive on endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr975-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr975-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #975
@@ -4296,11 +4295,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
 ### tada (4661)
+- [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr885-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr975-review-610f62c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr975-review-610f62c9.md) — Cost
 - [`endojs-endo-but-for-bots-pr975-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr975-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr980-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-gauntlet-clean.md) — Cost
 - [`garden-maintainer-archive-collision-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-maintainer-archive-collision-fix.md) — Cost
-- [`endojs-endo-but-for-bots-pr976-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr976-conduct.md) — Cost
 - … and 4656 more
 
 ## Plan queue (parked — not claimable until promoted)
