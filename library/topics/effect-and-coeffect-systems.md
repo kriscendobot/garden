@@ -10,6 +10,9 @@
 | [papers--shi-spatiotemporal-composability-2026--revertible-effects](../sections/papers--shi-spatiotemporal-composability-2026--revertible-effects.md) | Shi et al. 2026 | Effect as `Γ → Γ × (Γ→Γ)`, the twisted-composition monoid, the accumulator, track/recover, and the independence condition for commuting inverses. |
 | [papers--shi-spatiotemporal-composability-2026--reactive-coeffects](../sections/papers--shi-spatiotemporal-composability-2026--reactive-coeffects.md) | Shi et al. 2026 | Coeffect context as a typed dependency table; get/set (set *is* a revertible effect); satisfaction and activating/deactivating/neutral notification; isolation and interception. |
 | [papers--shi-spatiotemporal-composability-2026--context-paradigm-and-calculus](../sections/papers--shi-spatiotemporal-composability-2026--context-paradigm-and-calculus.md) | Shi et al. 2026 | Unifying effect and coeffect contexts into one context type; observational equivalence on coeffects supplying effects with independence. |
+| [cordis--overview](../sections/cordis--overview.md) | Cordis README | The **implementation** of the paper's paradigm: Context = the unified context type, plugin/fiber = component + disposable scope, ctx.effect/ctx.inject = the runtime effect/coeffect mechanisms; plus the loader/HMR the paper repo omits. |
+| [cordis--revertible-effects](../sections/cordis--revertible-effects.md) | Cordis core tests | The revertible-effect calculus as running code: ctx.effect(setup → tracked inverse), the effect tree, LIFO reversion ([3,2,1]), idempotent fiber.dispose(), and inactive-context enforcement after disposal. |
+| [cordis--reactive-coeffects-and-services](../sections/cordis--reactive-coeffects-and-services.md) | Cordis core tests | The reactive-coeffect mechanism as running code: Service + ctx.inject([...]) availability-gated activation, provide/set registration, Service.init readiness gating, and reactive LIFO teardown of dependents. |
 
 ## Concepts
 
