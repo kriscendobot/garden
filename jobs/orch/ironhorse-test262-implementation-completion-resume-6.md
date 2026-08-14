@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-residual-gap-closure-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-residual-gap-closure-reap-count: 0
 child-ironhorse-js-25-temporal-integration-host: endolin-garden-ece02cb4
 child-ironhorse-js-25-temporal-integration-reap-count: 0
