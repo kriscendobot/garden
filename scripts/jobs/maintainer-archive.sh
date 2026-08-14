@@ -34,7 +34,7 @@ archive_dest() {
   # fall back through the frontmatter times, then a content hash. Sanitize to the
   # ref/filesystem-safe charset doom-notice.sh uses (drops the ISO colons).
   ts="$(sed -n -e 's/^last_seen:[[:space:]]*//p' -e 's/^sent_at:[[:space:]]*//p' -e 's/^first_seen:[[:space:]]*//p' "$src" 2>/dev/null | head -1)"
-  ts="$(printf '%s' "$ts" | tr -c 'A-Za-z0-9._-' '' )"
+  ts="$(printf '%s' "$ts" | tr -cd 'A-Za-z0-9._-')"
   rel="inbox/maintainer/read/$stem${ts:+.$ts}$ext"
   # Still a collision (same key archived twice at the same timestamp, or no usable
   # timestamp): append a short content hash so no earlier archived copy is lost.

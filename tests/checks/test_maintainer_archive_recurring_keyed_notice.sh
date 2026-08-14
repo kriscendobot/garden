@@ -106,10 +106,12 @@ if archive; then ok "re-archiving the RECURRING keyed notice succeeds (wedge is 
 unread_present && ko "unread copy still present after re-archive" || ok "second unread copy removed"
 [ "$(read_count)" -eq 2 ] && ok "both archived copies preserved (recurrence is history)" || ko "read/ holds $(read_count) copies (want 2): $(read_names | tr '\n' ' ')"
 read_names | grep -qx "$KEY" && ok "the original read/<key>.md is untouched" || ko "original archived copy was clobbered: $(read_names | tr '\n' ' ')"
-# the second copy is disambiguated by the recurrence timestamp, still under the key stem
-read_names | grep -q '^watchdog-triager-upstream-gone-kriscendobot-list\..*\.md$' \
-  && ok "second copy is disambiguated (read/<stem>.<ts>.md)" \
-  || ko "no disambiguated second copy: $(read_names | tr '\n' ' ')"
+# the second copy is disambiguated by the recurrence timestamp (the notice's own
+# last_seen, sanitized: colons dropped) folded before the .md — NOT merely a hash
+# fallback, which would mean the timestamp path is dead (the `tr -cd` regression).
+read_names | grep -q '^watchdog-triager-upstream-gone-kriscendobot-list\.2026-08-14T093000Z\.md$' \
+  && ok "second copy is disambiguated by its recurrence timestamp (read/<stem>.<last_seen>.md)" \
+  || ko "no timestamp-disambiguated second copy: $(read_names | tr '\n' ' ')"
 
 # --- C. a THIRD occurrence still archives cleanly ----------------------------
 post_notice 2026-08-14T14:15:00Z
