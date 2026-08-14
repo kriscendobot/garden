@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-07-17
+updated: 2026-08-14
 author: liaison, gardener, scholar
 ---
 
@@ -39,6 +39,7 @@ What the scholar **may** do:
 - Write under `journal/projects/<slug>/` (new `<topic>.md` files, updates to README indexes).
 - Write `result` (and, when partial, `progress`) entries under `journal/entries/`.
 - Post follow-on board jobs for remainder work (the one narrow posting carve-out, the same shape the [librarian](../librarian/AGENT.md)'s audit mode uses).
+- Post a maintainer-facing completion digest via `scripts/jobs/message-user.sh` (see step 9 and *Report to the maintainer* below) — the one sanctioned message-bus send outside job completion, standing since 2026-08-14 (maintainer, via liaison) so every ingest surfaces a high-level summary without the maintainer having to walk the library.
 
 ## Skills
 
@@ -90,7 +91,7 @@ Each claimed job is one cycle. Sync, read the ask, ingest, write, index, journal
    ../../scripts/jobs/regenerate-topics-counts.sh         # no args = --land
    ```
 
-   The first syncs the `origin/journal2` tip, rebuilds the auto-generated flat index `sections/README.md` from your just-landed section files (preserving the preamble and the hand-curated `## Historical ingest log` verbatim), and lands the result through the producer-clone sync+CAS path. It is **idempotent** (lands nothing when the index is already current) and **refuses to land an incomplete index** (a `kind: index` parent whose child list points at a missing file fails with a `DANGLING` report — write the missing child, the same defect class step 8 catches, and re-run). The second reconciles the per-topic Sections-count column in `topics/README.md`'s Index table to a pure projection of the committed corpus (each non-`(meta)` topic's count = the section-row count of its topic page), preserving the preamble, abstracts, and tail verbatim; same idempotence and same producer-clone lander, and it refuses to land if an Index row names a missing topic page. Both are the deterministic projection that replaces hand-maintaining these indexes; running them last is what keeps them from ever going stale (the sections backstop, and the multi-dozen-row count drift the 2026-06-28 cycles had to hand-correct). Then post the `result` with `scripts/jobs/journal-entry.sh result`. The `result` lists each source ingested (with section-count) or skipped (with matching sha), each topic/concept page touched, each follow-on job posted, any deferred backlog, the integrity-gate verdict (step 8), and that the sections index and topics counts were regenerated. Then complete the job (`doin → tada`) per [job-board](../../skills/job-board/SKILL.md). End the report with `Self-improvement: ...`.
+   The first syncs the `origin/journal2` tip, rebuilds the auto-generated flat index `sections/README.md` from your just-landed section files (preserving the preamble and the hand-curated `## Historical ingest log` verbatim), and lands the result through the producer-clone sync+CAS path. It is **idempotent** (lands nothing when the index is already current) and **refuses to land an incomplete index** (a `kind: index` parent whose child list points at a missing file fails with a `DANGLING` report — write the missing child, the same defect class step 8 catches, and re-run). The second reconciles the per-topic Sections-count column in `topics/README.md`'s Index table to a pure projection of the committed corpus (each non-`(meta)` topic's count = the section-row count of its topic page), preserving the preamble, abstracts, and tail verbatim; same idempotence and same producer-clone lander, and it refuses to land if an Index row names a missing topic page. Both are the deterministic projection that replaces hand-maintaining these indexes; running them last is what keeps them from ever going stale (the sections backstop, and the multi-dozen-row count drift the 2026-06-28 cycles had to hand-correct). Then post the `result` with `scripts/jobs/journal-entry.sh result`. The `result` lists each source ingested (with section-count) or skipped (with matching sha), each topic/concept page touched, each follow-on job posted, any deferred backlog, the integrity-gate verdict (step 8), and that the sections index and topics counts were regenerated. **Then report to the maintainer** (every cycle, not only ones with an explicit judgment ask): `GARDEN_SENDER=scholar:<your-job-base> scripts/jobs/message-user.sh <your-job-base> <body-file>` posts a short digest — 2 to 5 sentences — into the standing maintainer inbox: what was ingested (source/repo/paper, section count) or skipped, and, when the job's ask poses a judgment question (applicability, overlap, "is this useful"), the headline verdict up front. This is a skim-in-one-glance summary, not a restatement of the full `result` — link the `result` entry rather than duplicate it. (Standing since 2026-08-14, maintainer via liaison: every scholar ingest should surface a high-level report without the maintainer having to walk the library.) Then complete the job (`doin → tada`) per [job-board](../../skills/job-board/SKILL.md). End the report with `Self-improvement: ...`.
 
 ## Operating norms
 
@@ -114,4 +115,5 @@ A cycle ends when:
 - The post-ingest integrity gate (step 8) passed on the touched source clusters: every section-table target and `sections/README.md` (index) row resolves to a committed file with no omitted `kind: index` parent, and every `topics/README.md` Index row names an existing topic page.
 - `sections/README.md` (the flat index) and `topics/README.md`'s Index Sections-count column were regenerated as the final landing step (`regenerate-sections-index.sh`, `regenerate-topics-counts.sh`) and land current — never hand-edited.
 - Any remainder beyond one cycle's budget has a posted follow-on `scholar-ingest-<repo>` job naming exactly what is left.
+- A maintainer-facing digest was posted via `message-user.sh` (short, headline verdict first when the job asked a judgment question).
 - The claimed job is completed (`doin → tada`) with the report, ending in `Self-improvement: ...`.
