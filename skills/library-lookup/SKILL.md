@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-06-24
+updated: 2026-08-14
 author: liaison, scholar
 ---
 
@@ -62,8 +62,11 @@ The librarian's job is not just to find but to ensure the next search succeeds w
 **Action:** Append one line to `journal/library/keywords.md`:
 
 ```
-<the term you actually used> | <concept-id you converged on>
+- <the term you actually used> -> <concept-id you converged on>
 ```
+
+Cluster synonyms for the same concept in one comma-separated list before the
+arrow, matching the existing rows in `keywords.md`.
 
 Use backticks for code symbols. Letter case as it appears in the domain. Keep alphabetical-ish ordering for readability, but do not spend effort on perfect sort — the file is grepped, not read.
 
@@ -115,7 +118,7 @@ land-journal-edit.sh library/concepts/<new-id>.md < /path/to/new-page.md
 # appending a keyword shortcut: read the CURRENT tip, append your line, land the
 # full body (the lander replaces the whole file, so include the existing rows):
 printf '%s\n%s\n' "$(git show origin/journal2:library/keywords.md)" \
-  "<term> | <concept-id>" | land-journal-edit.sh library/keywords.md
+  "- <term> -> <concept-id>" | land-journal-edit.sh library/keywords.md
 ```
 
 The lander only writes under the allowlisted trees (`library/`, `projects/`); a path outside them, a `..` traversal, or the live worktree is refused. On a rejected CAS push it re-syncs and retries automatically; a rare concurrent append it cannot see is caught by the scholar's next index-integrity pass.
