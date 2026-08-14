@@ -50,6 +50,7 @@
 | [tc39-module-harmony--compartments-graph--motivating-use-cases](../sections/tc39-module-harmony--compartments-graph--motivating-use-cases.md) | tc39 compartments GRAPH.md | Each motivating use case mapped to the features it needs — asset/WASM/non-JS modules, deferred execution, multiple instantiation, HMR, bundles, WASM-under-CSP, inter-agent transfer, instrumentation, DSLs, supply-chain isolation. |
 | [tc39-module-harmony--shadowrealm-explainer--clarifications-globals-csp-module-graph-and-compartments](../sections/tc39-module-harmony--shadowrealm-explainer--clarifications-globals-csp-module-graph-and-compartments.md) | tc39 shadowrealm | The ShadowRealm side of the boundary: it defines no host virtualization, the two proposals compose, and Compartments plans the per-ShadowRealm module-graph hooks. |
 | [opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap](../sections/opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap.md) | OpenSandbox architecture | Containers and pods are coarser than SES Compartments and do not preserve the same object-capability cooperation model. |
+| [OpenSandbox execd implementation boundaries and Endo comparison](../sections/opensandbox--docs-components-execd--implementation-boundaries-and-endo-comparison.md) | OpenSandbox execd guide | Bubblewrap namespaces are outer OS isolation, distinct from SES compartment authority mediation. |
 
 ## See also
 
