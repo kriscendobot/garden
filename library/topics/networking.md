@@ -98,6 +98,10 @@
 | [atproto--specs-sync--guidelines-security-and-future-work](../sections/atproto--specs-sync--guidelines-security-and-future-work.md) | atproto specs/sync | In-order per account and concurrent across accounts, non-portable cursors, and the SSRF and traffic-amplification surface every identity-resolving firehose consumer inherits. |
 | [w3c--did-core-1-0--services-and-also-known-as](../sections/w3c--did-core-1-0--services-and-also-known-as.md) | W3C DID Core 1.0 | A serviceEndpoint enables interaction but is neither a reachability nor truth claim. |
 | [w3c--did-core-1-0--resolution-dereferencing-and-metadata](../sections/w3c--did-core-1-0--resolution-dereferencing-and-metadata.md) | W3C DID Core 1.0 | Resolving a document and dereferencing a DID URL are distinct operations with typed metadata. |
+| [opensandbox--docs-architecture-index--control-plane-data-plane-and-execution-boundary](../sections/opensandbox--docs-architecture-index--control-plane-data-plane-and-execution-boundary.md) | OpenSandbox architecture | Lifecycle and endpoint resolution route clients into sandbox execd services. |
+| [opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model](../sections/opensandbox--docs-architecture-network-isolation--cross-sandbox-threat-model.md) | OpenSandbox network-isolation architecture | Direct Pod-IP reach is the cross-tenant bypass threat. |
+| [opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement](../sections/opensandbox--docs-architecture-network-isolation--platform-enforced-egress-confinement.md) | OpenSandbox network-isolation architecture | Platform-owned deny overlays constrain cluster egress. |
+| [opensandbox--docs-architecture-network-isolation--compatibility-and-residual-trust](../sections/opensandbox--docs-architecture-network-isolation--compatibility-and-residual-trust.md) | OpenSandbox network-isolation architecture | Runtime and service-mesh compatibility constrain sidecar enforcement. |
 
 ## See also
 
