@@ -70,6 +70,7 @@
 | [cordis--revertible-effects](../sections/cordis--revertible-effects.md) | Cordis core tests | Temporal composability as code: ctx.effect(setup → tracked inverse), idempotent fiber.dispose(), LIFO reversion, listeners-as-effects, inactive-context after disposal. |
 | [cordis--reactive-coeffects-and-services](../sections/cordis--reactive-coeffects-and-services.md) | Cordis core tests | Spatial composability as code: Service + ctx.inject([...]) availability-gated activation, provide/set, Service.init readiness gating, reactive teardown of dependents. |
 | [cordis--applicability-to-the-garden](../sections/cordis--applicability-to-the-garden.md) | Cordis (synthesis) | Verdict: a useful conceptual lens (revertible effects ≈ garden teardown; reactive coeffects ≈ blocked_on gating), not a drop-in — in-process JS vs distributed process/git/systemd substrate. |
+| [papers--shi-spatiotemporal-composability-2026--reactive-coeffects](../sections/papers--shi-spatiotemporal-composability-2026--reactive-coeffects.md) | Shi et al. 2026 | Reactive coeffects: a context change is classified against a component's dependency specification as activating/deactivating/neutral, driving component-level activation and teardown. |
 
 ## Concepts
 
