@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T20:34:44Z_
+_As of 2026-08-14T20:36:32Z_
 
 ## Latest
 
@@ -4272,11 +4272,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-25-temporal-integration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-25-temporal-integration.md) — Close Temporal parsing, formatting, protocol, and integration gaps
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
+- [`kriscendobot-minion.town-pr41-review-51a9c0f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-review-51a9c0f3.md) — Review directive on kriscendobot/minion.town PR #41
 
 ### tada (4688)
 - [`ironhorse-js-24-temporal-zoned`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-24-temporal-zoned.md) — Completion report — Temporal ZonedDateTime, time zones, and Now (js-24)
@@ -4435,6 +4436,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr975-review-610f62c9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr975-review-610f62c9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #975 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr946-review-c4ba4990-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr946-review-c4ba4990-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #946 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr936-review-7217935b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr936-review-7217935b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #936 (primary: endojs-endo-but-f...
+- [`kriscendobot-minion.town-pr41-review-51a9c0f3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr41-review-51a9c0f3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #41 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
