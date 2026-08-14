@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T19:25:24Z_
+_As of 2026-08-14T19:42:59Z_
 
 ## Latest
 
@@ -14,9 +14,9 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 5h)
+- [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 6h)
 - [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 12h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 22h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
@@ -4272,19 +4272,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`ironhorse-js-22-temporal-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-22-temporal-core.md) — Implement Temporal core records, Instant, and Duration
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4685)
+### tada (4686)
+- [`ironhorse-js-22-temporal-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-22-temporal-core.md) — Cost
 - [`ironhorse-js-21-intl-datetime-segmenter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-21-intl-datetime-segmenter.md) — Completion report
 - [`ironhorse-js-20-intl-formatters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-20-intl-formatters.md) — Completion report — ironhorse-js-20-intl-formatters
 - [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr970-shepherd.md) — Completion report
 - [`ironhorse-js-19-intl-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-19-intl-core.md) — Cost
-- [`scholar-ingest-opensandbox-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-opensandbox-remainder.md) — Cost
-- … and 4680 more
+- … and 4681 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
