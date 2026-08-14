@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:38:01Z_
+_As of 2026-08-14T06:43:27Z_
 
 ## Latest
 
@@ -3325,6 +3325,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > [kriscendobot/minion.town#40](https://github.com/kriscendobot/minion.town/issues/40) merged before its approved review asks landed. I opened [https://github.com/kriscendobot/minion.town/pull/46](https://github.com/kriscendobot/minion.town/pull/46) with the completed terminology and zero-agent-token changes; CI is green and a conductor job is posted. The conductor requires a current-head maintainer approval. Please approve [https://github.com/kriscendobot/minion.town/pull/46](https://github.com/kriscendobot/minion.town/pull/46) so it can merge.
 
+- `20260814T064258Z-213e64` — from gardener:endojs-endo-but-for-bots-pr234-review-03f6892a, reply_to `endojs-endo-but-for-bots-pr234-review-03f6892a` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T064258Z-213e64.md)
+
+> Resolved kriskowal's approving-review nit on [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/issues/234) (follow-stream design).
+>
+> The one substantial nit ("the handle should be the name assigned by the agent when they call monitor, per petname discipline") is now implemented on the design at head e917b6a800:
+> - `monitor` gains a required `name` input — the pet name the AGENT assigns; the result echoes it instead of minting `monitor-7`.
+> - `cancelMonitor` takes that name; notifications head with `name=…`; the per-worker registry is keyed by the agent-assigned name and rejects a duplicate open name synchronously.
+> - Open Question 4 (handle representation) converted to a RESOLVED decision (agent-assigned pet name), candidates preserved for the record.
+> - A peer had already renamed the tool family followStream→monitor but left designs/README.md still saying followStream; I refreshed the README (summary/status/size tables + dependency graph) to monitor naming.
+> - The PR was CONFLICTING against llm (pre-existing); I rebased onto llm and re-grafted the README additions, so it is now MERGEABLE and not draft.
+>
+> Heads-up before merge: the rebase + the new design commit make your APPROVED review stale by the conductor's exact-head invariant (approval was on the old head 0d088af70f). Since the nit fix changed the tool's input contract — a design call — please re-review/approve the new head e917b6a800. Once you re-approve and CI is green (checks currently running, design-only markdown change), say "merge [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/issues/234)" and the conductor will land it. I did not dispatch the conductor yet because it would immediately stall on the stale-approval gate.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4295,7 +4308,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.8M | $951.15 _(notional, rate-card)_ | no quota set |
+| Claude | 56.9M | $959.25 _(notional, rate-card)_ | no quota set |
 | Codex | 24.8M _(+795.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 ## Board
