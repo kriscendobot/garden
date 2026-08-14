@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 41
 build_job: 
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr41-gauntlet-clean
+current_child: kriscendobot-minion.town-pr41-gauntlet-panel-1
 state: running
 created_by: review-directive:pr41
 created_at: 2026-08-14T05:26:04Z
