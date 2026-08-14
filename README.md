@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T23:10:35Z_
+_As of 2026-08-14T23:12:27Z_
 
 ## Latest
 
@@ -4155,16 +4155,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.9M _(+926.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
+| Codex | 29.9M _(+928.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 89% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-merge.md) — Merge PR #124 (post-approval finalization)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr909-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #988
@@ -4174,13 +4173,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cc-object-mop-exotic.md) — Close residual language gap: Object MOP on exotic/proxy objects (defineProper...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4730)
+### tada (4731)
+- [`endojs-endo-but-for-bots-pr909-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-clean.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260814-230502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260814-230502.md) — Cost
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-panel-4.md) — Completion report
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-fixer.md) — Cost
 - [`ironhorse-test262-implementation-completion-resume-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-6.md) — orchestration ironhorse-test262-implementation-completion-resume-6 — complete
-- [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-28-issue-summary.md) — Cost
-- … and 4725 more
+- … and 4726 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
