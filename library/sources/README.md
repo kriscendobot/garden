@@ -328,6 +328,10 @@ synthesis, **not** for direct import.
 
 | Source | Repo | Last-modified | Primary author | Sections | Status |
 |--------|------|---------------|----------------|----------|--------|
+| [docs/architecture/index.md](opensandbox--docs-architecture-index.md) | opensandbox-group/OpenSandbox | 2026-08-14 | lihaopeng | 3 | current (control/data plane, execution boundary, and explicit Endo SES/XS comparison) |
+| [docs/guides/secure-container.md](opensandbox--docs-guides-secure-container.md) | opensandbox-group/OpenSandbox | 2026-06-18 | Gao Ran | 3 | current (runc/gVisor/Kata isolation mechanisms and server-wide runtime policy) |
+| [docs/architecture/network-isolation.md](opensandbox--docs-architecture-network-isolation.md) | opensandbox-group/OpenSandbox | 2026-07-16 | ruirui6946 | 3 | current (cross-sandbox threat and platform-enforced egress confinement) |
+| [docs/guides/isolation-sessions.md](opensandbox--docs-guides-isolation-sessions.md) | opensandbox-group/OpenSandbox | 2026-08-11 | epha | 3 | current (nested bubblewrap boundary, authority surface, and XS/xsnap comparison) |
 | [AGENTS.md](endo--agents.md) | endojs/endo | 2026-03-21 | Turadg Aleahmad | 6 | current |
 | [designs/daemon-persistence.md](endo--designs-daemon-persistence.md) | endojs/endo (PR #3121 draft, branch `kriskowal-doc-formula-persistence`) | 2026-03-08 | Kris Kowal | 7 | current (**unmerged draft PR**; thesis document for Formula Persistence — petname graph as persistence root; destruction by cohort + reconstruction on demand; revocation by withdrawal of constructor; four-tables coordinated retention) |
 | [docs/security.md](endo--docs-security.md) | endojs/endo | 2025-09-25 | Kris Kowal | 3 | current |
