@@ -1,1 +1,2 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":41,"elapsed_s":354,"input_tokens":77,"output_tokens":13180,"cache_creation_tokens":64824,"cache_read_tokens":2708301,"total_cost_usd":2.3348505,"ts":"2026-08-14T07:56:29Z","base":"endojs-endo-but-for-bots-pr986-gauntlet-fix-1","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"gardener"}
+{"ts":"2026-08-14T08:08:45Z","base":"endojs-endo-but-for-bots-pr986-gauntlet-fix-1","host":"endolin-garden2-5bcdff64","outcome":"tada","source":"none","elapsed_s":303}
