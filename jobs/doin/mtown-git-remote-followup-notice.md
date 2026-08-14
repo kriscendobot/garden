@@ -50,3 +50,13 @@ implementation HERE (minion.town), triggered when that design ADVANCES TO A BUIL
    liaison (message-user.sh). Do NOT post F. Then complete.
 
 Pattern reference: skills/chained-followup/SKILL.md.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T20:56:41Z
