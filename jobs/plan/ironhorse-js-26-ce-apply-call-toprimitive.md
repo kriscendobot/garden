@@ -1,0 +1,61 @@
+---
+gate: orchestrated
+orchestrated_by: ironhorse-js-26-residual-closure
+priority: normal
+posted_by: producer
+posted_at: 2026-08-14T22:16:02Z
+---
+
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+# Close residual language gap: Function apply/call/callback on non-user-function receivers, ToPrimitive, and non-primitive-completion
+
+Part of the js-26 residual-closure orchestration (measured on PR endojs/endo-but-for-bots#970 head `b3c3ae93`). **This cluster: 707 actionable cases** (unsupported + ironhorse-failure) as measured by the authoritative full-suite run at that head.
+
+**Causal reason families in scope:**
+- `unsupported-opcode` — 407
+- `non-primitive-completion` — 299
+- `strict:unsupported-opcode:to_primitive:no-primitive-result` — 1
+
+**Top test262 subtrees:**
+- `language/expressions` — 150
+- `language/statements` — 111
+- `language/identifiers` — 92
+- `built-ins/Temporal` — 47
+- `built-ins/String` — 46
+- `built-ins/Object` — 39
+- `built-ins/Array` — 26
+- `language/future-reserved-words` — 23
+- `built-ins/Function` — 15
+- `language/computed-property-names` — 14
+
+**Example case paths (relative to test262 `test/`):**
+- `built-ins/Array/prototype/concat/Array.prototype.concat_array-like-negative-length.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_array-like-primitive-non-number-length.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_large-typed-array.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_non-array.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-boolean-wrapper.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-function.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-number-wrapper.js`
+- `built-ins/Array/prototype/concat/Array.prototype.concat_spreadable-reg-exp.js`
+
+Repository: `endojs/endo-but-for-bots`.
+
+**Shared branch/PR (do not create a new one):** work on `feat/ironhorse-262-language-completion` (PR endojs/endo-but-for-bots#970 — OPEN, draft, keep it open, do NOT merge). Fetch the remote branch first and preserve every prior commit; stack your bounded commits on its head and push with a rebase CAS loop. Peers on sibling clusters may be pushing serially — this orchestration is serial to avoid working-tree/CAS collisions, but always fetch+rebase before push.
+
+**Pins (unchanged; record any change):** engine measured on head `b3c3ae93b81c0f266458cd25f2f27d94ef80cc5b`; test262 `tc39/test262@be13516fb6441b950ba8a3df97eb34062c186972`; Moddable XS oracle `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d` (init with `git submodule update --init --depth 1 c/moddable`). Rust toolchain: prepend `$HOME/.cargo/bin` to PATH; set `TMPDIR` off any noexec mount.
+
+**Acceptance bar (identical to the js-XX arc, non-negotiable):** convert this cluster's cases from unsupported/failure to **covered** via **real execution against the official XS differential oracle** (`rust/engine/ironhorse-262/scripts/full-run.sh --subtree <PREFIX> --test262-dir <pinned checkout>`), except for a **specifically justified, standards-grounded host-only or proposal exclusion** (e.g. an `oracle-host-missing-*` where XS itself cannot serve as authority — cite the spec/proposal). Add focused **Rust unit/regression tests** for each causal feature under `rust/engine/ironhorse-262/tests/`. Do **NOT** merely relabel, suppress, skip-list, or add expectation files for failures. Zero generic `ironhorse-aborted`, `parse-or-decode`, `unsupported-opcode:*`, `abort-value-differs`, or `non-primitive-completion` reasons may remain **within this cluster's scope**.
+
+**Regression invariant:** no case covered in the starting report (`rust/engine/ironhorse-262/baseline/baseline.json`) or by any earlier child may regress; no new `ironhorse-failure` or `infrastructure` result may appear; every proprietary exact-metering/byte-identity case under `rust/engine/ironhorse-262/cases/**` must stay passing with its exact computron expectation unchanged (`ironhorse-xst --gate-meter-exact` corpus + `cargo test --workspace --release`). Run the affected official slice, the full Ironhorse Rust workspace gates, and the exact-metering corpus before every push.
+
+**If this cluster is itself too large for your handler budget:** do NOT partially relabel. Sub-decompose into bounded causal children under a nested halt-on-failure orchestration and hand off (report the durable continuation). This mirrors how js-26 spawned this orchestration.
+
+**Report:** commands run, totals before/after for the affected slice, changed skip reasons, head SHA, and PR URL. Keep the PR open; do not merge.
+
+issue_spine: issue-kriscendobot-garden-51
+issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315524
+submitter: kriscendobot
