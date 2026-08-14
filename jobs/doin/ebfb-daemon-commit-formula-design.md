@@ -40,3 +40,13 @@ formula, cross-referencing minion.town designs/git-remote-capability.md §4 (the
 Strategy A/B object-store interface) and this review comment. Do NOT implement the
 minion.town side here — a separate follow-up is already chained on the board
 (skills/chained-followup) to act on this once it advances to a build.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 8
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T20:41:02Z
