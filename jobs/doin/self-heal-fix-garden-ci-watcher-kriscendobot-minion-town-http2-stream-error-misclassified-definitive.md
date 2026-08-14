@@ -19,3 +19,13 @@ Both degrade gates are fixed by the one edit: `gh_api_retry` gains its bounded r
 Note on scope: `gh_api_retry` also serves non-idempotent calls, but this matches existing policy exactly — the set already retries `HTTP 5[0-9][0-9]` and `EOF` regardless of method, and a peer-sent `CANCEL`/`GOAWAY` means the stream was torn down, so a retry is no more hazardous than the 5xx retry already in place. Do not add a method guard as part of this fix.
 
 Add a case to `scripts/jobs/test/gh-api-retry-test.sh` asserting the exact `stream error: stream ID 1; CANCEL; received from peer` stderr is classified transient and retried (mirroring the existing definitive-404 and transient cases), so this third regression of the same gap is the last one.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T08:05:58Z
