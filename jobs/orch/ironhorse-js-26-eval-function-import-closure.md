@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-js-26-eval-01-runtime-source ironhorse-js-26-eval-02-semantics ironhorse-js-26-eval-03-function-constructors ironhorse-js-26-eval-04-annexb-source ironhorse-js-26-eval-05-dynamic-import ironhorse-js-26-eval-06-secondary-fallout ironhorse-js-26-eval-07-final-audit
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-14T23:44:31Z
 ---
