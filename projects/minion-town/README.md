@@ -19,3 +19,7 @@ The bot's own MCP-server deployment: [kriscendobot/minion.town](https://github.c
 ## Design corpus (in-repo)
 
 `designs/mcp-oauth.md` (resource-server architecture and the Cognito deviations: no DCR, client_id-allowlist instead of RFC 8707 `aud`), `unified-login-page.md`, `siwe-onchain-authz.md`, `account-creation-open-signup.md`, `stripe-credits.md`, `mcp-endo-guest.md` (the gated Claude-then-Endo-guest chain, 2026-07-09).
+
+## Topic notes
+
+- [ocap-mailbox-relative-routing](ocap-mailbox-relative-routing.md) — Mark Miller's [[relative-routing]] applied to the ocap-mailbox adapter: an email-backed synthetic guest and an in-daemon OCapN-over-Noise session are two *routes* (connection hints) to the same peer, not rival designs; short-circuit to the nearest reliable path (added 2026-08-14 by scholar-relative-routing-miller; grounds against PR #37).
