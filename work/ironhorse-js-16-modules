@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 3
+worker_kind: cleric
+claimed_at: 2026-08-14T16:34:13Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-js-16-modules
