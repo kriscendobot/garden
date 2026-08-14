@@ -15,3 +15,13 @@ with what Endo already does, and if so how do the approaches differ (language/
 runtime scope, isolation mechanism, capability model, trust boundary).
 
 No known prior ingestion of this repo in the library or the journal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T17:22:30Z
