@@ -260,8 +260,9 @@ posting host's garden root.
    PR is already the right shape (coverage already pushed, CI GREEN at the current
    head), this stage is a NO-OP: skip to the marker with clean=done.
 2. Get an ISOLATED project checkout of the PR head:
-   \`scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`
-   (the head branch is \`gh pr view $pr --json headRefName -q .headRefName\`).
+   \`scripts/jobs/ensure-project-worktree.sh $child <pr-head-owner>/<repo-name> <pr-head-branch>\`.
+   Resolve the head owner and branch with \`gh pr view $pr --json headRepositoryOwner,headRefName\`;
+   do not pass the base repo when the PR head belongs to a fork.
 3. In that checkout: run the coverage pass on the touched packages
    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
 4. If you changed anything, push follow-ups to the PR head with
@@ -293,7 +294,9 @@ worker's \`\$GARDEN_ROOT\` (known by \`scripts/jobs/common.sh\`), never against 
 posting host's garden root.
 
 1. Get an ISOLATED project checkout of the PR head:
-   \`scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`.
+   \`scripts/jobs/ensure-project-worktree.sh $child <pr-head-owner>/<repo-name> <pr-head-branch>\`.
+   Resolve the head owner and branch with \`gh pr view $pr --json headRepositoryOwner,headRefName\`;
+   do not pass the base repo when the PR head belongs to a fork.
 2. Run the panel in SINGLE-ROUND mode against that worktree:
    \`GARDEN_PANEL_SINGLE_ROUND=1 \\
      scripts/jobs/gardening/panel.sh <worktree> $prnum <base-ref>\`
@@ -322,7 +325,9 @@ worker's \`\$GARDEN_ROOT\` (known by \`scripts/jobs/common.sh\`), never against 
 posting host's garden root.
 
 1. Get an ISOLATED project checkout of the PR head:
-   \`scripts/jobs/ensure-project-worktree.sh $child $repo <pr-head-branch>\`.
+   \`scripts/jobs/ensure-project-worktree.sh $child <pr-head-owner>/<repo-name> <pr-head-branch>\`.
+   Resolve the head owner and branch with \`gh pr view $pr --json headRepositoryOwner,headRefName\`;
+   do not pass the base repo when the PR head belongs to a fork.
 2. Read the LATEST panel verdict on $pr (the request-changes \`gh pr review\` the
    panel-$iter stage just posted) for its must-fix items. Apply them.
 3. Push the fix as review-feedback follow-up commits to the PR head with

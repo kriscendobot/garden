@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-25
+updated: 2026-08-14
 author: liaison, gardener
 ---
 
@@ -69,6 +69,7 @@ The subagent never creates or removes worktrees. Standing exceptions (monitor an
 ## Pitfalls
 
 - **Long worktree paths and Unix domain sockets.** Daemon-class tests that bind sockets under `<worktree>/.../tmp/...` can exceed Linux's 108-byte `sockaddr_un` cap. Keep purpose slugs short (under ~16 chars) when daemon tests are involved.
+- **Fork PR heads are not branches of the base repo.** Resolve both `headRepositoryOwner` and `headRefName` with `gh pr view`; pass the head fork's `<owner>/<repo>` to `ensure-project-worktree.sh`. Passing the base repo with the fork's branch name fails because that remote has no such branch.
 - **Reused worktrees can hold stale absolute paths.** Yarn 4's portable store leaves cross-worktree references in `node_modules/.bin/*` shims and `.pnp.cjs` after a sibling worktree disappears. A first `npx corepack yarn install` in the fresh dispatch root rewrites them. In this garden, per-dispatch worktrees are fresh per dispatch, so the issue mainly arises with standing monitor worktrees that share a parent repo across dispatches.
 - **`git stash` as a baseline-test trick is the failure mode itself.** Losing rename detection on `git mv`-staged files; the subsequent `git stash pop` reverts files and emits a flurry of "user/linter edited" reminders. Prefer `git diff HEAD~1` to inspect changes, `git show HEAD~1:<path>` to read a parent version, or a separate `git worktree add --detach <tmp> <sha>` for a full-tree baseline. Put that `<tmp>` baseline worktree under the dedicated scratch tree, never at the garden root: `git worktree add --detach "$(scratch_dir baseline)" <sha>` (`scratch_dir` is sourced from `scripts/jobs/common.sh`; see `roles/COMMON.md` § Scratch discipline), and `scratch_cleanup` it when done.
 - **Do not write to the orchestrator's seat.** The garden's own `main` and `journal` checkouts live under the garden root; a subagent never edits them. Per-dispatch `garden/` and `journal/` worktrees are how the subagent reads roles, writes journal entries, and stays out of the orchestrator's tree.
