@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":62,"elapsed_s":1054,"input_tokens":109,"output_tokens":52120,"cache_creation_tokens":196373,"cache_read_tokens":9387410,"total_cost_usd":7.963104000000001,"ts":"2026-08-14T22:19:03Z","base":"scholar-ingest-cordiverse-paper","host":"endolin-garden-ece02cb4","outcome":"tada"}
