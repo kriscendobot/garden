@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-07-14
+updated: 2026-08-14
 author: gardener
 ---
 
@@ -42,3 +42,9 @@ A stack of one-concern-per-commit follow-up commits pushed to the PR head, each 
 
 - _2026-05-13_: adopted from the reference. The per-pattern skill files (`package-rename-cascade`, `ses-intrinsic-naming`) were not ported here; their lore is in the reference and can come over if a future engagement needs them as active library.
 - _2026-05-17_: the "do not amend" rule's tree-changing target was clarified after a PR #238 review item asked the fixer step to reset the feat commit's author header to the upstream playground PR's original author. An author-only amend is byte-identical to reviewers, was the maintainer's explicit ask, and falls outside the rule's actual hazard (forcing a re-diff). The core bullet now names this carve-out alongside the just-rebased-tip carve-out.
+- _2026-08-14_: a PR can merge between the fixer's preflight and push. If the
+  reviewed head branch disappears before the fix lands, rebase the follow-up
+  commits onto the live base, open a follow-up PR, and map every review ask to its
+  new commit in the original PR thread. Never recreate or force-push the deleted
+  merged branch. Trigger: https://github.com/kriscendobot/minion.town/pull/40;
+  recovery landed as https://github.com/kriscendobot/minion.town/pull/46.
