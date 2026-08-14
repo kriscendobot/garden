@@ -27,7 +27,7 @@ openai	gpt-5.6-luna	minion
 openai	gpt-5.5	minion
 openai	gpt-5.4-mini	minion
 moonshot	kimi-k3	mentor
-local	qwen3.6	myrmidon
+local	qwen3.6	minion	23938333577
 # Reviewed, live Fireworks selectors (one per tier where a fit exists).  This
 # namespace is garden routing metadata; the handler removes `fireworks/` before
 # sending the wire id.  Wildcard routing is deliberately forbidden.

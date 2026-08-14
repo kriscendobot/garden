@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-07-29
+updated: 2026-08-14
 author: gardener
 ---
 
@@ -16,8 +16,8 @@ unclassified and cannot acquire an automatic route.
 | --- | --- | --- |
 | mentat | Claude Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. |
 | mentor | Anthropic Opus 5 (`claude-opus-5`), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
-| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`) | The tier below mentor; the automatic fallback tier. |
-| myrmidon | Sonnet, Haiku, served local Qwen, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
+| minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen, Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`) | The tier below mentor; the automatic fallback tier. |
+| myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
 
 **Fireworks mentor collision (GLM 5.2 vs Kimi K3).** Both Fireworks mentor models
 are registered with wire ids verified against the provider's model pages, but the
