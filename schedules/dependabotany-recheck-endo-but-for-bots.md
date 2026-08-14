@@ -1,6 +1,7 @@
 cadence: daily
 last_dispatched: 2026-08-14T16:50:04Z
 job_basename_prefix: dependabotany-recheck-endo-but-for-bots
+preflight: dependabotany-preflight.sh
 ---
 ---
 tier: mentor
