@@ -7,7 +7,7 @@ source_date: 2026-08-13
 source_authors: [cordiverse]
 ingested: 2026-08-14
 ingested_by: scholar
-topics: [change-propagation]
+topics: [change-propagation, effect-and-coeffect-systems]
 status: current
 notes: "Repo-side companion to the paper source (cordiverse/paper). Captures what the raw PDF text extraction omits: the concrete package layout and the declarative loader / HMR / config-reconciliation machinery named in the abstract but not present in the paper repo's files."
 ---
