@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6753 (530 parent indexes + 6223 children).
+Total section files: 6755 (530 parent indexes + 6225 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7398,6 +7398,14 @@ Total section files: 6753 (530 parent indexes + 6223 children).
 ### erights--elib-concurrency-when-ref-when
 
 - [erights--elib-concurrency-when-ref-when--references-as-observables](erights--elib-concurrency-when-ref-when--references-as-observables.md)
+
+### erights--elib-distrib-captp-acceptfrom
+
+- [erights--elib-distrib-captp-acceptfrom--acceptfrom-donorpath-relative-route](erights--elib-distrib-captp-acceptfrom--acceptfrom-donorpath-relative-route.md)
+
+### erights--elib-distrib-captp-providefor
+
+- [erights--elib-distrib-captp-providefor--three-vat-introduction-narrative](erights--elib-distrib-captp-providefor--three-vat-introduction-narrative.md)
 
 ### erights-org--elang-intro
 
