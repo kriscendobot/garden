@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:46:40Z_
+_As of 2026-08-14T22:49:58Z_
 
 ## Latest
 
@@ -3371,6 +3371,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Signalling this child orchestration-failed (gate unmet at a mid-flight head), not a
 > clean completion.
 
+- `20260814T224908Z-ab3379` — from orchestrator:pr910-review-4941452327-resolution-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T224908Z-ab3379.md)
+
+> Orchestration pr910-review-4941452327-resolution HALTED: child pr910-review-4941452327-fixer stalled in flight for 2483s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/6 done before halt; parked remainder: pr910-review-4941452327-shepherd pr910-review-4941452327-conductor pr910-review-4941452327-info-cleanup pr910-review-4941452327-fuzzer pr910-review-4941452327-fuzz-build
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4129,12 +4133,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.3M _(+912.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Codex | 29.3M _(+914.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
+### todo (2)
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cc-object-mop-exotic.md) — Close residual language gap: Object MOP on exotic/proxy objects (defineProper...
-- [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-28-issue-summary.md) — Post the final Ironhorse implementation summary to garden issue 51
 - [`kriscendobot-minion.town-pr44-review-1686b169`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr44-review-1686b169.md) — Review directive on kriscendobot/minion.town PR #44
 
 ### doin (10)
@@ -4143,19 +4146,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr909-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`endojs-endo-but-for-bots-pr988-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-js-26-ca-regexp-u-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-u-core.md) — ---
 - [`ironhorse-js-26-cb-with-env-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cb-with-env-core.md) — with-cluster child A (FOUNDATIONAL): the environment-chain model + real with ...
+- [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-28-issue-summary.md) — Post the final Ironhorse implementation summary to garden issue 51
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 
-### tada (4721)
+### tada (4723)
+- [`endojs-endo-but-for-bots-pr988-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-fix-3.md) — Cost
+- [`pr910-review-4941452327-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-resolution.md) — orchestration pr910-review-4941452327-resolution — HALTED
 - [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-27-full-suite-report-refresh.md) — Completion report — Ironhorse full-suite report refresh (js-27)
 - [`ironhorse-js-26-cb-with-statement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cb-with-statement.md) — Completion report: ironhorse-js-26-cb-with-statement
 - [`monthly-progress-report-20260714-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/monthly-progress-report-20260714-20260814.md) — Cost
-- [`endojs-endo-but-for-bots-pr988-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-panel-3.md) — Completion report — PANEL round 3, endojs/endo-but-for-bots PR #988
-- [`endojs-endo-but-for-bots-hangover-embargo-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hangover-embargo-design.md) — Completion report
-- … and 4716 more
+- … and 4718 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
