@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:34:24Z_
+_As of 2026-08-14T05:35:36Z_
 
 ## Latest
 
@@ -3629,6 +3629,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >      ("go ahead / promote ironhorse-resume-6-launch-postdeploy"). It re-checks the
 >      deployed script, then launches the campaign.
 
+- `20260814T053507Z-8a858f` — from gauntlet:ebfb-ascii-adopt-ocapn-sites-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T053507Z-8a858f.md)
+
+> Gauntlet ebfb-ascii-adopt-ocapn-sites-gauntlet HALTED: stage 'ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -6790,25 +6794,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.3M | $980.17 _(notional, rate-card)_ | no quota set |
-| Codex | 23.9M _(+779.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
+| Claude | 59.1M | $975.94 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+778.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #980
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`kriscendobot-minion.town-pr41-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #41
+- [`kriscendobot-minion.town-pr41-review-5b4e7d27-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-review-5b4e7d27-retro.md) — Retrospective on kriscendobot/minion.town PR #41 (primary: kriscendobot-minio...
 
-### tada (4596)
+### tada (4598)
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet.md) — gauntlet ebfb-ascii-adopt-ocapn-sites-gauntlet — HALTED
+- [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3.md) — Cost
 - [`kriscendobot-minion.town-pr42-review-d0ab99cd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr42-review-d0ab99cd.md) — Cost
 - [`design-frozen-base-supersession-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-frozen-base-supersession-check.md) — Completion report
 - [`garden-fix-library-lookup-keyword-format`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fix-library-lookup-keyword-format.md) — Cost
-- [`garden-fix-designer-dangling-skill-citation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-fix-designer-dangling-skill-citation.md) — Completion report
-- [`kriscendobot-minion.town-pr41-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-gauntlet-clean.md) — Completion report
-- … and 4591 more
+- … and 4593 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -6951,7 +6955,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr28-review-a4dd8f2f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr28-review-a4dd8f2f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #28 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr28-review-aa455b97-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr28-review-aa455b97-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #28 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr42-review-d0ab99cd-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr42-review-d0ab99cd-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #42 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr41-review-5b4e7d27-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr41-review-5b4e7d27-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #41 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
