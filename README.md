@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T17:13:36Z_
+_As of 2026-08-14T17:21:36Z_
 
 ## Latest
 
@@ -4281,15 +4281,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 26.9M _(+857.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Codex | 27.2M _(+864.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
+- [`improve-dependabotany-preflight-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-preflight-default.md) — ---
 - [`ironhorse-js-18-realms-eval-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-18-realms-eval-annexb.md) — Complete realms, eval/global environments, ShadowRealm, and Annex B
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
