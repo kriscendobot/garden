@@ -34,3 +34,13 @@ Task (designer): produce a design proposal for endo-but-for-bots that:
 Deliverable: a design doc / proposal (and, if warranted, a build or
 probe follow-up). Do NOT alter PR #124 — this is a separate follow-up
 tracked from its review.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T22:17:56Z
