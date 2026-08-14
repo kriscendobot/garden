@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T18:27:14Z_
+_As of 2026-08-14T18:29:28Z_
 
 ## Latest
 
@@ -4253,26 +4253,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 27.8M _(+883.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
+| Codex | 27.8M _(+883.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr970-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #970
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-20-intl-formatters`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-20-intl-formatters.md) — Implement Intl numeric and list formatters
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4682)
+### tada (4683)
+- [`endojs-endo-but-for-bots-pr970-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr970-shepherd.md) — Completion report
 - [`ironhorse-js-19-intl-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-19-intl-core.md) — Cost
 - [`scholar-ingest-opensandbox-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-opensandbox-remainder.md) — Cost
 - [`scholar-ingest-opensandbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-opensandbox.md) — Cost
 - [`ironhorse-js-18-realms-eval-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-18-realms-eval-annexb.md) — Cost
-- [`improve-dependabotany-preflight-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-preflight-default.md) — Cost
-- … and 4677 more
+- … and 4678 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
