@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T06:04:51Z_
+_As of 2026-08-14T06:08:26Z_
 
 ## Latest
 
@@ -4319,13 +4319,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git is SUCCEEDING again; kriscendobot-endo is being triaged normally.
 
+- `watchdog-triager-fetch-failed-kriscendobot-test262` — from watchdog:triager/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-test262.md)
+
+> triager: fetch for kriscendobot-test262 at /home/kris/garden2/worktrees/kriscendobot-test262.git failed (rc=128). git said: Connection to github.com closed by remote host. fatal: expected flush after ref listing
+> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-test262 cannot be triaged until it is restored.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $940.18 _(notional, rate-card)_ | no quota set |
+| Claude | 56.4M | $940.81 _(notional, rate-card)_ | no quota set |
 | Codex | 24.5M _(+789.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 39% _(plan; codex-reported)_ |
 
 ## Board
