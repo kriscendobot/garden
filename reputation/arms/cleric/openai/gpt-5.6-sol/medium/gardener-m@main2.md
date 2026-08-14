@@ -4,10 +4,10 @@ model: gpt-5.6-sol
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
-attempts: 30
-accepts: 30
-censored: 29
-estimated: 29
-mean_dollars: 6.114466
-m2: 689.879688
+attempts: 33
+accepts: 33
+censored: 32
+estimated: 32
+mean_dollars: 6.026058
+m2: 775.512158
 acceptance_rate: 1.0000
