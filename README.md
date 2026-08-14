@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T07:06:50Z_
+_As of 2026-08-14T07:07:59Z_
 
 ## Latest
 
@@ -4308,28 +4308,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $951.70 _(notional, rate-card)_ | no quota set |
-| Codex | 25.0M _(+800.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 56.7M | $952.18 _(notional, rate-card)_ | no quota set |
+| Codex | 25.0M _(+801.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr788-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr788-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #788
 - [`endojs-endo-but-for-bots-pr790-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr790-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #790
 - [`endojs-endo-but-for-bots-pr796-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #986
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-transient-401-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-transient-401-fatal.md) — ---
 
-### tada (4629)
+### tada (4630)
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-transient-401-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-transient-401-fatal.md) — Cost
 - [`resume-vfs-parity-ci-and-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/resume-vfs-parity-ci-and-gauntlet.md) — Cost
 - [`endojs-endo-but-for-bots-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-shepherd.md) — Cost
 - [`endojs-endo-but-for-bots-pr790-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr790-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr216-review-9ea61f5c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr216-review-9ea61f5c.md) — Completion report
-- [`endojs-endo-but-for-bots-pr234-review-03f6892a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr234-review-03f6892a.md) — Completion report — endojs/endo-but-for-bots#234 review resolution
-- … and 4624 more
+- … and 4625 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
