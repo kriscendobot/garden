@@ -480,6 +480,83 @@ run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG"
 grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "the untrusted drop is LOGGED with its reason (not silent)" || bad "untrusted drop not logged ($(cat "$GHLOG"))"
 
 # ============================================================================
+# AUTH1/AUTH2 — GitHub may briefly return HTTP 401 while its OAuth/installation
+# token rotates. The watcher retries exactly once, processes a successful retry,
+# and degrades a repeated 401 without sorting partial output or moving the cursor.
+AUTH401_FLIP="$TR/comment-auth401-flip.sh"
+cat > "$AUTH401_FLIP" <<'EOF'
+#!/bin/bash
+c="${AUTH401_COUNTER:?set AUTH401_COUNTER}"
+n=0; [ -s "$c" ] && n="$(cat "$c")"
+n=$((n+1)); printf '%s' "$n" > "$c"
+if [ "$n" -eq 1 ]; then
+  echo 'gh: Bad credentials (HTTP 401)' >&2
+  exit 1
+fi
+cat "${AUTH401_FIXTURE:?set AUTH401_FIXTURE}"
+EOF
+chmod +x "$AUTH401_FLIP"
+
+AUTH401_ALWAYS="$TR/comment-auth401-always.sh"
+cat > "$AUTH401_ALWAYS" <<'EOF'
+#!/bin/bash
+c="${AUTH401_COUNTER:?set AUTH401_COUNTER}"
+n=0; [ -s "$c" ] && n="$(cat "$c")"
+n=$((n+1)); printf '%s' "$n" > "$c"
+echo 'gh: Bad credentials (HTTP 401)' >&2
+exit 1
+EOF
+chmod +x "$AUTH401_ALWAYS"
+
+run_auth401() {  # run_auth401 <state> <bare> <source> <fixture> <counter> <reactlog> <log>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      GARDEN_COMMENT_SOURCE="$3" AUTH401_FIXTURE="$4" AUTH401_COUNTER="$5" \
+      CW_REACTJI_LOG="$6" GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG=/dev/null \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_TRUST=/bin/false GARDEN_TRUSTED_ALLOWLIST=/dev/null \
+      GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+      GARDEN_COMMENT_AUTH_RETRY_SLEEP=0 GARDEN_COMMENT_API_COOLDOWN_SECS=0 \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$7"
+}
+
+hr; echo "AUTH1 — first-call 401 retries once, then processes recovered comments"; hr
+BARE_AUTH1="$TR/auth1.git"; seed_bare "$BARE_AUTH1"
+FIX_AUTH1="$TR/fix-auth1.tsv"; RLOG_AUTH1="$TR/react-auth1.log"; : > "$RLOG_AUTH1"
+CTR_AUTH1="$TR/auth1.counter"; LOG_AUTH1="$TR/auth1.stderr"; : > "$CTR_AUTH1"; : > "$LOG_AUTH1"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-14T07:10:00Z issue-comment 40101 790 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/790#issuecomment-40101 \
+  'Please rebase.' > "$FIX_AUTH1"
+if run_auth401 "$TR/state-auth1" "$BARE_AUTH1" "$AUTH401_FLIP" "$FIX_AUTH1" "$CTR_AUTH1" "$RLOG_AUTH1" "$LOG_AUTH1"; then
+  rc_auth1=0
+else
+  rc_auth1=$?
+fi
+[ "$rc_auth1" -eq 0 ] && ok "watcher exited 0 after the transient 401 (did not die)" || bad "watcher died after recoverable 401 (rc=$rc_auth1; $(cat "$LOG_AUTH1"))"
+[ "$(cat "$CTR_AUTH1")" -eq 2 ] && ok "source ran exactly twice (one 401 + one retry)" || bad "source call count was $(cat "$CTR_AUTH1")"
+board_has "$BARE_AUTH1" "$SLUG-pr790-rebase" && ok "retry's recovered comment was processed into a job" || bad "retry comment was not processed"
+[ "$(cursor_seen "$TR/state-auth1" "$BARE_AUTH1")" = 2026-08-14T07:10:00Z ] && ok "cursor advanced only after the successful retry was processed" || bad "cursor did not advance after recovery ($(cursor_seen "$TR/state-auth1" "$BARE_AUTH1"))"
+
+hr; echo "AUTH2 — twice-401 degrades cleanly, warns persistently, and freezes cursor"; hr
+BARE_AUTH2="$TR/auth2.git"; seed_bare "$BARE_AUTH2"
+FIX_AUTH2="$TR/fix-auth2.tsv"; : > "$FIX_AUTH2"
+RLOG_AUTH2="$TR/react-auth2.log"; CTR_AUTH2="$TR/auth2.counter"; LOG_AUTH2="$TR/auth2.stderr"
+: > "$RLOG_AUTH2"; : > "$CTR_AUTH2"; : > "$LOG_AUTH2"
+if run_auth401 "$TR/state-auth2" "$BARE_AUTH2" "$AUTH401_ALWAYS" "$FIX_AUTH2" "$CTR_AUTH2" "$RLOG_AUTH2" "$LOG_AUTH2"; then
+  rc_auth2=0
+else
+  rc_auth2=$?
+fi
+[ "$rc_auth2" -eq 0 ] && ok "persistent 401 exited 0 instead of detonating the unit" || bad "persistent 401 died (rc=$rc_auth2; $(cat "$LOG_AUTH2"))"
+[ "$(cat "$CTR_AUTH2")" -eq 2 ] && ok "persistent auth failure was retried exactly once" || bad "persistent source call count was $(cat "$CTR_AUTH2")"
+grep -q 'persistent 401' "$LOG_AUTH2" && ok "persistent-401 WARN is emitted for this tick" || bad "persistent-401 WARN missing ($(cat "$LOG_AUTH2"))"
+grep -q 'source(retry): .*Bad credentials' "$LOG_AUTH2" && ok "retry stderr is identified with the source(retry) prefix" || bad "retry stderr prefix missing ($(cat "$LOG_AUTH2"))"
+[ "$(todo_count "$BARE_AUTH2")" -eq 0 ] && ok "no job was processed from a failed enumeration" || bad "failed enumeration unexpectedly posted a job"
+[ -z "$(cursor_seen "$TR/state-auth2" "$BARE_AUTH2")" ] && ok "cursor stayed frozen on the twice-401 tick" || bad "cursor moved on persistent 401 ($(cursor_seen "$TR/state-auth2" "$BARE_AUTH2"))"
+
+# ============================================================================
 # H — the ROOT CAUSE: a missing jq must make the comment SOURCE fail LOUD, not
 # emit empty. Simulate by PATH-masking jq (a shimdir of every /usr/bin tool EXCEPT
 # jq; common.sh re-prepends its own gh wrapper, so gh stays resolvable). Assert the

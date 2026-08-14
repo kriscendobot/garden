@@ -1376,21 +1376,31 @@ trap 'cleanup; exit 130' INT
 # also what bounds the cleanup trap's `wait` on a stop, so it doubles as the upper
 # bound on how long a signalled stop blocks reaping a mid-syscall git child.
 : "${GARDEN_COMMENT_KILL_AFTER:=10s}"
+# Bounded backoff before a 401 retry; tests set it to 0 to keep the run fast.
+: "${GARDEN_COMMENT_AUTH_RETRY_SLEEP:=5}"
+
 # Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
 # handler — e.g. require_tools' "jq missing" die — surfaces in the watcher's death
 # instead of being swallowed (the silent-empty trap that hid the 2026-06-24 outage).
-src_rc=0
-if command -v timeout >/dev/null 2>&1; then
-  # Background + wait so the trap can TERM the timeout pid (and thus its whole
-  # process group) the instant a signal lands mid-fetch.
-  timeout --signal=TERM --kill-after="$GARDEN_COMMENT_KILL_AFTER" "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
-    "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
-  SOURCE_TIMEOUT_PID=$!
-  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
-  SOURCE_TIMEOUT_PID=""
-else
-  "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
-fi
+# Factored so a transient-auth retry reuses the identical bounded, reaped source
+# path. Preserve SOURCE_TIMEOUT_PID around wait: cleanup relies on it to TERM the
+# source process group when a stop lands mid-fetch.
+run_source() {
+  src_rc=0
+  if command -v timeout >/dev/null 2>&1; then
+    # Background + wait so the trap can TERM the timeout pid (and thus its whole
+    # process group) the instant a signal lands mid-fetch.
+    timeout --signal=TERM --kill-after="$GARDEN_COMMENT_KILL_AFTER" "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
+      "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
+    SOURCE_TIMEOUT_PID=$!
+    wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+    SOURCE_TIMEOUT_PID=""
+  else
+    "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+  fi
+}
+
+run_source
 if [ "$src_rc" -ne 0 ]; then
   # EX_TEMPFAIL is an explicit source contract: enumeration is incomplete, so
   # discard its output and freeze the cursor, but propagate the non-attributable
@@ -1423,8 +1433,33 @@ if [ "$src_rc" -ne 0 ]; then
     fi
     exit 0
   fi
-  sed 's/^/  source: /' "$ERRF" >&2 || true
-  die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
+  # GitHub briefly serves `HTTP 401: Bad credentials` while an OAuth/installation
+  # token rotates. Retry the identical bounded source path ONCE; every failure exit
+  # stays above the SRC sort/cursor-processing path, preserving LOST-FETCH.
+  if is_transient_auth_error "$ERRF"; then
+    sed 's/^/  source: /' "$ERRF" >&2 || true
+    log "WARN: comment source auth failed (HTTP 401) — retrying once after ${GARDEN_COMMENT_AUTH_RETRY_SLEEP}s backoff"
+    [ "$GARDEN_COMMENT_AUTH_RETRY_SLEEP" -gt 0 ] 2>/dev/null && sleep "$GARDEN_COMMENT_AUTH_RETRY_SLEEP"
+    run_source
+    if [ "$src_rc" -ne 0 ]; then
+      sed 's/^/  source(retry): /' "$ERRF" >&2 || true
+      if is_transient_net_error "$ERRF"; then
+        log "WARN: comment source unreachable (transient network) on retry — skipping tick (never guess)"
+        exit 0
+      fi
+      # A second 401 is persistent credential trouble, not a rotation blip. Warn on
+      # every tick until a human fixes it, but keep the cursor frozen and unit clean.
+      if is_transient_auth_error "$ERRF"; then
+        log "WARN: comment source auth failed twice (persistent 401) — skipping tick; cursor frozen"
+        exit 0
+      fi
+      die "comment source failed for $repo on auth retry (rc=$src_rc; see source stderr above)"
+    fi
+    # Retry succeeded: fall through and process its complete source output normally.
+  else
+    sed 's/^/  source: /' "$ERRF" >&2 || true
+    die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
+  fi
 fi
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
