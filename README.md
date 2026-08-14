@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:23:33Z_
+_As of 2026-08-14T05:27:11Z_
 
 ## Latest
 
@@ -14,7 +14,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 7h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 8h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 15d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 15d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
@@ -6790,26 +6790,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.8M | $982.80 _(notional, rate-card)_ | no quota set |
-| Codex | 23.8M _(+784.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
+| Claude | 59.8M | $984.48 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+782.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 34% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #980
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
-- [`kriscendobot-minion.town-pr41-review-5b4e7d27`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr41-review-5b4e7d27.md) — Review directive on kriscendobot/minion.town PR #41
 - [`kriscendobot-minion.town-pr42-review-d0ab99cd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr42-review-d0ab99cd.md) — Review directive on kriscendobot/minion.town PR #42
 
-### tada (4590)
+### tada (4591)
+- [`kriscendobot-minion.town-pr41-review-5b4e7d27`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr41-review-5b4e7d27.md) — Completion report — review directive on kriscendobot/minion.town PR #41
 - [`endojs-endo-but-for-bots-pr981-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr981-shepherd.md) — Cost
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-3.md) — Cost
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-fix-2.md) — Cost
 - [`ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-ascii-adopt-ocapn-sites-gauntlet-panel-2.md) — Cost
-- [`kriscendobot-minion.town-pr28-review-aa455b97`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-review-aa455b97.md) — Cost
-- … and 4585 more
+- … and 4586 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
