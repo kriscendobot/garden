@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":57,"elapsed_s":533,"input_tokens":100,"output_tokens":29347,"cache_creation_tokens":82538,"cache_read_tokens":4025720,"total_cost_usd":3.574761000000002,"ts":"2026-08-14T06:46:15Z","base":"resume-vfs-parity-ci-and-gauntlet","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener"}
