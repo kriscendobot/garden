@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:24:05Z_
+_As of 2026-08-14T22:25:03Z_
 
 ## Latest
 
@@ -4160,12 +4160,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 28.9M _(+902.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Codex | 28.9M _(+902.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-27-full-suite-report-refresh.md) — Run the final authoritative full suite and publish the refreshed report
-- [`monthly-progress-report-20260714-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/monthly-progress-report-20260714-20260814.md) — Data sources
 
 ### doin (9)
 - [`endojs-endo-but-for-bots-hangover-embargo-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-hangover-embargo-design.md) — Design: embargo outbound messages until a worker quiesces after delivery
@@ -4174,17 +4173,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr946-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #946
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #988
-- [`ironhorse-js-26-ca-regexp-unicode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode.md) — Close residual language gap: RegExp u/v flags, Unicode mode, property escapes...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
+- [`monthly-progress-report-20260714-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/monthly-progress-report-20260714-20260814.md) — Data sources
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 
-### tada (4715)
+### tada (4716)
+- [`ironhorse-js-26-ca-regexp-unicode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-unicode.md) — Cost
 - [`scholar-ingest-cordiverse-paper-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cordiverse-paper-readme.md) — Completion report
 - [`endojs-endo-but-for-bots-pr894-conduct-after-review-4876933972`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-conduct-after-review-4876933972.md) — Completion report
 - [`ironhorse-js-26-residual-gap-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-residual-gap-closure.md) — Completion report — js-26 residual-gap-closure
 - [`endojs-endo-but-for-bots-pr894-review-dc37fad0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr894-review-dc37fad0.md) — Cost
-- [`scholar-ingest-cordiverse-paper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-cordiverse-paper.md) — Completion report: scholar-ingest-cordiverse-paper
-- … and 4710 more
+- … and 4711 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
