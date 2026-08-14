@@ -63,3 +63,13 @@ what evidence would settle it.
 - Any test asserting qwen3.6's tier is updated (check `model-routing-test.sh`,
   `tier-vocabulary-routing-test.sh`, `worker-spine-kinds-test.sh`).
 - Report states the deploy dependency and the CPU-only risk assessment.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 5
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T06:25:31Z
