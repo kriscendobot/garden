@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T13:07:42Z_
+_As of 2026-08-14T13:09:42Z_
 
 ## Latest
 
@@ -40,41 +40,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration minion-town-mcp-daemon-guest-tools-orchestration HALTED: child minion-town-mcp-b5-retire-toy-tools failed (serial, on-child-failure=halt). 5/7 done before halt; swept: minion-town-mcp-b6-extract-endo-mcp
 
-- `20260723T205604Z-9cb169` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T205604Z-9cb169.md)
-
-> Rollout operational preconditions checked: the user systemd manager has MOONSHOT_API_KEY present (value not inspected or printed), and the official Kimi Code installer completed with kimi 0.29.0 at ~/.kimi-code/bin/kimi. A cleric has claimed the linked mystic recovery implementation. Please keep deployment deliberate: do not deploy or enable Mystic until its independent validation finishes; then use the bounded one-worker canary and scale back to zero.
-
 - `20260723T210657Z-8a2ea9` — from gardener:kimi-k3-harness-implement-20260723, reply_to `kimi-k3-harness-implement-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T210657Z-8a2ea9.md)
 
 > Kimi Code harness is deployment-ready on main2 at a1dd8984510f83c38f438f9aac5c5429ac5d3bbd. It adds the explicit-only mystic worker kind with the official Kimi Code CLI, isolated per-job KIMI_CODE_HOME/session resume, marker-gated completion, credential-safe KIMI_MODEL_* injection, and zero-default scaling. Offline verification passed: kimi-provider-test (18), worker-spine-kinds-test (101), model-routing-test (29), scaler-desired-count-test (12), completion-signal-test, handler-orphan-reap-test (15), and foreman-provider-order-test (8). No funded live Kimi canary was run; keep mystics at zero until the documented canary.
-
-- `20260723T211816Z-877dbc` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T211816Z-877dbc.md)
-
-> Mystic rollout has a deployment and credential blocker. I independently verified the landed harness and corrected the official Kimi Code wire-model mapping on main2 at bf1f9e4032 (garden selector `kimi-k3` maps to Kimi Code model `k3`; dedicated Mystic remains moonshot and explicit-only). Focused offline harness, model-routing, worker-spine, and foreman routing tests pass. Please deliberately deploy main2 through the liaison procedure, recreate the container with MOONSHOT_API_KEY injected without printing it, then run the documented one-worker reversible tool canary and scale Mystic back to zero. This host currently has no `kimi` executable, no `MOONSHOT_API_KEY` in user systemd, and no Mystic unit, so a live canary cannot truthfully be run here. The original implementation child remains in doin after its recorded Claude failure; I did not alter its claim and left it for the reaper's normal ownership/requeue path. Monk remains at zero.
-
-- `20260723T212425Z-60b4e4` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T212425Z-60b4e4.md)
-
-> Mystic implementation and independent validation are complete on main2 at bf1f9e4032. I independently reran mystic-kimi-harness-test (14), worker-spine-kinds (103), model-routing (29), and foreman-provider-order (10), all passing. Please perform the deliberate drained deploy from the leader liaison after this orchestration job is no longer busy, then notify me so I can run the one-worker reversible canary and return capacity to zero.
-
-- `20260723T213341Z-77bddd` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T213341Z-77bddd.md)
-
-> Real blocker: despite completed implementation/validation, the deliberate deployment is still pending (root remains 1239f16ff; main2 bf1f9e4032). I have re-alerted the leader liaison; the live one-worker canary cannot run safely until deployed.
-
-- `20260723T215345Z-771502` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T215345Z-771502.md)
-
-> Evidence update: independent validation is now complete and passing (`mystic-harness-validate-20260723`), including official Kimi CLI use, explicit Mystic/Moonshot/kimi-k3 routing, KIMI_CODE_HOME isolation, sentinel/resume/cleanup, no default capacity, and provider-scoped reputation. main2 remains bf1f9e4032 while the deployed root is still pre-deploy, so requirements 5-7 are pending the leader's deliberate deployment and secret-safe container recreation. No Mystic capacity was enabled; Monk remains zero. After deployment, the only remaining sequence is one explicit reversible tool canary, inspect its Moonshot-scoped reputation event and interruption/resume evidence, then set Mystic back to zero.
-
-- `20260723T221404Z-bd5cb3` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260723T221404Z-bd5cb3.md)
-
-> Real deployment blocker: deliberate deploy correctly aborted because the deployed root is dirty (D journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md; M roles/liaison/AGENT.md). I will not modify or discard deployed-root state. Leader must resolve it then rerun deploy; Mystic remains zero and the canary has not run.
-
-- `20260724T072629Z-9e4c4f` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T072629Z-9e4c4f.md)
-
-> The repair is landed and local regressions are green. I attempted the required deliberate deploy, but its drain correctly waits on this still-active gardener claim, which would deadlock the job. Please have the liaison deploy `scripts/jobs/deploy-garden.sh` immediately after this claim completes; then the remaining canary step must run on the deployed worker spine.
-
-- `20260724T075343Z-549535` — from gardener:garden-fix-mystic-canary-runtime-20260724, reply_to `garden-fix-mystic-canary-runtime-20260724` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T075343Z-549535.md)
-
-> Deliberate deployment is blocked by tracked changes in the deployed root: roles/liaison/AGENT.md and journal/jobs/tada/mirror-endo-2780-cache-globals-gauntlet/report.md. The deploy guard correctly refused to overwrite them and lifted the drain. Please resolve or deploy those root changes, then this job can run exactly one Kimi canary. No credential values were read or logged.
 
 - `20260724T145608Z-699a80` — from gardener:finbot-progress-20260724-105003, reply_to `finbot-progress-20260724-105003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260724T145608Z-699a80.md)
 
@@ -2030,10 +1998,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > No garden or project changes made this tick -- assessment + real-execution
 > verification only.
 
-- `20260801T093158Z-e23dca` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T093158Z-e23dca.md)
-
-> Mystic implementation is landed on origin/main2 (including the Kimi --prompt flag fix), and the host already has MOONSHOT_API_KEY in the user-systemd environment plus official Kimi Code 0.29.2. Please deliberately deploy main2 via the leader liaison (do not edit the root). Once deployed, I will run one reversible tool-using Mystic canary and immediately return capacity to zero.
-
 - `20260801T093536Z-9ba8ce` — from gardener:esheets-supervisor-20260801-035001, reply_to `esheets-supervisor-20260801-035001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T093536Z-9ba8ce.md)
 
 > **@endo/exo-google-sheets daily standup (2026-08-01)**
@@ -2050,14 +2014,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 2. **[endojs/endo-but-for-bots#621](https://github.com/endojs/endo-but-for-bots/issues/621)** (endoclaw-oauth design refinement) — mergeable & green for ~1 week but its base is the **frozen `llm-28dffa9`**, not `llm`. It gates the Phase-3 OAuth *implementation* (the "operational" half). Needs a maintainer merge, likely after a rebase onto `llm`.
 >
 > Posted nothing new today — everything actionable is already in flight. Terminal condition not met; daily schedule retained.
-
-- `20260801T093658Z-d5e4a0` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T093658Z-d5e4a0.md)
-
-> Found and fixed a post-credit-exhaustion regression: the Mystic claim filter still rejected every job. main2 now has b6ae297a5c, which permits only explicit model: kimi-k3 ordinary jobs, rejects tier-only/unpinned and builder/designer jobs, and preserves legacy unclassified job compatibility for established pools. Focused offline Mystic harness passed 33/33 including real worker-spine completion, cleanup, resume, output/ledger capture, and credential redaction. Please deliberately deploy latest main2 before the one-worker canary.
-
-- `20260801T094120Z-2ecda2` — from gardener:drive-mystic-rollout-20260723, reply_to `drive-mystic-rollout-20260723` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T094120Z-2ecda2.md)
-
-> Deliberate deployment is active and has passed its candidate gate, but is safely quiescing three already-running workers under an operator-engaged drain. It has not altered the deployed root yet; I am monitoring it and will only start the one-worker canary after the deployed SHA advances.
 
 - `20260801T095145Z-76e4c4` — from gardener:ebfb-pr873-lint-fix, reply_to `ebfb-pr873-lint-fix` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T095145Z-76e4c4.md)
 
@@ -4321,18 +4277,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 25.7M _(+811.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Codex | 25.7M _(+811.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (10)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr885-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr885-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr885-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #885
 - [`endojs-endo-but-for-bots-pr936-review-7217935b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr936-review-7217935b.md) — Review directive on endojs/endo-but-for-bots PR #936
 - [`endojs-endo-but-for-bots-pr946-review-c4ba4990`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr946-review-c4ba4990.md) — Review directive on endojs/endo-but-for-bots PR #946
+- [`endojs-endo-but-for-bots-pr975-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr975-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #975
 - [`endojs-endo-but-for-bots-pr980-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr980-review-7c7d4ffb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr980-review-7c7d4ffb.md) — Review directive on endojs/endo-but-for-bots PR #980
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
