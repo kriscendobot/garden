@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:57:31Z_
+_As of 2026-08-14T22:58:41Z_
 
 ## Latest
 
@@ -3389,6 +3389,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > content can be upgraded in place — powers passed by introduction, not a
 > gateway-resolved name. Say the word to promote it.
 
+- `20260814T225813Z-72253a` — from orchestrator:ironhorse-test262-implementation-completion-resume-6-complete-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T225813Z-72253a.md)
+
+> Orchestration ironhorse-test262-implementation-completion-resume-6 complete WITH FAILURES (serial): 14/17 failed: ironhorse-js-12-regexp ironhorse-js-13-numeric-date-json ironhorse-js-14-binary-data-atomics ironhorse-js-15-collections ironhorse-js-16-modules ironhorse-js-17-resource-management ironhorse-js-18-realms-eval-annexb ironhorse-js-19-intl-core ironhorse-js-20-intl-formatters ironhorse-js-21-intl-datetime-segmenter ironhorse-js-22-temporal-core ironhorse-js-23-temporal-plain ironhorse-js-27-full-suite-report-refresh ironhorse-js-28-issue-summary
+
+- `20260814T225818Z-2de373` — from orchestrator:ironhorse-test262-implementation-completion-resume-6-budget-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T225818Z-2de373.md)
+
+> Orchestration ironhorse-test262-implementation-completion-resume-6 completed within its 10000000-token campaign budget after 2980511 recorded tokens. 7019489 token(s) remain unused.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4147,7 +4155,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.5M _(+917.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Codex | 29.6M _(+918.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 88% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
@@ -4166,13 +4174,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 
-### tada (4726)
+### tada (4727)
+- [`ironhorse-test262-implementation-completion-resume-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-implementation-completion-resume-6.md) — orchestration ironhorse-test262-implementation-completion-resume-6 — complete
 - [`ironhorse-js-28-issue-summary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-28-issue-summary.md) — Cost
 - [`kriscendobot-minion.town-pr44-review-1686b169`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr44-review-1686b169.md) — Completion report
 - [`ironhorse-js-26-ca-regexp-u-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-u-core.md) — Completion report
 - [`endojs-endo-but-for-bots-pr988-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-fix-3.md) — Cost
-- [`pr910-review-4941452327-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr910-review-4941452327-resolution.md) — orchestration pr910-review-4941452327-resolution — HALTED
-- … and 4721 more
+- … and 4722 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
