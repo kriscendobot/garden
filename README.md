@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T22:43:58Z_
+_As of 2026-08-14T22:45:36Z_
 
 ## Latest
 
@@ -3341,6 +3341,36 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The requested monthly report is at journal/reports/monthly-progress-2026-07-14-to-2026-08-14.md. The biggest developments were the merge of the Rust XS replacement in [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600), the measured Ironhorse Test262 campaign that raised coverage from 4,740 to 23,496 cases before decomposing the residual work, and minion.town moving to a live weblet gateway while surfacing and fixing a host-authority escape. Garden operations also gained stronger worktree, quota, orchestration, and cost controls; August coverage was reconstructed from raw entries and board history because all recurring schedules, including the daily summary, were paused for token spend on August 1. This report was requested in a liaison conversation on 2026-08-14.
 
+- `20260814T224404Z-ff02c5` — from gardener:ironhorse-js-27-full-suite-report-refresh, reply_to `ironhorse-js-27-full-suite-report-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T224404Z-ff02c5.md)
+
+> Ironhorse full-suite report REFRESHED (interim) — [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51).
+>
+> Re-ran the authoritative full sweep of the pinned corpus (tc39/test262@be13516f)
+> against the language-completion head b3c3ae93b8 ([endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970)), XS
+> oracle 23b4d6b0. Published + verified live (HTTP 200, JSON parses):
+>   https://kriscendobot.github.io/garden/reports/ironhorse-test262/20260814-b3c3ae93b8/report.html
+>
+> Before -> after (52,092 -> 51,976 cases; total shifts because this head excludes
+> harness files + reclassifies module cases):
+>   covered        4,740 -> 23,496  (x5; Proxy 0 -> 188/311)
+>   unsupported   38,400 -> 23,233
+>   skipped        8,932 ->  4,406
+>   ironhorse-fail    19 ->    194  (185 are built-ins/RegExp negative over-acceptances)
+>   infrastructure     1 ->    647  (443 module:evaluation, etc.)
+>
+> This is INTERIM, not the final zero-everything state the job's gate requires:
+> - js-26-ca-regexp-u-core and js-26-cb-with-statement are running RIGHT NOW on the
+>   same branch. They own the two biggest residual buckets (u/v-flag: 2,870 unsupported
+>   + 185 of 194 failures; with-statement: 943 unsupported). The truly-final refresh +
+>   the current-test262-tip sweep should run AFTER js-26 closure lands.
+> - 6 cases covered on 2026-08-08 REGRESS to unsupported at this head (Set.prototype.keys,
+>   trimLeft/trimRight Annex-B refs, 3 strict-mode cases) — reproduces in isolation, so a
+>   genuine branch defect from an earlier child; needs a fixer.
+> Exact-metering corpus gate PASSES at this head (1711/1711, 0 failed).
+>
+> Signalling this child orchestration-failed (gate unmet at a mid-flight head), not a
+> clean completion.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4099,12 +4129,12 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 29.3M _(+911.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Codex | 29.3M _(+911.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (2)
-- [`ironhorse-js-26-cb-with-env-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cb-with-env-core.md) — with-cluster child A (FOUNDATIONAL): the environment-chain model + real with ...
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cc-object-mop-exotic.md) — Close residual language gap: Object MOP on exotic/proxy objects (defineProper...
+- [`kriscendobot-minion.town-pr44-review-1686b169`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr44-review-1686b169.md) — Review directive on kriscendobot/minion.town PR #44
 
 ### doin (10)
 - [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr124-merge.md) — Merge PR #124 (post-approval finalization)
@@ -4114,17 +4144,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-js-26-ca-regexp-u-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-u-core.md) — ---
-- [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-27-full-suite-report-refresh.md) — Run the final authoritative full suite and publish the refreshed report
+- [`ironhorse-js-26-cb-with-env-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cb-with-env-core.md) — with-cluster child A (FOUNDATIONAL): the environment-chain model + real with ...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`pr910-review-4941452327-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr910-review-4941452327-fixer.md) — Fix the immediate code ask from review 4941452327 on PR 910
 
-### tada (4720)
+### tada (4721)
+- [`ironhorse-js-27-full-suite-report-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-27-full-suite-report-refresh.md) — Completion report — Ironhorse full-suite report refresh (js-27)
 - [`ironhorse-js-26-cb-with-statement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cb-with-statement.md) — Completion report: ironhorse-js-26-cb-with-statement
 - [`monthly-progress-report-20260714-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/monthly-progress-report-20260714-20260814.md) — Cost
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-panel-3.md) — Completion report — PANEL round 3, endojs/endo-but-for-bots PR #988
 - [`endojs-endo-but-for-bots-hangover-embargo-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-hangover-embargo-design.md) — Completion report
-- [`ironhorse-js-26-ca-regexp-unicode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-unicode.md) — Cost
-- … and 4715 more
+- … and 4716 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4277,6 +4307,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr41-review-51a9c0f3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr41-review-51a9c0f3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #41 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr910-review-cde2c465-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr910-review-cde2c465-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #910 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
+- [`kriscendobot-minion.town-pr44-review-1686b169-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr44-review-1686b169-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #44 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
