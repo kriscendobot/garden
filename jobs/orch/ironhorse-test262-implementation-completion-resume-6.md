@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-23-temporal-plain-reap-count: 0
 child-ironhorse-js-22-temporal-core-host: endolin-garden-ece02cb4
 child-ironhorse-js-22-temporal-core-reap-count: 0
 child-ironhorse-js-21-intl-datetime-segmenter-host: endolin-garden-ece02cb4
