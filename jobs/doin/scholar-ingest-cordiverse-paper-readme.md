@@ -17,3 +17,13 @@ it) and update the applicability verdict if the repo content changes it.
 If scholar-ingest-cordiverse-paper has already completed by the time this is
 claimed, treat this as a normal re-ingest/supplement cycle against the existing
 library entry rather than a duplicate.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T22:02:19Z
