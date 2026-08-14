@@ -1,16 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 1
-deadline_overruns: 1
-doomed_at: 2026-08-06T07:13:03Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-06T07:13:03Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-14T12:57:45Z cleared=deadline-overrun=1 -->
 
 ---
 role: conductor
@@ -37,4 +29,3 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/885#pullrequestreview-4871644069
 
-<!-- garden-deadline-overrun: 1 -->
