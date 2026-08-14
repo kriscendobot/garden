@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T23:37:40Z_
+_As of 2026-08-14T23:41:42Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 17d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 26d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 25d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 28d)
@@ -4196,11 +4196,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 30.2M _(+955.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
+| Codex | 30.3M _(+959.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 91% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (1)
-- [`ironhorse-js-26-cd-eval-function-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cd-eval-function-dynamic-import.md) — Close residual language gap: eval of string source, the Function constructor,...
+- [`ironhorse-js-26-ca-regexp-properties-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ca-regexp-properties-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 
 ### doin (10)
 - [`endo-slots-ocapn-deliver-convention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-slots-ocapn-deliver-convention.md) — Migrate @endo/slots deliver bodies to the OCapN calling convention
@@ -4208,19 +4208,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #988
-- [`ironhorse-js-26-ca-regexp-properties`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-properties.md) — ---
 - [`ironhorse-js-26-ca-regexp-u-core-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-u-core-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cb-with-env-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cb-with-env-core.md) — with-cluster child A (FOUNDATIONAL): the environment-chain model + real with ...
 - [`ironhorse-js-26-cc-mop-has-own`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cc-mop-has-own.md) — Object MOP residual 1/7: hasOwnProperty receiver/key/exotic coverage
+- [`ironhorse-js-26-cd-eval-function-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cd-eval-function-dynamic-import.md) — Close residual language gap: eval of string source, the Function constructor,...
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4736)
+### tada (4737)
+- [`ironhorse-js-26-ca-regexp-properties`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-properties.md) — Cost
 - [`ironhorse-js-26-cc-object-mop-exotic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cc-object-mop-exotic.md) — Cost
 - [`endojs-endo-but-for-bots-pr988-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr909-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet-panel-1.md) — Cost
 - [`endo-cbor-adopt-slots`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-cbor-adopt-slots.md) — Completion report — endo-cbor-adopt-slots
-- [`endojs-endo-but-for-bots-pr124-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr124-merge.md) — Completion report — conductor: merge endojs/endo-but-for-bots#124
-- … and 4731 more
+- … and 4732 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
