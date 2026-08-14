@@ -26,9 +26,9 @@
 # SUBTEST 1 drives the pure helpers directly. SUBTEST 2 is the integration case: a
 # job on its 3rd requeue cycle (reap-count 2) with two constant-elapsed prior notes
 # seeded, failing again transiently at the same elapsed — the escalation must fire
-# (inbox + kind:error), the EARLY-DOOM overrun counter must be stamped (so the
-# reaper dooms after GARDEN_REAP_OVERRUN_THRESHOLD, not the full doom threshold),
-# and the job STAYS in doin (requeue ownership unchanged).
+# (inbox + kind:error), the distinct elapsed-constancy counter must be stamped,
+# and the job STAYS in doin (requeue ownership unchanged). The reaper must requeue
+# that first confirmation and park only after a second confirming cycle.
 # SUBTEST 3 is the disable gate (GARDEN_ELAPSED_CONSTANCY_CYCLES=0 → no escalation).
 # SUBTEST 4 is the dedup guard: a prior escalation entry for the base suppresses a
 # second. SUBTEST 5 is the not-enough-cycles guard: a first-pass job (reap-count 0)
@@ -153,7 +153,8 @@ run_gardener() {
 hr; echo "SUBTEST 2 — integration: 3rd cycle, constant elapsed, transient rc=1 → ESCALATES (job stays in doin)"; hr
 read -r TR2 BARE2 < <(build_fixture 2 1 0)
 trap 'rm -rf "$TR2"' EXIT
-run_gardener "$BARE2" echost2 "$TR2" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
+run_gardener "$BARE2" echost2 "$TR2" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
 CLONE2="$TR2/state/gardeners/1/journal"
 
 # (a) still classified TRANSIENT (the base classification is unchanged).
@@ -186,25 +187,68 @@ if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ ! -f "$V2/jobs/tada/overrunjob.md" 
 else
   bad "job not left in doin (doin=$([ -f "$V2/jobs/doin/overrunjob.md" ] && echo y || echo n) tada=$([ -f "$V2/jobs/tada/overrunjob.md" ] && echo y || echo n))"
 fi
-# (f) the EARLY-DOOM hint was stamped: the confirming cycle stamps the SAME
-# deadline-overrun counter the rc=124 wall-hit path uses, so the reaper dooms this
-# job after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle rather than the full doom
-# threshold. deadline_overrun_count reads the counter that landed on the doin body.
-if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")" -ge 1 ]; then
-  ok "early-doom overrun counter stamped on the doin job (deadline_overrun_count=$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")) — reaper dooms after GARDEN_REAP_OVERRUN_THRESHOLD, not the full threshold"
+# (f) the distinct elapsed-constancy hint was stamped. The wall-hit counter must
+# remain clear so the signals retain separate thresholds.
+if [ -f "$V2/jobs/doin/overrunjob.md" ] \
+   && [ "$(elapsed_constancy_count "$V2/jobs/doin/overrunjob.md")" -eq 1 ] \
+   && [ "$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")" -eq 0 ]; then
+  ok "first confirmation stamped elapsed-constancy=1 without contaminating the wall-hit counter"
 else
-  bad "no early-doom overrun counter on the doin job (constancy path did not stamp it; count=$([ -f "$V2/jobs/doin/overrunjob.md" ] && deadline_overrun_count "$V2/jobs/doin/overrunjob.md" || echo n/a))"
+  bad "reason-preserving marker split failed (elapsed=$([ -f "$V2/jobs/doin/overrunjob.md" ] && elapsed_constancy_count "$V2/jobs/doin/overrunjob.md" || echo n/a), wall=$([ -f "$V2/jobs/doin/overrunjob.md" ] && deadline_overrun_count "$V2/jobs/doin/overrunjob.md" || echo n/a))"
 fi
-# (g) the commit reason distinguishes the constancy stamp from a plain wall-hit.
+# (g) the commit reason names the constancy stamp.
 # Materialize the log FIRST: under `set -o pipefail` (line 45) a `git log | grep -q`
 # fails even on a match — grep -q exits at the first hit, git dies of SIGPIPE (141),
 # and pipefail promotes that to the pipeline's status. That is why this case read as
 # "commit reason missing" while the very log the failure message printed contained it.
 V2LOG="$TR2/verify-log"; git -C "$V2" log --oneline -20 > "$V2LOG"
-if grep -q "elapsed-constancy deterministic overrun" "$V2LOG"; then
-  ok "early-doom stamp carried the elapsed-constancy commit reason (audit trail honest)"
+if grep -q "elapsed-constancy: hint jobs/doin/overrunjob.md (confirmation 1)" "$V2LOG"; then
+  ok "confirmation stamp carried the elapsed-constancy commit reason"
 else
-  bad "early-doom stamp commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"
+  bad "elapsed-constancy commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"
+fi
+
+# (h) end to end: first confirmation requeues, the next confirming gardener run
+# increments the same reason-specific marker, and only then does the reaper park.
+env JOURNAL_REMOTE="$BARE2" JOURNAL_BRANCH=journal2 GARDEN=reapconst2 \
+    GARDEN_STATE="$TR2/reaper-state" GARDEN_SCRATCH="$TR2/reaper-scratch" \
+    GARDEN_CLAIM_TTL=3600 GARDEN_REAP_DOOM_THRESHOLD=99 \
+    GARDEN_REAP_OVERRUN_THRESHOLD=1 GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD=2 \
+    GARDEN_PROGRESS_DOOM=off "$JOBS/reaper.sh" > "$TR2/reaper-first.log" 2>&1
+rm -rf "$TR2/after-first"
+git clone -q --single-branch --branch journal2 "$BARE2" "$TR2/after-first" 2>/dev/null
+if [ -f "$TR2/after-first/jobs/todo/overrunjob.md" ] \
+   && [ ! -f "$TR2/after-first/jobs/plan/overrunjob.md" ] \
+   && [ "$(elapsed_constancy_count "$TR2/after-first/jobs/todo/overrunjob.md")" -eq 1 ]; then
+  ok "first elapsed-constancy confirmation requeued with its counter preserved"
+else
+  bad "first confirmation did not requeue cleanly"
+fi
+
+run_gardener "$BARE2" echost2 "$TR2" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
+rm -rf "$TR2/before-second-reap"
+git clone -q --single-branch --branch journal2 "$BARE2" "$TR2/before-second-reap" 2>/dev/null
+if [ "$(elapsed_constancy_count "$TR2/before-second-reap/jobs/doin/overrunjob.md")" -eq 2 ]; then
+  ok "second confirming cycle incremented elapsed-constancy to 2"
+else
+  bad "second confirming cycle did not increment the counter"
+fi
+env JOURNAL_REMOTE="$BARE2" JOURNAL_BRANCH=journal2 GARDEN=reapconst2 \
+    GARDEN_STATE="$TR2/reaper-state" GARDEN_SCRATCH="$TR2/reaper-scratch" \
+    GARDEN_CLAIM_TTL=3600 GARDEN_REAP_DOOM_THRESHOLD=99 \
+    GARDEN_REAP_OVERRUN_THRESHOLD=1 GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD=2 \
+    GARDEN_PROGRESS_DOOM=off "$JOBS/reaper.sh" > "$TR2/reaper-second.log" 2>&1
+rm -rf "$TR2/after-second"
+git clone -q --single-branch --branch journal2 "$BARE2" "$TR2/after-second" 2>/dev/null
+if [ -f "$TR2/after-second/jobs/plan/overrunjob.md" ] \
+   && grep -q '^doom_signature: elapsed-constancy$' "$TR2/after-second/jobs/plan/overrunjob.md" \
+   && grep -q '^elapsed_constancy_confirmations: 2$' "$TR2/after-second/jobs/plan/overrunjob.md" \
+   && ! grep -Eq '^<!-- garden-(elapsed-constancy|deadline-overrun):' "$TR2/after-second/jobs/plan/overrunjob.md" \
+   && [ -f "$TR2/after-second/inbox/maintainer/unread/doomed-overrunjob-elapsed-constancy.md" ]; then
+  ok "second confirmation parked and notified with its reason, leaving no stale signal markers"
+else
+  bad "second confirmation was not parked as elapsed-constancy doom"
 fi
 
 # ============================================================================
@@ -413,11 +457,11 @@ if grep -q "elapsed-constancy early-escalation" "$TR9/gardener.log"; then
 else
   ok "no escalation with zero prior cycles (the window was never full)"
 fi
-# (c) the damaging half: NO early-doom overrun counter stamped.
-if [ -f "$V9/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V9/jobs/doin/overrunjob.md")" -ge 1 ]; then
-  bad "SELF-SAMPLE: early-doom overrun counter stamped with zero prior cycles — the reaper would doom this job at GARDEN_REAP_OVERRUN_THRESHOLD=1 on its FIRST run"
+# (c) the damaging half: NO elapsed-constancy counter stamped.
+if [ -f "$V9/jobs/doin/overrunjob.md" ] && [ "$(elapsed_constancy_count "$V9/jobs/doin/overrunjob.md")" -ge 1 ]; then
+  bad "SELF-SAMPLE: elapsed-constancy counter stamped with zero prior cycles"
 else
-  ok "no early-doom overrun counter stamped (job cannot be doom-parked on its first cycle)"
+  ok "no elapsed-constancy counter stamped (job cannot be doom-parked on its first cycle)"
 fi
 # (d) no inbox escalation either.
 if [ -e "$CLONE9/inboxes/echost9/gardener.md" ]; then
@@ -442,15 +486,32 @@ if grep -q "elapsed-constancy early-escalation" "$TR10/gardener.log"; then
 else
   ok "no escalation on a varied elapsed series (470,900 → 3s)"
 fi
-if [ -f "$V10/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V10/jobs/doin/overrunjob.md")" -ge 1 ]; then
-  bad "SELF-SAMPLE: early-doom overrun counter stamped on a VARIED series"
+if [ -f "$V10/jobs/doin/overrunjob.md" ] && [ "$(elapsed_constancy_count "$V10/jobs/doin/overrunjob.md")" -ge 1 ]; then
+  bad "SELF-SAMPLE: elapsed-constancy counter stamped on a VARIED series"
 else
-  ok "no early-doom overrun counter stamped on a varied elapsed series"
+  ok "no elapsed-constancy counter stamped on a varied elapsed series"
 fi
 if [ -e "$CLONE10/inboxes/echost10/gardener.md" ]; then
   bad "inbox escalation created on a varied elapsed series"
 else
   ok "no gardener inbox escalation on a varied elapsed series"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 11 — outage cycle: constant elapsed accrues no confirmation"; hr
+read -r TR11 BARE11 < <(build_fixture 2 1 0)
+trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9" "$TR10" "$TR11"' EXIT
+run_gardener "$BARE11" echost11 "$TR11" \
+  GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_STUB_MESSAGE="Error: overloaded_error (529)" \
+  GARDEN_FLEET_BRAKE_THRESHOLD=1 GARDEN_FLEET_BRAKE_WINDOW_SECS=2 GARDEN_FLEET_BRAKE_PAUSE_SECS=1
+V11="$TR11/verify"; git clone -q --single-branch --branch journal2 "$BARE11" "$V11" 2>/dev/null
+if [ -f "$V11/jobs/doin/overrunjob.md" ] \
+   && grep -Eq '^<!-- garden-outage-cycle -->$' "$V11/jobs/doin/overrunjob.md" \
+   && [ "$(elapsed_constancy_count "$V11/jobs/doin/overrunjob.md")" -eq 0 ] \
+   && [ "$(deadline_overrun_count "$V11/jobs/doin/overrunjob.md")" -eq 0 ]; then
+  ok "constant elapsed under an engaged outage brake accrued neither signal counter"
+else
+  bad "outage constancy cycle accrued a signal counter"
 fi
 
 # ============================================================================

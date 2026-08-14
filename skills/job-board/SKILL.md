@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-12
+updated: 2026-08-14
 author: gardener
 ---
 
@@ -186,7 +186,8 @@ posted_at: <iso8601>
   retry-with-backoff like `post-job.sh`. It **clears the reaper/gardener cycle
   markers** from the body it parks — the same family the promote path clears (below)
   — because a producer that RE-PARKS a body it read off the board would otherwise
-  smuggle a stale `garden-deadline-overrun` counter into `plan/`, where it re-dooms
+  smuggle a stale `garden-deadline-overrun` or `garden-elapsed-constancy` counter
+  into `plan/`, where it re-dooms
   the job on its first evaluation after promotion. What it cleared is recorded in a
   `cleared:` frontmatter field, emitted **only** when something actually was, so an
   ordinary post's frontmatter is unchanged. The strip is idempotent and drops only
@@ -215,7 +216,8 @@ posted_at: <iso8601>
   - **The note is sanitized.** The appended text goes through the same
     cycle-marker strip as a park and a promotion, so a producer piping a live job
     body as a note ("here is what the last cycle reported") cannot re-introduce a
-    stale `garden-deadline-overrun` counter into `plan/` behind both of those
+    stale `garden-deadline-overrun` or `garden-elapsed-constancy` counter into
+    `plan/` behind both of those
     strips. What it cleared is recorded as a `cleared=` token on the annotation
     marker, emitted **only** when something actually was; a note that is
     *entirely* cycle markers has nothing left to say and is refused (exit 1).
@@ -246,8 +248,9 @@ posted_at: <iso8601>
 - **Promote** (`promote-plan.sh <base>`): move `plan/<base>` → `todo/<base>`,
   stripping the plan frontmatter so the todo job is the clean work body; then a
   gardener claims it normally. It also **clears the reaper/gardener cycle markers**
-  (`garden-reaped`, `garden-deadline-overrun`, and the per-cycle `garden-reap-now` /
-  `garden-productive-cycle` / `garden-outage-cycle` hints) and records the cleared
+  (`garden-reaped`, `garden-deadline-overrun`, `garden-elapsed-constancy`, and the
+  per-cycle `garden-reap-now` / `garden-productive-cycle` / `garden-outage-cycle`
+  hints) and records the cleared
   set in the `garden-promoted-from-plan` provenance comment, so a job the reaper
   DOOM-PARKED gets a genuinely fresh run instead of being re-doomed on its first
   cycle off the stale counter. No manual "clear it before promoting" step is needed.

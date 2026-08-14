@@ -62,8 +62,9 @@
 #                            on promotion, minus the cycle markers stripped below.
 #
 # PARKING CLEARS THE REAPER'S CYCLE COUNTERS. The reaper's and the gardener's cycle
-# markers — `<!-- garden-reaped: N -->`, `<!-- garden-deadline-overrun: N -->`, and the
-# per-cycle reap-now / productive-cycle / outage-cycle hints — are a running account of
+# markers — `<!-- garden-reaped: N -->`, `<!-- garden-deadline-overrun: N -->`,
+# `<!-- garden-elapsed-constancy: N -->`, and the per-cycle reap-now / productive-cycle /
+# outage-cycle hints — are a running account of
 # one job's failure history while it CYCLES through todo → doin → requeue. A job parked
 # in plan/ has stopped cycling, so those counts are stale the moment it is parked.
 #

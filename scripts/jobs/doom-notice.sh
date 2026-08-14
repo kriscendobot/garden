@@ -6,8 +6,9 @@
 #   <base>        the doomed job's basename (the spine).
 #   <signature>   a NORMALIZED failure signature for the doom event. The reaper
 #                 uses `requeue-exhausted` (the handler failed every cycle) and
-#                 `deadline-overrun` (the handler hit its own wall-clock budget
-#                 every cycle). Any ref-safe token is accepted.
+#                 `deadline-overrun` (the handler hit its own wall-clock budget)
+#                 and `elapsed-constancy` (a fast failure repeated at near-constant
+#                 elapsed). Any ref-safe token is accepted.
 #   [body-file]   the human-readable notice body; if omitted, read from stdin.
 #
 # WHY THIS EXISTS (dedup, kriskowal 2026-07-02). A fleet restart can exhaust the
@@ -22,7 +23,7 @@
 # THE DEDUP KEY is `<base> + <signature>`:
 #   - same base AND same signature  → AMEND the existing open notice.
 #   - different base, OR same base with a DIFFERENT signature (a materially
-#     different failure reason: requeue-exhausted vs deadline-overrun) → a NEW
+#     different failure reason) → a NEW
 #     notice (different key ⇒ different file).
 # The key is realized as a DETERMINISTIC filename in the maintainer inbox
 # (inbox/maintainer/unread/doomed-<base>-<signature>.md), so amend-or-post is a

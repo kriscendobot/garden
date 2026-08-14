@@ -342,31 +342,30 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 4 — reaper requeues a BELOW-threshold overrun (1) and PRESERVES the marker so it accumulates"; hr
+hr; echo "SUBTEST 4 — reaper parks one nonproductive wall hit at the shipped threshold"; hr
 # SUBTEST 2's gardener left hangjob in doin carrying `<!-- garden-deadline-overrun: 1 -->`
-# and the reap-now hint. Run the REAL reaper against that same origin: overrun 1 is
-# below GARDEN_REAP_OVERRUN_THRESHOLD (2), so the job is requeued doin→todo (driven by
-# the reap-now hint, before TTL) — and the deadline-overrun marker MUST survive the
-# requeue (clean_body strips only the reap-count and reap-now markers) so the count
-# accumulates to 2 on the next wall-hit and THEN dooms.
+# and the reap-now hint. Run the REAL reaper at its shipped wall-hit threshold of 1:
+# one rc=124 observation at the applied wall without productive progress is conclusive,
+# so the job is parked without spending another handler budget.
 env GARDEN="reaphost" GARDEN_STATE="$TR/reaper-state" GARDEN_CLAIM_TTL=3600 \
     "$JOBS/reaper.sh" > "$TR/reaper.log" 2>&1 || true
 R="$TR/reaper-verify"; rm -rf "$R"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$R" 2>/dev/null
-if [ -f "$R/jobs/todo/hangjob.md" ] && [ ! -f "$R/jobs/doin/hangjob.md" ]; then
-  ok "reaper requeued the overrun-1 job doin→todo (below the overrun doom threshold)"
+if [ -f "$R/jobs/plan/hangjob.md" ] && [ ! -f "$R/jobs/doin/hangjob.md" ] && [ ! -f "$R/jobs/todo/hangjob.md" ]; then
+  ok "one nonproductive wall hit doom-parked at GARDEN_REAP_OVERRUN_THRESHOLD=1"
 else
-  bad "overrun-1 job not requeued (todo=$([ -f "$R/jobs/todo/hangjob.md" ] && echo y || echo n) doin=$([ -f "$R/jobs/doin/hangjob.md" ] && echo y || echo n)); log: $(grep -iE 'doom|reap|stale' "$TR/reaper.log" | tail -3)"
+  bad "overrun-1 job not parked (todo=$([ -f "$R/jobs/todo/hangjob.md" ] && echo y || echo n) doin=$([ -f "$R/jobs/doin/hangjob.md" ] && echo y || echo n) plan=$([ -f "$R/jobs/plan/hangjob.md" ] && echo y || echo n)); log: $(grep -iE 'doom|reap|stale' "$TR/reaper.log" | tail -3)"
 fi
-if [ -f "$R/jobs/todo/hangjob.md" ] && grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$R/jobs/todo/hangjob.md"; then
-  ok "deadline-overrun marker PRESERVED across the requeue (count accumulates cycle over cycle)"
+if [ -f "$R/jobs/plan/hangjob.md" ] && grep -Eq '^doom_signature: deadline-overrun$' "$R/jobs/plan/hangjob.md"; then
+  ok "parked wall hit carries the deadline-overrun reason"
 else
-  bad "deadline-overrun marker lost on requeue; the count would never reach the doom threshold"
+  bad "parked wall hit lost its reason-specific signature"
 fi
-if [ -f "$R/jobs/todo/hangjob.md" ] && ! grep -Eq '^<!-- garden-reap-now -->$' "$R/jobs/todo/hangjob.md"; then
-  ok "reap-now hint stripped from the requeued job (no premature re-reap on the next claim)"
+if [ -f "$R/jobs/plan/hangjob.md" ] \
+   && ! grep -Eq '^<!-- garden-(reap-now|deadline-overrun|elapsed-constancy)' "$R/jobs/plan/hangjob.md"; then
+  ok "all signal-cycle markers stripped from the parked body"
 else
-  bad "reap-now hint persisted into the requeued job (a healthy re-claim would be reaped instantly)"
+  bad "a signal-cycle marker persisted into the parked body"
 fi
 
 # ============================================================================

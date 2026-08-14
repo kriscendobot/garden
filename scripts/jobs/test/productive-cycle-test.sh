@@ -28,10 +28,9 @@
 #             RESET (not doomed), while an identical NON-productive claim DOOMS at
 #             the same threshold — the resume-treadmill false-positive is gone, the
 #             genuine-failure case preserved.
-# SUBTEST 4 — reaper: the productive doctrine also spares the DEADLINE-OVERRUN counter.
-#             A productive wall-hit at GARDEN_REAP_OVERRUN_THRESHOLD is requeued with the
-#             overrun counter reset AND its marker stripped from the body (it survives
-#             clean_body by design), while a NON-productive wall-hit still dooms with
+# SUBTEST 4 — reaper: the productive doctrine also spares both reason-specific counters.
+#             A productive signal at either threshold is requeued with both counters
+#             reset and stripped, while a NON-productive wall-hit still dooms with
 #             the deadline-overrun signature — so a builder on the sanctioned resume
 #             treadmill that hits its own handler wall every cycle no longer false-dooms.
 #
@@ -155,16 +154,17 @@ export GARDEN=reaphost GARDEN_STATE="$T3/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
 export GARDEN_REAP_DOOM_THRESHOLD=1 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_CLAIM_TTL=3600
 
-# place_stale <base> <productive:0|1> [overrun:N] — a STALE claim in doin (claimed_at
-# past TTL), optionally carrying the productive-cycle marker and/or a deadline-overrun
-# counter marker (`<!-- garden-deadline-overrun: N -->`, only when N>0) in its body.
+# place_stale <base> <productive:0|1> [overrun:N] [constancy:N] — a STALE claim in doin (claimed_at
+# past TTL), optionally carrying the productive-cycle marker and either reason-specific
+# counter marker in its body.
 place_stale() {
-  local base="$1" productive="${2:-0}" overrun="${3:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
+  local base="$1" productive="${2:-0}" overrun="${3:-0}" constancy="${4:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
   git clone -q --single-branch --branch journal2 "$BARE3" "$wt"
   {
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
     [ "$productive" = "1" ] && printf '<!-- garden-productive-cycle -->\n'
     [ "$overrun" -gt 0 ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$overrun"
+    [ "$constancy" -gt 0 ] && printf '<!-- garden-elapsed-constancy: %s -->\n' "$constancy"
     printf -- '---\nclaim:\n  host: reaphost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
   printf 'worktree_dir: %s\n' "$T3/nonexistent-wt-$base" > "$wt/work/$base"
@@ -207,7 +207,7 @@ fail_ok=1
   || bad "non-productive doom broke (plan=$([ -f "$T3/v/jobs/plan/failjob.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failjob.md" ] && echo y || echo n))"
 
 # ============================================================================
-hr; echo "SUBTEST 4 — reaper: productive cycle also spares the deadline-overrun counter"; hr
+hr; echo "SUBTEST 4 — reaper: productive cycle also spares both signal counters"; hr
 # A builder on the sanctioned resume treadmill hits its OWN 2400s handler wall every
 # cycle by design and gets garden-deadline-overrun stamped each time. A PRODUCTIVE
 # wall-hit must NOT count toward the overrun doom (GARDEN_REAP_OVERRUN_THRESHOLD=2):
@@ -217,8 +217,8 @@ hr; echo "SUBTEST 4 — reaper: productive cycle also spares the deadline-overru
 
 # (a) productive wall-hit at/above the overrun threshold → requeued, NOT doomed, and
 #     the deadline-overrun marker is stripped from the body (re-earned next cycle).
-place_stale prodovr 1 2
-env GARDEN_REAP_DOOM_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=2 \
+place_stale prodovr 1 2 2
+env GARDEN_REAP_DOOM_THRESHOLD=99 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD=2 \
   "$JOBS/reaper.sh" > "$T3/reap-prodovr.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-prodovr.log"; }
 resync3
 po_ok=1
@@ -227,10 +227,11 @@ po_ok=1
 [ -f "$T3/v/jobs/doin/prodovr.md" ] && { po_ok=0; echo "    prodovr still in doin/"; }
 if [ -f "$T3/v/jobs/todo/prodovr.md" ]; then
   grep -Eq '^<!-- garden-deadline-overrun: [0-9]+ -->$' "$T3/v/jobs/todo/prodovr.md" && { po_ok=0; echo "    deadline-overrun marker not stripped on the productive requeue"; }
+  grep -Eq '^<!-- garden-elapsed-constancy: [0-9]+ -->$' "$T3/v/jobs/todo/prodovr.md" && { po_ok=0; echo "    elapsed-constancy marker not stripped on the productive requeue"; }
   grep -Eq '^<!-- garden-reaped: 0 -->$' "$T3/v/jobs/todo/prodovr.md" || { po_ok=0; echo "    reap counter not reset to 0"; }
 fi
 [ "$po_ok" -eq 1 ] \
-  && ok "a PRODUCTIVE wall-hit at overrun-threshold 2 → requeued to todo (overrun counter reset/stripped), NOT doomed" \
+  && ok "a PRODUCTIVE cycle at both signal thresholds → requeued with both counters reset/stripped" \
   || bad "productive overrun-reset failed (todo=$([ -f "$T3/v/jobs/todo/prodovr.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/prodovr.md" ] && echo y || echo n))"
 
 # (b) NON-productive wall-hit at the overrun threshold still DOOMS (deadline-overrun

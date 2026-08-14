@@ -940,7 +940,7 @@ while :; do
       # treating it as a DETERMINISTIC budget overrun. A handler that hit its own
       # 2400s wall will be killed identically every requeue, so requeuing it the full
       # 5 doom cycles (~200 min of gardener wall-clock) before surfacing it is pure
-      # waste — two identical deadline hits is already conclusive. Stamp the
+      # waste. One nonproductive deadline hit is already conclusive. Stamp the
       # deadline-overrun counter (below, in the transient block) so the reaper dooms
       # it after GARDEN_REAP_OVERRUN_THRESHOLD instead. The epsilon guard is
       # belt-and-suspenders: an external kill varies in elapsed and reads as 143/137
@@ -1030,6 +1030,21 @@ while :; do
 
     if [ "$transient" -eq 1 ]; then
       append_usage requeue
+      # Classify the cycle as an outage BEFORE any reason-specific counter is
+      # stamped. A failure that tips the shared brake belongs to the outage cycle
+      # just like one observed while the brake was already engaged. It may earn
+      # reap-now, but it must not accrue wall-hit or elapsed-constancy evidence.
+      outage_cycle=0
+      record_transient_failure
+      if fleet_brake_engaged; then
+        outage_cycle=1
+        if ( stamp_outage_cycle_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+          log "fleet brake ENGAGED at failure time for '$base'; stamped outage-cycle hint - signal counters will not accrue this cycle"
+        else
+          outage_cycle=0
+          log "could not stamp outage-cycle hint on '$base' (rc=$?); this cycle will count toward doom"
+        fi
+      fi
       # Fold the reaper's already-present requeue-cycle count (the
       # `<!-- garden-reaped: N -->` marker on $jobfile) into the note so a job that
       # dies the SAME transient way every cycle is greppable in the journal NOW,
@@ -1109,7 +1124,14 @@ while :; do
       # cannot kill this gardener; best-effort — on failure the TTL requeue still
       # backstops it. (Distinct from the non-signal real-failure branch below, which
       # escalates a diagnostic and stays on the plain reaper-TTL path unchanged.)
-      if [ "${deadline_overrun:-0}" -eq 1 ]; then
+      if [ "${deadline_overrun:-0}" -eq 1 ] && [ "$outage_cycle" -eq 1 ]; then
+        log "handler for '$base' hit its wall during an outage cycle; skipping the deadline-overrun counter"
+        if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+          log "stamped reap-now hint on '$base'; outage cycle will requeue without accruing a signal counter"
+        else
+          log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+        fi
+      elif [ "${deadline_overrun:-0}" -eq 1 ]; then
         # The handler hit its OWN wall-clock budget (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT):
         # a DETERMINISTIC overrun that will be killed identically on every requeue, NOT a
         # varying external kill. Stamp the deadline-overrun COUNTER alongside the reap-now
@@ -1132,14 +1154,11 @@ while :; do
         # the maintainer must reverse-engineer "too big for one claim" from the
         # reaper's generic doom report cycles later. Emit the same diagnosis HERE,
         # deterministically, under the SAME dedup key as the clamp path so both
-        # surfaces of the one root cause collapse onto a single throttled alert. The
-        # two overrun cycles before doom (GARDEN_REAP_OVERRUN_THRESHOLD=2) are
-        # ~one handler-budget + requeue-latency apart (≈2400-3000s < the 3600s
-        # default GARDEN_ALERT_THROTTLE_SECS), so the key dedups them to one alert.
+        # surfaces of the one root cause collapse onto a single throttled alert.
         # Best-effort/subshell-isolated like the surrounding stamps — never fail the
         # gardener (alert_maintainer already swallows its own errors).
         ( alert_maintainer "handler-budget-overrun-$base" \
-            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (${GARDEN_REAP_OVERRUN_THRESHOLD:-2}) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
+            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (${GARDEN_REAP_OVERRUN_THRESHOLD:-1}) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
         if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
           log "stamped deadline-overrun hint on '$base'; reaper will requeue before TTL and doom early (overrun cycle counts)"
         else
@@ -1195,9 +1214,9 @@ while :; do
       # A misconfigured (non-integer) tunable DISABLES the check rather than crashing
       # the gardener loop on the arithmetic test below (this runs on every failed job).
       case "$constancy_n" in ''|*[!0-9]*) constancy_n=0 ;; esac
-      # SUPPRESS during a fleet-wide outage. This path does more than advise — it stamps
-      # the early-doom deadline-overrun counter (below) so a "deterministic overrun"
-      # dooms after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle. But under an ENGAGED fleet
+      # SUPPRESS during a fleet-wide outage. This path does more than advise: it stamps
+      # the elapsed-constancy counter (below) so a deterministic fast failure
+      # dooms after two confirming observations. But under an ENGAGED fleet
       # brake a near-constant elapsed is equally the signature of an environmental storm
       # (a session/usage cap tripping at the same point every run — the 2026-07-01
       # incident) that will self-resolve, NOT a per-job defect. Stamping the overrun
@@ -1206,7 +1225,7 @@ while :; do
       # engaged; the outage-cycle hint (above) spares the requeue counter for these cycles.
       if [ "$constancy_n" -ge 2 ] && [ "$cycle" -ge 2 ] && [ -s "$capture" ] \
          && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc" \
-         && ! is_environmental_rc "$rc" && ! fleet_brake_engaged; then
+         && ! is_environmental_rc "$rc" && [ "$outage_cycle" -ne 1 ]; then
         # Prior cycles' elapsed (SNAPSHOTTED above, before this cycle's own note was
         # written and before the stamp helpers re-synced $CLONE onto a tip carrying
         # it) with the current elapsed appended, then the trailing N-cycle window;
@@ -1225,24 +1244,16 @@ while :; do
           # The window CONFIRMS a deterministic overrun. Two responses, at DIFFERENT
           # cadences:
           #
-          # (1) EARLY-DOOM HINT — EVERY confirming cycle. Reuse the deadline-overrun
-          # COUNTER (stamp_deadline_overrun_hint, the SAME early-doom mechanism the
-          # rc=124 wall-hit path uses) so the reaper escalates this job to DOOM after
-          # GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle instead of burning the full
-          # GARDEN_REAP_DOOM_THRESHOLD (5) — exactly what happened to the four 1–2s
-          # jobs in the 2026-07-03 batch, each of which emitted ONE advisory and then
-          # burned all ~5 cycles. The counter must INCREMENT each confirming cycle to
-          # reach the threshold, so this is deliberately NOT deduped (unlike the loud
-          # kind:error at (2)). The marker is identical to the wall-hit path's — the
-          # reaper knows only the one `garden-deadline-overrun` counter — but a distinct
-          # commit reason keeps the git audit trail honest. Subshell-isolated (sync_clone
-          # may offline-exit); best-effort — the reaper's full doom threshold still
-          # backstops it on failure. Stamped alongside the reap-now hint already placed
-          # above, so the reaper requeues promptly and the overrun count accrues.
-          if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" "elapsed-constancy deterministic overrun" ); then
-            log "elapsed-constancy for '$base': stamped the early-doom overrun counter (constant elapsed ${series_csv}s over $constancy_n cycles); reaper will doom after GARDEN_REAP_OVERRUN_THRESHOLD instead of the full doom threshold"
+          # (1) EARLY-DOOM HINT - EVERY confirming cycle. Stamp the distinct
+          # elapsed-constancy counter so the reaper can require two confirmations
+          # without weakening the one-observation rc=124 wall-hit path. The counter
+          # must increment each confirming cycle, so this is deliberately not
+          # deduped (unlike the loud kind:error at (2)). Subshell-isolated because
+          # sync_clone may offline-exit; the full doom threshold remains the fallback.
+          if ( stamp_elapsed_constancy_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+            log "elapsed-constancy for '$base': stamped confirmation counter (constant elapsed ${series_csv}s over $constancy_n cycles); reaper will doom after GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD (${GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD:-2}) confirmations"
           else
-            log "elapsed-constancy for '$base': could not stamp the early-doom overrun counter (rc=$?); falling back to the reaper's full doom threshold"
+            log "elapsed-constancy for '$base': could not stamp the confirmation counter (rc=$?); falling back to the reaper's full doom threshold"
           fi
           # (2) LOUD kind:error — at most ONCE per base (dedup on $already), so a human
           # sees the diagnostic without a fresh inbox section on every confirming cycle.
@@ -1260,8 +1271,9 @@ while :; do
               printf 'point every run, or a prompt that drives the CLI to the same failure), NOT\n'
               printf 'an external signal-kill or wall-clock timeout (those vary in elapsed and\n'
               printf 'are excluded). Left in doin for the reaper (requeue ownership UNCHANGED),\n'
-              printf 'with the early-doom overrun counter stamped so it surfaces after\n'
-              printf 'GARDEN_REAP_OVERRUN_THRESHOLD cycles instead of the full %s. Triage the\n' "${GARDEN_REAP_DOOM_THRESHOLD:-5}"
+              printf 'with the elapsed-constancy counter stamped so it surfaces after\n'
+              printf 'GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD (%s) confirmations instead of the full %s-cycle threshold. Triage the\n' \
+                "${GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD:-2}" "${GARDEN_REAP_DOOM_THRESHOLD:-5}"
               printf 'job spec / handler rather than waiting out the doom threshold.\n'
             } > "$constancy_tr"
             sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
@@ -1286,20 +1298,6 @@ while :; do
       # requeue owner (nothing above changed that). fail_attempt grows across
       # consecutive transient failures (reset only on a genuine completion), so a
       # sustained outage backs this worker off exponentially up to the idle cap.
-      record_transient_failure
-      # If this transient failure is part of a fleet-wide correlated outage (the shared
-      # brake is now engaged), stamp the outage-cycle hint so the reaper PAUSES the doom
-      # counter for this cycle: an environmental storm must never doom an otherwise-
-      # healthy job (the 2026-07-01 dozen-job dooming; common.sh § outage-cycle hint).
-      # Checked AFTER recording so this failure counts toward the density. Best-effort,
-      # subshell-isolated. Rides alongside the reap-now/deadline-overrun hint stamped above.
-      if fleet_brake_engaged; then
-        if ( stamp_outage_cycle_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
-          log "fleet brake ENGAGED at failure time for '$base'; stamped outage-cycle hint — reaper will PAUSE the doom counter this cycle (sustained environmental transient, not counted toward doom)"
-        else
-          log "could not stamp outage-cycle hint on '$base' (rc=$?); this cycle will count toward doom"
-        fi
-      fi
       idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
     else
       append_usage fail

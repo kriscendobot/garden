@@ -162,7 +162,7 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 4 — a DEFAULT-budget job that DETERMINISTICALLY overruns (rc=124 at the wall) alerts the maintainer ONCE with split/detached guidance, deduped across the two pre-doom overrun cycles"; hr
+hr; echo "SUBTEST 4 — repeated DEFAULT-budget wall hits share one actionable maintainer alert"; hr
 D4="$TR/s4"; mkdir -p "$D4"
 # NO handler-timeout header (default budget stands). Default budget 1s; stub sleeps
 # 3s → SIGTERM-killed at the 1s wall (rc=124, elapsed≈1 ≥ budget−epsilon) → a
@@ -214,20 +214,21 @@ else
   bad "alert missing the split/detached diagnosis. record: $(cat "$REC4")"
 fi
 
-# Second overrun cycle within the throttle window: requeue the same base and run
-# again against the SAME GARDEN_STATE (so the throttle marker persists). Both
+# Repeat the gardener observation within the throttle window by manually requeueing
+# without running the reaper (which would park after the first wall hit). Run again
+# against the SAME GARDEN_STATE so the throttle marker persists. Both
 # surfaces of the one root cause share the `handler-budget-overrun-<base>` key, so
 # the alert must be DEDUPED — the record still holds exactly ONE entry across both
-# cycles, confirming the throttle collapses the two pre-doom overrun cycles.
+# direct gardener invocations, confirming the throttle collapses repeat observations.
 requeue_doin_to_todo
 run_overrun_cycle "$D4/gardener2.log"
 if grep -Eq "deterministic deadline overrun" "$D4/gardener2.log"; then
-  ok "second cycle also overran deterministically (the same root cause repeats before doom)"
+  ok "a repeated direct invocation also overran deterministically"
 else
   bad "second cycle did not re-overrun. log: $(grep -i 'deadline\|overrun\|rc=124' "$D4/gardener2.log" | tail -3)"
 fi
 if [ "$(grep -c '^KEY=handler-budget-overrun-overrunjob$' "$REC4")" = 1 ]; then
-  ok "alert deduped across the two pre-doom overrun cycles (the shared throttle key collapsed them to one)"
+  ok "alert deduped across repeated wall-hit observations"
 else
   bad "expected the alert to stay deduped at one entry across both cycles. record: $(cat "$REC4")"
 fi

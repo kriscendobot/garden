@@ -104,6 +104,9 @@ GARDEN_TAG="reaper"
 # The gardener owns/increments the counter (common.sh § deadline-overrun); the reaper
 # only reads it to decide the threshold.
 : "${GARDEN_REAP_OVERRUN_THRESHOLD:=1}" # deadline-overrun cycles after which a wall-hitting job is surfaced as doom
+# Elapsed constancy is a weaker fast-failure signal. Its distinct counter requires
+# a second confirming observation without delaying the conclusive wall-hit path.
+: "${GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD:=2}" # confirming fast-failure observations before elapsed-constancy doom
 : "${GARDEN_PROGRESS_DOOM:=on}"          # off restores the elapsed-only destination decision
 
 # --- two-writers-in-one-worktree guard (data-corruption class) ----------------
@@ -739,12 +742,12 @@ STALE=("${KEEP[@]}")
 reaped=0
 doomed=0
 staged=0
-declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_SIG=() DOOM_BUDGET=()
+declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_CONSTANCY=() DOOM_SIG=() DOOM_BUDGET=()
 declare -a DOOM_TOKEN_BUDGET=() DOOM_TOKEN_SPEND=() DOOM_PROGRESS=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
-  DOOM_BASE=(); DOOM_BODY=(); DOOM_COUNT=(); DOOM_OVERRUN=(); DOOM_SIG=(); DOOM_BUDGET=()
+  DOOM_BASE=(); DOOM_BODY=(); DOOM_COUNT=(); DOOM_OVERRUN=(); DOOM_CONSTANCY=(); DOOM_SIG=(); DOOM_BUDGET=()
   DOOM_TOKEN_BUDGET=(); DOOM_TOKEN_SPEND=(); DOOM_PROGRESS=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
@@ -792,8 +795,11 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # clean_body preserves this marker across the requeue (it strips only the reap-count
     # and reap-now markers), so the count accumulates cycle over cycle.
     overrun="$(deadline_overrun_count "$f")"
-    # PRODUCTIVE cycle also spares the deadline-overrun counter, symmetric to the reap
-    # counter above — and it is what makes the threshold-1 doom safe. A builder on the
+    # The fast-failure elapsed-constancy detector owns a separate counter. Its first
+    # confirmation requeues; only its second confirmation reaches the default threshold.
+    constancy="$(elapsed_constancy_count "$f")"
+    # PRODUCTIVE cycle also spares both signal counters, symmetric to the reap
+    # counter above, and it is what makes the threshold-1 wall-hit doom safe. A builder on the
     # SANCTIONED resume treadmill hits its OWN handler wall (rc=124 at its budget) every
     # cycle BY DESIGN and gets garden-deadline-overrun stamped each time; at
     # GARDEN_REAP_OVERRUN_THRESHOLD=1 it would false-doom after its FIRST productive
@@ -805,13 +811,18 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # stale N and re-accumulates. Only NON-productive wall-hits count toward the overrun
     # doom — a genuinely deadlocked handler never earns the productive marker and still
     # dooms at threshold 1, after its first no-progress overrun.
-    if [ "$productive" -eq 1 ] && [ "$overrun" -ne 0 ]; then
-      log "productive: '$base' hit its handler wall on a productive cycle; resetting deadline-overrun counter (was $overrun) — not counted toward overrun doom"
+    if [ "$productive" -eq 1 ] && { [ "$overrun" -ne 0 ] || [ "$constancy" -ne 0 ]; }; then
+      log "productive: '$base' carried failure-signal counters on a productive cycle; resetting wall-hit=$overrun elapsed-constancy=$constancy"
       overrun=0
-      body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
+      constancy=0
+      body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE" || true)"
     fi
     old_doom=0
-    if [ "$outage" -ne 1 ] && { [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; }; then
+    if [ "$outage" -ne 1 ] && { \
+      [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] \
+      || [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ] \
+      || [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; \
+    }; then
       old_doom=1
     fi
     should_park="$old_doom"
@@ -831,15 +842,14 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         should_park=0
         count=0
         overrun=0
-        body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE" || true)"
+        constancy=0
+        body="$(printf '%s\n' "$body" | grep -vE "$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE" || true)"
         log "progress: '$base' spent ${token_spend} output token(s), below budget $token_budget; requeueing instead of elapsed-only doom"
       elif [ "$progress" = wedged ]; then
-        if [ "$count" -ge "$GARDEN_REAP_DOOM_THRESHOLD" ]; then
-          should_park=1
-          sig=requeue-exhausted
-        else
-          should_park=0
-        fi
+        # A wedged verdict reinforces whichever elapsed threshold fired. Do not
+        # make an rc=124 wall hit spend the full generic requeue budget merely
+        # because durable progress evidence also says it is stuck.
+        should_park=1
       fi
       # An unknown verdict retains the historical elapsed-only disposition.
     fi
@@ -861,7 +871,13 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # dedup below. The signature (deterministic-overrun vs generic requeue
       # exhaustion) keys both the plan provenance and the maintainer notice.
       if [ -z "$sig" ]; then
-        if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then sig="deadline-overrun"; else sig="requeue-exhausted"; fi
+        if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
+          sig="deadline-overrun"
+        elif [ "$constancy" -ge "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD" ]; then
+          sig="elapsed-constancy"
+        else
+          sig="requeue-exhausted"
+        fi
       fi
       # doom_count: how many times THIS job has been doom-parked. A re-doom
       # bumps the prior value carried in the existing plan file (idempotent on the
@@ -886,6 +902,10 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       exec_model="$(plan_field "$f" model)"
       exec_budget_role="$(plan_field "$f" handler-budget-role)"
       exec_timeout="$(plan_field "$f" handler-timeout)"
+      # The reason counts live in plan frontmatter below. Strip their cycle markers,
+      # along with every other per-cycle hint, so a parked body is inert even before
+      # the promotion-side reset runs.
+      body="$(printf '%s\n' "$body" | strip_cycle_markers)"
       {
         printf -- '---\n'
         printf 'gate: go-ahead\n'
@@ -913,6 +933,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
         fi
         printf 'requeue_cycles: %s\n'   "$count"
         printf 'deadline_overruns: %s\n' "$overrun"
+        printf 'elapsed_constancy_confirmations: %s\n' "$constancy"
         if [ "$sig" = over-token-budget ]; then
           printf 'parked_on: %s\n' "$GARDEN"
         else
@@ -929,7 +950,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
       git -C "$DIR" add "$JOBS_PLAN/$base"
       DOOM_BASE+=("$spine"); DOOM_BODY+=("$body"); DOOM_COUNT+=("$count")
-      DOOM_OVERRUN+=("$overrun"); DOOM_SIG+=("$sig")
+      DOOM_OVERRUN+=("$overrun"); DOOM_CONSTANCY+=("$constancy"); DOOM_SIG+=("$sig")
       DOOM_BUDGET+=("$doomed_budget")
       DOOM_TOKEN_BUDGET+=("$token_budget"); DOOM_TOKEN_SPEND+=("$token_spend")
       DOOM_PROGRESS+=("$progress")
@@ -1004,6 +1025,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     for i in "${!DOOM_BASE[@]}"; do
       pbase="${DOOM_BASE[$i]}"
       povr="${DOOM_OVERRUN[$i]:-0}"
+      pconst="${DOOM_CONSTANCY[$i]:-0}"
       psig="${DOOM_SIG[$i]:-requeue-exhausted}"
       pbudget="${DOOM_BUDGET[$i]:-${GARDEN_HANDLER_TIMEOUT:-2400}}"
       if [ "$psig" = over-token-budget ]; then
@@ -1016,32 +1038,29 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
           printf 'The work is preserved at jobs/plan/%s.\n' "$pbase"
         )"
         surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
-      elif [ "$povr" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
-        # Early-escalation doom (the gardener stamped the deadline-overrun counter).
-        # The counter is stamped from TWO gardener paths that the reaper cannot tell
-        # apart here — a GENUINE wall-clock overrun (rc=124 at the handler budget) and
-        # a FAST repeated failure the elapsed-constancy detector flags (e.g. a 1–2s
-        # usage-cap rejection that recurs with constant elapsed). The old notice
-        # asserted a wall-clock overrun as fixed boilerplate ("elapsed≈2400s") and gave
-        # budget-raising advice that is actively wrong for the fast-failure case, and it
-        # printed the literal 2400s default even for a job declaring a larger
-        # handler-timeout. So this notice names the ACTUAL budget in force ($pbudget,
-        # captured at park time) and presents BOTH shapes with how to tell them apart,
-        # instead of a single false claim.
-        log "DOOM (deadline-overrun): '$pbase' stamped the deadline-overrun counter ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}), budget=${pbudget}s; parked in plan/ (held), surfacing to maintainer"
+      elif [ "$psig" = deadline-overrun ]; then
+        log "DOOM (deadline-overrun): '$pbase' stamped the deadline-overrun counter ${povr} time(s) (>= ${GARDEN_REAP_OVERRUN_THRESHOLD}), budget=${pbudget}s; parked in plan/ (held), surfacing to maintainer"
         pbody="$(
-          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s early-escalation cycle(s) on %s.\n' \
+          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s handler wall hit(s) on %s.\n' \
                  "$povr" "$GARDEN"
-          printf 'The gardener stamped the deadline-overrun counter, so the reaper surfaced it after %s\n' "$povr"
-          printf 'cycle(s) rather than the full %s-cycle doom threshold. The effective handler budget in\n' \
-                 "$GARDEN_REAP_DOOM_THRESHOLD"
-          printf 'force for this job is %ss. That counter is stamped for two DISTINCT shapes; check the\n' "$pbudget"
-          printf 'gardener log for the actual elapsed to tell which applies:\n'
-          printf '  (a) GENUINE wall-clock overrun — elapsed ≈ %ss (rc=124 at the wall). The job does not\n' "$pbudget"
-          printf '      fit one claim: SPLIT it into claim-sized stages, or raise its handler-timeout.\n'
-          printf '  (b) FAST repeated failure — elapsed far below %ss (e.g. a 1–2s usage-cap/API rejection)\n' "$pbudget"
-          printf '      flagged by elapsed-constancy. The budget is NOT the problem; read the handler log\n'
-          printf '      for the real cause (quota/usage cut, swallowed error) — raising the budget will not help.\n'
+          printf 'The handler returned rc=124 at its applied %ss wall-clock budget without productive progress.\n' "$pbudget"
+          printf 'One such observation is conclusive, so the reaper did not spend another full handler budget.\n'
+          printf 'Split the work into claim-sized stages or raise its handler-timeout.\n'
+          printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
+          printf '(promote-plan.sh %s) or removes it.\n' "$pbase"
+          printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
+                 "$pbase" "${DOOM_BODY[$i]}"
+        )"
+        surface_doom "$pbase" "$psig" "reaper:$GARDEN" "$pbody" || true
+      elif [ "$psig" = elapsed-constancy ]; then
+        log "DOOM (elapsed-constancy): '$pbase' reached ${pconst} confirming fast-failure observations (>= ${GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
+        pbody="$(
+          printf 'DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after %s elapsed-constancy confirmations on %s.\n' \
+                 "$pconst" "$GARDEN"
+          printf 'The handler repeatedly failed at a near-constant elapsed below its wall-clock budget.\n'
+          printf 'The first confirmation was requeued; the reaper parked only after the %s-confirmation threshold.\n' \
+                 "$GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD"
+          printf 'Read the handler log for the fast failure cause. Raising the handler budget will not help.\n'
           printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
           printf '(promote-plan.sh %s) or removes it.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \

@@ -44,6 +44,7 @@ hr()  { echo "----------------------------------------------------------------";
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 
 STUB="$HERE/signal-kill-handler-stub.sh"   # exits GARDEN_STUB_RC (default 143) → transient
+TIMEOUT_STUB="$HERE/timeout-handler-stub.sh"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-outage.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 git_id=(-c user.name=test -c user.email=test@localhost)
 
@@ -142,6 +143,26 @@ else
   bad "outage marker NOT stamped under an engaged brake ($(grep -i 'brake\|outage\|handler' "$T2/gardener.log" | tail -3))"
 fi
 
+# (a2) A wall hit that itself tips the brake is an outage cycle. It receives the
+# outage and reap-now markers, but must not accrue either reason-specific counter.
+T2w="$TR/e2e-wall-outage"; mkdir -p "$T2w"
+BARE2w="$(seed_board "$T2w" walloutjob)"
+env GARDEN="wallouthost" GARDEN_STATE="$T2w/state" JOURNAL_REMOTE="$BARE2w" JOURNAL_BRANCH=journal2 \
+    GARDEN_SCRATCH="$T2w/scratch" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+    GARDEN_FLEET_BRAKE_THRESHOLD=1 GARDEN_FLEET_BRAKE_WINDOW_SECS=2 GARDEN_FLEET_BRAKE_PAUSE_SECS=1 \
+    GARDEN_HANDLER_TIMEOUT=1 GARDEN_HANDLER_KILL_AFTER=1 GARDEN_CLAIM_TTL=10 \
+    GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_JOB_HANDLER="$TIMEOUT_STUB" \
+    timeout 60 "$JOBS/gardener.sh" 1 > "$T2w/gardener.log" 2>&1 || true
+V2w="$T2w/verify"; git clone -q --single-branch --branch journal2 "$BARE2w" "$V2w" 2>/dev/null
+if [ -f "$V2w/jobs/doin/walloutjob.md" ] \
+   && grep -Eq '^<!-- garden-outage-cycle -->$' "$V2w/jobs/doin/walloutjob.md" \
+   && ! grep -Eq '^<!-- garden-deadline-overrun:' "$V2w/jobs/doin/walloutjob.md" \
+   && ! grep -Eq '^<!-- garden-elapsed-constancy:' "$V2w/jobs/doin/walloutjob.md"; then
+  ok "a wall hit that tips the outage brake accrues neither signal counter"
+else
+  bad "outage wall hit accrued a signal counter ($(grep -E 'garden-(outage|deadline|elapsed)' "$V2w/jobs/doin/walloutjob.md" 2>/dev/null | tr '\n' '|'))"
+fi
+
 # (b) BRAKE DISENGAGED (threshold 0 disables the brake): the same transient failure
 #     must NOT stamp the marker — a lone blip is not a fleet-wide outage.
 T2b="$TR/e2e-noout"; mkdir -p "$T2b"
@@ -166,18 +187,19 @@ BARE3="$(seed_board "$T3" xjob)"   # board structure (job body reused as fixture
 export JOURNAL_REMOTE="$BARE3" JOURNAL_BRANCH=journal2
 export GARDEN=reaphost GARDEN_STATE="$T3/state"
 export GARDEN_POST_ATTEMPTS=50 GARDEN_REAP_PUSH_ATTEMPTS=50
-export GARDEN_REAP_DOOM_THRESHOLD=3 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_CLAIM_TTL=3600
+export GARDEN_REAP_DOOM_THRESHOLD=3 GARDEN_REAP_OVERRUN_THRESHOLD=1 GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD=2 GARDEN_CLAIM_TTL=3600
 
-# place_stale <base> <outage:0|1> [reaped:N] — a STALE claim in doin (claimed_at past
-# TTL), optionally carrying the outage marker and/or a prior reap-count marker
-# (`<!-- garden-reaped: N -->`, only when N>0) in its body.
+# place_stale <base> <outage:0|1> [reaped:N] [wall:N] [constancy:N] — a STALE
+# claim in doin, optionally carrying the outage marker and prior counters.
 place_stale() {
-  local base="$1" outage="${2:-0}" reaped="${3:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
+  local base="$1" outage="${2:-0}" reaped="${3:-0}" wall="${4:-0}" constancy="${5:-0}" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
   git clone -q --single-branch --branch journal2 "$BARE3" "$wt"
   {
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
     [ "$outage" = "1" ] && printf '<!-- garden-outage-cycle -->\n'
     [ "$reaped" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$reaped"
+    [ "$wall" -gt 0 ] && printf '<!-- garden-deadline-overrun: %s -->\n' "$wall"
+    [ "$constancy" -gt 0 ] && printf '<!-- garden-elapsed-constancy: %s -->\n' "$constancy"
     printf -- '---\nclaim:\n  host: reaphost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
   printf 'worktree_dir: %s\n' "$T3/nonexistent-wt-$base" > "$wt/work/$base"
@@ -191,7 +213,7 @@ resync3() { rm -rf "$T3/v"; git clone -q --single-branch --branch journal2 "$BAR
 # An OUTAGE stale claim already AT the doom threshold (reaped:3, threshold 3) must
 # NOT doom: it requeues to todo with the counter HELD at 3 (not incremented to 4,
 # not reset to 0) and the outage marker stripped (re-earned next cycle).
-place_stale outjob 1 3
+place_stale outjob 1 3 1 2
 "$JOBS/reaper.sh" > "$T3/reap-out.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-out.log"; }
 resync3
 out_ok=1
@@ -200,10 +222,12 @@ out_ok=1
 [ -f "$T3/v/jobs/doin/outjob.md" ] && { out_ok=0; echo "    outjob still in doin/"; }
 if [ -f "$T3/v/jobs/todo/outjob.md" ]; then
   grep -Eq '^<!-- garden-reaped: 3 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    reap counter not HELD at 3 ($(grep -o 'garden-reaped: [0-9]*' "$T3/v/jobs/todo/outjob.md" | head -1))"; }
+  grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    wall-hit counter was not held"; }
+  grep -Eq '^<!-- garden-elapsed-constancy: 2 -->$' "$T3/v/jobs/todo/outjob.md" || { out_ok=0; echo "    elapsed-constancy counter was not held"; }
   grep -Eq '^<!-- garden-outage-cycle -->$' "$T3/v/jobs/todo/outjob.md" && { out_ok=0; echo "    outage marker not stripped on requeue"; }
 fi
 [ "$out_ok" -eq 1 ] \
-  && ok "an OUTAGE cycle AT threshold 3 → requeued to todo (counter HELD at 3, marker stripped), NOT doomed" \
+  && ok "an OUTAGE cycle holds the general, wall-hit, and elapsed-constancy counters without doom" \
   || bad "outage-cycle pause failed (todo=$([ -f "$T3/v/jobs/todo/outjob.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/outjob.md" ] && echo y || echo n))"
 
 # The genuine-failure case is preserved: a NON-outage stale claim at the same reaped

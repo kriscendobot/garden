@@ -194,9 +194,8 @@ resync
 
 role_notice="$V/inbox/maintainer/unread/doomed-rolebudget-deadline-overrun.md"
 if [ -f "$role_notice" ] \
-   && grep -q 'effective handler budget in' "$role_notice" \
-   && grep -q 'force for this job is 7200s' "$role_notice" \
-   && grep -q 'elapsed ≈ 7200s' "$role_notice"; then
+   && grep -q 'rc=124 at its applied 7200s wall-clock budget' "$role_notice" \
+   && grep -q 'One such observation is conclusive' "$role_notice"; then
   ok "doom notice prints the resolved 7200s conductor budget (not the 2400s fleet default)"
 else
   bad "role-defaulted doom notice missing or reports the wrong budget"

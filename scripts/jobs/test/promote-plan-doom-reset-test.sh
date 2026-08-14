@@ -16,8 +16,9 @@
 # past it" — a manual step no promoter reliably performs.
 #
 # THE FIX: promotion is a deliberate "run this again" act, so promote-plan.sh CLEARS the
-# whole cycle-marker family (reap-count, deadline-overrun, and the per-cycle reap-now /
-# productive-cycle / outage-cycle hints) and records what it cleared in the existing
+# whole cycle-marker family (reap-count, deadline-overrun, elapsed-constancy, and the
+# per-cycle reap-now / productive-cycle / outage-cycle hints) and records what it
+# cleared in the existing
 # `<!-- garden-promoted-from-plan: … -->` provenance comment, so the reset is auditable
 # rather than silent. The reaper's protection is unchanged: a job that still fails
 # deterministically re-accumulates and re-dooms on its own.
@@ -132,6 +133,7 @@ readback() {  # readback <relpath> — file contents from a fresh clone
 park allmarkers \
   '<!-- garden-reaped: 4 -->' \
   '<!-- garden-deadline-overrun: 2 -->' \
+  '<!-- garden-elapsed-constancy: 2 -->' \
   '<!-- garden-reap-now -->' \
   '<!-- garden-productive-cycle -->' \
   '<!-- garden-outage-cycle -->'
@@ -140,11 +142,11 @@ park allmarkers \
 body="$(readback jobs/todo/allmarkers.md)"
 
 strip_ok=1
-for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
   printf '%s\n' "$body" | grep -q -- "$m" && { strip_ok=0; echo "    marker survived promotion: $m"; }
 done
 [ "$strip_ok" -eq 1 ] \
-  && ok "every cycle marker (reaped / deadline-overrun / reap-now / productive / outage) is cleared on promotion" \
+  && ok "every cycle marker (reaped / wall-hit / elapsed-constancy / reap-now / productive / outage) is cleared on promotion" \
   || bad "promotion left cycle markers on the todo body"
 
 printf '%s\n' "$body" | grep -q 'the original work body for allmarkers' \
@@ -161,6 +163,7 @@ prov="$(printf '%s\n' "$body" | grep 'garden-promoted-from-plan' | head -1)"
 { printf '%s' "$prov" | grep -q 'cleared=' \
   && printf '%s' "$prov" | grep -q 'reaped=4' \
   && printf '%s' "$prov" | grep -q 'deadline-overrun=2' \
+  && printf '%s' "$prov" | grep -q 'elapsed-constancy=2' \
   && printf '%s' "$prov" | grep -q 'reap-now' \
   && printf '%s' "$prov" | grep -q 'productive-cycle' \
   && printf '%s' "$prov" | grep -q 'outage-cycle'; } \
@@ -209,15 +212,16 @@ place_stale() {
 }
 resync2() { rm -rf "$T2/v"; git clone -q --single-branch --branch journal2 "$BARE2" "$T2/v"; }
 
-# (a) a deterministic overrunner dooms at GARDEN_REAP_OVERRUN_THRESHOLD=1 — the
-#     precondition this whole fix is about. Its parked body carries the counter.
+# (a) a deterministic overrunner dooms at GARDEN_REAP_OVERRUN_THRESHOLD=1. The
+#     parked frontmatter preserves the count while its body drops the stale marker.
 printf '# ovrjob\n\nthe original work body for ovrjob\n\n<!-- garden-deadline-overrun: 1 -->\n' > "$T2/ovr-body.md"
 place_stale ovrjob "$T2/ovr-body.md"
 "$JOBS/reaper.sh" > "$T2/reap1.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap1.log"; }
 resync2
 { [ -f "$T2/v/jobs/plan/ovrjob.md" ] && grep -q '^doomed: true$' "$T2/v/jobs/plan/ovrjob.md" \
-  && grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$T2/v/jobs/plan/ovrjob.md"; } \
-  && ok "precondition: the overrunning claim is doom-parked in plan/ with its counter still in the body" \
+  && grep -q '^deadline_overruns: 1$' "$T2/v/jobs/plan/ovrjob.md" \
+  && ! grep -Eq '^<!-- garden-deadline-overrun:' "$T2/v/jobs/plan/ovrjob.md"; } \
+  && ok "precondition: the overrunning claim is doom-parked with metadata preserved and its cycle marker stripped" \
   || bad "doom park did not happen as expected (the fixture's premise)"
 
 # (b) promote it, then simulate the re-claim: the promoted body + a fresh (stale) claim
@@ -274,6 +278,7 @@ the original work body for reparked
 <!-- some-other-marker: keep me -->
 <!-- garden-reaped: 4 -->
 <!-- garden-deadline-overrun: 2 -->
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 <!-- garden-productive-cycle -->
 <!-- garden-outage-cycle -->
@@ -283,7 +288,7 @@ EOF
 parked="$(readback3 jobs/plan/reparked.md)"
 
 strip3_ok=1
-for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
   printf '%s\n' "$parked" | grep -q -- "$m" && { strip3_ok=0; echo "    marker survived the park: $m"; }
 done
 [ "$strip3_ok" -eq 1 ] \
@@ -294,12 +299,12 @@ printf '%s\n' "$parked" | grep -q 'the original work body for reparked' \
   && ok "the work body survives the park-time strip" || bad "work body lost at park time"
 printf '%s\n' "$parked" | grep -q '<!-- some-other-marker: keep me -->' \
   && ok "a non-cycle HTML comment is untouched" || bad "the strip ate a non-cycle HTML comment"
-# The frontmatter's own `---` fence plus the body's rule: 3 total (open, close, rule).
-[ "$(printf '%s\n' "$parked" | grep -c '^---$')" -eq 3 ] \
-  && ok "the body's own '---' rule is preserved (not mistaken for a fence)" \
+# Plan frontmatter, automatic-routing frontmatter, and the body's rule: 5 total.
+[ "$(printf '%s\n' "$parked" | grep -c '^---$')" -eq 5 ] \
+  && ok "the body's own '---' rule survives beside both frontmatter blocks" \
   || bad "the body's '---' rule did not survive the park"
 
-printf '%s\n' "$parked" | grep -q '^cleared: reaped=4,deadline-overrun=2,reap-now,productive-cycle,outage-cycle$' \
+printf '%s\n' "$parked" | grep -q '^cleared: reaped=4,deadline-overrun=2,elapsed-constancy=2,reap-now,productive-cycle,outage-cycle$' \
   && ok "the park records what it cleared: $(printf '%s\n' "$parked" | grep '^cleared:')" \
   || bad "post-plan did not record the cleared set ($(printf '%s\n' "$parked" | grep '^cleared:' || echo '<no cleared: field>'))"
 
@@ -312,11 +317,13 @@ cleanparked="$(readback3 jobs/plan/cleanpark.md)"
 printf '%s\n' "$cleanparked" | grep -q '^cleared:' \
   && bad "an ordinary (marker-free) post grew a spurious 'cleared:' field" \
   || ok "an ordinary post's frontmatter is unchanged (no 'cleared:' field)"
-# body = everything past the CLOSING frontmatter fence (the second '---')
-[ "$(printf '%s\n' "$cleanparked" | awk 'body{print} /^---$/{n++; if (n==2) body=1}' | sed '/^$/d')" \
-  = "$(sed '/^$/d' "$T3/clean-body.md")" ] \
-  && ok "a marker-free body passes through the strip unchanged (idempotent)" \
-  || bad "the strip mutated a marker-free body"
+# Automatic routing adds its execution frontmatter before the cycle-marker strip.
+# The original marker-free prose must remain unchanged inside that routed body.
+{ printf '%s\n' "$cleanparked" | grep -q '^tier: mentor$' \
+  && printf '%s\n' "$cleanparked" | grep -q '^# cleanpark$' \
+  && printf '%s\n' "$cleanparked" | grep -q '^nothing to clear here$'; } \
+  && ok "a marker-free body's routed frontmatter and prose survive the idempotent strip" \
+  || bad "the strip mutated a marker-free body's routed content"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — end-to-end: re-park via post-plan → promote → REQUEUES (no instant re-doom)"; hr
@@ -389,6 +396,7 @@ the last cycle reported this, verbatim:
 <!-- some-other-marker: keep me -->
 <!-- garden-reaped: 4 -->
 <!-- garden-deadline-overrun: 2 -->
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 <!-- garden-productive-cycle -->
 <!-- garden-outage-cycle -->
@@ -398,7 +406,7 @@ EOF
 parked5="$(readback5 jobs/plan/annotated.md)"
 
 strip5_ok=1
-for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
+for m in 'garden-reaped:' 'garden-deadline-overrun:' 'garden-elapsed-constancy:' 'garden-reap-now' 'garden-productive-cycle' 'garden-outage-cycle'; do
   printf '%s\n' "$parked5" | grep -q -- "$m" && { strip5_ok=0; echo "    marker survived the annotation: $m"; }
 done
 [ "$strip5_ok" -eq 1 ] \
@@ -411,12 +419,12 @@ printf '%s\n' "$parked5" | grep -q 'the original work body for annotated' \
   && ok "the parked work body is untouched" || bad "the annotation ate the parked body"
 printf '%s\n' "$parked5" | grep -q '<!-- some-other-marker: keep me -->' \
   && ok "a non-cycle HTML comment in the note is untouched" || bad "the strip ate a non-cycle HTML comment"
-# frontmatter open + close, plus the note's own rule.
-[ "$(printf '%s\n' "$parked5" | grep -c '^---$')" -eq 3 ] \
-  && ok "the note's own '---' rule survives and the frontmatter stays one block" \
-  || bad "$(printf '%s\n' "$parked5" | grep -c '^---$') '---' lines (want 3)"
+# Plan frontmatter, automatic-routing frontmatter, and the note's own rule.
+[ "$(printf '%s\n' "$parked5" | grep -c '^---$')" -eq 5 ] \
+  && ok "the note's own '---' rule survives beside both frontmatter blocks" \
+  || bad "$(printf '%s\n' "$parked5" | grep -c '^---$') '---' lines (want 5)"
 printf '%s\n' "$parked5" \
-  | grep -q 'garden-annotation: .*cleared=reaped=4,deadline-overrun=2,reap-now,productive-cycle,outage-cycle' \
+  | grep -q 'garden-annotation: .*cleared=reaped=4,deadline-overrun=2,elapsed-constancy=2,reap-now,productive-cycle,outage-cycle' \
   && ok "the annotation marker records what it cleared" \
   || bad "annotate-plan did not record the cleared set ($(printf '%s\n' "$parked5" | grep -o 'garden-annotation: .*' || echo '<no marker>'))"
 

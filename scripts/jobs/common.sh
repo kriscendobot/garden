@@ -3791,16 +3791,8 @@ deadline_overrun_count() {
 # Run in a SUBSHELL from a long-lived caller: sync_clone `exit`s on a connectivity
 # blip, which a subshell contains. Mirrors stamp_reap_now_hint's contract.
 #
-# The optional third arg is a short REASON woven into the commit message so the
-# git log distinguishes the two callers that stamp this same counter: a handler
-# that hit its OWN wall-clock bound (rc=124 at the wall — the default reason) and
-# the elapsed-constancy path, which confirms a DETERMINISTIC overrun from a
-# near-constant elapsed across requeue cycles and reuses this early-doom counter
-# so the reaper dooms after GARDEN_REAP_OVERRUN_THRESHOLD rather than the full
-# doom threshold. The MARKER is identical either way (the reaper only knows the
-# one `garden-deadline-overrun` counter); only the audit-trail wording differs.
 stamp_deadline_overrun_hint() {
-  local clone="$1" rel="$2" reason="${3:-handler wall-clock overrun}" attempt f rc prev new
+  local clone="$1" rel="$2" attempt f rc prev new
   : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
   for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
     sync_clone "$clone"
@@ -3824,10 +3816,63 @@ stamp_deadline_overrun_hint() {
       }
     ' "$f" > "$f.overrun" && mv "$f.overrun" "$f"
     git -C "$clone" add "$rel"
-    if commit_and_push "$clone" "deadline-overrun: hint $rel (cycle $new) by $GARDEN ($reason)"; then rc=0; else rc=$?; fi
+    if commit_and_push "$clone" "deadline-overrun: hint $rel (cycle $new) by $GARDEN (handler wall-clock overrun)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
     backoff "$attempt"            # rc=1: CAS lost — re-sync and retry
+  done
+  return 1
+}
+
+# --- elapsed-constancy hint -------------------------------------------------
+#
+# A fast transient-classified failure with near-constant elapsed across multiple
+# runs is a weaker signal than rc=124 at the applied handler wall. It needs its own
+# counter so the reaper can require a second confirming observation without making
+# a genuine wall hit spend another full handler budget. The gardener stamps this
+# marker on every confirming elapsed-constancy cycle. It persists across requeue,
+# rides beside reap-now, and is reset by the same productive-cycle exemption as the
+# wall-hit counter.
+ELAPSED_CONSTANCY_MARKER_RE='^<!-- garden-elapsed-constancy: [0-9][0-9]* -->$'
+
+elapsed_constancy_count() {
+  local f="${1:-}" n
+  [ -f "$f" ] || { printf '0\n'; return 0; }
+  n="$(sed -n 's/^<!-- garden-elapsed-constancy: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
+  printf '%s\n' "${n:-0}"
+}
+
+# stamp_elapsed_constancy_hint <clone> <doin-relpath>: increment the distinct
+# elapsed-constancy counter and stamp reap-now on this still-in-doin claim.
+stamp_elapsed_constancy_hint() {
+  local clone="$1" rel="$2" attempt f rc prev new
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi
+    prev="$(elapsed_constancy_count "$f")"
+    new=$(( prev + 1 ))
+    awk -v rnow="$REAP_NOW_MARKER" -v rnow_re="$REAP_NOW_MARKER_RE" \
+        -v const_re="$ELAPSED_CONSTANCY_MARKER_RE" -v const="<!-- garden-elapsed-constancy: $new -->" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) { print const; print rnow }
+          if (line[i] ~ const_re) continue
+          if (line[i] ~ rnow_re) continue
+          print line[i]
+        }
+        if (cut == 0) { print const; print rnow }
+      }
+    ' "$f" > "$f.constancy" && mv "$f.constancy" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "elapsed-constancy: hint $rel (confirmation $new) by $GARDEN"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
   done
   return 1
 }
@@ -3982,9 +4027,9 @@ stamp_outage_cycle_hint() {
 
 # --- the cycle-marker family, cleared on every plan-side transition ----------
 #
-# The six markers above (reap-count, deadline-overrun, quota-backoff, and the
-# per-cycle reap-now / productive-cycle / outage-cycle hints) are the reaper's
-# and the gardener's running
+# The seven markers above (reap-count, deadline-overrun, elapsed-constancy,
+# quota-backoff, and the per-cycle reap-now / productive-cycle / outage-cycle
+# hints) are the reaper's and the gardener's running
 # account of ONE job's failure history. They are meaningful only while the job is
 # cycling through todo -> doin -> requeue; a job that reaches jobs/plan/ has stopped
 # cycling, and its counters are stale the moment it is parked.
@@ -4002,11 +4047,11 @@ stamp_outage_cycle_hint() {
 # into plan/, so it carries not only the family but the trailing `---`/`claim:` block
 # a doin/ file ends with — hence cut_claim_block below, this section's companion.
 # All four use these helpers rather than re-spelling the family, so a marker-format change
-# — or a SIXTH marker — lands in one place and cannot half-apply.
+# or a new marker lands in one place and cannot half-apply.
 
 # CYCLE_MARKER_RE — the alternation matching any one cycle marker line. A single
 # spelling of "the family", so no caller enumerates the members itself.
-CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
+CYCLE_MARKER_RE="$REAP_MARKER_RE|$DEADLINE_OVERRUN_MARKER_RE|$ELAPSED_CONSTANCY_MARKER_RE|$REAP_NOW_MARKER_RE|$PROVIDER_QUOTA_BACKOFF_MARKER_RE|$PRODUCTIVE_MARKER_RE|$OUTAGE_MARKER_RE"
 
 # strip_cycle_markers — drop every cycle-marker line from a job body (stdin -> stdout).
 # Idempotent by construction: a body with no markers passes through byte-identical, and
@@ -4025,6 +4070,7 @@ cycle_marker_summary() {
   local f="$1" out="" n
   n="$(reap_count "$f")";             [ "$n" -gt 0 ] && out="${out:+$out,}reaped=$n"
   n="$(deadline_overrun_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}deadline-overrun=$n"
+  n="$(elapsed_constancy_count "$f")"; [ "$n" -gt 0 ] && out="${out:+$out,}elapsed-constancy=$n"
   if has_reap_now_hint "$f";         then out="${out:+$out,}reap-now"; fi
   if provider_quota_backoff_fields "$f" >/dev/null 2>&1; then out="${out:+$out,}provider-quota-backoff"; fi
   if has_productive_cycle_hint "$f"; then out="${out:+$out,}productive-cycle"; fi

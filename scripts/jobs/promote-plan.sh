@@ -27,9 +27,10 @@
 # escape (the 07-26 endo-sturdyref-agent-surface-build-gauntlet park, which then sat
 # behind a go-ahead for days while the press tick advised that "a promoting liaison
 # should clear or requeue past it" — a manual step no promoter reliably performs).
-# So promotion CLEARS the whole marker family (reap-count, deadline-overrun, and the
-# per-cycle reap-now / productive-cycle / outage-cycle hints, which are re-earned
-# each cycle by construction) and records what it cleared in the provenance comment,
+# So promotion CLEARS the whole marker family (reap-count, deadline-overrun,
+# elapsed-constancy, and the per-cycle reap-now / productive-cycle / outage-cycle
+# hints, which are re-earned each cycle by construction) and records what it cleared
+# in the provenance comment,
 # so the reset is auditable rather than silent. Promotion is a deliberate "run this
 # again" act, so a clean counter is the correct semantics; the reaper's protection is
 # unchanged, since a job that still fails deterministically re-accumulates and
