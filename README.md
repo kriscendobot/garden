@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T17:41:40Z_
+_As of 2026-08-14T17:48:29Z_
 
 ## Latest
 
@@ -4295,20 +4295,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-19-intl-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-19-intl-core.md) — Implement Intl core, Locale, Collator, and canonicalization
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
-- [`scholar-ingest-opensandbox-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-opensandbox-remainder.md) — ---
 
-### tada (4680)
+### tada (4681)
+- [`scholar-ingest-opensandbox-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-opensandbox-remainder.md) — Cost
 - [`scholar-ingest-opensandbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/scholar-ingest-opensandbox.md) — Cost
 - [`ironhorse-js-18-realms-eval-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-18-realms-eval-annexb.md) — Cost
 - [`improve-dependabotany-preflight-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-preflight-default.md) — Cost
 - [`ironhorse-js-17-resource-management`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-17-resource-management.md) — Cost
-- [`dependabotany-recheck-endo-but-for-bots-20260814-165004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260814-165004.md) — Cost
-- … and 4675 more
+- … and 4676 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
