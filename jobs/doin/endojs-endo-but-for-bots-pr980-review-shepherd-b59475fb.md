@@ -12,6 +12,7 @@ Drive CI for https://github.com/endojs/endo-but-for-bots/pull/980 at head b59475
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
