@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: cleric
+claimed_at: 2026-08-14T19:43:08Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-js-23-temporal-plain
