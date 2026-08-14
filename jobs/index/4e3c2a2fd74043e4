@@ -1,0 +1,2 @@
+base: improve-dependabotany-preflight-default
+identity: mentor:scripts/jobs/set-schedule.sh
