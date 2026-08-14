@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-js-26-cc-object-mop-exotic-closure
-priority: normal
 role: mentor
-posted_by: gardener
-posted_at: 2026-08-14T23:22:35Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-14T23:34:08Z cleared=none -->
 
 ---
 tier: mentor
