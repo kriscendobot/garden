@@ -1,4 +1,4 @@
-# Fleet telemetry, metric surfacing, and autonomous anomaly response
+# Garden telemetry, metric surfacing, and autonomous anomaly response
 
 | Created | 2026-08-04 |
 | Author  | designer (job `design-garden-telemetry-and-anomaly-response`) |
@@ -14,7 +14,7 @@ them, and no **coalesced response ladder with a ceiling**. Every existing detect
 watches one condition in isolation; none of them can say "completions went to zero
 while claims continued" (#1), "a third of panels reviewed the wrong repo" (#5), or
 "this host has been dead for three days" (#6), because those are *ratios and
-liveness deltas across the fleet*, not single-unit failures.
+liveness deltas across the garden*, not single-unit failures.
 
 This design adds that layer. It is deliberately built as **derived views over the
 substrate that already exists**, never a parallel metrics store — the directive's
@@ -29,7 +29,9 @@ thing it measured.
    from the existing fact tables — `usage/*.jsonl` (the CostRecord ledger),
    `reputation/`, the `jobs/` board, `sysop-log/`, and host-local process state —
    by a deterministic, LLM-free reducer, exactly as `cnf-backlog-triple.py` derives
-   the backlog measure from the board and never persists a counter. **No new
+   the backlog measure from the board and never persists a counter. Production
+   consumes **zero agent tokens**: the reducer must not invoke an agent, construct
+   a prompt, call a language-model API, or receive model credentials. **No new
    per-event metric records are written to the journal.** This is the single most
    important decision; it is what keeps the system from becoming the incident it is
    meant to catch.
@@ -45,21 +47,21 @@ thing it measured.
 3. **Three tiers, one published shape.** Per-tick raw metrics stay **host-local and
    unpublished** (a local ring buffer). Each host publishes ONE small
    rewrite-in-place **heartbeat** file to the journal. The **leader** aggregates all
-   heartbeats into ONE **`vitals/fleet.json`** snapshot. Total journal footprint:
+   heartbeats into ONE **`vitals/garden.json`** snapshot. Total journal footprint:
    `N heartbeats + 1 snapshot`, each overwritten in place on a coarse cadence — a
    bounded cost, not per-tick bloat.
 
 4. **Detection is deterministic threshold code; response coalesces and has a
-   ceiling.** A leader-only evaluator applies fixed thresholds to `fleet.json` and
+   ceiling.** A leader-only evaluator applies fixed thresholds to `garden.json` and
    drives the existing `watchdog-notice.sh` coalescing path (one updating notice per
    condition, `notice_count`, not N messages). Autonomous *action* is confined to
-   the **closed `sysop` vocabulary** on the fleet's own workers (scale, drain,
+   the **closed `sysop` vocabulary** on the garden's own workers (scale, drain,
    reset, restart) plus notices. Everything that touches **code, an external
    surface, the deployed tree, or identity** is **detect-and-page only** — the
    boundary drawn in § What must NOT be automated.
 
 5. **Surfacing extends `docs/bulletin/`.** The bulletin already renders `journal2`
-   state without auth; a "Vitals" panel reading `vitals/fleet.json` is one more
+   state without auth; a "Vitals" panel reading `vitals/garden.json` is one more
    read-only view, not a new app or backend.
 
 The build is larger than one increment. § Build phasing proposes a four-phase split;
@@ -114,16 +116,16 @@ consecutive publish ticks before it escalates, so a single 3 a.m. zero does not 
 | V8 | **board_depth by gate + plan-family composition** | counts per `todo/doin/blocked/plan`; plan grouped by role/basename-prefix | **#9** board swamped, general depth | any family > F% of `plan/` ⇒ *board-family-flood* notice. |
 | V9 | **yield_per_family** | landed/accepted outcomes ÷ jobs posted, per family, from `reputation/` over a long window | **#9** 85 retro jobs, ~85% dismissed | yield < Y over ≥ N jobs ⇒ *family-yield-low* notice recommending the maintainer throttle that producer (recommend, never auto-retire — § non-goals). |
 
-**Adjacent, not a fleet vital: synthetic external probes (V10).** #10 (a TLS change
+**Adjacent, not a garden vital: synthetic external probes (V10).** #10 (a TLS change
 that passed its own 5/5 DoD but took GitHub-login and SIWE down) is *not* observable
-from the fleet's internal state — nothing the garden does produces a signal, because
+from the garden's internal state — nothing the garden does produces a signal, because
 the break was in a production surface the garden merely *hosts*. It needs a distinct
 mechanism: a small **synthetic-check registry** of named external assertions
 ("GitHub-login on `*.minion.town` returns 200", "SIWE handshake completes"), each a
 deterministic probe on a timer. A failing probe is **page-only** and **never
 auto-remediated** (§ non-goals): the responder must not touch a live external
 surface. This is deliberately scoped as its own small mechanism, adjacent to the
-fleet vitals, because it watches *what the garden operates*, not *how the garden
+garden vitals, because it watches *what the garden operates*, not *how the garden
 runs*.
 
 **Why not more.** Rejected as dashboard-not-action: per-role token histograms (the
@@ -189,9 +191,9 @@ worker counts by kind, this host's V5/V6/V7 locals, and a rolling **24×1 h buck
 array** of its completion/claim/doom counts (bounded: 24 numbers, not 24 rows). Git
 history holds the time series for free; the tracked file stays tiny and constant-size.
 
-**Tier 3 — fleet snapshot (leader-only, rewrite-in-place).** The leader's evaluator
-reads every `vitals/hosts/*.json`, computes the fleet-level ratios (V1–V4, V8, V9),
-folds in each host's V5–V7, and overwrites ONE `vitals/fleet.json`. This is the
+**Tier 3 — garden snapshot (leader-only, rewrite-in-place).** The leader's evaluator
+reads every `vitals/hosts/*.json`, computes the garden-level ratios (V1–V4, V8, V9),
+folds in each host's V5–V7, and overwrites ONE `vitals/garden.json`. This is the
 single artifact the bulletin and the maintainer read.
 
 **Footprint.** `N + 1` tracked files, each overwritten on a 15 min cadence. Commits
@@ -204,7 +206,7 @@ snapshot — bounded by construction.
 
 **Privacy — what a hostile reader learns.** The journal is public; these files
 publish the instant they land. A hostile reader of `vitals/` learns: approximate
-fleet size and host liveness, throughput magnitude, which backend is currently
+garden size and host liveness, throughput magnitude, which backend is currently
 degraded, and board depth. Mitigations, following the 2026-08-02 subscription-digest
 precedent:
 
@@ -215,7 +217,7 @@ precedent:
   Host identity is already the semi-opaque `<hostname>-…-hash8` GARDEN id; anything
   finer-grained is published as a **SHA-256 digest** with the pseudonymity limitation
   recorded, exactly as `subscriptions/` does.
-- **Accept the residual.** A targeted actor learns *when the fleet is degraded*
+- **Accept the residual.** A targeted actor learns *when the garden is degraded*
   (backend down, throughput collapsed). That is operationally low-value and the
   unavoidable price of the auth-free-public-read model that makes the bulletin work.
   We state it rather than pretend it away; the alternative — a private metrics store
@@ -227,7 +229,7 @@ precedent:
 ## Surfacing
 
 The primary surface is a **Vitals weblet on minion.town**. It reads the garden's
-public `journal2` telemetry and fetches `vitals/fleet.json`, then renders:
+public `journal2` telemetry and fetches `vitals/garden.json`, then renders:
 
 - the nine vitals as a compact status row (green / soft / hard / ceiling), each with
   its 24 h sparkline from the embedded bucket array;
@@ -241,6 +243,13 @@ The weblet is deliberately *thin* — status and trend, not analytics. Deep ques
 `reputation.sh` CLI tools, which already answer them; duplicating those into a
 dashboard nobody reads is the anti-goal.
 
+Rendering also consumes **zero agent tokens**. The weblet is fixed browser code
+that formats bounded structured fields from `garden.json`; it must not invoke an
+agent, construct a prompt, call a language-model API, or receive model credentials.
+Both production and rendering are deterministic and cheap: bounded local compute
+and I/O, fixture-testable results, and no cost that varies with model token prices
+or agent availability.
+
 This frontend choice also exercises the minion.town weblet-gateway system with a
 real consumer of garden telemetry and motivates improvements to that system. Two
 companion designs define the minion.town side: the
@@ -248,7 +257,7 @@ companion designs define the minion.town side: the
 weblet to source content from a git branch (the garden's public `journal2` here),
 rather than only the existing tarball/S3/SSM deployment pipeline; the
 `minion-town-vitals-weblet-design` job covers the concrete Vitals weblet built on
-that substrate and consuming this document's `vitals/fleet.json` shape.
+that substrate and consuming this document's `vitals/garden.json` shape.
 
 Extending `docs/bulletin/` with the same Vitals panel remains a live interim and
 fallback if the git-content substrate or minion.town weblet is not yet available.
@@ -270,7 +279,7 @@ Five rungs, each with an explicit threshold and — critically — an escalation
 `notice_count`-bearing notice per condition); nothing here reintroduces the
 per-event flood that forced the 108→84 board consolidation on 2026-08-04.
 
-**Rung 0 — Record.** Every tick leaves its trace in `vitals/fleet.json`. A metric in
+**Rung 0 — Record.** Every tick leaves its trace in `vitals/garden.json`. A metric in
 its *soft* band is annotated in the snapshot, not alerted. Most anomalies never leave
 this rung. Cost: zero messages.
 
@@ -289,7 +298,7 @@ discipline). Before posting, the producer consults the **open-incidents registry
 `handler-refusing-claims` posts one tier-audit job, not one per doomed claim.
 
 **Rung 3 — Host-directed corrective via the `sysop` channel.** For conditions whose
-remediation is in the **closed `sysop` vocabulary** on the fleet's own workers, the
+remediation is in the **closed `sysop` vocabulary** on the garden's own workers, the
 evaluator sends a `host/<GARDEN>` op via `send-host-op.sh`. It may originate **only
 the non-destructive ops** — `set-workers`, `drain`, `reset-failed`, `restore` — and
 only when the evaluator's host is on `config/sysop-issuers` (default: the leader).
@@ -349,7 +358,7 @@ proposed code fix; vitals stays the only path to a quantified-threshold response
 The failure that let `root-repo-guard` report "root repo healthy" every 30 min while
 the deploy stalled for three days (#4), and that let `ps23` die silently for three
 days (#6), is the same failure: **a silent detector is indistinguishable from a
-healthy fleet.** The system cannot trust its own green.
+healthy garden.** The system cannot trust its own green.
 
 Three defenses, all deterministic:
 
@@ -386,7 +395,7 @@ Stated explicitly, because two collectors double-count and two responders double
 | Component | Placement | Reason |
 | --- | --- | --- |
 | `garden-vitals` collector (Tier 1 + host heartbeat) | **Every host**, own file only | rewrite-in-place of the host's OWN `vitals/hosts/<GARDEN>.json` — no double-count possible; a follower must publish its own liveness or #6 recurs. |
-| Fleet aggregator (`vitals/fleet.json`) | **Leader-only** (`is_main_host`) | two aggregators overwrite each other's snapshot / double the ratios. |
+| Garden aggregator (`vitals/garden.json`) | **Leader-only** (`is_main_host`) | two aggregators overwrite each other's snapshot / double the ratios. |
 | Anomaly evaluator (rungs 1–4, watchdog-watchdog, canary) | **Leader-only** | two evaluators double-post notices and double-drive host-ops. |
 | Synthetic external probes (V10) | **Leader-only** | avoid N identical probes hammering the external surface. |
 | `root-repo-guard` worktree invariant | **Every host** (as today) | each host's deployed tree is its own. |
@@ -439,7 +448,7 @@ autonomous responder would have done *damage*, not repair.
   already are for `sysop` — restated here so no future rung reintroduces them.
 
 **The line, in one sentence:** *autonomous action is confined to the closed `sysop`
-vocabulary on the fleet's own workers — scale, drain, reset, restart — plus coalesced
+vocabulary on the garden's own workers — scale, drain, reset, restart — plus coalesced
 notices and pages; everything that touches code, an external surface, the deployed
 tree, or identity is detect-and-page only.* That line is defensible precisely because
 the sysop vocabulary is already closed, already issuer-gated, already host-scoped, and
@@ -452,9 +461,11 @@ already refuses the destructive ops without maintainer attestation.
 - **No parallel metric fact store.** No `metrics/*.jsonl`. Vitals are derived views
   over `usage/`, `reputation/`, the board, and host state. (The one write-path change
   is two fields on the *existing* CostRecord.)
-- **No LLM in the detection path.** Collection, thresholds, self-verification, and the
-  ladder are plain code — the `sysop.sh` precedent. A model call per tick is itself an
-  anomaly. (The only LLM touchpoint is the *optional handoff* of a persistent,
+- **No agent or model in production, rendering, or detection.** Collection,
+  reduction, rendering, thresholds, self-verification, and the ladder are plain
+  code — the `sysop.sh` precedent. These paths consume zero agent tokens and receive
+  no model credentials. A model call per tick is itself an anomaly. (The only LLM
+  touchpoint is the *optional handoff* of a persistent,
   no-known-remediation anomaly to the existing `mentor.sh`.)
 - **No per-event journal writes.** N heartbeats + 1 snapshot, rewrite-in-place, coarse
   cadence.
@@ -500,7 +511,7 @@ before implementation.
 
 1. **Foundation (read-only, no response).** Widen the CostRecord with
    `applied_budget_s` + `park_signature` (#3). Build the `garden-vitals` timer:
-   Tier-1 host-local sampling, the per-host heartbeat, the leader `fleet.json`
+   Tier-1 host-local sampling, the per-host heartbeat, the leader `garden.json`
    aggregate. This alone makes #1, #6, #8 *observable* — the metrics exist even before
    anything reads them. No thresholds, no notices.
 
