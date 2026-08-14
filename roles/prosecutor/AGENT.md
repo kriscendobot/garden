@@ -1,6 +1,6 @@
 ---
 created: 2026-07-03
-updated: 2026-07-03
+updated: 2026-08-14
 author: builder (gardener, job build-feedback-review-retrospective-loop)
 ---
 
@@ -24,10 +24,7 @@ jurors): the prosecutor weighs the evidence, not the code.
   clustering procedure, the threshold rules, the dual-deliverable improvement-job
   template with the re-litigation test, and the recurrence escalation.
 - [job-board](../../skills/job-board/SKILL.md) — posting the `review-improve-*`
-  builder job with its `review-cluster:<slug>` identity dedup; also the carrier for
-  a recurrence escalation, which rides the job report rather than a direct channel
-  of its own (the prosecutor is scoped to one PR's review, so it reports through
-  that PR and its report, and the supervising gardener carries the escalation on).
+  builder job with its `review-cluster:<slug>` identity dedup.
 - [journalism](../../skills/journalism/SKILL.md) — the `result` journal entry.
 
 ## Operating norms
@@ -54,7 +51,9 @@ jurors): the prosecutor weighs the evidence, not the code.
   dodging a lint gate). Name the gamed seat/gate in `missed_by`. See the skill § 1.
 - **Let plain code write.** You DECIDE (verdict, category, cluster, threshold call);
   `scripts/jobs/review-miss-record.sh` WRITES (the CAS push, idempotency, member
-  append, count, status). Do not hand-edit the store.
+  append, count, status) and carries a committed genuine-recurrence alert to the
+  maintainer under a per-cluster dedup key. Do not hand-edit the store or send a
+  second recurrence alert yourself.
 - **Hold the floor.** Dispatch only at K ≥ 3 misses across ≥ 2 distinct PRs, or a
   single `severity: major` miss whose grounds cite a standing rule that did not
   bind. Meeting the floor does not compel dispatch; record the rationale whether you
@@ -64,8 +63,9 @@ jurors): the prosecutor weighs the evidence, not the code.
   line plus panel-hints probe). Prevention without sensing is forgotten; sensing
   without prevention leaves the producer re-making the error.
 - **Recurrence escalates.** When the writer reports `recurrence=1` (a new miss
-  joined a closed cluster), message the maintainer; do not silently start a second
-  improvement round.
+  joined a closed cluster), its committed-writer path has already alerted the
+  maintainer. Name the recurrence in your report, but do not send another alert or
+  silently start a second improvement round.
 - **The retro is derived telemetry.** Its own loss is a WARN, never a directive
   drop. You are cheap on a dismissal (record and complete) and expensive only past
   the threshold.

@@ -20,6 +20,10 @@
 #   9. EVALUATOR-GAMING — the additive `evaluator-gaming` category rides the same
 #                  lifecycle: mint at count 1, join a distinct PR (count 2), then
 #                  recurrence-reopen after closure, with the category preserved.
+#  10. CAS RETRY + IDEMPOTENCY — a genuine recurrence loses its first push race,
+#                  then commits and alerts exactly once; a re-run does not alert.
+#  11. NOTIFY FAILURE — a failing alert sink does not fail or roll back the
+#                  committed recurrence.
 #
 # Usage: review-miss-record-test.sh
 
@@ -50,6 +54,9 @@ git -C "$SEED" remote add origin "$BARE"; git -C "$SEED" push -q -u origin "$BRA
 
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state" GARDEN_POST_ATTEMPTS=50
+export GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh"
+export GARDEN_ALERT_RECORD="$TR/alerts"
+: > "$GARDEN_ALERT_RECORD"
 
 RMR="$JOBS/review-miss-record.sh"
 
@@ -158,6 +165,9 @@ out4="$("$RMR" record "$M4")"
 [ "$(cfield review-misses/clusters/empty-input-boundaries.md status)" = open ] && ok "closed cluster reopened by a new miss" || bad "cluster not reopened"
 echo "$out4" | grep -q 'recurrence=1' && ok "recurrence flagged in summary" || bad "recurrence not flagged: $out4"
 [ "$(cfield review-misses/clusters/empty-input-boundaries.md count)" = 4 ] && ok "count continues (4)" || bad "count did not continue"
+grep -qx 'KEY=review-miss-recurrence-empty-input-boundaries' "$GARDEN_ALERT_RECORD" \
+  && ok "committed recurrence alerted under the cluster dedup key" \
+  || bad "recurrence alert key missing ($(tr '\n' '|' < "$GARDEN_ALERT_RECORD"))"
 
 # ============================================================================
 hr; echo "7 — DRAIN-REOPEN: a pre-improvement miss re-closes, no escalation"; hr
@@ -174,10 +184,13 @@ IMPEPOCH="$(git -C "$V" show -s --format=%ct "$IMPSHA")"
 # A miss whose review PREDATES the improvement is a backlog-drain artifact.
 BEFORE="$(date -u -d "@$((IMPEPOCH - 3600))" +%Y-%m-%dT%H:%M:%SZ)"
 M7b="$TR/m7b.md"; mk_miss "$M7b" endojs-ebfb-pr801-review-aa77 801 drain-input missed-edge-case "$BEFORE"
+alerts_before="$(grep -c '^KEY=' "$GARDEN_ALERT_RECORD" || true)"
 out7="$("$RMR" record "$M7b")"
 [ "$(cfield review-misses/clusters/drain-input.md status)" = closed ] && ok "pre-improvement miss did NOT reopen" || bad "cluster wrongly reopened"
 echo "$out7" | grep -q 'recurrence=0 drain_reopen=1' && ok "drain_reopen=1, recurrence=0 in summary" || bad "flags wrong: $out7"
 [ "$(cfield review-misses/clusters/drain-input.md count)" = 2 ] && ok "member still recorded (count 2)" || bad "member not recorded"
+[ "$(grep -c '^KEY=' "$GARDEN_ALERT_RECORD" || true)" -eq "$alerts_before" ] \
+  && ok "drain reopen did not alert" || bad "drain reopen emitted a recurrence alert"
 
 # ============================================================================
 hr; echo "8 — POST-FIX RECURRENCE: a miss after the fix reopens + escalates"; hr
@@ -186,6 +199,8 @@ M8="$TR/m8.md"; mk_miss "$M8" endojs-ebfb-pr802-review-bb88 802 drain-input miss
 out8="$("$RMR" record "$M8")"
 [ "$(cfield review-misses/clusters/drain-input.md status)" = open ] && ok "post-improvement miss reopened cluster" || bad "cluster not reopened"
 echo "$out8" | grep -q 'recurrence=1 drain_reopen=0' && ok "recurrence=1, drain_reopen=0 in summary" || bad "flags wrong: $out8"
+grep -qx 'KEY=review-miss-recurrence-drain-input' "$GARDEN_ALERT_RECORD" \
+  && ok "genuine post-fix recurrence alerted" || bad "genuine recurrence alert missing"
 
 # ============================================================================
 hr; echo "9 — EVALUATOR-GAMING: the new category through mint/join/recurrence"; hr
@@ -209,6 +224,50 @@ outg3="$("$RMR" record "$G3")"
 [ "$(cfield review-misses/clusters/gaming-pattern.md status)" = open ] && ok "gaming cluster reopened on recurrence" || bad "not reopened ($outg3)"
 echo "$outg3" | grep -q 'recurrence=1' && ok "gaming recurrence flagged" || bad "recurrence not flagged: $outg3"
 [ "$(cfield review-misses/clusters/gaming-pattern.md category)" = evaluator-gaming ] && ok "category preserved across full lifecycle" || bad "category drifted"
+
+# ============================================================================
+hr; echo "10 — CAS RETRY + IDEMPOTENCY: recurrence alerts exactly once"; hr
+R1="$TR/r1.md"; mk_miss "$R1" endojs-ebfb-pr950-review-rr11 950 retry-pattern missed-edge-case
+"$RMR" record "$R1" >/dev/null
+rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+RETRYSHA="$(git -C "$V" rev-parse HEAD)"
+RETRY_EPOCH="$(git -C "$V" show -s --format=%ct "$RETRYSHA")"
+"$RMR" cluster-status retry-pattern improvement-dispatched --job review-improve-retry-pattern >/dev/null
+"$RMR" cluster-status retry-pattern closed --improved-by "$RETRYSHA" >/dev/null
+R2="$TR/r2.md"; mk_miss "$R2" endojs-ebfb-pr951-review-rr22 951 retry-pattern missed-edge-case \
+  "$(date -u -d "@$((RETRY_EPOCH + 3600))" +%Y-%m-%dT%H:%M:%SZ)"
+RACE_MARKER="$TR/race.once"; RACE_COUNT="$TR/race.count"; printf '0\n' > "$RACE_COUNT"
+out10="$(GARDEN_PUSH_CMD="$HERE/review-miss-record-race-push-stub.sh" \
+  GARDEN_RMR_RACE_BARE="$BARE" GARDEN_RMR_RACE_BRANCH="$BRANCH" \
+  GARDEN_RMR_RACE_MARKER="$RACE_MARKER" GARDEN_RMR_RACE_COUNT="$RACE_COUNT" \
+  "$RMR" record "$R2")"
+[ "$(cat "$RACE_COUNT")" -ge 2 ] && ok "recurrence retried after losing its first CAS push" || bad "CAS retry was not exercised"
+echo "$out10" | grep -q 'recurrence=1 drain_reopen=0' && ok "retried recurrence committed" || bad "retried recurrence summary wrong: $out10"
+[ "$(grep -c '^KEY=review-miss-recurrence-retry-pattern$' "$GARDEN_ALERT_RECORD" || true)" -eq 1 ] \
+  && ok "CAS retry emitted one per-cluster alert" || bad "CAS retry alert count was not one"
+out10i="$("$RMR" record "$R2")"
+echo "$out10i" | grep -q 'verdict=already' && ok "recurrence re-run was idempotent" || bad "recurrence re-run was not idempotent: $out10i"
+[ "$(grep -c '^KEY=review-miss-recurrence-retry-pattern$' "$GARDEN_ALERT_RECORD" || true)" -eq 1 ] \
+  && ok "idempotent re-run did not duplicate the alert" || bad "re-run duplicated recurrence alert"
+
+# ============================================================================
+hr; echo "11 — NOTIFY FAILURE: alert delivery remains best-effort"; hr
+F1="$TR/f1.md"; mk_miss "$F1" endojs-ebfb-pr960-review-nf11 960 notify-fail-pattern missed-edge-case
+"$RMR" record "$F1" >/dev/null
+rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+FAILSHA="$(git -C "$V" rev-parse HEAD)"
+FAIL_EPOCH="$(git -C "$V" show -s --format=%ct "$FAILSHA")"
+"$RMR" cluster-status notify-fail-pattern improvement-dispatched --job review-improve-notify-fail-pattern >/dev/null
+"$RMR" cluster-status notify-fail-pattern closed --improved-by "$FAILSHA" >/dev/null
+F2="$TR/f2.md"; mk_miss "$F2" endojs-ebfb-pr961-review-nf22 961 notify-fail-pattern missed-edge-case \
+  "$(date -u -d "@$((FAIL_EPOCH + 3600))" +%Y-%m-%dT%H:%M:%SZ)"
+set +e
+out11="$(GARDEN_ALERT_CMD=/bin/false "$RMR" record "$F2")"; rc11=$?
+set -e
+[ "$rc11" -eq 0 ] && ok "failing notification sink did not fail the writer" || bad "notification failure escaped as rc=$rc11"
+echo "$out11" | grep -q 'recurrence=1 drain_reopen=0' && ok "recurrence still reported after notify failure" || bad "notify failure lost recurrence summary: $out11"
+[ "$(cfield review-misses/clusters/notify-fail-pattern.md status)" = open ] \
+  && ok "recurrence commit remained durable after notify failure" || bad "notify failure rolled back recurrence"
 
 hr
 echo "review-miss-record: $PASS passed, $FAIL failed"

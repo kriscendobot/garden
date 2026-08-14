@@ -38,6 +38,10 @@
 #       already exists the call is a no-op success. On success prints a
 #       machine-readable summary line the prosecutor parses:
 #         recorded=<path> verdict=<v> [cluster=<slug> count=<n> status=<s> prs=<a,b> recurrence=<0|1> drain_reopen=<0|1>]
+#       After the CAS write commits a genuine recurrence, the writer also sends a
+#       best-effort maintainer alert under the per-cluster dedup key
+#       `review-miss-recurrence-<slug>`. The scoped prosecutor never receives a
+#       general maintainer-inbox capability.
 #
 #   cluster-status <slug> <status> [--job B] [--rationale-file F] [--improved-by TEXT]
 #       Advance a cluster's lifecycle (open|improvement-dispatched|closed) and set
@@ -171,6 +175,18 @@ EOF
   git -C "$1" add "$STORE/README.md"
 }
 
+# notify_recurrence <cluster> <base> <pr> <repo> -- deterministic carrier for a
+# committed post-improvement recurrence. alert_maintainer coalesces the shared
+# maintainer-inbox notice under this per-cluster key and swallows sink failures.
+# Keeping the call after commit_and_push succeeds means a rejected CAS attempt
+# cannot alert, while record idempotency means a re-run cannot alert again.
+notify_recurrence() {
+  local cluster="$1" base="$2" pr="$3" repo="$4"
+  local key="review-miss-recurrence-$cluster" msg
+  msg="Review-miss recurrence: closed cluster '$cluster' was reopened by the committed miss '$STORE/misses/$base.md'${repo:+ for $repo}${pr:+ PR $pr}. The prior improvement did not prevent or catch the pattern. Inspect the cluster before starting another improvement round."
+  alert_maintainer "$key" "$msg"
+}
+
 # --- record ------------------------------------------------------------------
 cmd_record() {
   local rec="${1:?usage: review-miss-record.sh record <record-file>}"
@@ -262,6 +278,9 @@ cmd_record() {
 
     if commit_and_push "$DIR" "review-miss($base) $verdict${cluster:+ → cluster $cluster} by $GARDEN"; then
       if [ "$verdict" = miss ]; then
+        if [ "$recurrence" -eq 1 ]; then
+          notify_recurrence "$cluster" "$base" "$pr" "$(fm "$rec" repo)"
+        fi
         log "recorded review-miss '$base' → cluster '$cluster' (count=$count status=$status recurrence=$recurrence drain_reopen=$drain_reopen)"
         printf 'recorded=%s verdict=miss cluster=%s count=%s status=%s prs=%s recurrence=%s drain_reopen=%s\n' \
           "$dest" "$cluster" "$count" "$status" "$(printf '%s' "$prs" | tr ' ' ',')" "$recurrence" "$drain_reopen"

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-03
-updated: 2026-07-03
+updated: 2026-08-14
 author: builder (gardener, job build-feedback-review-retrospective-loop)
 ---
 
@@ -101,6 +101,10 @@ genuine post-fix recurrence from a backlog-drain artifact, § 6), plus `repo`,
 
 The writer prints a summary line you parse:
 `recorded=<path> verdict=miss cluster=<slug> count=<n> status=<s> prs=<a,b> recurrence=<0|1> drain_reopen=<0|1>`.
+After its CAS write commits a genuine recurrence, that same deterministic writer
+also sends the best-effort maintainer notification under
+`review-miss-recurrence-<slug>`. This is the carrier. Do not send a second alert
+from the scoped prosecutor job.
 
 ### 3. Cluster (deterministic first, judgment second)
 
@@ -215,11 +219,13 @@ host instead of resting on a per-prosecutor timestamp eyeball:
 
 - **Genuine post-fix recurrence** (`review_at` postdates the improvement): the
   writer reopens the cluster (`status=open`) and reports `recurrence=1
-  drain_reopen=0`. When you see `recurrence=1`, escalate through your job report,
-  naming the reopened cluster: the improvement demonstrably failed to prevent or
-  catch the pattern, and a second improvement round should not proceed on
-  autopilot. The report is the escalation surface here because a retrospective is
-  scoped to one PR's review; the supervising gardener carries it onward.
+  drain_reopen=0`. Only after that CAS write is confirmed, the writer calls the
+  coalescing maintainer-alert path with the per-cluster key
+  `review-miss-recurrence-<slug>`. Name the reopened cluster in the job report,
+  but do not duplicate the alert: the improvement demonstrably failed to prevent
+  or catch the pattern, and a second improvement round should not proceed on
+  autopilot. Alert delivery is best-effort and never rolls back or fails the
+  committed miss record.
 - **Backlog-drain artifact** (`review_at` predates the improvement — a pre-fix
   cascade review that merely landed after the cluster closed mid-drain): the writer
   keeps `status=closed` and reports `recurrence=0 drain_reopen=1`. This is a
