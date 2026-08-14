@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 790
 build_job: 
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr790-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr790-gauntlet-panel-1
 state: running
 created_by: gardener
 created_at: 2026-08-14T06:42:38Z
