@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-14T08:05:58Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-self-heal-fix-garden-ci-watcher-kriscendobot-minion-town-http2-stream-error-misclassified-definitive
