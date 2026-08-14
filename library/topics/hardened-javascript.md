@@ -102,6 +102,7 @@
 | [Mohabi: security boundary and Endor threat model](../sections/papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--security-boundary-and-endor-threat-model.md) | Mohabi distinguishes SES-style authority confinement from native engine-compromise containment; Endor must state which threat it addresses and segregate secrets before relying on write-only confinement. |
 | [Mohabi: JIT validation and writable executable code](../sections/papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--jit-validation-and-writable-executable-code.md) | Generated native code needs independent validation and an execute-permission protocol; generator claims alone cannot establish a JIT sandbox boundary. |
 | [Mohabi: assurance cost and open boundary questions](../sections/papers--sharma-mohabi-disaggregating-sandboxing-firefox-javascript-engine-2026--assurance-cost-and-open-boundary-questions.md) | Full-engine SFI costs about 24% in the reported browser benchmarks and still requires complete boundary sanitization, yielding a concrete scope-and-assurance checklist for Endor. |
+| [opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap](../sections/opensandbox--docs-architecture-index--comparison-with-endo-ses-and-xsnap.md) | OpenSandbox architecture | OpenSandbox outer OS isolation complements SES frozen-intrinsics and explicit-endowment confinement. |
 
 ## Superseded sections
 
