@@ -6,8 +6,9 @@ gauntlet: endojs-endo-but-for-bots-pr986-gauntlet
 gauntlet_stage: fix
 gauntlet_iteration: 3
 pr: https://github.com/endojs/endo-but-for-bots/pull/986
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -33,13 +34,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-14T08:50:09Z
+<!-- garden-reaped: 0 -->
