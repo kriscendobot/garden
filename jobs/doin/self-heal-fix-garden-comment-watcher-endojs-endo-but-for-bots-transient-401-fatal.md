@@ -24,3 +24,13 @@ What to change in `scripts/jobs/comment-watcher.sh`:
 Invariant to preserve and state in the commit message: every absorb path must `exit` BEFORE sorting `$SRC` or sliding `last_seen`, so the cursor stays frozen and the next healthy tick re-polls the un-enumerated comments. Absorbing the 401 must not weaken the LOST-FETCH guarantee — it only stops a recoverable blip from becoming a unit failure.
 
 Test: extend `scripts/jobs/test/comment-watcher-test.sh` with a stub source that emits `gh: Bad credentials (HTTP 401)` at rc=1 on the first call and succeeds on the second (the shape already used by `scripts/jobs/test/pages-watcher-test.sh:151-159`), asserting the watcher exits 0, processes the retry's comments, and does not `die`; plus a twice-401 case asserting exit 0, the persistent-401 WARN, and an unmoved cursor. Run `scripts/jobs/test/comment-watcher-test.sh` and `scripts/jobs/test/gh-api-retry-test.sh`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T07:02:59Z
