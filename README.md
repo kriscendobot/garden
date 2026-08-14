@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T16:49:41Z_
+_As of 2026-08-14T16:50:44Z_
 
 ## Latest
 
@@ -4287,7 +4287,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`dependabotany-recheck-endo-but-for-bots-20260814-165004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260814-165004.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-js-17-resource-management`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-17-resource-management.md) — Complete explicit resource management
