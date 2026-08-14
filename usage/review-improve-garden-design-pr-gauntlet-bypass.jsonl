@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":80,"elapsed_s":1542,"input_tokens":136,"output_tokens":113694,"cache_creation_tokens":230889,"cache_read_tokens":12325641,"total_cost_usd":11.3172505,"ts":"2026-08-14T06:04:28Z","base":"review-improve-garden-design-pr-gauntlet-bypass","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}
