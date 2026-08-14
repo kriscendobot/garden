@@ -66,6 +66,7 @@
 | [dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity](../sections/dialog-db--ts-dialog-experimental-session--subscriptions-and-reactivity.md) | dialog-db session.ts | Propagate a commit, not a snapshot: subscriptions re-poll and a per-DID BroadcastChannel fans each transaction out to every tab of the same database. |
 | [habitat-chronicles--unum-pattern--presences-and-division-of-labor](../sections/habitat-chronicles--unum-pattern--presences-and-division-of-labor.md) | unum presences | Coordinating shared vs private state across a unum's presences by division of labor rather than data replication — the anti-replication view of coherence. |
 | [habitat-chronicles--unum-pattern--four-messaging-patterns](../sections/habitat-chronicles--unum-pattern--four-messaging-patterns.md) | unum messaging | Reply/Neighbor/Broadcast/Point — how a server presence propagates one client's action to the others (Reply+Neighbor idiom) over a shared context. |
+| [papers--shi-spatiotemporal-composability-2026--reactive-coeffects](../sections/papers--shi-spatiotemporal-composability-2026--reactive-coeffects.md) | Shi et al. 2026 | Reactive coeffects: a context change is classified against a component's dependency specification as activating/deactivating/neutral, driving component-level activation and teardown. |
 
 ## Concepts
 
