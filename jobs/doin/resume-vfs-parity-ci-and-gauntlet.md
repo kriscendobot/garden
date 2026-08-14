@@ -14,6 +14,7 @@ Wait for #796 run completion, inspect the failed-job log, rerun if infrastructur
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
