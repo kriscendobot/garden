@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T17:22:59Z_
+_As of 2026-08-14T17:27:48Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 - [endojs/endo-but-for-bots#936](https://github.com/endojs/endo-but-for-bots/pull/936) — docs(designs): stream SQLite rows in endor (waiting 3h)
 - [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/pull/124) — feat(slots): end-to-end slot-machine wire protocol on the Rust+XS daemon, with cross-supervisor SQLite parity (waiting 10h)
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 19h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 16d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 16d)
@@ -4281,27 +4281,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 27.3M _(+865.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Codex | 27.6M _(+871.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 75% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
-- [`improve-dependabotany-preflight-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-preflight-default.md) — ---
 - [`ironhorse-js-18-realms-eval-annexb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-18-realms-eval-annexb.md) — Complete realms, eval/global environments, ShadowRealm, and Annex B
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 - [`scholar-ingest-opensandbox`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-opensandbox.md) — ---
 
-### tada (4677)
+### tada (4678)
+- [`improve-dependabotany-preflight-default`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/improve-dependabotany-preflight-default.md) — Cost
 - [`ironhorse-js-17-resource-management`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-17-resource-management.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260814-165004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260814-165004.md) — Cost
 - [`ironhorse-js-16-modules`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-16-modules.md) — Cost
 - [`ironhorse-js-15-collections`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-15-collections.md) — Cost
-- [`ironhorse-js-14-binary-data-atomics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-14-binary-data-atomics.md) — Completion report — ironhorse-js-14-binary-data-atomics
-- … and 4672 more
+- … and 4673 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
