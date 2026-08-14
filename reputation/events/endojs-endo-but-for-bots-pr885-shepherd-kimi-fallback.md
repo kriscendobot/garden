@@ -4,7 +4,7 @@ kind: mystic
 provider: moonshot
 model: kimi-k3
 thoughtfulness: medium
-work_class: other:m
+work_class: other:s
 target: main2
 accepted: false
 agentic_dollars: censored
@@ -14,6 +14,6 @@ attempts: 1
 fallback: kimi-k3->opus
 source: fallback
 recorded_by: reaper:endolin-garden2-5bcdff64
-recorded_at: 2026-07-31T03:23:05Z
+recorded_at: 2026-08-14T13:03:03Z
 ---
-kimi-fallback event for endojs-endo-but-for-bots-pr885-shepherd: arm moonshot/kimi-k3/medium work_class other:m target main2 accepted false (re-routed to opus after 1 kimi cycle(s))
+kimi-fallback event for endojs-endo-but-for-bots-pr885-shepherd: arm moonshot/kimi-k3/medium work_class other:s target main2 accepted false (re-routed to opus after 1 kimi cycle(s))
