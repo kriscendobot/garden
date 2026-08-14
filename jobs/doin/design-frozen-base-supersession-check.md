@@ -13,3 +13,13 @@ Two candidate fixes were proposed (design and choose/combine, don't just pick bl
 2. **A policy on merging into frozen bases**: new packages / net-new features land only on the LIVE base; frozen bases take only fixes to work already on that base. At minimum, a merge into a frozen base should emit a fleet-visible note ("package/feature X now exists on frozen base Y") so the next scoping read can find it. This is a fleet-wide policy call — flag it for the maintainer rather than landing it unilaterally.
 
 Produce a design (`designs/<slug>.md` per repo convention) that specifies where in the build-producer flow the supersession check runs, what it queries, and how a hit is surfaced/actioned. Weigh whether (2) is worth proposing to the maintainer as a followup even if out of scope to land here.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 5
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-14T05:29:02Z
