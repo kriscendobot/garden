@@ -1,22 +1,23 @@
 ---
 base: endojs-endo-but-for-bots-pr979-shepherd
-kind: cleric
-provider: openai
-model: gpt-5.6-terra
+kind: gardener
+provider: anthropic
+model: claude-opus-5
 thoughtfulness: medium
-work_class: other:m
+work_class: other:s
 target: main2
 accepted: true
-agentic_dollars: 3.465452
+agentic_dollars: 4.556888
 human_dollars: 0
-aggregate_dollars: 3.465452
-cost_source: ledger
-attempts: 2
-duration_secs: 1784
+aggregate_dollars: censored
+cost_source: wallclock
+estimated_dollars: 0.005520
+attempts: 1
+duration_secs: 80
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden-ece02cb4/cleric-1
-recorded_at: 2026-08-13T18:03:03Z
+recorded_by: endolin-garden-ece02cb4/gardener-1
+recorded_at: 2026-08-14T12:42:52Z
 ---
-reputation event for endojs-endo-but-for-bots-pr979-shepherd: arm openai/gpt-5.6-terra/medium work_class other:m target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr979-shepherd: arm anthropic/claude-opus-5/medium work_class other:s target main2 accepted true
