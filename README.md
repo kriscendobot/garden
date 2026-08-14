@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T05:58:46Z_
+_As of 2026-08-14T05:59:13Z_
 
 ## Latest
 
@@ -4311,14 +4311,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > conductor unfreeze BLOCKED for [endojs/endo-but-for-bots#943](https://github.com/endojs/endo-but-for-bots/issues/943): frozen base 'llm-bfc91f5' is shared by open PRs (#943, #888). Forwarding #943 to live 'llm' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#943 left on the snapshot: not stranded silently, not force-forked.)
 
+- `watchdog-triager-fetch-failed-kriscendobot-endo` — from watchdog:triager/kriscendobot-endo, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-triager-fetch-failed-kriscendobot-endo.md)
+
+> triager: fetch for kriscendobot-endo at /home/kris/garden2/worktrees/kriscendobot-endo.git failed (rc=128). git said: Connection to github.com closed by remote host. fatal: expected flush after ref listing
+> Retrying next tick; if this persists, the upstream is unreachable and kriscendobot-endo cannot be triaged until it is restored.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.3M | $939.05 _(notional, rate-card)_ | no quota set |
-| Codex | 24.4M _(+785.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 56.3M | $939.16 _(notional, rate-card)_ | no quota set |
+| Codex | 24.4M _(+786.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
