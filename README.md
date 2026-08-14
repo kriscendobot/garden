@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T12:39:40Z_
+_As of 2026-08-14T12:40:35Z_
 
 ## Latest
 
@@ -4327,7 +4327,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- [`deadmail-issue-comment-5293357474`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5293357474.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr976-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr976-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #976
 - [`endojs-endo-but-for-bots-pr981-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr981-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #981
