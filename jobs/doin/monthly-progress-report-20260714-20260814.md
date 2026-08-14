@@ -51,3 +51,13 @@ identify you, e.g. `gardener:<this-job-base>`): the report's relative path, a
 two-to-three sentence headline of the month's biggest developments, and a note
 that this was requested in a liaison conversation on 2026-08-14 (tag
 `reply_to` this job's base).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-14T22:24:40Z
