@@ -60,6 +60,7 @@ coercion, catchable RangeError/TypeError, newless TypeError, and BYTES_PER_ELEME
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
