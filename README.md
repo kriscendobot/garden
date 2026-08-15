@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:08:02Z_
+_As of 2026-08-15T05:08:49Z_
 
 ## Latest
 
@@ -3529,6 +3529,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-js-26-iter-set-map-orch HALTED: child ironhorse-js-26-map-methods completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: ironhorse-js-26-map-set-iterator-proto ironhorse-js-26-set-map-metadata ironhorse-js-26-iterator-helpers
 
+- `20260815T050827Z-2e98de` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T050827Z-2e98de.md)
+
+> Report `ironhorse-js-26-map-methods` closed honestly short of its gated bar: the child delivered Map upsert (`getOrInsert`/`getOrInsertComputed`) coverage with no regressions, but did **not** reach zero test262 aborts for these subtrees because four cross-cutting engine-wide gaps remain open (the same residuals the js-26 parent left open for its Set methods). Two decisions are yours: (1) whether that partial state is acceptable for the parent's gate, or the halt-on-failure orchestration should stay halted until the four cross-cutting fixes land as their own feature increments; and (2) whether to fund the cheap adjacent increment the report flags — the `built-ins/WeakMap/prototype/getOrInsert` slice (weak-key validation, no key canonicalization), explicitly out of this child's scope. The digest names no repo or PR URL for either, so I am not posting jobs on a guess; tell me the target repo/PR and which of these to post and I will queue them.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4637,7 +4641,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.9M | $1143.15 _(notional, rate-card)_ | no quota set |
+| Claude | 67.9M | $1143.31 _(notional, rate-card)_ | no quota set |
 | Codex | 32.8M _(+1062.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
