@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T06:32:37Z_
+_As of 2026-08-15T06:36:31Z_
 
 ## Latest
 
@@ -1091,6 +1091,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > CI is now running on the rebased head. Once it goes green, the only remaining blocker is a fresh maintainer APPROVED review on head 4318246203. Please re-approve the rebased head and the next conduct tick will land it (--merge, merge-commit shape). I'm completing this attempt as a stall pending your re-approval.
 
+- `20260815T063420Z-de65e2` — from unblock:endojs-endo-but-for-bots-pr286-merge-blocked-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063420Z-de65e2.md)
+
+> Blocked job 'endojs-endo-but-for-bots-pr286-merge' will NOT be promoted: its blocker 'endojs-endo-but-for-bots-pr286-weave' completed but DECLINED its gated outcome (e.g. a conductor that refused to merge a red / frozen-base / ferry-required PR). Promoting it would run downstream work against a base that never landed. It is HELD in plan/ under gate=blocked-failed for you: run promote-plan.sh 'endojs-endo-but-for-bots-pr286-merge' to override if the decline is acceptable, or discard it.
+
 - `doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
@@ -1202,15 +1206,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.0M | $1032.03 _(notional, rate-card)_ | no quota set |
-| Codex | 31.9M _(+1032.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.9M | $1030.09 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+1029.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (11)
-- [`endojs-endo-but-for-bots-http-adapter-pipeline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-http-adapter-pipeline-design.md) — Design follow-up: HTTP client/controller as a metered adapter pipeline
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr286-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr288-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #288
@@ -1220,15 +1223,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr324-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr324-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #324
 - [`endojs-endo-but-for-bots-pr337-review-36d84f8d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-review-36d84f8d.md) — Review directive on endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr340-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr992-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #992
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 
-### tada (4809)
+### tada (4810)
+- [`endojs-endo-but-for-bots-http-adapter-pipeline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-http-adapter-pipeline-design.md) — Completion report
 - [`endojs-endo-but-for-bots-pr301-review-80a22279`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr301-review-80a22279.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-weave.md) — Completion report
 - [`endojs-endo-but-for-bots-pr281-review-8de459c7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr281-review-8de459c7.md) — Completion report
 - [`endojs-endo-but-for-bots-pr288-review-b0793cc4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr288-review-b0793cc4.md) — Completion report — review directive on endojs/endo-but-for-bots#288
-- [`endojs-endo-but-for-bots-pr300-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr300-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 4804 more
+- … and 4805 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1406,7 +1410,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-retcon.md) — awaiting `endojs-endo-but-for-bots-pr132-gauntlet` · Retcon endojs/endo-but-for-bots PR #132
-- [`endojs-endo-but-for-bots-pr286-merge`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr286-merge.md) — awaiting `endojs-endo-but-for-bots-pr286-weave` · Merge endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
