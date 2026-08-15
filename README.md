@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T06:02:27Z_
+_As of 2026-08-15T06:03:33Z_
 
 ## Latest
 
@@ -4301,6 +4301,103 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > issue_spine: issue-kriscendobot-garden-51
 > submitter: kriscendobot
 
+- `doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-js-26-ch-async-fromasync-a-asyncfromsync) or removes it.
+> Original job base: ironhorse-js-26-ch-async-fromasync-a-asyncfromsync
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T05:16:03Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Async child A.2: `%AsyncFromSyncIteratorPrototype%` via async-gen `yield*` / `for await` over sync iterables
+>
+> Nested child of `ironhorse-js-26-ch-async-fromasync-a-orch` (the decomposition of
+> `ironhorse-js-26-ch-async-fromasync-a-array`, whose `Array.fromAsync` core LANDED —
+> `built-ins/Array/fromAsync` went 2 → 77 covered of 95, commit on
+> `feat/ironhorse-262-language-completion`, PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970)).
+>
+> **Scope:** `built-ins/AsyncFromSyncIteratorPrototype` — currently **6 covered of 38**
+> (32 skipped: ~14 `ironhorse-aborted`, ~17 `async:reported-failure`, 1
+> `async:unhandled-rejection`) at branch head. Convert to covered (XS-oracle gated).
+>
+> **Key finding (from the fromAsync child's investigation):** these 38 cases are NOT
+> driven by `Array.fromAsync`. They are driven by **`yield*` delegation inside an
+> async generator over a SYNC iterable** (e.g. `async function* g(){ yield* syncGen(); }`
+> then `g().next().then(...)`) and by `for await ... of` over a sync iterable. Both
+> compile through `XS_CODE_FOR_AWAIT_OF` (see `ironhorse-compile/src/coder.rs`
+> `code_delegate`, which emits `XS_CODE_FOR_AWAIT_OF` for async `yield*`).
+>
+> **What to build.** Today `XS_CODE_FOR_AWAIT_OF` in `interp.rs` (search
+> `XS_CODE_FOR_OF | XS_CODE_FOR_AWAIT_OF`) falls back to the bare **sync** iterator
+> for a sync iterable and lets the compiler-emitted loop `await` each `next()`.
+> Per spec, `for await` / async `yield*` over a sync iterable must call
+> `GetIterator(obj, async)` which, when `@@asyncIterator` is absent, does
+> `CreateAsyncFromSyncIterator(GetIterator(obj, sync))`. Implement a real
+> `%AsyncFromSyncIteratorPrototype%` intrinsic (object with `next`/`return`/`throw`
+> native methods + the value-unwrap functions) and make the `FOR_AWAIT_OF`
+> sync-iterable fallback return that wrapper instead of the raw sync iterator, so the
+> existing delegate/for-await loop drives it. Cover:
+> - `.next(v)`: `NewPromiseCapability`; `IteratorNext(syncRecord, v)` (IfAbruptReject);
+>   `IteratorComplete`/`IteratorValue` (IfAbruptReject); then
+>   `AsyncFromSyncIteratorContinuation` — `PromiseResolve(value)` + a value-unwrap
+>   reaction (`[[Done]]`) that repackages `CreateIterResultObject(unwrapped, done)`,
+>   with **close-on-rejection** (`fromAsync` passes it too; a rejecting value closes
+>   the sync iterator). Note `.next()` called with no args must NOT pass an argument
+>   to the sync `next` (absent-value tests).
+> - `.return(v)` / `.throw(v)`: the full spec edge matrix the corpus exercises
+>   (absent underlying method, poisoned `return`/`throw`, result-not-object,
+>   iterator-result-unwrap-promise, poisoned `done`/`value`, throw-undefined →
+>   `IteratorClose` + TypeError, etc.).
+>
+> Reuse the native-reaction substrate (`schedule_native_await`, `ReactionKind`,
+> `new_promise_capability`, `settle_via_function`, `register_native_reaction`) exactly
+> as the landed `Array.fromAsync` machine does — add a `ReactionKind` variant + side
+> table for the value-unwrap step. **Regression-critical:** `FOR_AWAIT_OF` is on the
+> hot path for ALL existing `for await`/async-`yield*`; the fromAsync child confirmed
+> several `for await`-over-sync cases already pass via the current bare-fallback, so
+> verify no async-generator / for-await regressions (run `cargo test --workspace`,
+> the async-generator tests, and a meter-exact sweep of `language/statements/for-await-of`
+> and `built-ins/AsyncGeneratorFunction`/`built-ins/AsyncFromSyncIteratorPrototype`).
+>
+> **Reusable helper already landed:** `interp.rs` now has `call_any` (a general
+> `Call` dispatch handling promise resolving fns / native methods / native / bound /
+> user) — use it when a native reaction handler must invoke a capability settler.
+>
+> **Acceptance bar / invariants:** identical to the parent. Convert the scope to
+> covered via real XS-oracle execution; add focused Rust tests under
+> `rust/engine/ironhorse-262/tests/`; NO relabel/suppress/skip-list. Zero
+> `ironhorse-aborted`/`parse-or-decode`/`unsupported-opcode:*`/`abort-value-differs`/
+> `non-primitive-completion` in scope. No baseline/earlier-child regression; full
+> workspace gates + exact-metering corpus before every push.
+>
+> **Shared branch/PR:** `feat/ironhorse-262-language-completion` (PR #970 — keep OPEN,
+> do NOT merge). Fetch+rebase before every push (rebase CAS loop; peers push serially
+> and touch `interp.rs` — expect conflicts near `link_intrinsics`/`install_intrinsic_bindings`).
+>
+> **Pins:** test262 `tc39/test262@be13516fb6441b950ba8a3df97eb34062c186972` (checkout
+> `/home/kris/garden/scratch/test262-pin-be13516f`); XS oracle
+> `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d` (`git submodule update --init --depth 1
+> c/moddable`). Rust: prepend `$HOME/.cargo/bin`; `TMPDIR=/home/kris/garden/tmp`.
+>
+> **Report:** commands, before/after totals for `built-ins/AsyncFromSyncIteratorPrototype`,
+> changed skip reasons, head SHA, PR URL.
+>
+> issue_spine: issue-kriscendobot-garden-51
+> submitter: kriscendobot
+
 - `doomed-kriscendobot-minion.town-pr27-review-615e16eb-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr27-review-615e16eb-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4645,19 +4742,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.3M | $1065.06 _(notional, rate-card)_ | no quota set |
+| Claude | 62.3M | $1065.38 _(notional, rate-card)_ | no quota set |
 | Codex | 32.5M _(+1053.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-review-0ef8f0d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-review-0ef8f0d1.md) — Review directive on endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr248-review-f3851286`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr248-review-f3851286.md) — Review directive on endojs/endo-but-for-bots PR #248
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
-- [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 
 ### tada (4800)
 - [`ironhorse-js-26-ch-async-fromasync-a-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-a-orch.md) — orchestration ironhorse-js-26-ch-async-fromasync-a-orch — HALTED
@@ -4720,6 +4816,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cc-mop-gopd-keys`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-cc-mop-gopd-keys.md) — _normal_ · Object MOP residual 2/7: getOwnPropertyDescriptor coercion and index keys
 - [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ce-toprimitive-coercion.md) — _normal_ · Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
+- [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — _normal_ · Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 - [`ironhorse-resume-3-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-3-launch.md) — _normal_ · Launch the Ironhorse test262 campaign resume-3 (21 children, js-08..js-28)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
