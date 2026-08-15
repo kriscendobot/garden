@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Repo: endojs/endo-but-for-bots (branch `llm`). Builder job derived from the landed minion.town design `designs/endo-reminder-minion-town.md` (kriscendobot/minion.town PR #28, head cfe78b8), which records the maintainer's 2026-08-13 decisions and names this Endo-side change as the serial prerequisite for every consumer (minion.town, Chat, Familiar). It is NOT blocked by that design's §1 gates — those gate the minion.town integration, not this work.
@@ -14,13 +15,4 @@ Read `designs/endo-reminder-minion-town.md` §2, §4 "Endo", and §6 decisions 1
 
 Keep operator-only controls (`setMaxActive`, `setMinPeriodMs`, `pause`, `resume`, `revoke`) on `ReminderControl`; tenant surface stays create/list/set-period/cancel. Open a draft PR against `llm` and let the gauntlet run. Do not cut an npm release off `llm` (design §6 decision 4) and do not touch minion.town in this job.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-15T04:29:18Z
+<!-- garden-reaped: 0 -->
