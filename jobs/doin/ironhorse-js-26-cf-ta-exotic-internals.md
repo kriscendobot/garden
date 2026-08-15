@@ -57,3 +57,13 @@ Part of the js-26 TypedArray/ArrayBuffer residual-closure effort; sibling to the
 `ironhorse-js-26-cf-ta-ctor` (which closed the `new TA(length|buffer,offset,length)` forms, ToIndex
 coercion, catchable RangeError/TypeError, newless TypeError, and BYTES_PER_ELEMENT — 48→245 covered on
 `built-ins/TypedArrayConstructors`).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T01:44:41Z
