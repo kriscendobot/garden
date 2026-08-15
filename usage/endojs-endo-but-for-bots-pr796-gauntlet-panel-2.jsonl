@@ -4,3 +4,4 @@
 {"source":"none","ts":"2026-08-15T03:34:18Z","base":"endojs-endo-but-for-bots-pr796-gauntlet-panel-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":32,"role":"gardener"}
 {"source":"none","ts":"2026-08-15T03:45:50Z","base":"endojs-endo-but-for-bots-pr796-gauntlet-panel-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":60,"role":"gardener"}
 {"source":"none","ts":"2026-08-15T03:56:42Z","base":"endojs-endo-but-for-bots-pr796-gauntlet-panel-2","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":63,"role":"gardener"}
+{"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":96,"input_tokens":2,"output_tokens":17,"cache_creation_tokens":276,"cache_read_tokens":56027,"total_cost_usd":0.9044955,"ts":"2026-08-15T04:05:28Z","base":"endojs-endo-but-for-bots-pr796-gauntlet-panel-2","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"gardener"}
