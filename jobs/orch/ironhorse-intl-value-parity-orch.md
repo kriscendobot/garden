@@ -1,4 +1,5 @@
 ---
+child-ironhorse-intl-numberformat-reap-count: 0
 order: serial
 children: ironhorse-intl-numberformat ironhorse-intl-core-tolocalestring ironhorse-intl-displaynames ironhorse-intl-relativetimeformat ironhorse-intl-durationformat ironhorse-intl-datetimeformat ironhorse-intl-locale ironhorse-intl-collator ironhorse-intl-listformat ironhorse-intl-segmenter
 on-child-failure: halt
