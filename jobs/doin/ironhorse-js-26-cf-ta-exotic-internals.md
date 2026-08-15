@@ -59,3 +59,13 @@ coercion, catchable RangeError/TypeError, newless TypeError, and BYTES_PER_ELEME
 `built-ins/TypedArrayConstructors`).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T03:33:23Z
