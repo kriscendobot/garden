@@ -81,6 +81,7 @@ exist in the pinned test262 revision (verified: no
 `intl-legacy-constructed-symbol*` under `intl402/`); it was added upstream after
 `be13516fb6`. No action needed unless the test262 pin advances.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
