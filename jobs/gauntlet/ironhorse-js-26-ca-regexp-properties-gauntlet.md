@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 970
 build_job: ironhorse-js-26-ca-regexp-properties
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: ironhorse-js-26-ca-regexp-properties-gauntlet-clean
+current_child: ironhorse-js-26-ca-regexp-properties-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-14T23:40:23Z
