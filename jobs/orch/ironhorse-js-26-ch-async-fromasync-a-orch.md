@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-js-26-ch-async-fromasync-a-asyncfromsync ironhorse-js-26-ch-async-fromasync-a-residual
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-08-15T05:13:36Z
 ---
