@@ -21,3 +21,13 @@ Finalize and merge into `llm`. You own the merge method. Bot repo — merging is
 in scope. Do not touch agoric-sdk or endojs/endo upstream.
 
 Review: https://github.com/endojs/endo-but-for-bots/pull/248#pullrequestreview-4943023549
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T06:12:46Z
