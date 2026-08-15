@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: numberformat-residual-orch
-priority: normal
-posted_by: producer
-posted_at: 2026-08-15T03:44:31Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T03:46:08Z cleared=none -->
 
 ---
 role: builder
