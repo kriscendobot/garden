@@ -65,6 +65,7 @@ Repository: `endojs/endo-but-for-bots`. issue_spine: issue-kriscendobot-garden-5
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
