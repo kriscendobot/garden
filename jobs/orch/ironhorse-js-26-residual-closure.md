@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-cg-intl-value-parity-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cg-intl-value-parity-reap-count: 0
 child-ironhorse-js-26-cf-typedarray-arraybuffer-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cf-typedarray-arraybuffer-reap-count: 0
