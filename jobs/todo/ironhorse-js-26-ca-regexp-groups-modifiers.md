@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-js-26-ca-regexp-unicode-closure
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-08-14T22:23:13Z
+tier: mentor
+handler-timeout: 14000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T00:10:04Z cleared=none -->
 
 ---
 tier: mentor
