@@ -25,15 +25,3 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/28#pullrequestreview-4932653050
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-15T03:34:37Z
