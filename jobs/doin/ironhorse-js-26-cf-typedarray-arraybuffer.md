@@ -55,3 +55,13 @@ Repository: `endojs/endo-but-for-bots`.
 issue_spine: issue-kriscendobot-garden-51
 issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315524
 submitter: kriscendobot
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T00:42:22Z
