@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T14:02:33Z_
+_As of 2026-08-15T14:16:29Z_
 
 ## Latest
 
@@ -1332,16 +1332,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #992
+### doin (0)
+(none)
 
-### tada (4830)
+### tada (4831)
+- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr992-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-2.md) — Cost
-- … and 4825 more
+- … and 4826 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
