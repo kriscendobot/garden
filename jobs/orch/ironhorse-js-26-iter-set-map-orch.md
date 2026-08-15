@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-js-26-map-methods ironhorse-js-26-map-set-iterator-proto ironhorse-js-26-set-map-metadata ironhorse-js-26-iterator-helpers
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-15T04:26:36Z
 ---
