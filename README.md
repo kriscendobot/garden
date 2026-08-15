@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:57:26Z_
+_As of 2026-08-15T05:58:39Z_
 
 ## Latest
 
@@ -3533,6 +3533,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `ironhorse-js-26-map-methods` closed honestly short of its gated bar: the child delivered Map upsert (`getOrInsert`/`getOrInsertComputed`) coverage with no regressions, but did **not** reach zero test262 aborts for these subtrees because four cross-cutting engine-wide gaps remain open (the same residuals the js-26 parent left open for its Set methods). Two decisions are yours: (1) whether that partial state is acceptable for the parent's gate, or the halt-on-failure orchestration should stay halted until the four cross-cutting fixes land as their own feature increments; and (2) whether to fund the cheap adjacent increment the report flags — the `built-ins/WeakMap/prototype/getOrInsert` slice (weak-key validation, no key canonicalization), explicitly out of this child's scope. The digest names no repo or PR URL for either, so I am not posting jobs on a guess; tell me the target repo/PR and which of these to post and I will queue them.
 
+- `20260815T055809Z-96a288` — from orchestrator:ironhorse-js-26-ch-async-fromasync-a-orch-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T055809Z-96a288.md)
+
+> Orchestration ironhorse-js-26-ch-async-fromasync-a-orch HALTED: child ironhorse-js-26-ch-async-fromasync-a-asyncfromsync stalled in flight for 2502s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/2 done before halt; parked remainder: ironhorse-js-26-ch-async-fromasync-a-residual
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4645,8 +4649,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.2M | $1063.26 _(notional, rate-card)_ | no quota set |
-| Codex | 32.5M _(+1053.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 62.2M | $1063.91 _(notional, rate-card)_ | no quota set |
+| Codex | 32.5M _(+1053.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -4657,13 +4661,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 
-### tada (4799)
+### tada (4800)
+- [`ironhorse-js-26-ch-async-fromasync-a-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-a-orch.md) — orchestration ironhorse-js-26-ch-async-fromasync-a-orch — HALTED
 - [`daily-progress-summary-20260815-055003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260815-055003.md) — Completion report
 - [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-structural-followup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr991-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr991-shepherd.md) — Completion report
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-a-array.md) — Completion report: Array.fromAsync native async state machine (child A)
-- [`ironhorse-js-26-iter-set-map-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-iter-set-map-orch.md) — orchestration ironhorse-js-26-iter-set-map-orch — HALTED
-- … and 4794 more
+- … and 4795 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
