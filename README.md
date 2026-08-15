@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T17:01:08Z_
+_As of 2026-08-15T17:05:45Z_
 
 ## Latest
 
@@ -1342,14 +1342,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.7M | $798.57 _(notional, rate-card)_ | no quota set |
+| Claude | 45.0M | $801.06 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`dependabotany-recheck-endo-but-for-bots-20260815-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260815-170501.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-budget-enforcement.md) — The gap
 
 ### tada (4836)
