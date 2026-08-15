@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T17:18:40Z_
+_As of 2026-08-15T18:40:00Z_
 
 ## Latest
 
@@ -1350,15 +1350,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.9M | $799.81 _(notional, rate-card)_ | no quota set |
+| Claude | 45.0M | $801.10 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr993-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr993-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #993
 
 ### tada (4838)
 - [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-enforcement.md) — Completion report — garden-budget-enforcement
