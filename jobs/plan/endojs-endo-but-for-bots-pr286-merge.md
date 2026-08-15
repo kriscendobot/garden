@@ -1,5 +1,6 @@
 ---
-gate: blocked
+gate: blocked-failed
+blocked_failed_reason: blocker 'endojs-endo-but-for-bots-pr286-weave' completed but declined its gated outcome; held for a human decision
 blocked_on: endojs-endo-but-for-bots-pr286-weave
 priority: normal
 posted_by: producer
