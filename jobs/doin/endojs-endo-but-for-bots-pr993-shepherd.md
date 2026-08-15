@@ -21,3 +21,13 @@ discipline. The excerpt below is for human context only:
 Shepherd 
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-15T19:43:13Z
