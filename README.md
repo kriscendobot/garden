@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T04:57:52Z_
+_As of 2026-08-15T04:58:16Z_
 
 ## Latest
 
@@ -4640,21 +4640,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — ---
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-map-methods.md) — Close residual: Map.prototype.getOrInsert / getOrInsertComputed + Map.groupBy
-- [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
 - [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-structural-followup.md) — NumberFormat structural residue: function length/name descriptors, Intl-names...
 
-### tada (4791)
+### tada (4792)
+- [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-getter-structural.md) — Completion report
 - [`numberformat-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-residual-orch.md) — orchestration numberformat-residual-orch — HALTED
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-exotic-internals.md) — Completion report
 - [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ci-iterator-set-map.md) — Completion report
 - [`ironhorse-js-26-eval-function-import-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-function-import-closure.md) — orchestration ironhorse-js-26-eval-function-import-closure — HALTED
-- [`ironhorse-js-26-eval-05-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-05-dynamic-import.md) — Completion report — ironhorse-js-26-eval-05-dynamic-import
-- … and 4786 more
+- … and 4787 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
