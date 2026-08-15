@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T12:08:35Z_
+_As of 2026-08-15T12:30:14Z_
 
 ## Latest
 
@@ -1332,16 +1332,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #992
+### doin (0)
+(none)
 
-### tada (4826)
+### tada (4827)
+- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-2.md) — Cost
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-dataview.md) — Completion report: ironhorse-js-26-cf-dataview
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr313-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #313
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-1.md) — Completion report
-- [`daily-progress-summary-20260815-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260815-070501.md) — What I did
-- … and 4821 more
+- … and 4822 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
