@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-ci-iterator-set-map-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-ci-iterator-set-map-reap-count: 0
 child-ironhorse-js-26-ch-async-fromasync-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-ch-async-fromasync-reap-count: 0
