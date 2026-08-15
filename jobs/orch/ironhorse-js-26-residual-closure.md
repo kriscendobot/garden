@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-cf-typedarray-arraybuffer-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cf-typedarray-arraybuffer-reap-count: 0
 child-ironhorse-js-26-ce-apply-call-toprimitive-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-ce-apply-call-toprimitive-reap-count: 0
