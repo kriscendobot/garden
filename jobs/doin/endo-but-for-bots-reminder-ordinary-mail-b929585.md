@@ -13,3 +13,13 @@ Read `designs/endo-reminder-minion-town.md` §2, §4 "Endo", and §6 decisions 1
 4. Tests proving: mailbox delivery of the package message; rescheduling on send failure; projection deduplication across an ambiguous-send retry; and daemon restart/revival from the `@pins` result name with the VFS store reread and per-policy coalesce/skip of missed messages.
 
 Keep operator-only controls (`setMaxActive`, `setMinPeriodMs`, `pause`, `resume`, `revoke`) on `ReminderControl`; tenant surface stays create/list/set-period/cancel. Open a draft PR against `llm` and let the gauntlet run. Do not cut an npm release off `llm` (design §6 decision 4) and do not touch minion.town in this job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-15T04:29:18Z
