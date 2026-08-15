@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T02:52:42Z_
+_As of 2026-08-15T03:06:21Z_
 
 ## Latest
 
@@ -4502,7 +4502,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 32.3M _(+1043.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
+| Codex | 32.4M _(+1043.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
@@ -4510,7 +4510,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (12)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
-- [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
+- [`endojs-endo-but-for-bots-pr986-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #986
 - [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-intl-numberformat.md) — Implement Intl.NumberFormat (value/metering parity) — close the intl402/Numbe...
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
@@ -4522,13 +4522,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-04-annexb-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4775)
+### tada (4776)
+- [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Cost
 - [`ironhorse-js-26-cf-resid`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-resid.md) — orchestration ironhorse-js-26-cf-resid — HALTED
 - [`ironhorse-js-26-cf-ta-proto-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-proto-remainder.md) — orchestration ironhorse-js-26-cf-ta-proto-remainder — HALTED
 - [`ironhorse-js-26-residual-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-residual-closure.md) — orchestration ironhorse-js-26-residual-closure — HALTED
 - [`ironhorse-js-26-ch-async-fromasync-sub`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-sub.md) — orchestration ironhorse-js-26-ch-async-fromasync-sub — HALTED
-- [`ironhorse-js-26-cf-ta-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-residual-orch.md) — orchestration ironhorse-js-26-cf-ta-residual-orch — HALTED
-- … and 4770 more
+- … and 4771 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
