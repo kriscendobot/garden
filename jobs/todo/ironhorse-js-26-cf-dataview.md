@@ -63,15 +63,4 @@ durable continuation). Recursion is expected.
 
 Repository: `endojs/endo-but-for-bots`. issue_spine: issue-kriscendobot-garden-51
 
-<!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-15T07:43:08Z
+<!-- garden-reaped: 3 -->
