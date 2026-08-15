@@ -27,3 +27,13 @@ issue_spine: issue-kriscendobot-garden-51
 **Acceptance bar (non-negotiable, per parent):** convert via REAL execution to the accepted terminal — genuine `covered` (BothComplete, values agree) or the standards-grounded `oracle-host-missing-intl` (Ironhorse runs to `IronhorseOnlyComplete` with the correct CLDR value while the oracle reports `ReferenceError: get Intl: undefined variable`). Do NOT weaken the classifier, relabel, suppress, skip-list, or add expectation files. Lock exact values with focused Rust regressions in `rust/engine/ironhorse-262/tests/` (mirror `intl_numberformat.rs` / `intl_formatters.rs`). **Regression invariant:** no `covered` case in `baseline/baseline.json` regresses; no new `ironhorse-failure`/`infrastructure`; the `--gate-meter-exact` corpus (`cases/**`) and `cargo test --workspace --release` stay green. Measure the slice with `rust/engine/ironhorse-262/scripts/full-run.sh --subtree intl402/NumberFormat --output <dir> --jobs 4` (clean tree required — commit first). Triage single cases with `ironhorse_262::dual_run(src)`.
 
 **Report:** commands, before/after slice totals, changed reasons, head SHA, PR URL. Keep PR OPEN; do not merge. If over budget, sub-decompose further under a nested halt-on-failure orchestration and hand off — do NOT partially relabel.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T04:14:54Z
