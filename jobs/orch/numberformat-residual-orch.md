@@ -2,7 +2,7 @@
 order: serial
 children: numberformat-getter-structural numberformat-currency-unit numberformat-compact-formatrange numberformat-harness-opcode-closeout
 on-child-failure: halt
-state: pending
+state: running
 created_by: builder
 created_at: 2026-08-15T03:45:24Z
 ---
