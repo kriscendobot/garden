@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T04:31:41Z_
+_As of 2026-08-15T04:33:58Z_
 
 ## Latest
 
@@ -4629,26 +4629,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 32.8M _(+1062.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 
-### doin (8)
+### doin (6)
 - [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — ---
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-exotic-internals.md) — js-26 cf: TypedArray integer-indexed exotic internals
-- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
-- [`ironhorse-js-26-eval-05-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-05-dynamic-import.md) — ---
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-map-methods.md) — Close residual: Map.prototype.getOrInsert / getOrInsertComputed + Map.groupBy
 - [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
 
-### tada (4786)
+### tada (4787)
+- [`ironhorse-js-26-eval-05-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-05-dynamic-import.md) — Completion report — ironhorse-js-26-eval-05-dynamic-import
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-conduct.md) — Completion report
 - [`ironhorse-js-26-cf-ta-mutators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-mutators.md) — Cost
 - [`endojs-endo-but-for-bots-pr796-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr796-gauntlet — HALTED
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-04-annexb-source.md) — Completion report: ironhorse-js-26-eval-04-annexb-source
-- [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-closure-audit-gauntlet — HALTED
-- … and 4781 more
+- … and 4782 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
