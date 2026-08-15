@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:01:38Z_
+_As of 2026-08-15T05:04:35Z_
 
 ## Latest
 
@@ -3525,6 +3525,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration numberformat-residual-orch HALTED: child numberformat-getter-structural stalled in flight for 2408s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: numberformat-currency-unit numberformat-compact-formatrange numberformat-harness-opcode-closeout
 
+- `20260815T050406Z-d552ed` — from orchestrator:ironhorse-js-26-iter-set-map-orch-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T050406Z-d552ed.md)
+
+> Orchestration ironhorse-js-26-iter-set-map-orch HALTED: child ironhorse-js-26-map-methods completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: ironhorse-js-26-map-set-iterator-proto ironhorse-js-26-set-map-metadata ironhorse-js-26-iterator-helpers
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4645,13 +4649,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-structural-followup.md) — NumberFormat structural residue: function length/name descriptors, Intl-names...
 
-### tada (4794)
+### tada (4795)
+- [`ironhorse-js-26-iter-set-map-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-iter-set-map-orch.md) — orchestration ironhorse-js-26-iter-set-map-orch — HALTED
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-map-methods.md) — What I did
 - [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — Completion report
 - [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-getter-structural.md) — Completion report
 - [`numberformat-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-residual-orch.md) — orchestration numberformat-residual-orch — HALTED
-- [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-exotic-internals.md) — Completion report
-- … and 4789 more
+- … and 4790 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
