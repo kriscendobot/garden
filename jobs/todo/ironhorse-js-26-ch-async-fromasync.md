@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-js-26-residual-closure
-priority: normal
-posted_by: producer
-posted_at: 2026-08-14T22:16:29Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T01:28:20Z cleared=none -->
 
 ---
 tier: mentor
