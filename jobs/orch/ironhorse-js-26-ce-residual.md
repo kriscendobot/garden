@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-ce-exotic-completion-render-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-ce-exotic-completion-render-reap-count: 0
 order: serial
 children: ironhorse-js-26-ce-exotic-completion-render ironhorse-js-26-ce-toprimitive-coercion ironhorse-js-26-ce-fn-native-receivers
