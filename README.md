@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T14:17:29Z_
+_As of 2026-08-15T14:35:35Z_
 
 ## Latest
 
@@ -1127,6 +1127,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260815T070607Z-71888d` — from unblock:endojs-endo-but-for-bots-pr132-retcon-blocked-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T070607Z-71888d.md)
 
 > Blocked job 'endojs-endo-but-for-bots-pr132-retcon' will NOT be promoted: its blocker 'endojs-endo-but-for-bots-pr132-gauntlet' completed but DECLINED its gated outcome (e.g. a conductor that refused to merge a red / frozen-base / ferry-required PR). Promoting it would run downstream work against a base that never landed. It is HELD in plan/ under gate=blocked-failed for you: run promote-plan.sh 'endojs-endo-but-for-bots-pr132-retcon' to override if the decline is acceptable, or discard it.
+
+- `20260815T143518Z-27619e` — from gardener:endojs-endo-but-for-bots-pr992-gauntlet-panel-5, reply_to `endojs-endo-but-for-bots-pr992-gauntlet-panel-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T143518Z-27619e.md)
+
+> Heads-up ([endojs/endo-but-for-bots#992](https://github.com/endojs/endo-but-for-bots/issues/992) gauntlet, panel stage): the panel-stage job
+> template leaves the <base-ref> arg to the worker. In the fork clone
+> (kriscendobot/endo-but-for-bots), `origin/llm` is a STALE branch 492 commits behind
+> endojs/llm, so diffing against it yields a 3424-file bloated diff and mis-senses a CODE
+> panel instead of the DESIGN panel. The correct base is `upstream/llm` (endojs), whose
+> merge-base with HEAD is 9d86783c0 and yields the true 3-file design diff — matching
+> GitHub's PR diff and the base rounds 1-4 used. I caught it, re-ran with `upstream/llm`,
+> and posted the correct design-panel verdict (review 4944026686). Suggest the gauntlet
+> driver pin the panel-stage base to `upstream/llm` (or the PR's real base branch on the
+> upstream remote), not leave it to the worker to guess origin/llm.
 
 - `doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy.md)
 
