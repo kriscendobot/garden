@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T04:13:40Z_
+_As of 2026-08-15T04:15:44Z_
 
 ## Latest
 
@@ -3513,6 +3513,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet ironhorse-js-26-ca-regexp-closure-audit-gauntlet HALTED: stage 'ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260815T041410Z-d29661` — from gauntlet:endojs-endo-but-for-bots-pr796-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T041410Z-d29661.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr796-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr796-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4517,6 +4521,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'ironhorse-js-26-ce-toprimitive-coercion' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2402s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-ironhorse-js-26-cf-ta-exotic-internals` — from watchdog:gardener/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-js-26-cf-ta-exotic-internals.md)
+
+> gardener job 'ironhorse-js-26-cf-ta-exotic-internals' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2409s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
+- `watchdog-handler-budget-overrun-ironhorse-js-26-ch-async-fromasync-a-array` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-js-26-ch-async-fromasync-a-array.md)
+
+> gardener job 'ironhorse-js-26-ch-async-fromasync-a-array' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2419s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-minion-town-endo-b3-daemon-deploy-verify` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-minion-town-endo-b3-daemon-deploy-verify.md)
 
 > gardener job 'minion-town-endo-b3-daemon-deploy-verify' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -4610,13 +4622,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 67.9M | $1142.76 _(notional, rate-card)_ | no quota set |
-| Codex | 32.8M _(+1060.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
+| Codex | 32.8M _(+1061.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
+### todo (0)
+(none)
 
-### doin (7)
+### doin (8)
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-exotic-internals.md) — js-26 cf: TypedArray integer-indexed exotic internals
 - [`ironhorse-js-26-cf-ta-mutators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-mutators.md) — ---
@@ -4624,14 +4636,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
 - [`ironhorse-js-26-eval-05-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-05-dynamic-import.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
+- [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
 
-### tada (4783)
+### tada (4784)
+- [`endojs-endo-but-for-bots-pr796-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr796-gauntlet — HALTED
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-04-annexb-source.md) — Completion report: ironhorse-js-26-eval-04-annexb-source
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-closure-audit-gauntlet — HALTED
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1.md) — Cost
 - [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-intl-numberformat.md) — Completion report
-- [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-unicode-sets-gauntlet — HALTED
-- … and 4778 more
+- … and 4779 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
