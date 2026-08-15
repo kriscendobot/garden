@@ -40,15 +40,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-15T02:03:18Z
+<!-- garden-reaped: 4 -->

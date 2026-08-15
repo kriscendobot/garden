@@ -19,13 +19,4 @@ Close the Annex B and parser/source-text portion exposed by runtime eval and dyn
 
 Add focused Rust oracle regressions for every grammar/instantiation family, including positive and negative cases. No generic parser skips, text heuristics, skip lists, or relabeling. Run affected official slices, `cargo test --workspace --release`, and exact metering before push. Report totals before/after, reasons changed, commands, SHA, and PR URL. Emit the orchestration-failure signal if the gate is not met.
 
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-15T02:02:54Z
+<!-- garden-reaped: 1 -->

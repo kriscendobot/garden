@@ -79,13 +79,4 @@ reasons, head SHA, PR URL. Keep the PR open; do not merge.
 issue_spine: issue-kriscendobot-garden-51
 submitter: kriscendobot
 
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-15T01:46:27Z
+<!-- garden-reaped: 1 -->

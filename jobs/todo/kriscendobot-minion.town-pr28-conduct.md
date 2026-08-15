@@ -24,16 +24,4 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/28#pullrequestreview-4932653050
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-15T03:03:12Z
+<!-- garden-reaped: 0 -->
