@@ -16,3 +16,13 @@ Read `designs/endo-reminder-minion-town.md` §2, §4 "Endo", and §6 decisions 1
 Keep operator-only controls (`setMaxActive`, `setMinPeriodMs`, `pause`, `resume`, `revoke`) on `ReminderControl`; tenant surface stays create/list/set-period/cancel. Open a draft PR against `llm` and let the gauntlet run. Do not cut an npm release off `llm` (design §6 decision 4) and do not touch minion.town in this job.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T04:43:09Z
