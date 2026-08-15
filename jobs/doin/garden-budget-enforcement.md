@@ -76,3 +76,13 @@ garden-meta rather than project work. Flag any open question that needs the
 maintainer's judgment explicitly rather than guessing (the `garden-budget-omega`
 job's own pattern of posting a grounding question to the maintainer inbox when a
 term or scheme could not be confirmed is the right model to follow here too).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T17:00:51Z
