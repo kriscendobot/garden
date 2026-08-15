@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T19:53:23Z_
+_As of 2026-08-15T21:05:35Z_
 
 ## Latest
 
@@ -1388,8 +1388,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`mtown-git-remote-followup-notice-recheck-20260815`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260815.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
 ### tada (4838)
 - [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-enforcement.md) — Completion report — garden-budget-enforcement
