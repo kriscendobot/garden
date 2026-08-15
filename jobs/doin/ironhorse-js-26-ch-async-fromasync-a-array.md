@@ -80,3 +80,13 @@ issue_spine: issue-kriscendobot-garden-51
 submitter: kriscendobot
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T04:43:16Z
