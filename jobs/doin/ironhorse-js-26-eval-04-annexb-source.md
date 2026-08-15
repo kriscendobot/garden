@@ -18,3 +18,13 @@ Repository: `endojs/endo-but-for-bots`. Continue shared branch `feat/ironhorse-2
 Close the Annex B and parser/source-text portion exposed by runtime eval and dynamic functions. Implement standards-grounded HTML open/close comments and line-terminator restrictions for Script and dynamic-function parameter/body parsing, Annex B block-level function declaration instantiation, and the eval/global block-scoping interactions represented by the job's example cases. Cover the relevant `annexB/built-ins/Function` and `annexB/language/eval-code` official slices through real execution against XS.
 
 Add focused Rust oracle regressions for every grammar/instantiation family, including positive and negative cases. No generic parser skips, text heuristics, skip lists, or relabeling. Run affected official slices, `cargo test --workspace --release`, and exact metering before push. Report totals before/after, reasons changed, commands, SHA, and PR URL. Emit the orchestration-failure signal if the gate is not met.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T02:02:54Z
