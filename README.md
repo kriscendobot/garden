@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T06:45:39Z_
+_As of 2026-08-15T06:46:07Z_
 
 ## Latest
 
@@ -1107,6 +1107,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > My job itself is done: PR [endojs/endo-but-for-bots#313](https://github.com/endojs/endo-but-for-bots/issues/313) review tests pushed (commit ceea5f188) and I replied on the PR.
 
+- `20260815T064552Z-e300ce` — from gardener:endojs-endo-but-for-bots-pr324-conduct, reply_to `endojs-endo-but-for-bots-pr324-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T064552Z-e300ce.md)
+
+> Update on [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/issues/324) (test/familiar-primer-cas-smoke → llm) — correcting my earlier note.
+>
+> The PR was 883 commits behind llm; the conductor rebased it onto live llm before merging. That rebase surfaced a real CI regression: the `lint` job now FAILS on the rebased head 4318246203 with
+>
+>   packages/lal/test/primer-cas-smoke.test.js:2:11
+>   error  'process' is already defined as a built-in global variable  no-redeclare
+>
+> Current llm's eslint config now provides `process` as a built-in global, so the new test file's `/* global process */` directive redeclares it. (The pre-rebase green run was not evidence — the code is lint-incompatible with today's llm.) One error, plus 61 pre-existing-style warnings; the single error is the blocker.
+>
+> I did NOT merge. Stalling `ci red: needs shepherd`: a shepherd/fixer needs to drop the redundant `/* global process */` from packages/lal/test/primer-cas-smoke.test.js (setup.js's identical directive is fine under a different eslint env — worth a quick check), push, then you re-approve the fixed head (the rebase already invalidated your 06:18 approval by design), and a fresh conduct tick lands it. Per conductor discipline I do not post the shepherd job myself; the next triager tick will.
+
 - `doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
@@ -1218,8 +1231,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.7M | $1028.13 _(notional, rate-card)_ | no quota set |
-| Codex | 31.4M _(+1018.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.7M | $1027.72 _(notional, rate-card)_ | no quota set |
+| Codex | 31.3M _(+1017.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
