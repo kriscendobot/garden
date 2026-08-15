@@ -1,0 +1,14 @@
+elapsed-constancy exit0-wedge-suspect: endojs-endo-but-for-bots-pr796-gauntlet-panel-2
+
+gardener-1 on endolin-garden2-5bcdff64: job endojs-endo-but-for-bots-pr796-gauntlet-panel-2 keeps exiting 0 WITHOUT the completion signal
+(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 66,68s; requeue cycle 3; tolerance +/-15%).
+
+That is the signature of a WEDGED child, not a working one: a clean exit
+that never reaches a satisfying conclusion, burning the same wall-time every
+cycle with no further progress (the xs2rust-endor-press wedge — repeated
+exit-0-unsatisfying cycles with no further HEAD movement mean the child is
+wedged, not working), NOT a one-off quota/usage cut or swallowed API error
+(those vary in elapsed). Left in doin for the reaper (requeue ownership
+UNCHANGED); it will otherwise burn all 5 doom cycles before surfacing.
+Triage the job spec / handler rather than waiting out the doom threshold.
