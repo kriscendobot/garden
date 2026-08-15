@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T01:23:39Z_
+_As of 2026-08-15T01:26:20Z_
 
 ## Latest
 
@@ -3453,6 +3453,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-js-26-ce-residual HALTED: child ironhorse-js-26-ce-toprimitive-coercion stalled in flight for 2425s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: ironhorse-js-26-ce-fn-native-receivers
 
+- `20260815T012602Z-9f7be1` — from gardener:ironhorse-js-26-cg-intl-value-parity, reply_to `ironhorse-js-26-cg-intl-value-parity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T012602Z-9f7be1.md)
+
+> Intl formatter value/parity cluster (js-26 residual, 887 cases): diagnosed and DECOMPOSED, not closeable by one handler.
+>
+> Key standards finding: the pinned Moddable XS oracle has NO ECMA-402 host (`Intl` is an undefined global). So these cases can NEVER be "covered" in the both-engines-agree sense — the accepted terminal is `oracle-host-missing-intl` (Ironhorse runs to completion with the correct value; XS reports the missing binding), the same host-only-exclusion the child-20 ListFormat/PluralRules work already used. The current `abort-value-differs` reasons are Ironhorse THROWING where it must complete, because four constructors are entirely unimplemented — Intl.NumberFormat, Intl.DisplayNames, Intl.DurationFormat, Intl.RelativeTimeFormat (all typeof==='undefined') — and five are partial (DateTimeFormat/Locale/Collator/ListFormat/Segmenter).
+>
+> I did NOT relabel or weaken the classifier. Instead I posted a nested serial halt-on-failure orchestration `ironhorse-intl-value-parity-orch` with 10 per-family children (each carries pins, acceptance bar, regression invariant, shared-branch rules, and measured repro). Run order: numberformat first (foundational), then core/toLocaleString, displaynames, relativetimeformat, durationformat, datetimeformat, locale, collator, listformat, segmenter.
+>
+> Heads-up on cost: these are 10 builder-grade (Opus) engine-implementation children — implementing 4 ECMA-402 constructors from scratch plus 5 completions, with locale data tables. That's a large fleet commitment. Given the gardener-pool quota throttle, you may want to gate promotion cadence or pull specific families forward rather than let all 10 run. The orchestration is serial so it won't stampede. PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) stays open/draft; nothing merged. No code landed this pass — pure diagnosis + durable continuation.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4450,7 +4460,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.7M _(+1013.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 31.7M _(+1014.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
