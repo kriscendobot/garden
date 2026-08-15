@@ -1,9 +1,8 @@
-once: 2026-08-15T20:58:11Z
-job_basename_prefix: mtown-git-remote-followup-notice-recheck-20260815
----
 ---
 role: gardener
 tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Notice: recheck the minion.town git-remote follow-up on the daemon commit-formula design
 
