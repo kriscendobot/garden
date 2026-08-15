@@ -52,6 +52,7 @@ issue_spine: issue-kriscendobot-garden-51
 issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315524
 submitter: kriscendobot
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
