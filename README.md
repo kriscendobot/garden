@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T16:58:29Z_
+_As of 2026-08-15T17:01:08Z_
 
 ## Latest
 
@@ -1349,8 +1349,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-budget-enforcement.md) — The gap
 
 ### tada (4836)
 - [`endojs-endo-but-for-bots-pr992-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr992-gauntlet — HALTED
