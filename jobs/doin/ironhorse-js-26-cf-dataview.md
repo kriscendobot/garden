@@ -63,6 +63,7 @@ durable continuation). Recursion is expected.
 
 Repository: `endojs/endo-but-for-bots`. issue_spine: issue-kriscendobot-garden-51
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
