@@ -65,6 +65,7 @@ scheduler would treat the token as its weekly default.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
