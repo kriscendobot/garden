@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T01:26:50Z_
+_As of 2026-08-15T01:28:53Z_
 
 ## Latest
 
@@ -4460,16 +4460,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.7M _(+1014.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 31.7M _(+1015.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-ch-async-fromasync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ch-async-fromasync.md) — Close residual language gap: async: run-skips, Array.fromAsync async iteratio...
 
-### doin (8)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #988
+- [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-intl-numberformat.md) — Implement Intl.NumberFormat (value/metering parity) — close the intl402/Numbe...
 - [`ironhorse-js-26-ca-regexp-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-closure-audit.md) — ---
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cf-ta-ctor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-ctor.md) — js-26 cf: TypedArray constructors (all forms + errors + species)
