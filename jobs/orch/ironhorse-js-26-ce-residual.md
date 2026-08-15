@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-js-26-ce-exotic-completion-render ironhorse-js-26-ce-toprimitive-coercion ironhorse-js-26-ce-fn-native-receivers
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-15T00:07:15Z
 ---
