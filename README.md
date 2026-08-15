@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T16:09:09Z_
+_As of 2026-08-15T16:11:21Z_
 
 ## Latest
 
@@ -1141,6 +1141,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > driver pin the panel-stage base to `upstream/llm` (or the PR's real base branch on the
 > upstream remote), not leave it to the worker to guess origin/llm.
 
+- `20260815T161108Z-7ef189` — from gauntlet:endojs-endo-but-for-bots-pr992-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T161108Z-7ef189.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr992-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
+
 - `doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
@@ -1348,13 +1352,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (0)
 (none)
 
-### tada (4835)
+### tada (4836)
+- [`endojs-endo-but-for-bots-pr992-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr992-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-4.md) — Completion report
-- … and 4830 more
+- … and 4831 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
