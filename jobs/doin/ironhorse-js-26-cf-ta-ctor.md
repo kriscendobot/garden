@@ -62,3 +62,13 @@ then sub-decompose the remainder into a nested halt-on-failure orchestration and
 durable continuation). Recursion is expected.
 
 Repository: `endojs/endo-but-for-bots`. issue_spine: issue-kriscendobot-garden-51
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T01:04:45Z
