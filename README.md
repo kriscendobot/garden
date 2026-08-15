@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T04:55:23Z_
+_As of 2026-08-15T04:57:52Z_
 
 ## Latest
 
@@ -4640,12 +4640,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — ---
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-map-methods.md) — Close residual: Map.prototype.getOrInsert / getOrInsertComputed + Map.groupBy
 - [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
+- [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-structural-followup.md) — NumberFormat structural residue: function length/name descriptors, Intl-names...
 
 ### tada (4791)
 - [`numberformat-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-residual-orch.md) — orchestration numberformat-residual-orch — HALTED
