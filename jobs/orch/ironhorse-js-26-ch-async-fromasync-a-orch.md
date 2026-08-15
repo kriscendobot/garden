@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-reap-count: 0
 order: serial
 children: ironhorse-js-26-ch-async-fromasync-a-asyncfromsync ironhorse-js-26-ch-async-fromasync-a-residual
 on-child-failure: halt
