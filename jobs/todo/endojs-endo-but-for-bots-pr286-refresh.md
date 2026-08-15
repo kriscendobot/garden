@@ -18,16 +18,7 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 This needs a refresh and conduct. 
 
-<!-- garden-reaped: 2 -->
 
 <!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-15T06:43:14Z
+
+<!-- garden-reaped: 3 -->
