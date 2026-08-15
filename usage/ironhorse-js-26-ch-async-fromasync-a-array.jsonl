@@ -2,3 +2,4 @@
 {"source":"none","ts":"2026-08-15T04:14:25Z","base":"ironhorse-js-26-ch-async-fromasync-a-array","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":2401}
 {"ts":"2026-08-15T04:24:07Z","base":"ironhorse-js-26-ch-async-fromasync-a-array","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2}
 {"ts":"2026-08-15T04:34:19Z","base":"ironhorse-js-26-ch-async-fromasync-a-array","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":6}
+{"source":"result","model":"claude-opus-4-8","num_turns":108,"elapsed_s":1901,"input_tokens":200,"output_tokens":115583,"cache_creation_tokens":163578,"cache_read_tokens":49320322,"total_cost_usd":29.18651599999999,"ts":"2026-08-15T05:15:06Z","base":"ironhorse-js-26-ch-async-fromasync-a-array","host":"endolin-garden-ece02cb4","outcome":"tada"}
