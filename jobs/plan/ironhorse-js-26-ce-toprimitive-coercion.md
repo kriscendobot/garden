@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-15T01:23:07Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-15T01:23:07Z
+---
+
+---
 tier: mentor
 ---
 <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T00:34:04Z cleared=none -->
@@ -48,15 +65,3 @@ URL. Keep PR open; do not merge.
 
 issue_spine: issue-kriscendobot-garden-51
 submitter: kriscendobot
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-15T00:35:36Z
