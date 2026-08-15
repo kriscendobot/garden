@@ -22,3 +22,13 @@ Definition of done: `gh pr view 286 --repo endojs/endo-but-for-bots --json
 mergeable,mergeStateStatus` reports mergeable (not CONFLICTING) and CI is green.
 Once done, the blocked conductor merge job
 `endojs-endo-but-for-bots-pr286-merge` unblocks automatically.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T06:14:41Z
