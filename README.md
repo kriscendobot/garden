@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T00:44:54Z_
+_As of 2026-08-15T00:45:17Z_
 
 ## Latest
 
@@ -4307,7 +4307,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
@@ -4316,16 +4316,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ce-toprimitive-coercion.md) — Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
 - [`ironhorse-js-26-cf-typedarray-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-typedarray-arraybuffer.md) — Close residual language gap: TypedArray / ArrayBuffer / DataView / Atomics se...
-- [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-01-runtime-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4752)
+### tada (4753)
+- [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-01-runtime-source.md) — Completion report
 - [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`ironhorse-js-26-cc-object-mop-exotic-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cc-object-mop-exotic-closure.md) — orchestration ironhorse-js-26-cc-object-mop-exotic-closure — HALTED
 - [`ironhorse-js-26-ce-exotic-completion-render`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ce-exotic-completion-render.md) — Completion report
 - [`ironhorse-js-26-ca-regexp-properties-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-properties-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-properties-gauntlet — HALTED
-- [`ironhorse-js-26-ca-regexp-properties-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-properties-gauntlet-panel-1.md) — Cost
-- … and 4747 more
+- … and 4748 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
