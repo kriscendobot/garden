@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: gardener
-claimed_at: 2026-08-15T00:42:22Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-js-26-cf-typedarray-arraybuffer
