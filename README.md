@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-14T23:58:56Z_
+_As of 2026-08-15T00:01:57Z_
 
 ## Latest
 
@@ -4255,19 +4255,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 30.7M _(+968.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
+| Codex | 30.8M _(+969.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 92% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-cb-with-eval-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cb-with-eval-closure.md) — with-cluster child B: sloppy direct-eval closure-environment publishing
 
-### doin (9)
+### doin (10)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-js-26-ca-regexp-properties-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-properties-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-ca-regexp-unicode-sets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets.md) — ---
+- [`ironhorse-js-26-cc-mop-gopd-keys`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cc-mop-gopd-keys.md) — Object MOP residual 2/7: getOwnPropertyDescriptor coercion and index keys
 - [`ironhorse-js-26-ce-apply-call-toprimitive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ce-apply-call-toprimitive.md) — Close residual language gap: Function apply/call/callback on non-user-functio...
 - [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-01-runtime-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
