@@ -67,3 +67,13 @@ scheduler would treat the token as its weekly default.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T07:33:12Z
