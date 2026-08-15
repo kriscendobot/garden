@@ -23,6 +23,7 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-comment by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/340#issuecomment-5300910320
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
