@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-cc-mop-gopd-keys-reap-count: 0
 child-ironhorse-js-26-cc-mop-has-own-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cc-mop-has-own-reap-count: 0
 order: serial
