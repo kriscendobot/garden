@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T00:43:54Z_
+_As of 2026-08-15T00:44:54Z_
 
 ## Latest
 
@@ -4301,11 +4301,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.5M _(+998.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
+| Codex | 31.5M _(+999.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #990
+### todo (0)
+(none)
 
 ### doin (10)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
@@ -4319,13 +4319,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-01-runtime-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4751)
+### tada (4752)
+- [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`ironhorse-js-26-cc-object-mop-exotic-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cc-object-mop-exotic-closure.md) — orchestration ironhorse-js-26-cc-object-mop-exotic-closure — HALTED
 - [`ironhorse-js-26-ce-exotic-completion-render`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ce-exotic-completion-render.md) — Completion report
 - [`ironhorse-js-26-ca-regexp-properties-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-properties-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-properties-gauntlet — HALTED
 - [`ironhorse-js-26-ca-regexp-properties-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-properties-gauntlet-panel-1.md) — Cost
-- [`ironhorse-js-26-cb-with-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cb-with-closure.md) — orchestration ironhorse-js-26-cb-with-closure — HALTED
-- … and 4746 more
+- … and 4747 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
