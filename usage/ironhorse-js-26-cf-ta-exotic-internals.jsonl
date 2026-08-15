@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":102,"elapsed_s":1001,"input_tokens":190,"output_tokens":67061,"cache_creation_tokens":190733,"cache_read_tokens":12543486,"total_cost_usd":9.859815000000005,"ts":"2026-08-15T02:01:59Z","base":"ironhorse-js-26-cf-ta-exotic-internals","host":"endolin-garden-ece02cb4","outcome":"requeue"}
