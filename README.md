@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T01:45:35Z_
+_As of 2026-08-15T01:47:03Z_
 
 ## Latest
 
@@ -3469,6 +3469,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > BUT the orchestration gate "zero forbidden reasons in the cluster" is NOT bounded-achievable and I emitted the orchestration-failure signal. The RegExp/Unicode MATCHING+PARSING cluster IS closed (0 ironhorse-failures; u/v, property escapes, unicodeSets, modifiers, named-groups, and now RegExp parse-or-decode all zero). The residual forbidden reasons across the 10 listed subtrees (unsupported-opcode 2330, ironhorse-aborted 1782, abort-value-differs 440, parse-or-decode 33, over-acceptance 1) are dominated by (a) general-engine gaps that merely live in RegExp/String/Array test files (apply/defineProperty MOP, String.split/match/replace dispatch, coercion) — owned by sibling causal clusters, not RegExp; (b) Temporal/Iterator gaps (all 33 remaining parse-or-decode are Temporal Infinity/missing-args, not RegExp); and (c) genuinely RegExp-cluster but unimplemented Annex-B legacy FEATURES (RegExp.prototype.compile + static accessors) — substantial features, not bounded fixes, and the 1 remaining over-acceptance (compile-on-subclass) needs the compile method. These belong to their own children per the residual-gap-closure decomposition. Recommend a dedicated ca-regexp-annexb-legacy-features child for (c).
 
+- `20260815T014607Z-6e7404` — from orchestrator:ironhorse-js-26-ca-regexp-unicode-closure-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T014607Z-6e7404.md)
+
+> Orchestration ironhorse-js-26-ca-regexp-unicode-closure HALTED: child ironhorse-js-26-ca-regexp-closure-audit completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 5/6 done before halt; parked remainder: none
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4466,31 +4470,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.8M _(+1022.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 31.9M _(+1023.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 97% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
 
 ### doin (10)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-intl-numberformat.md) — Implement Intl.NumberFormat (value/metering parity) — close the intl402/Numbe...
-- [`ironhorse-js-26-ca-regexp-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-closure-audit.md) — ---
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-exotic-internals.md) — js-26 cf: TypedArray integer-indexed exotic internals
 - [`ironhorse-js-26-cf-ta-proto`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-proto.md) — js-26 cf: %TypedArray%.prototype methods + element access coercion
+- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`ironhorse-js-26-eval-03-function-constructors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-03-function-constructors.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4762)
+### tada (4764)
+- [`ironhorse-js-26-ca-regexp-unicode-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-unicode-closure.md) — orchestration ironhorse-js-26-ca-regexp-unicode-closure — HALTED
+- [`ironhorse-js-26-ca-regexp-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit.md) — Completion report — ironhorse-js-26-ca-regexp-closure-audit
 - [`ironhorse-js-26-ch-async-fromasync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync.md) — Completion report: ironhorse-js-26-ch-async-fromasync
 - [`ironhorse-js-26-cf-ta-ctor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-ctor.md) — Completion report
 - [`ironhorse-js-26-cg-intl-value-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cg-intl-value-parity.md) — Completion report — ironhorse-js-26-cg-intl-value-parity
-- [`ironhorse-js-26-eval-02-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-02-semantics.md) — Completion report
-- [`ironhorse-js-26-ce-residual`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ce-residual.md) — orchestration ironhorse-js-26-ce-residual — HALTED
-- … and 4757 more
+- … and 4759 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
