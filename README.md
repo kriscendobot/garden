@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T00:56:35Z_
+_As of 2026-08-15T01:04:34Z_
 
 ## Latest
 
@@ -3423,6 +3423,32 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr909-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr909-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260815T010357Z-1b583e` — from gardener:ironhorse-js-26-cf-typedarray-arraybuffer, reply_to `ironhorse-js-26-cf-typedarray-arraybuffer` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T010357Z-1b583e.md)
+
+> js-26 TypedArray/ArrayBuffer cluster (3243 cases) — status + a high-leverage finding.
+>
+> Done this session: landed the ArrayBuffer/SharedArrayBuffer **constructor** ToIndex-coercion +
+> catchable RangeError/TypeError surface on feat/ironhorse-262-language-completion (PR
+> [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970), head 1c41b9a61). built-ins/ArrayBuffer slice: covered 22→28, 0
+> regressions; exact-metering corpus (1712/1712) + full Rust workspace green; added
+> tests/array_buffer_ctor_coercion.rs.
+>
+> Cluster too large for one handler → re-decomposed the remainder into a serial halt-on-failure
+> orchestration `ironhorse-js-26-cf-resid` (7 parked children: ta-ctor, ta-proto, dataview,
+> slice-transfer, resizable-buffers, atomics, array-nondense) on origin/journal2. Handed off.
+>
+> HIGH-LEVERAGE, CROSS-CUTTING FINDING (worth routing NOW): a large share of the error-path cases
+> across the WHOLE language-completion arc are blocked by a general object-model gap, NOT by
+> TypedArray semantics — reading `.constructor` on a user-function instance (and
+> `Foo.prototype.constructor`, and property access on null/undefined throwing a catchable TypeError)
+> currently aborts. Since the ubiquitous `assert.throws(Ctor, fn)` harness reads `thrown.constructor`
+> on its success path, every "assert.throws expected-error" case stays `ironhorse-aborted` even when
+> the engine throws the correct error. Minimal repro: `assert.throws(Test262Error, () => { throw new
+> Test262Error() })` is ironhorse-aborted, while `assert.throws(RangeError, () => new ArrayBuffer(-1))`
+> is covered. This belongs to the built-ins/Object / general object-model cluster and would unblock a
+> big fraction of js-XX error cases at once — recommend prioritizing it ahead of the deeper
+> TypedArray-semantics children.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4354,11 +4380,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+1003.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
+| Codex | 31.6M _(+1006.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-cf-ta-ctor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cf-ta-ctor.md) — js-26 cf: TypedArray constructors (all forms + errors + species)
 
 ### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
