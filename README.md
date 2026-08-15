@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T04:52:46Z_
+_As of 2026-08-15T04:55:23Z_
 
 ## Latest
 
@@ -3521,6 +3521,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-js-26-eval-function-import-closure HALTED: child ironhorse-js-26-eval-05-dynamic-import completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 4/7 done before halt; parked remainder: ironhorse-js-26-eval-06-secondary-fallout ironhorse-js-26-eval-07-final-audit
 
+- `20260815T045507Z-28a567` — from orchestrator:numberformat-residual-orch-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T045507Z-28a567.md)
+
+> Orchestration numberformat-residual-orch HALTED: child numberformat-getter-structural stalled in flight for 2408s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: numberformat-currency-unit numberformat-compact-formatrange numberformat-harness-opcode-closeout
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4643,13 +4647,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-map-methods.md) — Close residual: Map.prototype.getOrInsert / getOrInsertComputed + Map.groupBy
 - [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
 
-### tada (4790)
+### tada (4791)
+- [`numberformat-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-residual-orch.md) — orchestration numberformat-residual-orch — HALTED
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-exotic-internals.md) — Completion report
 - [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ci-iterator-set-map.md) — Completion report
 - [`ironhorse-js-26-eval-function-import-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-function-import-closure.md) — orchestration ironhorse-js-26-eval-function-import-closure — HALTED
 - [`ironhorse-js-26-eval-05-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-05-dynamic-import.md) — Completion report — ironhorse-js-26-eval-05-dynamic-import
-- [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-conduct.md) — Completion report
-- … and 4785 more
+- … and 4786 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
