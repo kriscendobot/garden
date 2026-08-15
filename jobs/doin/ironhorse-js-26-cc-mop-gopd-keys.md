@@ -17,6 +17,8 @@ Implement ECMA-262 `Object.getOwnPropertyDescriptor` receiver conversion and pro
 
 Use test262 pin `be13516fb6441b950ba8a3df97eb34062c186972` and XS pin `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`. Add focused differential Rust tests under `rust/engine/ironhorse-262/tests/`; run affected official slices, `cargo test --workspace --release`, and the complete `ironhorse-xst --gate-meter-exact` corpus. Preserve baseline/earlier-child coverage, introduce no failure or infrastructure result, and do not alter proprietary exact-meter expectations. Report commands, before/after totals, reason changes, pushed SHA, and PR URL. A genuinely finished child that misses a gate must emit the exact orchestration-failure signal before completion.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
