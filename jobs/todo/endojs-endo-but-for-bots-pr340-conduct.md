@@ -6,7 +6,7 @@ fallback-tier:
 dispatch: automatic
 ---
 
-# Finalize (curate → merge) endojs/endo-but-for-bots PR #316
+# Finalize (curate → merge) endojs/endo-but-for-bots PR #340
 
 A trusted maintainer APPROVED this PR and the watcher confirmed it is
 OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
@@ -21,18 +21,7 @@ Guards (the watcher already enforced these; re-verify before merging):
     forcing the merge.
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
-Source: pr-review-body by kriskowal
-Approval: https://github.com/endojs/endo-but-for-bots/pull/316#pullrequestreview-4943074432
+Source: pr-comment by kriskowal
+Approval: https://github.com/endojs/endo-but-for-bots/pull/340#issuecomment-5300910320
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-15T06:33:28Z
+<!-- garden-reaped: 1 -->
