@@ -1,3 +1,4 @@
 {"ts":"2026-08-15T07:05:55Z","base":"daily-progress-summary-20260815-070501","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-15T07:13:41Z","base":"daily-progress-summary-20260815-070501","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
 {"ts":"2026-08-15T07:23:42Z","base":"daily-progress-summary-20260815-070501","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":8}
+{"source":"result","model":"claude-opus-4-8","num_turns":20,"elapsed_s":293,"input_tokens":34,"output_tokens":19805,"cache_creation_tokens":98762,"cache_read_tokens":1402761,"total_cost_usd":2.1871875,"ts":"2026-08-15T07:38:13Z","base":"daily-progress-summary-20260815-070501","host":"endolin-garden-ece02cb4","outcome":"tada"}
