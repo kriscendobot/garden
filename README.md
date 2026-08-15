@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:50:40Z_
+_As of 2026-08-15T05:55:27Z_
 
 ## Latest
 
@@ -4641,25 +4641,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.6M | $1078.84 _(notional, rate-card)_ | no quota set |
-| Codex | 32.5M _(+1054.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 62.2M | $1063.98 _(notional, rate-card)_ | no quota set |
+| Codex | 32.5M _(+1054.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`daily-progress-summary-20260815-055003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260815-055003.md) — Daily midnight Pacific progress summary
+- [`endojs-endo-but-for-bots-pr132-review-0ef8f0d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-review-0ef8f0d1.md) — Review directive on endojs/endo-but-for-bots PR #132
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 
-### tada (4798)
+### tada (4799)
+- [`daily-progress-summary-20260815-055003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260815-055003.md) — Completion report
 - [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-structural-followup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr991-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr991-shepherd.md) — Completion report
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-a-array.md) — Completion report: Array.fromAsync native async state machine (child A)
 - [`ironhorse-js-26-iter-set-map-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-iter-set-map-orch.md) — orchestration ironhorse-js-26-iter-set-map-orch — HALTED
-- [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-map-methods.md) — What I did
-- … and 4793 more
+- … and 4794 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4821,6 +4821,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr910-review-cde2c465-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr910-review-cde2c465-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #910 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr44-review-1686b169-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr44-review-1686b169-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #44 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr132-review-0ef8f0d1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-review-0ef8f0d1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #132 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
