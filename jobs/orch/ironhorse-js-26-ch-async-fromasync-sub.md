@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-ch-async-fromasync-a-array-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-ch-async-fromasync-a-array-reap-count: 0
 order: serial
 children: ironhorse-js-26-ch-async-fromasync-a-array ironhorse-js-26-ch-async-fromasync-b-asyncgen ironhorse-js-26-ch-async-fromasync-c-promise ironhorse-js-26-ch-async-fromasync-d-await
