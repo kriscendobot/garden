@@ -1,4 +1,5 @@
 ---
+child-numberformat-getter-structural-reap-count: 0
 order: serial
 children: numberformat-getter-structural numberformat-currency-unit numberformat-compact-formatrange numberformat-harness-opcode-closeout
 on-child-failure: halt
