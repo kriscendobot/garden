@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T03:37:20Z_
+_As of 2026-08-15T03:43:48Z_
 
 ## Latest
 
@@ -4085,6 +4085,57 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
 >   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
 
+- `doomed-ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean) or removes it, so nothing is lost.
+> Original job base: ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: ironhorse-js-26-ca-regexp-unicode-sets-gauntlet
+> gauntlet_stage: clean
+> gauntlet_iteration: 0
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/970](https://github.com/endojs/endo-but-for-bots/pull/970)
+> ---
+>
+> # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
+>
+> You are ONE stage of a staged gauntlet (ironhorse-js-26-ca-regexp-unicode-sets-gauntlet). Do ONLY the clean stage, then STOP.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Idempotence first. `gh pr view https://github.com/endojs/endo-but-for-bots/pull/970 --json isDraft,state,statusCheckRollup`. If the
+>    PR is already the right shape (coverage already pushed, CI GREEN at the current
+>    head), this stage is a NO-OP: skip to the marker with clean=done.
+> 2. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean endojs/endo-but-for-bots <pr-head-branch>`
+>    (the head branch is `gh pr view https://github.com/endojs/endo-but-for-bots/pull/970 --json headRefName -q .headRefName`).
+> 3. In that checkout: run the coverage pass on the touched packages
+>    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
+> 4. If you changed anything, push follow-ups to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 970 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
+>      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
+>    - rc 3 (RED): this stage FAILS. Begin your report with a line
+>      `orchestration-failed: true` and describe the failing checks; do NOT emit any
+>      clean=done marker (the driver halts the gauntlet and surfaces it).
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
+>   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+
 - `doomed-ironhorse-js-26-cc-mop-gopd-keys-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-cc-mop-gopd-keys-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
@@ -4505,19 +4556,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.6M | $1097.49 _(notional, rate-card)_ | no quota set |
-| Codex | 32.5M _(+1044.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 99% _(plan; codex-reported)_ |
+| Claude | 66.7M | $1117.35 _(notional, rate-card)_ | no quota set |
+| Codex | 32.6M _(+1047.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 99% _(plan; codex-reported)_ |
 
 ## Board
-### todo (2)
+### todo (3)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`ironhorse-js-26-cf-ta-mutators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cf-ta-mutators.md) — ---
 - [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
 
-### doin (9)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
+### doin (7)
 - [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-intl-numberformat.md) — Implement Intl.NumberFormat (value/metering parity) — close the intl402/Numbe...
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-exotic-internals.md) — js-26 cf: TypedArray integer-indexed exotic internals
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
@@ -4581,6 +4631,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-ca-regexp-u-core-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ca-regexp-u-core-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
+- [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cc-mop-gopd-keys`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-cc-mop-gopd-keys.md) — _normal_ · Object MOP residual 2/7: getOwnPropertyDescriptor coercion and index keys
 - [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ce-toprimitive-coercion.md) — _normal_ · Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
 - [`ironhorse-resume-3-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-3-launch.md) — _normal_ · Launch the Ironhorse test262 campaign resume-3 (21 children, js-08..js-28)
