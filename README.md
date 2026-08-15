@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:15:25Z_
+_As of 2026-08-15T05:16:37Z_
 
 ## Latest
 
@@ -4648,9 +4648,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr991-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr991-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #991
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
+- [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 - [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-structural-followup.md) — NumberFormat structural residue: function length/name descriptors, Intl-names...
 
 ### tada (4796)
