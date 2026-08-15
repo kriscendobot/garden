@@ -47,3 +47,13 @@ Approval: https://github.com/endojs/endo-but-for-bots/pull/288#pullrequestreview
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T07:03:08Z
