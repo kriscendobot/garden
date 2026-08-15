@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T01:19:59Z_
+_As of 2026-08-15T01:23:39Z_
 
 ## Latest
 
@@ -4063,6 +4063,68 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Use test262 pin `be13516fb6441b950ba8a3df97eb34062c186972` and XS pin `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`. Add focused differential Rust tests under `rust/engine/ironhorse-262/tests/`; run affected official slices, `cargo test --workspace --release`, and the complete `ironhorse-xst --gate-meter-exact` corpus. Preserve baseline/earlier-child coverage, introduce no failure or infrastructure result, and do not alter proprietary exact-meter expectations. Report commands, before/after totals, reason changes, pushed SHA, and PR URL. A genuinely finished child that misses a gate must emit the exact orchestration-failure signal before completion.
 
+- `doomed-ironhorse-js-26-ce-toprimitive-coercion-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ce-toprimitive-coercion-deadline-overrun.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
+> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
+> One such observation is conclusive, so the reaper did not spend another full handler budget.
+> Split the work into claim-sized stages or raise its handler-timeout.
+> The work is preserved at jobs/plan/ironhorse-js-26-ce-toprimitive-coercion; it stays HELD until a human promotes it
+> (promote-plan.sh ironhorse-js-26-ce-toprimitive-coercion) or removes it.
+> Original job base: ironhorse-js-26-ce-toprimitive-coercion
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T00:34:04Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@toPrimitive)
+>
+> Part of the js-26 residual-closure arc (cluster `ironhorse-js-26-ce-apply-call-toprimitive`, PR
+> [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970); parent branch head at hand-off `3f24768032`). THIS child owns the
+> ToPrimitive coercion family — an object coerced to a primitive whose result ironhorse cannot yet
+> produce.
+>
+> **In-scope skip reasons (`rust/engine/ironhorse-vm/src/interp.rs`, `to_primitive` ~28106 and
+> `call_primitive_method` ~28060):**
+> - `unsupported-opcode:to_primitive:no-primitive-result` (~28137) — `@@toPrimitive`/valueOf/
+>   toString returned a non-primitive (or the callee path is unmodeled).
+> - `unsupported-opcode:to_primitive:non-callable` (~28076) — the coercion method is not callable.
+> - `unsupported-opcode:to_primitive:native-method` (~28097) — a native `valueOf`/`toString`
+>   (e.g. a boxed wrapper, Date) as the coercion method; route through `call_native_method`.
+> - The completion-render residue where a completion object has a USER `toString`/`valueOf`
+>   (e.g. `var x={toString(){return 'hi'}}; x` → oracle `"hi"`, ironhorse `[object Object]`).
+>   This needs re-entrant coercion at completion time (post-run `String(result)`), analogous to
+>   the existing Symbol/null-proto completion handling in `Interp::run` (~6424-6442).
+>
+> The meter is ADVISORY for test262 coverage (only observable agreement gates); the meter-exact
+> gate applies ONLY to `rust/engine/ironhorse-262/cases/**`. Prefer reusing the existing
+> re-entrant native-method dispatch (`call_native_method`) and `run_callback` substrate.
+>
+> **Shared branch:** `feat/ironhorse-262-language-completion` (PR #970 — OPEN, draft, keep open, do
+> NOT merge). Fetch+rebase before every push (serial arc). `git submodule update --init --depth 1
+> c/moddable`. Rust: `$HOME/.cargo/bin` on PATH, `TMPDIR` off noexec.
+>
+> **Acceptance (arc-standard):** convert to `covered` via REAL XS-oracle execution
+> (`scripts/full-run.sh --subtree <PREFIX> --test262-dir /home/kris/garden/scratch/test262-src-ca`;
+> clean tree required). Add Rust regression tests under `rust/engine/ironhorse-262/tests/`. No
+> relabel/suppress/skip-list/expectation-file. Before every push: affected slice + `cargo test
+> --workspace --release` + exact-metering corpus. Regression invariant: no covered case regresses;
+> no new `ironhorse-failure`. Pins unchanged (engine `b3c3ae93b8`, test262
+> `be13516fb6441b950ba8a3df97eb34062c186972`, Moddable `23b4d6b0a65f35209d9118c4c13c6c9b3e68784d`).
+>
+> **Report:** commands, before/after totals for the affected slice, changed reasons, head SHA, PR
+> URL. Keep PR open; do not merge.
+>
+> issue_spine: issue-kriscendobot-garden-51
+> submitter: kriscendobot
+
 - `doomed-kriscendobot-minion.town-pr27-review-615e16eb-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion.town-pr27-review-615e16eb-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4388,19 +4450,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+1012.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Codex | 31.7M _(+1013.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #986
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #988
 - [`ironhorse-js-26-ca-regexp-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-closure-audit.md) — ---
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ce-toprimitive-coercion.md) — Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
 - [`ironhorse-js-26-cf-ta-ctor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-ctor.md) — js-26 cf: TypedArray constructors (all forms + errors + species)
 - [`ironhorse-js-26-cg-intl-value-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cg-intl-value-parity.md) — Close residual language gap: Intl formatter value/metering parity (abort-valu...
 - [`ironhorse-js-26-eval-03-function-constructors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-03-function-constructors.md) — ---
@@ -4464,6 +4525,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-ca-regexp-u-core-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ca-regexp-u-core-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cc-mop-gopd-keys`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-cc-mop-gopd-keys.md) — _normal_ · Object MOP residual 2/7: getOwnPropertyDescriptor coercion and index keys
+- [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ce-toprimitive-coercion.md) — _normal_ · Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
 - [`ironhorse-resume-3-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-3-launch.md) — _normal_ · Launch the Ironhorse test262 campaign resume-3 (21 children, js-08..js-28)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
