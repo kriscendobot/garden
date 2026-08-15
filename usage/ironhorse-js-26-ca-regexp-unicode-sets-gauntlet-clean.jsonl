@@ -2,3 +2,4 @@
 {"ts":"2026-08-15T01:42:03Z","base":"ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":35}
 {"ts":"2026-08-15T01:44:58Z","base":"ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":53}
 {"ts":"2026-08-15T01:54:32Z","base":"ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":34}
+{"source":"result","num_turns":1,"elapsed_s":3,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-08-15T02:03:56Z","base":"ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"gardener"}
