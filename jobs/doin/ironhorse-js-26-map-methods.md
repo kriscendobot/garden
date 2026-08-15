@@ -25,3 +25,13 @@ Acceptance bar (identical to js-26 parent, non-negotiable): convert this child's
 Regression invariant: run `cargo test --workspace --release` (includes the exact-metering corpus via corpus_conversion_equivalence, must stay 1711/1711) and the affected official slice before every push; no covered case may regress, no new failure/infrastructure result. If THIS child is still too large for your budget, do NOT partially relabel — sub-decompose into a nested halt-on-failure orchestration and hand off.
 
 Context from js-26 parent (already landed on the branch, commit 6b52994a9): the 7 ES2025 Set methods and a fix to the repeat array-constructed-collection TypeError bug (intrinsic-adder recovery now gated on genuine property absence via `chain_has_descriptor`). The set-method machinery (GetSetRecord, `call_primitive_method`-driven iterator/callback driving, `value_id`/`done_id` force-binding when a feature is referenced) is a reusable template in `rust/engine/ironhorse-vm/src/interp.rs`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-15T04:28:12Z
