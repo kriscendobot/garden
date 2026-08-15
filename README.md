@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T02:17:44Z_
+_As of 2026-08-15T02:25:45Z_
 
 ## Latest
 
@@ -3481,6 +3481,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-intl-value-parity-orch HALTED: child ironhorse-intl-numberformat stalled in flight for 2487s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/10 done before halt; parked remainder: ironhorse-intl-core-tolocalestring ironhorse-intl-displaynames ironhorse-intl-relativetimeformat ironhorse-intl-durationformat ironhorse-intl-datetimeformat ironhorse-intl-locale ironhorse-intl-collator ironhorse-intl-listformat ironhorse-intl-segmenter
 
+- `20260815T022512Z-6c58ab` — from orchestrator:ironhorse-js-26-cf-ta-residual-orch-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T022512Z-6c58ab.md)
+
+> Orchestration ironhorse-js-26-cf-ta-residual-orch HALTED: child ironhorse-js-26-cf-ta-exotic-internals stalled in flight for 2421s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: ironhorse-js-26-cf-ta-from-of ironhorse-js-26-cf-ta-native-data-descriptors
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4478,7 +4482,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 32.3M _(+1043.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
+| Codex | 32.3M _(+1043.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4498,13 +4502,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-04-annexb-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4770)
+### tada (4771)
+- [`ironhorse-js-26-cf-ta-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-residual-orch.md) — orchestration ironhorse-js-26-cf-ta-residual-orch — HALTED
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit-gauntlet-clean.md) — Cost
 - [`ironhorse-intl-value-parity-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-intl-value-parity-orch.md) — orchestration ironhorse-intl-value-parity-orch — HALTED
 - [`endojs-endo-but-for-bots-pr988-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr988-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Cost
-- [`ironhorse-js-26-cf-ta-proto`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-proto.md) — Cost
-- … and 4765 more
+- … and 4766 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
