@@ -16,3 +16,13 @@ Repository: endojs/endo-but-for-bots. Continue shared branch feat/ironhorse-262-
 Close remaining RegExp grammar and early-error validation, especially Annex B legacy non-Unicode behavior: decimal/octal/control/identity escapes, class ranges, leading/trailing escapes, quantifiable assertions, malformed groups/classes/quantifiers, duplicate/invalid flags, constructor versus literal validation, and strict u/v rejection boundaries. Compare directly to pinned XS and implement execution/validation rather than skips, relabels, or expectation files. Pins: test262 be13516fb6441b950ba8a3df97eb34062c186972; Moddable XS 23b4d6b0a65f35209d9118c4c13c6c9b3e68784d.
 
 Add focused Rust unit/regression tests under rust/engine/ironhorse-262/tests/ and compiler/regexp tests. Run official annexB/built-ins/RegExp, built-ins/RegExp, and language/literals/regexp slices, plus `cargo test --workspace --release` and `ironhorse-xst --gate-meter-exact` before push. Preserve all prior covered cases and exact metering. Report before/after totals and reason changes, commands, head SHA, and PR URL; emit orchestration failure if any gate remains unmet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T00:52:16Z
