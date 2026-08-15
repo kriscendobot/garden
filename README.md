@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T23:20:37Z_
+_As of 2026-08-15T23:22:15Z_
 
 ## Latest
 
@@ -1388,16 +1388,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260815-232002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260815-232002.md) — ---
+### doin (0)
+(none)
 
-### tada (4839)
+### tada (4840)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260815-232002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260815-232002.md) — Cost
 - [`mtown-git-remote-followup-notice-recheck-20260815`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260815.md) — Completion report
 - [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-enforcement.md) — Completion report — garden-budget-enforcement
 - [`dependabotany-recheck-endo-but-for-bots-20260815-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260815-170501.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr992-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-6.md) — Completion report
-- … and 4834 more
+- … and 4835 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
