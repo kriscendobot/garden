@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-eval-03-function-constructors-reap-count: 0
 child-ironhorse-js-26-eval-02-semantics-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-eval-02-semantics-reap-count: 0
 child-ironhorse-js-26-eval-01-runtime-source-host: endolin-garden-ece02cb4
