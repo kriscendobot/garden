@@ -42,6 +42,7 @@ Guards (re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/288#pullrequestreview-4943030141
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
