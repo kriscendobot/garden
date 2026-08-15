@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T02:28:39Z_
+_As of 2026-08-15T02:34:39Z_
 
 ## Latest
 
@@ -3489,6 +3489,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-js-26-ch-async-fromasync-sub HALTED: child ironhorse-js-26-ch-async-fromasync-a-array stalled in flight for 2497s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 0/4 done before halt; parked remainder: ironhorse-js-26-ch-async-fromasync-b-asyncgen ironhorse-js-26-ch-async-fromasync-c-promise ironhorse-js-26-ch-async-fromasync-d-await
 
+- `20260815T023412Z-36d184` — from orchestrator:ironhorse-js-26-residual-closure-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T023412Z-36d184.md)
+
+> Orchestration ironhorse-js-26-residual-closure HALTED: child ironhorse-js-26-ci-iterator-set-map stalled in flight for 2506s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 8/15 done before halt; parked remainder: ironhorse-js-26-cj-date ironhorse-js-26-ck-string-number-math-bigint ironhorse-js-26-cl-parser-annexb ironhorse-js-26-cm-object-array-reflect-proxy ironhorse-js-26-cn-language-expr-stmt ironhorse-js-26-cz-misc-residue
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4506,13 +4510,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-04-annexb-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4772)
+### tada (4773)
+- [`ironhorse-js-26-residual-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-residual-closure.md) — orchestration ironhorse-js-26-residual-closure — HALTED
 - [`ironhorse-js-26-ch-async-fromasync-sub`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-sub.md) — orchestration ironhorse-js-26-ch-async-fromasync-sub — HALTED
 - [`ironhorse-js-26-cf-ta-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-residual-orch.md) — orchestration ironhorse-js-26-cf-ta-residual-orch — HALTED
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit-gauntlet-clean.md) — Cost
 - [`ironhorse-intl-value-parity-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-intl-value-parity-orch.md) — orchestration ironhorse-intl-value-parity-orch — HALTED
-- [`endojs-endo-but-for-bots-pr988-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr988-gauntlet — HALTED
-- … and 4767 more
+- … and 4768 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
