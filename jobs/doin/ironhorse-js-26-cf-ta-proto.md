@@ -56,3 +56,13 @@ This is OUTSIDE the TypedArray cluster (general object-model). Throw the correct
 remainder into a nested halt-on-failure orchestration and hand off. Recursion is expected.
 
 Repository: `endojs/endo-but-for-bots`. issue_spine: issue-kriscendobot-garden-51
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-15T01:38:35Z
