@@ -83,3 +83,13 @@ exist in the pinned test262 revision (verified: no
 `be13516fb6`. No action needed unless the test262 pin advances.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T05:03:07Z
