@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-intl-value-parity-orch
-priority: normal
 role: builder
-posted_by: producer
-posted_at: 2026-08-15T01:24:13Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T01:28:05Z cleared=none -->
 
 ---
 tier: mentor
