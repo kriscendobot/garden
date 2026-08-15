@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T12:32:42Z_
+_As of 2026-08-15T12:54:52Z_
 
 ## Latest
 
@@ -1326,22 +1326,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.5M | $803.82 _(notional, rate-card)_ | no quota set |
-| Codex | 26.0M _(+807.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 25.9M _(+806.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr992-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #992
+### doin (0)
+(none)
 
-### tada (4827)
+### tada (4828)
+- [`endojs-endo-but-for-bots-pr992-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-2.md) — Cost
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-dataview.md) — Completion report: ironhorse-js-26-cf-dataview
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr313-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #313
-- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-1.md) — Completion report
-- … and 4822 more
+- … and 4823 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
