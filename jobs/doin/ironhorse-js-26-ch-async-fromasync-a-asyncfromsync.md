@@ -83,3 +83,13 @@ changed skip reasons, head SHA, PR URL.
 
 issue_spine: issue-kriscendobot-garden-51
 submitter: kriscendobot
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T05:16:22Z
