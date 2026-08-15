@@ -22,3 +22,13 @@ This needs a refresh and conduct.
 <!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-15T07:03:27Z
