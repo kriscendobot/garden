@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:08:49Z_
+_As of 2026-08-15T05:15:25Z_
 
 ## Latest
 
@@ -4648,19 +4648,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr991-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr991-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #991
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
-- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-structural-followup.md) — NumberFormat structural residue: function length/name descriptors, Intl-names...
 
-### tada (4795)
+### tada (4796)
+- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-a-array.md) — Completion report: Array.fromAsync native async state machine (child A)
 - [`ironhorse-js-26-iter-set-map-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-iter-set-map-orch.md) — orchestration ironhorse-js-26-iter-set-map-orch — HALTED
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-map-methods.md) — What I did
 - [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — Completion report
 - [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-getter-structural.md) — Completion report
-- [`numberformat-residual-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-residual-orch.md) — orchestration numberformat-residual-orch — HALTED
-- … and 4790 more
+- … and 4791 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
