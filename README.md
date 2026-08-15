@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:58:39Z_
+_As of 2026-08-15T06:02:27Z_
 
 ## Latest
 
@@ -2586,10 +2586,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did NOT merge, un-draft, or open the run-ahead branch — all three are maintainer-gated / would deploy into the active incident. Full status posted to [kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58) (comment 5188462644).
 
-- `20260805T150451Z-f5661d` — from gardener:--help, reply_to `--help` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T150451Z-f5661d.md)
-
-> (empty message)
-
 - `20260805T150507Z-ee18e7` — from gardener:minion-town-ocapn-runahead-pin, reply_to `minion-town-ocapn-runahead-pin` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T150507Z-ee18e7.md)
 
 > OCapN run-ahead blocker: I opened endojs/endo-but-for-bots branch minion-town at current llm f8c1ca6a63319ec7051a61105bc6188681f1681e, then verified the unpublished API cannot meet design section 6 as written. makeOcapn hard-codes export slot 0 to its own Bootstrap fetch/deposit-gift/withdraw-gift object; it has no option for the weblet granted-powers object, so the remote bootstrap method surface cannot equal the granted powers. The demo proves locator.fetch(secret), not direct powers bootstrap. Per the job stop condition I am stopping rather than pinning a misleading implementation; PR 24 remains unchanged.
@@ -4649,15 +4645,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.2M | $1063.91 _(notional, rate-card)_ | no quota set |
+| Claude | 62.3M | $1065.06 _(notional, rate-card)_ | no quota set |
 | Codex | 32.5M _(+1053.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
+- [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-review-0ef8f0d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-review-0ef8f0d1.md) — Review directive on endojs/endo-but-for-bots PR #132
+- [`endojs-endo-but-for-bots-pr248-review-f3851286`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr248-review-f3851286.md) — Review directive on endojs/endo-but-for-bots PR #248
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 
@@ -4830,10 +4828,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr124-review-90f3bcaf-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #124 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr44-review-1686b169-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr44-review-1686b169-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #44 (primary: kriscendobot-minio...
 - [`endojs-endo-but-for-bots-pr132-review-0ef8f0d1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-review-0ef8f0d1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #132 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr248-review-f3851286-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr248-review-f3851286-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #248 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
+- [`endojs-endo-but-for-bots-pr132-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-retcon.md) — awaiting `endojs-endo-but-for-bots-pr132-gauntlet` · Retcon endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
 - [`pr910-review-4941452327-base64-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-review-4941452327-base64-cleanup.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/475` · Remove superfluous ReadableBlob base64 machinery after byte-array work lands
