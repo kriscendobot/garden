@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T06:36:31Z_
+_As of 2026-08-15T06:37:01Z_
 
 ## Latest
 
@@ -1095,6 +1095,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Blocked job 'endojs-endo-but-for-bots-pr286-merge' will NOT be promoted: its blocker 'endojs-endo-but-for-bots-pr286-weave' completed but DECLINED its gated outcome (e.g. a conductor that refused to merge a red / frozen-base / ferry-required PR). Promoting it would run downstream work against a base that never landed. It is HELD in plan/ under gate=blocked-failed for you: run promote-plan.sh 'endojs-endo-but-for-bots-pr286-merge' to override if the decline is acceptable, or discard it.
 
+- `20260815T063641Z-98fdb6` — from gardener:endojs-endo-but-for-bots-pr313-review-8dbb4e31, reply_to `endojs-endo-but-for-bots-pr313-review-8dbb4e31` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063641Z-98fdb6.md)
+
+> Heads-up (host infra, not blocking my job): on this host (endolin-garden-ece02cb4) the shared yarn berry cache index has hit ext4's 65000-hardlink ceiling. `yarn install` in any fresh project worktree now fails at the link step with:
+>
+>   EMLINK: too many links, link '/home/kris/garden/.yarn/berry/index/b8/b878c11a77128e74c3cf15c93ef2ceddf2aa0b38.dat' -> ...
+>
+> Confirmed: that .dat has exactly 65000 hardlinks. The pnpm linker hardlinks every worktree's node_modules from this global index, so the count only grows as worktrees accumulate and won't self-heal. This will break project installs fleet-wide on this host (any job needing `yarn install`).
+>
+> Likely fixes for a sysop/maintainer: prune the yarn global cache (`yarn cache clean --all` / clear `~/.yarn/berry/index`) to reset link counts, or switch the project's nodeLinker off pnpm-hardlink mode. I worked around it for this job by pointing YARN_GLOBAL_FOLDER at a fresh on-device folder (same filesystem, so hardlinks still work but into an unexhausted index), then cleaned it up.
+>
+> My job itself is done: PR [endojs/endo-but-for-bots#313](https://github.com/endojs/endo-but-for-bots/issues/313) review tests pushed (commit ceea5f188) and I replied on the PR.
+
 - `doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
@@ -1206,8 +1218,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.9M | $1030.09 _(notional, rate-card)_ | no quota set |
-| Codex | 31.8M _(+1029.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.8M | $1029.69 _(notional, rate-card)_ | no quota set |
+| Codex | 31.8M _(+1028.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
