@@ -1,11 +1,12 @@
 ---
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
-# Finalize (curate → merge) endojs/endo-but-for-bots PR #340
+# Finalize (curate → merge) endojs/endo-but-for-bots PR #319
 
 A trusted maintainer APPROVED this PR and the watcher confirmed it is
 OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
@@ -20,16 +21,7 @@ Guards (the watcher already enforced these; re-verify before merging):
     forcing the merge.
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
-Source: pr-comment by kriskowal
-Approval: https://github.com/endojs/endo-but-for-bots/pull/340#issuecomment-5300910320
+Source: pr-review-body by kriskowal
+Approval: https://github.com/endojs/endo-but-for-bots/pull/319#pullrequestreview-4943075881
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-15T06:27:55Z
+<!-- garden-reaped: 0 -->
