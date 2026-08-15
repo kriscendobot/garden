@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-map-methods-reap-count: 0
 order: serial
 children: ironhorse-js-26-map-methods ironhorse-js-26-map-set-iterator-proto ironhorse-js-26-set-map-metadata ironhorse-js-26-iterator-helpers
 on-child-failure: halt
