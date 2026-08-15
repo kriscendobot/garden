@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T01:04:34Z_
+_As of 2026-08-15T01:05:15Z_
 
 ## Latest
 
@@ -4380,11 +4380,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+1006.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
+| Codex | 31.6M _(+1006.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
-### todo (1)
-- [`ironhorse-js-26-cf-ta-ctor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cf-ta-ctor.md) — js-26 cf: TypedArray constructors (all forms + errors + species)
+### todo (0)
+(none)
 
 ### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
@@ -4393,17 +4393,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-ca-regexp-annexb-errors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-annexb-errors.md) — ---
 - [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ce-toprimitive-coercion.md) — Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
-- [`ironhorse-js-26-cf-typedarray-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-typedarray-arraybuffer.md) — Close residual language gap: TypedArray / ArrayBuffer / DataView / Atomics se...
+- [`ironhorse-js-26-cf-ta-ctor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-ctor.md) — js-26 cf: TypedArray constructors (all forms + errors + species)
 - [`ironhorse-js-26-eval-02-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-02-semantics.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4755)
+### tada (4756)
+- [`ironhorse-js-26-cf-typedarray-arraybuffer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-typedarray-arraybuffer.md) — Completion report
 - [`endojs-endo-but-for-bots-pr909-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr909-gauntlet — HALTED
 - [`ironhorse-js-26-ca-regexp-groups-modifiers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-groups-modifiers.md) — Completion report: ironhorse-js-26-ca-regexp-groups-modifiers
 - [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-01-runtime-source.md) — Completion report
 - [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`ironhorse-js-26-cc-object-mop-exotic-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cc-object-mop-exotic-closure.md) — orchestration ironhorse-js-26-cc-object-mop-exotic-closure — HALTED
-- … and 4750 more
+- … and 4751 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
