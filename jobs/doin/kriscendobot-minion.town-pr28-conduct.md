@@ -26,6 +26,7 @@ Approval: https://github.com/kriscendobot/minion.town/pull/28#pullrequestreview-
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
