@@ -2,7 +2,7 @@
 order: serial
 children: ironhorse-intl-numberformat ironhorse-intl-core-tolocalestring ironhorse-intl-displaynames ironhorse-intl-relativetimeformat ironhorse-intl-durationformat ironhorse-intl-datetimeformat ironhorse-intl-locale ironhorse-intl-collator ironhorse-intl-listformat ironhorse-intl-segmenter
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-08-15T01:25:16Z
 ---
