@@ -79,15 +79,4 @@ reasons, head SHA, PR URL. Keep the PR open; do not merge.
 issue_spine: issue-kriscendobot-garden-51
 submitter: kriscendobot
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-15T04:34:02Z
+<!-- garden-reaped: 2 -->
