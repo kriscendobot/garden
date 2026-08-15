@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:28:46Z_
+_As of 2026-08-15T05:49:29Z_
 
 ## Latest
 
@@ -19,7 +19,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 16d)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 17d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 26d)
-- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 26d)
+- [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 27d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 28d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 29d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 32d)
@@ -4641,25 +4641,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.9M | $1142.58 _(notional, rate-card)_ | no quota set |
-| Codex | 32.8M _(+1062.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 63.8M | $1082.10 _(notional, rate-card)_ | no quota set |
+| Codex | 32.5M _(+1054.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
-- [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-structural-followup.md) — NumberFormat structural residue: function length/name descriptors, Intl-names...
 
-### tada (4797)
+### tada (4798)
+- [`numberformat-structural-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/numberformat-structural-followup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr991-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr991-shepherd.md) — Completion report
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ch-async-fromasync-a-array.md) — Completion report: Array.fromAsync native async state machine (child A)
 - [`ironhorse-js-26-iter-set-map-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-iter-set-map-orch.md) — orchestration ironhorse-js-26-iter-set-map-orch — HALTED
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-map-methods.md) — What I did
-- [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — Completion report
-- … and 4792 more
+- … and 4793 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
