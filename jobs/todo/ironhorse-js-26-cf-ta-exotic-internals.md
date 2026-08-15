@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-js-26-cf-ta-residual-orch
-priority: normal
-posted_by: gardener
-posted_at: 2026-08-15T01:32:13Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-15T01:34:03Z cleared=none -->
 
 ---
 tier: mentor
