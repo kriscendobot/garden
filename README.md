@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T06:56:37Z_
+_As of 2026-08-15T07:05:01Z_
 
 ## Latest
 
@@ -1120,6 +1120,63 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did NOT merge. Stalling `ci red: needs shepherd`: a shepherd/fixer needs to drop the redundant `/* global process */` from packages/lal/test/primer-cas-smoke.test.js (setup.js's identical directive is fine under a different eslint env — worth a quick check), push, then you re-approve the fixed head (the rebase already invalidated your 06:18 approval by design), and a fresh conduct tick lands it. Per conductor discipline I do not post the shepherd job myself; the next triager tick will.
 
+- `doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
+> The handler repeatedly failed at a near-constant elapsed below its wall-clock budget.
+> The first confirmation was requeued; the reaper parked only after the 2-confirmation threshold.
+> Read the handler log for the fast failure cause. Raising the handler budget will not help.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr132-gauntlet-clean; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr132-gauntlet-clean) or removes it.
+> Original job base: endojs-endo-but-for-bots-pr132-gauntlet-clean
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: endojs-endo-but-for-bots-pr132-gauntlet
+> gauntlet_stage: clean
+> gauntlet_iteration: 0
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/132](https://github.com/endojs/endo-but-for-bots/pull/132)
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr132-gauntlet). Do ONLY the clean stage, then STOP.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Idempotence first. `gh pr view https://github.com/endojs/endo-but-for-bots/pull/132 --json isDraft,state,statusCheckRollup`. If the
+>    PR is already the right shape (coverage already pushed, CI GREEN at the current
+>    head), this stage is a NO-OP: skip to the marker with clean=done.
+> 2. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr132-gauntlet-clean endojs/endo-but-for-bots <pr-head-branch>`
+>    (the head branch is `gh pr view https://github.com/endojs/endo-but-for-bots/pull/132 --json headRefName -q .headRefName`).
+> 3. In that checkout: run the coverage pass on the touched packages
+>    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
+> 4. If you changed anything, push follow-ups to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 132 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
+>      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
+>    - rc 3 (RED): this stage FAILS. Begin your report with a line
+>      `orchestration-failed: true` and describe the failing checks; do NOT emit any
+>      clean=done marker (the driver halts the gauntlet and surfaces it).
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
+>   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+
 - `doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-js-26-ch-async-fromasync-a-asyncfromsync-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
@@ -1231,30 +1288,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.6M | $1022.87 _(notional, rate-card)_ | no quota set |
-| Codex | 30.8M _(+1003.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.6M | $1022.55 _(notional, rate-card)_ | no quota set |
+| Codex | 30.5M _(+983.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
-- [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
+### doin (7)
 - [`endojs-endo-but-for-bots-pr286-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr288-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #288
-- [`endojs-endo-but-for-bots-pr316-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #316
+- [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
 - [`endojs-endo-but-for-bots-pr319-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr319-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #319
 - [`endojs-endo-but-for-bots-pr340-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #992
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 
-### tada (4815)
+### tada (4816)
+- [`endojs-endo-but-for-bots-pr316-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr316-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr324-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr324-conduct.md) — Completion report — conductor, endojs/endo-but-for-bots PR #324
 - [`endojs-endo-but-for-bots-pr992-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr337-review-36d84f8d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr337-review-36d84f8d.md) — Completion report
-- [`endojs-endo-but-for-bots-pr313-review-8dbb4e31`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr313-review-8dbb4e31.md) — Completion report
-- … and 4810 more
+- … and 4811 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1280,6 +1336,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
 - [`endo-sturdyref-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-press-20260724-043515.md) — _normal_ · Press the SturdyRef effort forward — OCapN sturdyrefs + provide/accept throug...
 - [`endo-vfs-parity-press-20260724-043515`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-vfs-parity-press-20260724-043515.md) — _normal_ · Press VFS tool-call-surface parity forward (endojs/endo-but-for-bots, base llm)
+- [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-e97aa392.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
