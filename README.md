@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T01:05:15Z_
+_As of 2026-08-15T01:07:44Z_
 
 ## Latest
 
@@ -4380,11 +4380,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+1006.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
+| Codex | 31.6M _(+1007.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-js-26-cg-intl-value-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cg-intl-value-parity.md) — Close residual language gap: Intl formatter value/metering parity (abort-valu...
 
 ### doin (9)
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
