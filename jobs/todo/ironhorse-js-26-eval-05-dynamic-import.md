@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ironhorse-js-26-eval-function-import-closure
-priority: high
 role: mentor
-posted_by: gardener
-posted_at: 2026-08-14T23:43:57Z
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-08-15T04:04:11Z cleared=none -->
 
 ---
 tier: mentor
