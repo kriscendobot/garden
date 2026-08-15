@@ -43,19 +43,4 @@ Guards (re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/288#pullrequestreview-4943030141
 
-
-<!-- garden-elapsed-constancy: 1 -->
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 4
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-15T07:03:08Z
+<!-- garden-reaped: 0 -->
