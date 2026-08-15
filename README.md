@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T15:41:30Z_
+_As of 2026-08-15T16:09:09Z_
 
 ## Latest
 
@@ -1338,23 +1338,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.5M | $803.82 _(notional, rate-card)_ | no quota set |
+| Claude | 44.7M | $798.57 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+806.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #992
+### doin (0)
+(none)
 
-### tada (4834)
+### tada (4835)
+- [`endojs-endo-but-for-bots-pr992-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-fix-4.md) — Completion report
-- [`endojs-endo-but-for-bots-pr992-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-4.md) — Completion report
-- … and 4829 more
+- … and 4830 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
