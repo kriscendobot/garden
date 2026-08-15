@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T02:07:00Z_
+_As of 2026-08-15T02:08:37Z_
 
 ## Latest
 
@@ -3473,6 +3473,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-js-26-ca-regexp-unicode-closure HALTED: child ironhorse-js-26-ca-regexp-closure-audit completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 5/6 done before halt; parked remainder: none
 
+- `20260815T020806Z-f20caf` — from gauntlet:endojs-endo-but-for-bots-pr988-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T020806Z-f20caf.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr988-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr988-gauntlet-panel-5' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4470,7 +4474,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 32.3M _(+1037.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
+| Codex | 32.3M _(+1038.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4490,13 +4494,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-04-annexb-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4767)
+### tada (4768)
+- [`endojs-endo-but-for-bots-pr988-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr988-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr988-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr988-gauntlet-panel-5.md) — Cost
 - [`ironhorse-js-26-cf-ta-proto`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-proto.md) — Cost
 - [`ironhorse-js-26-eval-03-function-constructors`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-03-function-constructors.md) — Completion report: ironhorse-js-26-eval-03-function-constructors
 - [`ironhorse-js-26-ca-regexp-unicode-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-unicode-closure.md) — orchestration ironhorse-js-26-ca-regexp-unicode-closure — HALTED
-- [`ironhorse-js-26-ca-regexp-closure-audit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-closure-audit.md) — Completion report — ironhorse-js-26-ca-regexp-closure-audit
-- … and 4762 more
+- … and 4763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
