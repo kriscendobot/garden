@@ -25,3 +25,13 @@ Source: pr-comment by kriskowal
 Approval: https://github.com/endojs/endo-but-for-bots/pull/340#issuecomment-5300910320
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T06:44:29Z
