@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T00:53:38Z_
+_As of 2026-08-15T00:56:35Z_
 
 ## Latest
 
@@ -3419,6 +3419,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration ironhorse-js-26-cc-object-mop-exotic-closure HALTED: child ironhorse-js-26-cc-mop-gopd-keys stalled in flight for 2494s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1) (serial, on-child-failure=halt). 1/7 done before halt; parked remainder: ironhorse-js-26-cc-mop-gopd-exotics ironhorse-js-26-cc-mop-define-core ironhorse-js-26-cc-mop-define-array-fn ironhorse-js-26-cc-mop-define-proxy ironhorse-js-26-cc-mop-closure-audit
 
+- `20260815T005608Z-a92861` — from gauntlet:endojs-endo-but-for-bots-pr909-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T005608Z-a92861.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr909-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr909-gauntlet-fix-1' (fix) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4350,7 +4354,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 65.1M | $1088.85 _(notional, rate-card)_ | no quota set |
-| Codex | 31.6M _(+1002.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
+| Codex | 31.6M _(+1003.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 95% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
@@ -4367,13 +4371,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ironhorse-js-26-eval-02-semantics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-02-semantics.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4754)
+### tada (4755)
+- [`endojs-endo-but-for-bots-pr909-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr909-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr909-gauntlet — HALTED
 - [`ironhorse-js-26-ca-regexp-groups-modifiers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-groups-modifiers.md) — Completion report: ironhorse-js-26-ca-regexp-groups-modifiers
 - [`ironhorse-js-26-eval-01-runtime-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-01-runtime-source.md) — Completion report
 - [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`ironhorse-js-26-cc-object-mop-exotic-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cc-object-mop-exotic-closure.md) — orchestration ironhorse-js-26-cc-object-mop-exotic-closure — HALTED
-- [`ironhorse-js-26-ce-exotic-completion-render`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ce-exotic-completion-render.md) — Completion report
-- … and 4749 more
+- … and 4750 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
