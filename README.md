@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T03:43:48Z_
+_As of 2026-08-15T03:47:19Z_
 
 ## Latest
 
@@ -3505,6 +3505,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr986-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr986-gauntlet-panel-4' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260815T034407Z-06e411` — from gauntlet:ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T034407Z-06e411.md)
+
+> Gauntlet ironhorse-js-26-ca-regexp-unicode-sets-gauntlet HALTED: stage 'ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean' (clean) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4556,31 +4560,31 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.7M | $1117.35 _(notional, rate-card)_ | no quota set |
-| Codex | 32.6M _(+1047.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 99% _(plan; codex-reported)_ |
+| Claude | 67.2M | $1128.62 _(notional, rate-card)_ | no quota set |
+| Codex | 32.6M _(+1049.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 99% _(plan; codex-reported)_ |
 
 ## Board
-### todo (3)
-- [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
+### todo (2)
 - [`ironhorse-js-26-cf-ta-mutators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-cf-ta-mutators.md) — ---
-- [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
+- [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
 
-### doin (7)
-- [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-intl-numberformat.md) — Implement Intl.NumberFormat (value/metering parity) — close the intl402/Numbe...
+### doin (8)
+- [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
 - [`ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ca-regexp-closure-audit-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-exotic-internals.md) — js-26 cf: TypedArray integer-indexed exotic internals
 - [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
+- [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
 - [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-eval-04-annexb-source.md) — ---
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr28-conduct.md) — Finalize (curate → merge) kriscendobot/minion.town PR #28
 
-### tada (4778)
+### tada (4780)
+- [`ironhorse-intl-numberformat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-intl-numberformat.md) — Completion report
+- [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet.md) — gauntlet ironhorse-js-26-ca-regexp-unicode-sets-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr986-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr986-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr986-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr986-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr986-gauntlet-fix-3.md) — Cost
-- [`ironhorse-js-26-cf-resid`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-resid.md) — orchestration ironhorse-js-26-cf-resid — HALTED
-- [`ironhorse-js-26-cf-ta-proto-remainder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-proto-remainder.md) — orchestration ironhorse-js-26-cf-ta-proto-remainder — HALTED
-- … and 4773 more
+- … and 4775 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
