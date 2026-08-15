@@ -53,3 +53,13 @@ issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5224315
 submitter: kriscendobot
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-15T04:33:24Z
