@@ -1,4 +1,5 @@
 ---
+child-ironhorse-js-26-cb-with-eval-closure-reap-count: 0
 child-ironhorse-js-26-cb-with-env-core-host: endolin-garden-ece02cb4
 child-ironhorse-js-26-cb-with-env-core-reap-count: 0
 order: serial
