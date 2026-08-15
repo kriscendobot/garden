@@ -58,6 +58,7 @@ Part of the js-26 TypedArray/ArrayBuffer residual-closure effort; sibling to the
 coercion, catchable RangeError/TypeError, newless TypeError, and BYTES_PER_ELEMENT — 48→245 covered on
 `built-ins/TypedArrayConstructors`).
 
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-15T03:30:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
