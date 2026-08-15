@@ -23,6 +23,7 @@ This needs a refresh and conduct.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
