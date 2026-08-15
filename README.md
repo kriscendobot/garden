@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T06:47:41Z_
+_As of 2026-08-15T06:54:50Z_
 
 ## Latest
 
@@ -1231,30 +1231,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.7M | $1026.81 _(notional, rate-card)_ | no quota set |
-| Codex | 31.3M _(+1015.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.6M | $1023.40 _(notional, rate-card)_ | no quota set |
+| Codex | 30.8M _(+1006.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr286-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr288-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr288-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #288
 - [`endojs-endo-but-for-bots-pr316-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #316
 - [`endojs-endo-but-for-bots-pr319-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr319-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #319
 - [`endojs-endo-but-for-bots-pr340-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #340
-- [`endojs-endo-but-for-bots-pr992-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #992
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 
-### tada (4814)
+### tada (4815)
+- [`endojs-endo-but-for-bots-pr992-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-panel-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr324-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr324-conduct.md) — Completion report — conductor, endojs/endo-but-for-bots PR #324
 - [`endojs-endo-but-for-bots-pr992-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr337-review-36d84f8d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr337-review-36d84f8d.md) — Completion report
 - [`endojs-endo-but-for-bots-pr313-review-8dbb4e31`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr313-review-8dbb4e31.md) — Completion report
-- [`endojs-endo-but-for-bots-http-adapter-pipeline-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-http-adapter-pipeline-design.md) — Completion report
-- … and 4809 more
+- … and 4810 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
