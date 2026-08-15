@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T05:49:29Z_
+_As of 2026-08-15T05:50:40Z_
 
 ## Latest
 
@@ -4641,14 +4641,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.8M | $1082.10 _(notional, rate-card)_ | no quota set |
-| Codex | 32.5M _(+1054.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 63.6M | $1078.84 _(notional, rate-card)_ | no quota set |
+| Codex | 32.5M _(+1054.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`daily-progress-summary-20260815-055003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260815-055003.md) — Daily midnight Pacific progress summary
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
 
