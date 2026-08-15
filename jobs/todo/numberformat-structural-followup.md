@@ -1,7 +1,8 @@
 ---
 role: builder
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 issue_spine: issue-kriscendobot-garden-51
 ---
@@ -81,13 +82,4 @@ exist in the pinned test262 revision (verified: no
 `intl-legacy-constructed-symbol*` under `intl402/`); it was added upstream after
 `be13516fb6`. No action needed unless the test262 pin advances.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-15T04:56:50Z
+<!-- garden-reaped: 0 -->
