@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-15T04:33:58Z_
+_As of 2026-08-15T04:35:21Z_
 
 ## Latest
 
@@ -3517,6 +3517,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr796-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr796-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260815T043410Z-385c43` — from orchestrator:ironhorse-js-26-eval-function-import-closure-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T043410Z-385c43.md)
+
+> Orchestration ironhorse-js-26-eval-function-import-closure HALTED: child ironhorse-js-26-eval-05-dynamic-import completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 4/7 done before halt; parked remainder: ironhorse-js-26-eval-06-secondary-fallout ironhorse-js-26-eval-07-final-audit
+
 - `doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-report-render-mode-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 early-escalation cycle(s) on endolin-garden2-5bcdff64.
@@ -4629,24 +4633,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Codex | 32.8M _(+1062.1M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (1)
-- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
+### todo (0)
+(none)
 
 ### doin (6)
 - [`endo-but-for-bots-reminder-ordinary-mail-b929585`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-reminder-ordinary-mail-b929585.md) — ---
 - [`ironhorse-js-26-cf-dataview`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-dataview.md) — js-26 cf: DataView constructor + get/set for all element types
 - [`ironhorse-js-26-cf-ta-exotic-internals`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-cf-ta-exotic-internals.md) — js-26 cf: TypedArray integer-indexed exotic internals
-- [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ci-iterator-set-map.md) — Close residual language gap: Iterator helpers plus Set/Map residual semantics
+- [`ironhorse-js-26-ch-async-fromasync-a-array`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-ch-async-fromasync-a-array.md) — Async child A: implement Array.fromAsync + %AsyncFromSyncIteratorPrototype%
 - [`ironhorse-js-26-map-methods`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-js-26-map-methods.md) — Close residual: Map.prototype.getOrInsert / getOrInsertComputed + Map.groupBy
 - [`numberformat-getter-structural`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/numberformat-getter-structural.md) — NumberFormat: format accessor-getter + constructor/prototype structural surfa...
 
-### tada (4787)
+### tada (4789)
+- [`ironhorse-js-26-ci-iterator-set-map`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-ci-iterator-set-map.md) — Completion report
+- [`ironhorse-js-26-eval-function-import-closure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-function-import-closure.md) — orchestration ironhorse-js-26-eval-function-import-closure — HALTED
 - [`ironhorse-js-26-eval-05-dynamic-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-05-dynamic-import.md) — Completion report — ironhorse-js-26-eval-05-dynamic-import
 - [`kriscendobot-minion.town-pr28-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr28-conduct.md) — Completion report
 - [`ironhorse-js-26-cf-ta-mutators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-cf-ta-mutators.md) — Cost
-- [`endojs-endo-but-for-bots-pr796-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr796-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr796-gauntlet — HALTED
-- [`ironhorse-js-26-eval-04-annexb-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-js-26-eval-04-annexb-source.md) — Completion report: ironhorse-js-26-eval-04-annexb-source
-- … and 4782 more
+- … and 4784 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
