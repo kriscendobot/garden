@@ -16,3 +16,13 @@ Everything else keeps minting exactly as today. Do NOT widen this to any judgmen
 Grounding (measured against journal/review-misses/, 2026-08-15): 195 dismissed vs 50 real misses. All 195 dismissals are category `new-direction`. Of those, ~19 cite an empty-body approval with zero inline comments and ~16 cite a pipeline-op-only directive. So the honest expected yield is roughly 10-15% of retrospective spend, NOT the ~85% the source retrospective implied — 85% is the dismissal rate, whose dominant cause is genuinely new direction that no review surface could anticipate. Do not oversell the change in the commit message or the report.
 
 This edits a tested hot path. Cover the new gate with tests alongside the existing comment-watcher tests, including the canonical case: an APPROVED review with a 35-character body "Please rebase, retcon, and conduct" and zero inline comments must mint the attention/finalization work as before but no retro.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T04:45:43Z
