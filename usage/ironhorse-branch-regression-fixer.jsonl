@@ -2,3 +2,4 @@
 {"ts":"2026-08-16T07:05:02Z","base":"ironhorse-branch-regression-fixer","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":4}
 {"ts":"2026-08-16T07:16:03Z","base":"ironhorse-branch-regression-fixer","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":87}
 {"ts":"2026-08-16T07:24:17Z","base":"ironhorse-branch-regression-fixer","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":24}
+{"source":"result","model":"claude-opus-4-8","num_turns":135,"elapsed_s":2629,"input_tokens":247,"output_tokens":111079,"cache_creation_tokens":216214,"cache_read_tokens":17022784,"total_cost_usd":13.454155999999998,"ts":"2026-08-16T08:17:23Z","base":"ironhorse-branch-regression-fixer","host":"endolin-garden2-5bcdff64","outcome":"tada"}
