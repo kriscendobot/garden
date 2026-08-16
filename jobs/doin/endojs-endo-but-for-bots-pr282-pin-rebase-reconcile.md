@@ -28,6 +28,7 @@ Also note #279 is still OPEN, unapproved and CONFLICTING, and #282 carries #279'
 
 handler-timeout: 7200
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
