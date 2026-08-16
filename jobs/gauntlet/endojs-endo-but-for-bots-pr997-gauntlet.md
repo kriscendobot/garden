@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 997
 build_job: ebfb-worker-retention-design
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr997-gauntlet-panel-3
+current_child: endojs-endo-but-for-bots-pr997-gauntlet-fix-3
 state: running
 created_by: producer
 created_at: 2026-08-16T07:47:48Z
