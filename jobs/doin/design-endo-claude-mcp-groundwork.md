@@ -78,3 +78,13 @@ without them, treat this as the revision cycle — same target file,
    `/mcp` HTTP surface at all, or (c) both, with the shim as v1 and Gateway
    `/mcp` as the remote/pooled-deployment path for v2. Recommend one rather
    than leaving all three equally open, and say why.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T05:52:36Z
