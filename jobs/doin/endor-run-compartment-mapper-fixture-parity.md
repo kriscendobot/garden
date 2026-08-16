@@ -24,6 +24,7 @@ the applicable compartment-mapper fixtures, (2) wires them into the
 endor-run/entry_walk test suite, and (3) adds the fixture-accounting drift
 guard. Reference the endor-run-expanded design line.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
