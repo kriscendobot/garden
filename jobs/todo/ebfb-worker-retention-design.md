@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 handler-timeout: 7200
@@ -70,13 +71,4 @@ Open questions the design must resolve or explicitly defer, in priority order:
 - Citations to prior art: E's promise/partition semantics, SwingSet's c-list and refcounted drop/retire protocol, any existing OCapN spec language on resolve/settle and message ordering, and Mark Miller's Distributed Confinement material (erights.org) grounding the guest-visibility constraint.
 - Open questions section for anything the design surfaces but can't resolve — this is a reassessment of a stated principled stance, not a mandate to force a conclusion.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T07:23:18Z
+<!-- garden-reaped: 0 -->

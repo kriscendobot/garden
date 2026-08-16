@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-08-16T07:33:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-16T07:33:03Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -21,17 +38,3 @@ Work:
 This is a tested hot path. Extend the comment-watcher tests: the imperative alias hit maps to weave; the subject-matter mention misses; no regression in existing single-verb recognition or distinct-imperative-verb counting.
 
 Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T07:24:22Z
