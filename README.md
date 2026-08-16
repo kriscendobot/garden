@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:04:42Z_
+_As of 2026-08-16T06:05:29Z_
 
 ## Latest
 
@@ -1343,16 +1343,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.7M | $818.90 _(notional, rate-card)_ | no quota set |
+| Claude | 45.7M | $818.97 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`design-endo-claude-mcp-groundwork`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-mcp-groundwork.md) — The correction
 - [`endojs-endo-but-for-bots-pr388-review-04154a91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr388-review-04154a91.md) — Review directive on endojs/endo-but-for-bots PR #388
+- [`endojs-endo-but-for-bots-pr995-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #995
 
 ### tada (4851)
 - [`endojs-endo-but-for-bots-pr995-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-clean.md) — Completion report
