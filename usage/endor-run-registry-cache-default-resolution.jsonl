@@ -1,3 +1,4 @@
 {"ts":"2026-08-16T06:47:23Z","base":"endor-run-registry-cache-default-resolution","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-16T06:57:20Z","base":"endor-run-registry-cache-default-resolution","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":73}
 {"ts":"2026-08-16T07:05:12Z","base":"endor-run-registry-cache-default-resolution","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":29}
+{"source":"result","model":"claude-opus-4-8","num_turns":9,"elapsed_s":62,"input_tokens":13,"output_tokens":4214,"cache_creation_tokens":34596,"cache_read_tokens":286158,"total_cost_usd":0.5967810000000001,"ts":"2026-08-16T07:14:49Z","base":"endor-run-registry-cache-default-resolution","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}
