@@ -1,4 +1,22 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+handler-timeout: 7200
+token-budget: 100000
+doomed: true
+doom_signature: elapsed-constancy
+doom_count: 1
+requeue_cycles: 4
+deadline_overruns: 0
+elapsed_constancy_confirmations: 2
+doomed_at: 2026-08-16T07:13:06Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-16T07:13:06Z
+---
+
+---
 tier: mentor
 handler-timeout: 7200
 ---
@@ -27,19 +45,3 @@ CI CANNOT CATCH A WRONG RESOLUTION HERE. entry_walk's 35 tests are self-containe
 Also note #279 is still OPEN, unapproved and CONFLICTING, and #282 carries #279's commits via the stack merge, so landing #282 lands Phase 4 and Phase 5 together and empties #279. Say so in your report; do not close #279 yourself.
 
 handler-timeout: 7200
-
-
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-elapsed-constancy: 2 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T07:03:18Z
