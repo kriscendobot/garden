@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T16:18:58Z_
+_As of 2026-08-16T16:20:53Z_
 
 ## Latest
 
-A gardener claimed [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) (gateway phase 3) to restack onto the rebased phase 2; the gardener–finish-rename job completed. The board is heavily loaded with stalled/halted work awaiting maintainer decisions: [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) and several conduct jobs need re-approval after rebase or stale heads; [endojs/endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/pull/999) (Node 24.x CI pin) is ready to review; [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (byteArray narrowing and emulation) are all-green but blocked on your re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) needs a flag-gated resolution decision (registry path as default, node_modules path as explicit flag); [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) is superseded by landed endo-fetch; [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is superseded by landed error-tracing; [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) (test262 consolidation) needs your call on whether to keep or collapse the two case trees; two gauntlets ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) hit the iteration ceiling; [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endojs/endo-but-for-bots#420](https://github.com/endojs/endo-but-for-bots/pull/420) phase chain needs sequential restacking after force-pushes; and minion.town design work ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21)) is reconciled but awaiting your call on content-only vs. composite ID scheme. The inbox has ~30 open follow-ups; several are waiting on your explicit go-ahead to proceed (flag-gated PR #282 resolution, test262 case-tree scope, ocap.site DNSSEC setup, minion.town B5 deployed-edge validation path).
+Node 24.x CI pinned to 24.18.0 (fixing better-sqlite3 crashes). A large rebase stall emerged where rebases invalidated prior approvals: [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and gateway phases ([#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[#389](https://github.com/endojs/endo-but-for-bots/pull/389)) all awaiting re-approval on new heads. byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475)–[#503](https://github.com/endojs/endo-but-for-bots/pull/503)) complete and green but blocked on re-review; [#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) superseded by features landed on llm. minion.town opened [#36](https://github.com/kriscendobot/minion.town/pull/36), finbot saw [#4](https://github.com/kriscendobot/finbot/pull/4) merge and [#6](https://github.com/kriscendobot/finbot/pull/6) advance.
 
 ## Parked for maintainer feedback
 
@@ -647,6 +647,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > refs and should clear the 24.x gate. I'll report the re-run results if the merge
 > lands within my job window; otherwise that re-run is the remaining follow-up.
 
+- `20260816T161955Z-49015b` — from gardener:endo-but-for-bots-pin-node-24x-ci, reply_to `endo-but-for-bots-pin-node-24x-ci` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T161955Z-49015b.md)
+
+> CI fix ready: [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) (base llm) pins the four Node 24.x
+> matrix entries in .github/workflows/ci.yml to 24.18.0, stopping the float onto
+> 24.19.0 that crashed better-sqlite3 AVA workers (RemoveEnvironmentCleanupHook /
+> (env)!=nullptr; [nodejs/node#65195](https://github.com/nodejs/node/issues/65195), [nodejs/node#65196](https://github.com/nodejs/node/issues/65196)). Diagnosis confirmed
+> against logs (red run = v24.19.0) and the pin is validated: the [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000)
+> run's own test (24.18.0, ubuntu-latest) is GREEN.
+>
+> Needs a maintainer merge to land. After [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) merges to
+> llm, [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) (both base
+> llm) go green once rebased. NOTE: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) targets
+> llm-a54c3ad, not llm, so it needs llm-a54c3ad updated (or [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)
+> retargeted) to inherit the pin — an llm-only merge won't reach it. Want me to
+> post a follow-up to rebase/re-run the three once [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) lands?
+
 - `doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
@@ -775,24 +791,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.9M | $1091.04 _(notional, rate-card)_ | no quota set |
+| Claude | 65.0M | $1090.58 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endo-but-for-bots-pin-node-24x-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-pin-node-24x-ci.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr389-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-undraft.md) — ---
 
-### tada (4898)
+### tada (4899)
+- [`endo-but-for-bots-pin-node-24x-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-pin-node-24x-ci.md) — Completion report
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/monk-finish-gardener-rename.md) — Completion report: monk-finish-gardener-rename
 - [`garden-encode-muster-vocabulary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-muster-vocabulary.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr997-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr997-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr997-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-panel-6.md) — Cost
-- … and 4893 more
+- … and 4894 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
