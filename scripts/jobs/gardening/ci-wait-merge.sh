@@ -128,6 +128,18 @@ require_tools "$GH"
 
 : "${GARDEN_DEPENDABOT_LOGIN:=dependabot[bot]}"
 
+# Canonicalize a GitHub App bot login for comparison. `gh pr view --json author`
+# renders an App author two ways depending on the CLI version: the classic
+# `dependabot[bot]` and the newer `app/dependabot` (leading `app/`, no `[bot]`
+# suffix). Both name the same identity, so lowercase and strip both affixes
+# before comparing, or the auto-merge gate denies EVERY dependabot PR on a gh
+# that emits the `app/` form and the bypass never fires.
+canonical_bot_login() {  # canonical_bot_login <login>
+  printf '%s' "$1" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -e 's,^app/,,' -e 's/\[bot\]$//'
+}
+
 # This is the same deny-by-default autonomous repository boundary used by the CI
 # watcher and approval reconciler. The garden's own repository is denied before
 # the bot-owner arm because garden development pushes directly to main2.
@@ -155,7 +167,7 @@ if [ "$dependabot_auto_merge" -eq 1 ]; then
        && printf '%s' "$author_meta" | jq -e . >/dev/null 2>&1; then
     author_login="$(printf '%s' "$author_meta" | jq -r '.author.login // ""')"
     if [ -n "$author_login" ] \
-       && [ "$(printf '%s' "$author_login" | tr '[:upper:]' '[:lower:]')" = "$(printf '%s' "$GARDEN_DEPENDABOT_LOGIN" | tr '[:upper:]' '[:lower:]')" ]; then
+       && [ "$(canonical_bot_login "$author_login")" = "$(canonical_bot_login "$GARDEN_DEPENDABOT_LOGIN")" ]; then
       dependabot_approval_bypass=1
     else
       log "dependabot auto-merge bypass denied: live author for $repo#$pr is ${author_login:-unreadable}, not $GARDEN_DEPENDABOT_LOGIN; keeping maintainer approval"
