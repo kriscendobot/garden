@@ -1,1 +1,2 @@
 {"ts":"2026-08-16T07:06:22Z","base":"daily-progress-summary-20260816-070504","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":22,"elapsed_s":272,"input_tokens":41,"output_tokens":19155,"cache_creation_tokens":99456,"cache_read_tokens":1642877,"total_cost_usd":2.2979625,"ts":"2026-08-16T07:19:36Z","base":"daily-progress-summary-20260816-070504","host":"endolin-garden2-5bcdff64","outcome":"tada"}
