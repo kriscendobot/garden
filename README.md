@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-08-16T17:07:32Z_
+_As of 2026-08-16T19:59:52Z_
 
 ## Latest
 
-Node.js 24.x CI stability fix ready: [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) pins the matrix to 24.18.0 to unblock [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877). The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green; all review threads resolved, awaiting maintainer re-review to clear CHANGES_REQUESTED. Multiple rebase-dependent PRs stalled on stale approvals—[endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), and the gateway-package phases ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)) need re-approval on rebased heads. Two design PRs found superseded ([endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301)) and need disposition. Weblet-gateway design ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)) reconciled with shipped code and a security hole (pre-publish collision) fixed; awaiting decision on id model (content-only vs. composite). Four jobs doomed to the plan queue: two gauntlets hit convergence limits, one rebase stalled, one Node.js 24.x shepherd timeout.
+Four dependabot PRs ([endojs/endo-but-for-bots#1001](https://github.com/endojs/endo-but-for-bots/pull/1001)–[#1004](https://github.com/endojs/endo-but-for-bots/pull/1004)) are in flight. The Node 24.x CI regression blocking multiple PRs is fixed in [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (ready to merge), which will unblock [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [#877](https://github.com/endojs/endo-but-for-bots/pull/877). Six feature and design PRs finished rebasing and testing and are green, awaiting fresh maintainer APPROVED reviews: [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#241](https://github.com/endojs/endo-but-for-bots/pull/241). The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, blocked only on re-review. Two PRs are candidates for closure: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (superseded by exo-http-client) and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) (superseded by error-tracing). Two gauntlets ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) exceeded convergence limits and are parked.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 10h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 12h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 12h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
@@ -791,15 +791,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.3M | $1091.59 _(notional, rate-card)_ | no quota set |
-| Codex | 25.8M _(+804.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.6M | $998.87 _(notional, rate-card)_ | no quota set |
+| Codex | 24.6M _(+757.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1001-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1001-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1001
+- [`endojs-endo-but-for-bots-pr1002-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1002-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1002
+- [`endojs-endo-but-for-bots-pr1003-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1003-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1003
+- [`endojs-endo-but-for-bots-pr1004-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1004-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1004
 
 ### tada (4901)
 - [`dependabotany-recheck-endo-but-for-bots-20260816-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260816-170501.md) — Completion report
