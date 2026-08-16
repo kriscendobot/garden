@@ -25,3 +25,13 @@ Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/proposal-compartments/pull/3#pullrequestreview-4947365919
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T21:53:18Z
