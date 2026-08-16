@@ -1,3 +1,4 @@
 {"ts":"2026-08-16T06:31:46Z","base":"endojs-endo-but-for-bots-pr340-shepherd-20260816","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-16T06:35:28Z","base":"endojs-endo-but-for-bots-pr340-shepherd-20260816","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":103}
 {"ts":"2026-08-16T06:43:56Z","base":"endojs-endo-but-for-bots-pr340-shepherd-20260816","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":35}
+{"source":"none","ts":"2026-08-16T07:34:10Z","base":"endojs-endo-but-for-bots-pr340-shepherd-20260816","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":2401}
