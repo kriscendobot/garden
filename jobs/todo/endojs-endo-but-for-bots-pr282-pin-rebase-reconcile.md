@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: pr282-flag-gated-reconciliation
-priority: normal
-posted_by: producer
-posted_at: 2026-08-16T06:33:46Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-16T06:37:04Z cleared=none -->
 
 ---
 tier: mentor
