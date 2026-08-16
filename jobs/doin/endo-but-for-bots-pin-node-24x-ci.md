@@ -36,6 +36,7 @@ the Node fix ships. Prefer the narrowest change that stops the float. Open the
 PR against `llm`. After it lands, re-run CI on the three PRs above and report
 which of them go green.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
