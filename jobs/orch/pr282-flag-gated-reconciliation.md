@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr282-pin-rebase-reconcile endojs-endo-but-for-bots-pr282-fixture-parity endojs-endo-but-for-bots-pr282-registry-default-followup
 on-child-failure: halt
