@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:54:10Z_
+_As of 2026-08-16T05:56:53Z_
 
 ## Latest
 
@@ -1439,16 +1439,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.8M | $821.16 _(notional, rate-card)_ | no quota set |
+| Claude | 45.8M | $822.77 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`design-endo-claude-mcp-groundwork`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-mcp-groundwork.md) — The correction
 - [`design-endo-claude`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude.md) — Direction of dependency — read this before drafting
+- [`minion-town-weblet-synthesis-ocap-redesign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-synthesis-ocap-redesign.md) — ---
 
 ### tada (4848)
 - [`endojs-endo-but-for-bots-pr348-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-shepherd.md) — Completion report
@@ -1515,7 +1516,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
 - [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-endo-b3-daemon-deploy-verify.md) — _normal_ · ---
 - [`minion-town-mcp-b2-first-guest-tools-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-mcp-b2-first-guest-tools-gauntlet.md) — _normal_ · ---
-- [`minion-town-weblet-synthesis-ocap-redesign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-weblet-synthesis-ocap-redesign.md) — _normal_ · ---
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/monk-finish-gardener-rename.md) — _normal_ · Finish the gardener -> monk worker-kind rename
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
