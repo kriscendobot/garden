@@ -6,7 +6,7 @@ fallback-tier:
 dispatch: automatic
 ---
 
-# Finalize (curate → merge) kriscendobot/proposal-compartments PR #3
+# Finalize (curate → merge) endojs/endo-but-for-bots PR #878
 
 A trusted maintainer APPROVED this PR and the watcher confirmed it is
 OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
@@ -14,7 +14,7 @@ OPEN, mergeable, and checks green. This is the CURATION step: dispatch the
 a merge method — the conductor owns that choice (roles/conductor/AGENT.md).
 
 Guards (the watcher already enforced these; re-verify before merging):
-  - Bot repo only (kriscendobot/proposal-compartments). NEVER merge agoric-sdk or the endojs/endo
+  - Bot repo only (endojs/endo-but-for-bots). NEVER merge agoric-sdk or the endojs/endo
     upstream — those are the maintainers / boatmans call.
   - The PR must still be OPEN, mergeable, and checks green. If it has
     regressed (conflicts, red CI), dispatch the shepherd/fixer instead of
@@ -22,17 +22,6 @@ Guards (the watcher already enforced these; re-verify before merging):
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
 Source: pr-review-body by kriskowal
-Approval: https://github.com/kriscendobot/proposal-compartments/pull/3#pullrequestreview-4947365919
+Approval: https://github.com/endojs/endo-but-for-bots/pull/878#pullrequestreview-4947347748
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-16T21:43:32Z
+<!-- garden-reaped: 1 -->
