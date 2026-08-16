@@ -20,3 +20,13 @@ Also fold in the three open items the js-26 handoff raised: js-27/js-28 ordering
 Output a proposal for the maintainer, not a relaunch. Post no children.
 
 handler-timeout: 7200
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T04:27:53Z
