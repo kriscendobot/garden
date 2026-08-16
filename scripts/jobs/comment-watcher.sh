@@ -756,6 +756,57 @@ reads_as_directive() {  # reads_as_directive <body-text>
   return 1
 }
 
+# --- retrospective gate-outs (deterministic; narrow the review→retro path) -----
+# A `review`-classed comment normally mints a review retrospective. Two shapes
+# indict NO work product, so they mint none (maintainer decision 2026-08-15,
+# deliberately reversing the earlier err-toward-minting choice for these two
+# shapes and only these). Both read ONLY the body text the watcher already holds —
+# no LLM, no extra fetch (the 2026-07-01 keep-the-LLM-out-of-the-watcher directive
+# is preserved). The two closed word sets below are the whole vocabulary: any body
+# word outside them is treated as substantive feedback and KEEPS the retro, so an
+# unlisted connective just means we fail to gate that one body — the safe direction
+# (toward minting, the prior behavior).
+RETRO_PIPELINE_OP_VERBS="conduct rebase shepherd retcon weave merge close"
+# Directive glue: the connective/filler words that bind pipeline-op verbs into one
+# workflow instruction ("please rebase, retcon, and conduct"). NOT feedback terms.
+RETRO_DIRECTIVE_GLUE="please kindly pls and or then next now also first second third finally so but the this that it its on onto to into once more again pr plus of a an all these those over up"
+
+# rc 0 if the review body's ONLY actionable content is one or more pipeline-op
+# verbs (conduct/rebase/shepherd/retcon/weave/merge/close) — a directive to advance
+# an approved branch through its merge pipeline, indicting no reviewed work product
+# (endo-but-for-bots #123 "Please rebase, retcon, and conduct"; #598 "conduct").
+# Strips the source state markers, folds to lowercase, splits on non-letters, and
+# removes the pipeline-op verbs plus the fixed glue set; if at least one pipeline-op
+# verb was seen and NOTHING else remains, it is pipeline-op-only. A body carrying
+# inline comments ([INLINE-REVIEW]) has work-product content beyond the verb and
+# never qualifies.
+review_is_pipeline_op_only() {  # review_is_pipeline_op_only <body-text>
+  case "$1" in *'[INLINE-REVIEW]'*) return 1;; esac
+  local lc w saw_op=""
+  lc="$(printf '%s' "$1" \
+    | sed -E 's/\[[A-Z_-]+\]//g' \
+    | tr '[:upper:]' '[:lower:]' | tr -c 'a-z' ' ')"
+  for w in $lc; do
+    case " $RETRO_PIPELINE_OP_VERBS " in *" $w "*) saw_op=y; continue;; esac
+    case " $RETRO_DIRECTIVE_GLUE " in *" $w "*) continue;; esac
+    return 1   # a residual, non-glue word → substantive feedback; not op-only
+  done
+  [ -n "$saw_op" ]
+}
+
+# rc 0 if the review is an APPROVAL whose body is empty or whitespace-only AND that
+# carries zero inline review comments — a bare sign-off that indicts nothing.
+# Detected from the body alone: [APPROVED] present, NO [INLINE-REVIEW] marker (the
+# source flags a review bearing inline comments with it), and no non-space
+# character once the state markers are stripped.
+review_is_empty_approval() {  # review_is_empty_approval <body-text>
+  case "$1" in *'[APPROVED]'*) : ;; *) return 1;; esac
+  case "$1" in *'[INLINE-REVIEW]'*) return 1;; esac
+  local rest
+  rest="$(printf '%s' "$1" | sed -E 's/\[[A-Z_-]+\]//g' | tr -d '[:space:]')"
+  [ -z "$rest" ]
+}
+
 # --- deterministic verb mapping (the fixed table; no open-ended reasoning) ---
 # Sets VERB to one of rebase|retcon|refresh|shepherd|gauntlet on a hit. Prefer a
 # fixed mapping; return 2 ("ambiguous") only when the comment plainly addresses
@@ -1707,7 +1758,21 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # anticipate — no retro (see the design Q1/Q6 class filter).
   retro_eligible=""
   case "$VERB" in
-    review)    retro_eligible=y ;;
+    review)
+      retro_eligible=y
+      # Narrow the review→retro path (maintainer decision 2026-08-15): a review
+      # that indicts no work product mints NO retrospective. Two deterministic,
+      # body-only shapes, and ONLY these two — everything else keeps minting as
+      # before (no judgment-based widening; the LLM stays out of the watcher):
+      #   1. the only actionable content is a pipeline-op verb (conduct/rebase/
+      #      shepherd/retcon/weave/merge/close) — a merge-pipeline directive; or
+      #   2. an empty/whitespace approval with zero inline comments — a bare sign-off.
+      # The primary `review` job is UNAFFECTED — the attention/finalization work
+      # still mints exactly as before; only the paired retrospective is suppressed.
+      if review_is_pipeline_op_only "$body" || review_is_empty_approval "$body"; then
+        retro_eligible=""
+        log "retro-gate: review on #$pr ($author) indicts no work product (pipeline-op-only directive or empty approval) — minting the primary but no retrospective [url=$url]"
+      fi ;;
     attention) reads_as_directive "$(cat "$bf")" && retro_eligible=y ;;
   esac
 

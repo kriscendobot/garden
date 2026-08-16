@@ -2251,6 +2251,54 @@ run_directive "$TR/state-rf" "$BARE_RF" "$FIX_RF" "$RLOG_RF"
 board_has "$BARE_RF" "$SLUG-pr598-conduct" && ok "clean approval mints the conductor (finalize)" || bad "finalize/conduct job missing"
 [ "$(plan_count "$BARE_RF")" -eq 0 ] && ok "no retro for a clean approval" || bad "finalize wrongly minted a retro (plan=$(plan_count "$BARE_RF"))"
 
+# --- narrowed retro gate (maintainer decision 2026-08-15) --------------------
+# Two review shapes that indict NO work product now mint NO retrospective, gated
+# DETERMINISTICALLY (no LLM in the watcher) in the same verb-class case: a review
+# whose only actionable content is a pipeline-op verb, and an empty/whitespace
+# approval with zero inline comments. Everything else keeps minting as before.
+hr; echo "RETRO-PIPELINEOP — the canonical case: APPROVED 'Please rebase, retcon, and conduct' → primary work, NO retro"; hr
+# kriskowal's real #123 review: state APPROVED, a 35-char body directing three
+# standard branch ops, zero inline comments. The review (finalization) work must
+# mint exactly as before; the retrospective must NOT (the review indicts nothing).
+BARE_RP="$TR/rp.git"; seed_bare "$BARE_RP"
+FIX_RP="$TR/fix-rp.tsv"; RLOG_RP="$TR/react-rp.log"; : > "$RLOG_RP"
+# The verbatim 35-character maintainer body, carried behind the source's [APPROVED]
+# state marker exactly as comment-source-gh.sh surfaces an approval.
+BODY_RP='Please rebase, retcon, and conduct.'
+[ "${#BODY_RP}" -eq 35 ] && ok "canonical body is 35 characters" || bad "canonical body length drifted (${#BODY_RP})"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:45:00Z pr-review-body 4700000700 601 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/601#pullrequestreview-4700000700 \
+  "[APPROVED] $BODY_RP" > "$FIX_RP"
+run_directive "$TR/state-rp" "$BARE_RP" "$FIX_RP" "$RLOG_RP"
+[ "$(todo_glob "$BARE_RP" "^$SLUG-pr601-review-")" -eq 1 ] && ok "the review (finalization) primary still mints" || bad "pipeline-op review primary missing (the gate must not touch the primary)"
+[ "$(plan_count "$BARE_RP")" -eq 0 ] && ok "no retro for a pipeline-op-only review" || bad "pipeline-op-only review wrongly minted a retro (plan=$(plan_count "$BARE_RP"))"
+
+hr; echo "RETRO-PIPELINEOP-KEEP — a pipeline-op verb BUNDLED with substantive feedback STILL mints a retro"; hr
+# The gate is narrow: a residual, non-glue word (real feedback) keeps the retro.
+BARE_POV="$TR/pov.git"; seed_bare "$BARE_POV"
+FIX_POV="$TR/fix-pov.tsv"; RLOG_POV="$TR/react-pov.log"; : > "$RLOG_POV"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:47:00Z pr-review-body 4700000750 602 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/602#pullrequestreview-4700000750 \
+  '[CHANGES_REQUESTED] Please rebase, then guard the empty-input boundary.' > "$FIX_POV"
+run_directive "$TR/state-pov" "$BARE_POV" "$FIX_POV" "$RLOG_POV"
+[ "$(todo_glob "$BARE_POV" "^$SLUG-pr602-review-")" -eq 1 ] && ok "the review primary mints" || bad "review primary missing"
+[ "$(plan_glob "$BARE_POV" "^$SLUG-pr602-review-.*-retro\.md$")" -eq 1 ] && ok "substantive feedback bundled with a verb STILL mints its retro" || bad "the gate over-fired on a substantive review (plan=$(plan_count "$BARE_POV"))"
+
+hr; echo "RETRO-EMPTYAPPROVAL — an empty-body approval with zero inline mints NO retro"; hr
+# A bare sign-off ([APPROVED], no body, no [INLINE-REVIEW]) indicts nothing. It
+# routes to the finalization (conductor) on a mergeable PR — the primary work — and
+# mints no retrospective.
+BARE_EA="$TR/ea.git"; seed_bare "$BARE_EA"
+FIX_EA="$TR/fix-ea.tsv"; RLOG_EA="$TR/react-ea.log"; : > "$RLOG_EA"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-03T09:48:00Z pr-review-body 4700000800 603 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/603#pullrequestreview-4700000800 \
+  '[APPROVED]' > "$FIX_EA"
+run_directive "$TR/state-ea" "$BARE_EA" "$FIX_EA" "$RLOG_EA"
+[ "$(plan_count "$BARE_EA")" -eq 0 ] && ok "no retro for an empty-body approval with zero inline" || bad "empty approval wrongly minted a retro (plan=$(plan_count "$BARE_EA"))"
+
 hr; echo "RETRO-UNTRUSTED — an untrusted review mints neither a primary nor a retro"; hr
 BARE_RU="$TR/ru.git"; seed_bare "$BARE_RU"
 FIX_RU="$TR/fix-ru.tsv"; RLOG_RU="$TR/react-ru.log"; : > "$RLOG_RU"
