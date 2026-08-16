@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:29:54Z_
+_As of 2026-08-16T07:33:43Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 17m)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 30m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 22m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 35m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 17d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 28d)
@@ -1062,6 +1062,60 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > handler-timeout: 7200
 
+- `doomed-endojs-endo-but-for-bots-pr856-weave-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr856-weave-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr856-weave; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr856-weave) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr856-weave
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Weave (rebase) [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856) (fix(endor): run ambiguous import-bearing .js entries as ESM) onto current llm.
+>
+> State verified 2026-08-16: OPEN, non-draft, mergeStateStatus DIRTY, head ca0b6c023, untouched since 2026-07-28 though its own CI was 24/24 green. A re-review is requested from kriskowal but is not worth acting on until the conflict is resolved. Four separate maintainer-inbox messages asked for re-approval on a stale head; the rebase is the actual blocker.
+>
+> After the rebase lands and CI is green, hand off for maintainer review.
+
+- `doomed-weave-base-update-and-pin-alias-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-base-update-and-pin-alias-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/weave-base-update-and-pin-alias; it stays HELD until a human promotes it
+> (promote-plan.sh weave-base-update-and-pin-alias) or removes it, so nothing is lost.
+> Original job base: weave-base-update-and-pin-alias
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> Fold "pin the merge base" into `weave` as an alias, and correct weave's documented definition to state the base update it already performs.
+>
+> Maintainer decision, liaison session 2026-08-16: weaving means **update the merge base to the current hash and rebase with conflict resolution**. The newly coined term "pin the merge base" is an ALIAS for weave, not a new verb and not a composition of two verbs. Do not add a third branch-op verb.
+>
+> Provenance to quote: kriskowal, CHANGES_REQUESTED review on [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282), 2026-08-16T06:28:34Z — "Please pin the merge base to llm-xxxxx and rebase. I will hereafter call this 'pin the merge base', leaving the rebase and resolution of conflicts implicit."
+>
+> IMPORTANT — the behavior already exists; this is mostly a documentation correction. skills/frozen-base-branch/SKILL.md, cited from roles/weaver/AGENT.md § Skills, already specifies: every fork-side PR uses a frozen base named `<base>-<short-sha>`; when the weaver rebases it creates a NEW frozen base at upstream's current tip, rebases the head onto it, force-pushes the head, and updates the PR's `base` field, both refs moving together. Verify that is still true in the weaver's procedure before writing any docs, and if the implementation has drifted from it, fix the implementation to match rather than documenting the drift.
+>
+> Work:
+> 1. README.md § Key vocabulary — the `weave #N` row currently reads only "rebase and resolve conflicts", which understates it. Restate it as: update the merge base to the current base-branch hash (a new frozen `<base>-<short-sha>`), rebase the head onto it, resolve conflicts, force-push, and move the PR's base field. Add "pin the merge base" as an explicit alias on that row.
+> 2. CLAUDE.md § Orchestrator vocabulary — same correction and alias in that verb table.
+> 3. roles/weaver/AGENT.md — make the base update part of the role's stated purpose, not only an implication of a linked skill. A reader of the role brief alone should know weave moves the base.
+> 4. scripts/jobs/comment-watcher.sh — recognize "pin the merge base" in IMPERATIVE position and map it to the SAME job the existing `weave`/`rebase` directives mint. It is a multi-word phrase, so take care with the machinery around BRANCH_OP_VERBS (line ~721) and the verb table (lines ~760-830): preserve the existing verb-as-subject-matter and future-tense guards, and make sure the phrase used as subject matter (someone describing this policy, as this job body does) mints nothing.
+>
+> This is a tested hot path. Extend the comment-watcher tests: the imperative alias hit maps to weave; the subject-matter mention misses; no regression in existing single-verb recognition or distinct-imperative-verb counting.
+>
+> Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
+
 - `pr981-stale-conductor-spine` — from gardener:endojs-endo-but-for-bots-pr981-conduct, reply_to `endojs-endo-but-for-bots-pr981-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr981-stale-conductor-spine.md)
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
@@ -1072,21 +1126,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.0M | $871.47 _(notional, rate-card)_ | no quota set |
+| Claude | 49.0M | $871.67 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (5)
 - [`ebfb-worker-retention-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-worker-retention-design.md) — Design research brief: worker retention, revocation, and the batch-flush idea
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
-- [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #995
 - [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 
 ### tada (4870)
 - [`design-endo-worker-kind-constraints`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-worker-kind-constraints.md) — What I did
@@ -1122,6 +1174,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
 - [`endojs-endo-but-for-bots-pr763-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr763-shepherd.md) — _normal_ · shepherd (auto: red CI) on endojs/endo-but-for-bots PR #763
 - [`endojs-endo-but-for-bots-pr796-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr796-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #796
+- [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr856-weave.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr881-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr881-gauntlet.md) — _normal_ · Run the gauntlet: attenuated Google Sheets facets
 - [`endojs-endo-but-for-bots-pr909-5e6ae075`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-5e6ae075.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #909
 - [`endojs-endo-but-for-bots-pr909-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #909
@@ -1151,6 +1204,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-base-update-and-pin-alias.md) — _normal_ · ---
 - [`weave-endo-but-for-bots-pr626-stack-surgery-eval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-endo-but-for-bots-pr626-stack-surgery-eval.md) — _normal_ · Weave endojs/endo-but-for-bots PR #626 (Phase-5 stack-surgery eval) onto llm
 - [`wire-siwe-onchain-authz-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/wire-siwe-onchain-authz-minion-town.md) — _normal_ · Wire the chosen SIWE on-chain authorization tier into minion.town's policy layer
 
