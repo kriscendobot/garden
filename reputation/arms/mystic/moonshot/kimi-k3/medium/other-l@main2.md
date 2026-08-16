@@ -4,9 +4,9 @@ model: kimi-k3
 thoughtfulness: medium
 work_class: other:l
 target: main2
-attempts: 18
+attempts: 20
 accepts: 0
-censored: 18
+censored: 20
 estimated: 0
 mean_dollars: 0.000000
 m2: 0.000000

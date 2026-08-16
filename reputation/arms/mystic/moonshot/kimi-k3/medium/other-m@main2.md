@@ -4,10 +4,10 @@ model: kimi-k3
 thoughtfulness: medium
 work_class: other:m
 target: main2
-attempts: 42
+attempts: 45
 accepts: 6
-censored: 42
+censored: 45
 estimated: 0
-mean_dollars: 11.876667
+mean_dollars: 12.725000
 m2: 1.889533
-acceptance_rate: 0.1429
+acceptance_rate: 0.1333
