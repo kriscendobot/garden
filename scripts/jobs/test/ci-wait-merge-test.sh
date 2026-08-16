@@ -40,6 +40,7 @@
 #   T22 ordinary approval on the post-rebase head → merge
 #   T23 base moves during CI → old green invalidated; new-head red → shepherd
 #   T24 safe-rebase conflict refusal → needs-weave, no CI merge
+#   T25 explicit dependabot mode + gh 'app/dependabot' rendering → merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -278,6 +279,16 @@ run o/r 178; chk "$rc" 3 T23; nomerge T23
 echo "T24 safe-rebase conflict refusal → needs-weave, no merge"
 reset_seq; seq_add "$GREEN"; printf '3\n' > "$STUBDIR/rebase_rc"
 run o/r 178; chk "$rc" 1 T24; nomerge T24
+
+echo "T25 dependabot mode + gh GraphQL 'app/dependabot' rendering + no approval → merge"
+# gh 2.97.0 renders the dependabot App author as app/dependabot via --json author,
+# not the REST dependabot[bot]; canonical_bot_login must normalize both to the bare
+# slug or every dependabot MERGE-NOW stalls on a maintainer approval that never
+# comes (endojs/endo-but-for-bots#1004, 2026-08-16).
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"author":{"login":"app/dependabot"}}' > "$STUBDIR/author"
+printf '{"reviewDecision":"REVIEW_REQUIRED","headRefOid":"head123"}' > "$STUBDIR/approvalmeta"
+run endojs/endo-but-for-bots 914 --dependabot-auto-merge; chk "$rc" 0 T25; merged T25
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
