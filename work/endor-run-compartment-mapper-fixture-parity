@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-16T07:03:33Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endor-run-compartment-mapper-fixture-parity
