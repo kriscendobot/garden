@@ -6,3 +6,4 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":68,"input_tokens":20,"output_tokens":3216,"cache_creation_tokens":12727,"cache_read_tokens":698047,"total_cost_usd":0.5567935,"ts":"2026-08-16T07:24:57Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
 {"source":"none","ts":"2026-08-16T07:34:19Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":66}
 {"source":"none","ts":"2026-08-16T07:44:55Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":97}
+{"source":"result","model":"claude-opus-4-8","num_turns":10,"elapsed_s":100,"input_tokens":19,"output_tokens":3629,"cache_creation_tokens":65003,"cache_read_tokens":695304,"total_cost_usd":1.088502,"ts":"2026-08-16T07:55:06Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden-ece02cb4","outcome":"requeue"}
