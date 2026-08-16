@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:23:33Z_
+_As of 2026-08-16T07:25:56Z_
 
 ## Latest
 
@@ -1072,21 +1072,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.0M | $869.81 _(notional, rate-card)_ | no quota set |
+| Claude | 49.1M | $871.98 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (4)
-- [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr856-weave.md) — ---
-- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-weave.md) — ---
-- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-branch-regression-fixer.md) — ---
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-base-update-and-pin-alias.md) — ---
+### todo (0)
+(none)
 
-### doin (4)
+### doin (8)
 - [`design-endo-worker-kind-constraints`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-worker-kind-constraints.md) — Task
 - [`ebfb-worker-retention-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-worker-retention-design.md) — Design research brief: worker retention, revocation, and the batch-flush idea
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
+- [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
+- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #995
+- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 
 ### tada (4869)
 - [`daily-progress-summary-20260816-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260816-070504.md) — Completion report
