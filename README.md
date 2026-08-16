@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T16:20:53Z_
+_As of 2026-08-16T16:36:20Z_
 
 ## Latest
 
-Node 24.x CI pinned to 24.18.0 (fixing better-sqlite3 crashes). A large rebase stall emerged where rebases invalidated prior approvals: [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and gateway phases ([#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[#389](https://github.com/endojs/endo-but-for-bots/pull/389)) all awaiting re-approval on new heads. byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475)–[#503](https://github.com/endojs/endo-but-for-bots/pull/503)) complete and green but blocked on re-review; [#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) superseded by features landed on llm. minion.town opened [#36](https://github.com/kriscendobot/minion.town/pull/36), finbot saw [#4](https://github.com/kriscendobot/finbot/pull/4) merge and [#6](https://github.com/kriscendobot/finbot/pull/6) advance.
+Gateway packages [PR #388](https://github.com/endojs/endo-but-for-bots/pull/388) and [PR #389](https://github.com/endojs/endo-but-for-bots/pull/389) (phases 2–3) are refreshed, rebased, and await your re-approval of each head; [#389](https://github.com/endojs/endo-but-for-bots/pull/389) is undrafted. The Node 24.x CI pin ([PR #1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) is ready to merge and will unblock [PR #340](https://github.com/endojs/endo-but-for-bots/pull/340), [PR #475](https://github.com/endojs/endo-but-for-bots/pull/475), and [PR #877](https://github.com/endojs/endo-but-for-bots/pull/877) from a better-sqlite3 crash on Node v24.19.0. Two gauntlets halted after six rounds without converging. Backlog includes re-approval requests on rebased heads, disposition calls on [PR #286](https://github.com/endojs/endo-but-for-bots/pull/286) (superseded by exo-http-client) and [PR #301](https://github.com/endojs/endo-but-for-bots/pull/301) (superseded by error-tracing), and design decisions on weblet-gateway identity modeling and Compartments evaluation scope.
 
 ## Parked for maintainer feedback
 
@@ -791,23 +791,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.0M | $1090.58 _(notional, rate-card)_ | no quota set |
+| Claude | 65.1M | $1090.87 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr389-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-undraft.md) — ---
+### doin (0)
+(none)
 
-### tada (4899)
+### tada (4900)
+- [`endojs-endo-but-for-bots-pr389-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-undraft.md) — Completion report
 - [`endo-but-for-bots-pin-node-24x-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endo-but-for-bots-pin-node-24x-ci.md) — Completion report
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/monk-finish-gardener-rename.md) — Completion report: monk-finish-gardener-rename
 - [`garden-encode-muster-vocabulary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-muster-vocabulary.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr997-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr997-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-6.md) — Completion report
-- … and 4894 more
+- … and 4895 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
