@@ -72,3 +72,13 @@ Open questions the design must resolve or explicitly defer, in priority order:
 - Open questions section for anything the design surfaces but can't resolve — this is a reassessment of a stated principled stance, not a mandate to force a conclusion.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:33:22Z
