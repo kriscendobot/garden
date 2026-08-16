@@ -1,1 +1,2 @@
 {"ts":"2026-08-16T07:23:52Z","base":"ebfb-worker-retention-design","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"result","model":"claude-opus-4-8","num_turns":48,"elapsed_s":858,"input_tokens":74,"output_tokens":57180,"cache_creation_tokens":152960,"cache_read_tokens":4957163,"total_cost_usd":6.83774325,"ts":"2026-08-16T07:47:56Z","base":"ebfb-worker-retention-design","host":"endolin-garden2-5bcdff64","outcome":"tada"}
