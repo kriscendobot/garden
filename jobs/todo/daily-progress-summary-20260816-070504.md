@@ -1,7 +1,12 @@
-cadence: daily-at-00:00-America/Los_Angeles
-last_dispatched: 2026-08-16T07:00:00Z
-job_basename_prefix: daily-progress-summary
+Scheduled dispatch context (computed by the scheduler at fire time):
+
+- window_start: 2026-08-15T07:00:00Z (UTC, inclusive)
+- window_end: 2026-08-16T07:00:00Z (UTC, exclusive)
+- pacific_date: 2026-08-15 (the Pacific day this periodical covers)
+- output: journal/periodicals/2026/08/15.md
+
 ---
+
 ---
 tier: mentor
 fallback-tier: minion
