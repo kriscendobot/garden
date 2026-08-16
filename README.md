@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T22:07:10Z_
+_As of 2026-08-16T22:41:22Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Node 24.x CI fix landed ([endojs/endo-but-for-bots#1000](https://github.com/endo
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 14h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 15h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
@@ -726,6 +726,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > head and I'll (or the next conduct tick will) merge. The PR is otherwise clean,
 > mergeable, based on live llm.
 
+- `20260816T224108Z-f8b1ef` — from gardener:endojs-endo-but-for-bots-pr1009-dependabot, reply_to `endojs-endo-but-for-bots-pr1009-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T224108Z-f8b1ef.md)
+
+> Botanist on **[endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009)** (`npm-packlist` 10.0.4 → 11.3.0, root devDependency): verdict **MERGE-NOW on the merits** — mature (floor 2026-06-29), advisory-clean, benign source, sole consumer `check-package-uniformity` passes 18/18 against v11, no migration needed.
+>
+> **But I could not execute the merge, and did not force it.** After rebasing onto live `llm` (head now `7017fb0d4a0`), CI is 20+ green with a single red cell: **`test (24.x, ubuntu-latest)`**, failing 4/4 with the runner losing its own Node (`.../actions-runner/2.336.0/externals/node24/bin/node: No such file or directory` → SIGINT-kills the in-flight test; every test that ran passed). That is the **known floating-Node-24.x flake** already recorded for [endojs/endo-but-for-bots#1007](https://github.com/endojs/endo-but-for-bots/issues/1007) and tracked blocking [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) / [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) — non-required (no branch protection on `llm`; PR is MERGEABLE/UNSTABLE), unrelated to npm-packlist (a lint-time devDep; `lint` is green), and red only because a root-dep bump cold-runs the full suite (it passes on base).
+>
+> The conductor spine counts any red rollup check as CI-RED and refuses to merge; there is no sanctioned knob to merge past a non-required flaky cell, so I escalated rather than bypass the CI gate. **Decision needed:** merge [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009) directly (it is one-click mergeable), or resolve the fleet-wide floating-Node-24.x runner issue so the spine can auto-conduct this and the other blocked PRs. Full write-up in the PR comment + dependabotany ledger (broadcast 20260816T224047Z); daily `dependabotany-recheck-endo-but-for-bots` will re-sweep it.
+>
+> (Aside: the deployed spine on this host rejected the `--dependabot-auto-merge` bypass because the live author renders as `app/dependabot`; the fix is already on `origin/main2` — commits `c31b2aaf4a` + `6116be1d53` — pending a deploy. I worked around it this run with `GARDEN_DEPENDABOT_LOGIN=app/dependabot`.)
+
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1021,8 +1031,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.1M | $929.58 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+687.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.5M | $934.19 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
