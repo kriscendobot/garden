@@ -93,3 +93,13 @@ process for this repo's design corpus. Flag open questions rather than
 resolving them past the load-bearing seam (the schema + the migration of
 today's two kinds onto it); the unfiled pieces above should end as explicit
 `Not Started` extension points, not implementation plans.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:22:47Z
