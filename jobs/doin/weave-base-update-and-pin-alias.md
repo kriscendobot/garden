@@ -24,6 +24,7 @@ Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
