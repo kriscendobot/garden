@@ -26,3 +26,13 @@ After the canonical encode-only @endo/ascii lands on llm, reconstruct or rebase 
 SUPERSEDED — do NOT promote. Replaced by job 'ebfb-pr475-integrate-endo-ascii-r2' (posted 2026-08-13T21:09Z), which carries the same instructions plus handler-timeout: 7200. This job doomed on shape (a), a genuine wall-clock overrun at 2401s: the work does not fit one 2400s claim. It was deliberately NOT decomposed, because every part is a sequential edit to the same PR branch and splitting would put two agents on the same head with force-pushes. Promoting this copy would re-run the work under the same 2400s budget and overrun again, and could race r2 on the branch. Remove it rather than promoting.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:05:43Z
