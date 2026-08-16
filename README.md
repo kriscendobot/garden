@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:52:49Z_
+_As of 2026-08-16T05:54:10Z_
 
 ## Latest
 
@@ -1439,25 +1439,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.8M | $820.31 _(notional, rate-card)_ | no quota set |
+| Claude | 45.8M | $821.16 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`design-endo-claude-mcp-groundwork`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-mcp-groundwork.md) — The correction
 - [`design-endo-claude`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude.md) — Direction of dependency — read this before drafting
-- [`endojs-endo-but-for-bots-pr348-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr348-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #348
 
-### tada (4847)
+### tada (4848)
+- [`endojs-endo-but-for-bots-pr348-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr337-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr337-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr389-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr348-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-refresh.md) — Completion report
-- [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/narrow-retro-eligible-pipeline-op-gate.md) — Completion report
-- … and 4842 more
+- … and 4843 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
