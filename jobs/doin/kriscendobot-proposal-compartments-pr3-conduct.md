@@ -26,6 +26,7 @@ Approval: https://github.com/kriscendobot/proposal-compartments/pull/3#pullreque
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
