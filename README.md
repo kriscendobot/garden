@@ -1,15 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-16T21:57:20Z_
+_As of 2026-08-16T22:00:51Z_
 
 ## Latest
 
-Node 24.x CI flake pinned: [endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/pull/999) and [endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) lock better-sqlite3 AVA workers to v24.18.0, unblocking [endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) once they're rebased. Dependabot auto-conduct is fixed on main2 (c31b2aaf4a) but the deployed root still runs the old code; a deploy is needed to unblock botanist-reviewed merges. Yarn cache hardlink ceiling (65k) hit on endolin; `yarn cache clean` or a linker switch required. byteArray work complete and all-green ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) but gated on maintainer re-review; test262 consolidation drafted ([endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)). Several design PRs hold on your decisions: weblet gateway ([minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)) identity model, compartments dispatch scope, and closure calls on [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (both superseded). Multiple PRs stalled waiting for your re-approval on rebased heads — a key bottleneck. Budget now under control after August peak; quota governance design landed.
+Node 24.x CI flake diagnosed and pinned ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000), ready for merge); multiple PRs rebased onto current llm ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#856](https://github.com/endojs/endo-but-for-bots/pull/856)) now need fresh maintainer approvals on their new heads. Budget enforcement design landed on main2; gateway design reconciliation complete with security fixes applied (content-only ID collision + unpublish tombstone). Several jobs parked mid-work: two gauntlets failed to converge in 6 rounds ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)); an orchestration halted on a child requeue; [#282](https://github.com/endojs/endo-but-for-bots/pull/282) weave and [#856](https://github.com/endojs/endo-but-for-bots/pull/856) weave timed out. Operationally: yarn berry cache hit ext4's 65k hardlink ceiling (fixable via cache prune or nodeLinker mode switch); dependabot auto-conduct is broken on the deployed root (fix landed on main2 as c31b2aaf4 but not deployed yet — every dependabot MERGE-NOW will stall on approval until deploy). Monthly report generated covering the Rust XS replacement merge, Ironhorse test262 campaign, and minion.town live gateway work.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 14h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
@@ -18,8 +17,9 @@ Node 24.x CI flake pinned: [endo-but-for-bots#999](https://github.com/endojs/end
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 30d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 33d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 45d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 62d)
 
-_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260726T024419Z-9fb3d7` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T024419Z-9fb3d7.md)
@@ -714,6 +714,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommend a deploy at your convenience so auto-conduct works without per-PR overrides.
 
+- `20260816T220034Z-74a9b6` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T220034Z-74a9b6.md)
+
+> Conductor on [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (fix/endor ESM detection):
+>
+> Merge-time freshness rebase moved the head 40af392 -> 4e7b7f95 (llm had advanced
+> since your approval). A rebase never preserves the approval signature, so your
+> 21:54Z APPROVED review on 40af392 is now STALE against the rebased head.
+>
+> CI is re-running on 4e7b7f95 now. Once it's green, please re-approve the rebased
+> head and I'll (or the next conduct tick will) merge. The PR is otherwise clean,
+> mergeable, based on live llm.
+
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1009,7 +1021,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.9M | $928.79 _(notional, rate-card)_ | no quota set |
+| Claude | 59.0M | $928.87 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+687.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
