@@ -18,3 +18,13 @@ rebase noise), then un-draft the PR so it is reviewable again. Do NOT merge:
 the conductor bar requires a fresh maintainer approval at the current head, and
 that approval is the maintainer's to give. Report the un-drafted head sha and
 the result of the content comparison.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T16:07:14Z
