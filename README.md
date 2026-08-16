@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:13:31Z_
+_As of 2026-08-16T07:14:46Z_
 
 ## Latest
 
@@ -1072,30 +1072,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.0M | $868.55 _(notional, rate-card)_ | no quota set |
+| Claude | 49.0M | $868.95 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (6)
+### todo (2)
 - [`daily-progress-summary-20260816-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260816-070504.md) — Daily midnight Pacific progress summary
-- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-weave.md) — ---
-- [`endojs-endo-but-for-bots-pr995-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr995-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #995
-- [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
-- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-branch-regression-fixer.md) — ---
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-base-update-and-pin-alias.md) — ---
 
-### doin (3)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
-- [`endojs-endo-but-for-bots-pr389-stall-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-stall-comment.md) — ---
 - [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
+- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
+- [`endojs-endo-but-for-bots-pr995-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #995
+- [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
+- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
 
-### tada (4865)
+### tada (4866)
+- [`endojs-endo-but-for-bots-pr389-stall-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-stall-comment.md) — Cost
 - [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr475-integrate-endo-ascii.md) — Completion report: ebfb-pr475-integrate-endo-ascii
 - [`endor-run-compartment-mapper-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-run-compartment-mapper-fixture-parity.md) — What I found
 - [`pr282-flag-gated-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr282-flag-gated-reconciliation.md) — orchestration pr282-flag-gated-reconciliation — HALTED
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-panel-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr282-review-c41f9d4a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-review-c41f9d4a.md) — Completion report — review handler for endojs/endo-but-for-bots#282
-- … and 4860 more
+- … and 4861 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
