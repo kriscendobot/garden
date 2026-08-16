@@ -12,6 +12,7 @@ After the rebase lands and CI is green, hand off for maintainer review.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
