@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:01:13Z_
+_As of 2026-08-16T05:12:36Z_
 
 ## Latest
 
@@ -1411,8 +1411,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #337
+- [`endojs-endo-but-for-bots-pr348-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr348-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #348
 
 ### tada (4843)
 - [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/narrow-retro-eligible-pipeline-op-gate.md) — Completion report
