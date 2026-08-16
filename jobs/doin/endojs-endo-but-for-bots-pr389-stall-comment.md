@@ -41,6 +41,7 @@ Merging this PR as-is would land phase 3 onto a dead, non-trunk branch carrying 
 Complete the job once the comment is confirmed posted; name the comment's URL in
 the completion report.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
