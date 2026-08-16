@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T04:45:54Z_
+_As of 2026-08-16T04:50:05Z_
 
 ## Latest
 
@@ -1404,14 +1404,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.5M | $812.57 _(notional, rate-card)_ | no quota set |
+| Claude | 45.5M | $813.29 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #337
 - [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/narrow-retro-eligible-pipeline-op-gate.md) — ---
 
 ### tada (4842)
