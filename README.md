@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:02:39Z_
+_As of 2026-08-16T06:03:48Z_
 
 ## Latest
 
@@ -1343,26 +1343,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.6M | $818.19 _(notional, rate-card)_ | no quota set |
+| Claude | 45.7M | $818.54 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`design-endo-claude-mcp-groundwork`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-mcp-groundwork.md) — The correction
 - [`endojs-endo-but-for-bots-pr388-review-04154a91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr388-review-04154a91.md) — Review directive on endojs/endo-but-for-bots PR #388
 - [`endojs-endo-but-for-bots-pr995-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #995
-- [`minion-town-weblet-synthesis-ocap-redesign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-synthesis-ocap-redesign.md) — ---
 
-### tada (4849)
+### tada (4850)
+- [`minion-town-weblet-synthesis-ocap-redesign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/minion-town-weblet-synthesis-ocap-redesign.md) — Completion report
 - [`design-endo-claude`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-claude.md) — Completion report
 - [`endojs-endo-but-for-bots-pr348-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr337-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr337-conduct.md) — Completion report
-- [`endojs-endo-but-for-bots-pr389-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-conduct.md) — Cost
-- … and 4844 more
+- … and 4845 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
