@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T04:33:09Z_
+_As of 2026-08-16T04:33:59Z_
 
 ## Latest
 
@@ -1404,23 +1404,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.5M | $812.81 _(notional, rate-card)_ | no quota set |
+| Claude | 45.4M | $811.40 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ironhorse-test262-residual-rescope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-residual-rescope.md) — ---
+### doin (0)
+(none)
 
-### tada (4841)
+### tada (4842)
+- [`ironhorse-test262-residual-rescope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-residual-rescope.md) — Completion report — ironhorse-test262-residual-rescope
 - [`mtown-git-remote-followup-notice-recheck-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260816.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260815-232002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260815-232002.md) — Cost
 - [`mtown-git-remote-followup-notice-recheck-20260815`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260815.md) — Completion report
 - [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-enforcement.md) — Completion report — garden-budget-enforcement
-- [`dependabotany-recheck-endo-but-for-bots-20260815-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260815-170501.md) — Completion report
-- … and 4836 more
+- … and 4837 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
