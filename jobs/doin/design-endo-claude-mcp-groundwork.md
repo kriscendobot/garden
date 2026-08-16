@@ -79,6 +79,7 @@ without them, treat this as the revision cycle — same target file,
    `/mcp` as the remote/pooled-deployment path for v2. Recommend one rather
    than leaving all three equally open, and say why.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
