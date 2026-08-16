@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-16T16:08:54Z_
+_As of 2026-08-16T16:13:39Z_
 
 ## Latest
 
-The byteArray program completed and shipped green on all fronts — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) are all CI-clear and waiting only on maintainer re-review to clear the CHANGES_REQUESTED gates. The OCapN transport root [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) has one Node 24.x test failure blocking the stack; [endojs/endo-but-for-bots#683](https://github.com/endojs/endo-but-for-bots/pull/683)'s live OCapN/Noise demo over raw TCP proved the transport on minion.town and is ready to publish. Test262 fixture consolidation landed draft [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) with a design choice on metering-corpus separation awaiting your call. Multiple PRs need maintainer approvals on current heads after rebases ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)); two gauntlets halted at max iterations ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) requiring panel/fix scope decisions. minion.town's Public Suffix List entry for ocap.site is ready to ferry upstream, and DNS/DNSSEC setup awaits your authorization; B5 (toy-tools retirement) needs your call on how to close deployed-edge validation. A deployment gap was found: the current root lacks dependabot auto-merge support that landed on main2, blocking four queued dependabot PRs from conducting.
+Over the past few days, the fleet has advanced significant technical work while surfacing multiple maintainer decisions. The OCapN Noise stack cleared a major milestone — [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693) proved cross-host IK capability round-trips over raw TCP, completing the transport topology proof on both websocket and direct-TCP paths; [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) sits at 27/28 CI checks green with only a Node 24.x flake blocking, now awaiting a pin fix landing in [endojs/endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/pull/999). The byteArray program completed and is all-green across [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), gated only on maintainer re-review after inline feedback was resolved. Three design collisions surfaced: [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) is superseded by landed endo-fetch + exo-http-client, [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is superseded by error-tracing already on llm, and [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) needs additive resolution of the entry-point run dispatch against the registry-path implementation already landed. Two gauntlet runs ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) hit the 6-round convergence ceiling; test262 fixture consolidation ([endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946)) needs a call on whether to fold the metering corpus into the parity tree or keep them separate; and the weblet-gateway design ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)) reconciled against shipped code and surfaces a security fix but awaits your decision on id-modeling (content-only vs. composite digest). The garden's budget-enforcement design landed on main2 as a capstone showing the mechanism already mostly exists and just needs the per-account weekly token ceiling to turn live.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 8h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
@@ -631,6 +631,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr997-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
+- `20260816T161144Z-05c043` — from gardener:endo-but-for-bots-pin-node-24x-ci, reply_to `endo-but-for-bots-pin-node-24x-ci` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T161144Z-05c043.md)
+
+> CI-infra fix ready for review: [endojs/endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/issues/999) (base llm) pins the
+> 24.x Node matrix to 24.18.0. Confirmed the diagnosis against real logs — the red
+> run resolved node v24.19.0 and aborted AVA workers in RemoveEnvironmentCleanupHook
+> ("Assertion failed: (env) != nullptr") while tearing down better-sqlite3 11.10.0
+> (upstream [nodejs/node#65195](https://github.com/nodejs/node/issues/65195), fixed by [nodejs/node#65196](https://github.com/nodejs/node/issues/65196)). The float is
+> intermittent (some 24.19.0 runs pass), so the pin removes the flake entirely.
+>
+> I'm watching [endojs/endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/issues/999)'s own CI (now correctly running the
+> 24.18.0 legs). I cannot self-merge; once you merge it to llm, re-running CI on
+> [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) / [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) /
+> [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) will pick up the pinned workflow via their merge
+> refs and should clear the 24.x gate. I'll report the re-run results if the merge
+> lands within my job window; otherwise that re-run is the remaining follow-up.
+
 - `doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
@@ -759,7 +775,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.4M | $1088.28 _(notional, rate-card)_ | no quota set |
+| Claude | 64.7M | $1089.21 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -771,13 +787,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr389-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-undraft.md) — ---
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/monk-finish-gardener-rename.md) — Finish the gardener -> monk worker-kind rename
 
-### tada (4896)
+### tada (4897)
+- [`garden-encode-muster-vocabulary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-muster-vocabulary.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr997-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr997-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr995-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr995-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr997-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-5.md) — Completion report
-- … and 4891 more
+- … and 4892 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
