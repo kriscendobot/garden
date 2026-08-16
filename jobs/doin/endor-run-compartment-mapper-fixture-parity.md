@@ -26,3 +26,13 @@ endor-run/entry_walk test suite, and (3) adds the fixture-accounting drift
 guard. Reference the endor-run-expanded design line.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:03:33Z
