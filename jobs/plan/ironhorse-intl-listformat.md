@@ -43,3 +43,7 @@ dispatch: automatic
 **Report:** commands run, totals before/after for the affected slice, changed skip reasons, head SHA, and PR URL. Keep the PR open; do not merge.
 
 issue_spine: issue-kriscendobot-garden-51
+
+<!-- garden-annotation: key=67344d1d5edd by=producer at=2026-08-16T06:49:37Z -->
+
+DEFERRED INDEFINITELY by maintainer decision 2026-08-16 (liaison session): the re-scope proposal recommended promoting the 9 rebudgeted Intl/ECMA-402 formatter families as the best-scoped landable work, and the maintainer instead deferred the Intl feature families indefinitely to conserve campaign budget (spend was 3,307,979 against 2,080,000 approved). Do NOT promote this without a fresh maintainer go-ahead. The host-only-exclusion pattern proven by child-20 and js-25 still applies whenever it is revived.
