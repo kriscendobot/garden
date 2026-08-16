@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:46:38Z_
+_As of 2026-08-16T06:47:05Z_
 
 ## Latest
 
@@ -1050,15 +1050,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.4M | $856.68 _(notional, rate-card)_ | no quota set |
+| Claude | 48.5M | $857.92 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (2)
+### todo (1)
 - [`endojs-endo-but-for-bots-pr282-pin-rebase-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md) — ---
-- [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
 
-### doin (10)
+### doin (11)
 - [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii.md) — ---
 - [`endojs-endo-but-for-bots-pr282-review-c41f9d4a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-review-c41f9d4a.md) — Review directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
@@ -1068,6 +1067,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr937-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #995
 - [`endor-run-compartment-mapper-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-compartment-mapper-fixture-parity.md) — Design: compartment-mapper test-fixture parity + drift safeguard for endor-run
+- [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 
 ### tada (4859)
