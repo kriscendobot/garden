@@ -5,3 +5,4 @@
 {"source":"result","model":"claude-opus-4-8","num_turns":31,"elapsed_s":172,"input_tokens":57,"output_tokens":9835,"cache_creation_tokens":42171,"cache_read_tokens":1551049,"total_cost_usd":1.4454785,"ts":"2026-08-16T07:17:21Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
 {"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":68,"input_tokens":20,"output_tokens":3216,"cache_creation_tokens":12727,"cache_read_tokens":698047,"total_cost_usd":0.5567935,"ts":"2026-08-16T07:24:57Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
 {"source":"none","ts":"2026-08-16T07:34:19Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":66}
+{"source":"none","ts":"2026-08-16T07:44:55Z","base":"endojs-endo-but-for-bots-pr877-weave","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":97}
