@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:55:51Z_
+_As of 2026-08-16T07:56:33Z_
 
 ## Latest
 
@@ -1153,16 +1153,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.2M | $876.53 _(notional, rate-card)_ | no quota set |
+| Claude | 49.3M | $876.87 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #995
+- [`endojs-endo-but-for-bots-pr997-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr997-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #997
 - [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
 
 ### tada (4873)
