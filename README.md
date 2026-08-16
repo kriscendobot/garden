@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:12:12Z_
+_As of 2026-08-16T07:13:31Z_
 
 ## Latest
 
@@ -1021,6 +1021,47 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Orchestration pr282-flag-gated-reconciliation HALTED: child endojs-endo-but-for-bots-pr282-pin-rebase-reconcile stalled after 3 requeues on host endolin-garden2-5bcdff64 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: endojs-endo-but-for-bots-pr282-fixture-parity endojs-endo-but-for-bots-pr282-registry-default-followup
 
+- `doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
+> The handler repeatedly failed at a near-constant elapsed below its wall-clock budget.
+> The first confirmation was requeued; the reaper parked only after the 2-confirmation threshold.
+> Read the handler log for the fast failure cause. Raising the handler budget will not help.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr282-pin-rebase-reconcile) or removes it.
+> Original job base: endojs-endo-but-for-bots-pr282-pin-rebase-reconcile
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> handler-timeout: 7200
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-16T06:37:04Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Pin the merge base and rebase [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282), reconciling the run-dispatch collision by keeping the registry path as the default.
+>
+> Maintainer review 2026-08-16T06:28Z (CHANGES_REQUESTED) asked to "pin the merge base to llm-xxxxx and rebase". Maintainer decision 2026-08-16 (liaison session): proceed with the flag-gated option, NOT closure as superseded.
+>
+> Context you must not rediscover the hard way. #282 is Phase 5 of designs/endor-run-expanded.md (entry-point run walking a LOCAL node_modules tree), stacked on #279 (Phase 4). Both are ~1151 commits behind llm. Meanwhile llm independently shipped the same `endor run <entry.js>` CLI surface by a deliberately OPPOSED design — designs/endor-npm-registry-proxy.md Phases 4/5, merged in #799 #800 #803 #805 #812 #818 #862 — as rust/endo/src/assemble.rs + cmd_run_entry, whose own doc comment states the whole point is that no node_modules tree is consulted.
+>
+> The rebase conflicts are narrow: designs/README.md (trivial) and five hunks in rust/endo/src/bin/endor.rs. entry_walk.rs, run_input.rs, cas_archive.rs and lib.rs auto-merge because llm has no reference to entry_walk or run_input at all.
+>
+> THE LOAD-BEARING HUNK is the `run` dispatch, where both sides claim the same input:
+>   llm:  is_entry_module(p)      -> cmd_run_entry(...)                  (registry path)
+>   #282: classify_run_input(p)   -> cmd_run_entry_point_with_cas(...)   (node_modules path)
+> Resolve it ADDITIVELY: llm's registry path stays the DEFAULT for .js/.mjs/.cjs, and #282's node_modules walker is reachable only behind an explicit flag (`endor run --node-modules <entry.js>`), with help text. Roughly 40 lines in endor.rs. Do NOT pick one branch of the dispatch: choosing llm's silently turns #282's ~2300 lines of entry_walk.rs into dead code, and choosing #282's silently deletes a shipped feature.
+>
+> CI CANNOT CATCH A WRONG RESOLUTION HERE. entry_walk's 35 tests are self-contained lib tests that pass whichever way the dispatch goes, so a green board does not mean the merge was right. Add a test that exercises the dispatch itself: default entry goes to the registry path, --node-modules goes to the walker.
+>
+> Also note #279 is still OPEN, unapproved and CONFLICTING, and #282 carries #279's commits via the stack merge, so landing #282 lands Phase 4 and Phase 5 together and empties #279. Say so in your report; do not close #279 yourself.
+>
+> handler-timeout: 7200
+
 - `pr981-stale-conductor-spine` — from gardener:endojs-endo-but-for-bots-pr981-conduct, reply_to `endojs-endo-but-for-bots-pr981-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr981-stale-conductor-spine.md)
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
@@ -1031,24 +1072,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.9M | $868.35 _(notional, rate-card)_ | no quota set |
+| Claude | 49.0M | $868.55 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (6)
+- [`daily-progress-summary-20260816-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260816-070504.md) — Daily midnight Pacific progress summary
+- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-weave.md) — ---
+- [`endojs-endo-but-for-bots-pr995-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr995-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #995
+- [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
+- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-branch-regression-fixer.md) — ---
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-base-update-and-pin-alias.md) — ---
 
-### doin (10)
-- [`daily-progress-summary-20260816-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260816-070504.md) — Daily midnight Pacific progress summary
-- [`endojs-endo-but-for-bots-pr282-pin-rebase-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md) — ---
+### doin (3)
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
 - [`endojs-endo-but-for-bots-pr389-stall-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-stall-comment.md) — ---
 - [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
-- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
-- [`endojs-endo-but-for-bots-pr995-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #995
-- [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
-- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 
 ### tada (4865)
 - [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-pr475-integrate-endo-ascii.md) — Completion report: ebfb-pr475-integrate-endo-ascii
@@ -1078,6 +1117,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
+- [`endojs-endo-but-for-bots-pr282-pin-rebase-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr286-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr286-refresh.md) — _normal_ · refresh directive on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr403-e97aa392`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr403-e97aa392.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #403
 - [`endojs-endo-but-for-bots-pr592-cancel-in-options`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr592-cancel-in-options.md) — _normal_ · Fixer: reshape watchDirectory cancellation API (endojs/endo-but-for-bots #592)
