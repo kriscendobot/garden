@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:33:43Z_
+_As of 2026-08-16T07:34:50Z_
 
 ## Latest
 
@@ -1120,13 +1120,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr340-shepherd-20260816` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr340-shepherd-20260816.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr340-shepherd-20260816' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.0M | $871.67 _(notional, rate-card)_ | no quota set |
+| Claude | 49.1M | $872.07 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
