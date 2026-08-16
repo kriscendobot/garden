@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T15:57:27Z_
+_As of 2026-08-16T16:00:26Z_
 
 ## Latest
 
-On the board, minion.town's MCP work advanced: [B1 socket-adapter](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/minion-town-mcp-b1-socket-adapter.md) completed (it was already implemented and merged in an earlier commit) and B2 (first real per-session guest tools) was claimed; the PR #701 SturdyRef restack onto the PR #737 line and a fresh red-CI shepherd on [endo-but-for-bots#831](https://github.com/endojs/endo-but-for-bots/pull/831) also went in-flight.
-
-Two things want a maintainer decision. [endo-but-for-bots#824](https://github.com/endojs/endo-but-for-bots/pull/824) is non-draft with green CI and a clean merge state but is stuck on a **stale approval** — kriskowal's APPROVED review is pinned to the old head `9b40eef`, while the current head is `a0cd0d0`, so the conductor gate needs a re-approval on the current head before it can merge. Separately, the [endo-but-for-bots#804](https://github.com/endojs/endo-but-for-bots/pull/804) review is **holding for an intent confirm** before churning design docs: the landed facts (`@endo/syrup-frame` shipped, no CBOR framing pkg landed) contradict `cbors.md`/`syrups.md`, and the gardener wants a Y/N on renaming both docs to the `-frame` convention.
-
-Reliability pressure on the leader host: the hourly [xs2rust-endor #600](https://github.com/endojs/endo-but-for-bots/pull/600) press-driver, `endojs-pr160-ci-fix-finalize`, and `daemon-store-phase4-sorted` all **deterministically overran the 2400s handler budget and were poisoned/parked** — the daemon-store-family-build orchestration halted at 3/6 children as a result. These jobs exceed a single claim-scoped handler and need to be split into stages or run detached before they can make progress.
-
-The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartment role-program feature reached green CI and is mergeable, but is blocked purely on governance — the 28-seat panel can't run until the panel model's weekly limit resets (Jul 25 03:00 UTC), so no Fable sign-off yet. Research also landed a clear verdict on **Kimi K3**: locally infeasible (>10× the box's memory, weights not public until Jul 27), but cheap to wire as a hosted OpenAI-compatible arm for the bid-auction if a funded Moonshot key and codex tool-call compatibility check out.
+Two parallel gauntlets halted without converging ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) after six rounds, an unusual pattern worth diagnosing. The [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) orchestration halted on requeue exhaustion after a run-dispatch collision surfaced — the fixer path is blocked pending your "additively resolve" decision on whether to keep the registry path as default. Several rebased PRs await re-approval on their new heads: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer smoke tests), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877) (endor dual build). [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (endo http mk) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) both hit design collisions with already-landed work and need your call on close-vs-rework. A yarn cache hardlink ceiling (65k ext4 limit) hit on one host and is now blocking fresh installs fleet-wide. The gateway stack ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endojs/endo-but-for-bots#420](https://github.com/endojs/endo-but-for-bots/pull/420)) has phase-2 and phase-3 freshly restacked onto `llm`; the remaining phases need sequential restacking per the discipline. Budget enforcement design landed; gating it live awaits your weekly token-cap input. The byteArray stack ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and green, gated on your re-review and un-draft.
 
 ## Parked for maintainer feedback
 
@@ -28,65 +22,6 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260725T032549Z-31957b` — from gardener:endo-byte-array-press-20260724-105003, reply_to `endo-byte-array-press-20260724-105003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T032549Z-31957b.md)
-
-> Byte-array press status (dispatch 2026-07-24T10:50Z, completed 07-25): both fronts are done on our side and waiting ONLY on human re-review — [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/issues/503) (head 453f6ef0, 15/15 CI green, no reviewer activity since 07-20) and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (head 1b1dc75b, 17/17 CI green, quiet since the 07-17 rebase). reviewDecision on both is stale CHANGES_REQUESTED with re-review pending from kriskowal and erights. [endojs/endo-but-for-bots#671](https://github.com/endojs/endo-but-for-bots/issues/671) is still open, so the registry follow-up stays parked.
->
-> Fleet note: this press has produced no completed report since 07-22 — every 6h dispatch since then overran and was reaper-requeued (mine was reaped 4x), and three claims (105003/165003/225004) were live concurrently. With the arc blocked on your re-review, each tick burns a Fable budget to observe "no change". Suggest either pausing the schedule (paused-schedules mechanism) or widening the cadence to 24h until the two PRs get their re-review, and/or giving this press an xs2rust-style preflight circuit-breaker (commit 2898c87d).
-
-- `20260725T171127Z-34b706` — from gardener:endo-npm-cas-registry-press-20260725-170501, reply_to `endo-npm-cas-registry-press-20260725-170501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T171127Z-34b706.md)
-
-> npm-CAS press tick 17:05: Your APPROVED review on draft [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856)
-> (ambiguous-.js-entry ESM fix) + all-green CI met the conductor's ready-to-land bar,
-> so I marked it ready and posted merge job
-> `merge-endo-but-for-bots-pr856-ambiguous-entry-esm` (park it if you'd rather hold).
-> Drafts [endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) (peer/optional deps) and
-> [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) (process shim) are CI-green awaiting your review.
-> This tick's press: the ".npmrc auth beyond tokens" design gap (Basic auth
-> username/_password/_auth + ${VAR} expansion). Also posted
-> `ebfb-rust-endo-xs-test-flakiness` for the intermittent parallel XS test failures
-> prior ticks kept re-reporting.
-
-- `20260725T190612Z-1377ce` — from gardener:proposal-compartments-v8-validation-20260725, reply_to `proposal-compartments-v8-validation-20260725` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T190612Z-1377ce.md)
-
-> v8 validation front done (draft PR [kriscendobot/proposal-compartments#2](https://github.com/kriscendobot/proposal-compartments/issues/2)).
->
-> Two things worth a maintainer eye:
->
-> 1. Cross-front staging defect (affects jsc/xs/endor too): every nested staged
->    test on kriscendobot/test262 @proposal-compartments imports
->    "./fixtures/NAME_FIXTURE.js", but the shared fixtures dir is one level up at
->    "../fixtures/". All subdir tests reference a nonexistent path and fail to load
->    on ANY engine. source-key/brand-and-identity is the only apparent pass, only
->    because it never calls import(). Fix: "./fixtures/" -> "../fixtures/" per
->    import. This belongs in the test262 fork (consolidate-... front), not the v8
->    PR. Flagging so the other three fronts don't each rediscover it.
->
-> 2. Native v8 is blocked and I did not call it green: the reachable engine (Node
->    22.23 / V8 12.4.254) has no source-phase imports, import.source, import defer,
->    or Compartment global, and no v8 source/build toolchain was present. The PR
->    ships a semantic conformance harness (spec.emu operations on
->    vm.SourceTextModule) that runs 9/10 staged families green with a negative
->    control proving teeth; the 10th (import-defer) is blocked on the same missing
->    engine feature. Harness is a behavioral oracle for the native port, not a
->    substitute. Bounded next increment for the native front is in the PR README.
-
-- `20260725T190827Z-b01774` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T190827Z-b01774.md)
-
-> The `proposal-compartments-v8-validation-20260725` report leaves one open spec-annex decision that is your call: whether the Compartments proposal adds a host-only synchronous evaluation operation to cover the charter's non-TLA path shortfall. No garden action taken pending your direction. (The native-v8-port follow-up is inert — gated on upstream V8 landing source-phase imports, `import.source()`, and `import defer` — so nothing is posted for it.)
-
-- `20260725T211524Z-18a859` — from gardener:merge-endo-but-for-bots-pr856-ambiguous-entry-esm, reply_to `merge-endo-but-for-bots-pr856-ambiguous-entry-esm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260725T211524Z-18a859.md)
-
-> Conductor stalled on [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (ambiguous .js entry ESM detection) — approval went stale.
->
-> State: OPEN, not draft, MERGEABLE/CLEAN on base `llm`, all 24 CI checks GREEN on head ca0b6c0.
->
-> Blocker: your APPROVED review (2026-07-25T05:48Z) was on commit efe4b29. After that, kriscendobot pushed one more commit — ca0b6c0 `test(endor): cover assigned dynamic import` — a single test-only line in rust/endo/src/cjs_lexer.rs:
->   + assert!(!detect_esm_syntax("const module = import('lazy');\n"));
-> No production code changed. GitHub dismissed the approval on that push (reviewDecision now empty), so the current head carries no maintainer approval. Per the conductor approval gate I did not merge.
->
-> To land: a fresh approval on head ca0b6c0 (then re-post the merge job, or I can be re-run). [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856)
-
 - `20260726T024419Z-9fb3d7` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T024419Z-9fb3d7.md)
 
 > Conductor stall — [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) is ready EXCEPT for a current maintainer approval.
@@ -97,49 +32,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - kriskowal has been re-requested but has not re-approved the current head.
 >
 > Merge blocked: no maintainer approval on current head. Nothing else stands in the way — a fresh APPROVED review from kriskowal (or another allowlist maintainer) on ca0b6c02 unblocks an immediate merge. Please re-post the conduct job (or nudge the review) once that lands.
-
-- `20260726T113143Z-a39dce` — from gardener:endo-npm-cas-registry-press-20260726-112002, reply_to `endo-npm-cas-registry-press-20260726-112002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T113143Z-a39dce.md)
-
-> npm-via-CAS press (2026-07-26 tick): the finish line is REACHED, gated on one merge.
->
-> Real-execution evidence at endo-but-for-bots `llm` HEAD (2be66d9f67), fresh isolated state each run:
-> - `endor run entry.mjs` and a CJS `.js` entry both work end to end TODAY: network fetch from registry.npmjs.org → CAS ingest (content-addressed, deduplicated) → SQLite registry-table row → XS execution. Transitive CJS graph (semver@7.5.4 → lru-cache@6 → yallist@4) fetches and executes; `--offline` replay is deterministic (identical hashes, zero network); fresh-state `--offline` correctly refuses. No npm CLI, no node_modules, no lockfile.
-> - The ONE remaining execution gap at HEAD: an ambiguous import-bearing `.js` entry (the design's literal `endor run entry.js`) misroutes into the CJS loader and fails. [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (open, NOT draft, CI green, MERGEABLE, review feedback addressed) fixes exactly this; I built llm plus that branch merged locally and confirmed the exact repro flips to passing. Cross-validation evidence posted: [https://github.com/endojs/endo-but-for-bots/pull/856](https://github.com/endojs/endo-but-for-bots/pull/856)#issuecomment-5083281137
->
-> Recommendation: merge [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) — it is the last execution blocker for the npm-registry-proxy finish line. After it lands, the design's Status section can be marked Complete with the evidence above.
->
-> Also live on this arc (draft, from prior ticks, all MERGEABLE/green): [endojs/endo-but-for-bots#857](https://github.com/endojs/endo-but-for-bots/issues/857) peer/optionalDependencies, [endojs/endo-but-for-bots#859](https://github.com/endojs/endo-but-for-bots/issues/859) process shim (consolidated with [endojs/endo-but-for-bots#863](https://github.com/endojs/endo-but-for-bots/issues/863)), [endojs/endo-but-for-bots#860](https://github.com/endojs/endo-but-for-bots/issues/860) .npmrc auth, [endojs/endo-but-for-bots#862](https://github.com/endojs/endo-but-for-bots/issues/862) registry CLI.
-
-- `20260726T191230Z-6b2ff0` — from gardener:proposal-compartments-press-20260726-190502, reply_to `proposal-compartments-press-20260726-190502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T191230Z-6b2ff0.md)
-
-> proposal-compartments daily press (2026-07-26): the effort has hit a strategic fork on the fifth finish-line bar (four-engine native agreement) that needs your call.
->
-> Findings (all four validation fronts have now run):
-> - The spec makes a Compartment source key ONLY a source-phase module source object (the value that `import source` / `import.source()` produce). That syntax is the sole route to a source key, so every staged test opens with it.
-> - That syntax is unimplemented in v8 (Node 22 / V8 12.4), JSC (WebKitGTK 2.52.3), and XS/endor (Moddable XS). All four fail at parse before any Compartment code runs. This is intersection-by-design, not a Compartment disagreement.
-> - The spec SEMANTICS do validate: the v8 semantic harness over Node vm.SourceTextModule passes 9 of 10 staged families (1 blocked on native import defer), re-verified today against test262 HEAD 63b7e7c.
->
-> So four-engine native agreement depends on source-phase imports first shipping in each engine, a large per-engine effort (real C++/Rust work) separate from this proposal. Options:
-> (a) Invest in per-engine source-phase-imports ports (JSC closest; already has import defer behind a flag; shared work with v8). Multi-week, arguably out of proposal scope.
-> (b) Narrow the bar: accept the vm.SourceTextModule semantic harness (9 of 10) as the spec-semantics proof, plus ONE native engine once any ships source-phase imports.
-> (c) Keep the bar but treat it as blocked-upstream: pause the native fronts (stop re-spawning daily, since they only re-report the same blocker) until an engine ships the syntax.
->
-> My recommendation: (b) or (c). Continuing to spawn native-engine builders daily would burn Opus re-deriving the same blocker. Which do you want, and should the daily press keep pressing the three open Node-checklist shortfalls (error separation, synchronous-eval entry point, base-loader defaults; two need your decision) meanwhile?
-
-- `20260727T191211Z-927bea` — from gardener:proposal-compartments-press-20260727-190507, reply_to `proposal-compartments-press-20260727-190507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260727T191211Z-927bea.md)
-
-> Compartments daily press (2026-07-27): still awaiting your call on the four-engine native bar (raised 2026-07-26). Nothing new to fix; the effort is stable, not degrading. State today:
->
-> - Spec unchanged at d23d7de (minimum operation surface). Rendered spec live (HTTP 200). Explainer current.
-> - test262: 10 staged families on kriscendobot/test262 @63b7e7c cover all 6 charter targets. I reconciled the now-stale test262-reconciliation.md with this reality today (journal2).
-> - v8 semantic harness re-run today: 9 passed / 0 failed / 1 blocked, exit 0. The 1 blocked family needs native `import defer`.
-> - All four native engines still fail at parse on source-phase imports (unimplemented per engine). That is intersection-by-design, not a Compartment disagreement.
->
-> The finish-line bar of four-engine native agreement depends on source-phase imports shipping in each engine, a large per-engine effort outside this proposal. Options from 07-26 stand: (a) fund per-engine source-phase ports, (b) narrow the bar to the semantic harness + one native engine (JSC is closest; it already ships import defer behind a flag), or (c) pause native fronts as blocked-upstream. I recommend (b) or (c) so the daily press stops re-deriving the same blocker. No reply needed if you've already seen this; I'll hold at re-verify-and-report until you decide.
-
-- `20260728T065954Z-dce64f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065954Z-dce64f.md)
-
-> From report `proposal-compartments-v8-validation-20260725`: a spec-annex decision is still open and is yours — whether a **host-only synchronous evaluation operation** is added, to address the charter's non-TLA path shortfall. The native v8 port is otherwise gated on upstream V8 work (source-phase imports + `import.source()`, then `import defer`), so nothing autonomous is waiting on it; only this annex question is actionable now.
 
 - `20260728T113828Z-1c72c2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T113828Z-1c72c2.md)
 
@@ -157,10 +49,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report `build-exo-google-sheets-facets` ([endojs/endo-but-for-bots#881](https://github.com/endojs/endo-but-for-bots/issues/881), with #874) flags the design's thin follow-on layers `SheetsService` and `SpreadsheetStructure` as still unbuilt, "a natural next job once #874 and this land." Do you want builder jobs posted for those once both PRs merge, or should they wait?
 
-- `20260728T224921Z-ee1f4e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T224921Z-ee1f4e.md)
-
-> Report `fu-qwen-model-watch-20260728-180502-1-20260728-223502` (weekly Qwen model watch) leaves one decision to you: whether to re-enable the hermit lane on this host — `garden-ollama.service` is installed but disabled because the hermit worker count is 0, and the report also lays out a models-directory option. Both are consequential host/systemd operations outside a watch job's scope, so nothing was changed; say the word (or send a `host/<GARDEN>` sysop op) if you want the lane armed. I have posted a separate job for the unrelated naming discrepancy in the handler messaging, and follow-up 3 needs no action — `journal/schedules/qwen-model-watch.md` has already been refreshed to name no hardcoded model and to explicitly warn off `qwen.ai/blog`.
-
 - `20260729T013334Z-5d108e` — from gardener:ocapn-noise-press-20260729-012002, reply_to `ocapn-noise-press-20260729-012002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T013334Z-5d108e.md)
 
 > OCapN press (dispatch 23): your two review actions tonight both landed.
@@ -170,25 +58,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 2. Your "Authorized." on [endojs/endo-but-for-bots#683](https://github.com/endojs/endo-but-for-bots/issues/683)'s demo report (the live-host / security-group line) — executed. Opened tcp/8929 on minion.town's SG (rule sgr-0d9fc044a33568003, self-describing), deployed endo-ocapn-tcp-demo.service (docker, existing image, new ocapn-tcp-server.mjs bind-mounted), and a garden peer completed a live cross-host Noise IK capability round-trip over raw TCP+CBOR — the last unproven transport/topology cell. Cross-host is now proven over BOTH transports (wss via Caddy, and direct TCP). Artifacts + transcript on [endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/issues/693) (commit 803ef977f); evidence: [https://github.com/endojs/endo-but-for-bots/pull/693](https://github.com/endojs/endo-but-for-bots/pull/693)#issuecomment-5111714349. The TCP toy endpoint stays up (like the ws one) for reproducibility; the SG rule stays unless you want it closed after the demo — say the word and I'll revoke it.
 >
 > Optional next: daemon-level cross-host TCP (boot script currently gates only ws-listen-addr) — cheap to add if you want the full Pet-Daemon pairing over raw TCP too.
-
-- `20260729T014905Z-e6bc8a` — from gardener:endojs-endo-but-for-bots-pr124-feedback-triage, reply_to `endojs-endo-but-for-bots-pr124-feedback-triage` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T014905Z-e6bc8a.md)
-
-> Two items from the [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) feedback triage that need a maintainer decision.
->
-> 1. **Promote `garden-style-url-not-path`?** kriskowal asked on
-> [https://github.com/endojs/endo-but-for-bots/pull/124](https://github.com/endojs/endo-but-for-bots/pull/124)#discussion_r3548837460 for the
-> "prefer `new URL(...)` path math over importing node `path`" convention to be recorded
-> in the style guide and added to the reviewer pool. The job was posted 2026-07-09 but
-> has sat in `plan/` behind a `gate: go-ahead` ever since, so nothing is recorded yet.
-> Its sibling from the same review (`garden-style-typist-codepoints`) landed. A go-ahead
-> job is only ever promoted by maintainer authorization, so this needs the word.
->
-> 2. **Which sense of "the XS sqlite bindings are ready" gates [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124)?** The raw host
-> bindings (`rust/endo/xsnap/src/powers/sqlite.rs`) landed 2026-05-02, before the pause
-> review, so they cannot be the blocker. The durable-store layer on top
-> (PRs 811, 819, 690, 825) is still entirely unmerged. Asked on the PR at
-> [https://github.com/endojs/endo-but-for-bots/pull/124](https://github.com/endojs/endo-but-for-bots/pull/124)#discussion_r3670370164 . [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124)
-> stays draft and unrebased until answered.
 
 - `20260729T023815Z-67a944` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023815Z-67a944.md)
 
@@ -201,64 +70,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T192421Z-4a2428` — from gardener:proposal-compartments-press-20260729-192002, reply_to `proposal-compartments-press-20260729-192002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T192421Z-4a2428.md)
 
 > The remaining design decision is whether the minimal Compartments surface should add a host-only synchronous evaluation operation and a loader-registration surface for synchronous infrastructure errors, or defer both to a later loader layer. Native v8, JSC, XS, and endor remain blocked before semantics on source-phase-import parsing. Please choose the intended boundary.
-
-- `20260730T002912Z-bf496c` — from gardener:endojs-endo-but-for-bots-pr403-ad7046e4, reply_to `endojs-endo-but-for-bots-pr403-ad7046e4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T002912Z-bf496c.md)
-
-> [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) retcon done and pushed (head ae0b1a1d4, base unfrozen to llm, CI running). The conduct merge gate needs your fresh APPROVED review on the new head — the 07-29 approval was on the pre-retcon head. Please re-approve at [https://github.com/endojs/endo-but-for-bots/pull/403](https://github.com/endojs/endo-but-for-bots/pull/403) — I am watching and will carry the merge when CI is green and approval lands.
-
-- `20260730T202712Z-72b792` — from gardener:endo-git-integration-press-20260730-082002, reply_to `endo-git-integration-press-20260730-082002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T202712Z-72b792.md)
-
-> # git-integration press — recommend retirement or re-scope
->
-> **[endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) merged**: the git-capability stack sequencing
-> design is accepted and landed, squash-merged at `eb64412d` (2026-07-30T20:26Z)
-> onto base `llm`. CI was SUCCESS, mergeState CLEAN, kriskowal APPROVED at the
-> rewoven head `840c3a73`.
->
-> This closes the arc's tracked items: the M3 north-star loop
-> (`designs/daemon-git-next-steps.md`) is fully landed in `llm` —
-> [endojs/endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/issues/706), [endojs/endo-but-for-bots#645](https://github.com/endojs/endo-but-for-bots/issues/645),
-> [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740), [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708),
-> [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) all merged
-> (M3 closed 2026-07-29), and now the sequencing design
-> [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) that bound them is merged too.
->
-> **Recommendation:** retire or re-scope the `endo-git-integration-press`
-> schedule (cadence 6h). The only remaining live item is
-> **[endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)** (Phase-5 stack-surgery eval), deliberately
-> DRAFT at `8e29c292`, parked awaiting a maintainer directive — I will keep
-> pressing [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) per whatever directive follows. A
-> lighter, [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)-only watch cadence (or folding
-> [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) into a general `llm` regression watch) would fit
-> better than the current M3-arc press body.
->
-> Standing by for a directive on [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) or on retiring
-> this press.
-
-- `20260730T204103Z-c93651` — from gardener:endo-byte-array-press-20260730-143501, reply_to `endo-byte-array-press-20260730-143501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T204103Z-c93651.md)
-
-> Byte-array press: real-execution evidence now confirms [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475) is the complete green implementation. Checked out `feat/narrow-bytearray-to-uint8` (warm-cache checkout, node-tool-shims installed) and ran the byte-array-critical suites: @endo/pass-style 59 passed (all 25 byteArray admission cases), @endo/bytes 25 passed (emulated-input rejection + shim-order), @endo/marshal 92 passed + 1 skipped (shortlex byteArray rank + encodePassable round-trips), @endo/captp 11 passed (loopback parity). `llm` still throws `encodePassable(byteArray) not yet implemented`; [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475) lands it as `a<length>:<hex>`.
->
-> Two gates remain, both reviewer-side and both stale: [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475) (13 days, all 12 unresolved threads answered, head `1b1dc75ba9`) needs a re-review/merge decision; [https://github.com/endojs/endo-but-for-bots/pull/503](https://github.com/endojs/endo-but-for-bots/pull/503) (10 days, obsolete bare-buffer approach) needs a disposition (close-as-superseded-by-[https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475) vs narrow). Separately, the registry follow-up advanced: [https://github.com/endojs/endo-but-for-bots/pull/671](https://github.com/endojs/endo-but-for-bots/pull/671) merged, [https://github.com/endojs/endo-but-for-bots/pull/888](https://github.com/endojs/endo-but-for-bots/pull/888) is DRAFT and its gauntlet panel is queued.
->
-> No code changes or pushes made — a retarget of [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475) to `llm` is a 2437-commit rebase that would invalidate the pending re-review state, so I left it for a maintainer call.
-
-- `20260730T204740Z-5bf711` — from gardener:endo-git-integration-press-20260730-143501, reply_to `endo-git-integration-press-20260730-143501` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T204740Z-5bf711.md)
-
-> [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) has merged — git-integration arc tracked items are done
->
-> PR [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) (design: accept and sequence the git-capability stack for the version-controlled-filesystem loop, M3) merged 2026-07-30T20:26:28Z:
-> - merge commit: eb64412d763a42d3905c0174f496b012464a62fe
-> - head: 840c3a73e (design/git-capability-stack-sequencing)
-> - merged by: kriscendobot
-> - CI: all checks SUCCESS (browser-tests, lint, build, zizmor, test) on the merged head
-> - mergeState: CLEAN; zero unresolved threads
->
-> With [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) merged, the arc's tracked items are complete: the M3 north-star loop is fully landed in `llm` ([endojs/endo-but-for-bots#706](https://github.com/endojs/endo-but-for-bots/issues/706), [endojs/endo-but-for-bots#645](https://github.com/endojs/endo-but-for-bots/issues/645), [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740), [endojs/endo-but-for-bots#708](https://github.com/endojs/endo-but-for-bots/issues/708), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705), [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707), and now [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) the sequencing design). The only remaining tracked item is [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) (Phase-5 stack-surgery eval), which is deliberately DRAFT at 8e29c292 and stays parked pending a maintainer directive — no change there.
->
-> Recommendation: retire or re-scope this standing press (schedule `schedules/endo-git-integration-press`). The gating-driven standing-watch is no longer needed now that [endojs/endo-but-for-bots#691](https://github.com/endojs/endo-but-for-bots/issues/691) is merged; the only live item ([endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626)) is a parked draft awaiting an explicit directive, not an actively-pressed loop. If you'd like continued low-rate guarding of [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) plus the llm git-capability surface for regressions, re-scope the press to that narrower watch; otherwise retire it and reopen a fresh job when [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) is to be promoted or post-M3 work (e.g. endor CAS bindings implementation per the merged [endojs/endo-but-for-bots#740](https://github.com/endojs/endo-but-for-bots/issues/740) design) is directed.
->
-> Standing by on [endojs/endo-but-for-bots#626](https://github.com/endojs/endo-but-for-bots/issues/626) per whatever directive follows.
 
 - `20260730T211305Z-dda1ac` — from gardener:endojs-endo-but-for-bots-pr241-review-b15e4ef6, reply_to `endojs-endo-but-for-bots-pr241-review-b15e4ef6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211305Z-dda1ac.md)
 
@@ -478,10 +289,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > OCapN run-ahead blocker: I opened endojs/endo-but-for-bots branch minion-town at current llm f8c1ca6a63319ec7051a61105bc6188681f1681e, then verified the unpublished API cannot meet design section 6 as written. makeOcapn hard-codes export slot 0 to its own Bootstrap fetch/deposit-gift/withdraw-gift object; it has no option for the weblet granted-powers object, so the remote bootstrap method surface cannot equal the granted powers. The demo proves locator.fetch(secret), not direct powers bootstrap. Per the job stop condition I am stopping rather than pinning a misleading implementation; PR 24 remains unchanged.
 
-- `20260805T153923Z-75062e` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T153923Z-75062e.md)
-
-> The 2026-08-04 consolidated review retrospective (`review-retrospective-consolidated-20260804`) names its highest-leverage fix as narrowing `retro_eligible` in `scripts/jobs/comment-watcher.sh`, so that a `review`/`attention` comment whose only actionable content is a pipeline-op verb (conduct/rebase/shepherd/retcon/weave/merge/close), or an empty-body approval with zero inline comments, mints **no** retrospective — cutting the ~85% dismissal flood at its source. The retrospective explicitly declined to act because it reverses your deliberate err-toward-minting choice and edits the comment-watcher's tested hot path. Do you want a builder job posted to narrow the gate as described, or should the watcher keep erring toward minting?
-
 - `20260805T161438Z-4980a4` — from gardener:dependabotany-recheck-endo-but-for-bots-20260805-160502, reply_to `dependabotany-recheck-endo-but-for-bots-20260805-160502` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260805T161438Z-4980a4.md)
 
 > Daily dependabotany backstop for endojs/endo-but-for-bots — one action needed + one operational flag.
@@ -625,35 +432,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Per the job's own precondition I did NOT review or merge anything under the old rules, and I am ending the job with orchestration-failed: true so the orchestration HALTS. Re-promote this sweep after deploy-garden.sh advances the root past 225e364eb0.
 
-- `20260812T165812Z-e793d5` — from gardener:ironhorse-test262-restore-and-relaunch, reply_to `ironhorse-test262-restore-and-relaunch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T165812Z-e793d5.md)
-
-> PRECONDITION FAILED. Deployed /home/kris/garden has the orchestrate.sh stall fix (removed requeue-rise heuristic), but does not have ede7f1f467 child-failure stamping. Deployed common.sh tada_failed() only recognizes undecorated orchestration-* fields and does not recognize decorated verdict lines. Deployed complete-job.sh has no --orchestration-failed option or stamping path. Per ironhorse-test262-restore-and-relaunch, I stopped before restoring or posting any children/campaign. Please deploy ede7f1f467 before requeueing this recovery.
-
-- `20260812T170548Z-21924f` — from gardener:ironhorse-test262-restore-and-relaunch, reply_to `ironhorse-test262-restore-and-relaunch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T170548Z-21924f.md)
-
-> HALTED — precondition (fix #two) not met; did NOT restore or relaunch the ironhorse test262 campaign.
->
-> Deployed garden root is at commit 225e364eb0 (fingerprinted scripts/jobs/{common.sh,complete-job.sh,orchestrate.sh} blobs against each candidate — all three match 225e364eb0 exactly).
->
-> - Fix one (9a16e2a6ef, stall heuristic) IS live: orchestrate.sh has `! has_productive_cycle_hint "$jf" && [ "$n" -gt "$limit" ]` and no "requeue count rose from" string. OK.
-> - Fix two (ede7f1f467, child-failure detect/stamp) is NOT live: deployed tada_failed() in common.sh is the OLD 3-line grep that does NOT recognize decorated verdict lines; deployed complete-job.sh has NO --orchestration-failed flag. The three HEAD commits ede7f1f467, b63befa87e, b580e3d51a are on main2/origin but not yet deployed to the root.
->
-> Per the job's fail-closed gate, I stopped rather than arm ~2.08M billable tokens of real spend with child-failure detection absent — the old tada_failed would MISS a decorated failure line and let a serial run promote past a genuinely-failed child instead of halting.
->
-> ACTION NEEDED: run a deliberate deploy (scripts/jobs/deploy-garden.sh) to advance the root to at least ede7f1f467, then re-post this restore job (new campaign base ironhorse-test262-implementation-completion-resume-2). The 22 swept child bodies are still recoverable from the sweep-commit parent c95607119^. I did not verify the 2.08M budget figure — I halted before that step.
-
-- `20260813T151055Z-707011` — from gardener:endojs-endo-but-for-bots-pr937-rebase-onto-new-llm, reply_to `endojs-endo-but-for-bots-pr937-rebase-onto-new-llm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T151055Z-707011.md)
-
-> Rebased [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) onto the fresh pinned base llm-0c3598a (llm tip after [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903)). Result: the rebase revealed [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903) landed a refined superset of nearly all of [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) — 9 of its 10 commits collapse to empty against the new llm (the @endo/sha256 package, the daemon host-tool-powers + XS-bundle work, BlobRef/chat/design updates all already in llm; llm's CI already generates the daemon XS bundle). The PR's original "restore XS bundle generation" goal is already met on llm.
->
-> What survives is one commit: a `bundle:xs` npm script folding the three explicit node bundle .mjs CI lines into one named script (net +2/-3 across package.json + ci.yml). PR now MERGEABLE, diff clean/interpretable. Verified `yarn bundle:xs` and the daemon bundle script build clean on the new base. Did not merge or request review.
->
-> Decision for you: keep [endojs/endo-but-for-bots#937](https://github.com/endojs/endo-but-for-bots/issues/937) as this small cosmetic refactor, or close it as superseded by [endojs/endo-but-for-bots#903](https://github.com/endojs/endo-but-for-bots/issues/903). Details in a PR comment on the PR.
-
-- `20260813T215817Z-006a96` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T215817Z-006a96.md)
-
-> Report `endojs-endo-but-for-bots-pr149-review-13c87bef-status-directory-walker` (endojs/endo-but-for-bots PR #149) leaves two judgment calls open: (1) whether to accept the `agentry` disposition, under which the status-directory-walker is a clean lift (module + 5 tests) independent of the PR's blocked sandbox cluster and genie glue; and (2) whether to proceed at all given the feature stays dead code unless the sub-agent-directory arc (TODO/53–61) lands a consumer, which is unimplemented on the branch. No autonomous job posted pending your call.
-
 - `20260813T222721Z-d601d9` — from gardener:genie-docs-delete-from-llm-r3, reply_to `genie-docs-delete-from-llm-r3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T222721Z-d601d9.md)
 
 > Job genie-docs-delete-from-llm-r3 (delete PLAN/TODO/TADA from endo-but-for-bots@llm): migration verified, but I'm holding before deleting — the job's premise is contradicted and this is your call.
@@ -671,37 +449,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > llm is UNTOUCHED. Tell me which way and I'll execute.
 
-- `20260813T225701Z-faa5d7` — from gardener:ironhorse-resume-6-launch, reply_to `ironhorse-resume-6-launch` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T225701Z-faa5d7.md)
-
-> Ironhorse resume-6 launch is BLOCKED on a deploy gap — did NOT launch.
->
-> Precondition failed: the campaign-meter fix (garden-campaign-spend-unmetered-rows)
-> is LANDED on main2 but NOT DEPLOYED. Deployed root
-> scripts/jobs/campaign-spend.sh still fatals at line 79
-> ("… is an unmetered or invalid campaign row"); the main2 version (in a fresh
-> main2 worktree) already counts unmetered rows as 0 spend and still rejects
-> malformed rows. Launching now would relaunch straight into the same fatal on the
-> first cleric child (exactly how resume-5 died after one child).
->
-> All 17 children (js-12..js-28) confirmed still parked in jobs/plan/ with
-> gate: orchestrated. Nothing to fix on the board.
->
-> I did NOT self-authorize a deploy. Handed the launch off to a durable go-ahead
-> successor so nothing is lost:
->
->   jobs/plan/ironhorse-resume-6-launch-postdeploy  (gate=go-ahead)
->
-> It carries the full precondition + the exact post-orchestration.sh launch line
-> (--serial --on-child-failure continue --budget-tokens 10000000, resume-6, children
-> js-12..js-28) and re-verifies the deploy before firing.
->
-> Next steps:
->   1. Let the deploy-on-upgrade Monitor drive the deploy of main2 to the root (or
->      authorize a sysop deploy op). The deploy needs a drained/quiet fleet.
->   2. After the deploy lands, promote ironhorse-resume-6-launch-postdeploy
->      ("go ahead / promote ironhorse-resume-6-launch-postdeploy"). It re-checks the
->      deployed script, then launches the campaign.
-
 - `20260814T064258Z-213e64` — from gardener:endojs-endo-but-for-bots-pr234-review-03f6892a, reply_to `endojs-endo-but-for-bots-pr234-review-03f6892a` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T064258Z-213e64.md)
 
 > Resolved kriskowal's approving-review nit on [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/issues/234) (follow-stream design).
@@ -715,103 +462,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Heads-up before merge: the rebase + the new design commit make your APPROVED review stale by the conductor's exact-head invariant (approval was on the old head 0d088af70f). Since the nit fix changed the tool's input contract — a design call — please re-review/approve the new head e917b6a800. Once you re-approve and CI is green (checks currently running, design-only markdown change), say "merge [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/issues/234)" and the conductor will land it. I did not dispatch the conductor yet because it would immediately stall on the stale-approval gate.
 
-- `20260814T221858Z-889dcc` — from gardener:ironhorse-js-26-residual-gap-closure, reply_to `ironhorse-js-26-residual-gap-closure` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T221858Z-889dcc.md)
-
-> Ironhorse js-26 (residual-gap-closure) — scope escalation + handoff.
->
-> I ran the authoritative full-suite report on the accumulated PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) head b3c3ae93 (pins as specified: test262 be13516fb, XS oracle 23b4d6b0). Result vs the 08-08 baseline:
->   covered 4,740 -> 23,496 ; unsupported 38,400 -> 23,233 ; ironhorse-failure 19 -> 194 ; skipped 8,932 -> 4,406 ; infra 1 -> 647.
->
-> The premise that js-26 is a small mop-up is wrong: **23,427 actionable cases remain** (23,233 unsupported + 194 fail), across ~15 causal clusters — several individually multi-day (RegExp u/v/unicode 4,212; TypedArray/ArrayBuffer 3,243; language expr/stmt 2,710; Object/Array/Reflect/Proxy 2,297; eval/Function/dynamic-import 1,945). This is a multi-week engine-completion effort, not a single 2h child. The residual is dominated by exactly the generic reasons the acceptance bar forbids (unsupported-opcode:* 10,313; ironhorse-aborted 9,510; abort-value-differs 1,825; parse-or-decode 512; non-primitive-completion 351).
->
-> Per the job's own directive ("if too large for the handler budget, stop before partial relabeling, post a nested halt-on-failure orchestration of bounded causal children"), I did NOT relabel anything. I posted a serial, halt-on-failure orchestration `ironhorse-js-26-residual-closure` with 15 data-grounded causal children (ironhorse-js-26-ca..cz), each carrying its reason-family histogram, top subtrees, example paths, the shared-branch/pins, the full acceptance bar, and the regression invariant. js-26 hands off to that orchestration.
->
-> Three things need your decision:
-> 1. **Ordering:** js-27-full-suite-report-refresh and js-28-issue-summary sit after js-26 in the serial orchestration `ironhorse-test262-implementation-completion-resume-6`. When js-26 completes they will promote and refresh/report BEFORE the residual work runs. Please re-block js-27 and js-28 on `ironhorse-js-26-residual-closure` (or splice the new children ahead of them) so the report is refreshed only after the residual closes.
-> 2. **js-25 died unreported:** ironhorse-js-25-temporal-integration is stuck in jobs/doin/ (claimed 20:34, worker gone — its inbox dead-lettered). Its commits ARE on the branch (a30cceaf30, b3c3ae93b8). It needs reaping; its "zero feature-based Temporal pre-skips" acceptance is unverified.
-> 3. **Accumulated regressions on the branch (not introduced by me — I made zero commits):** 6 baseline-covered paths regressed (Set.prototype.keys, String trimLeft/trimRight refs, 3 strict abort-value-differs) plus 19 harness/* reclassified; and 194 new ironhorse-failures (185 are RegExp negative over-acceptances — missing regex early-error validation, folded into cluster ca). These are folded into the causal children for repair.
->
-> I'm handing off js-26 to ironhorse-js-26-residual-closure.
-
 - `20260814T223102Z-4d8f01` — from gardener:monthly-progress-report-20260714-20260814, reply_to `monthly-progress-report-20260714-20260814` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T223102Z-4d8f01.md)
 
 > The requested monthly report is at journal/reports/monthly-progress-2026-07-14-to-2026-08-14.md. The biggest developments were the merge of the Rust XS replacement in [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/issues/600), the measured Ironhorse Test262 campaign that raised coverage from 4,740 to 23,496 cases before decomposing the residual work, and minion.town moving to a live weblet gateway while surfacing and fixing a host-authority escape. Garden operations also gained stronger worktree, quota, orchestration, and cost controls; August coverage was reconstructed from raw entries and board history because all recurring schedules, including the daily summary, were paused for token spend on August 1. This report was requested in a liaison conversation on 2026-08-14.
-
-- `20260814T224404Z-ff02c5` — from gardener:ironhorse-js-27-full-suite-report-refresh, reply_to `ironhorse-js-27-full-suite-report-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T224404Z-ff02c5.md)
-
-> Ironhorse full-suite report REFRESHED (interim) — [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51).
->
-> Re-ran the authoritative full sweep of the pinned corpus (tc39/test262@be13516f)
-> against the language-completion head b3c3ae93b8 ([endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970)), XS
-> oracle 23b4d6b0. Published + verified live (HTTP 200, JSON parses):
->   https://kriscendobot.github.io/garden/reports/ironhorse-test262/20260814-b3c3ae93b8/report.html
->
-> Before -> after (52,092 -> 51,976 cases; total shifts because this head excludes
-> harness files + reclassifies module cases):
->   covered        4,740 -> 23,496  (x5; Proxy 0 -> 188/311)
->   unsupported   38,400 -> 23,233
->   skipped        8,932 ->  4,406
->   ironhorse-fail    19 ->    194  (185 are built-ins/RegExp negative over-acceptances)
->   infrastructure     1 ->    647  (443 module:evaluation, etc.)
->
-> This is INTERIM, not the final zero-everything state the job's gate requires:
-> - js-26-ca-regexp-u-core and js-26-cb-with-statement are running RIGHT NOW on the
->   same branch. They own the two biggest residual buckets (u/v-flag: 2,870 unsupported
->   + 185 of 194 failures; with-statement: 943 unsupported). The truly-final refresh +
->   the current-test262-tip sweep should run AFTER js-26 closure lands.
-> - 6 cases covered on 2026-08-08 REGRESS to unsupported at this head (Set.prototype.keys,
->   trimLeft/trimRight Annex-B refs, 3 strict-mode cases) — reproduces in isolation, so a
->   genuine branch defect from an earlier child; needs a fixer.
-> Exact-metering corpus gate PASSES at this head (1711/1711, 0 failed).
->
-> Signalling this child orchestration-failed (gate unmet at a mid-flight head), not a
-> clean completion.
-
-- `20260815T010357Z-1b583e` — from gardener:ironhorse-js-26-cf-typedarray-arraybuffer, reply_to `ironhorse-js-26-cf-typedarray-arraybuffer` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T010357Z-1b583e.md)
-
-> js-26 TypedArray/ArrayBuffer cluster (3243 cases) — status + a high-leverage finding.
->
-> Done this session: landed the ArrayBuffer/SharedArrayBuffer **constructor** ToIndex-coercion +
-> catchable RangeError/TypeError surface on feat/ironhorse-262-language-completion (PR
-> [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970), head 1c41b9a61). built-ins/ArrayBuffer slice: covered 22→28, 0
-> regressions; exact-metering corpus (1712/1712) + full Rust workspace green; added
-> tests/array_buffer_ctor_coercion.rs.
->
-> Cluster too large for one handler → re-decomposed the remainder into a serial halt-on-failure
-> orchestration `ironhorse-js-26-cf-resid` (7 parked children: ta-ctor, ta-proto, dataview,
-> slice-transfer, resizable-buffers, atomics, array-nondense) on origin/journal2. Handed off.
->
-> HIGH-LEVERAGE, CROSS-CUTTING FINDING (worth routing NOW): a large share of the error-path cases
-> across the WHOLE language-completion arc are blocked by a general object-model gap, NOT by
-> TypedArray semantics — reading `.constructor` on a user-function instance (and
-> `Foo.prototype.constructor`, and property access on null/undefined throwing a catchable TypeError)
-> currently aborts. Since the ubiquitous `assert.throws(Ctor, fn)` harness reads `thrown.constructor`
-> on its success path, every "assert.throws expected-error" case stays `ironhorse-aborted` even when
-> the engine throws the correct error. Minimal repro: `assert.throws(Test262Error, () => { throw new
-> Test262Error() })` is ironhorse-aborted, while `assert.throws(RangeError, () => new ArrayBuffer(-1))`
-> is covered. This belongs to the built-ins/Object / general object-model cluster and would unblock a
-> big fraction of js-XX error cases at once — recommend prioritizing it ahead of the deeper
-> TypedArray-semantics children.
-
-- `20260815T012602Z-9f7be1` — from gardener:ironhorse-js-26-cg-intl-value-parity, reply_to `ironhorse-js-26-cg-intl-value-parity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T012602Z-9f7be1.md)
-
-> Intl formatter value/parity cluster (js-26 residual, 887 cases): diagnosed and DECOMPOSED, not closeable by one handler.
->
-> Key standards finding: the pinned Moddable XS oracle has NO ECMA-402 host (`Intl` is an undefined global). So these cases can NEVER be "covered" in the both-engines-agree sense — the accepted terminal is `oracle-host-missing-intl` (Ironhorse runs to completion with the correct value; XS reports the missing binding), the same host-only-exclusion the child-20 ListFormat/PluralRules work already used. The current `abort-value-differs` reasons are Ironhorse THROWING where it must complete, because four constructors are entirely unimplemented — Intl.NumberFormat, Intl.DisplayNames, Intl.DurationFormat, Intl.RelativeTimeFormat (all typeof==='undefined') — and five are partial (DateTimeFormat/Locale/Collator/ListFormat/Segmenter).
->
-> I did NOT relabel or weaken the classifier. Instead I posted a nested serial halt-on-failure orchestration `ironhorse-intl-value-parity-orch` with 10 per-family children (each carries pins, acceptance bar, regression invariant, shared-branch rules, and measured repro). Run order: numberformat first (foundational), then core/toLocaleString, displaynames, relativetimeformat, durationformat, datetimeformat, locale, collator, listformat, segmenter.
->
-> Heads-up on cost: these are 10 builder-grade (Opus) engine-implementation children — implementing 4 ECMA-402 constructors from scratch plus 5 completions, with locale data tables. That's a large fleet commitment. Given the gardener-pool quota throttle, you may want to gate promotion cadence or pull specific families forward rather than let all 10 run. The orchestration is serial so it won't stampede. PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) stays open/draft; nothing merged. No code landed this pass — pure diagnosis + durable continuation.
-
-- `20260815T014517Z-2da801` — from gardener:ironhorse-js-26-ca-regexp-closure-audit, reply_to `ironhorse-js-26-ca-regexp-closure-audit` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T014517Z-2da801.md)
-
-> ca-regexp-closure-audit (final child of ironhorse-js-26-ca-regexp-unicode-closure) done. Landed one bounded genuine fix on PR [endojs/endo-but-for-bots#970](https://github.com/endojs/endo-but-for-bots/issues/970) head 66353cce0: a cleanly-rejected compile now throws SyntaxError instead of decoding empty bytecode (closed all RegExp Annex-B out-of-range-backreference parse-or-decode cases; +5 covered, 0 regressions, exact-meter 1712/1661/51 unchanged, workspace green).
->
-> BUT the orchestration gate "zero forbidden reasons in the cluster" is NOT bounded-achievable and I emitted the orchestration-failure signal. The RegExp/Unicode MATCHING+PARSING cluster IS closed (0 ironhorse-failures; u/v, property escapes, unicodeSets, modifiers, named-groups, and now RegExp parse-or-decode all zero). The residual forbidden reasons across the 10 listed subtrees (unsupported-opcode 2330, ironhorse-aborted 1782, abort-value-differs 440, parse-or-decode 33, over-acceptance 1) are dominated by (a) general-engine gaps that merely live in RegExp/String/Array test files (apply/defineProperty MOP, String.split/match/replace dispatch, coercion) — owned by sibling causal clusters, not RegExp; (b) Temporal/Iterator gaps (all 33 remaining parse-or-decode are Temporal Infinity/missing-args, not RegExp); and (c) genuinely RegExp-cluster but unimplemented Annex-B legacy FEATURES (RegExp.prototype.compile + static accessors) — substantial features, not bounded fixes, and the 1 remaining over-acceptance (compile-on-subclass) needs the compile method. These belong to their own children per the residual-gap-closure decomposition. Recommend a dedicated ca-regexp-annexb-legacy-features child for (c).
-
-- `20260815T050827Z-2e98de` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T050827Z-2e98de.md)
-
-> Report `ironhorse-js-26-map-methods` closed honestly short of its gated bar: the child delivered Map upsert (`getOrInsert`/`getOrInsertComputed`) coverage with no regressions, but did **not** reach zero test262 aborts for these subtrees because four cross-cutting engine-wide gaps remain open (the same residuals the js-26 parent left open for its Set methods). Two decisions are yours: (1) whether that partial state is acceptable for the parent's gate, or the halt-on-failure orchestration should stay halted until the four cross-cutting fixes land as their own feature increments; and (2) whether to fund the cheap adjacent increment the report flags — the `built-ins/WeakMap/prototype/getOrInsert` slice (weak-key validation, no key canonicalization), explicitly out of this child's scope. The digest names no repo or PR URL for either, so I am not posting jobs on a guess; tell me the target repo/PR and which of these to post and I will queue them.
 
 - `20260815T061624Z-e53a2d` — from gardener:endojs-endo-but-for-bots-pr288-review-b0793cc4, reply_to `endojs-endo-but-for-bots-pr288-review-b0793cc4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T061624Z-e53a2d.md)
 
@@ -1157,7 +810,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $1086.23 _(notional, rate-card)_ | no quota set |
+| Claude | 64.2M | $1086.72 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
