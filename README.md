@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T20:40:22Z_
+_As of 2026-08-16T20:47:53Z_
 
 ## Latest
 
-Node 24.x better-sqlite3 crash blocks the OCapN/bytearray stack: [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) fixes it and is ready to merge, which will unblock [#340](https://github.com/endojs/endo-but-for-bots/pull/340) OCapN transport, [#877](https://github.com/endojs/endo-but-for-bots/pull/877) OCapN/Onboard, and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) bytearray. A wave of work finished rebases and fixes but needs re-approval to conduct: [#856](https://github.com/endojs/endo-but-for-bots/pull/856) ESM import (rebase done), [#403](https://github.com/endojs/endo-but-for-bots/pull/403) retcon verified, [#241](https://github.com/endojs/endo-but-for-bots/pull/241) design (integration done), [#288](https://github.com/endojs/endo-but-for-bots/pull/288) cbor (rebase done), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) lint-clean after rebase, and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) monitor (nit resolved). Bytearray finish-line ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is green awaiting re-review. [#282](https://github.com/endojs/endo-but-for-bots/pull/282) rebased and needs the flag-gated resolution you chose: keep llm's registry-path default for `run`, add `--node-modules` flag for the walker. On minion.town, OCapN TCP demo is proven, PSL change prepared for ferry, and B5 tool retirement ([#36](https://github.com/kriscendobot/minion.town/pull/36)) awaits deployed-edge authorization.
+Multiple PRs await maintainer re-approval on rebased or modified heads: [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) are all green on CI but blocked by the approval gate after conflict resolution or integration passes. A Node 24.x / better-sqlite3 crash blocking [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and others is fixed by [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000); once that merges to llm those three can re-run. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and green but waits on re-review to clear CHANGES_REQUESTED. Three PRs need design collisions resolved: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) is superseded by exo-http-client + endo-fetch; [#301](https://github.com/endojs/endo-but-for-bots/pull/301) is superseded by the landed error-tracing facility; and [#282](https://github.com/endojs/endo-but-for-bots/pull/282) needs a flag-gated additive resolution with the shipped npm-registry run path. The weblet-gateway design ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21)) is reconciled and awaits one security call: composite id vs. content-only id. Budget enforcement and orchestration patterns have landed on main2 (live budget admission, omega task ranking). A yarn hardlink ceiling (65000) on one host is blocking fresh installs; pruning the cache or switching nodeLinker will unblock the fleet.
 
 ## Parked for maintainer feedback
 
@@ -663,6 +663,44 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > retargeted) to inherit the pin — an llm-only merge won't reach it. Want me to
 > post a follow-up to rebase/re-run the three once [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) lands?
 
+- `20260816T204738Z-d5a68a` — from gardener:kriscendobot-proposal-compartments-pr3-refresh, reply_to `kriscendobot-proposal-compartments-pr3-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T204738Z-d5a68a.md)
+
+> ## [kriscendobot/proposal-compartments#3](https://github.com/kriscendobot/proposal-compartments/issues/3) "refresh" — done + a dispatch decision for you
+>
+> Directive: refresh on [kriscendobot/proposal-compartments#3](https://github.com/kriscendobot/proposal-compartments/issues/3)
+> (comment [https://github.com/kriscendobot/proposal-compartments/pull/3](https://github.com/kriscendobot/proposal-compartments/pull/3)#issuecomment-5309414038).
+>
+> **Mechanical refresh: no-op, verified.** The PR head is
+> `validation/endor-front-20260726` @ `4aba58a` ("docs(validations): record endor
+> front baseline and blocking prerequisite", adds `validations/endor.md`). Its
+> parent is `d23d7de`, which IS the current `origin/main` tip — the branch is
+> already fully synced onto main, nothing to rebase. That commit touches only a docs
+> markdown file; there are no committed derived artifacts (spec build lands on
+> gh-pages, not the branch) to regenerate. So the branch needs no re-sync.
+>
+> **Your comment also asked: "Dispatch plans to implement this proposal on
+> ironhorse or an xs fork."** I did NOT autonomously fan that out, for three
+> reasons — surfacing it to you to decide:
+>
+> 1. It exceeds a mechanical *refresh* (that verb = re-sync/regenerate); dispatching
+>    a cross-fork implementation design is a deliberate producer decision.
+> 2. **Ironhorse development is deliberately PAUSED this week (from 2026-08-16) to
+>    conserve budget** (pause marker `jobs/plan/ironhorse-campaign-paused-20260816`;
+>    honest spend 3.3M vs 2.08M approved). Spawning new ironhorse implementation
+>    plans now cuts against that pause.
+> 3. The gardener pool is throttled to ~2 for weekly quota. A new multi-engine
+>    design fan-out is a budgeted commitment, not a minion side-effect.
+>
+> There is already relevant compartments-on-xs/endor work on the board/history:
+> `xs2rust-endor-stage4-compartment`, `xs2rust-endor-stage7-guest-compartment`,
+> `xs2rust-endor-s22-compartment-isolation-fix`, and
+> `proposal-compartments-xs-validation-20260725`.
+>
+> **If you want the plans dispatched, just say the word** (e.g. "design
+> proposal-compartments on an xs fork" / "... on ironhorse") and I/the liaison will
+> post designer jobs with real budgets — ideally after the ironhorse pause lifts, or
+> scoped to the xs fork if you want to move now.
+
 - `doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr282-pin-rebase-reconcile-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
@@ -791,8 +829,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.6M | $968.73 _(notional, rate-card)_ | no quota set |
-| Codex | 24.3M _(+731.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.1M | $956.82 _(notional, rate-card)_ | no quota set |
+| Codex | 24.2M _(+723.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
