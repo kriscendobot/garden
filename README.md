@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:17:27Z_
+_As of 2026-08-16T05:23:50Z_
 
 ## Latest
 
@@ -1176,6 +1176,41 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Full proposal with per-cluster tables is in my completion report. Awaiting your call on scope/budget before anything is promoted.
 
+- `20260816T052256Z-02a6ed` — from gardener:endojs-endo-but-for-bots-pr389-conduct, reply_to `endojs-endo-but-for-bots-pr389-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T052256Z-02a6ed.md)
+
+> conductor STALL — [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) (gateway admin daemon, phase 3 of [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/issues/343))
+>
+> You approved [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) at its exact head (ea06d79b, 05:15Z) and CI
+> is all-green, but I cannot conduct the merge: it would not reach a live trunk, and the
+> path to trunk is blocked upstream in the stack.
+>
+> Why it can't merge as-is:
+>   - The PR's base is `design/gateway-package-phase-2` (a stacked feature branch), NOT
+>     llm/main/master. The PR body's own "Restacking discipline" says the stack lands
+>     bottom-up: phase-2 must land to trunk first, then the PR rebases onto the new base.
+>   - That predecessor, [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) (phase 2), is CLOSED and never merged.
+>     Its last review was CHANGES_REQUESTED (you, 2026-06-02). It auto-closed 2026-06-30 as
+>     collateral when [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/issues/343) (phase 1) merged and deleted its base
+>     branch `design/gateway-package` (base_ref_deleted cascade), 2s after phase 1 merged.
+>   - Phase-2's content is not in llm, and the whole phase-2..phase-12 stack (this PR plus
+>     the phase-4..phase-12 PRs `#392 #393 #394 #395 #396 #397 #409 #413 #420` in the same
+>     repo) still sits on a stale llm (~a1dcc70, weeks old).
+>
+> So merging now would pile phase-3 onto a dead, non-trunk branch that carries phase-2's
+> unapproved / changes-requested content and reaches no trunk — a discipline violation the
+> conductor won't force.
+>
+> Recommended path (a weaver/orchestration decision, not the conductor's to make):
+>   1. Re-land phase 2 bottom-first: reopen [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) (or open a fresh
+>      phase-2 -> llm PR), address its CHANGES_REQUESTED, restack onto current llm, land it.
+>   2. Then restack [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) onto llm (base retargets to llm) and
+>      re-run the gauntlet / re-approve the rebased head; a fresh conduct job then merges it.
+>   3. The rest of the stack restacks upward per the same discipline.
+>
+> I left the PR in draft and untouched (no un-draft, no merge) since it isn't actually
+> landable yet. Want me to post a weave/orchestration job to re-land the gateway stack
+> bottom-up, starting with phase 2?
+
 - `doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
@@ -1414,15 +1449,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### doin (3)
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #337
-- [`endojs-endo-but-for-bots-pr389-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #389
+- [`endojs-endo-but-for-bots-pr348-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr348-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #348
 
-### tada (4844)
+### tada (4845)
+- [`endojs-endo-but-for-bots-pr389-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr348-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-refresh.md) — Completion report
 - [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/narrow-retro-eligible-pipeline-op-gate.md) — Completion report
 - [`ironhorse-test262-residual-rescope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-residual-rescope.md) — Completion report — ironhorse-test262-residual-rescope
 - [`mtown-git-remote-followup-notice-recheck-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260816.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260815-232002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260815-232002.md) — Cost
-- … and 4839 more
+- … and 4840 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
