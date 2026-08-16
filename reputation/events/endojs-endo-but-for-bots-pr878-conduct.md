@@ -1,23 +1,23 @@
 ---
 base: endojs-endo-but-for-bots-pr878-conduct
-kind: cleric
-provider: openai
-model: gpt-5.6-terra
+kind: gardener
+provider: anthropic
+model: claude-opus-4-8
 thoughtfulness: medium
-work_class: other:s
+work_class: ops:m
 target: main2
 accepted: true
-agentic_dollars: censored
+agentic_dollars: 2.180529
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.242238
-attempts: 1
-duration_secs: 47
+estimated_dollars: 0.056373
+attempts: 2
+duration_secs: 817
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: endolin-garden2-5bcdff64/cleric-1
-recorded_at: 2026-07-30T07:24:31Z
+recorded_by: endolin-garden-ece02cb4/gardener-1
+recorded_at: 2026-08-16T22:06:57Z
 ---
-reputation event for endojs-endo-but-for-bots-pr878-conduct: arm openai/gpt-5.6-terra/medium work_class other:s target main2 accepted true
+reputation event for endojs-endo-but-for-bots-pr878-conduct: arm anthropic/claude-opus-4-8/medium work_class ops:m target main2 accepted true
