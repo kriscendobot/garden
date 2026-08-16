@@ -6,8 +6,43 @@ author: designer
 
 # Design: reserve gardener and rename the Anthropic worker kind to monk
 
-| Status | Accepted |
+| Status | Accepted — stages 0 & 1 implemented |
 | Job | `design-anthropic-worker-kind-monk` |
+
+## Implementation status (2026-08-16)
+
+The **compatibility release (stage 0)** and the **per-host cutover path (stage 1)**
+have landed on `main2`, changing no runtime behavior until a host is deliberately
+cut over:
+
+- `canonical_worker_kind(raw, schema, provider)` — the sole decoder — plus the
+  `monk` registry row beside the retained legacy `gardener` alias, `worker_kinds`
+  enumerating both, and `anthropic_active_kind` (the scaler's monk-xor-gardener
+  selector); `role_default_model`/`role_default_effort` fold `monk` into the
+  Anthropic branch (`scripts/jobs/common.sh`).
+- `GARDEN_WORKER_CLONE` seam honoring legacy `GARDEN_GARDENER_CLONE`
+  (`gardener.sh`, `claim-job.sh`, `complete-job.sh`); `handlers/monk-claude.sh`
+  (the real handler) with `handlers/gardener-claude.sh` as a warning-free
+  forwarding wrapper; `set-monks.sh` + `set-workers.sh monk` with the Anthropic
+  provider exempt from the backend probe and sharing the zero-worker floor.
+- Reducer **dual projection**: `gardener` and `monk` events pool into one arm and
+  are written under both `reputation/arms/monk/…` and `reputation/arms/gardener/…`,
+  byte-equivalent except the kind field/path (`reputation-reduce.sh`).
+- The scaler never arms both Anthropic pools (`gardener-scaler.sh`).
+- `migrate-host-to-monk.sh {cutover|rollback|status}` — the drained, reversible,
+  idempotent per-host transaction (run ON the host, followers first, leader last).
+- Tests: `monk-worker-kind-compat-test.sh`, `monk-host-cutover-test.sh`, and the
+  extended `worker-spine-kinds-test.sh` (a monk claims + completes an Anthropic job
+  through the shared spine).
+
+**Not yet done** (later, separately-sequenced work): stage 2 writer-default flip
+(claims/bids/events emit `monk` + `worker_kind_schema: 2`); wiring
+`canonical_worker_kind` into the remaining readers' *display* (bulletin breaks out
+`monks`, proxy/metrics/auction labels) — correctness holds today because stage-0
+writers still emit `gardener` and the dual projection covers a mixed/rolled-back
+fleet; the broad terminology-only prose sweep; and the observed staged deployment
+on every host (the liaison's, per the job brief). Alias/mirror retirement is a
+still-later, separately-reviewed cleanup.
 
 ## Decision
 
