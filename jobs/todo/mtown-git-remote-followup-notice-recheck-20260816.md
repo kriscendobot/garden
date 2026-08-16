@@ -1,6 +1,3 @@
-once: 2026-08-16T03:06:59Z
-job_basename_prefix: mtown-git-remote-followup-notice-recheck-20260816
----
 ---
 role: gardener
 tier: mentor
