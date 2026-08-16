@@ -80,15 +80,4 @@ without them, treat this as the revision cycle — same target file,
    `/mcp` as the remote/pooled-deployment path for v2. Recommend one rather
    than leaving all three equally open, and say why.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T06:03:12Z
+<!-- garden-reaped: 1 -->
