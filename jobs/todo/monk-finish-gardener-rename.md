@@ -1,16 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-requeue_cycles: 3
-deadline_overruns: 1
-doomed_at: 2026-08-01T11:33:04Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-08-01T11:33:04Z
+role: builder
+tier: minion
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-16T15:38:45Z cleared=deadline-overrun=1 -->
 
 ---
 role: builder
@@ -93,4 +85,3 @@ run on each host. This job changes neither a deployed checkout nor a live unit â
 hand the deploy/cutover back to the liaison.
 
 
-<!-- garden-deadline-overrun: 1 -->
