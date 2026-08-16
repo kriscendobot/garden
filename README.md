@@ -91,6 +91,7 @@ deterministically. `#N` is a pull-request number.
 | **ferry #N** | carry approved work upstream under your own identity — authorization required |
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **promote X** / go ahead on X | move a parked job onto the board now |
+| **muster** | work the maintainer inbox with the liaison: compact the duplicates, classify what is left, and dispose of it item by item. A conversation, not a board entry, so no watcher recognizes it |
 | **stand up / stand down / drain / lift** | fleet operations, handled by the liaison directly. **Drain** = a moratorium on undertaking further work, while work already in progress finishes; **lift** relaxes it ([scaling.md](context/operations/scaling.md)) |
 | **restore** | recover the fleet after an outage: reactivate hung agents, forward dead letters, ack + redispatch poison ([restore](skills/restore/SKILL.md)) |
 

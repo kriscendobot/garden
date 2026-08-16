@@ -267,6 +267,54 @@ autonomous background service.
   is suspected. Distinct from **stand up** (which brings units up from nothing);
   after a long stop you often stand up *then* restore.
 
+## Muster — interactive maintainer-inbox review (vocabulary)
+
+**muster** (also "let's muster", "muster the inbox") is liaison-session vocabulary
+like `help`: it opens an interactive working session over the maintainer inbox.
+No watcher recognizes it, because triage is a conversation and not a board entry.
+The inbox accumulates faster than any human reads it (81 unread on 2026-08-16,
+oldest from 07-25), so a muster is three passes, in this order. Never skip
+straight to the third.
+
+**1. Compact.** Most of a stale inbox is already dead. Before reading anything
+closely, retire what time has answered:
+
+- **Verify current state first.** A message says a PR waits on your approval;
+  check whether that PR merged weeks ago. Batch the checks (`gh pr view <N>
+  --json state,mergedAt,reviewDecision`) rather than opening messages one at a
+  time. A message whose blocker is gone gets a bare
+  `maintainer-archive.sh <msgid>` and never costs the maintainer a glance.
+- **Collapse repeat presses.** A daily press posts the same open question every
+  tick. Six messages restating one unanswered design decision are one decision.
+  Archive all but the newest and carry the newest into pass 3.
+- **Sweep the deploy-gap class.** A job that HALTED on "the deployed garden
+  lacks commit X" is dead the moment a deploy lands. Re-post the job rather than
+  answering the message.
+
+Report the compaction as a count, not a list: the maintainer wants to know the
+pile shrank, not which corpses were buried.
+
+**2. Classify.** Group what survives by what it *wants*, since that is what
+determines the maintainer's next keystroke. The recurring classes:
+
+- **Approval-gated.** A conductor stalled for want of a fresh APPROVED review on
+  a current head. Cheapest to clear and usually the largest class.
+- **Decision-gated.** A design fork, a supersession, a retire-or-rescope
+  recommendation. Genuinely needs judgment, so this is where the session's
+  attention should go.
+- **Doom and halt.** Reaper-parked jobs and non-converging gauntlets sitting in
+  `jobs/plan/` behind a go-ahead gate. Each wants promote, re-scope, or drop.
+- **Informational.** Completion reports, field notes, self-improvement findings.
+  Archive on sight unless something in one changes a decision above.
+
+**3. Dispose, one at a time.** Present each survivor with the decision named in a
+sentence, the evidence you verified, and the concrete options. Act on the answer
+immediately (`maintainer-reply.sh <msgid>` routes a reply to the originating
+doer and archives; an empty reply is a bare archive), then move to the next.
+Work the decision-gated class first while attention is freshest. Stop whenever
+the maintainer says so: a muster is resumable, and the seen-cursor plus the
+unread/read split is all the state it needs.
+
 ## Plan queue — parking work and promoting it (vocabulary)
 
 Some work should not auto-run: it needs the maintainer's **go-ahead**, or it is
