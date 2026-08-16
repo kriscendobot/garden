@@ -28,15 +28,4 @@ Also note #279 is still OPEN, unapproved and CONFLICTING, and #282 carries #279'
 
 handler-timeout: 7200
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T06:47:52Z
+<!-- garden-reaped: 2 -->
