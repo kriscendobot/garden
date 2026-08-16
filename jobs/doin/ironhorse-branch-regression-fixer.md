@@ -23,3 +23,13 @@ Acceptance: re-run the authoritative full-suite report against the pinned corpus
 handler-timeout: 7200
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-16T07:14:30Z
