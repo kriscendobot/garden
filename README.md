@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:58:54Z_
+_As of 2026-08-16T07:06:50Z_
 
 ## Latest
 
@@ -14,8 +14,8 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1m)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 15s)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 6m)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 5m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 17d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 17d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 28d)
@@ -1017,6 +1017,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Each early restack carries the same non-trivial port as [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389): llm relocated the gateway type layout into src/types.ts, and every phase that still re-adds inline Gateway/GatewayPowers typedefs (or imports moved types from config.js/vhost.js) must be ported onto types.js, not merely conflict-resolved. Later phases whose diffs don't touch the moved types should restack more cheaply. Happy to take them one at a time — say the word (e.g. "weave 392") and I'll do the next.
 
+- `20260816T070409Z-92df25` — from orchestrator:pr282-flag-gated-reconciliation-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T070409Z-92df25.md)
+
+> Orchestration pr282-flag-gated-reconciliation HALTED: child endojs-endo-but-for-bots-pr282-pin-rebase-reconcile stalled after 3 requeues on host endolin-garden2-5bcdff64 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: endojs-endo-but-for-bots-pr282-fixture-parity endojs-endo-but-for-bots-pr282-registry-default-followup
+
 - `pr981-stale-conductor-spine` — from gardener:endojs-endo-but-for-bots-pr981-conduct, reply_to `endojs-endo-but-for-bots-pr981-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr981-stale-conductor-spine.md)
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
@@ -1027,7 +1031,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.8M | $864.24 _(notional, rate-card)_ | no quota set |
+| Claude | 49.0M | $868.10 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1035,6 +1039,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (11)
+- [`daily-progress-summary-20260816-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260816-070504.md) — Daily midnight Pacific progress summary
 - [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii.md) — ---
 - [`endojs-endo-but-for-bots-pr282-pin-rebase-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md) — ---
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
@@ -1042,18 +1047,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #995
-- [`endor-run-compartment-mapper-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-compartment-mapper-fixture-parity.md) — Design: compartment-mapper test-fixture parity + drift safeguard for endor-run
 - [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
 - [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 
-### tada (4862)
+### tada (4864)
+- [`endor-run-compartment-mapper-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endor-run-compartment-mapper-fixture-parity.md) — What I found
+- [`pr282-flag-gated-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr282-flag-gated-reconciliation.md) — orchestration pr282-flag-gated-reconciliation — HALTED
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr282-review-c41f9d4a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-review-c41f9d4a.md) — Completion report — review handler for endojs/endo-but-for-bots#282
 - [`endojs-endo-but-for-bots-pr937-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-conduct.md) — Cost
-- [`endojs-endo-but-for-bots-pr388-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-shepherd.md) — Diagnosis
-- [`endojs-endo-but-for-bots-pr995-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-fix-1.md) — Completion report
-- … and 4857 more
+- … and 4859 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
