@@ -23,3 +23,13 @@ Acceptance: re-run the authoritative full-suite report against the pinned corpus
 handler-timeout: 7200
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:33:26Z
