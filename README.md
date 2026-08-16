@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T07:37:22Z_
+_As of 2026-08-16T07:38:30Z_
 
 ## Latest
 
@@ -1137,10 +1137,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`ebfb-worker-retention-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-worker-retention-design.md) — Design research brief: worker retention, revocation, and the batch-flush idea
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
 - [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
+- [`endojs-endo-but-for-bots-pr995-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #995
 - [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
 
 ### tada (4871)
