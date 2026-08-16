@@ -30,3 +30,13 @@ the orphan accordingly (behind the legacy flag if kept). Reference the
 endor-run-expanded and endor-npm-registry-proxy design lines.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:13:39Z
