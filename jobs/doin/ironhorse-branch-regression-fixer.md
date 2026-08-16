@@ -23,3 +23,13 @@ Acceptance: re-run the authoritative full-suite report against the pinned corpus
 handler-timeout: 7200
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T07:04:50Z
