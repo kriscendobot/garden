@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T20:36:48Z_
+_As of 2026-08-16T20:40:22Z_
 
 ## Latest
 
-Infrastructure fix for Node 24.x CI instability: [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) pins the matrix to 24.18.0, addressing the better-sqlite3 AVA crash that was blocking [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877). Gateway package phases 2 and 3 were rebased onto llm and ported to its new types layout; the remaining phases 4–12 await sequential restack. Follow-stream design ([endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)) resolved a petname-discipline nit and is ready for re-review on the rebased head. Multiple conductors are now stalled on stale approvals after rebase: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), and [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) all need maintainer re-approval on current heads. byteArray program is complete and green; [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) await re-review to clear CHANGES_REQUESTED. Gauntlet halted on [endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997) after 6 rounds without convergence. Several jobs parked pending maintainer directives on design choices (weblet-gateway id model, test262 fixture consolidation, regex PR scope).
+Node 24.x better-sqlite3 crash blocks the OCapN/bytearray stack: [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) fixes it and is ready to merge, which will unblock [#340](https://github.com/endojs/endo-but-for-bots/pull/340) OCapN transport, [#877](https://github.com/endojs/endo-but-for-bots/pull/877) OCapN/Onboard, and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) bytearray. A wave of work finished rebases and fixes but needs re-approval to conduct: [#856](https://github.com/endojs/endo-but-for-bots/pull/856) ESM import (rebase done), [#403](https://github.com/endojs/endo-but-for-bots/pull/403) retcon verified, [#241](https://github.com/endojs/endo-but-for-bots/pull/241) design (integration done), [#288](https://github.com/endojs/endo-but-for-bots/pull/288) cbor (rebase done), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) lint-clean after rebase, and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) monitor (nit resolved). Bytearray finish-line ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is green awaiting re-review. [#282](https://github.com/endojs/endo-but-for-bots/pull/282) rebased and needs the flag-gated resolution you chose: keep llm's registry-path default for `run`, add `--node-modules` flag for the walker. On minion.town, OCapN TCP demo is proven, PSL change prepared for ferry, and B5 tool retirement ([#36](https://github.com/kriscendobot/minion.town/pull/36)) awaits deployed-edge authorization.
 
 ## Parked for maintainer feedback
 
@@ -791,17 +791,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.5M | $968.57 _(notional, rate-card)_ | no quota set |
-| Codex | 24.3M _(+736.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.6M | $968.73 _(notional, rate-card)_ | no quota set |
+| Codex | 24.3M _(+731.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr1003-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1003-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1003
 - [`endojs-endo-but-for-bots-pr1004-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1004-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1004
-- [`endojs-endo-but-for-bots-pr1005-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1005-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1005
 - [`endojs-endo-but-for-bots-pr1006-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1006-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1006
 - [`endojs-endo-but-for-bots-pr1007-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1007-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1007
 - [`endojs-endo-but-for-bots-pr1008-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1008-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1008
@@ -810,13 +809,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr897-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave.md) — weave directive on endojs/endo-but-for-bots PR #897
 - [`kriscendobot-proposal-compartments-pr3-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-proposal-compartments-pr3-refresh.md) — refresh directive on kriscendobot/proposal-compartments PR #3
 
-### tada (4905)
+### tada (4906)
+- [`endojs-endo-but-for-bots-pr1005-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1005-dependabot.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1002-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1002-dependabot.md) — Cost
 - [`endojs-endo-but-for-bots-pr877-review-e5dd1111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-review-e5dd1111.md) — Completion report
 - [`kriscendobot-proposal-compartments-pr1-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-proposal-compartments-pr1-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr897-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr897-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #897
-- [`endojs-endo-but-for-bots-pr1001-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1001-dependabot.md) — Cost
-- … and 4900 more
+- … and 4901 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
