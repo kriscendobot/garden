@@ -38,3 +38,13 @@ weblet identity). Show how a guest passes powers by introduction rather than by 
 gateway-resolved name, and how this removes the host-escape class the closed PR
 was patching. Reference the daemon's weblet publish design as the model to mimic.
 Report the design doc / PR and how it satisfies the ocap premise above.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T05:56:36Z
