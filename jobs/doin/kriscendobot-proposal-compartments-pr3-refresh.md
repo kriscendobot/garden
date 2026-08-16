@@ -19,3 +19,13 @@ discipline. The excerpt below is for human context only:
 Please refresh. Dispatch plans to implement this proposal on ironhorse or an xs fork 
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T20:35:01Z
