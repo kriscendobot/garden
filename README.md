@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:58:29Z_
+_As of 2026-08-16T05:59:29Z_
 
 ## Latest
 
@@ -1350,8 +1350,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`design-endo-claude-mcp-groundwork`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-claude-mcp-groundwork.md) — The correction
+- [`endojs-endo-but-for-bots-pr995-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #995
 - [`minion-town-weblet-synthesis-ocap-redesign`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-weblet-synthesis-ocap-redesign.md) — ---
 
 ### tada (4849)
