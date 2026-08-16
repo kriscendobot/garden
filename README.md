@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T08:56:29Z_
+_As of 2026-08-16T09:11:27Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ The finbot [PR #4](https://github.com/kriscendobot/finbot/pull/4) SES-compartmen
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 1h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 2h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 17d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 28d)
@@ -1153,7 +1153,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.6M | $944.00 _(notional, rate-card)_ | no quota set |
+| Claude | 54.7M | $950.79 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1162,15 +1162,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #995
-- [`endojs-endo-but-for-bots-pr997-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr997-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #997
+- [`endojs-endo-but-for-bots-pr997-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr997-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #997
 
-### tada (4881)
+### tada (4882)
+- [`endojs-endo-but-for-bots-pr997-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-panel-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr997-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #997
-- … and 4876 more
+- … and 4877 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
