@@ -24,6 +24,7 @@ Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
