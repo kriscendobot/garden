@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: gardener
+claimed_at: 2026-08-16T16:13:13Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-but-for-bots-pin-node-24x-ci

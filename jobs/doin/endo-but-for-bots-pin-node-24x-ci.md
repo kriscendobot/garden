@@ -38,3 +38,13 @@ PR against `llm`. After it lands, re-run CI on the three PRs above and report
 which of them go green.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T16:13:13Z
