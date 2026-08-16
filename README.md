@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T20:03:12Z_
+_As of 2026-08-16T20:06:16Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (Node 24.x CI pin) is ready for merge and will unblock [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) once merged to llm and CI re-run. The bytearray pair — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — are complete and all-green but await your re-review to clear CHANGES_REQUESTED. Three PRs were rebased this cycle and need re-approval on their new heads: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design), and [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (test/familiar-primer-cas-smoke). [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) (gateway phase-2) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) (phase-3) are refreshed and restacked; phase-3 through phase-12 remain to be restacked serially as their bases rewrote. Two design PRs ([endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301)) are superseded by merged work and await your close/redirect decision. [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) and [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) are parked after stalling on requeue; [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) needs the merge-dispatch flag-gated resolution decision and [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) needs rebase. minion.town's ocap.site implementation is live and DNSSEC-ready pending your authorization; the weblet-gateway design has open question 7 (content-only vs. composite id) for your call.
+The fleet is holding at maintainer approval gates. The Node 24.x CI flake blocking several PRs is diagnosed and pinned in [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)—merge it to unblock re-runs on [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [#877](https://github.com/endojs/endo-but-for-bots/pull/877). The byteArray work is code-complete and all-green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) but blocked on clearing CHANGES_REQUESTED reviews. Multiple PRs need rebasing and re-approval after base updates: [#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) await current-head approval. Two gauntlets ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) and one orchestration ([#282](https://github.com/endojs/endo-but-for-bots/pull/282)) hit iteration caps and are parked pending your direction; the weblet gateway design is reconciled on draft pending your id-model call.
 
 ## Parked for maintainer feedback
 
@@ -791,19 +791,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.7M | $998.29 _(notional, rate-card)_ | no quota set |
-| Codex | 24.6M _(+756.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 59.9M | $999.14 _(notional, rate-card)_ | no quota set |
+| Codex | 24.5M _(+755.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1001-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1001-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1001
 - [`endojs-endo-but-for-bots-pr1002-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1002-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1002
 - [`endojs-endo-but-for-bots-pr1003-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1003-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1003
 - [`endojs-endo-but-for-bots-pr1004-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1004-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1004
 - [`kriscendobot-proposal-compartments-pr1-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-proposal-compartments-pr1-conduct.md) — Finalize (curate → merge) kriscendobot/proposal-compartments PR #1
+- [`kriscendobot-proposal-compartments-pr3-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-proposal-compartments-pr3-refresh.md) — refresh directive on kriscendobot/proposal-compartments PR #3
 
 ### tada (4901)
 - [`dependabotany-recheck-endo-but-for-bots-20260816-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260816-170501.md) — Completion report
