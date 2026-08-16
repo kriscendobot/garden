@@ -82,6 +82,7 @@ without them, treat this as the revision cycle — same target file,
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
