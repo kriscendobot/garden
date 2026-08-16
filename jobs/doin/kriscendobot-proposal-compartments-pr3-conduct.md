@@ -23,6 +23,7 @@ Guards (the watcher already enforced these; re-verify before merging):
 Source: pr-review-body by kriskowal
 Approval: https://github.com/kriscendobot/proposal-compartments/pull/3#pullrequestreview-4947365919
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
