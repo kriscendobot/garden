@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T22:00:51Z_
+_As of 2026-08-16T22:07:10Z_
 
 ## Latest
 
-Node 24.x CI flake diagnosed and pinned ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000), ready for merge); multiple PRs rebased onto current llm ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#856](https://github.com/endojs/endo-but-for-bots/pull/856)) now need fresh maintainer approvals on their new heads. Budget enforcement design landed on main2; gateway design reconciliation complete with security fixes applied (content-only ID collision + unpublish tombstone). Several jobs parked mid-work: two gauntlets failed to converge in 6 rounds ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)); an orchestration halted on a child requeue; [#282](https://github.com/endojs/endo-but-for-bots/pull/282) weave and [#856](https://github.com/endojs/endo-but-for-bots/pull/856) weave timed out. Operationally: yarn berry cache hit ext4's 65k hardlink ceiling (fixable via cache prune or nodeLinker mode switch); dependabot auto-conduct is broken on the deployed root (fix landed on main2 as c31b2aaf4 but not deployed yet — every dependabot MERGE-NOW will stall on approval until deploy). Monthly report generated covering the Rust XS replacement merge, Ironhorse test262 campaign, and minion.town live gateway work.
+Node 24.x CI fix landed ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) clearing the gate for dependent PRs. Dependabot sweep mostly completed but auto-conduct remains broken on the deployed root (fix awaiting deploy). Several long jobs hit wall-clock limits and need splitting: shepherd on [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) and directive/weave on [endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/pull/897) both expired at 2400s, and gauntlets on [endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997) halted unconverged. Multiple rebased PRs await maintainer re-approval ([endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)), and [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) were marked superseded. Design work completed: budget admission gates, test262 fixture strategy, weblet-gateway reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -1021,24 +1021,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.0M | $928.87 _(notional, rate-card)_ | no quota set |
+| Claude | 59.1M | $929.58 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+687.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1009-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1009-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1009
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #856
-- [`endojs-endo-but-for-bots-pr878-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr878-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #878
 
 ### tada (4912)
+- [`endojs-endo-but-for-bots-pr878-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr878-conduct.md) — Completion report
 - [`kriscendobot-proposal-compartments-pr3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-proposal-compartments-pr3-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1008-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1008-dependabot.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1003-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1003-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1003
 - [`endojs-endo-but-for-bots-pr1007-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1007-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr877-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - … and 4907 more
 
 ## Plan queue (parked — not claimable until promoted)
