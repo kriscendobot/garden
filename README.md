@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-08-16T16:36:20Z_
+_As of 2026-08-16T16:43:35Z_
 
 ## Latest
 
-Gateway packages [PR #388](https://github.com/endojs/endo-but-for-bots/pull/388) and [PR #389](https://github.com/endojs/endo-but-for-bots/pull/389) (phases 2–3) are refreshed, rebased, and await your re-approval of each head; [#389](https://github.com/endojs/endo-but-for-bots/pull/389) is undrafted. The Node 24.x CI pin ([PR #1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) is ready to merge and will unblock [PR #340](https://github.com/endojs/endo-but-for-bots/pull/340), [PR #475](https://github.com/endojs/endo-but-for-bots/pull/475), and [PR #877](https://github.com/endojs/endo-but-for-bots/pull/877) from a better-sqlite3 crash on Node v24.19.0. Two gauntlets halted after six rounds without converging. Backlog includes re-approval requests on rebased heads, disposition calls on [PR #286](https://github.com/endojs/endo-but-for-bots/pull/286) (superseded by exo-http-client) and [PR #301](https://github.com/endojs/endo-but-for-bots/pull/301) (superseded by error-tracing), and design decisions on weblet-gateway identity modeling and Compartments evaluation scope.
+Three design PRs are rebased and CI-green, awaiting maintainer re-approval: [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer), and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream). A Node 24.x/better-sqlite3 stability fix landed in [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000), which will unblock [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) once merged. The byteArray finish-line ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, awaiting re-review to clear CHANGES_REQUESTED. Two gauntlets ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) exceeded the 6-round convergence limit and parked. On the ops side, host yarn cache exhaustion (hardlink ceiling) is limiting new worktrees, and minion.town's weblet-gateway design needs an identity-model decision before moving forward.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 9h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9h)
-- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
+- [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 28d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 29d)
@@ -791,7 +791,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.1M | $1090.87 _(notional, rate-card)_ | no quota set |
+| Claude | 65.2M | $1090.96 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
