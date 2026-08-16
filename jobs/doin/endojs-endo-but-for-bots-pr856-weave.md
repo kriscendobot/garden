@@ -9,6 +9,7 @@ State verified 2026-08-16: OPEN, non-draft, mergeStateStatus DIRTY, head ca0b6c0
 
 After the rebase lands and CI is green, hand off for maintainer review.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
