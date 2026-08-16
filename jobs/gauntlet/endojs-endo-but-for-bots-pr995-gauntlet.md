@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 995
 build_job: design-endo-claude
 kind: feature
-stage: panel
+stage: fix
 iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr995-gauntlet-panel-4
+current_child: endojs-endo-but-for-bots-pr995-gauntlet-fix-4
 state: running
 created_by: producer
 created_at: 2026-08-16T05:57:57Z
