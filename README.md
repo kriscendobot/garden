@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:13:35Z_
+_As of 2026-08-16T05:16:06Z_
 
 ## Latest
 
@@ -1413,15 +1413,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #337
-- [`endojs-endo-but-for-bots-pr348-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr348-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #348
+- [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #337
 
-### tada (4843)
+### tada (4844)
+- [`endojs-endo-but-for-bots-pr348-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-refresh.md) — Completion report
 - [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/narrow-retro-eligible-pipeline-op-gate.md) — Completion report
 - [`ironhorse-test262-residual-rescope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-residual-rescope.md) — Completion report — ironhorse-test262-residual-rescope
 - [`mtown-git-remote-followup-notice-recheck-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260816.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260815-232002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260815-232002.md) — Cost
-- [`mtown-git-remote-followup-notice-recheck-20260815`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260815.md) — Completion report
-- … and 4838 more
+- … and 4839 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
