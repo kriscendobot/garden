@@ -138,3 +138,13 @@ doc is also warranted (the precedent: `mcp-endo-guest.md`/`mcp-daemon-guest-tool
 live in minion.town, not endo-but-for-bots, because minion.town is "a deployment
 + configuration layer, not a code home"), name that as a follow-on design job
 rather than trying to write both in one pass.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T05:45:54Z
