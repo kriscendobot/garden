@@ -113,3 +113,13 @@ index ab03c3f06d..8354a13f40 100644
  
  Some work should not auto-run: it needs the maintainer's **go-ahead**, or it is
 --- END PATCH ---
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T16:11:10Z
