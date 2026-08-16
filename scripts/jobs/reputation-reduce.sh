@@ -109,6 +109,12 @@ recompute_arms() {
     agg="$(plan_field "$ef" aggregate_dollars)"
     [ -n "$kind" ] && [ -n "$provider" ] && [ -n "$model" ] && [ -n "$tht" ] \
       && [ -n "$wc" ] && [ -n "$tgt" ] || continue
+    # CANONICALIZE the worker kind before keying the arm: a v1 `kind: gardener` event
+    # and a v2 `kind: monk` event describe the SAME Anthropic arm and must fold into
+    # ONE posterior, not two half-populated ones (design § Journal contract). Fail
+    # OPEN to the raw token for any unknown kind so a malformed event still projects
+    # (for audit) rather than being silently dropped from the auction it should feed.
+    kind="$(canonical_worker_kind "$kind" "$(plan_field "$ef" worker_kind_schema)" 2>/dev/null || printf '%s' "$kind")"
     rel="$(rep_arm_relpath "$kind" "$provider" "$model" "$tht" "$wc" "$tgt")"
     armhash="$(printf '%s' "$rel" | (sha1sum 2>/dev/null || shasum) | cut -c1-32)"
     if [ ! -f "$work/$armhash.meta" ]; then
@@ -205,23 +211,42 @@ recompute_arms() {
            md = (acc>0 && n>0)? ((n==att)? sumd/acc : (sumd/n)/rate) : 0;
            printf "%d %d %d %d %.6f %.6f\n", att+0, acc+0, cen+0, est+0, md, m2+0; }' "$work/$armhash.dat")"
     read -r att acc cen est mean m2 <<<"$stats"
-    mkdir -p "$DIR/$(dirname "$rel")"
-    {
-      printf 'kind: %s\n' "$kind"
-      printf 'provider: %s\n' "$provider"
-      printf 'model: %s\n' "$model"
-      printf 'thoughtfulness: %s\n' "$tht"
-      printf 'work_class: %s\n' "$wc"
-      printf 'target: %s\n' "$tgt"
-      printf 'attempts: %s\n' "$att"
-      printf 'accepts: %s\n' "$acc"
-      printf 'censored: %s\n' "$cen"
-      printf 'estimated: %s\n' "$est"
-      printf 'mean_dollars: %s\n' "$mean"
-      printf 'm2: %s\n' "$m2"
-      printf 'acceptance_rate: %s\n' "$(awk -v a="$acc" -v t="$att" 'BEGIN{printf "%.4f", (t>0)?a/t:0}')"
-    } > "$DIR/$rel"
-    git -C "$DIR" add "$rel"
+    local ar; ar="$(awk -v a="$acc" -v t="$att" 'BEGIN{printf "%.4f", (t>0)?a/t:0}')"
+    # DUAL PROJECTION for the Anthropic alias. While the gardener->monk rename is in
+    # its compatibility window, an arm whose canonical kind is `monk` is written under
+    # BOTH spellings — canonical reputation/arms/monk/... and legacy
+    # reputation/arms/gardener/... — so an OLD deployed binary (which reads the
+    # gardener path) and a NEW one both find the SAME posterior and a rollback never
+    # cold-starts the auction (design § Journal contract). The two files are
+    # byte-equivalent EXCEPT the `kind:` field and the path — the invariant the
+    # dual-projection-byte-equiv test proves. A non-Anthropic kind (cleric/hermit/…)
+    # has no alias and is written once.
+    local -a spellings=("$kind")
+    case "$kind" in
+      monk)     spellings+=(gardener) ;;
+      gardener) spellings+=(monk) ;;   # defensive: a legacy meta would still dual-write
+    esac
+    local spell srel
+    for spell in "${spellings[@]}"; do
+      srel="$(rep_arm_relpath "$spell" "$provider" "$model" "$tht" "$wc" "$tgt")"
+      mkdir -p "$DIR/$(dirname "$srel")"
+      {
+        printf 'kind: %s\n' "$spell"
+        printf 'provider: %s\n' "$provider"
+        printf 'model: %s\n' "$model"
+        printf 'thoughtfulness: %s\n' "$tht"
+        printf 'work_class: %s\n' "$wc"
+        printf 'target: %s\n' "$tgt"
+        printf 'attempts: %s\n' "$att"
+        printf 'accepts: %s\n' "$acc"
+        printf 'censored: %s\n' "$cen"
+        printf 'estimated: %s\n' "$est"
+        printf 'mean_dollars: %s\n' "$mean"
+        printf 'm2: %s\n' "$m2"
+        printf 'acceptance_rate: %s\n' "$ar"
+      } > "$DIR/$srel"
+      git -C "$DIR" add "$srel"
+    done
   done
   shopt -u nullglob
   rm -rf "$work"

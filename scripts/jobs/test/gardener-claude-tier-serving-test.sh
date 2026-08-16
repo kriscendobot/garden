@@ -75,7 +75,9 @@ mkjob "$TMP/auto-myrmidon.md" 'tier: myrmidon' 'dispatch: automatic'
   && ok "myrmidon job is unaffected by the downshift" || bad "myrmidon job perturbed"
 
 hr; echo "MENTAT — still an authorization boundary, not a price point"; hr
-H="$JOBS/handlers/gardener-claude.sh"
+# The Anthropic handler implementation lives in monk-claude.sh (gardener-claude.sh is
+# now the warning-free forwarding wrapper onto it; gardener->monk rename).
+H="$JOBS/handlers/monk-claude.sh"
 grep -q 'requested_tier" = mentat \] && \[ .*dispatch.*!= manual' "$H" \
   && ok "handler refuses tier: mentat unless dispatch: manual" \
   || bad "handler's mentat guard is missing or reshaped"

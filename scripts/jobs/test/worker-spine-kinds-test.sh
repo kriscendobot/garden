@@ -59,7 +59,15 @@ seed_board() {
 
 # ============================================================================
 hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; hr
-[ "$(worker_kind_field gardener handler)" = "handlers/gardener-claude.sh" ] && ok "gardener handler" || bad "gardener handler ($(worker_kind_field gardener handler))"
+# --- monk: the canonical Anthropic worker kind (design anthropic-worker-kind-monk) --
+[ "$(worker_kind_field monk handler)" = "handlers/monk-claude.sh" ] && ok "monk handler" || bad "monk handler ($(worker_kind_field monk handler))"
+[ "$(worker_kind_field monk provider)" = "anthropic" ] && ok "monk provider anthropic" || bad "monk provider"
+[ "$(worker_kind_field monk unit)" = "garden-monk@" ] && ok "monk unit prefix" || bad "monk unit"
+[ "$(worker_kind_field monk count_key)" = "monks" ] && ok "monk count_key" || bad "monk count_key"
+[ "$(worker_kind_field monk state_ns)" = "monks" ] && ok "monk state_ns" || bad "monk state_ns"
+[ "$(worker_kind_field monk label)" = "garden-monk" ] && ok "monk self-heal label" || bad "monk label"
+# --- gardener: the LEGACY Anthropic alias, retained unchanged for the staged cutover -
+[ "$(worker_kind_field gardener handler)" = "handlers/gardener-claude.sh" ] && ok "gardener (legacy) handler" || bad "gardener handler ($(worker_kind_field gardener handler))"
 [ "$(worker_kind_field cleric   handler)" = "handlers/cleric-codex.sh" ]   && ok "cleric handler"   || bad "cleric handler ($(worker_kind_field cleric handler))"
 [ "$(worker_kind_field gardener provider)" = "anthropic" ] && ok "gardener provider anthropic" || bad "gardener provider"
 [ "$(worker_kind_field cleric   provider)" = "openai" ]    && ok "cleric provider openai"    || bad "cleric provider"
@@ -82,7 +90,22 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field fireworker provider)" = "fireworks" ] && ok "fireworker provider fireworks" || bad "fireworker provider"
 [ "$(worker_kind_field fireworker unit)" = "garden-fireworker@" ] && ok "fireworker unit prefix" || bad "fireworker unit"
 [ "$(worker_kind_field fireworker count_key)" = "fireworkers" ] && ok "fireworker count key" || bad "fireworker count key"
-[ "$(worker_kinds | paste -sd, -)" = "gardener,cleric,hermit,mystic,fireworker" ] && ok "worker_kinds enumerates all five" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+# canonical_worker_kind: the SOLE decoder. v1 gardener -> monk; known v2 unchanged;
+# unknown / contradictory rejected with no silent fallback.
+[ "$(canonical_worker_kind gardener)" = monk ] && ok "canonical: v1 gardener -> monk" || bad "canonical v1 gardener"
+[ "$(canonical_worker_kind monk)" = monk ] && ok "canonical: monk -> monk" || bad "canonical monk"
+[ "$(canonical_worker_kind cleric)" = cleric ] && ok "canonical: cleric unchanged" || bad "canonical cleric"
+canonical_worker_kind gardener 2 >/dev/null 2>&1 && bad "canonical: v2-schema gardener must reject" || ok "canonical: v2-schema gardener rejected (no such v2 spelling)"
+canonical_worker_kind friar >/dev/null 2>&1 && bad "canonical: unknown must reject" || ok "canonical: unknown kind rejected (no silent fallback)"
+canonical_worker_kind monk 2 openai >/dev/null 2>&1 && bad "canonical: contradictory provider must reject" || ok "canonical: contradictory kind/provider tuple rejected"
+[ "$(canonical_worker_kind monk 2 anthropic)" = monk ] && ok "canonical: monk/anthropic tuple accepted" || bad "canonical monk/anthropic"
+# anthropic_active_kind: monks: wins, else the legacy gardeners:; never both.
+AAK_D="$(mktemp -d "${TMPDIR:-/tmp}/garden-aak.XXXXXX")"
+: > "$AAK_D/none";                       [ "$(anthropic_active_kind "$AAK_D/none")" = gardener ] && ok "active kind: no count line -> legacy gardener" || bad "active kind none"
+printf 'gardeners: 3\n' > "$AAK_D/g";     [ "$(anthropic_active_kind "$AAK_D/g")" = gardener ] && ok "active kind: only gardeners: -> gardener" || bad "active kind gardeners"
+printf 'monks: 2\ngardeners: 3\n' > "$AAK_D/both"; [ "$(anthropic_active_kind "$AAK_D/both")" = monk ] && ok "active kind: monks: present (mirror retained) -> monk wins, never both" || bad "active kind both"
+rm -rf "$AAK_D"
 ( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
 ( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
 worker_kind_field friar handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'friar' → non-zero (registry rejects)"
@@ -309,10 +332,12 @@ hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale a
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in gardener cleric hermit mystic fireworker; do
+for kind in monk gardener cleric hermit mystic fireworker; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
-grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
+grep -q 'GARDEN_WORKER_KIND=monk' "$RT/garden-monk@.service" && ok "monk unit sets GARDEN_WORKER_KIND=monk" || bad "monk kind env"
+grep -q 'self-heal-run.sh garden-monk ' "$RT/garden-monk@.service" && ok "monk ExecStart labels self-heal garden-monk" || bad "monk self-heal label"
+grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener (legacy) unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
 grep -q 'GARDEN_WORKER_KIND=cleric'   "$RT/garden-cleric@.service"   && ok "cleric unit sets GARDEN_WORKER_KIND=cleric"     || bad "cleric kind env"
 grep -q 'GARDEN_WORKER_KIND=hermit'   "$RT/garden-hermit@.service"   && ok "hermit unit sets GARDEN_WORKER_KIND=hermit"     || bad "hermit kind env"
 grep -q 'GARDEN_WORKER_KIND=mystic'   "$RT/garden-mystic@.service"   && ok "mystic unit sets GARDEN_WORKER_KIND=mystic"     || bad "mystic kind env"
@@ -329,15 +354,18 @@ export GARDEN_ROOT="$ROOT" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
 export GARDEN_MOCK_STATE="$ST/armed" GARDEN_MOCK_LOG="$ST/log"; : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
 export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale cleric 2 >/dev/null 2>&1
+"$JOBS/install-units.sh" scale monk 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale gardener 3 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale hermit 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale mystic 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale fireworker 1 >/dev/null 2>&1
+gm=$(grep -c '^garden-monk@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
 gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
+[ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
 [ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
 [ "$gh" -eq 2 ] && ok "scale hermit 2 → garden-hermit@{1,2} armed (new kind scalable, no arg-parse edit)" || bad "hermit scale (@1-2=$gh)"

@@ -26,6 +26,10 @@ kind="${1:?usage: set-workers.sh <kind> <N> [host]}"
 n="${2:?usage: set-workers.sh <kind> <N> [host]}"
 host="${3:-$GARDEN}"
 count_key="$(worker_kind_field "$kind" count_key)" || die "unknown worker kind '$kind' (known: $(worker_kinds | paste -sd'|' -))"
+# The Anthropic kinds (monk canonical, gardener legacy alias) share the same
+# exemptions below — they may be declared before the Claude device-login completes,
+# and reaching zero is the same fail-closed-floor concern for both spellings.
+kind_provider="$(worker_kind_field "$kind" provider)"
 [[ "$n" =~ ^[0-9]+$ ]] || die "count must be a non-negative integer"
 [ "$host" = "$GARDEN" ] || die "refusing to write hosts/$host from $GARDEN; a host may set only its own worker counts"
 
@@ -43,7 +47,7 @@ count_key="$(worker_kind_field "$kind" count_key)" || die "unknown worker kind '
 # GARDEN_FORCE_DECLARE=1 stages a positive non-gardener declaration ahead of a
 # credential; the runtime cap still holds it at effective 0, so the override is safe.
 # See designs/gnome-backend-verified-autotune.md § 3.
-if [ "$kind" != gardener ] && [ "$n" -gt 0 ] && [ "${GARDEN_FORCE_DECLARE:-0}" != 1 ]; then
+if [ "$kind_provider" != anthropic ] && [ "$n" -gt 0 ] && [ "${GARDEN_FORCE_DECLARE:-0}" != 1 ]; then
   worker_backend_probe "$kind" \
     || die "refusing to declare $count_key=$n: this host's $kind backend probe failed (missing credentials or software). Provision the backend first, or override with GARDEN_FORCE_DECLARE=1 if you are staging ahead of a credential."
 fi
@@ -55,11 +59,11 @@ for attempt in $(seq 1 50); do
   sync_clone "$DIR"
   mkdir -p "$DIR/hosts"
   f="$DIR/hosts/$host"
-  if [ "$kind" = gardener ] && [ "$n" -eq 0 ]; then
+  if [ "$kind_provider" = anthropic ] && [ "$n" -eq 0 ]; then
     [ "$(quota_routing_mode)" = race ] \
-      || die "refusing gardeners: 0 outside the temporary quota route; retain one gardener or use drain-fleet.sh to pause work"
+      || die "refusing $count_key: 0 outside the temporary quota route; retain one Anthropic worker or use drain-fleet.sh to pause work"
     host_has_qualified_non_claude_worker "$f" \
-      || die "refusing gardeners: 0; retain at least one configured, probe-qualified non-Claude worker class (or use drain-fleet.sh to pause work)"
+      || die "refusing $count_key: 0; retain at least one configured, probe-qualified non-Claude worker class (or use drain-fleet.sh to pause work)"
   fi
   # Gather each kind's CURRENT declared count from the existing file, override the
   # target kind with N, and rewrite — so a sibling kind's count is preserved and an

@@ -60,7 +60,19 @@ quota_route_active=0
 # when the signal is absent; only an explicitly-read non-gardener `<count_key>: 0`
 # scales a kind to zero. Each kind delegates to the installer's scale path (the same mockable
 # unit_ctl), keeping one place that knows how to enable/disable instances.
+# The two Anthropic spellings (monk canonical, gardener legacy) overlap during the
+# staged rename; NEVER arm both for one capacity slot. Pick the host-active spelling
+# once — `monks:` present wins, else the legacy `gardeners:` — and skip the shadowed
+# one so the scaler arms exactly one Anthropic pool. The shadowed pool is torn down
+# by the per-host cutover command's drained transaction, not here; the scaler only
+# refrains from (re-)arming it, so it can never re-enable a just-disabled legacy pool.
+active_anthropic="$(anthropic_active_kind "$f")"
+
 for kind in $(worker_kinds); do
+  if [ "$(worker_kind_field "$kind" provider)" = anthropic ] && [ "$kind" != "$active_anthropic" ]; then
+    log "DEBUG host '$host' Anthropic slot is '$active_anthropic'; skipping shadowed kind '$kind' (never both pools armed)"
+    continue
+  fi
   count_key="$(worker_kind_field "$kind" count_key)"
   # read_desired_count (common.sh) distinguishes the three outcomes: a clean parse
   # (status 0) scales; a key-line simply absent from an existing file (status 2) is
@@ -69,8 +81,8 @@ for kind in $(worker_kinds); do
 # leave the pool unchanged except the clean parse; missing is never scale-to-0,
 # while an explicit zero is.
   if want="$(read_desired_count "$f" "$count_key")"; then
-    if [ "$kind" = gardener ] && [ "$want" -eq 0 ] && { [ "$quota_route_active" -ne 1 ] || [ "$non_claude_qualified" -ne 1 ]; }; then
-      log "WARN host '$host' declares gardeners: 0 without the active quota route and a configured, probe-qualified non-Claude worker; refusing to leave zero qualified workers (use drain-fleet.sh to pause work)"
+    if [ "$(worker_kind_field "$kind" provider)" = anthropic ] && [ "$want" -eq 0 ] && { [ "$quota_route_active" -ne 1 ] || [ "$non_claude_qualified" -ne 1 ]; }; then
+      log "WARN host '$host' declares $count_key: 0 without the active quota route and a configured, probe-qualified non-Claude worker; refusing to leave zero qualified workers (use drain-fleet.sh to pause work)"
       continue
     fi
     # `want` is the owner-declared journal target. Compute the probe-gated EFFECTIVE

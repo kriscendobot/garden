@@ -77,8 +77,12 @@ cp "$JOBS_SRC/common.sh" "$JOBS_SRC/usage-meter.sh" "$JOBS_SRC/quota-panel.sh" "
 # nothing to do with the handler under test.
 cp "$JOBS_SRC/model-tier-inventory.tsv" "$JOBS_SRC/model-routing-defaults.tsv" \
    "$JOBS_SRC/rate-card-defaults.md" "$GROOT/scripts/jobs/"
-cp "$JOBS_SRC/handlers/gardener-claude.sh" "$JOBS_SRC/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
-chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh"
+# The Anthropic handler implementation now lives in monk-claude.sh; gardener-claude.sh
+# is the warning-free forwarding wrapper onto it (gardener->monk rename). Copy BOTH so
+# driving the legacy name exercises the forward path end-to-end (design § handlers).
+cp "$JOBS_SRC/handlers/gardener-claude.sh" "$JOBS_SRC/handlers/monk-claude.sh" \
+   "$JOBS_SRC/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
+chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh" "$GROOT/scripts/jobs/handlers/monk-claude.sh"
 printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"
 printf '/scratch/\n' > "$GROOT/.gitignore"
 git -C "$GROOT" add -A

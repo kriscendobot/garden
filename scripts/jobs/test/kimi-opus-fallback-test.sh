@@ -203,8 +203,9 @@ else
   mkdir -p "$GROOT/scripts/jobs/handlers" "$GROOT/roles/gardener"
   git -C "$GROOT" init -q; git -C "$GROOT" config user.email t@localhost; git -C "$GROOT" config user.name test
   cp "$JOBS/common.sh" "$JOBS/usage-meter.sh" "$JOBS/quota-panel.sh" "$JOBS/reputation.sh" "$GROOT/scripts/jobs/" 2>/dev/null
-  cp "$JOBS/handlers/gardener-claude.sh" "$JOBS/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
-  chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh"
+  # gardener-claude.sh forwards to monk-claude.sh (the real Anthropic handler); copy both.
+  cp "$JOBS/handlers/gardener-claude.sh" "$JOBS/handlers/monk-claude.sh" "$JOBS/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
+  chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh" "$GROOT/scripts/jobs/handlers/monk-claude.sh"
   printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"
   printf '/scratch/\n' > "$GROOT/.gitignore"
   git -C "$GROOT" add -A; git -C "$GROOT" commit -qm init; git -C "$GROOT" branch -M main2

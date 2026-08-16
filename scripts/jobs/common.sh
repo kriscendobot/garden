@@ -507,7 +507,32 @@ foreman_braked() {
 worker_kind_field() {
   local kind="${1:?worker_kind_field: kind required}" field="${2:?worker_kind_field: field required}"
   case "$kind" in
+    monk)
+      # The Anthropic-backed gardener (design anthropic-worker-kind-monk.md). `monk`
+      # is the CANONICAL Anthropic worker kind; the `gardener` row below is the LEGACY
+      # v1 alias for this same kind, retained with its ORIGINAL unit/count/state names
+      # so the staged, reversible cutover can flip a host from the garden-gardener@
+      # pool to the garden-monk@ pool one host at a time. canonical_worker_kind maps a
+      # v1 `worker_kind: gardener` claim/event/bid to `monk` for identity, reputation,
+      # and auction; the two registry rows differ ONLY in unit/count_key/state_ns/
+      # label/handler — exactly the operational surface the per-host cutover flips.
+      case "$field" in
+        handler)   printf '%s\n' "handlers/monk-claude.sh" ;;
+        agent_bin) printf '%s\n' "claude" ;;
+        provider)  printf '%s\n' "anthropic" ;;
+        unit)      printf '%s\n' "garden-monk@" ;;
+        count_key) printf '%s\n' "monks" ;;
+        state_ns)  printf '%s\n' "monks" ;;
+        label)     printf '%s\n' "garden-monk" ;;
+        *) return 1 ;;
+      esac ;;
     gardener)
+      # LEGACY Anthropic alias (== monk). This row keeps the pre-rename unit/count/
+      # state names (garden-gardener@, gardeners:, state/gardeners) live and unchanged
+      # so the compatibility release runs the existing pool byte-for-byte as before.
+      # A host is flipped to the `monk` row above by the per-host cutover command, not
+      # by this release. The handler is a warning-free forwarding wrapper onto
+      # handlers/monk-claude.sh, so both spellings run one implementation.
       case "$field" in
         handler)   printf '%s\n' "handlers/gardener-claude.sh" ;;
         agent_bin) printf '%s\n' "claude" ;;
@@ -583,7 +608,58 @@ worker_kind_field() {
 # scaler iterates this to reconcile every pool; set-workers.sh iterates it to
 # preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
 # in exactly one place besides worker_kind_field: here.
-worker_kinds() { printf '%s\n' gardener cleric hermit mystic fireworker; }
+#
+# Both Anthropic spellings are enumerated: `monk` (canonical) and `gardener` (legacy
+# alias). During the staged rename they coexist so a host can be flipped from the
+# garden-gardener@ pool to garden-monk@ one at a time, and set-workers.sh preserves
+# whichever count line a host already declares. The two Anthropic pools are NEVER
+# both armed for one capacity slot: the scaler picks the host-active spelling with
+# anthropic_active_kind (monks: wins, else the legacy gardeners:) and skips the other.
+worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker; }
+
+# canonical_worker_kind <raw> [schema] [provider] — the ONLY worker-kind decoder
+# (design anthropic-worker-kind-monk.md § Journal contract). It resolves a raw
+# worker_kind token from a claim, event, or bid to its CANONICAL kind:
+#   * a known v2 kind (monk|cleric|hermit|mystic|fireworker) → itself, unchanged;
+#   * v1 `gardener` (no schema, or schema 1) → `monk`, the Anthropic alias mapping;
+#   * anything else → non-zero, with NO silent fallback (an unknown v2 kind, or a
+#     `gardener` carrying an explicit v2 schema, is rejected so a contradictory
+#     record is diagnosed rather than mis-attributed).
+# When <provider> is supplied for a KNOWN kind it is a contradiction guard: a tuple
+# whose provider disagrees with the kind's registered provider is rejected. Callers
+# keep the RAW value for forensic output; this returns only the canonical kind.
+canonical_worker_kind() {
+  local raw="${1:-}" schema="${2:-}" provider="${3:-}" ck="" want=""
+  case "$raw" in
+    monk|cleric|hermit|mystic|fireworker) ck="$raw" ;;
+    gardener)
+      case "$schema" in
+        ''|1) ck="monk" ;;                 # v1 record: gardener IS the Anthropic monk
+        *)    return 1 ;;                   # a v2 record must not spell the kind 'gardener'
+      esac ;;
+    *) return 1 ;;                          # no silent fallback for an unknown kind
+  esac
+  if [ -n "$provider" ]; then
+    want="$(worker_kind_field "$ck" provider 2>/dev/null)" || return 1
+    [ "$provider" = "$want" ] || return 1  # contradictory kind/provider tuple
+  fi
+  printf '%s\n' "$ck"
+}
+
+# anthropic_active_kind <hosts-file> — which Anthropic worker spelling this host
+# arms, resolving the monk/gardener overlap during the staged cutover. A host that
+# has been cut over declares `monks: N` (and keeps `gardeners: N` as an old-binary
+# mirror); one that has not declares only `gardeners: N`. The rule is READ MONKS
+# FIRST, then the legacy count — NEVER sum the two — so the scaler arms exactly one
+# Anthropic pool. Prints `monk` when a `monks:` line parses, else `gardener`.
+anthropic_active_kind() {
+  local f="${1:-}"
+  if read_desired_count "$f" monks >/dev/null 2>&1; then
+    printf 'monk\n'
+  else
+    printf 'gardener\n'
+  fi
+}
 
 # quota_routing_mode — temporary, host-scoped escape hatch for an Anthropic
 # quota outage. `auto` is deliberately narrow: only endolin-garden instances
@@ -5153,12 +5229,12 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    gardener|cleric|hermit|mystic|fireworker) kind="$1"; role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker) kind="$1"; role="${2:-}" ;;
     *)                      kind="gardener"; role="${1:-}" ;;
   esac
   case "$kind" in
-    gardener)
-      # The gardener kind is ANTHROPIC. Every id here must be one `claude --model`
+    monk|gardener)
+      # The monk kind (legacy spelling: gardener) is ANTHROPIC. Every id here must be one `claude --model`
       # accepts: these rows returned `gpt-5.6-terra` (an OpenAI id) until
       # 2026-08-01, which the Claude CLI cannot run — latent because the tier
       # branch in gardener-claude.sh wins whenever a job carries `tier:`, and
@@ -5223,7 +5299,7 @@ role_default_tier() { printf '%s\n' minion; }
 role_default_effort() {
   local role
   case "${1:-}" in
-    gardener|cleric|hermit|mystic|fireworker) role="${2:-}" ;;
+    monk|gardener|cleric|hermit|mystic|fireworker) role="${2:-}" ;;
     *)                      role="${1:-}" ;;
   esac
   case "$role" in

@@ -62,11 +62,15 @@ GARDEN_TAG="$KIND/$id"
 export GIT_CEILING_DIRECTORIES="$GARDEN_ROOT${GIT_CEILING_DIRECTORIES:+:$GIT_CEILING_DIRECTORIES}"
 
 # Per-instance journal clone lives under the KIND's state namespace, so a cleric-1
-# and a gardener-1 never share a working tree. Exported as GARDEN_GARDENER_CLONE —
-# the name claim-job.sh / complete-job.sh inherit — so those primitives operate on
-# THIS worker's clone without a signature change (the env is the seam).
-export GARDEN_GARDENER_CLONE="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/$STATE_NS/$id/journal}"
-CLONE="$GARDEN_GARDENER_CLONE"
+# and a monk-1 never share a working tree. Exported as GARDEN_WORKER_CLONE — the
+# kind-neutral name claim-job.sh / complete-job.sh read — so those primitives operate
+# on THIS worker's clone without a signature change (the env is the seam). The legacy
+# GARDEN_GARDENER_CLONE is still honored when the new variable is unset, and is kept
+# exported to the same value so any child/handler that still reads the old name sees
+# the identical clone (design anthropic-worker-kind-monk.md § Shared spine and handlers).
+export GARDEN_WORKER_CLONE="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/$STATE_NS/$id/journal}}"
+export GARDEN_GARDENER_CLONE="$GARDEN_WORKER_CLONE"
+CLONE="$GARDEN_WORKER_CLONE"
 
 : "${GARDEN_IDLE_SLEEP:=5}"
 : "${GARDEN_ONESHOT:=0}"
