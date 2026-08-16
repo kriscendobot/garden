@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 handler-timeout: 7200
@@ -36,13 +37,4 @@ the Node fix ships. Prefer the narrowest change that stops the float. Open the
 PR against `llm`. After it lands, re-run CI on the three PRs above and report
 which of them go green.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-16T16:07:05Z
+<!-- garden-reaped: 0 -->
