@@ -23,3 +23,13 @@ Deliverable: a design (or a build if the path is obvious) that (1) enumerates
 the applicable compartment-mapper fixtures, (2) wires them into the
 endor-run/entry_walk test suite, and (3) adds the fixture-accounting drift
 guard. Reference the endor-run-expanded design line.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T06:45:15Z
