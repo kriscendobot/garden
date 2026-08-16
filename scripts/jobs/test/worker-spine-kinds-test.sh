@@ -259,6 +259,10 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter]
   [ -f "$tr/state/$ns/1.garden" ] && ok "$kind: identity marker under $ns/ namespace" || bad "$kind: identity marker not under $ns/ (found: $(find "$tr/state" -name '*.garden' 2>/dev/null | tr '\n' ' '))"
   rm -rf "$tr"
 }
+# The canonical Anthropic kind claims + completes an Anthropic-pinned job through the
+# SAME spine, stamping worker_kind: monk and keeping its state under the monks/ ns —
+# the design's stage-1 acceptance evidence (a monk alone claims the Anthropic job).
+run_kind monk     mkspine mkhost "model: opus"
 run_kind gardener gspine ghost "model: opus"
 run_kind cleric   cspine chost "model: terra"
 run_kind hermit   hspine hhost "model: qwen3.6"
@@ -293,6 +297,12 @@ elig_case cleric   pinnedcodex  "model: terra" claimed
 elig_case cleric   unpinnedjob  ""             claimed
 elig_case gardener pinnedcodex2 "model: terra" left
 elig_case gardener pinnedclaude2 "model: opus" claimed
+# monk is Anthropic: it claims a Claude-pinned job and, like the gardener, leaves a
+# foreign-provider-pinned one for the right backend (backend-fit filter is per-provider).
+elig_case monk     pinnedclaude_m "model: opus"  claimed
+elig_case monk     pinnedcodex_m  "model: terra" left
+elig_case monk     pinnedqwen_m   "model: qwen3.6" left
+elig_case monk     unpinned_m     ""             claimed
 # hermit (provider: local) claims ONLY local-pinned (qwen family, per the routing
 # table) or unpinned jobs; a qwen-pinned job is off-limits to the paid cleric and the
 # gardener. A gpt-oss:* tag is NO LONGER local — it matches no provider, so it is
