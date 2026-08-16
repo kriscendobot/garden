@@ -27,3 +27,13 @@ registry-backed runner `cmd_run_entry` (+ helpers `parse_dependencies`,
 reconciliation should decide the default resolution path and re-wire or remove
 the orphan accordingly (behind the legacy flag if kept). Reference the
 endor-run-expanded and endor-npm-registry-proxy design lines.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T06:46:49Z
