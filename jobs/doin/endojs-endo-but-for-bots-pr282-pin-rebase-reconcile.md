@@ -29,10 +29,10 @@ Also note #279 is still OPEN, unapproved and CONFLICTING, and #282 carries #279'
 handler-timeout: 7200
 
 
-<!-- garden-elapsed-constancy: 1 -->
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-elapsed-constancy: 2 -->
 <!-- garden-reap-now -->
 ---
 claim:
