@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-08-16T16:00:26Z_
+_As of 2026-08-16T16:08:54Z_
 
 ## Latest
 
-Two parallel gauntlets halted without converging ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) after six rounds, an unusual pattern worth diagnosing. The [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) orchestration halted on requeue exhaustion after a run-dispatch collision surfaced — the fixer path is blocked pending your "additively resolve" decision on whether to keep the registry path as default. Several rebased PRs await re-approval on their new heads: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer smoke tests), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877) (endor dual build). [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (endo http mk) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) both hit design collisions with already-landed work and need your call on close-vs-rework. A yarn cache hardlink ceiling (65k ext4 limit) hit on one host and is now blocking fresh installs fleet-wide. The gateway stack ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endojs/endo-but-for-bots#420](https://github.com/endojs/endo-but-for-bots/pull/420)) has phase-2 and phase-3 freshly restacked onto `llm`; the remaining phases need sequential restacking per the discipline. Budget enforcement design landed; gating it live awaits your weekly token-cap input. The byteArray stack ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is complete and green, gated on your re-review and un-draft.
+The byteArray program completed and shipped green on all fronts — [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) are all CI-clear and waiting only on maintainer re-review to clear the CHANGES_REQUESTED gates. The OCapN transport root [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) has one Node 24.x test failure blocking the stack; [endojs/endo-but-for-bots#683](https://github.com/endojs/endo-but-for-bots/pull/683)'s live OCapN/Noise demo over raw TCP proved the transport on minion.town and is ready to publish. Test262 fixture consolidation landed draft [endojs/endo-but-for-bots#946](https://github.com/endojs/endo-but-for-bots/pull/946) with a design choice on metering-corpus separation awaiting your call. Multiple PRs need maintainer approvals on current heads after rebases ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)); two gauntlets halted at max iterations ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) requiring panel/fix scope decisions. minion.town's Public Suffix List entry for ocap.site is ready to ferry upstream, and DNS/DNSSEC setup awaits your authorization; B5 (toy-tools retirement) needs your call on how to close deployed-edge validation. A deployment gap was found: the current root lacks dependabot auto-merge support that landed on main2, blocking four queued dependabot PRs from conducting.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 8h)
-- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 8h)
+- [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 9h)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
@@ -346,18 +346,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Branch head: design/weblet-gateway (pushed). Panel state: converging on prose polish
 > + this OQ7 decision; not driven to a formal "pass" because the residual is your call.
 
-- `20260806T065908Z-b00670` — from gardener:endojs-endo-but-for-bots-pr877-finalize, reply_to `endojs-endo-but-for-bots-pr877-finalize` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T065908Z-b00670.md)
-
-> Conductor for [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) (feat/endor-npm-dual-build-execution → llm).
->
-> Status: un-drafted, OPEN, MERGEABLE, CI in flight. NOT merged — blocked on re-approval.
->
-> Why: the blocking rebase job (pr877-rebase) resolved the base conflict and force-pushed a new head `c48a7d83d` at 06:49Z, AFTER kriskowal's APPROVED review (06:31Z, on commit `58bdaa60f`). The rebase changed the tree (conflict resolution preserving base dependency-edge / shared-endowment / bundle-doc changes alongside the PR's self-reference + text-codec work), so the deterministic maintainer-approval gate correctly treats the prior approval as stale — there is no APPROVED review on the current head.
->
-> Action needed: kriskowal (or a journal maintainer) re-approves [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) at head `c48a7d83d`. Once re-approved and CI is green, re-post a merge/conduct job (or say `merge endojs/endo-but-for-bots#877`) and it will land with `--merge`. Repo has no auto-merge enabled, so I cannot pre-arm `--auto`.
->
-> Base is live `llm` (not a frozen snapshot) — no unfreeze needed. No CI failures observed yet (all checks still pending at report time).
-
 - `20260806T144506Z-483fab` — from gardener:endojs-endo-but-for-bots-pr876-shepherd, reply_to `endojs-endo-but-for-bots-pr876-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260806T144506Z-483fab.md)
 
 > PR [https://github.com/endojs/endo-but-for-bots/pull/876](https://github.com/endojs/endo-but-for-bots/pull/876) cannot dispatch CI at head f0a0d58eaeb62cda5354543b2a7b2b09d560fd01 because GitHub reports mergeable=CONFLICTING, mergeStateStatus=DIRTY, and an empty statusCheckRollup. The referenced review was re-fetched as an empty-body APPROVED review by kriskowal. next: weaver
@@ -608,41 +596,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One maintainer-only input gates turning it live: the per-account weekly TOKEN cap. It is not machine-readable from a Max subscription. Two ways to supply it — (a) read each account's weekly token ceiling off Claude Code's /usage panel and I/we seed config/budget-pools, or (b) greenlight building the already-designed phase-2 weekly-capacity-calibration.sh (recurring-budget-calibration.md) to MEASURE it (max billable tokens over the trailing four weeks). Until a number exists the gates stay off (transparent). No build is queued yet — this was design-only. The other open questions (account-asymmetry policy given hasExtraUsageEnabled true on one host / false on the other; gate at 0.85 vs 1.0 for directed work; leveling shape) are in the doc's §10.
 
-- `20260816T052256Z-02a6ed` — from gardener:endojs-endo-but-for-bots-pr389-conduct, reply_to `endojs-endo-but-for-bots-pr389-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T052256Z-02a6ed.md)
-
-> conductor STALL — [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) (gateway admin daemon, phase 3 of [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/issues/343))
->
-> You approved [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) at its exact head (ea06d79b, 05:15Z) and CI
-> is all-green, but I cannot conduct the merge: it would not reach a live trunk, and the
-> path to trunk is blocked upstream in the stack.
->
-> Why it can't merge as-is:
->   - The PR's base is `design/gateway-package-phase-2` (a stacked feature branch), NOT
->     llm/main/master. The PR body's own "Restacking discipline" says the stack lands
->     bottom-up: phase-2 must land to trunk first, then the PR rebases onto the new base.
->   - That predecessor, [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) (phase 2), is CLOSED and never merged.
->     Its last review was CHANGES_REQUESTED (you, 2026-06-02). It auto-closed 2026-06-30 as
->     collateral when [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/issues/343) (phase 1) merged and deleted its base
->     branch `design/gateway-package` (base_ref_deleted cascade), 2s after phase 1 merged.
->   - Phase-2's content is not in llm, and the whole phase-2..phase-12 stack (this PR plus
->     the phase-4..phase-12 PRs `#392 #393 #394 #395 #396 #397 #409 #413 #420` in the same
->     repo) still sits on a stale llm (~a1dcc70, weeks old).
->
-> So merging now would pile phase-3 onto a dead, non-trunk branch that carries phase-2's
-> unapproved / changes-requested content and reaches no trunk — a discipline violation the
-> conductor won't force.
->
-> Recommended path (a weaver/orchestration decision, not the conductor's to make):
->   1. Re-land phase 2 bottom-first: reopen [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) (or open a fresh
->      phase-2 -> llm PR), address its CHANGES_REQUESTED, restack onto current llm, land it.
->   2. Then restack [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) onto llm (base retargets to llm) and
->      re-run the gauntlet / re-approve the rebased head; a fresh conduct job then merges it.
->   3. The rest of the stack restacks upward per the same discipline.
->
-> I left the PR in draft and untouched (no un-draft, no merge) since it isn't actually
-> landable yet. Want me to post a weave/orchestration job to re-land the gateway stack
-> bottom-up, starting with phase 2?
-
 - `20260816T062734Z-322a21` — from gardener:endojs-endo-but-for-bots-pr388-reopen-refresh, reply_to `endojs-endo-but-for-bots-pr388-reopen-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T062734Z-322a21.md)
 
 > Re [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) "reopen and refresh" (review 4945543700) — done, plus the direct child restacked.
@@ -800,24 +753,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
 
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr340-shepherd-20260816` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr340-shepherd-20260816.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr340-shepherd-20260816' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $1086.72 _(notional, rate-card)_ | no quota set |
+| Claude | 64.4M | $1088.28 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endo-but-for-bots-pin-node-24x-ci`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-pin-node-24x-ci.md) — ---
+- [`endojs-endo-but-for-bots-pr389-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-undraft.md) — ---
 - [`monk-finish-gardener-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/monk-finish-gardener-rename.md) — Finish the gardener -> monk worker-kind rename
 
 ### tada (4896)
