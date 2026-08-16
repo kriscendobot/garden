@@ -27,3 +27,13 @@ CI CANNOT CATCH A WRONG RESOLUTION HERE. entry_walk's 35 tests are self-containe
 Also note #279 is still OPEN, unapproved and CONFLICTING, and #282 carries #279's commits via the stack merge, so landing #282 lands Phase 4 and Phase 5 together and empties #279. Say so in your report; do not close #279 yourself.
 
 handler-timeout: 7200
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T06:38:38Z
