@@ -19,6 +19,7 @@ the conductor bar requires a fresh maintainer approval at the current head, and
 that approval is the maintainer's to give. Report the un-drafted head sha and
 the result of the content comparison.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
