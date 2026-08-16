@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:19:14Z_
+_As of 2026-08-16T06:27:49Z_
 
 ## Latest
 
@@ -1115,6 +1115,29 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > landable yet. Want me to post a weave/orchestration job to re-land the gateway stack
 > bottom-up, starting with phase 2?
 
+- `20260816T062734Z-322a21` — from gardener:endojs-endo-but-for-bots-pr388-reopen-refresh, reply_to `endojs-endo-but-for-bots-pr388-reopen-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T062734Z-322a21.md)
+
+> Re [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) "reopen and refresh" (review 4945543700) — done, plus the direct child restacked.
+>
+> **[endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) (phase-2) — REOPENED + refreshed.** [https://github.com/endojs/endo-but-for-bots/pull/388](https://github.com/endojs/endo-but-for-bots/pull/388)
+> - Rebased design/gateway-package-phase-2 onto origin/llm (--onto llm 1a735308de). 7 clean commits; HEAD is the typed-array review note (af550587f).
+> - Ported phase-2's type additions onto llm's new layout: getBootstrap on Gateway, crypto/clock on GatewayPowers now live in packages/gateway/src/types.ts (not re-added as inline index.js typedefs); udsBootstrap→sockBootstrap propagated; module cross-refs (AppsNameHub) repointed to types.js.
+> - Verified green locally: packages/gateway tsc clean, eslint 0 errors, 125 tests pass.
+> - Base retargeted deleted design/gateway-package → llm; commitCount now 7.
+> - Reopen mechanics note: GitHub blocked reopen ("head force-pushed after close"). I restored the head to its remembered SHA, reopened, retargeted base to llm, then re-pushed the rebased head, and deleted the transient base branch. Net final state is correct.
+>
+> **[endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) (phase-3) — RESTACKED.** [https://github.com/endojs/endo-but-for-bots/pull/389](https://github.com/endojs/endo-but-for-bots/pull/389)
+> - Rebased design/gateway-package-phase-3 onto the new phase-2 head. 2 clean commits (c7307a12a), base still design/gateway-package-phase-2.
+> - Ported phase-3's additions the same way: getAdmin on Gateway, resourceLedger on GatewayPowers into types.ts; admin.js/admin.test.js cross-refs repointed to types.js.
+> - Verified green: tsc clean, eslint 0 errors, 158 tests pass.
+>
+> **Remaining chain — NOT restacked (needs your sequencing).** Each phase branch is built on the prior phase branch, so the force-pushes above rewrote their bases. They must be restacked serially, in order, each onto its now-rewritten parent:
+>   [endojs/endo-but-for-bots#392](https://github.com/endojs/endo-but-for-bots/issues/392) phase-4 (base phase-3) → phase-5 branch → [endojs/endo-but-for-bots#394](https://github.com/endojs/endo-but-for-bots/issues/394) phase-6 (base phase-5) → [endojs/endo-but-for-bots#395](https://github.com/endojs/endo-but-for-bots/issues/395) phase-7 → [endojs/endo-but-for-bots#396](https://github.com/endojs/endo-but-for-bots/issues/396) phase-8 → [endojs/endo-but-for-bots#397](https://github.com/endojs/endo-but-for-bots/issues/397) phase-9 → [endojs/endo-but-for-bots#409](https://github.com/endojs/endo-but-for-bots/issues/409) phase-10 → [endojs/endo-but-for-bots#413](https://github.com/endojs/endo-but-for-bots/issues/413) phase-11 → [endojs/endo-but-for-bots#420](https://github.com/endojs/endo-but-for-bots/issues/420) phase-12
+>   plus [endojs/endo-but-for-bots#410](https://github.com/endojs/endo-but-for-bots/issues/410) (endo gateway cli/systemd, base phase-9) and [endojs/endo-but-for-bots#412](https://github.com/endojs/endo-but-for-bots/issues/412) (distribution packaging, base phase-10).
+> Note: no phase-5 PR appeared in the set ([endojs/endo-but-for-bots#394](https://github.com/endojs/endo-but-for-bots/issues/394) phase-6 bases on design/gateway-package-phase-5) — flagging in case phase-5 is a bare branch or a PR I wasn't given.
+>
+> Each early restack carries the same non-trivial port as [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389): llm relocated the gateway type layout into src/types.ts, and every phase that still re-adds inline Gateway/GatewayPowers typedefs (or imports moved types from config.js/vhost.js) must be ported onto types.js, not merely conflict-resolved. Later phases whose diffs don't touch the moved types should restack more cheaply. Happy to take them one at a time — say the word (e.g. "weave 392") and I'll do the next.
+
 - `doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr132-gauntlet-clean-elapsed-constancy.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 2 elapsed-constancy confirmations on endolin-garden2-5bcdff64.
@@ -1343,7 +1366,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.4M | $828.70 _(notional, rate-card)_ | no quota set |
+| Claude | 46.6M | $834.76 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
