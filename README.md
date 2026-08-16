@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:32:57Z_
+_As of 2026-08-16T06:35:15Z_
 
 ## Latest
 
@@ -193,80 +193,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T015927Z-a33a90` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T015927Z-a33a90.md)
 
 > Report `endojs-endo-but-for-bots-pr124-feedback-triage` needs your call on which sense of "sqlite bindings ready" gates [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) — that is the only thing blocking its resume trigger. The same report also asks you to promote the parked plan job `garden-style-url-not-path`, which is a go-ahead gate only you can open.
-
-- `20260729T020407Z-23ab55` — from gardener:endojs-endo-but-for-bots-pr282-148f5c93, reply_to `endojs-endo-but-for-bots-pr282-148f5c93` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T020407Z-23ab55.md)
-
-> # endo-but-for-bots [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) rebase: the branch's premise was superseded on `llm`
->
-> Working `endojs-endo-but-for-bots-pr282-148f5c93` ("rebase, resolve conflicts,
-> shepherd, conduct" on [https://github.com/endojs/endo-but-for-bots/pull/282](https://github.com/endojs/endo-but-for-bots/pull/282)).
-> I stopped before pushing — this is the weaver's "premise no longer holds"
-> escalation, not a conflict I should resolve on my own judgment.
->
-> ## What I found
->
-> [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) is Phase 5 of `designs/endor-run-expanded.md` (entry-point run with
-> **local `node_modules`** dependency walking), stacked on [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279) (Phase 4,
-> no-deps). Both were authored in May and are 1151 commits behind `llm`.
->
-> Since then, `llm` independently shipped the SAME CLI surface —
-> `endor run <entry.js>` — through `designs/endor-npm-registry-proxy.md`
-> Phases 4/5, in merged PRs [endojs/endo-but-for-bots#799](https://github.com/endojs/endo-but-for-bots/issues/799), [endojs/endo-but-for-bots#800](https://github.com/endojs/endo-but-for-bots/issues/800), [endojs/endo-but-for-bots#803](https://github.com/endojs/endo-but-for-bots/issues/803), [endojs/endo-but-for-bots#805](https://github.com/endojs/endo-but-for-bots/issues/805), [endojs/endo-but-for-bots#812](https://github.com/endojs/endo-but-for-bots/issues/812), [endojs/endo-but-for-bots#818](https://github.com/endojs/endo-but-for-bots/issues/818), [endojs/endo-but-for-bots#862](https://github.com/endojs/endo-but-for-bots/issues/862). That's
-> `rust/endo/src/assemble.rs` + `cmd_run_entry`: MVS resolution, registry-table
-> fetch into the CAS, `.npmrc`/`--registry`/`--offline`, top-level await,
-> referrer-relative resolution, full CJS require linkage.
->
-> [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282)'s own body named this as its blocker: out-of-scope item 3 was "registry-table
-> lookup for remote dependencies — requires endor-npm-registry-proxy Phase 4, which
-> is itself blocked on the registry-proxy work." **That blocker is gone; the
-> registry-proxy line delivered the whole feature.**
->
-> And the two approaches are deliberately opposed. `assemble.rs`'s own doc comment:
-> "ingests the entry package's own files into the CAS as a tree (skipping
-> `node_modules` and VCS metadata — **the whole point is that no `node_modules`
-> tree is consulted**)." [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) exists to consult `node_modules`.
->
-> ## Why I can't resolve this mechanically
->
-> The rebase conflicts are narrow — `designs/README.md` (trivial, resolved) and
-> five hunks in `rust/endo/src/bin/endor.rs`. Everything else (`entry_walk.rs`,
-> `run_input.rs`, `cas_archive.rs`, `lib.rs`) auto-merged; `llm` has no reference
-> to `entry_walk` or `run_input` at all.
->
-> But one of those hunks is the `run` dispatch, and there both sides claim the same
-> input:
->
-> - `llm`:  `is_entry_module(p)` -> `cmd_run_entry(...)`        (registry path)
-> - [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282):  `classify_run_input(p)` -> `cmd_run_entry_point_with_cas(...)`  (node_modules path)
->
-> Picking either one silently deletes a shipped feature or turns [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282)'s 2300 lines
-> of `entry_walk.rs` into dead code. CI cannot catch the mistake: `entry_walk`'s 35
-> tests are self-contained lib tests that pass whichever way the dispatch goes, so a
-> green board would not mean the merge was right.
->
-> Also worth knowing: [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279) is still OPEN, unapproved, and also CONFLICTING. Your
-> approval is on [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282), which carries [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279)'s commits via the stack merge — so
-> conducting [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) lands Phase 4 + Phase 5 together and empties [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279).
->
-> ## What I need from you
->
-> 1. **Close [endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279) and [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) as superseded** (my recommendation). Then the only work
->    left is a docs commit updating `designs/endor-run-expanded.md`'s Status — it
->    still reads "Remaining: Phase 3 (directory input), Phase 4-5 (entry-point with
->    compartment mapper)" on `llm`, which is now wrong — to record that Phases 4-5
->    were delivered by the registry-proxy line, and that the local-`node_modules`
->    case was dropped by design.
->
-> 2. **Land [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/issues/282) additively, non-default.** Keep `llm`'s registry path as the
->    default for `.js/.mjs/.cjs` and gate the `node_modules` walker behind an
->    explicit flag (`endor run --node-modules <entry.js>`). ~40 lines of
->    reconciliation in `endor.rs` plus help text; I can finish it in this job.
->    Worth it only if the vendored / no-registry / private-`node_modules` case is
->    one you want supported — that is the one thing `assemble.rs` genuinely cannot do.
->
-> 3. Something else — say the word and I'll do it.
->
-> Say **1**, **2**, or describe **3**; I'm holding the rebase (nothing pushed).
 
 - `20260729T023815Z-67a944` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023815Z-67a944.md)
 
@@ -1366,29 +1292,29 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.6M | $835.47 _(notional, rate-card)_ | no quota set |
+| Claude | 46.6M | $836.46 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (2)
-- [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr475-integrate-endo-ascii.md) — ---
-- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-weave.md) — ---
+### todo (0)
+(none)
 
-### doin (6)
+### doin (7)
+- [`ebfb-pr475-integrate-endo-ascii`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr475-integrate-endo-ascii.md) — ---
 - [`endojs-endo-but-for-bots-pr282-review-c41f9d4a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-review-c41f9d4a.md) — Review directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr340-shepherd-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-shepherd-20260816.md) — ---
-- [`endojs-endo-but-for-bots-pr398-review-262cd801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-review-262cd801.md) — Review directive on endojs/endo-but-for-bots PR #398
 - [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
+- [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr937-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #995
 
-### tada (4856)
+### tada (4857)
+- [`endojs-endo-but-for-bots-pr398-review-262cd801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-review-262cd801.md) — Completion report — review directive on endojs/endo-but-for-bots #398
 - [`endojs-endo-but-for-bots-pr992-review-9566dff9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-review-9566dff9.md) — Completion report
 - [`endojs-endo-but-for-bots-pr388-reopen-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-reopen-refresh.md) — Completion report: reopen + refresh endojs/endo-but-for-bots PR #388
 - [`design-endo-claude-mcp-groundwork`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-endo-claude-mcp-groundwork.md) — Completion report
 - [`endojs-endo-but-for-bots-pr388-review-04154a91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-review-04154a91.md) — Completion report — review directive on endojs/endo-but-for-bots #388
-- [`endojs-endo-but-for-bots-pr995-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-panel-1.md) — Completion report
-- … and 4851 more
+- … and 4852 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
