@@ -47,6 +47,27 @@ wt="${1:?usage: panel.sh <worktree> <pr> [base]}"
 pr="${2:?pr number}"
 base="${3:-HEAD~1}"
 
+# Normalize a bare local base branch to its remote-tracking tip before ANY diff.
+# A gauntlet dispatch passes the PR base as a bare branch name (e.g. `llm`), but
+# the per-job project worktree's LOCAL `llm` can be days stale against `origin/llm`
+# (a shallow warm-cache checkout does not fast-forward local branches). Diffing
+# `git diff llm...HEAD` then folds in every commit the base advanced by since the
+# fork point: on endojs/endo-but-for-bots#995 the local `llm` lagged origin by a
+# day, so a design-only 2-file PR reviewed as a 17-file/2128-line code panel, and
+# the disposition was decided over unrelated files not in the PR. This recurred
+# across PRs #970 and #995 eight days apart because the proposed fix never landed.
+# Fix: when the base is a bare name (no `/`, not a sha/HEAD~N) and `origin/<base>`
+# resolves, use the remote-tracking ref, which the fork clone keeps current. An
+# explicit `origin/...`, a sha, or a `HEAD~N` base is left untouched.
+case "$base" in
+  */*|HEAD*|[0-9a-f][0-9a-f][0-9a-f][0-9a-f]*) ;;   # already-qualified / sha / HEAD~N
+  *)
+    if git -C "$wt" rev-parse --verify --quiet "refs/remotes/origin/$base^{commit}" >/dev/null 2>&1; then
+      base="origin/$base"
+    fi
+    ;;
+esac
+
 # The repo under review, derived from the worktree's own origin remote — NOT
 # from wherever panel.sh happens to be invoked. A seat is a bare `claude -p`
 # whose cwd is the caller's (typically the garden root), so a prompt that named
