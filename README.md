@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T15:39:01Z_
+_As of 2026-08-16T15:57:27Z_
 
 ## Latest
 
@@ -189,10 +189,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (PRs 811, 819, 690, 825) is still entirely unmerged. Asked on the PR at
 > [https://github.com/endojs/endo-but-for-bots/pull/124](https://github.com/endojs/endo-but-for-bots/pull/124)#discussion_r3670370164 . [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124)
 > stays draft and unrebased until answered.
-
-- `20260729T015927Z-a33a90` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T015927Z-a33a90.md)
-
-> Report `endojs-endo-but-for-bots-pr124-feedback-triage` needs your call on which sense of "sqlite bindings ready" gates [endojs/endo-but-for-bots#124](https://github.com/endojs/endo-but-for-bots/issues/124) — that is the only thing blocking its resume trigger. The same report also asks you to promote the parked plan job `garden-style-url-not-path`, which is a go-ahead gate only you can open.
 
 - `20260729T023815Z-67a944` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023815Z-67a944.md)
 
@@ -1161,7 +1157,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.0M | $1084.00 _(notional, rate-card)_ | no quota set |
+| Claude | 64.1M | $1086.23 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
