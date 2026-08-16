@@ -38,15 +38,4 @@ The prior CI run also showed a `test (22.x, macos-15)` timeout flake
 ("Timed out while running tests" in the @endo/agentry eval suite) — after the
 rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-16T20:24:22Z
+<!-- garden-reaped: 1 -->
