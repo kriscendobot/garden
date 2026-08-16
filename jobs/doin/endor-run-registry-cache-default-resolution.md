@@ -31,6 +31,7 @@ endor-run-expanded and endor-npm-registry-proxy design lines.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
