@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T23:20:42Z_
+_As of 2026-08-16T23:22:03Z_
 
 ## Latest
 
@@ -1038,17 +1038,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #856
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260816-232003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260816-232003.md) — ---
 
-### tada (4913)
+### tada (4914)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260816-232003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260816-232003.md) — Cost
 - [`endojs-endo-but-for-bots-pr1009-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1009-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots#1009 (npm-packlist 1...
 - [`endojs-endo-but-for-bots-pr878-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr878-conduct.md) — Completion report
 - [`kriscendobot-proposal-compartments-pr3-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-proposal-compartments-pr3-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1008-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1008-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1003-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1003-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1003
-- … and 4908 more
+- … and 4909 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
