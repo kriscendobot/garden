@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # weave directive on endojs/endo-but-for-bots PR #897
@@ -37,13 +38,4 @@ The prior CI run also showed a `test (22.x, macos-15)` timeout flake
 ("Timed out while running tests" in the @endo/agentry eval suite) — after the
 rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T20:14:26Z
+<!-- garden-reaped: 0 -->
