@@ -1,0 +1,10 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Weave (rebase) https://github.com/endojs/endo-but-for-bots/pull/877 (feat(endor): execute dual-build npm packages) onto current llm.
+
+State verified 2026-08-16: OPEN, non-draft, mergeStateStatus DIRTY, head c48a7d83d, CI 25/25 green on the stale base. Its conductor stopped because the PR is not mergeable.
+
+After the rebase lands and CI is green, hand off for maintainer review.
