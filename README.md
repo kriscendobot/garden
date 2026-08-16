@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-16T21:26:57Z_
+_As of 2026-08-16T21:31:15Z_
 
 ## Latest
 
-The OCapN Noise transport stack landed its TCP transport validation over live minion.town (cross-host proven on both WebSocket and raw TCP); [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (stack root) is approved and awaiting merge once CI clears the Node 24.x flake. The byteArray work—frozen Uint8Array views plus immutable-arraybuffer emulation—has both layers green and gated on re-review of [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) to clear CHANGES_REQUESTED; finish-line integration ([#888](https://github.com/endojs/endo-but-for-bots/pull/888)) is drafted and ready for review. The gateway package phase stack ([#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), and nine downstream phases) was refreshed onto llm; phases 2–3 are restacked and green, remaining phases parked pending serial restack. CI infrastructure: Node 24.x flake ([nodejs/node#65195](https://github.com/nodejs/node/issues/65195)) pinned in [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000); once merged, [#340](https://github.com/endojs/endo-but-for-bots/pull/340) and [#877](https://github.com/endojs/endo-but-for-bots/pull/877) inherit the fix. Budget enforcement design landed on main2 and is awaiting a per-account weekly token cap to turn live; live-host minion.town work completed ocap.site domain setup with DNSSEC pending your authorization. Two gauntlets halted at max iterations ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)), several PRs blocked on stale maintainer approvals post-rebase ([#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324)), and multiple design collisions surfaced for decision ([#286](https://github.com/endojs/endo-but-for-bots/pull/286) vs exo-http-client, [#301](https://github.com/endojs/endo-but-for-bots/pull/301) superseded by live error-tracing).
+The Node.js 24.x flake in better-sqlite3 was pinned in [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (now merged), unblocking re-runs of [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [#877](https://github.com/endojs/endo-but-for-bots/pull/877) once deployed. The byteArray program is code-complete and CI-green on both [#475](https://github.com/endojs/endo-but-for-bots/pull/475) (plain frozen Uint8Array) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (immutable-arraybuffer shim)—awaiting maintainer re-review to clear CHANGES_REQUESTED and land both. Gateway phases [#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [#389](https://github.com/endojs/endo-but-for-bots/pull/389) were rebased onto llm's refactored type layout; [#388](https://github.com/endojs/endo-but-for-bots/pull/388) is verified green. Two design collisions surfaced: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (endo http mk) is shadowed by the landed exo-http-client + endo-fetch, and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is superseded by landed error-tracing behind a diagnostics facet—both need closure or re-scope calls. Several rebased PRs ([#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324)) now have stale maintainer approvals and need re-approval to merge; [#324](https://github.com/endojs/endo-but-for-bots/pull/324) also surfaced a lint error requiring a fix before merge. The dependabot auto-conduct bypass landed on main2 but wasn't deployed, so all MERGE-NOW dependabot PRs are stalling on approval—a deploy will fix it. Infrastructure: yarn cache hit ext4's 65k hardlink ceiling (a per-worktree issue on endolin-garden-ece02cb4). Several oversized jobs were parked for timeout overruns; they need splitting into claim-sized stages. OCapN transport is fully proven: cross-host capability round-trip over both WebSocket and raw TCP ([#693](https://github.com/endojs/endo-but-for-bots/pull/693)).
 
 ## Parked for maintainer feedback
 
@@ -1009,16 +1009,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.1M | $924.80 _(notional, rate-card)_ | no quota set |
-| Codex | 23.8M _(+692.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 58.2M | $925.22 _(notional, rate-card)_ | no quota set |
+| Codex | 23.8M _(+688.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1008-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1008-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1008
 - [`endojs-endo-but-for-bots-pr1009-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1009-dependabot.md) — botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1009
+- [`endojs-endo-but-for-bots-pr878-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr878-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #878
 
 ### tada (4910)
 - [`endojs-endo-but-for-bots-pr1003-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1003-dependabot.md) — Completion report — botanist on endojs/endo-but-for-bots PR #1003
