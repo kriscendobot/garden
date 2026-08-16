@@ -85,3 +85,13 @@ run on each host. This job changes neither a deployed checkout nor a live unit â
 hand the deploy/cutover back to the liaison.
 
 
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T15:38:49Z
