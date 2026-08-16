@@ -21,6 +21,7 @@ Acceptance: re-run the authoritative full-suite report against the pinned corpus
 
 handler-timeout: 7200
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
