@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 2
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-16T21:23:05Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-16T21:23:05Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -37,17 +54,3 @@ weaver task per roles/shepherd/AGENT.md "Conflicting PRs block CI dispatch").
 The prior CI run also showed a `test (22.x, macos-15)` timeout flake
 ("Timed out while running tests" in the @endo/agentry eval suite) — after the
 rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
-
-<!-- garden-reaped: 1 -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-16T20:33:48Z
