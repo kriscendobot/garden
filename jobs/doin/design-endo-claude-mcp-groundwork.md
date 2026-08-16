@@ -81,3 +81,13 @@ without them, treat this as the revision cycle — same target file,
    than leaving all three equally open, and say why.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T06:03:12Z
