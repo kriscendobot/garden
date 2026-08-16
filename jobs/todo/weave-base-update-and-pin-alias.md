@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Fold "pin the merge base" into `weave` as an alias, and correct weave's documented definition to state the base update it already performs.
@@ -21,13 +22,4 @@ This is a tested hot path. Extend the comment-watcher tests: the imperative alia
 
 Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T06:40:32Z
+<!-- garden-reaped: 0 -->
