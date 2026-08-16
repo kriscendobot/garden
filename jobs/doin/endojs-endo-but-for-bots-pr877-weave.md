@@ -11,3 +11,13 @@ State verified 2026-08-16: OPEN, non-draft, mergeStateStatus DIRTY, head c48a7d8
 After the rebase lands and CI is green, hand off for maintainer review.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:53:20Z
