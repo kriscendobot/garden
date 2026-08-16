@@ -36,3 +36,13 @@ weaver task per roles/shepherd/AGENT.md "Conflicting PRs block CI dispatch").
 The prior CI run also showed a `test (22.x, macos-15)` timeout flake
 ("Timed out while running tests" in the @endo/agentry eval suite) — after the
 rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T20:14:26Z
