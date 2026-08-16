@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:16:06Z_
+_As of 2026-08-16T05:17:27Z_
 
 ## Latest
 
@@ -1411,9 +1411,10 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #337
+- [`endojs-endo-but-for-bots-pr389-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #389
 
 ### tada (4844)
 - [`endojs-endo-but-for-bots-pr348-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr348-refresh.md) — Completion report
