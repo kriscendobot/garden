@@ -1,1 +1,2 @@
 {"ts":"2026-08-16T20:02:40Z","base":"kriscendobot-proposal-compartments-pr1-conduct","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"result","model":"claude-opus-4-8","num_turns":12,"elapsed_s":98,"input_tokens":23,"output_tokens":4056,"cache_creation_tokens":36926,"cache_read_tokens":529097,"total_cost_usd":0.7376515,"ts":"2026-08-16T20:17:11Z","base":"kriscendobot-proposal-compartments-pr1-conduct","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"conductor"}
