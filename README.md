@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-16T21:04:34Z_
+_As of 2026-08-16T21:14:30Z_
 
 ## Latest
 
-Node 24.x CI flakiness pinned ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) to unblock [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475); auto-conduct for dependabot is also ready but needs a deploy to land (`canonical_bot_login` fix on main2). Gateway package phases 2–3 refreshed and restacked after llm's type layout restructure ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) / [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)), with the full chain phases 4–12 awaiting re-stacking serially. Multiple high-value PRs remain parked awaiting your re-approval on rebased heads after conflict resolution: [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (stale, now superseded—close or redesign?), [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (superseded by landed error-tracing), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (primer smoke tests), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream monitor). The byteArray work ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is green and waiting only for your re-review to clear CHANGES_REQUESTED. Several jobs have been doomed for timeout or requeue exhaustion—[endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (pin-rebase-reconcile), [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) shepherd, and [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) weave are parked and holding for re-promotion. Design work on [kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21) (weblet gateway) stayed draft per policy but is fully reconciled with shipped code; an identity-modeling decision (content-only vs. composite id) gates its next phase.
+OCapN and byteArray stacks advancing with blockers awaiting maintainer actions. [#340](https://github.com/endojs/endo-but-for-bots/pull/340) un-drafted and ready for merge; its dependent stack ([#684](https://github.com/endojs/endo-but-for-bots/pull/684), [#688](https://github.com/endojs/endo-but-for-bots/pull/688), [#693](https://github.com/endojs/endo-but-for-bots/pull/693)) will restack on merge. [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (byteArray design layers) all CI-green but waiting for re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish line) un-drafted and ready. Node 24.x flakiness root-caused and fixed in [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000); merge will unblock [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Several PRs discovered superseded ([#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#286](https://github.com/endojs/endo-but-for-bots/pull/286)) or blocked by design collisions; [#282](https://github.com/endojs/endo-but-for-bots/pull/282) stalled on rebase with a load-bearing resolution decision. Multiple conductors and weavers halted pending stale-head re-approvals or conflict resolution; fleet ready to move once those clear.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 13h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 14h)
 - [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856) — fix(endor): run ambiguous import-bearing .js entries as ESM (module-syntax detection) (waiting 14h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
@@ -893,14 +893,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr897-657aab6a' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-weave` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-weave.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr897-weave' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 58.5M | $936.17 _(notional, rate-card)_ | no quota set |
-| Codex | 24.1M _(+711.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 58.8M | $938.57 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+703.6M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
