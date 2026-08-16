@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T08:17:39Z_
+_As of 2026-08-16T08:28:25Z_
 
 ## Latest
 
@@ -1153,24 +1153,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.4M | $903.25 _(notional, rate-card)_ | no quota set |
+| Claude | 51.3M | $901.12 _(notional, rate-card)_ | no quota set |
 | Codex | 25.8M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #995
-- [`endojs-endo-but-for-bots-pr997-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr997-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #997
 
-### tada (4876)
+### tada (4877)
+- [`endojs-endo-but-for-bots-pr997-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-fix-1.md) — Completion report — FIX round 1, endojs/endo-but-for-bots PR #997
 - [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-branch-regression-fixer.md) — Completion report — ironhorse-branch-regression-fixer
 - [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr877-weave.md) — Completion report
 - [`endojs-endo-but-for-bots-pr997-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr997-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr997-gauntlet-clean.md) — Completion report
-- [`ebfb-worker-retention-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ebfb-worker-retention-design.md) — Completion report
-- … and 4871 more
+- … and 4872 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
