@@ -9,6 +9,7 @@ State verified 2026-08-16: OPEN, non-draft, mergeStateStatus UNSTABLE, head f081
 
 This is the transport root of the OCapN stack (340 -> 684 -> 688 -> 693), so getting it green unblocks the restack. Diagnose and fix the single failing job; do not rewrite unrelated history.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
