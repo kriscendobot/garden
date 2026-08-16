@@ -21,3 +21,13 @@ that approval is the maintainer's to give. Report the un-drafted head sha and
 the result of the content comparison.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-16T16:13:09Z
