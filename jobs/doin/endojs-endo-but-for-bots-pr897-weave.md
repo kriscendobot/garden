@@ -39,3 +39,13 @@ The prior CI run also showed a `test (22.x, macos-15)` timeout flake
 rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: hermit
+  tier: 
+  provider: local
+  model: 
+  claimed_at: 2026-08-16T20:24:22Z
