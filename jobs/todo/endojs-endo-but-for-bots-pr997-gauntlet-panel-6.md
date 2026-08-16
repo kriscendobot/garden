@@ -6,8 +6,9 @@ gauntlet: endojs-endo-but-for-bots-pr997-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 6
 pr: https://github.com/endojs/endo-but-for-bots/pull/997
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -39,13 +40,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
 
-<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-16T13:20:00Z -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-16T10:35:19Z
+<!-- garden-reaped: 0 -->
