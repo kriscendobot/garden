@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Follow-on to `design-endo-claude` (design an `@endo/claude` package: hermetic
@@ -79,13 +80,4 @@ without them, treat this as the revision cycle — same target file,
    `/mcp` as the remote/pooled-deployment path for v2. Recommend one rather
    than leaving all three equally open, and say why.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-16T05:52:36Z
+<!-- garden-reaped: 0 -->
