@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:51:11Z_
+_As of 2026-08-16T06:51:29Z_
 
 ## Latest
 
@@ -959,29 +959,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > One maintainer-only input gates turning it live: the per-account weekly TOKEN cap. It is not machine-readable from a Max subscription. Two ways to supply it — (a) read each account's weekly token ceiling off Claude Code's /usage panel and I/we seed config/budget-pools, or (b) greenlight building the already-designed phase-2 weekly-capacity-calibration.sh (recurring-budget-calibration.md) to MEASURE it (max billable tokens over the trailing four weeks). Until a number exists the gates stay off (transparent). No build is queued yet — this was design-only. The other open questions (account-asymmetry policy given hasExtraUsageEnabled true on one host / false on the other; gate at 0.85 vs 1.0 for directed work; leveling shape) are in the doc's §10.
 
-- `20260816T043249Z-9fac1a` — from gardener:ironhorse-test262-residual-rescope, reply_to `ironhorse-test262-residual-rescope` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T043249Z-9fac1a.md)
-
-> Re-scoping proposal: Ironhorse test262 completion residual (job ironhorse-test262-residual-rescope). PROPOSAL ONLY — I posted no children and relaunched nothing.
->
-> **Bottom line.** The full-suite report at head b3c3ae93 (the campaign's own authoritative measurement) disproves the js-26-as-mop-up premise: **23,427 actionable cases remain** and **41% of them (9,510) are generic `ironhorse-aborted`** — the downstream shadow of a handful of missing engine prerequisites, not a set of independent small gaps. The 58 parked jobs mostly inherited the 2400s default handler budget and were built on the "one handler closes a cluster" assumption that the data breaks. Continuing this way keeps burning budget (honest campaign spend is already 3,307,979 vs the 2,080,000 approved) without landing work.
->
-> **What I recommend (decisions I need from you):**
->
-> 1. **Stop the handler-per-cluster campaign; switch to milestone PRs.** The engine-completion residual is a multi-week, prerequisite-first engine effort. Only a few slices fit the ~3.98h (14,328s) claim cap as one-shot closures.
->
-> 2. **Landable now (fits the claim cap, proven pattern) — I'd promote these, rewritten to handler-timeout 14000:**
->    - The 9 `ironhorse-intl-*` ECMA-402 formatter families (host-only-exclusion pattern, already proven by child-20 + js-25). Best-scoped work in the queue.
->    - A dedicated **fixer** (7200s) for the accumulated branch regressions — 6 baseline-covered paths gone to `unsupported` + 185 RegExp negative over-acceptances (missing regex early-error validation). These put the branch *below* baseline; highest priority.
->    - A few bounded builtin families (Date 586, DataView/Atomics/resizable-buffer) at 10800–14000s.
->
-> 3. **Multi-day — need decomposition into landable increments or a different vehicle (NOT a handler):** RegExp u/v/unicode (u/v flag alone is 2,870 and cross-cutting — it also gates Temporal/String/language aborts), TypedArray/ArrayBuffer (3,109), language expr/stmt/eval (5,474), Object/Array/Reflect/Proxy MOP (3,589), eval/Function/dynamic-import. Each is prerequisite-first; the aborts cascade off them.
->
-> 4. **The 58 parked jobs:** DROP the 11 doomed ones (8 stale gauntlet-panel review artifacts + 3 deadline-overrun causal children); KEEP+rebudget the 9 intl families; CONSOLIDATE the ~37 over-fragmented js-26 causal sub-children back into per-family milestone jobs with real budgets (commit partial gains, don't require full closure); DROP `ironhorse-resume-3-launch` (it launches the disproven 21-child arc).
->
-> 5. **Open items:** js-25 death is already reconciled (in tada/, commits on branch, cargo green — no action). js-27/js-28: the interim report is published and adequate for this decision; block the *final* refresh only on the specific milestones you pick, not the whole residual.
->
-> Full proposal with per-cluster tables is in my completion report. Awaiting your call on scope/budget before anything is promoted.
-
 - `20260816T052256Z-02a6ed` — from gardener:endojs-endo-but-for-bots-pr389-conduct, reply_to `endojs-endo-but-for-bots-pr389-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T052256Z-02a6ed.md)
 
 > conductor STALL — [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389) (gateway admin daemon, phase 3 of [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/issues/343))
@@ -1050,7 +1027,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.7M | $861.97 _(notional, rate-card)_ | no quota set |
+| Claude | 48.8M | $862.48 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
