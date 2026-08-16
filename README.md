@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T06:48:32Z_
+_As of 2026-08-16T06:50:37Z_
 
 ## Latest
 
@@ -1050,7 +1050,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.7M | $860.99 _(notional, rate-card)_ | no quota set |
+| Claude | 48.7M | $861.78 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1065,19 +1065,19 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr389-stall-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-stall-comment.md) — ---
 - [`endojs-endo-but-for-bots-pr856-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr856-weave.md) — ---
 - [`endojs-endo-but-for-bots-pr877-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr877-weave.md) — ---
-- [`endojs-endo-but-for-bots-pr937-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr937-conduct.md) — ---
 - [`endojs-endo-but-for-bots-pr995-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #995
 - [`endor-run-compartment-mapper-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-compartment-mapper-fixture-parity.md) — Design: compartment-mapper test-fixture parity + drift safeguard for endor-run
 - [`endor-run-registry-cache-default-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endor-run-registry-cache-default-resolution.md) — Design/Build: endor-run non-workspace dependency resolution via the registry ...
+- [`ironhorse-branch-regression-fixer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-branch-regression-fixer.md) — ---
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 
-### tada (4859)
+### tada (4860)
+- [`endojs-endo-but-for-bots-pr937-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr937-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr388-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-shepherd.md) — Diagnosis
 - [`endojs-endo-but-for-bots-pr995-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-gauntlet-fix-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr398-review-262cd801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-review-262cd801.md) — Completion report — review directive on endojs/endo-but-for-bots #398
 - [`endojs-endo-but-for-bots-pr992-review-9566dff9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-review-9566dff9.md) — Completion report
-- [`endojs-endo-but-for-bots-pr388-reopen-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr388-reopen-refresh.md) — Completion report: reopen + refresh endojs/endo-but-for-bots PR #388
-- … and 4854 more
+- … and 4855 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1116,18 +1116,6 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`finbot-progress-20260730-020502-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-progress-20260730-020502-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — kriscendobot/finbot PR #5
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _normal_ · ---
-- [`ironhorse-js-00-report-harness-foundation-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-00-report-harness-foundation-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-01-lexer-parser-negatives-gauntlet-panel-3.md) — _normal_ · Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-02-errors-coercions-strict-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-02-errors-coercions-strict-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-03-object-mop-descriptors-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-04-functions-constructors-base-classes-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-05-derived-classes-private-decorators-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-26-ca-regexp-u-core-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ca-regexp-u-core-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ca-regexp-unicode-sets-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #970
-- [`ironhorse-js-26-cc-mop-gopd-keys`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-cc-mop-gopd-keys.md) — _normal_ · Object MOP residual 2/7: getOwnPropertyDescriptor coercion and index keys
-- [`ironhorse-js-26-ce-toprimitive-coercion`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ce-toprimitive-coercion.md) — _normal_ · Close residual: ToPrimitive object-to-primitive coercion (valueOf/toString/@@...
-- [`ironhorse-js-26-ch-async-fromasync-a-asyncfromsync`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-js-26-ch-async-fromasync-a-asyncfromsync.md) — _normal_ · Async child A.2: %AsyncFromSyncIteratorPrototype% via async-gen yield* / for ...
-- [`ironhorse-resume-3-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-resume-3-launch.md) — _normal_ · Launch the Ironhorse test262 campaign resume-3 (21 children, js-08..js-28)
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _normal_ · ---
 - [`kriscendobot-agoric-sdk-pr15-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-agoric-sdk-pr15-shepherd.md) — _normal_ · shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
 - [`measure-requeue-exit-knowledge-loss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/measure-requeue-exit-knowledge-loss.md) — _normal_ · Measure and close the cross-host gap in requeue session-resume
