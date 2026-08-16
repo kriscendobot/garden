@@ -2,3 +2,4 @@
 {"ts":"2026-08-16T20:17:15Z","base":"kriscendobot-proposal-compartments-pr3-refresh","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":41}
 {"ts":"2026-08-16T20:24:48Z","base":"kriscendobot-proposal-compartments-pr3-refresh","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":5}
 {"ts":"2026-08-16T20:35:16Z","base":"kriscendobot-proposal-compartments-pr3-refresh","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4}
+{"source":"result","model":"claude-opus-4-8","num_turns":22,"elapsed_s":245,"input_tokens":40,"output_tokens":13920,"cache_creation_tokens":53033,"cache_read_tokens":1096548,"total_cost_usd":1.428858,"ts":"2026-08-16T20:48:16Z","base":"kriscendobot-proposal-compartments-pr3-refresh","host":"endolin-garden-ece02cb4","outcome":"tada"}
