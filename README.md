@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T04:50:05Z_
+_As of 2026-08-16T05:01:13Z_
 
 ## Latest
 
@@ -1404,24 +1404,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.5M | $813.29 _(notional, rate-card)_ | no quota set |
+| Claude | 45.5M | $814.32 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr337-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #337
-- [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/narrow-retro-eligible-pipeline-op-gate.md) — ---
 
-### tada (4842)
+### tada (4843)
+- [`narrow-retro-eligible-pipeline-op-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/narrow-retro-eligible-pipeline-op-gate.md) — Completion report
 - [`ironhorse-test262-residual-rescope`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/ironhorse-test262-residual-rescope.md) — Completion report — ironhorse-test262-residual-rescope
 - [`mtown-git-remote-followup-notice-recheck-20260816`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260816.md) — Completion report
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260815-232002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260815-232002.md) — Cost
 - [`mtown-git-remote-followup-notice-recheck-20260815`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/mtown-git-remote-followup-notice-recheck-20260815.md) — Completion report
-- [`garden-budget-enforcement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-budget-enforcement.md) — Completion report — garden-budget-enforcement
-- … and 4837 more
+- … and 4838 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
