@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: gardener
+claimed_at: 2026-08-16T03:20:08Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-mtown-git-remote-followup-notice-recheck-20260816
