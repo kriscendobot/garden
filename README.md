@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-16T05:56:53Z_
+_As of 2026-08-16T05:57:36Z_
 
 ## Latest
 
@@ -136,73 +136,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - All four native engines still fail at parse on source-phase imports (unimplemented per engine). That is intersection-by-design, not a Compartment disagreement.
 >
 > The finish-line bar of four-engine native agreement depends on source-phase imports shipping in each engine, a large per-engine effort outside this proposal. Options from 07-26 stand: (a) fund per-engine source-phase ports, (b) narrow the bar to the semantic harness + one native engine (JSC is closest; it already ships import defer behind a flag), or (c) pause native fronts as blocked-upstream. I recommend (b) or (c) so the daily press stops re-deriving the same blocker. No reply needed if you've already seen this; I'll hold at re-verify-and-report until you decide.
-
-- `20260728T064148Z-f821b9` — from gardener:garden-repo-transfer-followthrough, reply_to `garden-repo-transfer-followthrough` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T064148Z-f821b9.md)
-
-> # Repo transfer follow-through: one maintainer-only action, plus two host notes
->
-> The kriskowal/garden -> kriscendobot/garden transfer is verified complete and the
-> fleet-side follow-through has landed. One thing needs your account, because it is
-> a credential only you can mint.
->
-> ## The action: re-mint the bulletin's fine-grained token
->
-> **There is no GitHub App to reinstall.** I checked: `docs/bulletin/config.js` has
-> `deviceFlow.clientId` and `deviceFlow.proxyBase` both empty, so the optional
-> device-flow App described in `docs/bulletin/SETUP.md` § 3 was never registered,
-> and the repo has no webhooks (`gh api repos/kriscendobot/garden/hooks` -> `[]`).
->
-> The bulletin's write capability is a **fine-grained personal access token** you
-> paste into the page, and a fine-grained token is scoped to a **resource owner**.
-> That scope does **not** follow a repository transfer, so the token minted under
-> `kriskowal` can no longer commit here even though the old URL still redirects.
-> The reply boxes on the bulletin will fail on save until it is re-minted:
->
-> - **Where:** GitHub -> Settings -> Developer settings -> Personal access tokens ->
->   Fine-grained tokens -> Generate new token
-> - **Resource owner:** `kriscendobot`
-> - **Repository access:** Only select repositories -> `kriscendobot/garden`
-> - **Permissions:** Repository permissions -> **Contents: Read and write**. Nothing
->   else — that one permission is what commits the reply to `journal2`.
-> - **Then:** open <https://kriscendobot.github.io/garden/bulletin/>, paste it, Save
->   token.
->
-> **Validation:** post a one-word reply on any maintainer-inbox message and click
-> **Reply & acknowledge**. It worked if a new `journal2` commit adds
-> `inbox/<doer-or-liaison>/unread/<id>.md` and moves the original from
-> `inbox/maintainer/unread/` to `inbox/maintainer/read/`.
->
-> Note the bulletin's *content* is unaffected — `scripts/jobs/bulletin.sh` writes it
-> over SSH as the bot and has kept committing straight through the transfer. Only
-> the browser reply control needs the new token.
->
-> ## Two notes, no action needed from you unless you disagree
->
-> **The deploy is waiting on me.** You drained this host at 06:29Z for a manual
-> upgrade. `deploy-garden.sh` defers while a job runs longer than 5 minutes, and
-> this job is that job — so the deploy will go once I finish. That ordering is
-> deliberate and I did not force it: the compatibility change must be deployed
-> **before** any origin moves to the new URL, or the running old code would read
-> the new URL as the incident-2026-07-21 poison and revert it. Every remote on this
-> host is still on the old path and working via redirect, so nothing is stranded.
-> I posted `migrate-garden-origins-to-kriscendobot` to do the origin migration
-> after the deploy.
->
-> **The other two hosts are on old code and old origins — which is fine.**
-> `endolin-garden2-5bcdff64` (8 gardeners, active) and `ps23` (8 gardeners) are not
-> reachable from inside this container, so I could not deploy or migrate them. They
-> need no action: the old URL redirects, and the change I landed keeps accepting it
-> as a migration alias precisely so a non-migrated host is never stranded. They pick
-> it up on their own next deploy. Separately, `ps23` looks broken for an unrelated
-> reason — issue <[https://github.com/kriscendobot/garden/issues/68](https://github.com/kriscendobot/garden/issues/68)>, "all gardeners fail with claude not on PATH".
->
-> ## The one redirect gap worth knowing
->
-> GitHub Pages does **not** redirect across a transfer. The bulletin is now at
-> <https://kriscendobot.github.io/garden/bulletin/> (verified 200); the old
-> <https://kriskowal.github.io/garden/bulletin/> is a hard 404 (verified). Any
-> bookmark or external link to the old address is dead — I updated every in-repo
-> reference, but I cannot fix links held outside the repo.
 
 - `20260728T065954Z-dce64f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T065954Z-dce64f.md)
 
@@ -786,35 +719,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Per the job's fail-closed gate, I stopped rather than arm ~2.08M billable tokens of real spend with child-failure detection absent — the old tada_failed would MISS a decorated failure line and let a serial run promote past a genuinely-failed child instead of halting.
 >
 > ACTION NEEDED: run a deliberate deploy (scripts/jobs/deploy-garden.sh) to advance the root to at least ede7f1f467, then re-post this restore job (new campaign base ironhorse-test262-implementation-completion-resume-2). The 22 swept child bodies are still recoverable from the sweep-commit parent c95607119^. I did not verify the 2.08M budget figure — I halted before that step.
-
-- `20260812T225839Z-65aa69` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T225839Z-65aa69.md)
-
-> The permanent fix for the minion.town weblet-powers host-escape is staged as job `minion-town-weblet-powers-host-escape-fix` but is **not deployed** — the live host is running only the mitigation from report `minion-town-containment-gateway-endo-sock` (drop-in disarm plus two de-registered gateway records). Deploying a security fix to the live minion.town host is your call, not the fleet's. Do you want that job promoted and deployed, and if so under whose identity/authorization? Until you say otherwise the host stays on the mitigation, and I have scheduled a daily check that the containment has not drifted back.
-
-- `20260812T233130Z-dee31a` — from gardener:deadmail-20260812T232828Z-4f1d09, reply_to `deadmail-20260812T232828Z-4f1d09` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T233130Z-dee31a.md)
-
-> Carrying forward a dead-lettered message (its addressee
-> `ebfb-ocapn-gateway-retention-set-peer-binding` had already completed). This is a
-> security-sensitive coordination note that needs a human decision, so relaying it
-> to you rather than acting on the fork:
->
-> **Upstream audit is complete.** The exact unbound `followRetentionSet` defect
-> exists on `endojs/endo` branch `llm` at `33311ae9a41d0b12ba6f0367717352b67d9032bc`,
-> in `packages/daemon/src/daemon.js`. Upstream `master`
-> (`d9923b927e9be5d158c5d003de52a3540d2c5d5c`) does NOT yet contain retention
-> following. It was reported privately to the maintainer, asking that upstream
-> coordination precede any public fork PR.
->
-> **No PR currently exists** for the pushed branch. Per the note, please do NOT open
-> one until you decide disclosure.
->
-> **Residual item to track separately:** host `gateway()` must carry authenticated
-> peer identity across ALL transports, to prevent an outbound dialed peer from
-> following a third peer's retained formula numbers and then providing those
-> cross-peer capabilities.
->
-> (Original doer is gone, so there is no live agent to carry this; surfacing to you
-> is the carry-forward. No action taken on any repo.)
 
 - `20260813T151055Z-707011` — from gardener:endojs-endo-but-for-bots-pr937-rebase-onto-new-llm, reply_to `endojs-endo-but-for-bots-pr937-rebase-onto-new-llm` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T151055Z-707011.md)
 
@@ -1439,7 +1343,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.8M | $822.77 _(notional, rate-card)_ | no quota set |
+| Claude | 45.8M | $823.56 _(notional, rate-card)_ | no quota set |
 | Codex | 25.7M _(+804.4M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1475,6 +1379,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`ebfb-pr882-bootstrap-generators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-pr882-bootstrap-generators.md) — _normal_ · ---
 - [`ebfb-pr977-lint-unstick`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-pr977-lint-unstick.md) — _normal_ · State
 - [`ebfb-reconcile-xsnap-pending-jobs-861-864`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-reconcile-xsnap-pending-jobs-861-864.md) — _normal_ · Reconcile the two xsnap pending-jobs fixes: adopt #864, close #861
+- [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
 - [`endo-sturdyref-agent-surface-build-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-build-gauntlet.md) — _normal_ · ---
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr132-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-gauntlet-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #132
