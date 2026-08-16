@@ -20,3 +20,13 @@ Scope discipline: repair only these two classes. Do NOT extend coverage into the
 Acceptance: re-run the authoritative full-suite report against the pinned corpus and show that the 6 baseline-covered paths are covered again and the 185 negative over-acceptances are rejected, with no new regressions elsewhere. Report the before/after histogram.
 
 handler-timeout: 7200
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-16T06:48:42Z
