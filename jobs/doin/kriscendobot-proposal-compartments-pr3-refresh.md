@@ -20,6 +20,7 @@ Please refresh. Dispatch plans to implement this proposal on ironhorse or an xs 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
