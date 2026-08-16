@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":42,"elapsed_s":881,"input_tokens":79,"output_tokens":42479,"cache_creation_tokens":110906,"cache_read_tokens":3825995,"total_cost_usd":4.0868685000000005,"ts":"2026-08-16T05:00:56Z","base":"narrow-retro-eligible-pipeline-op-gate","host":"endolin-garden-ece02cb4","outcome":"tada"}
