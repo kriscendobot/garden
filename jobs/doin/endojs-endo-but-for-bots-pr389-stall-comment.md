@@ -43,3 +43,13 @@ Complete the job once the comment is confirmed posted; name the comment's URL in
 the completion report.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-16T07:13:11Z
