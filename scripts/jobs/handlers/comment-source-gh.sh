@@ -242,9 +242,11 @@ if _raw="$(gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per
 elif repo_issues_disabled "$s1_err"; then
   # Issues are OFF on this repo (fork default): the repo-level list 404s permanently.
   # Do NOT freeze the cursor — recover surface=pr-comment per open PR in section 3.
-  # Logged once per tick so the degraded mode stays diagnosable in the journal.
+  # Logged once per tick at WARN so the degraded mode stays diagnosable in the journal
+  # (the watcher ignores a 0-exit source's stderr, so WARN only affects the systemd
+  # journal, where it keeps the degrade greppable).
   issues_disabled=1
-  log "issues disabled on $repo; enumerating pr-comment per open PR"
+  log "WARN: issues disabled on $repo; enumerating pr-comment per open PR"
 else
   # Not the Issues-disabled shape. repo_issues_disabled already asked the
   # authoritative question ONCE above and ruled it out — the else is reached only for
