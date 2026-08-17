@@ -127,6 +127,7 @@ once the daemon's actual current behavior is surveyed, say so explicitly in
 Open Questions rather than asserting a mechanism that was not verified
 against the real code.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
