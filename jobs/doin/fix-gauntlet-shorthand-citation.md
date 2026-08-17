@@ -105,6 +105,7 @@ should not depend on an agent's prose obeying a style rule.
   `endojs/endo-but-for-bots#1024`) as the grounding example, per house style
   (name the artifact, don't just assert the lesson).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
