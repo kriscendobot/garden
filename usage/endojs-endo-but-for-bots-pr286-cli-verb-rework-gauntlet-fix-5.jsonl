@@ -4,3 +4,4 @@
 {"ts":"2026-08-17T14:15:00Z","base":"endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":95}
 {"ts":"2026-08-17T14:23:20Z","base":"endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":4}
 {"ts":"2026-08-17T14:33:22Z","base":"endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":2,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-08-17T14:43:24Z","base":"endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5","host":"endolin-garden2-5bcdff64","outcome":"requeue","role":"gardener"}
