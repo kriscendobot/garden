@@ -66,3 +66,13 @@ existing gh-stub shape (see the SS1 block ~line 1392):
     frozen (proves the LOST-FETCH invariant is not weakened).
   - a transient 5xx on /issues/comments with has_issues=false → still the
     transient path, never the new degrade.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:34:07Z
