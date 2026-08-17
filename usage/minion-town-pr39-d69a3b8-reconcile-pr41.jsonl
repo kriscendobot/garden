@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":15,"elapsed_s":192,"input_tokens":28,"output_tokens":13608,"cache_creation_tokens":74231,"cache_read_tokens":985673,"total_cost_usd":1.5784064999999996,"ts":"2026-08-17T23:42:06Z","base":"minion-town-pr39-d69a3b8-reconcile-pr41","host":"endolin-garden2-5bcdff64","outcome":"tada"}
