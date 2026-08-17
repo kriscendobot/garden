@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T22:47:12Z_
+_As of 2026-08-17T22:50:25Z_
 
 ## Latest
 
-A floating Node 24.x runner flake is blocking several PRs across the board. [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (the byteArray design finish-line) are green and ready for merge but awaiting maintainer re-review after prior approvals went stale. The OCapN transport stack ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) is held at [#340](https://github.com/endojs/endo-but-for-bots/pull/340)'s shepherd, blocked by the same Node 24.x flake and needing a fresh maintenance approval once it clears. Gateway phases [#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [#389](https://github.com/endojs/endo-but-for-bots/pull/389) are restacked and verified; the remaining phase chain ([#392](https://github.com/endojs/endo-but-for-bots/pull/392)→[#394](https://github.com/endojs/endo-but-for-bots/pull/394)→[#420](https://github.com/endojs/endo-but-for-bots/pull/420)) is parked pending sequential restacking after their base rewrites. Several jobs are parked or doomed: [#282](https://github.com/endojs/endo-but-for-bots/pull/282) needs a strategy decision on the run-dispatch conflict resolution, [#897](https://github.com/endojs/endo-but-for-bots/pull/897)'s weave exceeded its handler budget, and a yard-wide yarn cache hardlink ceiling on one host is breaking `yarn install`. The deployed garden still lacks the dependabot auto-merge fix (commit `c31b2aaf4a` on `main2`), causing [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and similar PRs to stall on approval.
+OCapN transport proof complete: the TCP demo on minion.town finished with live cross-host Noise capability round-trip, un-drafting [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) as ready for merge. Byte-array work both green and mergeable ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) all CI passing, blocked on maintainer re-review). Multiple gauntlets stalled—[endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), and [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) all halted after 6 fix-loop iterations without convergence. Floating Node 24.x runner flake remains the blocker for several dependabot PRs and [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340)'s own CI. minion.town's design PRs progressed ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21) reconciled with security fixes, [kriscendobot/minion.town#36](https://github.com/kriscendobot/minion.town/issues/36) opened for toy-tool removal; ocap.site infrastructure complete pending DNSSEC owner action). Gateway phase restack chain halted on phase-5 requeue ceiling; [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) restacked onto llm. Fleet quota exhausted partway through the window; schedules were paused to manage token spend.
 
 ## Parked for maintainer feedback
 
@@ -21,17 +21,6 @@ A floating Node 24.x runner flake is blocking several PRs across the board. [#47
 
 _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260726T024419Z-9fb3d7` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260726T024419Z-9fb3d7.md)
-
-> Conductor stall — [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) is ready EXCEPT for a current maintainer approval.
->
-> - State: OPEN, non-draft, MERGEABLE/CLEAN, base=llm (live trunk).
-> - CI: 24/24 checks green.
-> - Approval: the APPROVED review 4778593042 by kriskowal is on the SUPERSEDED commit efe4b29f. The current head is ca0b6c02 (the follow-up that resolved the inline feedback). The only review on the current head is a COMMENTED (non-approving) one by kriscendobot.
-> - kriskowal has been re-requested but has not re-approved the current head.
->
-> Merge blocked: no maintainer approval on current head. Nothing else stands in the way — a fresh APPROVED review from kriskowal (or another allowlist maintainer) on ca0b6c02 unblocks an immediate merge. Please re-post the conduct job (or nudge the review) once that lands.
 
 - `20260728T113828Z-1c72c2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260728T113828Z-1c72c2.md)
 
@@ -63,10 +52,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > endojs/endo-but-for-bots PR #331 ([https://github.com/endojs/endo-but-for-bots/pull/331](https://github.com/endojs/endo-but-for-bots/pull/331)) — report `endojs-endo-but-for-bots-pr331-refresh` follow-up 1: the PR needs a reconciliation pass repositioning it as the credentials/attenuation layer over `@registry`. The offer is already posted on the PR and the gardener is holding for your word. Say go and I'll post the `fix` job; say drop and I'll close it out.
 
-- `20260729T023820Z-8e1c70` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023820Z-8e1c70.md)
-
-> endojs/endo-but-for-bots PRs #403, #563, #671 — report `endojs-endo-but-for-bots-pr331-refresh` follow-up 2: this trio needs a disposition from you (continue, retire, or fold into #331) before any weaver/builder effort is spent on them.
-
 - `20260730T211305Z-dda1ac` — from gardener:endojs-endo-but-for-bots-pr241-review-b15e4ef6, reply_to `endojs-endo-but-for-bots-pr241-review-b15e4ef6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211305Z-dda1ac.md)
 
 > endojs/endo-but-for-bots PR `endojs/endo-but-for-bots#241`, review `4803410792` — conduct step blocked: no maintainer APPROVED review on current head.
@@ -78,16 +63,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - Merge BLOCKED. The conductor merge spine refuses: no current APPROVED maintainer review on head `ac71c0424b`. Your review `4803410792` is COMMENTED (the directive itself), not APPROVED, so the deterministic maintainer-approval gate rejects it. The bot cannot self-approve.
 >
 > To unblock: submit an APPROVED review on `endojs/endo-but-for-bots#241` against head `ac71c0424b`. The next conductor tick (or a re-dispatch of this job) will then merge it via `gh pr merge --merge`. Reply here and the next tick will pick it up.
-
-- `20260730T211653Z-996985` — from gardener:endojs-endo-but-for-bots-pr403-ad7046e4, reply_to `endojs-endo-but-for-bots-pr403-ad7046e4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211653Z-996985.md)
-
-> Retcon + conduct status for [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403).
->
-> Retcon (verified): all 27 commit messages on `feat/registry-capability` are free of any PR-403 reference (subjects and bodies). This was landed by a prior run of this job (PR comment id=5124816986); I re-verified the current branch HEAD `602b034b78` end-to-end — zero matches. Tree is intact; CI is fully green (all checks SUCCESS), merge state CLEAN.
->
-> Conduct — blocked on your re-approval. The merge gate (pr-maintainer-approval-gh.sh) requires an APPROVED review whose commit_id is the current head. The only APPROVED on file is yours on `051baffb9e` (2026-07-29), which is the pre-retcon head — stale. The head has since moved to `602b034b78` (one post-retcon fix on top of the retcon tip `ae0b1a1d`).
->
-> Could you re-approve on the current head `602b034b78`? Once that lands I'll carry the merge to completion. Nothing else is gating — CI is clean and the base is unfrozen onto `llm`.
 
 - `20260801T054230Z-416fa8` — from gardener:build-endo-regexp-conservative-subset, reply_to `build-endo-regexp-conservative-subset` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T054230Z-416fa8.md)
 
@@ -161,25 +136,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > (The originally-reported lint failure on packages/reminder/test/plugin.test.js does clear
 > for free on any refresh -- llm deleted that file -- but the mount staleness blocks the
 > refresh, so the lint fix rides along with whichever fixer path you pick.)
-
-- `20260801T105902Z-37e161` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T105902Z-37e161.md)
-
-> B5 (retire toy MCP tools) — code done + locally green; deployed-edge validation needs your go-ahead.
->
-> STATE
-> - Code lives on PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20) (feat/endo-daemon-guest-mcp-b5, @fa8667f), stacked on B4 [kriscendobot/minion.town#19](https://github.com/kriscendobot/minion.town/issues/19) (OPEN) → B3 [kriscendobot/minion.town#18](https://github.com/kriscendobot/minion.town/issues/18) (still DRAFT). I reviewed it against designs/mcp-daemon-guest-tools.md §7 B5: toy tools + Map + TOOL_SCOPES + MINIONS_* scopes deleted; guest tools mount unconditionally with a clean daemon-unavailable error; scopes trimmed to `mcp/tools mcp/guest`; README/DEPLOYMENT updated; deploy-cognito-guest-scope.sh added. Complete.
-> - Local validation THIS run: typecheck ok, build ok, `npm test` 135 passed / 3 skipped. (Prior PR-body's SIWE-blocked note no longer applies.)
->
-> BLOCKER — the job's required "deployed-edge" validation (`tools/list` shows only guest_*, then E1-E4 green) cannot be done without production actions I won't take unilaterally:
-> 1) B5 isn't deployed. Deployed edge still advertises mcp/minions:read/write (PRM + Cognito resource server). Making tools/list guest-only requires deploying the B3->B4->B5 stack to the box (SSM to /opt/minion-town, same path B3/B4 got there) AND running deploy-cognito-guest-scope.sh — a change to the live service, with B3 still DRAFT.
-> 2) E1-E4 needs a REAL Cognito user token (Gate-1). The repo PKCE client only auto-approves against the local mock AS; real Cognito needs browser login or an admin-minted token.
->
-> ASK: how do you want to close out B5's deployed-edge validation?
->  (a) Authorize me to SSM-deploy the stack to the box + run the Cognito scope cleanup, and either you provide a real Cognito token or authorize me to admin-mint one from a test user — then I run tools/list + E1-E4 and report evidence; or
->  (b) you'll deploy/validate at the edge yourself (you can also run Gate-1); or
->  (c) merge the stack first (B3 is draft) so CD deploys it, then validate.
->
-> I've left the same summary as a comment on PR [kriscendobot/minion.town#20](https://github.com/kriscendobot/minion.town/issues/20). Holding here pending your call.
 
 - `20260801T110926Z-9f7599` — from gardener:minion-town-mcp-b5-retire-toy-tools, reply_to `minion-town-mcp-b5-retire-toy-tools` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260801T110926Z-9f7599.md)
 
@@ -406,16 +362,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Also: the Cognito/IaC part needs `cdk deploy` BEFORE the app roll (resource server + PKCE client drop minions:* first); recorded as Phase 12 in DEPLOYMENT.md. No deploy performed.
 
-- `20260812T053228Z-6aa19b` — from gardener:dependabotany-sweep-approval-held, reply_to `dependabotany-sweep-approval-held` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260812T053228Z-6aa19b.md)
-
-> dependabotany-sweep-approval-held HALTED at its precondition — the deploy is the blocker, not the PRs.
->
-> The seven approval-held MERGE-NOW dependabot PRs on endojs/endo-but-for-bots cannot be swept yet. The auto-conduct policy (skip maintainer approval for a dependabot-authored PR on a bot-owned repo) is committed on origin/main2 as `225e364eb0 feat(botany): auto-conduct Dependabot MERGE-NOW`, which adds the `--dependabot-auto-merge` mode to scripts/jobs/gardening/ci-wait-merge.sh.
->
-> But the DEPLOYED garden root (HEAD c7d730c36) does NOT carry it: its ci-wait-merge.sh has no `--dependabot-auto-merge` flag and still calls pr-maintainer-approval-gh.sh unconditionally at the merge point. `deploy-garden.sh` has not run since that commit landed.
->
-> Per the job's own precondition I did NOT review or merge anything under the old rules, and I am ending the job with orchestration-failed: true so the orchestration HALTS. Re-promote this sweep after deploy-garden.sh advances the root past 225e364eb0.
-
 - `20260814T064258Z-213e64` — from gardener:endojs-endo-but-for-bots-pr234-review-03f6892a, reply_to `endojs-endo-but-for-bots-pr234-review-03f6892a` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T064258Z-213e64.md)
 
 > Resolved kriskowal's approving-review nit on [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/issues/234) (follow-stream design).
@@ -442,14 +388,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > - Posted a conductor job (endojs-endo-but-for-bots-pr288-conduct) to shepherd CI to green and merge.
 >
 > ONE human step is needed: the rebase rewrote history, so your approval on the old head (8a4aad504) is stale for the rebased head. The conductor will correctly stall "merge blocked: no maintainer approval" until you re-approve 33ae7c42a. Please re-approve when CI is green and it'll land.
-
-- `20260815T063133Z-fe4d8e` — from gardener:endojs-endo-but-for-bots-pr324-conduct, reply_to `endojs-endo-but-for-bots-pr324-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063133Z-fe4d8e.md)
-
-> Conductor on endojs/endo-but-for-bots PR [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/issues/324) (test/familiar-primer-cas-smoke → llm).
->
-> Your approval was on head f549c003d80. The PR was 883 commits behind llm, so the conductor spine rebased it onto live llm before merging (policy: a pre-rebase green run isn't evidence). The rebase force-pushed a new head 4318246203, which invalidates the approval signature by design — no agent force-push inherits a human approval.
->
-> CI is now running on the rebased head. Once it goes green, the only remaining blocker is a fresh maintainer APPROVED review on head 4318246203. Please re-approve the rebased head and the next conduct tick will land it (--merge, merge-commit shape). I'm completing this attempt as a stall pending your re-approval.
 
 - `20260815T063641Z-98fdb6` — from gardener:endojs-endo-but-for-bots-pr313-review-8dbb4e31, reply_to `endojs-endo-but-for-bots-pr313-review-8dbb4e31` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063641Z-98fdb6.md)
 
@@ -520,30 +458,9 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Each early restack carries the same non-trivial port as [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/issues/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389): llm relocated the gateway type layout into src/types.ts, and every phase that still re-adds inline Gateway/GatewayPowers typedefs (or imports moved types from config.js/vhost.js) must be ported onto types.js, not merely conflict-resolved. Later phases whose diffs don't touch the moved types should restack more cheaply. Happy to take them one at a time — say the word (e.g. "weave 392") and I'll do the next.
 
-- `20260816T070409Z-92df25` — from orchestrator:pr282-flag-gated-reconciliation-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T070409Z-92df25.md)
-
-> Orchestration pr282-flag-gated-reconciliation HALTED: child endojs-endo-but-for-bots-pr282-pin-rebase-reconcile stalled after 3 requeues on host endolin-garden2-5bcdff64 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 0/3 done before halt; parked remainder: endojs-endo-but-for-bots-pr282-fixture-parity endojs-endo-but-for-bots-pr282-registry-default-followup
-
-- `20260816T103506Z-fd5237` — from gauntlet:endojs-endo-but-for-bots-pr995-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T103506Z-fd5237.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr995-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
-
 - `20260816T142607Z-a5de00` — from gauntlet:endojs-endo-but-for-bots-pr997-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T142607Z-a5de00.md)
 
 > Gauntlet endojs-endo-but-for-bots-pr997-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
-
-- `20260816T205830Z-b2d0af` — from gardener:endojs-endo-but-for-bots-pr1004-dependabot, reply_to `endojs-endo-but-for-bots-pr1004-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T205830Z-b2d0af.md)
-
-> Heads-up (fleet-impacting, needs a deploy): dependabot auto-conduct is broken on the DEPLOYED root.
->
-> gh 2.97.0 renders the dependabot App PR author as `app/dependabot` (GraphQL `--json author`), but ci-wait-merge.sh's `--dependabot-auto-merge` bypass compared against the REST-form default `dependabot[bot]`. They never match, so the bypass is DENIED on every dependabot PR and the gate falls back to a maintainer approval that never comes — the botanist MERGE-NOW stalls.
->
-> - The fix already landed on main2 as c31b2aaf4a (20:07Z, `canonical_bot_login` strips `app/` and `[bot]`), but the DEPLOYED root (/home/kris/garden) still runs the old code, so the fleet remains broken until a **deploy** lands it. Every dependabot MERGE-NOW between now and that deploy will stall on approval.
-> - I added the missing regression test (T25, black-box `app/dependabot` case) on main2 as 6116be1d53 — c31b2aaf4a shipped without one.
->
-> For [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/issues/1004) specifically: no action needed — it's MERGED (902ca06c). I completed the conduct with a one-off `GARDEN_DEPENDABOT_LOGIN=app/dependabot` override after all botanist diligence cleared and CI went green.
->
-> Recommend a deploy at your convenience so auto-conduct works without per-PR overrides.
 
 - `20260816T224108Z-f8b1ef` — from gardener:endojs-endo-but-for-bots-pr1009-dependabot, reply_to `endojs-endo-but-for-bots-pr1009-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T224108Z-f8b1ef.md)
 
@@ -554,14 +471,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > The conductor spine counts any red rollup check as CI-RED and refuses to merge; there is no sanctioned knob to merge past a non-required flaky cell, so I escalated rather than bypass the CI gate. **Decision needed:** merge [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009) directly (it is one-click mergeable), or resolve the fleet-wide floating-Node-24.x runner issue so the spine can auto-conduct this and the other blocked PRs. Full write-up in the PR comment + dependabotany ledger (broadcast 20260816T224047Z); daily `dependabotany-recheck-endo-but-for-bots` will re-sweep it.
 >
 > (Aside: the deployed spine on this host rejected the `--dependabot-auto-merge` bypass because the live author renders as `app/dependabot`; the fix is already on `origin/main2` — commits `c31b2aaf4a` + `6116be1d53` — pending a deploy. I worked around it this run with `GARDEN_DEPENDABOT_LOGIN=app/dependabot`.)
-
-- `20260817T045838Z-44e0c2` — from gardener:endojs-endo-but-for-bots-pr1000-weave, reply_to `endojs-endo-but-for-bots-pr1000-weave` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T045838Z-44e0c2.md)
-
-> Wove [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) (Node 24.x CI pin) onto live llm and lease-pushed the rewritten head (692f4803142f). Now MERGEABLE; the prior approval went stale (needs fresh approval before merge — did NOT merge).
->
-> Heads up: while this PR sat, llm independently landed the SAME functional pin (a59021f8ae "fix(ci): pin Node 24 matrix to 24.18.0", by 0xpatrickbot, ~77min before the weave). Both set `node-version: [22.x, 24.18.0]` identically in all 4 matrix jobs. So after the rebase [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) is now COMMENT-ONLY — it only swaps llm's shorter comment (refs `nodejs/node#65042`) for the PR's more detailed one (use-after-free in CleanupHookThunkRun, refs `nodejs/node#65195` + `nodejs/node#65196`). I kept the PR's richer comment so the PR isn't an empty diff.
->
-> Your call on merge: the functional fix is already on trunk, so [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) could reasonably be merged (for the better comment) OR just closed as superseded. Flagging rather than deciding.
 
 - `20260817T131606Z-74d7f9` — from orchestrator:endojs-endo-but-for-bots-gateway-phase-restack-chain-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T131606Z-74d7f9.md)
 
@@ -959,18 +868,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
 
-- `pr981-stale-conductor-spine` — from gardener:endojs-endo-but-for-bots-pr981-conduct, reply_to `endojs-endo-but-for-bots-pr981-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/pr981-stale-conductor-spine.md)
-
-> PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
-
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr897-657aab6a' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-weave` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-weave.md)
-
-> gardener job 'endojs-endo-but-for-bots-pr897-weave' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
 > WATCHDOG notice — occurrence #25 (first seen 2026-08-17T14:38:22Z, latest 2026-08-17T15:38:22Z).
@@ -984,35 +881,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
 > provider quota exceeded while running garden-comment-watcher@kriscendobot-ocapn. Observed: You've hit your session limit · resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-ocapn (rc=1); its capture is blob 912a506436dfdacc9e103f5523f5e68965fbbf68 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 912a506436dfdacc9e103f5523f5e68965fbbf68).
-
-- `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
-
-> WATCHDOG notice — occurrence #3 (first seen 2026-08-17T13:33:30Z, latest 2026-08-17T14:36:25Z).
-> The SAME condition (`self-heal-garden-comment-watcher-endojs-endo-but-for-bots`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
->
-> self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 5717e8fa9b3eb904d18ac306fa49847ea91341fa (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5717e8fa9b3eb904d18ac306fa49847ea91341fa). Diagnosis: ## Diagnosis: upstream GitHub outage on the REST reviews endpoint — no garden fix
->
-> **Failure signature.** `scripts/jobs/handlers/comment-source-gh.sh:258` failed its `gh api repos/endojs/endo-but-for-bots/pulls/<n>/reviews?per_page=100` call for 8 of the 9 PRs it polled, each with `HTTP 404`. `gh_api_retry` classified 404 as definitive (correctly — a 404 is normally permanent), so each `note_fetch_failure` fired, the source exited nonzero, and the watcher froze the cursor and declined to advance past un-enumerated comments. That chain is the fail-closed design working as intended, not a defect.
->
-> **What the 404 actually is.** The response body is not a REST 404 — it is a *GraphQL* error leaking through the REST surface:
->
-> ```
-> {"message":"Not Found","errors":[{"type":"NOT_FOUND","path":
-
-- `watchdog-self-heal-garden-comment-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-cosgov.md)
-
-> self-heal: garden-comment-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: f7c3f9366ebc225c3a641e589383b550a6962cd9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f7c3f9366ebc225c3a641e589383b550a6962cd9). Diagnosis: ## Diagnosis: already-fixed bug, still running on a pre-fix deployed root
->
-> **Failure signature.** `garden-comment-watcher@kriscendobot-cosgov` died `rc=1` at 14:14:09 because surface 1 of the comment source got a definitive 404:
->
-> ```
-> gh api repos/kriscendobot/cosgov/issues/comments?since=… failed (definitive, rc=1): gh: Not Found (HTTP 404)
-> FETCH INCOMPLETE … exiting nonzero so the watcher freezes the cursor and re-polls
-> FATAL: comment source failed for kriscendobot/cosgov (rc=1)
-> ```
->
-> **Root cause.** `kriscendobot/cosgov` exists but has **Issues disabled** — I confirmed `{"full_name":"kriscendobot/cosgov","fork":true,"archived":false,"has_issues":false}`, and `repos/kriscendobot/cosgov/issues/comments` returns `{"message":"Not Found","status":"404"}` while `pulls/comments` returns `[
 
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
 
@@ -1033,7 +901,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.3M | $1259.41 _(notional, rate-card)_ | no quota set |
+| Claude | 91.6M | $1275.92 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+681.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
