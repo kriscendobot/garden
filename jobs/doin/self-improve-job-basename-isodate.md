@@ -97,6 +97,7 @@ basenames that need a disambiguator; audit for and fix these:
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
