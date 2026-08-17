@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:41:32Z_
+_As of 2026-08-17T04:45:13Z_
 
 ## Latest
 
-Two design increments landed (relative-routing, compartments defer-sync-import). The byteArray finish-line components ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are all green and waiting on maintainer re-review to clear CHANGES_REQUESTED; the OCapN-Noise stack is parked awaiting [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) merge to retarget and restack [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/pull/684)–[endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693). Several conduct jobs are stalled on stale approvals after rebases ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)), and dependabot auto-conduct is broken on the deployed root (the fix `c31b2aaf4a` + regression test `6116be1d53` are ready on `main2`, awaiting deploy). Multiple design collisions surfaced: [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is superseded by the landed error-tracing facility, [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) collides with exo-http-client on llm, and [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (endor run) needs a flag-gated additive resolution with the shipped registry-path surface. Two gauntlet loops halted unconverged at 6 rounds ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)). The floating-Node-24.x CI flake continues blocking multiple PRs; [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) is otherwise MERGE-NOW.
+The OCapN transport layer reached its finish line: [endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (Noise daemon-to-daemon) is approved and CI-green but blocked on re-approval after a pre-rebase review; once that lands, the stack [#684→#688→#693](https://github.com/endojs/endo-but-for-bots/pulls?q=is%3Apr+is%3Aopen+684+688+693) will restack and merge. The byteArray program ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is similarly green and gated on re-review; the finish-line [#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft. Three PRs need disposition decisions: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (endo http mk) is superseded by exo-http-client on llm; [#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error-tracing) is superseded by landed diagnostics-facet work; [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (endor run node_modules) collides with llm's registry-path design and awaits a merge-strategy call. Infrastructure headwinds: yarn cache hit ext4's 65k hardlink ceiling on the endolin host (yarn install now fails fleet-wide; needs cache clear or linker switch), Node 24.x runners are flaky on several dependabot PRs, and the dependabot auto-conduct fix is live on main2 but not yet deployed—every dependabot PR stalls on maintainer approval until deploy lands. Two gauntlets halted after 6 fix/panel rounds ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) without converging.
 
 ## Parked for maintainer feedback
 
@@ -66,10 +66,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `20260729T023820Z-8e1c70` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T023820Z-8e1c70.md)
 
 > endojs/endo-but-for-bots PRs #403, #563, #671 — report `endojs-endo-but-for-bots-pr331-refresh` follow-up 2: this trio needs a disposition from you (continue, retire, or fold into #331) before any weaver/builder effort is spent on them.
-
-- `20260729T192421Z-4a2428` — from gardener:proposal-compartments-press-20260729-192002, reply_to `proposal-compartments-press-20260729-192002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260729T192421Z-4a2428.md)
-
-> The remaining design decision is whether the minimal Compartments surface should add a host-only synchronous evaluation operation and a loader-registration surface for synchronous infrastructure errors, or defer both to a later loader layer. Native v8, JSC, XS, and endor remain blocked before semantics on source-phase-import parsing. Please choose the intended boundary.
 
 - `20260730T211305Z-dda1ac` — from gardener:endojs-endo-but-for-bots-pr241-review-b15e4ef6, reply_to `endojs-endo-but-for-bots-pr241-review-b15e4ef6` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260730T211305Z-dda1ac.md)
 
@@ -949,7 +945,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.4M | $936.42 _(notional, rate-card)_ | no quota set |
+| Claude | 61.5M | $937.27 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
