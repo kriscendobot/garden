@@ -23,3 +23,13 @@ What to change:
 4. After the fix deploys, clear the accumulated restart-loop state: `systemctl --user reset-failed 'garden-comment-watcher@*'` and confirm the previously-`activating (start)` fork units settle.
 
 Note for the claimer: this same failure will emit one self-heal job per affected repo slug; they are all the same bug. Fix once in the shared handler and close the siblings as duplicates rather than patching per-repo.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:34:56Z
