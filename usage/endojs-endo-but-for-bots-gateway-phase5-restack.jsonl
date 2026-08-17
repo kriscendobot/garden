@@ -1,3 +1,4 @@
 {"ts":"2026-08-17T12:28:41Z","base":"endojs-endo-but-for-bots-gateway-phase5-restack","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":2}
 {"ts":"2026-08-17T12:56:32Z","base":"endojs-endo-but-for-bots-gateway-phase5-restack","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":4}
 {"ts":"2026-08-17T13:04:57Z","base":"endojs-endo-but-for-bots-gateway-phase5-restack","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":65,"elapsed_s":1274,"input_tokens":116,"output_tokens":86470,"cache_creation_tokens":158183,"cache_read_tokens":7106468,"total_cost_usd":7.300063999999998,"ts":"2026-08-17T13:35:06Z","base":"endojs-endo-but-for-bots-gateway-phase5-restack","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"weaver"}
