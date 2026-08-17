@@ -1,0 +1,13 @@
+kind: monk
+provider: anthropic
+model: claude-sonnet-4-6
+thoughtfulness: medium
+work_class: ops:m
+target: main2
+attempts: 5
+accepts: 5
+censored: 5
+estimated: 5
+mean_dollars: 0.067510
+m2: 0.026097
+acceptance_rate: 1.0000

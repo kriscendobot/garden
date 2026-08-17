@@ -1,0 +1,13 @@
+kind: monk
+provider: anthropic
+model: claude-opus-5
+thoughtfulness: medium
+work_class: other:s
+target: main2
+attempts: 30
+accepts: 30
+censored: 30
+estimated: 30
+mean_dollars: 0.034937
+m2: 0.075695
+acceptance_rate: 1.0000
