@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T11:21:34Z_
+_As of 2026-08-17T11:42:20Z_
 
 ## Latest
 
-The gauntlet on [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (CLI verb rework) advanced to fix round 4, while several high-value PRs remain blocked on stale maintainer approvals invalidated by rebases: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) all need fresh reviews at their current heads before conducting. The byteArray finish-line work ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and green but gated on maintainer re-review to clear `CHANGES_REQUESTED` status. A critical fix for dependabot auto-merge is ready to deploy (commit c31b2aaf4a on main2)—the live fleet is broken on [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) and other dependabot PRs. The fleet also faces infrastructure stress: the root repo's git object store is unmaintainable with gc failing persistently, the yarn global cache hit ext4's 65000-hardlink ceiling, and several handler jobs are timing out and being parked (awaiting split/re-spec); separately, the floating Node 24.x runner issue blocks [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877).
+The gauntlet for [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (CLI verb rework) continues converging, now on panel round 5. Several high-value PRs are stalled waiting for fresh maintainer approvals on rebased heads—[endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer-cas-smoke), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design)—each rebased to resolve conflicts or integrate design changes. Systemic issues surfaced: the yarn cache hardlink ceiling (65k) has been hit on one host, blocking installs; the root repo object store is unmaintainable on another (gc lock); and dependabot auto-conduct is broken on the deployed root pending a garden deploy (fix landed on main2 as `c31b2aaf4a`). Several major PRs ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#282](https://github.com/endojs/endo-but-for-bots/pull/282), [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#897](https://github.com/endojs/endo-but-for-bots/pull/897)) have doomed jobs on hold—all facing handler budget or requeue exhaustion issues requiring either split-stage rewrites or human direction to proceed. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green but gated on maintainer re-review to clear CHANGES_REQUESTED.
 
 ## Parked for maintainer feedback
 
@@ -967,7 +967,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.6M | $1074.67 _(notional, rate-card)_ | no quota set |
+| Claude | 74.8M | $1074.94 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -975,15 +975,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
 
-### tada (4949)
+### tada (4950)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4.md) — Completion report — Gauntlet FIX round 4, PR #1014
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2.md) — Completion report
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2.md) — Completion report
-- … and 4944 more
+- … and 4945 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
