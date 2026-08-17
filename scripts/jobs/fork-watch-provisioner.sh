@@ -46,6 +46,17 @@
 # ci-watcher rides the same set and reads only CI status (no external text) — no
 # extra surface. The commit triager (repos/) reads our own fork's commits.
 #
+# ── Issues-disabled forks are fine to arm (no has_issues gate here) ───────────
+# A fork defaults to has_issues:false, which permanently 404s the repo-wide
+# GET /repos/<repo>/issues/comments surface. That is NOT a reason to withhold or
+# gate arming: comment-source-gh.sh detects the disabled state authoritatively
+# (a cached has_issues probe on the already-404'd path) and degrades to a
+# per-open-PR /issues/<n>/comments walk that still recovers surface=pr-comment,
+# so the watch works unchanged on such a fork. We deliberately do NOT probe
+# has_issues at arming time (it would cost a read on every healthy tick to gate
+# a case the source already handles); the note lives in the arming record's
+# rationale so the next reader isn't surprised by the 404 in the journal blob.
+#
 # ── Unwatch stays meaningful: the opt-out tombstone ───────────────────────────
 # Deleting repos/<slug> or comment-repos/<slug> is the established unwatch signal
 # — but a reconciler would re-add it on the next tick. To unwatch an
@@ -377,8 +388,13 @@ write_comment_record() {  # write_comment_record <out-path> <owner/name>
     printf '  current endojs/Agoric org member — in plain code, before any text\n'
     printf '  reaches a job, a reactji, or claude -p. The ci-watcher rides this same\n'
     printf '  set and reads only CI status. Design:\n'
-    printf '  designs/auto-provision-fork-watchers.md. To unwatch durably, delete this\n'
-    printf '  file AND add watch-optout/%s.\n' "${2//\//-}"
+    printf '  designs/auto-provision-fork-watchers.md.\n'
+    printf '  NOTE: a fork with the Issues feature OFF (has_issues:false, the GitHub\n'
+    printf '  default for a fork) permanently 404s the repo-wide issues/comments\n'
+    printf '  surface; comment-source-gh.sh recognizes that (authoritative has_issues\n'
+    printf '  probe) and degrades to a per-open-PR walk rather than crash-looping — so\n'
+    printf '  this arming is correct as-is and needs no has_issues gate. To unwatch\n'
+    printf '  durably, delete this file AND add watch-optout/%s.\n' "${2//\//-}"
   } > "$1"
 }
 

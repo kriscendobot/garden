@@ -104,8 +104,8 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # scope is a REAL lost fetch that must still freeze the cursor (and, for a gone repo,
 # reach the REPO-GONE deactivation at the tail). repo_has_issues caches the one
 # repos/<repo> read per tick, and it runs ONLY on the already-404'd section-1 path, so
-# a healthy tick pays nothing extra.
-issues_disabled=""
+# a healthy tick pays nothing extra. (issues_disabled itself is declared with the
+# other fetch-state flags below, next to fetch_failed / fetch_primary_quota.)
 
 # emit_pr_conversation_comments <json-array>
 # Run the SAME classify+filter jq the repo-level section-1 branch uses over a comment
@@ -246,33 +246,15 @@ elif repo_issues_disabled "$s1_err"; then
   issues_disabled=1
   log "issues disabled on $repo; enumerating pr-comment per open PR"
 else
-  # ISSUES-DISABLED degrade (fires ONLY on this already-failed path, so a healthy
-  # tick pays nothing). A definitive 404 here can mean the repo-wide issues/comments
-  # endpoint is structurally absent because Issues are disabled on the repo — the
-  # default for a fork (has_issues=false). Distinguish that from a genuine lost fetch:
-  #   - a TRANSIENT signature is "we could not ask", never "the surface is gone" →
-  #     keep today's freeze-and-retry (reuse _gh_api_stderr_is_transient).
-  #   - a definitive 404 + a repo that ANSWERS with has_issues=false → the surface is
-  #     legitimately absent (no issue can exist, so its issue-comment stream is
-  #     empty-by-fact); switch to per-open-PR enumeration in section 3, do NOT freeze.
-  #   - a definitive 404 with has_issues=true, or a probe we could not complete →
-  #     never guess a state; keep freeze-and-retry.
-  s1_stderr="$(cat "$s1_err" 2>/dev/null || true)"
-  s1_degraded=""
-  if ! _gh_api_stderr_is_transient "$s1_stderr"; then
-    case "$s1_stderr" in
-      *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*)
-        s1_hi_err="$(mktemp)"
-        if s1_hi="$(gh_api_retry "repos/$repo" --jq '.has_issues' 2>"$s1_hi_err")" \
-           && [ "$s1_hi" = false ]; then
-          issues_disabled=1
-          s1_degraded=1
-          log "ISSUES DISABLED on $repo — repo-wide issues/comments is 404 by configuration; enumerating PR conversation comments per open PR instead"
-        fi
-        rm -f "$s1_hi_err" ;;
-    esac
-  fi
-  [ -n "$s1_degraded" ] || note_fetch_failure "issues/comments" "$s1_err"
+  # Not the Issues-disabled shape. repo_issues_disabled already asked the
+  # authoritative question ONCE above and ruled it out — the else is reached only for
+  # a transient blip, a primary-quota refusal, a non-404 definitive error, or a 404 on
+  # a repo whose Issues are actually ENABLED (a deleted/renamed/gone repo or a lost
+  # token scope). Every one of those is a genuine LOST FETCH that must freeze the
+  # cursor (never guess a state); a gone repo reaches the REPO-GONE deactivation at
+  # the tail. (An earlier reconciliation re-probed has_issues a SECOND time here,
+  # duplicating repo_issues_disabled's own check — removed: probe once.)
+  note_fetch_failure "issues/comments" "$s1_err"
 fi
 rm -f "$s1_err"
 
