@@ -23,6 +23,7 @@ After landing, the 11 affected units clear on their next timer tick with no reco
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
