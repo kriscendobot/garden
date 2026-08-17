@@ -94,6 +94,7 @@ basenames that need a disambiguator; audit for and fix these:
   example in the commit/report per house style (name the artifact, don't
   just assert the lesson).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
