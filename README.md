@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-17T05:06:43Z_
+_As of 2026-08-17T05:17:39Z_
 
 ## Latest
 
-The fleet completed 4,927 jobs this period. Several critical items need maintainer attention: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (byteArray work) are green and await re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport root) is blocked on a Node 24.x CI flake also affecting [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [endojs/endo-but-for-bots#1007](https://github.com/endojs/endo-but-for-bots/pull/1007); and several rebased PRs ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)) need fresh approvals on new heads. Two gauntlets halted non-convergence ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) after 6 rounds. The deployed garden needs a `deploy-garden.sh` run to pick up dependabot auto-conduct fixes and other recent improvements on main2. minion.town is operationally complete—ocap.site infrastructure, certs, DNS records are live—and awaits your decision on DNSSEC signing and deployment gates for B3–B5 MCP work.
+A floating Node 24.x CI flake on ubuntu-latest is the critical blocker: it's preventing the OCapN stack from clearing ([endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) is approved but CI-red, blocking restack of [#684](https://github.com/endojs/endo-but-for-bots/pull/684)/[#688](https://github.com/endojs/endo-but-for-bots/pull/688)/[#693](https://github.com/endojs/endo-but-for-bots/pull/693)), and also affects [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (npm-packlist), [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (Node pin itself), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) (byteArray). The byteArray work ([#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is otherwise green and ready—just awaiting your re-review to clear CHANGES_REQUESTED. The deployed garden has a dependabot auto-conduct bug (deployed code doesn't match the fix already on main2 c31b2aaf4a), causing [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and others to stall on approval. Gateway package phases 2 and 3 ([#388](https://github.com/endojs/endo-but-for-bots/pull/388)/[#389](https://github.com/endojs/endo-but-for-bots/pull/389)) are rebased and restacked; the remaining 10 phases need sequential restacking, which I can execute one at a time. Multiple PRs awaiting stale-approval refreshes after rebase ([#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#403](https://github.com/endojs/endo-but-for-bots/pull/403)), and two gauntlets hit iteration limits ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)). Several parked jobs await your sequencing call: PR [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (registry/node_modules run dispatch), test262 metering corpus handling, minion.town B5 deployed-edge validation, and ocap.site DNSSEC.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 22h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 28d)
@@ -912,7 +912,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.4M | $940.32 _(notional, rate-card)_ | no quota set |
+| Claude | 62.8M | $941.18 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -920,17 +920,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework.md) — ---
-- [`endojs-endo-but-for-bots-pr995-endo-claude-followup-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-endo-claude-followup-design.md) — Designer: address PR #995 inline review on designs/endo-claude.md
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr995-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-conduct.md) — Conductor: un-draft + merge PR #995 (endo-claude design)
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
-### tada (4927)
+### tada (4929)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework.md) — Completion report
+- [`endojs-endo-but-for-bots-pr995-endo-claude-followup-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-endo-claude-followup-design.md) — Completion report
 - [`endojs-endo-but-for-bots-pr980-11939621`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr980-11939621.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1000-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1000-weave.md) — Completion report
 - [`endojs-endo-but-for-bots-pr995-review-5310a0c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-review-5310a0c9.md) — Completion report — review directive on endojs/endo-but-for-bots PR #995
-- [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1000-conduct.md) — Summary
-- [`design-relative-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-relative-routing.md) — Cost
-- … and 4922 more
+- … and 4924 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
