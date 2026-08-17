@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr995-endo-claude-orch
-priority: normal
-posted_by: liaison
-posted_at: 2026-08-17T04:56:54Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-08-17T05:16:08Z cleared=none -->
 
 ---
 tier: mentor
