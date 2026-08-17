@@ -26,3 +26,13 @@ Change to make, in `scripts/jobs/handlers/comment-source-gh.sh`:
 Verify after the change by running `scripts/jobs/comment-watcher.sh` once against `kriscendobot/cosgov` (0 open PRs, issues disabled: must exit 0 and post nothing) and against `kriscendobot/endo` (open PRs, issues disabled: must exit 0 and enumerate normally), then confirm `garden-comment-watcher@kriscendobot-cosgov` stops failing.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:43:51Z
