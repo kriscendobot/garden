@@ -64,3 +64,13 @@ and an explicit statement of which of (a), (b), or (c) the evidence supports. If
 it supports "the halts are mostly harmless", recommend making them quieter rather
 than making the loop longer. Open a design or implementation PR only if the fix is
 clear from the evidence; otherwise report and let the maintainer choose.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T22:53:51Z
