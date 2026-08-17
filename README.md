@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T11:42:20Z_
+_As of 2026-08-17T11:52:05Z_
 
 ## Latest
 
-The gauntlet for [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (CLI verb rework) continues converging, now on panel round 5. Several high-value PRs are stalled waiting for fresh maintainer approvals on rebased heads—[endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer-cas-smoke), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design)—each rebased to resolve conflicts or integrate design changes. Systemic issues surfaced: the yarn cache hardlink ceiling (65k) has been hit on one host, blocking installs; the root repo object store is unmaintainable on another (gc lock); and dependabot auto-conduct is broken on the deployed root pending a garden deploy (fix landed on main2 as `c31b2aaf4a`). Several major PRs ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#282](https://github.com/endojs/endo-but-for-bots/pull/282), [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#897](https://github.com/endojs/endo-but-for-bots/pull/897)) have doomed jobs on hold—all facing handler budget or requeue exhaustion issues requiring either split-stage rewrites or human direction to proceed. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green but gated on maintainer re-review to clear CHANGES_REQUESTED.
+Dependabot auto-conduct is broken on the deployed garden: the fix landed on main2 (c31b2aaf4a + 6116be1d53) but hasn't been deployed, so MERGE-NOW verdicts are stalling on approval gates. A deploy would unblock [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and others. Several PRs await fresh maintainer approvals after rebases that invalidated prior signatures: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream, nit resolved), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability). The byteArray program is complete and all-green—[endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are blocked only on maintainer re-review to clear CHANGES_REQUESTED. OCapN cross-host transport now proven over both WebSocket and raw TCP with live daemon pairing on minion.town. Gateway package phases [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) are reopened and rebased onto llm; the remaining phase chain needs sequential restacking. Several gauntlet runs halted at 6-round convergence limits ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)), and handler timeouts domed jobs on [endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/pull/897) and [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282).
 
 ## Parked for maintainer feedback
 
@@ -605,65 +605,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > green). This is the recurring policy mismatch previously flagged on the
 > 2026-08-13 conduct attempt.
 
-- `doomed-endo-but-for-bots-node-pin-ci-rerun-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endo-but-for-bots-node-pin-ci-rerun-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/endo-but-for-bots-node-pin-ci-rerun; it stays HELD until a human promotes it
-> (promote-plan.sh endo-but-for-bots-node-pin-ci-rerun) or removes it.
-> Original job base: endo-but-for-bots-node-pin-ci-rerun
->
-> --- original job body ---
-> ---
-> tier: mentor
-> ---
-> <!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-17T05:46:04Z cleared=none -->
->
-> ---
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> Repo: endojs/endo-but-for-bots
->
-> Blocked on [https://github.com/endojs/endo-but-for-bots/pull/1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (pins the four
-> Node 24.x matrix entries in .github/workflows/ci.yml to 24.18.0). Once that
-> merges to `llm`, rebase and re-run CI on the PRs the 24.x gate was blocking, and
-> report which actually clear.
->
-> Targets, with what is known about each:
-> - [https://github.com/endojs/endo-but-for-bots/pull/340](https://github.com/endojs/endo-but-for-bots/pull/340) (base `llm`, OPEN,
->   MERGEABLE, maintainer approval already on its current head f081208e1). CI is
->   its only remaining gate, so this one should go green and become mergeable.
-> - [https://github.com/endojs/endo-but-for-bots/pull/877](https://github.com/endojs/endo-but-for-bots/pull/877) (base `llm`). NOTE: its
->   head moved to 43abed75a and GitHub now reports it CONFLICTING, so it needs a
->   weave before a re-run is meaningful. Report the conflict rather than forcing it.
-> - [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475) targets the frozen base
->   `llm-a54c3ad`, NOT `llm`, so an llm-only merge does NOT reach it. Do not
->   assume the pin applies. Either report that `llm-a54c3ad` needs advancing or
->   that #475 needs retargeting; do not retarget it yourself, since a frozen base
->   is deliberate (skills/frozen-base-branch).
->
-> IMPORTANT, do not over-attribute failures to the pin. Two DISTINCT Node 24.x
-> failure modes have been observed and only the first is what #1000 fixes:
-> 1. better-sqlite3 11.10.0 AVA workers aborting in RemoveEnvironmentCleanupHook
->    ("Assertion failed: (env) != nullptr") under Node 24.19.0. Upstream
->    [https://github.com/nodejs/node/issues/65195](https://github.com/nodejs/node/issues/65195). This is what the pin removes.
-> 2. The Actions runner losing its OWN bundled node
->    (".../actions-runner/2.336.0/externals/node24/bin/node: No such file or
->    directory", SIGINT-killing in-flight tests). Observed on
->    [https://github.com/endojs/endo-but-for-bots/pull/1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and
->    [https://github.com/endojs/endo-but-for-bots/pull/1007](https://github.com/endojs/endo-but-for-bots/pull/1007). This is runner
->    infrastructure, NOT the matrix version, so pinning `node-version` most likely
->    does NOT fix it: `setup-node` installing 24.18.0 does not change which node
->    the runner uses to execute actions themselves.
->
-> So: for each target, classify the post-pin result as cleared, still-mode-1, or
-> mode-2, with the log evidence. If mode 2 persists, say so plainly and report it
-> as a separate open problem rather than re-pinning.
-
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -945,10 +886,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
 
-- `watchdog-handler-budget-overrun-endo-but-for-bots-node-pin-ci-rerun` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endo-but-for-bots-node-pin-ci-rerun.md)
-
-> gardener job 'endo-but-for-bots-node-pin-ci-rerun' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr897-657aab6a' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -957,25 +894,22 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr897-weave' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
-- `watchdog-root-repo-objstore-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-objstore-endolin-garden2-5bcdff64.md)
-
-> root repo /home/kris/garden2 object store is UNMAINTAINABLE: 'git gc' fails (fatal: gc is already running on machine 'endolin-garden2-5bcdff64' pid 577356 (use --force if not)) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. 0 object(s) reachable from refs are missing locally (e.g.  ). State: 52 packs, 28 loose objects, 0 stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C /home/kris/garden2 rev-list --objects --missing=print --all | grep "^?"', find the refs that reach them, back each one up first ('git -C /home/kris/garden2 branch root-guard-backup/$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C /home/kris/garden2 gc'. (host=endolin-garden2-5bcdff64)
-
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.8M | $1074.94 _(notional, rate-card)_ | no quota set |
+| Claude | 75.2M | $1078.34 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
+- [`garden-root-repo-guard-gc-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-root-repo-guard-gc-lock-contention.md) — ---
 
 ### tada (4950)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4.md) — Completion report — Gauntlet FIX round 4, PR #1014
