@@ -19,3 +19,13 @@ Why: that message is Go's `encoding/json` error for a response body that ended m
 Fixing it in the shared signature set (not in the ci-watcher) is deliberate: the same one-line change repairs every consumer of the shared classifier — `handlers/ci-pr-source-gh.sh` via `gh_api_retry`, plus dependabot-watcher, approval-reconciler, dependabotany-preflight, and mirror-closer — and keeps the classification in the single place `is_transient_gh_source_error`'s header says it belongs. "Never guess a state" is preserved: a genuinely structural failure still matches none of the signatures and still dies loud, and the watcher still never proceeds on a partial list (a transient classification skips the tick rather than treating the empty result as "no open PRs").
 
 Verification: extend `scripts/jobs/test/gh-api-retry-test.sh` SUBTEST 1 with `assert_transient "unexpected end of JSON input" "truncated/empty response body"`, confirm it fails before the change and passes after, and confirm the existing `assert_definitive` cases (real 404 / malformed slug) still classify definitive so the set has not been widened beyond this class. Run the ci-watcher test (`scripts/jobs/test/ci-watcher-test.sh`) to confirm the source-failure paths still die loud on structural errors.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:32:01Z
