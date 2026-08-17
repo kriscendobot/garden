@@ -39,6 +39,7 @@ history), stop and report the discrepancy in detail rather than improvising a
 recovery — this blocks every remaining phase (6 through 12) in the chain, so
 guessing wrong here cascades.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
