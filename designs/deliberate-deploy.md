@@ -175,6 +175,21 @@ A host with no liaison session present (a pure bot host) simply accumulates
 design: advancing the deployed version is the one garden action the maintainer
 wants on the human surface.
 
+> **Narrowed to leader-only by [follower-self-deploy.md](follower-self-deploy.md)
+> (2026-08-17).** The sentence above — "never autonomous-without-a-session" —
+> holds **on the leader**, where a liaison session is present and runs the
+> deploy-on-upgrade Monitor. A **follower** (a non-leader host, unattended by
+> definition) advances headlessly via the deterministic `garden-self-deploy`
+> daemon, which fires the **same** `deploy-garden.sh` on the same local
+> `upgrade-ready` signal, gated `! is_main_host` and canary-bounded by the
+> leader's published deployed sha. This narrows *only* the trigger, and *only* for
+> followers: the deliberate-deploy machinery here (candidate gate, drain, atomic
+> per-file swap, no continuous fast-forward) is unchanged, and "nothing
+> fast-forwards the root tree except `deploy-garden.sh`" still holds — self-deploy
+> is a discrete, gated invocation of it, not a fast-forward loop. Rationale: a
+> follower with no session stalled 30 commits / nine days behind an unread inbox
+> notice.
+
 ## State summary
 
 All per-host, under `$GARDEN_STATE/deploy/` (host standing state, not `main2`):
