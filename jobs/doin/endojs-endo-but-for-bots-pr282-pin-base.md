@@ -42,6 +42,7 @@ NOT to be promoted. If you hit a fast deterministic failure too, STOP and report
 the failure mode with evidence rather than retrying: that reproduction is more
 valuable than the pin.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
