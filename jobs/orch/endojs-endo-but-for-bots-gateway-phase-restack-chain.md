@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-gateway-phase5-restack-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-gateway-phase5-restack-reap-count: 0
 child-endojs-endo-but-for-bots-pr392-weave-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-pr392-weave-reap-count: 0
