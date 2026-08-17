@@ -48,6 +48,7 @@ Three tasks, land as a draft PR against `llm`:
 Scope guard: `designs/` only. If it runs long, complete a coherent subset and
 post a follow-on naming the remainder.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
