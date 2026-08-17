@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T12:40:32Z_
+_As of 2026-08-17T12:45:34Z_
 
 ## Latest
 
-A deployment gap is breaking dependabot auto-merge: the live garden root lacks a fix landed on main2 (commits c31b2aaf4a + 6116be1d53) that handles GitHub's `app/dependabot` rendering, so every dependabot PR stalls on maintainer approval instead of conducting automatically. Several PRs awaiting re-approval after rebases ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324)) are stalled at the exact-head invariant gate; the byteArray finish-line PRs ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are code-complete but need maintainer re-review to clear CHANGES_REQUESTED. Several jobs hit the default 2400s handler budget and parked as doomed (pending your promotion): [#282 pin-rebase](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-pin-rebase-reconcile.md), [#340 shepherd](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-shepherd-20260816.md), [#897 weave](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr897-weave.md), and a couple gauntlet runs hit the 6-iteration ceiling. The minion.town weblet-gateway design PR ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21)) is reconciled and deliberately left draft pending your call on a security modeling question (content-only id with collision rules vs. composite id). Budget enforcement design landed on main2, ready to gate live work once you set the per-account weekly token cap.
+Genie docs consolidation neared completion — [endojs/endo-but-for-bots#1020](https://github.com/endojs/endo-but-for-bots/pull/1020) dissolved the final PLAN/TODO/TADA references inline, while the package retirement and directory deletion (committed 2026-08-13) already preserved content in the garden archive. Dependabot auto-conduct (PR recognizing `app/dependabot` authorship) landed on `main2` as c31b2aaf4a with regression test T25 added, but the deployed garden root predates it, so seven approval-held MERGE-NOW dependabot PRs stall on each conduct attempt until a deploy advances past that commit. Several design PRs pulled into rebase/re-approval cycles: [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) (gateway phase-2) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) (phase-3) are rebased and green; phase-4 through phase-12 remain unstacked, pending serially-ordered weave jobs. [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream monitor design) integrated a petname nit and is rebased mergeable, awaiting fresh approval on head e917b6a800. A known floating-Node-24.x CI flake blocks [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN Noise transport) and others; that PR is otherwise approved and merged-ready on its infrastructure merits. minion.town pushed ocap.site PSL submission ready (fork PR with owner-filled metadata), weblet-gateway design reconciled with as-built Inc 1–3 notes and security holes closed, and B5 (retire toy MCP tools) code complete pending deployed-edge validation or your authorization. Several jobs were parked after deterministic failure: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (entry-point run) rebasing stalled on elapsed-constancy (fast repeated failure, needs diagnosis), [endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/pull/897) attention and weave jobs timed out after one wall-clock budget, and the `pr282-flag-gated-reconciliation` orchestration halted after its first child stalled.
 
 ## Parked for maintainer feedback
 
@@ -563,6 +563,51 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Your call on merge: the functional fix is already on trunk, so [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) could reasonably be merged (for the better comment) OR just closed as superseded. Flagging rather than deciding.
 
+- `20260817T124150Z-39fc38` — from gardener:genie-docs-delete-and-repoint-links, reply_to `genie-docs-delete-and-repoint-links` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T124150Z-39fc38.md)
+
+> Blocked on a scope decision — this job's premise is already stale in a way that contradicts the 2026-08-17 narrow decision. Please advise before I touch anything.
+>
+> FACTS ON `llm` (HEAD 3ebfc47ae6):
+> - `llm` has advanced well past the a54c3adb migration source. Commit **42bc7d5161** ("chore: retire @endo/genie and the PLAN/TODO/TADA design docs", 2026-08-13, 4 days BEFORE this decision) already:
+>   1. Deleted PLAN/ TODO/ TADA/  ✔ (the deletion you asked for is already done)
+>   2. Deleted the ENTIRE `packages/genie/` package (README.md, DESIGN.md, AGENTS.md — the very files this job lists as needing link-repointing no longer exist)
+>   3. STRIPPED the code-comment doc-number citations from sandbox + host-spawner/agent-tools/claude-sandbox/daemon/lal/platform/9p-server (the ~91 citations the 08-17 decision says to LEAVE EXACTLY ALONE)
+>   4. Repointed the broken markdown links to `blob/a54c3adb` permalinks into THIS repo's own git history — NOT the kriscendobot/garden public archive the 08-17 decision names.
+>
+> So the already-landed state conflicts with the 08-17 decision on 3 of 4 points: genie package deleted (decision assumes it exists), code citations already removed (decision says preserve), links point at repo-history not the garden archive (decision wants the garden archive).
+>
+> PRESERVATION IS SOLID EITHER WAY: content survives at endojs/endo-but-for-bots@a54c3adb (PLAN 10, TADA 171) AND at kriscendobot/garden@journal2:library/endo-but-for-bots/ (PLAN/TODO/TADA + README).
+>
+> WHICH DO YOU WANT?
+> (A) Accept 42bc7d5161 as-is — the dirs are gone, nothing more to do; optionally I just repoint the 2 surviving `blob/a54c3adb` PLAN links (sandbox/README, designs/endo-posix-sandbox) to the kriscendobot/garden archive.
+> (B) Reconstruct the NARROW end-state you specified: revert 42bc7d5161's overreach (restore packages/genie + restore the stripped code-comment citations), then delete ONLY the dirs and repoint the 10 links to the kriscendobot/garden archive. This reverts your own landed work and re-adds a package you may have intended to drop.
+>
+> I recommend (A) — the deletion is done and content is preserved; restoring a deliberately-retired genie package seems unlikely to be what you want. Holding for your call.
+
+- `20260817T124154Z-1d7330` — from gardener:genie-docs-delete-and-inline-refs, reply_to `genie-docs-delete-and-inline-refs` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T124154Z-1d7330.md)
+
+> genie-docs-delete-and-inline-refs — done, but the premise had already shifted.
+>
+> By the time the job ran, origin/llm had moved well past a54c3adb: commit
+> a180fcb / [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) ("retire @endo/genie and the
+> PLAN/TODO/TADA design docs") had ALREADY deleted all three directories,
+> retired the entire @endo/genie package, and removed the ~91 code-comment
+> citations. So the delete-the-dirs + fix-10-links + fix-91-comments work in
+> the job spec was ~98% already landed — but that commit did it the way your
+> 08-17 decision forbids: it REPOINTED the survivors at a54c3adb git PERMALINKS
+> instead of dissolving them.
+>
+> I fixed the residual PLAN/TODO/TADA references (the only in-scope ones left),
+> dissolving each inline, no repoint → PR [endojs/endo-but-for-bots#1020](https://github.com/endojs/endo-but-for-bots/issues/1020) (draft):
+>   - packages/sandbox/README.md, designs/endo-posix-sandbox.md, designs/README.md
+> (pivoker/README.md's TODO//TADA/ are Pivoker's own task queue — left alone.)
+>
+> One decision for you: that same retire commit created the SAME forbidden
+> a54c3adb git-permalink style for the retired @endo/genie PACKAGE (not the
+> dirs) in designs/endopi.md (~11 links) and designs/chat-inventory-create-menu.md
+> (1). Out of this job's PLAN/TODO/TADA scope, so I left them. Want those
+> dissolved inline too (same principle)? If so I'll post a follow-up.
+
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -858,33 +903,32 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.6M | $1122.45 _(notional, rate-card)_ | no quota set |
+| Claude | 79.8M | $1121.63 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (10)
 - [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack the gateway phase-5 branch (design/gateway-package-phase-5) — no PR f...
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr282-registry-url-cache-key`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-registry-url-cache-key.md) — Ascertain: does the registry base URL participate in the registry cache key?
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Review directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr398-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #398
-- [`genie-docs-delete-and-inline-refs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-and-inline-refs.md) — ---
 - [`genie-docs-delete-and-repoint-links`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-and-repoint-links.md) — ---
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 - [`self-improve-job-basename-isodate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-improve-job-basename-isodate.md) — Self-improvement: date-suffix job basenames for recurring actions, going forward
 
-### tada (4956)
+### tada (4957)
+- [`genie-docs-delete-and-inline-refs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-and-inline-refs.md) — Completion report
 - [`kriscendobot-minion.town-pr39-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-gauntlet-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr39-review-fb0be7ca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-fb0be7ca.md) — Completion report
 - [`endojs-endo-but-for-bots-pr282-entry-walk-lexer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-entry-walk-lexer.md) — Completion report
 - [`endojs-endo-but-for-bots-pr392-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr392-weave.md) — Completion report
-- [`endojs-endo-but-for-bots-pr282-review-336f6623`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-review-336f6623.md) — Completion report — endojs-endo-but-for-bots-pr282-review-336f6623
-- … and 4951 more
+- … and 4952 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
