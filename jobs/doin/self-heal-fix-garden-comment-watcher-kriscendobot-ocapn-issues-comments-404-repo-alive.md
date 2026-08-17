@@ -33,6 +33,7 @@ Tests, in `scripts/jobs/test/comment-watcher-test.sh` (extend the existing gone-
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
