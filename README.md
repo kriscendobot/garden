@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T13:30:38Z_
+_As of 2026-08-17T13:37:14Z_
 
 ## Latest
 
@@ -901,33 +901,66 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr897-weave' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
+
+> self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 4a3cad7157bef233fe5ff86033c15818aad01198 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 4a3cad7157bef233fe5ff86033c15818aad01198). Diagnosis: **Diagnosis: transient GitHub-side incident, no code fix — no job posted.**
+>
+> The watcher failed exactly as designed. Every `GET repos/<repo>/pulls/<n>/reviews` returned HTTP 404, so `comment-source-gh.sh:258` hit its `note_fetch_failure "pulls/$n/reviews"` guard for 7 of the 8 activity-bounded PRs, the source exited nonzero with `FETCH INCOMPLETE`, and `comment-watcher.sh` froze the cursor rather than advancing past un-enumerated comments — the correct, deliberate behavior for an unreliable fetch.
+>
+> The 404 is not ours. Probing live:
+>
+> - `pulls/1019/reviews` → 404 whose body is a **GraphQL-shaped** error: `Could not resolve to a node with the global id of 'PR_kwDORRE4FM8AAAABABM7Nw'` — GitHub's REST-over-GraphQL backend for the list-reviews endpoint failing, not a REST "no such PR" 4
+
+- `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 36d7b202a3b4e451a36c428c0bff67df22516be7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 36d7b202a3b4e451a36c428c0bff67df22516be7). Diagnosis: **Diagnosis: known root cause, fix already in flight — no new job posted.**
+>
+> `garden-comment-watcher@kriscendobot-minion.town` died at `comment-watcher.sh FATAL: comment source failed`. The proximate cause is one `gh` call at `scripts/jobs/handlers/comment-source-gh.sh:158`:
+>
+> ```
+> gh api repos/kriscendobot/minion.town/issues/comments?since=…&per_page=100
+>   failed (definitive, rc=1); not retrying: unexpected end of JSON input
+> ```
+>
+> `unexpected end of JSON input` is Go's `encoding/json` wording for a response body that was empty or cut short mid-document. `GARDEN_TRANSIENT_GH_API_SIGNATURES` (`scripts/jobs/common.sh:3163`) names the neighbouring cases — `\bEOF\b`, the HTML-error-page decoder string, http2 stream resets — but not this one, so `gh_api_retry` classified it **definitive**,
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.0M | $1136.12 _(notional, rate-card)_ | no quota set |
+| Claude | 83.0M | $1145.89 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (0)
-(none)
+### todo (4)
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled.md) — ---
 
-### doin (5)
-- [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack the gateway phase-5 branch (design/gateway-package-phase-5) — no PR f...
+### doin (12)
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-endo-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-endo-issues-disabled-404.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive.md) — ---
 
-### tada (4966)
+### tada (4968)
+- [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack of design/gateway-package-phase-5 (PR #393) — complete
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-minion-town-unexpected-end-of-json-input`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-ci-watcher-kriscendobot-minion-town-unexpected-end-of-json-input.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Completion report — Review directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr282-registry-url-cache-key`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-registry-url-cache-key.md) — Completion report: endojs-endo-but-for-bots-pr282-registry-url-cache-key
-- [`endojs-endo-but-for-bots-gateway-phase-restack-chain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-gateway-phase-restack-chain.md) — orchestration endojs-endo-but-for-bots-gateway-phase-restack-chain — HALTED
-- [`endojs-endo-but-for-bots-pr398-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- … and 4961 more
+- … and 4963 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
