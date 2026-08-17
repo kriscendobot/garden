@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T15:53:47Z_
+_As of 2026-08-17T16:00:18Z_
 
 ## Latest
 
@@ -1059,6 +1059,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > ANOMALY: comment-watcher/kriscendobot-vattr97 self-test FAILED on kriscendobot/vattr97 — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
+
+- `watchdog-blind-comment-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-watcher/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ymax-stdio-mcp.md)
+
+> ANOMALY: comment-watcher/kriscendobot-ymax-stdio-mcp self-test FAILED on kriscendobot/ymax-stdio-mcp — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a.md)
 
