@@ -54,3 +54,13 @@ Definition of done: design doc updated + pushed to design/endo-claude, inline
 reply posted citing the commit, PR still mergeable. This is a DESIGN refinement
 only — do NOT implement the package here (a separate builder is orchestrated to
 follow the merge).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T04:58:08Z
