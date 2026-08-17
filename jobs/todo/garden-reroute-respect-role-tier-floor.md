@@ -72,15 +72,4 @@ not overlap: `garden-requeue-rediscover-prior-work` (duplication arising from
 requeues) and `garden-orchestration-halt-record-accuracy` (halt records that
 misreport what happened).
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T05:53:39Z
+<!-- garden-reaped: 1 -->
