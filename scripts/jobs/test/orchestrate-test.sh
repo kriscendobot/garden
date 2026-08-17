@@ -11,6 +11,10 @@
 #                   (policy=halt): the next child is NOT promoted, downstream
 #                   children remain safely parked, and the failure surfaces to
 #                   the maintainer — not a silent stall.
+#   3b. SUPERSEDE — after a halt, the parked children run on ANOTHER path (a human
+#                   promote); the next tick flips the record to
+#                   `halted-superseded` and appends a dated addendum so no reader
+#                   mistakes the stale halt narrative for live state (idempotent).
 #   4. CONTINUE   - a child that reaches tada with a declared failure proceeds to
 #                   the next child rather than halting under policy=continue.
 #   5. STALL       — a NON-PRODUCTIVE requeue streak that EXCEEDS
@@ -138,6 +142,22 @@ fail_child() {  # fail_child <base>
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
   git -C "$wt" "${git_id[@]}" commit -q -m "doom-drop($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+# Simulate a parked child being promoted by ANOTHER path (a human promote-plan.sh,
+# a re-post) AFTER a halt and then completing: it leaves its held plan/ gate and
+# lands in tada/. Models the pr282 incident the supersede pass corrects.
+promote_and_complete_externally() {  # promote_and_complete_externally <base>
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" rm -q "jobs/plan/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  printf '# %s done\n\nwork complete via another promotion path\n' "$1" > "$wt/jobs/tada/$1.md"
+  git -C "$wt" add "jobs/tada/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "manual-promote+tada($1)"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -286,6 +306,42 @@ grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-halt.md" 2>/dev/null
 grep -q 'Left 2 not-yet-run downstream child(ren) parked' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
   && ok "halt summary names the recoverable parked remainder" \
   || bad "halt summary does not record the parked remainder"
+
+# the halt summary carries a MACHINE-READABLE remainder for the supersede pass
+grep -qx 'halt-parked-remainder: h-b h-c' "$V/jobs/tada/orch-halt.md" 2>/dev/null \
+  && ok "halt summary emits machine-readable halt-parked-remainder" \
+  || bad "halt summary missing machine-readable halt-parked-remainder (got: $(grep -i parked-remainder "$V/jobs/tada/orch-halt.md" 2>/dev/null))"
+
+# ============================================================================
+hr; echo "SUBTEST 3b — SUPERSEDE: a halt record is corrected when its parked children later run"; hr
+# The two parked children are promoted+completed by ANOTHER path (a human promote),
+# exactly as pr282-flag-gated-reconciliation's were ~18h after its halt.
+promote_and_complete_externally h-b
+promote_and_complete_externally h-c
+tick                      # supersede pass should correct the stale halt record
+
+sup="$V/jobs/tada/orch-halt.md"; board jobs/tada >/dev/null   # refresh $V
+grep -qx 'orchestration-status: halted-superseded' "$sup" 2>/dev/null \
+  && ok "stale halt flipped to orchestration-status: halted-superseded" \
+  || bad "halt not superseded (status: $(grep -i '^orchestration-status:' "$sup" 2>/dev/null))"
+grep -q '^SUPERSEDED ' "$sup" 2>/dev/null \
+  && ok "supersede addendum appended" \
+  || bad "no SUPERSEDED addendum"
+{ grep -q 'h-b — completed' "$sup" && grep -q 'h-c — completed' "$sup"; } 2>/dev/null \
+  && ok "addendum names both children as completed" \
+  || bad "addendum does not name both completed children"
+# still a halt* status: tada_failed keeps treating the campaign as halted
+tada_failed "$sup" \
+  && ok "superseded record still reads as halted for consumers (tada_failed)" \
+  || bad "superseded record no longer reads as a halt"
+
+# idempotent: a second tick must not append a second addendum
+tick
+board jobs/tada >/dev/null
+n="$(grep -c '^SUPERSEDED ' "$sup" 2>/dev/null || echo 0)"
+[ "$n" = 1 ] \
+  && ok "supersede is idempotent (exactly one addendum after a repeat tick)" \
+  || bad "supersede not idempotent (SUPERSEDED lines: $n)"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — CONTINUE: a serial child failure proceeds (policy=continue)"; hr
