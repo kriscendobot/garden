@@ -19,6 +19,7 @@ Add a regression test alongside the existing signature cases in `scripts/jobs/te
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
