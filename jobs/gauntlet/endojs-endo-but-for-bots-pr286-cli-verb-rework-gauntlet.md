@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1014
 build_job: endojs-endo-but-for-bots-pr286-cli-verb-rework
 kind: feature
-stage: fix
-iteration: 3
+stage: panel
+iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-3
+current_child: endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4
 state: running
 created_by: producer
 created_at: 2026-08-17T05:16:50Z
