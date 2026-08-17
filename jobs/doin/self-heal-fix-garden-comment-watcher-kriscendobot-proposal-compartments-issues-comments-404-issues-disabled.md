@@ -27,3 +27,13 @@ Also: reuse the existing `_gh_api_stderr_is_transient` / definitive-404 classifi
 Tests: extend `scripts/jobs/test/comment-watcher-test.sh` (near the existing `FETCH INCOMPLETE` / gone-repo cases at ~1469 and ~1669) with a fixture where the repo-level `issues/comments` 404s and `repos/<repo>` reports `has_issues:false` — assert the source exits **0**, emits the PR conversation comments recovered from the per-PR endpoint, and advances the cursor; plus a companion case where the per-PR fallback itself fails and the tick must still exit nonzero with the cursor frozen; plus a regression case that a 404 with `has_issues:true` (or an unreadable probe) still freezes rather than falling back.
 
 After landing, deploy and `systemctl --user reset-failed 'garden-comment-watcher@*'`, then confirm the issues-disabled forks tick clean. Expect a burst of re-polled comments on first healthy tick — the cursors have been frozen — which is idempotent by design (verify_posted + identity dedup).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T14:17:06Z
