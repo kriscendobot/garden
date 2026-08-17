@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":35,"elapsed_s":473,"input_tokens":65,"output_tokens":31347,"cache_creation_tokens":88868,"cache_read_tokens":2512513,"total_cost_usd":2.9317135,"ts":"2026-08-17T12:25:39Z","base":"endojs-endo-but-for-bots-pr282-entry-walk-lexer","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer"}
