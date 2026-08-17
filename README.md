@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T18:23:29Z_
+_As of 2026-08-17T18:38:38Z_
 
 ## Latest
 
@@ -1064,16 +1064,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1019
+### doin (0)
+(none)
 
-### tada (4994)
+### tada (4995)
+- [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-3.md) — Summary (carried forward from the completed attempt)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-6.md) — Fixer stage report — PR #1014 (gauntlet FIX round 6)
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-3.md) — Completion report
-- … and 4989 more
+- … and 4990 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
