@@ -49,3 +49,13 @@ Scope guard: `designs/` only. If it runs long, complete a coherent subset and
 post a follow-on naming the remainder.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T21:43:12Z
