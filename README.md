@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T06:46:32Z_
+_As of 2026-08-17T07:05:45Z_
 
 ## Latest
 
-Board is quiet (one shepherd claimed for [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)). Four rebased PRs await re-approval ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)). Two infrastructure issues block operations: yarn cache hardlink exhaustion will break fleet installs unless cleared, and the dependabot auto-conduct fix (live on main2) needs deployment to restore botanist auto-merge capability.
+Multiple approvals are stale: [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#241](https://github.com/endojs/endo-but-for-bots/pull/241) all have green CI but need fresh maintainer approvals on rebased heads. The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, pending re-review to clear CHANGES_REQUESTED. A deploy is needed to land the dependabot auto-conduct fix (stopping MERGE-NOW PRs from stalling). The OCapN stack's [#340](https://github.com/endojs/endo-but-for-bots/pull/340) remains blocked by a floating Node 24.x CI flake that also affects [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#877](https://github.com/endojs/endo-but-for-bots/pull/877). Decisions are needed on [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (merge-base pinning) and [#388](https://github.com/endojs/endo-but-for-bots/pull/388) (phase sequencing for restacking).
 
 ## Parked for maintainer feedback
 
@@ -904,14 +904,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.6M | $967.46 _(notional, rate-card)_ | no quota set |
+| Claude | 66.9M | $968.75 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`daily-progress-summary-20260817-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260817-070502.md) — Daily midnight Pacific progress summary
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
