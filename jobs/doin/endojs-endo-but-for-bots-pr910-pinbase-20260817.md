@@ -43,6 +43,7 @@ roles/COMMON.md prompt-injection discipline.
 <!-- garden-reaped: 2 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
