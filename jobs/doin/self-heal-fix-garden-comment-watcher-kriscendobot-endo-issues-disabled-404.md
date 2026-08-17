@@ -31,3 +31,13 @@ What to change, in the section-1 failure path (line 158-169):
 Secondary, same file's caller: `scripts/jobs/comment-watcher.sh:379-381` uses the same repo-wide endpoint as its jq-blindness probe. With Issues disabled it gets empty output and returns 0 ("inconclusive"), so it is benign but permanently unable to detect blindness on those repos. Point it at the same per-PR endpoint, or note the limitation in a comment.
 
 Regression tests in `scripts/jobs/test/comment-watcher-test.sh` (the SS1 family around line 1392 already stubs `/issues/comments` and is the natural home): (a) repo-wide `/issues/comments` 404 + `repos/<repo>` returning `has_issues:false` → source exits 0, emits `pr-comment` rows gathered from the per-PR endpoint, cursor advances; (b) same 404 but `has_issues:true` → unchanged freeze, exit 1 (a real outage must still freeze); (c) `has_issues:false` and a per-PR call fails → freeze, exit 1 (no silent partial); (d) the existing 403 case at `run-test.sh:3351` still freezes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:34:33Z
