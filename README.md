@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T20:05:22Z_
+_As of 2026-08-17T21:14:19Z_
 
 ## Latest
 
@@ -579,26 +579,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr1019-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
-- `doomed-dependabotany-recheck-endo-but-for-bots-20260817-170501-deadline-overrun` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-dependabotany-recheck-endo-but-for-bots-20260817-170501-deadline-overrun.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden2-5bcdff64.
-> The handler returned rc=124 at its applied 2400s wall-clock budget without productive progress.
-> One such observation is conclusive, so the reaper did not spend another full handler budget.
-> Split the work into claim-sized stages or raise its handler-timeout.
-> The work is preserved at jobs/plan/dependabotany-recheck-endo-but-for-bots-20260817-170501; it stays HELD until a human promotes it
-> (promote-plan.sh dependabotany-recheck-endo-but-for-bots-20260817-170501) or removes it.
-> Original job base: dependabotany-recheck-endo-but-for-bots-20260817-170501
->
-> --- original job body ---
-> ---
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> # Daily dependabotany backstop for endo-but-for-bots
->
-> Wear roles/botanist/AGENT.md. Recover the cumulative Dependabot ledger from journal message entries whose body contains both "# Dependabotany" and "project: endo-but-for-bots". Re-evaluate every due open row, including [https://github.com/endojs/endo-but-for-bots/pull/923](https://github.com/endojs/endo-but-for-bots/pull/923), against live base state, advisories, source maturity, and CI; execute terminal dispositions through the conductor spine.
-
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -983,10 +963,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
 
-- `watchdog-handler-budget-overrun-dependabotany-recheck-endo-but-for-bots-20260817-170501` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-dependabotany-recheck-endo-but-for-bots-20260817-170501.md)
-
-> gardener job 'dependabotany-recheck-endo-but-for-bots-20260817-170501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr897-657aab6a' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1061,8 +1037,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.0M | $1224.58 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+683.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 88.4M | $1228.03 _(notional, rate-card)_ | no quota set |
+| Codex | 23.6M _(+681.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
