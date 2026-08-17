@@ -82,6 +82,15 @@ across a requeue so you resume in-flight work); cd there and do the project work
 Concurrent same-branch pushes still race at the git-push CAS — that is fine; the
 working trees must never be shared.
 
+If this job OPENS a pull request, open it ONLY through
+$jobs_dir/gardening/ensure-pr.sh <base> <owner/repo> <head-branch> <base-branch>
+--title T --body-file F — never a bare 'gh pr create'. A prior claimant of THIS
+job (a cross-host reaper requeue starts you clean, with no session to resume) may
+have ALREADY opened the PR; ensure-pr.sh finds it by the durable
+'<!-- garden-job: $base -->' marker and adopts it instead of opening a duplicate
+(the endo-but-for-bots #999/#1000 defect). Before creating anything, run it (or its
+--find-only form) to rediscover a prior PR rather than assuming none exists.
+
 NEVER run git in the deployed garden root ($GARDEN_ROOT). That checkout and the
 journal worktree SHARE ONE repo, so a stray 'git remote set-url' / 'fetch' /
 'checkout' / 'commit' there — or ANY git command run in a dir under the root that

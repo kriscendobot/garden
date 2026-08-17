@@ -152,6 +152,34 @@ if [ -z "${GH_TOKEN:-}" ]; then
   fi
 fi
 
+# --- durable garden-job marker on `gh pr create` -------------------------------
+# A job claimed more than once must converge on ONE pull request. ensure-pr.sh is
+# the deterministic converger, but only for a PR whose body CARRIES the
+# `<!-- garden-job: <base> -->` marker its discovery queries on. A bare
+# `gh pr create` (a still-documented follow-up/stacked path, and how the node-24x-ci
+# job opened endojs/endo-but-for-bots#999) writes no marker, so a cross-host requeue
+# cannot rediscover it and re-creates (#999/#1000). Stamping the marker HERE — the
+# one PATH chokepoint every fleet gh call crosses — makes EVERY fleet-opened PR
+# rediscoverable regardless of the code path. It only ADDS an invisible HTML comment
+# (never blocks, never changes a rendered byte, only `pr create` is touched), so it
+# cannot regress any flow. Fail-open by construction: pr-job-marker.sh returns rc 1
+# (passthrough) for a non-create, an absent/invalid $GARDEN_JOB_BASE, a bodyless
+# (--fill/editor) create, or any parse doubt. See
+# designs/requeue-rediscover-prior-work.md.
+_prjm_lib="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/pr-job-marker.sh"
+if [ -r "$_prjm_lib" ]; then
+  # shellcheck source=../pr-job-marker.sh
+  . "$_prjm_lib" 2>/dev/null || true
+  if declare -f pr_job_marker_rewrite_argv >/dev/null 2>&1 \
+     && pr_job_marker_rewrite_argv "$@" 2>/dev/null; then
+    # A `pr create` is never a comment, so the provenance step below would no-op on
+    # it — run the marked argv directly (not exec, so the temp body file is cleaned).
+    "$real_gh" "${PRJM_NEWARGV[@]}"; _prjm_rc=$?
+    declare -f pr_job_marker_cleanup >/dev/null 2>&1 && pr_job_marker_cleanup
+    exit "$_prjm_rc"
+  fi
+fi
+
 # --- GitHub-comment provenance footer (maintainer directive 2026-07-28) --------
 # Every PR/issue comment the fleet posts carries a small-text footer naming the
 # model, harness, and DEPLOYED garden sha (hyperlinked). Enforcing it HERE — the
