@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":81,"input_tokens":26,"output_tokens":4667,"cache_creation_tokens":38932,"cache_read_tokens":664002,"total_cost_usd":0.8410299999999999,"ts":"2026-08-17T13:33:53Z","base":"self-heal-fix-garden-ci-watcher-kriscendobot-minion-town-unexpected-end-of-json-input","host":"endolin-garden-ece02cb4","outcome":"tada"}
