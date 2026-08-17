@@ -1,3 +1,4 @@
 {"ts":"2026-08-17T12:39:45Z","base":"self-improve-job-basename-isodate","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
 {"ts":"2026-08-17T12:43:55Z","base":"self-improve-job-basename-isodate","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
 {"ts":"2026-08-17T12:55:30Z","base":"self-improve-job-basename-isodate","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":7}
+{"source":"result","model":"claude-opus-4-8","num_turns":36,"elapsed_s":442,"input_tokens":63,"output_tokens":25291,"cache_creation_tokens":88127,"cache_read_tokens":2766317,"total_cost_usd":2.9005525,"ts":"2026-08-17T13:11:38Z","base":"self-improve-job-basename-isodate","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
