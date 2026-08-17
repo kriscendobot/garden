@@ -13,3 +13,13 @@ Fix, in priority order:
 4. **Same latent shape, no fix required now:** `scripts/jobs/handlers/issue-source-gh.sh:117` uses the identical repo-level endpoint. It is not failing today because the issue-inbox watches only `config/garden-repo` (`kriscendobot/garden`, `has_issues=true`), but it will 404 the same way if the inbox is ever pointed at a fork — note it in a comment there, or share whichever helper item 2 introduces.
 
 Regression tests belong in `scripts/jobs/test/comment-watcher-test.sh` (which already covers the FETCH-FAIL/freeze path) using the existing `GARDEN_GH` stub seam: (a) `has_issues=false` + repo-level 404 → handler exits **0** and emits the `pr-comment` rows gathered per open PR; (b) a 404 with `has_issues=true` (or an unreadable `repos/$repo`) → still freezes the cursor and exits nonzero.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:35:51Z
