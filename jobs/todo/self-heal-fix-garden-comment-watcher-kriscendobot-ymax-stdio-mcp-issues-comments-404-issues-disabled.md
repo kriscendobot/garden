@@ -21,15 +21,4 @@ Regression test in `scripts/jobs/test/comment-watcher-test.sh`, following the ex
 
 After landing, the 11 affected units clear on their next timer tick with no reconcile; confirm with `systemctl --user --failed`.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:45:37Z
+<!-- garden-reaped: 1 -->

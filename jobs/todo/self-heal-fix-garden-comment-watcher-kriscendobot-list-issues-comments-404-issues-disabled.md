@@ -26,15 +26,4 @@ Also fix the second, independent misclassification in the same tick — `scripts
 
 Regression coverage in `scripts/jobs/test/comment-watcher-test.sh` using the existing `GARDEN_GH` stub seam: (1) a repo whose `issues/comments` 404s and whose `repos/<repo>` reports `has_issues:false` → source exits 0, emits the `pr-comment` lines gathered per-PR, cursor advances; (2) same 404 but `has_issues:true` → still a lost fetch, exit 1, cursor frozen (no regression to the LOST-FETCH invariant); (3) `unexpected end of JSON input` on a surface → retried, then classified transient rather than fatal.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:44:32Z
+<!-- garden-reaped: 1 -->
