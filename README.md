@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T05:34:24Z_
+_As of 2026-08-17T05:41:42Z_
 
 ## Latest
 
-The fleet completed a monthly reporting cycle (2026-07-14 to 2026-08-14) and surfaced a systematic CI blocker: a floating Node 24.x runner issue is stalling several dependabot PRs including [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Meanwhile, the dependabot auto-merge fix already landed on `main2` (commits c31b2aaf4a + 6116be1d53) but the deployed root still lacks it, so the botanist MERGE-NOW verdicts stall on maintainer approval despite passing all diligence—a deploy is needed to unblock the queue. Five PRs are parked waiting for re-approval after rebase or work: [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer + lint fix), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream), [#388](https://github.com/endojs/endo-but-for-bots/pull/388) & [#389](https://github.com/endojs/endo-but-for-bots/pull/389) (gateway phases 2–3), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, blocked only on re-review. Minion.town's weblet-gateway design reconciliation is done with one identity-modeling decision (OQ7) awaiting your call, and ocap.site PSL is ready to ferry upstream pending attestations; DNSSEC setup on Route53 needs your authorization.
+Four jobs active, 80+ decisions in the maintainer inbox, and the board is mostly waiting on re-approvals after rebases. [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the gateway phases ([#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389)) all need fresh maintainer approval on their current heads; the byteArray press ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is green but blocked on re-review to clear CHANGES_REQUESTED. The OCapN transport stack ([#340](https://github.com/endojs/endo-but-for-bots/pull/340) and its dependents) is ready to merge pending your approval. Several large jobs ([#282](https://github.com/endojs/endo-but-for-bots/pull/282), [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#897](https://github.com/endojs/endo-but-for-bots/pull/897)) are parked after timing out or stalling; two operational blockers are live—a floating Node 24.x runner failure hitting multiple dependabot PRs including [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), and a deployed-root bug in the dependabot auto-merge gate that requires a deploy to land the already-committed fix. The weblet-gateway design ([#21](https://github.com/kriscendobot/minion.town/pull/21)) is reconciled and waiting on your call about identity modeling (content-only vs. composite id).
 
 ## Parked for maintainer feedback
 
@@ -933,17 +933,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.5M | $943.15 _(notional, rate-card)_ | no quota set |
+| Claude | 63.8M | $944.52 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-endo-claude-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endo-claude-build.md) — Builder: implement @endo/claude per merged design
 - [`endojs-endo-but-for-bots-pr1014-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-18477549.md) — attention directive on endojs/endo-but-for-bots PR #403
 
 ### tada (4931)
 - [`endojs-endo-but-for-bots-pr301-close-and-residual`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr301-close-and-residual.md) — Completion report
