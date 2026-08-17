@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: gardener
 claimed_at: 2026-08-17T05:25:09Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-endo-claude-build
+pr_number: 1015
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1015
+pr_head: endo-claude-package
