@@ -1,1 +1,2 @@
 {"ts":"2026-08-17T21:33:05Z","base":"groom-endo-stale-design-docs","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":34,"elapsed_s":653,"input_tokens":61,"output_tokens":47446,"cache_creation_tokens":140359,"cache_read_tokens":3053858,"total_cost_usd":4.119820000000001,"ts":"2026-08-17T21:54:32Z","base":"groom-endo-stale-design-docs","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer"}
