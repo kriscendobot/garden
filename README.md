@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T12:45:34Z_
+_As of 2026-08-17T12:58:33Z_
 
 ## Latest
 
-Genie docs consolidation neared completion — [endojs/endo-but-for-bots#1020](https://github.com/endojs/endo-but-for-bots/pull/1020) dissolved the final PLAN/TODO/TADA references inline, while the package retirement and directory deletion (committed 2026-08-13) already preserved content in the garden archive. Dependabot auto-conduct (PR recognizing `app/dependabot` authorship) landed on `main2` as c31b2aaf4a with regression test T25 added, but the deployed garden root predates it, so seven approval-held MERGE-NOW dependabot PRs stall on each conduct attempt until a deploy advances past that commit. Several design PRs pulled into rebase/re-approval cycles: [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) (gateway phase-2) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) (phase-3) are rebased and green; phase-4 through phase-12 remain unstacked, pending serially-ordered weave jobs. [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream monitor design) integrated a petname nit and is rebased mergeable, awaiting fresh approval on head e917b6a800. A known floating-Node-24.x CI flake blocks [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN Noise transport) and others; that PR is otherwise approved and merged-ready on its infrastructure merits. minion.town pushed ocap.site PSL submission ready (fork PR with owner-filled metadata), weblet-gateway design reconciled with as-built Inc 1–3 notes and security holes closed, and B5 (retire toy MCP tools) code complete pending deployed-edge validation or your authorization. Several jobs were parked after deterministic failure: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (entry-point run) rebasing stalled on elapsed-constancy (fast repeated failure, needs diagnosis), [endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/pull/897) attention and weave jobs timed out after one wall-clock budget, and the `pr282-flag-gated-reconciliation` orchestration halted after its first child stalled.
+Gateway phases [#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [#389](https://github.com/endojs/endo-but-for-bots/pull/389) rebased and green; phases [#392](https://github.com/endojs/endo-but-for-bots/pull/392) through [#420](https://github.com/endojs/endo-but-for-bots/pull/420) remain to be restacked serially. Multiple PRs ([#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324)) have rebased and passed CI but need fresh maintainer approvals on their updated heads. The byteArray finishing-line pair ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and all-green, awaiting re-review to clear CHANGES_REQUESTED. Dependabot auto-merge is broken on the deployed garden—the fix landed on main2 (commits [c31b2aaf4a](https://github.com/kriscendobot/garden/commit/c31b2aaf4a) + regression test [6116be1d53](https://github.com/kriscendobot/garden/commit/6116be1d53)) but the root hasn't deployed yet, so MERGE-NOW dependabot PRs are stalling. A floating Node 24.x runner issue is blocking the OCapN transport root ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)) and other jobs; [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) is MERGEABLE but CI-RED only on that non-required cell. Minion.town B5 (retire toy tools) is code-done and locally green, holding for your decision on deployed-edge validation path; weblet-gateway design ([#21](https://github.com/kriscendobot/minion.town/pull/21)) reconciled with one open call on ID modeling (content-only vs. composite hash). Four jobs doomed mid-handler (two due to budget overrun, two to requeue exhaustion) and are held in plan.
 
 ## Parked for maintainer feedback
 
@@ -903,7 +903,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.8M | $1121.63 _(notional, rate-card)_ | no quota set |
+| Claude | 80.9M | $1131.15 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -912,7 +912,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 ### doin (10)
 - [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack the gateway phase-5 branch (design/gateway-package-phase-5) — no PR f...
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1019
+- [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr282-registry-url-cache-key`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-registry-url-cache-key.md) — Ascertain: does the registry base URL participate in the registry cache key?
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Review directive on endojs/endo-but-for-bots PR #340
@@ -922,13 +922,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 - [`self-improve-job-basename-isodate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-improve-job-basename-isodate.md) — Self-improvement: date-suffix job basenames for recurring actions, going forward
 
-### tada (4957)
+### tada (4958)
+- [`endojs-endo-but-for-bots-pr1019-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-clean.md) — Completion report
 - [`genie-docs-delete-and-inline-refs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-and-inline-refs.md) — Completion report
 - [`kriscendobot-minion.town-pr39-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-gauntlet-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr39-review-fb0be7ca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-review-fb0be7ca.md) — Completion report
 - [`endojs-endo-but-for-bots-pr282-entry-walk-lexer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-entry-walk-lexer.md) — Completion report
-- [`endojs-endo-but-for-bots-pr392-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr392-weave.md) — Completion report
-- … and 4952 more
+- … and 4953 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
