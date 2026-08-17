@@ -66,3 +66,13 @@ PR note: state that the content is preserved in git history at `a54c3adb` and
 archived publicly at `kriscendobot/garden@journal2:library/endo-but-for-bots/`,
 and that references were dissolved inline rather than repointed, per maintainer
 decision. Do NOT force merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T12:36:05Z
