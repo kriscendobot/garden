@@ -83,3 +83,13 @@ supersession notes for the two documents above. If the implementation turns out
 to be genuinely small and clearly correct, you may follow with a contained change
 on main2, but the design record comes first, because this reverses a written
 invariant and the reasoning must be recoverable later.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T21:23:28Z
