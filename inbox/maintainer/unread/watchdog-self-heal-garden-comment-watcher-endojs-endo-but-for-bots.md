@@ -1,15 +1,20 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:self-heal-claude
-sent_at: 2026-08-17T13:33:30Z
+sent_at: 2026-08-17T14:36:25Z
 watchdog_key: self-heal-garden-comment-watcher-endojs-endo-but-for-bots
-notice_count: 1
+notice_count: 3
 first_seen: 2026-08-17T13:33:30Z
-last_seen: 2026-08-17T13:33:30Z
+last_seen: 2026-08-17T14:36:25Z
 ---
-self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 4a3cad7157bef233fe5ff86033c15818aad01198 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 4a3cad7157bef233fe5ff86033c15818aad01198). Diagnosis: **Diagnosis: transient GitHub-side incident, no code fix — no job posted.**
+WATCHDOG notice — occurrence #3 (first seen 2026-08-17T13:33:30Z, latest 2026-08-17T14:36:25Z).
+The SAME condition (`self-heal-garden-comment-watcher-endojs-endo-but-for-bots`) has now been observed 3 times; this is ONE
+coalesced notice that updates in place, not 3 messages. Latest detail:
 
-The watcher failed exactly as designed. Every `GET repos/<repo>/pulls/<n>/reviews` returned HTTP 404, so `comment-source-gh.sh:258` hit its `note_fetch_failure "pulls/$n/reviews"` guard for 7 of the 8 activity-bounded PRs, the source exited nonzero with `FETCH INCOMPLETE`, and `comment-watcher.sh` froze the cursor rather than advancing past un-enumerated comments — the correct, deliberate behavior for an unreliable fetch.
+self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 5717e8fa9b3eb904d18ac306fa49847ea91341fa (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 5717e8fa9b3eb904d18ac306fa49847ea91341fa). Diagnosis: ## Diagnosis: upstream GitHub outage on the REST reviews endpoint — no garden fix
 
-The 404 is not ours. Probing live:
+**Failure signature.** `scripts/jobs/handlers/comment-source-gh.sh:258` failed its `gh api repos/endojs/endo-but-for-bots/pulls/<n>/reviews?per_page=100` call for 8 of the 9 PRs it polled, each with `HTTP 404`. `gh_api_retry` classified 404 as definitive (correctly — a 404 is normally permanent), so each `note_fetch_failure` fired, the source exited nonzero, and the watcher froze the cursor and declined to advance past un-enumerated comments. That chain is the fail-closed design working as intended, not a defect.
 
-- `pulls/1019/reviews` → 404 whose body is a **GraphQL-shaped** error: `Could not resolve to a node with the global id of 'PR_kwDORRE4FM8AAAABABM7Nw'` — GitHub's REST-over-GraphQL backend for the list-reviews endpoint failing, not a REST "no such PR" 4
+**What the 404 actually is.** The response body is not a REST 404 — it is a *GraphQL* error leaking through the REST surface:
+
+```
+{"message":"Not Found","errors":[{"type":"NOT_FOUND","path":
