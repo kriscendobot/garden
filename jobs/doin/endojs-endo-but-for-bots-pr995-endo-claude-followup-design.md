@@ -56,3 +56,13 @@ only — do NOT implement the package here (a separate builder is orchestrated t
 follow the merge).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T05:13:16Z
