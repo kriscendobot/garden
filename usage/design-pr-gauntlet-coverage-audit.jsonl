@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":67,"elapsed_s":1022,"input_tokens":120,"output_tokens":61952,"cache_creation_tokens":147099,"cache_read_tokens":7076551,"total_cost_usd":6.561968500000001,"ts":"2026-08-17T23:19:05Z","base":"design-pr-gauntlet-coverage-audit","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}
