@@ -11,7 +11,7 @@ appellate_ran: false
 appellate_proposals: 0
 epoch:
 run_id: d8618aaa2faa
-recorded_by: endolin-garden2-5bcdff64
+recorded_by: endolin-garden-ece02cb4
 ---
 
 # Panel run — kriscendobot/minion.town #39 (design)
