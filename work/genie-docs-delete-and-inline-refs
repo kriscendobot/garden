@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-17T12:36:05Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-genie-docs-delete-and-inline-refs
-pr_number: 1020
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1020
-pr_head: llm-dissolve-retired-doc-refs
