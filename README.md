@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-17T06:07:05Z_
+_As of 2026-08-17T06:11:58Z_
 
 ## Latest
 
-Two Ironhorse design jobs claimed ([panic](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-panic.md) and [rejection handling](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-rejection-handling.md)). Multiple PRs rebased and stalled awaiting re-approval: [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (all rebase-fresh or design-modified, all blocking on your re-approval per the conductor's exact-head gate). Dependabot auto-conduct broken on the deployed root—the fix landed on main2 (c31b2aaf4a) but needs a deploy to land; every dependabot MERGE-NOW stalls without it. A known floating-Node-24.x runner flake (non-required check, unrelated to dependency content) is turning some green boards red; [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and [#340](https://github.com/endojs/endo-but-for-bots/pull/340) are held by it. Several PRs and designs parked pending your decisions: [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (registry vs. node_modules dispatch), weblet gateway id model, test262 fixture consolidation, and [#241](https://github.com/endojs/endo-but-for-bots/pull/241) (familiar VFS design awaiting final approval). Yarn berry cache hit ext4's 65k-hardlink ceiling on endolin-garden; a cache prune or nodeLinker switch is needed before new worktrees can install.
+Ironhorse rejection-handling design completed and landed. The fleet has two blocking issues: the deployed root lacks the dependabot auto-conduct fix (already on main2, commits c31b2aaf4a + 6116be1d53), leaving four dependabot PRs stalled on approval; and a floating Node 24.x CI runner flake is blocking [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN stack root) plus [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009). The byte-array finalization pair ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and green, blocked only on re-review (CHANGES_REQUESTED gates). Minion.town's weblet-gateway design is reconciled with two security fixes and awaiting a decision on content-id modeling (content-only with collision/tombstone machinery vs. composite digest); ocap.site is ready to ferry to the Public Suffix List upstream, pending Route53 DNSSEC seeding. Several jobs were doomed for timeout/requeue exhaustion this cycle; the host's yarn berry cache has hit ext4's 65000-hardlink ceiling and will break installs fleet-wide unless pruned or the nodeLinker is switched off hardlink mode.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 22h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 23h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 28d)
@@ -875,28 +875,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.0M | $963.81 _(notional, rate-card)_ | no quota set |
+| Claude | 66.0M | $964.48 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`design-ironhorse-panic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-panic.md) — Design a panic mechanism for the Ironhorse engine
-- [`design-ironhorse-rejection-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-rejection-handling.md) — Discuss: why panic-on-reference-error matters, and how it interacts with unha...
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-18477549.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`garden-reroute-respect-role-tier-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-reroute-respect-role-tier-floor.md) — ---
 
-### tada (4936)
+### tada (4937)
+- [`design-ironhorse-rejection-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-rejection-handling.md) — Completion report: design-ironhorse-rejection-handling
 - [`garden-design-conductor-merge-queue`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-design-conductor-merge-queue.md) — Cost
 - [`endojs-endo-but-for-bots-pr995-endo-claude-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-endo-claude-orch.md) — orchestration endojs-endo-but-for-bots-pr995-endo-claude-orch — complete
 - [`endojs-endo-but-for-bots-endo-claude-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endo-claude-build.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1014-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean.md) — Completion report
-- … and 4931 more
+- … and 4932 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
