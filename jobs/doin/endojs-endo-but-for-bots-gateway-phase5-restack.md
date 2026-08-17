@@ -40,3 +40,13 @@ recovery — this blocks every remaining phase (6 through 12) in the chain, so
 guessing wrong here cascades.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T12:55:54Z
