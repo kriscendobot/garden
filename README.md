@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T13:48:44Z_
+_As of 2026-08-17T13:55:43Z_
 
 ## Latest
 
@@ -9,8 +9,8 @@ A floating Node 24.x runner flake is blocking several PRs across the board. [#47
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 19d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 28d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 29d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
@@ -1057,14 +1057,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.9M | $1144.35 _(notional, rate-card)_ | no quota set |
-| Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Claude | 82.9M | $1144.18 _(notional, rate-card)_ | no quota set |
+| Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient.md) — ---
@@ -1072,17 +1072,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive.md) — ---
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled.md) — ---
 
-### tada (4974)
+### tada (4975)
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-1.md) — Completion report
-- [`kriscendobot-minion.town-pr39-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr39-gauntlet.md) — gauntlet kriscendobot-minion.town-pr39-gauntlet — HALTED
-- … and 4969 more
+- … and 4970 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
