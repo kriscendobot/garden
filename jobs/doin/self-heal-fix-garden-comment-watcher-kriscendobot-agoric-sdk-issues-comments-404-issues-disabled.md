@@ -26,3 +26,13 @@ What to change:
 Note for the claimer: this same failure will emit one self-heal job per affected repo slug; they are all the same bug. Fix once in the shared handler and close the siblings as duplicates rather than patching per-repo.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:53:23Z
