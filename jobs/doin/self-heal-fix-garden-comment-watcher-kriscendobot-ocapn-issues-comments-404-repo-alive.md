@@ -29,3 +29,13 @@ Tests, in `scripts/jobs/test/comment-watcher-test.sh` (extend the existing gone-
 - same fixture with an open PR carrying a non-bot conversation comment newer than `since` → that comment is emitted as `pr-comment` via the per-PR fallback (the regression guard for the silent-drop hazard).
 - per-PR fallback fetch fails → `fetch_failed` still set, still exits nonzero, cursor still frozen.
 - unchanged: a definitive repo-level 404 on `repos/<repo>` still takes the REPO-GONE exit-0 path with its alert.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:36:56Z
