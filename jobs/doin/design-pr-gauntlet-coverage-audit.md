@@ -80,3 +80,13 @@ you're building.
   gauntlet record and asserts the audit stages one.
 - Report names this incident (`kriscendobot/minion.town#47`) as the
   grounding example.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T23:01:27Z
