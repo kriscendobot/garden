@@ -49,6 +49,7 @@ deferred-namespace method and is not the proposal object.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
