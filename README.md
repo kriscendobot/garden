@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:54:41Z_
+_As of 2026-08-17T05:01:27Z_
 
 ## Latest
 
-Dependabot auto-conduct broke due to a GraphQL author-format mismatch on the deployed root (gh 2.97.0 renders `app/dependabot` but the check expects `dependabot[bot]`); the fix is already on main2 as [c31b2aaf4a](https://github.com/kriscendobot/garden/commit/c31b2aaf4a) + regression test, waiting for a deploy to re-enable auto-merges. In parallel, several high-value PRs are stalled on maintainer re-approval after rebases: [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar test), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry capability) all have green CI but need a fresh APPROVED review on current heads. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is design-complete and all-green, blocked only on maintainer re-review to clear CHANGES_REQUESTED. A floating-Node-24.x runner flake is holding [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport, approved but CI-red) and others; [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (npm-packlist) is otherwise MERGE-NOW. The OCapN stack has proven cross-host over raw TCP ([#693](https://github.com/endojs/endo-but-for-bots/pull/693)) after [#340](https://github.com/endojs/endo-but-for-bots/pull/340) approval. Design work on budget enforcement, weblet-gateway, and test262 consolidation landed or is in final review on main2.
+Two core capabilities advanced this cycle: the byteArray program is complete-and-green (both [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) ready for merge pending maintainer re-review after their rebases), and [#995](https://github.com/endojs/endo-but-for-bots/pull/995)'s endo-claude follow-on design is now in an orchestration job queue with build phases parked for your go-ahead. The OCapN transport root [#340](https://github.com/endojs/endo-but-for-bots/pull/340) cleared its last proof-of-concept milestone on minion.town (cross-host Noise IK over direct TCP), though the PR itself hit a Node 24.x CI flake and is parked awaiting shepherd re-promotion. A fleet-wide blocker surfaced: dependabot auto-conduct is broken on the deployed root (gh renders `app/dependabot` but the deployed spine still checks for `dependabot[bot]` — fix already landed on main2 as `c31b2aaf4a` but needs a deploy to take effect). Several PRs now stall on maintainer re-approvals after rebases ([#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) and others), and the floating Node 24.x runner issue that blocks [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [#877](https://github.com/endojs/endo-but-for-bots/pull/877) remains unresolved.
 
 ## Parked for maintainer feedback
 
@@ -460,47 +460,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > ONE human step is needed: the rebase rewrote history, so your approval on the old head (8a4aad504) is stale for the rebased head. The conductor will correctly stall "merge blocked: no maintainer approval" until you re-approve 33ae7c42a. Please re-approve when CI is green and it'll land.
 
-- `20260815T062050Z-9c457b` — from gardener:endojs-endo-but-for-bots-pr286-weave, reply_to `endojs-endo-but-for-bots-pr286-weave` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T062050Z-9c457b.md)
-
-> Weave of [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/issues/286) (`endo http mk` Phase 1) — STOPPED, needs
-> your decision. This is a design collision, not a mechanical rebase.
->
-> While [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/issues/286) sat, `llm` landed a SUPERSEDING implementation
-> of the same capability:
->   - `@endo/exo-http-client` (`makeHttpClientAndControl`) and `@endo/fetch` are now
->     in `llm`. The `add-endo-fetch` changeset says the confined-HTTP capability was
->     "repackaged as an unconfined caplet ... rather than a daemon formula."
->   - `llm`'s daemon already defines a `http-client` FORMULA (policy-based),
->     `formulateHttpClient(policy, ...)`, `getHttpClientControlForClient`, and
->     `host.makeHttpClient(policy)` returning one client with a WeakMap-held control.
->   - `designs/README.md` on `llm` already marks cli-http-client "Proposed (PR
->     [endojs/endo-but-for-bots#144](https://github.com/endojs/endo-but-for-bots/issues/144) design revision; formula packaging superseded in
->     part by endo-fetch)".
->
-> [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/issues/286) implements the SAME `http-client` formula type a
-> DIFFERENT way: local `packages/daemon/src/http-client.js`, a paired
-> `http-controller`+`http-client` formula, `formulateHttpClient(allowedOrigins,
-> ...)`, and `host.makeHttpClient(controllerName, clientName, allowedOrigins)`
-> returning a NAMED PAIR. A straight rebase produces duplicate `const
-> formulateHttpClient` (hard redeclaration error), two incompatible `http-client`
-> formula shapes, and duplicate maker/dep cases + duplicate host methods with
-> clashing signatures.
->
-> Resolving would require redesigning the feature onto `llm`'s exo-http-client base
-> (drop the duplicate `http-client` formula, keep only the `endo http mk` CLI verb +
-> `http-controller`, rewire the CLI to `llm`'s policy-based client) — outside a
-> weave's mandate ("do NOT change the feature's design"), and a real design call.
->
-> I aborted the rebase; the head branch is UNCHANGED (nothing force-pushed). The
-> blocked merge job stays blocked — [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/issues/286) cannot be made
-> mergeable by a weave.
->
-> Recommend one of: (a) close/redraft [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/issues/286) as superseded by
-> exo-http-client + endo-fetch; or (b) a builder/designer job to rework the `endo
-> http mk` CLI verb onto `llm`'s landed http-client, dropping the duplicate daemon
-> formula. Note the approval (kriskowal, 06:09Z today) predates recognizing this
-> collision.
-
 - `20260815T063123Z-015827` — from gardener:endojs-endo-but-for-bots-pr301-review-80a22279, reply_to `endojs-endo-but-for-bots-pr301-review-80a22279` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063123Z-015827.md)
 
 > Re: "Please refresh" on [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/issues/301) (feat: error tracing aggregator + `endo trace`).
@@ -649,6 +608,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > The conductor spine counts any red rollup check as CI-RED and refuses to merge; there is no sanctioned knob to merge past a non-required flaky cell, so I escalated rather than bypass the CI gate. **Decision needed:** merge [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/issues/1009) directly (it is one-click mergeable), or resolve the fleet-wide floating-Node-24.x runner issue so the spine can auto-conduct this and the other blocked PRs. Full write-up in the PR comment + dependabotany ledger (broadcast 20260816T224047Z); daily `dependabotany-recheck-endo-but-for-bots` will re-sweep it.
 >
 > (Aside: the deployed spine on this host rejected the `--dependabot-auto-merge` bypass because the live author renders as `app/dependabot`; the fix is already on `origin/main2` — commits `c31b2aaf4a` + `6116be1d53` — pending a deploy. I worked around it this run with `GARDEN_DEPENDABOT_LOGIN=app/dependabot`.)
+
+- `20260817T045838Z-44e0c2` — from gardener:endojs-endo-but-for-bots-pr1000-weave, reply_to `endojs-endo-but-for-bots-pr1000-weave` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T045838Z-44e0c2.md)
+
+> Wove [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) (Node 24.x CI pin) onto live llm and lease-pushed the rewritten head (692f4803142f). Now MERGEABLE; the prior approval went stale (needs fresh approval before merge — did NOT merge).
+>
+> Heads up: while this PR sat, llm independently landed the SAME functional pin (a59021f8ae "fix(ci): pin Node 24 matrix to 24.18.0", by 0xpatrickbot, ~77min before the weave). Both set `node-version: [22.x, 24.18.0]` identically in all 4 matrix jobs. So after the rebase [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) is now COMMENT-ONLY — it only swaps llm's shorter comment (refs `nodejs/node#65042`) for the PR's more detailed one (use-after-free in CleanupHookThunkRun, refs `nodejs/node#65195` + `nodejs/node#65196`). I kept the PR's richer comment so the PR isn't an empty diff.
+>
+> Your call on merge: the functional fix is already on trunk, so [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) could reasonably be merged (for the better comment) OR just closed as superseded. Flagging rather than deciding.
 
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
@@ -945,7 +912,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.7M | $938.66 _(notional, rate-card)_ | no quota set |
+| Claude | 62.1M | $939.87 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -953,17 +920,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
-- [`endojs-endo-but-for-bots-pr995-review-5310a0c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-review-5310a0c9.md) — Review directive on endojs/endo-but-for-bots PR #995
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework.md) — ---
+- [`endojs-endo-but-for-bots-pr995-endo-claude-followup-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-endo-claude-followup-design.md) — Designer: address PR #995 inline review on designs/endo-claude.md
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
-### tada (4923)
+### tada (4926)
+- [`endojs-endo-but-for-bots-pr1000-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1000-weave.md) — Completion report
+- [`endojs-endo-but-for-bots-pr995-review-5310a0c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-review-5310a0c9.md) — Completion report — review directive on endojs/endo-but-for-bots PR #995
+- [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1000-conduct.md) — Summary
 - [`design-relative-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-relative-routing.md) — Cost
 - [`proposal-compartments-defer-sync-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-defer-sync-import.md) — Completion report
-- [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-pin-base.md) — Cost
-- [`garden-orchestration-halt-record-accuracy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestration-halt-record-accuracy.md) — Completion report
-- [`garden-encode-pin-the-merge-base-verb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-pin-the-merge-base-verb.md) — Completion report
-- … and 4918 more
+- … and 4921 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
