@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: PR-shorthand citations silently skip the design-PR gauntlet gate
@@ -105,13 +106,4 @@ should not depend on an agent's prose obeying a style rule.
   `endojs/endo-but-for-bots#1024`) as the grounding example, per house style
   (name the artifact, don't just assert the lesson).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T21:59:45Z
+<!-- garden-reaped: 0 -->
