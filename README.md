@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T19:41:32Z_
+_As of 2026-08-17T19:46:37Z_
 
 ## Latest
 
@@ -1057,23 +1057,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.4M | $1217.30 _(notional, rate-card)_ | no quota set |
+| Claude | 88.0M | $1224.58 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+684.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1019
+### doin (0)
+(none)
 
-### tada (4997)
+### tada (4998)
+- [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-4.md) — Cost
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-3.md) — Summary (carried forward from the completed attempt)
-- … and 4992 more
+- … and 4993 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
