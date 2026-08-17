@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T17:35:27Z_
+_As of 2026-08-17T17:46:37Z_
 
 ## Latest
 
@@ -1068,6 +1068,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriscendobot-ymax-stdio-mcp self-test FAILED on kriscendobot/ymax-stdio-mcp — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
+- `watchdog-handler-budget-overrun-dependabotany-recheck-endo-but-for-bots-20260817-170501` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-dependabotany-recheck-endo-but-for-bots-20260817-170501.md)
+
+> gardener job 'dependabotany-recheck-endo-but-for-bots-20260817-170501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a` — from watchdog:gardener/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-657aab6a.md)
 
 > gardener job 'endojs-endo-but-for-bots-pr897-657aab6a' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1166,7 +1170,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.2M | $1213.45 _(notional, rate-card)_ | no quota set |
+| Claude | 87.6M | $1221.08 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+684.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
