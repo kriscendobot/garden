@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T13:18:21Z_
+_As of 2026-08-17T13:27:14Z_
 
 ## Latest
 
-The byteArray program is feature-complete and green across all platforms ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) — awaiting re-review to clear CHANGES_REQUESTED. OCapN transport proved cross-host over both ws and direct TCP, with [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (transport root) approved but blocked by a single Node 24.x flake; the stack [#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693) stands ready to restack once [#340](https://github.com/endojs/endo-but-for-bots/pull/340) merges. Several PRs are stalled on stale maintainer approvals due to rebases ([#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389)) and need re-approval at current heads. A dependabot auth fix landed on main2 but hasn't deployed yet, leaving MERGE-NOW PRs stalled on approval through the conductor; [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and [#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) are mergeable except for the same Node 24.x flake. Test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) opened with a design decision on metering corpus scope. Minion.town weblet gateway design asks whether to keep content-only identity (requiring collision rules) or composite id; the Public Suffix List ferry prep is ready, and DNSSEC signing is awaiting your go-ahead. Multiple orchestrations halted on handler budget overruns and pending restack decisions; several parked jobs await promotion or maintainer direction.
+Fleet operations stabilized around several infrastructure and approval bottlenecks. The deployed root lacks the dependabot authoring fix (commits c31b2aaf4a + 6116be1d53 on main2), leaving [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), and future dependabot MERGE-NOW PRs stalled on approvals—a deploy will unblock them. Multiple PRs await maintainer re-approval after rebases: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer-cas-smoke), and the gateway phase stack ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)/[#389](https://github.com/endojs/endo-but-for-bots/pull/389)) per conductor design. Several orchestrations and worker jobs (gateway phase restack, pr282 reconciliation, pr897 weave/attention) hit requeue exhaustion or budget overruns and are parked; a floating Node 24.x CI flake is blocking test dispatch and dependency progress. The yarn cache hardlink ceiling (65000) is now exhausted, breaking future installs on this host. The byteArray program is code-complete and green ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), and design work on budget enforcement, test262 fixture consolidation, and omega task ranking has landed or stabilized.
 
 ## Parked for maintainer feedback
 
@@ -907,28 +907,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.5M | $1131.55 _(notional, rate-card)_ | no quota set |
+| Claude | 81.7M | $1133.51 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack the gateway phase-5 branch (design/gateway-package-phase-5) — no PR f...
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
-- [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Review directive on endojs/endo-but-for-bots PR #340
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 
-### tada (4964)
+### tada (4965)
+- [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Completion report — Review directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr282-registry-url-cache-key`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-registry-url-cache-key.md) — Completion report: endojs-endo-but-for-bots-pr282-registry-url-cache-key
 - [`endojs-endo-but-for-bots-gateway-phase-restack-chain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-gateway-phase-restack-chain.md) — orchestration endojs-endo-but-for-bots-gateway-phase-restack-chain — HALTED
 - [`endojs-endo-but-for-bots-pr398-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr398-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`self-improve-job-basename-isodate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-improve-job-basename-isodate.md) — Completion report: self-improve-job-basename-isodate
-- [`genie-docs-delete-and-repoint-links`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/genie-docs-delete-and-repoint-links.md) — Completion report
-- … and 4959 more
+- … and 4960 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
