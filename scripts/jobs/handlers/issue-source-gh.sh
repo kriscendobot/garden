@@ -101,6 +101,15 @@ gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&
 # 2) NEW ISSUE COMMENTS — join the parent issue for submitter/state/closed_by and
 #    to drop PR comments. The issues/comments feed is repo-wide and `since=` here
 #    filters by UPDATED_AT, so select created_at >= since too.
+#    LATENT ISSUES-DISABLED 404 (same shape as comment-source-gh.sh's section 1): this
+#    repo-level `issues/comments` list returns a PERMANENT HTTP 404 on any repo whose
+#    Issues feature is OFF (the default for a fork), which enum_die below would turn
+#    into a per-tick FATAL. It does NOT fire today because the issue-inbox only ever
+#    watches config/garden-repo (kriscendobot/garden, has_issues=true). If the inbox is
+#    ever pointed at a fork, gate this on has_issues from repos/<repo> (the disabled
+#    state has no issues to enumerate, so there is nothing to recover here — unlike the
+#    comment-watcher's pr-comment surface) rather than failing the tick; reuse
+#    comment-source-gh.sh's repo_has_issues/repo_issues_disabled shape.
 declare -A _ISSUE_META=()   # number -> "submitter\tstate\tclosed_by\tclosed_at\tis_pr"
 issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by \t closed_at \t is_pr
   local n="$1" raw

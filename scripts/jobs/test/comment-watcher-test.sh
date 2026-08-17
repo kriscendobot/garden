@@ -2680,5 +2680,85 @@ grep -qi 'annotated parked retro' "$LOG_PKR" && ok "the retro annotate path is L
 [ "$(cursor_seen "$TR/state-pkr" "$BARE_PKR")" = 2026-07-29T11:00:00Z ] && ok "cursor advanced past the review" || bad "cursor not advanced ($(cursor_seen "$TR/state-pkr" "$BARE_PKR"))"
 
 # ============================================================================
+# IDIS/IDEN — SOURCE-level ISSUES-DISABLED recovery. A repo whose Issues feature is
+# OFF (the DEFAULT for a fork, so every kriscendobot/* own fork) answers the
+# repo-level `issues/comments` list with a PERMANENT 404. Pre-fix that note_fetch_
+# failure'd every tick → the unit crash-looped and surface=pr-comment was NEVER
+# enumerated. Post-fix: detect has_issues=false AUTHORITATIVELY and recover pr-comment
+# per open PR (issues/<n>/comments still returns 200 with Issues off), exiting 0 with
+# no coverage loss. IDEN proves the detection is not a blind 404 match: a 404 while
+# Issues are ENABLED (a deleted/renamed repo or a lost token scope) still freezes.
+hr; echo "IDIS — Issues DISABLED (fork default): repo-level 404 recovers pr-comment per open PR (exit 0)"; hr
+command -v jq >/dev/null 2>&1 && have_jq_idis=1 || have_jq_idis=0
+if [ "$have_jq_idis" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHIDIS="$TR/gh-idis"; mkdir -p "$GHIDIS"
+  cat > "$GHIDIS/gh" <<'EOF'
+#!/bin/bash
+# A repo with Issues turned OFF: the REPO-LEVEL issues/comments list 404s, but
+# repos/<repo>.has_issues is false and the PER-PR issues/<n>/comments returns 200.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"has_issues"*)                printf 'false\n'; exit 0;;                         # Issues OFF
+  *"/issues/comments"*)          echo "gh: Not Found (HTTP 404)" >&2; exit 1;;      # repo-level list 404s
+  *"/pulls?state=open"*)         printf '[{"number":5,"updated_at":"%s"}]\n' "$ts"; exit 0;;
+  *"/pulls/5/comments"*)         printf '[]\n'; exit 0;;
+  *"/pulls/5/reviews"*)          printf '[]\n'; exit 0;;
+  *"/issues/5/comments"*)        # the recovered pr-comment surface (200 even with Issues off)
+    printf '[{"id":9100,"created_at":"%s","issue_url":"https://api.github.com/repos/endojs/endo-but-for-bots/issues/5","user":{"login":"kriskowal"},"html_url":"https://github.com/endojs/endo-but-for-bots/pull/5#issuecomment-9100","body":"Please rebase."}]\n' "$ts"; exit 0;;
+  *"/pulls/comments"*)           printf '[]\n'; exit 0;;                            # repo-wide inline feed
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHIDIS/gh"
+  IDIS_OUT="$TR/idis.out"; IDIS_ERR="$TR/idis.err"
+  set +e
+  env PATH="$GHIDIS:$PATH" TS="$REV_TS" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-idis" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$IDIS_OUT" 2> "$IDIS_ERR"
+  idis_rc=$?
+  set -e
+  [ "$idis_rc" -eq 0 ] && ok "Issues-disabled repo exits 0 (no freeze, no crash-loop)" || bad "issues-disabled exited $idis_rc (want 0): $(cat "$IDIS_ERR")"
+  grep -q $'\tpr-comment\t9100\t5\t' "$IDIS_OUT" && ok "the per-PR conversation comment is recovered as surface=pr-comment" || bad "pr-comment not recovered (out: $(cat "$IDIS_OUT"))"
+  grep -qi 'issues disabled on endojs/endo-but-for-bots; enumerating pr-comment per open PR' "$IDIS_ERR" && ok "the degraded mode is LOGGED once per tick" || bad "degraded-mode log missing ($(cat "$IDIS_ERR"))"
+  { grep -qi 'FETCH INCOMPLETE' "$IDIS_ERR" || grep -qi 'FETCH-FAIL' "$IDIS_ERR"; } && bad "the disabled repo wrongly froze the cursor" || ok "no lost-fetch freeze on the disabled repo"
+fi
+
+hr; echo "IDEN — a repo-level 404 while Issues are ENABLED still freezes the cursor (no blind 404 match)"; hr
+command -v jq >/dev/null 2>&1 && have_jq_iden=1 || have_jq_iden=0
+if [ "$have_jq_iden" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHIDEN="$TR/gh-iden"; mkdir -p "$GHIDEN"
+  cat > "$GHIDEN/gh" <<'EOF'
+#!/bin/bash
+# The repo EXISTS and Issues are ENABLED (has_issues=true, full_name answers), yet the
+# issues/comments list 404s — a genuine lost fetch (transient scope loss, or a
+# GitHub-side 404 that is NOT the disabled-Issues signature). Must freeze, not degrade.
+args="$*"
+case "$args" in
+  *"full_name"*)                 printf 'endojs/endo-but-for-bots\n'; exit 0;;   # repo answers → NOT gone
+  *"has_issues"*)                printf 'true\n'; exit 0;;                       # Issues ON
+  *"/issues/comments"*)          echo "gh: Not Found (HTTP 404)" >&2; exit 1;;   # a REAL lost fetch
+  *"/pulls?state=open"*)         printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)           printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHIDEN/gh"
+  IDEN_OUT="$TR/iden.out"; IDEN_ERR="$TR/iden.err"
+  set +e
+  env PATH="$GHIDEN:$PATH" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-iden" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$IDEN_OUT" 2> "$IDEN_ERR"
+  iden_rc=$?
+  set -e
+  [ "$iden_rc" -eq 1 ] && ok "a 404 with Issues ENABLED still exits nonzero (cursor frozen, LOST-FETCH intact)" || bad "issues-enabled 404 exited $iden_rc (want 1): $(cat "$IDEN_ERR")"
+  grep -qi 'FETCH INCOMPLETE' "$IDEN_ERR" && ok "the freeze is LOGGED (FETCH INCOMPLETE), not silently degraded" || bad "no FETCH-INCOMPLETE log ($(cat "$IDEN_ERR"))"
+  grep -qi 'issues disabled' "$IDEN_ERR" && bad "wrongly entered issues-disabled mode on a repo whose Issues are ON" || ok "did not blindly treat the 404 as issues-disabled"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

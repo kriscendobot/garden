@@ -86,6 +86,82 @@ if [ -n "$floor" ] && [ "$since" \< "$floor" ]; then since="$floor"; fi
 
 oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 
+# --- ISSUES-DISABLED degraded mode (fork default) ----------------------------
+# A repo with the Issues feature turned OFF — the DEFAULT for a fork, so every
+# kriscendobot/* own fork the auto-provisioner arms — answers the REPO-LEVEL list
+# `repos/<repo>/issues/comments` with a PERMANENT HTTP 404. gh_api_retry rightly
+# classifies 404 as definitive, so section 1 below used to note_fetch_failure and
+# exit nonzero on EVERY tick, wedging the unit in a restart loop and NEVER
+# enumerating surface=pr-comment (a PR's conversation comments) — the comment
+# watcher's unique surface. The PER-PR path `repos/<repo>/issues/<n>/comments` still
+# returns 200 on such a repo (GitHub models a PR as an issue), so when Issues are
+# disabled we recover the pr-comment surface by enumerating it per open PR inside the
+# section-3 walk — no coverage loss (surface=issue-comment is genuinely impossible
+# when no issues can exist), and no extra PR-list call.
+#
+# The disabled state is detected AUTHORITATIVELY (has_issues on repos/<repo>), NOT by
+# pattern-matching the 404 blindly: a 404 from a deleted/renamed repo or a lost token
+# scope is a REAL lost fetch that must still freeze the cursor (and, for a gone repo,
+# reach the REPO-GONE deactivation at the tail). repo_has_issues caches the one
+# repos/<repo> read per tick, and it runs ONLY on the already-404'd section-1 path, so
+# a healthy tick pays nothing extra.
+issues_disabled=""
+
+# emit_pr_conversation_comments <json-array>
+# Run the SAME classify+filter jq the repo-level section-1 branch uses over a comment
+# payload (repo-level OR a single PR's issues/<n>/comments): drop the bot's own
+# comments, keep only rows at/after the cursor, and split pr-comment vs issue-comment
+# by the html_url /pull/ segment. Reused so the degraded per-PR path is byte-identical
+# to the repo-level path.
+emit_pr_conversation_comments() {  # emit_pr_conversation_comments <json>
+  printf '%s' "$1" | jq -r --arg s "$since" --arg bot "$bot" "
+      .[] | select(.created_at >= \$s)
+      | select((.user.login // \"\") != \$bot)
+      | [ .created_at,
+          (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
+          (.id|tostring),
+          ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
+          .user.login, .html_url, ($oneline) ] | @tsv"
+}
+
+# repo_has_issues — rc 0 = Issues ENABLED, rc 1 = DISABLED, rc 2 = UNKNOWN (could not
+# ask). Reads repos/<repo>.has_issues ONCE per tick and caches the verdict.
+_REPO_HAS_ISSUES=""
+repo_has_issues() {
+  if [ -z "$_REPO_HAS_ISSUES" ]; then
+    local val
+    if val="$(gh_api_retry "repos/$repo" --jq '.has_issues' 2>/dev/null)"; then
+      case "$val" in
+        true)  _REPO_HAS_ISSUES=yes ;;
+        false) _REPO_HAS_ISSUES=no ;;
+        *)     _REPO_HAS_ISSUES=unknown ;;
+      esac
+    else
+      _REPO_HAS_ISSUES=unknown
+    fi
+  fi
+  case "$_REPO_HAS_ISSUES" in
+    yes) return 0 ;; no) return 1 ;; *) return 2 ;;
+  esac
+}
+
+# repo_issues_disabled <errfile> — rc 0 IFF the repo-level issues/comments failure in
+# <errfile> is a DEFINITIVE 404 whose cause is that this repo's Issues feature is OFF.
+# A transient blip, a primary-quota refusal, a non-404 definitive error (auth/scope),
+# or a 404 on a repo whose Issues are actually ENABLED (→ deleted/renamed/gone) all
+# return rc 1 so the caller keeps the fail-loud freeze-the-cursor behavior.
+repo_issues_disabled() {  # repo_issues_disabled <errfile>
+  local stderr; stderr="$(cat "$1" 2>/dev/null || true)"
+  _gh_api_stderr_is_transient "$stderr" && return 1
+  is_gh_primary_rate_limit_text "$stderr" && return 1
+  case "$stderr" in
+    *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*) ;;
+    *) return 1 ;;                       # some other definitive error — never guess
+  esac
+  repo_has_issues && return 1            # Issues ENABLED but the list 404'd → real fault
+  [ "$_REPO_HAS_ISSUES" = no ]           # rc 0 only when authoritatively DISABLED
+}
+
 # Every `gh api` here is `gh_api_retry` (common.sh): a TRANSIENT blip (5xx / 429 /
 # secondary throttle / DNS-TLS-reset) is ridden out under full-jitter backoff before
 # the call gives up. GitHub PRIMARY quota exhaustion instead fails after one attempt,
@@ -162,14 +238,13 @@ note_fetch_failure() {  # note_fetch_failure <label> <errfile>
 #    not swallowed by `|| true` into a silent partial subset.
 s1_err="$(mktemp)"
 if _raw="$(gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>"$s1_err")"; then
-  printf '%s' "$_raw" | jq -r --arg s "$since" --arg bot "$bot" "
-      .[] | select(.created_at >= \$s)
-      | select((.user.login // \"\") != \$bot)
-      | [ .created_at,
-          (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
-          (.id|tostring),
-          ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline) ] | @tsv"
+  emit_pr_conversation_comments "$_raw"
+elif repo_issues_disabled "$s1_err"; then
+  # Issues are OFF on this repo (fork default): the repo-level list 404s permanently.
+  # Do NOT freeze the cursor — recover surface=pr-comment per open PR in section 3.
+  # Logged once per tick so the degraded mode stays diagnosable in the journal.
+  issues_disabled=1
+  log "issues disabled on $repo; enumerating pr-comment per open PR"
 else
   # ISSUES-DISABLED degrade (fires ONLY on this already-failed path, so a healthy
   # tick pays nothing). A definitive 404 here can mean the repo-wide issues/comments
@@ -326,6 +401,21 @@ while IFS=$'\t' read -r n updated; do
     note_fetch_failure "pulls/$n/reviews" "$rev_err"
   fi
   [ -n "$fetch_primary_quota" ] && break
+  # ISSUES-DISABLED degraded mode: the repo-level issues/comments feed 404'd because
+  # Issues are OFF, so recover THIS PR's conversation comments (surface=pr-comment)
+  # directly — issues/<n>/comments returns 200 even with Issues disabled. Guarded
+  # exactly like the other surfaces: a failure is DETECTED (fetch_failed), never
+  # swallowed into a silent partial subset. Emitted to $s3out so it is cat'd with the
+  # review-body rows; the watcher re-sorts by created_at, so order is irrelevant.
+  if [ -n "$issues_disabled" ]; then
+    : >"$ic_err"
+    if _ic="$(gh_api_retry --paginate "repos/$repo/issues/$n/comments?since=$since&per_page=100" 2>"$ic_err")"; then
+      emit_pr_conversation_comments "$_ic" >> "$s3out"
+    else
+      note_fetch_failure "issues/$n/comments (pr-comment, issues-disabled mode)" "$ic_err"
+    fi
+    [ -n "$fetch_primary_quota" ] && break
+  fi
 done <<< "$open_prs"
 # No silent caps: record how many open PRs were polled vs how many the activity
 # bound skipped (info-level stderr; the watcher ignores a 0-exit source's stderr).

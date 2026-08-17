@@ -359,26 +359,46 @@ source_path_healthy() {  # source_path_healthy <repo>
   local repo="$1" raw id
   if [ -n "$GARDEN_COMMENT_SELFTEST" ]; then "$GARDEN_COMMENT_SELFTEST" "$repo"; return; fi
   command -v gh >/dev/null 2>&1 || return 0              # cannot reach API → inconclusive
-  # Fetch the single most-recent issue comment as a known-existing fixture. Bound
-  # it with `timeout` (when present) so a hung gh/git credential helper here can
-  # never outlive the tick either — the self-test must not be the wedge it guards
+  # Fetch a known-existing comment as a fixture. Two candidate surfaces, tried in
+  # order under ONE shared timeout budget:
+  #   1. repos/<repo>/issues/comments — the repo-level PR+issue conversation feed. But
+  #      it 404s permanently on a repo whose Issues feature is OFF (the DEFAULT for a
+  #      fork, so the whole own-fork cohort), and an unconditional 404→empty here reads
+  #      as "transient, inconclusive" EVERY window — silently disabling this
+  #      jq-blindness guard on exactly the repos it now watches. So on an empty/404
+  #      answer we fall through to:
+  #   2. repos/<repo>/pulls/comments — repo-wide inline REVIEW comments, which exist
+  #      regardless of the Issues setting, giving the probe a real comment to test jq
+  #      against on an Issues-off fork. Both are tried inside a single `bash -c` so the
+  #      ONE `timeout` still bounds the whole probe; the PR number is never needed, so
+  #      no jq is used to build a URL (the probe must still detect an absent/broken jq
+  #      below as BLIND — it cannot depend on jq itself).
+  #
+  # Bound the probe with `timeout` (when present) so a hung gh/git credential helper
+  # here can never outlive the tick — the self-test must not be the wedge it guards
   # against. A timeout/failure → empty raw → inconclusive (never paged).
   #
   # This probe runs SYNCHRONOUSLY in the foreground (a `$( … )` command
-  # substitution), NOT under the backgrounded+trap-reaped shape the main source
-  # fetch uses — so a systemd stop landing mid-probe cannot run the EXIT/TERM trap
-  # until this `timeout` returns (bash defers a trap past a running foreground
-  # child). Its worst case (timeout + kill-after) is therefore a HARD floor on how
-  # long a stop blocks, and it MUST fit inside the unit's TimeoutStopSec=20s with
-  # margin, or the cgroup-wide SIGKILL backstop fires first and the stop is marked
-  # Failed with a status=9/KILL — the very orphaned-git-in-cgroup outcome
-  # KillMode=mixed was written to avoid (observed 09:40:35 during a GitHub outage,
-  # when the old 30s+10s=40s budget overran the 20s stop). 10s+5s=15s < 20s keeps a
-  # 5s margin while still bounding a hung probe well inside a normal tick.
+  # substitution wrapping a single `timeout` child), NOT under the backgrounded+
+  # trap-reaped shape the main source fetch uses — so a systemd stop landing mid-probe
+  # cannot run the EXIT/TERM trap until this `timeout` returns (bash defers a trap past
+  # a running foreground child). Its worst case (timeout + kill-after) is therefore a
+  # HARD floor on how long a stop blocks, and it MUST fit inside the unit's
+  # TimeoutStopSec=20s with margin, or the cgroup-wide SIGKILL backstop fires first and
+  # the stop is marked Failed with a status=9/KILL — the very orphaned-git-in-cgroup
+  # outcome KillMode=mixed was written to avoid (observed 09:40:35 during a GitHub
+  # outage, when the old 30s+10s=40s budget overran the 20s stop). 10s+5s=15s < 20s
+  # keeps a 5s margin while still bounding a hung probe well inside a normal tick.
+  local probe='
+    repo="$1"
+    r="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+    case "$r" in *"{"*) printf "%s" "$r"; exit 0;; esac
+    gh api "repos/$repo/pulls/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true
+  '
   if command -v timeout >/dev/null 2>&1; then
-    raw="$(timeout --signal=TERM --kill-after=5s 10s gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+    raw="$(timeout --signal=TERM --kill-after=5s 10s bash -c "$probe" _ "$repo" 2>/dev/null || true)"
   else
-    raw="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+    raw="$(bash -c "$probe" _ "$repo" 2>/dev/null || true)"
   fi
   # KNOWN LIMITATION — Issues-disabled forks: this probe fetches the repo-wide
   # /issues/comments aggregate, which 404s permanently on a repo with has_issues=false
