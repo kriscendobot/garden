@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T13:55:43Z_
+_As of 2026-08-17T13:56:37Z_
 
 ## Latest
 
@@ -1057,31 +1057,30 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 82.9M | $1144.18 _(notional, rate-card)_ | no quota set |
+| Claude | 82.9M | $1144.62 _(notional, rate-card)_ | no quota set |
 | Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled.md) — ---
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled.md) — ---
 
-### tada (4975)
+### tada (4976)
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled.md) — Completion report
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-1.md) — Completion report
-- … and 4970 more
+- … and 4971 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
