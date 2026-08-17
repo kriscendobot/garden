@@ -41,3 +41,13 @@ elapsed time far below its 7200s budget. That job is parked in jobs/plan/ and is
 NOT to be promoted. If you hit a fast deterministic failure too, STOP and report
 the failure mode with evidence rather than retrying: that reproduction is more
 valuable than the pin.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T04:14:36Z
