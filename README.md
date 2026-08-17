@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T14:13:03Z_
+_As of 2026-08-17T14:16:16Z_
 
 ## Latest
 
@@ -1042,6 +1042,20 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > - `pulls/1019/reviews` → 404 whose body is a **GraphQL-shaped** error: `Could not resolve to a node with the global id of 'PR_kwDORRE4FM8AAAABABM7Nw'` — GitHub's REST-over-GraphQL backend for the list-reviews endpoint failing, not a REST "no such PR" 4
 
+- `watchdog-self-heal-garden-comment-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-cosgov.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: f7c3f9366ebc225c3a641e589383b550a6962cd9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p f7c3f9366ebc225c3a641e589383b550a6962cd9). Diagnosis: ## Diagnosis: already-fixed bug, still running on a pre-fix deployed root
+>
+> **Failure signature.** `garden-comment-watcher@kriscendobot-cosgov` died `rc=1` at 14:14:09 because surface 1 of the comment source got a definitive 404:
+>
+> ```
+> gh api repos/kriscendobot/cosgov/issues/comments?since=… failed (definitive, rc=1): gh: Not Found (HTTP 404)
+> FETCH INCOMPLETE … exiting nonzero so the watcher freezes the cursor and re-polls
+> FATAL: comment source failed for kriscendobot/cosgov (rc=1)
+> ```
+>
+> **Root cause.** `kriscendobot/cosgov` exists but has **Issues disabled** — I confirmed `{"full_name":"kriscendobot/cosgov","fork":true,"archived":false,"has_issues":false}`, and `repos/kriscendobot/cosgov/issues/comments` returns `{"message":"Not Found","status":"404"}` while `pulls/comments` returns `[
+
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-list` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-list.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: 6eed636c387eb7253aeec5c1ce3b95009b216aa9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 6eed636c387eb7253aeec5c1ce3b95009b216aa9). Diagnosis: ## Diagnosis: both defects are already fixed on `main2` — this host is 10 commits behind on deploy
@@ -1089,7 +1103,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.4M | $1152.20 _(notional, rate-card)_ | no quota set |
+| Claude | 83.6M | $1155.40 _(notional, rate-card)_ | no quota set |
 | Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
