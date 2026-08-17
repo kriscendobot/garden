@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T15:30:18Z_
+_As of 2026-08-17T15:38:41Z_
 
 ## Latest
 
@@ -1062,13 +1062,17 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
 
-> provider session limit reached: the API is refusing calls fleet-wide (resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-moddable (rc=1); its capture is blob 7fa04ccc5edef208cae405a6420efbdd86536c68 (git -C /home/kris/garden2/).
+> WATCHDOG notice — occurrence #25 (first seen 2026-08-17T14:38:22Z, latest 2026-08-17T15:38:22Z).
+> The SAME condition (`provider-quota`) has now been observed 25 times; this is ONE
+> coalesced notice that updates in place, not 25 messages. Latest detail:
+>
+> provider session limit reached: the API is refusing calls fleet-wide (resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-ocapn (rc=1); its capture is blob 912a506436dfdacc9e103f5523f5e68965fbbf68 (git -C /home/kris/garden2/).
 > limit_type: session
 > This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
 > resumes on its own once the window resets (see skills/restore/SKILL.md for the
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-> provider quota exceeded while running garden-comment-watcher@kriscendobot-moddable. Observed: You've hit your session limit · resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-moddable (rc=1); its capture is blob 7fa04ccc5edef208cae405a6420efbdd86536c68 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7fa04ccc5edef208cae405a6420efbdd86536c68).
+> provider quota exceeded while running garden-comment-watcher@kriscendobot-ocapn. Observed: You've hit your session limit · resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-ocapn (rc=1); its capture is blob 912a506436dfdacc9e103f5523f5e68965fbbf68 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 912a506436dfdacc9e103f5523f5e68965fbbf68).
 
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
