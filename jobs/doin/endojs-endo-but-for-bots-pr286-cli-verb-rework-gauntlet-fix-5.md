@@ -43,6 +43,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 <!-- garden-reaped: 2 -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-provider-quota-backoff: type=session reset-at=2026-08-17T16:20:00Z -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
