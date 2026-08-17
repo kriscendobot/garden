@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T17:46:37Z_
+_As of 2026-08-17T17:52:22Z_
 
 ## Latest
 
@@ -1093,6 +1093,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > post-outage restore). Every unit that trips the limit folds into THIS one notice
 > rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
 > provider quota exceeded while running garden-comment-watcher@kriscendobot-ocapn. Observed: You've hit your session limit · resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-ocapn (rc=1); its capture is blob 912a506436dfdacc9e103f5523f5e68965fbbf68 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 912a506436dfdacc9e103f5523f5e68965fbbf68).
+
+- `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
+
+> root repo /home/kris/garden deploy has been STALLED for ~3d: deployed sha 4e95097a29f765e4d9c220e6089a4671651cb95b is 30 commit(s) behind origin/main2 (745fa90891f8692c12b6b14a06b4a5dbdcbbf503) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. (host=endolin-garden-ece02cb4)
 
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
