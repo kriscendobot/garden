@@ -38,3 +38,13 @@ in this chain) can rebase onto it.
 history), stop and report the discrepancy in detail rather than improvising a
 recovery — this blocks every remaining phase (6 through 12) in the chain, so
 guessing wrong here cascades.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T12:28:10Z
