@@ -22,3 +22,13 @@ Regression test in `scripts/jobs/test/comment-watcher-test.sh`, following the ex
 After landing, the 11 affected units clear on their next timer tick with no reconcile; confirm with `systemctl --user --failed`.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:54:16Z
