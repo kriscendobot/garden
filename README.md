@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T05:17:39Z_
+_As of 2026-08-17T05:19:22Z_
 
 ## Latest
 
-A floating Node 24.x CI flake on ubuntu-latest is the critical blocker: it's preventing the OCapN stack from clearing ([endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) is approved but CI-red, blocking restack of [#684](https://github.com/endojs/endo-but-for-bots/pull/684)/[#688](https://github.com/endojs/endo-but-for-bots/pull/688)/[#693](https://github.com/endojs/endo-but-for-bots/pull/693)), and also affects [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (npm-packlist), [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (Node pin itself), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) (byteArray). The byteArray work ([#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is otherwise green and ready—just awaiting your re-review to clear CHANGES_REQUESTED. The deployed garden has a dependabot auto-conduct bug (deployed code doesn't match the fix already on main2 c31b2aaf4a), causing [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006) and others to stall on approval. Gateway package phases 2 and 3 ([#388](https://github.com/endojs/endo-but-for-bots/pull/388)/[#389](https://github.com/endojs/endo-but-for-bots/pull/389)) are rebased and restacked; the remaining 10 phases need sequential restacking, which I can execute one at a time. Multiple PRs awaiting stale-approval refreshes after rebase ([#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#403](https://github.com/endojs/endo-but-for-bots/pull/403)), and two gauntlets hit iteration limits ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)). Several parked jobs await your sequencing call: PR [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (registry/node_modules run dispatch), test262 metering corpus handling, minion.town B5 deployed-edge validation, and ocap.site DNSSEC.
+The monthly progress report (2026-07-14 to 2026-08-14) landed; highlights include merging [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) (Rust engine), advancing the Ironhorse Test262 campaign from 4,740 to 23,496 cases, and strengthening garden orchestration and cost controls. Recent work flow: [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) (gateway phase-2) was reopened and rebased onto llm with phase-3 restacked; [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design) had petname nits resolved and awaits re-approval; [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) (Node 24 pin) wove cleanly but is now comment-only (fix already on trunk). **Blocker:** dependabot auto-merge broken on the deployed root (fix landed on main2 as c31b2aaf4a + regression test T25, pending deploy); the floating Node 24.x CI flake is holding [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#1007](https://github.com/endojs/endo-but-for-bots/pull/1007), and others; the yarn berry cache hit ext4's 65000-hardlink ceiling and broke installs fleet-wide. Infrastructure fixes queued; several parked jobs awaiting maintainer decisions on phase sequencing, proof-of-staging, and scope cuts.
 
 ## Parked for maintainer feedback
 
@@ -460,43 +460,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > ONE human step is needed: the rebase rewrote history, so your approval on the old head (8a4aad504) is stale for the rebased head. The conductor will correctly stall "merge blocked: no maintainer approval" until you re-approve 33ae7c42a. Please re-approve when CI is green and it'll land.
 
-- `20260815T063123Z-015827` — from gardener:endojs-endo-but-for-bots-pr301-review-80a22279, reply_to `endojs-endo-but-for-bots-pr301-review-80a22279` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063123Z-015827.md)
-
-> Re: "Please refresh" on [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/issues/301) (feat: error tracing aggregator + `endo trace`).
->
-> I cannot refresh this PR — it is superseded, not stale, and needs your decision.
->
-> FINDING
-> - The entire error-tracing feature already landed on `llm` via `bbc997dee`
->   (endolinbot, 2026-07-01, 1800 insertions), in an EVOLVED design: traces sit
->   behind a revocable `host.diagnostics().traces()` facet, whereas the PR exposes
->   a flat `EndoHost.traces()`. `bbc997dee` is NOT an ancestor of the PR head — it
->   is a parallel/divergent implementation of the same feature by another of our
->   own bot instances.
-> - Every headline capability of the PR already exists on `llm`: the marshal
->   save/load hooks, the captp forwarding, the trace-aggregator (more advanced —
->   its `alias()` handles not-yet-arrived records), the `endo trace` CLI verb, and
->   the CTP_DISCONNECT `@@error` wire-shape reconstitution fix.
-> - The base also restructured the daemon package (1782 commits since the PR's
->   merge-base): `daemon.js` / `daemon-go.js` / `daemon-node*.js` / `error-id.js`
->   no longer exist at the paths the PR edits/creates. A rebase would be
->   modify/delete conflicts across the whole daemon plus a semantic re-author onto
->   a facet that already does the job — a rebuild, not a refresh. I did not force
->   it (would silently drop the PR's intent).
->
-> RESIDUAL over `llm` (candidates, all needing re-author onto the new structure if
-> wanted): `error-id.js` dedup helper, `trace-constants.js`, a network-side
-> `network-marshal-save-error.js` hook for ws-relay/libp2p, and chat-client trace
-> surfacing. Unclear any is still net-new after the restructure.
->
-> RECOMMENDATION: close [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/issues/301) as superseded by the landed
-> error-tracing facility. If any residual (esp. the network-side save-error hook)
-> is still wanted, commission a small designer/fixer to graft just that onto the
-> diagnostics-facet structure — a fresh, narrowly-scoped item, not a refresh of
-> this branch.
->
-> Awaiting your call (close vs. graft-residual). Reply routes to my inbox.
-
 - `20260815T063133Z-fe4d8e` — from gardener:endojs-endo-but-for-bots-pr324-conduct, reply_to `endojs-endo-but-for-bots-pr324-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260815T063133Z-fe4d8e.md)
 
 > Conductor on endojs/endo-but-for-bots PR [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/issues/324) (test/familiar-primer-cas-smoke → llm).
@@ -912,15 +875,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 62.8M | $941.18 _(notional, rate-card)_ | no quota set |
+| Claude | 63.0M | $942.19 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr301-close-and-residual`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-close-and-residual.md) — ---
 - [`endojs-endo-but-for-bots-pr995-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-conduct.md) — Conductor: un-draft + merge PR #995 (endo-claude design)
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
