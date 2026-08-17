@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T12:15:32Z_
+_As of 2026-08-17T12:20:07Z_
 
 ## Latest
 
-Dependabot auto-conduct is broken on the deployed garden root — a fix landed on `main2` (commits c31b2aaf4a + 6116be1d53) that handles the `app/dependabot` author spelling, but the deployed code still runs the old logic, causing every dependabot MERGE-NOW to stall on approval. A deploy will fix it. Meanwhile, several PRs are blocked pending maintainer re-approval after rebasing work: [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream), [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), and [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer) all have green CI and clean code but need fresh approval signatures on their rebased heads. Some job work has been parked due to handler budget overruns ([#897](https://github.com/endojs/endo-but-for-bots/pull/897) weave and attention work, [#282](https://github.com/endojs/endo-but-for-bots/pull/282) pin-and-reconcile) and requeue exhaustion ([#856](https://github.com/endojs/endo-but-for-bots/pull/856) weave, #1006 dependabot); these are preserved in `jobs/plan/` and can be promoted when conditions change. Infrastructure-wise, the shared yarn berry cache hit ext4's 65k hardlink ceiling and will break installs fleet-wide until pruned, and a floating Node 24.x runner issue is blocking four dependabot merges that are otherwise ready.
+Gateway phase chain restacking orchestrated. [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) review complete with follow-up design work, awaits run-dispatch collision decision. OCapN transport proved over TCP. Two operational blockers: Node 24.x CI flake blocks [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) and dependabot PRs; dependabot auto-conduct parsing broken on deployed root (fix c31b2aaf4a on main2, awaits deploy).
 
 ## Parked for maintainer feedback
 
@@ -900,25 +900,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.9M | $1114.64 _(notional, rate-card)_ | no quota set |
+| Claude | 78.3M | $1115.72 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr282-review-336f6623`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-review-336f6623.md) — Review directive on endojs/endo-but-for-bots PR #282
+### doin (6)
+- [`endojs-endo-but-for-bots-pr282-entry-walk-lexer`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-entry-walk-lexer.md) — Design: replace the hand-rolled partial JS lexer in entry_walk.rs
+- [`endojs-endo-but-for-bots-pr282-registry-url-cache-key`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-registry-url-cache-key.md) — Ascertain: does the registry base URL participate in the registry cache key?
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Review directive on endojs/endo-but-for-bots PR #340
+- [`endojs-endo-but-for-bots-pr392-weave`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr392-weave.md) — Restack endojs/endo-but-for-bots PR #392 (phase-4) onto its rewritten parent
+- [`endojs-endo-but-for-bots-pr398-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #398
 
-### tada (4951)
+### tada (4952)
+- [`endojs-endo-but-for-bots-pr282-review-336f6623`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-review-336f6623.md) — Completion report — endojs-endo-but-for-bots-pr282-review-336f6623
 - [`garden-root-repo-guard-gc-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-root-repo-guard-gc-lock-contention.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4.md) — Completion report — Gauntlet FIX round 4, PR #1014
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-3.md) — Completion report
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3.md) — Completion report
-- … and 4946 more
+- … and 4947 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
