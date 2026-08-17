@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 handler-timeout: 3600
@@ -42,13 +43,4 @@ NOT to be promoted. If you hit a fast deterministic failure too, STOP and report
 the failure mode with evidence rather than retrying: that reproduction is more
 valuable than the pin.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T04:14:36Z
+<!-- garden-reaped: 0 -->
