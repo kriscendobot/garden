@@ -32,3 +32,13 @@ Task (conductor role, skills/pr-creation-flow finalization):
 Definition of done: PR #995 merged into llm, summary comment posted.
 If the PR is not mergeable or checks are red, do NOT merge — report the blocker
 and emit the orchestration-failed signal so the orchestration halts.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T05:16:13Z
