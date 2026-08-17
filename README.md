@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:22:44Z_
+_As of 2026-08-17T04:26:18Z_
 
 ## Latest
 
-Four jobs are in-flight, including finalization of [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) and advancement of [#282](https://github.com/endojs/endo-but-for-bots/pull/282) with flag-gated dispatch resolution. The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is CI-green awaiting maintainer re-review; [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport) is approved and will unblock a 4-PR restack when merged. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) appear superseded by shipped features and need disposition calls. The gateway-package phase stack ([#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[#420](https://github.com/endojs/endo-but-for-bots/pull/420)) is being restacked following rebases; phases 2 and 3 are complete. Dependabot auto-conduct is broken on the deployed root (bot login mismatch); the fix is on main2 pending deploy. minion.town's ocap.site implementation is deployment-ready with PSL ferry prepared, and B5 (retire toy MCP tools) awaits deployed-edge validation.
+Merge-base verb formalized and orchestration halt recording fixed. The critical blocker is deployment of the dependabot-auto-merge fix (c31b2aaf4a on main2), needed to auto-conduct [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) and pending dependabot PRs; a Node 24.x runner flake is holding [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and others at CI-red; yarn's hardlink ceiling is breaking installs fleet-wide. Several PRs await re-approval after rebase; [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) likely need closure as superseded; design decisions are pending on compartments, gateway-identity modeling, and minion.town DNS.
 
 ## Parked for maintainer feedback
 
@@ -987,26 +987,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.7M | $933.99 _(notional, rate-card)_ | no quota set |
+| Claude | 60.8M | $934.75 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
 - [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-pin-base.md) — ---
-- [`garden-encode-pin-the-merge-base-verb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-encode-pin-the-merge-base-verb.md) — ---
-- [`garden-orchestration-halt-record-accuracy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-orchestration-halt-record-accuracy.md) — ---
 
-### tada (4918)
+### tada (4920)
+- [`garden-orchestration-halt-record-accuracy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestration-halt-record-accuracy.md) — Completion report
+- [`garden-encode-pin-the-merge-base-verb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-pin-the-merge-base-verb.md) — Completion report
 - [`pr282-flag-gated-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr282-flag-gated-reconciliation.md) — orchestration pr282-flag-gated-reconciliation — HALTED
 - [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-fixture-parity.md) — Completion report: compartment-mapper fixture parity for PR #282, with drift ...
 - [`endojs-endo-but-for-bots-pr282-registry-default-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-registry-default-followup.md) — Completion report
-- [`endojs-endo-but-for-bots-pr282-b9f11d3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-b9f11d3a.md) — Completion report
-- [`garden-requeue-rediscover-prior-work`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-requeue-rediscover-prior-work.md) — Completion report
-- … and 4913 more
+- … and 4915 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
