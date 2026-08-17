@@ -68,3 +68,13 @@ superseded by exo-http-client + endo-fetch while the CLI verb was not, and link
 the replacement PR.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T05:03:24Z
