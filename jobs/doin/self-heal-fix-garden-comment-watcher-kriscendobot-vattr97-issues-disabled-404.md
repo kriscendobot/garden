@@ -23,3 +23,13 @@ FATAL: comment source failed for kriscendobot/vattr97 (rc=1)
 **Secondary, same cause — note but keep the behavior.** `scripts/jobs/comment-watcher.sh` lines ~379/381 use the same repo-wide endpoint as a jq-blindness canary with `2>/dev/null || true`. It fails open (`return 0`, inconclusive), so it does not fail a tick, but it is permanently inconclusive on these 11 repos — the jq-outage canary is silently disarmed there. Either point it at a surface that exists on issues-disabled repos or add a comment recording that the canary is inert for them; do not make it fail a tick.
 
 **Verification.** Add a regression test under `scripts/jobs/test/` in the style of the existing `fake-gh.sh`-driven tests: a fake `gh` where `repos/<r>` returns `has_issues: false` and the repo-wide `issues/comments` 404s while `issues/<n>/comments` succeeds — assert the source exits 0, emits the per-PR `pr-comment` rows, and does NOT freeze the cursor; plus a case where the `has_issues` probe itself fails transiently — assert it still exits nonzero (freeze). Then confirm the live units settle: `systemctl --user list-units 'garden-comment-watcher@*'` should show no member stuck in `activating start`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:38:19Z
