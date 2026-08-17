@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-17T02:07:05Z_
+_As of 2026-08-17T04:01:32Z_
 
 ## Latest
 
-Several PRs were discovered as superseded by newer implementations ([endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) by endo-fetch, [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) by landed error-tracing), and others are stalled awaiting your re-approval after rebases that invalidated prior reviews ([endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)). Dependabot PRs are merging but the fleet discovered a bot-auth rendering issue ([endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) already landed; fix pending deploy). The garden's budget-enforcement design landed on main2, making live token-admission a standing property of every dispatch. A host-level yarn cache hit the 65000 hardlink ceiling (workaround applied; cleanup pending), and several handler-budget overruns and gauntlet convergence timeouts are parked. Monthly progress report is ready.
+OCapN-Noise transport proved live over TCP on minion.town; [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (transport root) is approved and ready for merge, clearing the path to restack and land [#684](https://github.com/endojs/endo-but-for-bots/pull/684), [#688](https://github.com/endojs/endo-but-for-bots/pull/688), and [#693](https://github.com/endojs/endo-but-for-bots/pull/693). The byteArray finish line is green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503), waiting only on maintainer re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) needs un-draft and first review. The git-integration arc (M3) closed with [#691](https://github.com/endojs/endo-but-for-bots/pull/691) merged; test262 fixture consolidation designed in [#946](https://github.com/endojs/endo-but-for-bots/pull/946) (draft). Several PRs had bases refreshed ([#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)) and now need fresh maintainer approval on rebased heads; two design collisions surfaced ([#286](https://github.com/endojs/endo-but-for-bots/pull/286) vs landed exo-http-client, [#301](https://github.com/endojs/endo-but-for-bots/pull/301) vs merged error-tracing facility). A deploy is needed to activate dependabot auto-conduct (fix landed on main2); floating Node 24.x CI flakes continue to block [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
@@ -987,7 +987,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.9M | $928.65 _(notional, rate-card)_ | no quota set |
+| Claude | 59.9M | $928.73 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
@@ -1076,6 +1076,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endo-sha256-async-arm-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sha256-async-arm-followup.md) — _normal_ · ---
 - [`ebfb-sturdyref-stack-modernize`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-sturdyref-stack-modernize.md) — _2_ · The situation
 - [`endojs-endo-but-for-bots-248-build-ses-import-attributes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-248-build-ses-import-attributes.md) — _normal_ · Build: SES import attributes (design #248)
+- [`scholar-ingest-cap-talk`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/scholar-ingest-cap-talk.md) — _normal_ · Ingest the cap-talk mailing list into the library
 - [`local-verify-zizmor-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/local-verify-zizmor-parity.md) — _low_ · local-verify: cover the zizmor workflow audit (CI parity gap)
 - [`endojs-endo-but-for-bots-pr388-review-04154a91-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr388-review-04154a91-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #388 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr398-review-262cd801-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr398-review-262cd801-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #398 (primary: endojs-endo-but-f...
