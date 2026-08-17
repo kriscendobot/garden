@@ -1,21 +1,21 @@
 # Garden bulletin
 
-_As of 2026-08-16T23:26:32Z_
+_As of 2026-08-17T01:31:09Z_
 
 ## Latest
 
-Node 24.x CI fix landed ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) clearing the gate for dependent PRs. Dependabot sweep mostly completed but auto-conduct remains broken on the deployed root (fix awaiting deploy). Several long jobs hit wall-clock limits and need splitting: shepherd on [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) and directive/weave on [endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/pull/897) both expired at 2400s, and gauntlets on [endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997) halted unconverged. Multiple rebased PRs await maintainer re-approval ([endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)), and [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) were marked superseded. Design work completed: budget admission gates, test262 fixture strategy, weblet-gateway reconciliation.
+[endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN-Noise daemon transport) is approved and ready for merge; the cross-host TCP demo proved the full stack. The [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) byteArray refinements are feature-complete and green, awaiting maintainer re-review. Multiple PRs hit rebase cycles post-approval ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)) and need re-approval on rebased heads. Dependabot auto-conduct is broken on the deployed root (gh 2.97.0 renders bot author differently); a fix landed on main2 pending deploy. A fleet-wide floating Node 24.x runner flake is blocking merges of [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Several parked PRs are blocked on supersession decisions ([endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) vs. endo-fetch, [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) vs. landed error-tracing). Budget enforcement design ([designs/live-budget-admission.md](designs/live-budget-admission.md)) landed; awaiting token cap configuration to activate the live gates.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 16h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 18h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 28d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 31d)
-- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 33d)
+- [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 34d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 45d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 62d)
 
@@ -631,38 +631,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr997-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
-- `20260816T161144Z-05c043` — from gardener:endo-but-for-bots-pin-node-24x-ci, reply_to `endo-but-for-bots-pin-node-24x-ci` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T161144Z-05c043.md)
-
-> CI-infra fix ready for review: [endojs/endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/issues/999) (base llm) pins the
-> 24.x Node matrix to 24.18.0. Confirmed the diagnosis against real logs — the red
-> run resolved node v24.19.0 and aborted AVA workers in RemoveEnvironmentCleanupHook
-> ("Assertion failed: (env) != nullptr") while tearing down better-sqlite3 11.10.0
-> (upstream [nodejs/node#65195](https://github.com/nodejs/node/issues/65195), fixed by [nodejs/node#65196](https://github.com/nodejs/node/issues/65196)). The float is
-> intermittent (some 24.19.0 runs pass), so the pin removes the flake entirely.
->
-> I'm watching [endojs/endo-but-for-bots#999](https://github.com/endojs/endo-but-for-bots/issues/999)'s own CI (now correctly running the
-> 24.18.0 legs). I cannot self-merge; once you merge it to llm, re-running CI on
-> [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) / [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) /
-> [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) will pick up the pinned workflow via their merge
-> refs and should clear the 24.x gate. I'll report the re-run results if the merge
-> lands within my job window; otherwise that re-run is the remaining follow-up.
-
-- `20260816T161955Z-49015b` — from gardener:endo-but-for-bots-pin-node-24x-ci, reply_to `endo-but-for-bots-pin-node-24x-ci` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T161955Z-49015b.md)
-
-> CI fix ready: [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) (base llm) pins the four Node 24.x
-> matrix entries in .github/workflows/ci.yml to 24.18.0, stopping the float onto
-> 24.19.0 that crashed better-sqlite3 AVA workers (RemoveEnvironmentCleanupHook /
-> (env)!=nullptr; [nodejs/node#65195](https://github.com/nodejs/node/issues/65195), [nodejs/node#65196](https://github.com/nodejs/node/issues/65196)). Diagnosis confirmed
-> against logs (red run = v24.19.0) and the pin is validated: the [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000)
-> run's own test (24.18.0, ubuntu-latest) is GREEN.
->
-> Needs a maintainer merge to land. After [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) merges to
-> llm, [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/issues/340) and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/issues/877) (both base
-> llm) go green once rebased. NOTE: [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) targets
-> llm-a54c3ad, not llm, so it needs llm-a54c3ad updated (or [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475)
-> retargeted) to inherit the pin — an llm-only merge won't reach it. Want me to
-> post a follow-up to rebase/re-run the three once [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) lands?
-
 - `20260816T204738Z-d5a68a` — from gardener:kriscendobot-proposal-compartments-pr3-refresh, reply_to `kriscendobot-proposal-compartments-pr3-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T204738Z-d5a68a.md)
 
 > ## [kriscendobot/proposal-compartments#3](https://github.com/kriscendobot/proposal-compartments/issues/3) "refresh" — done + a dispatch decision for you
@@ -713,18 +681,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > For [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/issues/1004) specifically: no action needed — it's MERGED (902ca06c). I completed the conduct with a one-off `GARDEN_DEPENDABOT_LOGIN=app/dependabot` override after all botanist diligence cleared and CI went green.
 >
 > Recommend a deploy at your convenience so auto-conduct works without per-PR overrides.
-
-- `20260816T220034Z-74a9b6` — from gardener:endojs-endo-but-for-bots-pr856-conduct, reply_to `endojs-endo-but-for-bots-pr856-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T220034Z-74a9b6.md)
-
-> Conductor on [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/issues/856) (fix/endor ESM detection):
->
-> Merge-time freshness rebase moved the head 40af392 -> 4e7b7f95 (llm had advanced
-> since your approval). A rebase never preserves the approval signature, so your
-> 21:54Z APPROVED review on 40af392 is now STALE against the rebased head.
->
-> CI is re-running on 4e7b7f95 now. Once it's green, please re-approve the rebased
-> head and I'll (or the next conduct tick will) merge. The PR is otherwise clean,
-> mergeable, based on live llm.
 
 - `20260816T224108Z-f8b1ef` — from gardener:endojs-endo-but-for-bots-pr1009-dependabot, reply_to `endojs-endo-but-for-bots-pr1009-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T224108Z-f8b1ef.md)
 
@@ -1031,15 +987,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.1M | $925.90 _(notional, rate-card)_ | no quota set |
+| Claude | 59.5M | $928.05 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr282-b9f11d3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-b9f11d3a.md) — attention directive on endojs/endo-but-for-bots PR #282
+- [`garden-requeue-rediscover-prior-work`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-requeue-rediscover-prior-work.md) — ---
 
 ### tada (4914)
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-conduct.md) — Completion report
@@ -1130,6 +1087,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-but-for-bots-node-pin-ci-rerun.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1000` · ---
 - [`endojs-endo-but-for-bots-pr132-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-conduct.md) — awaiting `endojs-endo-but-for-bots-pr132-retcon` · Conduct (finalize -> merge) endojs/endo-but-for-bots PR #132
 - [`endojs-endo-but-for-bots-pr980-node24-ci-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr980-node24-ci-retry.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/980` · ---
 - [`finbot-pr6-panel-r6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/finbot-pr6-panel-r6.md) — awaiting `finbot-pr6-fix-panel-r5` · Run the required merge-governance panel for kriscendobot/finbot PR #6 (round ...
