@@ -47,3 +47,13 @@ Three tasks, land as a draft PR against `llm`:
 
 Scope guard: `designs/` only. If it runs long, complete a coherent subset and
 post a follow-on naming the remainder.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T21:32:21Z
