@@ -1,0 +1,20 @@
+[Unit]
+Description=Garden design-PR gauntlet-coverage audit timer
+
+[Timer]
+# Absolute wall-clock schedule (hourly at :37), NOT a relative OnActiveSec/
+# OnUnitActiveSec pair: a relative first-elapse window larger than the fleet's
+# ~1-minute daemon-reload cadence is re-armed before it elapses and can be deferred
+# indefinitely (see garden-library-source-drift-scan.timer for the full rationale;
+# garden-orchestrate.timer starved for real on this exact bug). Offset to :37 so it
+# runs clear of the clone-keeper (:00/:30) and journal-worktree-keeper (:15/:45)
+# fetch windows. Hourly is ample for a backstop: the completion-time stager/sensor
+# already cover the common draft path; this only catches the non-draft-at-birth (or
+# otherwise-missed) design PR, and a security-critical one should never sit a day
+# unnoticed again (kriscendobot/minion.town#47). Persistent=true catches up a run
+# missed across downtime.
+OnCalendar=*:37
+Persistent=true
+
+[Install]
+WantedBy=timers.target
