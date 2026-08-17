@@ -126,3 +126,13 @@ embargo/crank-commit mechanics turn out to need their own follow-on design
 once the daemon's actual current behavior is surveyed, say so explicitly in
 Open Questions rather than asserting a mechanism that was not verified
 against the real code.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T06:05:39Z
