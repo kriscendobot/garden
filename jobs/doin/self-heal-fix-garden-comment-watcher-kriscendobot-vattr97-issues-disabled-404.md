@@ -24,6 +24,7 @@ FATAL: comment source failed for kriscendobot/vattr97 (rc=1)
 
 **Verification.** Add a regression test under `scripts/jobs/test/` in the style of the existing `fake-gh.sh`-driven tests: a fake `gh` where `repos/<r>` returns `has_issues: false` and the repo-wide `issues/comments` 404s while `issues/<n>/comments` succeeds — assert the source exits 0, emits the per-PR `pr-comment` rows, and does NOT freeze the cursor; plus a case where the `has_issues` probe itself fails transiently — assert it still exits nonzero (freeze). Then confirm the live units settle: `systemctl --user list-units 'garden-comment-watcher@*'` should show no member stuck in `activating start`.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
