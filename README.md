@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T22:50:25Z_
+_As of 2026-08-17T22:51:40Z_
 
 ## Latest
 
-OCapN transport proof complete: the TCP demo on minion.town finished with live cross-host Noise capability round-trip, un-drafting [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) as ready for merge. Byte-array work both green and mergeable ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) all CI passing, blocked on maintainer re-review). Multiple gauntlets stalled—[endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), and [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019) all halted after 6 fix-loop iterations without convergence. Floating Node 24.x runner flake remains the blocker for several dependabot PRs and [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340)'s own CI. minion.town's design PRs progressed ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21) reconciled with security fixes, [kriscendobot/minion.town#36](https://github.com/kriscendobot/minion.town/issues/36) opened for toy-tool removal; ocap.site infrastructure complete pending DNSSEC owner action). Gateway phase restack chain halted on phase-5 requeue ceiling; [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) restacked onto llm. Fleet quota exhausted partway through the window; schedules were paused to manage token spend.
+The fleet hit several convergence and scaling limits this cycle. Three gauntlets halted after 6 panel/fix rounds without convergence ([endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [#286](https://github.com/endojs/endo-but-for-bots/pull/286), [#1019](https://github.com/endojs/endo-but-for-bots/pull/1019)), and a gateway-phase restack orchestration stalled after requeue exhaustion on the first child. A floating Node 24.x runner issue continues blocking the dependabot queue ([#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), [#868](https://github.com/endojs/endo-but-for-bots/pull/868), and others). Several long-running jobs (PR shepherd/weave on [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#897](https://github.com/endojs/endo-but-for-bots/pull/897), [#282](https://github.com/endojs/endo-but-for-bots/pull/282)) hit wall-clock budgets. On the upside, OCapN Noise TCP cross-host demo proved live on minion.town, the byteArray program ([#503](https://github.com/endojs/endo-but-for-bots/pull/503) / [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is green and awaiting maintainer re-review, test262 fixture consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) opened with a case-tree architecture decision pending, and the monthly progress report (July 14–Aug 14) landed in the journal.
 
 ## Parked for maintainer feedback
 
@@ -868,40 +868,13 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Do not change what `rebase`, `retcon`, `shepherd` or `conduct` do. If `rebase #N` and `weave #N` should now be distinguished differently given weave's clarified definition, say so in your report as a recommendation; do not act on it in this job.
 
-- `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
-
-> WATCHDOG notice — occurrence #25 (first seen 2026-08-17T14:38:22Z, latest 2026-08-17T15:38:22Z).
-> The SAME condition (`provider-quota`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
->
-> provider session limit reached: the API is refusing calls fleet-wide (resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-ocapn (rc=1); its capture is blob 912a506436dfdacc9e103f5523f5e68965fbbf68 (git -C /home/kris/garden2/).
-> limit_type: session
-> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
-> resumes on its own once the window resets (see skills/restore/SKILL.md for the
-> post-outage restore). Every unit that trips the limit folds into THIS one notice
-> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
-> provider quota exceeded while running garden-comment-watcher@kriscendobot-ocapn. Observed: You've hit your session limit · resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-ocapn (rc=1); its capture is blob 912a506436dfdacc9e103f5523f5e68965fbbf68 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 912a506436dfdacc9e103f5523f5e68965fbbf68).
-
-- `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
-
-> self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 36d7b202a3b4e451a36c428c0bff67df22516be7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 36d7b202a3b4e451a36c428c0bff67df22516be7). Diagnosis: **Diagnosis: known root cause, fix already in flight — no new job posted.**
->
-> `garden-comment-watcher@kriscendobot-minion.town` died at `comment-watcher.sh FATAL: comment source failed`. The proximate cause is one `gh` call at `scripts/jobs/handlers/comment-source-gh.sh:158`:
->
-> ```
-> gh api repos/kriscendobot/minion.town/issues/comments?since=…&per_page=100
->   failed (definitive, rc=1); not retrying: unexpected end of JSON input
-> ```
->
-> `unexpected end of JSON input` is Go's `encoding/json` wording for a response body that was empty or cut short mid-document. `GARDEN_TRANSIENT_GH_API_SIGNATURES` (`scripts/jobs/common.sh:3163`) names the neighbouring cases — `\bEOF\b`, the HTML-error-page decoder string, http2 stream resets — but not this one, so `gh_api_retry` classified it **definitive**,
-
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.6M | $1275.92 _(notional, rate-card)_ | no quota set |
+| Claude | 92.0M | $1280.74 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+681.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
