@@ -82,6 +82,9 @@ assert_transient  "stream error: stream ID 1; CANCEL; received from peer" "Go ht
 assert_transient  "http2: server sent GOAWAY and closed the connection" "Go http2 GOAWAY"
 assert_transient  "http2: client connection lost"           "Go http2 client connection lost"
 assert_transient  "stream error: stream ID 7; INTERNAL_ERROR; received from peer" "Go http2 INTERNAL_ERROR stream reset"
+# Go encoding/json truncated/empty response body. The garden-ci-watcher crash signature
+# below (kriscendobot/minion.town) must NEVER regress to definitive again.
+assert_transient  "unexpected end of JSON input"             "truncated/empty response body"
 assert_definitive "gh: Not Found for GEOFFREY (HTTP 404)"     "EOF mid-word (GEOFFREY) must NOT match \\bEOF\\b"
 assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted/transferred resource"
 assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"

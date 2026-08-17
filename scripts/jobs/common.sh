@@ -3137,6 +3137,19 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # returning HTML past GARDEN_GH_API_ATTEMPTS the call still fails loud (nonzero,
 # empty) rather than guessing. gh-api set ONLY (a Go-decoder string, never git's).
 #
+# A truncated or empty response body is the same class a fourth time: when a page
+# ends mid-document (or comes back empty) Go's `encoding/json` reports `unexpected
+# end of JSON input` — again with NO HTTP-status word, so without the signature
+# below it is misclassified DEFINITIVE and crashes the caller (observed:
+# garden-ci-watcher exit 1 on kriscendobot/minion.town, WARN `gh api
+# repos/kriscendobot/minion.town/pulls?... failed (definitive, rc=1)` then
+# `ci-watcher.sh:318 FATAL: ci PR source failed`). A dropped/truncated body is a
+# server-side transient the same as the HTML page — a successful open-PR list
+# returns at least `[]`, and this class is likelier under `--paginate` where any
+# single page can truncate — so absorbing it under the bounded retry preserves
+# "never guess a state": a body still truncating past GARDEN_GH_API_ATTEMPTS fails
+# loud (nonzero, empty). gh-api set ONLY (a Go-decoder string, never git's).
+#
 # GitHub can also return a spurious `HTTP 401: Bad credentials` while the active
 # token rotates, then accept the next identical request. Absorbing that response
 # under this same bounded retry is safe for the same reason as the HTML-decoder
@@ -3160,7 +3173,7 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # retried here, so absorbing it under the bounded retry preserves "never guess a
 # state": a reset that outlives GARDEN_GH_API_ATTEMPTS still fails loud (nonzero,
 # empty). gh-api set ONLY (a Go-net/http2 string, never git's curl/SSH transport).
-: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|stream error: stream ID [0-9]+|http2: (server sent GOAWAY|client connection (lost|force closed))|INTERNAL_ERROR|${GARDEN_OFFLINE_SIGNATURES}}"
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|HTTP 401|Bad credentials|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|invalid character .<. looking for beginning of value|unexpected end of JSON input|stream error: stream ID [0-9]+|http2: (server sent GOAWAY|client connection (lost|force closed))|INTERNAL_ERROR|${GARDEN_OFFLINE_SIGNATURES}}"
 
 # GitHub's PRIMARY hourly quota refusal. This is deliberately narrower than the
 # transient signature set above: secondary-rate-limit / abuse throttles and HTTP
