@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":34,"elapsed_s":602,"input_tokens":60,"output_tokens":46504,"cache_creation_tokens":106683,"cache_read_tokens":2931230,"total_cost_usd":3.6985710000000003,"ts":"2026-08-17T12:01:47Z","base":"garden-root-repo-guard-gc-lock-contention","host":"endolin-garden2-5bcdff64","outcome":"tada"}
