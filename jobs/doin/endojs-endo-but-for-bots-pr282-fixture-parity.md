@@ -23,3 +23,13 @@ Where a fixture is genuinely inapplicable to the node_modules walker, record it 
 Runs after the pin-the-merge-base rebase child, on its rebased head.
 
 handler-timeout: 7200
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T01:47:07Z
