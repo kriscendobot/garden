@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: designer
@@ -91,13 +92,4 @@ the trivial/nontrivial boundary has a policy component (how much change may ride
 an old approval) that is the maintainer's call, so present the options with their
 risk rather than picking one silently.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T05:43:51Z
+<!-- garden-reaped: 0 -->

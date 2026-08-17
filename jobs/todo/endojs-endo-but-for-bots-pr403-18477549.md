@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # attention directive on endojs/endo-but-for-bots PR #403
@@ -40,13 +41,4 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-17T05:40:37Z
+<!-- garden-reaped: 0 -->

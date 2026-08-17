@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Self-improvement, the garden itself (main2, pushed directly per CLAUDE.md
@@ -71,13 +72,4 @@ not overlap: `garden-requeue-rediscover-prior-work` (duplication arising from
 requeues) and `garden-orchestration-halt-record-accuracy` (halt records that
 misreport what happened).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T05:49:47Z
+<!-- garden-reaped: 0 -->
