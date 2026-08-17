@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T22:01:48Z_
+_As of 2026-08-17T22:03:36Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ A floating Node 24.x runner flake is blocking several PRs across the board. [#47
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 37s)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 5m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 19d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 29d)
@@ -1033,25 +1033,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.5M | $1230.96 _(notional, rate-card)_ | no quota set |
+| Claude | 88.5M | $1231.24 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+681.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1023-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1023-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1023
+- [`endojs-endo-but-for-bots-pr1024-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1024-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1024
 - [`endojs-endo-but-for-bots-pr475-review-6c57250a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-6c57250a.md) — Review directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr990-review-120b6af8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-review-120b6af8.md) — Review directive on endojs/endo-but-for-bots PR #990
 - [`fix-gauntlet-shorthand-citation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gauntlet-shorthand-citation.md) — Fix: PR-shorthand citations silently skip the design-PR gauntlet gate
 
-### tada (5006)
+### tada (5007)
+- [`endojs-endo-but-for-bots-pr990-review-120b6af8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr990-review-120b6af8.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1024-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1024-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1023-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-clean.md) — Completion report
 - [`groom-endo-stale-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/groom-endo-stale-design-docs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-shepherd.md) — Completion report
-- [`groom-endo-designs-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/groom-endo-designs-readme.md) — Completion report
-- … and 5001 more
+- … and 5002 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
