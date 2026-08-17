@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T16:44:02Z_
+_As of 2026-08-17T16:44:40Z_
 
 ## Latest
 
@@ -1162,15 +1162,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.8M | $1156.92 _(notional, rate-card)_ | no quota set |
+| Claude | 84.0M | $1158.87 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+684.9M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1019
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1014
 
 ### tada (4986)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Fix stage round 5 — complete
