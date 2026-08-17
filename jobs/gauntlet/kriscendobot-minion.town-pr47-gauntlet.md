@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 47
 build_job: minion-town-weblet-synthesis-ocap-redesign
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr47-gauntlet-clean
+current_child: kriscendobot-minion.town-pr47-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-17T23:00:40Z
