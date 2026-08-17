@@ -91,6 +91,7 @@ the trivial/nontrivial boundary has a policy component (how much change may ride
 an old approval) that is the maintainer's call, so present the options with their
 risk rather than picking one silently.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
