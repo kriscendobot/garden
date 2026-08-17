@@ -148,3 +148,13 @@ remainder, rather than leaving the document in a half-reorganized state.
 
 `handler-timeout: 10800` (this job fans out verification across many entries
 and may run long; budget accordingly rather than getting SIGTERM'd mid-pass).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T21:16:03Z
