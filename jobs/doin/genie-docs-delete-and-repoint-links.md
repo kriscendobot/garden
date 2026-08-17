@@ -60,3 +60,13 @@ and in this repo's git history at `a54c3adb`, that the 10 markdown links now poi
 at commit-pinned permalinks into that archive, and that the historical
 doc-number citations in code comments were deliberately left untouched. Do NOT
 force merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T12:38:22Z
