@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 4
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-17T07:23:02Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-17T07:23:02Z
+---
+
+---
 tier: mentor
 ---
 <!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-08-17T05:46:04Z cleared=none -->
@@ -45,17 +62,3 @@ failure modes have been observed and only the first is what #1000 fixes:
 So: for each target, classify the post-pin result as cleared, still-mode-1, or
 mode-2, with the log evidence. If mode 2 persists, say so plainly and report it
 as a separate open problem rather than re-pinning.
-
-<!-- garden-reaped: 3 -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-17T06:33:19Z
