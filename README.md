@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:30:35Z_
+_As of 2026-08-17T04:35:58Z_
 
 ## Latest
 
-Multiple PRs are stalled on maintainer approval following rebase or fix cycles — [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), and others each need a fresh APPROVED review on their current head before the conductor can land them. The [byteArray program](https://github.com/endojs/endo-but-for-bots/pull/475) is complete and all-green, waiting only for re-review to clear CHANGES_REQUESTED on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). The OCapN stack advanced with live cross-host Noise IK proof on both WebSocket and raw TCP transports, and three design decisions are awaiting your call: the weblet-gateway id model (content-only vs. composite), compartments engine boundaries, and whether to dispatch implementation plans for proposal-compartments. A deployed-root blocker — dependabot auto-conduct is broken in the live garden (fix already on main2 as c31b2aaf4a) — is causing MERGE-NOW dependabot PRs to stall on approval. Two gauntlets halted after 6 fix/panel rounds without converging ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)), and several jobs were doomed (orchestration halted, handlers over budget). The budget-enforcement design landed awaiting only your weekly token cap input before it can gate live. One new job just posted: design-relative-routing.
+Dependabot auto-conduct is broken on the deployed root: gh 2.97.0 renders the author as `app/dependabot` (GraphQL) but the spine compares against `dependabot[bot]` (REST), so the bypass fails and MERGE-NOW PRs stall on approval. The fix landed on main2 (c31b2aaf4a + regression test 6116be1d53) and needs deployment. In the meantime, [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) were conducted with a one-off override; daily dependabotany is paused. On the OCapN transport stack, [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) remains blocked on the known floating-Node-24.x CI flake. The [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) byteArray stack is complete and green, waiting only for maintainer re-review to clear CHANGES_REQUESTED. Gateway-package phases [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) were restacked successfully onto llm's new type layout; phases 4–12 remain queued for sequential restacking. Several parked work items await your routing decisions: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (flag-gated reconciliation vs. supersession), [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (closed or reworked onto exo-http-client?), [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (close as superseded by the landed error-tracing facility?), and minion.town's ocap.site identity model (content-only id with collision machinery vs. composite id?).
 
 ## Parked for maintainer feedback
 
@@ -631,44 +631,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-pr997-gauntlet HALTED: the panel/fix loop did not converge in 6 rounds (fix round 6 done, would start panel round 7 > max_iterations=6).
 
-- `20260816T204738Z-d5a68a` — from gardener:kriscendobot-proposal-compartments-pr3-refresh, reply_to `kriscendobot-proposal-compartments-pr3-refresh` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T204738Z-d5a68a.md)
-
-> ## [kriscendobot/proposal-compartments#3](https://github.com/kriscendobot/proposal-compartments/issues/3) "refresh" — done + a dispatch decision for you
->
-> Directive: refresh on [kriscendobot/proposal-compartments#3](https://github.com/kriscendobot/proposal-compartments/issues/3)
-> (comment [https://github.com/kriscendobot/proposal-compartments/pull/3](https://github.com/kriscendobot/proposal-compartments/pull/3)#issuecomment-5309414038).
->
-> **Mechanical refresh: no-op, verified.** The PR head is
-> `validation/endor-front-20260726` @ `4aba58a` ("docs(validations): record endor
-> front baseline and blocking prerequisite", adds `validations/endor.md`). Its
-> parent is `d23d7de`, which IS the current `origin/main` tip — the branch is
-> already fully synced onto main, nothing to rebase. That commit touches only a docs
-> markdown file; there are no committed derived artifacts (spec build lands on
-> gh-pages, not the branch) to regenerate. So the branch needs no re-sync.
->
-> **Your comment also asked: "Dispatch plans to implement this proposal on
-> ironhorse or an xs fork."** I did NOT autonomously fan that out, for three
-> reasons — surfacing it to you to decide:
->
-> 1. It exceeds a mechanical *refresh* (that verb = re-sync/regenerate); dispatching
->    a cross-fork implementation design is a deliberate producer decision.
-> 2. **Ironhorse development is deliberately PAUSED this week (from 2026-08-16) to
->    conserve budget** (pause marker `jobs/plan/ironhorse-campaign-paused-20260816`;
->    honest spend 3.3M vs 2.08M approved). Spawning new ironhorse implementation
->    plans now cuts against that pause.
-> 3. The gardener pool is throttled to ~2 for weekly quota. A new multi-engine
->    design fan-out is a budgeted commitment, not a minion side-effect.
->
-> There is already relevant compartments-on-xs/endor work on the board/history:
-> `xs2rust-endor-stage4-compartment`, `xs2rust-endor-stage7-guest-compartment`,
-> `xs2rust-endor-s22-compartment-isolation-fix`, and
-> `proposal-compartments-xs-validation-20260725`.
->
-> **If you want the plans dispatched, just say the word** (e.g. "design
-> proposal-compartments on an xs fork" / "... on ironhorse") and I/the liaison will
-> post designer jobs with real budgets — ideally after the ironhorse pause lifts, or
-> scoped to the xs fork if you want to move now.
-
 - `20260816T205830Z-b2d0af` — from gardener:endojs-endo-but-for-bots-pr1004-dependabot, reply_to `endojs-endo-but-for-bots-pr1004-dependabot` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260816T205830Z-b2d0af.md)
 
 > Heads-up (fleet-impacting, needs a deploy): dependabot auto-conduct is broken on the DEPLOYED root.
@@ -987,25 +949,26 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.9M | $934.93 _(notional, rate-card)_ | no quota set |
+| Claude | 61.4M | $938.33 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`design-relative-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-relative-routing.md) — Design relative routing for CapTP/OCapN locator hints
 - [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
-- [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-pin-base.md) — ---
+- [`proposal-compartments-defer-sync-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-defer-sync-import.md) — ---
+- [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
-### tada (4920)
+### tada (4921)
+- [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-pin-base.md) — Cost
 - [`garden-orchestration-halt-record-accuracy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestration-halt-record-accuracy.md) — Completion report
 - [`garden-encode-pin-the-merge-base-verb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-pin-the-merge-base-verb.md) — Completion report
 - [`pr282-flag-gated-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr282-flag-gated-reconciliation.md) — orchestration pr282-flag-gated-reconciliation — HALTED
 - [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-fixture-parity.md) — Completion report: compartment-mapper fixture parity for PR #282, with drift ...
-- [`endojs-endo-but-for-bots-pr282-registry-default-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-registry-default-followup.md) — Completion report
-- … and 4915 more
+- … and 4916 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
