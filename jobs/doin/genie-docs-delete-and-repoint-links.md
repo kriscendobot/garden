@@ -61,6 +61,7 @@ at commit-pinned permalinks into that archive, and that the historical
 doc-number citations in code comments were deliberately left untouched. Do NOT
 force merge.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
