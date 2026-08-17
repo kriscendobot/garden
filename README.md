@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T05:29:36Z_
+_As of 2026-08-17T05:34:24Z_
 
 ## Latest
 
-The fleet encountered a deployment-lag breakage: gh's newer author format for dependabot (`app/dependabot` vs the old REST-form `dependabot[bot]`) caused the auto-conduct bypass to fail on every dependabot PR (fix already landed on main2, commits c31b2aaf4a + 6116be1d53, awaiting deploy). Multiple PRs stalled after rebase when approvals invalidated by the history rewrite — [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) — all need fresh maintainer re-approval on their rebased heads. The byteArray finish-line components [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) are complete + green and blocked only on re-review; their follow-up [#888](https://github.com/endojs/endo-but-for-bots/pull/888) is DRAFT and awaiting finish-line clarity. OCapN made its final transport topology proof: cross-host TCP+Noise round-trip successful on minion.town (message 2026-07-29T013334Z-5d108e), unblocking the stack restack once [#340](https://github.com/endojs/endo-but-for-bots/pull/340) merges. Minion.town's weblet-gateway design [#21](https://github.com/kriscendobot/minion.town/pull/21) reconciled against shipped code, closed a host-authority collision attack, and surfaces an identity-modeling decision (content-only vs composite id) for your call. Several long-running jobs (weave, shepherd, gauntlet panel loop) deterministically overran handler timeouts and are parked for scope reduction; the test262 consolidation opened [#946](https://github.com/endojs/endo-but-for-bots/pull/946) DRAFT with a decision on metering-corpus preservation.
+The fleet completed a monthly reporting cycle (2026-07-14 to 2026-08-14) and surfaced a systematic CI blocker: a floating Node 24.x runner issue is stalling several dependabot PRs including [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475). Meanwhile, the dependabot auto-merge fix already landed on `main2` (commits c31b2aaf4a + 6116be1d53) but the deployed root still lacks it, so the botanist MERGE-NOW verdicts stall on maintainer approval despite passing all diligence—a deploy is needed to unblock the queue. Five PRs are parked waiting for re-approval after rebase or work: [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer + lint fix), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream), [#388](https://github.com/endojs/endo-but-for-bots/pull/388) & [#389](https://github.com/endojs/endo-but-for-bots/pull/389) (gateway phases 2–3), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, blocked only on re-review. Minion.town's weblet-gateway design reconciliation is done with one identity-modeling decision (OQ7) awaiting your call, and ocap.site PSL is ready to ferry upstream pending attestations; DNSSEC setup on Route53 needs your authorization.
 
 ## Parked for maintainer feedback
 
@@ -824,6 +824,64 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > ("Timed out while running tests" in the @endo/agentry eval suite) — after the
 > rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
 
+- `doomed-proposal-compartments-xs-source-phase-design-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-proposal-compartments-xs-source-phase-design-requeue-exhausted.md)
+
+> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> The work is preserved at jobs/plan/proposal-compartments-xs-source-phase-design; it stays HELD until a human promotes it
+> (promote-plan.sh proposal-compartments-xs-source-phase-design) or removes it, so nothing is lost.
+> Original job base: proposal-compartments-xs-source-phase-design
+>
+> --- original job body ---
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> role: designer
+> handler-timeout: 7200
+>
+> Design the XS-fork path that unblocks Compartments validation.
+>
+> WHY THIS IS THE UNBLOCK, not more planning. All four validation fronts (v8, JSC,
+> XS, endor) are blocked before semantics on the same thing: source-phase-import
+> syntax does not parse. Measured on XS 17.9.1 via `xst -m`
+> (kriscendobot/proposal-compartments `validations/endor.md`):
+>
+>     import source s from "./dep.mjs"       -> SyntaxError: missing from
+>     await import.source("./dep.mjs")       -> SyntaxError: invalid import.
+>     import defer * as ns from "./dep.mjs"  -> SyntaxError: missing from
+>
+> All 10 staging tests in kriscendobot/test262@e6dbe36
+> (`test/staging/Compartments/`) acquire their source key through `import source`
+> or `import.source`; one also uses `import defer`. So zero of them can run. Endor's
+> engine IS Moddable XS (via the `xsnap` crate, `c/moddable` submodule at 5516726),
+> so the XS parser gap blocks the endor front too. One fix, two fronts.
+>
+> SCOPE: design only, on an XS fork. Deliberately ONE job, not a multi-engine
+> fan-out, because ironhorse development is PAUSED from 2026-08-16 to conserve
+> budget (marker `jobs/plan/ironhorse-campaign-paused-20260816`) and the worker pool
+> is throttled. Do NOT dispatch ironhorse work, and do not fan out to v8 or JSC.
+>
+> Deliverable: a design PR covering what it takes to parse source-phase imports
+> (`import source`, `import.source`, and `import defer`) in the XS parser, on a
+> fork. Address at minimum:
+> - Where in the XS parser and bytecode path the phase signal has to be carried, and
+>   what the module-request representation must gain.
+> - How this composes with the existing proposals rather than defining a second
+>   phase mechanism. The charter is explicit that Compartments must consume existing
+>   ModuleRequest phase information (`journal/projects/proposal-compartments/README.md`,
+>   "Phase information on module requests", recorded Met).
+> - The relationship to the pinned submodule: a fork implies a pin move, so say what
+>   that costs endor and xsnap.
+> - A staged plan with the smallest increment that turns any of the 10 staging tests
+>   from unparseable to running. That first green test is the real milestone.
+>
+> Do not treat the retired SES-legacy `Compartment` global present on XS 17.9.1 as
+> related; `validations/endor.md` records that it lacks the proposal's
+> deferred-namespace method and is not the proposal object.
+
 - `doomed-weave-base-update-and-pin-alias-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-base-update-and-pin-alias-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -875,18 +933,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.3M | $942.68 _(notional, rate-card)_ | no quota set |
+| Claude | 63.5M | $943.15 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-endo-claude-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endo-claude-build.md) — Builder: implement @endo/claude per merged design
 - [`endojs-endo-but-for-bots-pr1014-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1014
-- [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
 ### tada (4931)
 - [`endojs-endo-but-for-bots-pr301-close-and-residual`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr301-close-and-residual.md) — Completion report
@@ -952,6 +1009,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-mustfix-round2-06-repanel.md) — _normal_ · PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
+- [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-source-phase-design.md) — _normal_ · ---
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
