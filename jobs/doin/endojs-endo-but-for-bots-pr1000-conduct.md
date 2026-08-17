@@ -28,6 +28,7 @@ PR: https://github.com/endojs/endo-but-for-bots/pull/1000
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden2-5bcdff64 (no maintainer comment).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
