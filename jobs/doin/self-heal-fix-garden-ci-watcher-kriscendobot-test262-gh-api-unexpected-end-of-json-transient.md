@@ -15,3 +15,13 @@ Rationale to record in the block comment above the variable, in the same voice a
 Blast radius is intentionally both call sites that read this one set: `gh_api_retry` gains the bounded retry, and `ci-watcher.sh`'s `is_transient_gh_source_error` gate (line 308) then degrades to WARN + `exit 0` (skip the tick) instead of reaching `die` at line 318 — which is the correct degrade, identical to the existing 5xx/HTML-page path. `gh_pr_view_retry` inherits it for free. Do not touch `repo_is_definitively_gone`; a real missing repo returns `HTTP 404` and must keep dying loud.
 
 Add a regression test alongside the existing signature cases in `scripts/jobs/test/run-test.sh` (see the `HTTP 401: Bad credentials` case near line 3340 for the established shape): drive a `GARDEN_GH` stub whose stderr is `unexpected end of JSON input`, and assert the watcher logs the transient-blip WARN and exits 0 rather than emitting `FATAL: ci PR source failed`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:31:44Z
