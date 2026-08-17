@@ -27,3 +27,13 @@ the new head before it can be merged; do not merge from this job.
 PR: https://github.com/endojs/endo-but-for-bots/pull/1000
 Head: endojs/endo-but-for-bots fix/pin-node-24x-ci-teardown-crash (bot-pushable)
 Base: llm (live trunk)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T04:55:42Z
