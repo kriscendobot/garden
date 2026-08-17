@@ -56,3 +56,13 @@ Graft ONLY the candidates you determine are genuinely net-new, onto the
 diagnostics-facet structure, as a fresh narrow PR. If none survives, that is a
 perfectly good outcome: say so and open nothing. Do NOT reopen or rebase #301
 under any circumstance.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T05:18:24Z
