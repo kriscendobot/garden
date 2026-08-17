@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T10:06:37Z_
+_As of 2026-08-17T10:25:26Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN daemon transport) is approved and un-drafted; cross-host Noise over raw TCP+CBOR is now proven on minion.town. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is feature-complete and green; both need human re-review to clear CHANGES_REQUESTED. Multiple PRs stalled on stale approvals after rebases ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)) await re-approval on current heads. Node 24 pin ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) merged, but a floating Actions runner flake persists independent of the matrix version. Dependabot auto-conduct broke on the deployed root (fix already on main2 as c31b2aaf4a + test T25); a deploy will restore auto-merge for dependabot PRs. minion.town advanced: ocap.site domain is ready, PSL ferry PR prepared for publicsuffix/list upstream, weblet-gateway design reconciled post-Inc-2/3 with security holes fixed. Several complex jobs hit handler timeouts or requeue exhaustion and are parked awaiting decisions (pr282 reconciliation, pr897 weave, pr340 shepherd, node-pin CI rerun). Git object store on endolin-garden2 lost maintainability and needs manual gc reconciliation. Maintainer decisions needed on: whether to merge PR #1000 as comment-only (functional fix already on trunk), whether to authorize minion.town B5 deployed-edge validation, whether to keep/re-scope the git-integration press schedule, and several design/follow-up promotions.
+The board is dominated by approval-gate backlog: PRs like [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and [#288](https://github.com/endojs/endo-but-for-bots/pull/288) are mergeable but blocked waiting for fresh maintainer approvals after force-pushes; the exact-head gate invalidates signatures. The [byteArray stack](https://github.com/endojs/endo-but-for-bots/pull/475) is code-complete and green, awaiting re-review. Three operational issues landed: dependabot auto-merge is broken on the deployed root (the fix is on main2 as c31b2aaf4a but hasn't deployed yet), gauntlets [#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [#997](https://github.com/endojs/endo-but-for-bots/pull/997) halted after 6 rounds without converging, and the root repo's git gc is wedged (disabling cleanup, making every journal sync expensive). OCapN proved live cross-host TCP transport on minion.town; the weblet-gateway design ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)) reconciled against shipped code and sealed two security holes, held draft pending your identity-modeling call on composite vs. content-only ids.
 
 ## Parked for maintainer feedback
 
@@ -967,23 +967,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 72.0M | $1040.22 _(notional, rate-card)_ | no quota set |
+| Claude | 74.0M | $1073.81 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1014
+### doin (0)
+(none)
 
-### tada (4946)
+### tada (4947)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1.md) — Completion report — FIX round 1, PR #1014 (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-shepherd.md) — What was failing
-- … and 4941 more
+- … and 4942 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
