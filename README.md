@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T06:29:44Z_
+_As of 2026-08-17T06:46:32Z_
 
 ## Latest
 
-Several PRs require re-approval after rebases invalidated stale signatures: [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability conduct), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-cas-smoke), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream). The byteArray finish-line pair ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete, all-green, and gated on maintainer re-review only. A critical operational gap: the deployed garden root (c7d730c36) lacks the dependabot auto-conduct fix from main2 (commits c31b2aaf4a + 6116be1d53), so MERGE-NOW dependabot PRs stall awaiting approval instead of auto-merging; a deploy is needed. The floating Node 24 runner issue ([endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) blocked, also affecting [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475)) requires either a fleet-wide fix or direct merge authorization. Several gauntlets halted at iteration ceilings ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) and handler-timeout jobs parked awaiting promotion or reframing.
+Board is quiet (one shepherd claimed for [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)). Four rebased PRs await re-approval ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)). Two infrastructure issues block operations: yarn cache hardlink exhaustion will break fleet installs unless cleared, and the dependabot auto-conduct fix (live on main2) needs deployment to restore botanist auto-merge capability.
 
 ## Parked for maintainer feedback
 
@@ -904,15 +904,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.3M | $965.83 _(notional, rate-card)_ | no quota set |
+| Claude | 66.6M | $967.46 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
+- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
 
 ### tada (4940)
