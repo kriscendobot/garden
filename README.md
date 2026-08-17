@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T14:09:33Z_
+_As of 2026-08-17T14:10:32Z_
 
 ## Latest
 
@@ -1042,6 +1042,15 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > - `pulls/1019/reviews` → 404 whose body is a **GraphQL-shaped** error: `Could not resolve to a node with the global id of 'PR_kwDORRE4FM8AAAABABM7Nw'` — GitHub's REST-over-GraphQL backend for the list-reviews endpoint failing, not a REST "no such PR" 4
 
+- `watchdog-self-heal-garden-comment-watcher-kriscendobot-list` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-list.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: 6eed636c387eb7253aeec5c1ce3b95009b216aa9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 6eed636c387eb7253aeec5c1ce3b95009b216aa9). Diagnosis: ## Diagnosis: both defects are already fixed on `main2` — this host is 10 commits behind on deploy
+>
+> **What failed.** The `kriscendobot/list` comment source hit two failing surfaces in one tick, and the watcher correctly refused to advance the cursor past un-enumerated comments, exiting nonzero (`comment-watcher.sh` FATAL):
+>
+> 1. `repos/kriscendobot/list/issues/comments` → **HTTP 404**. Reproduced: the repo has `has_issues: false` (it's a fork with Issues disabled), so that endpoint is a permanent 404, not a blip.
+> 2. `repos/kriscendobot/list/pulls/1/reviews` → `unexpected end of JSON input`. Reproduced with `gh api -i`: GitHub is returning **`HTTP/2.0 500 Internal Server Error` with `Content-Length: 0`**. Because `gh api` swallows the status and surfaces only the Go decoder error, the t
+
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 36d7b202a3b4e451a36c428c0bff67df22516be7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 36d7b202a3b4e451a36c428c0bff67df22516be7). Diagnosis: **Diagnosis: known root cause, fix already in flight — no new job posted.**
@@ -1080,17 +1089,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.3M | $1149.57 _(notional, rate-card)_ | no quota set |
+| Claude | 83.3M | $1150.58 _(notional, rate-card)_ | no quota set |
 | Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-disabled-404.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled.md) — ---
 
 ### tada (4980)
