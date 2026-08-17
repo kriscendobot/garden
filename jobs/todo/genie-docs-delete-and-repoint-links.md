@@ -62,15 +62,4 @@ at commit-pinned permalinks into that archive, and that the historical
 doc-number citations in code comments were deliberately left untouched. Do NOT
 force merge.
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T12:53:48Z
+<!-- garden-reaped: 1 -->
