@@ -56,3 +56,13 @@ only — do NOT implement the package here (a separate builder is orchestrated t
 follow the merge).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T05:03:13Z
