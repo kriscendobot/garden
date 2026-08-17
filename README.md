@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T21:16:25Z_
+_As of 2026-08-17T21:23:49Z_
 
 ## Latest
 
@@ -1033,14 +1033,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.4M | $1228.49 _(notional, rate-card)_ | no quota set |
+| Claude | 88.4M | $1229.96 _(notional, rate-card)_ | no quota set |
 | Codex | 23.6M _(+681.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`garden-design-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-design-follower-self-deploy.md) — ---
 - [`groom-endo-designs-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-designs-readme.md) — Groom designs/README.md: verify, reorganize, archive, and illuminate the esti...
 
 ### tada (5000)
