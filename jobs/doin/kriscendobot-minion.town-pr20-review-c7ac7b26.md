@@ -58,6 +58,7 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
