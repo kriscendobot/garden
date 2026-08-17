@@ -24,15 +24,4 @@ Regression coverage in `scripts/jobs/test/comment-watcher-test.sh`, alongside th
 
 Run `scripts/jobs/test/comment-watcher-test.sh` and `shellcheck` on the handler. No arming records or journal state should change — the watch set is correct; the handler's surface handling is what is wrong. In particular do NOT add a `watch-optout` tombstone for any of these forks.
 
-<!-- garden-reaped: 3 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T14:13:18Z
+<!-- garden-reaped: 4 -->
