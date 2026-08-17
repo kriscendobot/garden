@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-08-17T05:53:14Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-garden-design-conductor-merge-queue
-pr_number: 72
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/72
-pr_head: design/conductor-merge-queue

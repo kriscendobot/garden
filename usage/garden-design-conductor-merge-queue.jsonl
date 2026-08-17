@@ -1,1 +1,2 @@
 {"ts":"2026-08-17T05:44:22Z","base":"garden-design-conductor-merge-queue","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":34,"elapsed_s":454,"input_tokens":2741,"output_tokens":28610,"cache_creation_tokens":102849,"cache_read_tokens":2610310,"total_cost_usd":3.0661140000000002,"ts":"2026-08-17T06:01:22Z","base":"garden-design-conductor-merge-queue","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}
