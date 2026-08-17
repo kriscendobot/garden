@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Fix `scripts/jobs/handlers/comment-source-gh.sh` so a repo with **Issues disabled** does not fail every comment-watcher tick forever and silently freeze its cursor.
@@ -23,13 +24,4 @@ Regression coverage in `scripts/jobs/test/comment-watcher-test.sh`, alongside th
 
 Run `scripts/jobs/test/comment-watcher-test.sh` and `shellcheck` on the handler. No arming records or journal state should change — the watch set is correct; the handler's surface handling is what is wrong. In particular do NOT add a `watch-optout` tombstone for any of these forks.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:39:30Z
+<!-- garden-reaped: 0 -->

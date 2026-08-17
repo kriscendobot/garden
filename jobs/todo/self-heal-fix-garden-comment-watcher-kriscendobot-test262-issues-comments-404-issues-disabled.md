@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 In `scripts/jobs/handlers/comment-source-gh.sh`, teach the LOST-FETCH invariant to distinguish a **surface-disabled 404** from a lost fetch, so an issues-disabled fork stops failing its tick forever.
@@ -23,13 +24,4 @@ What to change:
 
 Do not unwatch test262 or add a `watch-optout` tombstone — the repo is live and legitimately armed; the source's surface classification is the defect.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:37:58Z
+<!-- garden-reaped: 0 -->

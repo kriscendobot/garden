@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 `scripts/jobs/handlers/comment-source-gh.sh` crash-loops forever on any repo whose issues are DISABLED. Failure signature (garden-comment-watcher@kriscendobot-cosgov, exit 1, every tick):
@@ -24,13 +25,4 @@ Change to make, in `scripts/jobs/handlers/comment-source-gh.sh`:
 
 Verify after the change by running `scripts/jobs/comment-watcher.sh` once against `kriscendobot/cosgov` (0 open PRs, issues disabled: must exit 0 and post nothing) and against `kriscendobot/endo` (open PRs, issues disabled: must exit 0 and enumerate normally), then confirm `garden-comment-watcher@kriscendobot-cosgov` stops failing.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:34:50Z
+<!-- garden-reaped: 0 -->

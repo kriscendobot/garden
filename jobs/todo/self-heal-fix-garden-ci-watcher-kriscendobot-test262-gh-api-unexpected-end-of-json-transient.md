@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Add the Go JSON-decoder truncated-body wording to the shared gh-api transient signature set so a partial response is retried instead of crashing the caller.
@@ -16,13 +17,4 @@ Blast radius is intentionally both call sites that read this one set: `gh_api_re
 
 Add a regression test alongside the existing signature cases in `scripts/jobs/test/run-test.sh` (see the `HTTP 401: Bad credentials` case near line 3340 for the established shape): drive a `GARDEN_GH` stub whose stderr is `unexpected end of JSON input`, and assert the watcher logs the transient-blip WARN and exits 0 rather than emitting `FATAL: ci PR source failed`.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:31:44Z
+<!-- garden-reaped: 0 -->

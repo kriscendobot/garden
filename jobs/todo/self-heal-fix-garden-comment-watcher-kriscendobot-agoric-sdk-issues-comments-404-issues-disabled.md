@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Fix the permanent crash loop in `scripts/jobs/handlers/comment-source-gh.sh` on forks that have Issues disabled.
@@ -24,13 +25,4 @@ What to change:
 
 Note for the claimer: this same failure will emit one self-heal job per affected repo slug; they are all the same bug. Fix once in the shared handler and close the siblings as duplicates rather than patching per-repo.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:34:56Z
+<!-- garden-reaped: 0 -->

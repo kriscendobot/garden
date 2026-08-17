@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Fix the permanent comment-watcher crash-loop on forks that have the GitHub Issues feature DISABLED. Failure signature (blob 59d7fc62, and identically on kriscendobot-endo / -moddable / 8 more): `gh api repos/<repo>/issues/comments?since=…` returns a DEFINITIVE `404 Not Found`, `note_fetch_failure "issues/comments"` sets fetch_failed, the LOST-FETCH invariant exits 1, and the unit fails every tick forever.
@@ -20,13 +21,4 @@ Regression test in `scripts/jobs/test/comment-watcher-test.sh`, following the ex
 
 After landing, the 11 affected units clear on their next timer tick with no reconcile; confirm with `systemctl --user --failed`.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T13:39:12Z
+<!-- garden-reaped: 0 -->
