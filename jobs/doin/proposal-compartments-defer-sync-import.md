@@ -48,3 +48,13 @@ race between registration and loading that may corrupt cache keys already
 permanently committed. This does not bear on the deferral above, but it is a real
 constraint on any future design that proposes registering loaders dynamically.
 Record it where a future designer will find it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T04:34:29Z
