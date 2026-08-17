@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T05:50:50Z_
+_As of 2026-08-17T05:57:29Z_
 
 ## Latest
 
-The fleet is holding steady with 7 jobs in flight and 72 awaiting maintainer direction. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green—both PRs are complementary layers carrying shared changeset; they're blocked on your re-review to clear CHANGES_REQUESTED. The gateway-package stack ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) + [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)) was rebased and ported to llm's new type layout; the remaining phases (4–12) await your restack directive, one at a time. The weblet-gateway design ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21)) is reconciled with a security fix, but left draft pending your decision on the identity model (content-only vs. composite digest). A fleet-wide issue: the deployed garden root lacks the dependabot auto-merge fix that landed on main2 six days ago, so every dependabot MERGE-NOW stalls—a deploy will unblock them. The host's yarn cache hit ext4's hardlink ceiling (65k+), breaking fresh installs fleet-wide; `yarn cache clean --all` can reset it. One maintainer decision needed on test262 fixture consolidation: keep the two case trees (metering corpus separate) or fold into upstream tree?
+Several PRs are stalled on rebases and stale approvals requiring re-review: [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#313](https://github.com/endojs/endo-but-for-bots/pull/313), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) all need fresh maintainer approvals on rebased heads before merge. A broken dependabot auto-conduct gate on the deployed root is fixed in main2 (`c31b2aaf4a`) but needs a deploy to take effect—meanwhile approval-held dependabot PRs like [#868](https://github.com/endojs/endo-but-for-bots/pull/868) can't self-merge without it. Design-level decisions are pending on [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (reconciling competing endor run designs) and [kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21) (weblet-gateway id model). A fleet-wide Node 24.x flake is blocking independent PRs; [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) is now superseded by the same fix already on llm, and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) is otherwise MERGE-NOW but flagged red by the flake.
 
 ## Parked for maintainer feedback
 
@@ -933,29 +933,28 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.0M | $957.67 _(notional, rate-card)_ | no quota set |
+| Claude | 65.5M | $961.43 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
 - [`endojs-endo-but-for-bots-endo-claude-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-endo-claude-build.md) — Builder: implement @endo/claude per merged design
-- [`endojs-endo-but-for-bots-pr1014-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1014-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-18477549.md) — attention directive on endojs/endo-but-for-bots PR #403
 - [`garden-design-conductor-merge-queue`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-design-conductor-merge-queue.md) — ---
 - [`garden-reroute-respect-role-tier-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-reroute-respect-role-tier-floor.md) — ---
 
-### tada (4932)
+### tada (4933)
+- [`endojs-endo-but-for-bots-pr1014-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-clean.md) — Completion report
 - [`endojs-endo-but-for-bots-pr301-close-and-residual`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr301-close-and-residual.md) — Completion report
 - [`endojs-endo-but-for-bots-pr995-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework.md) — Completion report
-- [`endojs-endo-but-for-bots-pr995-endo-claude-followup-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-endo-claude-followup-design.md) — Completion report
-- … and 4927 more
+- … and 4928 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
