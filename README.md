@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T09:26:46Z_
+_As of 2026-08-17T10:04:13Z_
 
 ## Latest
 
-One gauntlet in flight (endojs/endo-but-for-bots#286); the board is otherwise quiet with most work pending maintainer decisions in the inbox. Several PRs are ready to merge but blocked on stale approvals after rebases — [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), and the phase-2/3 chain need re-approval on their current heads before the conductor can land them. Infrastructure has three open issues: the root repo's git gc is stuck and needs manual reconciliation, the yarn berry cache hit its 65k hardlink ceiling, and a floating Node 24.x runner bug is blocking CI on several dependabot PRs (the [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) pin is ready but needs merge first). A deploy is also overdue — the currently-deployed garden lacks the dependabot-auto-merge fix (commit c31b2aaf4a on main2), causing botanist jobs to stall. On completions: the bytearray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is all green with no actionable code left, awaiting your re-review to clear CHANGES_REQUESTED; the git-integration arc finished with [#691](https://github.com/endojs/endo-but-for-bots/pull/691) merging (M3 closed); and the test262 consolidation (PR [#946](https://github.com/endojs/endo-but-for-bots/pull/946)) has surfaced an approach decision on whether to keep the metering corpus separate.
+Multiple conductors are stalled on maintainer re-approval after reweaves and rebases ([#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#234](https://github.com/endojs/endo-but-for-bots/pull/234)), since the exact-head approval gate intentionally invalidates signatures on head changes. Dependabot auto-merge is broken on the deployed root due to a `app/dependabot` vs `dependabot[bot]` rendering mismatch (fixed on main2 as c31b2aaf4a, pending deploy), blocking four PRs ([#867](https://github.com/endojs/endo-but-for-bots/pull/867), [#915](https://github.com/endojs/endo-but-for-bots/pull/915), [#916](https://github.com/endojs/endo-but-for-bots/pull/916), [#868](https://github.com/endojs/endo-but-for-bots/pull/868)). The Node 24.x matrix pin ([#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) is ready but needs approval; it fixes the better-sqlite3 AVA abort mode but not the separate runner infrastructure loss, so [#340](https://github.com/endojs/endo-but-for-bots/pull/340) and others will still need triage after merge. Critical design work — byteArray ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)), monitor/follow-stream ([#234](https://github.com/endojs/endo-but-for-bots/pull/234)), familiar VFS ([#241](https://github.com/endojs/endo-but-for-bots/pull/241)), weblet gateway ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)), and test262 consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) — are all green and reconciled but parked waiting for review/merge gates. Several jobs have doomed parked after handler timeouts (2400s budget overrun), including weaves and shepherds, suggesting workload splitting is needed on complex tasks.
 
 ## Parked for maintainer feedback
 
@@ -967,23 +967,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.5M | $1037.63 _(notional, rate-card)_ | no quota set |
+| Claude | 71.6M | $1037.64 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1014
+### doin (0)
+(none)
 
-### tada (4945)
+### tada (4946)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1.md) — Completion report — FIX round 1, PR #1014 (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-shepherd.md) — What was failing
-- [`daily-progress-summary-20260817-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260817-070502.md) — Completion report
-- … and 4940 more
+- … and 4941 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
