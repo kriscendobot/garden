@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr995-conduct-reap-count: 0
 child-endojs-endo-but-for-bots-pr995-endo-claude-followup-design-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-pr995-endo-claude-followup-design-reap-count: 0
 order: serial
