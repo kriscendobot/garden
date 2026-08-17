@@ -96,3 +96,13 @@ basenames that need a disambiguator; audit for and fix these:
   just assert the lesson).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T12:43:43Z
