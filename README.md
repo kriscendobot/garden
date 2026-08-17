@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T06:01:58Z_
+_As of 2026-08-17T06:07:05Z_
 
 ## Latest
 
-Two major work items completed: the endo-claude build orchestration and the conductor merge-queue design. Recent activity has been dominated by CI blockers (floating Node 24.x runner flake on test(24.x, ubuntu-latest), blocking several green dependabot PRs and [#340](https://github.com/endojs/endo-but-for-bots/pull/340)) and stale approvals after rebases—[#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#388](https://github.com/endojs/endo-but-for-bots/pull/388), and [#389](https://github.com/endojs/endo-but-for-bots/pull/389) all need fresh approvals after rebases land. Two gauntlets ([#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) hit iteration caps without converging. Dependabot auto-conduct is broken on the deployed root (fix already landed on main2 as c31b2aaf4a; awaiting deploy). Gateway package phases 2–12 are ready for sequential restack; the yarn global cache hit ext4's hardlink ceiling on one host and will need pruning. Several job holds await your decisions: genie docs deletion, B5 deployed-edge validation path, and promotion of a dozen parked work items.
+Two Ironhorse design jobs claimed ([panic](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-panic.md) and [rejection handling](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-rejection-handling.md)). Multiple PRs rebased and stalled awaiting re-approval: [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), and [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (all rebase-fresh or design-modified, all blocking on your re-approval per the conductor's exact-head gate). Dependabot auto-conduct broken on the deployed root—the fix landed on main2 (c31b2aaf4a) but needs a deploy to land; every dependabot MERGE-NOW stalls without it. A known floating-Node-24.x runner flake (non-required check, unrelated to dependency content) is turning some green boards red; [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and [#340](https://github.com/endojs/endo-but-for-bots/pull/340) are held by it. Several PRs and designs parked pending your decisions: [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (registry vs. node_modules dispatch), weblet gateway id model, test262 fixture consolidation, and [#241](https://github.com/endojs/endo-but-for-bots/pull/241) (familiar VFS design awaiting final approval). Yarn berry cache hit ext4's 65k-hardlink ceiling on endolin-garden; a cache prune or nodeLinker switch is needed before new worktrees can install.
 
 ## Parked for maintainer feedback
 
@@ -824,64 +824,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > ("Timed out while running tests" in the @endo/agentry eval suite) — after the
 > rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.
 
-- `doomed-proposal-compartments-xs-source-phase-design-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-proposal-compartments-xs-source-phase-design-requeue-exhausted.md)
-
-> DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> The work is preserved at jobs/plan/proposal-compartments-xs-source-phase-design; it stays HELD until a human promotes it
-> (promote-plan.sh proposal-compartments-xs-source-phase-design) or removes it, so nothing is lost.
-> Original job base: proposal-compartments-xs-source-phase-design
->
-> --- original job body ---
-> ---
-> tier: minion
-> model-burned: mentor
-> fallback-tier: 
-> dispatch: automatic
-> ---
-> role: designer
-> handler-timeout: 7200
->
-> Design the XS-fork path that unblocks Compartments validation.
->
-> WHY THIS IS THE UNBLOCK, not more planning. All four validation fronts (v8, JSC,
-> XS, endor) are blocked before semantics on the same thing: source-phase-import
-> syntax does not parse. Measured on XS 17.9.1 via `xst -m`
-> (kriscendobot/proposal-compartments `validations/endor.md`):
->
->     import source s from "./dep.mjs"       -> SyntaxError: missing from
->     await import.source("./dep.mjs")       -> SyntaxError: invalid import.
->     import defer * as ns from "./dep.mjs"  -> SyntaxError: missing from
->
-> All 10 staging tests in kriscendobot/test262@e6dbe36
-> (`test/staging/Compartments/`) acquire their source key through `import source`
-> or `import.source`; one also uses `import defer`. So zero of them can run. Endor's
-> engine IS Moddable XS (via the `xsnap` crate, `c/moddable` submodule at 5516726),
-> so the XS parser gap blocks the endor front too. One fix, two fronts.
->
-> SCOPE: design only, on an XS fork. Deliberately ONE job, not a multi-engine
-> fan-out, because ironhorse development is PAUSED from 2026-08-16 to conserve
-> budget (marker `jobs/plan/ironhorse-campaign-paused-20260816`) and the worker pool
-> is throttled. Do NOT dispatch ironhorse work, and do not fan out to v8 or JSC.
->
-> Deliverable: a design PR covering what it takes to parse source-phase imports
-> (`import source`, `import.source`, and `import defer`) in the XS parser, on a
-> fork. Address at minimum:
-> - Where in the XS parser and bytecode path the phase signal has to be carried, and
->   what the module-request representation must gain.
-> - How this composes with the existing proposals rather than defining a second
->   phase mechanism. The charter is explicit that Compartments must consume existing
->   ModuleRequest phase information (`journal/projects/proposal-compartments/README.md`,
->   "Phase information on module requests", recorded Met).
-> - The relationship to the pinned submodule: a fork implies a pin move, so say what
->   that costs endor and xsnap.
-> - A staged plan with the smallest increment that turns any of the 10 staging tests
->   from unparseable to running. That first green test is the real milestone.
->
-> Do not treat the retired SES-legacy `Compartment` global present on XS 17.9.1 as
-> related; `validations/endor.md` records that it lacks the proposal's
-> deferred-namespace method and is not the proposal object.
-
 - `doomed-weave-base-update-and-pin-alias-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-weave-base-update-and-pin-alias-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -933,14 +875,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 65.6M | $960.70 _(notional, rate-card)_ | no quota set |
+| Claude | 66.0M | $963.81 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- [`design-ironhorse-panic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-panic.md) — Design a panic mechanism for the Ironhorse engine
+- [`design-ironhorse-rejection-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-rejection-handling.md) — Discuss: why panic-on-reference-error matters, and how it interacts with unha...
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-18477549.md) — attention directive on endojs/endo-but-for-bots PR #403
@@ -1010,6 +954,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
 - [`panel-seat-tiering-gather`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/panel-seat-tiering-gather.md) — _normal_ · Panel seat tiering — 1/3: GATHER the evidence
 - [`pr910-mustfix-round2-06-repanel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/pr910-mustfix-round2-06-repanel.md) — _normal_ · PR #910 fix round 2 — child 06: panel re-run and conditional un-draft
+- [`proposal-compartments-xs-parser-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-parser-design.md) — _normal_ · ---
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/proposal-compartments-xs-source-phase-design.md) — _normal_ · ---
 - [`propose-merge-upstream-master-into-llm-20260801`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/propose-merge-upstream-master-into-llm-20260801.md) — _normal_ · Propose a fresh upstream-master into llm integration PR
 - [`registry-immutable-byte-array-followup-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/registry-immutable-byte-array-followup-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
