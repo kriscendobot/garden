@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T18:41:40Z_
+_As of 2026-08-17T19:20:51Z_
 
 ## Latest
 
@@ -1058,22 +1058,22 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.4M | $1217.30 _(notional, rate-card)_ | no quota set |
-| Codex | 23.7M _(+684.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 23.7M _(+684.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1019
+### doin (0)
+(none)
 
-### tada (4995)
+### tada (4996)
+- [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-3.md) — Summary (carried forward from the completed attempt)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-6.md) — Fixer stage report — PR #1014 (gauntlet FIX round 6)
-- … and 4990 more
+- … and 4991 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
