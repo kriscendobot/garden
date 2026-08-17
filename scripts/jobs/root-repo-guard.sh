@@ -67,12 +67,23 @@
 #           common gc.log and the per-worktree `.git/worktrees/*/gc.log` copies are
 #           cleared, since each one independently disables auto-gc for commands run
 #           from that worktree.
-#        3. if gc fails, prefer NON-DESTRUCTIVE recovery: `git fetch origin --refetch`
-#           from the canonical remote (additive only — it can restore objects that
-#           history references but the local store can no longer read; it never prunes
-#           and never drops a ref), then retry gc once.
-#        4. if gc STILL fails, alert ONCE per breakage window (like the stalled-deploy
-#           watch) with the missing-object count and a by-hand reconciliation recipe.
+#        3. if gc fails, CLASSIFY before escalating (fix, 2026-08-17 — a failed gc used
+#           to conflate lock contention with a damaged store, then burn a ~173MB
+#           --refetch and page a hand-repair recipe that did not apply):
+#             * LOCK CONTENTION (`gc is already running ... pid <n>`) is not damage —
+#               a live concurrent gc (any journal sync / worktree op can fire a
+#               background `git gc --auto` on this shared store) or a stale lock. Back
+#               off to the next tick; NO --refetch, NO alert.
+#             * ZERO MISSING OBJECTS — a gc that fails for any other reason while every
+#               referenced object is present locally — is likewise not damage. Back off
+#               quietly; NO --refetch, NO alert.
+#           Only a NON-ZERO missing-object count is genuine damage; then prefer
+#           NON-DESTRUCTIVE recovery: `git fetch origin --refetch` from the canonical
+#           remote (additive only — restores objects history references but the local
+#           store can no longer read; never prunes, never drops a ref), then retry gc.
+#        4. if gc STILL fails AND objects are still missing, alert ONCE per breakage
+#           window (like the stalled-deploy watch) with the missing-object count and a
+#           by-hand reconciliation recipe — never on a zero missing count.
 #           The guard never repairs destructively on its own: dropping the refs that
 #           reach a missing object drops history, so that stays a human decision, and
 #           any ref that must move is backed up under `root-guard-backup/<ts>` first
@@ -334,6 +345,29 @@ attempt_root_gc() {
     git -C "$ROOT" -c gc.worktreePruneExpire=never gc --quiet 2>&1
 }
 
+# Recognize the gc LOCK-CONTENTION error — git's `fatal: gc is already running on
+# machine '<host>' pid <n> (use --force if not)` — as DISTINCT from a damaged store.
+# git prints exactly this (and exits nonzero) when objects/gc.pid is already held,
+# whether by a live concurrent gc (any journal sync or per-job worktree op can fire a
+# background `git gc --auto` on this SHARED object store) or by a stale lock a dead gc
+# left behind. Either way the store itself is intact, so a gc that fails this way must
+# NOT be escalated to a --refetch or a maintainer alert.
+gc_error_is_lock_contention() {
+  case "$1" in *"gc is already running"*) return 0 ;; *) return 1 ;; esac
+}
+# Extract the holder pid from that error message ("" if none present).
+gc_error_lock_pid() {
+  printf '%s' "$1" | sed -n 's/.*[Pp]id \([0-9][0-9]*\).*/\1/p' | head -1
+}
+
+# Bounded scan for objects that refs reach but the local store cannot read. A non-empty
+# result is the ONLY signal of genuine object-store DAMAGE — a failed gc with zero
+# missing objects is a lock/transient condition, not a broken store.
+scan_missing_objects() {
+  timeout "$GARDEN_ROOT_GUARD_MISSING_SCAN_TIMEOUT" \
+    git -C "$ROOT" rev-list --objects --missing=print --all 2>/dev/null | grep '^?' || true
+}
+
 # <origin_ok> gates the --refetch recovery: never fetch from a remote invariant A
 # could not certify as canonical.
 guard_object_store() {
@@ -428,11 +462,54 @@ guard_object_store() {
   first_err="$(printf '%s' "$out" | tr '\n' ' ' | cut -c1-300)"
   log "OBJSTORE-GC-FAILED: 'git gc' on $ROOT failed (rc=$rc): ${first_err:-<no output>}"
 
-  # NON-DESTRUCTIVE recovery first. --refetch re-downloads the full history from the
-  # canonical remote without negotiation, so objects the local store can no longer
-  # read are restored from origin. It only ever ADDS objects — no prune, no ref moved.
+  # LOCK CONTENTION IS NOT DAMAGE (fix, 2026-08-17). `fatal: gc is already running on
+  # machine '<host>' pid <n>` means objects/gc.pid is already held — by a live
+  # concurrent gc (a background `git gc --auto` any journal sync or per-job worktree op
+  # can fire on this shared store) or by a stale lock a dead gc left behind. The store
+  # itself is intact, so escalating a full-history `--refetch` (~173MB on the real
+  # root) and paging the maintainer with a history-touching repair recipe would both be
+  # spent on a non-problem. Back off to the next tick: a live gc finishes, or a
+  # confirmed-stale lock is cleared by the sysop `maintain` op. Report the holder's
+  # liveness for the log (it distinguishes a genuine concurrent gc from a stale lock,
+  # and two different pids across ticks — as observed on 2026-08-17 — indicate racing
+  # concurrent gc's, not a wedged one).
+  if gc_error_is_lock_contention "$out"; then
+    local lpid liveness
+    lpid="$(gc_error_lock_pid "$out")"
+    if [ -z "$lpid" ]; then
+      liveness="holder pid unknown"
+    elif gc_lock_holder_alive "$lpid"; then
+      liveness="pid $lpid is a LIVE git gc (a real concurrent gc; expected to clear on its own)"
+    else
+      liveness="pid $lpid is NOT a live gc (a stale lock; the sysop 'maintain' op can clear it, else the next tick finds it gone)"
+    fi
+    log "OBJSTORE-GC-CONTENDED: 'git gc' on $ROOT could not take the gc lock — $liveness. The object store is intact, so backing off to the next tick: NO --refetch and NO maintainer alert."
+    esc_result gc-contended
+    return 1
+  fi
+
+  # Not a lock error. Is the store ACTUALLY damaged? Only objects that refs reach but
+  # the local store cannot read constitute damage. ZERO missing objects means the store
+  # is NOT damaged (the gc failed for another reason — an unrecognized lock, a
+  # transient, a config quirk), and the reported defect is precisely escalating a
+  # --refetch and a ref-dropping repair recipe on that. Gate BOTH on a non-zero count.
+  local missing n_missing sample
+  missing="$(scan_missing_objects)"
+  n_missing="$(printf '%s\n' "$missing" | grep -c . 2>/dev/null || true)"
+  [[ "$n_missing" =~ ^[0-9]+$ ]] || n_missing=0
+
+  if [ "$n_missing" -eq 0 ]; then
+    log "OBJSTORE-GC-FAILED-INTACT: 'git gc' on $ROOT failed (${first_err:-unknown error}) but 0 objects reachable from refs are missing locally — the store is NOT damaged. Backing off to the next tick: no --refetch and no maintainer alert (a failed gc with nothing missing is a lock/transient condition, not a broken store)."
+    esc_result gc-intact
+    return 1
+  fi
+
+  # GENUINE DAMAGE (>=1 missing object). NON-DESTRUCTIVE recovery first. --refetch
+  # re-downloads the full history from the canonical remote without negotiation, so
+  # objects the local store can no longer read are restored from origin. It only ever
+  # ADDS objects — no prune, no ref moved.
   if [ "$origin_ok" -eq 1 ]; then
-    log "OBJSTORE-RECOVERY: re-fetching full history from the canonical origin ('fetch --refetch', additive only) to restore unreadable objects"
+    log "OBJSTORE-RECOVERY: re-fetching full history from the canonical origin ('fetch --refetch', additive only) to restore $n_missing unreadable object(s)"
     local _ft="$GARDEN_FETCH_TIMEOUT" _fr="$GARDEN_FETCH_RETRIES"
     GARDEN_FETCH_TIMEOUT="$GARDEN_ROOT_GUARD_REFETCH_TIMEOUT"; GARDEN_FETCH_RETRIES=1
     bounded_fetch "$ROOT" origin --refetch \
@@ -448,18 +525,27 @@ guard_object_store() {
       return 0
     fi
     first_err="$(printf '%s' "$out" | tr '\n' ' ' | cut -c1-300)"
+    # The --refetch is additive, so it may have restored some/all objects even if gc
+    # still fails. Re-scan and alert only on what is STILL missing.
+    missing="$(scan_missing_objects)"
+    n_missing="$(printf '%s\n' "$missing" | grep -c . 2>/dev/null || true)"
+    [[ "$n_missing" =~ ^[0-9]+$ ]] || n_missing=0
   fi
 
-  # Still broken. Diagnose (bounded) and alert ONCE per breakage window. We do NOT
-  # repair destructively: the objects git cannot read are reachable from real refs, so
-  # dropping those refs drops history — a human decision, not a timer's.
-  local missing n_missing sample
-  missing="$(timeout "$GARDEN_ROOT_GUARD_MISSING_SCAN_TIMEOUT" \
-    git -C "$ROOT" rev-list --objects --missing=print --all 2>/dev/null | grep '^?' || true)"
-  n_missing="$(printf '%s\n' "$missing" | grep -c . 2>/dev/null || true)"
-  [[ "$n_missing" =~ ^[0-9]+$ ]] || n_missing=0
-  sample="$(printf '%s\n' "$missing" | head -3 | tr '\n' ' ')"
+  # If the --refetch restored every referenced object but gc still fails, the store is
+  # no longer damaged — do not page a human with an inapplicable recipe. Back off.
+  if [ "$n_missing" -eq 0 ]; then
+    log "OBJSTORE-GC-FAILED-INTACT: 'git gc' on $ROOT still fails (${first_err:-unknown error}) but the --refetch restored every referenced object (0 now missing) — not a damaged store. Backing off; no maintainer alert."
+    esc_result gc-intact
+    return 1
+  fi
 
+  # Still genuinely damaged (>=1 object missing even after --refetch). Alert ONCE per
+  # breakage window. We do NOT repair destructively: the objects git cannot read are
+  # reachable from real refs, so dropping those refs drops history — a human decision,
+  # not a timer's. The recipe below is gated on this non-zero missing count, so it is
+  # never emitted with an empty missing list (fix, 2026-08-17).
+  sample="$(printf '%s\n' "$missing" | head -3 | tr '\n' ' ')"
   if [ ! -f "$OBJSTORE_ALERTED" ]; then
     local msg="root repo $ROOT object store is UNMAINTAINABLE: 'git gc' fails (${first_err:-unknown error}) and a non-destructive 'fetch --refetch' from the canonical origin did not restore it. ${n_missing} object(s) reachable from refs are missing locally${sample:+ (e.g. $sample)}. State: ${packs} packs, ${loose} loose objects, ${gclogs} stale gc.log(s). While gc cannot run, git's automatic cleanup stays disabled, packs accumulate unbounded, and EVERY git call in this repo — including every journal sync, since journal/ is a worktree of it — pays the cost and prints the gc.log banner on stderr. This guard will NOT repair destructively on its own, because the refs that reach the missing objects are real history. Reconcile by hand: list them with 'git -C $ROOT rev-list --objects --missing=print --all | grep \"^?\"', find the refs that reach them, back each one up first ('git -C $ROOT branch root-guard-backup/\$(date -u +%Y%m%dT%H%M%SZ)-<name> <ref>'), then re-point or drop the ref and re-run 'git -C $ROOT gc'. (host=$GARDEN)"
     log "OBJSTORE-UNREPAIRABLE: $msg"

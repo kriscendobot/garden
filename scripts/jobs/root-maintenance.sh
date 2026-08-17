@@ -52,6 +52,8 @@ case "$res" in
   gc-ok)           write_result applied "git gc succeeded (no stale lock was in the way)";;
   unlocked-gc-ok)  write_result applied "removed a stale gc.pid lock; git gc then succeeded";;
   refused-live-gc) write_result refused "a live git gc holds the lock; nothing touched (kill it by hand if wedged, then re-issue)";;
+  gc-contended)    write_result refused "another git gc took the lock after the unlock (a live concurrent gc); the store is intact and nothing was touched — retry once it clears";;
+  gc-intact)       write_result failed  "git gc failed but 0 objects are missing (the store is intact, no alert raised) — a lock/transient/config issue, not damage; inspect the gc error and retry";;
   gc-failed)       write_result failed  "git gc still failing after unlock/refetch — a human alert was raised; refs and history left untouched";;
   '')              write_result applied "guard completed with no escalation outcome recorded (store needed no lock-break)";;
   *)               write_result failed  "unexpected guard escalation result '$res'";;

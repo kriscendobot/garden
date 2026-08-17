@@ -74,6 +74,13 @@ fresh_root() {
   git -C "$GARDEN_ROOT" branch -q -D main2 2>/dev/null || true
 }
 run_guard() { : > "$ALERTS"; "$GUARD" >/dev/null 2>&1 || true; }
+# A variant that also captures the guard's stderr log, so a case can assert on the
+# classification path it took (which OBJSTORE-* line fired) — used by the gc-failure
+# classification cases below to prove a contention/intact backoff took NO --refetch and
+# raised NO alert.
+GLOG="$TR/guard.log"
+run_guard_log() { : > "$ALERTS"; : > "$GLOG"; "$GUARD" >/dev/null 2>>"$GLOG" || true; }
+logged() { grep -q "$1" "$GLOG"; }
 head_detached() { ! git -C "$GARDEN_ROOT" symbolic-ref -q HEAD >/dev/null 2>&1; }
 head_is_main2_ancestor() {
   local h; h="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD)"
@@ -200,24 +207,37 @@ run_guard
   && ok "healthy store is a quiet no-op" || bad "healthy store alerted: $(tr '\n' '|' < "$ALERTS")"
 
 # ============================================================================
-hr; echo "CASE 9 — UNREPAIRABLE STORE: gc keeps failing → gc.log KEPT, alert once per window"; hr
+hr; echo "CASE 9 — GENUINE DAMAGE (objects actually missing, --refetch cannot restore): gc.log KEPT, alert once per window"; hr
 fresh_root
 GD="$GARDEN_ROOT/.git"
-printf 'fatal: unable to read deadbeef\nfatal: failed to run repack\n' > "$GD/gc.log"
-# Force every gc attempt to fail, without corrupting a real object store: a repo-local
-# gc.pruneExpire of an unparseable value makes `git gc` bail out.
-git -C "$GARDEN_ROOT" config gc.pruneExpire 'not-a-date'
+export GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0
+rm -f "$GARDEN_STATE/root-repo-guard/maint-last" "$GARDEN_STATE/root-repo-guard/objstore-alerted"
+# Real, unrepairable damage: a LOCAL-ONLY commit introduces a unique blob origin never
+# had, then that blob object is deleted. gc dies with "unable to read <blob>", the
+# missing-object scan reaches the blob via refs/heads/localonly and prints it (>=1
+# missing), and a --refetch cannot restore it because origin never carried it — so the
+# existing UNMAINTAINABLE escalation fires. This is the shape the missing-object recipe
+# is FOR (contrast CASE 16/17, where nothing is missing).
+DMG_BLOB="$(printf 'unique-local-only-content\n' | git -C "$GARDEN_ROOT" hash-object -w --stdin)"
+DMG_TREE="$(printf '100644 blob %s\tf\n' "$DMG_BLOB" | git -C "$GARDEN_ROOT" mktree)"
+DMG_C="$(echo dmg | git -C "$GARDEN_ROOT" "${git_id[@]}" commit-tree "$DMG_TREE" -p "$UP")"
+git -C "$GARDEN_ROOT" update-ref refs/heads/localonly "$DMG_C"
+rm -f "$GD/objects/${DMG_BLOB:0:2}/${DMG_BLOB:2}"
+printf 'fatal: unable to read %s\nfatal: failed to run repack\n' "$DMG_BLOB" > "$GD/gc.log"
 run_guard
 [ -e "$GD/gc.log" ] && ok "gc.log KEPT while gc still fails (the guard never hides the signal)" || bad "gc.log removed despite a failing gc"
-alerted "root-repo-objstore" && ok "unrepairable store alerts the maintainer" || bad "no objstore alert on an unrepairable store"
+alerted "root-repo-objstore" && ok "genuinely damaged store alerts the maintainer" || bad "no objstore alert on a genuinely damaged store"
 [ -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ] && ok "breakage window marked (once-per-window)" || bad "no objstore-alerted flag"
 run_guard
 ! alerted "root-repo-objstore" && ok "does not re-alert every tick (deduped for the window)" || bad "objstore re-alerted"
-# Repairing the store closes the window and clears the log.
-git -C "$GARDEN_ROOT" config --unset gc.pruneExpire
+# Repairing the store (restore the deleted blob) closes the window and clears the log.
+printf 'unique-local-only-content\n' | git -C "$GARDEN_ROOT" hash-object -w --stdin >/dev/null
 run_guard
 { [ ! -e "$GD/gc.log" ] && [ ! -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ]; } \
   && ok "recovery clears gc.log and closes the breakage window" || bad "window/gc.log not cleared after recovery"
+git -C "$GARDEN_ROOT" update-ref -d refs/heads/localonly 2>/dev/null || true
+# NB: leave GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0 exported — CASE 10 (draining
+# defer) relies on no back-off so its post-drain tick actually re-runs gc.
 
 # ============================================================================
 hr; echo "CASE 10 — DRAINING defers object-store maintenance (never fight a deploy)"; hr
@@ -308,6 +328,54 @@ GD="$GARDEN_ROOT/.git"
 printf '3728245 %s\n' "$GARDEN" > "$GD/gc.pid"
 run_guard                                            # escalation flag unset → unattended refusal preserved
 [ -e "$GD/gc.pid" ] && ok "default guard leaves the gc.pid lock untouched (unattended refusal preserved)" || bad "default guard broke a gc.pid lock without authorization"
+
+# ============================================================================
+hr; echo "CASE 16 — GC LOCK CONTENTION ('gc is already running'): back off, NO refetch, NO alert"; hr
+# The reported defect (host endolin-garden2-5bcdff64, 2026-08-17): a concurrent/left-over
+# gc lock made 'git gc' fail with `fatal: gc is already running on machine '<host>' pid
+# <n>`, and the guard conflated that with a damaged store — burning a full-history
+# --refetch and paging a hand-repair recipe that had no missing object to act on. A real
+# gc lock is reproduced by writing objects/gc.pid with a LIVE pid whose host matches this
+# machine (git then refuses without --force), and a gc.log gives the guard a reason to
+# attempt gc at all.
+fresh_root
+GD="$GARDEN_ROOT/.git"
+export GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0
+rm -f "$GARDEN_STATE/root-repo-guard/maint-last" "$GARDEN_STATE/root-repo-guard/objstore-alerted"
+sleep 30 & LOCKPID=$!
+# git compares gc.pid's host to its OWN gethostname (the real system host, not $GARDEN).
+printf '%s %s\n' "$LOCKPID" "$(hostname)" > "$GD/gc.pid"
+printf 'fatal: failed to run repack\n' > "$GD/gc.log"
+run_guard_log
+kill "$LOCKPID" 2>/dev/null || true
+logged "OBJSTORE-GC-CONTENDED" && ok "lock contention classified as contention (not damage)" || bad "contention not recognized (log: $(tr '\n' '|' < "$GLOG"))"
+! logged "OBJSTORE-RECOVERY" && ok "no --refetch on lock contention (the ~173MB non-problem avoided)" || bad "a --refetch was attempted on mere lock contention"
+! logged "OBJSTORE-UNREPAIRABLE" && ok "no UNMAINTAINABLE verdict on lock contention" || bad "UNMAINTAINABLE verdict fired on lock contention"
+! alerted "root-repo-objstore" && ok "lock contention does NOT page the maintainer" || bad "spurious objstore alert on lock contention"
+[ ! -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ] && ok "no breakage window opened on lock contention" || bad "breakage window opened on lock contention"
+[ -e "$GD/gc.log" ] && ok "gc.log KEPT (gc never succeeded; the signal is not hidden)" || bad "gc.log removed despite a failed (contended) gc"
+unset GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS
+
+# ============================================================================
+hr; echo "CASE 17 — GC FAILS but ZERO MISSING OBJECTS (transient/config): back off, NO refetch, NO alert"; hr
+# A gc that fails for a reason OTHER than a lock, while every referenced object is
+# present locally, is likewise NOT damage. The UNMAINTAINABLE verdict must require at
+# least one actually-missing object; a failed gc with an empty missing list is a
+# transient/config condition, not a broken store. Forced here with an unparseable
+# gc.pruneExpire (makes 'git gc' bail out) on an intact fresh clone.
+fresh_root
+GD="$GARDEN_ROOT/.git"
+export GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS=0
+rm -f "$GARDEN_STATE/root-repo-guard/maint-last" "$GARDEN_STATE/root-repo-guard/objstore-alerted"
+printf 'fatal: failed to run repack\n' > "$GD/gc.log"
+git -C "$GARDEN_ROOT" config gc.pruneExpire 'not-a-date'
+run_guard_log
+git -C "$GARDEN_ROOT" config --unset gc.pruneExpire
+logged "OBJSTORE-GC-FAILED-INTACT" && ok "zero-missing gc failure classified as intact (not damage)" || bad "zero-missing gc failure not classified intact (log: $(tr '\n' '|' < "$GLOG"))"
+! logged "OBJSTORE-UNREPAIRABLE" && ok "no UNMAINTAINABLE verdict with zero missing objects" || bad "UNMAINTAINABLE verdict fired with zero missing objects"
+! alerted "root-repo-objstore" && ok "zero-missing gc failure does NOT page the maintainer" || bad "spurious objstore alert with zero missing objects"
+[ ! -f "$GARDEN_STATE/root-repo-guard/objstore-alerted" ] && ok "no breakage window opened with zero missing objects" || bad "breakage window opened with zero missing objects"
+unset GARDEN_ROOT_GUARD_MAINT_INTERVAL_HOURS
 
 # ============================================================================
 hr; echo "RESULT"; hr
