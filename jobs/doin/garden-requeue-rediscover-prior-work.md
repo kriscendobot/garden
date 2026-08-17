@@ -46,3 +46,13 @@ not a prescription:
 Deliverable: either a design PR on the roadmap branch, or a small implementation
 PR on main2 if the change is genuinely contained. Include the journal evidence
 above so the case is recoverable.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T01:29:15Z
