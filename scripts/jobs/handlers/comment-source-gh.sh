@@ -345,29 +345,6 @@ while IFS=$'\t' read -r n updated; do
   # review/comment submitted since `since`. Stop scanning here.
   if [ -n "$updated" ] && [ "$updated" \< "$since" ]; then break; fi
   scanned=$((scanned+1))
-  # ISSUES-DISABLED mode: the repo-wide issues/comments endpoint 404s by
-  # configuration, so this per-open-PR walk is where PR conversation comments are
-  # enumerated instead. The per-PR issues/<n>/comments endpoint still answers on
-  # such a repo (verified: [] with 200). Same since= filter, self-authored $bot
-  # drop, and html_url test("/pull/") classification as surface 1 — the coverage
-  # is preserved, not merely the crash stopped. Guarded with note_fetch_failure so
-  # a genuine blip mid-walk still freezes the cursor (LOST-FETCH invariant intact).
-  if [ -n "$issues_disabled" ]; then
-    : >"$ic_err"
-    if _ic="$(gh_api_retry --paginate "repos/$repo/issues/$n/comments?since=$since&per_page=100" 2>"$ic_err")"; then
-      printf '%s' "$_ic" | jq -r --arg s "$since" --arg bot "$bot" "
-          .[] | select(.created_at >= \$s)
-          | select((.user.login // \"\") != \$bot)
-          | [ .created_at,
-              (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
-              (.id|tostring),
-              ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-              .user.login, .html_url, ($oneline) ] | @tsv"
-    else
-      note_fetch_failure "issues/$n/comments (issues-disabled per-PR walk)" "$ic_err"
-    fi
-    [ -n "$fetch_primary_quota" ] && break
-  fi
   # Review ids that carry at least one inline comment on this PR. A
   # space-delimited string so the reviews jq below can membership-test it.
   # rids feeds the inline-bearing membership test. A FAILED fetch is NOT "this PR has
@@ -403,10 +380,15 @@ while IFS=$'\t' read -r n updated; do
   [ -n "$fetch_primary_quota" ] && break
   # ISSUES-DISABLED degraded mode: the repo-level issues/comments feed 404'd because
   # Issues are OFF, so recover THIS PR's conversation comments (surface=pr-comment)
-  # directly — issues/<n>/comments returns 200 even with Issues disabled. Guarded
-  # exactly like the other surfaces: a failure is DETECTED (fetch_failed), never
-  # swallowed into a silent partial subset. Emitted to $s3out so it is cat'd with the
-  # review-body rows; the watcher re-sorts by created_at, so order is irrelevant.
+  # directly — issues/<n>/comments returns 200 even with Issues disabled (verified),
+  # so coverage is PRESERVED, not merely the crash stopped. The shared
+  # emit_pr_conversation_comments helper keeps the since= filter, self-authored $bot
+  # drop, and html_url test("/pull/") classification byte-identical to surface 1
+  # (true-issue comments are genuinely absent — no issue can exist). This is the SOLE
+  # per-PR conversation-comment enumeration; a second copy would duplicate every row.
+  # Guarded exactly like the other surfaces: a failure is DETECTED (fetch_failed),
+  # never swallowed into a silent partial subset. Emitted to $s3out so it is cat'd with
+  # the review-body rows; the watcher re-sorts by created_at, so order is irrelevant.
   if [ -n "$issues_disabled" ]; then
     : >"$ic_err"
     if _ic="$(gh_api_retry --paginate "repos/$repo/issues/$n/comments?since=$since&per_page=100" 2>"$ic_err")"; then

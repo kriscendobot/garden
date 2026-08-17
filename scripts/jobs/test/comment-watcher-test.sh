@@ -1718,6 +1718,10 @@ EOF
   [ "$id_rc" -eq 0 ] && ok "issues-disabled fork exits 0 (no crash-loop, cursor not frozen)" || bad "issues-disabled fork exited $id_rc (crash-loop regression: every tick fails forever)"
   grep -qi 'ISSUES DISABLED' "$ID_ERR" && ok "the issues-disabled mode is LOGGED once (diagnosable, not silent)" || bad "no ISSUES DISABLED log ($(cat "$ID_ERR"))"
   grep -q $'\tpr-comment\t770001\t' "$ID_OUT" && ok "a PR conversation comment IS still emitted via the per-PR walk (coverage preserved)" || bad "per-PR conversation comment dropped in issues-disabled mode (out: $(cat "$ID_OUT"))"
+  # And EXACTLY once — guard against a re-introduced second per-PR enumeration block
+  # (the two-blocks-both-fire duplicate the reconciled fix once carried).
+  id_dupe="$(grep -c $'\tpr-comment\t770001\t' "$ID_OUT")"
+  [ "$id_dupe" -eq 1 ] && ok "the per-PR conversation comment is emitted EXACTLY once (no duplicate enumeration)" || bad "pr-comment 770001 emitted $id_dupe times (want 1): duplicate per-PR walk regression"
   grep -qi 'FETCH INCOMPLETE\|FETCH-FAIL' "$ID_ERR" && bad "issues-disabled tick wrongly logged a fetch failure (should not freeze)" || ok "no fetch-failure log — the absent surface is a fact, not a lost fetch"
 
   # ---- ID2: same repo-wide 404 but has_issues=TRUE → unchanged LOST-FETCH: the
@@ -2721,6 +2725,12 @@ EOF
   set -e
   [ "$idis_rc" -eq 0 ] && ok "Issues-disabled repo exits 0 (no freeze, no crash-loop)" || bad "issues-disabled exited $idis_rc (want 0): $(cat "$IDIS_ERR")"
   grep -q $'\tpr-comment\t9100\t5\t' "$IDIS_OUT" && ok "the per-PR conversation comment is recovered as surface=pr-comment" || bad "pr-comment not recovered (out: $(cat "$IDIS_OUT"))"
+  # No DOUBLE enumeration: the per-PR issues/<n>/comments walk must emit each
+  # conversation comment EXACTLY once. Two independently-added per-PR blocks once
+  # coexisted (one to stdout, one via $s3out) and emitted every pr-comment twice;
+  # the plain `grep -q` above could not catch it. Assert the count is 1.
+  idis_dupe="$(grep -c $'\tpr-comment\t9100\t5\t' "$IDIS_OUT")"
+  [ "$idis_dupe" -eq 1 ] && ok "the recovered pr-comment is emitted EXACTLY once (no double per-PR enumeration)" || bad "pr-comment 9100 emitted $idis_dupe times (want 1): duplicate per-PR walk regression"
   grep -qi 'issues disabled on endojs/endo-but-for-bots; enumerating pr-comment per open PR' "$IDIS_ERR" && ok "the degraded mode is LOGGED once per tick" || bad "degraded-mode log missing ($(cat "$IDIS_ERR"))"
   { grep -qi 'FETCH INCOMPLETE' "$IDIS_ERR" || grep -qi 'FETCH-FAIL' "$IDIS_ERR"; } && bad "the disabled repo wrongly froze the cursor" || ok "no lost-fetch freeze on the disabled repo"
 fi
