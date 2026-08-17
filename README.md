@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T09:25:13Z_
+_As of 2026-08-17T09:26:46Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) gauntlet completed panel round 2 and moved into fix; infrastructure issues are now the primary blockers — a floating Node 24.x runner flake is holding [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000), which gates several stalled PRs ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475)), and dependabot auto-merge is broken on the deployed root pending a garden deploy. Multiple design and feature PRs are awaiting maintainer re-approval after rebases ([endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)); minion.town work is proceeding on ocap.site DNS/DNSSEC and toy-tools cleanup, and the test262 consolidation project is open-question gated on whether to keep separate metering cases or fold into upstream parity.
+One gauntlet in flight (endojs/endo-but-for-bots#286); the board is otherwise quiet with most work pending maintainer decisions in the inbox. Several PRs are ready to merge but blocked on stale approvals after rebases — [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), and the phase-2/3 chain need re-approval on their current heads before the conductor can land them. Infrastructure has three open issues: the root repo's git gc is stuck and needs manual reconciliation, the yarn berry cache hit its 65k hardlink ceiling, and a floating Node 24.x runner bug is blocking CI on several dependabot PRs (the [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) pin is ready but needs merge first). A deploy is also overdue — the currently-deployed garden lacks the dependabot-auto-merge fix (commit c31b2aaf4a on main2), causing botanist jobs to stall. On completions: the bytearray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is all green with no actionable code left, awaiting your re-review to clear CHANGES_REQUESTED; the git-integration arc finished with [#691](https://github.com/endojs/endo-but-for-bots/pull/691) merging (M3 closed); and the test262 consolidation (PR [#946](https://github.com/endojs/endo-but-for-bots/pull/946)) has surfaced an approach decision on whether to keep the metering corpus separate.
 
 ## Parked for maintainer feedback
 
@@ -967,15 +967,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.4M | $1037.29 _(notional, rate-card)_ | no quota set |
+| Claude | 71.5M | $1037.63 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1014
 
 ### tada (4945)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2.md) — Completion report
