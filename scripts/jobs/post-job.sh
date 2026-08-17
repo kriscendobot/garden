@@ -200,9 +200,22 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   # maintainer directive of the same base. Without an identity, tada still blocks, so a
   # plain triager re-seeing an old completed change stays idempotent as before.
   if [ -e "$DIR/$JOBS_PLAN/$base.md" ] || [ -e "$DIR/$JOBS_TODO/$base.md" ] \
-     || [ -e "$DIR/$JOBS_DOIN/$base.md" ] \
-     || { [ -z "$idhash" ] && tada_exists "$DIR" "$base"; }; then
-    log "job '$base' already present in lifecycle; nothing to do"
+     || [ -e "$DIR/$JOBS_DOIN/$base.md" ]; then
+    log "job '$base' already present in lifecycle (plan/todo/doin); nothing to do"
+    exit 0
+  fi
+  # A collision against a COMPLETED job (tada) is the SURPRISING no-op, not the routine
+  # one: a re-run of a recurring action (weave/shepherd/conduct/restack) whose base is
+  # keyed only on the target — no ISO-date/identity disambiguator — is silently swallowed
+  # by an OLD, already-finished job of the same name. That is how a fresh
+  # `endojs-endo-but-for-bots-pr395-weave` child of the
+  # `endojs-endo-but-for-bots-gateway-phase-restack-chain` orchestration vanished against
+  # a since-superseded PR #395 restack (2026-08-17), caught only by reading a scripted
+  # loop's log line by line. Log it as a WARN so a posting loop cannot let it pass
+  # unnoticed. (Only reached with NO directive identity — with one, the identity index
+  # below is the authoritative re-see guard and a fresh directive is never tada-swallowed.)
+  if [ -z "$idhash" ] && tada_exists "$DIR" "$base"; then
+    log "WARN: job '$base' collides with a COMPLETED job in tada/ — NOT re-posted. If this is a recurring action, give the basename an ISO-date (YYYYMMDD) or identity suffix (job-board § Post/Park); if it is a true re-post, this no-op is expected."
     exit 0
   fi
 

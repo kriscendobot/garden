@@ -188,6 +188,24 @@ post "$SHARDED_NIB" "$(bodyfile 'plain no-identity re-post of sharded completion
 ! has "$SHARDED_NIB" && ok "8e a no-identity post dedups a sharded completed basename" \
                      || bad "8e sharded tada dedup regressed (re-minted into todo)"
 
+# --- 8f: a no-identity collision against a COMPLETED tada job WARNs loudly ------
+# The dedup no-op is correct (8d), but it used to log only a routine one-liner, so a
+# recurring-action post swallowed by an OLD completed job passed unnoticed inside a
+# scripted loop (the endo-but-for-bots-pr395-weave orchestration-child drop,
+# 2026-08-17). A collision against tada/ must now surface as a WARN, distinct from the
+# routine plan/todo/doin "already present" no-op.
+WBASE=warn-on-tada-collision
+CC5="$TR/warn-tada"; git clone -q -b journal2 "$BARE" "$CC5" 2>/dev/null
+printf 'done\n' > "$CC5/jobs/tada/$WBASE.md"
+git -C "$CC5" add -A; git -C "$CC5" -c user.name=t -c user.email=t@l commit -q -m 'seed tada for warn case'
+git -C "$CC5" push -q origin journal2
+werr="$("$JOBS/post-job.sh" "$WBASE" "$(bodyfile 'recurring post that collides with a completed job')" 2>&1 >/dev/null)"
+! has "$WBASE" && ok "8f1 tada collision is still a no-op (not re-minted)" \
+              || bad "8f1 tada collision wrongly re-minted"
+printf '%s' "$werr" | grep -qi 'WARN.*collides with a COMPLETED job' \
+  && ok "8f2 tada collision surfaces a loud WARN (not a routine no-op)" \
+  || bad "8f2 tada collision did not emit the expected WARN (got: $werr)"
+
 echo "----------------------------------------------------------------"
 echo "directive-identity-dedup-test: PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]

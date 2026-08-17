@@ -53,6 +53,18 @@ progress, and applies a failure policy rather than silently stalling.
    normal, independently-claimable job — its body is the work a gardener does.
 2. **Park the children** (in run order):
    `post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body-file]`.
+   **Name a recurring-action child with a disambiguator.** A child that is a
+   recurring verb against a target — `weave`/`shepherd`/`conduct`/restack/`retcon`
+   of a specific PR — must carry an ISO-date `-YYYYMMDD` (or id-hash) suffix, because
+   a bare `<slug>-pr<N>-<verb>` base can collide with an already-**completed** job of
+   the same name and `post-plan.sh` will silently no-op the park ("already present in
+   lifecycle") — the child never enters `plan/` and the orchestration breaks at that
+   step. This is exactly what happened to a fresh `endojs-endo-but-for-bots-pr395-weave`
+   child of `endojs-endo-but-for-bots-gateway-phase-restack-chain` (2026-08-17): it
+   collided with a since-superseded PR #395 restack in `tada/` and was caught only by
+   reading the posting loop's log line by line. `post-plan.sh` now WARNs loudly on a
+   tada/ collision, but the fix is to name the child uniquely. See
+   [job-board](../job-board/SKILL.md) § Basename shape.
 3. **Record the orchestration:**
    `post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
    [--budget-tokens N] [--resume-from terminal-campaign]

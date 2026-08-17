@@ -34,6 +34,41 @@ Board files are markdown and carry `.md`; the **basename `<base>` is the
 extensionless spine**. Scripts append `.md` for board files and strip it for the
 `work/`/`inbox/` keys.
 
+### Basename shape: bare for one-shot work, disambiguated for recurring actions
+
+The basename is a **reservation spine**, and its idempotency cuts two ways:
+
+- A **stable, one-shot unit of work** — `design-X`, `build-X`, a specific fix —
+  stays **bare** and deterministic. Re-issuing the same ask must be a no-op, not a
+  duplicate (CLAUDE.md § How work reaches workers: "a re-issued ask is idempotent").
+  Never date-suffix these — it would break that property for no benefit.
+- A **recurring verb against the same target over time** — `weave`, `shepherd`,
+  `conduct`, a restack, a `retcon`, a review-feedback response, an attention-directive
+  routing job — is genuinely *different work* each time even though the nominal target
+  (a PR number) is unchanged. A bare `<slug>-pr<N>-<verb>` base collides with the
+  previous invocation, and if that previous job already **completed** the new one is
+  **silently swallowed** by the tada/ entry (basename idempotency treats it as "already
+  present; nothing to do"). Give these a **disambiguator suffix**: an ISO date
+  `-YYYYMMDD` (matching the `pr403-weave-20260813` style already in use) or another
+  unique key (an id-hash, `-04154a91`). This is why a fresh
+  `endojs-endo-but-for-bots-pr395-weave` orchestration child silently failed to park on
+  2026-08-17 — its bare base collided with a since-superseded, already-completed PR #395
+  restack of the exact same name (the `endojs-endo-but-for-bots-gateway-phase-restack-chain`
+  incident).
+
+**Who already handles this for you.** The deterministic minters carry an appropriate
+disambiguator already, so you rarely add one by hand: the **scheduler** date-stamps every
+dispatched tick (`${prefix}-YYYYMMDD-HHMMSS`); the **pages-watcher** keys on the commit
+SHA (`garden-pages-<sha>-shepherd`); the **comment-watcher** and **ci-watcher** keep a
+bare `<slug>-pr<N>-<verb>` base but pass a **directive identity** (comment/review id) so a
+fresh directive is never tada-swallowed (`base_live` counts only todo/doin, and the
+identity index is the re-see guard — the endo-but-for-bots #671 fix). The gap the
+convention closes is the **hand-posted** recurring job — an orchestration child, a
+liaison-posted `weave`/`shepherd`/`conduct` — that carries neither a date nor an identity:
+name those with an ISO-date suffix. `post-job.sh`/`post-plan.sh` now emit a **loud WARN**
+(not the routine one-line no-op) when a post collides with a *completed* tada/ job, so a
+scripted loop can no longer let the swallow pass unnoticed.
+
 - **Post** (`post-job.sh [--identity <key>] <base> [body]`): write
   `jobs/todo/<base>.md`, push; idempotent on the basename; retry-with-backoff on
   contention. **Directive-identity dedup:** basename idempotency only collapses
