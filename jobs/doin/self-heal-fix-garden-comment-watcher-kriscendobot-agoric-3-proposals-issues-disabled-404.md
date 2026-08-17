@@ -23,3 +23,13 @@ Change:
 4. Also harden the producer: `scripts/jobs/fork-watch-provisioner.sh` arms these watches automatically and never checks the surface, which is why 11 of 17 armed watches share this defect. Nothing needs to *block* arming (the fix above makes such repos work), but note the `has_issues:false` fork case in the arming record's rationale or provisioner header so the next reader isn't surprised. Do not change the sender-gate semantics.
 
 Note for the implementer: the per-PR fallback is the right fix rather than enabling Issues on the forks — enabling Issues opens a new untrusted-text surface on public forks and would need maintainer authorization per the monitoring safety constraint, whereas this fix is read-only and keeps the existing gate.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T14:10:19Z
