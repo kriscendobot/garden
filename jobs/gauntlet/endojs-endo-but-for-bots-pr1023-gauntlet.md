@@ -4,12 +4,12 @@ repo: endojs/endo-but-for-bots
 pr_number: 1023
 build_job: groom-endo-designs-readme
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: endojs-endo-but-for-bots-pr1023-gauntlet-clean
+current_child: endojs-endo-but-for-bots-pr1023-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-17T21:58:34Z
