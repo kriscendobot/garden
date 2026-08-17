@@ -71,6 +71,7 @@ not overlap: `garden-requeue-rediscover-prior-work` (duplication arising from
 requeues) and `garden-orchestration-halt-record-accuracy` (halt records that
 misreport what happened).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
