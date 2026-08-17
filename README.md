@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T14:07:34Z_
+_As of 2026-08-17T14:09:33Z_
 
 ## Latest
 
@@ -1055,13 +1055,32 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > `unexpected end of JSON input` is Go's `encoding/json` wording for a response body that was empty or cut short mid-document. `GARDEN_TRANSIENT_GH_API_SIGNATURES` (`scripts/jobs/common.sh:3163`) names the neighbouring cases — `\bEOF\b`, the HTML-error-page decoder string, http2 stream resets — but not this one, so `gh_api_retry` classified it **definitive**,
 
+- `watchdog-self-heal-garden-comment-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-ocapn.md)
+
+> self-heal: garden-comment-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 3e6a6d88f86f7d6b664278e542e2c1a5bd3d7f2d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3e6a6d88f86f7d6b664278e542e2c1a5bd3d7f2d). Diagnosis: ## Diagnosis: already fixed on `main2`; this host is 10 commits behind — no fix job warranted
+>
+> **Failure signature.** `garden-comment-watcher@kriscendobot-ocapn` exits 1 because surface 1 permanently 404s:
+>
+> ```
+> gh api repos/kriscendobot/ocapn/issues/comments?since=…  →  gh: Not Found (HTTP 404)  (definitive, rc=1)
+> FETCH INCOMPLETE … exiting nonzero so the watcher freezes the cursor and re-polls
+> FATAL: comment source failed for kriscendobot/ocapn (rc=1)
+> ```
+>
+> **Root cause, reproduced.** `kriscendobot/ocapn` (fork of `ocapn/ocapn`) has **Issues disabled**:
+>
+> - `gh api repos/kriscendobot/ocapn --jq .has_issues` → `false`
+> - `repos/…/issues/comments` → HTTP 404 **permanently**, while `repos/…/issues` → `[]` and `repos/…/ocapn` itself answers 200.
+>
+> So in the *deployed* `scripts
+
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.0M | $1144.83 _(notional, rate-card)_ | no quota set |
+| Claude | 83.3M | $1149.57 _(notional, rate-card)_ | no quota set |
 | Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
