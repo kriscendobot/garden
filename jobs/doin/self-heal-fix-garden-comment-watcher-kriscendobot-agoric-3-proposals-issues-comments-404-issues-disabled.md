@@ -26,6 +26,7 @@ Run `scripts/jobs/test/comment-watcher-test.sh` and `shellcheck` on the handler.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
