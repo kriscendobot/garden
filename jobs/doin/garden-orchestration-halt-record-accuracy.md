@@ -43,3 +43,13 @@ Deliverable: a design or a contained fix on main2, plus a corrected or supersede
 record for this specific orchestration so it stops misleading readers. Related
 in-flight work: `garden-requeue-rediscover-prior-work` covers a different gap in
 the same requeue/retry area; check it before proposing overlapping changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T04:14:39Z
