@@ -65,3 +65,13 @@ new PR goes through the normal draft-plus-gauntlet path.
 When closing #286, leave a comment explaining that the daemon formula was
 superseded by exo-http-client + endo-fetch while the CLI verb was not, and link
 the replacement PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T04:59:42Z
