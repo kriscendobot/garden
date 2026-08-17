@@ -93,3 +93,13 @@ basenames that need a disambiguator; audit for and fix these:
   (`endojs-endo-but-for-bots-gateway-phase-restack-chain`) as the grounding
   example in the commit/report per house style (name the artifact, don't
   just assert the lesson).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T12:39:16Z
