@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T17:53:30Z_
+_As of 2026-08-17T18:03:22Z_
 
 ## Latest
 
@@ -563,86 +563,13 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Your call on merge: the functional fix is already on trunk, so [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) could reasonably be merged (for the better comment) OR just closed as superseded. Flagging rather than deciding.
 
-- `20260817T124150Z-39fc38` — from gardener:genie-docs-delete-and-repoint-links, reply_to `genie-docs-delete-and-repoint-links` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T124150Z-39fc38.md)
-
-> Blocked on a scope decision — this job's premise is already stale in a way that contradicts the 2026-08-17 narrow decision. Please advise before I touch anything.
->
-> FACTS ON `llm` (HEAD 3ebfc47ae6):
-> - `llm` has advanced well past the a54c3adb migration source. Commit **42bc7d5161** ("chore: retire @endo/genie and the PLAN/TODO/TADA design docs", 2026-08-13, 4 days BEFORE this decision) already:
->   1. Deleted PLAN/ TODO/ TADA/  ✔ (the deletion you asked for is already done)
->   2. Deleted the ENTIRE `packages/genie/` package (README.md, DESIGN.md, AGENTS.md — the very files this job lists as needing link-repointing no longer exist)
->   3. STRIPPED the code-comment doc-number citations from sandbox + host-spawner/agent-tools/claude-sandbox/daemon/lal/platform/9p-server (the ~91 citations the 08-17 decision says to LEAVE EXACTLY ALONE)
->   4. Repointed the broken markdown links to `blob/a54c3adb` permalinks into THIS repo's own git history — NOT the kriscendobot/garden public archive the 08-17 decision names.
->
-> So the already-landed state conflicts with the 08-17 decision on 3 of 4 points: genie package deleted (decision assumes it exists), code citations already removed (decision says preserve), links point at repo-history not the garden archive (decision wants the garden archive).
->
-> PRESERVATION IS SOLID EITHER WAY: content survives at endojs/endo-but-for-bots@a54c3adb (PLAN 10, TADA 171) AND at kriscendobot/garden@journal2:library/endo-but-for-bots/ (PLAN/TODO/TADA + README).
->
-> WHICH DO YOU WANT?
-> (A) Accept 42bc7d5161 as-is — the dirs are gone, nothing more to do; optionally I just repoint the 2 surviving `blob/a54c3adb` PLAN links (sandbox/README, designs/endo-posix-sandbox) to the kriscendobot/garden archive.
-> (B) Reconstruct the NARROW end-state you specified: revert 42bc7d5161's overreach (restore packages/genie + restore the stripped code-comment citations), then delete ONLY the dirs and repoint the 10 links to the kriscendobot/garden archive. This reverts your own landed work and re-adds a package you may have intended to drop.
->
-> I recommend (A) — the deletion is done and content is preserved; restoring a deliberately-retired genie package seems unlikely to be what you want. Holding for your call.
-
-- `20260817T124154Z-1d7330` — from gardener:genie-docs-delete-and-inline-refs, reply_to `genie-docs-delete-and-inline-refs` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T124154Z-1d7330.md)
-
-> genie-docs-delete-and-inline-refs — done, but the premise had already shifted.
->
-> By the time the job ran, origin/llm had moved well past a54c3adb: commit
-> a180fcb / [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) ("retire @endo/genie and the
-> PLAN/TODO/TADA design docs") had ALREADY deleted all three directories,
-> retired the entire @endo/genie package, and removed the ~91 code-comment
-> citations. So the delete-the-dirs + fix-10-links + fix-91-comments work in
-> the job spec was ~98% already landed — but that commit did it the way your
-> 08-17 decision forbids: it REPOINTED the survivors at a54c3adb git PERMALINKS
-> instead of dissolving them.
->
-> I fixed the residual PLAN/TODO/TADA references (the only in-scope ones left),
-> dissolving each inline, no repoint → PR [endojs/endo-but-for-bots#1020](https://github.com/endojs/endo-but-for-bots/issues/1020) (draft):
->   - packages/sandbox/README.md, designs/endo-posix-sandbox.md, designs/README.md
-> (pivoker/README.md's TODO//TADA/ are Pivoker's own task queue — left alone.)
->
-> One decision for you: that same retire commit created the SAME forbidden
-> a54c3adb git-permalink style for the retired @endo/genie PACKAGE (not the
-> dirs) in designs/endopi.md (~11 links) and designs/chat-inventory-create-menu.md
-> (1). Out of this job's PLAN/TODO/TADA scope, so I left them. Want those
-> dissolved inline too (same principle)? If so I'll post a follow-up.
-
 - `20260817T131606Z-74d7f9` — from orchestrator:endojs-endo-but-for-bots-gateway-phase-restack-chain-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T131606Z-74d7f9.md)
 
 > Orchestration endojs-endo-but-for-bots-gateway-phase-restack-chain HALTED: child endojs-endo-but-for-bots-gateway-phase5-restack stalled after 3 requeues on host endolin-garden2-5bcdff64 (limit 2, no progress hint this cycle) (serial, on-child-failure=halt). 1/11 done before halt; parked remainder: endojs-endo-but-for-bots-pr394-weave endojs-endo-but-for-bots-pr395-weave-20260817 endojs-endo-but-for-bots-pr396-weave endojs-endo-but-for-bots-pr397-weave endojs-endo-but-for-bots-pr409-weave endojs-endo-but-for-bots-pr413-weave endojs-endo-but-for-bots-pr420-weave endojs-endo-but-for-bots-pr410-weave endojs-endo-but-for-bots-pr412-weave
 
-- `20260817T134308Z-dbc2ce` — from gardener:self-heal-fix-garden-comment-watcher-kriscendobot-endo-issues-disabled-404, reply_to `self-heal-fix-garden-comment-watcher-kriscendobot-endo-issues-disabled-404` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T134308Z-dbc2ce.md)
-
-> Landed the ISSUES-DISABLED comment-source degrade on main2 (commit 544355d714). The
-> fix is generic — it covers all 12 issues-disabled watch repos (endo, agoric-sdk,
-> cosgov, endo-but-for-bots, list, moddable, ocapn, test262, …), so the ~7 sibling
-> self-heal-fix-garden-comment-watcher-*-issues-comments-404-issues-disabled jobs are now
-> redundant; whichever run next will find the fix already on main2.
->
-> Two things to flag:
-> 1. A sibling job had written a COMPLETE version of this same edit (source + an ID test
->    family) DIRECTLY INTO THE DEPLOYED ROOT /home/kris/garden (uncommitted working-tree
->    changes, not a worktree). I rescued that good work into a durable commit before the
->    next deploy clobbers it, and added the two pieces it was missing (the comment-watcher
->    jq-probe limitation note + the per-PR-failure-freezes test, ID4). But a gardener
->    editing the deployed root directly is a bug worth investigating — it risks the
->    root-repo corruption class the guards warn about. The stray uncommitted edits are
->    still sitting in /home/kris/garden and will be discarded on the next deploy.
-> 2. The sibling jobs are keyed per-repo but all touch the one file; consider draining
->    them or letting them no-op, rather than racing duplicate pushes.
-
 - `20260817T134419Z-ff7eae` — from gauntlet:kriscendobot-minion.town-pr39-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T134419Z-ff7eae.md)
 
 > Gauntlet kriscendobot-minion.town-pr39-gauntlet HALTED: stage 'kriscendobot-minion.town-pr39-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
-
-- `20260817T142025Z-f051b7` — from gardener:self-heal-fix-garden-comment-watcher-kriscendobot-proposal-compartments-issues-comments-404-issues-disabled, reply_to `self-heal-fix-garden-comment-watcher-kriscendobot-proposal-compartments-issues-comments-404-issues-disabled` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T142025Z-f051b7.md)
-
-> comment-source-gh Issues-disabled 404 fix is fully LANDED on main2 (commits 544355d1, cb00b99e, d7cfcc68) — code + tests, 334/0 passing including the new IDIS/IDEN/ID1-ID4 cases.
->
-> NOTE: I ran on follower endolin-garden; the failing garden-comment-watcher@* units live on the LEADER endolin-garden2, and the deployed root there is still behind main2 (deployed 55d2c6411b, which has no 'issues_disabled'). Remaining operational step is leader-only + liaison-supervised: deploy main2 to the leader root, then `systemctl --user reset-failed 'garden-comment-watcher@*'`, then confirm the 11 has_issues=false forks (agoric-3-proposals, agoric-sdk, cosgov, endo, endo-but-for-bots, list, moddable, ocapn, proposal-compartments, test262, vattr97, ymax-stdio-mcp) tick clean.
->
-> Expect a burst of re-polled comments on first healthy tick (frozen cursors); idempotent by verify_posted + identity dedup. minion.town is has_issues=true — a distinct cause, not addressed by this change.
 
 - `20260817T173506Z-ed5914` — from gauntlet:endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T173506Z-ed5914.md)
 
@@ -1052,42 +979,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > PR [endojs/endo-but-for-bots#981](https://github.com/endojs/endo-but-for-bots/issues/981) merged successfully, but I found a deployment/process discrepancy: its approved head 42bc7d51613 was 7 commits behind live llm (f5bceffef94). The deployed /home/kris/garden ci-wait-merge.sh lacks the freshness/rebase block present in this main2 job worktree, so it accepted old-head CI and merged via a merge commit without rebasing. Merge commit is a180fcb0997. Please deploy current main2 before the next conductor run; the current main2 spine already contains the intended pre/post-CI rebase gates.
 
-- `watchdog-blind-comment-watcher-kriscendobot-agoric-3-proposals` — from watchdog:comment-watcher/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-agoric-3-proposals.md)
-
-> ANOMALY: comment-watcher/kriscendobot-agoric-3-proposals self-test FAILED on kriscendobot/agoric-3-proposals — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `watchdog-blind-comment-watcher-kriscendobot-agoric-sdk` — from watchdog:comment-watcher/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-agoric-sdk.md)
-
-> ANOMALY: comment-watcher/kriscendobot-agoric-sdk self-test FAILED on kriscendobot/agoric-sdk — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `watchdog-blind-comment-watcher-kriscendobot-endo-but-for-bots` — from watchdog:comment-watcher/kriscendobot-endo-but-for-bots, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-endo-but-for-bots.md)
-
-> ANOMALY: comment-watcher/kriscendobot-endo-but-for-bots self-test FAILED on kriscendobot/endo-but-for-bots — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-17T14:21:32Z, latest 2026-08-17T15:53:23Z).
-> The SAME condition (`blind-comment-watcher-kriscendobot-ocapn`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `watchdog-blind-comment-watcher-kriscendobot-test262` — from watchdog:comment-watcher/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-test262.md)
-
-> ANOMALY: comment-watcher/kriscendobot-test262 self-test FAILED on kriscendobot/test262 — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `watchdog-blind-comment-watcher-kriscendobot-vattr97` — from watchdog:comment-watcher/kriscendobot-vattr97, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-vattr97.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-08-17T14:22:24Z, latest 2026-08-17T15:25:42Z).
-> The SAME condition (`blind-comment-watcher-kriscendobot-vattr97`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> ANOMALY: comment-watcher/kriscendobot-vattr97 self-test FAILED on kriscendobot/vattr97 — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
-- `watchdog-blind-comment-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-watcher/kriscendobot-ymax-stdio-mcp, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ymax-stdio-mcp.md)
-
-> ANOMALY: comment-watcher/kriscendobot-ymax-stdio-mcp self-test FAILED on kriscendobot/ymax-stdio-mcp — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
-
 - `watchdog-handler-budget-overrun-dependabotany-recheck-endo-but-for-bots-20260817-170501` — from watchdog:gardener/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-dependabotany-recheck-endo-but-for-bots-20260817-170501.md)
 
 > gardener job 'dependabotany-recheck-endo-but-for-bots-20260817-170501' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -1147,15 +1038,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > **Root cause.** `kriscendobot/cosgov` exists but has **Issues disabled** — I confirmed `{"full_name":"kriscendobot/cosgov","fork":true,"archived":false,"has_issues":false}`, and `repos/kriscendobot/cosgov/issues/comments` returns `{"message":"Not Found","status":"404"}` while `pulls/comments` returns `[
 
-- `watchdog-self-heal-garden-comment-watcher-kriscendobot-list` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-list.md)
-
-> self-heal: garden-comment-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: 6eed636c387eb7253aeec5c1ce3b95009b216aa9 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 6eed636c387eb7253aeec5c1ce3b95009b216aa9). Diagnosis: ## Diagnosis: both defects are already fixed on `main2` — this host is 10 commits behind on deploy
->
-> **What failed.** The `kriscendobot/list` comment source hit two failing surfaces in one tick, and the watcher correctly refused to advance the cursor past un-enumerated comments, exiting nonzero (`comment-watcher.sh` FATAL):
->
-> 1. `repos/kriscendobot/list/issues/comments` → **HTTP 404**. Reproduced: the repo has `has_issues: false` (it's a fork with Issues disabled), so that endpoint is a permanent 404, not a blip.
-> 2. `repos/kriscendobot/list/pulls/1/reviews` → `unexpected end of JSON input`. Reproduced with `gh api -i`: GitHub is returning **`HTTP/2.0 500 Internal Server Error` with `Content-Length: 0`**. Because `gh api` swallows the status and surfaces only the Go decoder error, the t
-
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 36d7b202a3b4e451a36c428c0bff67df22516be7 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 36d7b202a3b4e451a36c428c0bff67df22516be7). Diagnosis: **Diagnosis: known root cause, fix already in flight — no new job posted.**
@@ -1169,32 +1051,13 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > `unexpected end of JSON input` is Go's `encoding/json` wording for a response body that was empty or cut short mid-document. `GARDEN_TRANSIENT_GH_API_SIGNATURES` (`scripts/jobs/common.sh:3163`) names the neighbouring cases — `\bEOF\b`, the HTML-error-page decoder string, http2 stream resets — but not this one, so `gh_api_retry` classified it **definitive**,
 
-- `watchdog-self-heal-garden-comment-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-ocapn.md)
-
-> self-heal: garden-comment-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 3e6a6d88f86f7d6b664278e542e2c1a5bd3d7f2d (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 3e6a6d88f86f7d6b664278e542e2c1a5bd3d7f2d). Diagnosis: ## Diagnosis: already fixed on `main2`; this host is 10 commits behind — no fix job warranted
->
-> **Failure signature.** `garden-comment-watcher@kriscendobot-ocapn` exits 1 because surface 1 permanently 404s:
->
-> ```
-> gh api repos/kriscendobot/ocapn/issues/comments?since=…  →  gh: Not Found (HTTP 404)  (definitive, rc=1)
-> FETCH INCOMPLETE … exiting nonzero so the watcher freezes the cursor and re-polls
-> FATAL: comment source failed for kriscendobot/ocapn (rc=1)
-> ```
->
-> **Root cause, reproduced.** `kriscendobot/ocapn` (fork of `ocapn/ocapn`) has **Issues disabled**:
->
-> - `gh api repos/kriscendobot/ocapn --jq .has_issues` → `false`
-> - `repos/…/issues/comments` → HTTP 404 **permanently**, while `repos/…/issues` → `[]` and `repos/…/ocapn` itself answers 200.
->
-> So in the *deployed* `scripts
-
 
 ## Spend & quota
 _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.6M | $1221.08 _(notional, rate-card)_ | no quota set |
+| Claude | 87.6M | $1224.09 _(notional, rate-card)_ | no quota set |
 | Codex | 23.7M _(+684.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
