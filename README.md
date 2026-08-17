@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-17T07:14:25Z_
+_As of 2026-08-17T07:19:38Z_
 
 ## Latest
 
-Bulletin reflects mostly routine maintenance and review cycles. The gateway-package stack ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[#397](https://github.com/endojs/endo-but-for-bots/pull/397)) was reopened, refreshed onto llm, and restacked serially; phases 2–3 are now green and need your sequencing for the remaining phases. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and mergeable, blocked only on re-reviews to clear CHANGES_REQUESTED. The OCapN stack moved forward: [#340](https://github.com/endojs/endo-but-for-bots/pull/340) un-drafted and ready to merge, and [#683](https://github.com/endojs/endo-but-for-bots/pull/683)'s live-host TCP demo proved cross-host Noise IK over raw TCP with evidence on [#693](https://github.com/endojs/endo-but-for-bots/pull/693). On minion.town, the weblet-gateway design was reconciled against shipped code and left draft (awaits your call on content-only vs composite id in open question 7), ocap.site is ready to ferry upstream to publicsuffix/list, and [#36](https://github.com/kriscendobot/minion.town/pull/36) opened the pure toy-tools removal design-carved out from [#30](https://github.com/kriscendobot/minion.town/pull/30) (flags collision with [#20](https://github.com/kriscendobot/minion.town/pull/20)). Several PRs remain parked awaiting maintainer re-approvals after automated rebases; one operational blocker (yarn global-cache hardlink exhaustion on endolin-garden-ece02cb4) will break project installs fleet-wide until cleared.
+**Weblet gateway and ocap.site designs largely complete:** the weblet-gateway reconciliation ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)) is draft but converged and gated only on an identity-modeling decision (composite id vs. content-only); ocap.site implementation, DNS, and certs are live, awaiting DNSSEC and PSL ferry attestations. The OCapN stack proved cross-host Noise capability exchange (both wss and raw TCP), but [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) is blocked on the known floating-Node-24.x flake (one non-required CI cell). **Bytearray work complete:** [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are all-green and mergeable, but maintainer re-review must clear CHANGES_REQUESTED. **Fleet blockers:** dependabot auto-merge is broken in the deployed root (fix on main2 needs deploy), several high-value PRs need maintainer approvals on rebased heads ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)), and two gauntlets hit iteration ceilings ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)). Gateway phase stack ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)) is rebased and ready; phases 4–12 await sequential restacking.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 23h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 28d)
@@ -908,25 +908,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 67.1M | $969.29 _(notional, rate-card)_ | no quota set |
+| Claude | 67.1M | $968.48 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
-- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
 
-### tada (4941)
+### tada (4942)
+- [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-shepherd.md) — What was failing
 - [`daily-progress-summary-20260817-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260817-070502.md) — Completion report
 - [`design-ironhorse-panic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-panic.md) — Completion report
 - [`garden-reroute-respect-role-tier-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-reroute-respect-role-tier-floor.md) — Completion report
 - [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-18477549.md) — Completion report — endojs-endo-but-for-bots-pr403-18477549
-- [`design-ironhorse-rejection-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-rejection-handling.md) — Completion report: design-ironhorse-rejection-handling
-- … and 4936 more
+- … and 4937 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
