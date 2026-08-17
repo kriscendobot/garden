@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T21:58:07Z_
+_As of 2026-08-17T22:00:56Z_
 
 ## Latest
 
@@ -1040,17 +1040,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-review-6c57250a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-6c57250a.md) — Review directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr990-review-120b6af8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-review-120b6af8.md) — Review directive on endojs/endo-but-for-bots PR #990
+- [`fix-gauntlet-shorthand-citation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gauntlet-shorthand-citation.md) — Fix: PR-shorthand citations silently skip the design-PR gauntlet gate
 
-### tada (5004)
+### tada (5006)
+- [`endojs-endo-but-for-bots-pr1024-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1024-gauntlet-clean.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1023-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet-clean.md) — Completion report
 - [`groom-endo-stale-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/groom-endo-stale-design-docs.md) — Completion report
 - [`endojs-endo-but-for-bots-pr992-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr992-shepherd.md) — Completion report
 - [`groom-endo-designs-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/groom-endo-designs-readme.md) — Completion report
-- [`garden-design-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-design-follower-self-deploy.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1019-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1019-gauntlet — HALTED
-- … and 4999 more
+- … and 5001 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
