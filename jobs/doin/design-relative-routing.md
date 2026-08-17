@@ -76,3 +76,13 @@ for a later `build` job to implement from. Where a case above turns out to need
 its own follow-on design once this one settles the shared scope/filtering
 model, say so explicitly in Open Questions rather than trying to force every
 case's full protocol detail into one document.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T04:30:00Z
