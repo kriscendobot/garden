@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-17T21:16:03Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-groom-endo-designs-readme
-pr_number: 1023
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1023
-pr_head: kriscendobot:groom/designs-readme-20260817
