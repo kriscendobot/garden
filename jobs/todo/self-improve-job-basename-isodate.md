@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Self-improvement: date-suffix job basenames for recurring actions, going forward
@@ -94,13 +95,4 @@ basenames that need a disambiguator; audit for and fix these:
   example in the commit/report per house style (name the artifact, don't
   just assert the lesson).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T12:39:16Z
+<!-- garden-reaped: 0 -->

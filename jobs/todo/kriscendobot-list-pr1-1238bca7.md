@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # attention directive on kriscendobot/list PR #1
@@ -40,13 +41,4 @@ directive:
     and do the work.
 Never state in your report that a peer did work you did not verify.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T12:24:55Z
+<!-- garden-reaped: 0 -->
