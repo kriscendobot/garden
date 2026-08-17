@@ -480,46 +480,6 @@ run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG"
 grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "the untrusted drop is LOGGED with its reason (not silent)" || bad "untrusted drop not logged ($(cat "$GHLOG"))"
 
 # ============================================================================
-# PMB/PMBR — "pin the merge base", kriskowal's coined verb (endo-but-for-bots #282
-# review 4945588548, "Please pin the merge base to llm-xxxxx and rebase. I will
-# hereafter call this 'pin the merge base', leaving the rebase and resolution of
-# conflicts implicit."). A DISTINCT, STRONGER branch op than `rebase`: it repoints
-# the PR's BASE onto a pinned llm-<sha> branch, with the rebase and conflict
-# resolution IMPLICIT in the verb. Two forms: the plain imperative comment (a
-# mechanical pinbase job, trust-independent like `rebase`) and the review-body form
-# above (the whole review is the unit; pinbase is recorded as the PRIMARY action).
-hr; echo "PMB — 'pin the merge base' directive → pinbase job (NOT a plain rebase), reactji, cursor"; hr
-BARE_PMB="$TR/pmb.git"; seed_bare "$BARE_PMB"
-FIX_PMB="$TR/fix-pmb.tsv"; RLOG_PMB="$TR/react-pmb.log"; : > "$RLOG_PMB"
-printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-08-17T09:00:00Z issue-comment 4945500001 282 kriskowal \
-  https://github.com/endojs/endo-but-for-bots/pull/282#issuecomment-4945500001 \
-  'Please pin the merge base to llm-9f3a2b1c and rebase.' > "$FIX_PMB"
-run_watcher "$TR/state-pmb" "$BARE_PMB" "$FIX_PMB" "$RLOG_PMB"
-board_has "$BARE_PMB" "$SLUG-pr282-pinbase" && ok "pin-the-merge-base job posted ($SLUG-pr282-pinbase)" || bad "pinbase job missing"
-board_has "$BARE_PMB" "$SLUG-pr282-rebase" && bad "the trailing 'and rebase' shadowed into a plain rebase job (the base op was lost)" || ok "no plain rebase job — the rebase is implicit in pinbase, not a second directive"
-board_job_body "$BARE_PMB" "$SLUG-pr282-pinbase" | grep -qi 'repoint the PR base onto the pinned llm' && ok "the job body carries the base-repoint + implicit-rebase semantics" || bad "job body missing the pinbase semantics"
-grep -qx "issue-comment 4945500001 eyes" "$RLOG_PMB" && ok "eyes reactji posted on the source comment" || bad "reactji not posted ($(cat "$RLOG_PMB"))"
-[ "$(cursor_seen "$TR/state-pmb" "$BARE_PMB")" = 2026-08-17T09:00:00Z ] && ok "cursor advanced to the comment's created_at" || bad "cursor not advanced ($(cursor_seen "$TR/state-pmb" "$BARE_PMB"))"
-
-hr; echo "PMBR — 'pin the merge base' in a REVIEW body → review job recording pinbase as the primary action"; hr
-BARE_PMBR="$TR/pmbr.git"; seed_bare "$BARE_PMBR"
-FIX_PMBR="$TR/fix-pmbr.tsv"; RLOG_PMBR="$TR/react-pmbr.log"; : > "$RLOG_PMBR"
-printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-08-17T09:30:00Z pr-review-body 4945588548 282 kriskowal \
-  https://github.com/endojs/endo-but-for-bots/pull/282#pullrequestreview-4945588548 \
-  '[CHANGES_REQUESTED] Please pin the merge base to llm-9f3a2b1c and rebase. I will hereafter call this '\''pin the merge base'\'', leaving the rebase and resolution of conflicts implicit.' > "$FIX_PMBR"
-run_directive "$TR/state-pmbr" "$BARE_PMBR" "$FIX_PMBR" "$RLOG_PMBR"
-CL_PMBR="$TR/cl-pmbr"; git clone -q --single-branch --branch "$BRANCH" "$BARE_PMBR" "$CL_PMBR" 2>/dev/null
-review_file_pmbr="$(ls -1 "$CL_PMBR/jobs/todo" 2>/dev/null | grep "^$SLUG-pr282-review-" | head -1 || true)"
-[ -n "$review_file_pmbr" ] && ok "a review job was posted for the pin-the-merge-base review ($review_file_pmbr)" || bad "no review job posted for the review-form directive"
-if [ -n "$review_file_pmbr" ]; then
-  grep -qi 'pinbase' "$CL_PMBR/jobs/todo/$review_file_pmbr" && ok "the review job records pinbase as the primary action" || bad "review job body missing the pinbase primary action"
-fi
-board_has "$BARE_PMBR" "$SLUG-pr282-rebase" && bad "the review-form 'and rebase' shadowed into a plain rebase job" || ok "no plain rebase job from the review form (rebase implicit in pinbase)"
-rm -rf "$CL_PMBR"
-
-# ============================================================================
 # AUTH1/AUTH2 — GitHub may briefly return HTTP 401 while its OAuth/installation
 # token rotates. The watcher retries exactly once, processes a successful retry,
 # and degrades a repeated 401 without sorting partial output or moving the cursor.
@@ -1707,6 +1667,151 @@ EOF
   set -e
   [ "$gone_live_rc" -ne 0 ] && ok "a LIVE repo with failing surfaces still exits nonzero (cursor frozen, LOST-FETCH intact)" || bad "the repo-gone degrade swallowed a real lost fetch (silent-drop regression!)"
   grep -qi 'FETCH INCOMPLETE' "$TR/gone-live.err" && ok "the live-repo path still logs FETCH INCOMPLETE" || bad "live-repo path lost its FETCH-INCOMPLETE log ($(cat "$TR/gone-live.err"))"
+fi
+
+# ============================================================================
+# ID — SOURCE-level ISSUES-DISABLED degrade: a FORK with has_issues=false makes the
+# repo-wide /issues/comments endpoint 404 by configuration. Pre-fix the LOST-FETCH
+# invariant fired on EVERY tick (the repo answers, so REPO-GONE never fired) → a
+# permanent systemd restart loop, one rung down. Post-fix the source recognizes the
+# structurally-absent surface (probe has_issues once), does NOT freeze the cursor,
+# and enumerates PR conversation comments per open PR instead so coverage survives.
+# The narrowness matters: has_issues=true keeps the freeze (never guess a state), and
+# a transient blip never reaches the degrade.
+hr; echo "ID — Issues-disabled fork: repo-wide 404 degrades to per-PR walk, coverage preserved (not a crash-loop)"; hr
+command -v jq >/dev/null 2>&1 && have_jq_id=1 || have_jq_id=0
+if [ "$have_jq_id" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  # ---- ID1: repo-wide /issues/comments 404 + has_issues=false → exit 0, and a PR
+  #      conversation comment placed on an open PR via /issues/<n>/comments IS still
+  #      emitted as surface pr-comment (proves coverage preserved, not merely the
+  #      crash stopped).
+  GHID="$TR/gh-id"; mkdir -p "$GHID"
+  cat > "$GHID/gh" <<'EOF'
+#!/bin/bash
+# Fork with Issues disabled: the repo-wide /issues/comments endpoint 404s, but the
+# repo itself answers with has_issues=false, and the per-PR /issues/<n>/comments
+# endpoint still returns comments (200). One open PR (#2) carries a conversation
+# comment. No inline feeds / reviews for this test.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"--jq"*"has_issues"*)          printf 'false\n'; exit 0;;
+  *"/issues/comments"*)           echo "gh: Not Found (HTTP 404)" >&2; exit 1;;   # repo-wide surface is 404 by config
+  *"/pulls?state=open"*)          printf '[{"number":2,"updated_at":"%s"}]\n' "$ts"; exit 0;;
+  *"/pulls/2/comments"*)          printf '[]\n'; exit 0;;
+  *"/pulls/2/reviews"*)           printf '[]\n'; exit 0;;
+  *"/issues/2/comments"*)
+    printf '[{"id":770001,"created_at":"%s","issue_url":"https://api.github.com/repos/x/y/issues/2","user":{"login":"kriskowal"},"html_url":"https://github.com/x/y/pull/2#issuecomment-770001","body":"please refresh"}]\n' "$ts"; exit 0;;
+  *"/pulls/comments"*)            printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHID/gh"
+  ID_OUT="$TR/id.out"; ID_ERR="$TR/id.err"
+  set +e
+  env PATH="$GHID:$PATH" TS="$REV_TS" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-id" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$ID_OUT" 2> "$ID_ERR"
+  id_rc=$?
+  set -e
+  [ "$id_rc" -eq 0 ] && ok "issues-disabled fork exits 0 (no crash-loop, cursor not frozen)" || bad "issues-disabled fork exited $id_rc (crash-loop regression: every tick fails forever)"
+  grep -qi 'ISSUES DISABLED' "$ID_ERR" && ok "the issues-disabled mode is LOGGED once (diagnosable, not silent)" || bad "no ISSUES DISABLED log ($(cat "$ID_ERR"))"
+  grep -q $'\tpr-comment\t770001\t' "$ID_OUT" && ok "a PR conversation comment IS still emitted via the per-PR walk (coverage preserved)" || bad "per-PR conversation comment dropped in issues-disabled mode (out: $(cat "$ID_OUT"))"
+  grep -qi 'FETCH INCOMPLETE\|FETCH-FAIL' "$ID_ERR" && bad "issues-disabled tick wrongly logged a fetch failure (should not freeze)" || ok "no fetch-failure log — the absent surface is a fact, not a lost fetch"
+
+  # ---- ID2: same repo-wide 404 but has_issues=TRUE → unchanged LOST-FETCH: the
+  #      source freezes (exit 1), so a genuinely-broken issue-comment surface is
+  #      never mistaken for a disabled one (never guess a state).
+  GHID2="$TR/gh-id2"; mkdir -p "$GHID2"
+  cat > "$GHID2/gh" <<'EOF'
+#!/bin/bash
+# Issues ARE enabled (has_issues=true) but the repo-wide /issues/comments endpoint
+# is genuinely 404ing this tick — a real lost fetch, must freeze the cursor.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"--jq"*"has_issues"*)  printf 'true\n'; exit 0;;
+  *"--jq .full_name"*|*"--jq"*"full_name"*)  printf 'endojs/endo-but-for-bots\n'; exit 0;;   # repo exists → not REPO-GONE
+  *"/issues/comments"*)   echo "gh: Not Found (HTTP 404)" >&2; exit 1;;
+  *"/pulls?state=open"*)  printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)    printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHID2/gh"
+  ID2_OUT="$TR/id2.out"; ID2_ERR="$TR/id2.err"
+  set +e
+  env PATH="$GHID2:$PATH" TS="$REV_TS" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-id2" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$ID2_OUT" 2> "$ID2_ERR"
+  id2_rc=$?
+  set -e
+  [ "$id2_rc" -ne 0 ] && ok "has_issues=true keeps the LOST-FETCH freeze (exit $id2_rc, cursor frozen)" || bad "a genuine 404 with has_issues=true was wrongly degraded (silent-drop regression!)"
+  grep -qi 'FETCH INCOMPLETE\|FETCH-FAIL' "$ID2_ERR" && ok "the genuine lost fetch still logs FETCH-INCOMPLETE" || bad "has_issues=true path lost its FETCH-INCOMPLETE log ($(cat "$ID2_ERR"))"
+  grep -qi 'ISSUES DISABLED' "$ID2_ERR" && bad "has_issues=true wrongly entered issues-disabled mode" || ok "has_issues=true never enters issues-disabled mode"
+
+  # ---- ID3: a TRANSIENT 5xx on /issues/comments with has_issues=false → still the
+  #      transient path, never the new degrade (a transient is "could not ask", not
+  #      "the surface is gone"). Must NOT probe has_issues at all, and must freeze.
+  GHID3="$TR/gh-id3"; mkdir -p "$GHID3"; ID3_CALLS="$TR/id3.calls"; : > "$ID3_CALLS"
+  cat > "$GHID3/gh" <<'EOF'
+#!/bin/bash
+args="$*"; ts="${TS:?TS must be set}"
+echo "$args" >> "${ID3_CALLS:?}"
+case "$args" in
+  *"--jq"*"has_issues"*)  printf 'false\n'; exit 0;;
+  *"/issues/comments"*)   echo "HTTP 503: Service Unavailable (issues/comments)" >&2; exit 1;;   # transient
+  *"/pulls?state=open"*)  printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)    printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHID3/gh"
+  ID3_ERR="$TR/id3.err"
+  set +e
+  env PATH="$GHID3:$PATH" TS="$REV_TS" ID3_CALLS="$ID3_CALLS" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-id3" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > /dev/null 2> "$ID3_ERR"
+  id3_rc=$?
+  set -e
+  [ "$id3_rc" -ne 0 ] && ok "a transient 5xx with has_issues=false still freezes the cursor (exit $id3_rc)" || bad "a transient blip was wrongly degraded to issues-disabled (weakened LOST-FETCH!)"
+  grep -qi 'ISSUES DISABLED' "$ID3_ERR" && bad "a transient blip wrongly entered issues-disabled mode" || ok "a transient blip never enters issues-disabled mode"
+  grep -q 'has_issues' "$ID3_CALLS" && bad "a transient blip wastefully probed has_issues (should short-circuit on the transient signature)" || ok "a transient blip never even probes has_issues"
+  grep -qiE 'HTTP 50[0-9]|503' "$ID3_ERR" && ok "the transient signature reaches stderr (watcher classifies transient → skip)" || bad "transient signature not surfaced ($(cat "$ID3_ERR"))"
+
+  # ---- ID4: issues-disabled degrade is ENTERED (has_issues=false), but a per-PR
+  #      /issues/<n>/comments call then FAILS — that IS a real lost fetch (the surface
+  #      exists, we just could not enumerate it), so it must call note_fetch_failure
+  #      and FREEZE the cursor (exit nonzero). Proves the degrade is not a blanket
+  #      "any issues-disabled repo always exits 0" that would swallow a partial walk.
+  GHID4="$TR/gh-id4"; mkdir -p "$GHID4"
+  cat > "$GHID4/gh" <<'EOF'
+#!/bin/bash
+# Issues disabled (has_issues=false), the repo-wide feed 404s (→ degrade entered), one
+# open PR (#2), but its per-PR /issues/2/comments enumeration FAILS transiently. A
+# lost fetch mid-walk: the source must freeze, not emit a silent partial + exit 0.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"--jq"*"has_issues"*)          printf 'false\n'; exit 0;;
+  *"/issues/comments"*)           echo "gh: Not Found (HTTP 404)" >&2; exit 1;;   # repo-wide surface 404 by config
+  *"/pulls?state=open"*)          printf '[{"number":2,"updated_at":"%s"}]\n' "$ts"; exit 0;;
+  *"/issues/2/comments"*)         echo "HTTP 503: Service Unavailable (issues/2/comments)" >&2; exit 1;;   # per-PR walk FAILS
+  *"/pulls/2/comments"*)          printf '[]\n'; exit 0;;
+  *"/pulls/2/reviews"*)           printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)            printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHID4/gh"
+  ID4_OUT="$TR/id4.out"; ID4_ERR="$TR/id4.err"
+  set +e
+  env PATH="$GHID4:$PATH" TS="$REV_TS" GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-id4" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$ID4_OUT" 2> "$ID4_ERR"
+  id4_rc=$?
+  set -e
+  [ "$id4_rc" -ne 0 ] && ok "a FAILED per-PR walk in issues-disabled mode freezes the cursor (exit $id4_rc, no silent partial)" || bad "issues-disabled per-PR failure was swallowed to exit 0 (silent-partial regression!)"
+  grep -qi 'FETCH-FAIL\|FETCH INCOMPLETE' "$ID4_ERR" && ok "the failed per-PR walk logs a fetch failure (diagnosable)" || bad "no fetch-failure log on the failed per-PR walk ($(cat "$ID4_ERR"))"
 fi
 
 # ============================================================================

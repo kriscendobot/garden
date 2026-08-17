@@ -380,6 +380,17 @@ source_path_healthy() {  # source_path_healthy <repo>
   else
     raw="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
   fi
+  # KNOWN LIMITATION — Issues-disabled forks: this probe fetches the repo-wide
+  # /issues/comments aggregate, which 404s permanently on a repo with has_issues=false
+  # (a fork's default; see comment-source-gh.sh's ISSUES-DISABLED degrade). There, the
+  # 404 yields empty raw → return 0 (inconclusive), so the jq-blindness self-test is
+  # a no-op on those repos. This is benign: jq-blindness is a HOST-WIDE condition (jq
+  # absent/broken on the box), so any co-watched Issues-ENABLED repo on the same host
+  # still exercises the pipe and trips the self-test. Left pointed at the aggregate
+  # (rather than a per-PR endpoint) deliberately: the per-PR shape would need a PR
+  # number this fixed-cost single-fixture probe does not have, and would return empty
+  # on a PR with no comments — weakening the probe on every repo to cover a gap that
+  # another repo already covers.
   [ -n "$raw" ] || return 0                              # gh returned nothing → transient, inconclusive
   case "$raw" in *'{'*) ;; *) return 0;; esac            # gh returned no comment object → inconclusive
   # gh demonstrably returned a comment; the source pipes it through EXTERNAL jq.

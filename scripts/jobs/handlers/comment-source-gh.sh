@@ -134,6 +134,12 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # which is a permanent systemd failure loop, not a recoverable enumeration gap.
 fetch_failed=""
 fetch_primary_quota=""
+# ISSUES-DISABLED mode: set when the repo-wide issues/comments endpoint returns a
+# definitive 404 AND `repos/<repo>` reports has_issues=false — a fork with Issues
+# turned off (the default). The repo-wide surface is then structurally ABSENT, not
+# a lost fetch: instead of freezing the cursor forever we enumerate each open PR's
+# conversation comments per-PR in section 3. See the surface-1 degrade below.
+issues_disabled=""
 note_fetch_failure() {  # note_fetch_failure <label> <errfile>
   fetch_failed=1
   if is_gh_primary_rate_limit_text "$(cat "$2" 2>/dev/null || true)"; then
@@ -165,7 +171,33 @@ if _raw="$(gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per
           ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
           .user.login, .html_url, ($oneline) ] | @tsv"
 else
-  note_fetch_failure "issues/comments" "$s1_err"
+  # ISSUES-DISABLED degrade (fires ONLY on this already-failed path, so a healthy
+  # tick pays nothing). A definitive 404 here can mean the repo-wide issues/comments
+  # endpoint is structurally absent because Issues are disabled on the repo — the
+  # default for a fork (has_issues=false). Distinguish that from a genuine lost fetch:
+  #   - a TRANSIENT signature is "we could not ask", never "the surface is gone" →
+  #     keep today's freeze-and-retry (reuse _gh_api_stderr_is_transient).
+  #   - a definitive 404 + a repo that ANSWERS with has_issues=false → the surface is
+  #     legitimately absent (no issue can exist, so its issue-comment stream is
+  #     empty-by-fact); switch to per-open-PR enumeration in section 3, do NOT freeze.
+  #   - a definitive 404 with has_issues=true, or a probe we could not complete →
+  #     never guess a state; keep freeze-and-retry.
+  s1_stderr="$(cat "$s1_err" 2>/dev/null || true)"
+  s1_degraded=""
+  if ! _gh_api_stderr_is_transient "$s1_stderr"; then
+    case "$s1_stderr" in
+      *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*)
+        s1_hi_err="$(mktemp)"
+        if s1_hi="$(gh_api_retry "repos/$repo" --jq '.has_issues' 2>"$s1_hi_err")" \
+           && [ "$s1_hi" = false ]; then
+          issues_disabled=1
+          s1_degraded=1
+          log "ISSUES DISABLED on $repo — repo-wide issues/comments is 404 by configuration; enumerating PR conversation comments per open PR instead"
+        fi
+        rm -f "$s1_hi_err" ;;
+    esac
+  fi
+  [ -n "$s1_degraded" ] || note_fetch_failure "issues/comments" "$s1_err"
 fi
 rm -f "$s1_err"
 
@@ -215,7 +247,7 @@ rm -f "$s1_err"
 # Capture buffers for the structural gh calls' stderr (see Stderr policy EXCEPTION
 # above): echoed to fd 2 only when the call fails, so a real fault reaches ERRF
 # while a clean run stays quiet.
-prlist_err="$(mktemp)"; rids_err="$(mktemp)"; rev_err="$(mktemp)"; s3out="$(mktemp)"
+prlist_err="$(mktemp)"; rids_err="$(mktemp)"; rev_err="$(mktemp)"; s3out="$(mktemp)"; ic_err="$(mktemp)"
 # A FAILED open-PR list is NOT an empty list: degrading it to open_prs="" (the prior
 # behavior) silently dropped EVERY review surface while the cursor still advanced off
 # the successful issue-comment surface. Mark it a fetch failure so the tick is frozen.
@@ -238,6 +270,29 @@ while IFS=$'\t' read -r n updated; do
   # review/comment submitted since `since`. Stop scanning here.
   if [ -n "$updated" ] && [ "$updated" \< "$since" ]; then break; fi
   scanned=$((scanned+1))
+  # ISSUES-DISABLED mode: the repo-wide issues/comments endpoint 404s by
+  # configuration, so this per-open-PR walk is where PR conversation comments are
+  # enumerated instead. The per-PR issues/<n>/comments endpoint still answers on
+  # such a repo (verified: [] with 200). Same since= filter, self-authored $bot
+  # drop, and html_url test("/pull/") classification as surface 1 — the coverage
+  # is preserved, not merely the crash stopped. Guarded with note_fetch_failure so
+  # a genuine blip mid-walk still freezes the cursor (LOST-FETCH invariant intact).
+  if [ -n "$issues_disabled" ]; then
+    : >"$ic_err"
+    if _ic="$(gh_api_retry --paginate "repos/$repo/issues/$n/comments?since=$since&per_page=100" 2>"$ic_err")"; then
+      printf '%s' "$_ic" | jq -r --arg s "$since" --arg bot "$bot" "
+          .[] | select(.created_at >= \$s)
+          | select((.user.login // \"\") != \$bot)
+          | [ .created_at,
+              (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
+              (.id|tostring),
+              ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
+              .user.login, .html_url, ($oneline) ] | @tsv"
+    else
+      note_fetch_failure "issues/$n/comments (issues-disabled per-PR walk)" "$ic_err"
+    fi
+    [ -n "$fetch_primary_quota" ] && break
+  fi
   # Review ids that carry at least one inline comment on this PR. A
   # space-delimited string so the reviews jq below can membership-test it.
   # rids feeds the inline-bearing membership test. A FAILED fetch is NOT "this PR has
@@ -317,7 +372,7 @@ if [ -z "$fetch_primary_quota" ]; then
 fi
 rm -f "$s2_err"
 
-rm -f "$prlist_err" "$rids_err" "$rev_err" "$s3out"
+rm -f "$prlist_err" "$rids_err" "$rev_err" "$s3out" "$ic_err"
 
 # --- the REPO-GONE degrade (a 404 repo must DEACTIVATE, never crash-loop) -----
 # The LOST-FETCH invariant below is built for a RECOVERABLE gap: freeze the cursor,
