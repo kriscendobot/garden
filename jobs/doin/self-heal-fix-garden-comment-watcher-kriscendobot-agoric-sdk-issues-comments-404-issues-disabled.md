@@ -27,6 +27,7 @@ Note for the claimer: this same failure will emit one self-heal job per affected
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
