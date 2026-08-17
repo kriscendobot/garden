@@ -25,3 +25,13 @@ What to change:
 Do not unwatch test262 or add a `watch-optout` tombstone — the repo is live and legitimately armed; the source's surface classification is the defect.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T13:44:36Z
