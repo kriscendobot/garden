@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T10:04:13Z_
+_As of 2026-08-17T10:06:37Z_
 
 ## Latest
 
-Multiple conductors are stalled on maintainer re-approval after reweaves and rebases ([#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#234](https://github.com/endojs/endo-but-for-bots/pull/234)), since the exact-head approval gate intentionally invalidates signatures on head changes. Dependabot auto-merge is broken on the deployed root due to a `app/dependabot` vs `dependabot[bot]` rendering mismatch (fixed on main2 as c31b2aaf4a, pending deploy), blocking four PRs ([#867](https://github.com/endojs/endo-but-for-bots/pull/867), [#915](https://github.com/endojs/endo-but-for-bots/pull/915), [#916](https://github.com/endojs/endo-but-for-bots/pull/916), [#868](https://github.com/endojs/endo-but-for-bots/pull/868)). The Node 24.x matrix pin ([#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) is ready but needs approval; it fixes the better-sqlite3 AVA abort mode but not the separate runner infrastructure loss, so [#340](https://github.com/endojs/endo-but-for-bots/pull/340) and others will still need triage after merge. Critical design work — byteArray ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)), monitor/follow-stream ([#234](https://github.com/endojs/endo-but-for-bots/pull/234)), familiar VFS ([#241](https://github.com/endojs/endo-but-for-bots/pull/241)), weblet gateway ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21)), and test262 consolidation ([#946](https://github.com/endojs/endo-but-for-bots/pull/946)) — are all green and reconciled but parked waiting for review/merge gates. Several jobs have doomed parked after handler timeouts (2400s budget overrun), including weaves and shepherds, suggesting workload splitting is needed on complex tasks.
+[endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN daemon transport) is approved and un-drafted; cross-host Noise over raw TCP+CBOR is now proven on minion.town. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is feature-complete and green; both need human re-review to clear CHANGES_REQUESTED. Multiple PRs stalled on stale approvals after rebases ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)) await re-approval on current heads. Node 24 pin ([endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)) merged, but a floating Actions runner flake persists independent of the matrix version. Dependabot auto-conduct broke on the deployed root (fix already on main2 as c31b2aaf4a + test T25); a deploy will restore auto-merge for dependabot PRs. minion.town advanced: ocap.site domain is ready, PSL ferry PR prepared for publicsuffix/list upstream, weblet-gateway design reconciled post-Inc-2/3 with security holes fixed. Several complex jobs hit handler timeouts or requeue exhaustion and are parked awaiting decisions (pr282 reconciliation, pr897 weave, pr340 shepherd, node-pin CI rerun). Git object store on endolin-garden2 lost maintainability and needs manual gc reconciliation. Maintainer decisions needed on: whether to merge PR #1000 as comment-only (functional fix already on trunk), whether to authorize minion.town B5 deployed-edge validation, whether to keep/re-scope the git-integration press schedule, and several design/follow-up promotions.
 
 ## Parked for maintainer feedback
 
@@ -967,15 +967,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.6M | $1037.64 _(notional, rate-card)_ | no quota set |
+| Claude | 72.0M | $1040.22 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1014
 
 ### tada (4946)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-2.md) — Completion report
