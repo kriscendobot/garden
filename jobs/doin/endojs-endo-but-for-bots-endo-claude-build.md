@@ -48,3 +48,13 @@ Definition of done: a builder-standard draft PR against llm implementing
 @endo/claude with tests (including the version-specific negative-confinement
 test the design calls for), which then auto-runs the gauntlet per the standard
 build flow.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T05:25:09Z
