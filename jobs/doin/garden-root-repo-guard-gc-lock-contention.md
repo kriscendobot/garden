@@ -60,3 +60,13 @@ NO maintainer notice) and the genuine-damage path (objects actually missing,
 expect the existing escalation). Related in-flight self-improvement work, read
 first to avoid overlap: `garden-reroute-respect-role-tier-floor`,
 `garden-requeue-rediscover-prior-work`, `garden-orchestration-halt-record-accuracy`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T11:51:16Z
