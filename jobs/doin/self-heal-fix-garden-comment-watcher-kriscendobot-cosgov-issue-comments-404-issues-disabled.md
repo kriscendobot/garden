@@ -23,3 +23,13 @@ Change to make, in `scripts/jobs/handlers/comment-source-gh.sh`:
 3. Add regression coverage in `scripts/jobs/test/comment-watcher-test.sh` next to the existing REPO-GONE cases: a stub `gh` where `repos/<r>` returns `has_issues:false` and `repos/<r>/issues/comments` exits 1 with `gh: Not Found (HTTP 404)` must make the source exit 0 with the surviving surfaces intact (asserting the tick is NOT discarded and the cursor advances), while the same 404 with `has_issues:true` must still exit nonzero and freeze the cursor. Add one case asserting a PR-conversation comment on an issues-disabled repo is still surfaced as `pr-comment` via the per-PR fallback.
 
 Verify after the change by running `scripts/jobs/comment-watcher.sh` once against `kriscendobot/cosgov` (0 open PRs, issues disabled: must exit 0 and post nothing) and against `kriscendobot/endo` (open PRs, issues disabled: must exit 0 and enumerate normally), then confirm `garden-comment-watcher@kriscendobot-cosgov` stops failing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:34:50Z
