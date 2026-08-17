@@ -22,3 +22,13 @@ What to change:
 4. Regression test in `scripts/jobs/test/comment-watcher-test.sh`, alongside the existing FETCH-INCOMPLETE / repo-gone cases: stub `gh` so `repos/<r>` returns `has_issues:false` and the repo-wide `issues/comments` returns HTTP 404 — assert the source exits 0, does not log `FETCH INCOMPLETE`, and that a PR-conversation comment on an open PR is still emitted as `pr-comment` via the per-PR path. Also assert a 404 with `has_issues:true` still freezes and exits nonzero.
 
 Do not unwatch test262 or add a `watch-optout` tombstone — the repo is live and legitimately armed; the source's surface classification is the defect.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:37:58Z
