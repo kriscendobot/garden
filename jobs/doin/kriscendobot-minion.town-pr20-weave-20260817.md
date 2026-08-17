@@ -23,6 +23,7 @@ Rebase the head onto the current `main`, resolve conflicts, and push. Once the P
 is mergeable again and CI re-dispatches, the shepherd/conductor chain resumes via
 the event watcher / reconcile tick. Never link to upstream agoric/agoric-sdk.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
