@@ -27,6 +27,7 @@ FATAL: comment source failed for kriscendobot/vattr97 (rc=1)
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
