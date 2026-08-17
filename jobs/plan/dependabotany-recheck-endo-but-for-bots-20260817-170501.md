@@ -1,4 +1,21 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-17T17:53:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-17T17:53:03Z
+---
+
+---
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -6,15 +23,3 @@ dispatch: automatic
 # Daily dependabotany backstop for endo-but-for-bots
 
 Wear roles/botanist/AGENT.md. Recover the cumulative Dependabot ledger from journal message entries whose body contains both "# Dependabotany" and "project: endo-but-for-bots". Re-evaluate every due open row, including https://github.com/endojs/endo-but-for-bots/pull/923, against live base state, advisories, source maturity, and CI; execute terminal dispositions through the conductor spine.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-17T17:05:35Z
