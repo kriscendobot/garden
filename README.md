@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T12:03:18Z_
+_As of 2026-08-17T12:15:32Z_
 
 ## Latest
 
-Dependabot auto-conduct is broken on the deployed root: `gh pr author` renders as `app/dependabot` but the merge gate compares against `dependabot[bot]`, so the bypass never triggers and PRs stall on approval. The fix landed on main2 (`c31b2aaf4a` + regression test `6116be1d53`) but hasn't deployed yet. In the meantime [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) was merged with a one-off override.
-
-Several PRs are blocked on stale maintainer approvals after rebases: [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) all need fresh approvals on their current heads before merging. The byteArray stack ([endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) + [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475)) is complete and green but waiting for maintainer re-review to clear CHANGES_REQUESTED. The host's yarn berry cache hit ext4's 65k hardlink ceiling, breaking project installs fleet-wide; the workaround is to prune `~/.yarn/berry/index` or switch off pnpm-hardlink. Several design PRs are awaiting decisions: the weblet gateway security model (content-only vs composite ID), test262 fixture consolidation (keep metering corpus separate or fold into upstream tree), and whether to recover the debugger row onto [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600).
+Dependabot auto-conduct is broken on the deployed garden root — a fix landed on `main2` (commits c31b2aaf4a + 6116be1d53) that handles the `app/dependabot` author spelling, but the deployed code still runs the old logic, causing every dependabot MERGE-NOW to stall on approval. A deploy will fix it. Meanwhile, several PRs are blocked pending maintainer re-approval after rebasing work: [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream), [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), and [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar-primer) all have green CI and clean code but need fresh approval signatures on their rebased heads. Some job work has been parked due to handler budget overruns ([#897](https://github.com/endojs/endo-but-for-bots/pull/897) weave and attention work, [#282](https://github.com/endojs/endo-but-for-bots/pull/282) pin-and-reconcile) and requeue exhaustion ([#856](https://github.com/endojs/endo-but-for-bots/pull/856) weave, #1006 dependabot); these are preserved in `jobs/plan/` and can be promoted when conditions change. Infrastructure-wise, the shared yarn berry cache hit ext4's 65k hardlink ceiling and will break installs fleet-wide until pruned, and a floating Node 24.x runner issue is blocking four dependabot merges that are otherwise ready.
 
 ## Parked for maintainer feedback
 
@@ -902,16 +900,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 77.2M | $1106.90 _(notional, rate-card)_ | no quota set |
+| Claude | 77.9M | $1114.64 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr282-review-336f6623`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-review-336f6623.md) — Review directive on endojs/endo-but-for-bots PR #282
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
+- [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Review directive on endojs/endo-but-for-bots PR #340
 
 ### tada (4951)
 - [`garden-root-repo-guard-gc-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-root-repo-guard-gc-lock-contention.md) — Completion report
@@ -1004,6 +1003,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr877-review-e5dd1111-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-e5dd1111-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr995-review-5310a0c9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr995-review-5310a0c9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #995 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr282-review-336f6623-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-review-336f6623-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #282 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr340-review-833774e0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-review-833774e0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #340 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
