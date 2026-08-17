@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T06:11:58Z_
+_As of 2026-08-17T06:18:04Z_
 
 ## Latest
 
-Ironhorse rejection-handling design completed and landed. The fleet has two blocking issues: the deployed root lacks the dependabot auto-conduct fix (already on main2, commits c31b2aaf4a + 6116be1d53), leaving four dependabot PRs stalled on approval; and a floating Node 24.x CI runner flake is blocking [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN stack root) plus [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009). The byte-array finalization pair ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and green, blocked only on re-review (CHANGES_REQUESTED gates). Minion.town's weblet-gateway design is reconciled with two security fixes and awaiting a decision on content-id modeling (content-only with collision/tombstone machinery vs. composite digest); ocap.site is ready to ferry to the Public Suffix List upstream, pending Route53 DNSSEC seeding. Several jobs were doomed for timeout/requeue exhaustion this cycle; the host's yarn berry cache has hit ext4's 65000-hardlink ceiling and will break installs fleet-wide unless pruned or the nodeLinker is switched off hardlink mode.
+A Node.js 24.x runner flake (artifact missing) blocks key PRs ([#340](https://github.com/endojs/endo-but-for-bots/pull/340) OCapN transport, [#475](https://github.com/endojs/endo-but-for-bots/pull/475) byteArray, [#877](https://github.com/endojs/endo-but-for-bots/pull/877), [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009))—non-required but red. The byteArray program is complete and all-green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#888](https://github.com/endojs/endo-but-for-bots/pull/888)) awaiting re-review. Multiple PRs stalled after weave ([#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#313](https://github.com/endojs/endo-but-for-bots/pull/313), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) need re-approval on the new head for automatic merge. Dependabot auto-conduct fix landed on main2 (c31b2aaf4a), pending root deployment.
 
 ## Parked for maintainer feedback
 
@@ -580,6 +580,31 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Your call on merge: the functional fix is already on trunk, so [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/issues/1000) could reasonably be merged (for the better comment) OR just closed as superseded. Flagging rather than deciding.
 
+- `20260817T061716Z-787b11` — from inbox-send, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T061716Z-787b11.md)
+
+> # [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403) (registry-capability) — conduct BLOCKED on stale approval
+>
+> Directive "Weave, shepherd, conduct" (comment 5312283633) driven as far as
+> automation permits:
+>
+> - **Weave**: DONE (by a peer). PR is 27 ahead / 0 behind base `llm`,
+>   MERGEABLE, no conflicts. The conductor spine's rebase was a no-op.
+> - **Shepherd**: DONE. Drove CI to terminal — **27/27 checks GREEN, 0 failed**
+>   on head `3eaa519eda9e2a5c4fe8029bebaca9b891586c25`.
+> - **Conduct**: **BLOCKED — no maintainer approval on current head.** The
+>   deterministic exact-head gate (`pr-maintainer-approval-gh.sh`) accepts only
+>   an APPROVED *review* on the exact head. The sole APPROVED review targets
+>   `051baffb` (2026-07-29); the reweave since then moved the head to
+>   `3eaa519eda`, so that signature is intentionally stale. Spine exit 1.
+>
+> **Action needed (only the maintainer can supply it):** submit a fresh GitHub
+> **approval review** on head `3eaa519eda` of [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/issues/403).
+> A PR *comment* saying "conduct" does not satisfy the exact-head gate — no
+> agent may inherit or forge the review signature. Once the current head is
+> approved, a conduct job will merge with no further changes (CI is already
+> green). This is the recurring policy mismatch previously flagged on the
+> 2026-08-13 conduct attempt.
+
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -875,27 +900,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.0M | $964.48 _(notional, rate-card)_ | no quota set |
+| Claude | 66.4M | $968.12 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`design-ironhorse-panic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ironhorse-panic.md) — Design a panic mechanism for the Ironhorse engine
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
-- [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr403-18477549.md) — attention directive on endojs/endo-but-for-bots PR #403
-- [`garden-reroute-respect-role-tier-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-reroute-respect-role-tier-floor.md) — ---
 
-### tada (4937)
+### tada (4939)
+- [`garden-reroute-respect-role-tier-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-reroute-respect-role-tier-floor.md) — Completion report
+- [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-18477549.md) — Completion report — endojs-endo-but-for-bots-pr403-18477549
 - [`design-ironhorse-rejection-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-rejection-handling.md) — Completion report: design-ironhorse-rejection-handling
 - [`garden-design-conductor-merge-queue`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-design-conductor-merge-queue.md) — Cost
 - [`endojs-endo-but-for-bots-pr995-endo-claude-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr995-endo-claude-orch.md) — orchestration endojs-endo-but-for-bots-pr995-endo-claude-orch — complete
-- [`endojs-endo-but-for-bots-endo-claude-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-endo-claude-build.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1014-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1014-shepherd.md) — Completion report
-- … and 4932 more
+- … and 4934 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
