@@ -24,3 +24,13 @@ Two changes:
 Also fix the second, independent misclassification in the same tick — `scripts/jobs/common.sh` line 3163: add `unexpected end of JSON input` to `GARDEN_TRANSIENT_GH_API_SIGNATURES`. Verified with `gh api ... -i`: `repos/kriscendobot/list/pulls/1/reviews` returns `HTTP/2.0 500` with `Content-Length: 0`, and gh's Go decoder surfaces only `unexpected end of JSON input` — the status never reaches stderr, so the existing `HTTP 5[0-9][0-9]` alternative cannot match and a plain 5xx is logged `(definitive, rc=1); not retrying`. This is the third instance of the shape the block comment above that line already documents (the `invalid character '<'` HTML-body case and the http2 `stream error` case); extend that comment with this one. Retrying an empty-body 5xx is exactly as safe as the 5xx already retried, and a persistent one still fails loud after `GARDEN_GH_API_ATTEMPTS`. This signature set is shared with the watcher's `is_transient_gh_source_error` (comment-watcher.sh:1481), so the same one-line change also converts that tick from `die` to WARN-and-skip.
 
 Regression coverage in `scripts/jobs/test/comment-watcher-test.sh` using the existing `GARDEN_GH` stub seam: (1) a repo whose `issues/comments` 404s and whose `repos/<repo>` reports `has_issues:false` → source exits 0, emits the `pr-comment` lines gathered per-PR, cursor advances; (2) same 404 but `has_issues:true` → still a lost fetch, exit 1, cursor frozen (no regression to the LOST-FETCH invariant); (3) `unexpected end of JSON input` on a surface → retried, then classified transient rather than fatal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:36:42Z
