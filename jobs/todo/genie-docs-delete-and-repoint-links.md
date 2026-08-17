@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 handler-timeout: 7200
@@ -61,13 +62,4 @@ at commit-pinned permalinks into that archive, and that the historical
 doc-number citations in code comments were deliberately left untouched. Do NOT
 force merge.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-17T12:38:22Z
+<!-- garden-reaped: 0 -->

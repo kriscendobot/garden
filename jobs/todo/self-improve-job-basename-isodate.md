@@ -95,15 +95,4 @@ basenames that need a disambiguator; audit for and fix these:
   example in the commit/report per house style (name the artifact, don't
   just assert the lesson).
 
-<!-- garden-reaped: 0 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T12:43:43Z
+<!-- garden-reaped: 1 -->
