@@ -107,3 +107,13 @@ should not depend on an agent's prose obeying a style rule.
   (name the artifact, don't just assert the lesson).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T22:03:16Z
