@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T21:33:33Z_
+_As of 2026-08-17T21:43:49Z_
 
 ## Latest
 
@@ -1040,7 +1040,8 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr992-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #992
 - [`groom-endo-stale-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-stale-design-docs.md) — Sweep stale individual design-doc metadata + milestone-table inline cells (en...
 
 ### tada (5002)
