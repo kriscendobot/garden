@@ -129,3 +129,13 @@ Open Questions rather than asserting a mechanism that was not verified
 against the real code.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T06:13:19Z
