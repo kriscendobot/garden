@@ -48,3 +48,13 @@ related; `validations/endor.md` records that it lacks the proposal's
 deferred-namespace method and is not the proposal object.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T05:03:20Z
