@@ -55,15 +55,4 @@ reply posted citing the commit, PR still mergeable. This is a DESIGN refinement
 only — do NOT implement the package here (a separate builder is orchestrated to
 follow the merge).
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T05:03:13Z
+<!-- garden-reaped: 2 -->
