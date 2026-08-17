@@ -1,1 +1,2 @@
 {"ts":"2026-08-17T05:00:27Z","base":"endojs-endo-but-for-bots-pr286-cli-verb-rework","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":64,"elapsed_s":797,"input_tokens":119,"output_tokens":53748,"cache_creation_tokens":136954,"cache_read_tokens":6516388,"total_cost_usd":5.975127,"ts":"2026-08-17T05:16:55Z","base":"endojs-endo-but-for-bots-pr286-cli-verb-rework","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}
