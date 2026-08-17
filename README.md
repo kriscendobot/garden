@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:35:58Z_
+_As of 2026-08-17T04:41:32Z_
 
 ## Latest
 
-Dependabot auto-conduct is broken on the deployed root: gh 2.97.0 renders the author as `app/dependabot` (GraphQL) but the spine compares against `dependabot[bot]` (REST), so the bypass fails and MERGE-NOW PRs stall on approval. The fix landed on main2 (c31b2aaf4a + regression test 6116be1d53) and needs deployment. In the meantime, [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) and [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) were conducted with a one-off override; daily dependabotany is paused. On the OCapN transport stack, [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) remains blocked on the known floating-Node-24.x CI flake. The [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) byteArray stack is complete and green, waiting only for maintainer re-review to clear CHANGES_REQUESTED. Gateway-package phases [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) were restacked successfully onto llm's new type layout; phases 4–12 remain queued for sequential restacking. Several parked work items await your routing decisions: [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (flag-gated reconciliation vs. supersession), [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (closed or reworked onto exo-http-client?), [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (close as superseded by the landed error-tracing facility?), and minion.town's ocap.site identity model (content-only id with collision machinery vs. composite id?).
+Two design increments landed (relative-routing, compartments defer-sync-import). The byteArray finish-line components ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) are all green and waiting on maintainer re-review to clear CHANGES_REQUESTED; the OCapN-Noise stack is parked awaiting [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) merge to retarget and restack [endojs/endo-but-for-bots#684](https://github.com/endojs/endo-but-for-bots/pull/684)–[endojs/endo-but-for-bots#693](https://github.com/endojs/endo-but-for-bots/pull/693). Several conduct jobs are stalled on stale approvals after rebases ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)), and dependabot auto-conduct is broken on the deployed root (the fix `c31b2aaf4a` + regression test `6116be1d53` are ready on `main2`, awaiting deploy). Multiple design collisions surfaced: [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is superseded by the landed error-tracing facility, [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) collides with exo-http-client on llm, and [endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) (endor run) needs a flag-gated additive resolution with the shipped registry-path surface. Two gauntlet loops halted unconverged at 6 rounds ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)). The floating-Node-24.x CI flake continues blocking multiple PRs; [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) is otherwise MERGE-NOW.
 
 ## Parked for maintainer feedback
 
@@ -949,26 +949,24 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.4M | $938.33 _(notional, rate-card)_ | no quota set |
+| Claude | 61.4M | $936.42 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`design-relative-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-relative-routing.md) — Design relative routing for CapTP/OCapN locator hints
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
-- [`proposal-compartments-defer-sync-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-defer-sync-import.md) — ---
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
-### tada (4921)
+### tada (4923)
+- [`design-relative-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-relative-routing.md) — Cost
+- [`proposal-compartments-defer-sync-import`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/proposal-compartments-defer-sync-import.md) — Completion report
 - [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-pin-base.md) — Cost
 - [`garden-orchestration-halt-record-accuracy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-orchestration-halt-record-accuracy.md) — Completion report
 - [`garden-encode-pin-the-merge-base-verb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-encode-pin-the-merge-base-verb.md) — Completion report
-- [`pr282-flag-gated-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/pr282-flag-gated-reconciliation.md) — orchestration pr282-flag-gated-reconciliation — HALTED
-- [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-fixture-parity.md) — Completion report: compartment-mapper fixture parity for PR #282, with drift ...
-- … and 4916 more
+- … and 4918 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
