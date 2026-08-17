@@ -20,3 +20,13 @@ Note the sibling decision already taken: the pin-the-merge-base child gates #282
 Relevant prior art on llm: rust/endo/src/assemble.rs + cmd_run_entry, delivered by designs/endor-npm-registry-proxy.md Phases 4/5 in merged PRs #799 #800 #803 #805 #812 #818 #862.
 
 handler-timeout: 7200
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T01:47:12Z
