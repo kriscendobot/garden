@@ -67,3 +67,13 @@ than making the loop longer. Open a design or implementation PR only if the fix 
 clear from the evidence; otherwise report and let the maintainer choose.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T23:03:42Z
