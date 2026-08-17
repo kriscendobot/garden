@@ -55,6 +55,7 @@ reply posted citing the commit, PR still mergeable. This is a DESIGN refinement
 only — do NOT implement the package here (a separate builder is orchestrated to
 follow the merge).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
