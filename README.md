@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:01:32Z_
+_As of 2026-08-17T04:16:47Z_
 
 ## Latest
 
-OCapN-Noise transport proved live over TCP on minion.town; [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (transport root) is approved and ready for merge, clearing the path to restack and land [#684](https://github.com/endojs/endo-but-for-bots/pull/684), [#688](https://github.com/endojs/endo-but-for-bots/pull/688), and [#693](https://github.com/endojs/endo-but-for-bots/pull/693). The byteArray finish line is green across [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503), waiting only on maintainer re-review; [#888](https://github.com/endojs/endo-but-for-bots/pull/888) needs un-draft and first review. The git-integration arc (M3) closed with [#691](https://github.com/endojs/endo-but-for-bots/pull/691) merged; test262 fixture consolidation designed in [#946](https://github.com/endojs/endo-but-for-bots/pull/946) (draft). Several PRs had bases refreshed ([#388](https://github.com/endojs/endo-but-for-bots/pull/388), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)) and now need fresh maintainer approval on rebased heads; two design collisions surfaced ([#286](https://github.com/endojs/endo-but-for-bots/pull/286) vs landed exo-http-client, [#301](https://github.com/endojs/endo-but-for-bots/pull/301) vs merged error-tracing facility). A deploy is needed to activate dependabot auto-conduct (fix landed on main2); floating Node 24.x CI flakes continue to block [#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#877](https://github.com/endojs/endo-but-for-bots/pull/877), and [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009).
+Four jobs are in-flight, including finalization of [#1000](https://github.com/endojs/endo-but-for-bots/pull/1000) and advancement of [#282](https://github.com/endojs/endo-but-for-bots/pull/282) with flag-gated dispatch resolution. The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is CI-green awaiting maintainer re-review; [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport) is approved and will unblock a 4-PR restack when merged. [#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) appear superseded by shipped features and need disposition calls. The gateway-package phase stack ([#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[#420](https://github.com/endojs/endo-but-for-bots/pull/420)) is being restacked following rebases; phases 2 and 3 are complete. Dependabot auto-conduct is broken on the deployed root (bot login mismatch); the fix is on main2 pending deploy. minion.town's ocap.site implementation is deployment-ready with PSL ferry prepared, and B5 (retire toy MCP tools) awaits deployed-edge validation.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 20h)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 21h)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 27d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 28d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 28d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 31d)
@@ -987,15 +987,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.9M | $928.73 _(notional, rate-card)_ | no quota set |
+| Claude | 60.6M | $933.90 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
+- [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-pin-base.md) — ---
+- [`garden-encode-pin-the-merge-base-verb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-encode-pin-the-merge-base-verb.md) — ---
+- [`garden-orchestration-halt-record-accuracy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-orchestration-halt-record-accuracy.md) — ---
 
 ### tada (4918)
 - [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-fixture-parity.md) — Completion report: compartment-mapper fixture parity for PR #282, with drift ...
