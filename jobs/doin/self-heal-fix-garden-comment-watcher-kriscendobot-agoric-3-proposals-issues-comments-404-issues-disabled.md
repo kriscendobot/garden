@@ -22,3 +22,13 @@ Required change — an ISSUES-DISABLED degrade that substitutes an equivalent en
 Regression coverage in `scripts/jobs/test/comment-watcher-test.sh`, alongside the existing repo-gone test near line 1614 and the frozen-cursor tests near 1731/1763: a repo whose `repos/<r>` probe returns `has_issues: false` and whose repo-level `/issues/comments` returns HTTP 404, carrying a PR-conversation comment reachable only via `issues/<n>/comments` — assert the source exits 0, the comment IS emitted as `pr-comment`, and the cursor advances. Add the negative case too: `has_issues: true` plus a 404 on the same surface must still exit nonzero with the cursor frozen.
 
 Run `scripts/jobs/test/comment-watcher-test.sh` and `shellcheck` on the handler. No arming records or journal state should change — the watch set is correct; the handler's surface handling is what is wrong. In particular do NOT add a `watch-optout` tombstone for any of these forks.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:39:30Z
