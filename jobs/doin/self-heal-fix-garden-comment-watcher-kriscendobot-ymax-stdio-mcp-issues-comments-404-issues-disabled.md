@@ -19,3 +19,13 @@ Implement an ISSUES-DISABLED surface degrade in section 1, parallel in shape to 
 Regression test in `scripts/jobs/test/comment-watcher-test.sh`, following the existing gh-stub pattern: stub `repos/<repo>` → `{"has_issues":false}`, repo-wide `*/issues/comments*` → 404 rc=1, `*/issues/1/comments*` → one non-bot comment inside the window. Assert the source exits 0, emits that comment with surface `pr-comment`, and does NOT log FETCH INCOMPLETE. Add a companion case asserting that `has_issues:true` plus a 404 on the repo-wide feed still freezes the cursor and exits 1 (the degrade must not widen).
 
 After landing, the 11 affected units clear on their next timer tick with no reconcile; confirm with `systemctl --user --failed`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T13:39:12Z
