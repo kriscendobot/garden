@@ -105,6 +105,38 @@ if "$SENSOR" some-design-job "$TR/uncovered.job.md" "$TR/uncovered.report.md"; t
 fi
 echo '   sensor correctly blocked the uncovered design PR (rc 1)'
 
+echo '== (c) SHORTHAND citation: a report naming its own design PR as owner/repo#N (not a full URL) still stages AND gates =='
+# The 2026-08-17 miss shape: `groom-endo-designs-readme` and
+# `groom-endo-stale-design-docs` each completed with a bot-authored OPEN DRAFT
+# DESIGN-ONLY PR (endojs/endo-but-for-bots#1023, #1024) that the completion report
+# cited ONLY in the shorthand `owner/repo#N` form. The old full-URL-only scrape in
+# both the stager and the gate found nothing, so both PRs skipped the design-panel
+# gauntlet SILENTLY. The shared extractor must recognize the shorthand identically to
+# a full URL, on both halves.
+
+# STAGER: a shorthand-only citation must still stage the PR-keyed gauntlet record.
+pr='https://github.com/endojs/endo-but-for-bots/pull/1023'
+printf -- '---\nrole: designer\n---\nGroom the designs README.\n' >"$TR/short.job.md"
+printf 'Done. Opened the design PR: endojs/endo-but-for-bots#1023\n' >"$TR/short.report.md"
+export FAKE_PR_JSON="$(design_pr_json "$pr" designs/endo-designs-readme.md)"
+"$STAGER" groom-endo-designs-readme "$TR/short.job.md" "$TR/short.report.md"
+recorded endojs-endo-but-for-bots-pr1023-gauntlet \
+  || fail 'shorthand-cited design PR #1023 did not receive a gauntlet record'
+# GATE: with the record now staged, the sensor passes (no wedge) for the same report.
+if ! "$SENSOR" groom-endo-designs-readme "$TR/short.job.md" "$TR/short.report.md"; then
+  fail 'sensor wrongly blocked a shorthand-cited design PR that HAS a staged gauntlet record'
+fi
+# GATE (the bug itself): a shorthand-cited design PR with NO gauntlet record must BLOCK
+# completion. Pre-fix this passed silently because the full-URL-only scrape saw no PR.
+pr='https://github.com/endojs/endo-but-for-bots/pull/1024'
+printf -- '---\nrole: designer\n---\nGroom stale design docs.\n' >"$TR/short2.job.md"
+printf 'Done. Opened the design PR: endojs/endo-but-for-bots#1024\n' >"$TR/short2.report.md"
+export FAKE_PR_JSON="$(design_pr_json "$pr" designs/stale-design-docs.md)"
+if "$SENSOR" groom-endo-stale-design-docs "$TR/short2.job.md" "$TR/short2.report.md"; then
+  fail 'sensor did NOT block a shorthand-cited design PR that lacks any gauntlet record (the 2026-08-17 bug)'
+fi
+echo '   shorthand owner/repo#N citation is recognized by both stager and gate'
+
 echo '== regression: the valid PROBE exception stays draft with NO design gauntlet =='
 # A probe is role builder + a gap-revealing prototype; it must never enter this path.
 pr='https://github.com/endojs/endo-but-for-bots/pull/700'

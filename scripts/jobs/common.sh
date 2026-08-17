@@ -5808,6 +5808,41 @@ parse_pr_ref() {
   return 1
 }
 
+# extract_pr_refs_from_text <file>  — scan a text file (typically a completion
+# report) for every pull-request reference it names, in BOTH forms parse_pr_ref
+# recognizes: the fully-qualified URL (…github.com/<o>/<r>/pull/<n>) and the short
+# "<o>/<r>#<n>" citation. Emit one CANONICAL full PR URL per distinct repo#number,
+# in first-seen order, de-duplicated. Prints nothing (rc 0) on no match.
+#
+# The house style (skills/fully-qualified-github-urls) asks agents to WRITE the full
+# URL, but a mechanical safety invariant — every garden design PR gets a gauntlet —
+# must not depend on that prose being obeyed. On 2026-08-17 two garden-owned DESIGN
+# PRs (endojs/endo-but-for-bots#1023 and #1024) each cited its own PR in the SHORTHAND
+# form only, so the full-URL-only scrape the stager/gate used found nothing and both
+# skipped the design-panel gauntlet silently. This helper is the single shared
+# backstop both auto-gauntlet-handoff.sh (stager) and assert-design-pr-gauntlet.sh
+# (gate) call, so a report in EITHER form is recognized identically — one helper, so a
+# future caller cannot re-introduce a third copy of the full-URL-only bug. Every match
+# is normalized through parse_pr_ref to a canonical URL, so downstream logic (gh pr
+# view, parse_pr_ref) sees no behavioral difference between the two citation forms.
+extract_pr_refs_from_text() {
+  local file="$1" tok ref repo num
+  [ -f "$file" ] || return 0
+  {
+    grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$file" 2>/dev/null || true
+    # Shorthand <o>/<r>#<n>. Require a non-path/non-word boundary before the owner so a
+    # URL path segment is never re-read as shorthand, then strip that boundary char.
+    grep -hEo '(^|[^A-Za-z0-9._/#-])[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+' "$file" 2>/dev/null \
+      | grep -oE '[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+' || true
+  } | while IFS= read -r tok; do
+    [ -n "$tok" ] || continue
+    ref="$(parse_pr_ref "$tok")" || continue
+    repo="$(printf '%s' "$ref" | cut -f1)"
+    num="$(printf '%s' "$ref" | cut -f2)"
+    printf 'https://github.com/%s/pull/%s\n' "$repo" "$num"
+  done | awk '!seen[$0]++'
+}
+
 # design_only_paths <path>...  — rc 0 iff there is at least one path AND every path
 # names a design document. Mirrors the panel-kind predicate in
 # scripts/jobs/gardening/panel.sh (designs/*.md, */designs/*.md, DESIGN*.md) and

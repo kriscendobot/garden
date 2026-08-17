@@ -46,14 +46,19 @@ role="$(plan_role "$jobfile" 2>/dev/null || true)"
 # That is the right side to fail on — a missed handoff is still caught by the
 # foreman and the watchers, whereas force-drafting a live PR corrupts someone
 # else's in-flight work and cannot be caught by anything.
-pr_urls="$(grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$report" 2>/dev/null | awk '!seen[$0]++' || true)"
+# Recognize BOTH citation forms parse_pr_ref does — the full URL AND the shorthand
+# `owner/repo#N` — via the shared extractor, normalized to canonical URLs. A
+# full-URL-only scrape here is exactly how two garden DESIGN PRs cited only in
+# shorthand (endojs/endo-but-for-bots#1023, #1024, 2026-08-17) skipped their gauntlet
+# silently; the mechanical invariant must not depend on the report obeying house style.
+pr_urls="$(extract_pr_refs_from_text "$report" || true)"
 pr_url="$(printf '%s\n' "$pr_urls" | head -1)"
 if [ -z "$pr_url" ]; then
   # The job-file-citation diagnostics matter only for a builder (which OWNS the PR
   # it opens); the overwhelming majority of NON-builder jobs legitimately complete
   # with no PR at all, so stay silent for them rather than log on every completion.
   if [ "$role" = builder ]; then
-    cited="$(grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$jobfile" 2>/dev/null | head -1 || true)"
+    cited="$(extract_pr_refs_from_text "$jobfile" | head -1 || true)"
     if [ -n "$cited" ]; then
       log "auto-gauntlet: build '$base' named no PR in its completion report; its job file cites $cited, which is a reference and NOT a build artifact — no handoff, and that PR is left untouched"
     else

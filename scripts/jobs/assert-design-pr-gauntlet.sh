@@ -51,9 +51,11 @@ role="$(plan_role "$jobfile" 2>/dev/null || true)"
 [ "$role" = builder ] && exit 0
 
 # Same report-only discovery the stager uses: only the completion REPORT may name
-# the PR the job produced (a job-file URL is a citation, not an artifact).
-pr_url="$(grep -hEo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+' "$report" 2>/dev/null \
-          | awk '!seen[$0]++' | head -1 || true)"
+# the PR the job produced (a job-file URL is a citation, not an artifact). Recognize
+# BOTH the full-URL and the shorthand `owner/repo#N` form via the shared extractor —
+# a full-URL-only scrape here would let a shorthand-cited design PR slip the gate the
+# same way it slipped the stager (endojs/endo-but-for-bots#1023, #1024, 2026-08-17).
+pr_url="$(extract_pr_refs_from_text "$report" | head -1 || true)"
 [ -n "$pr_url" ] || exit 0
 
 gh_bin="${GARDEN_GH:-gh}"
