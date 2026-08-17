@@ -28,6 +28,7 @@ Regression coverage in `scripts/jobs/test/comment-watcher-test.sh` using the exi
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
