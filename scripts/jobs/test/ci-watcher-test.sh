@@ -227,6 +227,35 @@ set -e
 [ "$gone_live_rc" -ne 0 ] && ok "live repo with failed source remains nonzero (never guess a PR list)" || bad "live repo source failure was swallowed (rc=$gone_live_rc)"
 
 # ============================================================================
+hr; echo "BLIP — a truncated JSON body from the PR source degrades to WARN + exit 0"; hr
+# Go's encoding/json emits `unexpected end of JSON input` when the response body is
+# empty or cut short mid-document (observed 2026-08-17 on kriscendobot/test262,
+# garden-ci-watcher exit 1 / ci-watcher.sh:318 FATAL). It carries NO HTTP-status
+# word, so is_transient_net_error misses it; only the shared gh-api transient set
+# (GARDEN_TRANSIENT_GH_API_SIGNATURES) classifies it. The watcher must take the
+# is_transient_gh_source_error skip (line ~308: WARN + exit 0), NOT reach the die
+# at line ~318 — identical to the existing 5xx/HTML-gateway-page degrade.
+BLIP_SRC="$TR/blip-source.sh"
+cat > "$BLIP_SRC" <<'EOF'
+#!/bin/bash
+echo 'gh api repos/kriscendobot/test262/pulls?state=open&per_page=100 failed (definitive, rc=1); not retrying: unexpected end of JSON input' >&2
+exit 1
+EOF
+chmod +x "$BLIP_SRC"
+BARE_BLIP="$TR/blip.git"; seed_bare "$BARE_BLIP"
+set +e
+env GARDEN_STATE="$TR/state-blip" JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$BLIP_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/blip.err"
+blip_rc=$?
+set -e
+[ "$blip_rc" -eq 0 ] && ok "truncated-JSON source blip exits 0 — no CI-watcher crash-loop" || bad "truncated-JSON blip exited $blip_rc (should degrade, not die)"
+grep -qi 'transient gh-api blip' "$TR/blip.err" && ok "truncated-JSON blip logs the transient-blip WARN (skips the tick)" || bad "no transient-blip WARN ($(cat "$TR/blip.err"))"
+! grep -qi 'FATAL: ci PR source failed' "$TR/blip.err" && ok "truncated-JSON blip does NOT reach the FATAL die" || bad "truncated-JSON blip reached the FATAL die ($(cat "$TR/blip.err"))"
+
+# ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr
 BARE_A="$TR/a.git"; seed_bare "$BARE_A"
 FIX_A="$TR/fix-a.tsv"; prline 58 kriscendobot "$REPO" > "$FIX_A"
