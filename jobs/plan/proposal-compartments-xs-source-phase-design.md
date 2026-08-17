@@ -1,4 +1,23 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: minion
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-17T05:33:05Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-17T05:33:05Z
+---
+
+---
 tier: minion
 model-burned: mentor
 fallback-tier: 
@@ -46,16 +65,3 @@ fork. Address at minimum:
 Do not treat the retired SES-legacy `Compartment` global present on XS 17.9.1 as
 related; `validations/endor.md` records that it lacks the proposal's
 deferred-namespace method and is not the proposal object.
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: hermit
-  tier: 
-  provider: local
-  model: 
-  claimed_at: 2026-08-17T05:23:11Z
