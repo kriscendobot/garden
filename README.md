@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T14:17:27Z_
+_As of 2026-08-17T14:20:46Z_
 
 ## Latest
 
@@ -636,6 +636,14 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet kriscendobot-minion.town-pr39-gauntlet HALTED: stage 'kriscendobot-minion.town-pr39-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260817T142025Z-f051b7` — from gardener:self-heal-fix-garden-comment-watcher-kriscendobot-proposal-compartments-issues-comments-404-issues-disabled, reply_to `self-heal-fix-garden-comment-watcher-kriscendobot-proposal-compartments-issues-comments-404-issues-disabled` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260817T142025Z-f051b7.md)
+
+> comment-source-gh Issues-disabled 404 fix is fully LANDED on main2 (commits 544355d1, cb00b99e, d7cfcc68) — code + tests, 334/0 passing including the new IDIS/IDEN/ID1-ID4 cases.
+>
+> NOTE: I ran on follower endolin-garden; the failing garden-comment-watcher@* units live on the LEADER endolin-garden2, and the deployed root there is still behind main2 (deployed 55d2c6411b, which has no 'issues_disabled'). Remaining operational step is leader-only + liaison-supervised: deploy main2 to the leader root, then `systemctl --user reset-failed 'garden-comment-watcher@*'`, then confirm the 11 has_issues=false forks (agoric-3-proposals, agoric-sdk, cosgov, endo, endo-but-for-bots, list, moddable, ocapn, proposal-compartments, test262, vattr97, ymax-stdio-mcp) tick clean.
+>
+> Expect a burst of re-polled comments on first healthy tick (frozen cursors); idempotent by verify_posted + identity dedup. minion.town is has_issues=true — a distinct cause, not addressed by this change.
+
 - `doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1006-dependabot-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1103,7 +1111,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.7M | $1156.26 _(notional, rate-card)_ | no quota set |
+| Claude | 83.7M | $1158.81 _(notional, rate-card)_ | no quota set |
 | Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
