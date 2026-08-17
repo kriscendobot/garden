@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:45:13Z_
+_As of 2026-08-17T04:54:41Z_
 
 ## Latest
 
-The OCapN transport layer reached its finish line: [endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (Noise daemon-to-daemon) is approved and CI-green but blocked on re-approval after a pre-rebase review; once that lands, the stack [#684→#688→#693](https://github.com/endojs/endo-but-for-bots/pulls?q=is%3Apr+is%3Aopen+684+688+693) will restack and merge. The byteArray program ([endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is similarly green and gated on re-review; the finish-line [#888](https://github.com/endojs/endo-but-for-bots/pull/888) awaits un-draft. Three PRs need disposition decisions: [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (endo http mk) is superseded by exo-http-client on llm; [#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error-tracing) is superseded by landed diagnostics-facet work; [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (endor run node_modules) collides with llm's registry-path design and awaits a merge-strategy call. Infrastructure headwinds: yarn cache hit ext4's 65k hardlink ceiling on the endolin host (yarn install now fails fleet-wide; needs cache clear or linker switch), Node 24.x runners are flaky on several dependabot PRs, and the dependabot auto-conduct fix is live on main2 but not yet deployed—every dependabot PR stalls on maintainer approval until deploy lands. Two gauntlets halted after 6 fix/panel rounds ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) without converging.
+Dependabot auto-conduct broke due to a GraphQL author-format mismatch on the deployed root (gh 2.97.0 renders `app/dependabot` but the check expects `dependabot[bot]`); the fix is already on main2 as [c31b2aaf4a](https://github.com/kriscendobot/garden/commit/c31b2aaf4a) + regression test, waiting for a deploy to re-enable auto-merges. In parallel, several high-value PRs are stalled on maintainer re-approval after rebases: [#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) (familiar test), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry capability) all have green CI but need a fresh APPROVED review on current heads. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is design-complete and all-green, blocked only on maintainer re-review to clear CHANGES_REQUESTED. A floating-Node-24.x runner flake is holding [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport, approved but CI-red) and others; [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) (npm-packlist) is otherwise MERGE-NOW. The OCapN stack has proven cross-host over raw TCP ([#693](https://github.com/endojs/endo-but-for-bots/pull/693)) after [#340](https://github.com/endojs/endo-but-for-bots/pull/340) approval. Design work on budget enforcement, weblet-gateway, and test262 consolidation landed or is in final review on main2.
 
 ## Parked for maintainer feedback
 
@@ -945,15 +945,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.5M | $937.27 _(notional, rate-card)_ | no quota set |
+| Claude | 61.7M | $938.66 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
+- [`endojs-endo-but-for-bots-pr995-review-5310a0c9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr995-review-5310a0c9.md) — Review directive on endojs/endo-but-for-bots PR #995
 - [`proposal-compartments-xs-source-phase-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/proposal-compartments-xs-source-phase-design.md) — ---
 
 ### tada (4923)
@@ -1042,6 +1043,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr992-review-9566dff9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr992-review-9566dff9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #992 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr282-review-c41f9d4a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr282-review-c41f9d4a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #282 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr877-review-e5dd1111-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-e5dd1111-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr995-review-5310a0c9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr995-review-5310a0c9-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #995 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
