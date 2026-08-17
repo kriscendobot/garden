@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T15:38:41Z_
+_As of 2026-08-17T15:46:09Z_
 
 ## Latest
 
@@ -1031,6 +1031,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-blind-comment-watcher-kriscendobot-agoric-3-proposals` — from watchdog:comment-watcher/kriscendobot-agoric-3-proposals, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-agoric-3-proposals.md)
 
 > ANOMALY: comment-watcher/kriscendobot-agoric-3-proposals self-test FAILED on kriscendobot/agoric-3-proposals — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
+
+- `watchdog-blind-comment-watcher-kriscendobot-agoric-sdk` — from watchdog:comment-watcher/kriscendobot-agoric-sdk, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-agoric-sdk.md)
+
+> ANOMALY: comment-watcher/kriscendobot-agoric-sdk self-test FAILED on kriscendobot/agoric-sdk — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
 - `watchdog-blind-comment-watcher-kriscendobot-endo-but-for-bots` — from watchdog:comment-watcher/kriscendobot-endo-but-for-bots, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-endo-but-for-bots.md)
 
