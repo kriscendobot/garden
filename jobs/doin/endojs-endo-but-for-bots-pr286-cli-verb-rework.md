@@ -66,6 +66,7 @@ When closing #286, leave a comment explaining that the daemon formula was
 superseded by exo-http-client + endo-fetch while the CLI verb was not, and link
 the replacement PR.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
