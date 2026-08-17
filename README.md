@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T01:42:14Z_
+_As of 2026-08-17T01:47:43Z_
 
 ## Latest
 
-One job cleared the board (garden requeue recovery). Substantial blockers need maintainer attention: the byteArray stack ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green but stalled on re-review, several rebased PRs ([#340](https://github.com/endojs/endo-but-for-bots/pull/340), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)) need re-approval on new heads, and [#241](https://github.com/endojs/endo-but-for-bots/pull/241) (familiar VFS design) is integration-complete and awaiting an APPROVED review to unblock merge. Three design PRs ([#286](https://github.com/endojs/endo-but-for-bots/pull/286), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#388](https://github.com/endojs/endo-but-for-bots/pull/388)) are flagged as superseded and need explicit close-vs-graft decisions. Two gauntlets ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) did not converge in 6 rounds, and an orchestration child ([#282](https://github.com/endojs/endo-but-for-bots/pull/282)) stalled requiring interpretation on the run-dispatch collision. Fleet-blocking infrastructure: dependabot auto-conduct is broken on the deployed root (fix ready on main2, needs deploy), a Node 24.x CI runner flake is blocking multiple MERGE-NOW PRs including [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), and the yarn global cache hit ext4's 65k-hardlink ceiling.
+Three infrastructure issues block progress: the deployed garden root lacks the dependabot auto-merge fix from main2, a Node 24.x CI flake affects several PRs, and the yarn cache hit ext4's hardlink ceiling. Multiple PRs are green and await your re-approval on rebased heads: [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), [#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403). [#286](https://github.com/endojs/endo-but-for-bots/pull/286) (endo http mk) and [#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error-tracing) are superseded by landed implementations and need your call. The gateway-package phases 2–3 refresh is done; phases 4–12 await sequential restacking. The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, blocked only on your review re-approval.
 
 ## Parked for maintainer feedback
 
@@ -987,15 +987,17 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.5M | $928.13 _(notional, rate-card)_ | no quota set |
+| Claude | 59.6M | $928.30 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr282-b9f11d3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-b9f11d3a.md) — attention directive on endojs/endo-but-for-bots PR #282
+- [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-fixture-parity.md) — ---
+- [`endojs-endo-but-for-bots-pr282-registry-default-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-registry-default-followup.md) — ---
 
 ### tada (4915)
 - [`garden-requeue-rediscover-prior-work`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-requeue-rediscover-prior-work.md) — Completion report
