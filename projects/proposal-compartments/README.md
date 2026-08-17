@@ -105,7 +105,16 @@ shortfall. Flagged shortfalls are press work items.
 - [ ] **Both TLA and non-TLA evaluation paths.** The API supports top-level-await
   and synchronous module evaluation. *Potential shortfall: confirm the Compartment
   entry points cover a synchronous evaluation path where the host requires it.*
-  *Shortfall (open work item) — spec `d23d7de`: `Compartment.prototype.import` is deliberately asynchronous; no synchronous evaluation entry point is included. Maintainer decision requested on a host-only synchronous evaluation operation.*
+  *Deferred by maintainer decision (kriskowal, 2026-08-17) — spec `d23d7de`:
+  `Compartment.prototype.import` stays deliberately asynchronous, and synchronous
+  evaluation is deferred out of the minimal Compartments surface rather than added
+  here. The anticipated future shape is `compartment.importNow` (a method) paired
+  with `import.now` (syntax), carried by a separate follow-on proposal built on the
+  Compartment core (or a pair of proposals; see
+  [deferred-synchronous-import.md](deferred-synchronous-import.md)). This box stays
+  unchecked because the minimal surface still provides no synchronous path, but it
+  is no longer an open question awaiting a maintainer: the decision is recorded and
+  the successor is named.*
 - [x] **Loader-level lifetime for callbacks.** Callbacks are managed at the loader
   level rather than per-module, to avoid the earlier per-module memory leaks. The
   Compartment-to-source-instance mapping must not reintroduce per-module retained
@@ -119,6 +128,22 @@ shortfall. Flagged shortfalls are press work items.
 The checklist is a living artifact: as the spec fills in each intersection clause,
 mark the box and either cite where the constraint is met or open a press work item
 for the shortfall.
+
+## Standing design constraints
+
+Constraints a future designer must honor across any iteration of this proposal.
+
+- **Dynamic loader registration is unsound** (maintainer @kriskowal, 2026-08-17).
+  A design must not let a host register a loader dynamically, after loading has
+  begun. There is a race between registration and loading: a loader registered
+  once loading is under way can change how a source resolves or evaluates after
+  cache keys for that source have already been permanently committed, corrupting
+  keys that can never be revised. Any future loader API (the deferred
+  "Meaningful base defaults" item, or a Node loader-registration API for the open
+  "Error separation" work) must establish loader identity before loading, not
+  register it into a live graph. This constraint is independent of the deferred
+  synchronous-import work; it bears on any design that proposes dynamic loader
+  registration.
 
 ## Validation fronts
 
