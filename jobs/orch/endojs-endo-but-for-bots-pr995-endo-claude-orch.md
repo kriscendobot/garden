@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr995-endo-claude-followup-design-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr995-endo-claude-followup-design endojs-endo-but-for-bots-pr995-conduct endojs-endo-but-for-bots-endo-claude-build
 on-child-failure: halt
