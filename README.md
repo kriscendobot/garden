@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T21:43:49Z_
+_As of 2026-08-17T21:50:40Z_
 
 ## Latest
 
@@ -1034,13 +1034,14 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 88.5M | $1230.96 _(notional, rate-card)_ | no quota set |
-| Codex | 23.6M _(+681.3M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
+| Codex | 23.6M _(+681.2M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr990-review-120b6af8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-review-120b6af8.md) — Review directive on endojs/endo-but-for-bots PR #990
 - [`endojs-endo-but-for-bots-pr992-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr992-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #992
 - [`groom-endo-stale-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-stale-design-docs.md) — Sweep stale individual design-doc metadata + milestone-table inline cells (en...
 
@@ -1143,6 +1144,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`endojs-endo-but-for-bots-pr340-review-833774e0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr340-review-833774e0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #340 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr39-review-fb0be7ca-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr39-review-fb0be7ca-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #39 (primary: kriscendobot-minio...
 - [`kriscendobot-list-pr1-1238bca7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-list-pr1-1238bca7-retro.md) — _low_ · Retrospective on kriscendobot/list PR #1 (primary: kriscendobot-list-pr1-1238...
+- [`endojs-endo-but-for-bots-pr990-review-120b6af8-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr990-review-120b6af8-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #990 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
