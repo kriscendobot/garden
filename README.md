@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T12:34:43Z_
+_As of 2026-08-17T12:36:41Z_
 
 ## Latest
 
-Work is steady but blocked on three recurring gates: maintainer re-approval after rebases (several PRs like [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324)), the floating Node 24.x CI flake stalling [#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport root) and [#475](https://github.com/endojs/endo-but-for-bots/pull/475) (byteArray), and the deployed garden lacking the dependabot auto-merge fix from main2. On the positive side, the byteArray program is complete and green ([#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#475](https://github.com/endojs/endo-but-for-bots/pull/475)) awaiting your re-review to clear CHANGES_REQUESTED, minion.town's weblet gateway and ocap.site are reconciled and live (pending DNSSEC + PSL ferry owner decisions), and several long-running stacks ([#282](https://github.com/endojs/endo-but-for-bots/pull/282), [#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[#420](https://github.com/endojs/endo-but-for-bots/pull/420)) have been rebased and advanced one step each.
+Several conduct jobs await maintainer approval on current heads ([endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)), and a fleet-blocking infrastructure issue: the dependabot auto-merge gate is broken on the deployed root pending a garden deploy (fix already on main2 as c31b2aaf4a); four dependabot PRs ([endojs/endo-but-for-bots#867](https://github.com/endojs/endo-but-for-bots/pull/867), [endojs/endo-but-for-bots#868](https://github.com/endojs/endo-but-for-bots/pull/868), [endojs/endo-but-for-bots#915](https://github.com/endojs/endo-but-for-bots/pull/915), [endojs/endo-but-for-bots#916](https://github.com/endojs/endo-but-for-bots/pull/916)) also face the floating Node 24.x CI flake blocking merge. Gateway phase designs advanced through rebases ([endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) are open with remaining phases restacked), and budget enforcement design landed on main2 (live gates still off pending token-cap configuration). Two gauntlet runs ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) halted after six fix/panel iterations without converging.
 
 ## Parked for maintainer feedback
 
@@ -415,23 +415,6 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 > But the DEPLOYED garden root (HEAD c7d730c36) does NOT carry it: its ci-wait-merge.sh has no `--dependabot-auto-merge` flag and still calls pr-maintainer-approval-gh.sh unconditionally at the merge point. `deploy-garden.sh` has not run since that commit landed.
 >
 > Per the job's own precondition I did NOT review or merge anything under the old rules, and I am ending the job with orchestration-failed: true so the orchestration HALTS. Re-promote this sweep after deploy-garden.sh advances the root past 225e364eb0.
-
-- `20260813T222721Z-d601d9` — from gardener:genie-docs-delete-from-llm-r3, reply_to `genie-docs-delete-from-llm-r3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260813T222721Z-d601d9.md)
-
-> Job genie-docs-delete-from-llm-r3 (delete PLAN/TODO/TADA from endo-but-for-bots@llm): migration verified, but I'm holding before deleting — the job's premise is contradicted and this is your call.
->
-> VERIFIED (independently):
-> - Journal copy at library/endo-but-for-bots/ is byte-identical to origin/llm (diff -rq clean, all three dirs). Counts match: PLAN 11, TODO 1, TADA 172 (184 files + README). Provenance README present.
-> - origin/llm HEAD is still exactly the migration source commit a54c3adb — llm has NOT moved.
-> - No instruction file (root AGENTS.md/CLAUDE.md/CONTRIBUTING.md/README.md) ever directed agents to WRITE into these dirs. They're cited only as design provenance.
->
-> THE PROBLEM the job under-counted:
-> - The job said "references ONLY from within the directories themselves." NOT TRUE at this commit. There are 101 references across 43 files OUTSIDE the three dirs — including 10 breaking markdown links (in designs/, packages/genie/README.md, packages/genie/DESIGN.md, packages/sandbox/README.md, and packages/genie/AGENTS.md — an agent-instruction file) and ~91 historical code-comment citations by doc number across shipping genie/sandbox source and tests (e.g. "// Non-zero exits are data, not errors — see TADA/60").
-> - The migration destination is the garden's PRIVATE journal (journal2). endo-but-for-bots is PUBLIC. So for a public reader the moved content has no public home EXCEPT this repo's own git history at a54c3adb. Deleting leaves public code citing docs that live only where the public can't see (the journal) or in deleted history.
->
-> RECOMMENDATION: keep them in-tree — the journal copy is a good archival backup, but it doesn't make the docs redundant for a public repo that actively cites them 100+ times. If you still want them gone, my proposed shape: delete the 3 dirs, repoint the 10 markdown links to permanent public permalinks (github.com/endojs/endo-but-for-bots/blob/a54c3adb/...), leave the ~91 comment citations as historical (findable via history), and PR-note that content is preserved in git history at a54c3adb + archived in the journal, don't force merge.
->
-> llm is UNTOUCHED. Tell me which way and I'll execute.
 
 - `20260814T064258Z-213e64` — from gardener:endojs-endo-but-for-bots-pr234-review-03f6892a, reply_to `endojs-endo-but-for-bots-pr234-review-03f6892a` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260814T064258Z-213e64.md)
 
@@ -900,20 +883,21 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.1M | $1119.02 _(notional, rate-card)_ | no quota set |
+| Claude | 79.2M | $1119.82 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (9)
 - [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack the gateway phase-5 branch (design/gateway-package-phase-5) — no PR f...
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr282-registry-url-cache-key`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-registry-url-cache-key.md) — Ascertain: does the registry base URL participate in the registry cache key?
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1014
 - [`endojs-endo-but-for-bots-pr340-review-833774e0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr340-review-833774e0.md) — Review directive on endojs/endo-but-for-bots PR #340
 - [`endojs-endo-but-for-bots-pr398-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr398-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #398
+- [`genie-docs-delete-and-inline-refs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/genie-docs-delete-and-inline-refs.md) — ---
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 
