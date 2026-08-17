@@ -618,6 +618,13 @@ advance_serial() {  # <base> <policy> <child>...
           local sf; sf="$(mktemp "${TMPDIR:-/tmp}/orch-halt.XXXXXX")"
           {
             printf 'orchestration-status: halted\n'
+            # Machine-readable remainder, parsed by supersede_stale_halts (below):
+            # the bases this halt left parked under their held gate. If another path
+            # (a human promote, a re-post) later runs them, that pass amends this
+            # record so a reader can tell a stale halt from a live one.
+            if [ "${#parked_remainder[@]}" -gt 0 ]; then
+              printf 'halt-parked-remainder: %s\n' "${parked_remainder[*]}"
+            fi
             printf '# orchestration %s — HALTED\n\n' "$base"
             printf 'Serial run halted at child %d/%d **%s**: %s.\n' \
               "$((i+1))" "$total" "$c" "$detail"
@@ -754,6 +761,67 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
   rm -f "$sf"
 }
 
+# --- supersede stale halt records -------------------------------------------
+# A halted serial orchestration writes its outcome to jobs/tada/<base>.md and
+# removes its orch record, so this watcher stops driving it. The downstream
+# children it left parked under their held gate can nonetheless be promoted later
+# by another path — a human promote-plan.sh, a re-post — and complete, at which
+# point the halt record's "0/M completed" / "left N parked" narrative is stale and
+# a reader reconstructing events from tada/ cannot tell a stale halt from a live
+# one (incident: pr282-flag-gated-reconciliation, whose two "parked" children both
+# completed ~18h after the halt via a manual promote). This pass re-reads each halt
+# record's machine-listed `halt-parked-remainder:` and, if any of those children
+# have since progressed beyond the held gate, appends a dated superseding addendum
+# and flips the status to `halted-superseded`. It stays a `halt*` status, so
+# tada_failed and the unblock watcher keep treating the orchestration as halted
+# (the campaign genuinely halted; a child completing on another path does not
+# retroactively make the orchestration a success) — only the human-facing narrative
+# is corrected. Idempotent: a record already at `halted-superseded` is skipped, so a
+# steady-state tick does at most one cheap `sed` read per tada file.
+supersede_stale_halts() {
+  local rec base attempt path progressed child view loc ts rc
+  for rec in "$DIR/$JOBS_TADA"/*.md; do
+    [ -f "$rec" ] || continue
+    [ "$(plan_field "$rec" orchestration-status)" = halted ] || continue
+    [ -n "$(plan_field "$rec" halt-parked-remainder)" ] || continue
+    base="$(basename "$rec" .md)"
+    for attempt in $(seq 1 20); do
+      sync_clone "$DIR"
+      path="$(tada_find_tree "$DIR" HEAD "$base" 2>/dev/null || true)"
+      [ -n "$path" ] || break                        # record vanished — nothing to do
+      [ "$(plan_field "$DIR/$path" orchestration-status)" = halted ] || break  # already superseded
+      # Re-evaluate the parked remainder against the freshly synced board.
+      progressed=()
+      for child in $(plan_field "$DIR/$path" halt-parked-remainder); do
+        view="$(child_board_view_once "$child")"; loc="${view%% *}"
+        case "$loc" in
+          tada) progressed+=("$child — completed") ;;
+          doin) progressed+=("$child — in flight (claimed)") ;;
+          todo) progressed+=("$child — in flight (queued)") ;;
+          # plan (still held) / retry / gone (unreadable this tick): no supersession claim
+        esac
+      done
+      [ "${#progressed[@]}" -gt 0 ] || break          # all still parked — halt still accurate
+      ts="$(date -u +%FT%TZ)"
+      sed -i 's/^orchestration-status: halted$/orchestration-status: halted-superseded/' "$DIR/$path"
+      {
+        printf '\n---\n\n'
+        printf 'SUPERSEDED %s: the halt above was accurate when written but no longer\n' "$ts"
+        printf 'reflects the board. %d of the parked-remainder child(ren) have since\n' "${#progressed[@]}"
+        printf 'progressed beyond their held orchestrated gate via another promotion path\n'
+        printf '(a human promote, a re-post — not this orchestration):\n\n'
+        printf -- '- %s\n' "${progressed[@]}"
+        printf '\nConsult the board for live status; do not read "0/M completed" or the\n'
+        printf 'parked-remainder list above as current.\n'
+      } >> "$DIR/$path"
+      git -C "$DIR" add "$path"
+      rc=0; commit_and_push "$DIR" "orch($base) halt record superseded — parked children progressed by $GARDEN" || rc=$?
+      { [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; } && break
+      backoff "$attempt"
+    done
+  done
+}
+
 # --- the tick ---------------------------------------------------------------
 advanced=0
 for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
@@ -780,4 +848,9 @@ for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
 done
 
 [ "$advanced" -gt 0 ] && log "advanced $advanced orchestration(s)"
+
+# After driving live orchestrations, correct any halt record whose parked
+# remainder subsequently ran on another path (see supersede_stale_halts above).
+supersede_stale_halts
+
 exit 0
