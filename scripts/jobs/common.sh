@@ -5289,6 +5289,45 @@ role_default_model() {
 # above is never authoritative over this durable tier intent.
 role_default_tier() { printf '%s\n' minion; }
 
+# role_tier_floor <role> -> the LOWEST dispatch tier a role may be served at
+# without losing the capability its work requires. The reaper's one-hop reroute
+# (reroute_job_model) consults this so a genuine transient failure of a high-floor
+# role is never demoted to a tier that cannot perform the role at all — which would
+# convert a single transient failure into a GUARANTEED doom, spending every
+# remaining requeue cycle on a model that was never going to succeed (the
+# proposal-compartments-xs-source-phase-design designer doom, 2026-08-17: a
+# `designer` job demoted mentor -> minion, then doomed after four wasted
+# impossible-tier cycles). The canonical role->tier intent is skills/model-selection
+# (echoed in CLAUDE.md § How work reaches workers): `designer` and `builder` ride
+# the latest Opus (mentor); every other role rides the automatic fleet default
+# (minion), which is already the reroute floor, so this only pins UP the
+# design/build-heavy roles. The web variants are the same design/build work on a web
+# surface. An empty/unknown role has no special floor and resolves to minion, so a
+# role-less directive job (weave, shepherd) reroutes exactly as before.
+role_tier_floor() {
+  case "${1:-}" in
+    designer|builder|web-designer|web-builder) printf '%s\n' mentor ;;
+    *)                                         printf '%s\n' minion ;;
+  esac
+}
+
+# tier_rank <tier> -> a small integer ordering the closed dispatch vocabulary by
+# descending thoughtfulness (mentat 0, mentor 1, minion 2, myrmidon 3); a value
+# that is not one of the four known tier NAMES (e.g. a concrete model id like
+# `opus`) is unranked (-1), so callers that compare against a floor skip the
+# comparison rather than mis-ordering a model id against a tier. Kept beside
+# role_tier_floor so the two policies stay one family; reroute_job_model reimplements
+# the same table in awk because it runs as a pure text filter.
+tier_rank() {
+  case "${1:-}" in
+    mentat)   printf '%s\n' 0 ;;
+    mentor)   printf '%s\n' 1 ;;
+    minion)   printf '%s\n' 2 ;;
+    myrmidon) printf '%s\n' 3 ;;
+    *)        printf '%s\n' -1 ;;
+  esac
+}
+
 # role_default_effort [kind] <role> -> the default thoughtfulness (reasoning-effort)
 # level a role runs at for a race/pre-auction job that names no explicit `effort:`
 # header (design §5): `high` for the design-heavy designer/builder roles, `medium`
@@ -5529,20 +5568,42 @@ kimi_fallback_enabled() {
   [ "$v" = on ]
 }
 
-# reroute_job_model — compatibility-named reaper transform on stdin a job BODY.
-# clean_body produces it). If the frontmatter pins `model:` to a burnable value
-# AND carries a non-empty `fallback-model:` chain, ADVANCE the pin to the chain
-# head, POP that head, and append the burned model to `model-burned:`; print the
-# transformed body and return 0. Otherwise print the body UNCHANGED and return 1.
-# Pure text transform — no journal, no network — so the reaper (the single
-# requeue writer) can call it inline. The chain is comma- and/or space-separated;
-# entries stay verbatim (a short tier like `opus` resolves downstream exactly as a
-# hand-pinned model: does), so the re-routed job needs no new consumer: it now
-# classifies to the fallback provider and that kind claims it, while the original
-# provider's kind can no longer claim it (the ping-pong bound).
+# reroute_job_model [floor-tier] — compatibility-named reaper transform on stdin a
+# job BODY (clean_body produces it). If the frontmatter pins `tier:`/`model:` to a
+# burnable value AND carries a non-empty `fallback-tier:`/`fallback-model:` chain,
+# ADVANCE the pin to the chain head, POP that head, and append the burned value to
+# `model-burned:`; print the transformed body and return 0. Otherwise print the body
+# UNCHANGED and return 1.
+#
+# The optional FLOOR-TIER argument is the lowest tier the job's role may run at
+# (role_tier_floor). When the chain head is a KNOWN tier name ranked BELOW that floor
+# (e.g. advancing a `designer` from mentor to minion), the reroute is REFUSED: print
+# the body UNCHANGED and return 2 — a distinct code the reaper reads to leave the job
+# at its floor tier for a human to triage rather than dooming it silently at a tier
+# that cannot perform the role. A chain head that is not one of the four tier names
+# (a concrete model id such as `opus`) is unranked, so the floor never blocks the
+# legacy model-pinned migration path. Passing no floor (or an empty one) preserves
+# the historical two-value contract exactly.
+#
+# Pure text transform — no journal, no network — so the reaper (the single requeue
+# writer) can call it inline. The chain is comma- and/or space-separated; entries
+# stay verbatim (a short tier like `opus` resolves downstream exactly as a hand-pinned
+# model: does), so the re-routed job needs no new consumer: it now classifies to the
+# fallback provider and that kind claims it, while the original provider's kind can no
+# longer claim it (the ping-pong bound).
 reroute_job_model() {
-  awk '
+  awk -v floor="${1:-}" '
     function trim(s){ gsub(/^[ \t]+|[ \t]+$/, "", s); return s }
+    # The closed dispatch vocabulary by descending thoughtfulness; a value that is
+    # not one of the four tier NAMES is unranked (-1) and never floor-compared. Keep
+    # in lockstep with tier_rank() in this file.
+    function trank(t){
+      if (t=="mentat")   return 0
+      if (t=="mentor")   return 1
+      if (t=="minion")   return 2
+      if (t=="myrmidon") return 3
+      return -1
+    }
     { line[NR]=$0 }
     END {
       # Find the leading frontmatter block: line 1 is "---", closed by the next "---".
@@ -5574,6 +5635,12 @@ reroute_job_model() {
       # The reaper is automatic machinery.  A legacy Claude fallback must never
       # reintroduce an automatic Claude pin during the quota route.
       if (model=="mentor" && next_model=="mentat") next_model="minion"
+      # Role tier floor: refuse (rc 2) to demote below the canonical role floor.
+      # Only compare when BOTH the floor and the resolved next tier are known tier
+      # names; an unranked concrete model id (opus, ...) is never floor-blocked.
+      if (floor!="" && trank(floor)>=0 && trank(next_model)>=0 && trank(next_model)>trank(floor)) {
+        for (i=1;i<=NR;i++) print line[i]; exit 2
+      }
       new_burned=(burned==""?model:burned" "model)
       # Emit, rewriting model:/fallback-model:/model-burned:. When model-burned:
       # was absent (bi==0) insert it immediately after the model: line so it lands

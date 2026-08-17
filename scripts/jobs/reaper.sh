@@ -984,12 +984,43 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # pinned, so a mystic cannot re-claim it. Fully guarded — a failure anywhere
       # here leaves the ordinary requeue below to run.
       if [ "$outage" -ne 1 ] && [ "$count" -ge "${GARDEN_KIMI_FALLBACK_AFTER:-1}" ]; then
-        rerouted_body="$(printf '%s\n' "$body" | reroute_job_model)" && rerouted=1 || rerouted=0
-        if [ "$rerouted" -eq 1 ]; then
-          record_kimi_fallback_event "$f" "$spine" "$count" || true
-          body="$rerouted_body"
-          log "kimi-fallback: '$base' failed $count cycle(s) on kimi-k3; re-routing to its qualified non-Claude fallback, resetting reap counter"
-          count=0
+        # BUG #2 — never BURN a tier that was not actually SERVED. An AUTOMATIC
+        # mentor job claimed by an ANTHROPIC worker is served at the MINION model
+        # under the standing cost ceiling (monk-claude.sh § anthropic mentor
+        # downshift; skills/model-selection § the anthropic automatic-work cost
+        # ceiling). Its failure is therefore evidence about the minion model, NOT
+        # mentor, so advancing off the mentor pin and recording `model-burned: mentor`
+        # would burn a tier that was never tried — and, because the downshift makes
+        # mentor and minion the SAME anthropic model, the demotion does not even
+        # change the model. Suppress the reroute and requeue AT mentor so a
+        # true-mentor provider (cleric/mystic/fireworker) can still take a genuine
+        # mentor attempt; the ordinary doom counter still governs eventual doom.
+        claim_provider="$(sed -n 's/^  provider:[[:space:]]*//p' "$f" | tail -1)"
+        if [ "$claim_provider" = anthropic ] \
+           && [ "$(plan_field "$f" tier)" = mentor ] \
+           && [ "$(plan_field "$f" dispatch)" != manual ]; then
+          log "ceiling-suppress: '$base' failed as an anthropic-served automatic mentor job (served at the minion model under the cost ceiling); NOT burning mentor or demoting — requeueing at mentor for a true-mentor provider"
+        else
+          # BUG #1 — respect the role's canonical tier FLOOR. reroute_job_model
+          # refuses (rc 2) to demote below the floor role_tier_floor names, so a
+          # designer/builder job is never dropped to a tier that cannot design or
+          # build (the proposal-compartments-xs designer doom, 2026-08-17). On a
+          # refusal the job requeues UNCHANGED at its floor tier and, if it keeps
+          # failing there, dooms with an accurate tier for a human to triage rather
+          # than after several wasted impossible-tier cycles.
+          reroute_floor="$(role_tier_floor "$(plan_role "$f" 2>/dev/null || true)")"
+          # Guard the substitution against set -e: reroute_job_model returns 1 (no
+          # chain) or 2 (floor-blocked) on the common no-op paths, and a bare
+          # `var=$(...)` assignment would abort the reap loop on that non-zero exit.
+          rerouted_body="$(printf '%s\n' "$body" | reroute_job_model "$reroute_floor")" && rrc=0 || rrc=$?
+          if [ "$rrc" -eq 0 ]; then
+            record_kimi_fallback_event "$f" "$spine" "$count" || true
+            body="$rerouted_body"
+            log "kimi-fallback: '$base' failed $count cycle(s); re-routing to its qualified non-Claude fallback, resetting reap counter"
+            count=0
+          elif [ "$rrc" -eq 2 ]; then
+            log "role-floor: '$base' role floor '$reroute_floor' forbids a below-floor demotion; NOT rerouting — requeueing at its floor tier (a human triages on doom)"
+          fi
         fi
       fi
       fi

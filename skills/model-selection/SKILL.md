@@ -69,6 +69,26 @@ Consequence for the other providers: a mentor job claimed by a cleric, mystic, o
 fireworker resolves at mentor as before. The downshift is anthropic-only, because
 the ceiling is about Claude spend.
 
+Two invariants keep the reaper's one-hop reroute (`reroute_job_model`,
+`scripts/jobs/common.sh`) honest about this downshift and about the per-role tier
+map above:
+
+- **Per-role floor.** The reroute refuses to demote a job below its role's
+  canonical tier (`role_tier_floor`): `designer`/`builder` (and their web variants)
+  floor at **mentor**, every other role at **minion**. A refusal leaves the job at
+  its floor tier and requeues it unchanged, so a designer/builder job is never
+  dropped to a tier that cannot design or build — which would convert one transient
+  failure into a guaranteed doom (the `proposal-compartments-xs-source-phase-design`
+  designer doom, 2026-08-17).
+- **Never burn an unserved tier.** Because an anthropic worker serves an automatic
+  mentor job at the minion model (above), a failure of an **anthropic-served** mentor
+  job is evidence about minion, not mentor. The reaper suppresses the reroute in that
+  case — it does not record `model-burned: mentor` or demote — and requeues at mentor
+  so a true-mentor provider (cleric/mystic/fireworker) can still take a genuine mentor
+  attempt.
+
+Coverage: `scripts/jobs/test/reroute-role-floor-test.sh`.
+
 ## Deployment migration
 
 After deploying this revision, run
