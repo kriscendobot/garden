@@ -27,3 +27,13 @@ Generality — this is fleet-wide, not one repo: `scripts/jobs/fork-watch-provis
 Regression test: add a case beside the existing surface-failure tests in `scripts/jobs/test/run-test.sh` (see the 403 fixture at ~line 3351, and `scripts/jobs/test/gh-api-retry-test.sh:174`). Two assertions: (a) stub `issues/comments?` → 404 with `repos/<repo>` → `has_issues:false`, and assert the source exits 0, emits the PR conversation comment via the per-PR fallback, and does NOT log FETCH INCOMPLETE; (b) stub `issues/comments?` → 404 with `has_issues:true` and assert the unchanged FETCH INCOMPLETE + nonzero exit, so the narrow guard cannot silently widen.
 
 One observation to save the fixer confusion: the very first probe of the failing endpoint during diagnosis returned a comment successfully, then twelve consecutive identical calls 404'd (rate limit was healthy at 4849/5000 remaining, so throttling is not the cause). Treat the 404 as the structural steady state driven by `has_issues:false`; the fallback above is correct either way and is robust to that flap.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T14:10:48Z
