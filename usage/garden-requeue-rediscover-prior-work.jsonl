@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":55,"elapsed_s":742,"input_tokens":91,"output_tokens":48336,"cache_creation_tokens":130253,"cache_read_tokens":5351594,"total_cost_usd":5.189852000000001,"ts":"2026-08-17T01:42:01Z","base":"garden-requeue-rediscover-prior-work","host":"endolin-garden-ece02cb4","outcome":"tada"}
