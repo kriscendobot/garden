@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T04:26:18Z_
+_As of 2026-08-17T04:30:35Z_
 
 ## Latest
 
-Merge-base verb formalized and orchestration halt recording fixed. The critical blocker is deployment of the dependabot-auto-merge fix (c31b2aaf4a on main2), needed to auto-conduct [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) and pending dependabot PRs; a Node 24.x runner flake is holding [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and others at CI-red; yarn's hardlink ceiling is breaking installs fleet-wide. Several PRs await re-approval after rebase; [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) and [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) likely need closure as superseded; design decisions are pending on compartments, gateway-identity modeling, and minion.town DNS.
+Multiple PRs are stalled on maintainer approval following rebase or fix cycles — [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), and others each need a fresh APPROVED review on their current head before the conductor can land them. The [byteArray program](https://github.com/endojs/endo-but-for-bots/pull/475) is complete and all-green, waiting only for re-review to clear CHANGES_REQUESTED on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). The OCapN stack advanced with live cross-host Noise IK proof on both WebSocket and raw TCP transports, and three design decisions are awaiting your call: the weblet-gateway id model (content-only vs. composite), compartments engine boundaries, and whether to dispatch implementation plans for proposal-compartments. A deployed-root blocker — dependabot auto-conduct is broken in the live garden (fix already on main2 as c31b2aaf4a) — is causing MERGE-NOW dependabot PRs to stall on approval. Two gauntlets halted after 6 fix/panel rounds without converging ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)), and several jobs were doomed (orchestration halted, handlers over budget). The budget-enforcement design landed awaiting only your weekly token cap input before it can gate live. One new job just posted: design-relative-routing.
 
 ## Parked for maintainer feedback
 
@@ -987,14 +987,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.8M | $934.75 _(notional, rate-card)_ | no quota set |
+| Claude | 60.9M | $934.93 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`design-relative-routing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-relative-routing.md) — Design relative routing for CapTP/OCapN locator hints
 - [`endojs-endo-but-for-bots-pr1000-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1000-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1000
 - [`endojs-endo-but-for-bots-pr282-pin-base`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-pin-base.md) — ---
 
