@@ -48,6 +48,7 @@ as a separate open problem rather than re-pinning.
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
