@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T01:53:51Z_
+_As of 2026-08-17T02:07:05Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#282](https://github.com/endojs/endo-but-for-bots/pull/282) registry-default-followup completed; the PR work itself remains parked awaiting a maintainer decision on the flag-gated resolution strategy. Multiple long-lived PRs are stalled on a shared blocker: a floating Node 24.x runner issue affecting [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN transport root), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (byteArray frozen view), and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877). Several PRs await your re-approval after rebases ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)), and the deployed garden root is missing a dependabot auto-conduct fix that landed on main2—a deploy would unblock four held dependabot PRs. Three gauntlets halted when the panel/fix loop exceeded iteration limits ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995), [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)), and several design PRs and follow-ups need your disposition calls before the fleet can move them forward.
+Several PRs were discovered as superseded by newer implementations ([endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) by endo-fetch, [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) by landed error-tracing), and others are stalled awaiting your re-approval after rebases that invalidated prior reviews ([endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324)). Dependabot PRs are merging but the fleet discovered a bot-auth rendering issue ([endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) already landed; fix pending deploy). The garden's budget-enforcement design landed on main2, making live token-admission a standing property of every dispatch. A host-level yarn cache hit the 65000 hardlink ceiling (workaround applied; cleanup pending), and several handler-budget overruns and gauntlet convergence timeouts are parked. Monthly progress report is ready.
 
 ## Parked for maintainer feedback
 
@@ -987,23 +987,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.8M | $928.57 _(notional, rate-card)_ | no quota set |
+| Claude | 59.9M | $928.65 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr282-fixture-parity.md) — ---
+### doin (0)
+(none)
 
-### tada (4917)
+### tada (4918)
+- [`endojs-endo-but-for-bots-pr282-fixture-parity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-fixture-parity.md) — Completion report: compartment-mapper fixture parity for PR #282, with drift ...
 - [`endojs-endo-but-for-bots-pr282-registry-default-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-registry-default-followup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr282-b9f11d3a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr282-b9f11d3a.md) — Completion report
 - [`garden-requeue-rediscover-prior-work`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-requeue-rediscover-prior-work.md) — Completion report
 - [`endojs-endo-but-for-bots-pr856-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr856-conduct.md) — Completion report
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260816-232003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/fu-minion-town-containment-gateway-endo-sock-1-20260816-232003.md) — Cost
-- … and 4912 more
+- … and 4913 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
