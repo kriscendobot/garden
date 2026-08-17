@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":35,"elapsed_s":551,"input_tokens":64,"output_tokens":28358,"cache_creation_tokens":127560,"cache_read_tokens":4101348,"total_cost_usd":4.038071,"ts":"2026-08-17T04:25:09Z","base":"garden-encode-pin-the-merge-base-verb","host":"endolin-garden-ece02cb4","outcome":"tada"}
