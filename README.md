@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T15:46:09Z_
+_As of 2026-08-17T15:53:47Z_
 
 ## Latest
 
@@ -1042,6 +1042,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-17T14:21:32Z, latest 2026-08-17T15:53:23Z).
+> The SAME condition (`blind-comment-watcher-kriscendobot-ocapn`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden2-5bcdff64 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
 - `watchdog-blind-comment-watcher-kriscendobot-test262` — from watchdog:comment-watcher/kriscendobot-test262, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-test262.md)
