@@ -22,3 +22,13 @@ Base: main
 Rebase the head onto the current `main`, resolve conflicts, and push. Once the PR
 is mergeable again and CI re-dispatches, the shepherd/conductor chain resumes via
 the event watcher / reconcile tick. Never link to upstream agoric/agoric-sdk.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-08-17T23:46:08Z
