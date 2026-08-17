@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 17
 build_job: minion-town-mcp-b2-first-guest-tools
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: kriscendobot-minion.town-pr17-gauntlet-fix-1
+current_child: kriscendobot-minion.town-pr17-gauntlet-panel-2
 state: running
 created_by: producer
 created_at: 2026-08-17T23:00:45Z
