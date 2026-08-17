@@ -39,3 +39,13 @@ Care required:
   skills/frozen-base-branch and skills/verify-upstream-state-before-pinning
   already carry the how-to.
 - House style: no em-dashes in prose (skills/em-dash-style).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T04:15:15Z
