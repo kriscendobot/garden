@@ -64,6 +64,7 @@ Never state in your report that a peer did work you did not verify.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
