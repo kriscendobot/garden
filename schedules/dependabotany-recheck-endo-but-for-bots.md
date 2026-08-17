@@ -4,6 +4,7 @@ job_basename_prefix: dependabotany-recheck-endo-but-for-bots
 preflight: dependabotany-preflight.sh
 ---
 ---
+role: botanist
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
