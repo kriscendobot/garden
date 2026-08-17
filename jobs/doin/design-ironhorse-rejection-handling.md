@@ -112,3 +112,13 @@ a note for whoever lands it later to add the cross-link). Where a concrete
 mechanism (a rejection tracker, the visualization panels' data plumbing)
 needs its own follow-on design or build job, name it explicitly in Open
 Questions rather than leaving it implicit.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T06:06:01Z
