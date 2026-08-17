@@ -32,3 +32,13 @@ Tests, in `scripts/jobs/test/comment-watcher-test.sh` (extend the existing gone-
 - unchanged: a definitive repo-level 404 on `repos/<repo>` still takes the REPO-GONE exit-0 path with its alert.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T14:03:22Z
