@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T08:13:34Z_
+_As of 2026-08-17T08:17:18Z_
 
 ## Latest
 
-Gauntlet panel round 1 for [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) completed; otherwise the board is holding on infrastructure and approval gates. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is green and awaiting your re-review before landing. Several PRs ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) have been rebased or reconciled and need fresh maintainer approval on their current heads before merge. A floating Node 24.x runner flake is blocking dependabot PRs ([endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)) from auto-conduct, and the deployed garden still lacks the dependabot auto-merge feature from main2—a deploy is needed to unblock the botanist queue. The weblet-gateway design ([kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/issues/21)) awaits a decision on identity modeling (content-only vs. composite id) before the spec's publish gate can clear.
+[endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (OCapN-Noise transport) is approved and ready — the stack bottom of the four-PR chain is unblocked pending merge. The byteArray program ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, waiting on re-review to clear CHANGES_REQUESTED; [endojs/endo-but-for-bots#888](https://github.com/endojs/endo-but-for-bots/pull/888) (finish-line immutable bytes) is drafted and ready to un-draft. Several in-flight PRs ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241), [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#856](https://github.com/endojs/endo-but-for-bots/pull/856)) are blocked on maintainer re-approval after rebases or integration — the reviews are stale by design. A deployed garden issue broke dependabot auto-conduct; the fix landed on main2 (commits `c31b2aaf4a` + `6116be1d53`) but needs a deploy to take effect. Two infrastructure issues surfaced: the yarn berry cache hit ext4's hardlink ceiling on one host, and a Node 24.x runner flake is blocking several PRs independent of the pinned Node version — the former needs cache reset; the latter may require runner infrastructure review rather than just version pinning.
 
 ## Parked for maintainer feedback
 
@@ -967,15 +967,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.7M | $1030.26 _(notional, rate-card)_ | no quota set |
+| Claude | 70.9M | $1030.42 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1014
 
 ### tada (4943)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Cost
