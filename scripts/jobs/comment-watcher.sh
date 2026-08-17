@@ -808,7 +808,7 @@ review_is_empty_approval() {  # review_is_empty_approval <body-text>
 }
 
 # --- deterministic verb mapping (the fixed table; no open-ended reasoning) ---
-# Sets VERB to one of rebase|retcon|refresh|shepherd|gauntlet on a hit. Prefer a
+# Sets VERB to one of rebase|retcon|refresh|shepherd|gauntlet|pinbase on a hit. Prefer a
 # fixed mapping; return 2 ("ambiguous") only when the comment plainly addresses
 # the bot, carries an explicit review ask, or is a trusted sender's plain-language
 # directive but names no verb — the cases the caller mints a deterministic
@@ -852,6 +852,20 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
   # does not mint a verb (the #513/#526 false positives).
   local detected_verb=""
   case "$lc" in *"run the gauntlet"*) detected_verb=gauntlet;; esac
+  # "pin the merge base" — kriskowal's coined verb (endo-but-for-bots#282 review
+  # 4945588548): repoint the PR's base onto a pinned llm-<sha> branch, rebase the
+  # head onto it, and resolve conflicts. The rebase and the conflict resolution are
+  # IMPLICIT in the verb. Recognized as a MULTI-WORD PHRASE (like "run the gauntlet"),
+  # but GATED on imperative/clause-initial position so declarative prose that merely
+  # mentions pinning a base ("this will pin the merge base once #528 merges") never
+  # mis-fires — the distinct exact phrase plus imperative position is the guard.
+  # Detected BEFORE the single-word loop so the trailing "and rebase" in the canonical
+  # phrasing cannot shadow it into a plain `rebase` job: the rebase is PART of this
+  # stronger op (which also moves the BASE), not a second directive. See
+  # skills/frozen-base-branch and skills/verify-upstream-state-before-pinning.
+  if [ -z "$detected_verb" ] && imperative_verb_present "pin the merge base" "$lc"; then
+    detected_verb=pinbase
+  fi
   if [ -z "$detected_verb" ] && { [ -n "$imperative" ] || [ -n "$mentions_bot" ]; }; then
     local v
     for v in rebase retcon refresh shepherd; do
@@ -974,6 +988,7 @@ verb_action() {  # human-readable mapping for the job body
     retcon)   echo "reset + restage per-package, separate 'chore: Update yarn.lock'";;
     refresh)  echo "re-sync branch / regenerate derived artifacts";;
     shepherd) echo "drive CI to green";;
+    pinbase)  echo "repoint the PR base onto the pinned llm-<sha> branch, then rebase the head onto it and resolve conflicts (rebase + conflict resolution implicit)";;
     conduct|merge) echo "dispatch the conductor to un-draft (if draft) and merge";;
     gauntlet) echo "run the full PR-creation chain end to end";;
     review)   echo "address the maintainer's review — enumerate and resolve EVERY inline comment tied to it";;
@@ -988,8 +1003,9 @@ verb_action() {  # human-readable mapping for the job body
 # a role from prose after it has claimed the job.
 verb_role() {
   case "$1" in
-    rebase) printf '%s\n' weaver ;;
-    retcon) printf '%s\n' retcon ;;
+    rebase)  printf '%s\n' weaver ;;
+    pinbase) printf '%s\n' weaver ;;
+    retcon)  printf '%s\n' retcon ;;
     conduct|merge|finalize) printf '%s\n' conductor ;;
     *) printf '%s\n' "" ;;
   esac
@@ -1113,10 +1129,10 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     head -c 280 "$bf" | tr '\n' ' '; printf '\n'
     # Attention/triage feedback (a directive to edit in response to a comment) is
     # race-prone the same way a review is: a peer may resolve it first. The MECHANICAL
-    # verbs (rebase/retcon/refresh/shepherd/gauntlet) are branch operations, not
+    # verbs (rebase/retcon/refresh/shepherd/gauntlet/pinbase) are branch operations, not
     # comment-citing edits, so they skip the recheck; everything else gets it.
     case "$verb" in
-      rebase|retcon|refresh|shepherd|gauntlet) ;;
+      rebase|retcon|refresh|shepherd|gauntlet|pinbase) ;;
       *) preflight_instruction "$pr" "$cid" "$author" ;;
     esac
   } > "$out"
@@ -1811,7 +1827,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # source.) Skip the probe when no PR is resolved (pr=0) — a directive with no PR
   # target has nothing to check and the probe would only emit a misleading failure.
   case "$VERB" in
-    rebase|retcon|refresh|gauntlet)
+    rebase|retcon|refresh|gauntlet|pinbase)
       if [ "$pr" != 0 ]; then
         set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; drc=$?; set -e
         if [ "$drc" -eq 2 ]; then
@@ -1822,7 +1838,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   esac
 
   case "$VERB" in
-    rebase|retcon|refresh|shepherd|gauntlet) base="$slug-pr$pr-$VERB";;
+    rebase|retcon|refresh|shepherd|gauntlet|pinbase) base="$slug-pr$pr-$VERB";;
     finalize)                                base="$slug-pr$pr-conduct";;
     review)                                  base="$slug-pr$pr-review-$(shorthash "$REVIEW_KEY")";;
     *)

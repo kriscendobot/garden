@@ -480,6 +480,46 @@ run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG"
 grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "the untrusted drop is LOGGED with its reason (not silent)" || bad "untrusted drop not logged ($(cat "$GHLOG"))"
 
 # ============================================================================
+# PMB/PMBR — "pin the merge base", kriskowal's coined verb (endo-but-for-bots #282
+# review 4945588548, "Please pin the merge base to llm-xxxxx and rebase. I will
+# hereafter call this 'pin the merge base', leaving the rebase and resolution of
+# conflicts implicit."). A DISTINCT, STRONGER branch op than `rebase`: it repoints
+# the PR's BASE onto a pinned llm-<sha> branch, with the rebase and conflict
+# resolution IMPLICIT in the verb. Two forms: the plain imperative comment (a
+# mechanical pinbase job, trust-independent like `rebase`) and the review-body form
+# above (the whole review is the unit; pinbase is recorded as the PRIMARY action).
+hr; echo "PMB — 'pin the merge base' directive → pinbase job (NOT a plain rebase), reactji, cursor"; hr
+BARE_PMB="$TR/pmb.git"; seed_bare "$BARE_PMB"
+FIX_PMB="$TR/fix-pmb.tsv"; RLOG_PMB="$TR/react-pmb.log"; : > "$RLOG_PMB"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-17T09:00:00Z issue-comment 4945500001 282 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/282#issuecomment-4945500001 \
+  'Please pin the merge base to llm-9f3a2b1c and rebase.' > "$FIX_PMB"
+run_watcher "$TR/state-pmb" "$BARE_PMB" "$FIX_PMB" "$RLOG_PMB"
+board_has "$BARE_PMB" "$SLUG-pr282-pinbase" && ok "pin-the-merge-base job posted ($SLUG-pr282-pinbase)" || bad "pinbase job missing"
+board_has "$BARE_PMB" "$SLUG-pr282-rebase" && bad "the trailing 'and rebase' shadowed into a plain rebase job (the base op was lost)" || ok "no plain rebase job — the rebase is implicit in pinbase, not a second directive"
+board_job_body "$BARE_PMB" "$SLUG-pr282-pinbase" | grep -qi 'repoint the PR base onto the pinned llm' && ok "the job body carries the base-repoint + implicit-rebase semantics" || bad "job body missing the pinbase semantics"
+grep -qx "issue-comment 4945500001 eyes" "$RLOG_PMB" && ok "eyes reactji posted on the source comment" || bad "reactji not posted ($(cat "$RLOG_PMB"))"
+[ "$(cursor_seen "$TR/state-pmb" "$BARE_PMB")" = 2026-08-17T09:00:00Z ] && ok "cursor advanced to the comment's created_at" || bad "cursor not advanced ($(cursor_seen "$TR/state-pmb" "$BARE_PMB"))"
+
+hr; echo "PMBR — 'pin the merge base' in a REVIEW body → review job recording pinbase as the primary action"; hr
+BARE_PMBR="$TR/pmbr.git"; seed_bare "$BARE_PMBR"
+FIX_PMBR="$TR/fix-pmbr.tsv"; RLOG_PMBR="$TR/react-pmbr.log"; : > "$RLOG_PMBR"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-17T09:30:00Z pr-review-body 4945588548 282 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/282#pullrequestreview-4945588548 \
+  '[CHANGES_REQUESTED] Please pin the merge base to llm-9f3a2b1c and rebase. I will hereafter call this '\''pin the merge base'\'', leaving the rebase and resolution of conflicts implicit.' > "$FIX_PMBR"
+run_directive "$TR/state-pmbr" "$BARE_PMBR" "$FIX_PMBR" "$RLOG_PMBR"
+CL_PMBR="$TR/cl-pmbr"; git clone -q --single-branch --branch "$BRANCH" "$BARE_PMBR" "$CL_PMBR" 2>/dev/null
+review_file_pmbr="$(ls -1 "$CL_PMBR/jobs/todo" 2>/dev/null | grep "^$SLUG-pr282-review-" | head -1 || true)"
+[ -n "$review_file_pmbr" ] && ok "a review job was posted for the pin-the-merge-base review ($review_file_pmbr)" || bad "no review job posted for the review-form directive"
+if [ -n "$review_file_pmbr" ]; then
+  grep -qi 'pinbase' "$CL_PMBR/jobs/todo/$review_file_pmbr" && ok "the review job records pinbase as the primary action" || bad "review job body missing the pinbase primary action"
+fi
+board_has "$BARE_PMBR" "$SLUG-pr282-rebase" && bad "the review-form 'and rebase' shadowed into a plain rebase job" || ok "no plain rebase job from the review form (rebase implicit in pinbase)"
+rm -rf "$CL_PMBR"
+
+# ============================================================================
 # AUTH1/AUTH2 — GitHub may briefly return HTTP 401 while its OAuth/installation
 # token rotates. The watcher retries exactly once, processes a successful retry,
 # and degrades a repeated 401 without sorting partial output or moving the cursor.

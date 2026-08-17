@@ -54,6 +54,7 @@ The maintainer steers the liaison in plain language; these verbs are just precis
 | **fix #N** | post a [fixer](roles/fixer/AGENT.md) job. |
 | **retcon #N** | a fixer job that resets and restages per-package with a separate `chore: Update yarn.lock` commit, net diff invariant ([retcon](skills/retcon/SKILL.md)). |
 | **weave #N** / **rebase #N** | post a [weaver](roles/weaver/AGENT.md) job. |
+| **pin the merge base #N** | post a [weaver](roles/weaver/AGENT.md) job that repoints the PR's base onto a pinned `llm-<sha>` branch, then rebases the head onto it and resolves conflicts. A distinct, stronger op than `rebase`/`weave`: it changes the **base**, not just the head; the rebase and conflict resolution are implicit in the verb and need not be restated ([frozen-base-branch](skills/frozen-base-branch/SKILL.md), [verify-upstream-state-before-pinning](skills/verify-upstream-state-before-pinning/SKILL.md)). Watcher-recognized in imperative position. |
 | **shepherd #N** | post a [shepherd](roles/shepherd/AGENT.md) job to drive CI to green. |
 | **merge #N** | post a [conductor](roles/conductor/AGENT.md) job. |
 | **ferry #N** | carry approved work upstream under the maintainer's identity — authorization required (§ The ferry). |

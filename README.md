@@ -83,6 +83,7 @@ deterministically. `#N` is a pull-request number.
 | **run the gauntlet #N** ★ | the full PR chain end to end (clean → panel review → fix-loop → un-draft) for a PR that did **not** come through a build (a maintainer-authored PR, or a probe you now want promoted), or to re-run on demand. Not a required follow-up to a build |
 | **rebase #N** ★ | rebase the PR branch on its base |
 | **weave #N** | rebase and resolve conflicts |
+| **pin the merge base #N** ★ | repoint the PR's base onto a pinned `llm-<sha>` branch, then rebase the head onto it and resolve conflicts. A stronger op than *rebase*: it changes the **base**, not just the head. The rebase and conflict resolution are implicit in the verb ([frozen-base-branch](skills/frozen-base-branch/SKILL.md), [verify-upstream-state-before-pinning](skills/verify-upstream-state-before-pinning/SKILL.md)) |
 | **retcon #N** ★ | reset and restage the branch per-package, separate `chore: Update yarn.lock` commit; net diff unchanged |
 | **refresh #N** ★ | re-sync the branch, regenerate derived artifacts |
 | **shepherd #N** ★ | drive CI back to green |
@@ -199,8 +200,8 @@ for your attention.
 On watched repos and anywhere `@<bot>` is mentioned:
 
 - **Comment a verb**: `rebase`, `retcon`, `refresh`, `shepherd`, `run the
-  gauntlet` map deterministically to jobs — imperative position only; using a
-  verb as a noun doesn't fire it.
+  gauntlet`, `pin the merge base` map deterministically to jobs — imperative
+  position only; using a verb as a noun doesn't fire it.
 - **Review the PR**: APPROVED merges; CHANGES_REQUESTED with inline comments
   gets each thread addressed, replied to with the fixing commit, and review
   re-requested.
