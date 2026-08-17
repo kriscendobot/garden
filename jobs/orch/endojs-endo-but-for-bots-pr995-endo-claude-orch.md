@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr995-endo-claude-followup-design endojs-endo-but-for-bots-pr995-conduct endojs-endo-but-for-bots-endo-claude-build
 on-child-failure: halt
-state: pending
+state: running
 created_by: liaison
 created_at: 2026-08-17T04:57:13Z
 ---
