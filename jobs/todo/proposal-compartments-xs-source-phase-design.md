@@ -47,15 +47,4 @@ Do not treat the retired SES-legacy `Compartment` global present on XS 17.9.1 as
 related; `validations/endor.md` records that it lacks the proposal's
 deferred-namespace method and is not the proposal object.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T04:53:11Z
+<!-- garden-reaped: 2 -->

@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 role: builder
@@ -66,13 +67,4 @@ When closing #286, leave a comment explaining that the daemon formula was
 superseded by exo-http-client + endo-fetch while the CLI verb was not, and link
 the replacement PR.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-17T04:59:42Z
+<!-- garden-reaped: 0 -->
