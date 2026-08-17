@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T09:14:58Z_
+_As of 2026-08-17T09:25:13Z_
 
 ## Latest
 
-[endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (cli-verb-rework) advanced through the gauntlet: fix round 1 completed, now in panel round 2. Meanwhile, multiple PRs stalled waiting for maintainer re-approval after rebases — [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#876](https://github.com/endojs/endo-but-for-bots/pull/876), [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) all need fresh signatures on their current heads before the conductor can proceed. The fleet has a deploy-lag blocker: dependabot auto-merge is broken on the deployed root (renders `app/dependabot` but code expects `dependabot[bot]`), and the fix already landed on `main2` but awaits a deploy. Node 24.x CI flakiness persists across several targets ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [endojs/endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009)): the runner infrastructure issue ("node24/bin/node: No such file") is separate from the better-sqlite3 pin and unlikely fixed by the current strategy. Two gauntlets ([endojs/endo-but-for-bots#995](https://github.com/endojs/endo-but-for-bots/pull/995) and [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997)) halted after reaching 6-round convergence limits on their fix cycles; several other jobs have been parked doomed or awaiting go-ahead for human sequencing decisions.
+[endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) gauntlet completed panel round 2 and moved into fix; infrastructure issues are now the primary blockers — a floating Node 24.x runner flake is holding [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000), which gates several stalled PRs ([endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475)), and dependabot auto-merge is broken on the deployed root pending a garden deploy. Multiple design and feature PRs are awaiting maintainer re-approval after rebases ([endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389)); minion.town work is proceeding on ocap.site DNS/DNSSEC and toy-tools cleanup, and the test262 consolidation project is open-question gated on whether to keep separate metering cases or fold into upstream parity.
 
 ## Parked for maintainer feedback
 
@@ -967,23 +967,23 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 71.3M | $1037.21 _(notional, rate-card)_ | no quota set |
+| Claude | 71.4M | $1037.29 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1014
+### doin (0)
+(none)
 
-### tada (4944)
+### tada (4945)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-1.md) — Completion report — FIX round 1, PR #1014 (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1015-shepherd.md) — What was failing
 - [`daily-progress-summary-20260817-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260817-070502.md) — Completion report
-- [`design-ironhorse-panic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-panic.md) — Completion report
-- … and 4939 more
+- … and 4940 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
