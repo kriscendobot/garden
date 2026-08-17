@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: gardener
 claimed_at: 2026-08-17T06:06:01Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-ironhorse-rejection-handling
+pr_number: 1016
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1016
+pr_head: design/ironhorse-rejection-handling
