@@ -46,15 +46,4 @@ So: for each target, classify the post-pin result as cleared, still-mode-1, or
 mode-2, with the log evidence. If mode 2 persists, say so plainly and report it
 as a separate open problem rather than re-pinning.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: gardener
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-08-17T06:03:35Z
+<!-- garden-reaped: 2 -->
