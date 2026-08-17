@@ -24,6 +24,7 @@ What to change:
 
 Note for the claimer: this same failure will emit one self-heal job per affected repo slug; they are all the same bug. Fix once in the shared handler and close the siblings as duplicates rather than patching per-repo.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
