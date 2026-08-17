@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T13:27:58Z_
+_As of 2026-08-17T13:30:38Z_
 
 ## Latest
 
-Multiple worker failures are stalling progress: the gateway phase restack and two gauntlets halted at non-convergence, several jobs parked after exceeding handler budgets, and dependabot auto-merge is broken pending a deploy of the fix already on main2 ([commit c31b2aaf4a](https://github.com/kriscendobot/garden/blob/c31b2aaf4a)). The byteArray program is complete and green awaiting maintainer re-review on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503); OCapN proved cross-host TCP; and [kriscendobot/minion.town#21](https://github.com/kriscendobot/minion.town/pull/21) resolved a host-authority security escape but awaits your content-id design decision. Several rebased PRs are mergeable and waiting only for fresh approvals.
+A floating Node 24.x runner flake is blocking several PRs across the board. [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (the byteArray design finish-line) are green and ready for merge but awaiting maintainer re-review after prior approvals went stale. The OCapN transport stack ([#340](https://github.com/endojs/endo-but-for-bots/pull/340)→[#684](https://github.com/endojs/endo-but-for-bots/pull/684)→[#688](https://github.com/endojs/endo-but-for-bots/pull/688)→[#693](https://github.com/endojs/endo-but-for-bots/pull/693)) is held at [#340](https://github.com/endojs/endo-but-for-bots/pull/340)'s shepherd, blocked by the same Node 24.x flake and needing a fresh maintenance approval once it clears. Gateway phases [#388](https://github.com/endojs/endo-but-for-bots/pull/388) and [#389](https://github.com/endojs/endo-but-for-bots/pull/389) are restacked and verified; the remaining phase chain ([#392](https://github.com/endojs/endo-but-for-bots/pull/392)→[#394](https://github.com/endojs/endo-but-for-bots/pull/394)→[#420](https://github.com/endojs/endo-but-for-bots/pull/420)) is parked pending sequential restacking after their base rewrites. Several jobs are parked or doomed: [#282](https://github.com/endojs/endo-but-for-bots/pull/282) needs a strategy decision on the run-dispatch conflict resolution, [#897](https://github.com/endojs/endo-but-for-bots/pull/897)'s weave exceeded its handler budget, and a yard-wide yarn cache hardlink ceiling on one host is breaking `yarn install`. The deployed garden still lacks the dependabot auto-merge fix (commit `c31b2aaf4a` on `main2`), causing [#1009](https://github.com/endojs/endo-but-for-bots/pull/1009) and similar PRs to stall on approval.
 
 ## Parked for maintainer feedback
 
@@ -907,15 +907,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.8M | $1134.01 _(notional, rate-card)_ | no quota set |
+| Claude | 82.0M | $1136.12 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack the gateway phase-5 branch (design/gateway-package-phase-5) — no PR f...
+- [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
