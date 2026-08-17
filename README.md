@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T21:32:57Z_
+_As of 2026-08-17T21:33:33Z_
 
 ## Latest
 
@@ -1040,17 +1040,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (2)
-- [`groom-endo-designs-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-designs-readme.md) — Groom designs/README.md: verify, reorganize, archive, and illuminate the esti...
+### doin (1)
 - [`groom-endo-stale-design-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-stale-design-docs.md) — Sweep stale individual design-doc metadata + milestone-table inline cells (en...
 
-### tada (5001)
+### tada (5002)
+- [`groom-endo-designs-readme`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/groom-endo-designs-readme.md) — Completion report
 - [`garden-design-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-design-follower-self-deploy.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1019-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-panel-6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1019-gauntlet-fix-5.md) — Completion report
-- … and 4996 more
+- … and 4997 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
