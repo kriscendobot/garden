@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: gardener
-claimed_at: 2026-08-17T21:23:28Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-garden-design-follower-self-deploy
-pr_number: 73
-pr_repo: kriskowal/garden
-pr_url: https://github.com/kriskowal/garden/pull/73
-pr_head: design/follower-self-deploy
