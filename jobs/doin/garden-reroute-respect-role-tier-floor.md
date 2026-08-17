@@ -73,3 +73,13 @@ requeues) and `garden-orchestration-halt-record-accuracy` (halt records that
 misreport what happened).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-17T06:03:23Z
