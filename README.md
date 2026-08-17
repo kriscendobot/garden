@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T13:37:14Z_
+_As of 2026-08-17T13:40:36Z_
 
 ## Latest
 
@@ -930,22 +930,20 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.0M | $1145.89 _(notional, rate-card)_ | no quota set |
+| Claude | 83.0M | $1146.80 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
-### todo (4)
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled.md) — ---
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled.md) — ---
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404.md) — ---
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled.md) — ---
+### todo (0)
+(none)
 
-### doin (12)
+### doin (16)
 - [`endojs-endo-but-for-bots-pr1019-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1019-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1019
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1014
 - [`kriscendobot-list-pr1-1238bca7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-list-pr1-1238bca7.md) — attention directive on kriscendobot/list PR #1
 - [`kriscendobot-minion.town-pr39-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr39-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #39
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-test262-gh-api-unexpected-end-of-json-transient.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-3-proposals-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-agoric-sdk-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-cosgov-issue-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-endo-but-for-bots-issues-comments-404-issues-disabled.md) — ---
@@ -953,6 +951,9 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-list-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-moddable-issues-comments-404-issues-disabled.md) — ---
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ocapn-issues-comments-404-repo-alive.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-test262-issues-comments-404-issues-disabled.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-vattr97-issues-disabled-404.md) — ---
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-ymax-stdio-mcp-issues-comments-404-issues-disabled.md) — ---
 
 ### tada (4968)
 - [`endojs-endo-but-for-bots-gateway-phase5-restack`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-gateway-phase5-restack.md) — Restack of design/gateway-package-phase-5 (PR #393) — complete
