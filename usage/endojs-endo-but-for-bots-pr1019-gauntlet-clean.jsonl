@@ -1,1 +1,2 @@
 {"ts":"2026-08-17T12:26:50Z","base":"endojs-endo-but-for-bots-pr1019-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"result","model":"claude-opus-4-8","num_turns":3,"elapsed_s":22,"input_tokens":6,"output_tokens":1240,"cache_creation_tokens":26926,"cache_read_tokens":99923,"total_cost_usd":0.3533155,"ts":"2026-08-17T12:54:04Z","base":"endojs-endo-but-for-bots-pr1019-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}
