@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-08-17T07:05:45Z_
+_As of 2026-08-17T07:11:43Z_
 
 ## Latest
 
-Multiple approvals are stale: [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#856](https://github.com/endojs/endo-but-for-bots/pull/856), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#241](https://github.com/endojs/endo-but-for-bots/pull/241) all have green CI but need fresh maintainer approvals on rebased heads. The byteArray stack ([#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and green, pending re-review to clear CHANGES_REQUESTED. A deploy is needed to land the dependabot auto-conduct fix (stopping MERGE-NOW PRs from stalling). The OCapN stack's [#340](https://github.com/endojs/endo-but-for-bots/pull/340) remains blocked by a floating Node 24.x CI flake that also affects [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#877](https://github.com/endojs/endo-but-for-bots/pull/877). Decisions are needed on [#282](https://github.com/endojs/endo-but-for-bots/pull/282) (merge-base pinning) and [#388](https://github.com/endojs/endo-but-for-bots/pull/388) (phase sequencing for restacking).
+OCapN/Noise transport proved end-to-end over raw TCP on minion.town; the stack bottom [#340](https://github.com/endojs/endo-but-for-bots/pull/340) is awaiting merge to unblock restacking [#684](https://github.com/endojs/endo-but-for-bots/pull/684), [#688](https://github.com/endojs/endo-but-for-bots/pull/688), [#693](https://github.com/endojs/endo-but-for-bots/pull/693). The byteArray program ([#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete-and-green, blocked only on maintainer re-review to clear CHANGES_REQUESTED. Minion.town's weblet-gateway design surfaced and fixed a host-authority escape (content-only id collision + post-unpublish re-registration); one open decision (composite id vs. current model) remains on [#21](https://github.com/kriscendobot/minion.town/pull/21). Multiple PRs with maintainer approvals on pre-rebase heads now stall on the exact-head gate: [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#241](https://github.com/endojs/endo-but-for-bots/pull/241), [#288](https://github.com/endojs/endo-but-for-bots/pull/288), [#234](https://github.com/endojs/endo-but-for-bots/pull/234), [#324](https://github.com/endojs/endo-but-for-bots/pull/324) all need fresh approval on current heads before merge. The deployed garden root lacks a dependabot auto-merge fix (commit c31b2aaf4a), so every dependabot MERGE-NOW stalls on approval until deploy lands. Several jobs halted on handler budget/requeue limits and parked awaiting promotion: [#340](https://github.com/endojs/endo-but-for-bots/pull/340) shepherd (node-24 flake), [#282](https://github.com/endojs/endo-but-for-bots/pull/282) rebase-reconcile (load-bearing conflict resolution needed), [#856](https://github.com/endojs/endo-but-for-bots/pull/856) weave (stale conflicts), dependabot [#1006](https://github.com/endojs/endo-but-for-bots/pull/1006), and the gauntlet loops ([#995](https://github.com/endojs/endo-but-for-bots/pull/995), [#997](https://github.com/endojs/endo-but-for-bots/pull/997)) that didn't converge.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 23h)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 18d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 28d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 29d)
@@ -904,26 +904,25 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.9M | $968.75 _(notional, rate-card)_ | no quota set |
+| Claude | 67.0M | $969.01 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`daily-progress-summary-20260817-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260817-070502.md) — Daily midnight Pacific progress summary
+### doin (3)
 - [`endo-but-for-bots-node-pin-ci-rerun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-node-pin-ci-rerun.md) — ---
 - [`endojs-endo-but-for-bots-pr1015-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1015
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1014
 
-### tada (4940)
+### tada (4941)
+- [`daily-progress-summary-20260817-070502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260817-070502.md) — Completion report
 - [`design-ironhorse-panic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-panic.md) — Completion report
 - [`garden-reroute-respect-role-tier-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-reroute-respect-role-tier-floor.md) — Completion report
 - [`endojs-endo-but-for-bots-pr403-18477549`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr403-18477549.md) — Completion report — endojs-endo-but-for-bots-pr403-18477549
 - [`design-ironhorse-rejection-handling`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/design-ironhorse-rejection-handling.md) — Completion report: design-ironhorse-rejection-handling
-- [`garden-design-conductor-merge-queue`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/garden-design-conductor-merge-queue.md) — Cost
-- … and 4935 more
+- … and 4936 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
