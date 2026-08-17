@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-17T14:36:42Z_
+_As of 2026-08-17T14:38:38Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ A floating Node 24.x runner flake is blocking several PRs across the board. [#47
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 31d)
 - [endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/pull/670) — feat(lal): subscription OAuth flow and encrypted auth store (M3) (waiting 34d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 45d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 46d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 62d)
 
 _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
@@ -1048,6 +1048,16 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > gardener job 'endojs-endo-but-for-bots-pr897-weave' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2401s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler and will be DOOMED after GARDEN_REAP_OVERRUN_THRESHOLD (1) cycle(s) without completing. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper's generic doom report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
+- `watchdog-provider-quota` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-provider-quota.md)
+
+> provider session limit reached: the API is refusing calls fleet-wide (resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-moddable (rc=1); its capture is blob 7fa04ccc5edef208cae405a6420efbdd86536c68 (git -C /home/kris/garden2/).
+> limit_type: session
+> This is an ACCOUNT LIMIT, not a garden defect: no code fix applies, and the fleet
+> resumes on its own once the window resets (see skills/restore/SKILL.md for the
+> post-outage restore). Every unit that trips the limit folds into THIS one notice
+> rather than filing its own. Latest observation (originally keyed 'provider-quota', host endolin-garden2-5bcdff64):
+> provider quota exceeded while running garden-comment-watcher@kriscendobot-moddable. Observed: You've hit your session limit · resets 4:20pm (UTC) — the responder could NOT diagnose garden-comment-watcher@kriscendobot-moddable (rc=1); its capture is blob 7fa04ccc5edef208cae405a6420efbdd86536c68 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 7fa04ccc5edef208cae405a6420efbdd86536c68).
+
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-08-17T13:33:30Z, latest 2026-08-17T14:36:25Z).
@@ -1124,7 +1134,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 83.5M | $1154.38 _(notional, rate-card)_ | no quota set |
+| Claude | 83.7M | $1156.58 _(notional, rate-card)_ | no quota set |
 | Codex | 23.9M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
