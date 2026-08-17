@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-08-17T11:18:12Z_
+_As of 2026-08-17T11:21:34Z_
 
 ## Latest
 
-Multiple rebased PRs are awaiting fresh maintainer approvals to unblock merges: [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), and [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) all have green CI and no remaining code blockers, but the conductor's exact-head gate requires fresh approval signatures on the rebased commits. The byteArray stack ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) + [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is complete and all checks pass—those two need maintainer re-review to clear `CHANGES_REQUESTED` and merge. On the OCapN front, cross-host Noise IK capability exchange is now proven over both WebSocket and raw TCP, but [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340) (the stack root) is blocked by a floating Node 24.x runner failure unrelated to the pin in [endojs/endo-but-for-bots#1000](https://github.com/endojs/endo-but-for-bots/pull/1000)—that runner issue will likely persist even after the better-sqlite3 fix lands. minion.town's weblet-gateway design reconciliation is complete and left draft by design (living document); the ocap.site PSL entry is ready to ferry upstream pending DNSSEC signing at the registrar. Fleet-wide: dependabot auto-conduct is broken on the deployed root (fix already on main2 as of 07-26; needs a deploy to land), and several long-running jobs are doomed by handler budget overruns or infrastructure constraints (yarn cache hit ext4's hardlink ceiling, root repo gc lock, floating Node 24.x runner).
+The gauntlet on [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286) (CLI verb rework) advanced to fix round 4, while several high-value PRs remain blocked on stale maintainer approvals invalidated by rebases: [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/pull/324), [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234), and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) all need fresh reviews at their current heads before conducting. The byteArray finish-line work ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is code-complete and green but gated on maintainer re-review to clear `CHANGES_REQUESTED` status. A critical fix for dependabot auto-merge is ready to deploy (commit c31b2aaf4a on main2)—the live fleet is broken on [endojs/endo-but-for-bots#1004](https://github.com/endojs/endo-but-for-bots/pull/1004) and other dependabot PRs. The fleet also faces infrastructure stress: the root repo's git object store is unmaintainable with gc failing persistently, the yarn global cache hit ext4's 65000-hardlink ceiling, and several handler jobs are timing out and being parked (awaiting split/re-spec); separately, the floating Node 24.x runner issue blocks [endojs/endo-but-for-bots#340](https://github.com/endojs/endo-but-for-bots/pull/340), [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and [endojs/endo-but-for-bots#877](https://github.com/endojs/endo-but-for-bots/pull/877).
 
 ## Parked for maintainer feedback
 
@@ -967,15 +967,15 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.4M | $1074.42 _(notional, rate-card)_ | no quota set |
+| Claude | 74.6M | $1074.67 _(notional, rate-card)_ | no quota set |
 | Codex | 23.8M _(+687.5M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1014
 
 ### tada (4949)
 - [`endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-cli-verb-rework-gauntlet-panel-4.md) — Completion report
