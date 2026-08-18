@@ -76,6 +76,7 @@ rather than guessing.
   `weblet_publish` and the fixture seeder — §7, do not replace them).
 - The draft PR auto-runs the gauntlet per the builder flow.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
