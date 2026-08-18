@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T19:33:03Z_
+_As of 2026-08-18T19:33:57Z_
 
 ## Latest
 
@@ -575,6 +575,14 @@ _Showing top 10 of 24 parked PRs (ranked by recency + roadmap relevance)._
 > reviewed commit-by-commit. Should the in-flight 495 job let its retcon proceed,
 > or hold the retcon (pin+rebase+shepherd only) until the follow-up review? Please
 > advise.
+
+- `20260818T193320Z-8ce7fd` — from gardener:endojs-endo-but-for-bots-pr475-e3925eb5, reply_to `endojs-endo-but-for-bots-pr475-e3925eb5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T193320Z-8ce7fd.md)
+
+> erights asked @kriscendobot to unresolve all conversations the bot resolved on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (done: 47 unresolved; 8 human-resolved left intact) and to STOP resolving conversations on that PR. He explicitly DEFERS to @kriskowal on whether "humans-only resolve conversations" should be the GENERAL policy across all PRs.
+>
+> Directive: [https://github.com/endojs/endo-but-for-bots/pull/475](https://github.com/endojs/endo-but-for-bots/pull/475)#issuecomment-5333026938
+>
+> Flagging for a policy decision: our review-feedback automation currently resolves threads. If kriskowal wants humans-only-resolve as a fleet-wide norm, that's a garden behavior change (review-feedback-followup / panel skills).
 
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
@@ -1219,12 +1227,11 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (11)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr475-495be080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-495be080.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-59c1c020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-59c1c020.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-e3925eb5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-e3925eb5.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr998-review-322c54b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-322c54b7.md) — Review directive on endojs/endo-but-for-bots PR #998
 - [`endojs-endo-but-for-bots-pr998-review-4bd2ba34`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-4bd2ba34.md) — Review directive on endojs/endo-but-for-bots PR #998
 - [`endojs-endo-but-for-bots-pr998-review-684b93c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr998-review-684b93c1.md) — Review directive on endojs/endo-but-for-bots PR #998
@@ -1233,13 +1240,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`kriscendobot-minion.town-pr49-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #49
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 
-### tada (5111)
+### tada (5112)
+- [`endojs-endo-but-for-bots-pr475-e3925eb5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e3925eb5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-237b89d7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-237b89d7.md) — Completion report
 - [`endojs-endo-but-for-bots-pr972-review-2e698a5b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-2e698a5b.md) — What the directive asked
 - [`endojs-endo-but-for-bots-pr972-review-2f41d5f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-2f41d5f1.md) — Review directive on endojs/endo-but-for-bots PR #972 — resolved
 - [`endojs-endo-but-for-bots-pr972-review-649a8108`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr972-review-649a8108.md) — What the review asked
-- [`endojs-endo-but-for-bots-pr998-review-65e24259`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr998-review-65e24259.md) — Summary
-- … and 5106 more
+- … and 5107 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
