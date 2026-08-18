@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T02:55:18Z_
+_As of 2026-08-18T02:56:56Z_
 
 ## Latest
 
@@ -536,6 +536,10 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet kriscendobot-minion.town-pr47-gauntlet HALTED: stage 'kriscendobot-minion.town-pr47-gauntlet-panel-1' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
 
+- `20260818T025612Z-77c517` — from gauntlet:endojs-endo-but-for-bots-pr1023-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T025612Z-77c517.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1023-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1023-gauntlet-panel-2' (panel) failed or vanished from the board (doomed/declined). A stranded PR mid-gauntlet halts loudly rather than stalling.
+
 - `doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1023-gauntlet-panel-2-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -1011,26 +1015,27 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.9M | $1347.08 _(notional, rate-card)_ | no quota set |
+| Claude | 102.1M | $1347.25 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+678.7M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #48
 - [`endojs-endo-but-for-bots-pr1026-d59ca42b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1026-d59ca42b.md) — attention directive on endojs/endo-but-for-bots PR #1026
 - [`endojs-endo-but-for-bots-pr989-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr989-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #989
+- [`kriscendobot-minion.town-pr17-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr17-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #17
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #37
 
-### tada (5055)
+### tada (5056)
+- [`endojs-endo-but-for-bots-pr1023-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1023-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1023-gauntlet — HALTED
 - [`kriscendobot-minion.town-pr17-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-panel-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet-fix-1.md) — Completion report
 - [`build-minion-town-git-content-substrate-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-clean.md) — Completion report
 - [`kriscendobot-minion.town-pr17-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr17-gauntlet-fix-2.md) — Completion report — FIX round 2, kriscendobot/minion.town PR #17
-- [`deadmail-20260818T003114Z-1111f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/deadmail-20260818T003114Z-1111f1.md) — Cost
-- … and 5050 more
+- … and 5051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
