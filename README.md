@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-08-18T00:07:10Z_
+_As of 2026-08-18T00:09:51Z_
 
 ## Latest
 
-The byteArray initiative is complete and green — [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are MERGEABLE but stalled on maintainer re-review after rebases; erights deferred a coverage decision (findings 1–3) to you. Cross-host OCapN capability round-trip is proven live over TCP on minion.town after the demo authorization landed. Three gauntlets hit the 6-round convergence ceiling ([endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), [endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019)), and the gateway phase restack chain halted after restacking phases 2–3 successfully; the remaining 11 phases await your sequencing. A fleet-wide Node-24.x floating-runner issue is blocking [endo-but-for-bots#1009](https://github.com/endojs/endo-but-for-bots/pull/1009), [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and others; the conductor refuses to merge past the non-required red cell. Several PR rebases (gateway phases, [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234)) invalidated prior approvals and await re-review. The finbot merge-governance panel for PR #5 was poisoned after requeue exhaustion; investigation needed before re-posting.
+Several high-value PRs have stalled on maintainer re-review after necessary rebases: [endojs/endo-but-for-bots#234](https://github.com/endojs/endo-but-for-bots/pull/234) (follow-stream design), [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame), and [endojs/endo-but-for-bots#388](https://github.com/endojs/endo-but-for-bots/pull/388)–[endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/pull/389) (gateway phases 2–3) all need your re-approval on their rebased heads before the conductor can land them. The byteArray work ([endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)) is green across all platforms but gated on your re-review to clear CHANGES_REQUESTED. Four gauntlets halted mid-flow (PRs [endojs/endo-but-for-bots#997](https://github.com/endojs/endo-but-for-bots/pull/997), [endojs/endo-but-for-bots#286](https://github.com/endojs/endo-but-for-bots/pull/286), [endojs/endo-but-for-bots#1019](https://github.com/endojs/endo-but-for-bots/pull/1019), [endojs/endo-but-for-bots#1024](https://github.com/endojs/endo-but-for-bots/pull/1024)) because panel/fix loops did not converge; the gateway phase restack chain halted after the first child ([endojs/endo-but-for-bots#394](https://github.com/endojs/endo-but-for-bots/pull/394) and the rest await sequential restacking). A host's yarn cache has hit ext4's hardlink ceiling (65k limit), blocking installs fleet-wide on that machine — yarn cache clean or a nodeLinker switch will reset it. Decision points waiting in your inbox: whether to build [kriscendobot/minion.town#39](https://github.com/kriscendobot/minion.town/pull/39) or [kriscendobot/minion.town#41](https://github.com/kriscendobot/minion.town/pull/41) first, which byteArray consumer fixes to land now, and a few pending follow-ups on design choices and architecture reconciliations.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 1m)
+- [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — feat(pass-style): narrow byteArray to plain frozen Uint8Array (waiting 3m)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/pull/730) — design(registry): Endor/XS registry transport power (waiting 19d)
 - [endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/pull/166) — feat(endor): add rust/endor TUI skeleton (re-opened from #31 under the bot) (waiting 29d)
@@ -510,6 +510,24 @@ _Showing top 10 of 25 parked PRs (ranked by recency + roadmap relevance)._
 >
 > kriscendobot's proposal awaiting your yes/no: land finding one now (mirror compareBytes' copy-before-index + add the emulated-wrapper test its siblings have) and add the two bytewise-compare guards defensively; file findings two and three as separate follow-ups. Reply with your decision and I'll post the resulting job(s).
 
+- `20260818T000931Z-d38d88` — from gardener:kriscendobot-minion.town-pr39-ea6a23f9, reply_to `kriscendobot-minion.town-pr39-ea6a23f9` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260818T000931Z-d38d88.md)
+
+> Re: "Post a builder." on [kriscendobot/minion.town#39](https://github.com/kriscendobot/minion.town/issues/39) (git content substrate).
+>
+> Before I spend a builder I want to confirm the target — both candidate designs are currently flagged "not yet buildable" in their own text, so a literal build of either contradicts documented status:
+>
+> - [kriscendobot/minion.town#39](https://github.com/kriscendobot/minion.town/issues/39) (design/git-content-substrate, MERGED) is titled "(deferred experiment)". Its §1.5 says the experiment "stays local — no projector/mutable-record experiment is extracted upstream BEFORE the capability-addressed Git remote design has been reviewed," and its status line says "do not land the projector experiment upstream." It defers the wire protocol / cap-URL / CAS-partition to [kriscendobot/minion.town#41](https://github.com/kriscendobot/minion.town/issues/41).
+> - [kriscendobot/minion.town#41](https://github.com/kriscendobot/minion.town/issues/41) (design/git-remote-capability, OPEN) is the live superseding design that owns exactly that mechanism — but it is currently CHANGES_REQUESTED (your review, 2026-08-14), not approved.
+>
+> Which do you want, and I'll post it:
+>   (a) Build [kriscendobot/minion.town#39](https://github.com/kriscendobot/minion.town/issues/39)'s serving-side substrate now into minion.town — projection + root-qualified serving contract + deployment-coherent caching (§4/§5) — treating the §1.5 "wait for review" caveat as waived. Fastest serving-side progress.
+>   (b) Build [kriscendobot/minion.town#41](https://github.com/kriscendobot/minion.town/issues/41)'s capability-addressed git remote — I'd first post a fixer to clear your outstanding changes-requested, then build off it.
+>   (c) A gap-revealing probe (DRAFT, stays draft) against [kriscendobot/minion.town#41](https://github.com/kriscendobot/minion.town/issues/41)'s design to pressure-test it before committing to a real build.
+>
+> My recommendation: (a) if you want serving-side motion now; (b) if the wire protocol is the priority and you want [kriscendobot/minion.town#41](https://github.com/kriscendobot/minion.town/issues/41) landed first.
+>
+> Reply with a/b/c (or your own framing) and I'll post the job immediately.
+
 - `doomed-endojs-endo-but-for-bots-pr1024-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden2-5bcdff64, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1024-gauntlet-fix-1-requeue-exhausted.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
@@ -692,7 +710,7 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.8M | $1309.76 _(notional, rate-card)_ | no quota set |
+| Claude | 96.9M | $1310.42 _(notional, rate-card)_ | no quota set |
 | Codex | 23.5M _(+679.0M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
