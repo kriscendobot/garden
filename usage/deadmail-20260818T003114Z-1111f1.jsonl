@@ -1,1 +1,2 @@
 {"ts":"2026-08-18T00:36:02Z","base":"deadmail-20260818T003114Z-1111f1","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":89,"input_tokens":14,"output_tokens":4346,"cache_creation_tokens":37157,"cache_read_tokens":307593,"total_cost_usd":0.6368755,"ts":"2026-08-18T00:44:58Z","base":"deadmail-20260818T003114Z-1111f1","host":"endolin-garden-ece02cb4","outcome":"tada"}
