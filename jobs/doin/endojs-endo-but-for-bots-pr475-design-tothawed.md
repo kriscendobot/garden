@@ -74,3 +74,13 @@ the isView+toThawed composition are specified for each byte package; the design
 note is posted to PR #475. If implementation is warranted, name the follow-up
 explicitly (posted job base or a hand-off to 9885f3d8) rather than leaving a
 loose "someone should build this."
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-18T22:05:27Z
