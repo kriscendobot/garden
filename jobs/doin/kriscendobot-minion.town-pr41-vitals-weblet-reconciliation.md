@@ -15,3 +15,13 @@ The superseding design has now landed, so do that reconciliation. `designs/vital
 Task: revise `designs/vitals-weblet.md` so its delivery substrate reflects the superseding design, per § 8's own framing — plainly, the vitals weblet becomes a **partition the garden's leader pushes to** (the fleet already writes `vitals/fleet.json` / `vitals/garden.json`; a `git push` of that subtree to a partition it holds a write-capability for replaces "commit to `journal2` and wait for a poll"), or the polled-mirror special case is deliberately retained as a bridge — state which, and why, rather than leaving both open. Update every dependent detail that changes with it: the latency budget (push-triggered, no poll interval), the mermaid diagram, the registration/deployment story, the readiness/dependency table, and the companions/status header. Keep what § 8 says is unaffected and still correct: #40's rendered view, its privacy carry-over, and its isolation-floor fit. Preserve the doc's mermaid validity (parse-only re-validation) and the repo's prose conventions (typist-friendly code points, pet-name spelling, no Latin shorthand).
 
 Scope discipline: this is a design-document reconciliation only — no code, and do NOT act on § 12 of the git-remote-capability design ("Consequent work in `endojs/endo-but-for-bots` (named, NOT actioned)"), which explicitly opens, files, and proposes nothing pending the maintainer's call. Land as a PR against `main` in the usual way for this repo.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: gardener
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-08-18T04:38:47Z
