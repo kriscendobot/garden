@@ -4,10 +4,10 @@ model: kimi-k3
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
-attempts: 99
+attempts: 100
 accepts: 1
-censored: 99
+censored: 100
 estimated: 0
-mean_dollars: 12.870000
+mean_dollars: 13.000000
 m2: 0.000000
-acceptance_rate: 0.0101
+acceptance_rate: 0.0100
