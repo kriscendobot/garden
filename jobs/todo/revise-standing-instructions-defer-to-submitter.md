@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Standing instructions: generalize "never close, defer to the submitter" fleet-wide, and extend it to PR review conversations
@@ -92,13 +93,4 @@ autonomous role originates that authorization for itself.
 - Report which files changed and quote the final wording of both rules in
   the completion report.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-18T20:06:21Z
+<!-- garden-reaped: 0 -->
