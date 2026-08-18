@@ -1,3 +1,4 @@
 {"ts":"2026-08-17T23:46:41Z","base":"kriscendobot-minion.town-pr20-weave-20260817","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2}
 {"ts":"2026-08-17T23:54:17Z","base":"kriscendobot-minion.town-pr20-weave-20260817","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":8}
 {"ts":"2026-08-18T00:14:23Z","base":"kriscendobot-minion.town-pr20-weave-20260817","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":48,"elapsed_s":372,"input_tokens":91,"output_tokens":25067,"cache_creation_tokens":77562,"cache_read_tokens":3186939,"total_cost_usd":2.9986774999999994,"ts":"2026-08-18T00:29:59Z","base":"kriscendobot-minion.town-pr20-weave-20260817","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"weaver"}
