@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T22:34:42Z_
+_As of 2026-08-18T22:37:27Z_
 
 ## Latest
 
@@ -1220,17 +1220,16 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.0M | $1490.62 _(notional, rate-card)_ | no quota set |
+| Claude | 111.0M | $1489.72 _(notional, rate-card)_ | no quota set |
 | Codex | 22.8M _(+662.8M cached)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | no quota set |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (22)
+### doin (21)
 - [`build-minion-town-git-content-substrate-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #48
 - [`dependabotany-recheck-endo-but-for-bots-20260818-170501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260818-170501.md) — Daily dependabotany backstop for endo-but-for-bots
-- [`endojs-endo-but-for-bots-pr1031-01eac673`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1031-01eac673.md) — attention directive on endojs/endo-but-for-bots PR #1031
 - [`endojs-endo-but-for-bots-pr475-495be080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-495be080.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-54294cd3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-54294cd3.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-59c1c020`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-59c1c020.md) — attention directive on endojs/endo-but-for-bots PR #475
@@ -1251,13 +1250,13 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 - [`mtown-git-remote-followup-notice-recheck-20260818`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mtown-git-remote-followup-notice-recheck-20260818.md) — Notice: recheck the minion.town git-remote follow-up on the daemon commit-for...
 - [`revise-standing-instructions-defer-to-submitter`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/revise-standing-instructions-defer-to-submitter.md) — Standing instructions: generalize "never close, defer to the submitter" fleet...
 
-### tada (5115)
+### tada (5116)
+- [`endojs-endo-but-for-bots-pr1031-01eac673`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1031-01eac673.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-9885f3d8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-9885f3d8.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-6bff44d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-6bff44d0.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475 (...
 - [`endojs-endo-but-for-bots-pr475-review-f55c1aef`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-f55c1aef.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-e3925eb5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-e3925eb5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-review-237b89d7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-237b89d7.md) — Completion report
-- … and 5110 more
+- … and 5111 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
