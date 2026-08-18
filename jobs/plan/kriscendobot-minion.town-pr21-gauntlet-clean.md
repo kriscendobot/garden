@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+handler-budget-role: shepherd
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 1
+doomed_at: 2026-08-18T00:23:05Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-08-18T00:23:05Z
+---
+
+---
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
@@ -44,17 +64,3 @@ posting host's garden root.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
-
-<!-- garden-reaped: 4 -->
-
-<!-- garden-elapsed-constancy: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-08-18T00:13:41Z
