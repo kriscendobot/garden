@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-08-18T08:11:34Z_
+_As of 2026-08-18T08:12:43Z_
 
 ## Latest
 
@@ -1139,19 +1139,18 @@ _Trailing 7d window; billable tokens (cache reads excluded). Leader-host local s
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`build-minion-town-git-content-substrate-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-git-content-substrate-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #48
 - [`endojs-endo-but-for-bots-pr1026-4e268706`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1026-4e268706.md) — attention directive on endojs/endo-but-for-bots PR #1026
 - [`kriscendobot-minion.town-pr37-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr37-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #37
-- [`kriscendobot-minion.town-pr49-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr49-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #49
 
-### tada (5098)
+### tada (5099)
+- [`kriscendobot-minion.town-pr49-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/kriscendobot-minion.town-pr49-gauntlet-fix-3.md) — Completion report — gauntlet FIX round 3, kriscendobot/minion.town PR #49
 - [`endojs-endo-but-for-bots-pr989-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr989-gauntlet — HALTED
 - [`build-minion-town-git-content-substrate-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/build-minion-town-git-content-substrate-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr989-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr989-gauntlet-fix-6.md) — Completion report
 - [`daily-progress-summary-20260818-070501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/daily-progress-summary-20260818-070501.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1026-4eef9c40`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr1026-4eef9c40.md) — Completion report — attention directive on endojs/endo-but-for-bots #1026
-- … and 5093 more
+- … and 5094 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
