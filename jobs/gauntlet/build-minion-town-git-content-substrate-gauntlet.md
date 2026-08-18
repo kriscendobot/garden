@@ -4,12 +4,12 @@ repo: kriscendobot/minion.town
 pr_number: 48
 build_job: build-minion-town-git-content-substrate
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-current_child: build-minion-town-git-content-substrate-gauntlet-clean
+current_child: build-minion-town-git-content-substrate-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-08-18T00:40:52Z
