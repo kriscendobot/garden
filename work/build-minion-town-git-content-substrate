@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: gardener
-claimed_at: 2026-08-18T00:24:29Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-git-content-substrate
-pr_number: 48
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/48
-pr_head: feat/git-content-substrate-serving
